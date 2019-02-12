@@ -1,0 +1,39 @@
+/** CSS fix for existing template with Bootstrap 4 **/
+
+.main-header .navbar {
+    height: 50px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .navbar-custom-menu .navbar-nav {
+    flex-direction: row;
+  }
+  
+  .main-header .sidebar-toggle {
+    padding: 0;
+  }
+
+  .navbar-custom-menu>.navbar-nav>li {
+    margin-left: 15px;
+    position: relative;
+}
+
+.main-sidebar{
+    padding-top: 0px;
+}
+body{
+    font-size: 14px;
+}
+  
+  /** End of CSS fix **/
+  
+  /** Start of Dashboard Box **/
+  .dashboard-box .box-body {
+      max-height: 300px;
+      overflow-y: scroll;
+  }
+
+  
+  
+  /** End of Dashboard box **/
+  
