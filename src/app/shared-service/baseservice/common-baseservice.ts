@@ -37,10 +37,10 @@ pageable :Pageable = new Pageable();
 //     return this.http.get(getUrl.url,{ headers: getUrl.header });
 //   }
 
-//   getByAllPageable(reqUrl,page,size) {
+//   getByAllPostPageable(reqUrl,model,page,size) {
 //     let url: string = reqUrl+'?page='+page+'&size='+size;
 //     let getUrl = this.restApiService.modifyRestUrl(url);
-//    return  this.http.get(getUrl.url,{ headers: getUrl.header });
+//    return  this.http.post(getUrl.url,model,{ headers: getUrl.header });
   
 //   }
 
@@ -63,18 +63,14 @@ saveOrEdit(model: Object,reqUrl): Observable<Object> {
     return this.http.get(getUrl.url);
   }
 
-  getByAllPageable(reqUrl,page,size) {
+  getByPostAllPageable(reqUrl,model,page,size) {
     let url: string = reqUrl+'?page='+page+'&size='+size;
     let getUrl = this.restApiService.modifyRestUrl(url);
-   return  this.http.get(getUrl.url);
+   return  this.http.post(getUrl.url,model);
   
   }
 
-  getInstitutionList(): Observable<Object>{
-    let url: string = "v1/global/institution";
-    let getUrl = this.restApiService.modifyRestUrl(url);
-    return this.http.get(getUrl.url);
 
   }
 
-}
+

@@ -13,6 +13,12 @@
     padding: 0;
   }
 
+  .table th, .table td {
+    padding: 8px;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
   .navbar-custom-menu>.navbar-nav>li {
     margin-left: 15px;
     position: relative;
@@ -36,4 +42,17 @@ body{
   
   
   /** End of Dashboard box **/
+
+   /** Start of Pagination box **/
   
+  .page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+.page-custom{
+  padding-top:10px;
+}

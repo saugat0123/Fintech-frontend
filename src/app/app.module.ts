@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +18,9 @@ import { CommonService } from './shared-service/baseservice/common-baseservice';
 import { SpinnerComponent } from './common/spinner/spinner.component';
 import { CommonDataService } from './shared-service/baseservice/common-dataService';
 import { BranchComponent } from './component/branch/branch.component';
+import { AddModelComponent } from './component/branch/add-model/add-model.component';
+import { MsgModalComponent } from './common/msg-modal/msg-modal.component';
+
 
 
 
@@ -34,15 +38,18 @@ import { BranchComponent } from './component/branch/branch.component';
     SidebarComponent,
     FooterComponent,
     SpinnerComponent,
-    BranchComponent
+    BranchComponent,
+    AddModelComponent,
+    MsgModalComponent
+
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
-
+    FormsModule,
+    NgbPaginationModule
   ],
   providers: [CommonService, RestApiService, CommonDataService],
   bootstrap: [AppComponent]
