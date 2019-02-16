@@ -6,4 +6,5 @@ export class Pageable{
     number:number;
     numberOfElements:number;
     first:string;
+    numTemp:number;
 }

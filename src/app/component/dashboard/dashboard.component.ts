@@ -8,13 +8,14 @@ import { CommonDataService } from '../../shared-service/baseservice/common-dataS
 })
 export class DashboardComponent implements OnInit {
 
-  title = "Dash";
+  title = "Dashboard";
 
   constructor(
     private dataService: CommonDataService
   ) { }
 
   ngOnInit() {
+   
     this.dataService.changeTitle(this.title);
   }
 

@@ -20,6 +20,7 @@ import { CommonDataService } from './shared-service/baseservice/common-dataServi
 import { BranchComponent } from './component/branch/branch.component';
 import { AddModelComponent } from './component/branch/add-model/add-model.component';
 import { MsgModalComponent } from './common/msg-modal/msg-modal.component';
+import { PaginationComponent } from './common/pagination/pagination.component';
 
 
 
@@ -40,7 +41,8 @@ import { MsgModalComponent } from './common/msg-modal/msg-modal.component';
     SpinnerComponent,
     BranchComponent,
     AddModelComponent,
-    MsgModalComponent
+    MsgModalComponent,
+    PaginationComponent
 
 
   ],
