@@ -21,6 +21,8 @@ import { BranchComponent } from './component/branch/branch.component';
 import { AddModelComponent } from './component/branch/add-model/add-model.component';
 import { MsgModalComponent } from './common/msg-modal/msg-modal.component';
 import { PaginationComponent } from './common/pagination/pagination.component';
+import { MsgAlertComponent } from './common/msg-alert/msg-alert.component';
+import { UpdateModalComponent } from './common/update-modal/update-modal.component';
 
 
 
@@ -42,7 +44,9 @@ import { PaginationComponent } from './common/pagination/pagination.component';
     BranchComponent,
     AddModelComponent,
     MsgModalComponent,
-    PaginationComponent
+    PaginationComponent,
+    MsgAlertComponent,
+    UpdateModalComponent
 
 
   ],

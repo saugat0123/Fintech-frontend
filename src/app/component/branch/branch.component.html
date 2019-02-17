@@ -5,7 +5,7 @@
         <div class="col-md-12">
           <div class=row>
             <div class="col-md-3">
-          <input type="text" class="form-control"   name="branchCode" placeholder="search...." ></div>
+          <input type="text" class="input-sm"   name="branchCode" placeholder="search...." ></div>
         <!-- <h3 class="box-title">Hover Data Table</h3> -->
         <div class="col-md-9">
         <button class="skin-blue pull-right" data-toggle="modal" (click)="addBranch()"><i class="skin-blue fa fa-plus"></i> </button>
@@ -39,9 +39,15 @@
             <td>{{allList.name}}</td>
             <td>{{allList.branchCode}}</td>
             <td>{{allList.address}}</td>
-            <td>{{allList.status}}</td>
+            <td>
+                <select [(ngModel)]="allList.status" name="status" (change)="onChange($event.target.value,allList)">
+                    <option value="ACTIVE">ACTIVE</option>
+                    <option value="INACTIVE">INACTIVE</option>
+                   
+                  </select>
+            </td>
             <td><a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="EDIT"><i class="fa fa-edit" style="color:white" ></i></a>
-              <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px"><i class="fa fa-trash" style="color:white;"></i></a>
+              <a  class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px"><i class="fa fa-trash" style="color:white;"></i></a>
           </td>
    
           </tr>
@@ -62,4 +68,9 @@
   </div>
   <!-- /.col -->
 </div>
+
+
 <!-- /.row -->
+<!-- ***************************update-modal********************************** -->
+<app-update-modal></app-update-modal>
+<!-- ***************************update-modal********************************** -->

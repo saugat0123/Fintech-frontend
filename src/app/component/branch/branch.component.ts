@@ -4,6 +4,7 @@ import { Pageable } from '../../shared-service/baseservice/common-pageable';
 import { CommonService } from '../../shared-service/baseservice/common-baseservice';
 import { CommonPageService } from '../../shared-service/baseservice/common-pagination-service';
 import { Branch } from '../../modal/branch';
+import { Router } from '@angular/router';
 declare var $;
 @Component({
   selector: 'app-branch',
@@ -24,11 +25,12 @@ export class BranchComponent implements OnInit,DoCheck {
   constructor(
     private dataService: CommonDataService,
     private commonService:CommonService,
-    private commonPageService:CommonPageService
+    private commonPageService:CommonPageService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
-    console.log("branch component")
+    
     this.dataService.changeTitle(this.title);
     this.currentApi='v1/branch/get';
     this.spinner = true;
@@ -65,5 +67,18 @@ export class BranchComponent implements OnInit,DoCheck {
     this.dataService.setBranch(new Branch());
     $('.add-branch').modal('show');
   }
+
+  newValue:any
+  data:any
+
+  onChange(newValue,data){
+    this.newValue=newValue
+    this.dataService.setBranch(data);
+    this.commonPageService.setCurrentApi('v1/branch');
+    $('.updateStatus').modal('show');
+
+  }
+
+ 
   
 }

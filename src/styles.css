@@ -14,7 +14,8 @@
   }
 
   .table th, .table td {
-    padding: 4px;
+    text-align: justify;
+    padding: 2px;
     vertical-align: top;
     border-top: 1px solid #dee2e6;
 }

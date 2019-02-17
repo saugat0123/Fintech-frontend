@@ -12,6 +12,7 @@ import { Branch } from '../../modal/branch';
 export class CommonDataService {
     title: string;
    data:any;
+
    branch : Branch = new Branch();
 
     private breadcrumTitle = new BehaviorSubject('default message');
@@ -19,6 +20,9 @@ export class CommonDataService {
 
     private message = new BehaviorSubject('default message');
     currentMsg = this.message.asObservable();
+
+    private alertFlag = new BehaviorSubject('default');
+    currentAlertFlag = this.alertFlag.asObservable();
 
     constructor() {
     }
@@ -28,8 +32,15 @@ export class CommonDataService {
     }
 
     getGlobalMsg(message:string){
-        this.message.next(message)
+       this.message.next(message)
     }
+
+    getAlertMsg(flag:string){
+       
+        this.alertFlag.next(flag)
+     }
+
+    
 
     setDataList(datalist:object){
             this.data = datalist;
@@ -40,6 +51,7 @@ export class CommonDataService {
     }
 
     setBranch(branch:Branch){
+        console.log(branch)
         this.branch = branch;
     }
 
