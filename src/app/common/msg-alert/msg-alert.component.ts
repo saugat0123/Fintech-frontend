@@ -6,29 +6,26 @@ declare var $;
   templateUrl: './msg-alert.component.html',
   styleUrls: ['./msg-alert.component.css']
 })
-export class MsgAlertComponent implements OnInit{
- count = 0
+export class MsgAlertComponent implements OnInit {
+  count = 0
 
 
-globalMsg: string;
-  flag:string
+  globalMsg: string;
+  flag: string
 
   constructor(private dataService: CommonDataService) { }
 
   ngOnInit() {
-    
+
     this.dataService.currentMsg.subscribe(message => this.globalMsg = message);
-   this.dataService.currentAlertFlag.subscribe(flagStatus => this.flag = flagStatus);
-   $(".alert-custom").fadeTo(2000, 500).slideUp(500, function(){
-    $(".alert-custom").slideUp(500);
-     });   
- 
-   
+    this.dataService.currentAlertFlag.subscribe(flagStatus => this.flag = flagStatus);
+
+
   }
 
-  closeAlert(){
+  closeAlert() {
     $(".alert-custom").slideUp();
-   
+
   }
 
 }

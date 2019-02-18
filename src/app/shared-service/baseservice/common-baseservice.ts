@@ -9,48 +9,48 @@ import { Pageable } from './common-pageable';
   providedIn: 'root'
 })
 export class CommonService {
-    modelList :any;
-pageable :Pageable = new Pageable();
+  modelList: any;
+  pageable: Pageable = new Pageable();
 
   constructor(private http: HttpClient,
     private restApiService: RestApiService) {
-}
+  }
 
-// saveOrEdit(model: Object,reqUrl): Observable<Object> {
-//     let url: string = reqUrl;
-//     let getUrl = this.restApiService.modifyRestUrl(url);
-//     return this.http.post(getUrl.url, model, { headers: getUrl.header });
-//   }
+  // saveOrEdit(model: Object,reqUrl): Observable<Object> {
+  //     let url: string = reqUrl;
+  //     let getUrl = this.restApiService.modifyRestUrl(url);
+  //     return this.http.post(getUrl.url, model, { headers: getUrl.header });
+  //   }
 
-  
-//   getById(reqUrl): Observable<Object> {
-//     let url: string = reqUrl;
-//     let getUrl = this.restApiService.modifyRestUrl(url);
-  
-//     return this.http.get(getUrl.url, { headers: getUrl.header });
-//   }
 
-//   getByAll(reqUrl): Observable<Object> {
-//     let url: string = reqUrl;
-//     let getUrl = this.restApiService.modifyRestUrl(url);
-  
-//     return this.http.get(getUrl.url,{ headers: getUrl.header });
-//   }
+  //   getById(reqUrl): Observable<Object> {
+  //     let url: string = reqUrl;
+  //     let getUrl = this.restApiService.modifyRestUrl(url);
 
-//   getByAllPostPageable(reqUrl,model,page,size) {
-//     let url: string = reqUrl+'?page='+page+'&size='+size;
-//     let getUrl = this.restApiService.modifyRestUrl(url);
-//    return  this.http.post(getUrl.url,model,{ headers: getUrl.header });
-  
-//   }
+  //     return this.http.get(getUrl.url, { headers: getUrl.header });
+  //   }
 
-saveOrEdit(model: Object,reqUrl): Observable<Object> {
+  //   getByAll(reqUrl): Observable<Object> {
+  //     let url: string = reqUrl;
+  //     let getUrl = this.restApiService.modifyRestUrl(url);
+
+  //     return this.http.get(getUrl.url,{ headers: getUrl.header });
+  //   }
+
+  //   getByAllPostPageable(reqUrl,model,page,size) {
+  //     let url: string = reqUrl+'?page='+page+'&size='+size;
+  //     let getUrl = this.restApiService.modifyRestUrl(url);
+  //    return  this.http.post(getUrl.url,model,{ headers: getUrl.header });
+
+  //   }
+
+  saveOrEdit(model: Object, reqUrl): Observable<Object> {
     let url: string = reqUrl;
     let getUrl = this.restApiService.modifyRestUrl(url);
     return this.http.post(getUrl.url, model);
   }
 
-  
+
   getById(reqUrl): Observable<Object> {
     let url: string = reqUrl;
     let getUrl = this.restApiService.modifyRestUrl(url);
@@ -63,14 +63,14 @@ saveOrEdit(model: Object,reqUrl): Observable<Object> {
     return this.http.get(getUrl.url);
   }
 
-  getByPostAllPageable(reqUrl,model,page,size) {
-    let url: string = reqUrl+'?page='+page+'&size='+size;
+  getByPostAllPageable(reqUrl, model, page, size) {
+    let url: string = reqUrl + '?page=' + page + '&size=' + size;
     let getUrl = this.restApiService.modifyRestUrl(url);
-   return  this.http.post(getUrl.url,model);
-  
+    return this.http.post(getUrl.url, model);
+
   }
 
 
-  }
+}
 
 
