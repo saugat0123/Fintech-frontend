@@ -20,6 +20,7 @@ currentUrl:any;
   private dataService:CommonDataService) { }
 
   ngOnInit() {
+    
   }
 
   ngDoCheck(): void {
@@ -27,6 +28,15 @@ currentUrl:any;
     this.data = this.dataService.getBranch();
     this.currentApi = this.commonPageService.getCurrentApi();
     this.currentUrl = this.router.url;
+  }
+
+  reloadPage(){
+    this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(e => {
+      if (e) {
+        this.router.navigate([this.currentUrl]);
+
+      }
+    });
   }
 
   updateStatus(data:any){

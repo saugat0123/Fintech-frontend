@@ -16,6 +16,7 @@ export class BranchComponent implements OnInit,DoCheck {
   title = "Branch";
   breadcrumb ="Branch > List"
   dataList: any;
+  dataListCount: any;
   spinner: boolean = false;
   globalMsg;
   search =new Object;
@@ -39,6 +40,7 @@ export class BranchComponent implements OnInit,DoCheck {
       this.dataService.setDataList(this.dataList);
       this.commonPageService.setCurrentApi(this.currentApi);
       this.pageable = this.commonPageService.setPageable(response.detail);
+      this.dataListCount = this.pageable.totalElements;
       this.spinner =false;
       
     }, error => {
