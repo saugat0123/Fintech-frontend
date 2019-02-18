@@ -1,76 +1,82 @@
 <div class="row">
-  <div class="col-md-12">
-    <div class="box">
-      <div class="box-header">
-        <div class="col-md-12">
-          <div class=row>
-            <div class="col-md-3">
-          <input type="text" class="input-sm"   name="branchCode" placeholder="search...." ></div>
-        <!-- <h3 class="box-title">Hover Data Table</h3> -->
-        <div class="col-md-9">
-        <button class="skin-blue pull-right" data-toggle="modal" (click)="addBranch()"><i class="skin-blue fa fa-plus"></i> </button>
-      </div>
-      </div>
-      </div>
-      <!-- /.box-header -->
-      <div class="box-body">
-          
-        <table id="add-branch-table" class="table table-bordered table-hover">
-            
-          <thead>
-          <tr>
-            <th>S.N</th>
-            <th>Branch Name</th>
-            <th>Code</th>
-            <th>Address</th>
-            <th>Status</th>
-            <th>Action</th>
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="col-md-12">
+                    <div class=row>
+                        <div class="col-md-3">
+                            <input type="text" class="input-sm" name="branchCode" placeholder="search...."></div>
+                        <!-- <h3 class="box-title">Hover Data Table</h3> -->
+                        <div class="col-md-9">
+                            <button class="skin-blue pull-right" data-toggle="modal" (click)="addBranch()"><i
+                                    class="skin-blue fa fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
 
-            
-          </tr>
-          </thead>
-     
-        <tbody>
-          <tr *ngFor="let allList of dataList;let i=index">
-              <div *ngIf="!dataList?.length > 0">
-                  <p>No Content Found</p>
-              </div>
-            <td>{{(pageable.number-1)*pageable.size+i+1}}</td>
-            <td>{{allList.name}}</td>
-            <td>{{allList.branchCode}}</td>
-            <td>{{allList.address}}</td>
-            <td>
-                <select [(ngModel)]="allList.status" name="status" (change)="onChange($event.target.value,allList)">
-                    <option value="ACTIVE">ACTIVE</option>
-                    <option value="INACTIVE">INACTIVE</option>
-                   
-                  </select>
-            </td>
-            <td><a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="EDIT"><i class="fa fa-edit" style="color:white" ></i></a>
-              <a  class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px"><i class="fa fa-trash" style="color:white;"></i></a>
-          </td>
-   
-          </tr>
-        </tbody>
-        </table>
-  
-      </div>
-      <spinner *ngIf="spinner" class="d-flex justify-content-center">    </spinner>
-      <!-- ===================table-pagination==================== -->
-      <app-pagination *ngIf="!spinner"></app-pagination>
-    <!-- ===================table-pagination==================== -->
-      <!-- /.box-body -->
+                    <table id="add-branch-table" class="table table-bordered table-hover">
+
+                        <thead>
+                        <tr>
+                            <th>S.N</th>
+                            <th>Branch Name</th>
+                            <th>Code</th>
+                            <th>Address</th>
+                            <th>Status</th>
+                            <th>Action</th>
+
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr *ngFor="let allList of dataList;let i=index">
+                            <div *ngIf="!dataList?.length > 0">
+                                <p>No Content Found</p>
+                            </div>
+                            <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                            <td>{{allList.name}}</td>
+                            <td>{{allList.branchCode}}</td>
+                            <td>{{allList.address}}</td>
+                            <td>
+                                <select [(ngModel)]="allList.status" name="status"
+                                        (change)="onChange($event.target.value,allList)">
+                                    <option value="ACTIVE">ACTIVE</option>
+                                    <option value="INACTIVE">INACTIVE</option>
+
+                                </select>
+                            </td>
+                            <td><a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
+                                   data-placement="top" title="EDIT"><i class="fa fa-edit" style="color:white"></i></a>
+                                <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
+                                   title="DELETE" style="margin-left:10px"><i class="fa fa-trash"
+                                                                              style="color:white;"></i></a>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <spinner *ngIf="spinner" class="d-flex justify-content-center"></spinner>
+                <!-- ===================table-pagination==================== -->
+                <app-pagination *ngIf="!spinner"></app-pagination>
+                <!-- ===================table-pagination==================== -->
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+
+            <app-add-model></app-add-model>
+
+        </div>
+        <!-- /.col -->
     </div>
-    <!-- /.box -->
 
-    <app-add-model></app-add-model>
-   
-  </div>
-  <!-- /.col -->
+
+    <!-- /.row -->
+    <!-- ***************************update-modal********************************** -->
+    <app-update-modal></app-update-modal>
+    <!-- ***************************update-modal********************************** -->
 </div>
-
-
-<!-- /.row -->
-<!-- ***************************update-modal********************************** -->
-<app-update-modal></app-update-modal>
-<!-- ***************************update-modal********************************** -->
