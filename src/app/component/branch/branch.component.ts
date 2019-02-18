@@ -22,6 +22,8 @@ export class BranchComponent implements OnInit,DoCheck {
   search =new Object;
   pageable: Pageable = new Pageable();
   currentApi:any;
+  activeCount:any;
+  inactiveCount:any;
   
   constructor(
     private dataService: CommonDataService,
@@ -35,7 +37,7 @@ export class BranchComponent implements OnInit,DoCheck {
     this.dataService.changeTitle(this.title);
     this.currentApi='v1/branch/get';
     this.spinner = true;
-    this.commonService.getByPostAllPageable(this.currentApi,this.search, 0, 10).subscribe((response: any) => {
+    this.commonService.getByPostAllPageable(this.currentApi,this.search, 1, 10).subscribe((response: any) => {
       this.dataList = response.detail.content;
       this.dataService.setDataList(this.dataList);
       this.commonPageService.setCurrentApi(this.currentApi);
@@ -53,6 +55,12 @@ export class BranchComponent implements OnInit,DoCheck {
       $('.global-msgModal').modal('show');
     }
     );
+
+    this.commonService.getByAll(this.currentApi+'/statusCount').subscribe((response:any)=>{
+      console.log("testing",response)
+        this.activeCount =response.detail.active;
+        this.inactiveCount =response.detail.inactive;
+    });
 
 
   }

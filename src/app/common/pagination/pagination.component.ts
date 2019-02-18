@@ -31,7 +31,7 @@ currentAPI:any;
 
   loadPage(pageNumber: number) {
 this.spinner = true;
-    this.commonService.getByPostAllPageable(this.currentAPI,this.search, +pageNumber - 1, 10).subscribe((response: any) => {
+    this.commonService.getByPostAllPageable(this.currentAPI,this.search, pageNumber, 10).subscribe((response: any) => {
       this.dataList = response.detail.content;
       this.dataService.setDataList(this.dataList);
       this.pageable = this.commonPageService.setPageable(response.detail);
