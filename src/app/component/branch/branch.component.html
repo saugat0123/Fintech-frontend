@@ -71,21 +71,8 @@
             <th>Address</th>
             <th>Status</th>
             <th>Action</th>
-
-                    <table id="add-branch-table" class="table table-bordered table-hover">
-
-                        <thead>
-                        <tr>
-                            <th>S.N</th>
-                            <th>Branch Name</th>
-                            <th>Code</th>
-                            <th>Address</th>
-                            <th>Status</th>
-                            <th>Action</th>
-
-
-                        </tr>
-                        </thead>
+            </tr>
+</thead>
 
                         <tbody>
                         <tr *ngFor="let allList of dataList;let i=index">
@@ -115,24 +102,21 @@
                         </tbody>
                     </table>
 
-                </div>
+                
                 <spinner *ngIf="spinner" class="d-flex justify-content-center"></spinner>
                 <!-- ===================table-pagination==================== -->
                 <app-pagination *ngIf="!spinner"></app-pagination>
                 <!-- ===================table-pagination==================== -->
                 <!-- /.box-body -->
-            </div>
+          
             <!-- /.box -->
 
             <app-add-model></app-add-model>
 
         </div>
         <!-- /.col -->
-    </div>
-
-
-    <!-- /.row -->
+ </div>   
+ <!-- /.row -->
     <!-- ***************************update-modal********************************** -->
     <app-update-modal></app-update-modal>
     <!-- ***************************update-modal********************************** -->
-</div>
