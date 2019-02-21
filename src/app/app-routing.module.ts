@@ -4,6 +4,7 @@ import { BaseComponent } from './component/base/base.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { LoginComponent } from './component/login/login.component';
 import { BranchComponent } from './component/branch/branch.component';
+/*import { DocumentComponent } from './component/document/document.component'; */
 
 
 const routes: Routes = [
@@ -12,7 +13,8 @@ const routes: Routes = [
     path: 'home', component: BaseComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'branch', component: BranchComponent }
+      { path: 'branch', component: BranchComponent },
+      /*{ path: 'document', component: DocumentComponent }*/
 
     ],
 

@@ -5,6 +5,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 import { Pageable } from './common-pageable';
 import { Branch } from '../../modal/branch';
+import { Document } from '../../modal/document';
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +16,7 @@ export class CommonDataService {
     dataObj: Object;
 
     branch: Branch = new Branch();
+    document: Document = new Document();
 
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
@@ -68,5 +70,12 @@ export class CommonDataService {
         return this.branch;
     }
 
+    setDocument(document: Document){
+        console.log(document)
+        this.document = document;
+    }
+    getDocument(){
+        return this.document;
+    }
 
 }

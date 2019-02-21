@@ -23,6 +23,7 @@ import { MsgModalComponent } from './common/msg-modal/msg-modal.component';
 import { PaginationComponent } from './common/pagination/pagination.component';
 import { MsgAlertComponent } from './common/msg-alert/msg-alert.component';
 import { UpdateModalComponent } from './common/update-modal/update-modal.component';
+/*import { DocumentComponent } from './component/document/document.component'; */
 
 
 
@@ -47,6 +48,7 @@ import { UpdateModalComponent } from './common/update-modal/update-modal.compone
     PaginationComponent,
     MsgAlertComponent,
     UpdateModalComponent
+    /*DocumentComponent*/
 
 
   ],
