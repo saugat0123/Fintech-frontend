@@ -79,7 +79,6 @@
               <th>S.N</th>
               <th>Document Name</th>
               <th>URL</th>
-              <th>Document Type</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -93,7 +92,6 @@
               <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
               <td>{{allList.name}}</td>
               <td>{{allList.url}}</td>
-              <td>{{allList.userType}}</td>
               <td>
                 <select [(ngModel)]="allList.status" name="status" (change)="onChange($event.target.value,allList)">
                   <option value="ACTIVE">ACTIVE</option>
@@ -132,13 +130,15 @@
       <app-update-modal></app-update-modal>
       <!-- ***************************update-modal********************************** -->
      <div class="row">
-        <!--<app-notification class="col-md-6"></app-notification>
-        <app-pending-loan class="col-md-6"></app-pending-loan>-->
        <app-new class="col-md-6" ></app-new>
        <app-renewal class="col-md-6"></app-renewal>
       </div>
       <div class="row">
         <app-cad class="col-md-6"></app-cad>
       </div>
+      </div>
+      </div>
+      </div>
+      
 
 

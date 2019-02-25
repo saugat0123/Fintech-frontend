@@ -28,6 +28,7 @@ import { PopupModelComponent } from './component/document/popup-model/popup-mode
 import { NewComponent } from './component/document/new/new.component';
 import { RenewalComponent } from './component/document/renewal/renewal.component';
 import { CadComponent } from './component/document/cad/cad.component';
+import { TypeComponent } from './component/document/type/type.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { CadComponent } from './component/document/cad/cad.component';
     PopupModelComponent,
     NewComponent,
     RenewalComponent,
-    CadComponent
+    CadComponent,
+    TypeComponent
 
 
   ],

@@ -5,31 +5,53 @@
 
     <div class="box-tools pull-right">
       <button type="button" class="btn btn-box-tool"
-              data-widget="collapse"><i class="fa fa-plus"></i>
+              data-widget="collapse" data-toggle="modal" (click)="getData()"><i class="fa fa-plus"></i>
       </button>
     </div>
-  </div>
-  <!-- /.box-header -->
-  <div class="box-body">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">
-        <div>Test data 1</div>
-        <small class="pull-right">Feb 24, 2019 12:22 PM</small>
-      </li>
-      <li class="list-group-item">
-        <div>Test data 2</div>
-        <small class="pull-right">Feb 24, 2019 12:22 PM</small>
-      </li>
-      <li class="list-group-item">
-        <div>Test data 3</div>
-        <small class="pull-right">Feb 24, 2019 12:22 PM</small>
-      </li>
+  
+  
 
-    </ul>
-  </div>
+<div class="box-body">
   <!-- /.box-body -->
-  <div class="box-footer text-right">
-    <button type="submit" class="btn btn-primary">Submit</button>
+  
+    <!-- /.box-header -->
+  <table id="document-table" class="table table-striped table-bordered table-hover ">
+
+      <thead>
+      <tr>
+        <th>S.N</th>
+        <th>Document Name</th>
+        <th>URL</th>
+        
+      </tr>
+      </thead>
+  
+      <tbody>
+      <tr *ngFor="let allList of dataList;let i=index" (click)="openEdit(allList)" style="cursor:pointer" >
+        <div *ngIf="!dataList?.length > 0">
+          <p>No Content Found</p>
+        </div>
+        <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+        <td>{{allList.name}}</td>
+        <td>{{allList.url}}</td>
+        
+  
+      </tr>
+      </tbody>
+    </table>
+    <div class="modal-footer">
+    <spinner *ngIf="spinner" class="d-flex justify-content-center"></spinner>
+          <!-- ===================table-pagination==================== -->
+          <app-pagination *ngIf="!spinner"></app-pagination>
+          <!-- ===================table-pagination==================== -->
+          <!-- /.box-body -->
+          
+     </div>
+     <!-- ***************************update-modal********************************** -->
+<app-update-modal></app-update-modal>
+<!-- ***************************update-modal********************************** -->
+    </div>
   </div>
+  <app-type></app-type>
   <!-- /.box-footer -->
 </div>
