@@ -4,25 +4,28 @@ import {CommonDataService} from '../../../shared-service/baseservice/common-data
 import {CommonService} from '../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../shared-service/baseservice/common-pagination-service';
 import {Router} from '@angular/router';
+import {Detail} from '../../../modal/detail';
+import {FormGroup} from '@angular/forms';
 import {Document} from '../../../modal/document';
 
 declare var $;
+let checkedValue;
 @Component({
   selector: 'app-new',
   templateUrl: './new.component.html',
   styleUrls: ['./new.component.css']
 })
 export class NewComponent implements OnInit, DoCheck {
-  
+
 
 
     title = 'Document';
     breadcrumb = 'Document > List';
     dataList: any;
-
-    spinner: boolean = false;
+    form: FormGroup;
+    spinner = false;
     globalMsg;
-    search= new Object();
+    search = new Object();
     pageable: Pageable = new Pageable();
     currentApi: any;
     activeCount: any;
@@ -30,27 +33,42 @@ export class NewComponent implements OnInit, DoCheck {
     documents: any;
     newValue: any;
     data: any;
+    api: any;
+    types: any;
+    private details: Detail[] = [];
+
   constructor(
     private dataService: CommonDataService,
     private commonService: CommonService,
     private commonPageService: CommonPageService,
-    private router: Router,) { }
+    private router: Router,
+    ) { }
 
   ngOnInit() {
-    
-    
-        
+      this.api = 'v1/document/lifeCycle';
+      this.commonService.getByAll(this.api).subscribe((response: Detail[])=>{
+          /*console.log(response);*/
+          this.details = response;
+          /*this.types = this.details.map(function (a) {
+              return a["cycle"];
+          });*/
+          /*this.types = this.details[0]*/
+          /*this.types = response.detail.types;*/
+          console.log(this.details);
+
+      });
+
   }
-  
-    
 
 
-getData(){
+
+
+getData() {
 this.dataService.changeTitle(this.title);
         this.currentApi = 'v1/document/get';
-        this.getPagination()
+        this.getPagination();
 
-        console.log("new2 is working")
+        console.log('new2 is working');
         this.commonService.getByPostAllPageable( this.currentApi, this.search, 1, 10).subscribe((response: any) => {
             console.log('testing', response);
 
@@ -76,7 +94,7 @@ getPagination() {
       this.dataService.getGlobalMsg(this.globalMsg);
       $('.global-msgModal').modal('show');
   });
-  
+
 }
 ngDoCheck(): void {
   this.dataList = this.dataService.getDataList();
@@ -85,4 +103,9 @@ openEdit(document: Document) {
   this.dataService.setDocument(document);
   $('.type-document').modal('show');
 }
+onSubmit() {
+    checkedValue = $('.messageCheckbox:checked').val();
+    console.log('checkedValue');
+}
+
 }

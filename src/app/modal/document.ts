@@ -4,4 +4,5 @@ export class Document {
     url: string;
     userType: string;
     status: string;
+    loanCycle: [];
 }

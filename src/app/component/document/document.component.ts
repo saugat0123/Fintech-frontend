@@ -5,7 +5,7 @@ import {CommonService} from '../../shared-service/baseservice/common-baseservice
 import {CommonPageService} from '../../shared-service/baseservice/common-pagination-service';
 import {Router} from '@angular/router';
 import {Document} from '../../modal/document';
-
+import { HttpClient } from '@angular/common/http';
 declare var $;
 
 @Component({
@@ -21,7 +21,7 @@ export class DocumentComponent implements OnInit, DoCheck {
 
     spinner: boolean = false;
     globalMsg;
-    search= new Object();
+    search = new Object();
     pageable: Pageable = new Pageable();
     currentApi: any;
     activeCount: any;
@@ -30,11 +30,13 @@ export class DocumentComponent implements OnInit, DoCheck {
     newValue: any;
     data: any;
 
+
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private router: Router,
+        private httpClient: HttpClient,
     ) {
     }
 
@@ -50,6 +52,7 @@ export class DocumentComponent implements OnInit, DoCheck {
 
             this.documents = response.detail.documents;
         });
+
 
     }
 

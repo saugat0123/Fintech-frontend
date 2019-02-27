@@ -28,15 +28,20 @@
               <div class="row">
                 <div class="col-md-6">
                   <label for="address">Type</label>
-                  <select [(ngModel)]="allList.loanCycle" name="status" (change)="onChange($event.target.value,allList)">
+                  <select [(ngModel)]="document.loanCycle" name="status" class="form-control" (change)="onChange($event.target.value,allList)">
                       <option value="ACTIVE">New</option>
                       <option value="INACTIVE">Renewal</option>
                       <option value="INACTIVE">CAD</option>
-    
-                    </select>
-                  </div>
+                  </select>
+                </div>
               </div>
-            </div>
+
+
+
+
+
+
+
   
   
   
@@ -47,6 +52,7 @@
   
               <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
             </div>
+            </div>
           </form>
         </div>
   
@@ -55,4 +61,3 @@
     </div>
     <!-- /.modal-dialog -->
   </div>
-  

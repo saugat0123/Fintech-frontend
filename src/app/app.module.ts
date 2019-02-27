@@ -63,7 +63,7 @@ import { TypeComponent } from './component/document/type/type.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgbPaginationModule
+    NgbPaginationModule,
   ],
   providers: [CommonService, RestApiService, CommonDataService],
   bootstrap: [AppComponent]
