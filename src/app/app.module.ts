@@ -29,6 +29,7 @@ import { NewComponent } from './component/document/new/new.component';
 import { RenewalComponent } from './component/document/renewal/renewal.component';
 import { CadComponent } from './component/document/cad/cad.component';
 import { TypeComponent } from './component/document/type/type.component';
+import { UserComponent } from './component/user/user.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { TypeComponent } from './component/document/type/type.component';
     NewComponent,
     RenewalComponent,
     CadComponent,
-    TypeComponent
+    TypeComponent,
+    UserComponent
 
 
   ],
