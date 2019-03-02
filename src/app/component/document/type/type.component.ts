@@ -24,6 +24,7 @@ export class TypeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
   }
 
   ngDoCheck(): void {

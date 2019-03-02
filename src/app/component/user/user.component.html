@@ -1,53 +1,4 @@
 <div class="row">
-
-
-  <div class="col-md-4 col-sm-6 col-xs-12">
-    <div class="info-box">
-      <span class="info-box-icon bg-yellow">
-        <i class="fa fa-bank"></i>
-      </span>
-
-      <div class="info-box-content">
-        <span class="info-box-text">Users</span>
-        <span class="info-box-number">{{users}}</span>
-      </div>
-      <!-- /.info-box-content -->
-    </div>
-    <!-- /.info-box -->
-  </div>
-
-  <!-- <div class="col-md-4 col-sm-6 col-xs-12">
-     <div class="info-box">
-       <span class="info-box-icon bg-green">
-         <i class="fa fa-briefcase"></i>
-       </span>
-
-       <div class="info-box-content">
-         <span class="info-box-text">Active</span>
-         <span class="info-box-number">{{activeCount}}</span>
-       </div> -->
-  <!-- /.info-box-content -->
-  <!-- </div> -->
-  <!-- /.info-box -->
-  <!-- </div>
-
-   <div class="col-md-4 col-sm-6 col-xs-12">
-     <div class="info-box">
-       <span class="info-box-icon bg-maroon">
-         <i class="fa fa-address-book"></i>
-       </span>
-
-       <div class="info-box-content">
-         <span class="info-box-text">INACTIVE</span>
-         <span class="info-box-number">{{inactiveCount}}</span>
-       </div> -->
-  <!-- /.info-box-content -->
-  <!-- </div> -->
-  <!-- /.info-box -->
-  <!-- </div> -->
-</div>
-
-<div class="row">
   <div class="col-md-12">
     <div class="box box-primary">
       <div class="box-header">
@@ -77,10 +28,12 @@
             <thead>
             <tr>
               <th>S.N</th>
-              <th>User Name</th>
-              <th>Approval type</th>
-              <th>Loan</th>
-              <th>Authorities By</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>UserName</th>
+              <th>Account No</th>
+              <th>Status</th> 
+              <th>Action</th>
             </tr>
             </thead>
 
@@ -91,7 +44,9 @@
               </div>
               <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
               <td>{{allList.name}}</td>
-              <td>{{allList.url}}</td>
+              <td>{{allList.email}}</td>
+              <td>{{allList.userName}}</td>
+              <td>{{allList.accountNo}}</td>
               <td>
                 <select [(ngModel)]="allList.status" name="status" (change)="onChange($event.target.value,allList)">
                   <option value="ACTIVE">ACTIVE</option>
@@ -120,18 +75,14 @@
           <!-- /.box-body -->
 
           <!-- /.box -->
-          <app-popup-model></app-popup-model>
+          
         </div>
         <!-- /.col -->
       </div>
       <!-- /.row -->
+      <app-add-user></app-add-user>
 
 
-      <!-- ***************************update-modal********************************** -->
-      <app-update-modal></app-update-modal>
-      <!-- ***************************update-modal********************************** -->
-
-      <app-new></app-new>
       <!--<app-renewal class="col-md-6"></app-renewal>-->
 
       <!--<div class="row">

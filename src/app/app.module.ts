@@ -30,6 +30,10 @@ import { RenewalComponent } from './component/document/renewal/renewal.component
 import { CadComponent } from './component/document/cad/cad.component';
 import { TypeComponent } from './component/document/type/type.component';
 import { UserComponent } from './component/user/user.component';
+import { AddUserComponent } from './component/user/add-user/add-user.component';
+import { ApprovallimitComponent } from './component/approvallimit/approvallimit.component';
+import { AddApprovalLimitComponent } from './component/approvallimit/add-approval-limit/add-approval-limit.component';
+
 
 
 @NgModule({
@@ -56,7 +60,11 @@ import { UserComponent } from './component/user/user.component';
     RenewalComponent,
     CadComponent,
     TypeComponent,
-    UserComponent
+    UserComponent,
+    AddUserComponent,
+    ApprovallimitComponent,
+    AddApprovalLimitComponent,
+    
 
 
   ],

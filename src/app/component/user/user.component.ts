@@ -4,8 +4,8 @@ import {CommonDataService} from '../../shared-service/baseservice/common-dataSer
 import {CommonService} from '../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../shared-service/baseservice/common-pagination-service';
 import {Router} from '@angular/router';
-import {Document} from '../../modal/document';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../../modal/user'
 declare var $;
 
 @Component({
@@ -16,7 +16,7 @@ declare var $;
 export class UserComponent implements OnInit {
 
   title = 'User';
-  breadcrumb = 'Document > List';
+  breadcrumb = 'User > List';
   dataList: any;
 
   spinner: boolean = false;
@@ -26,7 +26,7 @@ export class UserComponent implements OnInit {
   currentApi: any;
   activeCount: any;
   inactiveCount: any;
-  documents: any;
+  user: any;
   newValue: any;
   data: any;
 
@@ -43,14 +43,12 @@ export class UserComponent implements OnInit {
   ngOnInit() {
 
     this.dataService.changeTitle(this.title);
-    this.currentApi = 'v1/document/get';
+    this.currentApi = 'v1/user/get';
     this.getPagination()
-
-    console.log("test document")
     this.commonService.getByPostAllPageable( this.currentApi, this.search, 1, 10).subscribe((response: any) => {
       console.log('testing', response);
 
-      this.documents = response.detail.documents;
+      this.user = response.detail.user;
     });
 
 
@@ -74,23 +72,16 @@ export class UserComponent implements OnInit {
     this.dataList = this.dataService.getDataList();
   }
 
-  openEdit(document: Document) {
-    this.dataService.setDocument(document);
-    $('.add-document').modal('show');
+  openEdit(user: User) {
+    this.dataService.setUser(user);
+    $('.add-user').modal('show');
   }
 
-  addDocument() {
-    this.dataService.setDocument(new Document());
-    $('.add-document').modal('show');
+  addUser() {
+    this.dataService.setUser(new User());
+    $('.add-user').modal('show');
   }
 
-  onChange(newValue, data) {
-    this.newValue = newValue;
-    this.dataService.setDocument(data);
-    this.commonPageService.setCurrentApi('v1/document/add');
-    $('.updateStatus').modal('show');
-
-  }
 
   getPagination() {
     this.spinner = true;
@@ -113,6 +104,15 @@ export class UserComponent implements OnInit {
     });
 
   }
+  
+  onChange(newValue, data) {
+    this.newValue = newValue;
+    this.dataService.setUser(data);
+    this.commonPageService.setCurrentApi('v1/user');
+    $('.updateStatus').modal('show');
+
+}
+
 
 }
 

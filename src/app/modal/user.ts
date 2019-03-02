@@ -4,9 +4,8 @@ export class User {
     email: string;
     id: number;
     name: string;
-    new: true;
     password: string;
-    profilePictur: string;
+    profilePicture: string;
     signatureImage: string;
     status: string;
     userName: string;

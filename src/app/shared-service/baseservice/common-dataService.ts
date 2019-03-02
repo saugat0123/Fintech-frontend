@@ -6,6 +6,9 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Pageable } from './common-pageable';
 import { Branch } from '../../modal/branch';
 import { Document } from '../../modal/document';
+import { ApprovalLimit } from '../../modal/approval-limit';
+import { User } from '../../modal/user';
+
 
 @Injectable({
     providedIn: 'root'
@@ -17,6 +20,8 @@ export class CommonDataService {
 
     branch: Branch = new Branch();
     document: Document = new Document();
+    approvalLimit: ApprovalLimit = new ApprovalLimit();
+    user: User = new User();
 
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
@@ -76,6 +81,20 @@ export class CommonDataService {
     }
     getDocument(){
         return this.document;
+    }
+    setApprovalLimit(approvalLimit: ApprovalLimit){
+        console.log(approvalLimit)
+        this.approvalLimit = approvalLimit;
+    }
+    getApprovalLimit(){
+        return this.approvalLimit;
+    }
+    setUser(user: User){
+        console.log(user)
+        this.user = user;
+    }
+    getUser(){
+        return this.user;
     }
 
 }
