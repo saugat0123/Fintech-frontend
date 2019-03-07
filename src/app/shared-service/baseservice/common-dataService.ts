@@ -5,7 +5,6 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 import { Pageable } from './common-pageable';
 import { Branch } from '../../modal/branch';
-import { Document } from '../../modal/document';
 import { ApprovalLimit } from '../../modal/approval-limit';
 import { User } from '../../modal/user';
 
@@ -75,13 +74,6 @@ export class CommonDataService {
         return this.branch;
     }
 
-    setDocument(document: Document){
-        console.log(document)
-        this.document = document;
-    }
-    getDocument(){
-        return this.document;
-    }
     setApprovalLimit(approvalLimit: ApprovalLimit){
         console.log(approvalLimit)
         this.approvalLimit = approvalLimit;

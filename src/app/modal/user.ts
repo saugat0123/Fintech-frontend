@@ -1,3 +1,5 @@
+import { UserType } from './user-type';
+
 export class User {
     accountNo: string;
     associatedId: number;
@@ -9,5 +11,6 @@ export class User {
     signatureImage: string;
     status: string;
     userName: string;
+    userType: Set<UserType>;
 }
 

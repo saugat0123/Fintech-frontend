@@ -23,12 +23,6 @@ import { MsgModalComponent } from './common/msg-modal/msg-modal.component';
 import { PaginationComponent } from './common/pagination/pagination.component';
 import { MsgAlertComponent } from './common/msg-alert/msg-alert.component';
 import { UpdateModalComponent } from './common/update-modal/update-modal.component';
-import { DocumentComponent } from './component/document/document.component';
-import { PopupModelComponent } from './component/document/popup-model/popup-model.component';
-import { NewComponent } from './component/document/new/new.component';
-import { RenewalComponent } from './component/document/renewal/renewal.component';
-import { CadComponent } from './component/document/cad/cad.component';
-import { TypeComponent } from './component/document/type/type.component';
 import { UserComponent } from './component/user/user.component';
 import { AddUserComponent } from './component/user/add-user/add-user.component';
 import { ApprovallimitComponent } from './component/approvallimit/approvallimit.component';
@@ -54,12 +48,6 @@ import { AddApprovalLimitComponent } from './component/approvallimit/add-approva
     PaginationComponent,
     MsgAlertComponent,
     UpdateModalComponent,
-    DocumentComponent,
-    PopupModelComponent,
-    NewComponent,
-    RenewalComponent,
-    CadComponent,
-    TypeComponent,
     UserComponent,
     AddUserComponent,
     ApprovallimitComponent,
