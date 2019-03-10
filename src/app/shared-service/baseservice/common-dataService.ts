@@ -12,7 +12,7 @@ import { Branch } from '../../modal/branch';
 export class CommonDataService {
     title: string;
     data: any;
-    dataObj: Object;
+    dataObj: any;
 
     branch: Branch = new Branch();
 
@@ -51,7 +51,7 @@ export class CommonDataService {
         return this.data;
     }
 
-    setData(dataObj: object) {
+    setData(dataObj: any) {
         this.dataObj = dataObj;
     }
 

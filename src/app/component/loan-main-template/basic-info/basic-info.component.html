@@ -1,0 +1,88 @@
+<div class="tab-pane" id="basicInfo">
+  <div class="wizard-title text-center"> Basic Information</div>
+  <div class="form-group">
+    <form>
+      <div class="row">
+        <!-- START ROW -->
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group">
+            <label for="firstname">Customer Name</label>
+            <input id="firstname" name="customerName" type="text" class="form-control form-control-error" placeholder="Applicant's Full Name"
+              required minlength="2">
+            <div>
+              <!-- <i class="form-error">Name is required.</i> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group">
+            <label for="address1">Address Line 1</label>
+            <input id="address1" name="address1" type="text" class="form-control" placeholder="Applicant's Address 1" required minlength="2">
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="form-group">
+            <label for="address2">Address Line 2</label>
+            <input id="address2" name="address2" type="text" class="form-control" placeholder="Applicant's Address Line 2" required minlength="2">
+          </div>
+        </div>
+      </div>
+      <!-- END ROW -->
+
+      <div class="row">
+        <!-- START ROW -->
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input id="phone" name="telephone" type="text" class="form-control" placeholder="Landline number" required pattern="[0-9]{9}">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="mobile">Mobile</label>
+            <input id="mobile" name="mobile" type="text" class="form-control" placeholder="Mobile number" required pattern="[0-9]{10}">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" class="form-control" placeholder="eg. xyz@abc.com" required>
+        </div>
+      </div>
+      <!-- END ROW -->
+
+      <div class="row">
+        <!-- START ROW -->
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="date">Initial relation date</label>
+            <input id="date" type="date" name="initialRelationDate" class="form-control" placeholder="Initial Relation Date" required>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="account">Account No.</label>
+            <input id="account" name="accountNo" type="number" class="form-control" placeholder="Applicant's Account Number">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="customerID">Customer ID</label>
+            <input id="customerID" name="customerId" type="text" class="form-control" placeholder="8 alpha numeric customer ID">
+          </div>
+        </div>
+      </div>
+      <!-- END ROW -->
+      <div>
+
+        <div class="text-center">
+          <ul class="pager wizard" style="margin: 20px auto">
+            <li class="next">
+              <input class="btn btn-sm btn-flat btn-primary" type="submit" value="Next" />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

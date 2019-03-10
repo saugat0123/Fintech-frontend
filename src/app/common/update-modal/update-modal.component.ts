@@ -9,29 +9,34 @@ declare var $
   templateUrl: './update-modal.component.html',
   styleUrls: ['./update-modal.component.css']
 })
-export class UpdateModalComponent implements OnInit,DoCheck {
-data:any
-currentApi:any;
-globalMsg:any;
-currentUrl:any;
-  constructor( private commonService:CommonService,
+export class UpdateModalComponent implements OnInit, DoCheck {
+  data: any = {};
+  currentApi: any;
+  globalMsg: any;
+  currentUrl: any;
+  constructor(private commonService: CommonService,
     private router: Router,
-    private commonPageService:CommonPageService,
-  private dataService:CommonDataService) { }
+    private commonPageService: CommonPageService,
+    private dataService: CommonDataService) { }
 
   ngOnInit() {
-    
+    this.data = {
+      id: null,
+      status: 'INactive'
+    }
   }
 
   ngDoCheck(): void {
-  
-    this.data = this.dataService.getBranch();
+    if (this.dataService.getData() == null) { } else {
+      this.data = this.dataService.getData();
+    }
+
     this.currentApi = this.commonPageService.getCurrentApi();
     this.currentUrl = this.router.url;
   }
 
-  reloadPage(){
-    this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(e => {
+  reloadPage() {
+    this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(e => {
       if (e) {
         this.router.navigate([this.currentUrl]);
 
@@ -39,32 +44,32 @@ currentUrl:any;
     });
   }
 
-  updateStatus(data:any){
+  updateStatus(data: any) {
 
     this.commonService.saveOrEdit(this.data, this.currentApi).subscribe(result => {
-   
+
       this.globalMsg = "SUCCESSFULLY UPDATED STATUS";
       this.dataService.getGlobalMsg(this.globalMsg);
       this.dataService.getAlertMsg('true');
-    
+
       $(".alert-custom").slideDown();
-     
-      this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(e => {
+
+      this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(e => {
         if (e) {
           this.router.navigate([this.currentUrl]);
 
         }
       });
 
-    
-   }, error => {
-     this.globalMsg = error.error.message;
-     this.dataService.getGlobalMsg(this.globalMsg);
-     this.dataService.getAlertMsg('false');
-     $(".alert-custom").slideDown();
-    
-   }
-   );
+
+    }, error => {
+      this.globalMsg = error.error.message;
+      this.dataService.getGlobalMsg(this.globalMsg);
+      this.dataService.getAlertMsg('false');
+      $(".alert-custom").slideDown();
+
+    }
+    );
 
   }
 

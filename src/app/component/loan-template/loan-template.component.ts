@@ -1,23 +1,19 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, DoCheck, Compiler } from '@angular/core';
 import { CommonDataService } from '../../shared-service/baseservice/common-dataService';
 import { Pageable } from '../../shared-service/baseservice/common-pageable';
 import { CommonService } from '../../shared-service/baseservice/common-baseservice';
 import { CommonPageService } from '../../shared-service/baseservice/common-pagination-service';
-import { Branch } from '../../modal/branch';
 import { Router } from '@angular/router';
-import { PaginationComponent } from '../../common/pagination/pagination.component';
+import { LoanTemplate } from '../../modal/template';
 declare var $;
 @Component({
-  selector: 'app-branch',
-  templateUrl: './branch.component.html',
-  styleUrls: ['./branch.component.css']
+  selector: 'app-loan-template',
+  templateUrl: './loan-template.component.html',
+  styleUrls: ['./loan-template.component.css']
 })
-export class BranchComponent implements OnInit, DoCheck {
-
-  title = "Branch";
-  breadcrumb = "Branch > List"
-  dataList: any;
-
+export class LoanTemplateComponent implements OnInit, DoCheck {
+  test = 'app-basic-info'
+  title = "Template";
   spinner: boolean = false;
   globalMsg;
   search = new Object;
@@ -25,7 +21,8 @@ export class BranchComponent implements OnInit, DoCheck {
   currentApi: any;
   activeCount: any;
   inactiveCount: any;
-  branches: any;
+  dataList: any;
+  loanTemplate: LoanTemplate = new LoanTemplate();
 
 
   constructor(
@@ -33,64 +30,25 @@ export class BranchComponent implements OnInit, DoCheck {
     private commonService: CommonService,
     private commonPageService: CommonPageService,
     private router: Router,
-
   ) { }
+
+
 
   ngOnInit() {
 
     this.dataService.changeTitle(this.title);
-    this.currentApi = 'v1/branch/get';
+    this.currentApi = 'v1/loanTemplate/get';
     this.getPagination();
-
-    this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
-
-      this.activeCount = response.detail.active;
-      this.inactiveCount = response.detail.inactive;
-      this.branches = response.detail.branches;
-
-    });
-
 
   }
 
-  onSearch() {
-    this.dataService.setData(this.search);
-    this.getPagination();
-  }
 
-  onSearchChange(searchValue: string) {
-    this.search = {
-      'name': searchValue
-    }
-    this.dataService.setData(this.search);
-    this.getPagination();
-  }
+
+
 
   ngDoCheck(): void {
     this.dataList = this.dataService.getDataList();
   }
-
-  openEdit(branch: Branch) {
-    this.dataService.setBranch(branch);
-    $('.add-branch').modal('show');
-  }
-
-  addBranch() {
-    this.dataService.setBranch(new Branch());
-    $('.add-branch').modal('show');
-  }
-
-  newValue: any
-
-
-  onChange(newValue, data) {
-    this.newValue = newValue
-    this.dataService.setData(data);
-    this.commonPageService.setCurrentApi('v1/branch');
-    $('.updateStatus').modal('show');
-
-  }
-
   getPagination() {
     this.spinner = true;
     this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
@@ -113,5 +71,27 @@ export class BranchComponent implements OnInit, DoCheck {
     );
 
   }
+
+  addTemplate() {
+    this.dataService.setData(new LoanTemplate());
+
+    $('#addLoanModal').modal('show');
+  }
+
+  openEdit(loanTemplate: LoanTemplate) {
+    this.dataService.setData(loanTemplate);
+    $('#addLoanModal').modal('show');
+  }
+
+  onChange(newValue, data) {
+
+    this.dataService.setData(data);
+    this.commonPageService.setCurrentApi('v1/loanTemplate');
+    $('.updateStatus').modal('show');
+
+  }
+
+
+
 
 }

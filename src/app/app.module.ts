@@ -23,6 +23,13 @@ import { MsgModalComponent } from './common/msg-modal/msg-modal.component';
 import { PaginationComponent } from './common/pagination/pagination.component';
 import { MsgAlertComponent } from './common/msg-alert/msg-alert.component';
 import { UpdateModalComponent } from './common/update-modal/update-modal.component';
+import { LoanConfigComponent } from './component/loan-config/loan-config.component';
+import { LoanTemplateComponent } from './component/loan-template/loan-template.component';
+import { TemplateAddModelComponent } from './component/loan-template/template-add-model/template-add-model.component';
+import { BasicInfoComponent } from './component/loan-main-template/basic-info/basic-info.component';
+import { LoanUiComponent } from './component/loan-ui/loan-ui.component';
+import { AddLoanComponent } from './component/loan-config/add-loan/add-loan.component';
+
 
 
 
@@ -46,7 +53,13 @@ import { UpdateModalComponent } from './common/update-modal/update-modal.compone
     MsgModalComponent,
     PaginationComponent,
     MsgAlertComponent,
-    UpdateModalComponent
+    UpdateModalComponent,
+    LoanConfigComponent,
+    LoanTemplateComponent,
+    TemplateAddModelComponent,
+    BasicInfoComponent,
+    LoanUiComponent,
+    AddLoanComponent
 
 
   ],

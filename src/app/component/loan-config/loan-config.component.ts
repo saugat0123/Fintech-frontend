@@ -1,21 +1,19 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { CommonDataService } from '../../shared-service/baseservice/common-dataService';
-import { Pageable } from '../../shared-service/baseservice/common-pageable';
 import { CommonService } from '../../shared-service/baseservice/common-baseservice';
 import { CommonPageService } from '../../shared-service/baseservice/common-pagination-service';
-import { Branch } from '../../modal/branch';
 import { Router } from '@angular/router';
-import { PaginationComponent } from '../../common/pagination/pagination.component';
+import { Pageable } from '../../shared-service/baseservice/common-pageable';
 declare var $;
 @Component({
-  selector: 'app-branch',
-  templateUrl: './branch.component.html',
-  styleUrls: ['./branch.component.css']
+  selector: 'app-loan-config',
+  templateUrl: './loan-config.component.html',
+  styleUrls: ['./loan-config.component.css']
 })
-export class BranchComponent implements OnInit, DoCheck {
+export class LoanConfigComponent implements OnInit, DoCheck {
 
-  title = "Branch";
-  breadcrumb = "Branch > List"
+  title = "Loan Configuration";
+
   dataList: any;
 
   spinner: boolean = false;
@@ -25,8 +23,8 @@ export class BranchComponent implements OnInit, DoCheck {
   currentApi: any;
   activeCount: any;
   inactiveCount: any;
-  branches: any;
-
+  loans: any;
+  modalTemplate: any;
 
   constructor(
     private dataService: CommonDataService,
@@ -39,16 +37,16 @@ export class BranchComponent implements OnInit, DoCheck {
   ngOnInit() {
 
     this.dataService.changeTitle(this.title);
-    this.currentApi = 'v1/branch/get';
+    this.currentApi = 'v1/config/get';
     this.getPagination();
-
     this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
 
       this.activeCount = response.detail.active;
       this.inactiveCount = response.detail.inactive;
-      this.branches = response.detail.branches;
+      this.loans = response.detail.loans;
 
     });
+
 
 
   }
@@ -70,14 +68,15 @@ export class BranchComponent implements OnInit, DoCheck {
     this.dataList = this.dataService.getDataList();
   }
 
-  openEdit(branch: Branch) {
-    this.dataService.setBranch(branch);
-    $('.add-branch').modal('show');
+  openEdit(loanConfig: any) {
+    this.dataService.setData(loanConfig);
+    $('.add-loan-config').modal('show');
   }
 
-  addBranch() {
-    this.dataService.setBranch(new Branch());
-    $('.add-branch').modal('show');
+  addLoanConfig() {
+
+    this.dataService.setData(new Object);
+    $('.add-loan-config').modal('show');
   }
 
   newValue: any
@@ -86,7 +85,7 @@ export class BranchComponent implements OnInit, DoCheck {
   onChange(newValue, data) {
     this.newValue = newValue
     this.dataService.setData(data);
-    this.commonPageService.setCurrentApi('v1/branch');
+    this.commonPageService.setCurrentApi('v1/config');
     $('.updateStatus').modal('show');
 
   }
@@ -112,6 +111,14 @@ export class BranchComponent implements OnInit, DoCheck {
     }
     );
 
+  }
+  tName;
+  viewTemplate(e, x) {
+    this.modalTemplate = e;
+    this.tName = x;
+    var div = document.getElementById('tempView')
+    div.innerHTML = this.modalTemplate;
+    $('.view-template').modal('show');
   }
 
 }
