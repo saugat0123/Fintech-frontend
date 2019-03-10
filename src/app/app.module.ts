@@ -23,9 +23,10 @@ import { MsgModalComponent } from './common/msg-modal/msg-modal.component';
 import { PaginationComponent } from './common/pagination/pagination.component';
 import { MsgAlertComponent } from './common/msg-alert/msg-alert.component';
 import { UpdateModalComponent } from './common/update-modal/update-modal.component';
-
-
-
+import { UserComponent } from './component/user/user.component';
+import { AddUserComponent } from './component/user/add-user/add-user.component';
+import { ApprovallimitComponent } from './component/approvallimit/approvallimit.component';
+import { AddApprovalLimitComponent } from './component/approvallimit/add-approval-limit/add-approval-limit.component';
 
 
 
@@ -46,7 +47,12 @@ import { UpdateModalComponent } from './common/update-modal/update-modal.compone
     MsgModalComponent,
     PaginationComponent,
     MsgAlertComponent,
-    UpdateModalComponent
+    UpdateModalComponent,
+    UserComponent,
+    AddUserComponent,
+    ApprovallimitComponent,
+    AddApprovalLimitComponent,
+    
 
 
   ],
@@ -55,7 +61,7 @@ import { UpdateModalComponent } from './common/update-modal/update-modal.compone
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgbPaginationModule
+    NgbPaginationModule,
   ],
   providers: [CommonService, RestApiService, CommonDataService],
   bootstrap: [AppComponent]

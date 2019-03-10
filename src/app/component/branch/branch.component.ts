@@ -80,7 +80,7 @@ export class BranchComponent implements OnInit, DoCheck {
     $('.add-branch').modal('show');
   }
 
-  newValue: any
+  newValue: any;
   data: any
 
   onChange(newValue, data) {
