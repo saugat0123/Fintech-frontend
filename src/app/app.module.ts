@@ -29,10 +29,10 @@ import { TemplateAddModelComponent } from './component/loan-template/template-ad
 import { BasicInfoComponent } from './component/loan-main-template/basic-info/basic-info.component';
 import { LoanUiComponent } from './component/loan-ui/loan-ui.component';
 import { AddLoanComponent } from './component/loan-config/add-loan/add-loan.component';
-
-
-
-
+import { AddUserComponent } from './component/user/add-user/add-user.component';
+import { UserComponent } from './component/user/user.component';
+import { ApprovallimitComponent } from './component/approvallimit/approvallimit.component';
+import { AddApprovalLimitComponent } from './component/approvallimit/add-approval-limit/add-approval-limit.component';
 
 
 
@@ -59,7 +59,12 @@ import { AddLoanComponent } from './component/loan-config/add-loan/add-loan.comp
     TemplateAddModelComponent,
     BasicInfoComponent,
     LoanUiComponent,
-    AddLoanComponent
+    AddLoanComponent,
+    UserComponent,
+    AddUserComponent,
+    ApprovallimitComponent,
+    AddApprovalLimitComponent,
+
 
 
   ],
@@ -68,7 +73,7 @@ import { AddLoanComponent } from './component/loan-config/add-loan/add-loan.comp
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgbPaginationModule
+    NgbPaginationModule,
   ],
   providers: [CommonService, RestApiService, CommonDataService],
   bootstrap: [AppComponent]
