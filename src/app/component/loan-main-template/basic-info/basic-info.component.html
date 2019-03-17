@@ -1,13 +1,13 @@
 <div class="tab-pane" id="basicInfo">
   <div class="wizard-title text-center"> Basic Information</div>
   <div class="form-group">
-    <form>
+    <form (ngSubmit)="onSubmit()">
       <div class="row">
         <!-- START ROW -->
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="form-group">
-            <label for="firstname">Customer Name</label>
-            <input id="firstname" name="customerName" type="text" class="form-control form-control-error" placeholder="Applicant's Full Name"
+            <label for="customerName">Customer Name</label>
+            <input id="customerName" [(ngModel)]="customer.customerName" name="customerName" type="text" class="form-control form-control-error" placeholder="Applicant's Full Name"
               required minlength="2">
             <div>
               <!-- <i class="form-error">Name is required.</i> -->
@@ -17,13 +17,13 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="form-group">
             <label for="address1">Address Line 1</label>
-            <input id="address1" name="address1" type="text" class="form-control" placeholder="Applicant's Address 1" required minlength="2">
+            <input id="address1" [(ngModel)]="customer.address1" name="address1" type="text" class="form-control" placeholder="Applicant's Address 1" required minlength="2">
           </div>
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="form-group">
             <label for="address2">Address Line 2</label>
-            <input id="address2" name="address2" type="text" class="form-control" placeholder="Applicant's Address Line 2" required minlength="2">
+            <input id="address2" [(ngModel)]="customer.address2" name="address2" type="text" class="form-control" placeholder="Applicant's Address Line 2" required minlength="2">
           </div>
         </div>
       </div>
@@ -34,18 +34,18 @@
         <div class="col-md-4">
           <div class="form-group">
             <label for="phone">Phone</label>
-            <input id="phone" name="telephone" type="text" class="form-control" placeholder="Landline number" required pattern="[0-9]{9}">
+            <input id="phone" [(ngModel)]="customer.telephone" name="telephone" type="text" class="form-control" placeholder="Landline number" required pattern="[0-9]{9}">
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
             <label for="mobile">Mobile</label>
-            <input id="mobile" name="mobile" type="text" class="form-control" placeholder="Mobile number" required pattern="[0-9]{10}">
+            <input id="mobile" [(ngModel)]="customer.mobile" name="mobile" type="text" class="form-control" placeholder="Mobile number" required pattern="[0-9]{10}">
           </div>
         </div>
         <div class="col-md-4">
           <label for="email">Email</label>
-          <input id="email" name="email" type="email" class="form-control" placeholder="eg. xyz@abc.com" required>
+          <input id="email" [(ngModel)]="customer.email" name="email" type="email" class="form-control" placeholder="eg. xyz@abc.com" required>
         </div>
       </div>
       <!-- END ROW -->
@@ -55,20 +55,126 @@
         <div class="col-md-4">
           <div class="form-group">
             <label for="date">Initial relation date</label>
-            <input id="date" type="date" name="initialRelationDate" class="form-control" placeholder="Initial Relation Date" required>
+            <input id="date" type="date" [(ngModel)]="customer.initialRelationDate" name="initialRelationDate" class="form-control" placeholder="Initial Relation Date" required>
           </div>
         </div>
 
         <div class="col-md-4">
           <div class="form-group">
-            <label for="account">Account No.</label>
-            <input id="account" name="accountNo" type="number" class="form-control" placeholder="Applicant's Account Number">
+            <label for="accountNo">Account No.</label>
+            <input id="accountNo" [(ngModel)]="customer.accountNo" name="accountNo" type="text" class="form-control" placeholder="Applicant's Account Number">
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
             <label for="customerID">Customer ID</label>
-            <input id="customerID" name="customerId" type="text" class="form-control" placeholder="8 alpha numeric customer ID">
+            <input id="customerID" [(ngModel)]="customer.customerId" name="customerId" type="text" class="form-control" placeholder="8 alpha numeric customer ID">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <!-- START ROW -->
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="citizenshipNumber">Citizenship Number</label>
+            <input id="citizenshipNumber" type="text" [(ngModel)]="customer.citizenshipNumber" name="citizenshipNumber" class="form-control" placeholder="Citizenship Number">
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="citizenshipIssuedDate">Issued Date</label>
+            <input id="citizenshipIssuedDate" [(ngModel)]="customer.citizenshipIssuedDate" name="citizenshipIssuedDate" type="date" class="form-control" placeholder="Customer Issued Date">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="issuedPlace">Issued Place</label>
+            <input id="issuedPlace" [(ngModel)]="customer.issuedPlace" name="issuedPlace" type="text" class="form-control" placeholder="Issued">
+          </div>
+        </div>
+      </div>
+      <!-- END ROW -->
+      <div class="row">
+        <!-- START ROW -->
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="grandFatherName">Issued Place</label>
+            <input id="grandFatherName" [(ngModel)]="customerGrandFather.customerGrandFatherName" name="customerGrandFatherName" type="text" class="form-control" placeholder="Name of Father">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="grandFatherCitizenshipNumber">Citizen Number</label>
+            <input id="grandFatherCitizenshipNumber" [(ngModel)]="customerGrandFather.citizenshipNumber" name="grandFatherCitizenshipNumber" type="text" class="form-control" placeholder="Citizenship Number">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="grandFatherIssuedPlace">Issued Place</label>
+            <input id="grandFatherIssuedPlace" [(ngModel)]="customerGrandFather.citizenshipIssuedPlace" name="grandFatherIssuedPlace" type="text" class="form-control" placeholder="Issued Place">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="grandFatherIssuedDate">Issued Date</label>
+            <input id="grandFatherIssuedDate" type="date" [(ngModel)]="customerGrandFather.citizenshipIssuedDate" name="grandFatherIssuedDate" class="form-control" placeholder="Grand Father Issued Date">
+          </div>
+        </div>
+      </div>
+      <!-- END ROW -->
+      <div class="row">
+        <!-- START ROW -->
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="fatherName">Father Name</label>
+            <input id="fatherName" [(ngModel)]="customerFather.customerFatherName" name="fatherName" type="text" class="form-control" placeholder="Name of Father">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="fatherCitizenshipNumber">Citizen Number</label>
+            <input id="fatherCitizenshipNumber" [(ngModel)]="customerFather.citizenshipNumber" name="fatherCitizenshipNumber" type="text" class="form-control" placeholder="Citizenship Number">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="fatherIssuedPlace">Issued Place</label>
+            <input id="fatherIssuedPlace" [(ngModel)]="customerFather.citizenshipIssuedPlace" name="fatherIssuedPlace" type="text" class="form-control" placeholder="Issued Place">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="fatherIssuedDate">Issued Date</label>
+            <input id="fatherIssuedDate" type="date"[(ngModel)]="customerFather.citizenshipIssuedDate" name="fatherIssuedDate" class="form-control" placeholder="Father Issued Date">
+          </div>
+        </div>
+      </div>
+      <!-- END ROW -->
+      <div class="row">
+        <!-- START ROW -->
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="spouseName">Spouse Name</label>
+            <input id="spouseName" [(ngModel)]="customerSpouse.customerSpouseName" name="spouseName" type="text" class="form-control" placeholder="Name of Spouse">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="spouseCitizenshipNumber">Citizen Number</label>
+            <input id="spouseCitizenshipNumber" [(ngModel)]="customerSpouse.citizenshipNumber" name="spouseCitizenshipNumber" type="text" class="form-control" placeholder="Citizenship Number">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="spouseIssuedPlace">Citizen Date</label>
+            <input id="spouseIssuedPlace" [(ngModel)]="customerSpouse.citizenshipIssuedPlace" name="spouseIssuedPlace" type="text" class="form-control" placeholder="Spouse Issued Place">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="spouseIssuedDate">Issued Date</label>
+            <input id="spouseIssuedDate" type="date" [(ngModel)]="customerSpouse.citizenshipIssuedDate" name="spouseIssuedDate" class="form-control" placeholder="Spouse Issued Date">
           </div>
         </div>
       </div>

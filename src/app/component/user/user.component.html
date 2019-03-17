@@ -32,7 +32,8 @@
               <th>Email</th>
               <th>UserName</th>
               <th>Account No</th>
-              <th>Status</th> 
+              <th>Status</th>
+              <th>Profile</th> 
               <th>Action</th>
             </tr>
             </thead>
@@ -54,6 +55,7 @@
 
                 </select>
               </td>
+              <td>{{allList.profilePicture}}</td>
               <td>
                 <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="EDIT">
                   <i class="fa fa-edit" style="color:white"></i>
