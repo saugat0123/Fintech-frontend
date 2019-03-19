@@ -1,21 +1,23 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
-import {Pageable} from '../../shared-service/baseservice/common-pageable';
-import {CommonDataService} from '../../shared-service/baseservice/common-dataService';
-import {CommonService} from '../../shared-service/baseservice/common-baseservice';
-import {CommonPageService} from '../../shared-service/baseservice/common-pagination-service';
-import {Router} from '@angular/router';
-import {ApprovalLimit} from '../../modal/approval-limit';
+import { Component, DoCheck, OnInit } from '@angular/core';
+
+import { Router } from '@angular/router';
+
 import { HttpClient } from '@angular/common/http';
+import { Pageable } from '../../../shared-service/baseservice/common-pageable';
+import { CommonDataService } from '../../../shared-service/baseservice/common-dataService';
+import { CommonService } from '../../../shared-service/baseservice/common-baseservice';
+import { CommonPageService } from '../../../shared-service/baseservice/common-pagination-service';
+import { ApprovalLimit } from '../../../modal/approval-limit';
 declare var $;
 
 
 @Component({
-  selector: 'app-approvallimit',
-  templateUrl: './approvallimit.component.html',
-  styleUrls: ['./approvallimit.component.css']
+    selector: 'app-approvallimit',
+    templateUrl: './approvallimit.component.html',
+    styleUrls: ['./approvallimit.component.css']
 })
 export class ApprovallimitComponent implements OnInit, DoCheck {
-  title = 'ApprovalLimit';
+    title = 'ApprovalLimit';
     breadcrumb = 'ApprovalLimit > List';
     dataList: any;
 
@@ -36,7 +38,7 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private router: Router,
-        private httpClient: HttpClient,
+        private httpClient: HttpClient
     ) {
     }
 
@@ -47,7 +49,7 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
         this.getPagination()
 
         console.log("test 1")
-        this.commonService.getByPostAllPageable( this.currentApi, this.search, 1, 10).subscribe((response: any) => {
+        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
             console.log('test 2', response);
 
             this.approval = response.detail.approval;

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Pageable} from '../../shared-service/baseservice/common-pageable';
-import {CommonDataService} from '../../shared-service/baseservice/common-dataService';
-import {CommonService} from '../../shared-service/baseservice/common-baseservice';
-import {CommonPageService} from '../../shared-service/baseservice/common-pagination-service';
-import {Router} from '@angular/router';
+import { Pageable } from '../../shared-service/baseservice/common-pageable';
+import { CommonDataService } from '../../shared-service/baseservice/common-dataService';
+import { CommonService } from '../../shared-service/baseservice/common-baseservice';
+import { CommonPageService } from '../../shared-service/baseservice/common-pagination-service';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../modal/user'
 declare var $;
@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
 
   spinner: boolean = false;
   globalMsg;
-  search = new Object();
+  search: any = {};
   pageable: Pageable = new Pageable();
   currentApi: any;
   activeCount: any;
@@ -32,11 +32,11 @@ export class UserComponent implements OnInit {
 
 
   constructor(
-      private dataService: CommonDataService,
-      private commonService: CommonService,
-      private commonPageService: CommonPageService,
-      private router: Router,
-      private httpClient: HttpClient
+    private dataService: CommonDataService,
+    private commonService: CommonService,
+    private commonPageService: CommonPageService,
+    private router: Router,
+    private httpClient: HttpClient
   ) {
   }
 
@@ -45,7 +45,7 @@ export class UserComponent implements OnInit {
     this.dataService.changeTitle(this.title);
     this.currentApi = 'v1/user/get';
     this.getPagination()
-    this.commonService.getByPostAllPageable( this.currentApi, this.search, 1, 10).subscribe((response: any) => {
+    this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
       console.log('testing', response);
 
       this.user = response.detail.user;
@@ -104,14 +104,14 @@ export class UserComponent implements OnInit {
     });
 
   }
-  
+
   onChange(newValue, data) {
     this.newValue = newValue;
     this.dataService.setUser(data);
     this.commonPageService.setCurrentApi('v1/user');
     $('.updateStatus').modal('show');
 
-}
+  }
 
 
 }

@@ -17,22 +17,26 @@ import { RestApiService } from './shared-service/authentication/rest-api.service
 import { CommonService } from './shared-service/baseservice/common-baseservice';
 import { SpinnerComponent } from './common/spinner/spinner.component';
 import { CommonDataService } from './shared-service/baseservice/common-dataService';
-import { BranchComponent } from './component/branch/branch.component';
-import { AddModelComponent } from './component/branch/add-model/add-model.component';
+
 import { MsgModalComponent } from './common/msg-modal/msg-modal.component';
 import { PaginationComponent } from './common/pagination/pagination.component';
 import { MsgAlertComponent } from './common/msg-alert/msg-alert.component';
 import { UpdateModalComponent } from './common/update-modal/update-modal.component';
-import { LoanConfigComponent } from './component/loan-config/loan-config.component';
-import { LoanTemplateComponent } from './component/loan-template/loan-template.component';
-import { TemplateAddModelComponent } from './component/loan-template/template-add-model/template-add-model.component';
-import { BasicInfoComponent } from './component/loan-main-template/basic-info/basic-info.component';
+import { BranchComponent } from './component/admin/branch/branch.component';
+import { LoanConfigComponent } from './component/admin/loan-config/loan-config.component';
+import { LoanTemplateComponent } from './component/admin/loan-config/loan-template/loan-template.component';
+import { TemplateAddModelComponent } from './component/admin/loan-config/loan-template/template-add-model/template-add-model.component';
+import { BasicInfoComponent } from './component/admin/loan-config/loan-main-template/basic-info/basic-info.component';
 import { LoanUiComponent } from './component/loan-ui/loan-ui.component';
-import { AddLoanComponent } from './component/loan-config/add-loan/add-loan.component';
-import { AddUserComponent } from './component/user/add-user/add-user.component';
+import { AddLoanComponent } from './component/admin/loan-config/add-loan/add-loan.component';
 import { UserComponent } from './component/user/user.component';
-import { ApprovallimitComponent } from './component/approvallimit/approvallimit.component';
-import { AddApprovalLimitComponent } from './component/approvallimit/add-approval-limit/add-approval-limit.component';
+import { AddUserComponent } from './component/user/add-user/add-user.component';
+import { ApprovallimitComponent } from './component/admin/approvallimit/approvallimit.component';
+import { AddApprovalLimitComponent } from './component/admin/approvallimit/add-approval-limit/add-approval-limit.component';
+import { RolePermissionComponent } from './component/admin/role-permission/role-permission.component';
+import { AddModelComponent } from './component/admin/branch/add-model/add-model.component';
+
+
 
 
 
@@ -64,6 +68,8 @@ import { AddApprovalLimitComponent } from './component/approvallimit/add-approva
     AddUserComponent,
     ApprovallimitComponent,
     AddApprovalLimitComponent,
+    RolePermissionComponent
+
 
 
 

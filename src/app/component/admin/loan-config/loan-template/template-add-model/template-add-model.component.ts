@@ -1,8 +1,9 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
-import { LoanTemplate } from '../../../modal/template';
-import { CommonService } from '../../../shared-service/baseservice/common-baseservice';
+import { LoanTemplate } from '../../../../../modal/template';
+import { CommonService } from '../../../../../shared-service/baseservice/common-baseservice';
 import { Router } from '@angular/router';
-import { CommonDataService } from '../../../shared-service/baseservice/common-dataService';
+import { CommonDataService } from '../../../../../shared-service/baseservice/common-dataService';
+
 declare var $;
 @Component({
   selector: 'app-template-add-model',

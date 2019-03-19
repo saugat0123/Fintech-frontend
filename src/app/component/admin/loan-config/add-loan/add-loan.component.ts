@@ -1,7 +1,9 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
-import { CommonService } from '../../../shared-service/baseservice/common-baseservice';
+
 import { Router } from '@angular/router';
-import { CommonDataService } from '../../../shared-service/baseservice/common-dataService';
+import { CommonService } from '../../../../shared-service/baseservice/common-baseservice';
+import { CommonDataService } from '../../../../shared-service/baseservice/common-dataService';
+
 declare var $;
 @Component({
   selector: 'app-add-loan',

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TemplateAddModelComponent } from './template-add-model.component';
+import { AddModelComponent } from './add-model.component.ts';
 
-describe('TemplateAddModelComponent', () => {
-  let component: TemplateAddModelComponent;
-  let fixture: ComponentFixture<TemplateAddModelComponent>;
+describe('AddModelComponent', () => {
+  let component: AddModelComponent;
+  let fixture: ComponentFixture<AddModelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TemplateAddModelComponent ]
+      declarations: [ AddModelComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TemplateAddModelComponent);
+    fixture = TestBed.createComponent(AddModelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

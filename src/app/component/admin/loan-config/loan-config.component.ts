@@ -1,9 +1,10 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
-import { CommonDataService } from '../../shared-service/baseservice/common-dataService';
-import { CommonService } from '../../shared-service/baseservice/common-baseservice';
-import { CommonPageService } from '../../shared-service/baseservice/common-pagination-service';
+import { Pageable } from '../../../shared-service/baseservice/common-pageable';
+import { CommonDataService } from '../../../shared-service/baseservice/common-dataService';
+import { CommonService } from '../../../shared-service/baseservice/common-baseservice';
+import { CommonPageService } from '../../../shared-service/baseservice/common-pagination-service';
 import { Router } from '@angular/router';
-import { Pageable } from '../../shared-service/baseservice/common-pageable';
+
 declare var $;
 @Component({
   selector: 'app-loan-config',
@@ -18,7 +19,7 @@ export class LoanConfigComponent implements OnInit, DoCheck {
 
   spinner: boolean = false;
   globalMsg;
-  search = new Object;
+  search: any = {};
   pageable: Pageable = new Pageable();
   currentApi: any;
   activeCount: any;
@@ -30,7 +31,7 @@ export class LoanConfigComponent implements OnInit, DoCheck {
     private dataService: CommonDataService,
     private commonService: CommonService,
     private commonPageService: CommonPageService,
-    private router: Router,
+    private router: Router
 
   ) { }
 

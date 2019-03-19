@@ -1,21 +1,22 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
-import { User } from '../../../modal/user';
-import { CommonService } from '../../../shared-service/baseservice/common-baseservice';
-import { Router } from '@angular/router';
-import { CommonDataService } from '../../../shared-service/baseservice/common-dataService';
-declare var $;
 
+import { Router } from '@angular/router';
+import { Branch } from '../../../../modal/branch';
+import { CommonService } from '../../../../shared-service/baseservice/common-baseservice';
+import { CommonDataService } from '../../../../shared-service/baseservice/common-dataService';
+
+declare var $;
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  selector: 'app-add-model',
+  templateUrl: './add-model.component.html',
+  styleUrls: ['./add-model.component.css']
 })
-export class AddUserComponent implements OnInit {
+export class AddModelComponent implements OnInit, DoCheck {
   task: string;
   submitted = false;
   spinner: boolean = false;
   globalMsg;
-  user: User = new User();
+  branch: Branch = new Branch();
   constructor(
     private commonService: CommonService,
     private router: Router,
@@ -26,8 +27,8 @@ export class AddUserComponent implements OnInit {
   }
 
   ngDoCheck(): void {
-    this.user = this.dataService.getUser();
-    if (this.user.id == null) {
+    this.branch = this.dataService.getBranch();
+    if (this.branch.id == null) {
       this.task = 'Add';
     } else { this.task = 'Edit'; }
 
@@ -35,33 +36,34 @@ export class AddUserComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.commonService.saveOrEdit(this.user, 'v1/user').subscribe(result => {
-      $('.add-user').modal('hide');
-      if (this.user.id == null) {
-        this.globalMsg = "SUCCESSFULLY ADDED USER";
+    // this.branch.created=null;
+    this.commonService.saveOrEdit(this.branch, 'v1/branch').subscribe(result => {
+      $('.add-branch').modal('hide');
+      if (this.branch.id == null) {
+        this.globalMsg = "SUCCESSFULLY ADDED BRANCH";
       } else {
-        this.globalMsg = "SUCCESSFULLY EDITED USER";
+        this.globalMsg = "SUCCESSFULLY EDITED BRANCH";
       }
 
       this.dataService.getGlobalMsg(this.globalMsg);
       this.dataService.getAlertMsg('true');
-      this.user = new User();
+      this.branch = new Branch();
       this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
-        this.router.navigate(["home/user"]));
+        this.router.navigate(["home/branch"]));
       $(".alert-custom").slideDown();
 
 
 
     }, error => {
 
-      $('.add-user').modal('hide');
+      $('.add-branch').modal('hide');
 
       this.globalMsg = error.error.message;
       this.dataService.getGlobalMsg(this.globalMsg);
       this.dataService.getAlertMsg('false');
 
       this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
-        this.router.navigate(["home/user"]));
+        this.router.navigate(["home/branch"]));
       $(".alert-custom").slideDown();
 
     }
@@ -69,4 +71,3 @@ export class AddUserComponent implements OnInit {
   }
 
 }
-

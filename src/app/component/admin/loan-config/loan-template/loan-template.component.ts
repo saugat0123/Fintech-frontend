@@ -1,10 +1,11 @@
 import { Component, OnInit, DoCheck, Compiler } from '@angular/core';
-import { CommonDataService } from '../../shared-service/baseservice/common-dataService';
-import { Pageable } from '../../shared-service/baseservice/common-pageable';
-import { CommonService } from '../../shared-service/baseservice/common-baseservice';
-import { CommonPageService } from '../../shared-service/baseservice/common-pagination-service';
+import { Pageable } from '../../../../shared-service/baseservice/common-pageable';
+import { CommonDataService } from '../../../../shared-service/baseservice/common-dataService';
+import { CommonService } from '../../../../shared-service/baseservice/common-baseservice';
+import { CommonPageService } from '../../../../shared-service/baseservice/common-pagination-service';
 import { Router } from '@angular/router';
-import { LoanTemplate } from '../../modal/template';
+import { LoanTemplate } from '../../../../modal/template';
+
 declare var $;
 @Component({
   selector: 'app-loan-template',
@@ -16,7 +17,7 @@ export class LoanTemplateComponent implements OnInit, DoCheck {
   title = "Template";
   spinner: boolean = false;
   globalMsg;
-  search = new Object;
+  search: any = {};
   pageable: Pageable = new Pageable();
   currentApi: any;
   activeCount: any;
