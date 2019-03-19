@@ -10,6 +10,7 @@ import { LoanTemplateComponent } from './component/loan-template/loan-template.c
 import { LoanConfigComponent } from './component/loan-config/loan-config.component';
 import { LoanUiComponent } from './component/loan-ui/loan-ui.component';
 import { BasicInfoComponent } from './component/loan-main-template/basic-info/basic-info.component';
+import { CompanyInfoComponent } from './component/loan-main-template/company-info/company-info.component';
 
 
 
@@ -25,6 +26,7 @@ const routes: Routes = [
       {
         path: 'loan', component: LoanUiComponent, children: [
           { path: 'basic-info', component: BasicInfoComponent },
+          { path: 'company-info', component: CompanyInfoComponent},
           { path: 'branch', component: BranchComponent },
           { path: 'dashboard', component: DashboardComponent },
         ]

@@ -3,7 +3,7 @@ export class CustomerSpouse {
     created: Date;
     lastModified: Date;
     customerSpouseName: string;
-    citizenshipNumber: number;
+    citizenshipNumber: string;
     citizenshipIssuedDate: Date;
     citizenshipIssuedPlace: string;
 }

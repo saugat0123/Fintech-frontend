@@ -1,10 +1,10 @@
-export class CustomerFather {
+export class CustomerRelative {
     id: number;
     created: Date;
     lastModified: Date;
-    customerFatherName: string;
+    customerRelation: string;
+    customerRelativeName: string;
     citizenshipNumber: string;
     citizenshipIssuedDate: Date;
     citizenshipIssuedPlace: string;
-
 }

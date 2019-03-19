@@ -1,6 +1,7 @@
 import { CustomerFather } from './customer-father';
 import { CustomerGrandFather } from './customer-grand-father';
 import { CustomerSpouse } from './customer-spouse';
+import { CustomerRelative } from './customer-relative';
 
 export class Customer {
     id: number;
@@ -22,4 +23,5 @@ export class Customer {
     customerFather: CustomerFather;
     customerGrandFather: CustomerGrandFather;
     customerSpouse: CustomerSpouse;
+    customerRelatives: Set<CustomerRelative>;
 }

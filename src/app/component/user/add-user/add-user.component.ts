@@ -1,7 +1,7 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { User } from '../../../modal/User';
-import { CommonService } from '../../../shared-service/baseservice/common-baseservice';
 import { Router } from '@angular/router';
+import { CommonService } from '../../../shared-service/baseservice/common-baseservice';
 import { CommonDataService } from '../../../shared-service/baseservice/common-dataService';
 declare var $;
 

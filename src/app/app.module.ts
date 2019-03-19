@@ -33,6 +33,7 @@ import { AddUserComponent } from './component/user/add-user/add-user.component';
 import { UserComponent } from './component/user/user.component';
 import { ApprovallimitComponent } from './component/approvallimit/approvallimit.component';
 import { AddApprovalLimitComponent } from './component/approvallimit/add-approval-limit/add-approval-limit.component';
+import { CompanyInfoComponent } from './component/loan-main-template/company-info/company-info.component';
 
 
 
@@ -64,6 +65,7 @@ import { AddApprovalLimitComponent } from './component/approvallimit/add-approva
     AddUserComponent,
     ApprovallimitComponent,
     AddApprovalLimitComponent,
+    CompanyInfoComponent,
 
 
 
@@ -74,6 +76,7 @@ import { AddApprovalLimitComponent } from './component/approvallimit/add-approva
     HttpClientModule,
     FormsModule,
     NgbPaginationModule,
+    ReactiveFormsModule
   ],
   providers: [CommonService, RestApiService, CommonDataService],
   bootstrap: [AppComponent]
