@@ -36,7 +36,7 @@ export class UserComponent implements OnInit {
       private commonService: CommonService,
       private commonPageService: CommonPageService,
       private router: Router,
-      private httpClient: HttpClient,
+      private httpClient: HttpClient
   ) {
   }
 
