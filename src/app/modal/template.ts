@@ -2,7 +2,7 @@ export class LoanTemplate {
     id: number;
     name: string;
     templateUrl: string;
-    orderUrl: number;
+    orders: number;
     created: string;
     lastModified: string;
 }

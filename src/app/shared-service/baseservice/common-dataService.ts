@@ -6,7 +6,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Pageable } from './common-pageable';
 import { Branch } from '../../modal/branch';
 import { ApprovalLimit } from '../../modal/approval-limit';
-import { User } from '../../modal/user';
+import {User} from "../../modal/user";
+
 
 
 @Injectable({
@@ -49,7 +50,7 @@ export class CommonDataService {
 
 
 
-    setDataList(datalist: object) {
+    setDataList(datalist: Object) {
         this.data = datalist;
     }
 
