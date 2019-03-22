@@ -10,6 +10,7 @@ import { LoanTemplateComponent } from './component/loan-template/loan-template.c
 import { LoanConfigComponent } from './component/loan-config/loan-config.component';
 import { LoanUiComponent } from './component/loan-ui/loan-ui.component';
 import { BasicInfoComponent } from './component/loan-main-template/basic-info/basic-info.component';
+import {MemoComposeComponent} from "./memo-module/memo-compose/memo-compose.component";
 
 
 
@@ -32,7 +33,9 @@ const routes: Routes = [
 
 
       { path: 'user', component: UserComponent },
-      { path: 'approvalLimit', component: ApprovallimitComponent }
+      { path: 'approvalLimit', component: ApprovallimitComponent },
+
+      { path: 'memo/compose', component: MemoComposeComponent }
 
     ],
 
