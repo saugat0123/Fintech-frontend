@@ -5,6 +5,7 @@ import {MemoModuleRoutingModule} from "./memo-module-routing.module";
 import { MemoInboxComponent } from './memo-inbox/memo-inbox.component';
 import { MemoReadComponent } from './memo-read/memo-read.component';
 import { MemoBaseComponent } from './memo-base/memo-base.component';
+import {MemoCommonService} from "./memo-common.service";
 
 @NgModule({
   declarations: [MemoComposeComponent, MemoInboxComponent, MemoReadComponent, MemoBaseComponent],
@@ -15,6 +16,7 @@ import { MemoBaseComponent } from './memo-base/memo-base.component';
   exports: [
       MemoInboxComponent,
       MemoComposeComponent
-  ]
+  ],
+    providers: [MemoCommonService]
 })
 export class MemoModuleModule { }

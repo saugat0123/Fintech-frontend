@@ -8,7 +8,7 @@ import { CommonDataService } from '../../shared-service/baseservice/common-dataS
 })
 export class MemoBaseComponent implements OnInit {
 
-  title = "Memo";
+  title: String;
 
   constructor(
       private dataService: CommonDataService
