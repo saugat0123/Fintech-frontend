@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonDataService } from '../../shared-service/baseservice/common-dataService';
 
 @Component({
   selector: 'app-memo-base',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MemoBaseComponent implements OnInit {
 
-  constructor() { }
+  title = "Memo";
+
+  constructor(
+      private dataService: CommonDataService
+  ) { }
 
   ngOnInit() {
+    this.dataService.currentTitle.subscribe(message => this.title = message)
   }
 
 }
