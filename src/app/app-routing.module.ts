@@ -11,6 +11,9 @@ import { LoanConfigComponent } from './component/loan-config/loan-config.compone
 import { LoanUiComponent } from './component/loan-ui/loan-ui.component';
 import { BasicInfoComponent } from './component/loan-main-template/basic-info/basic-info.component';
 import {MemoComposeComponent} from "./memo-module/memo-compose/memo-compose.component";
+import {MemoInboxComponent} from "./memo-module/memo-inbox/memo-inbox.component";
+import {MemoReadComponent} from "./memo-module/memo-read/memo-read.component";
+import {MemoBaseComponent} from "./memo-module/memo-base/memo-base.component";
 
 
 
@@ -35,8 +38,12 @@ const routes: Routes = [
       { path: 'user', component: UserComponent },
       { path: 'approvalLimit', component: ApprovallimitComponent },
 
-      { path: 'memo/compose', component: MemoComposeComponent }
-
+      { path: 'memo', component: MemoBaseComponent, children: [
+          { path: 'inbox', component: MemoInboxComponent },
+          { path: 'compose', component: MemoComposeComponent },
+          { path: 'read', component: MemoReadComponent }
+        ]
+      }
     ],
 
   },
