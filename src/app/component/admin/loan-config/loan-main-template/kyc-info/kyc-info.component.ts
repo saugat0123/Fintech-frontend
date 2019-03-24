@@ -37,7 +37,7 @@ export class KycInfoComponent implements OnInit {
     this.customer.customerRelatives = this.basicInfo.get('otherRelatives').value;
     console.log(this.customer)
     this.commonService.saveOrEdit(this.customer,'v1/basicInfo').subscribe();
-    // this.router.navigate(['home/loan/company-info'])
+    this.router.navigate(['home/loan/company-info'])
   }
   addCustomerRelative(){
      (<FormArray>this.basicInfo.get('otherRelatives')).push(this.relativeFormGroup());

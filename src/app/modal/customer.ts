@@ -1,5 +1,6 @@
-
-
+import { CustomerFather } from './customer-father';
+import { CustomerGrandFather } from './customer-grand-father';
+import { CustomerSpouse } from './customer-spouse';
 import { CustomerRelative } from './customer-relative';
 
 export class Customer {
@@ -20,5 +21,8 @@ export class Customer {
     citizenshipNumber: string;
     citizenshipIssuedDate: Date;
     issuedPlace: string;
+    customerFather: CustomerFather;
+    customerGrandFather: CustomerGrandFather;
+    customerSpouse: CustomerSpouse;
     customerRelatives: Array<CustomerRelative>;
 }

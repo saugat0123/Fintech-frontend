@@ -2,7 +2,7 @@
     <div class="wizard-title text-center"><h1>KYC Information</h1></div>
     <div class="form-group">
       <form  class="form-horizontal" (ngSubmit)="onSubmit()" [formGroup]="basicInfo">
-         <div formArrayName="otherRelatives" *ngFor="let relative of basicInfo.get('otherRelatives').controls; let i = index">
+         <div formArrayName="otherRelatives" *ngFor="let relative of basicInfo.get('otherRelatives')['controls']; let i = index">
            <div class="row" [formGroupName]="i">
               <div class="col-md-2">
                 <div class="form-group">
