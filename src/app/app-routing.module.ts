@@ -10,6 +10,8 @@ import { LoanUiComponent } from './component/loan-ui/loan-ui.component';
 import { BasicInfoComponent } from './component/admin/loan-config/loan-main-template/basic-info/basic-info.component';
 import { UserComponent } from './component/user/user.component';
 import { ApprovallimitComponent } from './component/admin/approvallimit/approvallimit.component';
+import { CompanyInfoComponent } from './component/admin/loan-config/loan-main-template/company-info/company-info.component';
+import { KycInfoComponent } from './component/admin/loan-config/loan-main-template/kyc-info/kyc-info.component';
 
 
 
@@ -25,7 +27,9 @@ const routes: Routes = [
       { path: 'config', component: LoanConfigComponent },
       {
         path: 'loan', component: LoanUiComponent, children: [
-          { path: 'basic-info', component: BasicInfoComponent },
+          { path: 'basic-info', component: BasicInfoComponent},
+            { path: 'kyc-info', component: KycInfoComponent},
+          { path: 'company-info', component: CompanyInfoComponent},
           { path: 'branch', component: BranchComponent },
           { path: 'dashboard', component: DashboardComponent },
         ]

@@ -11,8 +11,9 @@ export class Customer {
     customerName: string;
     customerId: string;
     accountNo: string;
-    address1: string;
-    address2: string;
+    province: string;
+    district: string;
+    municipalitiesOrVDC: string;
     telephone: string;
     mobile: string;
     email: string;
@@ -23,5 +24,5 @@ export class Customer {
     customerFather: CustomerFather;
     customerGrandFather: CustomerGrandFather;
     customerSpouse: CustomerSpouse;
-    customerRelatives: Set<CustomerRelative>;
+    customerRelatives: Array<CustomerRelative>;
 }

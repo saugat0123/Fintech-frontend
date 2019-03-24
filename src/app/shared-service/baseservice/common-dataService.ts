@@ -7,6 +7,7 @@ import { Pageable } from './common-pageable';
 import { Branch } from '../../modal/branch';
 import { ApprovalLimit } from '../../modal/approval-limit';
 import {User} from "../../modal/user";
+import { Customer } from '../../modal/customer';
 
 
 
@@ -22,7 +23,7 @@ export class CommonDataService {
     document: Document = new Document();
     approvalLimit: ApprovalLimit = new ApprovalLimit();
     user: User = new User();
-
+    customer: Customer = new Customer();
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
 
@@ -30,7 +31,10 @@ export class CommonDataService {
     currentMsg = this.message.asObservable();
 
     private alertFlag = new BehaviorSubject('default');
+
     currentAlertFlag = this.alertFlag.asObservable();
+    
+    // private customer = new BehaviorSubject<Customer>(new Customer);
 
     constructor() {
     }
@@ -88,6 +92,13 @@ export class CommonDataService {
     }
     getUser(){
         return this.user;
+    }
+
+    setCustomer(customer: Customer){
+        return this.customer = customer;
+    }
+    getCustomer(){
+        return this.customer;
     }
 
 }

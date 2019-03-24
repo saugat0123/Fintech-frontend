@@ -17,7 +17,6 @@ import { RestApiService } from './shared-service/authentication/rest-api.service
 import { CommonService } from './shared-service/baseservice/common-baseservice';
 import { SpinnerComponent } from './common/spinner/spinner.component';
 import { CommonDataService } from './shared-service/baseservice/common-dataService';
-
 import { MsgModalComponent } from './common/msg-modal/msg-modal.component';
 import { PaginationComponent } from './common/pagination/pagination.component';
 import { MsgAlertComponent } from './common/msg-alert/msg-alert.component';
@@ -27,6 +26,7 @@ import { LoanConfigComponent } from './component/admin/loan-config/loan-config.c
 import { LoanTemplateComponent } from './component/admin/loan-config/loan-template/loan-template.component';
 import { TemplateAddModelComponent } from './component/admin/loan-config/loan-template/template-add-model/template-add-model.component';
 import { BasicInfoComponent } from './component/admin/loan-config/loan-main-template/basic-info/basic-info.component';
+import { CompanyInfoComponent} from './component/admin/loan-config/loan-main-template/company-info/company-info.component';
 import { LoanUiComponent } from './component/loan-ui/loan-ui.component';
 import { AddLoanComponent } from './component/admin/loan-config/add-loan/add-loan.component';
 import { UserComponent } from './component/user/user.component';
@@ -35,6 +35,7 @@ import { ApprovallimitComponent } from './component/admin/approvallimit/approval
 import { AddApprovalLimitComponent } from './component/admin/approvallimit/add-approval-limit/add-approval-limit.component';
 import { RolePermissionComponent } from './component/admin/role-permission/role-permission.component';
 import { AddModelComponent } from './component/admin/branch/add-model/add-model.component';
+import { KycInfoComponent } from './component/admin/loan-config/loan-main-template/kyc-info/kyc-info.component';
 
 
 
@@ -60,13 +61,15 @@ import { AddModelComponent } from './component/admin/branch/add-model/add-model.
     LoanTemplateComponent,
     TemplateAddModelComponent,
     BasicInfoComponent,
+    CompanyInfoComponent,
     LoanUiComponent,
     AddLoanComponent,
     UserComponent,
     AddUserComponent,
     ApprovallimitComponent,
     AddApprovalLimitComponent,
-    RolePermissionComponent
+    RolePermissionComponent,
+    KycInfoComponent
 
 
 
