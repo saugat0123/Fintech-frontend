@@ -38,7 +38,6 @@ import { AddModelComponent } from './component/admin/branch/add-model/add-model.
 import { KycInfoComponent } from './component/admin/loan-config/loan-main-template/kyc-info/kyc-info.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
