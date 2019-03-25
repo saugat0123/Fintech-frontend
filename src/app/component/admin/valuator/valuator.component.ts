@@ -91,4 +91,7 @@ export class ValuatorComponent implements OnInit {
     this.dataService.setData(this.search);
     this.getPagination();
   }
+  ngDoCheck(): void {
+    this.dataList = this.dataService.getDataList();
+  }
 }
