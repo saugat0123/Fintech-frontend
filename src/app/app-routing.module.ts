@@ -12,6 +12,7 @@ import { UserComponent } from './component/user/user.component';
 import { ApprovallimitComponent } from './component/admin/approvallimit/approvallimit.component';
 import { CompanyInfoComponent } from './component/admin/loan-config/loan-main-template/company-info/company-info.component';
 import { KycInfoComponent } from './component/admin/loan-config/loan-main-template/kyc-info/kyc-info.component';
+import { ValuatorComponent } from './component/admin/valuator/valuator.component';
 
 
 
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: 'branch', component: BranchComponent },
       { path: 'template', component: LoanTemplateComponent },
       { path: 'config', component: LoanConfigComponent },
+      { path: 'valuator', component: ValuatorComponent },
       {
         path: 'loan', component: LoanUiComponent, children: [
           { path: 'basic-info', component: BasicInfoComponent},

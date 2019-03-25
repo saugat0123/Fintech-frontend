@@ -8,6 +8,7 @@ import { Branch } from '../../modal/branch';
 import { ApprovalLimit } from '../../modal/approval-limit';
 import {User} from "../../modal/user";
 import { Customer } from '../../modal/customer';
+import { Valuator } from '../../modal/valuator';
 
 
 
@@ -24,6 +25,7 @@ export class CommonDataService {
     approvalLimit: ApprovalLimit = new ApprovalLimit();
     user: User = new User();
     customer: Customer = new Customer();
+    valuator: Valuator = new Valuator();
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
 
@@ -99,6 +101,12 @@ export class CommonDataService {
     }
     getCustomer(){
         return this.customer;
+    }
+    setValuator(valuator:Valuator){
+        return this.valuator = valuator;
+    }
+    getValuator(){
+        return this.valuator;
     }
 
 }

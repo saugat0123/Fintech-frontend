@@ -36,6 +36,8 @@ import { AddApprovalLimitComponent } from './component/admin/approvallimit/add-a
 import { RolePermissionComponent } from './component/admin/role-permission/role-permission.component';
 import { AddModelComponent } from './component/admin/branch/add-model/add-model.component';
 import { KycInfoComponent } from './component/admin/loan-config/loan-main-template/kyc-info/kyc-info.component';
+import { ValuatorComponent } from './component/admin/valuator/valuator.component';
+import { AddValuatorComponent } from './component/admin/valuator/add-valuator/add-valuator.component';
 
 
 
@@ -69,7 +71,9 @@ import { KycInfoComponent } from './component/admin/loan-config/loan-main-templa
     ApprovallimitComponent,
     AddApprovalLimitComponent,
     RolePermissionComponent,
-    KycInfoComponent
+    KycInfoComponent,
+    ValuatorComponent,
+    AddValuatorComponent
 
 
 
