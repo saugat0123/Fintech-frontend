@@ -10,6 +10,7 @@ import { LoanUiComponent } from './component/loan-ui/loan-ui.component';
 import { BasicInfoComponent } from './component/admin/loan-config/loan-main-template/basic-info/basic-info.component';
 import { UserComponent } from './component/user/user.component';
 import { ApprovallimitComponent } from './component/admin/approvallimit/approvallimit.component';
+import {UIComponent} from './component/admin/loan-config/ui/ui.component';
 
 
 
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: 'branch', component: BranchComponent },
       { path: 'template', component: LoanTemplateComponent },
       { path: 'config', component: LoanConfigComponent },
+      { path: 'ui', component: UIComponent},
       {
         path: 'loan', component: LoanUiComponent, children: [
           { path: 'basic-info', component: BasicInfoComponent },
@@ -39,7 +41,7 @@ const routes: Routes = [
 
   },
   { path: '', component: LoginComponent }
-]
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

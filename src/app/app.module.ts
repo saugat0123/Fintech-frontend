@@ -35,6 +35,7 @@ import { ApprovallimitComponent } from './component/admin/approvallimit/approval
 import { AddApprovalLimitComponent } from './component/admin/approvallimit/add-approval-limit/add-approval-limit.component';
 import { RolePermissionComponent } from './component/admin/role-permission/role-permission.component';
 import { AddModelComponent } from './component/admin/branch/add-model/add-model.component';
+import { UIComponent } from './component/admin/loan-config/ui/ui.component';
 
 
 
@@ -68,7 +69,8 @@ import { AddModelComponent } from './component/admin/branch/add-model/add-model.
     AddUserComponent,
     ApprovallimitComponent,
     AddApprovalLimitComponent,
-    RolePermissionComponent
+    RolePermissionComponent,
+    UIComponent
 
 
 
