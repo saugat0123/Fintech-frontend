@@ -1,0 +1,13 @@
+image: node:10
+
+build:
+  stage: build
+  cache:
+    paths:
+      - node_modules/
+  script:
+    - npm install --quiet
+    - npm run build-prod
+  artifacts:
+    paths:
+      - dist/
