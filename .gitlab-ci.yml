@@ -6,8 +6,9 @@ build:
     paths:
       - node_modules/
   script:
+    - rm ./package-lock.json
     - npm install --quiet
-    - ng build --prod
+    - ./node_modules/@angular/cli/bin/ng build --prod
   artifacts:
     paths:
       - dist/
