@@ -7,7 +7,7 @@ build:
       - node_modules/
   script:
     - npm install --quiet
-    - npm run build-prod
+    - ng build --prod
   artifacts:
     paths:
       - dist/
