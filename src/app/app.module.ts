@@ -36,10 +36,8 @@ import { AddApprovalLimitComponent } from './component/admin/approvallimit/add-a
 import { RolePermissionComponent } from './component/admin/role-permission/role-permission.component';
 import { AddModelComponent } from './component/admin/branch/add-model/add-model.component';
 import { UIComponent } from './component/admin/loan-config/ui/ui.component';
-
-
-
-
+import { MatCheckboxModule, MatRadioModule } from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -74,7 +72,6 @@ import { UIComponent } from './component/admin/loan-config/ui/ui.component';
 
 
 
-
   ],
   imports: [
     BrowserModule,
@@ -82,7 +79,12 @@ import { UIComponent } from './component/admin/loan-config/ui/ui.component';
     HttpClientModule,
     FormsModule,
     NgbPaginationModule,
+    MatCheckboxModule,
+      BrowserAnimationsModule,
+      ReactiveFormsModule,
+      MatRadioModule
   ],
+
   providers: [CommonService, RestApiService, CommonDataService],
   bootstrap: [AppComponent]
 })
