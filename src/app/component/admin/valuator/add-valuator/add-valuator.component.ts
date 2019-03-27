@@ -37,7 +37,6 @@ export class AddValuatorComponent implements OnInit, DoCheck {
 
   onSubmit() {
     this.submitted = true;
-    // this.branch.created=null;
     this.commonService.saveOrEdit(this.valuator, 'v1/valuator').subscribe(result => {
       $('.add-valuator').modal('hide');
       if (this.valuator.id == null) {
@@ -64,7 +63,7 @@ export class AddValuatorComponent implements OnInit, DoCheck {
       this.dataService.getAlertMsg('false');
 
       this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
-        this.router.navigate(["home/branch"]));
+        this.router.navigate(["home/valuator"]));
       $(".alert-custom").slideDown();
 
     }

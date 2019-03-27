@@ -9,6 +9,8 @@ import { ApprovalLimit } from '../../modal/approval-limit';
 import {User} from "../../modal/user";
 import { Customer } from '../../modal/customer';
 import { Valuator } from '../../modal/valuator';
+import { Sector } from '../../modal/sector';
+import { SubSector } from '../../modal/sub-sector';
 
 
 
@@ -26,6 +28,8 @@ export class CommonDataService {
     user: User = new User();
     customer: Customer = new Customer();
     valuator: Valuator = new Valuator();
+    sector: Sector = new Sector();
+    subSector: SubSector = new SubSector();
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
 
@@ -107,6 +111,18 @@ export class CommonDataService {
     }
     getValuator(){
         return this.valuator;
+    }
+    setSector(sector:Sector){
+        return this.sector = sector;
+    }
+    getSector(){
+        return this.sector;
+    }
+    setSubSector(subSector:SubSector){
+        return this.subSector = subSector;
+    }
+    getSubSector(){
+        return this.subSector;
     }
 
 }

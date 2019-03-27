@@ -38,6 +38,10 @@ import { AddModelComponent } from './component/admin/branch/add-model/add-model.
 import { KycInfoComponent } from './component/admin/loan-config/loan-main-template/kyc-info/kyc-info.component';
 import { ValuatorComponent } from './component/admin/valuator/valuator.component';
 import { AddValuatorComponent } from './component/admin/valuator/add-valuator/add-valuator.component';
+import { SectorComponent } from './component/admin/sector/sector/sector.component';
+import { SubSectorComponent } from './component/admin/sector/sub-sector/sub-sector.component';
+import { AddSectorComponent } from './component/admin/sector/sector/add-sector/add-sector.component';
+import { AddSubSectorComponent } from './component/admin/sector/sub-sector/add-sub-sector/add-sub-sector.component';
 
 
 
@@ -73,7 +77,11 @@ import { AddValuatorComponent } from './component/admin/valuator/add-valuator/ad
     RolePermissionComponent,
     KycInfoComponent,
     ValuatorComponent,
-    AddValuatorComponent
+    AddValuatorComponent,
+    SectorComponent,
+    SubSectorComponent,
+    AddSectorComponent,
+    AddSubSectorComponent
 
 
 

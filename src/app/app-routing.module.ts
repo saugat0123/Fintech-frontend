@@ -13,6 +13,8 @@ import { ApprovallimitComponent } from './component/admin/approvallimit/approval
 import { CompanyInfoComponent } from './component/admin/loan-config/loan-main-template/company-info/company-info.component';
 import { KycInfoComponent } from './component/admin/loan-config/loan-main-template/kyc-info/kyc-info.component';
 import { ValuatorComponent } from './component/admin/valuator/valuator.component';
+import { SectorComponent } from './component/admin/sector/sector/sector.component';
+import { SubSectorComponent } from './component/admin/sector/sub-sector/sub-sector.component';
 
 
 
@@ -27,6 +29,8 @@ const routes: Routes = [
       { path: 'template', component: LoanTemplateComponent },
       { path: 'config', component: LoanConfigComponent },
       { path: 'valuator', component: ValuatorComponent },
+      { path: 'sector', component: SectorComponent },
+      { path: 'subSector', component: SubSectorComponent },
       {
         path: 'loan', component: LoanUiComponent, children: [
           { path: 'basic-info', component: BasicInfoComponent},
