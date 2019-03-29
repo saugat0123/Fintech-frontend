@@ -34,6 +34,7 @@ import { UserComponent } from './component/user/user.component';
 import { ApprovallimitComponent } from './component/approvallimit/approvallimit.component';
 import { AddApprovalLimitComponent } from './component/approvallimit/add-approval-limit/add-approval-limit.component';
 import {MemoModuleModule} from "./memo-module/memo-module.module";
+import {MemoModuleRoutingModule} from "./memo-module/memo-module-routing.module";
 
 
 
@@ -75,7 +76,8 @@ import {MemoModuleModule} from "./memo-module/memo-module.module";
     HttpClientModule,
     FormsModule,
     NgbPaginationModule,
-    MemoModuleModule
+    MemoModuleModule,
+    MemoModuleRoutingModule
   ],
   providers: [CommonService, RestApiService, CommonDataService],
   bootstrap: [AppComponent]
