@@ -38,6 +38,13 @@ import { AddModelComponent } from './component/admin/branch/add-model/add-model.
 import { UIComponent } from './component/admin/loan-config/ui/ui.component';
 import { MatCheckboxModule, MatRadioModule } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { DistrictComponent } from './component/admin/address/district/district.component';
+import { MunicipalityComponent } from './component/admin/address/municipality/municipality.component';
+import { ProvinceComponent } from './component/admin/address/province/province.component';
+import { NepseComponent } from './component/admin/nepse/nepse.component';
+import { SegmentComponent } from './component/admin/segment/segment/segment.component';
+import { SubSegmentComponent } from './component/admin/segment/sub-segment/sub-segment.component';
+import { AddSegmentComponent } from './component/admin/segment/add-segment/add-segment.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +75,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ApprovallimitComponent,
     AddApprovalLimitComponent,
     RolePermissionComponent,
-    UIComponent
+    UIComponent,
+    DistrictComponent,
+    MunicipalityComponent,
+    ProvinceComponent,
+    NepseComponent,
+    SegmentComponent,
+    SubSegmentComponent,
+    AddSegmentComponent
 
 
 

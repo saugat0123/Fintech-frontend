@@ -7,6 +7,7 @@ import { Pageable } from './common-pageable';
 import { Branch } from '../../modal/branch';
 import { ApprovalLimit } from '../../modal/approval-limit';
 import {User} from "../../modal/user";
+import {Segment} from '../../modal/segment';
 
 
 
@@ -22,6 +23,7 @@ export class CommonDataService {
     document: Document = new Document();
     approvalLimit: ApprovalLimit = new ApprovalLimit();
     user: User = new User();
+    segment: Segment = new Segment();
 
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
@@ -89,5 +91,11 @@ export class CommonDataService {
     getUser(){
         return this.user;
     }
-
+    setSegment(segment: Segment){
+        console.log(segment)
+        this.segment = segment;
+    }
+    getSegment(){
+        return this.segment;
+    }
 }
