@@ -1,13 +1,15 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {MemoInboxComponent} from "./memo-inbox/memo-inbox.component";
-import {MemoBaseComponent} from "./memo-base/memo-base.component";
-import {BaseComponent} from "../component/base/base.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {MemoInboxComponent} from './memo-inbox/memo-inbox.component';
+import {MemoBaseComponent} from './memo-base/memo-base.component';
+import {BaseComponent} from '../component/base/base.component';
 
 const routes: Routes = [
-    { path: 'home', component: BaseComponent, children: [
-            { path: 'memo', component: MemoBaseComponent, children: [
-                    { path: 'sent', component: MemoInboxComponent }
+    {
+        path: 'home', component: BaseComponent, children: [
+            {
+                path: 'memo', component: MemoBaseComponent, children: [
+                    {path: 'sent', component: MemoInboxComponent}
                 ]
             }
         ]
@@ -18,4 +20,5 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class MemoModuleRoutingModule { }
+export class MemoModuleRoutingModule {
+}
