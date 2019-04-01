@@ -11,6 +11,12 @@ import { Customer } from '../../modal/customer';
 import { Valuator } from '../../modal/valuator';
 import { Sector } from '../../modal/sector';
 import { SubSector } from '../../modal/sub-sector';
+import {Segment} from '../../modal/segment';
+import {District} from '../../modal/district';
+import {MunicipalityVDC} from '../../modal/municipality_VDC';
+import {Province} from '../../modal/province';
+import {Nepse} from '../../modal/nepse';
+import {SubSegment} from '../../modal/subSegment';
 
 
 
@@ -30,6 +36,13 @@ export class CommonDataService {
     valuator: Valuator = new Valuator();
     sector: Sector = new Sector();
     subSector: SubSector = new SubSector();
+    segment: Segment = new Segment();
+    subSegment: SubSegment = new SubSegment();
+    district: District = new District();
+    municipality: MunicipalityVDC = new MunicipalityVDC();
+    province: Province = new Province();
+    nepse: Nepse = new Nepse();
+
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
 
@@ -39,7 +52,7 @@ export class CommonDataService {
     private alertFlag = new BehaviorSubject('default');
 
     currentAlertFlag = this.alertFlag.asObservable();
-    
+
     // private customer = new BehaviorSubject<Customer>(new Customer);
 
     constructor() {
@@ -125,4 +138,36 @@ export class CommonDataService {
         return this.subSector;
     }
 
+    setSegment(segment: Segment){
+        console.log(segment)
+        this.segment = segment;
+    }
+    getSegment(){
+        return this.segment;
+    }
+    setSubSegment(subSegment: SubSegment){
+        this.subSegment = subSegment;
+    }
+    getSubSegment(){
+        return this.subSegment;
+    }
+    setDistrict(district: District){
+        console.log(district)
+        this.district = district;
+    }
+    setMunicipality(municipality: MunicipalityVDC){
+        this.municipality = municipality;
+    }
+    setProvince(province: Province){
+        this.province = province;
+    }
+    getProvince(){
+        return this.province;
+    }
+    setNepse(nepse: Nepse){
+        this.nepse = nepse;
+    }
+    getNepse(){
+        return this.nepse;
+    }
 }

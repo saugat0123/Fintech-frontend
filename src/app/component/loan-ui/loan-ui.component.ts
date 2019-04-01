@@ -24,15 +24,15 @@ export class LoanUiComponent implements OnInit, DoCheck {
 
   ngOnInit() {
 
-    this.tempId = this.dataService.getData();
+    /*this.tempId = this.dataService.getData();
     if (this.tempId == undefined) { } else {
       this.commonService.getById('v1/config/get/' + this.tempId).subscribe((response: any) => {
         this.templateList = response.detail.templateList;
         this.title = response.detail.name;
         this.dataService.changeTitle(this.title);
-      });
+      });*/
 
     }
-  }
+ /* }*/
 
 }

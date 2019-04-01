@@ -30,9 +30,8 @@
               <div class="col-md-12">
                 <label for="selectedSector">Sector</label>
                 <select class="form-control" name="selectedSector" style="width: 100%;" [(ngModel)]="sector.id" tabindex="-1" aria-hidden="true" placeholder="Sector">
-                    <option disabled="disabled" selected="true">Select Sector</option>
-
-                    <option *ngFor="let sector of sectorList" [value]="sector.id">{{sector.sectorName}},{{sector.id}}</option>
+                    <option>Select Sector</option>
+                    <option *ngFor="let sector of sectorList" [value]="sector.id">{{sector.sectorName}}</option>
                   </select>
               </div>
             </div>

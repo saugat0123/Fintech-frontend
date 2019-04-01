@@ -17,6 +17,7 @@ import { RestApiService } from './shared-service/authentication/rest-api.service
 import { CommonService } from './shared-service/baseservice/common-baseservice';
 import { SpinnerComponent } from './common/spinner/spinner.component';
 import { CommonDataService } from './shared-service/baseservice/common-dataService';
+
 import { MsgModalComponent } from './common/msg-modal/msg-modal.component';
 import { PaginationComponent } from './common/pagination/pagination.component';
 import { MsgAlertComponent } from './common/msg-alert/msg-alert.component';
@@ -26,7 +27,6 @@ import { LoanConfigComponent } from './component/admin/loan-config/loan-config.c
 import { LoanTemplateComponent } from './component/admin/loan-config/loan-template/loan-template.component';
 import { TemplateAddModelComponent } from './component/admin/loan-config/loan-template/template-add-model/template-add-model.component';
 import { BasicInfoComponent } from './component/admin/loan-config/loan-main-template/basic-info/basic-info.component';
-import { CompanyInfoComponent} from './component/admin/loan-config/loan-main-template/company-info/company-info.component';
 import { LoanUiComponent } from './component/loan-ui/loan-ui.component';
 import { AddLoanComponent } from './component/admin/loan-config/add-loan/add-loan.component';
 import { UserComponent } from './component/user/user.component';
@@ -44,6 +44,22 @@ import { AddSectorComponent } from './component/admin/sector/sector/add-sector/a
 import { AddSubSectorComponent } from './component/admin/sector/sub-sector/add-sub-sector/add-sub-sector.component';
 
 
+import { UIComponent } from './component/admin/loan-config/ui/ui.component';
+import { MatCheckboxModule, MatRadioModule } from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { DistrictComponent } from './component/admin/address/district/district.component';
+import { MunicipalityComponent } from './component/admin/address/municipality/municipality.component';
+import { ProvinceComponent } from './component/admin/address/province/province.component';
+import { NepseComponent } from './component/admin/nepse/nepse.component';
+import { SegmentComponent } from './component/admin/segment/segment/segment.component';
+import { SubSegmentComponent } from './component/admin/segment/sub-segment/sub-segment.component';
+import { AddSegmentComponent } from './component/admin/segment/add-segment/add-segment.component';
+import { AddDistrictComponent } from './component/admin/address/add-district/add-district.component';
+import { AddMunicipalityComponent } from './component/admin/address/add-municipality/add-municipality.component';
+import { AddProvinceComponent } from './component/admin/address/add-province/add-province.component';
+import { AddNepseComponent } from './component/admin/nepse/add-nepse/add-nepse.component';
+import { AddSubSegmentComponent } from './component/admin/segment/add-sub-segment/add-sub-segment.component';
+import { CompanyInfoComponent } from './component/admin/loan-config/loan-main-template/company-info/company-info.component';
 
 @NgModule({
   declarations: [
@@ -81,8 +97,21 @@ import { AddSubSectorComponent } from './component/admin/sector/sub-sector/add-s
     SectorComponent,
     SubSectorComponent,
     AddSectorComponent,
-    AddSubSectorComponent
-
+    AddSubSectorComponent,
+    RolePermissionComponent,
+    UIComponent,
+    DistrictComponent,
+    MunicipalityComponent,
+    ProvinceComponent,
+    NepseComponent,
+    SegmentComponent,
+    SubSegmentComponent,
+    AddSegmentComponent,
+    AddDistrictComponent,
+    AddMunicipalityComponent,
+    AddProvinceComponent,
+    AddNepseComponent,
+    AddSubSegmentComponent
 
 
 
@@ -93,8 +122,13 @@ import { AddSubSectorComponent } from './component/admin/sector/sub-sector/add-s
     HttpClientModule,
     FormsModule,
     NgbPaginationModule,
+    MatCheckboxModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatRadioModule,
     ReactiveFormsModule
   ],
+
   providers: [CommonService, RestApiService, CommonDataService],
   bootstrap: [AppComponent]
 })

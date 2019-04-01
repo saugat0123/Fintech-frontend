@@ -71,10 +71,13 @@
           <span>Valuator</span>
         </a>
       </li>
-      <li>
+      <li class="treeview">
         <a href="#">
           <i class="fa fa-link"></i>
-          <span>Another Link</span>
+          <span>Loan Configuration</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
         </a>
       </li>
       <li class="treeview">
@@ -94,20 +97,59 @@
           </li>
         </ul>
       </li>
-      <li class="treeview">
-        <a href="#">
-          <i class="fa fa-link"></i>
-          <span>Loan Configuration</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
         <ul class="treeview-menu">
           <li routerLinkActive="active">
             <a routerLink="/home/template">Template</a>
           </li>
           <li routerLinkActive="active">
             <a routerLink="/home/config">Configuration</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/home/ui">Loan UI</a>
+          </li>
+        </ul>
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-link"></i>
+          <span>Address</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li routerLinkActive="active">
+            <a routerLink="/home/district">District</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/home/municipality">Municipality</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/home/province">Province</a>
+          </li>
+        </ul>
+    </li>
+      <li routerLinkActive="active">
+        <a routerLink="/home/nepse">
+          <i class="fa fa-dashboard"></i>
+          <span>Nepse Company</span>
+        </a>
+      </li>
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-link"></i>
+          <span>Segment</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li routerLinkActive="active">
+            <a routerLink="/home/segment">Segment</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/home/sub-segment">Sub-Segment</a>
           </li>
         </ul>
       </li>
