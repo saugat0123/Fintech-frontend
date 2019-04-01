@@ -1,0 +1,67 @@
+<div class="modal fade in add-sub-segment">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="display:block">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span></button>
+        <h4 class="modal-title pull-left">{{task}} Sub-Segment</h4>
+      </div>
+      <div class="modal-body">
+
+        <form (ngSubmit)="onSubmit()">
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="name">Segment Name </label>
+                <select class="form-control" name="selectedSubSegment" style="width: 100%;" [(ngModel)]="segment.id" tabindex="-1" aria-hidden="true" placeholder="SubSegment">
+                  <option>Select Segment</option>
+                  <option *ngFor="let segment of segmentList" [value]="segment.id">{{segment.segmentName}}</option>
+                </select>
+                <!--<input type="text" class="form-control" required [(ngModel)]="subSegment.id" name="id" placeholder="id">
+                <input type="text" class="form-control" required [(ngModel)]="segment.name" name="name" placeholder="Name">-->
+
+              </div>
+              <div class="col-md-6">
+                <label for="name">Loan Type</label>
+
+                <input type="text" class="form-control"  placeholder="kathmandu" required [(ngModel)]="subSegment.subSegmentName" name="name">
+
+<!--
+                <input type="text" [(ngModel)]="subSegment.subSegmentName" name="funded" id="isFunded" class="form-control">
+-->
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-6">
+                <!--<label for="name">Is This a Funded Loan  </label>
+                <input type="checkbox" class="form-control"   name="name" >-->
+                <label>
+                  Is This a Funded Loan
+                  <input type="checkbox">
+                </label>
+
+              </div>
+
+            </div>
+          </div>
+
+
+
+
+          <div class="modal-footer">
+
+            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

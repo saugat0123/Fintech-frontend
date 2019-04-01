@@ -2,33 +2,33 @@ import {Component, DoCheck, OnInit} from '@angular/core';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
+import {Province} from '../../../../modal/province';
 import {Segment} from '../../../../modal/segment';
-import {Nepse} from '../../../../modal/nepse';
 
 declare var $;
 @Component({
-  selector: 'app-add-segment',
-  templateUrl: './add-segment.component.html',
-  styleUrls: ['./add-segment.component.css']
+  selector: 'app-add-province',
+  templateUrl: './add-province.component.html',
+  styleUrls: ['./add-province.component.css']
 })
-export class AddSegmentComponent implements OnInit, DoCheck {
+export class AddProvinceComponent implements OnInit, DoCheck {
 
   task: string;
   submitted = false;
   spinner: boolean = false;
   globalMsg;
-  segment: Segment = new Segment();
+  province: Province = new Province();
   constructor(
       private commonService: CommonService,
       private router: Router,
       private dataService: CommonDataService
   ) { }
-
   ngOnInit() {
   }
+
   ngDoCheck(): void {
-    this.segment = this.dataService.getSegment();
-    if (this.segment.id == null) {
+    this.province = this.dataService.getProvince();
+    if (this.province.id == null) {
       this.task = 'Add';
     } else { this.task = 'Edit'; }
 
@@ -36,10 +36,10 @@ export class AddSegmentComponent implements OnInit, DoCheck {
 
   onSubmit() {
     this.submitted = true;
-    this.commonService.saveOrEdit(this.segment, 'v1/segment').subscribe(result => {
-          console.log(this.segment);
-          $('.add-segment').modal('hide');
-          if (this.segment.id == null) {
+    this.commonService.saveOrEdit(this.province, 'v1/address/province').subscribe(result => {
+          console.log(this.province);
+          $('.add-province').modal('hide');
+          if (this.province.id == null) {
             this.globalMsg = "SUCCESSFULLY ADDED BRANCH";
           } else {
             this.globalMsg = "SUCCESSFULLY EDITED BRANCH";
@@ -47,27 +47,27 @@ export class AddSegmentComponent implements OnInit, DoCheck {
 
           this.dataService.getGlobalMsg(this.globalMsg);
           this.dataService.getAlertMsg('true');
-          this.segment = new Segment();
+          this.province = new Province();
           this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
-              this.router.navigate(['home/segment']));
+              this.router.navigate(['home/province']));
           $('.alert-custom').slideDown();
 
 
 
         }, error => {
 
-          $('.add-segment').modal('hide');
+          $('.add-province').modal('hide');
 
           this.globalMsg = error.error.message;
           this.dataService.getGlobalMsg(this.globalMsg);
           this.dataService.getAlertMsg('false');
 
           this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
-              this.router.navigate(["home/segment"]));
+              this.router.navigate(["home/province"]));
           $(".alert-custom").slideDown();
 
         }
     );
   }
-}
 
+}

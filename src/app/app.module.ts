@@ -45,6 +45,11 @@ import { NepseComponent } from './component/admin/nepse/nepse.component';
 import { SegmentComponent } from './component/admin/segment/segment/segment.component';
 import { SubSegmentComponent } from './component/admin/segment/sub-segment/sub-segment.component';
 import { AddSegmentComponent } from './component/admin/segment/add-segment/add-segment.component';
+import { AddDistrictComponent } from './component/admin/address/add-district/add-district.component';
+import { AddMunicipalityComponent } from './component/admin/address/add-municipality/add-municipality.component';
+import { AddProvinceComponent } from './component/admin/address/add-province/add-province.component';
+import { AddNepseComponent } from './component/admin/nepse/add-nepse/add-nepse.component';
+import { AddSubSegmentComponent } from './component/admin/segment/add-sub-segment/add-sub-segment.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +87,12 @@ import { AddSegmentComponent } from './component/admin/segment/add-segment/add-s
     NepseComponent,
     SegmentComponent,
     SubSegmentComponent,
-    AddSegmentComponent
+    AddSegmentComponent,
+    AddDistrictComponent,
+    AddMunicipalityComponent,
+    AddProvinceComponent,
+    AddNepseComponent,
+    AddSubSegmentComponent
 
 
 

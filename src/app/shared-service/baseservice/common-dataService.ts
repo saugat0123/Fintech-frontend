@@ -8,6 +8,11 @@ import { Branch } from '../../modal/branch';
 import { ApprovalLimit } from '../../modal/approval-limit';
 import {User} from "../../modal/user";
 import {Segment} from '../../modal/segment';
+import {District} from '../../modal/district';
+import {MunicipalityVDC} from '../../modal/municipality_VDC';
+import {Province} from '../../modal/province';
+import {Nepse} from '../../modal/nepse';
+import {SubSegment} from '../../modal/subSegment';
 
 
 
@@ -24,6 +29,11 @@ export class CommonDataService {
     approvalLimit: ApprovalLimit = new ApprovalLimit();
     user: User = new User();
     segment: Segment = new Segment();
+    subSegment: SubSegment = new SubSegment();
+    district: District = new District();
+    municipality: MunicipalityVDC = new MunicipalityVDC();
+    province: Province = new Province();
+    nepse: Nepse = new Nepse();
 
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
@@ -97,5 +107,30 @@ export class CommonDataService {
     }
     getSegment(){
         return this.segment;
+    }
+    setSubSegment(subSegment: SubSegment){
+        this.subSegment = subSegment;
+    }
+    getSubSegment(){
+        return this.subSegment;
+    }
+    setDistrict(district: District){
+        console.log(district)
+        this.district = district;
+    }
+    setMunicipality(municipality: MunicipalityVDC){
+        this.municipality = municipality;
+    }
+    setProvince(province: Province){
+        this.province = province;
+    }
+    getProvince(){
+        return this.province;
+    }
+    setNepse(nepse: Nepse){
+        this.nepse = nepse;
+    }
+    getNepse(){
+        return this.nepse;
     }
 }

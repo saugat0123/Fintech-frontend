@@ -38,7 +38,8 @@ const routes: Routes = [
       { path: 'segment', component: SegmentComponent},
       { path: 'sub-segment', component: SubSegmentComponent},
       {
-        path: 'loan', component: LoanUiComponent, children: [
+        path: 'loan', component: LoanUiComponent,
+        children: [
           { path: 'basic-info', component: BasicInfoComponent },
           { path: 'branch', component: BranchComponent },
           { path: 'dashboard', component: DashboardComponent },

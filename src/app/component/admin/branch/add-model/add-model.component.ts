@@ -32,6 +32,7 @@ export class AddModelComponent implements OnInit, DoCheck {
       this.task = 'Add';
     } else { this.task = 'Edit'; }
 
+
   }
 
   onSubmit() {

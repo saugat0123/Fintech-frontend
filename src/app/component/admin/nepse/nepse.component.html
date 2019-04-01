@@ -16,7 +16,7 @@
         </div>
         <!-- <h3 class="box-title">Hover Data Table</h3> -->
         <div class="col-md-9">
-          <button class="skin-blue pull-right" data-toggle="modal" (click)="addDistrict()">
+          <button class="skin-blue pull-right" data-toggle="modal" (click)="addNepse()">
             <i class="skin-blue fa fa-plus"></i>
           </button>
         </div>
@@ -38,12 +38,12 @@
           <p>No Content Found</p>
         </div>
         <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-        <td>{{allList.name}}</td>
-        <td>{{allList.address}}</td>
+        <td>{{allList.companyName}}</td>
+        <td>{{allList.amountPerUnit}}</td>
 
       </tr>
       </tbody>
     </table>
-
+    <app-add-nepse></app-add-nepse>
   </div>
 </div>

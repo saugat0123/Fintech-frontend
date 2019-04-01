@@ -1,3 +1,4 @@
 export class Segment {
-    name: string;
+    id: number;
+    segmentName: string;
 }
