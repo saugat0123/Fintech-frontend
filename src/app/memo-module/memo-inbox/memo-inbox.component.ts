@@ -33,6 +33,10 @@ export class MemoInboxComponent implements OnInit {
     this.getPagination();
   }
 
+  ngDoCheck(): void {
+    this.dataList = this.dataService.getDataList();
+  }
+
   getPagination() {
     this.spinner = true;
     this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
