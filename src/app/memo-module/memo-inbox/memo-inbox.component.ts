@@ -37,6 +37,19 @@ export class MemoInboxComponent implements OnInit {
     this.dataList = this.dataService.getDataList();
   }
 
+  onSearch() {
+    this.dataService.setData(this.search);
+    this.getPagination();
+  }
+
+  onSearchChange(searchValue: string) {
+    this.search = {
+      'name': searchValue
+    }
+    this.dataService.setData(this.search);
+    this.getPagination();
+  }
+
   getPagination() {
     this.spinner = true;
     this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {

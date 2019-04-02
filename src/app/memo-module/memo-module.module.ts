@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule} from "@angular/forms";
 import { MemoComposeComponent } from './memo-compose/memo-compose.component';
 import {MemoModuleRoutingModule} from "./memo-module-routing.module";
 import { MemoInboxComponent } from './memo-inbox/memo-inbox.component';
@@ -18,6 +19,7 @@ import {SharedModule} from "../shared-module/shared.module";
   imports: [
     CommonModule,
     MemoModuleRoutingModule,
+    FormsModule,
     SharedModule
   ],
     providers: [MemoCommonService]
