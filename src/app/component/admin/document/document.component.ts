@@ -47,7 +47,7 @@ export class DocumentComponent implements OnInit, DoCheck {
         this.currentApi = 'v1/document/get';
         this.getPagination()
 
-        this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+        this.commonService.getByAll(this.currentApi + '/getStatusCount').subscribe((response: any) => {
 
           this.activeCount = response.detail.active;
           this.inactiveCount = response.detail.inactive;

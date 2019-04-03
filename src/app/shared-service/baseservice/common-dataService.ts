@@ -19,7 +19,7 @@ import {Nepse} from '../../modal/nepse';
 import {SubSegment} from '../../modal/subSegment';
 import { Document } from '../../modal/document';
 
-
+declare var $;
 
 @Injectable({
     providedIn: 'root'
@@ -60,18 +60,17 @@ export class CommonDataService {
     }
 
     changeTitle(message: string) {
-        this.breadcrumTitle.next(message)
+        this.breadcrumTitle.next(message);
     }
 
     getGlobalMsg(message: string) {
-        this.message.next(message)
+        this.message.next(message);
     }
 
     getAlertMsg(flag: string) {
 
-        this.alertFlag.next(flag)
+        this.alertFlag.next(flag);
     }
-
 
 
     setDataList(datalist: Object) {
@@ -91,7 +90,7 @@ export class CommonDataService {
     }
 
     setBranch(branch: Branch) {
-        console.log(branch)
+        console.log(branch);
         this.branch = branch;
     }
 
@@ -99,18 +98,21 @@ export class CommonDataService {
         return this.branch;
     }
 
-    setApprovalLimit(approvalLimit: ApprovalLimit){
-        console.log(approvalLimit)
+    setApprovalLimit(approvalLimit: ApprovalLimit) {
+        console.log(approvalLimit);
         this.approvalLimit = approvalLimit;
     }
-    getApprovalLimit(){
+
+    getApprovalLimit() {
         return this.approvalLimit;
     }
-    setUser(user: User){
-        console.log(user)
+
+    setUser(user: User) {
+        console.log(user);
         this.user = user;
     }
-    getUser(){
+
+    getUser() {
         return this.user;
     }
 
@@ -176,5 +178,11 @@ export class CommonDataService {
     }
     getDocument(){
         return this.document;
+    }
+    alertmsg() {
+        $('.alert-custom').slideDown();
+        setTimeout(() => {
+            $('.alert-custom').slideUp();
+        }, 2000);
     }
 }

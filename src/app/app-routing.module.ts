@@ -1,15 +1,4 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { BaseComponent } from './component/base/base.component';
-import { DashboardComponent } from './component/dashboard/dashboard.component';
-import { LoginComponent } from './component/login/login.component';
-import { BranchComponent } from './component/admin/branch/branch.component';
-import { LoanTemplateComponent } from './component/admin/loan-config/loan-template/loan-template.component';
-import { LoanConfigComponent } from './component/admin/loan-config/loan-config.component';
-import { LoanUiComponent } from './component/loan-ui/loan-ui.component';
-import { BasicInfoComponent } from './component/admin/loan-config/loan-main-template/basic-info/basic-info.component';
-import { UserComponent } from './component/user/user.component';
-import { ApprovallimitComponent } from './component/admin/approvallimit/approvallimit.component';
+
 import { KycInfoComponent } from './component/admin/loan-config/loan-main-template/kyc-info/kyc-info.component';
 import { ValuatorComponent } from './component/admin/valuator/valuator.component';
 import { SectorComponent } from './component/admin/sector/sector/sector.component';
@@ -25,6 +14,19 @@ import { CompanyInfoComponent } from './component/admin/loan-config/loan-main-te
 import { DocumentComponent } from './component/admin/document/document.component';
 
 
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {BaseComponent} from './component/base/base.component';
+import {DashboardComponent} from './component/dashboard/dashboard.component';
+import {LoginComponent} from './component/login/login.component';
+import {BranchComponent} from './component/admin/branch/branch.component';
+import {LoanTemplateComponent} from './component/admin/loan-config/loan-template/loan-template.component';
+import {LoanConfigComponent} from './component/admin/loan-config/loan-config.component';
+import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
+import {BasicInfoComponent} from './component/admin/loan-config/loan-main-template/basic-info/basic-info.component';
+import {UserComponent} from './component/user/user.component';
+import {ApprovallimitComponent} from './component/admin/approvallimit/approvallimit.component';
+import {RolePermissionComponent} from './component/admin/role-permission/role-permission.component';
 
 
 const routes: Routes = [
@@ -47,21 +49,27 @@ const routes: Routes = [
       { path: 'sub-segment', component: SubSegmentComponent},
       { path: 'user', component: UserComponent },
       { path: 'approvalLimit', component: ApprovallimitComponent },
-      { path: 'loan', component: LoanUiComponent, 
+      { path: 'template', component: LoanTemplateComponent},
+      { path: 'config', component: LoanConfigComponent},
+      { path: 'role', component: RolePermissionComponent},
+      { path: 'loan', component: LoanUiComponent,
         children: [
           { path: 'basic-info', component: BasicInfoComponent},
           { path: 'kyc-info', component: KycInfoComponent},
           { path: 'company-info', component: CompanyInfoComponent},
+          {path: 'dashboard', component: DashboardComponent},
         ]
       }
     ],
   },
   { path: '', component: LoginComponent }
 ]
+           
+
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {
 

@@ -1,11 +1,12 @@
-import { UserType } from './user-type';
+
+import { Branch } from './branch';
 
 export class User {
     id: number;
     created: Date;
     lastModified: Date;
     accountNo: string;
-    associatedId: number;
+    branch: Branch;
     email: string;
     name: string;
     password: string;
@@ -13,7 +14,7 @@ export class User {
     signatureImage: string;
     status: string;
     userName: string;
-    userType: [];
+    role: [];
     fingerPrint: [];
     
 }

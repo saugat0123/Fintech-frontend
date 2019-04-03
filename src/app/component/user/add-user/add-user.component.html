@@ -20,9 +20,11 @@
 
               </div>
               <div class="col-md-6">
-                <label for="associatedId">Associated Id</label>
-                <input type="text" class="form-control"  placeholder="Associated Id" [(ngModel)]="user.associatedId" name="associatedId">
-        
+                <label for="branch">Associated Id</label>
+                <select class="form-control" name="branch" style="width: 100%;" [(ngModel)]="branch.id" tabindex="-1" aria-hidden="true" placeholder="Sector">
+                    <option>Select Associate</option>
+                    <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}</option>
+                  </select>
               </div>
             </div>
             <div class="row">

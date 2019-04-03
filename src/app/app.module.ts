@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
 import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -35,6 +36,9 @@ import { ApprovallimitComponent } from './component/admin/approvallimit/approval
 import { AddApprovalLimitComponent } from './component/admin/approvallimit/add-approval-limit/add-approval-limit.component';
 import { RolePermissionComponent } from './component/admin/role-permission/role-permission.component';
 import { AddModelComponent } from './component/admin/branch/add-model/add-model.component';
+import { Sidebar1Component } from './component/base/sidebar/sidebar1/sidebar1.component';
+import { AddRoleComponent } from './component/admin/role-permission/add-role/add-role.component';
+
 import { KycInfoComponent } from './component/admin/loan-config/loan-main-template/kyc-info/kyc-info.component';
 import { ValuatorComponent } from './component/admin/valuator/valuator.component';
 import { AddValuatorComponent } from './component/admin/valuator/add-valuator/add-valuator.component';
@@ -93,6 +97,9 @@ import { AddDocumentComponent } from './component/admin/document/add-document/ad
     AddUserComponent,
     ApprovallimitComponent,
     AddApprovalLimitComponent,
+    RolePermissionComponent,
+    Sidebar1Component,
+    AddRoleComponent,
     RolePermissionComponent,
     KycInfoComponent,
     ValuatorComponent,

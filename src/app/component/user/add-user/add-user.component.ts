@@ -4,6 +4,7 @@ import { CommonService } from '../../../shared-service/baseservice/common-basese
 import { Router } from '@angular/router';
 import { CommonDataService } from '../../../shared-service/baseservice/common-dataService';
 import { UserType } from '../../../modal/user-type';
+import { Branch } from '../../../modal/branch';
 declare var $;
 
 @Component({
@@ -17,13 +18,18 @@ export class AddUserComponent implements OnInit {
   spinner: boolean = false;
   globalMsg;
   user: User = new User();
+  branchList: any;
+  branch: Branch = new Branch();
   constructor(
     private commonService: CommonService,
     private router: Router,
     private dataService: CommonDataService) { }
 
   ngOnInit() {
-
+    this.commonService.getByAll("v1/branch/getList").subscribe((response: any) => {
+      this.branchList = response.detail;
+      console.log(this.branchList);
+    })
   }
 
   ngDoCheck(): void {
@@ -36,6 +42,7 @@ export class AddUserComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.user.branch=this.branch;
     console.log(this.user);
     this.commonService.saveOrEdit(this.user, 'v1/user').subscribe(result => {
       $('.add-user').modal('hide');

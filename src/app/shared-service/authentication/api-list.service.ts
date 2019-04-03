@@ -10,7 +10,7 @@ export class ApiListService {
 
 export enum baseApi {
 
-    tokenUrl = 'http://localhost:8086/oauth/token',
+     tokenUrl = 'http://localhost:8086/oauth/token',
     restUrl = 'http://localhost:8086',
 
 
