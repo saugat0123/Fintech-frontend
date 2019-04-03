@@ -1,5 +1,9 @@
 /** CSS fix for existing template with Bootstrap 4 **/
 
+.content-wrapper{
+    min-height: 860px;
+}
+
 .main-header .navbar {
     height: 50px;
     padding-top: 0;

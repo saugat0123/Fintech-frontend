@@ -1,14 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {Branch} from '../../modal/branch';
+import {ApprovalLimit} from '../../modal/approval-limit';
+import {User} from '../../modal/user';
 
-import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-
-import { Pageable } from './common-pageable';
-import { Branch } from '../../modal/branch';
-import { ApprovalLimit } from '../../modal/approval-limit';
-import {User} from "../../modal/user";
-
-
+declare var $;
 
 @Injectable({
     providedIn: 'root'
@@ -36,18 +32,17 @@ export class CommonDataService {
     }
 
     changeTitle(message: string) {
-        this.breadcrumTitle.next(message)
+        this.breadcrumTitle.next(message);
     }
 
     getGlobalMsg(message: string) {
-        this.message.next(message)
+        this.message.next(message);
     }
 
     getAlertMsg(flag: string) {
 
-        this.alertFlag.next(flag)
+        this.alertFlag.next(flag);
     }
-
 
 
     setDataList(datalist: Object) {
@@ -67,7 +62,7 @@ export class CommonDataService {
     }
 
     setBranch(branch: Branch) {
-        console.log(branch)
+        console.log(branch);
         this.branch = branch;
     }
 
@@ -75,19 +70,28 @@ export class CommonDataService {
         return this.branch;
     }
 
-    setApprovalLimit(approvalLimit: ApprovalLimit){
-        console.log(approvalLimit)
+    setApprovalLimit(approvalLimit: ApprovalLimit) {
+        console.log(approvalLimit);
         this.approvalLimit = approvalLimit;
     }
-    getApprovalLimit(){
+
+    getApprovalLimit() {
         return this.approvalLimit;
     }
-    setUser(user: User){
-        console.log(user)
+
+    setUser(user: User) {
+        console.log(user);
         this.user = user;
     }
-    getUser(){
+
+    getUser() {
         return this.user;
     }
 
+    alertmsg() {
+        $('.alert-custom').slideDown();
+        setTimeout(() => {
+            $('.alert-custom').slideUp();
+        }, 2000);
+    }
 }
