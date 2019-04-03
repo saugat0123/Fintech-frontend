@@ -17,6 +17,7 @@ import {MunicipalityVDC} from '../../modal/municipality_VDC';
 import {Province} from '../../modal/province';
 import {Nepse} from '../../modal/nepse';
 import {SubSegment} from '../../modal/subSegment';
+import { Document } from '../../modal/document';
 
 
 
@@ -169,5 +170,11 @@ export class CommonDataService {
     }
     getNepse(){
         return this.nepse;
+    }
+    setDocument(document: Document){
+        this.document = document;
+    }
+    getDocument(){
+        return this.document;
     }
 }

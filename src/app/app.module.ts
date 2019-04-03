@@ -60,6 +60,9 @@ import { AddProvinceComponent } from './component/admin/address/add-province/add
 import { AddNepseComponent } from './component/admin/nepse/add-nepse/add-nepse.component';
 import { AddSubSegmentComponent } from './component/admin/segment/add-sub-segment/add-sub-segment.component';
 import { CompanyInfoComponent } from './component/admin/loan-config/loan-main-template/company-info/company-info.component';
+import { DocumentComponent } from './component/admin/document/document.component';
+import { UpdateDocumentComponent } from './component/admin/document/update-document/update-document.component';
+import { AddDocumentComponent } from './component/admin/document/add-document/add-document.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +114,10 @@ import { CompanyInfoComponent } from './component/admin/loan-config/loan-main-te
     AddMunicipalityComponent,
     AddProvinceComponent,
     AddNepseComponent,
-    AddSubSegmentComponent
+    AddSubSegmentComponent,
+    DocumentComponent,
+    UpdateDocumentComponent,
+    AddDocumentComponent
 
 
 

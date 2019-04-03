@@ -69,6 +69,12 @@ export class CommonService {
     return this.http.post(getUrl.url, model);
 
   }
+  getByPost(reqUrl,model){
+    let url: string = reqUrl;
+    let getUrl = this.restApiService.modifyRestUrl(url);
+    return this.http.post(getUrl.url, model);
+  }
+
 
 
 }

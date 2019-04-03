@@ -22,6 +22,7 @@ import {NepseComponent} from './component/admin/nepse/nepse.component';
 import {SegmentComponent} from './component/admin/segment/segment/segment.component';
 import {SubSegmentComponent} from './component/admin/segment/sub-segment/sub-segment.component';
 import { CompanyInfoComponent } from './component/admin/loan-config/loan-main-template/company-info/company-info.component';
+import { DocumentComponent } from './component/admin/document/document.component';
 
 
 
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'home', component: BaseComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'document', component: DocumentComponent },
       { path: 'branch', component: BranchComponent },
       { path: 'template', component: LoanTemplateComponent },
       { path: 'config', component: LoanConfigComponent },
