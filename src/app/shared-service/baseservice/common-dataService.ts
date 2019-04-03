@@ -7,6 +7,10 @@ import { Pageable } from './common-pageable';
 import { Branch } from '../../modal/branch';
 import { ApprovalLimit } from '../../modal/approval-limit';
 import {User} from "../../modal/user";
+import { Customer } from '../../modal/customer';
+import { Valuator } from '../../modal/valuator';
+import { Sector } from '../../modal/sector';
+import { SubSector } from '../../modal/sub-sector';
 import {Segment} from '../../modal/segment';
 import {District} from '../../modal/district';
 import {MunicipalityVDC} from '../../modal/municipality_VDC';
@@ -28,6 +32,10 @@ export class CommonDataService {
     document: Document = new Document();
     approvalLimit: ApprovalLimit = new ApprovalLimit();
     user: User = new User();
+    customer: Customer = new Customer();
+    valuator: Valuator = new Valuator();
+    sector: Sector = new Sector();
+    subSector: SubSector = new SubSector();
     segment: Segment = new Segment();
     subSegment: SubSegment = new SubSegment();
     district: District = new District();
@@ -42,7 +50,10 @@ export class CommonDataService {
     currentMsg = this.message.asObservable();
 
     private alertFlag = new BehaviorSubject('default');
+
     currentAlertFlag = this.alertFlag.asObservable();
+
+    // private customer = new BehaviorSubject<Customer>(new Customer);
 
     constructor() {
     }
@@ -101,6 +112,32 @@ export class CommonDataService {
     getUser(){
         return this.user;
     }
+
+    setCustomer(customer: Customer){
+        return this.customer = customer;
+    }
+    getCustomer(){
+        return this.customer;
+    }
+    setValuator(valuator:Valuator){
+        return this.valuator = valuator;
+    }
+    getValuator(){
+        return this.valuator;
+    }
+    setSector(sector:Sector){
+        return this.sector = sector;
+    }
+    getSector(){
+        return this.sector;
+    }
+    setSubSector(subSector:SubSector){
+        return this.subSector = subSector;
+    }
+    getSubSector(){
+        return this.subSector;
+    }
+
     setSegment(segment: Segment){
         console.log(segment)
         this.segment = segment;

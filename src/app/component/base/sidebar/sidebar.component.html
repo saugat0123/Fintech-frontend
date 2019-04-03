@@ -65,6 +65,12 @@
           <span>Approval Limit</span>
         </a>
       </li>
+      <li routerLinkActive="active">
+        <a routerLink="/home/valuator">
+          <i class="fa fa-dashboard"></i>
+          <span>Valuator</span>
+        </a>
+      </li>
       <li class="treeview">
         <a href="#">
           <i class="fa fa-link"></i>
@@ -73,6 +79,24 @@
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
+      </li>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-link"></i>
+          <span>Sector</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li routerLinkActive="active">
+            <a routerLink="/home/sector">Sector</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/home/subSector">Sub Sector</a>
+          </li>
+        </ul>
+      </li>
         <ul class="treeview-menu">
           <li routerLinkActive="active">
             <a routerLink="/home/template">Template</a>
@@ -129,7 +153,6 @@
           </li>
         </ul>
       </li>
-
     </ul>
     <!-- /.sidebar-menu -->
   </section>

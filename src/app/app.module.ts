@@ -35,6 +35,15 @@ import { ApprovallimitComponent } from './component/admin/approvallimit/approval
 import { AddApprovalLimitComponent } from './component/admin/approvallimit/add-approval-limit/add-approval-limit.component';
 import { RolePermissionComponent } from './component/admin/role-permission/role-permission.component';
 import { AddModelComponent } from './component/admin/branch/add-model/add-model.component';
+import { KycInfoComponent } from './component/admin/loan-config/loan-main-template/kyc-info/kyc-info.component';
+import { ValuatorComponent } from './component/admin/valuator/valuator.component';
+import { AddValuatorComponent } from './component/admin/valuator/add-valuator/add-valuator.component';
+import { SectorComponent } from './component/admin/sector/sector/sector.component';
+import { SubSectorComponent } from './component/admin/sector/sub-sector/sub-sector.component';
+import { AddSectorComponent } from './component/admin/sector/sector/add-sector/add-sector.component';
+import { AddSubSectorComponent } from './component/admin/sector/sub-sector/add-sub-sector/add-sub-sector.component';
+
+
 import { UIComponent } from './component/admin/loan-config/ui/ui.component';
 import { MatCheckboxModule, MatRadioModule } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -50,6 +59,7 @@ import { AddMunicipalityComponent } from './component/admin/address/add-municipa
 import { AddProvinceComponent } from './component/admin/address/add-province/add-province.component';
 import { AddNepseComponent } from './component/admin/nepse/add-nepse/add-nepse.component';
 import { AddSubSegmentComponent } from './component/admin/segment/add-sub-segment/add-sub-segment.component';
+import { CompanyInfoComponent } from './component/admin/loan-config/loan-main-template/company-info/company-info.component';
 
 @NgModule({
   declarations: [
@@ -73,12 +83,21 @@ import { AddSubSegmentComponent } from './component/admin/segment/add-sub-segmen
     LoanTemplateComponent,
     TemplateAddModelComponent,
     BasicInfoComponent,
+    CompanyInfoComponent,
     LoanUiComponent,
     AddLoanComponent,
     UserComponent,
     AddUserComponent,
     ApprovallimitComponent,
     AddApprovalLimitComponent,
+    RolePermissionComponent,
+    KycInfoComponent,
+    ValuatorComponent,
+    AddValuatorComponent,
+    SectorComponent,
+    SubSectorComponent,
+    AddSectorComponent,
+    AddSubSectorComponent,
     RolePermissionComponent,
     UIComponent,
     DistrictComponent,
@@ -104,9 +123,10 @@ import { AddSubSegmentComponent } from './component/admin/segment/add-sub-segmen
     FormsModule,
     NgbPaginationModule,
     MatCheckboxModule,
-      BrowserAnimationsModule,
-      ReactiveFormsModule,
-      MatRadioModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatRadioModule,
+    ReactiveFormsModule
   ],
 
   providers: [CommonService, RestApiService, CommonDataService],

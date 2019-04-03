@@ -3,6 +3,7 @@ import { User } from '../../../modal/user';
 import { CommonService } from '../../../shared-service/baseservice/common-baseservice';
 import { Router } from '@angular/router';
 import { CommonDataService } from '../../../shared-service/baseservice/common-dataService';
+import { UserType } from '../../../modal/user-type';
 declare var $;
 
 @Component({
@@ -35,6 +36,7 @@ export class AddUserComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    console.log(this.user);
     this.commonService.saveOrEdit(this.user, 'v1/user').subscribe(result => {
       $('.add-user').modal('hide');
       if (this.user.id == null) {
