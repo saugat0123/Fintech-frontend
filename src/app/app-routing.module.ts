@@ -14,6 +14,7 @@ import {MemoComposeComponent} from "./memo-module/memo-compose/memo-compose.comp
 import {MemoInboxComponent} from "./memo-module/memo-inbox/memo-inbox.component";
 import {MemoReadComponent} from "./memo-module/memo-read/memo-read.component";
 import {MemoBaseComponent} from "./memo-module/memo-base/memo-base.component";
+import {MemoTypeComponent} from "./memo-module/memo-type/memo-type.component";
 
 
 
@@ -43,7 +44,8 @@ const routes: Routes = [
           { path: 'compose', component: MemoComposeComponent },
           { path: 'read', component: MemoReadComponent }
         ]
-      }
+      },
+      { path: 'memotype', component: MemoTypeComponent }
     ],
 
   },

@@ -19,7 +19,6 @@ import { BranchComponent } from './component/branch/branch.component';
 import { AddModelComponent } from './component/branch/add-model/add-model.component';
 import { MsgModalComponent } from './common/msg-modal/msg-modal.component';
 import { MsgAlertComponent } from './common/msg-alert/msg-alert.component';
-import { UpdateModalComponent } from './common/update-modal/update-modal.component';
 import { LoanConfigComponent } from './component/loan-config/loan-config.component';
 import { LoanTemplateComponent } from './component/loan-template/loan-template.component';
 import { TemplateAddModelComponent } from './component/loan-template/template-add-model/template-add-model.component';
@@ -51,7 +50,6 @@ import { SharedModule } from './shared-module/shared.module';
     AddModelComponent,
     MsgModalComponent,
     MsgAlertComponent,
-    UpdateModalComponent,
     LoanConfigComponent,
     LoanTemplateComponent,
     TemplateAddModelComponent,

@@ -7,6 +7,7 @@ import { Pageable } from './common-pageable';
 import { Branch } from '../../modal/branch';
 import { ApprovalLimit } from '../../modal/approval-limit';
 import { User } from '../../modal/user';
+import {Memotype} from "../../memo-module/model/memotype";
 
 
 @Injectable({
@@ -21,6 +22,7 @@ export class CommonDataService {
     document: Document = new Document();
     approvalLimit: ApprovalLimit = new ApprovalLimit();
     user: User = new User();
+    memoType: Memotype = new Memotype();
 
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
@@ -87,6 +89,13 @@ export class CommonDataService {
     }
     getUser(){
         return this.user;
+    }
+    setMemoType(memoType: Memotype) {
+        console.log(memoType);
+        this.memoType = memoType;
+    }
+    getMemoType() {
+        return this.memoType;
     }
 
 }

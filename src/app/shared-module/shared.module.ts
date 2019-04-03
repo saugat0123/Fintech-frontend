@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import {SpinnerComponent} from "../common/spinner/spinner.component";
 import {PaginationComponent} from "../common/pagination/pagination.component";
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import {UpdateModalComponent} from "../common/update-modal/update-modal.component";
 
 @NgModule({
   declarations: [
       SpinnerComponent,
-      PaginationComponent
+      PaginationComponent,
+      UpdateModalComponent
   ],
   imports: [
     CommonModule,
@@ -15,7 +17,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   exports: [
       SpinnerComponent,
-      PaginationComponent
+      PaginationComponent,
+      UpdateModalComponent
   ]
 })
 export class SharedModule { }

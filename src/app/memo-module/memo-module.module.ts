@@ -8,13 +8,17 @@ import { MemoReadComponent } from './memo-read/memo-read.component';
 import { MemoBaseComponent } from './memo-base/memo-base.component';
 import {MemoCommonService} from "./memo-common.service";
 import {SharedModule} from "../shared-module/shared.module";
+import { MemoTypeComponent } from './memo-type/memo-type.component';
+import { AddMemoTypeComponent } from './memo-type/add-memo-type/add-memo-type.component';
 
 @NgModule({
   declarations: [
       MemoComposeComponent,
       MemoInboxComponent,
       MemoReadComponent,
-      MemoBaseComponent
+      MemoBaseComponent,
+      MemoTypeComponent,
+      AddMemoTypeComponent
   ],
   imports: [
     CommonModule,

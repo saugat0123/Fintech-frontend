@@ -3,23 +3,25 @@ import {CommonDataService} from "../../shared-service/baseservice/common-dataSer
 import {CommonService} from "../../shared-service/baseservice/common-baseservice";
 import {CommonPageService} from "../../shared-service/baseservice/common-pagination-service";
 import {Pageable} from "../../shared-service/baseservice/common-pageable";
+import {Memotype} from "../model/memotype";
+import {Branch} from "../../modal/branch";
+
 declare var $;
-
 @Component({
-  selector: 'app-memo-inbox',
-  templateUrl: './memo-inbox.component.html',
-  styleUrls: ['./memo-inbox.component.css']
+  selector: 'app-memo-type',
+  templateUrl: './memo-type.component.html',
+  styleUrls: ['./memo-type.component.css']
 })
-export class MemoInboxComponent implements OnInit {
+export class MemoTypeComponent implements OnInit {
 
-  title = "Memo - Inbox";
+  title = "Memo Type";
+  countMemoTypes: any = 10;
+  search = new Object;
+  spinner: boolean = false;
   dataList: any;
   currentApi: any;
-
-  spinner: boolean = false;
   pageable: Pageable = new Pageable();
   globalMsg;
-  search = new Object;
 
   constructor(
       private dataService: CommonDataService,
@@ -29,12 +31,8 @@ export class MemoInboxComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.changeTitle(this.title);
-    this.currentApi = 'v1/branch/get';
+    this.currentApi = 'v1/memos/types';
     this.getPagination();
-  }
-
-  ngDoCheck(): void {
-    this.dataList = this.dataService.getDataList();
   }
 
   onSearch() {
@@ -50,10 +48,32 @@ export class MemoInboxComponent implements OnInit {
     this.getPagination();
   }
 
+  addMemoType() {
+    this.dataService.setMemoType(new Memotype());
+    $('.add-memotype').modal('show');
+  }
+
+
+  newValue: any;
+  onChange(newValue, data) {
+    this.newValue = newValue
+    this.dataService.setData(data);
+    // this.commonPageService.setCurrentApi('v1/memos/types');
+    $('.updateStatus').modal('show');
+
+  }
+
+  openEdit(memotype: Memotype) {
+    this.dataService.setMemoType(memotype);
+    $('.add-memotype').modal('show');
+  }
+
   getPagination() {
     this.spinner = true;
-    this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 15).subscribe((response: any) => {
-          this.dataList = response.detail.content;
+    // this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
+    this.commonService.getByAll(this.currentApi).subscribe((response: any) => {
+          this.dataList = response.detail;
+          console.log(this.dataList);
           this.dataService.setDataList(this.dataList);
           this.commonPageService.setCurrentApi(this.currentApi);
           this.pageable = this.commonPageService.setPageable(response.detail);

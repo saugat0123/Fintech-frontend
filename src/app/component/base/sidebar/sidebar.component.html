@@ -71,7 +71,7 @@
           <span>Another Link</span>
         </a>
       </li>
-      <li class="treeview">
+      <li class="treeview" routerLinkActive="active">
         <a href="#">
           <i class="fa fa-link"></i>
           <span>Loan Configuration</span>
@@ -88,7 +88,7 @@
           </li>
         </ul>
       </li>
-      <li class="treeview">
+      <li class="treeview" routerLinkActive="active">
         <a href="#">
           <i class="fa fa-envelope"></i> <span>Memo</span>
           <span class="pull-right-container">
@@ -97,7 +97,8 @@
         </a>
         <ul class="treeview-menu">
           <li routerLinkActive="active"><a routerLink="/home/memo/inbox">Inbox</a></li>
-          <li><a routerLink="/home/memo/compose">Compose</a></li>
+          <li routerLinkActive="active"><a routerLink="/home/memo/compose">Compose</a></li>
+          <li routerLinkActive="active"><a routerLink="/home/memotype">Memo Type</a></li>
         </ul>
       </li>
     </ul>
