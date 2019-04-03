@@ -28,6 +28,7 @@ export class RolePermissionComponent implements OnInit {
     tempRightList = [];
     permRight = [];
 
+
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
@@ -45,6 +46,7 @@ export class RolePermissionComponent implements OnInit {
         this.commonService.getByAll('v1/roleRightPermission/rights').subscribe((response: any) => {
             this.rightList = response.detail;
         });
+
     }
 
 
@@ -76,7 +78,8 @@ export class RolePermissionComponent implements OnInit {
             lastModified: new Date(),
             del: false,
             rights: []
-        };
+        }
+        ;
 
 
         if (events) {
@@ -105,20 +108,12 @@ export class RolePermissionComponent implements OnInit {
 
     }
 
-    updateCheckRightOptions(permId, rightId, events) {
-        const tempright = {
-            id: rightId,
-            checked: events
-        };
-
+    updateCheckRightOptions(permId, rightId, events, index) {
         for (let i = 0; i < this.roleperm.length; i++) {
             if (this.roleperm[i].permission.id.toString() === permId.toString()) {
-                if (events) {
-                    this.roleperm[i].rights.push(tempright);
-                }
+                this.roleperm[i].rights[index].checked = events;
             }
         }
-        console.log(this.roleperm);
     }
 
     save() {
