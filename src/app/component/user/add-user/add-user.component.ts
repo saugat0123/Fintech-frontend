@@ -4,6 +4,7 @@ import { CommonService } from '../../../shared-service/baseservice/common-basese
 import { Router } from '@angular/router';
 import { CommonDataService } from '../../../shared-service/baseservice/common-dataService';
 import { UserType } from '../../../modal/user-type';
+import {FileUploader} from 'ng2-file-upload';
 declare var $;
 
 @Component({
@@ -11,19 +12,32 @@ declare var $;
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.css']
 })
-export class AddUserComponent implements OnInit {
+export class AddUserComponent implements OnInit, DoCheck {
   task: string;
   submitted = false;
   spinner: boolean = false;
   globalMsg;
   user: User = new User();
+  url: any = 'http://localhost:8086/v1/user/uploadProfile';
   constructor(
     private commonService: CommonService,
     private router: Router,
     private dataService: CommonDataService) { }
 
-  ngOnInit() {
+  public signatureUploader: FileUploader = new FileUploader({url: 'v1/user/uploadSignature', itemAlias: 'photo'});
+  public imageUploader: FileUploader = new FileUploader({url: this.url, itemAlias: 'photo'});
 
+  ngOnInit() {
+    this.signatureUploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+    this.signatureUploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      console.log('FileUpload:uploaded:', item, status, response);
+      alert('File uploaded successfully');
+    };
+    this.imageUploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+    this.imageUploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      console.log('FileUpload:uploaded:', item, status, response);
+      alert('File uploaded successfully');
+    };
   }
 
   ngDoCheck(): void {
@@ -37,6 +51,8 @@ export class AddUserComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     console.log(this.user);
+    this.imageUploader.uploadAll();
+    this.signatureUploader.uploadAll();
     this.commonService.saveOrEdit(this.user, 'v1/user').subscribe(result => {
       $('.add-user').modal('hide');
       if (this.user.id == null) {

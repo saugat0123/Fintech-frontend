@@ -79,4 +79,5 @@ export class SubSegmentComponent implements OnInit, DoCheck {
     this.dataService.setData(this.search);
     this.getPagination();
   }
+
 }

@@ -37,11 +37,12 @@
           <div class="form-group">
             <div class="row">
               <div class="col-md-6">
-                <!--<label for="name">Is This a Funded Loan  </label>
-                <input type="checkbox" class="form-control"   name="name" >-->
-                <label>
+
+                <label class="checkbox-inline">
                   Is This a Funded Loan
-                  <input type="checkbox">
+                  <input type="checkbox" [(ngModel)]="checkBoxValue" [ngModelOptions]="{standalone: true}">
+
+
                 </label>
 
               </div>

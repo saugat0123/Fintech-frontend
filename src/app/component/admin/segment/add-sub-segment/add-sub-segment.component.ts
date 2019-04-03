@@ -13,6 +13,7 @@ declare var $;
 })
 export class AddSubSegmentComponent implements OnInit, DoCheck {
 
+    checkBoxValue: any = false;
   task: string;
   submitted = false;
   spinner: boolean = false;
@@ -20,6 +21,7 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
   subSegment: SubSegment = new SubSegment();
   segment: Segment = new Segment();
   segmentList: any;
+  isActive: boolean;
   constructor(
       private commonService: CommonService,
       private router: Router,
@@ -30,6 +32,7 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
     this.commonService.getByAll('v1/segment/getList').subscribe((response: any) => {
       this.segmentList = response.detail;
       console.log(this.segmentList);
+
     });
   }
   ngDoCheck(): void {
@@ -43,10 +46,11 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
   onSubmit() {
     this.submitted = true;
     this.subSegment.segment = this.segment;
+      this.subSegment.funded = this.checkBoxValue;
     console.log(this.segment);
     console.log(this.subSegment.segment);
     this.commonService.saveOrEdit(this.subSegment, 'v1/subSegment').subscribe(result => {
-          /*console.log(this.subSegment);*/
+          console.log(this.subSegment);
           $('.add-sub-segment').modal('hide');
           if (this.subSegment.id == null) {
             this.globalMsg = "SUCCESSFULLY ADDED BRANCH";
@@ -78,4 +82,8 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
         }
     );
   }
+    checkCheckBoxvalue(){
+        this.subSegment.funded = this.checkBoxValue;
+        console.log(this.subSegment.funded)
+    }
 }
