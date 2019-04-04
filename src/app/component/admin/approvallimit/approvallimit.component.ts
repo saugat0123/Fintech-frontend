@@ -2,12 +2,12 @@ import { Component, DoCheck, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { HttpClient } from '@angular/common/http';
 import { Pageable } from '../../../shared-service/baseservice/common-pageable';
 import { CommonDataService } from '../../../shared-service/baseservice/common-dataService';
 import { CommonService } from '../../../shared-service/baseservice/common-baseservice';
 import { CommonPageService } from '../../../shared-service/baseservice/common-pagination-service';
 import { ApprovalLimit } from '../../../modal/approval-limit';
+import { Location } from '../../../shared-service/baseservice/common-location';
 declare var $;
 
 
@@ -38,7 +38,7 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private router: Router,
-        private httpClient: HttpClient
+        private location: Location
     ) {
     }
 
