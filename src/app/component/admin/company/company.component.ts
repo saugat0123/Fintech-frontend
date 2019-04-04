@@ -29,6 +29,7 @@ export class CompanyComponent implements OnInit, DoCheck {
   activeCount: any;
   inactiveCount: any;
   company: any;
+  companys:any;
 
   constructor(
       private dataService: CommonDataService,
@@ -41,6 +42,13 @@ export class CompanyComponent implements OnInit, DoCheck {
     this.dataService.changeTitle(this.title);
     this.currentApi = 'v1/company/get';
     this.getPagination();
+    this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+
+      this.activeCount = response.detail.active;
+      this.inactiveCount = response.detail.inactive;
+      this.companys = response.detail.companys;
+
+    });
   }
   getPagination() {
     this.spinner = true;

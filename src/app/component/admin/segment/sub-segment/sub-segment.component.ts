@@ -28,6 +28,7 @@ export class SubSegmentComponent implements OnInit, DoCheck {
   inactiveCount: any;
   subSegment: any;
   segment: Segment = new Segment();
+  subSegments: any;
 
   constructor(
       private dataService: CommonDataService,
@@ -39,6 +40,13 @@ export class SubSegmentComponent implements OnInit, DoCheck {
     this.dataService.changeTitle(this.title);
     this.currentApi = 'v1/subSegment/get';
     this.getPagination();
+    this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+
+      this.activeCount = response.detail.active;
+      this.inactiveCount = response.detail.inactive;
+      this.subSegments = response.detail.subSegments;
+
+    });
   }
   ngDoCheck(): void {
     this.dataList = this.dataService.getDataList();

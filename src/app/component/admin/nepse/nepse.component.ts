@@ -39,6 +39,13 @@ export class NepseComponent implements OnInit, DoCheck {
     this.dataService.changeTitle(this.title);
     this.currentApi = 'v1/nepseCompany/get';
     this.getPagination();
+    this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+
+      this.activeCount = response.detail.active;
+      this.inactiveCount = response.detail.inactive;
+      this.nepses = response.detail.nepses;
+
+    });
   }
   getPagination() {
     this.spinner = true;

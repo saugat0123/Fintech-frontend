@@ -29,6 +29,7 @@ export class UserComponent implements OnInit {
   user: any;
   newValue: any;
   data: any;
+  users: any
 
 
   constructor(
@@ -49,6 +50,13 @@ export class UserComponent implements OnInit {
       console.log('testing', response);
 
       this.user = response.detail.user;
+    });
+    this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+
+      this.activeCount = response.detail.active;
+      this.inactiveCount = response.detail.inactive;
+      this.users = response.detail.users;
+
     });
 
 
@@ -74,6 +82,7 @@ export class UserComponent implements OnInit {
 
   openEdit(user: User) {
     this.dataService.setUser(user);
+    console.log(user)
     $('.add-user').modal('show');
   }
 
