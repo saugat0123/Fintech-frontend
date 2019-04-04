@@ -51,31 +51,6 @@ export class CommonService {
 
 }
 
-    // saveOrEdit(model: Object, reqUrl): Observable<Object> {
-    //   let url: string = reqUrl;
-    //   let getUrl = this.restApiService.modifyRestUrl(url);
-    //   return this.http.post(getUrl.url, model);
-    // }
-    //
-    //
-    // getById(reqUrl): Observable<Object> {
-    //   let url: string = reqUrl;
-    //   let getUrl = this.restApiService.modifyRestUrl(url);
-    //   return this.http.get(getUrl.url);
-    // }
-    //
-    // getByAll(reqUrl): Observable<Object> {
-    //   let url: string = reqUrl;
-    //   let getUrl = this.restApiService.modifyRestUrl(url);
-    //   return this.http.get(getUrl.url);
-    // }
-    //
-    // getByPostAllPageable(reqUrl, model, page, size) {
-    //   let url: string = reqUrl + '?page=' + page + '&size=' + size;
-    //   let getUrl = this.restApiService.modifyRestUrl(url);
-    //   return this.http.post(getUrl.url, model);
-    //
-    // }
 
 
 

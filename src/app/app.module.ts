@@ -47,7 +47,6 @@ import { SubSectorComponent } from './component/admin/sector/sub-sector/sub-sect
 import { AddSectorComponent } from './component/admin/sector/sector/add-sector/add-sector.component';
 import { AddSubSectorComponent } from './component/admin/sector/sub-sector/add-sub-sector/add-sub-sector.component';
 
-
 import { UIComponent } from './component/admin/loan-config/ui/ui.component';
 import { MatCheckboxModule, MatRadioModule } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -64,6 +63,9 @@ import { AddProvinceComponent } from './component/admin/address/add-province/add
 import { AddNepseComponent } from './component/admin/nepse/add-nepse/add-nepse.component';
 import { AddSubSegmentComponent } from './component/admin/segment/add-sub-segment/add-sub-segment.component';
 import { CompanyInfoComponent } from './component/admin/loan-config/loan-main-template/company-info/company-info.component';
+import { BulkUploadComponent } from './component/admin/nepse/bulk-upload/bulk-upload.component';
+import {FileSelectDirective} from 'ng2-file-upload';
+
 import { DocumentComponent } from './component/admin/document/document.component';
 import { UpdateDocumentComponent } from './component/admin/document/update-document/update-document.component';
 import { AddDocumentComponent } from './component/admin/document/add-document/add-document.component';
@@ -124,7 +126,10 @@ import { AddDocumentComponent } from './component/admin/document/add-document/ad
     AddSubSegmentComponent,
     DocumentComponent,
     UpdateDocumentComponent,
-    AddDocumentComponent
+    AddDocumentComponent,
+    AddSubSegmentComponent,
+    BulkUploadComponent,
+      FileSelectDirective
 
 
 

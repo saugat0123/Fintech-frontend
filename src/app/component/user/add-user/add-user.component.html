@@ -49,14 +49,16 @@
             </div>
             <div class="row">
               <div class="col-md-6">
-                <label for="signatureImage">Finger Print</label>
-                <input type="text" class="form-control"  [(ngModel)]="user.signatureImage" name="signatureImage" placeholder="Signature Image" >
+                <label for="signatureImage">Signature</label>
+                <input type="file" name="photo" accept="image/*" (change)="signatureUploader($event)"/>
               </div>
               <div class="col-md-6">
                 <label for="profilePicture">Profile</label>
-                <input type="text" class="form-control"  [(ngModel)]="user.profilePicture" name="profilePicture" placeholder="Profile" >
+                <input type="file" name="photo" accept="image/*" (change)="profileUploader($event)"/>
               </div>
             </div>
+
+
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>

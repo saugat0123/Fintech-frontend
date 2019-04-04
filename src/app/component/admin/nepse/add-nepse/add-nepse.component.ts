@@ -67,5 +67,10 @@ export class AddNepseComponent implements OnInit, DoCheck {
         }
     );
   }
+  open(){
+      console.log("hello");
+      this.dataService.setNepse(new Nepse());
+      $('.add-bulk-upload').modal('show');
+  }
 
 }

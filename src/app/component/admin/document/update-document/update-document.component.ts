@@ -28,10 +28,12 @@ export class UpdateDocumentComponent implements OnInit {
   documentsNotContaining(loanCycle:LoanCycle){
     this.commonService.getByPost("v1/document/list",loanCycle).subscribe((response: any) => {
       this.documentList = response.detail;
+      console.log(this.documentList)
     })
   }
-  changeLoanCycle(){
-    this.commonService.("v1/document")
+  updateLoanCycle(){
+  console.log("here")
   }
+
 
 }
