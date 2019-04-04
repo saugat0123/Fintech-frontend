@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CommonService } from '../../../../shared-service/baseservice/common-baseservice';
 import { LoanCycle } from '../../../../modal/loan-cycle';
 import { Document } from '../../../../modal/document';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-document',
@@ -14,8 +15,9 @@ export class UpdateDocumentComponent implements OnInit {
   title:string;
   documentList: any;
   loanCycle:LoanCycle = new LoanCycle();
-  selecteDocumentList = Array<Document>();
+  selectedDocumentList = Array<Document>();
   constructor(
+    private router: Router,
     private commonService: CommonService
   ) { }
 
@@ -32,14 +34,28 @@ export class UpdateDocumentComponent implements OnInit {
     })
   }
   updateLoanCycle(){
-  console.log("here")
+    this.commonService.getByPostDocument("v1/document/saveList",this.selectedDocumentList,this.loanCycle.id).subscribe((response:any) =>{
+      console.log(response);
+    //   this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(()=>
+    // this.router.navigate(["home/document"]));
+    });
+    
+    
   }
   updateCheckedOptions(events){
+    let d:Document = new Document();
+     d = events.target.value;
     if(events.target.checked==true){
-       let d:Document = new Document();
-       d = events.target.value;
-       console.log(events.target.value);
+       this.selectedDocumentList.push(d);
+       console.log(this.selectedDocumentList);
+    }else{
+      const index: number = this.selectedDocumentList.indexOf(d);
+      if (index !== -1) {
+        this.selectedDocumentList.splice(index, 1);
+      }  
+      console.log(this.selectedDocumentList);
     }
+    
     
     
   }

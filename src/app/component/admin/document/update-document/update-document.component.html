@@ -8,8 +8,8 @@
   </div>
   <!-- /.box-header -->
   <div class="box-body">
-    <div *ngFor="let document of documentList">
-          <input class="big-checkbox"  type="checkbox" id="document.id" (change)="updateCheckedOptions($event)" value="{{document}}" />
+    <div class="col-sm-offset-2 col-sm-10" *ngFor="let document of documentList">
+          <input class="big-checkbox"  type="checkbox" id="document.id" (change)="updateCheckedOptions($event)" value="{{document.id}}" />
           <span>{{document.name}}</span>
     </div>
 
