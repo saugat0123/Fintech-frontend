@@ -1,5 +1,6 @@
 
 import { Branch } from './branch';
+import {Role} from './role';
 
 export class User {
     id: number;
@@ -14,7 +15,7 @@ export class User {
     signatureImage: string;
     status: string;
     userName: string;
-    role: [];
+    role: Role;
     fingerPrint: [];
     
 }

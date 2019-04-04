@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CommonDataService } from '../../../shared-service/baseservice/common-dataService';
 import { Branch } from '../../../modal/branch';
 import { fbind } from 'q';
+import {Role} from '../../../modal/role';
 declare var $;
 
 @Component({
@@ -20,6 +21,8 @@ export class AddUserComponent implements OnInit, DoCheck {
   user: User = new User();
   branchList: any;
   branch: Branch = new Branch();
+  roleList: any;
+  role: Role = new Role();
   constructor(
     private commonService: CommonService,
     private router: Router,
@@ -29,7 +32,11 @@ export class AddUserComponent implements OnInit, DoCheck {
     this.commonService.getByAll("v1/branch/getList").subscribe((response: any) => {
       this.branchList = response.detail;
       console.log(this.branchList);
-    })
+    });
+      this.commonService.getByAll('v1/role').subscribe((response: any) => {
+          this.roleList = response.detail;
+          console.log(this.roleList);
+      });
 
   }
 
@@ -43,6 +50,8 @@ export class AddUserComponent implements OnInit, DoCheck {
 
   onSubmit() {
     this.submitted = true;
+    this.user.branch = this.branch;
+    this.user.role = this.role;
     console.log(this.user);
     this.commonService.saveOrEdit(this.user, 'v1/user').subscribe(result => {
       $('.add-user').modal('hide');
