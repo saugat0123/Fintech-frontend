@@ -1,16 +1,21 @@
-import { UserType } from './user-type';
+
+import { Branch } from './branch';
 
 export class User {
-    accountNo: string;
-    associatedId: number;
-    email: string;
     id: number;
+    created: Date;
+    lastModified: Date;
+    accountNo: string;
+    branch: Branch;
+    email: string;
     name: string;
     password: string;
     profilePicture: string;
     signatureImage: string;
     status: string;
     userName: string;
-    userType: Set<UserType>;
+    role: [];
+    fingerPrint: [];
+    
 }
 

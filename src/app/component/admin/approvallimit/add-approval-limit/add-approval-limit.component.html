@@ -1,48 +1,64 @@
 <div class="modal fade in add-approvalLimit">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header" style="display:block">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span></button>
-        <h4 class="modal-title pull-left">{{task}} Branch</h4>
-      </div>
-      <div class="modal-body">
-      
-        <form (ngSubmit)="onSubmit()">
-      
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-6">
-                <label for="loan_Category">Loan Category</label>
-                <input type="hidden" class="form-control" required [(ngModel)]="approvalLimit.id" name="id" placeholder="id">
-                <input type="text" class="form-control" required [(ngModel)]="approvalLimit.loanCategory" name="loan_Category" placeholder="Loan Category">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="display:block">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title pull-left">{{task}} Approval Limit</h4>
+            </div>
+            <div class="modal-body">
 
-              </div>
-              <div class="col-md-6">
-                <label for="amount">Amount</label>
-                <input type="text" class="form-control"  placeholder="amount" required [(ngModel)]="approvalLimit.amount" name="amount">
-        
-              </div>
+                <form (ngSubmit)="onSubmit()">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="loan_Category">Loan Category</label>
+                                <input type="hidden" class="form-control" required [(ngModel)]="approvalLimit.id"
+                                       name="id" placeholder="id">
+                                <select [(ngModel)]="approvalLimit.loanCategory" name="loanCategory"
+                                        class="form-control">
+                                    <option *ngFor="let allList of loanList" [ngValue]="allList">{{allList.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="amount">Amount</label>
+                                <input type="text" class="form-control" placeholder="amount" required
+                                       [(ngModel)]="approvalLimit.amount" name="amount">
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="authorities">Authorities</label>
+
+                                <select class="form-control" [(ngModel)]="approvalLimit.authorities" name="authorities">
+                                    <option *ngFor="let role of roleList" [ngValue]="role">{{role.roleName}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="approval_Type">Approval Type</label>
+                                <select class="form-control" [(ngModel)]="approvalLimit.loanApprovalType"
+                                        name="loanApprovalType">
+
+                                    <option value="PERSONAL_TYPE">PERSONAL</option>
+                                    <option value="BUSINESS_TYPE">BUSINESS</option>
+                                    <option value="BOTH_TYPE">BOTH</option>
+
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                    </div>
+                </form>
             </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label for="authorities">Authorities</label>
-                <input type="text" class="form-control"  [(ngModel)]="approvalLimit.authorities" name="authorities" placeholder="Authorities" >
-              </div>
-              <div class="col-md-6">
-                <label for="approval_Type">Approval Type</label>
-                <input type="text" class="form-control"  [(ngModel)]="approvalLimit.loanApprovalType" name="approval_Type" placeholder="Approval Type" >
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
-          </div>
-        </form>
-      </div>
-     
+
+        </div>
+        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
+    <!-- /.modal-dialog -->
 </div>

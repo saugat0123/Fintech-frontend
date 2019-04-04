@@ -3,6 +3,8 @@ import { User } from '../../../modal/user';
 import { CommonService } from '../../../shared-service/baseservice/common-baseservice';
 import { Router } from '@angular/router';
 import { CommonDataService } from '../../../shared-service/baseservice/common-dataService';
+import { Branch } from '../../../modal/branch';
+import { fbind } from 'q';
 declare var $;
 
 @Component({
@@ -10,18 +12,24 @@ declare var $;
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.css']
 })
-export class AddUserComponent implements OnInit {
+export class AddUserComponent implements OnInit, DoCheck {
   task: string;
   submitted = false;
   spinner: boolean = false;
   globalMsg;
   user: User = new User();
+  branchList: any;
+  branch: Branch = new Branch();
   constructor(
     private commonService: CommonService,
     private router: Router,
     private dataService: CommonDataService) { }
 
   ngOnInit() {
+    this.commonService.getByAll("v1/branch/getList").subscribe((response: any) => {
+      this.branchList = response.detail;
+      console.log(this.branchList);
+    })
 
   }
 
@@ -35,6 +43,7 @@ export class AddUserComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    console.log(this.user);
     this.commonService.saveOrEdit(this.user, 'v1/user').subscribe(result => {
       $('.add-user').modal('hide');
       if (this.user.id == null) {
@@ -66,6 +75,26 @@ export class AddUserComponent implements OnInit {
 
     }
     );
+  }
+  profileUploader(event){
+    console.log("here");
+    console.log(event.target.files[0]);
+    let file = <File> event.target.files[0];
+    const formdata: FormData = new FormData();
+    formdata.append('file', file);
+    this.commonService.getByPost('v1/user/uploadProfile',formdata).subscribe(result =>{
+      console.log(result);
+    });
+  }
+  signatureUploader(event){
+    console.log("here");
+    console.log(event.target.files[0]);
+    let file = <File> event.target.files[0];
+    const formdata: FormData = new FormData();
+    formdata.append('file', file);
+    this.commonService.getByPost('v1/user/uploadSignature',formdata).subscribe(result =>{
+      console.log(result);
+    });
   }
 
 }

@@ -7,7 +7,7 @@
         <h4 class="modal-title pull-left">{{task}} User</h4>
       </div>
       <div class="modal-body">
-      
+
         <form (ngSubmit)="onSubmit()">
       
           <div class="form-group">
@@ -15,13 +15,16 @@
               <div class="col-md-6">
                 <label for="name">Name</label>
                 <input type="hidden" class="form-control" required [(ngModel)]="user.id" name="id" placeholder="id">
+      
                 <input type="text" class="form-control" required [(ngModel)]="user.name" name="name" placeholder="Name">
 
               </div>
               <div class="col-md-6">
-                <label for="associatedId">Associated Id</label>
-                <input type="text" class="form-control"  placeholder="Associated Id" [(ngModel)]="user.associatedId" name="associatedId">
-        
+                <label for="branch">Associated Id</label>
+                <select class="form-control" name="branch" style="width: 100%;" [(ngModel)]="branch.id" tabindex="-1" aria-hidden="true" placeholder="Sector">
+                    <option>Select Associate</option>
+                    <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}</option>
+                  </select>
               </div>
             </div>
             <div class="row">
@@ -46,14 +49,16 @@
             </div>
             <div class="row">
               <div class="col-md-6">
-                <label for="signatureImage">Signature Image</label>
-                <input type="text" class="form-control"  [(ngModel)]="user.signatureImage" name="signatureImage" placeholder="Signature Image" >
+                <label for="signatureImage">Signature</label>
+                <input type="file" name="photo" accept="image/*" (change)="signatureUploader($event)"/>
               </div>
               <div class="col-md-6">
                 <label for="profilePicture">Profile</label>
-                <input type="text" class="form-control"  [(ngModel)]="user.profilePicture" name="profilePicture" placeholder="Profile" >
+                <input type="file" name="photo" accept="image/*" (change)="profileUploader($event)"/>
               </div>
             </div>
+
+
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>

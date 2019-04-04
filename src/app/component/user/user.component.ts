@@ -59,13 +59,13 @@ export class UserComponent implements OnInit {
     this.getPagination();
   }
 
-  /*onSearchChange(searchValue: string) {
+  onSearchChange(searchValue: string) {
       this.search = {
           'name': searchValue
       };
       this.dataService.setData(this.search);
       this.getPagination();
-  }*/
+  }
 
 
   ngDoCheck(): void {
@@ -112,7 +112,7 @@ export class UserComponent implements OnInit {
     $('.updateStatus').modal('show');
 
   }
-
+  
 
 }
 
