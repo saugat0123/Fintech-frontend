@@ -1,6 +1,6 @@
 <div class="box box-primary">
   <div class="box-header with-border">
-    <h3 class="box-title"><b>Sub-Segment</b></h3>
+    <h3 class="box-title"><b>Company List</b></h3>
   </div>
 
   <div class="box-body">
@@ -16,7 +16,7 @@
         </div>
         <!-- <h3 class="box-title">Hover Data Table</h3> -->
         <div class="col-md-9">
-          <button class="skin-blue pull-right" data-toggle="modal" (click)="addSubSegment()">
+          <button class="skin-blue pull-right" data-toggle="modal" (click)="addCompany()">
             <i class="skin-blue fa fa-plus"></i>
           </button>
         </div>
@@ -26,9 +26,7 @@
 
       <thead>
       <tr>
-        <th>Loan Type</th>
-        <th>Segment</th>
-        <th>Funding Type</th>
+        <th>Company Name</th>
         <th>Action</th>
       </tr>
       </thead>
@@ -38,11 +36,9 @@
         <div *ngIf="!dataList?.length > 0">
           <p>No Content Found</p>
         </div>
-        <td>{{allList.subSegmentName}}</td>
-        <td>{{allList.segment.segmentName}}</td>
-        <td>{{allList.funded}}</td>
+        <td>{{allList.companyName}}</td>
         <td>
-          <a (click)="openEdit(allList,allList.segment)" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="EDIT">
+          <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="EDIT">
             <i class="fa fa-edit" style="color:white"></i>
           </a>
           <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px">
@@ -52,6 +48,6 @@
       </tr>
       </tbody>
     </table>
-      <app-add-sub-segment></app-add-sub-segment>
+    <app-add-company></app-add-company>
   </div>
 </div>

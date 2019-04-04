@@ -17,6 +17,7 @@ import {MunicipalityVDC} from '../../modal/municipality_VDC';
 import {Province} from '../../modal/province';
 import {Nepse} from '../../modal/nepse';
 import {SubSegment} from '../../modal/subSegment';
+import {Company} from '../../modal/company';
 
 
 
@@ -42,6 +43,7 @@ export class CommonDataService {
     municipality: MunicipalityVDC = new MunicipalityVDC();
     province: Province = new Province();
     nepse: Nepse = new Nepse();
+    company: Company = new Company();
 
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
@@ -169,5 +171,11 @@ export class CommonDataService {
     }
     getNepse(){
         return this.nepse;
+    }
+    setCompany(company: Company){
+        this.company = company;
+    }
+    getCompany(){
+        return this.company;
     }
 }

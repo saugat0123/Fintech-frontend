@@ -22,6 +22,7 @@ import {NepseComponent} from './component/admin/nepse/nepse.component';
 import {SegmentComponent} from './component/admin/segment/segment/segment.component';
 import {SubSegmentComponent} from './component/admin/segment/sub-segment/sub-segment.component';
 import { CompanyInfoComponent } from './component/admin/loan-config/loan-main-template/company-info/company-info.component';
+import {CompanyComponent} from './component/admin/company/company.component';
 
 
 
@@ -45,6 +46,7 @@ const routes: Routes = [
       { path: 'sub-segment', component: SubSegmentComponent},
       { path: 'user', component: UserComponent },
       { path: 'approvalLimit', component: ApprovallimitComponent },
+      { path: 'company', component: CompanyComponent},
       { path: 'loan', component: LoanUiComponent, 
         children: [
           { path: 'basic-info', component: BasicInfoComponent},

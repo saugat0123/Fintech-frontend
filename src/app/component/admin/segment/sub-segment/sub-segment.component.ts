@@ -5,6 +5,7 @@ import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Router} from '@angular/router';
+import {Segment} from '../../../../modal/segment';
 
 declare var $;
 @Component({
@@ -26,6 +27,7 @@ export class SubSegmentComponent implements OnInit, DoCheck {
   activeCount: any;
   inactiveCount: any;
   subSegment: any;
+  segment: Segment = new Segment();
 
   constructor(
       private dataService: CommonDataService,
@@ -74,10 +76,17 @@ export class SubSegmentComponent implements OnInit, DoCheck {
 
   onSearchChange(searchValue: string) {
     this.search = {
-      'subSegmentName': searchValue
+      'name': searchValue
     }
     this.dataService.setData(this.search);
     this.getPagination();
   }
+  openEdit(subSegment: SubSegment, segment: Segment) {
+    this.dataService.setSubSegment(subSegment);
+    this.dataService.setSegment(segment);
+    this.segment = this.dataService.getSegment();
 
+    console.log(this.segment.segmentName);
+    $('.add-sub-segment').modal('show');
+  }
 }

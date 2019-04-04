@@ -6,6 +6,7 @@ import {CommonService} from '../../../../shared-service/baseservice/common-bases
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Router} from '@angular/router';
 import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
+import {Company} from '../../../../modal/company';
 
 declare var $;
 @Component({
@@ -76,9 +77,13 @@ export class SegmentComponent implements OnInit, DoCheck {
 
   onSearchChange(searchValue: string) {
     this.search = {
-      'segmentName': searchValue
+      'name': searchValue
     }
     this.dataService.setData(this.search);
     this.getPagination();
+  }
+  openEdit(segment: Segment) {
+    this.dataService.setSegment(segment);
+    $('.add-segment').modal('show');
   }
 }

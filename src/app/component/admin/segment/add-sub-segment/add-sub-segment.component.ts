@@ -32,6 +32,8 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
     this.commonService.getByAll('v1/segment/getList').subscribe((response: any) => {
       this.segmentList = response.detail;
       console.log(this.segmentList);
+      this.segment= this.dataService.getSegment();
+      console.log(this.segment);
 
     });
   }

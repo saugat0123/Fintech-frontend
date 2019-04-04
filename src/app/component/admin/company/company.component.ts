@@ -1,23 +1,25 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
+import {Pageable} from '../../../shared-service/baseservice/common-pageable';
 import {CommonDataService} from '../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../shared-service/baseservice/common-pagination-service';
 import {Router} from '@angular/router';
-import {Pageable} from '../../../shared-service/baseservice/common-pageable';
-import {District} from '../../../modal/district';
 import {Nepse} from '../../../modal/nepse';
+import {Company} from '../../../modal/company';
+import {User} from '../../../modal/user';
 
 declare var $;
 @Component({
-  selector: 'app-nepse',
-  templateUrl: './nepse.component.html',
-  styleUrls: ['./nepse.component.css']
+  selector: 'app-company',
+  templateUrl: './company.component.html',
+  styleUrls: ['./company.component.css']
 })
-export class NepseComponent implements OnInit, DoCheck {
+export class CompanyComponent implements OnInit, DoCheck {
 
-  title = "Nepse";
-  breadcrumb = "Nepse > List"
+  title = "Company";
+  breadcrumb = "Company > List"
   dataList: any;
+  newValue: any;
 
   spinner: boolean = false;
   globalMsg;
@@ -26,7 +28,7 @@ export class NepseComponent implements OnInit, DoCheck {
   currentApi: any;
   activeCount: any;
   inactiveCount: any;
-  nepse: any;
+  company: any;
 
   constructor(
       private dataService: CommonDataService,
@@ -37,7 +39,7 @@ export class NepseComponent implements OnInit, DoCheck {
 
   ngOnInit() {
     this.dataService.changeTitle(this.title);
-    this.currentApi = 'v1/nepseCompany/get';
+    this.currentApi = 'v1/company/get';
     this.getPagination();
   }
   getPagination() {
@@ -78,8 +80,20 @@ export class NepseComponent implements OnInit, DoCheck {
     this.dataService.setData(this.search);
     this.getPagination();
   }
-  addNepse() {
-    this.dataService.setNepse(new Nepse());
-    $('.add-nepse').modal('show');
+  onChange(newValue, data) {
+    this.newValue = newValue;
+    this.dataService.setCompany(data);
+    this.commonPageService.setCurrentApi('v1/company');
+    $('.updateStatus').modal('show');
+
   }
+  addCompany() {
+    this.dataService.setCompany(new Company());
+    $('.add-company').modal('show');
+  }
+  openEdit(company: Company) {
+    this.dataService.setCompany(company);
+    $('.add-company').modal('show');
+  }
+
 }
