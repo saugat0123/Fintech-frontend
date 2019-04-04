@@ -34,6 +34,14 @@ export class UpdateDocumentComponent implements OnInit {
   updateLoanCycle(){
   console.log("here")
   }
-
+  updateCheckedOptions(events){
+    if(events.target.checked==true){
+       let d:Document = new Document();
+       d = events.target.value;
+       console.log(events.target.value);
+    }
+    
+    
+  }
 
 }

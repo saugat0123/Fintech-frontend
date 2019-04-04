@@ -9,13 +9,11 @@
   <!-- /.box-header -->
   <div class="box-body">
     <div *ngFor="let document of documentList">
-      <ul class="checkbox">
-        <li class="list-group-item">
-          <input type="checkbox" id="document.id" value="document.id" />
-          <label for="document.id">{{document.name}}</label>
-        </li>
-      </ul>
+          <input class="big-checkbox"  type="checkbox" id="document.id" (change)="updateCheckedOptions($event)" value="{{document}}" />
+          <span>{{document.name}}</span>
     </div>
+
+
   </div>
   <!-- /.box-body -->
   <div class="box-footer text-right">
