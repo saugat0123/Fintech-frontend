@@ -94,10 +94,10 @@
                                          id="{{permission.id}}">
                                         <div class="col-md-12">
                                             <div class="row">
-                                                <div class=" col-md-3" *ngFor="let right of permission.rights;">
-                                                    <input class="big-checkbox"
+                                                <div class=" col-md-3" *ngFor="let right of permission.rights;let i=index">
+                                                    <input class="big-checkbox {{permission.id+right.rights}}"
                                                            [checked]="right.checked"
-                                                     (change)="updateCheckRightOptions(permission.id,$event.target.value,$event.target.checked)" type="checkbox" value="{{right.id}}"/>
+                                                     (change)="updateCheckRightOptions(permission.id,$event.target.value,$event.target.checked,i)" type="checkbox" value="{{right.id}}"/>
                                                     <span>{{right.rights}}</span></div>
 
                                             </div>
