@@ -27,6 +27,9 @@ export class RolePermissionComponent implements OnInit {
     spinner = false;
     tempRightList = [];
     permRight = [];
+    activeCount: any;
+    inactiveCount: any;
+    roleCount: any;
 
 
     constructor(
@@ -40,13 +43,20 @@ export class RolePermissionComponent implements OnInit {
     ngOnInit() {
         this.dataService.changeTitle(this.title);
         this.currentApi = 'v1/role';
-        this.commonService.getByAll(this.currentApi).subscribe((response: any) => {
+        this.commonService.getByAll(this.currentApi + '/active').subscribe((response: any) => {
             this.roleList = response.detail;
         });
         this.commonService.getByAll('v1/roleRightPermission/rights').subscribe((response: any) => {
             this.rightList = response.detail;
         });
 
+        this.commonService.getByAll(this.currentApi + '/get/statusCount').subscribe((response: any) => {
+
+            this.activeCount = response.detail.active;
+            this.inactiveCount = response.detail.inactive;
+            this.roleCount = response.detail.branches;
+
+        });
     }
 
 

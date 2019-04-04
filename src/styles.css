@@ -72,3 +72,8 @@ body{
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+
+.select-borderless{
+    border: none;
+    border-bottom: 1px solid #0062cc;
+}

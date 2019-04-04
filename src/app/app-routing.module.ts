@@ -28,6 +28,7 @@ import {BasicInfoComponent} from './component/admin/loan-config/loan-main-templa
 import {UserComponent} from './component/user/user.component';
 import {ApprovallimitComponent} from './component/admin/approvallimit/approvallimit.component';
 import {RolePermissionComponent} from './component/admin/role-permission/role-permission.component';
+import {ListRoleComponent} from './component/admin/role-permission/list-role/list-role.component';
 
 
 const routes: Routes = [
@@ -49,6 +50,7 @@ const routes: Routes = [
       { path: 'approvalLimit', component: ApprovallimitComponent },
       { path: 'company', component: CompanyComponent},
       { path: 'role', component: RolePermissionComponent},
+      {path: 'roleList', component: ListRoleComponent},
       { path: 'loan', component: LoanUiComponent,
         children: [
           { path: 'basic-info', component: BasicInfoComponent},
@@ -61,7 +63,6 @@ const routes: Routes = [
   },
   { path: '', component: LoginComponent }
 ]
-
 
 
 @NgModule({

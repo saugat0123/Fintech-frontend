@@ -26,49 +26,49 @@ export class AddModelComponent implements OnInit, DoCheck {
 
   }
 
-  ngDoCheck(): void {
-    this.branch = this.dataService.getBranch();
-    if (this.branch.id == null) {
-      this.task = 'Add';
-    } else { this.task = 'Edit'; }
-
-
-  }
-
-  onSubmit() {
-    this.submitted = true;
-    // this.branch.created=null;
-    this.commonService.saveOrEdit(this.branch, 'v1/branch').subscribe(result => {
-      $('.add-branch').modal('hide');
-      if (this.branch.id == null) {
-        this.globalMsg = "SUCCESSFULLY ADDED BRANCH";
-      } else {
-        this.globalMsg = "SUCCESSFULLY EDITED BRANCH";
-      }
-
-      this.dataService.getGlobalMsg(this.globalMsg);
-      this.dataService.getAlertMsg('true');
-      this.branch = new Branch();
-      this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
-        this.router.navigate(["home/branch"]));
-      $(".alert-custom").slideDown();
-
-
-
-    }, error => {
-
-      $('.add-branch').modal('hide');
-
-      this.globalMsg = error.error.message;
-      this.dataService.getGlobalMsg(this.globalMsg);
-      this.dataService.getAlertMsg('false');
-
-      this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
-        this.router.navigate(["home/branch"]));
-      $(".alert-custom").slideDown();
+    ngDoCheck(): void {
+        this.branch = this.dataService.getBranch();
+        if (this.branch.id == null) {
+            this.task = 'Add';
+        } else {
+            this.task = 'Edit';
+        }
 
     }
-    );
-  }
+
+    onSubmit() {
+        this.submitted = true;
+        // this.branch.created=null;
+        this.commonService.saveOrEdit(this.branch, 'v1/branch').subscribe(result => {
+                $('.add-branch').modal('hide');
+                if (this.branch.id == null) {
+                    this.globalMsg = 'SUCCESSFULLY ADDED BRANCH';
+                } else {
+                    this.globalMsg = 'SUCCESSFULLY EDITED BRANCH';
+                }
+
+                this.dataService.getGlobalMsg(this.globalMsg);
+                this.dataService.getAlertMsg('true');
+                this.branch = new Branch();
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/branch']));
+                this.dataService.alertmsg();
+
+
+            }, error => {
+
+                $('.add-branch').modal('hide');
+
+                this.globalMsg = error.error.message;
+                this.dataService.getGlobalMsg(this.globalMsg);
+                this.dataService.getAlertMsg('false');
+
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/branch']));
+                this.dataService.alertmsg();
+
+            }
+        );
+    }
 
 }

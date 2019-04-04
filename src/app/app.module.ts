@@ -38,6 +38,8 @@ import { RolePermissionComponent } from './component/admin/role-permission/role-
 import { AddModelComponent } from './component/admin/branch/add-model/add-model.component';
 import { Sidebar1Component } from './component/base/sidebar/sidebar1/sidebar1.component';
 import { AddRoleComponent } from './component/admin/role-permission/add-role/add-role.component';
+import {ListRoleComponent} from './component/admin/role-permission/list-role/list-role.component';
+
 
 import { KycInfoComponent } from './component/admin/loan-config/loan-main-template/kyc-info/kyc-info.component';
 import { ValuatorComponent } from './component/admin/valuator/valuator.component';
@@ -133,7 +135,10 @@ import { AddDocumentComponent } from './component/admin/document/add-document/ad
     BulkUploadComponent,
       FileSelectDirective,
       CompanyComponent,
-      AddCompanyComponent
+      AddCompanyComponent,
+    AddRoleComponent,
+    ListRoleComponent
+
 
 
 
