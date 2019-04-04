@@ -1,6 +1,6 @@
 <div class="box box-primary">
   <div class="box-header with-border">
-    <h3 class="box-title"><b>Segment</b></h3>
+    <h3 class="box-title"><b>Company List</b></h3>
   </div>
 
   <div class="box-body">
@@ -16,7 +16,7 @@
         </div>
         <!-- <h3 class="box-title">Hover Data Table</h3> -->
         <div class="col-md-9">
-          <button class="skin-blue pull-right" data-toggle="modal" (click)="addSegment()">
+          <button class="skin-blue pull-right" data-toggle="modal" (click)="addCompany()">
             <i class="skin-blue fa fa-plus"></i>
           </button>
         </div>
@@ -26,8 +26,7 @@
 
       <thead>
       <tr>
-        <th>S.N</th>
-        <th>Segment Name</th>
+        <th>Company Name</th>
         <th>Action</th>
       </tr>
       </thead>
@@ -37,8 +36,7 @@
         <div *ngIf="!dataList?.length > 0">
           <p>No Content Found</p>
         </div>
-        <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-        <td>{{allList.segmentName}}</td>
+        <td>{{allList.companyName}}</td>
         <td>
           <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="EDIT">
             <i class="fa fa-edit" style="color:white"></i>
@@ -54,6 +52,6 @@
     <!-- ===================table-pagination==================== -->
     <app-pagination *ngIf="!spinner"></app-pagination>
     <!-- ===================table-pagination==================== -->
-    <app-add-segment></app-add-segment>
+    <app-add-company></app-add-company>
   </div>
 </div>

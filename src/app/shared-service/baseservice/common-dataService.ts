@@ -18,6 +18,7 @@ import {Province} from '../../modal/province';
 import {Nepse} from '../../modal/nepse';
 import {SubSegment} from '../../modal/subSegment';
 import { Document } from '../../modal/document';
+import {Company} from '../../modal/company';
 
 declare var $;
 
@@ -43,6 +44,7 @@ export class CommonDataService {
     municipality: MunicipalityVDC = new MunicipalityVDC();
     province: Province = new Province();
     nepse: Nepse = new Nepse();
+    company: Company = new Company();
 
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
@@ -184,5 +186,11 @@ export class CommonDataService {
         setTimeout(() => {
             $('.alert-custom').slideUp();
         }, 2000);
+    }
+    setCompany(company: Company){
+        this.company = company;
+    }
+    getCompany(){
+        return this.company;
     }
 }

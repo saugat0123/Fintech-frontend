@@ -65,6 +65,8 @@ import { AddSubSegmentComponent } from './component/admin/segment/add-sub-segmen
 import { CompanyInfoComponent } from './component/admin/loan-config/loan-main-template/company-info/company-info.component';
 import { BulkUploadComponent } from './component/admin/nepse/bulk-upload/bulk-upload.component';
 import {FileSelectDirective} from 'ng2-file-upload';
+import { CompanyComponent } from './component/admin/company/company.component';
+import { AddCompanyComponent } from './component/admin/company/add-company/add-company.component';
 
 import { DocumentComponent } from './component/admin/document/document.component';
 import { UpdateDocumentComponent } from './component/admin/document/update-document/update-document.component';
@@ -129,7 +131,9 @@ import { AddDocumentComponent } from './component/admin/document/add-document/ad
     AddDocumentComponent,
     AddSubSegmentComponent,
     BulkUploadComponent,
-      FileSelectDirective
+      FileSelectDirective,
+      CompanyComponent,
+      AddCompanyComponent
 
 
 

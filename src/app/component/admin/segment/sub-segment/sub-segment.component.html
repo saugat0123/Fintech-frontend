@@ -42,7 +42,7 @@
         <td>{{allList.segment.segmentName}}</td>
         <td>{{allList.funded}}</td>
         <td>
-          <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="EDIT">
+          <a (click)="openEdit(allList,allList.segment)" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="EDIT">
             <i class="fa fa-edit" style="color:white"></i>
           </a>
           <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px">
@@ -52,6 +52,10 @@
       </tr>
       </tbody>
     </table>
+    <spinner *ngIf="spinner" class="d-flex justify-content-center"></spinner>
+    <!-- ===================table-pagination==================== -->
+    <app-pagination *ngIf="!spinner"></app-pagination>
+    <!-- ===================table-pagination==================== -->
       <app-add-sub-segment></app-add-sub-segment>
   </div>
 </div>

@@ -12,6 +12,7 @@ import {SegmentComponent} from './component/admin/segment/segment/segment.compon
 import {SubSegmentComponent} from './component/admin/segment/sub-segment/sub-segment.component';
 import { CompanyInfoComponent } from './component/admin/loan-config/loan-main-template/company-info/company-info.component';
 import { DocumentComponent } from './component/admin/document/document.component';
+import {CompanyComponent} from './component/admin/company/company.component';
 
 
 import {NgModule} from '@angular/core';
@@ -41,16 +42,12 @@ const routes: Routes = [
       { path: 'sector', component: SectorComponent },
       { path: 'subSector', component: SubSectorComponent },
       { path: 'ui', component: UIComponent},
-      { path: 'district', component: DistrictComponent},
-      { path: 'municipality', component: MunicipalityComponent},
-      { path: 'province', component: ProvinceComponent},
       { path: 'nepse', component: NepseComponent},
       { path: 'segment', component: SegmentComponent},
       { path: 'sub-segment', component: SubSegmentComponent},
       { path: 'user', component: UserComponent },
       { path: 'approvalLimit', component: ApprovallimitComponent },
-      { path: 'template', component: LoanTemplateComponent},
-      { path: 'config', component: LoanConfigComponent},
+      { path: 'company', component: CompanyComponent},
       { path: 'role', component: RolePermissionComponent},
       { path: 'loan', component: LoanUiComponent,
         children: [
@@ -64,7 +61,7 @@ const routes: Routes = [
   },
   { path: '', component: LoginComponent }
 ]
-           
+
 
 
 @NgModule({
