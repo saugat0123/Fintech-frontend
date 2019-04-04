@@ -22,7 +22,7 @@
               <div class="col-md-6">
                 <label for="branch">Associated Id</label>
                 <select class="form-control" name="branch" [(ngModel)]="branch.id" tabindex="-1" aria-hidden="true" placeholder="Branch">
-                    <option>Select Associate</option>
+                    <option disabled>Select Associate</option>
                     <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}</option>
                   </select>
               </div>
@@ -51,7 +51,7 @@
               <div class="col-md-6">
                 <label for="role">Role</label>
                 <select class="form-control" name="role" [(ngModel)]="role.id" tabindex="-1" aria-hidden="true" placeholder="Role">
-                  <option>Select Associate</option>
+                  <option disabled>Role</option>
                   <option *ngFor="let role of roleList" [value]="role.id">{{role.roleName}}</option>
                 </select>
               </div>
