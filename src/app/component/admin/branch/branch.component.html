@@ -98,7 +98,7 @@
                 <td>{{allList.branchCode}}</td>
                 <td>{{allList.address}}</td>
                 <td>
-                  <select [(ngModel)]="allList.status" name="status" (change)="onChange($event.target.value,allList)">
+                  <select class="select-borderless" [(ngModel)]="allList.status" name="status" (change)="onChange($event.target.value,allList)">
                     <option value="ACTIVE">ACTIVE</option>
                     <option value="INACTIVE">INACTIVE</option>
 
@@ -108,7 +108,7 @@
                   <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="EDIT">
                     <i class="fa fa-edit" style="color:white"></i>
                   </a>
-                  <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px">
+                  <a class="btn btn-danger btn-sm" data-toggle="tooltip"  data-placement="top" (click)="delete(allList)"  title="DELETE" style="margin-left:10px">
                     <i class="fa fa-trash" style="color:white;"></i>
                   </a>
                 </td>

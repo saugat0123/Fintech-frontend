@@ -6,11 +6,12 @@
       <span class="info-box-icon bg-yellow">
         <i class="fa fa-bank"></i>
       </span>
-
-            <div class="info-box-content">
-                <span class="info-box-text">Roles</span>
-                <span class="info-box-number">12</span>
-            </div>
+            <a routerLink="/home/roleList">
+                <div class="info-box-content">
+                    <span class="info-box-text">Roles</span>
+                    <span class="info-box-number">{{roleCount}}</span>
+                </div>
+            </a>
             <!-- /.info-box-content -->
         </div>
         <!-- /.info-box -->
@@ -24,7 +25,7 @@
 
             <div class="info-box-content">
                 <span class="info-box-text">Active</span>
-                <span class="info-box-number">12</span>
+                <span class="info-box-number">{{activeCount}}</span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -39,7 +40,7 @@
 
             <div class="info-box-content">
                 <span class="info-box-text">INACTIVE</span>
-                <span class="info-box-number">0</span>
+                <span class="info-box-number">{{inactiveCount}}</span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -93,11 +94,23 @@
                                     <div [className]="permission.checked==false ? 'row collapse' : 'row'"
                                          id="{{permission.id}}">
                                         <div class="col-md-12">
+                                        <div class="row">
+                                        <div class=" col-md-3" *ngFor="let right of permission.rights;let i=index">
+                                        <input class="big-checkbox {{permission.id+right.rights}}"
+                                        [checked]="right.checked"
+                                        (change)="updateCheckRightOptions(permission.id,$event.target.value,$event.target.checked,i)" type="checkbox" value="{{right.id}}"/>
+                                        <span>{{right.rights}}</span></div>
+
+                                        </div>
+                                        </div>
+                                        <div class="col-md-12">
                                             <div class="row">
-                                                <div class=" col-md-3" *ngFor="let right of permission.rights;let i=index">
+                                                <div class=" col-md-3"
+                                                     *ngFor="let right of permission.rights;let i=index">
                                                     <input class="big-checkbox {{permission.id+right.rights}}"
                                                            [checked]="right.checked"
-                                                     (change)="updateCheckRightOptions(permission.id,$event.target.value,$event.target.checked,i)" type="checkbox" value="{{right.id}}"/>
+                                                           (change)="updateCheckRightOptions(permission.id,$event.target.value,$event.target.checked,i)"
+                                                           type="checkbox" value="{{right.id}}"/>
                                                     <span>{{right.rights}}</span></div>
 
                                             </div>

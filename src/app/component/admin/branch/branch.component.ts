@@ -86,11 +86,17 @@ export class BranchComponent implements OnInit, DoCheck {
 
 
     onChange(newValue, data) {
+        console.log(newValue);
         this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/branch');
         $('.updateStatus').modal('show');
 
+    }
+
+    delete(allList) {
+        allList.status = 'DELETED';
+        this.onChange(allList.status, allList);
     }
 
     getPagination() {
