@@ -26,7 +26,7 @@ export class NepseComponent implements OnInit, DoCheck {
   currentApi: any;
   activeCount: any;
   inactiveCount: any;
-  nepse: any;
+  nepses: any;
 
   constructor(
       private dataService: CommonDataService,
