@@ -38,9 +38,9 @@ export class AddNepseComponent implements OnInit, DoCheck {
       console.log(this.nepse);
           $('.add-nepse').modal('hide');
           if (this.nepse.id == null) {
-            this.globalMsg = "SUCCESSFULLY ADDED BRANCH";
+            this.globalMsg = "SUCCESSFULLY ADDED NEPSE COMPANY";
           } else {
-            this.globalMsg = "SUCCESSFULLY EDITED BRANCH";
+            this.globalMsg = "SUCCESSFULLY EDITED NEPSE COMPANY";
           }
 
           this.dataService.getGlobalMsg(this.globalMsg);

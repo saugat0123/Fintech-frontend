@@ -40,9 +40,9 @@ export class AddProvinceComponent implements OnInit, DoCheck {
           console.log(this.province);
           $('.add-province').modal('hide');
           if (this.province.id == null) {
-            this.globalMsg = "SUCCESSFULLY ADDED BRANCH";
+            this.globalMsg = "SUCCESSFULLY ADDED PROVINCE";
           } else {
-            this.globalMsg = "SUCCESSFULLY EDITED BRANCH";
+            this.globalMsg = "SUCCESSFULLY EDITED PROVINCE";
           }
 
           this.dataService.getGlobalMsg(this.globalMsg);

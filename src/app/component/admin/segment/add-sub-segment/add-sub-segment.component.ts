@@ -55,9 +55,9 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
           console.log(this.subSegment);
           $('.add-sub-segment').modal('hide');
           if (this.subSegment.id == null) {
-            this.globalMsg = "SUCCESSFULLY ADDED BRANCH";
+            this.globalMsg = "SUCCESSFULLY ADDED SUB SEGMENT";
           } else {
-            this.globalMsg = "SUCCESSFULLY EDITED BRANCH";
+            this.globalMsg = "SUCCESSFULLY EDITED SUB SEGMENT";
           }
 
           this.dataService.getGlobalMsg(this.globalMsg);

@@ -41,9 +41,9 @@ export class AddSegmentComponent implements OnInit, DoCheck {
           console.log(this.segment);
           $('.add-segment').modal('hide');
           if (this.segment.id == null) {
-            this.globalMsg = "SUCCESSFULLY ADDED BRANCH";
+            this.globalMsg = "SUCCESSFULLY ADDED SEGMENT";
           } else {
-            this.globalMsg = "SUCCESSFULLY EDITED BRANCH";
+            this.globalMsg = "SUCCESSFULLY EDITED SEGMENT";
           }
 
           this.dataService.getGlobalMsg(this.globalMsg);
