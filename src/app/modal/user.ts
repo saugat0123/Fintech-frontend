@@ -2,7 +2,7 @@
 import { Branch } from './branch';
 
 export class User {
-    id: number;
+    id: any;
     created: Date;
     lastModified: Date;
     accountNo: string;
@@ -14,7 +14,7 @@ export class User {
     signatureImage: string;
     status: string;
     userName: string;
-    role: [];
+    role: any;
     fingerPrint: [];
     
 }

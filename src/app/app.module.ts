@@ -71,6 +71,7 @@ import { AddCompanyComponent } from './component/admin/company/add-company/add-c
 import { DocumentComponent } from './component/admin/document/document.component';
 import { UpdateDocumentComponent } from './component/admin/document/update-document/update-document.component';
 import { AddDocumentComponent } from './component/admin/document/add-document/add-document.component';
+import {ListRoleComponent} from './component/admin/role-permission/list-role/list-role.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,7 @@ import { AddDocumentComponent } from './component/admin/document/add-document/ad
     SubSectorComponent,
     AddSectorComponent,
     AddSubSectorComponent,
-    RolePermissionComponent,
+
     UIComponent,
     DistrictComponent,
     MunicipalityComponent,
@@ -131,6 +132,7 @@ import { AddDocumentComponent } from './component/admin/document/add-document/ad
     AddDocumentComponent,
     AddSubSegmentComponent,
     BulkUploadComponent,
+      ListRoleComponent,
       FileSelectDirective,
       CompanyComponent,
       AddCompanyComponent

@@ -1,73 +1,94 @@
 <div class="modal fade in add-user">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header" style="display:block">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span></button>
-        <h4 class="modal-title pull-left">{{task}} User</h4>
-      </div>
-      <div class="modal-body">
-
-        <form (ngSubmit)="onSubmit()">
-      
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-6">
-                <label for="name">Name</label>
-                <input type="hidden" class="form-control" required [(ngModel)]="user.id" name="id" placeholder="id">
-      
-                <input type="text" class="form-control" required [(ngModel)]="user.name" name="name" placeholder="Name">
-
-              </div>
-              <div class="col-md-6">
-                <label for="branch">Associated Id</label>
-                <select class="form-control" name="branch" style="width: 100%;" [(ngModel)]="branch.id" tabindex="-1" aria-hidden="true" placeholder="Sector">
-                    <option>Select Associate</option>
-                    <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}</option>
-                  </select>
-              </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="display:block">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title pull-left">{{task}} User</h4>
             </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label for="email">Email</label>
-                <input type="text" class="form-control"  [(ngModel)]="user.email" name="email" placeholder="Email" >
-              </div>
-              <div class="col-md-6">
-                <label for="userName">Username</label>
-                <input type="text" class="form-control"  [(ngModel)]="user.userName" name="userName" placeholder="Username" >
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label for="password">Password</label>
-                <input type="password" class="form-control"  [(ngModel)]="user.password" name="password" placeholder="Password" >
-              </div>
-              <div class="col-md-6">
-                <label for="accountNo">Account No</label>
-                <input type="text" class="form-control"  [(ngModel)]="user.accountNo" name="accountNo" placeholder="Account No" >
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label for="signatureImage">Signature</label>
-                <input type="file" name="photo" accept="image/*" (change)="signatureUploader($event)"/>
-              </div>
-              <div class="col-md-6">
-                <label for="profilePicture">Profile</label>
-                <input type="file" name="photo" accept="image/*" (change)="profileUploader($event)"/>
-              </div>
-            </div>
+            <div class="modal-body">
+
+                <form (ngSubmit)="onSubmit()">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="name">Name</label>
+                                <input type="hidden" class="form-control" required [(ngModel)]="user.id" name="id"
+                                       placeholder="id">
+
+                                <input type="text" class="form-control" required [(ngModel)]="user.name" name="name"
+                                       placeholder="Name">
+
+                            </div>
+                            <div class="col-md-6">
+                                <label for="branch">Associated Id</label>
+                                <select class="form-control" name="branch" style="width: 100%;" [(ngModel)]="branch.id"
+                                        tabindex="-1" aria-hidden="true" placeholder="Sector">
+                                    <option>Select Associate</option>
+                                    <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="email">Email</label>
+                                <input type="text" class="form-control" [(ngModel)]="user.email" name="email"
+                                       placeholder="Email">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="userName">Username</label>
+                                <input type="text" class="form-control" [(ngModel)]="user.userName" name="userName"
+                                       placeholder="Username">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="authorities">Role</label>
+
+                                    <select class="form-control" [(ngModel)]="user.role" name="authorities">
+                                        <option *ngFor="let role of roleList" [ngValue]="role">{{role.roleName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" [(ngModel)]="user.password" name="password"
+                                       placeholder="Password">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="accountNo">Account No</label>
+                                <input type="text" class="form-control" [(ngModel)]="user.accountNo" name="accountNo"
+                                       placeholder="Account No">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="signatureImage">Signature</label>
+                                <input type="file" name="photo" accept="image/*" (change)="signatureUploader($event)"/>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="profilePicture">Profile</label>
+                                <input type="file" name="photo" accept="image/*" (change)="profileUploader($event)"/>
+                            </div>
+                        </div>
 
 
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
-          </div>
-        </form>
-      </div>
-     
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
+    <!-- /.modal-dialog -->
 </div>
