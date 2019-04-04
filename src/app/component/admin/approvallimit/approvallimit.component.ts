@@ -1,13 +1,14 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
-import { Pageable } from '../../../shared-service/baseservice/common-pageable';
-import { CommonDataService } from '../../../shared-service/baseservice/common-dataService';
-import { CommonService } from '../../../shared-service/baseservice/common-baseservice';
-import { CommonPageService } from '../../../shared-service/baseservice/common-pagination-service';
-import { ApprovalLimit } from '../../../modal/approval-limit';
-import { Location } from '../../../shared-service/baseservice/common-location';
+import {Pageable} from '../../../shared-service/baseservice/common-pageable';
+import {CommonDataService} from '../../../shared-service/baseservice/common-dataService';
+import {CommonService} from '../../../shared-service/baseservice/common-baseservice';
+import {CommonPageService} from '../../../shared-service/baseservice/common-pagination-service';
+import {ApprovalLimit} from '../../../modal/approval-limit';
+import {Location} from '../../../shared-service/baseservice/common-location';
+
 declare var $;
 
 
@@ -23,7 +24,7 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
 
     spinner: boolean = false;
     globalMsg;
-    search = new Object();
+    search = {};
     pageable: Pageable = new Pageable();
     currentApi: any;
     activeCount: any;
@@ -46,9 +47,9 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
 
         this.dataService.changeTitle(this.title);
         this.currentApi = 'v1/approvallimit/get';
-        this.getPagination()
+        this.getPagination();
 
-        console.log("test 1")
+
         this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
             console.log('test 2', response);
 
@@ -77,6 +78,7 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
     }
 
     openEdit(approvalLimit: ApprovalLimit) {
+        console.log('sdsffsdf', approvalLimit);
         this.dataService.setApprovalLimit(approvalLimit);
         $('.add-approvalLimit').modal('show');
     }
