@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonService } from '../../../../shared-service/baseservice/common-baseservice';
 import { LoanCycle } from '../../../../modal/loan-cycle';
+import { Document } from '../../../../modal/document';
 
 @Component({
   selector: 'app-update-document',
@@ -13,6 +14,7 @@ export class UpdateDocumentComponent implements OnInit {
   title:string;
   documentList: any;
   loanCycle:LoanCycle = new LoanCycle();
+  selecteDocumentList = Array<Document>();
   constructor(
     private commonService: CommonService
   ) { }
@@ -27,6 +29,9 @@ export class UpdateDocumentComponent implements OnInit {
     this.commonService.getByPost("v1/document/list",loanCycle).subscribe((response: any) => {
       this.documentList = response.detail;
     })
+  }
+  changeLoanCycle(){
+    this.commonService.("v1/document")
   }
 
 }
