@@ -6,6 +6,7 @@ import { CommonPageService } from '../../shared-service/baseservice/common-pagin
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../modal/user'
+
 declare var $;
 
 @Component({
@@ -115,7 +116,8 @@ export class UserComponent implements OnInit {
 
   onChange(newValue, data) {
     this.newValue = newValue;
-    this.dataService.setUser(data);
+    this.dataService.setData(data);
+    console.log('change',data)
     this.commonPageService.setCurrentApi('v1/user');
     $('.updateStatus').modal('show');
 

@@ -66,9 +66,9 @@
                                 <div class="col-md-6">
                                     <label for="authorities">Role</label>
 
-                                    <select class="form-control" [(ngModel)]="user.role" name="role" #role="ngModel"
+                                    <select class="form-control" [(ngModel)]="role.id" name="role" #role="ngModel"
                                             [ngClass]="{ 'is-invalid': f.submitted && role.invalid }">
-                                        <option *ngFor="let role of roleList" [ngValue]="role">{{role.roleName}}
+                                        <option *ngFor="let role of roleList" [ngValue]="role.id">{{role.roleName}}
                                         </option>
                                     </select>
                                     <div *ngIf="f.submitted && role.invalid" class="invalid-feedback">

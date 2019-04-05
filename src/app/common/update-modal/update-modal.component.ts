@@ -26,7 +26,7 @@ export class UpdateModalComponent implements OnInit, DoCheck {
     ngOnInit() {
         this.data = {
             id: null,
-            status: 'INactive'
+            status: 'INACTIVE'
         };
     }
 
