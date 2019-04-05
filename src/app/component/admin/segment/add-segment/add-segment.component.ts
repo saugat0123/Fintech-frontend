@@ -28,7 +28,6 @@ export class AddSegmentComponent implements OnInit, DoCheck {
   }
   ngDoCheck(): void {
     this.segment = this.dataService.getSegment();
-    console.log(this.segment.id)
     if (this.segment.id == null) {
       this.task = 'Add';
     } else { this.task = 'Edit'; }
@@ -38,7 +37,6 @@ export class AddSegmentComponent implements OnInit, DoCheck {
   onSubmit() {
     this.submitted = true;
     this.commonService.saveOrEdit(this.segment, 'v1/segment').subscribe(result => {
-          console.log(this.segment);
           $('.add-segment').modal('hide');
           if (this.segment.id == null) {
             this.globalMsg = "SUCCESSFULLY ADDED SEGMENT";

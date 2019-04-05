@@ -19,7 +19,8 @@ export class AddApprovalLimitComponent implements OnInit {
     roleList;
     loanList;
     globalMsg;
-
+    loan;
+    loanCategory: any;
     approvalLimit: ApprovalLimit = new ApprovalLimit();
 
     constructor(
@@ -43,10 +44,11 @@ export class AddApprovalLimitComponent implements OnInit {
 
     ngDoCheck(): void {
         this.approvalLimit = this.dataService.getApprovalLimit();
+        console.log("loan",this.approvalLimit.loanCategory);
         if (this.approvalLimit.id == null) {
+            this.loan = null;
             this.task = 'Add';
         } else {
-console.log(this.approvalLimit)
             this.task = 'Edit';
         }
 
