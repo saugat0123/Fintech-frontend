@@ -1,0 +1,20 @@
+<div class="modal fade in deleteMemoType">
+  <div class="modal-dialog modal-default">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="icon-box">
+          asdasd
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="reloadPage()">&times;</button>
+      </div>
+      <div class="modal-body text-center">
+        Are You Sure to delete {{modalData.name}}?
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="reloadPage()">No</button>
+        <button class="btn btn-success" (click)="deleteClick()" data-dismiss="modal">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

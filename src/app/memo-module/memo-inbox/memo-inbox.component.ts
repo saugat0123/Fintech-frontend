@@ -52,7 +52,7 @@ export class MemoInboxComponent implements OnInit {
 
   getPagination() {
     this.spinner = true;
-    this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 15).subscribe((response: any) => {
+    this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
           this.dataList = response.detail.content;
           this.dataService.setDataList(this.dataList);
           this.commonPageService.setCurrentApi(this.currentApi);

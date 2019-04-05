@@ -10,6 +10,7 @@ import {MemoCommonService} from "./memo-common.service";
 import {SharedModule} from "../shared-module/shared.module";
 import { MemoTypeComponent } from './memo-type/memo-type.component';
 import { AddMemoTypeComponent } from './memo-type/add-memo-type/add-memo-type.component';
+import { DeleteMemoTypeComponent } from './memo-type/delete-memo-type/delete-memo-type.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AddMemoTypeComponent } from './memo-type/add-memo-type/add-memo-type.co
       MemoReadComponent,
       MemoBaseComponent,
       MemoTypeComponent,
-      AddMemoTypeComponent
+      AddMemoTypeComponent,
+      DeleteMemoTypeComponent
   ],
   imports: [
     CommonModule,
