@@ -59,8 +59,6 @@ export class AddUserComponent implements OnInit, DoCheck {
 
   onSubmit() {
     this.submitted = true;
-    this.user.branch = this.branch;
-    this.user.role = this.role;
     console.log(this.user);
     this.commonService.saveOrEdit(this.user, 'v1/user').subscribe(result => {
       $('.add-user').modal('hide');

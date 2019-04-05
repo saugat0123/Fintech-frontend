@@ -67,7 +67,7 @@
                                     <label for="authorities">Role</label>
 
                                     <select class="form-control" [(ngModel)]="user.role" name="role" #role="ngModel"
-                                            [ngClass]="{ 'is-invalid': f.submitted && role.invalid }" required>
+                                            [ngClass]="{ 'is-invalid': f.submitted && role.invalid }">
                                         <option *ngFor="let role of roleList" [ngValue]="role">{{role.roleName}}
                                         </option>
                                     </select>
@@ -75,20 +75,21 @@
                                         <div *ngIf="role.errors.required">Role is required</div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" [(ngModel)]="user.password"
-                                           name="password"
-                                           placeholder="Password">
-                                </div>
                                 <div class="col-md-6">
                                     <label for="accountNo">Account No</label>
                                     <input type="text" class="form-control" [(ngModel)]="user.accountNo"
                                            name="accountNo"
                                            placeholder="Account No">
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div *ngIf="user.id==null" class="col-md-6">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" [(ngModel)]="user.password"
+                                           name="password"
+                                           placeholder="Password">
+                                </div>
+
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -106,9 +107,9 @@
 
                         </div>
                     </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-primary"><i class="fa fa-save"></i></button>
-                        </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary"><i class="fa fa-save"></i></button>
+                    </div>
 
                 </form>
             </div>

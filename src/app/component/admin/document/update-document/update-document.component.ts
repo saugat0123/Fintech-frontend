@@ -43,12 +43,12 @@ export class UpdateDocumentComponent implements OnInit {
     
   }
   updateCheckedOptions(events){
-    let d:Document = new Document();
+    let d: Document = new Document();
      d = events.target.value;
-    if(events.target.checked==true){
+    if (events.target.checked == true){
        this.selectedDocumentList.push(d);
        console.log(this.selectedDocumentList);
-    }else{
+    } else {
       const index: number = this.selectedDocumentList.indexOf(d);
       if (index !== -1) {
         this.selectedDocumentList.splice(index, 1);
