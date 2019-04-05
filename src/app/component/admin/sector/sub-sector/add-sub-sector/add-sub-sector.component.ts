@@ -22,65 +22,59 @@ export class AddSubSectorComponent implements OnInit, DoCheck {
   sector: Sector = new Sector();
   selectedSector: any ;
   constructor(
-    private commonService: CommonService,
-    private router: Router,
-    private dataService: CommonDataService) { 
-    }
+      private commonService: CommonService,
+      private router: Router,
+      private dataService: CommonDataService) {
+  }
 
   ngOnInit() {
     this.commonService.getByAll("v1/sector/getList").subscribe((response: any) => {
       this.sectorList = response.detail;
     })
   }
-  
+
 
   ngDoCheck(): void {
     this.subSector = this.dataService.getSubSector();
     if (this.subSector.id == null) {
-      this.sector = new Sector();
       this.task = 'Add';
-    } else {
-      if (this.subSector.sector != null) {
-        this.sector = this.subSector.sector;
-      };
-      this.task = 'Edit'; }
+    } else { this.task = 'Edit'; }
 
   }
 
   onSubmit() {
     this.subSector.sector=this.sector;
     this.commonService.saveOrEdit(this.subSector, 'v1/subSector').subscribe(result => {
-      $('.add-subSector').modal('hide');
-      if (this.subSector.id == null) {
-        this.globalMsg = "SUCCESSFULLY ADDED SUB SECTOR";
-      } else {
-        this.globalMsg = "SUCCESSFULLY EDITED SUB SECTOR";
-      }
+          $('.add-subSector').modal('hide');
+          if (this.subSector.id == null) {
+            this.globalMsg = "SUCCESSFULLY ADDED SUB SECTOR";
+          } else {
+            this.globalMsg = "SUCCESSFULLY EDITED SUB SECTOR";
+          }
 
-      this.dataService.getGlobalMsg(this.globalMsg);
-      this.dataService.getAlertMsg('true');
-      this.subSector = new SubSector();
-      this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
-        this.router.navigate(["home/subSector"]));
-      $(".alert-custom").slideDown();
+          this.dataService.getGlobalMsg(this.globalMsg);
+          this.dataService.getAlertMsg('true');
+          this.subSector = new SubSector();
+          this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["home/subSector"]));
+          $(".alert-custom").slideDown();
 
 
 
-    }, error => {
+        }, error => {
 
-      $('.add-subSector').modal('hide');
+          $('.add-subSector').modal('hide');
 
-      this.globalMsg = error.error.message;
-      this.dataService.getGlobalMsg(this.globalMsg);
-      this.dataService.getAlertMsg('false');
+          this.globalMsg = error.error.message;
+          this.dataService.getGlobalMsg(this.globalMsg);
+          this.dataService.getAlertMsg('false');
 
-      this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
-        this.router.navigate(["home/subSector"]));
-      $(".alert-custom").slideDown();
+          this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["home/subSector"]));
+          $(".alert-custom").slideDown();
 
-    }
+        }
     );
   }
 
 }
-

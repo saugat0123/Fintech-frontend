@@ -47,13 +47,11 @@ export class UpdateDocumentComponent implements OnInit {
      d = events.target.value;
     if (events.target.checked == true){
        this.selectedDocumentList.push(d);
-       console.log(this.selectedDocumentList);
     } else {
       const index: number = this.selectedDocumentList.indexOf(d);
       if (index !== -1) {
         this.selectedDocumentList.splice(index, 1);
-      }  
-      console.log(this.selectedDocumentList);
+      }
     }
     
     
