@@ -114,7 +114,7 @@ import { AddDocumentComponent } from './component/admin/document/add-document/ad
     SubSectorComponent,
     AddSectorComponent,
     AddSubSectorComponent,
-    RolePermissionComponent,
+
     UIComponent,
     DistrictComponent,
     MunicipalityComponent,

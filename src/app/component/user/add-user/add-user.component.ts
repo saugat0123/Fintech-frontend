@@ -4,14 +4,13 @@ import { CommonService } from '../../../shared-service/baseservice/common-basese
 import { Router } from '@angular/router';
 import { CommonDataService } from '../../../shared-service/baseservice/common-dataService';
 import { Branch } from '../../../modal/branch';
-import { fbind } from 'q';
 import {Role} from '../../../modal/role';
 declare var $;
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+    selector: 'app-add-user',
+    templateUrl: './add-user.component.html',
+    styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit, DoCheck {
   task: string;
@@ -36,7 +35,10 @@ export class AddUserComponent implements OnInit, DoCheck {
           this.roleList = response.detail;
       });
 
-  }
+        this.commonService.getByAll('v1/role/active').subscribe((response: any) => {
+            this.roleList = response.detail;
+        });
+    }
 
   ngDoCheck(): void {
     this.user = this.dataService.getUser();
@@ -44,7 +46,7 @@ export class AddUserComponent implements OnInit, DoCheck {
       this.task = 'Add';
       this.branch = new Branch();
       this.role = new Role();
-    } else { 
+    } else {
       if(this.user.branch != null){
         this.branch = this.user.branch;
       }
@@ -53,7 +55,7 @@ export class AddUserComponent implements OnInit, DoCheck {
       }
       this.task = 'Edit'; }
 
-  }
+    }
 
   onSubmit() {
     this.submitted = true;
@@ -68,50 +70,51 @@ export class AddUserComponent implements OnInit, DoCheck {
         this.globalMsg = "SUCCESSFULLY EDITED USER";
       }
 
-      this.dataService.getGlobalMsg(this.globalMsg);
-      this.dataService.getAlertMsg('true');
-      this.user = new User();
-      this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
-        this.router.navigate(["home/user"]));
-      $(".alert-custom").slideDown();
+                this.dataService.getGlobalMsg(this.globalMsg);
+                this.dataService.getAlertMsg('true');
+                this.user = new User();
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/user']));
+                this.dataService.alertmsg();
 
 
+            }, error => {
 
-    }, error => {
+                $('.add-user').modal('hide');
 
-      $('.add-user').modal('hide');
+                this.globalMsg = error.error.message;
+                this.dataService.getGlobalMsg(this.globalMsg);
+                this.dataService.getAlertMsg('false');
 
-      this.globalMsg = error.error.message;
-      this.dataService.getGlobalMsg(this.globalMsg);
-      this.dataService.getAlertMsg('false');
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/user']));
+                this.dataService.alertmsg();
 
-      this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
-        this.router.navigate(["home/user"]));
-      $(".alert-custom").slideDown();
-
+            }
+        );
     }
-    );
-  }
-  profileUploader(event){
-    console.log("here");
-    console.log(event.target.files[0]);
-    let file = <File> event.target.files[0];
-    const formdata: FormData = new FormData();
-    formdata.append('file', file);
-    this.commonService.getByPost('v1/user/uploadProfile',formdata).subscribe(result =>{
-      console.log(result);
-    });
-  }
-  signatureUploader(event){
-    console.log("here");
-    console.log(event.target.files[0]);
-    let file = <File> event.target.files[0];
-    const formdata: FormData = new FormData();
-    formdata.append('file', file);
-    this.commonService.getByPost('v1/user/uploadSignature',formdata).subscribe(result =>{
-      console.log(result);
-    });
-  }
+
+    profileUploader(event) {
+        console.log('here');
+        console.log(event.target.files[0]);
+        let file = <File> event.target.files[0];
+        const formdata: FormData = new FormData();
+        formdata.append('file', file);
+        this.commonService.getByPost('v1/user/uploadProfile', formdata).subscribe(result => {
+            console.log(result);
+        });
+    }
+
+    signatureUploader(event) {
+        console.log('here');
+        console.log(event.target.files[0]);
+        let file = <File> event.target.files[0];
+        const formdata: FormData = new FormData();
+        formdata.append('file', file);
+        this.commonService.getByPost('v1/user/uploadSignature', formdata).subscribe(result => {
+            console.log(result);
+        });
+    }
 
 }
 

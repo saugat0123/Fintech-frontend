@@ -120,7 +120,20 @@ export class UserComponent implements OnInit {
     $('.updateStatus').modal('show');
 
   }
-  
+
+
+    getCsv() {
+
+        this.commonService.saveOrEdit(this.search, 'v1/user/csv').subscribe((response: any) => {
+            const link = document.createElement('a');
+            link.target = '_blank';
+            link.href = response.detail;
+            link.download = response.detail;
+            link.setAttribute('visibility', 'hidden');
+            link.click();
+
+        });
+    }
 
 }
 
