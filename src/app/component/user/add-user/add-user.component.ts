@@ -31,11 +31,9 @@ export class AddUserComponent implements OnInit, DoCheck {
   ngOnInit() {
     this.commonService.getByAll("v1/branch/getList").subscribe((response: any) => {
       this.branchList = response.detail;
-      console.log(this.branchList);
     });
       this.commonService.getByAll('v1/role').subscribe((response: any) => {
           this.roleList = response.detail;
-          console.log(this.roleList);
       });
 
   }
@@ -44,7 +42,16 @@ export class AddUserComponent implements OnInit, DoCheck {
     this.user = this.dataService.getUser();
     if (this.user.id == null) {
       this.task = 'Add';
-    } else { this.task = 'Edit'; }
+      this.branch = new Branch();
+      this.role = new Role();
+    } else { 
+      if(this.user.branch != null){
+        this.branch = this.user.branch;
+      }
+      if(this.user.role != null){
+        this.role = this.user.role;
+      }
+      this.task = 'Edit'; }
 
   }
 

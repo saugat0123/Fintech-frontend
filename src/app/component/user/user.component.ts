@@ -82,7 +82,6 @@ export class UserComponent implements OnInit {
 
   openEdit(user: User) {
     this.dataService.setUser(user);
-    console.log(user)
     $('.add-user').modal('show');
   }
 

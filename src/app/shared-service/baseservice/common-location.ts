@@ -7,9 +7,9 @@ import { MunicipalityVDC } from "../../modal/municipality_VDC";
     providedIn: 'root'
 })
 export class Location{
-    provinceList: Array<Province>  = new Array<Province>();
-    districtList: Array<District> = new Array<District>();
-    municipality_Vdc: Array<MunicipalityVDC> = new Array<MunicipalityVDC>(); 
+    provinceList: any;
+    districtList: any;
+    municipality_Vdc: any;
     constructor(private commonService: CommonService) {
     }
     getProvinece(){
