@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
@@ -34,9 +36,14 @@ import { UserComponent } from './component/user/user.component';
 import { ApprovallimitComponent } from './component/approvallimit/approvallimit.component';
 import { AddApprovalLimitComponent } from './component/approvallimit/add-approval-limit/add-approval-limit.component';
 
-
-
 @NgModule({
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    NgbPaginationModule,
+  ],
   declarations: [
     AppComponent,
     BaseComponent,
@@ -64,18 +71,11 @@ import { AddApprovalLimitComponent } from './component/approvallimit/add-approva
     AddUserComponent,
     ApprovallimitComponent,
     AddApprovalLimitComponent,
-
-
-
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    NgbPaginationModule,
-  ],
-  providers: [CommonService, RestApiService, CommonDataService],
+  providers: [
+    CommonService,
+    RestApiService,
+    CommonDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
