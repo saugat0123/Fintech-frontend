@@ -32,7 +32,7 @@ export class AddLoanComponent implements OnInit, DoCheck {
       this.task = 'Add';
     } else {
       this.loanConfig = this.dataService.getData();
-      this.task = 'Edit';
+      this.task = 'Add';
     }
   }
 

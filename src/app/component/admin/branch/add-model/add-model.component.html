@@ -8,19 +8,22 @@
       </div>
       <div class="modal-body">
       
-        <form (ngSubmit)="onSubmit()">
+        <form  name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
       
           <div class="form-group">
             <div class="row">
               <div class="col-md-6">
                 <label for="address">Name</label>
-                <input type="hidden" class="form-control" required [(ngModel)]="branch.id" name="id" placeholder="id">
-                <input type="text" class="form-control" required [(ngModel)]="branch.name" name="name" placeholder="Name">
+                <input type="hidden" class="form-control"  [(ngModel)]="branch.id" name="id" placeholder="id">
+                <input type="text" class="form-control"  [(ngModel)]="branch.name" name="name" placeholder="Name"  #name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required />
+                <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                  <div *ngIf="name.errors.required"> Name is required</div>
+                </div>
 
               </div>
               <div class="col-md-6">
                 <label for="address">Address</label>
-                <input type="text" class="form-control"  placeholder="kathmandu" required [(ngModel)]="branch.address" name="address">
+                <input type="text" class="form-control"  placeholder="kathmandu"  [(ngModel)]="branch.address" name="address">
         
               </div>
             </div>
@@ -30,7 +33,11 @@
             <div class="row">
               <div class="col-md-6">
                 <label for="address">Branch Code</label>
-                <input type="text" class="form-control"  [(ngModel)]="branch.branchCode" name="branchCode" placeholder="SREBNK" >
+                <input type="text" class="form-control"  [(ngModel)]="branch.branchCode" name="branchCode" placeholder="SREBNK"  #branchCode="ngModel" [ngClass]="{ 'is-invalid': f.submitted && branchCode.invalid }" required />
+                <div *ngIf="f.submitted && branchCode.invalid" class="invalid-feedback">
+                  <div *ngIf="branchCode.errors.required"> CODE is required</div>
+                </div>
+
 
               </div>
             

@@ -21,6 +21,7 @@ export class AddUserComponent implements OnInit, DoCheck {
     branchList: any;
     branch: Branch = new Branch();
     roleList;
+
     constructor(
         private commonService: CommonService,
         private router: Router,
@@ -49,7 +50,7 @@ export class AddUserComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
-        this.submitted = true;
+
         console.log(this.user);
         this.commonService.saveOrEdit(this.user, 'v1/user').subscribe(result => {
                 $('.add-user').modal('hide');
@@ -64,7 +65,7 @@ export class AddUserComponent implements OnInit, DoCheck {
                 this.user = new User();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/user']));
-                $('.alert-custom').slideDown();
+                this.dataService.alertmsg();
 
 
             }, error => {
@@ -77,7 +78,7 @@ export class AddUserComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/user']));
-                $('.alert-custom').slideDown();
+                this.dataService.alertmsg();
 
             }
         );
