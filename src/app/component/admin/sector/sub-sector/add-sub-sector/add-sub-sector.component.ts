@@ -1,6 +1,5 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
-import { Pageable } from '../../../../../shared-service/baseservice/common-pageable';
 import { CommonDataService } from '../../../../../shared-service/baseservice/common-dataService';
 import { CommonService } from '../../../../../shared-service/baseservice/common-baseservice';
 import { Sector } from '../../../../../modal/sector';
@@ -38,8 +37,13 @@ export class AddSubSectorComponent implements OnInit, DoCheck {
   ngDoCheck(): void {
     this.subSector = this.dataService.getSubSector();
     if (this.subSector.id == null) {
+      this.sector = new Sector();
       this.task = 'Add';
-    } else { this.task = 'Edit'; }
+    } else {
+      if (this.subSector.sector != null) {
+        this.sector = this.subSector.sector;
+      };
+      this.task = 'Edit'; }
 
   }
 

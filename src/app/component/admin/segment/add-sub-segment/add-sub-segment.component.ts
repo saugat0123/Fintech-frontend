@@ -39,9 +39,16 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
   }
   ngDoCheck(): void {
     this.subSegment = this.dataService.getSubSegment();
+    console.log(this.subSegment)
     if (this.subSegment.id == null) {
+        this.segment = new Segment();
       this.task = 'Add';
-    } else { this.task = 'Edit'; }
+    } else {
+        if(this.subSegment.segment != null){
+            this.checkBoxValue = this.subSegment.funded;
+            this.segment = this.subSegment.segment;
+        }
+        this.task = 'Edit'; }
 
   }
 
