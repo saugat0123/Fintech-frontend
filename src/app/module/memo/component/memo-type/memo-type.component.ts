@@ -3,7 +3,7 @@ import {CommonDataService} from "../../../../shared-service/baseservice/common-d
 import {CommonService} from "../../../../shared-service/baseservice/common-baseservice";
 import {CommonPageService} from "../../../../shared-service/baseservice/common-pagination-service";
 import {Pageable} from "../../../../shared-service/baseservice/common-pageable";
-import {Memotype} from "../../model/memotype";
+import {MemoType} from "../../model/memoType";
 
 declare var $;
 
@@ -50,7 +50,7 @@ export class MemoTypeComponent implements OnInit {
     }
 
     addMemoType() {
-        this.dataService.setMemoType(new Memotype());
+        this.dataService.setMemoType(new MemoType());
         $('.add-memotype').modal('show');
     }
 
@@ -65,7 +65,7 @@ export class MemoTypeComponent implements OnInit {
 
     }
 
-    openEdit(memotype: Memotype) {
+    openEdit(memotype: MemoType) {
         this.dataService.setMemoType(memotype);
         $('.add-memotype').modal('show');
     }

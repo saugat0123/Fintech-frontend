@@ -2,7 +2,7 @@ import {Component, DoCheck, OnInit} from '@angular/core';
 import {CommonService} from "../../../../../shared-service/baseservice/common-baseservice";
 import {CommonDataService} from "../../../../../shared-service/baseservice/common-dataService";
 import {Router} from "@angular/router";
-import {Memotype} from "../../../model/memotype";
+import {MemoType} from "../../../model/memoType";
 
 declare var $;
 
@@ -15,7 +15,7 @@ export class AddMemoTypeComponent implements OnInit, DoCheck {
 
     task: string;
     submitted = false;
-    memoType: Memotype = new Memotype();
+    memoType: MemoType = new MemoType();
     globalMsg;
 
     constructor(
@@ -50,9 +50,9 @@ export class AddMemoTypeComponent implements OnInit, DoCheck {
 
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('true');
-                this.memoType = new Memotype();
+                this.memoType = new MemoType();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(["home/memotype"]));
+                    this.router.navigate(["home/memo/type"]));
                 $(".alert-custom").slideDown();
 
 
@@ -65,7 +65,7 @@ export class AddMemoTypeComponent implements OnInit, DoCheck {
                 this.dataService.getAlertMsg('false');
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(["home/memotype"]));
+                    this.router.navigate(["home/memo/type"]));
                 $(".alert-custom").slideDown();
 
             }

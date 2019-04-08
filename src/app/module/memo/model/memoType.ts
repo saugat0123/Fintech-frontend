@@ -1,4 +1,4 @@
-export class Memotype {
+export class MemoType {
     id: number;
     name: string;
     status: any;

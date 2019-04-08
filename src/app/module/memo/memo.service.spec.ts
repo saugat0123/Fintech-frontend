@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MemoCommonService } from './memo-common.service';
+import { MemoService } from './memo.service';
 
-describe('MemoCommonService', () => {
+describe('MemoService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: MemoCommonService = TestBed.get(MemoCommonService);
+    const service: MemoService = TestBed.get(MemoService);
     expect(service).toBeTruthy();
   });
 });

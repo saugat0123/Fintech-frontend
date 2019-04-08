@@ -10,7 +10,7 @@ import {MemoComposeComponent} from "./component/memo-compose/memo-compose.compon
 import {MemoInboxComponent} from "./component/memo-inbox/memo-inbox.component";
 import {MemoReadComponent} from "./component/memo-read/memo-read.component";
 import {SharedModule} from "../shared/shared.module";
-import {MemoCommonService} from "./memo-common.service";
+import {MemoService} from "./memo.service";
 import {MemoRoutes} from "./memo-routes";
 
 @NgModule({
@@ -29,7 +29,7 @@ import {MemoRoutes} from "./memo-routes";
         SharedModule,
         RouterModule.forChild(MemoRoutes)
     ],
-    providers: [MemoCommonService]
+    providers: [MemoService]
 })
 export class MemoModule {
 }
