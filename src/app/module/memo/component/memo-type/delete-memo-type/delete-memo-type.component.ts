@@ -1,7 +1,7 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {CommonService} from "../../../shared-service/baseservice/common-baseservice";
-import {CommonDataService} from "../../../shared-service/baseservice/common-dataService";
+import {CommonService} from "../../../../../shared-service/baseservice/common-baseservice";
+import {CommonDataService} from "../../../../../shared-service/baseservice/common-dataService";
 
 declare var $;
 @Component({

@@ -29,9 +29,8 @@ import { AddUserComponent } from './component/user/add-user/add-user.component';
 import { UserComponent } from './component/user/user.component';
 import { ApprovallimitComponent } from './component/approvallimit/approvallimit.component';
 import { AddApprovalLimitComponent } from './component/approvallimit/add-approval-limit/add-approval-limit.component';
-import {MemoModuleModule} from "./memo-module/memo-module.module";
-import {MemoModuleRoutingModule} from "./memo-module/memo-module-routing.module";
-import { SharedModule } from './shared-module/shared.module';
+import {MemoModule} from "./module/memo/memo.module";
+import { SharedModule } from './module/shared/shared.module';
 
 
 
@@ -60,17 +59,13 @@ import { SharedModule } from './shared-module/shared.module';
     AddUserComponent,
     ApprovallimitComponent,
     AddApprovalLimitComponent,
-
-
-
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MemoModuleModule,
-    MemoModuleRoutingModule,
+    MemoModule,
     SharedModule
   ],
   providers: [CommonService, RestApiService, CommonDataService],

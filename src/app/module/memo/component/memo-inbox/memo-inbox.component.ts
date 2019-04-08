@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {CommonDataService} from "../../shared-service/baseservice/common-dataService";
-import {CommonService} from "../../shared-service/baseservice/common-baseservice";
-import {CommonPageService} from "../../shared-service/baseservice/common-pagination-service";
-import {Pageable} from "../../shared-service/baseservice/common-pageable";
+import {CommonDataService} from "../../../../shared-service/baseservice/common-dataService";
+import {CommonService} from "../../../../shared-service/baseservice/common-baseservice";
+import {CommonPageService} from "../../../../shared-service/baseservice/common-pagination-service";
+import {Pageable} from "../../../../shared-service/baseservice/common-pageable";
 declare var $;
 
 @Component({
