@@ -65,7 +65,6 @@ import { SharedModule } from './module/shared/shared.module';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MemoModule,
     SharedModule
   ],
   providers: [CommonService, RestApiService, CommonDataService],

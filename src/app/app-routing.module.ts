@@ -10,11 +10,6 @@ import {LoanTemplateComponent} from './component/loan-template/loan-template.com
 import {LoanConfigComponent} from './component/loan-config/loan-config.component';
 import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
 import {BasicInfoComponent} from './component/loan-main-template/basic-info/basic-info.component';
-import {MemoBaseComponent} from "./module/memo/component/memo-base/memo-base.component";
-import {MemoInboxComponent} from "./module/memo/component/memo-inbox/memo-inbox.component";
-import {MemoComposeComponent} from "./module/memo/component/memo-compose/memo-compose.component";
-import {MemoReadComponent} from "./module/memo/component/memo-read/memo-read.component";
-import {MemoTypeComponent} from "./module/memo/component/memo-type/memo-type.component";
 
 
 const routes: Routes = [
@@ -38,14 +33,7 @@ const routes: Routes = [
             {path: 'user', component: UserComponent},
             {path: 'approvalLimit', component: ApprovallimitComponent},
 
-            {
-                path: 'memo', component: MemoBaseComponent, children: [
-                    {path: 'inbox', component: MemoInboxComponent},
-                    {path: 'compose', component: MemoComposeComponent},
-                    {path: 'read', component: MemoReadComponent}
-                ]
-            },
-            {path: 'memotype', component: MemoTypeComponent}
+            {path: 'memo', loadChildren: './module/memo/memo.module#MemoModule'}
         ],
 
     },

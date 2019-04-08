@@ -27,7 +27,7 @@ import {MemoRoutes} from "./memo-routes";
         CommonModule,
         FormsModule,
         SharedModule,
-        // RouterModule.forChild(MemoRoutes)
+        RouterModule.forChild(MemoRoutes)
     ],
     providers: [MemoCommonService]
 })
