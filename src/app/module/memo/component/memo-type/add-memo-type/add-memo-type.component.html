@@ -18,6 +18,16 @@
                 <input type="text" class="form-control" required [(ngModel)]="memoType.name" name="name" placeholder="Name">
               </div>
             </div>
+            <div class="row" *ngIf="task === 'Edit'">
+              <div class="col-md-12">
+                <label for="memoStatus">Memo Status</label>
+                <select [(ngModel)]="memoType.status" name="status" class="form-control" required id="memoStatus">
+                  <option value="ACTIVE">ACTIVE</option>
+                  <option value="INACTIVE">INACTIVE</option>
+                  <option value="DELETED">DELETED</option>
+                </select>
+              </div>
+            </div>
           </div>
 
           <div class="modal-footer">
