@@ -50,7 +50,6 @@ import { AddSectorComponent } from './component/admin/sector/sector/add-sector/a
 import { AddSubSectorComponent } from './component/admin/sector/sub-sector/add-sub-sector/add-sub-sector.component';
 
 import { UIComponent } from './component/admin/loan-config/ui/ui.component';
-import { MatCheckboxModule, MatRadioModule } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { DistrictComponent } from './component/admin/address/district/district.component';
 import { MunicipalityComponent } from './component/admin/address/municipality/municipality.component';
@@ -66,7 +65,6 @@ import { AddNepseComponent } from './component/admin/nepse/add-nepse/add-nepse.c
 import { AddSubSegmentComponent } from './component/admin/segment/add-sub-segment/add-sub-segment.component';
 import { CompanyInfoComponent } from './component/admin/loan-config/loan-main-template/company-info/company-info.component';
 import { BulkUploadComponent } from './component/admin/nepse/bulk-upload/bulk-upload.component';
-import {FileSelectDirective} from 'ng2-file-upload';
 import { CompanyComponent } from './component/admin/company/company.component';
 import { AddCompanyComponent } from './component/admin/company/add-company/add-company.component';
 
@@ -133,7 +131,6 @@ import { AddDocumentComponent } from './component/admin/document/add-document/ad
     AddDocumentComponent,
     AddSubSegmentComponent,
     BulkUploadComponent,
-      FileSelectDirective,
       CompanyComponent,
       AddCompanyComponent,
     AddRoleComponent,
@@ -149,14 +146,26 @@ import { AddDocumentComponent } from './component/admin/document/add-document/ad
     HttpClientModule,
     FormsModule,
     NgbPaginationModule,
-    MatCheckboxModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    MatRadioModule,
     ReactiveFormsModule
   ],
 
   providers: [CommonService, RestApiService, CommonDataService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[AddCompanyComponent,
+    AddApprovalLimitComponent,
+    AddModelComponent,
+    AddNepseComponent,
+    BulkUploadComponent,
+    AddSegmentComponent,
+    AddSubSegmentComponent,
+    AddValuatorComponent,
+    AddSectorComponent,
+    AddSubSectorComponent,
+    AddDocumentComponent,
+    AddUserComponent
+]
+
 })
 export class AppModule { }

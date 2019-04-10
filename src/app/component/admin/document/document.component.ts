@@ -22,7 +22,7 @@ export class DocumentComponent implements OnInit, DoCheck {
     loanCycleList: Array<LoanCycle>;
     spinner: boolean = false;
     globalMsg;
-    search = new Object();
+    search: any = {};
     pageable: Pageable = new Pageable();
     currentApi: any;
     activeCount: any;

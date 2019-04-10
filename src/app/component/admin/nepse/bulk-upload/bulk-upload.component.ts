@@ -3,7 +3,6 @@ import {Nepse} from '../../../../modal/nepse';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
-import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 
 
 declare var $;
@@ -29,15 +28,10 @@ export class BulkUploadComponent implements OnInit {
       private dataService: CommonDataService
   ) { }
 
-  public uploader: FileUploader = new FileUploader({url: UploadURL, itemAlias: 'photo'});
 
   ngOnInit() {
 
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      console.log('FileUpload:uploaded:', item, status, response);
-      alert('File uploaded successfully');
-    };
+    
   }
 
 

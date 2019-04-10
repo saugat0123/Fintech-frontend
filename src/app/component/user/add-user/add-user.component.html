@@ -25,7 +25,7 @@
                                 <label for="branch">Branch</label>
                                 <select class="form-control" name="branch" style="width: 100%;" [(ngModel)]="branch.id"
                                     required #branchVal="ngModel"
-                                    [ngClass]="{ 'is-invalid': f.submitted && branch.invalid }">
+                                    [ngClass]="{ 'is-invalid': f.submitted && branchVal.invalid }">
                                     <option [ngValue]="undefined" hidden>Branch</option>
                                     <option *ngFor="let branch of branchList"
                                         [selected]="branch.id === user?.branch?.id" [ngValue]="branch.id">
@@ -62,7 +62,7 @@
                                 <div class="col-md-6">
                                     <label for="authorities">Role</label>
                                     <select class="form-control" [(ngModel)]="role.id" name="role" #roleVal="ngModel"
-                                        [ngClass]="{ 'is-invalid': f.submitted && role.invalid }" required>
+                                        [ngClass]="{ 'is-invalid': f.submitted && roleVal.invalid }" required>
 
                                         <option [ngValue]="undefined" hidden>Role</option>
                                         <option *ngFor="let role of roleList" [selected]="user?.role?.id === role.id"
@@ -90,7 +90,7 @@
                                     <input type="password" class="form-control" [(ngModel)]="user.password"
                                         name="password" #passwordVal="ngModel"
                                         [ngClass]="{ 'is-invalid': f.submitted && passwordVal.invalid }" required
-                                        placeholder="Password">
+                                        placeholder="Password" name="password">
                                     <div *ngIf="f.submitted && passwordVal.invalid" class="invalid-feedback">
                                         <div *ngIf="passwordVal.errors.required">Role is required</div>
                                     </div>
