@@ -14,7 +14,7 @@
             <div class="row">
               <div class="col-md-6">
                 <label for="name">Segment Name</label>
-                <input type="hidden" class="form-control" required [(ngModel)]="segment.id" name="id" placeholder="id">
+                <input type="hidden" class="form-control" [(ngModel)]="segment.id" name="id" placeholder="id">
                 
                 <input type="text" class="form-control" [(ngModel)]="segment.segmentName" name="name" placeholder="Name"
                 #nameSegment="ngModel" [ngClass]="{ 'is-invalid': f.submitted && nameSegment.invalid }" required />

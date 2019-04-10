@@ -14,13 +14,12 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="loan_Category">Loan Category</label>
-                                <input type="hidden" class="form-control" required [(ngModel)]="approvalLimit.id"
+                                <input type="hidden" class="form-control" [(ngModel)]="approvalLimit.id"
                                     name="id" placeholder="id">
                                 <select [(ngModel)]="loanCategory" name="loanCategory" class="form-control" required
                                 #Category="ngModel" [ngClass]="{ 'is-invalid': f.submitted && Category.invalid }" >
                                     <option [ngValue]="undefined" hidden>Loan Category</option>
-                                    <option *ngFor="let allList of loanList"
-                                        [selected]="allList.id === approvalLimit?.loanCategory?.id" [ngValue]="allList">
+                                    <option *ngFor="let allList of loanList" [selected]="allList.id === approvalLimit?.loanCategory?.id" [ngValue]="allList">
                                         {{allList.name}}
                                     </option>
                                 </select>

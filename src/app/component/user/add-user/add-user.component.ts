@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { CommonDataService } from '../../../shared-service/baseservice/common-dataService';
 import { Branch } from '../../../modal/branch';
 import { Role } from '../../../modal/role';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 declare var $;
 @Component({
   selector: 'app-add-user',
@@ -25,7 +25,9 @@ export class AddUserComponent implements OnInit, DoCheck {
   constructor(
     private commonService: CommonService,
     private router: Router,
-    private dataService: CommonDataService) { }
+    private dataService: CommonDataService,
+    private activeModal: NgbActiveModal,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     this.commonService.getByAll("v1/branch/getList").subscribe((response: any) => {

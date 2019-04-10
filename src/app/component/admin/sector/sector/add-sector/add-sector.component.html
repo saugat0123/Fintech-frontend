@@ -14,7 +14,7 @@
             <div class="row">
               <div class="col-md-12">
                 <label for="sectorName">Sector Name</label>
-                <input type="hidden" class="form-control" required [(ngModel)]="sector.id" name="id">
+                <input type="hidden" class="form-control" [(ngModel)]="sector.id" name="id">
                 <input type="text" class="form-control" required [(ngModel)]="sector.sectorName" name="sectorName" placeholder="Sector Name"
                 #nameSector="ngModel" [ngClass]="{ 'is-invalid': f.submitted && nameSector.invalid }" required />
                 <div *ngIf="f.submitted && nameSector.invalid" class="invalid-feedback">

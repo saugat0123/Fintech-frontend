@@ -14,7 +14,7 @@
             <div class="row">
               <div class="col-md-6">
                 <label for="name">Company Name</label>
-                <input type="hidden" class="form-control" required [(ngModel)]="nepse.id" name="id" placeholder="id">
+                <input type="hidden" class="form-control" [(ngModel)]="nepse.id" name="id" placeholder="id">
                 <input type="text" class="form-control" required [(ngModel)]="nepse.companyName" name="name" placeholder="Name"
                 #nameVal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && nameVal.invalid }" required>
                 <div *ngIf="f.submitted && nameVal.invalid" class="invalid-feedback">
