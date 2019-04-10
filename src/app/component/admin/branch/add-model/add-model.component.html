@@ -7,9 +7,7 @@
         <h4 class="modal-title pull-left">{{task}} Branch</h4>
       </div>
       <div class="modal-body">
-
         <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
-
           <div class="form-group">
             <div class="row">
               <div class="col-md-6">
@@ -20,7 +18,6 @@
                 <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
                   <div *ngIf="name.errors.required"> Name is required</div>
                 </div>
-
               </div>
               <div class="col-md-6">
                 <label for="address">Address</label>
@@ -33,7 +30,6 @@
               </div>
             </div>
           </div>
-
           <div class="form-group">
             <div class="row">
               <div class="col-md-6">
@@ -44,23 +40,14 @@
                 <div *ngIf="f.submitted && branchCode.invalid" class="invalid-feedback">
                   <div *ngIf="branchCode.errors.required"> CODE is required</div>
                 </div>
-
-
               </div>
-
             </div>
           </div>
-
-
-
-
           <div class="modal-footer">
-
             <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
           </div>
         </form>
       </div>
-
     </div>
     <!-- /.modal-content -->
   </div>
