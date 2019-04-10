@@ -83,7 +83,7 @@
           <p>No Content Found</p>
         </div>
         <td>{{allList.subSegmentName}}</td>
-        <td>{{allList.segment.segmentName}}</td>
+        <td>{{allList?.segment?.segmentName}}</td>
         <td>{{allList.funded}}</td>
         <td>
           <a (click)="openEdit(allList,allList.segment)" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="EDIT">

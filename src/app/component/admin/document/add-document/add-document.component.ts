@@ -59,7 +59,7 @@ export class AddDocumentComponent implements OnInit {
           this.document = new Document();
           this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(()=>
               this.router.navigate(["home/document"]));
-          $(".alert-custom").slideDown();
+              this.dataService.alertmsg();
 
 
 
@@ -73,7 +73,7 @@ export class AddDocumentComponent implements OnInit {
 
           this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(()=>
               this.router.navigate(["home/document"]));
-          $(".alert-custom").slideDown();
+              this.dataService.alertmsg();
 
         }
     );

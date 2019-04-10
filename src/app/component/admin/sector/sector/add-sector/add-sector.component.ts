@@ -50,7 +50,7 @@ export class AddSectorComponent implements OnInit, DoCheck {
       this.sector = new Sector();
       this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
         this.router.navigate(["home/sector"]));
-      $(".alert-custom").slideDown();
+        this.dataService.alertmsg();
 
 
 
@@ -64,7 +64,7 @@ export class AddSectorComponent implements OnInit, DoCheck {
 
       this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
         this.router.navigate(["home/sector"]));
-      $(".alert-custom").slideDown();
+        this.dataService.alertmsg();
 
     }
     );

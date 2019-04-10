@@ -50,7 +50,7 @@ export class AddCompanyComponent implements OnInit, DoCheck {
           this.company = new Company();
           this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
               this.router.navigate(['home/company']));
-          $('.alert-custom').slideDown();
+              this.dataService.alertmsg();
 
 
 
@@ -64,7 +64,7 @@ export class AddCompanyComponent implements OnInit, DoCheck {
 
           this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
               this.router.navigate(["home/company"]));
-          $(".alert-custom").slideDown();
+              this.dataService.alertmsg();
 
         }
     );

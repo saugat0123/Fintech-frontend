@@ -86,7 +86,6 @@ export class BranchComponent implements OnInit, DoCheck {
 
 
     onChange(newValue, data) {
-        console.log(newValue);
         this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/branch');

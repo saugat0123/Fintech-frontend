@@ -42,13 +42,13 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
         if (this.subSegment.id == null) {
             this.task = 'Add';
         } else { this.task = 'Edit'; }
+        console.log(this.subSegment);
 
     }
 
     onSubmit() {
         this.submitted = true;
         this.subSegment.segment = this.segment;
-        this.subSegment.funded = this.checkBoxValue;
         console.log(this.segment);
         console.log(this.subSegment.segment);
         this.commonService.saveOrEdit(this.subSegment, 'v1/subSegment').subscribe(result => {
@@ -65,7 +65,7 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
                 this.subSegment = new SubSegment();
                 this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
                     this.router.navigate(['home/sub-segment']));
-                $('.alert-custom').slideDown();
+                    this.dataService.alertmsg();
 
 
 
@@ -79,7 +79,7 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
                     this.router.navigate(["home/sub-segment"]));
-                $(".alert-custom").slideDown();
+                    this.dataService.alertmsg();
 
             }
         );

@@ -50,7 +50,7 @@ export class AddValuatorComponent implements OnInit, DoCheck {
       this.valuator = new Valuator();
       this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
         this.router.navigate(["home/valuator"]));
-      $(".alert-custom").slideDown();
+        this.dataService.alertmsg();
 
 
 
@@ -64,7 +64,7 @@ export class AddValuatorComponent implements OnInit, DoCheck {
 
       this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
         this.router.navigate(["home/valuator"]));
-      $(".alert-custom").slideDown();
+        this.dataService.alertmsg();
 
     }
     );

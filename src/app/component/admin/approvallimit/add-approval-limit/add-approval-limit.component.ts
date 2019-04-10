@@ -19,8 +19,9 @@ export class AddApprovalLimitComponent implements OnInit {
     roleList;
     loanList;
     globalMsg;
-    loan;
     loanCategory: any;
+    branch: any;
+    authorities: any;
     approvalLimit: ApprovalLimit = new ApprovalLimit();
 
     constructor(
@@ -44,9 +45,8 @@ export class AddApprovalLimitComponent implements OnInit {
 
     ngDoCheck(): void {
         this.approvalLimit = this.dataService.getApprovalLimit();
-        console.log("loan",this.approvalLimit.loanCategory);
+        console.log("approval",this.approvalLimit);
         if (this.approvalLimit.id == null) {
-            this.loan = null;
             this.task = 'Add';
         } else {
             this.task = 'Edit';
@@ -56,7 +56,10 @@ export class AddApprovalLimitComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-        console.log(this.approvalLimit)
+        this.approvalLimit.loanCategory = this.loanCategory;
+        this.approvalLimit.authorities = this.authorities;
+        console.log("sub", this.approvalLimit)
+        console.log("app sub",this.approvalLimit)
         this.commonService.saveOrEdit(this.approvalLimit, 'v1/approvallimit').subscribe(result => {
                 $('.add-approvalLimit').modal('hide');
                 if (this.approvalLimit.id == null) {
@@ -70,7 +73,7 @@ export class AddApprovalLimitComponent implements OnInit {
                 this.approvalLimit = new ApprovalLimit();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/approvalLimit']));
-                $('.alert-custom').slideDown();
+                    this.dataService.alertmsg();
 
 
             }, error => {
@@ -83,7 +86,7 @@ export class AddApprovalLimitComponent implements OnInit {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/approvalLimit']));
-                $('.alert-custom').slideDown();
+                    this.dataService.alertmsg();
 
             }
         );

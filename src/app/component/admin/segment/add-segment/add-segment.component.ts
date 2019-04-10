@@ -49,7 +49,7 @@ export class AddSegmentComponent implements OnInit, DoCheck {
           this.segment = new Segment();
           this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
               this.router.navigate(['home/segment']));
-          $('.alert-custom').slideDown();
+              this.dataService.alertmsg();
 
 
 
@@ -63,7 +63,7 @@ export class AddSegmentComponent implements OnInit, DoCheck {
 
           this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
               this.router.navigate(["home/segment"]));
-          $(".alert-custom").slideDown();
+              this.dataService.alertmsg();
 
         }
     );

@@ -15,17 +15,15 @@
               <div class="col-md-6">
                 <label for="name">Segment Name </label>
                 <select class="form-control" name="selectedSubSegment" style="width: 100%;" [(ngModel)]="segment.id" tabindex="-1" aria-hidden="true" placeholder="SubSegment">
-                  <option>Select Segment</option>
-                  <option *ngFor="let segment of segmentList" [value]="segment.id">{{segment.segmentName}}</option>
+                  <option [ngValue]="undefined" hidden>Select Segment</option>
+                  <option *ngFor="let segment of segmentList" [selected]="subSegment?.segment?.id === segment.id" [ngValue]="segment.id">{{segment.segmentName}}</option>
                 </select>
-                <!--<input type="text" class="form-control" required [(ngModel)]="subSegment.id" name="id" placeholder="id">
-                <input type="text" class="form-control" required [(ngModel)]="segment.name" name="name" placeholder="Name">-->
 
               </div>
               <div class="col-md-6">
                 <label for="name">Loan Type</label>
 
-                <input type="text" class="form-control"  placeholder="kathmandu" required [(ngModel)]="subSegment.subSegmentName" name="name">
+                <input type="text" class="form-control"  placeholder="loan type" required [(ngModel)]="subSegment.subSegmentName" name="name">
               </div>
             </div>
           </div>

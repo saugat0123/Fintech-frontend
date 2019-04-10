@@ -21,6 +21,7 @@ export class AddSubSectorComponent implements OnInit, DoCheck {
   subSector: SubSector = new SubSector();
   sector: Sector = new Sector();
   selectedSector: any ;
+  seltect = true;
   constructor(
       private commonService: CommonService,
       private router: Router,
@@ -39,6 +40,7 @@ export class AddSubSectorComponent implements OnInit, DoCheck {
     if (this.subSector.id == null) {
       this.task = 'Add';
     } else { this.task = 'Edit'; }
+    console.log(this.subSector);
 
   }
 
@@ -57,7 +59,7 @@ export class AddSubSectorComponent implements OnInit, DoCheck {
           this.subSector = new SubSector();
           this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
               this.router.navigate(["home/subSector"]));
-          $(".alert-custom").slideDown();
+              this.dataService.alertmsg();
 
 
 
@@ -71,7 +73,7 @@ export class AddSubSectorComponent implements OnInit, DoCheck {
 
           this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
               this.router.navigate(["home/subSector"]));
-          $(".alert-custom").slideDown();
+              this.dataService.alertmsg();
 
         }
     );

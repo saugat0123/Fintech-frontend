@@ -76,6 +76,7 @@
                 <th>S.N</th>
                 <th>Sub Sector Name</th>
                 <th>Sub Sector Code</th>
+                <th>Sector</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -89,6 +90,7 @@
                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                 <td>{{allList.subSectorName}}</td>
                 <td>{{allList.subSectorCode}}</td>
+                <td>{{allList?.sector?.sectorName}}</td>
                 <td>
                   <select [(ngModel)]="allList.status" name="status" (change)="onChange($event.target.value,allList)">
                     <option value="ACTIVE">ACTIVE</option>

@@ -79,9 +79,11 @@
                 <p>No Content Found</p>
               </div>
               <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-              <td>{{allList.loanCategory.name}}</td>
+              <td>
+                {{allList?.loanCategory?.name}}
+              </td>
               <td>{{allList.amount}}</td>
-              <td>{{allList.authorities}}</td>
+              <td>{{allList?.authorities?.roleName}}</td>
               <td>{{allList.loanApprovalType}}</td>
               <td>
                 <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"

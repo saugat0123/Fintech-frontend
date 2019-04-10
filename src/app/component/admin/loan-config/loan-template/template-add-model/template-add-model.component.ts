@@ -55,7 +55,7 @@ export class TemplateAddModelComponent implements OnInit, DoCheck {
       this.loanTemplate = new LoanTemplate;
       this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
         this.router.navigate(["home/template"]));
-      $(".alert-custom").slideDown();
+        this.dataService.alertmsg();
 
 
 
@@ -69,7 +69,7 @@ export class TemplateAddModelComponent implements OnInit, DoCheck {
 
       this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
         this.router.navigate(["home/branch"]));
-      $(".alert-custom").slideDown();
+        this.dataService.alertmsg();
 
     }
     );

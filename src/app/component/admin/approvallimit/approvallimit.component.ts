@@ -63,13 +63,13 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
         this.getPagination();
     }
 
-    /*onSearchChange(searchValue: string) {
+    onSearchChange(searchValue: string) {
         this.search = {
             'name': searchValue
         };
         this.dataService.setData(this.search);
         this.getPagination();
-    }*/
+    }
 
 
     ngDoCheck(): void {

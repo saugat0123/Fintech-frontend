@@ -81,7 +81,7 @@ export class SectorComponent implements OnInit {
   }
   onSearchChange(searchValue: string){
     this.search = {
-      'sectorName': searchValue
+      'name': searchValue
     }
     this.dataService.setData(this.search);
     this.getPagination();

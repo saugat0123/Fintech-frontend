@@ -48,7 +48,7 @@ export class AddNepseComponent implements OnInit, DoCheck {
           this.nepse = new Nepse();
           this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
               this.router.navigate(['home/nepse']));
-          $('.alert-custom').slideDown();
+              this.dataService.alertmsg();
 
 
 
@@ -62,7 +62,7 @@ export class AddNepseComponent implements OnInit, DoCheck {
 
           this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
               this.router.navigate(["home/nepse"]));
-          $(".alert-custom").slideDown();
+              this.dataService.alertmsg();
 
         }
     );

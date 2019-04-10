@@ -44,21 +44,17 @@ export class AddUserComponent implements OnInit, DoCheck {
     this.user = this.dataService.getUser();
     if (this.user.id == null) {
       this.task = 'Add';
-      this.branch = new Branch();
-      this.role = new Role();
     } else {
-      if(this.user.branch != null){
-        this.branch = this.user.branch;
-      }
-      if(this.user.role != null){
-        this.role = this.user.role;
-      }
       this.task = 'Edit'; }
 
     }
 
   onSubmit() {
     this.submitted = true;
+    console.log(this.user);
+    console.log(this.branch)
+    this.user.branch= this.branch;
+    this.user.role = this.role;
     console.log(this.user);
     this.commonService.saveOrEdit(this.user, 'v1/user').subscribe(result => {
       $('.add-user').modal('hide');

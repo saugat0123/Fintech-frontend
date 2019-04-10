@@ -50,7 +50,7 @@ export class AddLoanComponent implements OnInit, DoCheck {
       this.loanConfig = new Object();
       this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
         this.router.navigate(["home/config"]));
-      $(".alert-custom").slideDown();
+        this.dataService.alertmsg();
     }, error => {
 
       $('.add-loan-config').modal('hide');
@@ -61,7 +61,7 @@ export class AddLoanComponent implements OnInit, DoCheck {
 
       this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
         this.router.navigate(["home/config"]));
-      $(".alert-custom").slideDown();
+        this.dataService.alertmsg();
     }
     );
   }

@@ -16,9 +16,10 @@
                                 <label for="loan_Category">Loan Category</label>
                                 <input type="hidden" class="form-control" required [(ngModel)]="approvalLimit.id"
                                        name="id" placeholder="id">
-                                <select [(ngModel)]="approvalLimit.loanCategory" name="loanCategory"
-                                        class="form-control">
-                                    <option *ngFor="let allList of loanList" [ngValue]="allList">{{allList.name}}
+                                <select [(ngModel)]="loanCategory" name="loanCategory"
+                                        class="form-control" required>
+                                    <option [ngValue]="undefined" hidden>Loan Category</option>
+                                    <option *ngFor="let allList of loanList" [selected]="allList.id === approvalLimit?.loanCategory?.id" [ngValue]="allList">{{allList.name}}
                                     </option>
                                 </select>
                             </div>
@@ -33,15 +34,16 @@
                             <div class="col-md-6">
                                 <label for="authorities">Authorities</label>
 
-                                <select class="form-control" [(ngModel)]="approvalLimit.authorities" name="authorities">
-                                    <option *ngFor="let role of roleList" [ngValue]="role">{{role.roleName}}</option>
+                                <select class="form-control" [(ngModel)]="authorities" name="authorities" required>
+                                        <option [ngValue]="undefined" hidden>Authorities</option>
+                                    <option *ngFor="let role of roleList" [selected]="role.id === approvalLimit?.authorities?.id" [ngValue]="role">{{role.roleName}}</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="approval_Type">Approval Type</label>
                                 <select class="form-control" [(ngModel)]="approvalLimit.loanApprovalType"
-                                        name="loanApprovalType">
-
+                                        name="loanApprovalType" required>
+                                    <option [ngValue]="undefined" hidden>Approval Type</option>
                                     <option value="PERSONAL_TYPE">PERSONAL</option>
                                     <option value="BUSINESS_TYPE">BUSINESS</option>
                                     <option value="BOTH_TYPE">BOTH</option>

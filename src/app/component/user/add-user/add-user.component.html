@@ -26,18 +26,17 @@
 
                             </div>
                             <div class="col-md-6">
-                                <label for="branch">Associated Id</label>
-                                <select class="form-control" name="branch" style="width: 100%;"
-                                        [(ngModel)]="user.branch"
-                                        #branch="ngModel" [ngClass]="{ 'is-invalid': f.submitted && branch.invalid }"
-                                        required>
-                                    <option>Select Associate</option>
-                                    <option *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}
+                                <label for="branch">Branch</label>
+                                <select class="form-control" name="branch" style="width: 100%;" [(ngModel)]="branch.id" required>
+                                        <!-- 
+                                        #branch="ngModel" [ngClass]="{ 'is-invalid': f.submitted && branch.invalid }" -->
+                                    <option [ngValue]="undefined" hidden >Branch</option>
+                                    <option *ngFor="let branch of branchList" [selected]="branch.id === user?.branch?.id" [ngValue]="branch.id">{{branch.name}},{{branch.id === user?.branch?.id}}
                                     </option>
                                 </select>
-                                <div *ngIf="f.submitted && branch.invalid" class="invalid-feedback">
+                                <!-- <div *ngIf="f.submitted && branch.invalid" class="invalid-feedback">
                                     <div *ngIf="branch.errors.required">Branch is required</div>
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>
@@ -66,14 +65,16 @@
                                 <div class="col-md-6">
                                     <label for="authorities">Role</label>
 
-                                    <select class="form-control" [(ngModel)]="role.id" name="role" #role="ngModel"
-                                            [ngClass]="{ 'is-invalid': f.submitted && role.invalid }">
-                                        <option *ngFor="let role of roleList" [ngValue]="role.id">{{role.roleName}}
+                                    <select class="form-control" [(ngModel)]="role.id" name="role" >
+                                            <!-- #role="ngModel"
+                                            [ngClass]="{ 'is-invalid': f.submitted && role.invalid }" required -->
+                                     <option [ngValue]="undefined" hidden>Role</option>
+                                        <option *ngFor="let role of roleList" [selected]="user?.role?.id === role.id" [value]="role.id">{{role.roleName}}
                                         </option>
                                     </select>
-                                    <div *ngIf="f.submitted && role.invalid" class="invalid-feedback">
+                                    <!-- <div *ngIf="f.submitted && role.invalid" class="invalid-feedback">
                                         <div *ngIf="role.errors.required">Role is required</div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="col-md-6">
                                     <label for="accountNo">Account No</label>

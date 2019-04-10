@@ -14,6 +14,7 @@ export class UpdateDocumentComponent implements OnInit {
   @Input() public cycle;
   title:string;
   documentList: any;
+  show :boolean = false;
   loanCycle:LoanCycle = new LoanCycle();
   selectedDocumentList = Array<Document>();
   constructor(
@@ -56,6 +57,9 @@ export class UpdateDocumentComponent implements OnInit {
     
     
     
+  }
+  toggle() {
+    this.show= !this.show;
   }
 
 }
