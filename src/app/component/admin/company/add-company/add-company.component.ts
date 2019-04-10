@@ -1,9 +1,9 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
-import {Nepse} from '../../../../modal/nepse';
-import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
-import {Router} from '@angular/router';
-import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
-import {Company} from '../../../../modal/company';
+import { Component, DoCheck, OnInit } from '@angular/core';
+
+import { CommonService } from '../../../../shared-service/baseservice/common-baseservice';
+import { Router } from '@angular/router';
+import { CommonDataService } from '../../../../shared-service/baseservice/common-dataService';
+import { Company } from '../../../../modal/company';
 
 declare var $;
 @Component({
@@ -19,9 +19,9 @@ export class AddCompanyComponent implements OnInit, DoCheck {
   globalMsg;
   company: Company = new Company();
   constructor(
-      private commonService: CommonService,
-      private router: Router,
-      private dataService: CommonDataService
+    private commonService: CommonService,
+    private router: Router,
+    private dataService: CommonDataService
   ) { }
 
   ngOnInit() {
@@ -37,36 +37,36 @@ export class AddCompanyComponent implements OnInit, DoCheck {
   onSubmit() {
     this.submitted = true;
     this.commonService.saveOrEdit(this.company, 'v1/company').subscribe(result => {
-          console.log(this.company);
-          $('.add-company').modal('hide');
-          if (this.company.id == null) {
-            this.globalMsg = "SUCCESSFULLY ADDED COMPANY";
-          } else {
-            this.globalMsg = "SUCCESSFULLY EDITED COMPANY";
-          }
+      console.log(this.company);
+      $('.add-company').modal('hide');
+      if (this.company.id == null) {
+        this.globalMsg = "SUCCESSFULLY ADDED COMPANY";
+      } else {
+        this.globalMsg = "SUCCESSFULLY EDITED COMPANY";
+      }
 
-          this.dataService.getGlobalMsg(this.globalMsg);
-          this.dataService.getAlertMsg('true');
-          this.company = new Company();
-          this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
-              this.router.navigate(['home/company']));
-              this.dataService.alertmsg();
+      this.dataService.getGlobalMsg(this.globalMsg);
+      this.dataService.getAlertMsg('true');
+      this.company = new Company();
+      this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
+        this.router.navigate(['home/company']));
+      this.dataService.alertmsg();
 
 
 
-        }, error => {
+    }, error => {
 
-          $('.add-company').modal('hide');
+      $('.add-company').modal('hide');
 
-          this.globalMsg = error.error.message;
-          this.dataService.getGlobalMsg(this.globalMsg);
-          this.dataService.getAlertMsg('false');
+      this.globalMsg = error.error.message;
+      this.dataService.getGlobalMsg(this.globalMsg);
+      this.dataService.getAlertMsg('false');
 
-          this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
-              this.router.navigate(["home/company"]));
-              this.dataService.alertmsg();
+      this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
+        this.router.navigate(["home/company"]));
+      this.dataService.alertmsg();
 
-        }
+    }
     );
   }
 

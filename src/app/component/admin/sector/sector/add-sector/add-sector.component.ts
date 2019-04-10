@@ -29,6 +29,7 @@ export class AddSectorComponent implements OnInit, DoCheck {
 
   ngDoCheck(): void {
     this.sector = this.dataService.getSector();
+    console.log(this.sector)
     if (this.sector.id == null) {
       this.task = 'Add';
     } else { this.task = 'Edit'; }

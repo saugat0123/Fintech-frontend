@@ -8,19 +8,27 @@
       </div>
       <div class="modal-body">
       
-        <form (ngSubmit)="onSubmit()">
+        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
       
           <div class="form-group">
             <div class="row">
               <div class="col-md-6">
                 <label for="name">Name</label>
                 <input type="hidden" class="form-control" required [(ngModel)]="valuator.id" name="id">
-                <input type="text" class="form-control" required [(ngModel)]="valuator.name" name="name" placeholder="Name">
+                <input type="text" class="form-control" required [(ngModel)]="valuator.name" name="name" placeholder="Name"
+                #valuatorName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && valuatorName.invalid }" required />
+                <div *ngIf="f.submitted && valuatorName.invalid" class="invalid-feedback">
+                  <div *ngIf="valuatorName.errors.required">Valuator Name is required</div>
+                </div>
 
               </div>
               <div class="col-md-6">
                 <label for="address">Address</label>
-                <input type="text" class="form-control"  placeholder="kathmandu" required [(ngModel)]="valuator.address" name="address">
+                <input type="text" class="form-control"  placeholder="kathmandu" required [(ngModel)]="valuator.address" name="address"
+                #valuatorAddress="ngModel" [ngClass]="{ 'is-invalid': f.submitted && valuatorAddress.invalid }" required />
+                <div *ngIf="f.submitted && valuatorAddress.invalid" class="invalid-feedback">
+                  <div *ngIf="valuatorAddress.errors.required">Address is required</div>
+                </div>
         
               </div>
             </div>
@@ -30,11 +38,19 @@
             <div class="row">
               <div class="col-md-6">
                 <label for="contactNo">Contact Number</label>
-                <input type="text" class="form-control"  [(ngModel)]="valuator.contactNo" name="contactNo" placeholder="Phone Number" >
+                <input type="text" class="form-control"  [(ngModel)]="valuator.contactNo" name="contactNo" placeholder="Phone Number" 
+                #valuatorNumber="ngModel" [ngClass]="{ 'is-invalid': f.submitted && valuatorNumber.invalid }" required />
+                <div *ngIf="f.submitted && valuatorNumber.invalid" class="invalid-feedback">
+                  <div *ngIf="valuatorNumber.errors.required">Number is required</div>
+                </div>
               </div>
               <div class="col-md-6">
                 <label for="siteLocation">Location</label>
-                <input type="text" class="form-control"  [(ngModel)]="valuator.siteLocation" name="siteLocation" placeholder="Location" >
+                <input type="text" class="form-control"  [(ngModel)]="valuator.siteLocation" name="siteLocation" placeholder="Location" 
+                #valuatorLocation="ngModel" [ngClass]="{ 'is-invalid': f.submitted && valuatorLocation.invalid }" required />
+                <div *ngIf="f.submitted && valuatorLocation.invalid" class="invalid-feedback">
+                  <div *ngIf="valuatorLocation.errors.required">Location is required</div>
+                </div>
               </div>
             </div>
           </div>

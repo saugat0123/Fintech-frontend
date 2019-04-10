@@ -8,14 +8,19 @@
       </div>
       <div class="modal-body">
 
-        <form (ngSubmit)="onSubmit()">
+        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
 
           <div class="form-group">
             <div class="row">
               <div class="col-md-6">
                 <label for="name">Segment Name</label>
                 <input type="hidden" class="form-control" required [(ngModel)]="segment.id" name="id" placeholder="id">
-                <input type="text" class="form-control" required [(ngModel)]="segment.segmentName" name="name" placeholder="Name">
+                
+                <input type="text" class="form-control" [(ngModel)]="segment.segmentName" name="name" placeholder="Name"
+                #nameSegment="ngModel" [ngClass]="{ 'is-invalid': f.submitted && nameSegment.invalid }" required />
+                <div *ngIf="f.submitted && nameSegment.invalid" class="invalid-feedback">
+                  <div *ngIf="nameSegment.errors.required"> Name is required</div>
+                </div>
 
               </div>
             </div>

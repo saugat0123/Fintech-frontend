@@ -37,8 +37,6 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private router: Router,
-        private location: Location
     ) {
     }
 

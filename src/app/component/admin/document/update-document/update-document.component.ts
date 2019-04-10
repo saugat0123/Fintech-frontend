@@ -12,10 +12,10 @@ import { Router } from '@angular/router';
 export class UpdateDocumentComponent implements OnInit {
 
   @Input() public cycle;
-  title:string;
+  title: string;
   documentList: any;
-  show :boolean = false;
-  loanCycle:LoanCycle = new LoanCycle();
+  show: boolean = false;
+  loanCycle: LoanCycle = new LoanCycle();
   selectedDocumentList = Array<Document>();
   constructor(
     private router: Router,
@@ -28,38 +28,38 @@ export class UpdateDocumentComponent implements OnInit {
     this.loanCycle.level = "";
     this.documentsNotContaining(this.loanCycle);
   }
-  documentsNotContaining(loanCycle:LoanCycle){
-    this.commonService.getByPost("v1/document/list",loanCycle).subscribe((response: any) => {
+  documentsNotContaining(loanCycle: LoanCycle) {
+    this.commonService.getByPost("v1/document/list", loanCycle).subscribe((response: any) => {
       this.documentList = response.detail;
       console.log(this.documentList)
     })
   }
-  updateLoanCycle(){
-    this.commonService.getByPostDocument("v1/document/saveList",this.selectedDocumentList,this.loanCycle.id).subscribe((response:any) =>{
+  updateLoanCycle() {
+    this.commonService.getByPostDocument("v1/document/saveList", this.selectedDocumentList, this.loanCycle.id).subscribe((response: any) => {
       console.log(response);
-    //   this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(()=>
-    // this.router.navigate(["home/document"]));
+      //   this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(()=>
+      // this.router.navigate(["home/document"]));
     });
-    
-    
+
+
   }
-  updateCheckedOptions(events){
+  updateCheckedOptions(events) {
     let d: Document = new Document();
-     d = events.target.value;
-    if (events.target.checked == true){
-       this.selectedDocumentList.push(d);
+    d = events.target.value;
+    if (events.target.checked == true) {
+      this.selectedDocumentList.push(d);
     } else {
       const index: number = this.selectedDocumentList.indexOf(d);
       if (index !== -1) {
         this.selectedDocumentList.splice(index, 1);
       }
     }
-    
-    
-    
+
+
+
   }
   toggle() {
-    this.show= !this.show;
+    this.show = !this.show;
   }
 
 }

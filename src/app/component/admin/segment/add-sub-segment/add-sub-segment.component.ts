@@ -41,7 +41,12 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
         this.subSegment = this.dataService.getSubSegment();
         if (this.subSegment.id == null) {
             this.task = 'Add';
-        } else { this.task = 'Edit'; }
+            this.segment = new Segment();
+        } else { this.task = 'Edit'; 
+        if(this.subSegment.segment != null){
+            this.segment = this.subSegment.segment;
+        }
+    }
         console.log(this.subSegment);
 
     }

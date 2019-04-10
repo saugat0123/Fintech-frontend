@@ -1,10 +1,10 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
-import {Pageable} from '../../../shared-service/baseservice/common-pageable';
-import {CommonDataService} from '../../../shared-service/baseservice/common-dataService';
-import {CommonService} from '../../../shared-service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../shared-service/baseservice/common-pagination-service';
-import {Router} from '@angular/router';
-import {Document} from '../../../modal/document';
+import { Component, DoCheck, OnInit } from '@angular/core';
+import { Pageable } from '../../../shared-service/baseservice/common-pageable';
+import { CommonDataService } from '../../../shared-service/baseservice/common-dataService';
+import { CommonService } from '../../../shared-service/baseservice/common-baseservice';
+import { CommonPageService } from '../../../shared-service/baseservice/common-pagination-service';
+import { Router } from '@angular/router';
+import { Document } from '../../../modal/document';
 import { HttpClient } from '@angular/common/http';
 import { LoanCycle } from '../../../modal/loan-cycle';
 declare var $;
@@ -19,7 +19,7 @@ export class DocumentComponent implements OnInit, DoCheck {
     title = 'Document';
     breadcrumb = 'Document > List';
     dataList: any;
-    loanCycleList : Array<LoanCycle>;
+    loanCycleList: Array<LoanCycle>;
     spinner: boolean = false;
     globalMsg;
     search = new Object();
@@ -49,13 +49,13 @@ export class DocumentComponent implements OnInit, DoCheck {
 
         this.commonService.getByAll(this.currentApi + '/getStatusCount').subscribe((response: any) => {
 
-          this.activeCount = response.detail.active;
-          this.inactiveCount = response.detail.inactive;
-          this.documents = response.detail.documents;
+            this.activeCount = response.detail.active;
+            this.inactiveCount = response.detail.inactive;
+            this.documents = response.detail.documents;
         });
         this.commonService.getByAll('v1/document/lifeCycle').subscribe((response: any) => {
 
-          this.loanCycleList = response.detail;
+            this.loanCycleList = response.detail;
         });
 
 
@@ -90,10 +90,10 @@ export class DocumentComponent implements OnInit, DoCheck {
     }
 
     onChange(newValue, data) {
-      this.newValue = newValue
-      this.dataService.setData(data);
-      this.commonPageService.setCurrentApi('v1/document');
-      $('.updateStatus').modal('show');
+        this.newValue = newValue
+        this.dataService.setData(data);
+        this.commonPageService.setCurrentApi('v1/document');
+        $('.updateStatus').modal('show');
 
     }
 

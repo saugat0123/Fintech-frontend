@@ -55,8 +55,9 @@
           <div class=row>
             <div class="col-md-3">
               <form (ngSubmit)="onSearch()">
-                <input type="text" class="input-sm" [(ngModel)]="search.name" (input)="onSearchChange($event.target.value)" name="name" placeholder="search....">
-                  <button type="submit" class="btn btn-primary btn-sm">
+                <input type="text" class="input-sm" [(ngModel)]="search.name"
+                  (input)="onSearchChange($event.target.value)" name="name" placeholder="search....">
+                <button type="submit" class="btn btn-primary btn-sm">
                   <i class="fa fa-search"></i>
                 </button>
               </form>
@@ -64,7 +65,7 @@
             <!-- <h3 class="box-title">Hover Data Table</h3> -->
             <div class="col-md-9">
 
-             <button class="skin-blue pull-right" data-toggle="modal" (click)="addBranch()">
+              <button class="skin-blue pull-right" data-toggle="modal" (click)="addBranch()">
                 <i class="skin-blue fa fa-plus"></i>
               </button>
               <a class="pull-right btn btn-transparent-primary" (click)="getCsv()">
@@ -98,14 +99,16 @@
                 <td>{{allList.branchCode}}</td>
                 <td>{{allList.address}}</td>
                 <td>
-                  <select class="select-borderless" [(ngModel)]="allList.status" name="status" (change)="onChange($event.target.value,allList)">
+                  <select class="select-borderless" [(ngModel)]="allList.status" name="status"
+                    (change)="onChange($event.target.value,allList)">
                     <option value="ACTIVE">ACTIVE</option>
                     <option value="INACTIVE">INACTIVE</option>
 
                   </select>
                 </td>
                 <td>
-                  <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="EDIT">
+                  <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
+                    data-placement="top" title="EDIT">
                     <i class="fa fa-edit" style="color:white"></i>
                   </a>
                   <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip"  data-placement="top" (click)="delete(allList)"  title="DELETE" style="margin-left:10px">

@@ -36,6 +36,7 @@ export class AddSegmentComponent implements OnInit, DoCheck {
 
   onSubmit() {
     this.submitted = true;
+    console.log("asdf")
     this.commonService.saveOrEdit(this.segment, 'v1/segment').subscribe(result => {
           $('.add-segment').modal('hide');
           if (this.segment.id == null) {

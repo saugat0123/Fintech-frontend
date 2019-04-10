@@ -8,22 +8,28 @@
       </div>
       <div class="modal-body">
 
-        <form (ngSubmit)="onSubmit()">
+        <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
 
           <div class="form-group">
             <div class="row">
               <div class="col-md-6">
                 <label for="name">Segment Name </label>
-                <select class="form-control" name="selectedSubSegment" style="width: 100%;" [(ngModel)]="segment.id" tabindex="-1" aria-hidden="true" placeholder="SubSegment">
+                <select class="form-control" name="selectedSubSegment" style="width: 100%;" [(ngModel)]="segment.id" tabindex="-1" aria-hidden="true" placeholder="SubSegment" required
+                #segment="ngModel" [ngClass]="{ 'is-invalid': f.submitted && segment.invalid }">
                   <option [ngValue]="undefined" hidden>Select Segment</option>
                   <option *ngFor="let segment of segmentList" [selected]="subSegment?.segment?.id === segment.id" [ngValue]="segment.id">{{segment.segmentName}}</option>
                 </select>
-
+                <div *ngIf="f.submitted && segment.invalid" class="invalid-feedback">
+                    <div *ngIf="segment.errors.required">Segment is required</div>
+                </div>
               </div>
               <div class="col-md-6">
                 <label for="name">Loan Type</label>
-
-                <input type="text" class="form-control"  placeholder="loan type" required [(ngModel)]="subSegment.subSegmentName" name="name">
+                <input type="text" class="form-control"  placeholder="loan type" required [(ngModel)]="subSegment.subSegmentName" name="name"
+                #subSegmentName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && subSegmentName.invalid }" required />
+                <div *ngIf="f.submitted && subSegmentName.invalid" class="invalid-feedback">
+                  <div *ngIf="subSegmentName.errors.required">Loan Type is required</div>
+                </div>
               </div>
             </div>
           </div>
@@ -31,7 +37,6 @@
           <div class="form-group">
             <div class="row">
               <div class="col-md-6">
-
                 <label class="checkbox-inline">
                   Is This a Funded Loan
                   <input type="checkbox" [(ngModel)]="subSegment.funded" [ngModelOptions]="{standalone: true}">

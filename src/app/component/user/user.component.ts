@@ -6,6 +6,8 @@ import { CommonPageService } from '../../shared-service/baseservice/common-pagin
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../modal/user'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddUserComponent } from './add-user/add-user.component';
 
 declare var $;
 
@@ -38,7 +40,8 @@ export class UserComponent implements OnInit {
     private commonService: CommonService,
     private commonPageService: CommonPageService,
     private router: Router,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private modalService: NgbModal
   ) {
   }
 
@@ -69,11 +72,11 @@ export class UserComponent implements OnInit {
   }
 
   onSearchChange(searchValue: string) {
-      this.search = {
-          'name': searchValue
-      };
-      this.dataService.setData(this.search);
-      this.getPagination();
+    this.search = {
+      'name': searchValue
+    };
+    this.dataService.setData(this.search);
+    this.getPagination();
   }
 
 
@@ -117,25 +120,25 @@ export class UserComponent implements OnInit {
   onChange(newValue, data) {
     this.newValue = newValue;
     this.dataService.setData(data);
-    console.log('change',data)
+    console.log('change', data)
     this.commonPageService.setCurrentApi('v1/user');
     $('.updateStatus').modal('show');
 
   }
 
 
-    getCsv() {
+  getCsv() {
 
-        this.commonService.saveOrEdit(this.search, 'v1/user/csv').subscribe((response: any) => {
-            const link = document.createElement('a');
-            link.target = '_blank';
-            link.href = response.detail;
-            link.download = response.detail;
-            link.setAttribute('visibility', 'hidden');
-            link.click();
+    this.commonService.saveOrEdit(this.search, 'v1/user/csv').subscribe((response: any) => {
+      const link = document.createElement('a');
+      link.target = '_blank';
+      link.href = response.detail;
+      link.download = response.detail;
+      link.setAttribute('visibility', 'hidden');
+      link.click();
 
-        });
-    }
+    });
+  }
 
 }
 

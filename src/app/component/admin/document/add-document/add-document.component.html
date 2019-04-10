@@ -8,23 +8,32 @@
       </div>
       <div class="modal-body">
 
-        <form (ngSubmit)="onSubmit()">
+        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
 
           <div class="form-group">
             <div class="row">
               <div class="col-md-6">
                 <label for="address">Name</label>
                 <input type="hidden" class="form-control" required [(ngModel)]="document.id" name="id" placeholder="id">
-                <input type="text" class="form-control" required [(ngModel)]="document.name" name="name" placeholder="Name">
+                <input type="text" class="form-control" required [(ngModel)]="document.name" name="name"
+                  placeholder="Name" #name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }"
+                  required />
+                <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                  <div *ngIf="name.errors.required"> Name is required</div>
+                </div>
 
               </div>
               <div class="col-md-6">
-                <label for="address">url</label>
-                <input type="text" class="form-control"  placeholder="www.sbsolutions.com" required [(ngModel)]="document.url" name="address">
+                <label for="url">url</label>
+                <input type="text" class="form-control" placeholder="www.sbsolutions.com" [(ngModel)]="document.url"
+                  name="url" #docURL="ngModel" [ngClass]="{ 'is-invalid': f.submitted && docURL.invalid }" required />
+                <div *ngIf="f.submitted && docURL.invalid" class="invalid-feedback">
+                  <div *ngIf="docURL.errors.required"> URL is required</div>
+                </div>
 
               </div>
               <br>
-              
+
             </div>
           </div>
 
@@ -42,6 +51,6 @@
 
     </div>
     <!-- /.modal-content -->
-</div>
-  <!-- /.modal-dialog -->
   </div>
+  <!-- /.modal-dialog -->
+</div>

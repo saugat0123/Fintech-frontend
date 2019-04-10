@@ -193,4 +193,8 @@ export class CommonDataService {
     getCompany(){
         return this.company;
     }
+    clearData() {
+        this.dataObj = new Object();
+    }
+
 }

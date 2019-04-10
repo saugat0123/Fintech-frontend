@@ -46,13 +46,15 @@ export class UpdateModalComponent implements OnInit, DoCheck {
                 this.router.navigate([this.currentUrl]);
 
             }
+            this.dataService.clearData();
+            
         });
     }
 
     updateStatus(data: any) {
 
         this.commonService.saveOrEdit(this.data, this.currentApi).subscribe(result => {
-
+            this.dataService.clearData();
                 this.globalMsg = 'SUCCESSFULLY UPDATED STATUS';
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('true');
@@ -67,6 +69,7 @@ export class UpdateModalComponent implements OnInit, DoCheck {
 
 
             }, error => {
+                this.dataService.clearData();
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('false');

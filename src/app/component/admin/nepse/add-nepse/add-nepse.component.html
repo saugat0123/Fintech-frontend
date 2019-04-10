@@ -8,19 +8,25 @@
       </div>
       <div class="modal-body">
 
-        <form (ngSubmit)="onSubmit()">
+        <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
 
           <div class="form-group">
             <div class="row">
               <div class="col-md-6">
                 <label for="name">Company Name</label>
                 <input type="hidden" class="form-control" required [(ngModel)]="nepse.id" name="id" placeholder="id">
-                <input type="text" class="form-control" required [(ngModel)]="nepse.companyName" name="name" placeholder="Name">
-
+                <input type="text" class="form-control" required [(ngModel)]="nepse.companyName" name="name" placeholder="Name"
+                #nameVal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && nameVal.invalid }" required>
+                <div *ngIf="f.submitted && nameVal.invalid" class="invalid-feedback">
+                    <div *ngIf="nameVal.errors.required">Nepse Company Name is required</div>
+                </div>
               </div>
               <div class="col-md-6">
                 <label for="amount">Share Amount per unit</label>
-                <input type="text" class="form-control"  placeholder="amount" required [(ngModel)]="nepse.amountPerUnit" name="amount">
+                <input type="text" class="form-control"  placeholder="amount"  [(ngModel)]="nepse.amountPerUnit" name="amount" #perUnit="ngModel" [ngClass]="{ 'is-invalid': f.submitted && perUnit.invalid }" required>
+                <div *ngIf="f.submitted && perUnit.invalid" class="invalid-feedback">
+                    <div *ngIf="perUnit.errors.required">Nepse Company Name is required</div>
+                </div>
 
               </div>
             </div>
