@@ -2,6 +2,7 @@ import {Component, DoCheck, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {CommonService} from "../../../../../shared-service/baseservice/common-baseservice";
 import {CommonDataService} from "../../../../../shared-service/baseservice/common-dataService";
+import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 declare var $;
 @Component({
@@ -20,7 +21,8 @@ export class DeleteMemoTypeComponent implements OnInit, DoCheck {
   constructor(
       private router: Router,
       private commonService: CommonService,
-      private dataService: CommonDataService
+      private dataService: CommonDataService,
+      private activeModal: NgbActiveModal
   ) { }
 
   ngOnInit() {
@@ -47,13 +49,7 @@ export class DeleteMemoTypeComponent implements OnInit, DoCheck {
 
         $(".alert-custom").slideDown();
 
-        this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(e => {
-          if (e) {
-            this.router.navigate([this.currentUrl]);
-
-          }
-        });
-
+        this.reloadPage();
 
       }, error => {
         this.globalMsg = error.error.message;
@@ -70,7 +66,7 @@ export class DeleteMemoTypeComponent implements OnInit, DoCheck {
     this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(e => {
       if (e) {
         this.router.navigate([this.currentUrl]);
-
+        this.activeModal.close();
       }
     });
   }

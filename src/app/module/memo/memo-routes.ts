@@ -10,7 +10,7 @@ export const MemoRoutes: Routes = [
         path: '', component: MemoBaseComponent, children: [
             {path: 'underReview', component: MemoUnderReviewComponent},
             {path: 'compose', component: MemoComposeComponent},
-            {path: 'read', component: MemoReadComponent},
+            {path: 'read', component: MemoReadComponent}
 
         ]
     },

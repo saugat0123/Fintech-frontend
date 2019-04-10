@@ -29,9 +29,7 @@ import { AddUserComponent } from './component/user/add-user/add-user.component';
 import { UserComponent } from './component/user/user.component';
 import { ApprovallimitComponent } from './component/approvallimit/approvallimit.component';
 import { AddApprovalLimitComponent } from './component/approvallimit/add-approval-limit/add-approval-limit.component';
-import {MemoModule} from "./module/memo/memo.module";
 import { SharedModule } from './module/shared/shared.module';
-
 
 
 @NgModule({

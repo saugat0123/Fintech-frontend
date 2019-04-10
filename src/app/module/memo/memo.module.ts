@@ -12,6 +12,7 @@ import {MemoReadComponent} from "./component/memo-read/memo-read.component";
 import {SharedModule} from "../shared/shared.module";
 import {MemoService} from "./memo.service";
 import {MemoRoutes} from "./memo-routes";
+import {NgbActiveModal, NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
     declarations: [
@@ -27,9 +28,14 @@ import {MemoRoutes} from "./memo-routes";
         CommonModule,
         FormsModule,
         SharedModule,
-        RouterModule.forChild(MemoRoutes)
+        RouterModule.forChild(MemoRoutes),
+        NgbModule
     ],
-    providers: [MemoService]
+    entryComponents: [
+        AddMemoTypeComponent,
+        DeleteMemoTypeComponent
+    ],
+    providers: [MemoService, NgbActiveModal]
 })
 export class MemoModule {
 }

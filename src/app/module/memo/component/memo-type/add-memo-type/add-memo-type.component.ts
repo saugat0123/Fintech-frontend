@@ -3,6 +3,7 @@ import {CommonService} from "../../../../../shared-service/baseservice/common-ba
 import {CommonDataService} from "../../../../../shared-service/baseservice/common-dataService";
 import {Router} from "@angular/router";
 import {MemoType} from "../../../model/memoType";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 declare var $;
 
@@ -21,7 +22,8 @@ export class AddMemoTypeComponent implements OnInit, DoCheck {
     constructor(
         private commonService: CommonService,
         private dataService: CommonDataService,
-        private router: Router
+        private router: Router,
+        private activeModal: NgbActiveModal
     ) {
     }
 
@@ -41,7 +43,7 @@ export class AddMemoTypeComponent implements OnInit, DoCheck {
     onSubmit() {
         this.submitted = true;
         this.commonService.saveOrEdit(this.memoType, 'v1/memos/types').subscribe(result => {
-                $('.add-memotype').modal('hide');
+                this.activeModal.close("Added or edited");
                 if (this.memoType.id == null) {
                     this.globalMsg = "SUCCESSFULLY ADDED MEMO TYPE";
                 } else {
@@ -58,7 +60,7 @@ export class AddMemoTypeComponent implements OnInit, DoCheck {
 
             }, error => {
 
-                $('.add-memotype').modal('hide');
+                this.activeModal.close();
 
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);

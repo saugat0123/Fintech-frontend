@@ -4,6 +4,9 @@ import {CommonService} from "../../../../shared-service/baseservice/common-bases
 import {CommonPageService} from "../../../../shared-service/baseservice/common-pagination-service";
 import {Pageable} from "../../../../shared-service/baseservice/common-pageable";
 import {MemoType} from "../../model/memoType";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {AddMemoTypeComponent} from "./add-memo-type/add-memo-type.component";
+import {DeleteMemoTypeComponent} from "./delete-memo-type/delete-memo-type.component";
 
 declare var $;
 
@@ -15,7 +18,6 @@ declare var $;
 export class MemoTypeComponent implements OnInit {
 
     title = "Memo Type";
-    countMemoTypes: any = 10;
     search = {};
     spinner: boolean = false;
     dataList: any;
@@ -26,7 +28,8 @@ export class MemoTypeComponent implements OnInit {
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService
+        private commonPageService: CommonPageService,
+        private modalService: NgbModal
     ) {
     }
 
@@ -51,28 +54,17 @@ export class MemoTypeComponent implements OnInit {
 
     addMemoType() {
         this.dataService.setMemoType(new MemoType());
-        $('.add-memotype').modal('show');
-    }
-
-
-    newValue: any;
-
-    onChange(newValue, data) {
-        this.newValue = newValue;
-        this.dataService.setData(data);
-        // this.commonPageService.setCurrentApi('v1/memos/types');
-        $('.updateStatus').modal('show');
-
+        this.modalService.open(AddMemoTypeComponent);
     }
 
     openEdit(memotype: MemoType) {
         this.dataService.setMemoType(memotype);
-        $('.add-memotype').modal('show');
+        this.modalService.open(AddMemoTypeComponent);
     }
 
     openDelete(data) {
         this.dataService.setData(data);
-        $('.deleteMemoType').modal('show');
+        this.modalService.open(DeleteMemoTypeComponent);
     }
 
     getPagination() {
