@@ -7,7 +7,7 @@ import {MemoTypeComponent} from "./component/memo-type/memo-type.component";
 import {AddMemoTypeComponent} from "./component/memo-type/add-memo-type/add-memo-type.component";
 import {DeleteMemoTypeComponent} from "./component/memo-type/delete-memo-type/delete-memo-type.component";
 import {MemoComposeComponent} from "./component/memo-compose/memo-compose.component";
-import {MemoInboxComponent} from "./component/memo-inbox/memo-inbox.component";
+import {MemoUnderReviewComponent} from "./component/memo-underReview/memo-underReview.component";
 import {MemoReadComponent} from "./component/memo-read/memo-read.component";
 import {SharedModule} from "../shared/shared.module";
 import {MemoService} from "./memo.service";
@@ -20,7 +20,7 @@ import {MemoRoutes} from "./memo-routes";
         AddMemoTypeComponent,
         DeleteMemoTypeComponent,
         MemoComposeComponent,
-        MemoInboxComponent,
+        MemoUnderReviewComponent,
         MemoReadComponent
     ],
     imports: [

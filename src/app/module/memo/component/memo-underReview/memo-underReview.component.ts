@@ -6,13 +6,13 @@ import {Pageable} from "../../../../shared-service/baseservice/common-pageable";
 declare var $;
 
 @Component({
-  selector: 'app-memo-inbox',
-  templateUrl: './memo-inbox.component.html',
-  styleUrls: ['./memo-inbox.component.css']
+  selector: 'app-memo-underReview',
+  templateUrl: './memo-underReview.component.html',
+  styleUrls: ['./memo-underReview.component.css']
 })
-export class MemoInboxComponent implements OnInit {
+export class MemoUnderReviewComponent implements OnInit {
 
-  title = "Memo - Inbox";
+  title = "Memo - Under Review";
   dataList: any;
   currentApi: any;
 

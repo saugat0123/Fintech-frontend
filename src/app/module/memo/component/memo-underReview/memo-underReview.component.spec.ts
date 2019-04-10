@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MemoInboxComponent } from './memo-inbox.component';
+import { MemoUnderReviewComponent } from './memo-underReview.component';
 
-describe('MemoInboxComponent', () => {
-  let component: MemoInboxComponent;
-  let fixture: ComponentFixture<MemoInboxComponent>;
+describe('MemoUnderReviewComponent', () => {
+  let component: MemoUnderReviewComponent;
+  let fixture: ComponentFixture<MemoUnderReviewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MemoInboxComponent ]
+      declarations: [ MemoUnderReviewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MemoInboxComponent);
+    fixture = TestBed.createComponent(MemoUnderReviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

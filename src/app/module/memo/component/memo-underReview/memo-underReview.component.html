@@ -1,5 +1,5 @@
 <div class="box-header with-border">
-  <h3 class="box-title">Inbox</h3>
+  <h3 class="box-title">Under Review</h3>
 
   <div class="box-tools pull-right">
     <div class="has-feedback">
@@ -25,7 +25,7 @@
         </div>
         <td><input type="checkbox"></td>
         <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-        <td class="mailbox-name"><a href="read-mail.html">{{allList.name}}</a></td>
+        <td class="mailbox-name"><a routerLink="/home/memo/read">{{allList.name}}</a></td>
         <td class="mailbox-subject"><b>{{allList.branchCode}}</b> - {{allList.address}}
         </td>
         <td class="mailbox-attachment"></td>
