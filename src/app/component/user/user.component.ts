@@ -39,9 +39,7 @@ export class UserComponent implements OnInit {
     private dataService: CommonDataService,
     private commonService: CommonService,
     private commonPageService: CommonPageService,
-    private router: Router,
-    private httpClient: HttpClient,
-    private modalService: NgbModal
+    private router: Router
   ) {
   }
 

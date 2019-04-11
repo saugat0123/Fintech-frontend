@@ -16,10 +16,10 @@
                                 <label for="loan_Category">Loan Category</label>
                                 <input type="hidden" class="form-control" [(ngModel)]="approvalLimit.id"
                                     name="id" placeholder="id">
-                                <select [(ngModel)]="loanCategory" name="loanCategory" class="form-control" required
+                                <select [(ngModel)]="loanCategory.id" name="loanCategory" class="form-control" required
                                 #Category="ngModel" [ngClass]="{ 'is-invalid': f.submitted && Category.invalid }" >
                                     <option [ngValue]="undefined" hidden>Loan Category</option>
-                                    <option *ngFor="let allList of loanList" [selected]="allList.id === approvalLimit?.loanCategory?.id" [ngValue]="allList">
+                                    <option *ngFor="let allList of loanList" [selected]="allList.id === approvalLimit?.loanCategory?.id" [ngValue]="allList.id">
                                         {{allList.name}}
                                     </option>
                                 </select>
@@ -42,11 +42,11 @@
                             <div class="col-md-6">
                                 <label for="authorities">Authorities</label>
 
-                                <select class="form-control" [(ngModel)]="authorities" name="authorities" required
+                                <select class="form-control" [(ngModel)]="authorities.id" name="authorities" required
                                 #authority="ngModel" [ngClass]="{ 'is-invalid': f.submitted && authority.invalid }">
                                     <option [ngValue]="undefined" hidden>Authorities</option>
                                     <option *ngFor="let role of roleList"
-                                        [selected]="role.id === approvalLimit?.authorities?.id" [ngValue]="role">
+                                        [selected]="role.id === approvalLimit?.authorities?.id" [ngValue]="role.id">
                                         {{role.roleName}}</option>
                             </select>
                                 <div *ngIf="f.submitted && authority.invalid" class="invalid-feedback">

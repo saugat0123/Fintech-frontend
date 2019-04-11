@@ -19,8 +19,8 @@ export class AddApprovalLimitComponent implements OnInit {
     roleList;
     loanList;
     globalMsg;
-    loanCategory: any;
-    authorities: any;
+    loanCategory = new Object();
+    authorities = new Object();
     approvalLimit: ApprovalLimit = new ApprovalLimit();
 
     constructor(

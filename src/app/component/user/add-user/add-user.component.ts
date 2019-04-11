@@ -25,9 +25,7 @@ export class AddUserComponent implements OnInit, DoCheck {
   constructor(
     private commonService: CommonService,
     private router: Router,
-    private dataService: CommonDataService,
-    private activeModal: NgbActiveModal,
-    private modalService: NgbModal) { }
+    private dataService: CommonDataService) { }
 
   ngOnInit() {
     this.commonService.getByAll("v1/branch/getList").subscribe((response: any) => {
