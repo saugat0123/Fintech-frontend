@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {ApprovalLimit} from '../../../../../modal/approval-limit';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
+import {Role} from '../../../modal/role';
+import {LoanConfig} from '../../../modal/loan-config';
 
 declare var $;
 
@@ -16,11 +18,11 @@ export class AddApprovalLimitComponent implements OnInit {
     task: string;
     submitted = false;
     spinner = false;
-    roleList;
-    loanList;
-    globalMsg;
-    loanCategory = new Object();
-    authorities = new Object();
+    roleList: Array<Role>;
+    loanList: Array<LoanConfig>;
+    globalMsg: string;
+    loanCategory = new LoanConfig();
+    authorities = new Role();
     approvalLimit: ApprovalLimit = new ApprovalLimit();
 
     constructor(

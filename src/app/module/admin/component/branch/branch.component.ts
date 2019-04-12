@@ -15,16 +15,16 @@ declare var $;
 export class BranchComponent implements OnInit, DoCheck {
     title = 'Branch';
     breadcrumb = 'Branch > List';
-    dataList: any;
+    dataList: Array<Branch>;
     spinner = false;
-    newValue: any;
-    globalMsg;
-    search: any = {};
+    globalMsg: string;
+    search = new Object();
     pageable: Pageable = new Pageable();
-    currentApi: any;
-    activeCount: any;
-    inactiveCount: any;
-    branches: any;
+    currentApi: string;
+    activeCount: number;
+    inactiveCount: number;
+    branches: number;
+    newValue: string;
 
     constructor(
         private dataService: CommonDataService,

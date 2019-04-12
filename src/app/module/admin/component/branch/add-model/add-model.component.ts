@@ -15,8 +15,8 @@ declare var $;
 export class AddModelComponent implements OnInit, DoCheck {
     task: string;
     submitted = false;
-    spinner: boolean = false;
-    globalMsg;
+    spinner = false;
+    globalMsg: string;
     branch: Branch = new Branch();
 
     constructor(

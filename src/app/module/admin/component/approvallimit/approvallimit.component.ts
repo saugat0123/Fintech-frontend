@@ -16,17 +16,14 @@ declare var $;
 export class ApprovallimitComponent implements OnInit, DoCheck {
     title = 'ApprovalLimit';
     breadcrumb = 'ApprovalLimit > List';
-    dataList: any;
-    spinner: boolean = false;
-    globalMsg;
+    dataList: Array<ApprovalLimit>;
+    spinner = false;
+    globalMsg: string;
     search = new Object();
     pageable: Pageable = new Pageable();
-    currentApi: any;
-    activeCount: any;
-    inactiveCount: any;
-    approval: any;
-    newValue: any;
-    data: any;
+    currentApi: string;
+    activeCount: number;
+    inactiveCount: number;
 
     constructor(
         private dataService: CommonDataService,
@@ -39,9 +36,6 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
         this.dataService.changeTitle(this.title);
         this.currentApi = 'v1/approvallimit/get';
         this.getPagination();
-        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-            this.approval = response.detail.approval;
-        });
     }
 
     onSearch() {
