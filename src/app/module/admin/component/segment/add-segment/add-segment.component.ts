@@ -15,8 +15,8 @@ export class AddSegmentComponent implements OnInit, DoCheck {
 
     task: string;
     submitted = false;
-    spinner: boolean = false;
-    globalMsg;
+    spinner = false;
+    globalMsg: string;
     segment: Segment = new Segment();
 
     constructor(

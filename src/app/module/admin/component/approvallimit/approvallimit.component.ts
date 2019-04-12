@@ -19,7 +19,7 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
     dataList: Array<ApprovalLimit>;
     spinner = false;
     globalMsg: string;
-    search = new Object();
+    search = {};
     pageable: Pageable = new Pageable();
     currentApi: string;
     activeCount: number;

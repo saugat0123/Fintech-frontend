@@ -18,7 +18,7 @@ export class BranchComponent implements OnInit, DoCheck {
     dataList: Array<Branch>;
     spinner = false;
     globalMsg: string;
-    search = new Object();
+    search = {};
     pageable: Pageable = new Pageable();
     currentApi: string;
     activeCount: number;

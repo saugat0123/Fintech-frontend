@@ -3,7 +3,7 @@ import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
 import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
-import {Router} from '@angular/router';
+import {LoanConfig} from '../../modal/loan-config';
 
 declare var $;
 
@@ -16,17 +16,19 @@ export class LoanConfigComponent implements OnInit, DoCheck {
 
     title = 'Loan Configuration';
 
-    dataList: any;
+    dataList: Array<LoanConfig>;
 
-    spinner: boolean = false;
-    globalMsg;
-    search: any = {};
+    newValue: any;
+    spinner = false;
+    globalMsg: string;
+    search = {};
     pageable: Pageable = new Pageable();
-    currentApi: any;
-    activeCount: any;
-    inactiveCount: any;
-    loans: any;
+    currentApi: string;
+    activeCount: number;
+    inactiveCount: number;
+    loans: number;
     modalTemplate: any;
+    tName;
 
     constructor(
         private dataService: CommonDataService,
@@ -75,11 +77,9 @@ export class LoanConfigComponent implements OnInit, DoCheck {
 
     addLoanConfig() {
 
-        this.dataService.setData(new Object);
+        this.dataService.setData(new LoanConfig());
         $('.add-loan-config').modal('show');
     }
-
-    newValue: any;
 
 
     onChange(newValue, data) {
@@ -113,12 +113,10 @@ export class LoanConfigComponent implements OnInit, DoCheck {
 
     }
 
-    tName;
-
     viewTemplate(e, x) {
         this.modalTemplate = e;
         this.tName = x;
-        var div = document.getElementById('tempView');
+        const div = document.getElementById('tempView');
         div.innerHTML = this.modalTemplate;
         $('.view-template').modal('show');
     }

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
-import {Router} from '@angular/router';
+import {Role} from '../../../modal/role';
 
 declare var $;
 
@@ -13,19 +13,18 @@ declare var $;
 })
 export class ListRoleComponent implements OnInit {
     title = 'Role';
-    activeCount: any;
-    inactiveCount: any;
-    roleCount: any;
-    currentApi;
-    roleList: any;
-    globalMsg;
+    activeCount: number;
+    inactiveCount: number;
+    roleCount: number;
+    currentApi: string;
+    roleList: Array<Role>;
+    globalMsg: string;
 
 
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService,
-        private router: Router
+        private commonPageService: CommonPageService
     ) {
     }
 
@@ -52,9 +51,6 @@ export class ListRoleComponent implements OnInit {
         $('.updateStatus').modal('show');
 
     }
-
-
-
 
 
 }

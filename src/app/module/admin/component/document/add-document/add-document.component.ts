@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {Document} from '../../../../../modal/document';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
@@ -12,12 +12,12 @@ declare var $;
   templateUrl: './add-document.component.html',
   styleUrls: ['./add-document.component.css']
 })
-export class AddDocumentComponent implements OnInit {
+export class AddDocumentComponent implements OnInit, DoCheck {
 
   task: string;
   submitted = false;
-  spinner: boolean = false;
-  globalMsg;
+  spinner = false;
+  globalMsg: string;
   document: Document = new Document();
 
   constructor(

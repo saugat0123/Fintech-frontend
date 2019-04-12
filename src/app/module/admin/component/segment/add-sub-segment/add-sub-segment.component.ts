@@ -16,11 +16,11 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
 
     task: string;
     submitted = false;
-    spinner: boolean = false;
-    globalMsg;
+    spinner = false;
+    globalMsg: string;
     subSegment: SubSegment = new SubSegment();
     segment: Segment = new Segment();
-    segmentList: any;
+    segmentList: Array<Segment>;
 
     constructor(
         private commonService: CommonService,

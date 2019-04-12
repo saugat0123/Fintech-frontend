@@ -14,8 +14,8 @@ declare var $;
 export class AddNepseComponent implements OnInit, DoCheck {
     task: string;
     submitted = false;
-    spinner: boolean = false;
-    globalMsg;
+    spinner = false;
+    globalMsg: string;
     nepse: Nepse = new Nepse();
 
     constructor(

@@ -3,6 +3,7 @@ import {CommonDataService} from '../../../../shared-service/baseservice/common-d
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Router} from '@angular/router';
+import {Role} from '../../modal/role';
 
 declare var $;
 
@@ -13,8 +14,8 @@ declare var $;
 })
 export class RolePermissionComponent implements OnInit {
     title = 'Role and Permission';
-    currentApi;
-    roleList: any;
+    currentApi: string;
+    roleList: Array<Role>;
     rightList: any;
     allPermission: any = [];
     rolePermissionList: any = [];
@@ -22,14 +23,14 @@ export class RolePermissionComponent implements OnInit {
     permissions: any = {};
     roleperm: any = [];
     roleId;
-    globalMsg;
+    globalMsg: string;
     rights: any = [];
     spinner = false;
     tempRightList = [];
     permRight = [];
-    activeCount: any;
-    inactiveCount: any;
-    roleCount: any;
+    activeCount: number;
+    inactiveCount: number;
+    roleCount: number;
 
 
     constructor(

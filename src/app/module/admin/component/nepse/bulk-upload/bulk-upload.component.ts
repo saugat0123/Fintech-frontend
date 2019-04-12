@@ -9,31 +9,31 @@ declare var $;
 const UploadURL = 'http://localhost:8086/v1/nepseCompany/bulk';
 
 @Component({
-  selector: 'app-bulk-upload',
-  templateUrl: './bulk-upload.component.html',
-  styleUrls: ['./bulk-upload.component.css']
+    selector: 'app-bulk-upload',
+    templateUrl: './bulk-upload.component.html',
+    styleUrls: ['./bulk-upload.component.css']
 })
 export class BulkUploadComponent implements OnInit {
 
-  task: string;
-  submitted = false;
-  spinner: boolean = false;
-  globalMsg;
-  nepse: Nepse = new Nepse();
+    task: string;
+    submitted = false;
+    spinner = false;
+    globalMsg: string;
+    nepse: Nepse = new Nepse();
 
 
-  constructor(
-      private commonService: CommonService,
-      private router: Router,
-      private dataService: CommonDataService
-  ) {
-  }
+    constructor(
+        private commonService: CommonService,
+        private router: Router,
+        private dataService: CommonDataService
+    ) {
+    }
 
 
-  ngOnInit() {
+    ngOnInit() {
 
 
-  }
+    }
 
 
 }

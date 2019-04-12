@@ -1,5 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {User} from '../../modal/user';
 import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
@@ -9,127 +8,126 @@ import {CommonPageService} from '../../../../shared-service/baseservice/common-p
 declare var $;
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+    selector: 'app-user',
+    templateUrl: './user.component.html',
+    styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, DoCheck {
 
-  title = 'User';
-  breadcrumb = 'User > List';
-  dataList: any;
+    title = 'User';
+    breadcrumb = 'User > List';
+    dataList: Array<User>;
 
-  spinner: boolean = false;
-  globalMsg;
-  search: any = {};
-  pageable: Pageable = new Pageable();
-  currentApi: any;
-  activeCount: any;
-  inactiveCount: any;
-  user: any;
-  newValue: any;
-  data: any;
-  users: any;
-
-
-  constructor(
-      private dataService: CommonDataService,
-      private commonService: CommonService,
-      private commonPageService: CommonPageService
-  ) {
-  }
-
-  ngOnInit() {
-
-    this.dataService.changeTitle(this.title);
-    this.currentApi = 'v1/user/get';
-    this.getPagination();
-    this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-      this.user = response.detail.user;
-    });
-    this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
-
-      this.activeCount = response.detail.active;
-      this.inactiveCount = response.detail.inactive;
-      this.users = response.detail.users;
-
-    });
+    spinner = false;
+    globalMsg: string;
+    search = {};
+    pageable: Pageable = new Pageable();
+    currentApi: string;
+    activeCount: number;
+    inactiveCount: number;
+    user: User;
+    newValue: string;
+    users: number;
 
 
-  }
+    constructor(
+        private dataService: CommonDataService,
+        private commonService: CommonService,
+        private commonPageService: CommonPageService
+    ) {
+    }
 
-  onSearch() {
-    this.dataService.setData(this.search);
-    this.getPagination();
-  }
+    ngOnInit() {
 
-  onSearchChange(searchValue: string) {
-    this.search = {
-      'name': searchValue
-    };
-    this.dataService.setData(this.search);
-    this.getPagination();
-  }
+        this.dataService.changeTitle(this.title);
+        this.currentApi = 'v1/user/get';
+        this.getPagination();
+        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
+            this.user = response.detail.user;
+        });
+        this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
 
+            this.activeCount = response.detail.active;
+            this.inactiveCount = response.detail.inactive;
+            this.users = response.detail.users;
 
-  ngDoCheck(): void {
-    this.dataList = this.dataService.getDataList();
-  }
-
-  openEdit(user: User) {
-    this.dataService.setUser(user);
-    $('.add-user').modal('show');
-  }
-
-  addUser() {
-    this.dataService.setUser(new User());
-    $('.add-user').modal('show');
-  }
+        });
 
 
-  getPagination() {
-    this.spinner = true;
-    this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-      this.dataList = response.detail.content;
-      this.dataService.setDataList(this.dataList);
-      this.commonPageService.setCurrentApi(this.currentApi);
-      this.pageable = this.commonPageService.setPageable(response.detail);
+    }
 
-      this.spinner = false;
+    onSearch() {
+        this.dataService.setData(this.search);
+        this.getPagination();
+    }
 
-    }, error => {
-      this.globalMsg = error.error.message;
-      if (this.globalMsg == null) {
-        this.globalMsg = 'Please check your network connection';
-      }
-      this.spinner = false;
-      this.dataService.getGlobalMsg(this.globalMsg);
-      $('.global-msgModal').modal('show');
-    });
-
-  }
-
-  onChange(newValue, data) {
-    this.newValue = newValue;
-    this.dataService.setData(data);
-    this.commonPageService.setCurrentApi('v1/user');
-    $('.updateStatus').modal('show');
-
-  }
+    onSearchChange(searchValue: string) {
+        this.search = {
+            'name': searchValue
+        };
+        this.dataService.setData(this.search);
+        this.getPagination();
+    }
 
 
-  getCsv() {
+    ngDoCheck(): void {
+        this.dataList = this.dataService.getDataList();
+    }
 
-    this.commonService.saveOrEdit(this.search, 'v1/user/csv').subscribe((response: any) => {
-      const link = document.createElement('a');
-      link.target = '_blank';
-      link.href = response.detail;
-      link.download = response.detail;
-      link.setAttribute('visibility', 'hidden');
-      link.click();
+    openEdit(user: User) {
+        this.dataService.setUser(user);
+        $('.add-user').modal('show');
+    }
 
-    });
-  }
+    addUser() {
+        this.dataService.setUser(new User());
+        $('.add-user').modal('show');
+    }
+
+
+    getPagination() {
+        this.spinner = true;
+        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
+            this.dataList = response.detail.content;
+            this.dataService.setDataList(this.dataList);
+            this.commonPageService.setCurrentApi(this.currentApi);
+            this.pageable = this.commonPageService.setPageable(response.detail);
+
+            this.spinner = false;
+
+        }, error => {
+            this.globalMsg = error.error.message;
+            if (this.globalMsg == null) {
+                this.globalMsg = 'Please check your network connection';
+            }
+            this.spinner = false;
+            this.dataService.getGlobalMsg(this.globalMsg);
+            $('.global-msgModal').modal('show');
+        });
+
+    }
+
+    onChange(newValue, data) {
+        this.newValue = newValue;
+        this.dataService.setData(data);
+        this.commonPageService.setCurrentApi('v1/user');
+        $('.updateStatus').modal('show');
+
+    }
+
+
+    getCsv() {
+
+        this.commonService.saveOrEdit(this.search, 'v1/user/csv').subscribe((response: any) => {
+            const link = document.createElement('a');
+            link.target = '_blank';
+            link.href = response.detail;
+            link.download = response.detail;
+            link.setAttribute('visibility', 'hidden');
+            link.click();
+
+        });
+    }
 
 }
 

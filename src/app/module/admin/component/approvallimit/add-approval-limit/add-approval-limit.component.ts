@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 
 import {Router} from '@angular/router';
 import {ApprovalLimit} from '../../../../../modal/approval-limit';
@@ -14,7 +14,7 @@ declare var $;
     templateUrl: './add-approval-limit.component.html',
     styleUrls: ['./add-approval-limit.component.css']
 })
-export class AddApprovalLimitComponent implements OnInit {
+export class AddApprovalLimitComponent implements OnInit, DoCheck {
     task: string;
     submitted = false;
     spinner = false;

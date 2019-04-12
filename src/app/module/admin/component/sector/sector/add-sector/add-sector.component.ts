@@ -15,8 +15,8 @@ declare var $;
 export class AddSectorComponent implements OnInit, DoCheck {
     task: string;
     submitted = false;
-    spinner: boolean = false;
-    globalMsg;
+    spinner = false;
+    globalMsg: string;
     sector: Sector = new Sector();
 
     constructor(

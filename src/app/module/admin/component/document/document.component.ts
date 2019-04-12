@@ -17,11 +17,11 @@ export class DocumentComponent implements OnInit, DoCheck {
 
     title = 'Document';
     breadcrumb = 'Document > List';
-    dataList: any;
+    dataList: Array<Document>;
     loanCycleList: Array<LoanCycle>;
-    spinner: boolean = false;
-    globalMsg;
-    search: any = {};
+    spinner = false;
+    globalMsg: string;
+    search = {};
     pageable: Pageable = new Pageable();
     currentApi: any;
     activeCount: any;

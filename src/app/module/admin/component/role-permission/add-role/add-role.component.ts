@@ -3,6 +3,7 @@ import {CommonDataService} from '../../../../../shared-service/baseservice/commo
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
 import {Router} from '@angular/router';
+import {Role} from '../../../modal/role';
 
 declare var $;
 
@@ -12,9 +13,9 @@ declare var $;
     styleUrls: ['./add-role.component.css']
 })
 export class AddRoleComponent implements OnInit {
-    role: any = {};
-    currentApi;
-    globalMsg;
+    role: Role = new Role();
+    currentApi: string;
+    globalMsg: string;
 
     constructor(
         private dataService: CommonDataService,
@@ -37,7 +38,7 @@ export class AddRoleComponent implements OnInit {
 
             this.dataService.getGlobalMsg(this.globalMsg);
             this.dataService.getAlertMsg('true');
-            this.role = {};
+            this.role = new Role();
             this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                 this.router.navigate(['home/role']));
             this.dataService.alertmsg();
