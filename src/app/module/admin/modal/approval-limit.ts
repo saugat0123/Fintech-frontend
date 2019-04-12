@@ -7,3 +7,4 @@ export class ApprovalLimit {
     authorities: Role;
     loanApprovalType: string;
 }
+
