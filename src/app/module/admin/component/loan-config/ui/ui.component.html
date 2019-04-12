@@ -1,101 +1,104 @@
 <div class="box box-primary">
-  <div class="box-header with-border">
-    <h3 class="box-title">Loan Configuration</h3>
-  </div>
-  <!-- /.box-header -->
-  <div class="box-body">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label><b>Loan Schema</b></label>
-          <input type="text" class="form-control" placeholder="Loan Schema">
-        </div>
-      </div>
-      <div class="col-md-6 row">
-        <div class="col-md-12 form-group">
-          <label><b>Loan Type</b></label>
-          <br>
-          <div class="row">
-            <div class="col-md-6">
-              <input type="checkbox" value="1"><span>Fundable</span>
-            </div>
-            <div class="col-md-6">
-              <input type="checkbox" value="2"><span>Non-Fundable</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="box-header with-border">
+        <h3 class="box-title">Loan Configuration</h3>
     </div>
-    <!-- /.form-group -->
-    <p><b>Assessment</b></p>
-    <div class="row">
-      <div class="col-md-5">
-        <div class="form-group">
-          <div class="box box-default" style="height: 300px">
-            <div class="box-body">
-              <div class="col-sm-offset-2 col-sm-10" *ngFor="let document of documentList">
-                <div class="btn btn-block btn-xs btn-primary" (dblclick)="updateSelectDocument(document)">
-                <span>{{document.name}}</span>
-              </div>
-              <br/>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2">
-          <span class="glyphicon glyphicon-arrow-right"></span>
-                    <span class="glyphicon-class">glyphicon glyphicon-arrow-right</span>
-      </div>
-      <div class="col-md-5">
-        <div class="form-group">
-          <div class="box box-default" style="height: 300px">
-            <div class="box-body">
-              <div class="box-body">
-                <div class="col-sm-offset-2 col-sm-10" *ngFor="let confirmdocument of comfirmDocumentList">
-                  <div class="btn btn-block btn-xs btn-success" (dblclick)="updateUnselectDocument(confirmdocument)">
-                  <span>{{confirmdocument.name}}</span>
-                </div>
-                <br/>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <label><b>Renewable</b></label><br>
+    <!-- /.box-header -->
+    <div class="box-body">
         <div class="row">
-          <div class="col-md-4">
-            <input type="radio" name="renewable" value="1">Renewable<br>
-          </div>
-          <div class="col-md-4">
-            <input type="radio" name="renewable" value="2">Non-Renewable<br>
-          </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label><b>Loan Schema</b></label>
+                    <input type="text" class="form-control" placeholder="Loan Schema">
+                </div>
+            </div>
+            <div class="col-md-6 row">
+                <div class="col-md-12 form-group">
+                    <label><b>Loan Type</b></label>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="checkbox" value="1"><span>Fundable</span>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" value="2"><span>Non-Fundable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+        <!-- /.form-group -->
+        <p><b>Assessment</b></p>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <div class="box box-default" style="height: 300px">
+                        <div class="box-body">
+                            <div class="col-sm-offset-2 col-sm-10" *ngFor="let document of documentList">
+                                <div class="btn btn-block btn-xs btn-primary"
+                                     (dblclick)="updateSelectDocument(document)">
+                                    <span>{{document.name}}</span>
+                                </div>
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <span class="glyphicon glyphicon-arrow-right"></span>
+                <span class="glyphicon-class">glyphicon glyphicon-arrow-right</span>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <div class="box box-default" style="height: 300px">
+                        <div class="box-body">
+                            <div class="box-body">
+                                <div class="col-sm-offset-2 col-sm-10"
+                                     *ngFor="let confirmdocument of comfirmDocumentList">
+                                    <div class="btn btn-block btn-xs btn-success"
+                                         (dblclick)="updateUnselectDocument(confirmdocument)">
+                                        <span>{{confirmdocument.name}}</span>
+                                    </div>
+                                    <br/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label><b>Renewable</b></label><br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="radio" name="renewable" value="1">Renewable<br>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="radio" name="renewable" value="2">Non-Renewable<br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <label><b>Docuemnt</b>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <!--<div class="col-md-4" *ngFor="let name of names">
+              <input type="checkbox">{{name}}
+            </div>-->
+
+
+        </div>
     </div>
-    <br>
-    <div class="row">
-      <div class="col-md-6">
-        <label><b>Docuemnt</b>
-        </label>
-      </div>
-    </div>
-    <div class="row">
-      <!--<div class="col-md-4" *ngFor="let name of names">
-        <input type="checkbox">{{name}}
-      </div>-->
 
+    <!-- /.col -->
 
-    </div>
-  </div>
+    <!-- /.row -->
 
-  <!-- /.col -->
-
-  <!-- /.row -->
-
-  <!-- /.box-body -->
+    <!-- /.box-body -->

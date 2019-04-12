@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CommonService } from '../../../../../shared-service/baseservice/common-baseservice';
-import { LoanCycle } from '../../../../../modal/loan-cycle';
-import { Document } from '../../../../../modal/document';
-import { Router } from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
+import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
+import {LoanCycle} from '../../../../../modal/loan-cycle';
+import {Document} from '../../../../../modal/document';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-update-document',
@@ -17,32 +17,35 @@ export class UpdateDocumentComponent implements OnInit {
   show: boolean = false;
   loanCycle: LoanCycle = new LoanCycle();
   selectedDocumentList = Array<Document>();
+
   constructor(
-    private router: Router,
-    private commonService: CommonService
-  ) { }
+      private router: Router,
+      private commonService: CommonService
+  ) {
+  }
 
   ngOnInit() {
     this.loanCycle = this.cycle;
     this.title = this.loanCycle.cycle;
-    this.loanCycle.level = "";
+    this.loanCycle.level = '';
     this.documentsNotContaining(this.loanCycle);
   }
+
   documentsNotContaining(loanCycle: LoanCycle) {
-    this.commonService.getByPost("v1/document/list", loanCycle).subscribe((response: any) => {
+    this.commonService.getByPost('v1/document/list', loanCycle).subscribe((response: any) => {
       this.documentList = response.detail;
-      console.log(this.documentList)
-    })
+    });
   }
+
   updateLoanCycle() {
-    this.commonService.getByPostDocument("v1/document/saveList", this.selectedDocumentList, this.loanCycle.id).subscribe((response: any) => {
-      console.log(response);
+    this.commonService.getByPostDocument('v1/document/saveList', this.selectedDocumentList, this.loanCycle.id).subscribe((response: any) => {
       //   this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(()=>
       // this.router.navigate(["home/document"]));
     });
 
 
   }
+
   updateCheckedOptions(events) {
     let d: Document = new Document();
     d = events.target.value;
@@ -56,8 +59,8 @@ export class UpdateDocumentComponent implements OnInit {
     }
 
 
-
   }
+
   toggle() {
     this.show = !this.show;
   }

@@ -1,12 +1,11 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
-import { Pageable } from '../../../../shared-service/baseservice/common-pageable';
-import { CommonDataService } from '../../../../shared-service/baseservice/common-dataService';
-import { CommonService } from '../../../../shared-service/baseservice/common-baseservice';
-import { CommonPageService } from '../../../../shared-service/baseservice/common-pagination-service';
-import { Router } from '@angular/router';
-import { Document } from '../../../../modal/document';
-import { HttpClient } from '@angular/common/http';
-import { LoanCycle } from '../../../../modal/loan-cycle';
+import {Component, DoCheck, OnInit} from '@angular/core';
+import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
+import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
+import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
+import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
+import {Document} from '../../../../modal/document';
+import {LoanCycle} from '../../../../modal/loan-cycle';
+
 declare var $;
 
 @Component({
@@ -35,9 +34,7 @@ export class DocumentComponent implements OnInit, DoCheck {
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService,
-        private router: Router,
-        private httpClient: HttpClient,
+        private commonPageService: CommonPageService
     ) {
     }
 
@@ -45,7 +42,7 @@ export class DocumentComponent implements OnInit, DoCheck {
 
         this.dataService.changeTitle(this.title);
         this.currentApi = 'v1/document/get';
-        this.getPagination()
+        this.getPagination();
 
         this.commonService.getByAll(this.currentApi + '/getStatusCount').subscribe((response: any) => {
 
@@ -90,7 +87,7 @@ export class DocumentComponent implements OnInit, DoCheck {
     }
 
     onChange(newValue, data) {
-        this.newValue = newValue
+        this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/document');
         $('.updateStatus').modal('show');

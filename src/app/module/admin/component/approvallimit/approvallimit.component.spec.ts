@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ApprovallimitComponent } from './approvallimit.component';
+import {ApprovallimitComponent} from './approvallimit.component';
 
 describe('ApprovallimitComponent', () => {
   let component: ApprovallimitComponent;
@@ -8,9 +8,9 @@ describe('ApprovallimitComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApprovallimitComponent ]
+      declarations: [ApprovallimitComponent]
     })
-    .compileComponents();
+        .compileComponents();
   }));
 
   beforeEach(() => {

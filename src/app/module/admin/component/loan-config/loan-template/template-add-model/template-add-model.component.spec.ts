@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {TemplateAddModelComponent} from './template-add-model.component';
 
-import { TemplateAddModelComponent } from './template-add-model.component.ts';
 
 describe('TemplateAddModelComponent', () => {
   let component: TemplateAddModelComponent;
@@ -8,9 +8,9 @@ describe('TemplateAddModelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TemplateAddModelComponent ]
+      declarations: [TemplateAddModelComponent]
     })
-    .compileComponents();
+        .compileComponents();
   }));
 
   beforeEach(() => {

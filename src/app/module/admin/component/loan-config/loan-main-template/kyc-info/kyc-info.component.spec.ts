@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { KycInfoComponent } from './kyc-info.component';
+import {KycInfoComponent} from './kyc-info.component';
 
 describe('KycInfoComponent', () => {
   let component: KycInfoComponent;
@@ -8,9 +8,9 @@ describe('KycInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ KycInfoComponent ]
+      declarations: [KycInfoComponent]
     })
-    .compileComponents();
+        .compileComponents();
   }));
 
   beforeEach(() => {

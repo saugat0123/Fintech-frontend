@@ -1,243 +1,277 @@
 <div class="tab-pane" id="companyInfo">
-  <div class="wizard-title text-center"> <h1>Company Information</h1></div>
-  
-  <div class="form-group">
-    <form (ngSubmit)="onSubmit()" [formGroup]="companyInfo">
-      <div class="box-header with-border">
-          <h2 class="box-title title">1. Legal Status</h2>
-        </div>
-      <!-- START ROW -->
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="companyName" class="title">Company Name</label>
-            <input id="companyName" formControlName="companyName" name="companyName" type="text" class="form-control" placeholder="Company Name" required>
-            <div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="corporateStructure" class="title">Corporate Structure</label>
-            <input id="corporateStructure" formControlName="corporateStructure" name="corporateStructure" type="text" class="form-control" placeholder="Corporate Structure" required>
-          </div>
-        </div>
-      </div>
-      <!-- END ROW -->
-        <!-- START ROW -->
-      <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="registeredOffice" class="title">Registered Office</label>
-              <input id="registeredOffice" formControlName="registeredOffice" name="registeredOffice" type="text" class="form-control" placeholder="Registered Office" required>
-              <div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="registeredUnderAct" class="title">Registered Under Act</label>
-              <input id="registeredUnderAct" formControlName="registeredUnderAct" name="registeredUnderAct" type="text" class="form-control" placeholder="Registered Under Act" required>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="registrationNo" class="title">Registration No</label>
-              <input id="registrationNo" formControlName="registrationNo" name="registrationNo" type="text" class="form-control" placeholder="Registration No" required>
-            </div>
-          </div>
-        </div>
-        <!-- END ROW -->
-        <!-- START ROW -->
-      <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="registrationDate" class="title">Registration Date</label>
-              <input id="registrationDate" formControlName="registrationDate" name="registrationDate" type="date" class="form-control" placeholder="Registration Date" required>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="panRegistrationOffice" class="title">Pan Registration Office</label>
-              <input id="panRegistrationOffice" formControlName="panRegistrationOffice" name="panRegistrationOffice" type="text" class="form-control" placeholder="Pan Registration Office" required>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="panNumber" class="title">Pan Number</label>
-              <input id="panNumber" formControlName="panNumber" name="panNumber" type="text" class="form-control" placeholder="Pan Number" required>
-            </div>
-          </div>
-        </div>
-        <!-- END ROW -->
-        <!-- START ROW -->
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="panRegistrationDate" class="title">Pan Registration Date</label>
-            <input id="panRegistrationDate" formControlName="panRegistrationDate" name="panRegistrationDate" type="date" class="form-control" placeholder="Pan Registration Date" required>
-            <div> 
-            </div>
-          </div>
-        </div>
-      </div>
-        <!-- END ROW -->
+    <div class="wizard-title text-center"><h1>Company Information</h1></div>
 
-      <div class="box-header with-border">
-        <h2 class="box-title title">2. Capital Information</h2>
-      </div>
-        <!-- START ROW -->
-        <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="authorizedCapital" class="title">Authorized Capital</label>
-                <input id="authorizedCapital" formControlName="authorizedCapital" name="authorizedCapital" type="number" class="form-control" placeholder="Authorized Capital" required>
-              </div>
+    <div class="form-group">
+        <form (ngSubmit)="onSubmit()" [formGroup]="companyInfo">
+            <div class="box-header with-border">
+                <h2 class="box-title title">1. Legal Status</h2>
             </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="paidUpCapital" class="title">Paid Up Capital</label>
-                <input id="paidUpCapital" formControlName="paidUpCapital" name="paidUpCapital" type="number" class="form-control" placeholder="Paid Up Capital" required>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="issuedCapital" class="title">Issued Capital</label>
-                <input id="issuedCapital" formControlName="issuedCapital" name="issuedCapital" type="number" class="form-control" placeholder="Issued Capital" required>
-              </div>
-            </div>
-          </div>
-          <!-- END ROW -->
             <!-- START ROW -->
-      <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="totalCapital" class="title">Total Capital</label>
-              <input id="totalCapital" formControlName="totalCapital" name="totalCapital" type="number" class="form-control" placeholder="Total Capital" required>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="fixedCapital" class="title">Fixed Capital</label>
-              <input id="fixedCapital" formControlName="fixedCapital" name="fixedCapital" type="number" class="form-control" placeholder="Fixed Capital" required>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="workingCapital" class="title">Working Capital</label>
-              <input id="workingCapital" formControlName="workingCapital" name="workingCapital" type="number" class="form-control" placeholder="Working Capital" required>
-            </div>
-          </div>
-        </div>
-        <!-- END ROW -->
-          <!-- START ROW -->
-      <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="numberOfShareholder" class="title">Number Of Shareholder</label>
-              <input id="numberOfShareholder" formControlName="numberOfShareholder" name="numberOfShareholder" type="number" class="form-control" placeholder="Number Of Shareholder" required>
-            </div>
-          </div>
-        </div>
-        <!-- END ROW -->
-        <div class="box-header with-border">
-            <h2 class="box-title title">3. Management Team</h2>
-          </div>
-        <div formArrayName="managementTeams" *ngFor="let managementTeam of companyInfo.get('managementTeams')['controls']; let i = index">
-            <div class="row" [formGroupName]="i">
-               <div class="col-md-6">
-                 <div class="form-group">
-                   <label for="name" class="title">Name</label>
-                   <input id="name" formControlName="name" name="name" type="text" class="form-control" placeholder="Name">
-                 </div>
-               </div>
-               <div class="col-md-5">
-                 <div class="form-group">
-                   <label for="designation" class="title">Designation</label>
-                   <input id="designation" formControlName="designation" name="designation" type="text" class="form-control" placeholder="Designation">
-                 </div>
-               </div>
-               <div class="col-md-1 pt-4" *ngIf="companyInfo.get('managementTeams').length>1">
-                   <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button" (click)="removeManagementTeam(i)" value="Delete" />
-               </div>
-             </div>
-       </div>
-       <div class="text-right">
-          <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addManagementTeam()" value="Add Customer Relative" />
-      </div>
-       <div class="box-header with-border">
-          <h2 class="box-title title">4. Information of Proprietor/Shareholder/Partner with holder %</h2>
-        </div>
-       <div formArrayName="proprietors" *ngFor="let proprietor of companyInfo.get('proprietors')['controls']; let j = index">
-          <div class="row" [formGroupName]="j">
-             
-             <div class="col-md-3">
-               <div class="form-group">
-                 <label for="name" class="title">Name</label>
-                 <input id="name" formControlName="name" name="name" type="text" class="form-control" placeholder="Name">
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div class="form-group">
-                 <label for="contactNo" class="title">Contact No</label>
-                 <input id="contactNo" formControlName="contactNo" name="contactNo" type="text" class="form-control" placeholder="Contact No">
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div class="form-group">
-                 <label for="address" class="title">Address</label>
-                 <input id="address" type="text" formControlName="address" name="address" class="form-control" placeholder="Address">
-               </div>
-             </div>
-             <div class="col-md-2">
-                <div class="form-group">
-                  <label for="share" class="title">Share</label>
-                  <input id="share" formControlName="share" name="share" type="number" class="form-control" placeholder="Share">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="companyName" class="title">Company Name</label>
+                        <input id="companyName" formControlName="companyName" name="companyName" type="text"
+                               class="form-control" placeholder="Company Name" required>
+                        <div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-             <div class="col-md-1 pt-4" *ngIf="companyInfo.get('proprietors').length>1">
-                 <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button" (click)="removeProprietor(j)" value="Delete" />
-             </div>
-           </div>
-     </div>
-     <div class="text-right">
-        <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addProprietor()" value="Add Customer Relative" />
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="corporateStructure" class="title">Corporate Structure</label>
+                        <input id="corporateStructure" formControlName="corporateStructure" name="corporateStructure"
+                               type="text" class="form-control" placeholder="Corporate Structure" required>
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="registeredOffice" class="title">Registered Office</label>
+                        <input id="registeredOffice" formControlName="registeredOffice" name="registeredOffice"
+                               type="text" class="form-control" placeholder="Registered Office" required>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="registeredUnderAct" class="title">Registered Under Act</label>
+                        <input id="registeredUnderAct" formControlName="registeredUnderAct" name="registeredUnderAct"
+                               type="text" class="form-control" placeholder="Registered Under Act" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="registrationNo" class="title">Registration No</label>
+                        <input id="registrationNo" formControlName="registrationNo" name="registrationNo" type="text"
+                               class="form-control" placeholder="Registration No" required>
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="registrationDate" class="title">Registration Date</label>
+                        <input id="registrationDate" formControlName="registrationDate" name="registrationDate"
+                               type="date" class="form-control" placeholder="Registration Date" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="panRegistrationOffice" class="title">Pan Registration Office</label>
+                        <input id="panRegistrationOffice" formControlName="panRegistrationOffice"
+                               name="panRegistrationOffice" type="text" class="form-control"
+                               placeholder="Pan Registration Office" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="panNumber" class="title">Pan Number</label>
+                        <input id="panNumber" formControlName="panNumber" name="panNumber" type="text"
+                               class="form-control" placeholder="Pan Number" required>
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="panRegistrationDate" class="title">Pan Registration Date</label>
+                        <input id="panRegistrationDate" formControlName="panRegistrationDate" name="panRegistrationDate"
+                               type="date" class="form-control" placeholder="Pan Registration Date" required>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+
+            <div class="box-header with-border">
+                <h2 class="box-title title">2. Capital Information</h2>
+            </div>
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="authorizedCapital" class="title">Authorized Capital</label>
+                        <input id="authorizedCapital" formControlName="authorizedCapital" name="authorizedCapital"
+                               type="number" class="form-control" placeholder="Authorized Capital" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="paidUpCapital" class="title">Paid Up Capital</label>
+                        <input id="paidUpCapital" formControlName="paidUpCapital" name="paidUpCapital" type="number"
+                               class="form-control" placeholder="Paid Up Capital" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="issuedCapital" class="title">Issued Capital</label>
+                        <input id="issuedCapital" formControlName="issuedCapital" name="issuedCapital" type="number"
+                               class="form-control" placeholder="Issued Capital" required>
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="totalCapital" class="title">Total Capital</label>
+                        <input id="totalCapital" formControlName="totalCapital" name="totalCapital" type="number"
+                               class="form-control" placeholder="Total Capital" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="fixedCapital" class="title">Fixed Capital</label>
+                        <input id="fixedCapital" formControlName="fixedCapital" name="fixedCapital" type="number"
+                               class="form-control" placeholder="Fixed Capital" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="workingCapital" class="title">Working Capital</label>
+                        <input id="workingCapital" formControlName="workingCapital" name="workingCapital" type="number"
+                               class="form-control" placeholder="Working Capital" required>
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="numberOfShareholder" class="title">Number Of Shareholder</label>
+                        <input id="numberOfShareholder" formControlName="numberOfShareholder" name="numberOfShareholder"
+                               type="number" class="form-control" placeholder="Number Of Shareholder" required>
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <div class="box-header with-border">
+                <h2 class="box-title title">3. Management Team</h2>
+            </div>
+            <div formArrayName="managementTeams"
+                 *ngFor="let managementTeam of companyInfo.get('managementTeams')['controls']; let i = index">
+                <div class="row" [formGroupName]="i">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name" class="title">Name</label>
+                            <input id="name" formControlName="name" name="name" type="text" class="form-control"
+                                   placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="designation" class="title">Designation</label>
+                            <input id="designation" formControlName="designation" name="designation" type="text"
+                                   class="form-control" placeholder="Designation">
+                        </div>
+                    </div>
+                    <div class="col-md-1 pt-4" *ngIf="companyInfo.get('managementTeams').length>1">
+                        <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
+                               (click)="removeManagementTeam(i)" value="Delete"/>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addManagementTeam()"
+                       value="Add Customer Relative"/>
+            </div>
+            <div class="box-header with-border">
+                <h2 class="box-title title">4. Information of Proprietor/Shareholder/Partner with holder %</h2>
+            </div>
+            <div formArrayName="proprietors"
+                 *ngFor="let proprietor of companyInfo.get('proprietors')['controls']; let j = index">
+                <div class="row" [formGroupName]="j">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="name" class="title">Name</label>
+                            <input id="name" formControlName="name" name="name" type="text" class="form-control"
+                                   placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="contactNo" class="title">Contact No</label>
+                            <input id="contactNo" formControlName="contactNo" name="contactNo" type="text"
+                                   class="form-control" placeholder="Contact No">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="address" class="title">Address</label>
+                            <input id="address" type="text" formControlName="address" name="address"
+                                   class="form-control" placeholder="Address">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="share" class="title">Share</label>
+                            <input id="share" formControlName="share" name="share" type="number" class="form-control"
+                                   placeholder="Share">
+                        </div>
+                    </div>
+                    <div class="col-md-1 pt-4" *ngIf="companyInfo.get('proprietors').length>1">
+                        <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
+                               (click)="removeProprietor(j)" value="Delete"/>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addProprietor()"
+                       value="Add Customer Relative"/>
+            </div>
+            <div class="box-header with-border">
+                <h2 class="box-title title">5. SWOT Analysis</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="strength" class="title">Strength</label>
+                        <input id="strength" formControlName="strength" name="strength" type="text" class="form-control"
+                               placeholder="Strength" required>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="weakness" class="title">Weakness</label>
+                        <input id="weakness" formControlName="weakness" name="weakness" type="text" class="form-control"
+                               placeholder="Weakness" required>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="opportunity" class="title">Opportunity</label>
+                        <input id="opportunity" formControlName="opportunity" name="opportunity" type="text"
+                               class="form-control" placeholder="Opportunity" required>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="threats" class="title">Threats</label>
+                        <input id="threats" formControlName="threats" name="threats" type="text" class="form-control"
+                               placeholder="Threats" required>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="text-center">
+                    <input class="btn btn-sm btn-flat btn-primary" type="button" value="Previous"
+                           (click)="previousPage()"/>
+                    <input class="btn btn-sm btn-flat btn-primary" type="submit" value="Next"/>
+                </div>
+            </div>
+        </form>
     </div>
-       <div class="box-header with-border">
-          <h2 class="box-title title">5. SWOT Analysis</h2>
-        </div>
-       <div class="row">
-          <div class="col-md-3">
-            <div class="form-group">
-              <label for="strength" class="title">Strength</label>
-              <input id="strength" formControlName="strength" name="strength" type="text" class="form-control" placeholder="Strength" required>
-            </div>
-          </div>
-          <div class="col-md-3">
-              <div class="form-group">
-                <label for="weakness" class="title">Weakness</label>
-                <input id="weakness" formControlName="weakness" name="weakness" type="text" class="form-control" placeholder="Weakness" required>
-              </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                  <label for="opportunity" class="title">Opportunity</label>
-                  <input id="opportunity" formControlName="opportunity" name="opportunity" type="text" class="form-control" placeholder="Opportunity" required>
-                </div>
-              </div>
-              <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="threats" class="title">Threats</label>
-                    <input id="threats" formControlName="threats" name="threats" type="text" class="form-control" placeholder="Threats" required>
-                  </div>
-                </div>
-        </div>
-      <div>
-          <div class="text-center">
-              <input class="btn btn-sm btn-flat btn-primary" type="button" value="Previous" (click)="previousPage()" />
-              <input class="btn btn-sm btn-flat btn-primary" type="submit" value="Next" />
-            </div>
-      </div>
-    </form>
-  </div>
 </div>

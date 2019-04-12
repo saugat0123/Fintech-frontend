@@ -1,141 +1,143 @@
 <div class="row">
-  <div class="col-md-4 col-sm-6 col-xs-12">
-    <div class="info-box">
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
       <span class="info-box-icon bg-yellow">
         <i class="fa fa-bank"></i>
       </span>
-      <div class="info-box-content">
-        <span class="info-box-text">Documents</span>
-        <span class="info-box-number">{{documents}}</span>
-      </div>
-      <!-- /.info-box-content -->
+            <div class="info-box-content">
+                <span class="info-box-text">Documents</span>
+                <span class="info-box-number">{{documents}}</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-  </div>
 
-  <div class="col-md-4 col-sm-6 col-xs-12">
-    <div class="info-box">
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
       <span class="info-box-icon bg-green">
         <i class="fa fa-briefcase"></i>
       </span>
 
-      <div class="info-box-content">
-        <span class="info-box-text">Active</span>
-        <span class="info-box-number">{{activeCount}}</span>
-      </div>
-      <!-- /.info-box-content -->
+            <div class="info-box-content">
+                <span class="info-box-text">Active</span>
+                <span class="info-box-number">{{activeCount}}</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-  </div>
 
-  <div class="col-md-4 col-sm-6 col-xs-12">
-    <div class="info-box">
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
       <span class="info-box-icon bg-maroon">
         <i class="fa fa-address-book"></i>
       </span>
 
-      <div class="info-box-content">
-        <span class="info-box-text">INACTIVE</span>
-        <span class="info-box-number">{{inactiveCount}}</span>
-      </div>
-      <!-- /.info-box-content -->
+            <div class="info-box-content">
+                <span class="info-box-text">INACTIVE</span>
+                <span class="info-box-number">{{inactiveCount}}</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-  </div>
 </div>
 
 <div class="row">
-  <div class="col-md-12">
-    <div class="box box-primary">
-      <div class="box-header">
-        <div class="col-md-12">
-          <div class=row>
-            <div class="col-md-3">
-              <form (ngSubmit)="onSearch()">
-                <input type="text" class="input-sm" [(ngModel)]="search.name"
-                  (input)="onSearchChange($event.target.value)" name="name" placeholder="search....">
-                <button type="submit" class="btn btn-primary btn-sm">
-                  <i class="fa fa-search"></i>
-                </button>
-              </form>
-            </div>
-            <!-- <h3 class="box-title">Hover Data Table</h3> -->
-            <div class="col-md-9">
-              <button class="skin-blue pull-right" data-toggle="modal" (click)="addDocument()">
-                <i class="skin-blue fa fa-plus"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-
-          <table id="add-document-table" class="table table-striped table-bordered table-hover ">
-
-            <thead>
-              <tr>
-                <th>S.N</th>
-                <th>Document Name</th>
-                <th>URL</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr *ngFor="let allList of dataList;let i=index">
-                <div *ngIf="!dataList?.length > 0">
-                  <p>No Content Found</p>
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <div class="col-md-12">
+                    <div class=row>
+                        <div class="col-md-3">
+                            <form (ngSubmit)="onSearch()">
+                                <input type="text" class="input-sm" [(ngModel)]="search.name"
+                                       (input)="onSearchChange($event.target.value)" name="name"
+                                       placeholder="search....">
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <!-- <h3 class="box-title">Hover Data Table</h3> -->
+                        <div class="col-md-9">
+                            <button class="skin-blue pull-right" data-toggle="modal" (click)="addDocument()">
+                                <i class="skin-blue fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                <td>{{allList.name}}</td>
-                <td>{{allList.url}}</td>
-                <td>
-                  <select [(ngModel)]="allList.status" name="status" (change)="onChange($event.target.value,allList)">
-                    <option value="ACTIVE">ACTIVE</option>
-                    <option value="INACTIVE">INACTIVE</option>
+                <!-- /.box-header -->
+                <div class="box-body">
 
-                  </select>
-                </td>
-                <td>
-                  <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
-                    data-placement="top" title="EDIT">
-                    <i class="fa fa-edit" style="color:white"></i>
-                  </a>
-                  <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE"
-                    style="margin-left:10px">
-                    <i class="fa fa-trash" style="color:white;"></i>
-                  </a> -->
-                </td>
+                    <table id="add-document-table" class="table table-striped table-bordered table-hover ">
 
-              </tr>
-            </tbody>
-          </table>
+                        <thead>
+                        <tr>
+                            <th>S.N</th>
+                            <th>Document Name</th>
+                            <th>URL</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr *ngFor="let allList of dataList;let i=index">
+                            <div *ngIf="!dataList?.length > 0">
+                                <p>No Content Found</p>
+                            </div>
+                            <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                            <td>{{allList.name}}</td>
+                            <td>{{allList.url}}</td>
+                            <td>
+                                <select [(ngModel)]="allList.status" name="status"
+                                        (change)="onChange($event.target.value,allList)">
+                                    <option value="ACTIVE">ACTIVE</option>
+                                    <option value="INACTIVE">INACTIVE</option>
+
+                                </select>
+                            </td>
+                            <td>
+                                <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
+                                   data-placement="top" title="EDIT">
+                                    <i class="fa fa-edit" style="color:white"></i>
+                                </a>
+                                <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE"
+                                  style="margin-left:10px">
+                                  <i class="fa fa-trash" style="color:white;"></i>
+                                </a> -->
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
 
 
-          <spinner *ngIf="spinner" class="d-flex justify-content-center"></spinner>
-          <!-- ===================table-pagination==================== -->
-          <app-pagination *ngIf="!spinner"></app-pagination>
-          <!-- ===================table-pagination==================== -->
-          <!-- /.box-body -->
+                    <spinner *ngIf="spinner" class="d-flex justify-content-center"></spinner>
+                    <!-- ===================table-pagination==================== -->
+                    <app-pagination *ngIf="!spinner"></app-pagination>
+                    <!-- ===================table-pagination==================== -->
+                    <!-- /.box-body -->
 
-          <!-- /.box -->
-          <app-add-document></app-add-document>
+                    <!-- /.box -->
+                    <app-add-document></app-add-document>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+
+            <!-- ***************************update-modal********************************** -->
+            <app-update-modal></app-update-modal>
+            <!-- ***************************update-modal********************************** -->
+
+
         </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-
-
-      <!-- ***************************update-modal********************************** -->
-      <app-update-modal></app-update-modal>
-      <!-- ***************************update-modal********************************** -->
-
-
     </div>
-  </div>
 </div>
 <div *ngFor="let loanCycle of loanCycleList">
-  {{loanCycle.name}}
-  <app-update-document [cycle]="loanCycle"></app-update-document>
+    {{loanCycle.name}}
+    <app-update-document [cycle]="loanCycle"></app-update-document>
 </div>

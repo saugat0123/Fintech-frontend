@@ -1,13 +1,11 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 
-import { Router } from '@angular/router';
+import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
+import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
+import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
+import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
+import {ApprovalLimit} from '../../../../modal/approval-limit';
 
-import { Pageable } from '../../../../shared-service/baseservice/common-pageable';
-import { CommonDataService } from '../../../../shared-service/baseservice/common-dataService';
-import { CommonService } from '../../../../shared-service/baseservice/common-baseservice';
-import { CommonPageService } from '../../../../shared-service/baseservice/common-pagination-service';
-import { ApprovalLimit } from '../../../../modal/approval-limit';
-import { Location } from '../../../../shared-service/baseservice/common-location';
 declare var $;
 
 @Component({
@@ -29,26 +27,28 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
     approval: any;
     newValue: any;
     data: any;
+
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
     ) {
     }
+
     ngOnInit() {
         this.dataService.changeTitle(this.title);
         this.currentApi = 'v1/approvallimit/get';
-        this.getPagination()
-        console.log("test 1")
+        this.getPagination();
         this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-            console.log('test 2', response);
             this.approval = response.detail.approval;
         });
     }
+
     onSearch() {
         this.dataService.setData(this.search);
         this.getPagination();
     }
+
     onSearchChange(searchValue: string) {
         this.search = {
             'name': searchValue
@@ -56,17 +56,21 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
         this.dataService.setData(this.search);
         this.getPagination();
     }
+
     ngDoCheck(): void {
         this.dataList = this.dataService.getDataList();
     }
+
     openEdit(approvalLimit: ApprovalLimit) {
         this.dataService.setApprovalLimit(approvalLimit);
         $('.add-approvalLimit').modal('show');
     }
+
     addApprovalLimit() {
         this.dataService.setApprovalLimit(new ApprovalLimit());
         $('.add-approvalLimit').modal('show');
     }
+
     getPagination() {
         this.spinner = true;
         this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {

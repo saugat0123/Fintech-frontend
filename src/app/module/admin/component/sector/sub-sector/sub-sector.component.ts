@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Pageable } from '../../../../../shared-service/baseservice/common-pageable';
-import { CommonDataService } from '../../../../../shared-service/baseservice/common-dataService';
-import { CommonService } from '../../../../../shared-service/baseservice/common-baseservice';
-import { CommonPageService } from '../../../../../shared-service/baseservice/common-pagination-service';
-import { SubSector } from '../../../../../modal/sub-sector';
+import {Component, OnInit} from '@angular/core';
+import {Pageable} from '../../../../../shared-service/baseservice/common-pageable';
+import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
+import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
+import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
+import {SubSector} from '../../../../../modal/sub-sector';
 
 declare var $;
+
 @Component({
   selector: 'app-sub-sector',
   templateUrl: './sub-sector.component.html',
@@ -13,8 +14,8 @@ declare var $;
 })
 export class SubSectorComponent implements OnInit {
 
-  title = "SubSector";
-  breadcrumb = "SubSector > List"
+  title = 'SubSector';
+  breadcrumb = 'SubSector > List';
   dataList: any;
   newValue: any;
   spinner: boolean = false;
@@ -28,8 +29,9 @@ export class SubSectorComponent implements OnInit {
 
 
   constructor(private dataService: CommonDataService,
-    private commonService: CommonService,
-    private commonPageService: CommonPageService) { }
+              private commonService: CommonService,
+              private commonPageService: CommonPageService) {
+  }
 
   ngOnInit() {
     this.dataService.changeTitle(this.title);
@@ -43,55 +45,61 @@ export class SubSectorComponent implements OnInit {
       this.subSectors = response.detail.subSectors;
     });
   }
-  getPagination(){
-    
+
+  getPagination() {
+
     this.spinner = true;
     this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-      this.dataList = response.detail.content;
-      this.dataService.setDataList(this.dataList);
-      this.commonPageService.setCurrentApi(this.currentApi);
-      this.pageable = this.commonPageService.setPageable(response.detail);
+          this.dataList = response.detail.content;
+          this.dataService.setDataList(this.dataList);
+          this.commonPageService.setCurrentApi(this.currentApi);
+          this.pageable = this.commonPageService.setPageable(response.detail);
 
-      this.spinner = false;
+          this.spinner = false;
 
-    }, error => {
-      this.globalMsg = error.error.message;
-      if (this.globalMsg == null) {
-        this.globalMsg = "Please check your network connection"
-      }
-      this.spinner = false;
-      this.dataService.getGlobalMsg(this.globalMsg);
-      $('.global-msgModal').modal('show');
-    }
+        }, error => {
+          this.globalMsg = error.error.message;
+          if (this.globalMsg == null) {
+            this.globalMsg = 'Please check your network connection';
+          }
+          this.spinner = false;
+          this.dataService.getGlobalMsg(this.globalMsg);
+          $('.global-msgModal').modal('show');
+        }
     );
   }
-  addSubSector(){
+
+  addSubSector() {
     this.dataService.setSubSector(new SubSector());
     $('.add-subSector').modal('show');
   }
 
   onChange(newValue, data) {
-    this.newValue = newValue
+    this.newValue = newValue;
     this.dataService.setData(data);
     this.commonPageService.setCurrentApi('v1/subSector');
     $('.updateStatus').modal('show');
 
   }
-  openEdit(subSector: SubSector){
+
+  openEdit(subSector: SubSector) {
     this.dataService.setSubSector(subSector);
     $('.add-subSector').modal('show');
   }
-  onSearchChange(searchValue: string){
+
+  onSearchChange(searchValue: string) {
     this.search = {
       'subSectorName': searchValue
-    }
+    };
     this.dataService.setData(this.search);
     this.getPagination();
   }
-  onSearch(){
+
+  onSearch() {
     this.dataService.setData(this.search);
     this.getPagination();
   }
+
   ngDoCheck(): void {
     this.dataList = this.dataService.getDataList();
   }

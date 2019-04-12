@@ -31,8 +31,7 @@ export class LoanConfigComponent implements OnInit, DoCheck {
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService,
-        private router: Router
+        private commonPageService: CommonPageService
     ) {
     }
 

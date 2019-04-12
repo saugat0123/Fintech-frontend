@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AddSubSectorComponent } from './add-sub-sector.component';
+import {AddSubSectorComponent} from './add-sub-sector.component';
 
 describe('AddSubSectorComponent', () => {
   let component: AddSubSectorComponent;
@@ -8,9 +8,9 @@ describe('AddSubSectorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddSubSectorComponent ]
+      declarations: [AddSubSectorComponent]
     })
-    .compileComponents();
+        .compileComponents();
   }));
 
   beforeEach(() => {

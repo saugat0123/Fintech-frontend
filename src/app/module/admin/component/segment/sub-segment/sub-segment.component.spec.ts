@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SubSegmentComponent } from './sub-segment.component';
+import {SubSegmentComponent} from './sub-segment.component';
 
 describe('SubSegmentComponent', () => {
   let component: SubSegmentComponent;
@@ -8,9 +8,9 @@ describe('SubSegmentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubSegmentComponent ]
+      declarations: [SubSegmentComponent]
     })
-    .compileComponents();
+        .compileComponents();
   }));
 
   beforeEach(() => {

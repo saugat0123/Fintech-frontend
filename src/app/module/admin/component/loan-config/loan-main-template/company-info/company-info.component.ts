@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonService } from '../../../../../../shared-service/baseservice/common-baseservice';
-import { Router } from '@angular/router';
-import { EntityInfo } from '../../../../../../modal/entity-info';
-import { FormGroup, FormBuilder, FormArray} from '@angular/forms';
-import { LegalStatus } from '../../../../../../modal/legal-status';
-import { Capital } from '../../../../../../modal/capital';
-import { Swot } from '../../../../../../modal/swot';
-import { ManagementTeam } from '../../../../../../modal/management-team';
-import { Proprietors } from '../../../../../../modal/proprietors';
+import {Component, OnInit} from '@angular/core';
+import {CommonService} from '../../../../../../shared-service/baseservice/common-baseservice';
+import {Router} from '@angular/router';
+import {EntityInfo} from '../../../../../../modal/entity-info';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {LegalStatus} from '../../../../../../modal/legal-status';
+import {Capital} from '../../../../../../modal/capital';
+import {Swot} from '../../../../../../modal/swot';
+import {Proprietors} from '../../../../../../modal/proprietors';
 
 @Component({
   selector: 'app-company-info',
@@ -15,18 +14,17 @@ import { Proprietors } from '../../../../../../modal/proprietors';
   styleUrls: ['./company-info.component.css']
 })
 export class CompanyInfoComponent implements OnInit {
-  entityInfo: EntityInfo =  new EntityInfo();
+  entityInfo: EntityInfo = new EntityInfo();
   legalStatus: LegalStatus = new LegalStatus();
   capital: Capital = new Capital();
   swot: Swot = new Swot();
-  managementTeam : ManagementTeam = new ManagementTeam();
   proprietors: Proprietors = new Proprietors();
   companyInfo: FormGroup;
 
   constructor(
-    private commonService: CommonService,
-    private router: Router,
-    private formBuilder: FormBuilder
+      private commonService: CommonService,
+      private router: Router,
+      private formBuilder: FormBuilder
   ) {
 
   }
@@ -49,10 +47,10 @@ export class CompanyInfoComponent implements OnInit {
       fixedCapital: [''],
       workingCapital: [''],
       numberOfShareholder: [''],
-      managementTeams:this.formBuilder.array([
+      managementTeams: this.formBuilder.array([
         this.managementTeamFormGroup()
       ]),
-      proprietors:this.formBuilder.array([
+      proprietors: this.formBuilder.array([
         this.proprietorsFormGroup()
       ]),
       strength: [''],
@@ -60,11 +58,11 @@ export class CompanyInfoComponent implements OnInit {
       opportunity: [''],
       threats: [''],
 
-    })
+    });
   }
 
-  onSubmit(){
-    
+  onSubmit() {
+
     this.legalStatus.companyName = this.companyInfo.get('companyName').value;
     this.legalStatus.corporateStructure = this.companyInfo.get('corporateStructure').value;
     this.legalStatus.registeredOffice = this.companyInfo.get('registeredOffice').value;
@@ -90,43 +88,47 @@ export class CompanyInfoComponent implements OnInit {
     this.swot.opportunity = this.companyInfo.get('opportunity').value;
     this.swot.threats = this.companyInfo.get('threats').value;
     this.entityInfo.swot = this.swot;
-    this.commonService.saveOrEdit(this.entityInfo,'v1/companyInfo').subscribe();
+    this.commonService.saveOrEdit(this.entityInfo, 'v1/companyInfo').subscribe();
 
   }
+
   managementTeamFormGroup(): FormGroup {
     return this.formBuilder.group({
       name: [''],
       designation: ['']
-    })
+    });
   }
+
   proprietorsFormGroup(): FormGroup {
     return this.formBuilder.group({
       name: [''],
       contactNo: [''],
       address: [''],
       share: [''],
-    })
+    });
   }
 
-  
-  removeManagementTeam(index: number){
+
+  removeManagementTeam(index: number) {
     (<FormArray>this.companyInfo.get('managementTeams')).removeAt(index);
   }
-  removeProprietor(index:number){
+
+  removeProprietor(index: number) {
     (<FormArray>this.companyInfo.get('proprietors')).removeAt(index);
-  
+
   }
-  addProprietor(){
+
+  addProprietor() {
     (<FormArray>this.companyInfo.get('proprietors')).push(this.proprietorsFormGroup());
   }
-  addManagementTeam(){
+
+  addManagementTeam() {
     (<FormArray>this.companyInfo.get('managementTeams')).push(this.managementTeamFormGroup());
   }
 
 
-
-  previousPage(){
-    this.router.navigate(['home/loan/kyc-info'])
+  previousPage() {
+    this.router.navigate(['home/loan/kyc-info']);
   }
 
 }

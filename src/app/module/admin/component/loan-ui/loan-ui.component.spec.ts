@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LoanUiComponent } from './loan-ui.component';
+import {LoanUiComponent} from './loan-ui.component';
 
 describe('LoanUiComponent', () => {
   let component: LoanUiComponent;
@@ -8,9 +8,9 @@ describe('LoanUiComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoanUiComponent ]
+      declarations: [LoanUiComponent]
     })
-    .compileComponents();
+        .compileComponents();
   }));
 
   beforeEach(() => {

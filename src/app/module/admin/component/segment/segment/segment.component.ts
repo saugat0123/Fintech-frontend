@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 
 import {Segment} from '../../../../../modal/segment';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
@@ -6,9 +6,9 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
 import {Router} from '@angular/router';
 import {Pageable} from '../../../../../shared-service/baseservice/common-pageable';
-import {Company} from '../../../../../modal/company';
 
 declare var $;
+
 @Component({
   selector: 'app-segment',
   templateUrl: './segment.component.html',
@@ -16,8 +16,8 @@ declare var $;
 })
 export class SegmentComponent implements OnInit, DoCheck {
 
-  title = "Segment";
-  breadcrumb = "Nepse > List"
+  title = 'Segment';
+  breadcrumb = 'Nepse > List';
   dataList: any;
 
   spinner: boolean = false;
@@ -33,9 +33,9 @@ export class SegmentComponent implements OnInit, DoCheck {
   constructor(
       private dataService: CommonDataService,
       private commonService: CommonService,
-      private commonPageService: CommonPageService,
-      private router: Router
-  ) { }
+      private commonPageService: CommonPageService
+  ) {
+  }
 
   ngOnInit() {
     this.dataService.changeTitle(this.title);
@@ -49,13 +49,16 @@ export class SegmentComponent implements OnInit, DoCheck {
 
     });
   }
+
   ngDoCheck(): void {
     this.dataList = this.dataService.getDataList();
   }
-  addSegment(){
-    this.dataService.setSegment(new Segment())
+
+  addSegment() {
+    this.dataService.setSegment(new Segment());
     $('.add-segment').modal('show');
   }
+
   getPagination() {
     this.spinner = true;
     this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
@@ -63,13 +66,12 @@ export class SegmentComponent implements OnInit, DoCheck {
           this.dataService.setDataList(this.dataList);
           this.commonPageService.setCurrentApi(this.currentApi);
           this.pageable = this.commonPageService.setPageable(response.detail);
-          console.log(this.dataList);
           this.spinner = false;
 
         }, error => {
           this.globalMsg = error.error.message;
           if (this.globalMsg == null) {
-            this.globalMsg = "Please check your network connection"
+            this.globalMsg = 'Please check your network connection';
           }
           this.spinner = false;
           this.dataService.getGlobalMsg(this.globalMsg);
@@ -78,6 +80,7 @@ export class SegmentComponent implements OnInit, DoCheck {
     );
 
   }
+
   onSearch() {
     this.dataService.setData(this.search);
     this.getPagination();
@@ -86,10 +89,11 @@ export class SegmentComponent implements OnInit, DoCheck {
   onSearchChange(searchValue: string) {
     this.search = {
       'name': searchValue
-    }
+    };
     this.dataService.setData(this.search);
     this.getPagination();
   }
+
   openEdit(segment: Segment) {
     this.dataService.setSegment(segment);
     $('.add-segment').modal('show');

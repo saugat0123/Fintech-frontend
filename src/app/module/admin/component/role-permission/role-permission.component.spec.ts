@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {RolePermissionComponent} from './role-permission.component';
 
-import { RolePermissionComponent } from './role-permission.component.ts';
 
 describe('RolePermissionComponent', () => {
   let component: RolePermissionComponent;
@@ -8,9 +8,9 @@ describe('RolePermissionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RolePermissionComponent ]
+      declarations: [RolePermissionComponent]
     })
-    .compileComponents();
+        .compileComponents();
   }));
 
   beforeEach(() => {

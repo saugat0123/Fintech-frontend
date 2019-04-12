@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonDataService } from '../../../../../shared-service/baseservice/common-dataService';
-import { CommonService } from '../../../../../shared-service/baseservice/common-baseservice';
-import { CommonPageService } from '../../../../../shared-service/baseservice/common-pagination-service';
+import {Component, OnInit} from '@angular/core';
+import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
+import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
+import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
 
 declare var $;
+
 @Component({
   selector: 'app-ui',
   templateUrl: './ui.component.html',
@@ -16,14 +17,13 @@ export class UIComponent implements OnInit {
   search = new Object();
   globalMsg: any;
   documentList: any;
-  selectedDocumentList = Array<Document>();
-  unSelectedDocumentList = Array<Document>();
-  comfirmDocumentList= Array<Document>();
+  comfirmDocumentList = Array<Document>();
   currentApi: any;
+
   constructor(
-    private dataService: CommonDataService,
-    private commonService: CommonService,
-    private commonPageService: CommonPageService
+      private dataService: CommonDataService,
+      private commonService: CommonService,
+      private commonPageService: CommonPageService
   ) {
 
   }
@@ -31,7 +31,7 @@ export class UIComponent implements OnInit {
   ngOnInit() {
     this.dataService.changeTitle(this.title);
     this.currentApi = 'v1/document/get';
-    this.getPagination()
+    this.getPagination();
 
 
   }
@@ -57,18 +57,18 @@ export class UIComponent implements OnInit {
     });
 
   }
+
   updateSelectDocument(document) {
     let d: Document = document;
     this.comfirmDocumentList.push(d);
-    this.documentList.splice(this.documentList.indexOf(d),1);
+    this.documentList.splice(this.documentList.indexOf(d), 1);
   }
-
 
 
   updateUnselectDocument(document) {
     let d: Document = document;
     this.documentList.push(d);
-    this.comfirmDocumentList.splice(this.comfirmDocumentList.indexOf(d),1);
+    this.comfirmDocumentList.splice(this.comfirmDocumentList.indexOf(d), 1);
   }
 
 

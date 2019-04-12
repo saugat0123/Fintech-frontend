@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Nepse} from '../../../../../modal/nepse';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
@@ -26,12 +26,13 @@ export class BulkUploadComponent implements OnInit {
       private commonService: CommonService,
       private router: Router,
       private dataService: CommonDataService
-  ) { }
+  ) {
+  }
 
 
   ngOnInit() {
 
-    
+
   }
 
 

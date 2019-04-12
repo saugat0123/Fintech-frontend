@@ -6,6 +6,7 @@ import {SubSegment} from '../../../../../modal/subSegment';
 import {Segment} from '../../../../../modal/segment';
 
 declare var $;
+
 @Component({
     selector: 'app-add-sub-segment',
     templateUrl: './add-sub-segment.component.html',
@@ -20,12 +21,13 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
     subSegment: SubSegment = new SubSegment();
     segment: Segment = new Segment();
     segmentList: any;
-    isActive: boolean;
+
     constructor(
         private commonService: CommonService,
         private router: Router,
         private dataService: CommonDataService
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         this.commonService.getByAll('v1/segment/getList').subscribe((response: any) => {
@@ -33,42 +35,39 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
 
         });
     }
+
     ngDoCheck(): void {
         this.subSegment = this.dataService.getSubSegment();
         if (this.subSegment.id == null) {
             this.task = 'Add';
-        } else { this.task = 'Edit'; 
-        if(this.subSegment.segment != null){
-            this.segment = this.subSegment.segment;
         } else {
-            this.segment = new Segment();
-          }
-    }
-        console.log(this.subSegment);
+            this.task = 'Edit';
+            if (this.subSegment.segment != null) {
+                this.segment = this.subSegment.segment;
+            } else {
+                this.segment = new Segment();
+            }
+        }
 
     }
 
     onSubmit() {
         this.submitted = true;
         this.subSegment.segment = this.segment;
-        console.log(this.segment);
-        console.log(this.subSegment.segment);
         this.commonService.saveOrEdit(this.subSegment, 'v1/subSegment').subscribe(result => {
-                console.log(this.subSegment);
                 $('.add-sub-segment').modal('hide');
                 if (this.subSegment.id == null) {
-                    this.globalMsg = "SUCCESSFULLY ADDED SUB SEGMENT";
+                    this.globalMsg = 'SUCCESSFULLY ADDED SUB SEGMENT';
                 } else {
-                    this.globalMsg = "SUCCESSFULLY EDITED SUB SEGMENT";
+                    this.globalMsg = 'SUCCESSFULLY EDITED SUB SEGMENT';
                 }
 
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('true');
                 this.subSegment = new SubSegment();
-                this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/sub-segment']));
-                    this.dataService.alertmsg();
-
+                this.dataService.alertmsg();
 
 
             }, error => {
@@ -79,9 +78,9 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('false');
 
-                this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
-                    this.router.navigate(["home/sub-segment"]));
-                    this.dataService.alertmsg();
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/sub-segment']));
+                this.dataService.alertmsg();
 
             }
         );

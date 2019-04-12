@@ -15,11 +15,14 @@
                             <div class="col-md-6">
                                 <label for="loan_Category">Loan Category</label>
                                 <input type="hidden" class="form-control" [(ngModel)]="approvalLimit.id"
-                                    name="id" placeholder="id">
+                                       name="id" placeholder="id">
                                 <select [(ngModel)]="loanCategory.id" name="loanCategory" class="form-control" required
-                                #Category="ngModel" [ngClass]="{ 'is-invalid': f.submitted && Category.invalid }" >
+                                        #Category="ngModel"
+                                        [ngClass]="{ 'is-invalid': f.submitted && Category.invalid }">
                                     <option [ngValue]="undefined" hidden>Loan Category</option>
-                                    <option *ngFor="let allList of loanList" [selected]="allList.id === approvalLimit?.loanCategory?.id" [ngValue]="allList.id">
+                                    <option *ngFor="let allList of loanList"
+                                            [selected]="allList.id === approvalLimit?.loanCategory?.id"
+                                            [ngValue]="allList.id">
                                         {{allList.name}}
                                     </option>
                                 </select>
@@ -30,11 +33,11 @@
                             <div class="col-md-6">
                                 <label for="amount">Amount</label>
                                 <input type="text" class="form-control" placeholder="amount" required
-                                    [(ngModel)]="approvalLimit.amount" name="amount" #approvalAmount="ngModel"
-                                    [ngClass]="{ 'is-invalid': f.submitted && approvalAmount.invalid }" required />
-                                  <div *ngIf="f.submitted && approvalAmount.invalid" class="invalid-feedback">
+                                       [(ngModel)]="approvalLimit.amount" name="amount" #approvalAmount="ngModel"
+                                       [ngClass]="{ 'is-invalid': f.submitted && approvalAmount.invalid }" required/>
+                                <div *ngIf="f.submitted && approvalAmount.invalid" class="invalid-feedback">
                                     <div *ngIf="approvalAmount.errors.required"> Approval Amount is required</div>
-                                  </div>
+                                </div>
 
                             </div>
                         </div>
@@ -43,20 +46,22 @@
                                 <label for="authorities">Authorities</label>
 
                                 <select class="form-control" [(ngModel)]="authorities.id" name="authorities" required
-                                #authority="ngModel" [ngClass]="{ 'is-invalid': f.submitted && authority.invalid }">
+                                        #authority="ngModel"
+                                        [ngClass]="{ 'is-invalid': f.submitted && authority.invalid }">
                                     <option [ngValue]="undefined" hidden>Authorities</option>
                                     <option *ngFor="let role of roleList"
-                                        [selected]="role.id === approvalLimit?.authorities?.id" [ngValue]="role.id">
+                                            [selected]="role.id === approvalLimit?.authorities?.id" [ngValue]="role.id">
                                         {{role.roleName}}</option>
-                            </select>
+                                </select>
                                 <div *ngIf="f.submitted && authority.invalid" class="invalid-feedback">
                                     <div *ngIf="authority.errors.required">Category is required</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="approval_Type">Approval Type</label>
-                                <select class="form-control" [(ngModel)]="approvalLimit.loanApprovalType" name="loanApprovalType"
-                                #type="ngModel" [ngClass]="{ 'is-invalid': f.submitted && type.invalid }">
+                                <select class="form-control" [(ngModel)]="approvalLimit.loanApprovalType"
+                                        name="loanApprovalType"
+                                        #type="ngModel" [ngClass]="{ 'is-invalid': f.submitted && type.invalid }">
                                     <option [ngValue]="undefined" hidden>Approval Type</option>
                                     <option value="PERSONAL_TYPE">PERSONAL</option>
                                     <option value="BUSINESS_TYPE">BUSINESS</option>

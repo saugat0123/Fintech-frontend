@@ -1,6 +1,3 @@
-
-
-
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {BaseComponent} from './component/base/base.component';
@@ -9,16 +6,17 @@ import {LoginComponent} from './component/login/login.component';
 
 
 const routes: Routes = [
-  { path: 'home', component: BaseComponent,
-    children: [
-      { path: 'dashboard', component: DashboardComponent },
-      {path: '', loadChildren: './module/admin/admin.module#AdminModule'}
-    ],
-    
-    
-  },
-  { path: '', component: LoginComponent }
-]
+    {
+        path: 'home', component: BaseComponent,
+        children: [
+            {path: 'dashboard', component: DashboardComponent},
+            {path: '', loadChildren: './module/admin/admin.module#AdminModule'}
+        ],
+
+
+    },
+    {path: '', component: LoginComponent}
+];
 
 
 @NgModule({

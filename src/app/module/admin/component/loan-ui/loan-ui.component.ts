@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-loan-ui',
@@ -7,8 +7,8 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 })
 export class LoanUiComponent implements OnInit, DoCheck {
 
-  constructor(
-  ) { }
+  constructor() {
+  }
 
   ngDoCheck(): void {
 

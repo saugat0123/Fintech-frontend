@@ -4,10 +4,10 @@ import {CommonService} from '../../../../shared-service/baseservice/common-bases
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Router} from '@angular/router';
 import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
-import {District} from '../../../../modal/district';
 import {Nepse} from '../../../../modal/nepse';
 
 declare var $;
+
 @Component({
   selector: 'app-nepse',
   templateUrl: './nepse.component.html',
@@ -15,8 +15,8 @@ declare var $;
 })
 export class NepseComponent implements OnInit, DoCheck {
 
-  title = "Nepse";
-  breadcrumb = "Nepse > List"
+  title = 'Nepse';
+  breadcrumb = 'Nepse > List';
   dataList: any;
 
   spinner: boolean = false;
@@ -31,9 +31,9 @@ export class NepseComponent implements OnInit, DoCheck {
   constructor(
       private dataService: CommonDataService,
       private commonService: CommonService,
-      private commonPageService: CommonPageService,
-      private router: Router
-  ) { }
+      private commonPageService: CommonPageService
+  ) {
+  }
 
   ngOnInit() {
     this.dataService.changeTitle(this.title);
@@ -47,6 +47,7 @@ export class NepseComponent implements OnInit, DoCheck {
 
     });
   }
+
   getPagination() {
     this.spinner = true;
     this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
@@ -54,13 +55,12 @@ export class NepseComponent implements OnInit, DoCheck {
           this.dataService.setDataList(this.dataList);
           this.commonPageService.setCurrentApi(this.currentApi);
           this.pageable = this.commonPageService.setPageable(response.detail);
-          console.log(this.dataList);
           this.spinner = false;
 
         }, error => {
           this.globalMsg = error.error.message;
           if (this.globalMsg == null) {
-            this.globalMsg = "Please check your network connection"
+            this.globalMsg = 'Please check your network connection';
           }
           this.spinner = false;
           this.dataService.getGlobalMsg(this.globalMsg);
@@ -73,6 +73,7 @@ export class NepseComponent implements OnInit, DoCheck {
   ngDoCheck(): void {
     this.dataList = this.dataService.getDataList();
   }
+
   onSearch() {
     this.dataService.setData(this.search);
     this.getPagination();
@@ -81,10 +82,11 @@ export class NepseComponent implements OnInit, DoCheck {
   onSearchChange(searchValue: string) {
     this.search = {
       'name': searchValue
-    }
+    };
     this.dataService.setData(this.search);
     this.getPagination();
   }
+
   addNepse() {
     this.dataService.setNepse(new Nepse());
     $('.add-nepse').modal('show');
