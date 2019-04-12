@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from '../../shared-service/baseservice/common-dataService';
+import {CommonDataService} from "../../../../shared-service/baseservice/common-dataService";
 
 @Component({
     selector: 'app-memo-compose',
@@ -8,7 +8,7 @@ import {CommonDataService} from '../../shared-service/baseservice/common-dataSer
 })
 export class MemoComposeComponent implements OnInit {
 
-    title = 'Memo - Compose';
+    title = "Memo - Compose";
 
     constructor(
         private dataService: CommonDataService

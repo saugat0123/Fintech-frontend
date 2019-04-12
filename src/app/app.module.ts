@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,14 +14,11 @@ import { FooterComponent } from './component/base/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RestApiService } from './shared-service/authentication/rest-api.service';
 import { CommonService } from './shared-service/baseservice/common-baseservice';
-import { SpinnerComponent } from './common/spinner/spinner.component';
 import { CommonDataService } from './shared-service/baseservice/common-dataService';
 import { BranchComponent } from './component/branch/branch.component';
 import { AddModelComponent } from './component/branch/add-model/add-model.component';
 import { MsgModalComponent } from './common/msg-modal/msg-modal.component';
-import { PaginationComponent } from './common/pagination/pagination.component';
 import { MsgAlertComponent } from './common/msg-alert/msg-alert.component';
-import { UpdateModalComponent } from './common/update-modal/update-modal.component';
 import { LoanConfigComponent } from './component/loan-config/loan-config.component';
 import { LoanTemplateComponent } from './component/loan-template/loan-template.component';
 import { TemplateAddModelComponent } from './component/loan-template/template-add-model/template-add-model.component';
@@ -33,9 +29,7 @@ import { AddUserComponent } from './component/user/add-user/add-user.component';
 import { UserComponent } from './component/user/user.component';
 import { ApprovallimitComponent } from './component/approvallimit/approvallimit.component';
 import { AddApprovalLimitComponent } from './component/approvallimit/add-approval-limit/add-approval-limit.component';
-import {MemoModuleModule} from "./memo-module/memo-module.module";
-import {MemoModuleRoutingModule} from "./memo-module/memo-module-routing.module";
-
+import { SharedModule } from './module/shared/shared.module';
 
 
 @NgModule({
@@ -49,13 +43,10 @@ import {MemoModuleRoutingModule} from "./memo-module/memo-module-routing.module"
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    SpinnerComponent,
     BranchComponent,
     AddModelComponent,
     MsgModalComponent,
-    PaginationComponent,
     MsgAlertComponent,
-    UpdateModalComponent,
     LoanConfigComponent,
     LoanTemplateComponent,
     TemplateAddModelComponent,
@@ -66,18 +57,13 @@ import {MemoModuleRoutingModule} from "./memo-module/memo-module-routing.module"
     AddUserComponent,
     ApprovallimitComponent,
     AddApprovalLimitComponent,
-
-
-
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgbPaginationModule,
-    MemoModuleModule,
-    MemoModuleRoutingModule
+    SharedModule
   ],
   providers: [CommonService, RestApiService, CommonDataService],
   bootstrap: [AppComponent]
