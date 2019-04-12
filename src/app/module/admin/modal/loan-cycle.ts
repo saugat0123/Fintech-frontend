@@ -1,6 +1,6 @@
 export class LoanCycle {
-    id:number;
-    cycle:string;
-    level:string;
+    id: number;
+    cycle: string;
+    level: string;
 
 }

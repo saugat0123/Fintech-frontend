@@ -3,9 +3,9 @@ export class LegalStatus {
     created: Date;
     lastModified: Date;
     companyName: string;
-    corporateStructure:string;
-    registeredOffice:string;
-    registeredUnderAct:string;
+    corporateStructure: string;
+    registeredOffice: string;
+    registeredUnderAct: string;
     registrationNo: string;
     registrationDate: Date;
     panRegistrationOffice: string;

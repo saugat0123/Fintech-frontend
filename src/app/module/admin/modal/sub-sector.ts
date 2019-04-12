@@ -1,4 +1,5 @@
-import { Sector } from "./sector";
+import {Sector} from './sector';
+
 
 export class SubSector {
     id: number;
@@ -7,5 +8,4 @@ export class SubSector {
     subSectorName: string;
     subSectorCode: string;
     sector: Sector;
-    
 }

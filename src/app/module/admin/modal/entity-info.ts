@@ -1,8 +1,8 @@
-import { LegalStatus } from "./legal-status";
-import { Capital } from "./capital";
-import { Swot } from "./swot";
-import { ManagementTeam } from "./management-team";
-import { Proprietors } from "./proprietors";
+import {LegalStatus} from './legal-status';
+import {Capital} from './capital';
+import {Swot} from './swot';
+import {ManagementTeam} from './management-team';
+import {Proprietors} from './proprietors';
 
 export class EntityInfo {
     id: number;
