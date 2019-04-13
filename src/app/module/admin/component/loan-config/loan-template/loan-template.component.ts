@@ -3,7 +3,7 @@ import {Pageable} from '../../../../../shared-service/baseservice/common-pageabl
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
-import {LoanTemplate} from '../../../../../modal/template';
+import {LoanTemplate} from '../../../modal/template';
 
 declare var $;
 
@@ -17,7 +17,7 @@ export class LoanTemplateComponent implements OnInit, DoCheck {
     title = 'Template';
     spinner = false;
     globalMsg: string;
-    search = {};
+    search;
     pageable: Pageable = new Pageable();
     currentApi: string;
     activeCount: number;

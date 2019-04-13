@@ -2,7 +2,7 @@ import {Component, DoCheck, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../../../shared-service/baseservice/common-baseservice';
-import {Sector} from '../../../../../../modal/sector';
+import {Sector} from '../../../../modal/sector';
 
 declare var $;
 

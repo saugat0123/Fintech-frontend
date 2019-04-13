@@ -3,7 +3,7 @@ import {Pageable} from '../../../../../shared-service/baseservice/common-pageabl
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
-import {SubSector} from '../../../../../modal/sub-sector';
+import {SubSector} from '../../../modal/sub-sector';
 
 declare var $;
 
@@ -20,7 +20,7 @@ export class SubSectorComponent implements OnInit, DoCheck {
     newValue: string;
     spinner = false;
     globalMsg: string;
-    search = {};
+    search: any = {};
     pageable: Pageable = new Pageable();
     currentApi: string;
     activeCount: number;

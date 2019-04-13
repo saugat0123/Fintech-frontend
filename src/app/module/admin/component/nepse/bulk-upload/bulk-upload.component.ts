@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Nepse} from '../../../../../modal/nepse';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
+import {Nepse} from '../../../modal/nepse';
 
 
 declare var $;

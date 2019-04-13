@@ -6,6 +6,7 @@ export class LoanConfig {
     name: string;
     templateList: Array<LoanTemplate>;
     status: string;
+    loanConfigCode: string;
     initial: Array<Document>;
     renew: Array<Document>;
 }

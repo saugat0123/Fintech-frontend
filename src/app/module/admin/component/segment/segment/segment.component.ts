@@ -1,10 +1,10 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 
-import {Segment} from '../../../../../modal/segment';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
 import {Pageable} from '../../../../../shared-service/baseservice/common-pageable';
+import {Segment} from '../../../modal/segment';
 
 declare var $;
 
@@ -21,7 +21,7 @@ export class SegmentComponent implements OnInit, DoCheck {
 
     spinner = false;
     globalMsg: string;
-    search = {};
+    search: any = {};
     pageable: Pageable = new Pageable();
     currentApi: string;
     activeCount: number;

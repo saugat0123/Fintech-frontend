@@ -3,7 +3,7 @@ import {CommonDataService} from '../../../../shared-service/baseservice/common-d
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
-import {Nepse} from '../../../../modal/nepse';
+import {Nepse} from '../../modal/nepse';
 
 declare var $;
 
@@ -20,7 +20,7 @@ export class NepseComponent implements OnInit, DoCheck {
 
     spinner = false;
     globalMsg: string;
-    search = {};
+    search: any = {};
     pageable: Pageable = new Pageable();
     currentApi: string;
     activeCount: number;

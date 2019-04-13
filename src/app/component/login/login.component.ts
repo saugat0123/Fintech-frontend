@@ -11,7 +11,7 @@ import { baseApi } from '../../shared-service/authentication/api-list.service';
 })
 export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  private spinner = false;
+  spinner = false;
   private securityUrl = baseApi.tokenUrl;
 
   constructor(

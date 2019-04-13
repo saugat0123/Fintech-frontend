@@ -1,9 +1,9 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
-import {Valuator} from '../../../../../modal/valuator';
 
 import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
+import {Valuator} from '../../../modal/valuator';
 
 declare var $;
 

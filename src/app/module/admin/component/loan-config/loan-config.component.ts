@@ -21,7 +21,7 @@ export class LoanConfigComponent implements OnInit, DoCheck {
     newValue: any;
     spinner = false;
     globalMsg: string;
-    search = {};
+    search: any = {};
     pageable: Pageable = new Pageable();
     currentApi: string;
     activeCount: number;

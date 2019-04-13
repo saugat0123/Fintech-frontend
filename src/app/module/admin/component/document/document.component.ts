@@ -3,8 +3,8 @@ import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
 import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
-import {Document} from '../../../../modal/document';
-import {LoanCycle} from '../../../../modal/loan-cycle';
+import {Document} from '../../modal/document';
+import {LoanCycle} from '../../modal/loan-cycle';
 
 declare var $;
 
@@ -21,14 +21,13 @@ export class DocumentComponent implements OnInit, DoCheck {
     loanCycleList: Array<LoanCycle>;
     spinner = false;
     globalMsg: string;
-    search = {};
+    search: any = {};
     pageable: Pageable = new Pageable();
-    currentApi: any;
-    activeCount: any;
-    inactiveCount: any;
-    documents: any;
-    newValue: any;
-    data: any;
+    currentApi: string;
+    activeCount: number;
+    inactiveCount: number;
+    documents: number;
+    newValue: string;
 
 
     constructor(

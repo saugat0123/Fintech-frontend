@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
-import {LoanCycle} from '../../../../../modal/loan-cycle';
-import {Document} from '../../../../../modal/document';
+import {LoanCycle} from '../../../modal/loan-cycle';
+import {Document} from '../../../modal/document';
 import {Router} from '@angular/router';
 
 @Component({

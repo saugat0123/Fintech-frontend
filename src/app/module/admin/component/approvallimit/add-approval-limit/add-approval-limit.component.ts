@@ -1,11 +1,11 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 
 import {Router} from '@angular/router';
-import {ApprovalLimit} from '../../../../../modal/approval-limit';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {Role} from '../../../modal/role';
 import {LoanConfig} from '../../../modal/loan-config';
+import {ApprovalLimit} from '../../../modal/approval-limit';
 
 declare var $;
 

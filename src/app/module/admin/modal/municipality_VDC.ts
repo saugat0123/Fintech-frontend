@@ -1,6 +1,6 @@
 import {District} from './district';
 
-export class MunicipalityVDC {
+export class MunicipalityVdc {
     id: number;
     name: string;
     district: District;

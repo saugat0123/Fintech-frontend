@@ -1,9 +1,9 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 
 import {Router} from '@angular/router';
-import {Branch} from '../../../../../modal/branch';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
+import {Branch} from '../../../modal/branch';
 
 declare var $;
 

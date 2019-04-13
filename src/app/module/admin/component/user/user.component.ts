@@ -20,7 +20,7 @@ export class UserComponent implements OnInit, DoCheck {
 
     spinner = false;
     globalMsg: string;
-    search = {};
+    search: any = {};
     pageable: Pageable = new Pageable();
     currentApi: string;
     activeCount: number;

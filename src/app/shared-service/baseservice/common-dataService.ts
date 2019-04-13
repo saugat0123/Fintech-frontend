@@ -1,25 +1,20 @@
-import { Injectable } from '@angular/core';
-
-import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-
-import { Pageable } from './common-pageable';
-import { Branch } from '../../modal/branch';
-import { ApprovalLimit } from '../../modal/approval-limit';
-import {User} from "../../modal/user";
-import { Customer } from '../../modal/customer';
-import { Valuator } from '../../modal/valuator';
-import { Sector } from '../../modal/sector';
-import { SubSector } from '../../modal/sub-sector';
-import {Segment} from '../../modal/segment';
-import {District} from '../../modal/district';
-import {MunicipalityVDC} from '../../modal/municipality_VDC';
-import {Province} from '../../modal/province';
-import {Nepse} from '../../modal/nepse';
-import {SubSegment} from '../../modal/subSegment';
-import { Document } from '../../modal/document';
-import {Company} from '../../modal/company';
-
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {Branch} from '../../module/admin/modal/branch';
+import {ApprovalLimit} from '../../module/admin/modal/approval-limit';
+import {User} from '../../module/admin/modal/user';
+import {Customer} from '../../module/admin/modal/customer';
+import {Valuator} from '../../module/admin/modal/valuator';
+import {Sector} from '../../module/admin/modal/sector';
+import {SubSector} from '../../module/admin/modal/sub-sector';
+import {Segment} from '../../module/admin/modal/segment';
+import {District} from '../../module/admin/modal/district';
+import {SubSegment} from '../../module/admin/modal/subSegment';
+import {MunicipalityVdc} from '../../module/admin/modal/municipality_VDC';
+import {Province} from '../../module/admin/modal/province';
+import {Nepse} from '../../module/admin/modal/nepse';
+import {Company} from '../../module/admin/modal/company';
+import {Document} from '../../module/admin/modal/document';
 declare var $;
 
 @Injectable({
@@ -41,7 +36,7 @@ export class CommonDataService {
     segment: Segment = new Segment();
     subSegment: SubSegment = new SubSegment();
     district: District = new District();
-    municipality: MunicipalityVDC = new MunicipalityVDC();
+    municipality: MunicipalityVdc = new MunicipalityVdc();
     province: Province = new Province();
     nepse: Nepse = new Nepse();
     company: Company = new Company();
@@ -118,81 +113,103 @@ export class CommonDataService {
         return this.user;
     }
 
-    setCustomer(customer: Customer){
+    setCustomer(customer: Customer) {
         return this.customer = customer;
     }
-    getCustomer(){
+
+    getCustomer() {
         return this.customer;
     }
-    setValuator(valuator:Valuator){
+
+    setValuator(valuator: Valuator) {
         return this.valuator = valuator;
     }
-    getValuator(){
+
+    getValuator() {
         return this.valuator;
     }
-    setSector(sector:Sector){
+
+    setSector(sector: Sector) {
         return this.sector = sector;
     }
-    getSector(){
+
+    getSector() {
         return this.sector;
     }
-    setSubSector(subSector:SubSector){
+
+    setSubSector(subSector: SubSector) {
         return this.subSector = subSector;
     }
-    getSubSector(){
+
+    getSubSector() {
         return this.subSector;
     }
 
-    setSegment(segment: Segment){
-        console.log(segment)
+    setSegment(segment: Segment) {
+        console.log(segment);
         this.segment = segment;
     }
-    getSegment(){
+
+    getSegment() {
         return this.segment;
     }
-    setSubSegment(subSegment: SubSegment){
+
+    setSubSegment(subSegment: SubSegment) {
         this.subSegment = subSegment;
     }
-    getSubSegment(){
+
+    getSubSegment() {
         return this.subSegment;
     }
-    setDistrict(district: District){
-        console.log(district)
+
+    setDistrict(district: District) {
+        console.log(district);
         this.district = district;
     }
-    setMunicipality(municipality: MunicipalityVDC){
+
+    setMunicipality(municipality: MunicipalityVdc) {
         this.municipality = municipality;
     }
-    setProvince(province: Province){
+
+    setProvince(province: Province) {
         this.province = province;
     }
-    getProvince(){
+
+    getProvince() {
         return this.province;
     }
-    setNepse(nepse: Nepse){
+
+    setNepse(nepse: Nepse) {
         this.nepse = nepse;
     }
-    getNepse(){
+
+    getNepse() {
         return this.nepse;
     }
-    setDocument(document: Document){
+
+    setDocument(document: Document) {
         this.document = document;
     }
-    getDocument(){
+
+    getDocument() {
         return this.document;
     }
+
     alertmsg() {
         $('.alert-custom').slideDown();
         setTimeout(() => {
             $('.alert-custom').slideUp();
         }, 2000);
     }
-    setCompany(company: Company){
+
+    setCompany(company: Company) {
         this.company = company;
     }
-    getCompany(){
+
+    getCompany() {
         return this.company;
     }
+
     clearData() {
         this.dataObj = new Object();
     }

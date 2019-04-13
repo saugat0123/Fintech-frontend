@@ -1,4 +1,7 @@
 import {CustomerRelative} from './customer-relative';
+import {MunicipalityVdc} from './municipality_VDC';
+import {District} from './district';
+import {Province} from './province';
 
 export class Customer {
     id: number;
@@ -8,9 +11,9 @@ export class Customer {
     customerName: string;
     customerId: string;
     accountNo: string;
-    province: string;
-    district: string;
-    municipalitiesOrVDC: string;
+    province: Province;
+    district: District;
+    municipalitiesOrVDC: MunicipalityVdc;
     telephone: string;
     mobile: string;
     email: string;

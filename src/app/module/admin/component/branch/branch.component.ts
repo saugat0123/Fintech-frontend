@@ -3,7 +3,7 @@ import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
 import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
-import {Branch} from '../../../../modal/branch';
+import {Branch} from '../../modal/branch';
 
 declare var $;
 
@@ -18,7 +18,7 @@ export class BranchComponent implements OnInit, DoCheck {
     dataList: Array<Branch>;
     spinner = false;
     globalMsg: string;
-    search = {};
+    search: any = {};
     pageable: Pageable = new Pageable();
     currentApi: string;
     activeCount: number;
