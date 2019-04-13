@@ -3,6 +3,7 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {Document} from '../../../modal/document';
+import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 declare var $;
 
@@ -23,7 +24,10 @@ export class AddDocumentComponent implements OnInit, DoCheck {
     constructor(
         private commonService: CommonService,
         private router: Router,
-        private dataService: CommonDataService) {
+        private dataService: CommonDataService,
+        private modalService:NgbModal,
+        private activeModal:NgbActiveModal,
+    ) {
     }
 
     ngOnInit() {
@@ -45,7 +49,7 @@ export class AddDocumentComponent implements OnInit, DoCheck {
         this.globalMsg = 'test successful';
         this.commonService.saveOrEdit(this.document, 'v1/document').subscribe(result => {
 
-                $('.add-document').modal('hide');
+            this.modalService.dismissAll(AddDocumentComponent);
                 if (this.document.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED DOCUMENT';
                 } else {
@@ -62,7 +66,7 @@ export class AddDocumentComponent implements OnInit, DoCheck {
 
             }, error => {
 
-                $('.add-document').modal('hide');
+            this.modalService.dismissAll(AddDocumentComponent);
 
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);

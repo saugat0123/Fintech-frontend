@@ -5,6 +5,8 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
 import {SubSegment} from '../../../modal/subSegment';
 import {Segment} from '../../../modal/segment';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {AddSubSegmentComponent} from "../add-sub-segment/add-sub-segment.component";
 
 declare var $;
 
@@ -31,7 +33,8 @@ export class SubSegmentComponent implements OnInit, DoCheck {
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService
+        private commonPageService: CommonPageService,
+        private modalService:NgbModal
     ) {
     }
 
@@ -52,10 +55,11 @@ export class SubSegmentComponent implements OnInit, DoCheck {
         this.dataList = this.dataService.getDataList();
     }
 
-    addSubSegment() {
-        this.dataService.setSubSegment(new SubSegment());
-        $('.add-sub-segment').modal('show');
+    addSubSegment(){
+        this.dataService.setSubSegment(new SubSegment())
+        this.modalService.open(AddSubSegmentComponent);
     }
+
 
     getPagination() {
         this.spinner = true;
@@ -96,6 +100,9 @@ export class SubSegmentComponent implements OnInit, DoCheck {
         this.dataService.setSubSegment(subSegment);
         this.dataService.setSegment(segment);
         this.segment = this.dataService.getSegment();
-        $('.add-sub-segment').modal('show');
+
+        console.log(this.segment.segmentName);
+        this.modalService.open(AddSubSegmentComponent);
     }
+
 }

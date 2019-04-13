@@ -4,6 +4,8 @@ import {CommonService} from '../../../../shared-service/baseservice/common-bases
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
 import {Nepse} from '../../modal/nepse';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {AddNepseComponent} from "./add-nepse/add-nepse.component";
 
 declare var $;
 
@@ -30,7 +32,8 @@ export class NepseComponent implements OnInit, DoCheck {
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService
+        private commonPageService: CommonPageService,
+        private modalService:NgbModal
     ) {
     }
 
@@ -88,6 +91,7 @@ export class NepseComponent implements OnInit, DoCheck {
 
     addNepse() {
         this.dataService.setNepse(new Nepse());
-        $('.add-nepse').modal('show');
+        this.modalService.open(AddNepseComponent);
     }
+
 }

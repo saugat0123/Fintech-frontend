@@ -6,6 +6,7 @@ import {CommonDataService} from '../../../../../shared-service/baseservice/commo
 import {Role} from '../../../modal/role';
 import {LoanConfig} from '../../../modal/loan-config';
 import {ApprovalLimit} from '../../../modal/approval-limit';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 declare var $;
 
@@ -28,11 +29,14 @@ export class AddApprovalLimitComponent implements OnInit, DoCheck {
     constructor(
         private commonService: CommonService,
         private router: Router,
-        private dataService: CommonDataService) {
+        private dataService: CommonDataService,
+        private modalService: NgbModal,
+        private activeModal: NgbActiveModal) {
     }
 
     ngOnInit() {
         this.commonService.getByAll('v1/role/active').subscribe((response: any) => {
+
             this.roleList = response.detail;
         });
 
@@ -64,7 +68,7 @@ export class AddApprovalLimitComponent implements OnInit, DoCheck {
         this.approvalLimit.loanCategory = this.loanCategory;
         this.approvalLimit.authorities = this.authorities;
         this.commonService.saveOrEdit(this.approvalLimit, 'v1/approvallimit').subscribe(result => {
-                $('.add-approvalLimit').modal('hide');
+                this.modalService.dismissAll(AddApprovalLimitComponent);
                 if (this.approvalLimit.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED APPROVAL LIMIT';
                 } else {
@@ -81,8 +85,7 @@ export class AddApprovalLimitComponent implements OnInit, DoCheck {
 
             }, error => {
 
-                $('.add-approvalLimit').modal('hide');
-
+                this.modalService.dismissAll(AddApprovalLimitComponent);
                 this.globalMsg = 'error occurs';
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('false');

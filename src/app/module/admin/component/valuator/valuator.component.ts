@@ -5,6 +5,8 @@ import {CommonDataService} from '../../../../shared-service/baseservice/common-d
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Valuator} from '../../modal/valuator';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {AddValuatorComponent} from "./add-valuator/add-valuator.component";
 
 declare var $;
 
@@ -30,7 +32,8 @@ export class ValuatorComponent implements OnInit, DoCheck {
 
     constructor(private dataService: CommonDataService,
                 private commonService: CommonService,
-                private commonPageService: CommonPageService) {
+                private commonPageService: CommonPageService,
+                private modalService:NgbModal) {
     }
 
     ngOnInit() {
@@ -69,10 +72,11 @@ export class ValuatorComponent implements OnInit, DoCheck {
         );
     }
 
-    addValuator() {
+    addValuator(){
         this.dataService.setValuator(new Valuator());
-        $('.add-valuator').modal('show');
+        this.modalService.open(AddValuatorComponent);
     }
+
 
     onChange(newValue, data) {
         this.newValue = newValue;
@@ -82,10 +86,11 @@ export class ValuatorComponent implements OnInit, DoCheck {
 
     }
 
-    openEdit(valuator: Valuator) {
+    openEdit(valuator: Valuator){
         this.dataService.setValuator(valuator);
-        $('.add-valuator').modal('show');
+        this.modalService.open(AddValuatorComponent);
     }
+
 
     onSearchChange(searchValue: string) {
         this.search = {

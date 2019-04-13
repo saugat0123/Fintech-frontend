@@ -1,58 +1,58 @@
-<div class="modal fade in add-loan-config">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" style="display:block">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <h4 class="modal-title pull-left">{{task}} Loan Config</h4>
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header" style="display:block">
+            <button (click)="activeModal.dismiss('Cross click')" aria-label="Close" class="close" data-dismiss="modal"
+                    type="button">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title pull-left">{{task}} Loan Config</h4>
+        </div>
+        <div class="modal-body">
+
+
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="address">Name</label>
+                        <input type="hidden" class="form-control" required [(ngModel)]="loanConfig.id" name="id" placeholder="id">
+                        <input type="text" class="form-control" required [(ngModel)]="loanConfig.name" name="name" placeholder="Name">
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="address">Templates</label>
+                        <select multiple="multiple" [(ngModel)]="loanConfig.templateList" class="form-control">
+                            <option *ngFor="let allList of templateList" [value]="allList">{{allList.name}}</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
 
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="address">Name</label>
-                            <input type="hidden" class="form-control" required [(ngModel)]="loanConfig.id" name="id"
-                                   placeholder="id">
-                            <input type="text" class="form-control" required [(ngModel)]="loanConfig.name" name="name"
-                                   placeholder="Name">
-
-                        </div>
-                        <div class="col-md-6">
-                            <label for="address">Templates</label>
-                            <select multiple="multiple" [(ngModel)]="loanConfig.templateList" class="form-control">
-                                <option *ngFor="let allList of templateList" [value]="allList">{{allList.name}}</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="address">loanConfig Code</label>
-                            <input type="text" class="form-control" [(ngModel)]="loanConfig.loanConfigCode"
-                                   name="loanConfigCode" placeholder="SREBNK">
-
-                        </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="address">loanConfig Code</label>
+                        <input type="text" class="form-control" [(ngModel)]="loanConfig.loanConfigCode" name="loanConfigCode" placeholder="SREBNK">
 
                     </div>
+
                 </div>
+            </div>
 
 
-                <div class="modal-footer">
 
-                    <button type="submit" (click)="onSubmit()" class="btn btn-primary">
-                        <i class="fa fa-save"></i>
-                    </button>
-                </div>
 
+            <div class="modal-footer">
+
+                <button type="submit" (click)="onSubmit()" class="btn btn-primary">
+                    <i class="fa fa-save"></i>
+                </button>
             </div>
 
         </div>
-        <!-- /.modal-content -->
+
     </div>
-    <!-- /.modal-dialog -->
+    <!-- /.modal-content -->
 </div>
+<!-- /.modal-dialog -->

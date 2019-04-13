@@ -1,54 +1,42 @@
-<div class="modal fade in add-sector">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" style="display:block">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title pull-left">{{task}} Sector</h4>
-            </div>
-            <div class="modal-body">
 
-                <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="sectorName">Sector Name</label>
-                                <input type="hidden" class="form-control" [(ngModel)]="sector.id" name="id">
-                                <input type="text" class="form-control" required [(ngModel)]="sector.sectorName"
-                                       name="sectorName" placeholder="Sector Name"
-                                       #nameSector="ngModel"
-                                       [ngClass]="{ 'is-invalid': f.submitted && nameSector.invalid }" required/>
-                                <div *ngIf="f.submitted && nameSector.invalid" class="invalid-feedback">
-                                    <div *ngIf="nameSector.errors.required"> Sector Name is required</div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="sectorCode">Sector Code</label>
-                                <input type="text" class="form-control" placeholder="Sector Code" required
-                                       [(ngModel)]="sector.sectorCode" name="sectorCode"
-                                       #codeSector="ngModel"
-                                       [ngClass]="{ 'is-invalid': f.submitted && codeSector.invalid }" required/>
-                                <div *ngIf="f.submitted && codeSector.invalid" class="invalid-feedback">
-                                    <div *ngIf="codeSector.errors.required">Sector Code is required</div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
-                    </div>
-                </form>
-            </div>
-
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header" style="display:block">
+            <button (click)="activeModal.dismiss('Cross click')" aria-label="Close" class="close" data-dismiss="modal"
+                    type="button">
+                <span aria-hidden="true">×</span></button>
+            <h4 class="modal-title pull-left">{{task}} Sector</h4>
         </div>
-        <!-- /.modal-content -->
+        <div class="modal-body">
+
+            <form (ngSubmit)="onSubmit()">
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="sectorName">Sector Name</label>
+                            <input type="hidden" class="form-control" required [(ngModel)]="sector.id" name="id">
+                            <input type="text" class="form-control" required [(ngModel)]="sector.sectorName" name="sectorName" placeholder="Sector Name">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="sectorCode">Sector Code</label>
+                            <input type="text" class="form-control"  placeholder="Sector Code" required [(ngModel)]="sector.sectorCode" name="sectorCode">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                </div>
+            </form>
+        </div>
+
     </div>
-    <!-- /.modal-dialog -->
+    <!-- /.modal-content -->
 </div>
+<!-- /.modal-dialog -->

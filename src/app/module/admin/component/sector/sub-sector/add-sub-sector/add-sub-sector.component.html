@@ -1,71 +1,52 @@
-<div class="modal fade in add-subSector">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" style="display:block">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title pull-left">{{task}} Sub Sector</h4>
-            </div>
-            <div class="modal-body">
 
-                <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="subSectorName">Sub Sector Name</label>
-                                <input type="hidden" class="form-control" [(ngModel)]="subSector.id" name="id">
-                                <input type="text" class="form-control" [(ngModel)]="subSector.subSectorName"
-                                       name="subSectorName" placeholder="Sub Sector Name"
-                                       #nameSubSector="ngModel"
-                                       [ngClass]="{ 'is-invalid': f.submitted && nameSubSector.invalid }" required/>
-                                <div *ngIf="f.submitted && nameSubSector.invalid" class="invalid-feedback">
-                                    <div *ngIf="nameSubSector.errors.required">Sub Sector Name is required</div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="subSectorCode">Sub Sector Code</label>
-                                <input type="text" class="form-control" placeholder="Sub Sector Code" required
-                                       [(ngModel)]="subSector.subSectorCode" name="subSectorCode"
-                                       #codeSubSector="ngModel"
-                                       [ngClass]="{ 'is-invalid': f.submitted && codeSubSector.invalid }" required/>
-                                <div *ngIf="f.submitted && codeSubSector.invalid" class="invalid-feedback">
-                                    <div *ngIf="codeSubSector.errors.required">Sub Sector Code is required</div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="selectedSector">Sector</label>
-                                <select class="form-control" name="selectedSector" style="width: 100%;"
-                                        [(ngModel)]="sector.id" tabindex="-1" aria-hidden="true" placeholder="Sector"
-                                        #sectorName="ngModel"
-                                        [ngClass]="{ 'is-invalid': f.submitted && sectorName.invalid }" required>
-                                    <option [ngValue]="undefined" hidden>Select Sector</option>
-                                    <option *ngFor="let sector of sectorList"
-                                            [selected]="subSector?.sector?.id === sector.id"
-                                            [ngValue]="sector.id">{{sector.sectorName}}</option>
-                                </select>
-                                <div *ngIf="f.submitted && sectorName.invalid" class="invalid-feedback">
-                                    <div *ngIf="sectorName.errors.required">Sector is required</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
-                    </div>
-                </form>
-            </div>
-
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header" style="display:block">
+            <button (click)="activeModal.dismiss('Cross click')" aria-label="Close" class="close" data-dismiss="modal"
+                    type="button">
+                <span aria-hidden="true">×</span></button>
+            <h4 class="modal-title pull-left">{{task}} Sub Sector</h4>
         </div>
-        <!-- /.modal-content -->
+        <div class="modal-body">
+
+            <form (ngSubmit)="onSubmit()">
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="subSectorName">Sub Sector Name</label>
+                            <input type="hidden" class="form-control" required [(ngModel)]="subSector.id" name="id">
+                            <input type="text" class="form-control" required [(ngModel)]="subSector.subSectorName" name="subSectorName" placeholder="Sub Sector Name">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="subSectorCode">Sub Sector Code</label>
+                            <input type="text" class="form-control"  placeholder="Sub Sector Code" required [(ngModel)]="subSector.subSectorCode" name="subSectorCode">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="selectedSector">Sector</label>
+                            <select class="form-control" name="selectedSector" style="width: 100%;" [(ngModel)]="sector.id" tabindex="-1" aria-hidden="true" placeholder="Sector">
+                                <option [ngValue]="undefined" hidden>Select Sector</option>
+                                <option *ngFor="let sector of sectorList" [selected]="subSector?.sector?.id === sector.id" [ngValue]="sector.id">{{sector.sectorName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                </div>
+            </form>
+        </div>
+
     </div>
-    <!-- /.modal-dialog -->
+    <!-- /.modal-content -->
 </div>
+<!-- /.modal-dialog -->
+

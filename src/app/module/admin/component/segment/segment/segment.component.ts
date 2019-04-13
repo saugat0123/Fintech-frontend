@@ -5,6 +5,8 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
 import {Pageable} from '../../../../../shared-service/baseservice/common-pageable';
 import {Segment} from '../../../modal/segment';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {AddSegmentComponent} from "../add-segment/add-segment.component";
 
 declare var $;
 
@@ -31,7 +33,8 @@ export class SegmentComponent implements OnInit, DoCheck {
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService
+        private commonPageService: CommonPageService,
+        private modalService:NgbModal
     ) {
     }
 
@@ -52,9 +55,9 @@ export class SegmentComponent implements OnInit, DoCheck {
         this.dataList = this.dataService.getDataList();
     }
 
-    addSegment() {
-        this.dataService.setSegment(new Segment());
-        $('.add-segment').modal('show');
+    addSegment(){
+        this.dataService.setSegment(new Segment())
+        this.modalService.open(AddSegmentComponent);
     }
 
     getPagination() {
@@ -91,9 +94,9 @@ export class SegmentComponent implements OnInit, DoCheck {
         this.dataService.setData(this.search);
         this.getPagination();
     }
-
     openEdit(segment: Segment) {
         this.dataService.setSegment(segment);
-        $('.add-segment').modal('show');
+        this.modalService.open(AddSegmentComponent);
     }
+
 }

@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 
-import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {BranchComponent} from './component/branch/branch.component';
@@ -96,8 +96,23 @@ import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
     ReactiveFormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(adminRoutes),
-    SharedModule
+    SharedModule,
+      NgbModule
   ],
+
+    entryComponents: [
+        AddApprovalLimitComponent,
+        AddModelComponent,
+        AddNepseComponent,
+        BulkUploadComponent,
+        AddSegmentComponent,
+        AddSubSegmentComponent,
+        AddValuatorComponent,
+        AddSectorComponent,
+        AddSubSectorComponent,
+        AddDocumentComponent,
+        AddLoanComponent
+    ]
 
 })
 export class AdminModule {

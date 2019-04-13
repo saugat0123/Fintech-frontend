@@ -5,6 +5,8 @@ import {CommonDataService} from '../../../../shared-service/baseservice/common-d
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {ApprovalLimit} from '../../modal/approval-limit';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddApprovalLimitComponent} from './add-approval-limit/add-approval-limit.component';
 
 declare var $;
 
@@ -29,6 +31,7 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
+        private modalService: NgbModal
     ) {
     }
 
@@ -53,16 +56,17 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
 
     ngDoCheck(): void {
         this.dataList = this.dataService.getDataList();
+        console.log(this.dataList);
     }
 
     openEdit(approvalLimit: ApprovalLimit) {
         this.dataService.setApprovalLimit(approvalLimit);
-        $('.add-approvalLimit').modal('show');
+       this.modalService.open(AddApprovalLimitComponent);
     }
 
     addApprovalLimit() {
         this.dataService.setApprovalLimit(new ApprovalLimit());
-        $('.add-approvalLimit').modal('show');
+        this.modalService.open(AddApprovalLimitComponent);
     }
 
     getPagination() {

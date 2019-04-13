@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {Branch} from '../../../modal/branch';
+import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 declare var $;
 
@@ -22,7 +23,10 @@ export class AddModelComponent implements OnInit, DoCheck {
     constructor(
         private commonService: CommonService,
         private router: Router,
-        private dataService: CommonDataService) {
+        private dataService: CommonDataService,
+        private activeModal: NgbActiveModal,
+        private modalService: NgbModal
+    ) {
     }
 
     ngOnInit() {
@@ -40,7 +44,7 @@ export class AddModelComponent implements OnInit, DoCheck {
     onSubmit() {
         this.submitted = true;
         this.commonService.saveOrEdit(this.branch, 'v1/branch').subscribe(result => {
-                $('.add-branch').modal('hide');
+            this.modalService.dismissAll(AddModelComponent);
                 if (this.branch.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED BRANCH';
                 } else {
@@ -53,7 +57,7 @@ export class AddModelComponent implements OnInit, DoCheck {
                     this.router.navigate(['home/branch']));
                 this.dataService.alertmsg();
             }, error => {
-                $('.add-branch').modal('hide');
+            this.modalService.dismissAll(AddModelComponent);
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('false');
