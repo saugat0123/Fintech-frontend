@@ -5,6 +5,8 @@ import {CommonService} from '../../../../shared-service/baseservice/common-bases
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Document} from '../../modal/document';
 import {LoanCycle} from '../../modal/loan-cycle';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {AddDocumentComponent} from "./add-document/add-document.component";
 
 declare var $;
 
@@ -33,7 +35,8 @@ export class DocumentComponent implements OnInit, DoCheck {
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService
+        private commonPageService: CommonPageService,
+        private modalService:NgbModal
     ) {
     }
 
@@ -77,13 +80,16 @@ export class DocumentComponent implements OnInit, DoCheck {
 
     openEdit(document: Document) {
         this.dataService.setDocument(document);
-        $('.add-document').modal('show');
+        this.modalService.open(AddDocumentComponent);
     }
 
     addDocument() {
         this.dataService.setDocument(new Document());
-        $('.add-document').modal('show');
+        this.modalService.open(AddDocumentComponent);
+
     }
+
+
 
     onChange(newValue, data) {
         this.newValue = newValue;

@@ -4,6 +4,8 @@ import {CommonDataService} from '../../../../shared-service/baseservice/common-d
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {LoanConfig} from '../../modal/loan-config';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {AddLoanComponent} from "./add-loan/add-loan.component";
 
 declare var $;
 
@@ -33,7 +35,8 @@ export class LoanConfigComponent implements OnInit, DoCheck {
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService
+        private commonPageService: CommonPageService,
+        private modalService:NgbModal
     ) {
     }
 
@@ -72,14 +75,15 @@ export class LoanConfigComponent implements OnInit, DoCheck {
 
     openEdit(loanConfig: any) {
         this.dataService.setData(loanConfig);
-        $('.add-loan-config').modal('show');
+        this.modalService.open(AddLoanComponent);
     }
 
     addLoanConfig() {
 
-        this.dataService.setData(new LoanConfig());
-        $('.add-loan-config').modal('show');
+        this.dataService.setData(new Object);
+        this.modalService.open(AddLoanComponent);
     }
+
 
 
     onChange(newValue, data) {

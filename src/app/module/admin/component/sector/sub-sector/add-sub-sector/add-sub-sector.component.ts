@@ -4,6 +4,7 @@ import {CommonDataService} from '../../../../../../shared-service/baseservice/co
 import {CommonService} from '../../../../../../shared-service/baseservice/common-baseservice';
 import {Sector} from '../../../../modal/sector';
 import {SubSector} from '../../../../modal/sub-sector';
+import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 declare var $;
 
@@ -25,7 +26,10 @@ export class AddSubSectorComponent implements OnInit, DoCheck {
     constructor(
         private commonService: CommonService,
         private router: Router,
-        private dataService: CommonDataService) {
+        private dataService: CommonDataService,
+        private modalService:NgbModal,
+        private activeModal:NgbActiveModal
+    ) {
     }
 
     ngOnInit() {
@@ -54,7 +58,7 @@ export class AddSubSectorComponent implements OnInit, DoCheck {
         this.submitted = true;
         this.subSector.sector = this.sector;
         this.commonService.saveOrEdit(this.subSector, 'v1/subSector').subscribe(result => {
-                $('.add-subSector').modal('hide');
+            this.modalService.dismissAll(AddSubSectorComponent);
                 if (this.subSector.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED SUB SECTOR';
                 } else {
@@ -71,7 +75,7 @@ export class AddSubSectorComponent implements OnInit, DoCheck {
 
             }, error => {
 
-                $('.add-subSector').modal('hide');
+            this.modalService.dismissAll(AddSubSectorComponent);
 
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);

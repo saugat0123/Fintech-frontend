@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../../../shared-service/baseservice/common-baseservice';
 import {Sector} from '../../../../modal/sector';
+import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 declare var $;
 
@@ -22,7 +23,10 @@ export class AddSectorComponent implements OnInit, DoCheck {
     constructor(
         private commonService: CommonService,
         private router: Router,
-        private dataService: CommonDataService) {
+        private dataService: CommonDataService,
+        private modalService:NgbModal,
+        private activeModal:NgbActiveModal
+    ) {
     }
 
     ngOnInit() {
@@ -42,7 +46,7 @@ export class AddSectorComponent implements OnInit, DoCheck {
     onSubmit() {
         this.submitted = true;
         this.commonService.saveOrEdit(this.sector, 'v1/sector').subscribe(result => {
-                $('.add-sector').modal('hide');
+            this.modalService.dismissAll(AddSectorComponent);
                 if (this.sector.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED SECTOR';
                 } else {
@@ -59,7 +63,7 @@ export class AddSectorComponent implements OnInit, DoCheck {
 
             }, error => {
 
-                $('.add-sector').modal('hide');
+            this.modalService.dismissAll(AddSectorComponent);
 
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);

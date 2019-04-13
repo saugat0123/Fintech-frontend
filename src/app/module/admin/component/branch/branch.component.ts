@@ -4,6 +4,8 @@ import {CommonDataService} from '../../../../shared-service/baseservice/common-d
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Branch} from '../../modal/branch';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {AddModelComponent} from "./add-model/add-model.component";
 
 declare var $;
 
@@ -29,7 +31,8 @@ export class BranchComponent implements OnInit, DoCheck {
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService
+        private commonPageService: CommonPageService,
+        private modalService:NgbModal
     ) {
     }
 
@@ -63,13 +66,15 @@ export class BranchComponent implements OnInit, DoCheck {
 
     openEdit(branch: Branch) {
         this.dataService.setBranch(branch);
-        $('.add-branch').modal('show');
+        this.modalService.open(AddModelComponent);
     }
 
     addBranch() {
         this.dataService.setBranch(new Branch());
-        $('.add-branch').modal('show');
+        console.log("opening modal");
+        this.modalService.open(AddModelComponent);
     }
+
 
     onChange(newValue, data) {
         this.newValue = newValue;

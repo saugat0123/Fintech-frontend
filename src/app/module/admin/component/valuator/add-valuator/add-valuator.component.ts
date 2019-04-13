@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {Valuator} from '../../../modal/valuator';
+import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 declare var $;
 
@@ -22,7 +23,10 @@ export class AddValuatorComponent implements OnInit, DoCheck {
     constructor(
         private commonService: CommonService,
         private router: Router,
-        private dataService: CommonDataService) {
+        private dataService: CommonDataService,
+        private modalService:NgbModal,
+        private activeModal:NgbActiveModal
+    ) {
     }
 
     ngOnInit() {
@@ -42,7 +46,7 @@ export class AddValuatorComponent implements OnInit, DoCheck {
     onSubmit() {
         this.submitted = true;
         this.commonService.saveOrEdit(this.valuator, 'v1/valuator').subscribe(result => {
-                $('.add-valuator').modal('hide');
+            this.modalService.dismissAll(AddValuatorComponent);
                 if (this.valuator.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED VALUATOR';
                 } else {
@@ -59,7 +63,7 @@ export class AddValuatorComponent implements OnInit, DoCheck {
 
             }, error => {
 
-                $('.add-valuator').modal('hide');
+            this.modalService.dismissAll(AddValuatorComponent);
 
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);

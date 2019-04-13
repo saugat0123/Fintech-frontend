@@ -4,6 +4,8 @@ import {CommonDataService} from '../../../../../shared-service/baseservice/commo
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
 import {SubSector} from '../../../modal/sub-sector';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {AddSubSectorComponent} from "./add-sub-sector/add-sub-sector.component";
 
 declare var $;
 
@@ -30,7 +32,8 @@ export class SubSectorComponent implements OnInit, DoCheck {
 
     constructor(private dataService: CommonDataService,
                 private commonService: CommonService,
-                private commonPageService: CommonPageService) {
+                private commonPageService: CommonPageService,
+                private modalService:NgbModal) {
     }
 
     ngOnInit() {
@@ -69,10 +72,11 @@ export class SubSectorComponent implements OnInit, DoCheck {
         );
     }
 
-    addSubSector() {
+    addSubSector(){
         this.dataService.setSubSector(new SubSector());
-        $('.add-subSector').modal('show');
+        this.modalService.open(AddSubSectorComponent);
     }
+
 
     onChange(newValue, data) {
         this.newValue = newValue;
@@ -82,10 +86,12 @@ export class SubSectorComponent implements OnInit, DoCheck {
 
     }
 
-    openEdit(subSector: SubSector) {
+    openEdit(subSector: SubSector){
         this.dataService.setSubSector(subSector);
-        $('.add-subSector').modal('show');
+        this.modalService.open(AddSubSectorComponent);
+
     }
+
 
     onSearchChange(searchValue: string) {
         this.search = {

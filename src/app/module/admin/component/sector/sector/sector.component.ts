@@ -4,6 +4,8 @@ import {CommonDataService} from '../../../../../shared-service/baseservice/commo
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
 import {Sector} from '../../../modal/sector';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {AddSectorComponent} from "./add-sector/add-sector.component";
 
 declare var $;
 
@@ -30,7 +32,8 @@ export class SectorComponent implements OnInit {
 
     constructor(private dataService: CommonDataService,
                 private commonService: CommonService,
-                private commonPageService: CommonPageService) {
+                private commonPageService: CommonPageService,
+                private modalServie:NgbModal) {
     }
 
     ngOnInit() {
@@ -68,10 +71,11 @@ export class SectorComponent implements OnInit {
         );
     }
 
-    addSector() {
+    addSector(){
         this.dataService.setSector(new Sector());
-        $('.add-sector').modal('show');
+        this.modalServie.open(AddSectorComponent);
     }
+
 
     onChange(newValue, data) {
         this.newValue = newValue;
@@ -81,10 +85,12 @@ export class SectorComponent implements OnInit {
 
     }
 
-    openEdit(sector: Sector) {
+    openEdit(sector: Sector){
         this.dataService.setSector(sector);
-        $('.add-sector').modal('show');
+        this.modalServie.open(AddSectorComponent);
+
     }
+
 
     onSearchChange(searchValue: string) {
         this.search = {
