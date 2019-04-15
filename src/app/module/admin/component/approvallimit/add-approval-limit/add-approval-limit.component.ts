@@ -8,7 +8,6 @@ import {LoanConfig} from '../../../modal/loan-config';
 import {ApprovalLimit} from '../../../modal/approval-limit';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-add-approval-limit',

@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -44,7 +44,7 @@ import {Sidebar1Component} from './component/base/sidebar/sidebar1/sidebar1.comp
         SharedModule
     ],
 
-    providers: [CommonService, RestApiService, CommonDataService],
+    providers: [CommonService, RestApiService, CommonDataService, NgbActiveModal],
     bootstrap: [AppComponent],
 
 

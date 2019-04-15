@@ -4,7 +4,9 @@ import {CommonDataService} from '../../../../shared-service/baseservice/common-d
 import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
-
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddUserComponent} from './add-user/add-user.component';
+import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
 declare var $;
 
 @Component({
@@ -33,7 +35,8 @@ export class UserComponent implements OnInit, DoCheck {
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService
+        private commonPageService: CommonPageService,
+        private modalService: NgbModal
     ) {
     }
 
@@ -76,12 +79,12 @@ export class UserComponent implements OnInit, DoCheck {
 
     openEdit(user: User) {
         this.dataService.setUser(user);
-        $('.add-user').modal('show');
+        this.modalService.open(AddUserComponent);
     }
 
     addUser() {
         this.dataService.setUser(new User());
-        $('.add-user').modal('show');
+        this.modalService.open(AddUserComponent);
     }
 
 
@@ -111,7 +114,7 @@ export class UserComponent implements OnInit, DoCheck {
         this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/user');
-        $('.updateStatus').modal('show');
+        this.modalService.open(UpdateModalComponent);
 
     }
 

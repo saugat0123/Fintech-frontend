@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 
-import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {BranchComponent} from './component/branch/branch.component';
@@ -46,60 +46,62 @@ import {adminRoutes} from './admin-routing';
 import {SharedModule} from '../shared/shared.module';
 import {CommonModule} from '@angular/common';
 import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
+import {UpdateModalComponent} from '../../common/update-modal/update-modal.component';
 
 @NgModule({
-  declarations: [
-    BranchComponent,
-    AddModelComponent,
-    LoanConfigComponent,
-    LoanTemplateComponent,
-    TemplateAddModelComponent,
-    BasicInfoComponent,
-    CompanyInfoComponent,
-    AddLoanComponent,
-    UserComponent,
-    AddUserComponent,
-    ApprovallimitComponent,
-    AddApprovalLimitComponent,
-    RolePermissionComponent,
-    AddRoleComponent,
-    RolePermissionComponent,
-    KycInfoComponent,
-    ValuatorComponent,
-    AddValuatorComponent,
-    SectorComponent,
-    SubSectorComponent,
-    AddSectorComponent,
-    AddSubSectorComponent,
-    LoanUiComponent,
-    UIComponent,
-    NepseComponent,
-    SegmentComponent,
-    SubSegmentComponent,
-    AddSegmentComponent,
-    AddNepseComponent,
-    AddSubSegmentComponent,
-    DocumentComponent,
-    UpdateDocumentComponent,
-    AddDocumentComponent,
-    AddSubSegmentComponent,
-    BulkUploadComponent,
-    CompanyComponent,
-    AddCompanyComponent,
-    AddRoleComponent,
-    ListRoleComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    NgbPaginationModule,
-    ReactiveFormsModule,
-    ReactiveFormsModule,
-    RouterModule.forChild(adminRoutes),
-    SharedModule
-  ],
+    declarations: [
+        BranchComponent,
+        AddModelComponent,
+        LoanConfigComponent,
+        LoanTemplateComponent,
+        TemplateAddModelComponent,
+        BasicInfoComponent,
+        CompanyInfoComponent,
+        AddLoanComponent,
+        UserComponent,
+        AddUserComponent,
+        ApprovallimitComponent,
+        AddApprovalLimitComponent,
+        RolePermissionComponent,
+        AddRoleComponent,
+        RolePermissionComponent,
+        KycInfoComponent,
+        ValuatorComponent,
+        AddValuatorComponent,
+        SectorComponent,
+        SubSectorComponent,
+        AddSectorComponent,
+        AddSubSectorComponent,
+        LoanUiComponent,
+        UIComponent,
+        NepseComponent,
+        SegmentComponent,
+        SubSegmentComponent,
+        AddSegmentComponent,
+        AddNepseComponent,
+        AddSubSegmentComponent,
+        DocumentComponent,
+        UpdateDocumentComponent,
+        AddDocumentComponent,
+        AddSubSegmentComponent,
+        BulkUploadComponent,
+        CompanyComponent,
+        AddCompanyComponent,
+        AddRoleComponent,
+        ListRoleComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        NgbPaginationModule,
+        ReactiveFormsModule,
+        ReactiveFormsModule,
+        RouterModule.forChild(adminRoutes),
+        SharedModule,
+        NgbModule
+    ],
 
-    entryComponents:[
+    entryComponents: [
         AddApprovalLimitComponent,
         AddModelComponent,
         AddNepseComponent,
@@ -110,7 +112,9 @@ import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
         AddSectorComponent,
         AddSubSectorComponent,
         AddDocumentComponent,
-        AddLoanComponent
+        AddLoanComponent,
+        UpdateModalComponent,
+        AddUserComponent
     ]
 
 })
