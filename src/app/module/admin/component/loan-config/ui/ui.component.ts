@@ -15,10 +15,10 @@ export class UIComponent implements OnInit {
     spinner = false;
     title: string;
     pageable: Pageable = new Pageable();
-    search = {};
+    search: any = {};
     globalMsg: any;
-    documentList: any;
-    comfirmDocumentList = Array<Document>();
+    loanTemplateList: any;
+    comfirmLoanTemplateList = Array<Document>();
     currentApi: any;
 
     constructor(
@@ -31,20 +31,16 @@ export class UIComponent implements OnInit {
 
     ngOnInit() {
         this.dataService.changeTitle(this.title);
-        this.currentApi = 'v1/document/get';
-        this.getPagination();
+        this.currentApi = 'v1/loanTemplate/getAll';
+        this.getTemplate();
 
 
     }
 
-    getPagination() {
+    getTemplate() {
         this.spinner = true;
-        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-            this.documentList = response.detail.content;
-            this.dataService.setDataList(this.documentList);
-            this.commonPageService.setCurrentApi(this.currentApi);
-            this.pageable = this.commonPageService.setPageable(response.detail);
-
+        this.commonService.getByAll(this.currentApi).subscribe((response: any) => {
+            this.loanTemplateList = response.detail;
             this.spinner = false;
 
         }, error => {
@@ -59,17 +55,17 @@ export class UIComponent implements OnInit {
 
     }
 
-    updateSelectDocument(document) {
+    updateSelectTemplate(document) {
         const d: Document = document;
-        this.comfirmDocumentList.push(d);
-        this.documentList.splice(this.documentList.indexOf(d), 1);
+        this.comfirmLoanTemplateList.push(d);
+        this.loanTemplateList.splice(this.loanTemplateList.indexOf(d), 1);
     }
 
 
-    updateUnselectDocument(document) {
+    updateUnselectTemplate(document) {
         const d: Document = document;
-        this.documentList.push(d);
-        this.comfirmDocumentList.splice(this.comfirmDocumentList.indexOf(d), 1);
+        this.loanTemplateList.push(d);
+        this.comfirmLoanTemplateList.splice(this.comfirmLoanTemplateList.indexOf(d), 1);
     }
 
 

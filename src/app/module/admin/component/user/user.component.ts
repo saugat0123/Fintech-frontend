@@ -111,6 +111,7 @@ export class UserComponent implements OnInit, DoCheck {
     }
 
     onChange(newValue, data) {
+        event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/user');

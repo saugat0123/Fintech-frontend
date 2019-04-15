@@ -33,10 +33,10 @@
                 <div class="form-group">
                     <div class="box box-default" style="height: 300px">
                         <div class="box-body">
-                            <div class="col-sm-offset-2 col-sm-10" *ngFor="let document of documentList">
+                            <div class="col-sm-offset-2 col-sm-10" *ngFor="let loanTemplate of loanTemplateList">
                                 <div class="btn btn-block btn-xs btn-primary"
-                                     (dblclick)="updateSelectDocument(document)">
-                                    <span>{{document.name}}</span>
+                                     (dblclick)="updateSelectTemplate(loanTemplate)">
+                                    <span>{{loanTemplate.name}}</span>
                                 </div>
                                 <br/>
                             </div>
@@ -54,10 +54,10 @@
                         <div class="box-body">
                             <div class="box-body">
                                 <div class="col-sm-offset-2 col-sm-10"
-                                     *ngFor="let confirmdocument of comfirmDocumentList">
+                                     *ngFor="let comfirmLoanTemplate of comfirmLoanTemplateList">
                                     <div class="btn btn-block btn-xs btn-success"
-                                         (dblclick)="updateUnselectDocument(confirmdocument)">
-                                        <span>{{confirmdocument.name}}</span>
+                                         (dblclick)="updateUnselectTemplate(comfirmLoanTemplate)">
+                                        <span>{{comfirmLoanTemplate.name}}</span>
                                     </div>
                                     <br/>
                                 </div>
