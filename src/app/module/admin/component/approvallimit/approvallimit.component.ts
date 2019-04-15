@@ -56,7 +56,6 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
 
     ngDoCheck(): void {
         this.dataList = this.dataService.getDataList();
-        console.log(this.dataList);
     }
 
     openEdit(approvalLimit: ApprovalLimit) {
