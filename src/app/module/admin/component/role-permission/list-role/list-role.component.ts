@@ -13,12 +13,12 @@ declare var $;
 })
 export class ListRoleComponent implements OnInit {
     title = 'Role';
-    activeCount: number;
-    inactiveCount: number;
-    roleCount: number;
-    currentApi: string;
-    roleList: Array<Role>;
-    globalMsg: string;
+    activeCount: any;
+    inactiveCount: any;
+    roleCount: any;
+    currentApi: any;
+    roleList: any;
+    globalMsg: any;
 
 
     constructor(

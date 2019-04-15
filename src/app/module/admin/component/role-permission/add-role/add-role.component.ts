@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
-import {Router} from '@angular/router';
-import {Role} from '../../../modal/role';
 
 declare var $;
 
@@ -13,9 +12,9 @@ declare var $;
     styleUrls: ['./add-role.component.css']
 })
 export class AddRoleComponent implements OnInit {
-    role: Role = new Role();
-    currentApi: string;
-    globalMsg: string;
+    role: any = {};
+    currentApi;
+    globalMsg;
 
     constructor(
         private dataService: CommonDataService,
@@ -38,7 +37,7 @@ export class AddRoleComponent implements OnInit {
 
             this.dataService.getGlobalMsg(this.globalMsg);
             this.dataService.getAlertMsg('true');
-            this.role = new Role();
+            this.role = {};
             this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                 this.router.navigate(['home/role']));
             this.dataService.alertmsg();
