@@ -7,6 +7,7 @@ import {Document} from '../../modal/document';
 import {LoanCycle} from '../../modal/loan-cycle';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AddDocumentComponent} from "./add-document/add-document.component";
+import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
 
 declare var $;
 
@@ -36,7 +37,7 @@ export class DocumentComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService:NgbModal
+        private modalService: NgbModal
     ) {
     }
 
@@ -92,10 +93,12 @@ export class DocumentComponent implements OnInit, DoCheck {
 
 
     onChange(newValue, data) {
+        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/document');
-        $('.updateStatus').modal('show');
+        this.modalService.open(UpdateModalComponent);
 
     }
 

@@ -68,7 +68,7 @@ export class AddUserComponent implements OnInit, DoCheck {
         this.user.branch = this.branch;
         this.user.role = this.role;
         this.commonService.saveOrEdit(this.user, 'v1/user').subscribe(result => {
-            this.modalService.dismissAll(AddUserComponent);
+                this.modalService.dismissAll(AddUserComponent);
                 if (this.user.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED USER';
                 } else {
@@ -85,7 +85,7 @@ export class AddUserComponent implements OnInit, DoCheck {
 
             }, error => {
 
-            this.modalService.dismissAll(AddUserComponent);
+                this.modalService.dismissAll(AddUserComponent);
 
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
@@ -97,6 +97,12 @@ export class AddUserComponent implements OnInit, DoCheck {
 
             }
         );
+    }
+
+    onClose() {
+
+        this.activeModal.dismiss(AddUserComponent);
+
     }
 
     profileUploader(event) {

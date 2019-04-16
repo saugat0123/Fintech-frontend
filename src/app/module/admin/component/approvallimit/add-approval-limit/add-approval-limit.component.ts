@@ -97,6 +97,10 @@ export class AddApprovalLimitComponent implements OnInit, DoCheck {
         );
     }
 
+    onClose() {
+        this.activeModal.dismiss(AddApprovalLimitComponent);
+    }
+
 }
 
 

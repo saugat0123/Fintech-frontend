@@ -25,8 +25,8 @@ export class AddDocumentComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private router: Router,
         private dataService: CommonDataService,
-        private modalService:NgbModal,
-        private activeModal:NgbActiveModal,
+        private modalService: NgbModal,
+        private activeModal: NgbActiveModal,
     ) {
     }
 
@@ -78,6 +78,9 @@ export class AddDocumentComponent implements OnInit, DoCheck {
 
             }
         );
+    }
+    onClose() {
+        this.activeModal.dismiss(AddDocumentComponent);
     }
 
 }

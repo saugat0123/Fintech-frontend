@@ -6,6 +6,7 @@ import {CommonPageService} from '../../../../../shared-service/baseservice/commo
 import {SubSector} from '../../../modal/sub-sector';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AddSubSectorComponent} from "./add-sub-sector/add-sub-sector.component";
+import {UpdateModalComponent} from '../../../../../common/update-modal/update-modal.component';
 
 declare var $;
 
@@ -79,10 +80,12 @@ export class SubSectorComponent implements OnInit, DoCheck {
 
 
     onChange(newValue, data) {
+        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/subSector');
-        $('.updateStatus').modal('show');
+        this.modalService.open(UpdateModalComponent);
 
     }
 

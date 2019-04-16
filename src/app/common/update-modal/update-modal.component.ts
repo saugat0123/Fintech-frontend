@@ -3,7 +3,8 @@ import {CommonService} from '../../shared-service/baseservice/common-baseservice
 import {Router} from '@angular/router';
 import {CommonDataService} from '../../shared-service/baseservice/common-dataService';
 import {CommonPageService} from '../../shared-service/baseservice/common-pagination-service';
-import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MsgAlertComponent} from '../msg-alert/msg-alert.component';
 
 declare var $;
 

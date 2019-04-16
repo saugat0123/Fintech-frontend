@@ -67,4 +67,7 @@ export class AddModelComponent implements OnInit, DoCheck {
             }
         );
     }
+    onClose() {
+        this.activeModal.dismiss(AddModelComponent);
+    }
 }

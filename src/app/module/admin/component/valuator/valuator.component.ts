@@ -7,6 +7,7 @@ import {CommonPageService} from '../../../../shared-service/baseservice/common-p
 import {Valuator} from '../../modal/valuator';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AddValuatorComponent} from "./add-valuator/add-valuator.component";
+import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
 
 declare var $;
 
@@ -79,10 +80,12 @@ export class ValuatorComponent implements OnInit, DoCheck {
 
 
     onChange(newValue, data) {
+        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/valuator');
-        $('.updateStatus').modal('show');
+        this.modalService.open(UpdateModalComponent);
 
     }
 

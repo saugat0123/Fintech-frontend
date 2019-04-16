@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../../../shared-service/baseservice/common-baseservice';
 import {Sector} from '../../../../modal/sector';
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 declare var $;
 
@@ -24,8 +24,8 @@ export class AddSectorComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private router: Router,
         private dataService: CommonDataService,
-        private modalService:NgbModal,
-        private activeModal:NgbActiveModal
+        private modalService: NgbModal,
+        private activeModal: NgbActiveModal
     ) {
     }
 
@@ -75,6 +75,9 @@ export class AddSectorComponent implements OnInit, DoCheck {
 
             }
         );
+    }
+    onClose() {
+        this.activeModal.dismiss(AddSectorComponent);
     }
 
 }

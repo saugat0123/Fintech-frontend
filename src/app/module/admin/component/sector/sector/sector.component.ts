@@ -6,6 +6,7 @@ import {CommonPageService} from '../../../../../shared-service/baseservice/commo
 import {Sector} from '../../../modal/sector';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AddSectorComponent} from "./add-sector/add-sector.component";
+import {UpdateModalComponent} from '../../../../../common/update-modal/update-modal.component';
 
 declare var $;
 
@@ -78,11 +79,12 @@ export class SectorComponent implements OnInit {
 
 
     onChange(newValue, data) {
+        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/sector');
-        $('.updateStatus').modal('show');
-
+        this.modalServie.open(UpdateModalComponent);
     }
 
     openEdit(sector: Sector){

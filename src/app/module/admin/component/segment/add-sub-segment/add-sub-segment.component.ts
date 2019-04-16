@@ -4,9 +4,7 @@ import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {SubSegment} from '../../../modal/subSegment';
 import {Segment} from '../../../modal/segment';
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-
-declare var $;
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-add-sub-segment',
@@ -88,5 +86,8 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
 
             }
         );
+    }
+    onClose() {
+        this.activeModal.dismiss(AddSubSegmentComponent);
     }
 }

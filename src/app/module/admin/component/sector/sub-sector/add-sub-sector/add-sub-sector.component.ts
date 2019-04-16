@@ -4,7 +4,7 @@ import {CommonDataService} from '../../../../../../shared-service/baseservice/co
 import {CommonService} from '../../../../../../shared-service/baseservice/common-baseservice';
 import {Sector} from '../../../../modal/sector';
 import {SubSector} from '../../../../modal/sub-sector';
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 declare var $;
 
@@ -87,6 +87,9 @@ export class AddSubSectorComponent implements OnInit, DoCheck {
 
             }
         );
+    }
+    onClose() {
+        this.activeModal.dismiss(AddSubSectorComponent);
     }
 
 }

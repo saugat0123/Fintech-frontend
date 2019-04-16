@@ -5,7 +5,7 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {LoanTemplate} from '../../../modal/template';
 import {LoanConfig} from '../../../modal/loan-config';
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 declare var $;
 
@@ -25,9 +25,8 @@ export class AddLoanComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private router: Router,
         private dataService: CommonDataService,
-        private activeModal:NgbActiveModal,
-        private modalService:NgbModal,
-
+        private activeModal: NgbActiveModal,
+        private modalService: NgbModal,
     ) {
     }
 
@@ -48,7 +47,7 @@ export class AddLoanComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.commonService.saveOrEdit(this.loanConfig, 'v1/config').subscribe(result => {
-            this.modalService.dismissAll(AddLoanComponent);
+                this.modalService.dismissAll(AddLoanComponent);
                 if (this.loanConfig.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED LOAN CONFIGURATION';
                 } else {
@@ -62,7 +61,7 @@ export class AddLoanComponent implements OnInit, DoCheck {
                 this.dataService.alertmsg();
             }, error => {
 
-            this.modalService.dismissAll(AddLoanComponent);
+                this.modalService.dismissAll(AddLoanComponent);
 
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
@@ -73,5 +72,8 @@ export class AddLoanComponent implements OnInit, DoCheck {
                 this.dataService.alertmsg();
             }
         );
+    }
+    onClose() {
+        this.activeModal.dismiss(AddLoanComponent);
     }
 }

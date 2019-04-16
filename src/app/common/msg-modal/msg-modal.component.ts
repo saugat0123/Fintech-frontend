@@ -13,7 +13,7 @@ export class MsgModalComponent implements OnInit {
   constructor(private dataService: CommonDataService) { }
 
   ngOnInit() {
-    this.dataService.currentMsg.subscribe(message => this.globalMsg = message)
+    this.dataService.currentMsg.subscribe(message => this.globalMsg = message);
   }
 
 }

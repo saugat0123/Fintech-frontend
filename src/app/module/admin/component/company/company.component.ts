@@ -4,6 +4,8 @@ import {CommonDataService} from '../../../../shared-service/baseservice/common-d
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Company} from '../../modal/company';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddCompanyComponent} from './add-company/add-company.component';
 
 declare var $;
 
@@ -29,7 +31,8 @@ export class CompanyComponent implements OnInit, DoCheck {
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService
+        private commonPageService: CommonPageService,
+        private modalService : NgbModal
     ) {
     }
 
@@ -87,12 +90,12 @@ export class CompanyComponent implements OnInit, DoCheck {
 
     addCompany() {
         this.dataService.setCompany(new Company());
-        $('.add-company').modal('show');
+        this.modalService.open(AddCompanyComponent);
     }
 
     openEdit(company: Company) {
         this.dataService.setCompany(company);
-        $('.add-company').modal('show');
+        this.modalService.open(AddCompanyComponent);
     }
 
 }

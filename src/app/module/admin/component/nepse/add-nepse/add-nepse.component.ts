@@ -23,8 +23,8 @@ export class AddNepseComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private router: Router,
         private dataService: CommonDataService,
-        private activeModal:NgbActiveModal,
-        private modalService:NgbModal
+        private activeModal: NgbActiveModal,
+        private modalService: NgbModal
 
     ) {
     }
@@ -74,6 +74,9 @@ export class AddNepseComponent implements OnInit, DoCheck {
 
             }
         );
+    }
+    onClose() {
+        this.activeModal.dismiss(AddNepseComponent);
     }
 
     open() {

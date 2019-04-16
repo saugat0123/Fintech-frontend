@@ -47,6 +47,7 @@ import {SharedModule} from '../shared/shared.module';
 import {CommonModule} from '@angular/common';
 import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
 import {UpdateModalComponent} from '../../common/update-modal/update-modal.component';
+import {MsgAlertComponent} from '../../common/msg-alert/msg-alert.component';
 
 @NgModule({
     declarations: [
@@ -114,7 +115,8 @@ import {UpdateModalComponent} from '../../common/update-modal/update-modal.compo
         AddDocumentComponent,
         AddLoanComponent,
         UpdateModalComponent,
-        AddUserComponent
+        AddUserComponent,
+        AddCompanyComponent
     ]
 
 })
