@@ -4,10 +4,10 @@ import {CommonDataService} from '../../../../shared-service/baseservice/common-d
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Branch} from '../../modal/branch';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {AddModelComponent} from "./add-model/add-model.component";
-
-declare var $;
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddModelComponent} from './add-model/add-model.component';
+import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
+import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
 
 @Component({
     selector: 'app-branch',
@@ -32,7 +32,7 @@ export class BranchComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService:NgbModal
+        private modalService: NgbModal
     ) {
     }
 
@@ -71,16 +71,18 @@ export class BranchComponent implements OnInit, DoCheck {
 
     addBranch() {
         this.dataService.setBranch(new Branch());
-        console.log("opening modal");
+        console.log('opening modal');
         this.modalService.open(AddModelComponent);
     }
 
 
     onChange(newValue, data) {
+        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/branch');
-        $('.updateStatus').modal('show');
+        this.modalService.open(UpdateModalComponent);
     }
 
     delete(allList) {
@@ -103,7 +105,7 @@ export class BranchComponent implements OnInit, DoCheck {
                 }
                 this.spinner = false;
                 this.dataService.getGlobalMsg(this.globalMsg);
-                $('.global-msgModal').modal('show');
+                this.modalService.open(MsgModalComponent);
             }
         );
     }

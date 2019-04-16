@@ -6,8 +6,7 @@ import {CommonPageService} from '../../../../shared-service/baseservice/common-p
 import {Company} from '../../modal/company';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddCompanyComponent} from './add-company/add-company.component';
-
-declare var $;
+import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
 
 @Component({
     selector: 'app-company',
@@ -65,7 +64,7 @@ export class CompanyComponent implements OnInit, DoCheck {
                 }
                 this.spinner = false;
                 this.dataService.getGlobalMsg(this.globalMsg);
-                $('.global-msgModal').modal('show');
+                this.modalService.open(MsgModalComponent);
             }
         );
 

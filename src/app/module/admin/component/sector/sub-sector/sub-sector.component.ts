@@ -4,11 +4,11 @@ import {CommonDataService} from '../../../../../shared-service/baseservice/commo
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
 import {SubSector} from '../../../modal/sub-sector';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {AddSubSectorComponent} from "./add-sub-sector/add-sub-sector.component";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddSubSectorComponent} from './add-sub-sector/add-sub-sector.component';
 import {UpdateModalComponent} from '../../../../../common/update-modal/update-modal.component';
+import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.component';
 
-declare var $;
 
 @Component({
     selector: 'app-sub-sector',
@@ -68,7 +68,7 @@ export class SubSectorComponent implements OnInit, DoCheck {
                 }
                 this.spinner = false;
                 this.dataService.getGlobalMsg(this.globalMsg);
-                $('.global-msgModal').modal('show');
+                this.modalService.open(MsgModalComponent);
             }
         );
     }

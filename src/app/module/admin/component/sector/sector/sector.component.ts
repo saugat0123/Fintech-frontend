@@ -4,11 +4,11 @@ import {CommonDataService} from '../../../../../shared-service/baseservice/commo
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
 import {Sector} from '../../../modal/sector';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {AddSectorComponent} from "./add-sector/add-sector.component";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddSectorComponent} from './add-sector/add-sector.component';
 import {UpdateModalComponent} from '../../../../../common/update-modal/update-modal.component';
+import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.component';
 
-declare var $;
 
 @Component({
     selector: 'app-sector',
@@ -34,7 +34,7 @@ export class SectorComponent implements OnInit {
     constructor(private dataService: CommonDataService,
                 private commonService: CommonService,
                 private commonPageService: CommonPageService,
-                private modalServie:NgbModal) {
+                private modalService: NgbModal) {
     }
 
     ngOnInit() {
@@ -67,14 +67,14 @@ export class SectorComponent implements OnInit {
                 }
                 this.spinner = false;
                 this.dataService.getGlobalMsg(this.globalMsg);
-                $('.global-msgModal').modal('show');
+                this.modalService.open(MsgModalComponent);
             }
         );
     }
 
     addSector(){
         this.dataService.setSector(new Sector());
-        this.modalServie.open(AddSectorComponent);
+        this.modalService.open(AddSectorComponent);
     }
 
 
@@ -84,12 +84,12 @@ export class SectorComponent implements OnInit {
         this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/sector');
-        this.modalServie.open(UpdateModalComponent);
+        this.modalService.open(UpdateModalComponent);
     }
 
     openEdit(sector: Sector){
         this.dataService.setSector(sector);
-        this.modalServie.open(AddSectorComponent);
+        this.modalService.open(AddSectorComponent);
 
     }
 

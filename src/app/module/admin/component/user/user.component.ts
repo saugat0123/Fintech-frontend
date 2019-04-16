@@ -1,4 +1,4 @@
-import {Component, DoCheck, ElementRef, OnInit, Renderer} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {User} from '../../modal/user';
 import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
@@ -7,7 +7,7 @@ import {CommonPageService} from '../../../../shared-service/baseservice/common-p
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddUserComponent} from './add-user/add-user.component';
 import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
-declare var $;
+import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
 
 @Component({
     selector: 'app-user',
@@ -36,14 +36,11 @@ export class UserComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService: NgbModal,
-        // private elRef: ElementRef, private renderer: Renderer
+        private modalService: NgbModal
     ) {
     }
 
     ngOnInit() {
-        // this.renderer.invokeElementMethod(
-        //     this.elRef.nativeElement.ownerDocument.activeElement, 'blur');
         this.dataService.changeTitle(this.title);
         this.currentApi = 'v1/user/get';
         this.getPagination();
@@ -107,7 +104,7 @@ export class UserComponent implements OnInit, DoCheck {
             }
             this.spinner = false;
             this.dataService.getGlobalMsg(this.globalMsg);
-            $('.global-msgModal').modal('show');
+            this.modalService.open(MsgModalComponent);
         });
 
     }

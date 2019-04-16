@@ -1,5 +1,6 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { CommonDataService } from '../../shared-service/baseservice/common-dataService';
+import { debounceTime } from 'rxjs/operators';
 declare var $;
 @Component({
   selector: 'app-msg-alert',
@@ -11,7 +12,8 @@ export class MsgAlertComponent implements OnInit {
 
 
   globalMsg: string;
-  flag: string
+  flag: string;
+
 
   constructor(private dataService: CommonDataService) { }
 
@@ -19,12 +21,14 @@ export class MsgAlertComponent implements OnInit {
 
     this.dataService.currentMsg.subscribe(message => this.globalMsg = message);
     this.dataService.currentAlertFlag.subscribe(flagStatus => this.flag = flagStatus);
-
+    this.dataService.currentMsg.pipe(
+        debounceTime(2000)
+    ).subscribe(() => this.globalMsg = null);
 
   }
 
   closeAlert() {
-    $(".alert-custom").slideUp();
+    this.globalMsg = null;
 
   }
 

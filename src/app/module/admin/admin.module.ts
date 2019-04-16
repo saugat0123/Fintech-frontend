@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 
-import {NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {BranchComponent} from './component/branch/branch.component';
@@ -47,7 +47,7 @@ import {SharedModule} from '../shared/shared.module';
 import {CommonModule} from '@angular/common';
 import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
 import {UpdateModalComponent} from '../../common/update-modal/update-modal.component';
-import {MsgAlertComponent} from '../../common/msg-alert/msg-alert.component';
+import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
 
 @NgModule({
     declarations: [
@@ -98,8 +98,7 @@ import {MsgAlertComponent} from '../../common/msg-alert/msg-alert.component';
         ReactiveFormsModule,
         ReactiveFormsModule,
         RouterModule.forChild(adminRoutes),
-        SharedModule,
-        NgbModule
+        SharedModule
     ],
 
     entryComponents: [
@@ -116,7 +115,8 @@ import {MsgAlertComponent} from '../../common/msg-alert/msg-alert.component';
         AddLoanComponent,
         UpdateModalComponent,
         AddUserComponent,
-        AddCompanyComponent
+        AddCompanyComponent,
+        MsgModalComponent
     ]
 
 })

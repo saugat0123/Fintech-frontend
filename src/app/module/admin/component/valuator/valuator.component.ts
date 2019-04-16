@@ -5,11 +5,11 @@ import {CommonDataService} from '../../../../shared-service/baseservice/common-d
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Valuator} from '../../modal/valuator';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {AddValuatorComponent} from "./add-valuator/add-valuator.component";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddValuatorComponent} from './add-valuator/add-valuator.component';
 import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
+import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
 
-declare var $;
 
 @Component({
     selector: 'app-valuator',
@@ -68,7 +68,8 @@ export class ValuatorComponent implements OnInit, DoCheck {
                 }
                 this.spinner = false;
                 this.dataService.getGlobalMsg(this.globalMsg);
-                $('.global-msgModal').modal('show');
+                this.modalService.open(MsgModalComponent);
+
             }
         );
     }

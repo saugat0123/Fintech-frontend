@@ -5,11 +5,11 @@ import {CommonService} from '../../../../shared-service/baseservice/common-bases
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Document} from '../../modal/document';
 import {LoanCycle} from '../../modal/loan-cycle';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {AddDocumentComponent} from "./add-document/add-document.component";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddDocumentComponent} from './add-document/add-document.component';
 import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
+import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
 
-declare var $;
 
 @Component({
     selector: 'app-document',
@@ -119,7 +119,7 @@ export class DocumentComponent implements OnInit, DoCheck {
             }
             this.spinner = false;
             this.dataService.getGlobalMsg(this.globalMsg);
-            $('.global-msgModal').modal('show');
+            this.modalService.open(MsgModalComponent);
         });
 
     }

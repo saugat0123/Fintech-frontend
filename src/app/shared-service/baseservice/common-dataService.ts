@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 import {Branch} from '../../module/admin/modal/branch';
 import {ApprovalLimit} from '../../module/admin/modal/approval-limit';
 import {User} from '../../module/admin/modal/user';
@@ -15,6 +15,7 @@ import {Province} from '../../module/admin/modal/province';
 import {Nepse} from '../../module/admin/modal/nepse';
 import {Company} from '../../module/admin/modal/company';
 import {Document} from '../../module/admin/modal/document';
+import {debounceTime} from 'rxjs/operators';
 declare var $;
 
 @Injectable({
@@ -24,6 +25,7 @@ export class CommonDataService {
     title: string;
     data: any;
     dataObj: any;
+    alertmessage: String;
 
     branch: Branch = new Branch();
     document: Document = new Document();
@@ -196,10 +198,10 @@ export class CommonDataService {
     }
 
     alertmsg() {
-        $('.alert-custom').slideDown();
-        setTimeout(() => {
-            $('.alert-custom').slideUp();
-        }, 2000);
+        // $('.alert-custom').slideDown();
+        // setTimeout(() => {
+        //     $('.alert-custom').slideUp();
+        // }, 2000);
     }
 
     setCompany(company: Company) {
