@@ -4,8 +4,8 @@ import {CommonDataService} from '../../../../shared-service/baseservice/common-d
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Branch} from '../../modal/branch';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {AddModelComponent} from "./add-model/add-model.component";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddModelComponent} from './add-model/add-model.component';
 
 declare var $;
 
@@ -32,7 +32,7 @@ export class BranchComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService:NgbModal
+        private modalService: NgbModal
     ) {
     }
 
@@ -71,7 +71,7 @@ export class BranchComponent implements OnInit, DoCheck {
 
     addBranch() {
         this.dataService.setBranch(new Branch());
-        console.log("opening modal");
+        console.log('opening modal');
         this.modalService.open(AddModelComponent);
     }
 

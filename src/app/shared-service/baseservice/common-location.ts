@@ -1,37 +1,35 @@
 import {Injectable} from '@angular/core';
-import {CommonService} from './common-baseservice';
 import {Province} from '../../module/admin/modal/province';
 import {District} from '../../module/admin/modal/district';
 import {MunicipalityVdc} from '../../module/admin/modal/municipality_VDC';
+import {HttpClient} from '@angular/common/http';
+import {RestApiService} from '../authentication/rest-api.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class Location {
-    provinceList: Array<Province>;
-    districtList: Array<District>;
-    municipalityVdc: Array<MunicipalityVdc>;
+export class CommonLocation {
 
-    constructor(private commonService: CommonService) {
+    constructor(private http: HttpClient,
+                private restApiService: RestApiService) {
     }
 
-    getProvinece() {
-        this.commonService.getByAll('v1/address/province').subscribe((response: any) => {
-            console.log(response.detail);
-            return this.provinceList = response.detail;
-        });
+    getProvince() {
+        const url = 'v1/address/province';
+        const getUrl = this.restApiService.modifyRestUrl(url);
+        return this.http.get(getUrl.url);
     }
+
 
     getDistrictByProvince(province: Province) {
-        this.commonService.getByPost('/v1/address/districtByProvince', province).subscribe((response: any) => {
-            return this.districtList = response.detail;
-        });
+        const url = 'v1/address/districtByProvince';
+        const getUrl = this.restApiService.modifyRestUrl(url);
+        return this.http.post(getUrl.url, province);
     }
 
     getMunicipalityVDCByDistrict(district: District) {
-        this.commonService.getByPost('/v1/address/districtByProvince', district).subscribe((response: any) => {
-            return this.municipalityVdc = response.detail;
-        });
+        const url = 'v1/address/municipalityVdcByDistrict';
+        const getUrl = this.restApiService.modifyRestUrl(url);
+        return this.http.post(getUrl.url, district);
     }
-
 }
