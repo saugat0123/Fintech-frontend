@@ -1,29 +1,28 @@
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header" style="display:block">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close('Cross clicked')">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="activeModal.close('Cross clicked')">
                 <span aria-hidden="true">×</span></button>
             <h4 class="modal-title pull-left">{{task}} Memo Type</h4>
         </div>
         <div class="modal-body">
 
-            <form (ngSubmit)="onSubmit()">
+            <form [formGroup]="addMemoTypeForm" (ngSubmit)="onSubmit()">
 
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
                             <label>Type Name</label>
-                            <input type="hidden" class="form-control" required [(ngModel)]="memoType.id" name="id"
-                                   placeholder="id">
-                            <input type="text" class="form-control" required [(ngModel)]="memoType.name" name="name"
-                                   placeholder="Name" ngbAutofocus>
+                            <input type="hidden" class="form-control" required formControlName="id" placeholder="id">
+                            <input type="text" class="form-control" required formControlName="name" placeholder="Name"
+                                   ngbAutofocus>
                         </div>
                     </div>
                     <div class="row" *ngIf="task === 'Edit'">
                         <div class="col-md-12">
                             <label for="memoStatus">Memo Status</label>
-                            <select [(ngModel)]="memoType.status" name="status" class="form-control" required
-                                    id="memoStatus">
+                            <select formControlName="status" class="form-control" required id="memoStatus">
                                 <option value="ACTIVE">ACTIVE</option>
                                 <option value="INACTIVE">INACTIVE</option>
                                 <option value="DELETED">DELETED</option>
