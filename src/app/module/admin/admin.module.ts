@@ -34,7 +34,6 @@ import {AddSegmentComponent} from './component/segment/add-segment/add-segment.c
 import {AddNepseComponent} from './component/nepse/add-nepse/add-nepse.component';
 import {AddSubSegmentComponent} from './component/segment/add-sub-segment/add-sub-segment.component';
 import {CompanyInfoComponent} from './component/loan-config/loan-main-template/company-info/company-info.component';
-import {BulkUploadComponent} from './component/nepse/bulk-upload/bulk-upload.component';
 import {CompanyComponent} from './component/company/company.component';
 import {AddCompanyComponent} from './component/company/add-company/add-company.component';
 
@@ -84,7 +83,6 @@ import {UpdateModalComponent} from '../../common/update-modal/update-modal.compo
         UpdateDocumentComponent,
         AddDocumentComponent,
         AddSubSegmentComponent,
-        BulkUploadComponent,
         CompanyComponent,
         AddCompanyComponent,
         AddRoleComponent,
@@ -105,7 +103,6 @@ import {UpdateModalComponent} from '../../common/update-modal/update-modal.compo
         AddApprovalLimitComponent,
         AddModelComponent,
         AddNepseComponent,
-        BulkUploadComponent,
         AddSegmentComponent,
         AddSubSegmentComponent,
         AddValuatorComponent,
