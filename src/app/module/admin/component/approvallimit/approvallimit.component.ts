@@ -7,8 +7,8 @@ import {CommonPageService} from '../../../../shared-service/baseservice/common-p
 import {ApprovalLimit} from '../../modal/approval-limit';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddApprovalLimitComponent} from './add-approval-limit/add-approval-limit.component';
+import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
 
-declare var $;
 
 @Component({
     selector: 'app-approvallimit',
@@ -83,7 +83,7 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
             }
             this.spinner = false;
             this.dataService.getGlobalMsg(this.globalMsg);
-            $('.global-msgModal').modal('show');
+            this.modalService.open(MsgModalComponent);
         });
     }
 }

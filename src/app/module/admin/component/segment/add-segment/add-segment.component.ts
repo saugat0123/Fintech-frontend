@@ -3,9 +3,7 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {Segment} from '../../../modal/segment';
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-
-declare var $;
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-add-segment',
@@ -24,8 +22,8 @@ export class AddSegmentComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private router: Router,
         private dataService: CommonDataService,
-        private modalService:NgbModal,
-        private activeModal:NgbActiveModal
+        private modalService: NgbModal,
+        private activeModal: NgbActiveModal
 
     ) {
     }
@@ -58,7 +56,6 @@ export class AddSegmentComponent implements OnInit, DoCheck {
                 this.segment = new Segment();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/segment']));
-                this.dataService.alertmsg();
 
 
             }, error => {
@@ -71,10 +68,12 @@ export class AddSegmentComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/segment']));
-                this.dataService.alertmsg();
 
             }
         );
+    }
+    onClose() {
+        this.activeModal.dismiss(AddSegmentComponent);
     }
 }
 

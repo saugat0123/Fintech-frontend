@@ -6,8 +6,8 @@ import {CommonPageService} from '../../../../shared-service/baseservice/common-p
 import {Branch} from '../../modal/branch';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddModelComponent} from './add-model/add-model.component';
-
-declare var $;
+import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
+import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
 
 @Component({
     selector: 'app-branch',
@@ -77,10 +77,12 @@ export class BranchComponent implements OnInit, DoCheck {
 
 
     onChange(newValue, data) {
+        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/branch');
-        $('.updateStatus').modal('show');
+        this.modalService.open(UpdateModalComponent);
     }
 
     delete(allList) {
@@ -103,7 +105,7 @@ export class BranchComponent implements OnInit, DoCheck {
                 }
                 this.spinner = false;
                 this.dataService.getGlobalMsg(this.globalMsg);
-                $('.global-msgModal').modal('show');
+                this.modalService.open(MsgModalComponent);
             }
         );
     }

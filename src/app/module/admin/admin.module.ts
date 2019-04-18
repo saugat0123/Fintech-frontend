@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 
-import {NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {BranchComponent} from './component/branch/branch.component';
@@ -46,6 +46,7 @@ import {SharedModule} from '../shared/shared.module';
 import {CommonModule} from '@angular/common';
 import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
 import {UpdateModalComponent} from '../../common/update-modal/update-modal.component';
+import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
 
 @NgModule({
     declarations: [
@@ -95,8 +96,7 @@ import {UpdateModalComponent} from '../../common/update-modal/update-modal.compo
         ReactiveFormsModule,
         ReactiveFormsModule,
         RouterModule.forChild(adminRoutes),
-        SharedModule,
-        NgbModule
+        SharedModule
     ],
 
     entryComponents: [
@@ -111,7 +111,10 @@ import {UpdateModalComponent} from '../../common/update-modal/update-modal.compo
         AddDocumentComponent,
         AddLoanComponent,
         UpdateModalComponent,
-        AddUserComponent
+        AddUserComponent,
+        AddCompanyComponent,
+        MsgModalComponent,
+        TemplateAddModelComponent
     ]
 
 })

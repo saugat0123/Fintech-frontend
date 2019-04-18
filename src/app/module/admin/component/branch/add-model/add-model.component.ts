@@ -4,9 +4,9 @@ import {Router} from '@angular/router';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {Branch} from '../../../modal/branch';
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
+
 
 @Component({
     selector: 'app-add-model',
@@ -55,7 +55,7 @@ export class AddModelComponent implements OnInit, DoCheck {
                 this.branch = new Branch();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/branch']));
-                this.dataService.alertmsg();
+
             }, error => {
             this.modalService.dismissAll(AddModelComponent);
                 this.globalMsg = error.error.message;
@@ -63,8 +63,10 @@ export class AddModelComponent implements OnInit, DoCheck {
                 this.dataService.getAlertMsg('false');
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/branch']));
-                this.dataService.alertmsg();
             }
         );
+    }
+    onClose() {
+        this.activeModal.dismiss(AddModelComponent);
     }
 }

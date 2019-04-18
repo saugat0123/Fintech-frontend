@@ -153,7 +153,6 @@ export class UIComponent implements OnInit {
                 this.loanConfig = new LoanConfig();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/ui']));
-                this.dataService.alertmsg();
 
 
             }, error => {
@@ -165,7 +164,6 @@ export class UIComponent implements OnInit {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/ui']));
-                this.dataService.alertmsg();
 
             }
         );

@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {NgbActiveModal, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -18,6 +18,7 @@ import {CommonService} from './shared-service/baseservice/common-baseservice';
 import {CommonDataService} from './shared-service/baseservice/common-dataService';
 import {SharedModule} from './module/shared/shared.module';
 import {Sidebar1Component} from './component/base/sidebar/sidebar1/sidebar1.component';
+import {CommonLocation} from './shared-service/baseservice/common-location';
 
 
 @NgModule({
@@ -44,7 +45,7 @@ import {Sidebar1Component} from './component/base/sidebar/sidebar1/sidebar1.comp
         SharedModule
     ],
 
-    providers: [CommonService, RestApiService, CommonDataService, NgbActiveModal],
+    providers: [CommonService, RestApiService, CommonDataService, NgbActiveModal, CommonLocation],
     bootstrap: [AppComponent],
 
 

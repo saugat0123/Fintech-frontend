@@ -3,9 +3,7 @@ import {CommonService} from '../../shared-service/baseservice/common-baseservice
 import {Router} from '@angular/router';
 import {CommonDataService} from '../../shared-service/baseservice/common-dataService';
 import {CommonPageService} from '../../shared-service/baseservice/common-pagination-service';
-import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-
-declare var $;
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-update-modal',
@@ -62,7 +60,6 @@ export class UpdateModalComponent implements OnInit, DoCheck {
                 this.globalMsg = 'SUCCESSFULLY UPDATED STATUS';
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('true');
-                this.dataService.alertmsg();
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(e => {
                     if (e) {
@@ -78,7 +75,6 @@ export class UpdateModalComponent implements OnInit, DoCheck {
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('false');
-                this.dataService.alertmsg();
 
             }
         );

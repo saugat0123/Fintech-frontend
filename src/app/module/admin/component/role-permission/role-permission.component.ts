@@ -135,7 +135,6 @@ export class RolePermissionComponent implements OnInit {
             this.dataService.getAlertMsg('true');
             this.roleperm = [];
             this.spinner = false;
-            this.dataService.alertmsg();
             this.roleChanged(this.roleId);
         });
     }

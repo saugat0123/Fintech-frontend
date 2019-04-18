@@ -3,9 +3,8 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {Nepse} from '../../../modal/nepse';
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-add-nepse',
@@ -23,8 +22,8 @@ export class AddNepseComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private router: Router,
         private dataService: CommonDataService,
-        private activeModal:NgbActiveModal,
-        private modalService:NgbModal
+        private activeModal: NgbActiveModal,
+        private modalService: NgbModal
 
     ) {
     }
@@ -57,7 +56,6 @@ export class AddNepseComponent implements OnInit, DoCheck {
                 this.nepse = new Nepse();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/nepse']));
-                this.dataService.alertmsg();
 
 
             }, error => {
@@ -70,15 +68,12 @@ export class AddNepseComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/nepse']));
-                this.dataService.alertmsg();
 
             }
         );
     }
-
-    open() {
-        this.dataService.setNepse(new Nepse());
-        $('.add-bulk-upload').modal('show');
+    onClose() {
+        this.activeModal.dismiss(AddNepseComponent);
     }
 
 }

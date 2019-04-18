@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonDataService } from '../../shared-service/baseservice/common-dataService';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-msg-modal',
@@ -10,10 +11,16 @@ export class MsgModalComponent implements OnInit {
 
   globalMsg: string;
 
-  constructor(private dataService: CommonDataService) { }
+  constructor(private dataService: CommonDataService,
+              private activeModal: NgbActiveModal
+  ) { }
 
   ngOnInit() {
-    this.dataService.currentMsg.subscribe(message => this.globalMsg = message)
+    this.dataService.currentMsg.subscribe(message => this.globalMsg = message);
+  }
+
+  onClose() {
+    this.activeModal.dismiss(MsgModalComponent);
   }
 
 }

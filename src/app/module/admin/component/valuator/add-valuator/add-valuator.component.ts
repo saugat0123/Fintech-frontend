@@ -4,9 +4,8 @@ import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {Valuator} from '../../../modal/valuator';
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-add-valuator',
@@ -24,8 +23,8 @@ export class AddValuatorComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private router: Router,
         private dataService: CommonDataService,
-        private modalService:NgbModal,
-        private activeModal:NgbActiveModal
+        private modalService: NgbModal,
+        private activeModal: NgbActiveModal
     ) {
     }
 
@@ -58,7 +57,6 @@ export class AddValuatorComponent implements OnInit, DoCheck {
                 this.valuator = new Valuator();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/valuator']));
-                this.dataService.alertmsg();
 
 
             }, error => {
@@ -71,10 +69,12 @@ export class AddValuatorComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/valuator']));
-                this.dataService.alertmsg();
 
             }
         );
+    }
+    onClose() {
+        this.activeModal.dismiss(AddValuatorComponent);
     }
 
 }

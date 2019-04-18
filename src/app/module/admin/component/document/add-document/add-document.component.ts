@@ -3,9 +3,7 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {Document} from '../../../modal/document';
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-
-declare var $;
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -25,8 +23,8 @@ export class AddDocumentComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private router: Router,
         private dataService: CommonDataService,
-        private modalService:NgbModal,
-        private activeModal:NgbActiveModal,
+        private modalService: NgbModal,
+        private activeModal: NgbActiveModal,
     ) {
     }
 
@@ -61,7 +59,6 @@ export class AddDocumentComponent implements OnInit, DoCheck {
                 this.document = new Document();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/document']));
-                this.dataService.alertmsg();
 
 
             }, error => {
@@ -74,10 +71,12 @@ export class AddDocumentComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/document']));
-                this.dataService.alertmsg();
 
             }
         );
+    }
+    onClose() {
+        this.activeModal.dismiss(AddDocumentComponent);
     }
 
 }

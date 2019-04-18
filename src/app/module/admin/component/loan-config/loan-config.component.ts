@@ -6,6 +6,8 @@ import {CommonPageService} from '../../../../shared-service/baseservice/common-p
 import {LoanConfig} from '../../modal/loan-config';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddLoanComponent} from './add-loan/add-loan.component';
+import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
+import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
 
 declare var $;
 
@@ -87,10 +89,12 @@ export class LoanConfigComponent implements OnInit, DoCheck {
 
 
     onChange(newValue, data) {
+        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/config');
-        $('.updateStatus').modal('show');
+        this.modalService.open(UpdateModalComponent);
 
     }
 
@@ -111,7 +115,7 @@ export class LoanConfigComponent implements OnInit, DoCheck {
                 }
                 this.spinner = false;
                 this.dataService.getGlobalMsg(this.globalMsg);
-                $('.global-msgModal').modal('show');
+                this.modalService.open(MsgModalComponent);
             }
         );
 
