@@ -87,7 +87,6 @@ export class CommonDataService {
     }
 
     setBranch(branch: Branch) {
-        console.log(branch);
         this.branch = branch;
     }
 

@@ -19,6 +19,7 @@ import {CommonService} from './shared-service/baseservice/common-baseservice';
 import {CommonDataService} from './shared-service/baseservice/common-dataService';
 import {SharedModule} from './module/shared/shared.module';
 import {Sidebar1Component} from './component/base/sidebar/sidebar1/sidebar1.component';
+import {CommonLocation} from './shared-service/baseservice/common-location';
 
 
 @NgModule({
@@ -45,7 +46,7 @@ import {Sidebar1Component} from './component/base/sidebar/sidebar1/sidebar1.comp
     SharedModule
   ],
 
-  providers: [CommonService, RestApiService, CommonDataService],
+  providers: [CommonService, RestApiService, CommonDataService, CommonLocation],
   bootstrap: [AppComponent],
 })
 export class AppModule {

@@ -7,6 +7,3 @@ spinner{
     position: relative;
     left: 135px;
 }
-.ng-invalid:not(form){
-    border-left:2px solid red;
-}

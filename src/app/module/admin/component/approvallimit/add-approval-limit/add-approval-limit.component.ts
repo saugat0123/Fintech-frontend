@@ -31,7 +31,8 @@ export class AddApprovalLimitComponent implements OnInit, DoCheck {
         private router: Router,
         private dataService: CommonDataService,
         private modalService: NgbModal,
-        private activeModal: NgbActiveModal) {
+        private activeModal: NgbActiveModal,
+        ) {
     }
 
     ngOnInit() {
@@ -43,6 +44,7 @@ export class AddApprovalLimitComponent implements OnInit, DoCheck {
         this.commonService.getByAll('v1/config/getAll').subscribe((response: any) => {
             this.loanList = response.detail;
         });
+     ;
     }
 
 

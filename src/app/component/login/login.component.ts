@@ -3,6 +3,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { baseApi } from '../../shared-service/authentication/api-list.service';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
   spinner = false;
   private securityUrl = baseApi.tokenUrl;
+
 
   constructor(
     private http: HttpClient,

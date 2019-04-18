@@ -5,6 +5,11 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {Branch} from '../../../modal/branch';
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {CommonLocation} from '../../../../../shared-service/baseservice/common-location';
+import {Province} from '../../../modal/province';
+import {District} from '../../../modal/district';
+import {MunicipalityVdc} from '../../../modal/municipality_VDC';
+import {computeStyle} from '@angular/animations/browser/src/util';
 
 declare var $;
 
@@ -19,30 +24,68 @@ export class AddModelComponent implements OnInit, DoCheck {
     spinner = false;
     globalMsg: string;
     branch: Branch = new Branch();
+    provinces:Province[];
+    districts:District[];
+    municipalities:MunicipalityVdc[];
+    district:District=new District();
+    province:Province=new Province();
 
     constructor(
         private commonService: CommonService,
         private router: Router,
         private dataService: CommonDataService,
         private activeModal: NgbActiveModal,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private location:CommonLocation
     ) {
     }
 
     ngOnInit() {
+        this.location.getProvince().subscribe((response: any) => {
+            this.provinces = response.detail;
+            this.getDistricts();
+        });
+
+    }
+
+    getDistricts(){
+           for(let province of this.provinces){
+               this.location.getDistrictByProvince(province).subscribe(
+                   (response:any)=>{
+                        this.districts=response.detail;
+                       this.getMunicipalities();
+                   }
+               );
+           }
+    }
+    getMunicipalities(){
+        for(let district of this.districts){
+           this.location.getMunicipalityVDCByDistrict(district).subscribe(
+               (response:any)=>{
+                   this.municipalities=response.detail;
+               }
+           )
+        }
     }
 
     ngDoCheck(): void {
         this.branch = this.dataService.getBranch();
+        console.log(this.dataService.getBranch());
         if (this.branch.id == null) {
             this.task = 'Add';
         } else {
             this.task = 'Edit';
+            this.district=this.branch.district;
+            this.province=this.branch.district.province;
         }
+
+
+
     }
 
     onSubmit() {
         this.submitted = true;
+        this.branch.district=this.district;
         this.commonService.saveOrEdit(this.branch, 'v1/branch').subscribe(result => {
             this.modalService.dismissAll(AddModelComponent);
                 if (this.branch.id == null) {

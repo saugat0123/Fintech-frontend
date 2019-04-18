@@ -6,6 +6,8 @@ import {CommonPageService} from '../../../../shared-service/baseservice/common-p
 import {Branch} from '../../modal/branch';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AddModelComponent} from "./add-model/add-model.component";
+import {MunicipalityVdc} from '../../modal/municipality_VDC';
+
 
 declare var $;
 
@@ -27,12 +29,14 @@ export class BranchComponent implements OnInit, DoCheck {
     inactiveCount: number;
     branches: number;
     newValue: string;
+    municipalities:MunicipalityVdc[];
 
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService:NgbModal
+        private modalService:NgbModal,
+
     ) {
     }
 
@@ -71,7 +75,6 @@ export class BranchComponent implements OnInit, DoCheck {
 
     addBranch() {
         this.dataService.setBranch(new Branch());
-        console.log("opening modal");
         this.modalService.open(AddModelComponent);
     }
 
@@ -92,6 +95,7 @@ export class BranchComponent implements OnInit, DoCheck {
         this.spinner = true;
         this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
                 this.dataList = response.detail.content;
+                console.log(response.detail.content);
                 this.dataService.setDataList(this.dataList);
                 this.commonPageService.setCurrentApi(this.currentApi);
                 this.pageable = this.commonPageService.setPageable(response.detail);
