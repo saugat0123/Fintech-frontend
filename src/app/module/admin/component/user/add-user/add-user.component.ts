@@ -7,7 +7,6 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-add-user',
@@ -80,7 +79,6 @@ export class AddUserComponent implements OnInit, DoCheck {
                 this.user = new User();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/user']));
-                this.dataService.alertmsg();
 
 
             }, error => {
@@ -93,7 +91,6 @@ export class AddUserComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/user']));
-                this.dataService.alertmsg();
 
             }
         );

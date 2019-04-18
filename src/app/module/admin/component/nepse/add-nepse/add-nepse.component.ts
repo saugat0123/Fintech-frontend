@@ -3,9 +3,8 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {Nepse} from '../../../modal/nepse';
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-add-nepse',
@@ -57,7 +56,6 @@ export class AddNepseComponent implements OnInit, DoCheck {
                 this.nepse = new Nepse();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/nepse']));
-                this.dataService.alertmsg();
 
 
             }, error => {
@@ -70,18 +68,12 @@ export class AddNepseComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/nepse']));
-                this.dataService.alertmsg();
 
             }
         );
     }
     onClose() {
         this.activeModal.dismiss(AddNepseComponent);
-    }
-
-    open() {
-        this.dataService.setNepse(new Nepse());
-        $('.add-bulk-upload').modal('show');
     }
 
 }

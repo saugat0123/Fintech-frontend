@@ -41,7 +41,7 @@ export class AddRoleComponent implements OnInit {
             this.role = new Role();
             this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                 this.router.navigate(['home/role']));
-            this.dataService.alertmsg();
+
         });
     }
 

@@ -7,7 +7,6 @@ import {LoanTemplate} from '../../../modal/template';
 import {LoanConfig} from '../../../modal/loan-config';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-add-loan',
@@ -58,7 +57,7 @@ export class AddLoanComponent implements OnInit, DoCheck {
                 this.loanConfig = new LoanConfig();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/config']));
-                this.dataService.alertmsg();
+
             }, error => {
 
                 this.modalService.dismissAll(AddLoanComponent);
@@ -69,7 +68,6 @@ export class AddLoanComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/config']));
-                this.dataService.alertmsg();
             }
         );
     }

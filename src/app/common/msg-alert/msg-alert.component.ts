@@ -1,7 +1,7 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { CommonDataService } from '../../shared-service/baseservice/common-dataService';
 import { debounceTime } from 'rxjs/operators';
-declare var $;
+
 @Component({
   selector: 'app-msg-alert',
   templateUrl: './msg-alert.component.html',

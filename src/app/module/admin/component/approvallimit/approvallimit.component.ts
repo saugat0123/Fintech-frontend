@@ -9,7 +9,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddApprovalLimitComponent} from './add-approval-limit/add-approval-limit.component';
 import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
 
-declare var $;
 
 @Component({
     selector: 'app-approvallimit',

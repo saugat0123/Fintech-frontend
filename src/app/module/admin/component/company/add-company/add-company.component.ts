@@ -6,7 +6,6 @@ import {CommonDataService} from '../../../../../shared-service/baseservice/commo
 import {Company} from '../../../modal/company';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-add-company',
@@ -58,7 +57,6 @@ export class AddCompanyComponent implements OnInit, DoCheck {
                 this.company = new Company();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/company']));
-                this.dataService.alertmsg();
 
 
             }, error => {
@@ -71,7 +69,6 @@ export class AddCompanyComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/company']));
-                this.dataService.alertmsg();
 
             }
         );

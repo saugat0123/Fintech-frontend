@@ -93,9 +93,8 @@
                         <thead>
                         <tr>
                             <th>S.N</th>
-                            <th>Branch Name</th>
-                            <th>Code</th>
-                            <th>Address</th>
+                            <th>Template name</th>
+                            <th>Template Url</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -109,7 +108,6 @@
                             <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                             <td>{{allList.name}}</td>
                             <td>{{allList.templateUrl}}</td>
-                            <td>{{allList.status}}</td>
                             <td>
                                 <select [(ngModel)]="allList.status" name="status"
                                         (change)="onChange($event.target.value,allList)">
@@ -141,17 +139,10 @@
                     <!-- ===================table-pagination==================== -->
                     <app-pagination *ngIf="!spinner"></app-pagination>
                     <!-- ===================table-pagination==================== -->
-                    <!-- /.box-body -->
-
-                    <!-- /.box -->
-
-                    <app-template-add-model></app-template-add-model>
 
                 </div>
                 <!-- /.col -->
             </div>
-
-            <app-update-modal></app-update-modal>
         </div>
     </div>
 </div>

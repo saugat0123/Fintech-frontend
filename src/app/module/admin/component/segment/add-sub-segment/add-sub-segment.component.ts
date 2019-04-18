@@ -25,8 +25,8 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private router: Router,
         private dataService: CommonDataService,
-        private activeModal:NgbActiveModal,
-        private modalService:NgbModal
+        private activeModal: NgbActiveModal,
+        private modalService: NgbModal
 
     ) {
     }
@@ -69,7 +69,6 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
                 this.subSegment = new SubSegment();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/sub-segment']));
-                this.dataService.alertmsg();
 
 
             }, error => {
@@ -82,7 +81,6 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/sub-segment']));
-                this.dataService.alertmsg();
 
             }
         );

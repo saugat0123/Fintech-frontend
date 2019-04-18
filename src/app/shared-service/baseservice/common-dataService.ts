@@ -15,8 +15,7 @@ import {Province} from '../../module/admin/modal/province';
 import {Nepse} from '../../module/admin/modal/nepse';
 import {Company} from '../../module/admin/modal/company';
 import {Document} from '../../module/admin/modal/document';
-import {debounceTime} from 'rxjs/operators';
-declare var $;
+
 
 @Injectable({
     providedIn: 'root'
@@ -195,13 +194,6 @@ export class CommonDataService {
 
     getDocument() {
         return this.document;
-    }
-
-    alertmsg() {
-        // $('.alert-custom').slideDown();
-        // setTimeout(() => {
-        //     $('.alert-custom').slideUp();
-        // }, 2000);
     }
 
     setCompany(company: Company) {

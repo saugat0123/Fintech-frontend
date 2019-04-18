@@ -5,7 +5,6 @@ import {CommonService} from '../../../../../../shared-service/baseservice/common
 import {Sector} from '../../../../modal/sector';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-add-sector',
@@ -58,7 +57,6 @@ export class AddSectorComponent implements OnInit, DoCheck {
                 this.sector = new Sector();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/sector']));
-                this.dataService.alertmsg();
 
 
             }, error => {
@@ -71,7 +69,6 @@ export class AddSectorComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/sector']));
-                this.dataService.alertmsg();
 
             }
         );

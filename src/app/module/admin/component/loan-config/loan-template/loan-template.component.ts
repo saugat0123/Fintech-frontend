@@ -4,6 +4,10 @@ import {CommonDataService} from '../../../../../shared-service/baseservice/commo
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
 import {LoanTemplate} from '../../../modal/template';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.component';
+import {TemplateAddModelComponent} from './template-add-model/template-add-model.component';
+import {UpdateModalComponent} from '../../../../../common/update-modal/update-modal.component';
 
 declare var $;
 
@@ -17,7 +21,7 @@ export class LoanTemplateComponent implements OnInit, DoCheck {
     title = 'Template';
     spinner = false;
     globalMsg: string;
-    search;
+    search: any = {};
     pageable: Pageable = new Pageable();
     currentApi: string;
     activeCount: number;
@@ -28,7 +32,8 @@ export class LoanTemplateComponent implements OnInit, DoCheck {
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService
+        private commonPageService: CommonPageService,
+        private modalService: NgbModal
     ) {
     }
 
@@ -63,7 +68,7 @@ export class LoanTemplateComponent implements OnInit, DoCheck {
                 }
                 this.spinner = false;
                 this.dataService.getGlobalMsg(this.globalMsg);
-                $('.global-msgModal').modal('show');
+                this.modalService.open(MsgModalComponent);
             }
         );
 
@@ -72,19 +77,20 @@ export class LoanTemplateComponent implements OnInit, DoCheck {
     addTemplate() {
         this.dataService.setData(new LoanTemplate());
 
-        $('#addLoanModal').modal('show');
+        this.modalService.open(TemplateAddModelComponent);
     }
 
     openEdit(loanTemplate: LoanTemplate) {
         this.dataService.setData(loanTemplate);
-        $('#addLoanModal').modal('show');
+        this.modalService.open(TemplateAddModelComponent);
     }
 
     onChange(newValue, data) {
-
+        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        event.preventDefault();
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/loanTemplate');
-        $('.updateStatus').modal('show');
+        this.modalService.open(UpdateModalComponent);
 
     }
 
