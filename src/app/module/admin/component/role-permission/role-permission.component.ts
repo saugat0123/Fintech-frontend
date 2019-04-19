@@ -1,8 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
-import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
+import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
+import {Router} from '@angular/router';
+import {Role} from '../../modal/role';
+import {AddRoleComponent} from './add-role/add-role.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 declare var $;
 
@@ -13,8 +16,8 @@ declare var $;
 })
 export class RolePermissionComponent implements OnInit {
     title = 'Role and Permission';
-    currentApi;
-    roleList: any;
+    currentApi: string;
+    roleList: Array<Role>;
     rightList: any;
     allPermission: any = [];
     rolePermissionList: any = [];
@@ -22,21 +25,22 @@ export class RolePermissionComponent implements OnInit {
     permissions: any = {};
     roleperm: any = [];
     roleId;
-    globalMsg;
+    globalMsg: string;
     rights: any = [];
     spinner = false;
     tempRightList = [];
     permRight = [];
-    activeCount: any;
-    inactiveCount: any;
-    roleCount: any;
+    activeCount: number;
+    inactiveCount: number;
+    roleCount: number;
 
 
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private router: Router
+        private router: Router,
+        private modalService: NgbModal
     ) {
     }
 
@@ -116,6 +120,10 @@ export class RolePermissionComponent implements OnInit {
 
         }
 
+    }
+
+    onOpen() {
+        this.modalService.open(AddRoleComponent);
     }
 
     updateCheckRightOptions(permId, rightId, events, index) {
