@@ -3,8 +3,9 @@ import {CommonDataService} from '../../../../../shared-service/baseservice/commo
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
 import {Pageable} from '../../../../../shared-service/baseservice/common-pageable';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.component';
 
-declare var $;
 
 @Component({
     selector: 'app-ui',
@@ -24,7 +25,8 @@ export class UIComponent implements OnInit {
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService
+        private commonPageService: CommonPageService,
+        private modalService: NgbModal
     ) {
 
     }
@@ -54,7 +56,7 @@ export class UIComponent implements OnInit {
             }
             this.spinner = false;
             this.dataService.getGlobalMsg(this.globalMsg);
-            $('.global-msgModal').modal('show');
+            this.modalService.open(MsgModalComponent);
         });
 
     }

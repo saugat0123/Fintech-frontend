@@ -4,6 +4,8 @@ import {CommonService} from '../../../../shared-service/baseservice/common-bases
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Router} from '@angular/router';
 import {Role} from '../../modal/role';
+import {AddRoleComponent} from './add-role/add-role.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 declare var $;
 
@@ -37,7 +39,8 @@ export class RolePermissionComponent implements OnInit {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private router: Router
+        private router: Router,
+        private modalService: NgbModal
     ) {
     }
 
@@ -117,6 +120,11 @@ export class RolePermissionComponent implements OnInit {
 
         }
 
+    }
+
+
+    onOpen() {
+        this.modalService.open(AddRoleComponent);
     }
 
     updateCheckRightOptions(permId, rightId, events, index) {

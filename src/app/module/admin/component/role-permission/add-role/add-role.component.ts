@@ -4,8 +4,8 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
 import {Router} from '@angular/router';
 import {Role} from '../../../modal/role';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-add-role',
@@ -21,18 +21,20 @@ export class AddRoleComponent implements OnInit {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private router: Router
+        private router: Router,
+        private activeModal: NgbActiveModal,
+        private modalService: NgbModal
     ) {
     }
 
     ngOnInit() {
     }
 
+
     onSubmit() {
         this.currentApi = 'v1/role';
         this.commonService.saveOrEdit(this.role, this.currentApi).subscribe(result => {
-            $('.add-role').modal('hide');
-
+            this.modalService.dismissAll(AddRoleComponent);
             this.globalMsg = 'SUCCESSFULLY ADDED ROLE';
 
 
@@ -43,6 +45,9 @@ export class AddRoleComponent implements OnInit {
                 this.router.navigate(['home/role']));
 
         });
+    }
+    onClose() {
+        this.activeModal.dismiss(AddRoleComponent);
     }
 
 }
