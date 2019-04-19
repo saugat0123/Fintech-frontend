@@ -114,7 +114,8 @@ import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
         AddUserComponent,
         AddCompanyComponent,
         MsgModalComponent,
-        TemplateAddModelComponent
+        TemplateAddModelComponent,
+        AddRoleComponent
     ]
 
 })
