@@ -6,7 +6,6 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {Valuator} from '../../../modal/valuator';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-add-valuator',
@@ -58,7 +57,6 @@ export class AddValuatorComponent implements OnInit, DoCheck {
                 this.valuator = new Valuator();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/valuator']));
-                this.dataService.alertmsg();
 
 
             }, error => {
@@ -71,7 +69,6 @@ export class AddValuatorComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/valuator']));
-                this.dataService.alertmsg();
 
             }
         );
