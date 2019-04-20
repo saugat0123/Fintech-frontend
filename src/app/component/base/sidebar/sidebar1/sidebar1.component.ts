@@ -25,7 +25,6 @@ export class Sidebar1Component implements OnInit {
         this.currentApi = 'v1/nav';
         this.commonService.getByAll(this.currentApi).subscribe((response: any) => {
             this.navList = response.detail;
-            localStorage.setItem('permissionList', response.detail);
         });
 
     }

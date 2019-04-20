@@ -57,16 +57,16 @@
                         </div>
                         <!-- <h3 class="box-title">Hover Data Table</h3> -->
                         <div class="col-md-9">
-                            <button class="skin-blue pull-right" data-toggle="modal" (click)="addBranch()">
+                            <button *ngIf='addViewBranch' class="skin-blue pull-right" data-toggle="modal" (click)="addBranch()">
                                 <i class="skin-blue fa fa-plus"></i>
                             </button>
-                            <a class="pull-right btn btn-transparent-primary" (click)="getCsv()">
+                            <a *ngIf='downloadCsv' class="pull-right btn btn-transparent-primary" (click)="getCsv()">
                                 <i class="fa fa-download" aria-hidden="true"></i> Download</a>
                         </div>
                     </div>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body">
+                <div class="box-body" *ngIf='viewBranch'>
                     <table id="add-branch-table" class="table table-striped table-bordered table-hover ">
                         <thead>
                         <tr>
@@ -95,7 +95,7 @@
                                 </select>
                             </td>
                             <td>
-                                <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
+                                <a  *ngIf='editViewBranch' (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
                                    data-placement="top" title="EDIT">
                                     <i class="fa fa-edit" style="color:white"></i>
                                 </a>

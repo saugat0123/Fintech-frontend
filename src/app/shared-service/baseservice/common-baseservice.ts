@@ -46,7 +46,7 @@ export class CommonService {
   getByPost(reqUrl,model){
     let url: string = reqUrl;
     let getUrl = this.restApiService.modifyRestUrl(url);
-    return this.http.post(getUrl.url, model);
+    return this.http.post(getUrl.url, model,{headers: getUrl.header});
   }
   getByPostDocument(reqUrl, model, loanCycleId) {
     let url: string = reqUrl + '?loanCycleId='+loanCycleId;

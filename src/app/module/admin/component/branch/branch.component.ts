@@ -27,6 +27,11 @@ export class BranchComponent implements OnInit, DoCheck {
     inactiveCount: number;
     branches: number;
     newValue: string;
+    permissions = [];
+    viewBranch = false;
+    addViewBranch = false;
+    downloadCsv = false;
+    editViewBranch=false;
 
     constructor(
         private dataService: CommonDataService,
@@ -39,11 +44,30 @@ export class BranchComponent implements OnInit, DoCheck {
     ngOnInit() {
         this.dataService.changeTitle(this.title);
         this.currentApi = 'v1/branch/get';
-        this.getPagination();
+
         this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.branches = response.detail.branches;
+        });
+
+        this.commonService.getByPost('v1/permission/chkPerm', 'BRANCH').subscribe((response: any) => {
+            this.permissions = response.detail;
+            for (let i = 0; this.permissions.length > i; i++) {
+                if (this.permissions[i].type === 'ADD BRANCH') {
+                    this.addViewBranch = true;
+                }
+                if (this.permissions[i].type === 'VIEW BRANCH') {
+                    this.getPagination();
+                    this.viewBranch = true;
+                }
+                if (this.permissions[i].type === 'EDIT BRANCH') {
+                    this.editViewBranch = true;
+                }
+                if (this.permissions[i].type === 'DOWNLOAD CSV') {
+                    this.downloadCsv = true;
+                }
+            }
         });
     }
 
@@ -77,7 +101,9 @@ export class BranchComponent implements OnInit, DoCheck {
 
 
     onChange(newValue, data) {
-        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
         event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
