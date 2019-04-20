@@ -1,74 +1,76 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {CommonService} from "../../../../../shared-service/baseservice/common-baseservice";
+import {MemoService} from "../../../memo.service";
 import {CommonDataService} from "../../../../../shared-service/baseservice/common-dataService";
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 declare var $;
+
 @Component({
-  selector: 'app-delete-memo-type',
-  templateUrl: './delete-memo-type.component.html',
-  styleUrls: ['./delete-memo-type.component.css']
+    selector: 'app-delete-memo-type',
+    templateUrl: './delete-memo-type.component.html',
+    styleUrls: ['./delete-memo-type.component.css']
 })
 export class DeleteMemoTypeComponent implements OnInit, DoCheck {
 
-  modalData: any = {};
-  data: any;
-  currentUrl: any;
-  currentApi: any;
-  globalMsg;
+    modalData: any = {};
+    data: any;
+    currentUrl: any;
+    currentApi: any;
+    globalMsg;
 
-  constructor(
-      private router: Router,
-      private commonService: CommonService,
-      private dataService: CommonDataService,
-      private activeModal: NgbActiveModal
-  ) { }
-
-  ngOnInit() {
-    this.modalData = {
-      "name": "Memo Type"
-    };
-
-    this.currentApi = "v1/memos/types";
-  }
-
-  ngDoCheck(): void {
-    this.currentUrl = this.router.url;
-    if (this.dataService.getData() != null) {
-      this.data = this.dataService.getData();
+    constructor(
+        private router: Router,
+        private memoService: MemoService,
+        private dataService: CommonDataService,
+        private activeModal: NgbActiveModal
+    ) {
     }
-  }
 
-  deleteClick() {
-    this.commonService.deleteById(this.currentApi + "/" + this.data.id).subscribe(result => {
+    ngOnInit() {
+        this.modalData = {
+            "name": "Memo Type"
+        };
 
-        this.globalMsg = "SUCCESSFULLY DELETED MEMO TYPE";
-        this.dataService.getGlobalMsg(this.globalMsg);
-        this.dataService.getAlertMsg('true');
+        this.currentApi = "v1/memos/types";
+    }
 
-        $(".alert-custom").slideDown();
+    ngDoCheck(): void {
+        this.currentUrl = this.router.url;
+        if (this.dataService.getData() != null) {
+            this.data = this.dataService.getData();
+        }
+    }
 
-        this.reloadPage();
+    deleteClick() {
+        this.memoService.deleteById(this.currentApi, this.data.id).subscribe(result => {
 
-      }, error => {
-        this.globalMsg = error.error.message;
-        this.dataService.getGlobalMsg(this.globalMsg);
-        this.dataService.getAlertMsg('false');
-        $(".alert-custom").slideDown();
+                this.globalMsg = "SUCCESSFULLY DELETED MEMO TYPE";
+                this.dataService.getGlobalMsg(this.globalMsg);
+                this.dataService.getAlertMsg('true');
 
-      }
-  );
+                $(".alert-custom").slideDown();
 
-  }
+                this.reloadPage();
 
-  reloadPage() {
-    this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(e => {
-      if (e) {
-        this.router.navigate([this.currentUrl]);
-        this.activeModal.close();
-      }
-    });
-  }
+            }, error => {
+                this.globalMsg = error.error.message;
+                this.dataService.getGlobalMsg(this.globalMsg);
+                this.dataService.getAlertMsg('false');
+                $(".alert-custom").slideDown();
+
+            }
+        );
+
+    }
+
+    reloadPage() {
+        this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(e => {
+            if (e) {
+                this.router.navigate([this.currentUrl]);
+                this.activeModal.close();
+            }
+        });
+    }
 
 }

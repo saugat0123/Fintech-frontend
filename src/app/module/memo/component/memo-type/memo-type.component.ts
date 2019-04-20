@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonDataService} from "../../../../shared-service/baseservice/common-dataService";
-import {CommonService} from "../../../../shared-service/baseservice/common-baseservice";
+import {MemoService} from "../../memo.service";
 import {CommonPageService} from "../../../../shared-service/baseservice/common-pagination-service";
 import {Pageable} from "../../../../shared-service/baseservice/common-pageable";
 import {MemoType} from "../../model/memoType";
@@ -27,7 +27,7 @@ export class MemoTypeComponent implements OnInit {
 
     constructor(
         private dataService: CommonDataService,
-        private commonService: CommonService,
+        private memoService: MemoService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal
     ) {
@@ -69,13 +69,11 @@ export class MemoTypeComponent implements OnInit {
 
     getPagination() {
         this.spinner = true;
-        // this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-        this.commonService.getByAll(this.currentApi).subscribe((response: any) => {
-                this.dataList = response.detail;
-                console.log(this.dataList);
+        this.memoService.getAll(this.currentApi).subscribe((response: any) => {
+                this.dataList = response.content;
                 this.dataService.setDataList(this.dataList);
                 this.commonPageService.setCurrentApi(this.currentApi);
-                this.pageable = this.commonPageService.setPageable(response.detail);
+                this.pageable = this.commonPageService.setPageable(response.content);
 
                 this.spinner = false;
 

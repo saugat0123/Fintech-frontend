@@ -70,13 +70,6 @@ export class CommonService {
 
   }
 
-  deleteById(reqUrl) {
-    let url: string = reqUrl;
-    let getUrl = this.restApiService.modifyRestUrl(url);
-    return this.http.post(getUrl.url, null);
-  }
-
-
 }
 
 

@@ -1,15 +1,22 @@
 import {MemoType} from "./memoType";
+import {User} from "../../../modal/user";
 
 export class Memo {
     id: number;
     subject: string;
     // sentBy: User;
+    sentBy: any;
     // sentTo: User;
-    // cc: Set<User>;
-    // bcc: Set<User>;
+    sentTo: any;
+    cc: Array<User>;
+    // cc: any;
+    bcc: Array<User>;
+    // bcc: any;
     content: string;
     status: any;
     // stage: Stage
-    // type: MemoType
+    stage: any;
+    type: MemoType;
     // stages: Set<MemoStage>;
+    stages: any;
 }
