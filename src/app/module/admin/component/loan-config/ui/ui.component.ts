@@ -5,6 +5,10 @@ import {CommonPageService} from '../../../../../shared-service/baseservice/commo
 import {Pageable} from '../../../../../shared-service/baseservice/common-pageable';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.component';
+import {LoanConfig} from '../../../modal/loan-config';
+import {Document} from '../../../modal/document';
+import { Router} from '@angular/router';
+import {LoanTemplate} from '../../../modal/template';
 
 
 @Component({
@@ -16,37 +20,45 @@ export class UIComponent implements OnInit {
     spinner = false;
     title: string;
     pageable: Pageable = new Pageable();
-    search = {};
+    search: any = {};
     globalMsg: any;
-    documentList: any;
-    comfirmDocumentList = Array<Document>();
+    loanTemplateList: any;
+    comfirmLoanTemplateList = Array<LoanTemplate>();
     currentApi: any;
+    loanConfig: LoanConfig = new LoanConfig();
+    fundable: boolean;
+    renewal: boolean;
+    show = false;
+    submitted: boolean;
+    initialDocuemnt = Array<Document>();
+    renewalDocuemnt = Array<Document>();
+    documentList = Array<Document>();
 
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private router: Router
     ) {
 
     }
 
     ngOnInit() {
         this.dataService.changeTitle(this.title);
-        this.currentApi = 'v1/document/get';
-        this.getPagination();
+        this.currentApi = 'v1/loanTemplate/getAll';
+        this.getTemplate();
+        this.commonService.getByAll('v1/document/getAll').subscribe((response: any) => {
+            this.documentList = response.detail;
+        });
 
 
     }
 
-    getPagination() {
+    getTemplate() {
         this.spinner = true;
-        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-            this.documentList = response.detail.content;
-            this.dataService.setDataList(this.documentList);
-            this.commonPageService.setCurrentApi(this.currentApi);
-            this.pageable = this.commonPageService.setPageable(response.detail);
-
+        this.commonService.getByAll(this.currentApi).subscribe((response: any) => {
+            this.loanTemplateList = response.detail;
             this.spinner = false;
 
         }, error => {
@@ -61,18 +73,104 @@ export class UIComponent implements OnInit {
 
     }
 
-    updateSelectDocument(document) {
-        const d: Document = document;
-        this.comfirmDocumentList.push(d);
-        this.documentList.splice(this.documentList.indexOf(d), 1);
+    updateSelectTemplate(template) {
+        const t: LoanTemplate = template;
+        this.comfirmLoanTemplateList.push(t);
+        this.loanTemplateList.splice(this.loanTemplateList.indexOf(t), 1);
     }
 
 
-    updateUnselectDocument(document) {
-        const d: Document = document;
-        this.documentList.push(d);
-        this.comfirmDocumentList.splice(this.comfirmDocumentList.indexOf(d), 1);
+    updateUnselectTemplate(template) {
+        const t: LoanTemplate = template;
+        this.loanTemplateList.push(t);
+        this.comfirmLoanTemplateList.splice(this.comfirmLoanTemplateList.indexOf(t), 1);
     }
 
+    setFunableTrue() {
+        this.fundable = true;
+        console.log(this.fundable);
+    }
+
+    setFunableFalse() {
+        this.fundable = false;
+        console.log(this.fundable);
+    }
+
+    setRenewalTrue() {
+        this.renewal = true;
+        console.log(this.renewal);
+    }
+
+    setRenewalFalse() {
+        this.renewal = false;
+        console.log(this.renewal);
+    }
+
+    toggle() {
+        this.show = !this.show;
+    }
+
+    updateInitialDocument(events, document: Document) {
+        const d: Document = document;
+        if (events.target.checked === true) {
+            this.initialDocuemnt.push(d);
+            console.log(this.initialDocuemnt);
+        } else {
+            const index: number = this.initialDocuemnt.indexOf(d);
+            if (index !== -1) {
+                this.initialDocuemnt.splice(index, 1);
+                console.log(this.initialDocuemnt);
+            }
+        }
+    }
+
+    updateRenewalDocument(events, document: Document) {
+        const d: Document = document;
+        if (events.target.checked === true) {
+            this.renewalDocuemnt.push(d);
+            console.log(this.renewalDocuemnt);
+        } else {
+            const index: number = this.renewalDocuemnt.indexOf(d);
+            if (index !== -1) {
+                this.renewalDocuemnt.splice(index, 1);
+                console.log(this.renewalDocuemnt);
+            }
+        }
+    }
+
+    onSubmit() {
+        this.submitted = true;
+        this.globalMsg = 'test successful';
+        this.loanConfig.isRenewable = this.renewal;
+        this.loanConfig.isFundable = this.fundable;
+        this.loanConfig.templateList = this.comfirmLoanTemplateList;
+        this.loanConfig.initial = this.initialDocuemnt;
+        this.loanConfig.renew = this.renewalDocuemnt;
+        console.log(this.loanConfig);
+        this.commonService.saveOrEdit(this.loanConfig, 'v1/config').subscribe(result => {
+
+                if (this.loanConfig.id == null) {
+                    this.globalMsg = 'SUCCESSFULLY ADDED LOAN CONFIG';
+                }
+                this.dataService.getGlobalMsg(this.globalMsg);
+                this.dataService.getAlertMsg('true');
+                this.loanConfig = new LoanConfig();
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/ui']));
+
+
+            }, error => {
+
+
+                this.globalMsg = error.error.message;
+                this.dataService.getGlobalMsg(this.globalMsg);
+                this.dataService.getAlertMsg('false');
+
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/ui']));
+
+            }
+        );
+    }
 
 }
