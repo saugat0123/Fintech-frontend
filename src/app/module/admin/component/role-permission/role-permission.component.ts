@@ -26,7 +26,7 @@ export class RolePermissionComponent implements OnInit {
     roleperm: any = [];
     roleId;
     globalMsg: string;
-    rights: any = [];
+    apiList: any = [];
     spinner = false;
     tempRightList = [];
     permRight = [];
@@ -91,7 +91,7 @@ export class RolePermissionComponent implements OnInit {
             },
             lastModified: new Date(),
             del: false,
-            rights: []
+            apiRights: []
         }
         ;
 
@@ -127,10 +127,26 @@ export class RolePermissionComponent implements OnInit {
         this.modalService.open(AddRoleComponent);
     }
 
-    updateCheckRightOptions(permId, rightId, events, index) {
+    updateCheckapiOptions(permId, apiId, events, index) {
+
         for (let i = 0; i < this.roleperm.length; i++) {
             if (this.roleperm[i].permission.id.toString() === permId.toString()) {
-                this.roleperm[i].rights[index].checked = events;
+                if (this.roleperm[i].id === null) {
+                    const apiUrl = {
+                        id: apiId,
+                        checked: events
+                    };
+                    this.roleperm[i].apiRights.push(apiUrl);
+                }
+
+
+                for (let j = 0; j < this.roleperm[i].apiRights.length; j++) {
+                    if (this.roleperm[i].apiRights[j].id.toString() === apiId) {
+                        this.roleperm[i].apiRights[j].checked = events;
+
+                    }
+
+                }
             }
         }
     }
@@ -163,9 +179,9 @@ export class RolePermissionComponent implements OnInit {
                     isMatch = true;
 
                     this.allPermission[i].checked = true;
-                    this.rights = this.rolePermissionList[j].rights;
-                    this.tempRightList = this.getCheckRight(this.rights);
-                    this.allPermission[i].rights = this.tempRightList;
+                    this.apiList = this.allPermission[i].apiList;
+                    this.tempRightList = this.getCheckApiRight(this.apiList, this.rolePermissionList[j].apiRights);
+                    this.allPermission[i].apiRights = this.tempRightList;
                     this.compareCheckedPermission.push(this.allPermission[i]);
                     this.permissions = {
                         id: this.rolePermissionList[j].id,
@@ -177,7 +193,7 @@ export class RolePermissionComponent implements OnInit {
                         },
                         lastModified: new Date(),
                         del: false,
-                        rights: this.tempRightList
+                        apiRights: this.tempRightList
                     };
 
                     this.roleperm.push(this.permissions);
@@ -188,8 +204,9 @@ export class RolePermissionComponent implements OnInit {
 
             if (!isMatch) {
                 this.allPermission[i].checked = false;
-                this.tempRightList = this.getCheckRight([]);
-                this.allPermission[i].rights = this.tempRightList;
+                this.apiList = this.allPermission[i].apiList;
+                this.tempRightList = this.getCheckApiRight(this.apiList, []);
+                this.allPermission[i].apiRights = this.tempRightList;
                 this.compareCheckedPermission.push(this.allPermission[i]);
             }
 
@@ -197,31 +214,31 @@ export class RolePermissionComponent implements OnInit {
     }
 
 
-    getCheckRight(tempRight) {
+    getCheckApiRight(tempRight, selectedRight) {
         this.tempRightList = [];
 
-        for (let x = 0; x < this.rightList.length; x++) {
+        for (let x = 0; x < tempRight.length; x++) {
 
             let isRightMatch = false;
 
-            for (let y = 0; y < tempRight.length; y++) {
+            for (let y = 0; y < selectedRight.length; y++) {
 
-                if (this.rightList[x].id === tempRight[y].id) {
+                if (selectedRight[y].id === tempRight[x].id) {
                     isRightMatch = true;
-                    tempRight[y].checked = true;
+                    tempRight[x].checked = true;
                     this.tempRightList.push(tempRight[y]);
                     break;
                 }
 
+
             }
             if (!isRightMatch) {
-                this.rightList[x].checked = false;
-                this.tempRightList.push(this.rightList[x]);
+                tempRight[x].checked = false;
+                this.tempRightList.push(tempRight[x]);
             }
 
 
         }
-
         return this.tempRightList;
 
     }

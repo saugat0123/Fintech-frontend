@@ -93,27 +93,27 @@
                                     <!--</ng-template>-->
                                     <div [className]="permission.checked==false ? 'row collapse' : 'row'"
                                          id="{{permission.id}}">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class=" col-md-3"
-                                                     *ngFor="let right of permission.rights;let i=index">
-                                                    <input class="big-checkbox {{permission.id+right.rights}}"
-                                                           [checked]="right.checked"
-                                                           (change)="updateCheckRightOptions(permission.id,$event.target.value,$event.target.checked,i)"
-                                                           type="checkbox" value="{{right.id}}"/>
-                                                    <span>{{right.rights}}</span></div>
+                                        <!--<div class="col-md-12">-->
+                                            <!--<div class="row">-->
+                                                <!--<div class=" col-md-3"-->
+                                                     <!--*ngFor="let api of permission.apiList;let i=index">-->
+                                                    <!--<input class="big-checkbox {{permission.id+api.type}}"-->
+                                                           <!--[checked]="api.checked"-->
+                                                           <!--(change)="updateCheckapiOptions(permission.id,$event.target.value,$event.target.checked,i)"-->
+                                                           <!--type="checkbox" value="{{api.id}}"/>-->
+                                                    <!--<span>{{api.apis}}</span></div>-->
 
-                                            </div>
-                                        </div>
+                                            <!--</div>-->
+                                        <!--</div>-->
                                         <div class="col-md-12">
                                             <div class="row">
-                                                <div class=" col-md-3"
-                                                     *ngFor="let right of permission.rights;let i=index">
-                                                    <input class="big-checkbox {{permission.id+right.rights}}"
-                                                           [checked]="right.checked"
-                                                           (change)="updateCheckRightOptions(permission.id,$event.target.value,$event.target.checked,i)"
-                                                           type="checkbox" value="{{right.id}}"/>
-                                                    <span>{{right.rights}}</span></div>
+                                                <div class=" col-md-6"
+                                                     *ngFor="let api of permission.apiList;let i=index">
+                                                    <input class="big-checkbox {{permission.id+api.type}}"
+                                                           [checked]="api.checked"
+                                                           (change)="updateCheckapiOptions(permission.id,$event.target.value,$event.target.checked,i)"
+                                                           type="checkbox" value="{{api.id}}"/>
+                                                    <span>{{api.type}}</span></div>
 
                                             </div>
                                         </div>
