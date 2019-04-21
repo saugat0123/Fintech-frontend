@@ -42,6 +42,8 @@ import {QuillModule} from 'ngx-quill';
         HttpClientModule,
         FormsModule,
         NgbPaginationModule,
+        SharedModule,
+        QuillModule
     ],
     declarations: [
         AppComponent,
@@ -67,14 +69,6 @@ import {QuillModule} from 'ngx-quill';
         AddUserComponent,
         ApprovallimitComponent,
         AddApprovalLimitComponent,
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        SharedModule,
-        QuillModule
     ],
     providers: [
         CommonService,
