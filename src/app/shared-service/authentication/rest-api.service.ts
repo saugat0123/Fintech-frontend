@@ -16,7 +16,7 @@ export class RestApiService {
     modifyRestUrl(url) {
         let appendUrl: string = this.restUrl + '/' + url;
         const at = localStorage.getItem('at');
-      
+
         let reqObj = {
             url: appendUrl,
             header: new HttpHeaders({
@@ -35,12 +35,11 @@ export class RestApiService {
             header: new HttpHeaders({
                 'Authorization': 'Bearer ' + at,
                 'enctype': 'multipart/form-data'
-               
+
             })
         };
         return reqObj;
     }
 
-    
-  
+
 }
