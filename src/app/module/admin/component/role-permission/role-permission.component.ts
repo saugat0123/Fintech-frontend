@@ -153,7 +153,7 @@ export class RolePermissionComponent implements OnInit {
 
     save() {
         this.spinner = false;
-        console.log(this.roleperm);
+
         this.commonService.saveOrEdit(this.roleperm, 'v1/roleRightPermission').subscribe(result => {
             this.globalMsg = 'SUCCESSFULLY ADDED ROLE AND PERMISSION';
             this.dataService.getGlobalMsg(this.globalMsg);
@@ -161,6 +161,8 @@ export class RolePermissionComponent implements OnInit {
             this.roleperm = [];
             this.spinner = false;
             this.roleChanged(this.roleId);
+
+           // this.commonService.getByPost('actuator/restart', null).subscribe((response: any) => {});
         });
     }
 
