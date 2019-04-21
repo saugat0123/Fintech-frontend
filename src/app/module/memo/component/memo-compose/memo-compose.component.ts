@@ -1,13 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from "../../../../shared-service/baseservice/common-dataService";
-import {MemoType} from "../../model/memoType";
-import {MemoService} from "../../memo.service";
-import {Observable} from "rxjs";
-import {Memo} from "../../model/memo";
-import {User} from "../../../../modal/user";
-import {FormBuilder, FormGroup} from "@angular/forms";
-
-declare var $;
+import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
+import {MemoType} from '../../model/memoType';
+import {MemoService} from '../../memo.service';
+import {Observable} from 'rxjs';
+import {Memo} from '../../model/memo';
+import {User} from '../../../../modal/user';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-memo-compose',
@@ -16,7 +14,7 @@ declare var $;
 })
 export class MemoComposeComponent implements OnInit {
 
-    title = "Memo - Compose";
+    title = 'Memo - Compose';
     memoTypes$: Observable<MemoType[]>;
     users: Observable<User[]>;
     memo: Memo = new Memo();
@@ -34,7 +32,7 @@ export class MemoComposeComponent implements OnInit {
 
     ngOnInit() {
         this.dataService.changeTitle(this.title);
-        this.memoService.getAll("v1/memos/types",1, 20, null).subscribe((response: any) => {
+        this.memoService.getAll('v1/memos/types', 1, 20, null).subscribe((response: any) => {
             this.memoTypes$ = response.content;
         });
 
