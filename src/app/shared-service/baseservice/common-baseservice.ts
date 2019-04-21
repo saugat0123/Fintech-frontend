@@ -42,18 +42,28 @@ export class CommonService {
         let getUrl = this.restApiService.modifyRestUrl(url);
         return this.http.post(getUrl.url, model, {headers: getUrl.header});
 
-  }
-  getByPost(reqUrl,model){
-    let url: string = reqUrl;
-    let getUrl = this.restApiService.modifyRestUrl(url);
-    return this.http.post(getUrl.url, model,{headers: getUrl.header});
-  }
-  getByPostDocument(reqUrl, model, loanCycleId) {
-    let url: string = reqUrl + '?loanCycleId='+loanCycleId;
-    let getUrl = this.restApiService.modifyRestUrl(url);
-    return this.http.post(getUrl.url, model, {headers: getUrl.header});
+    }
 
-}
+    getByPost(reqUrl, model) {
+        let url: string = reqUrl;
+        let getUrl = this.restApiService.modifyRestUrl(url);
+        return this.http.post(getUrl.url, model, {headers: getUrl.header});
+    }
+
+    getByFilePost(reqUrl, model) {
+        let url: string = reqUrl;
+        let getUrl = this.restApiService.modifyFileUrl(url);
+        return this.http.post(getUrl.url, model, {headers: getUrl.header});
+    }
+
+
+
+    getByPostDocument(reqUrl, model, loanCycleId) {
+        let url: string = reqUrl + '?loanCycleId=' + loanCycleId;
+        let getUrl = this.restApiService.modifyRestUrl(url);
+        return this.http.post(getUrl.url, model, {headers: getUrl.header});
+
+    }
 
 }
 

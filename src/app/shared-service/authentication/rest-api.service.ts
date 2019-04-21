@@ -1,9 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import { Observable } from 'rxjs';
-
-import { baseApi } from './api-list.service';
+import {baseApi} from './api-list.service';
 
 @Injectable()
 export class RestApiService {
@@ -36,6 +34,7 @@ export class RestApiService {
             url: appendUrl,
             header: new HttpHeaders({
                 'Authorization': 'Bearer ' + at,
+                'enctype': 'multipart/form-data'
                
             })
         };

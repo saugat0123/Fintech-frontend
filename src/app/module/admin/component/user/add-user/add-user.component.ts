@@ -107,7 +107,7 @@ export class AddUserComponent implements OnInit, DoCheck {
         const formdata: FormData = new FormData();
         formdata.append('file', file);
         formdata.append('type', 'profile');
-        this.commonService.getByPost('v1/user/uploadFile', formdata).subscribe((result: any) => {
+        this.commonService.getByFilePost('v1/user/uploadFile', formdata).subscribe((result: any) => {
             this.user.profilePicture = result.detail;
         });
     }
@@ -117,7 +117,7 @@ export class AddUserComponent implements OnInit, DoCheck {
         const formdata: FormData = new FormData();
         formdata.append('file', file);
         formdata.append('type', 'signature');
-        this.commonService.getByPost('v1/user/uploadFile', formdata).subscribe((result: any) => {
+        this.commonService.getByFilePost('v1/user/uploadFile', formdata).subscribe((result: any) => {
             this.user.signatureImage = result.detail;
         });
     }
