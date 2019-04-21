@@ -11,11 +11,19 @@
             <input class="form-control" formControlName="referenceNo" placeholder="Reference No:">
         </div>
         <div class="form-group">
-            <label>Select Memo Type</label>
-            <select class="form-control" formControlName="memoType">
-                <option [ngValue]="undefined" hidden>Select Memo Type</option>
-                <option *ngFor="let memoType of memoTypes">{{memoType.name}}</option>
-            </select>
+            <!--            <select class="form-control" formControlName="memoType">-->
+            <!--                <option [ngValue]="undefined" hidden>Select Memo Type</option>-->
+            <!--                <option *ngFor="let memoType of memoTypes$">{{memoType.name}}</option>-->
+            <!--            </select>-->
+            <ng-select
+                [closeOnSelect]="false"
+                [hideSelected]="true"
+                [items]="memoTypes$"
+                [multiple]="true"
+                bindLabel="name"
+                formControlName="memoType"
+                placeholder="Select Memo Type">
+            </ng-select>
         </div>
         <div class="form-group">
             <select class="form-control" formControlName="sentTo">

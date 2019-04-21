@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonDataService} from "../../../../shared-service/baseservice/common-dataService";
 import {MemoType} from "../../model/memoType";
-import {CommonService} from "../../../../shared-service/baseservice/common-baseservice";
+import {MemoService} from "../../memo.service";
 import {Observable} from "rxjs";
 import {Memo} from "../../model/memo";
 import {User} from "../../../../modal/user";
@@ -17,7 +17,7 @@ declare var $;
 export class MemoComposeComponent implements OnInit {
 
     title = "Memo - Compose";
-    memoTypes: Observable<MemoType[]>;
+    memoTypes$: Observable<MemoType[]>;
     users: Observable<User[]>;
     memo: Memo = new Memo();
     ccUsers: Array<User>;
@@ -27,15 +27,15 @@ export class MemoComposeComponent implements OnInit {
 
     constructor(
         private dataService: CommonDataService,
-        private commonService: CommonService,
+        private memoService: MemoService,
         private formBuilder: FormBuilder
     ) {
     }
 
     ngOnInit() {
         this.dataService.changeTitle(this.title);
-        this.commonService.getByAll("v1/memos/types").subscribe((response: any) => {
-            this.memoTypes = response.content;
+        this.memoService.getAll("v1/memos/types",1, 20, null).subscribe((response: any) => {
+            this.memoTypes$ = response.content;
         });
 
         this.memoComposeForm = this.formBuilder.group(

@@ -14,6 +14,7 @@ import {MemoService} from "./memo.service";
 import {MemoRoutes} from "./memo-routes";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {QuillModule} from "ngx-quill";
+import {NgSelectModule} from "@ng-select/ng-select";
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import {QuillModule} from "ngx-quill";
         RouterModule.forChild(MemoRoutes),
         NgbModule,
         ReactiveFormsModule,
-        QuillModule
+        QuillModule,
+        NgSelectModule
     ],
     entryComponents: [
         AddMemoTypeComponent,

@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "@ng-bootstrap/ng-bootstrap": "^4.0.3",
+    "@ng-select/ng-select": "^2.18.0",
     "admin-lte": "^2.4.8",
     "angular-admin-lte": "^2.0.0",
     "bootstrap": "^4.2.1",
