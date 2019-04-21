@@ -13,6 +13,7 @@ import {SharedModule} from "../shared/shared.module";
 import {MemoService} from "./memo.service";
 import {MemoRoutes} from "./memo-routes";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {QuillModule} from "ngx-quill";
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
         SharedModule,
         RouterModule.forChild(MemoRoutes),
         NgbModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        QuillModule
     ],
     entryComponents: [
         AddMemoTypeComponent,

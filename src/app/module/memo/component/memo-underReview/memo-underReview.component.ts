@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CommonDataService} from "../../../../shared-service/baseservice/common-dataService";
-import {CommonService} from "../../../../shared-service/baseservice/common-baseservice";
+import {MemoService} from "../../memo.service";
 import {CommonPageService} from "../../../../shared-service/baseservice/common-pagination-service";
 import {Pageable} from "../../../../shared-service/baseservice/common-pageable";
 declare var $;
@@ -23,13 +23,13 @@ export class MemoUnderReviewComponent implements OnInit {
 
   constructor(
       private dataService: CommonDataService,
-      private commonService: CommonService,
+      private memoService: MemoService,
       private commonPageService: CommonPageService
   ) { }
 
   ngOnInit() {
     this.dataService.changeTitle(this.title);
-    this.currentApi = 'v1/branch/get';
+    this.currentApi = 'v1/memos/all';
     this.getPagination();
   }
 
@@ -52,8 +52,8 @@ export class MemoUnderReviewComponent implements OnInit {
 
   getPagination() {
     this.spinner = true;
-    this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-          this.dataList = response.detail.content;
+    this.memoService.getAll(this.currentApi, 1, 20, null).subscribe((response: any) => {
+          this.dataList = response.detail;
           this.dataService.setDataList(this.dataList);
           this.commonPageService.setCurrentApi(this.currentApi);
           this.pageable = this.commonPageService.setPageable(response.detail);

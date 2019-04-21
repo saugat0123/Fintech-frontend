@@ -41,7 +41,6 @@
                             <div *ngIf="!dataList?.length > 0">
                                 <p>No Content Found</p>
                             </div>
-                            <!--              <span *ngIf="allList.status!=='DELETED'">-->
                             <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                             <td>{{allList.name}}</td>
                             <td>{{allList.status}}</td>
@@ -61,9 +60,9 @@
                     </table>
 
 
-                    <!--          <spinner *ngIf="spinner" class="d-flex justify-content-center"></spinner>-->
+                              <spinner *ngIf="spinner" class="d-flex justify-content-center"></spinner>
                     <!-- ===================table-pagination==================== -->
-                    <!--          <app-pagination *ngIf="!spinner"></app-pagination>-->
+                              <app-pagination *ngIf="!spinner"></app-pagination>
                     <!-- ===================table-pagination==================== -->
                     <!-- /.box-body -->
 

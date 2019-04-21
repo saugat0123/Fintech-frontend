@@ -30,7 +30,10 @@
               "node_modules/admin-lte/bower_components/jvectormap/jquery-jvectormap.css",
               "node_modules/admin-lte/dist/css/AdminLTE.min.css",
               "node_modules/admin-lte/dist/css/skins/_all-skins.min.css",
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.bubble.css",
+              "node_modules/quill/dist/quill.snow.css"
             
               
             ],

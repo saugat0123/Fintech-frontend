@@ -21,7 +21,7 @@ export class MemoTypeComponent implements OnInit {
     search = {};
     spinner: boolean = false;
     dataList: any;
-    currentApi: any;
+    currentApi: string;
     pageable: Pageable = new Pageable();
     globalMsg;
 
@@ -57,8 +57,8 @@ export class MemoTypeComponent implements OnInit {
         this.modalService.open(AddMemoTypeComponent);
     }
 
-    openEdit(memotype: MemoType) {
-        this.dataService.setMemoType(memotype);
+    openEdit(memoType: MemoType) {
+        this.dataService.setMemoType(memoType);
         this.modalService.open(AddMemoTypeComponent);
     }
 
@@ -69,7 +69,7 @@ export class MemoTypeComponent implements OnInit {
 
     getPagination() {
         this.spinner = true;
-        this.memoService.getAll(this.currentApi).subscribe((response: any) => {
+        this.memoService.getAll(this.currentApi, 1, 20, null).subscribe((response: any) => {
                 this.dataList = response.content;
                 this.dataService.setDataList(this.dataList);
                 this.commonPageService.setCurrentApi(this.currentApi);

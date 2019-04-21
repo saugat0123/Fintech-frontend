@@ -30,6 +30,7 @@ import { UserComponent } from './component/user/user.component';
 import { ApprovallimitComponent } from './component/approvallimit/approvallimit.component';
 import { AddApprovalLimitComponent } from './component/approvallimit/add-approval-limit/add-approval-limit.component';
 import { SharedModule } from './module/shared/shared.module';
+import {QuillModule} from "ngx-quill";
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { SharedModule } from './module/shared/shared.module';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    QuillModule
   ],
   providers: [CommonService, RestApiService, CommonDataService],
   bootstrap: [AppComponent]
