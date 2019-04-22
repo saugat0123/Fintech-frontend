@@ -1,5 +1,5 @@
-import {MemoType} from "./memoType";
-import {User} from "../../../modal/user";
+import {MemoType} from './memoType';
+import {User} from '../../../modal/user';
 
 export class Memo {
     id: number;

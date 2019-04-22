@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from "../../../../shared-service/baseservice/common-dataService";
-import {MemoService} from "../../memo.service";
-import {CommonPageService} from "../../../../shared-service/baseservice/common-pagination-service";
-import {Pageable} from "../../../../shared-service/baseservice/common-pageable";
-import {MemoType} from "../../model/memoType";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {AddMemoTypeComponent} from "./add-memo-type/add-memo-type.component";
-import {DeleteMemoTypeComponent} from "./delete-memo-type/delete-memo-type.component";
+import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
+import {MemoService} from '../../memo.service';
+import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
+import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
+import {MemoType} from '../../model/memoType';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddMemoTypeComponent} from './add-memo-type/add-memo-type.component';
+import {DeleteMemoTypeComponent} from './delete-memo-type/delete-memo-type.component';
 
 declare var $;
 
@@ -17,9 +17,9 @@ declare var $;
 })
 export class MemoTypeComponent implements OnInit {
 
-    title = "Memo Type";
+    title = 'Memo Type';
     search = {};
-    spinner: boolean = false;
+    spinner = false;
     dataList: any;
     currentApi: string;
     pageable: Pageable = new Pageable();
@@ -80,7 +80,7 @@ export class MemoTypeComponent implements OnInit {
             }, error => {
                 this.globalMsg = error.error.message;
                 if (this.globalMsg == null) {
-                    this.globalMsg = "Please check your network connection"
+                    this.globalMsg = 'Please check your network connection';
                 }
                 this.spinner = false;
                 this.dataService.getGlobalMsg(this.globalMsg);

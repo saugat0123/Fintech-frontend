@@ -1,8 +1,8 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {MemoService} from "../../../memo.service";
-import {CommonDataService} from "../../../../../shared-service/baseservice/common-dataService";
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import {Router} from '@angular/router';
+import {MemoService} from '../../../memo.service';
+import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 declare var $;
 
@@ -29,10 +29,10 @@ export class DeleteMemoTypeComponent implements OnInit, DoCheck {
 
     ngOnInit() {
         this.modalData = {
-            "name": "Memo Type"
+            'name': 'Memo Type'
         };
 
-        this.currentApi = "v1/memos/types";
+        this.currentApi = 'v1/memos/types';
     }
 
     ngDoCheck(): void {
@@ -45,11 +45,11 @@ export class DeleteMemoTypeComponent implements OnInit, DoCheck {
     deleteClick() {
         this.memoService.deleteById(this.currentApi, this.data.id).subscribe(result => {
 
-                this.globalMsg = "SUCCESSFULLY DELETED MEMO TYPE";
+                this.globalMsg = 'SUCCESSFULLY DELETED MEMO TYPE';
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('true');
 
-                $(".alert-custom").slideDown();
+                $('.alert-custom').slideDown();
 
                 this.reloadPage();
 
@@ -57,7 +57,7 @@ export class DeleteMemoTypeComponent implements OnInit, DoCheck {
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('false');
-                $(".alert-custom").slideDown();
+                $('.alert-custom').slideDown();
 
             }
         );
