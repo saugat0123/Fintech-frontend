@@ -26,12 +26,16 @@ export class CompanyComponent implements OnInit, DoCheck {
     activeCount: number;
     inactiveCount: number;
     companys: number;
+    permissions = [];
+    viewCompany = false;
+    addViewCompany = false;
+    statusCompany = false;
 
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService : NgbModal
+        private modalService: NgbModal
     ) {
     }
 
@@ -45,6 +49,22 @@ export class CompanyComponent implements OnInit, DoCheck {
             this.inactiveCount = response.detail.inactive;
             this.companys = response.detail.companys;
 
+        });
+
+        this.commonService.getByPost('v1/permission/chkPerm', 'COMPANY').subscribe((response: any) => {
+            this.permissions = response.detail;
+            for (let i = 0; this.permissions.length > i; i++) {
+                if (this.permissions[i].type === 'ADD COMPANY') {
+                    this.addViewCompany = true;
+                }
+                if (this.permissions[i].type === 'VIEW COMPANY') {
+                    this.getPagination();
+                    this.viewCompany = true;
+                }
+                if (this.permissions[i].type === 'VIEW STATUS') {
+                    this.statusCompany = true;
+                }
+            }
         });
     }
 

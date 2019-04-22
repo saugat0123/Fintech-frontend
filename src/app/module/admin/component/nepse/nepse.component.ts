@@ -27,6 +27,9 @@ export class NepseComponent implements OnInit, DoCheck {
     activeCount: number;
     inactiveCount: number;
     nepses: number;
+    permissions = [];
+    viewNepse = false;
+    addViewNepse = false;
 
     constructor(
         private dataService: CommonDataService,
@@ -46,6 +49,18 @@ export class NepseComponent implements OnInit, DoCheck {
             this.inactiveCount = response.detail.inactive;
             this.nepses = response.detail.nepses;
 
+        });
+        this.commonService.getByPost('v1/permission/chkPerm', 'Nepse Company').subscribe((response: any) => {
+            this.permissions = response.detail;
+            for (let i = 0; this.permissions.length > i; i++) {
+                if (this.permissions[i].type === 'ADD NEPSE') {
+                    this.addViewNepse = true;
+                }
+                if (this.permissions[i].type === 'VIEW NEPSE') {
+                    this.getPagination();
+                    this.viewNepse = true;
+                }
+            }
         });
     }
 

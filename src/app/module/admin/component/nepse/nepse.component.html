@@ -61,14 +61,14 @@
                     </form>
                 </div>
                 <!-- <h3 class="box-title">Hover Data Table</h3> -->
-                <div class="col-md-9">
+                <div class="col-md-9" *ngIf="addViewNepse">
                     <button class="skin-blue pull-right" data-toggle="modal" (click)="addNepse()">
                         <i class="skin-blue fa fa-plus"></i>
                     </button>
                 </div>
             </div>
         </div>
-        <table id="add-branch-table" class="table table-striped table-bordered table-hover ">
+        <table id="add-branch-table" class="table table-striped table-bordered table-hover " *ngIf="viewNepse">
 
             <thead>
             <tr>

@@ -29,7 +29,11 @@ export class ValuatorComponent implements OnInit, DoCheck {
     activeCount: number;
     inactiveCount: number;
     valuators: number;
-
+    permissions = [];
+    addViewValuator = false;
+    viewValuator = false;
+    editValuator = false;
+    csvDownload = false;
 
     constructor(private dataService: CommonDataService,
                 private commonService: CommonService,
@@ -47,6 +51,24 @@ export class ValuatorComponent implements OnInit, DoCheck {
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.valuators = response.detail.valuators;
+        });
+        this.commonService.getByPost('v1/permission/chkPerm', 'VALUATOR').subscribe((response: any) => {
+            this.permissions = response.detail;
+            for (let i = 0; this.permissions.length > i; i++) {
+                if (this.permissions[i].type === 'ADD VALUATOR') {
+                    this.addViewValuator = true;
+                }
+                if (this.permissions[i].type === 'VIEW VALUATOR') {
+                    this.viewValuator = true;
+                }
+                if (this.permissions[i].type === 'EDIT VALUATOR') {
+                    this.editValuator = true;
+                }
+                if (this.permissions[i].type === 'DOWNLOAD CSV') {
+                    this.getPagination();
+                    this.csvDownload = true;
+                }
+            }
         });
     }
 

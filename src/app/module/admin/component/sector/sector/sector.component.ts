@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {Pageable} from '../../../../../shared-service/baseservice/common-pageable';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
@@ -15,7 +15,7 @@ import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.compo
     templateUrl: './sector.component.html',
     styleUrls: ['./sector.component.css']
 })
-export class SectorComponent implements OnInit {
+export class SectorComponent implements OnInit, DoCheck {
 
     title = 'Sector';
     breadcrumb = 'Sector > List';
@@ -29,7 +29,11 @@ export class SectorComponent implements OnInit {
     activeCount: number;
     inactiveCount: number;
     sectors: number;
-
+    permissions = [];
+    addViewSector = false;
+    viewSector = false;
+    editSector = false;
+    csvDownload = false;
 
     constructor(private dataService: CommonDataService,
                 private commonService: CommonService,
@@ -47,6 +51,24 @@ export class SectorComponent implements OnInit {
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.sectors = response.detail.sectors;
+        });
+        this.commonService.getByPost('v1/permission/chkPerm', 'SECTOR').subscribe((response: any) => {
+            this.permissions = response.detail;
+            for (let i = 0; this.permissions.length > i; i++) {
+                if (this.permissions[i].type === 'ADD SECTOR') {
+                    this.addViewSector = true;
+                }
+                if (this.permissions[i].type === 'VIEW SECTOR') {
+                    this.viewSector = true;
+                }
+                if (this.permissions[i].type === 'EDIT SECTOR') {
+                    this.editSector = true;
+                }
+                if (this.permissions[i].type === 'DOWNLOAD CSV') {
+                    this.getPagination();
+                    this.csvDownload = true;
+                }
+            }
         });
     }
 
@@ -72,14 +94,16 @@ export class SectorComponent implements OnInit {
         );
     }
 
-    addSector(){
+    addSector() {
         this.dataService.setSector(new Sector());
         this.modalService.open(AddSectorComponent);
     }
 
 
     onChange(newValue, data) {
-        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
         event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
@@ -87,12 +111,11 @@ export class SectorComponent implements OnInit {
         this.modalService.open(UpdateModalComponent);
     }
 
-    openEdit(sector: Sector){
+    openEdit(sector: Sector) {
         this.dataService.setSector(sector);
         this.modalService.open(AddSectorComponent);
 
     }
-
 
     onSearchChange(searchValue: string) {
         this.search = {
