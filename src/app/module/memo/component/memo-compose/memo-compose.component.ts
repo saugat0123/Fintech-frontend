@@ -18,7 +18,7 @@ export class MemoComposeComponent implements OnInit {
 
     title = "Memo - Compose";
     memoTypes$: Observable<MemoType[]>;
-    users: Observable<User[]>;
+    users$: Observable<User[]>;
     memo: Memo = new Memo();
     ccUsers: Array<User>;
     bccUsers: Array<User>;

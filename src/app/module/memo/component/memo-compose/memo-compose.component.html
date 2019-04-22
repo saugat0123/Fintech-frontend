@@ -26,28 +26,37 @@
             </ng-select>
         </div>
         <div class="form-group">
-            <select class="form-control" formControlName="sentTo">
-                <option [ngValue]="undefined" hidden>Sending To:</option>
-                <option *ngFor="let user of users">{{user.name}}</option>
-            </select>
+            <ng-select
+                    [closeOnSelect]="false"
+                    [hideSelected]="true"
+                    [items]="users$"
+                    [multiple]="false"
+                    bindLabel="name"
+                    formControlName="sentTo"
+                    placeholder="Sending To:">
+            </ng-select>
         </div>
         <div class="form-group">
-            <select class="form-control" formControlName="cc">
-                <option [ngValue]="undefined" hidden>CC:</option>
-                <option *ngFor="let user of users" [ngValue]="user">{{user.name}}</option>
-                <option>User1</option>
-                <option>User2</option>
-                <option>User3</option>
-            </select>
+            <ng-select
+                    [closeOnSelect]="false"
+                    [hideSelected]="true"
+                    [items]="users$"
+                    [multiple]="true"
+                    bindLabel="name"
+                    formControlName="cc"
+                    placeholder="CC:">
+            </ng-select>
         </div>
         <div class="form-group">
-            <select class="form-control" formControlName="bcc">
-                <option [ngValue]="undefined" hidden>BCC:</option>
-                <option *ngFor="let user of users">{{user.name}}</option>
-                <option>User1</option>
-                <option>User2</option>
-                <option>User3</option>
-            </select>
+            <ng-select
+                    [closeOnSelect]="false"
+                    [hideSelected]="true"
+                    [items]="users$"
+                    [multiple]="true"
+                    bindLabel="name"
+                    formControlName="bcc"
+                    placeholder="BCC:">
+            </ng-select>
         </div>
         <div class="form-group">
             <quill-editor formControlName="content" placeholder="Insert memo content..."></quill-editor>
