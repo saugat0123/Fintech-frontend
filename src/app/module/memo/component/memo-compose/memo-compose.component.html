@@ -2,8 +2,8 @@
     <h3 class="box-title">Compose New Memo</h3>
 </div>
 <!-- /.box-header -->
-<div class="box-body">
-    <form (ngSubmit)="onSubmit()" [formGroup]="memoComposeForm">
+<form (ngSubmit)="onSubmit()" [formGroup]="memoComposeForm">
+    <div class="box-body">
         <div class="form-group">
             <input class="form-control" formControlName="subject" placeholder="Subject:">
         </div>
@@ -11,18 +11,25 @@
             <input class="form-control" formControlName="referenceNo" placeholder="Reference No:">
         </div>
         <div class="form-group">
-            <!--            <select class="form-control" formControlName="memoType">-->
-            <!--                <option [ngValue]="undefined" hidden>Select Memo Type</option>-->
-            <!--                <option *ngFor="let memoType of memoTypes$">{{memoType.name}}</option>-->
-            <!--            </select>-->
             <ng-select
-                [closeOnSelect]="false"
-                [hideSelected]="true"
-                [items]="memoTypes$"
-                [multiple]="true"
-                bindLabel="name"
-                formControlName="memoType"
-                placeholder="Select Memo Type">
+                    [closeOnSelect]="false"
+                    [hideSelected]="true"
+                    [items]="memoTypes$"
+                    [multiple]="false"
+                    bindLabel="name"
+                    formControlName="memoType"
+                    placeholder="Select Memo Type">
+            </ng-select>
+        </div>
+        <div class="form-group">
+            <ng-select
+                    [closeOnSelect]="false"
+                    [hideSelected]="true"
+                    [items]="users$"
+                    [multiple]="false"
+                    bindLabel="name"
+                    formControlName="sentBy"
+                    placeholder="Sending By:">
             </ng-select>
         </div>
         <div class="form-group">
@@ -68,14 +75,15 @@
             </div>
             <p class="help-block">Max. 32MB</p>
         </div>
-    </form>
-</div>
-<!-- /.box-body -->
-<div class="box-footer">
-    <div class="pull-right">
-        <button class="btn btn-default" type="button"><i class="fa fa-pencil"></i> Draft</button>
-        <button class="btn btn-primary" type="submit"><i class="fa fa-envelope-o"></i> Send</button>
+
     </div>
-    <button class="btn btn-default" type="reset"><i class="fa fa-times"></i> Discard</button>
-</div>
-<!-- /.box-footer -->
+    <!-- /.box-body -->
+    <div class="box-footer">
+        <div class="pull-right">
+            <button class="btn btn-default" type="button"><i class="fa fa-pencil"></i> Draft</button>
+            <button class="btn btn-primary" type="submit"><i class="fa fa-envelope-o"></i> Send</button>
+        </div>
+        <button class="btn btn-default" type="reset"><i class="fa fa-times"></i> Discard</button>
+    </div>
+    <!-- /.box-footer -->
+</form>
