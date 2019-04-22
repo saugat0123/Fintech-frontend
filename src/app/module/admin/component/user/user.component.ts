@@ -4,8 +4,10 @@ import {CommonDataService} from '../../../../shared-service/baseservice/common-d
 import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
-
-declare var $;
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddUserComponent} from './add-user/add-user.component';
+import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
+import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
 
 @Component({
     selector: 'app-user',
@@ -33,12 +35,12 @@ export class UserComponent implements OnInit, DoCheck {
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService
+        private commonPageService: CommonPageService,
+        private modalService: NgbModal
     ) {
     }
 
     ngOnInit() {
-
         this.dataService.changeTitle(this.title);
         this.currentApi = 'v1/user/get';
         this.getPagination();
@@ -76,12 +78,12 @@ export class UserComponent implements OnInit, DoCheck {
 
     openEdit(user: User) {
         this.dataService.setUser(user);
-        $('.add-user').modal('show');
+        this.modalService.open(AddUserComponent);
     }
 
     addUser() {
         this.dataService.setUser(new User());
-        $('.add-user').modal('show');
+        this.modalService.open(AddUserComponent);
     }
 
 
@@ -102,16 +104,18 @@ export class UserComponent implements OnInit, DoCheck {
             }
             this.spinner = false;
             this.dataService.getGlobalMsg(this.globalMsg);
-            $('.global-msgModal').modal('show');
+            this.modalService.open(MsgModalComponent);
         });
 
     }
 
     onChange(newValue, data) {
+        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/user');
-        $('.updateStatus').modal('show');
+        this.modalService.open(UpdateModalComponent);
 
     }
 

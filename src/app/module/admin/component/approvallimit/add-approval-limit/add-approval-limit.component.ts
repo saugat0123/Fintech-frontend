@@ -8,7 +8,6 @@ import {LoanConfig} from '../../../modal/loan-config';
 import {ApprovalLimit} from '../../../modal/approval-limit';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-add-approval-limit',
@@ -42,14 +41,16 @@ export class AddApprovalLimitComponent implements OnInit, DoCheck {
         });
 
         this.commonService.getByAll('v1/config/getAll').subscribe((response: any) => {
+
             this.loanList = response.detail;
         });
-     ;
+
     }
 
 
     ngDoCheck(): void {
         this.approvalLimit = this.dataService.getApprovalLimit();
+
         if (this.approvalLimit.id == null) {
             this.task = 'Add';
         } else {
@@ -82,7 +83,6 @@ export class AddApprovalLimitComponent implements OnInit, DoCheck {
                 this.approvalLimit = new ApprovalLimit();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/approvalLimit']));
-                this.dataService.alertmsg();
 
 
             }, error => {
@@ -94,10 +94,13 @@ export class AddApprovalLimitComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/approvalLimit']));
-                this.dataService.alertmsg();
 
             }
         );
+    }
+
+    onClose() {
+        this.activeModal.dismiss(AddApprovalLimitComponent);
     }
 
 }

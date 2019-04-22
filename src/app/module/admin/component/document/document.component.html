@@ -137,7 +137,9 @@
         </div>
     </div>
 </div>
-<div *ngFor="let loanCycle of loanCycleList">
-    {{loanCycle.name}}
-    <app-update-document [cycle]="loanCycle"></app-update-document>
+<div class="row">
+    <div class="col-6" *ngFor="let loanCycle of loanCycleList">
+        {{loanCycle.name}}
+        <app-update-document [cycle]="loanCycle"></app-update-document>
+    </div>
 </div>

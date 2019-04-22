@@ -4,8 +4,10 @@ import {Document} from './document';
 export class LoanConfig {
     id: number;
     name: string;
+    isFundable: boolean;
     templateList: Array<LoanTemplate>;
     status: string;
+    isRenewable: boolean;
     loanConfigCode: string;
     initial: Array<Document>;
     renew: Array<Document>;

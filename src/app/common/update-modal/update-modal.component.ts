@@ -3,8 +3,7 @@ import {CommonService} from '../../shared-service/baseservice/common-baseservice
 import {Router} from '@angular/router';
 import {CommonDataService} from '../../shared-service/baseservice/common-dataService';
 import {CommonPageService} from '../../shared-service/baseservice/common-pagination-service';
-
-declare var $;
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-update-modal',
@@ -20,7 +19,9 @@ export class UpdateModalComponent implements OnInit, DoCheck {
     constructor(private commonService: CommonService,
                 private router: Router,
                 private commonPageService: CommonPageService,
-                private dataService: CommonDataService) {
+                private dataService: CommonDataService,
+                private modalService: NgbModal
+    ) {
     }
 
     ngOnInit() {
@@ -46,19 +47,19 @@ export class UpdateModalComponent implements OnInit, DoCheck {
                 this.router.navigate([this.currentUrl]);
 
             }
+            this.modalService.dismissAll(UpdateModalComponent);
             this.dataService.clearData();
-            
         });
     }
 
     updateStatus(data: any) {
 
         this.commonService.saveOrEdit(this.data, this.currentApi).subscribe(result => {
+            this.modalService.dismissAll(UpdateModalComponent);
             this.dataService.clearData();
                 this.globalMsg = 'SUCCESSFULLY UPDATED STATUS';
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('true');
-                this.dataService.alertmsg();
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(e => {
                     if (e) {
@@ -69,11 +70,11 @@ export class UpdateModalComponent implements OnInit, DoCheck {
 
 
             }, error => {
+            this.modalService.dismissAll(UpdateModalComponent);
                 this.dataService.clearData();
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('false');
-                this.dataService.alertmsg();
 
             }
         );

@@ -1,84 +1,84 @@
 <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" style="display:block">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                        (click)="activeModal.dismiss()">
-                    <span aria-hidden="true">×</span></button>
+    <div class="modal-content">
+        <div class="modal-header" style="display:block">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="onClose()">
+                <span aria-hidden="true">×</span></button>
                 <h4 class="modal-title pull-left">{{task}} Approval Limit</h4>
-            </div>
-            <div class="modal-body">
+        </div>
+        <div class="modal-body">
 
-                <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+            <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
 
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="loan_Category">Loan Category</label>
-                                <input type="hidden" class="form-control" [(ngModel)]="approvalLimit.id"
-                                       name="id" placeholder="id">
-                                <select [(ngModel)]="loanCategory.id" name="loanCategory" class="form-control" required
-                                        #Category="ngModel"
-                                        [ngClass]="{ 'is-invalid': f.submitted && Category.invalid }">
-                                    <option [ngValue]="undefined" hidden>Loan Category</option>
-                                    <option *ngFor="let allList of loanList"
-                                            [selected]="allList.id === approvalLimit?.loanCategory?.id"
-                                            [ngValue]="allList.id">
-                                        {{allList.name}}
-                                    </option>
-                                </select>
-                                <div *ngIf="f.submitted && Category.invalid" class="invalid-feedback">
-                                    <div *ngIf="Category.errors.required">Category is required</div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="amount">Amount</label>
-                                <input type="text" class="form-control" placeholder="amount" required
-                                       [(ngModel)]="approvalLimit.amount" name="amount" #approvalAmount="ngModel"
-                                       [ngClass]="{ 'is-invalid': f.submitted && approvalAmount.invalid }" required/>
-                                <div *ngIf="f.submitted && approvalAmount.invalid" class="invalid-feedback">
-                                    <div *ngIf="approvalAmount.errors.required"> Approval Amount is required</div>
-                                </div>
-
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="loan_Category">Loan Category</label>
+                            <input type="hidden" class="form-control" [(ngModel)]="approvalLimit.id"
+                                   name="id" placeholder="id">
+                            <select [(ngModel)]="loanCategory.id" name="loanCategory" class="form-control" required
+                                    #Category="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && Category.invalid }">
+                                <option [ngValue]="undefined" hidden>Loan Category</option>
+                                <option *ngFor="let allList of loanList"
+                                        [selected]="allList.id === approvalLimit?.loanCategory?.id"
+                                        [ngValue]="allList.id">
+                                    {{allList.name}}
+                                </option>
+                            </select>
+                            <div *ngIf="f.submitted && Category.invalid" class="invalid-feedback">
+                                <div *ngIf="Category.errors.required">Category is required</div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="authorities">Authorities</label>
-
-                                <select class="form-control" [(ngModel)]="authorities.id" name="authorities" required
-                                        #authority="ngModel"
-                                        [ngClass]="{ 'is-invalid': f.submitted && authority.invalid }">
-                                    <option [ngValue]="undefined" hidden>Authorities</option>
-                                    <option *ngFor="let role of roleList"
-                                            [selected]="role.id === approvalLimit?.authorities?.id" [ngValue]="role.id">
-                                        {{role.roleName}}</option>
-                                </select>
-                                <div *ngIf="f.submitted && authority.invalid" class="invalid-feedback">
-                                    <div *ngIf="authority.errors.required">Category is required</div>
-                                </div>
+                        <div class="col-md-6">
+                            <label for="amount">Amount</label>
+                            <input type="text" class="form-control" placeholder="amount" required
+                                   [(ngModel)]="approvalLimit.amount" name="amount" #approvalAmount="ngModel"
+                                   [ngClass]="{ 'is-invalid': f.submitted && approvalAmount.invalid }" required/>
+                            <div *ngIf="f.submitted && approvalAmount.invalid" class="invalid-feedback">
+                                <div *ngIf="approvalAmount.errors.required"> Approval Amount is required</div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="loanApprovalType">Approval Type</label>
-                                <select class="form-control" [(ngModel)]="approvalLimit.loanApprovalType"
-                                        name="loanApprovalType"
-                                        #type="ngModel" [ngClass]="{ 'is-invalid': f.submitted && type.invalid }">
-                                    <option [ngValue]="undefined" hidden>Approval Type</option>
-                                    <option value="PERSONAL_TYPE">PERSONAL</option>
-                                    <option value="BUSINESS_TYPE">BUSINESS</option>
-                                    <option value="BOTH_TYPE">BOTH</option>
 
-                                </select>
-                                <div *ngIf="f.submitted && type.invalid" class="invalid-feedback">
-                                    <div *ngIf="type.errors.required">Type is required</div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="authorities">Authorities</label>
+
+                            <select class="form-control" [(ngModel)]="authorities.id" name="authorities" required
+                                    #authority="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && authority.invalid }">
+                                <option [ngValue]="undefined" hidden>Authorities</option>
+                                <option *ngFor="let role of roleList"
+                                        [selected]="role.id === approvalLimit?.authorities?.id" [ngValue]="role.id">
+                                    {{role.roleName}}</option>
+                            </select>
+                            <div *ngIf="f.submitted && authority.invalid" class="invalid-feedback">
+                                <div *ngIf="authority.errors.required">Category is required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="loanApprovalType">Approval Type</label>
+                            <select class="form-control" [(ngModel)]="approvalLimit.loanApprovalType"
+                                    name="loanApprovalType"
+                                    #type="ngModel" [ngClass]="{ 'is-invalid': f.submitted && type.invalid }">
+                                <option [ngValue]="undefined" hidden>Approval Type</option>
+                                <option value="PERSONAL_TYPE">PERSONAL</option>
+                                <option value="BUSINESS_TYPE">BUSINESS</option>
+                                <option value="BOTH_TYPE">BOTH</option>
+
+                            </select>
+                            <div *ngIf="f.submitted && type.invalid" class="invalid-feedback">
+                                <div *ngIf="type.errors.required">Type is required</div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                </div>
+            </form>
+        </div>
 
         </div>
         <!-- /.modal-content -->

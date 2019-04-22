@@ -4,14 +4,11 @@ import {Router} from '@angular/router';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {Branch} from '../../../modal/branch';
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CommonLocation} from '../../../../../shared-service/baseservice/common-location';
 import {Province} from '../../../modal/province';
 import {District} from '../../../modal/district';
 import {MunicipalityVdc} from '../../../modal/municipality_VDC';
-import {computeStyle} from '@angular/animations/browser/src/util';
-
-declare var $;
 
 @Component({
     selector: 'app-add-model',
@@ -24,11 +21,12 @@ export class AddModelComponent implements OnInit, DoCheck {
     spinner = false;
     globalMsg: string;
     branch: Branch = new Branch();
-    provinces:Province[];
-    districts:District[];
-    municipalities:MunicipalityVdc[];
-    district:District=new District();
-    province:Province=new Province();
+    provinces: Province[];
+    districts: District[];
+    municipalities: MunicipalityVdc[];
+    district: District = new District();
+    province: Province = new Province();
+    municipality: MunicipalityVdc = new MunicipalityVdc();
 
     constructor(
         private commonService: CommonService,
@@ -36,58 +34,83 @@ export class AddModelComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private activeModal: NgbActiveModal,
         private modalService: NgbModal,
-        private location:CommonLocation
+        private location: CommonLocation
     ) {
     }
 
     ngOnInit() {
-        this.location.getProvince().subscribe((response: any) => {
+            this.location.getProvince().subscribe((response: any) => {
             this.provinces = response.detail;
-            this.getDistricts();
+                this.province = this.branch.province;
+                if(this.province !== undefined){
+                    this.getSelectedProvinceDistrict();
+                }
+                this.district=this.branch.district;
+                if(this.district!== undefined){
+                    this.getSelectedDistrictMunicipality();
+                }
         });
+    }
+
+    getSelectedProvinceDistrict(){
+        this.location.getDistrictByProvince(this.branch.province).subscribe(
+            (response:any)=> {
+                this.districts=response.detail;
+            }
+        )
+    }
+    getSelectedDistrictMunicipality(){
+        this.location.getMunicipalityVDCByDistrict(this.branch.district).subscribe(
+            (response:any) => {
+                this.municipalities=response.detail;
+            }
+        );
+    }
+
+    getMunicipalities() {
+        this.branch.district = this.district;
+        this.location.getMunicipalityVDCByDistrict(this.district).subscribe(
+            (response: any) => {
+                this.municipalities = response.detail;
+            }
+        );
 
     }
 
-    getDistricts(){
-           for(let province of this.provinces){
-               this.location.getDistrictByProvince(province).subscribe(
-                   (response:any)=>{
-                        this.districts=response.detail;
-                       this.getMunicipalities();
-                   }
-               );
-           }
-    }
-    getMunicipalities(){
-        for(let district of this.districts){
-           this.location.getMunicipalityVDCByDistrict(district).subscribe(
-               (response:any)=>{
-                   this.municipalities=response.detail;
-               }
-           )
-        }
+
+    getDistricts(provinceId:number) {
+        this.branch.province = this.province;
+        this.province.id=provinceId;
+        this.location.getDistrictByProvince(this.province).subscribe(
+            (response: any) => {
+                this.districts = response.detail;
+            }
+        );
+        this.municipalities = new Array();
+        console.log(this.province);
     }
 
     ngDoCheck(): void {
         this.branch = this.dataService.getBranch();
-        console.log(this.dataService.getBranch());
         if (this.branch.id == null) {
             this.task = 'Add';
+            this.province = new Province();
+            this.district = new District();
+            this.municipality = new MunicipalityVdc();
         } else {
             this.task = 'Edit';
-            this.district=this.branch.district;
-            this.province=this.branch.district.province;
+            this.district = this.branch.district;
+            this.province = this.branch.province;
+            this.municipality=this.branch.municipalityVdc;
+
         }
-
-
 
     }
 
     onSubmit() {
         this.submitted = true;
-        this.branch.district=this.district;
         this.commonService.saveOrEdit(this.branch, 'v1/branch').subscribe(result => {
-            this.modalService.dismissAll(AddModelComponent);
+                this.modalService.dismissAll(AddModelComponent);
                 if (this.branch.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED BRANCH';
                 } else {
@@ -98,16 +121,24 @@ export class AddModelComponent implements OnInit, DoCheck {
                 this.branch = new Branch();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/branch']));
-                this.dataService.alertmsg();
+
             }, error => {
-            this.modalService.dismissAll(AddModelComponent);
+                this.modalService.dismissAll(AddModelComponent);
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('false');
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/branch']));
-                this.dataService.alertmsg();
             }
         );
     }
+
+    onClose() {
+        this.activeModal.dismiss(AddModelComponent);
+    }
+       getMunicipality(){
+        this.branch.municipalityVdc = this.municipality;
+    }
+
+
 }

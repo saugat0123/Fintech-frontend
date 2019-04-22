@@ -1,5 +1,6 @@
 import {District} from './district';
 import {Province} from './province';
+import {MunicipalityVdc} from './municipality_VDC';
 
 
 export class Branch {
@@ -9,8 +10,10 @@ export class Branch {
     address: string;
     created: string;
     lastModified: string;
-    district:District=new District();
-    province:Province=new Province();
+    district:District;
+    province:Province;
     streetName: string;
     wardNumber: string;
+    municipalityVdc:MunicipalityVdc;
+
 }

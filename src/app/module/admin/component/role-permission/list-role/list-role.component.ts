@@ -3,8 +3,9 @@ import {CommonDataService} from '../../../../../shared-service/baseservice/commo
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
 import {Role} from '../../../modal/role';
+import {UpdateModalComponent} from '../../../../../common/update-modal/update-modal.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-list-role',
@@ -13,18 +14,19 @@ declare var $;
 })
 export class ListRoleComponent implements OnInit {
     title = 'Role';
-    activeCount: number;
-    inactiveCount: number;
-    roleCount: number;
-    currentApi: string;
-    roleList: Array<Role>;
-    globalMsg: string;
+    activeCount: any;
+    inactiveCount: any;
+    roleCount: any;
+    currentApi: any;
+    roleList: any;
+    globalMsg: any;
 
 
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService
+        private commonPageService: CommonPageService,
+        private modalService: NgbModal
     ) {
     }
 
@@ -40,15 +42,16 @@ export class ListRoleComponent implements OnInit {
 
         this.commonService.getByAll(this.currentApi).subscribe((response: any) => {
             this.roleList = response.detail;
-            console.log(response.detail);
+            console.log(response);
         });
     }
 
     onChange(newValue, data) {
-
+        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        event.preventDefault();
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi(this.currentApi);
-        $('.updateStatus').modal('show');
+        this.modalService.open(UpdateModalComponent);
 
     }
 

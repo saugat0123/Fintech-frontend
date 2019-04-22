@@ -4,8 +4,8 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {Company} from '../../../modal/company';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-add-company',
@@ -23,7 +23,9 @@ export class AddCompanyComponent implements OnInit, DoCheck {
     constructor(
         private commonService: CommonService,
         private router: Router,
-        private dataService: CommonDataService
+        private dataService: CommonDataService,
+        private activeModal: NgbActiveModal,
+        private modalService: NgbModal
     ) {
     }
 
@@ -43,7 +45,7 @@ export class AddCompanyComponent implements OnInit, DoCheck {
     onSubmit() {
         this.submitted = true;
         this.commonService.saveOrEdit(this.company, 'v1/company').subscribe(result => {
-                $('.add-company').modal('hide');
+            this.modalService.dismissAll(AddCompanyComponent);
                 if (this.company.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED COMPANY';
                 } else {
@@ -55,12 +57,11 @@ export class AddCompanyComponent implements OnInit, DoCheck {
                 this.company = new Company();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/company']));
-                this.dataService.alertmsg();
 
 
             }, error => {
 
-                $('.add-company').modal('hide');
+            this.modalService.dismissAll(AddCompanyComponent);
 
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
@@ -68,10 +69,12 @@ export class AddCompanyComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/company']));
-                this.dataService.alertmsg();
 
             }
         );
+    }
+    onClose() {
+        this.activeModal.dismiss(AddCompanyComponent);
     }
 
 }

@@ -5,10 +5,11 @@ import {CommonService} from '../../../../shared-service/baseservice/common-bases
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Document} from '../../modal/document';
 import {LoanCycle} from '../../modal/loan-cycle';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {AddDocumentComponent} from "./add-document/add-document.component";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddDocumentComponent} from './add-document/add-document.component';
+import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
+import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
 
-declare var $;
 
 @Component({
     selector: 'app-document',
@@ -36,7 +37,7 @@ export class DocumentComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService:NgbModal
+        private modalService: NgbModal
     ) {
     }
 
@@ -92,10 +93,12 @@ export class DocumentComponent implements OnInit, DoCheck {
 
 
     onChange(newValue, data) {
+        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/document');
-        $('.updateStatus').modal('show');
+        this.modalService.open(UpdateModalComponent);
 
     }
 
@@ -116,7 +119,7 @@ export class DocumentComponent implements OnInit, DoCheck {
             }
             this.spinner = false;
             this.dataService.getGlobalMsg(this.globalMsg);
-            $('.global-msgModal').modal('show');
+            this.modalService.open(MsgModalComponent);
         });
 
     }

@@ -3,103 +3,137 @@
         <h3 class="box-title">Loan Configuration</h3>
     </div>
     <!-- /.box-header -->
-    <div class="box-body">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label><b>Loan Schema</b></label>
-                    <input type="text" class="form-control" placeholder="Loan Schema">
-                </div>
-            </div>
-            <div class="col-md-6 row">
-                <div class="col-md-12 form-group">
-                    <label><b>Loan Type</b></label>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input type="checkbox" value="1"><span>Fundable</span>
-                        </div>
-                        <div class="col-md-6">
-                            <input type="checkbox" value="2"><span>Non-Fundable</span>
-                        </div>
+    <form (ngSubmit)="onSubmit()">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label><b>Loan Schema</b></label>
+                        <input type="hidden" class="form-control" required [(ngModel)]="loanConfig.id" name="id"
+                               placeholder="id">
+                        <input type="text" class="form-control" name="name" required placeholder="Loan Schema"
+                               [(ngModel)]="loanConfig.name">
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- /.form-group -->
-        <p><b>Assessment</b></p>
-        <div class="row">
-            <div class="col-md-5">
-                <div class="form-group">
-                    <div class="box box-default" style="height: 300px">
-                        <div class="box-body">
-                            <div class="col-sm-offset-2 col-sm-10" *ngFor="let document of documentList">
-                                <div class="btn btn-block btn-xs btn-primary"
-                                     (dblclick)="updateSelectDocument(document)">
-                                    <span>{{document.name}}</span>
-                                </div>
-                                <br/>
+                <div class="col-md-6 row">
+                    <div class="col-md-12 form-group">
+                        <label><b>Loan Type</b></label>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="radio" (click)="setFunableTrue()" name="fundable"><span>Fundable</span>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="radio" (click)="setFunableFalse()"
+                                       name="fundable"><span>Non-Fundable</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2">
-                <span class="glyphicon glyphicon-arrow-right"></span>
-                <span class="glyphicon-class">glyphicon glyphicon-arrow-right</span>
-            </div>
-            <div class="col-md-5">
-                <div class="form-group">
-                    <div class="box box-default" style="height: 300px">
-                        <div class="box-body">
+            <!-- /.form-group -->
+            <p><b>Assessment</b></p>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <div class="box box-default" style="height: 300px">
                             <div class="box-body">
-                                <div class="col-sm-offset-2 col-sm-10"
-                                     *ngFor="let confirmdocument of comfirmDocumentList">
-                                    <div class="btn btn-block btn-xs btn-success"
-                                         (dblclick)="updateUnselectDocument(confirmdocument)">
-                                        <span>{{confirmdocument.name}}</span>
+                                <div class="col-sm-offset-2 col-sm-10" *ngFor="let loanTemplate of loanTemplateList">
+                                    <div class=""
+                                         (dblclick)="updateSelectTemplate(loanTemplate)">
+                                        <span>{{loanTemplate.name}}</span>
                                     </div>
                                     <br/>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 my-auto">
+                    <div class="text-center">
+                        <i class="fas fa-arrow-right fa-3x"></i>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <div class="box box-default" style="height: 300px">
+                            <div class="box-body">
+                                <div class="box-body">
+                                    <div class="col-sm-offset-2 col-sm-10"
+                                         *ngFor="let comfirmLoanTemplate of comfirmLoanTemplateList">
+                                        <div class=""
+                                             (dblclick)="updateUnselectTemplate(comfirmLoanTemplate)">
+                                            <span>{{comfirmLoanTemplate.name}}</span>
+                                        </div>
+                                        <br/>
+                                    </div>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <label><b>Renewable</b></label><br>
-                <div class="row">
-                    <div class="col-md-4">
-                        <input type="radio" name="renewable" value="1">Renewable<br>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="radio" name="renewable" value="2">Non-Renewable<br>
+            <div class="row">
+                <div class="col-md-12">
+                    <label><b>Renewable</b></label><br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="radio" name="renewable" (click)="setRenewalTrue()">Renewable<br>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="radio" name="renewable" (click)="setRenewalFalse()">Non-Renewable<br>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-6">
-                <label><b>Docuemnt</b>
-                </label>
+            <br>
+            <span><b>Documents</b></span>
+            <div class="row">
+                <div class="box box-primary col-md-6">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"> Initial <span class="badge badge-info"></span></h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-4" *ngFor="let document of documentList">
+                                <input class="big-checkbox" type="checkbox"
+                                       (change)="updateInitialDocument($event,document)"
+                                       value="{{document}}"/>
+                                <span>{{document.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="box box-primary col-md-6">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"> Renew <span class="badge badge-info"></span></h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-4" *ngFor="let document of documentList">
+                                <input class="big-checkbox" type="checkbox"
+                                       (change)="updateRenewalDocument($event,document)"
+                                       value="{{document}}"/>
+                                <span>{{document.name}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
             </div>
+
+            <!-- /.col -->
+
+            <!-- /.row -->
+
+            <!-- /.box-body -->
         </div>
-        <div class="row">
-            <!--<div class="col-md-4" *ngFor="let name of names">
-              <input type="checkbox">{{name}}
-            </div>-->
-
-
+        <div class="box-footer text-right">
+            <button type="submit" class="btn btn-primary">Submit</button>
         </div>
-    </div>
-
-    <!-- /.col -->
-
-    <!-- /.row -->
-
-    <!-- /.box-body -->
+    </form>
 </div>

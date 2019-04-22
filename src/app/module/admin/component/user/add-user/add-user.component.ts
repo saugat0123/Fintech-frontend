@@ -5,8 +5,8 @@ import {Branch} from '../../../modal/branch';
 import {Role} from '../../../modal/role';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-add-user',
@@ -27,7 +27,10 @@ export class AddUserComponent implements OnInit, DoCheck {
     constructor(
         private commonService: CommonService,
         private router: Router,
-        private dataService: CommonDataService) {
+        private dataService: CommonDataService,
+        private modalService: NgbModal,
+        private activeModal: NgbActiveModal
+    ) {
     }
 
     ngOnInit() {
@@ -64,7 +67,7 @@ export class AddUserComponent implements OnInit, DoCheck {
         this.user.branch = this.branch;
         this.user.role = this.role;
         this.commonService.saveOrEdit(this.user, 'v1/user').subscribe(result => {
-                $('.add-user').modal('hide');
+                this.modalService.dismissAll(AddUserComponent);
                 if (this.user.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED USER';
                 } else {
@@ -76,12 +79,11 @@ export class AddUserComponent implements OnInit, DoCheck {
                 this.user = new User();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/user']));
-                this.dataService.alertmsg();
 
 
             }, error => {
 
-                $('.add-user').modal('hide');
+                this.modalService.dismissAll(AddUserComponent);
 
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
@@ -89,10 +91,15 @@ export class AddUserComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/user']));
-                this.dataService.alertmsg();
 
             }
         );
+    }
+
+    onClose() {
+
+        this.activeModal.dismiss(AddUserComponent);
+
     }
 
     profileUploader(event) {

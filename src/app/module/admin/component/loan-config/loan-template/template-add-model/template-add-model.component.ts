@@ -3,8 +3,8 @@ import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../../shared-service/baseservice/common-dataService';
 import {Component, DoCheck, OnInit} from '@angular/core';
 import {LoanTemplate} from '../../../../modal/template';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-template-add-model',
@@ -21,7 +21,10 @@ export class TemplateAddModelComponent implements OnInit, DoCheck {
     constructor(
         private commonService: CommonService,
         private router: Router,
-        private dataService: CommonDataService) {
+        private dataService: CommonDataService,
+        private modalService: NgbModal,
+        private activeModal: NgbActiveModal
+    ) {
     }
 
     ngOnInit() {
@@ -47,7 +50,7 @@ export class TemplateAddModelComponent implements OnInit, DoCheck {
         this.submitted = true;
         // this.branch.created=null;
         this.commonService.saveOrEdit(this.loanTemplate, 'v1/loanTemplate').subscribe(result => {
-                $('#addLoanModal').modal('hide');
+            this.modalService.dismissAll(TemplateAddModelComponent);
                 if (this.loanTemplate.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED loan Template';
                 } else {
@@ -59,12 +62,11 @@ export class TemplateAddModelComponent implements OnInit, DoCheck {
                 this.loanTemplate = new LoanTemplate;
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/template']));
-                this.dataService.alertmsg();
 
 
             }, error => {
 
-                $('#addLoanModal').modal('hide');
+                this.modalService.dismissAll(TemplateAddModelComponent);
 
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
@@ -72,10 +74,12 @@ export class TemplateAddModelComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/branch']));
-                this.dataService.alertmsg();
 
             }
         );
+    }
+    onClose() {
+        this.activeModal.dismiss(TemplateAddModelComponent);
     }
 
 }

@@ -5,10 +5,11 @@ import {CommonDataService} from '../../../../shared-service/baseservice/common-d
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Valuator} from '../../modal/valuator';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {AddValuatorComponent} from "./add-valuator/add-valuator.component";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddValuatorComponent} from './add-valuator/add-valuator.component';
+import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
+import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
 
-declare var $;
 
 @Component({
     selector: 'app-valuator',
@@ -33,7 +34,7 @@ export class ValuatorComponent implements OnInit, DoCheck {
     constructor(private dataService: CommonDataService,
                 private commonService: CommonService,
                 private commonPageService: CommonPageService,
-                private modalService:NgbModal) {
+                private modalService: NgbModal) {
     }
 
     ngOnInit() {
@@ -67,26 +68,31 @@ export class ValuatorComponent implements OnInit, DoCheck {
                 }
                 this.spinner = false;
                 this.dataService.getGlobalMsg(this.globalMsg);
-                $('.global-msgModal').modal('show');
+                this.modalService.open(MsgModalComponent);
+
             }
         );
     }
 
-    addValuator(){
+    addValuator() {
         this.dataService.setValuator(new Valuator());
         this.modalService.open(AddValuatorComponent);
     }
 
 
     onChange(newValue, data) {
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
+        event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/valuator');
-        $('.updateStatus').modal('show');
+        this.modalService.open(UpdateModalComponent);
 
     }
 
-    openEdit(valuator: Valuator){
+    openEdit(valuator: Valuator) {
         this.dataService.setValuator(valuator);
         this.modalService.open(AddValuatorComponent);
     }

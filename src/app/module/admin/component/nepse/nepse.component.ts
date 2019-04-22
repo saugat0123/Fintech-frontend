@@ -4,10 +4,9 @@ import {CommonService} from '../../../../shared-service/baseservice/common-bases
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
 import {Nepse} from '../../modal/nepse';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {AddNepseComponent} from "./add-nepse/add-nepse.component";
-
-declare var $;
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddNepseComponent} from './add-nepse/add-nepse.component';
+import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
 
 @Component({
     selector: 'app-nepse',
@@ -33,7 +32,7 @@ export class NepseComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService:NgbModal
+        private modalService: NgbModal
     ) {
     }
 
@@ -66,7 +65,7 @@ export class NepseComponent implements OnInit, DoCheck {
                 }
                 this.spinner = false;
                 this.dataService.getGlobalMsg(this.globalMsg);
-                $('.global-msgModal').modal('show');
+                this.modalService.open(MsgModalComponent);
             }
         );
 

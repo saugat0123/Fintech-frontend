@@ -1,7 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
-import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -23,31 +22,34 @@ import {CommonLocation} from './shared-service/baseservice/common-location';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    BaseComponent,
-    DashboardComponent,
-    LoginComponent,
-    NotificationComponent,
-    PendingLoanComponent,
-    HeaderComponent,
-    SidebarComponent,
-    FooterComponent,
-    Sidebar1Component
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    NgbPaginationModule,
-    ReactiveFormsModule,
-    ReactiveFormsModule,
-    SharedModule
-  ],
+    declarations: [
+        AppComponent,
+        BaseComponent,
+        DashboardComponent,
+        LoginComponent,
+        NotificationComponent,
+        PendingLoanComponent,
+        HeaderComponent,
+        SidebarComponent,
+        FooterComponent,
+        Sidebar1Component
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        NgbPaginationModule,
+        ReactiveFormsModule,
+        ReactiveFormsModule,
+        SharedModule
+    ],
 
   providers: [CommonService, RestApiService, CommonDataService, CommonLocation],
   bootstrap: [AppComponent],
+
+
+
 })
 export class AppModule {
 }

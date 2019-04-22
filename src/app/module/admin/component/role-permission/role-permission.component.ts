@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
-import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Router} from '@angular/router';
-import {Role} from '../../modal/role';
+import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
+import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
+import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 
 declare var $;
 
@@ -14,8 +13,8 @@ declare var $;
 })
 export class RolePermissionComponent implements OnInit {
     title = 'Role and Permission';
-    currentApi: string;
-    roleList: Array<Role>;
+    currentApi;
+    roleList: any;
     rightList: any;
     allPermission: any = [];
     rolePermissionList: any = [];
@@ -23,14 +22,14 @@ export class RolePermissionComponent implements OnInit {
     permissions: any = {};
     roleperm: any = [];
     roleId;
-    globalMsg: string;
+    globalMsg;
     rights: any = [];
     spinner = false;
     tempRightList = [];
     permRight = [];
-    activeCount: number;
-    inactiveCount: number;
-    roleCount: number;
+    activeCount: any;
+    inactiveCount: any;
+    roleCount: any;
 
 
     constructor(
@@ -136,7 +135,6 @@ export class RolePermissionComponent implements OnInit {
             this.dataService.getAlertMsg('true');
             this.roleperm = [];
             this.spinner = false;
-            this.dataService.alertmsg();
             this.roleChanged(this.roleId);
         });
     }

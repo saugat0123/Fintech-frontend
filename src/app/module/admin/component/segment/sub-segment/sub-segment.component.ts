@@ -5,10 +5,10 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
 import {SubSegment} from '../../../modal/subSegment';
 import {Segment} from '../../../modal/segment';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {AddSubSegmentComponent} from "../add-sub-segment/add-sub-segment.component";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddSubSegmentComponent} from '../add-sub-segment/add-sub-segment.component';
+import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.component';
 
-declare var $;
 
 @Component({
     selector: 'app-sub-segment',
@@ -77,7 +77,7 @@ export class SubSegmentComponent implements OnInit, DoCheck {
                 }
                 this.spinner = false;
                 this.dataService.getGlobalMsg(this.globalMsg);
-                $('.global-msgModal').modal('show');
+                this.modalService.open(MsgModalComponent);
             }
         );
 

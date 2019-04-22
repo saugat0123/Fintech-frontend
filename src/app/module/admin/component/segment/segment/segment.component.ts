@@ -5,10 +5,10 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
 import {Pageable} from '../../../../../shared-service/baseservice/common-pageable';
 import {Segment} from '../../../modal/segment';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {AddSegmentComponent} from "../add-segment/add-segment.component";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddSegmentComponent} from '../add-segment/add-segment.component';
+import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.component';
 
-declare var $;
 
 @Component({
     selector: 'app-segment',
@@ -34,7 +34,7 @@ export class SegmentComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService:NgbModal
+        private modalService: NgbModal
     ) {
     }
 
@@ -76,7 +76,7 @@ export class SegmentComponent implements OnInit, DoCheck {
                 }
                 this.spinner = false;
                 this.dataService.getGlobalMsg(this.globalMsg);
-                $('.global-msgModal').modal('show');
+                this.modalService.open(MsgModalComponent);
             }
         );
 

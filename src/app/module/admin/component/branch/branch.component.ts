@@ -11,6 +11,9 @@ import {MunicipalityVdc} from '../../modal/municipality_VDC';
 
 declare var $;
 
+import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
+import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
+
 @Component({
     selector: 'app-branch',
     templateUrl: './branch.component.html',
@@ -19,7 +22,7 @@ declare var $;
 export class BranchComponent implements OnInit, DoCheck {
     title = 'Branch';
     breadcrumb = 'Branch > List';
-    dataList: Array<Branch>;
+    dataList: Array<Branch>=new Array<Branch>();
     spinner = false;
     globalMsg: string;
     search: any = {};
@@ -30,13 +33,15 @@ export class BranchComponent implements OnInit, DoCheck {
     branches: number;
     newValue: string;
     municipalities:MunicipalityVdc[];
+    branch:Branch=new Branch();
+
+
 
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService:NgbModal,
-
+        private modalService:NgbModal
     ) {
     }
 
@@ -75,15 +80,18 @@ export class BranchComponent implements OnInit, DoCheck {
 
     addBranch() {
         this.dataService.setBranch(new Branch());
+        console.log('opening modal');
         this.modalService.open(AddModelComponent);
     }
 
 
     onChange(newValue, data) {
+        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/branch');
-        $('.updateStatus').modal('show');
+        this.modalService.open(UpdateModalComponent);
     }
 
     delete(allList) {
@@ -107,7 +115,7 @@ export class BranchComponent implements OnInit, DoCheck {
                 }
                 this.spinner = false;
                 this.dataService.getGlobalMsg(this.globalMsg);
-                $('.global-msgModal').modal('show');
+                this.modalService.open(MsgModalComponent);
             }
         );
     }

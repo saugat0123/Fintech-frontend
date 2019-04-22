@@ -3,9 +3,8 @@ import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../../../shared-service/baseservice/common-baseservice';
 import {Sector} from '../../../../modal/sector';
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-add-sector',
@@ -24,8 +23,8 @@ export class AddSectorComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private router: Router,
         private dataService: CommonDataService,
-        private modalService:NgbModal,
-        private activeModal:NgbActiveModal
+        private modalService: NgbModal,
+        private activeModal: NgbActiveModal
     ) {
     }
 
@@ -58,7 +57,6 @@ export class AddSectorComponent implements OnInit, DoCheck {
                 this.sector = new Sector();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/sector']));
-                this.dataService.alertmsg();
 
 
             }, error => {
@@ -71,10 +69,12 @@ export class AddSectorComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/sector']));
-                this.dataService.alertmsg();
 
             }
         );
+    }
+    onClose() {
+        this.activeModal.dismiss(AddSectorComponent);
     }
 
 }

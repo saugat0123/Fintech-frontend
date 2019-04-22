@@ -75,7 +75,7 @@
                             <th>Code</th>
                             <th>Province</th>
                             <th>District</th>
-                            <!--<th>Municipality</th>-->
+                            <th>Municipality</th>
                             <th>Street</th>
                             <th>Ward</th>
                             <th>Status</th>
@@ -90,11 +90,11 @@
                             <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                             <td>{{allList.name}}</td>
                             <td>{{allList.branchCode}}</td>
-                            <td >{{allList.district.province.name}}</td>
-                            <td>{{allList.district.name}}</td>
+                            <td >{{allList.province?.name}}</td>
+                            <td>{{allList.district?.name}}</td>
+                            <td>{{allList.municipalityVdc?.name}}</td>
                             <td>{{allList.streetName}}</td>
                             <td>{{allList.wardNumber}}</td>
-                            <!--<td>{{allList.district.municipality}}</td>-->
                             <td>
                                 <select class="select-borderless" [(ngModel)]="allList.status" name="status"
                                         (change)="onChange($event.target.value,allList)">

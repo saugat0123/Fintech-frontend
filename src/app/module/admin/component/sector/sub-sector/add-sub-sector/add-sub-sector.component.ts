@@ -4,9 +4,8 @@ import {CommonDataService} from '../../../../../../shared-service/baseservice/co
 import {CommonService} from '../../../../../../shared-service/baseservice/common-baseservice';
 import {Sector} from '../../../../modal/sector';
 import {SubSector} from '../../../../modal/sub-sector';
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-declare var $;
 
 @Component({
     selector: 'app-add-sub-sector',
@@ -27,8 +26,8 @@ export class AddSubSectorComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private router: Router,
         private dataService: CommonDataService,
-        private modalService:NgbModal,
-        private activeModal:NgbActiveModal
+        private modalService: NgbModal,
+        private activeModal: NgbActiveModal
     ) {
     }
 
@@ -70,7 +69,6 @@ export class AddSubSectorComponent implements OnInit, DoCheck {
                 this.subSector = new SubSector();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/subSector']));
-                this.dataService.alertmsg();
 
 
             }, error => {
@@ -83,10 +81,12 @@ export class AddSubSectorComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/subSector']));
-                this.dataService.alertmsg();
 
             }
         );
+    }
+    onClose() {
+        this.activeModal.dismiss(AddSubSectorComponent);
     }
 
 }
