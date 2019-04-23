@@ -15,6 +15,7 @@ import {MemoRoutes} from './memo-routes';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {QuillModule} from 'ngx-quill';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {SafePipe} from "./pipe/safe.pipe";
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
         DeleteMemoTypeComponent,
         MemoComposeComponent,
         MemoUnderReviewComponent,
-        MemoReadComponent
+        MemoReadComponent,
+        SafePipe
     ],
     imports: [
         CommonModule,

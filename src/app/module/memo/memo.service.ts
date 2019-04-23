@@ -42,4 +42,10 @@ export class MemoService {
         let getUrl = this.restApiService.modifyRestUrl(url);
         return this.http.delete(getUrl.url);
     }
+
+    getById(reqUrl, id: number) {
+        let url: string = reqUrl + "/" + id;
+        let getUrl = this.restApiService.modifyRestUrl(url);
+        return this.http.get(getUrl.url);
+    }
 }

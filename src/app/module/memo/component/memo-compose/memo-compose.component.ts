@@ -20,7 +20,6 @@ export class MemoComposeComponent implements OnInit {
     memoTypes$: Observable<MemoType[]>;
     users$: Observable<User[]>;
     memo: Memo = new Memo();
-    selectedUser: User;
     memoComposeForm: FormGroup;
     search = {};
 
@@ -66,13 +65,11 @@ export class MemoComposeComponent implements OnInit {
         this.memo.bcc = this.memoComposeForm.get('bcc').value;
         this.memo.content = this.memoComposeForm.get('content').value;
 
-        console.log(this.memo);
         this.memoService.save("v1/memos", this.memo).subscribe((response: any) => {
-            console.log(response.detail);
             this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                this.router.navigate(["home/memo/underReview"]));
         }, error => {
-            console.log(error);
+            console.error(error);
         });
     }
 

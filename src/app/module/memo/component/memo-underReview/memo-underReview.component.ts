@@ -3,6 +3,8 @@ import {CommonDataService} from "../../../../shared-service/baseservice/common-d
 import {MemoService} from "../../memo.service";
 import {CommonPageService} from "../../../../shared-service/baseservice/common-pagination-service";
 import {Pageable} from "../../../../shared-service/baseservice/common-pageable";
+import {Memo} from "../../model/memo";
+import {Router} from "@angular/router";
 declare var $;
 
 @Component({
@@ -24,12 +26,13 @@ export class MemoUnderReviewComponent implements OnInit {
   constructor(
       private dataService: CommonDataService,
       private memoService: MemoService,
-      private commonPageService: CommonPageService
+      private commonPageService: CommonPageService,
+      private router: Router
   ) { }
 
   ngOnInit() {
     this.dataService.changeTitle(this.title);
-    this.currentApi = 'v1/memos/all';
+    this.currentApi = 'v1/memos';
     this.getPagination();
   }
 
@@ -52,10 +55,10 @@ export class MemoUnderReviewComponent implements OnInit {
 
   getPagination() {
     this.spinner = true;
-    this.memoService.getAll(this.currentApi, 1, 20, null).subscribe((response: any) => {
+    this.memoService.getAll(this.currentApi + "/all", 1, 20, null).subscribe((response: any) => {
           this.dataList = response.detail;
           this.dataService.setDataList(this.dataList);
-          this.commonPageService.setCurrentApi(this.currentApi);
+          this.commonPageService.setCurrentApi(this.currentApi + "/all");
           this.pageable = this.commonPageService.setPageable(response.detail);
 
           this.spinner = false;
@@ -71,6 +74,16 @@ export class MemoUnderReviewComponent implements OnInit {
         }
     );
 
+  }
+
+  memoById: Memo;
+  getMemoById(id: number) {
+    this.memoService.getById(this.currentApi, id).subscribe((response: any) => {
+      this.memoById = response.detail;
+      this.dataService.setMemo(this.memoById);
+      this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
+          this.router.navigate(["home/memo/read"]));
+    });
   }
 
 }

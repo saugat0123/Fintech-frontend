@@ -28,7 +28,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let allList of dataList;let i=index">
-                <td class="mailbox-name"><a routerLink="/home/memo/read">{{allList.id}}</a></td>
+                <td class="mailbox-name"><button (click)="getMemoById(allList.id)">{{allList.id}}</button></td>
                 <td>{{allList.type.name}}</td>
                 <td class="mailbox-subject"><b>{{allList.subject}}</b>
                 </td>

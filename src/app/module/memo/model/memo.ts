@@ -16,4 +16,8 @@ export class Memo {
     type: MemoType;
     // stages: Set<MemoStage>;
     stages: any;
+    createdAt: string;
+    lastModifiedAt: string;
+    version: number;
+
 }
