@@ -61,7 +61,7 @@
                             <label for="loanApprovalType">Approval Type</label>
                             <select class="form-control" [(ngModel)]="approvalLimit.loanApprovalType"
                                     name="loanApprovalType"
-                                    #type="ngModel" [ngClass]="{ 'is-invalid': f.submitted && type.invalid }">
+                                    #type="ngModel" [ngClass]="{ 'is-invalid': f.submitted && type.invalid }" required>
                                 <option [ngValue]="undefined" hidden>Approval Type</option>
                                 <option value="PERSONAL_TYPE">PERSONAL</option>
                                 <option value="BUSINESS_TYPE">BUSINESS</option>

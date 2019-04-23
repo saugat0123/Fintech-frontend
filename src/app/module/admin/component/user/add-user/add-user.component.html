@@ -79,7 +79,7 @@
                                            [ngClass]="{ 'is-invalid': f.submitted && accountNoVal.invalid }" required
                                            placeholder="Account No">
                                     <div *ngIf="f.submitted && accountNoVal.invalid" class="invalid-feedback">
-                                        <div *ngIf="accountNoVal.errors.required">Role is required</div>
+                                        <div *ngIf="accountNoVal.errors.required">Account number is required</div>
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                                            [ngClass]="{ 'is-invalid': f.submitted && passwordVal.invalid }" required
                                            placeholder="Password" name="password">
                                     <div *ngIf="f.submitted && passwordVal.invalid" class="invalid-feedback">
-                                        <div *ngIf="passwordVal.errors.required">Role is required</div>
+                                        <div *ngIf="passwordVal.errors.required">Password is required</div>
                                     </div>
                                 </div>
                             </div>

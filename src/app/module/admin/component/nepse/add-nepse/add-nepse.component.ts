@@ -42,6 +42,7 @@ export class AddNepseComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
+        console.log("Submitted");
         this.submitted = true;
         this.commonService.saveOrEdit(this.nepse, 'v1/nepseCompany').subscribe(result => {
             this.modalService.dismissAll(AddNepseComponent);
