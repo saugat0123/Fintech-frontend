@@ -123,7 +123,7 @@ export class SubSegmentComponent implements OnInit, DoCheck {
         this.dataService.setSubSegment(subSegment);
         this.dataService.setSegment(segment);
         this.segment = this.dataService.getSegment();
-
+        console.log(subSegment);
         console.log(this.segment.segmentName);
         this.modalService.open(AddSubSegmentComponent);
     }

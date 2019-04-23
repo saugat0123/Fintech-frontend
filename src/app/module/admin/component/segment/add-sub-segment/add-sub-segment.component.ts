@@ -5,6 +5,7 @@ import {CommonDataService} from '../../../../../shared-service/baseservice/commo
 import {SubSegment} from '../../../modal/subSegment';
 import {Segment} from '../../../modal/segment';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {LoanConfig} from '../../../modal/loan-config';
 
 @Component({
     selector: 'app-add-sub-segment',
@@ -20,6 +21,9 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
     subSegment: SubSegment = new SubSegment();
     segment: Segment = new Segment();
     segmentList: Array<Segment>;
+    loanTypeList: Array<LoanConfig>;
+    loanConfig: LoanConfig = new LoanConfig();
+    loanConfigs: Array<LoanConfig> = new Array<LoanConfig>();
 
     constructor(
         private commonService: CommonService,
@@ -27,7 +31,6 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private activeModal: NgbActiveModal,
         private modalService: NgbModal
-
     ) {
     }
 
@@ -36,28 +39,39 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
             this.segmentList = response.detail;
 
         });
+        this.commonService.getByAll('v1/config/getAll').subscribe((response: any) => {
+            this.loanTypeList = response.detail;
+
+        });
     }
 
     ngDoCheck(): void {
         this.subSegment = this.dataService.getSubSegment();
         if (this.subSegment.id == null) {
             this.task = 'Add';
+            this.segment = new Segment();
+            this.loanConfigs = new Array<LoanConfig>();
         } else {
+            this.segment = this.subSegment.segment;
+            this.loanConfig = this.subSegment.loanConfig[0]
+            console.log(this.loanConfig);
             this.task = 'Edit';
-            if (this.subSegment.segment != null) {
-                this.segment = this.subSegment.segment;
-            } else {
-                this.segment = new Segment();
-            }
         }
 
     }
 
+    setSegment() {
+        this.subSegment.segment = this.segment;
+    }
+
+    setLoan() {
+        this.subSegment.loanConfig = [this.loanConfig];
+    }
+
     onSubmit() {
         this.submitted = true;
-        this.subSegment.segment = this.segment;
         this.commonService.saveOrEdit(this.subSegment, 'v1/subSegment').subscribe(result => {
-            this.modalService.dismissAll(AddSubSegmentComponent);
+                this.modalService.dismissAll(AddSubSegmentComponent);
                 if (this.subSegment.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED SUB SEGMENT';
                 } else {
@@ -73,8 +87,7 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
 
             }, error => {
 
-            this.modalService.dismissAll(AddSubSegmentComponent);
-
+                this.modalService.dismissAll(AddSubSegmentComponent);
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('false');
@@ -85,6 +98,7 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
             }
         );
     }
+
     onClose() {
         this.activeModal.dismiss(AddSubSegmentComponent);
     }
