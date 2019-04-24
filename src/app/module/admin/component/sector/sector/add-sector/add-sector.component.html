@@ -9,21 +9,29 @@
         </div>
         <div class="modal-body">
 
-            <form (ngSubmit)="onSubmit()">
+            <form #sectorForm="ngForm" (ngSubmit)="sectorForm.valid && onSubmit()">
 
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
                             <label for="sectorName">Sector Name</label>
-                            <input type="hidden" class="form-control" required [(ngModel)]="sector.id" name="id">
-                            <input type="text" class="form-control" required [(ngModel)]="sector.sectorName" name="sectorName" placeholder="Sector Name">
+                            <input type="hidden" class="form-control"  [(ngModel)]="sector.id" name="id">
+                            <input type="text" class="form-control" required [(ngModel)]="sector.sectorName" name="sectorName" placeholder="Sector Name"
+                                   #name="ngModel" [ngClass]="{'is-invalid': sectorForm.submitted && name.invalid}"/>
+                            <div *ngIf="name.invalid && sectorForm.submitted" class="invalid-feedback">
+                                Name is required
+                            </div>
 
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <label for="sectorCode">Sector Code</label>
-                            <input type="text" class="form-control"  placeholder="Sector Code" required [(ngModel)]="sector.sectorCode" name="sectorCode">
+                            <input type="text" class="form-control"  placeholder="Sector Code" required [(ngModel)]="sector.sectorCode" name="sectorCode"
+                                   #sectorCode="ngModel" [ngClass]="{'is-invalid': sectorForm.submitted && sectorCode.invalid}"/>
+                            <div *ngIf="sectorCode.invalid && sectorForm.submitted" class="invalid-feedback">
+                                Sector code is required
+                            </div>
 
                         </div>
                     </div>

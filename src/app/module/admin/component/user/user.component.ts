@@ -31,7 +31,6 @@ export class UserComponent implements OnInit, DoCheck {
     newValue: string;
     users: number;
 
-
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,

@@ -16,7 +16,8 @@
                         <div class="col-md-6">
                             <label for="address">Name</label>
                             <input type="hidden" class="form-control"  [(ngModel)]="branch.id" name="id" placeholder="id">
-                            <input type="text" class="form-control"  [(ngModel)]="branch.name" name="name" placeholder="Name"  #name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required />
+                            <input type="text" class="form-control"  [(ngModel)]="branch.name" name="name" placeholder="Name"
+                                   #name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required />
                             <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
                                 <div *ngIf="name.errors.required"> Name is required</div>
                             </div>
@@ -24,7 +25,11 @@
                         </div>
                         <div class="col-md-6">
                             <label for="address">Address</label>
-                            <input type="text" class="form-control"  placeholder="kathmandu"  [(ngModel)]="branch.address" name="address">
+                            <input type="text" class="form-control"  placeholder="kathmandu"  [(ngModel)]="branch.address" name="address"
+                                   #addressVal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && addressVal.invalid }" required />
+                            <div *ngIf="f.submitted && addressVal.invalid" class="invalid-feedback">
+                                <div *ngIf="addressVal.errors.required"> Address is required</div>
+                            </div>
 
                         </div>
                     </div>

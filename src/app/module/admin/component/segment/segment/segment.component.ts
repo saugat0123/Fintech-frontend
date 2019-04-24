@@ -29,6 +29,11 @@ export class SegmentComponent implements OnInit, DoCheck {
     activeCount: number;
     inactiveCount: number;
     segments: number;
+    permissions = [];
+    addViewSegment = false;
+    viewSegment = false;
+    editSegment = false;
+    csvDownload = false;
 
     constructor(
         private dataService: CommonDataService,
@@ -49,14 +54,32 @@ export class SegmentComponent implements OnInit, DoCheck {
             this.segments = response.detail.segments;
 
         });
+        this.commonService.getByPost('v1/permission/chkPerm', 'SEGMENT').subscribe((response: any) => {
+            this.permissions = response.detail;
+            for (let i = 0; this.permissions.length > i; i++) {
+                if (this.permissions[i].type === 'ADD SEGMENT') {
+                    this.addViewSegment = true;
+                }
+                if (this.permissions[i].type === 'VIEW SEGMENT') {
+                    this.viewSegment = true;
+                }
+                if (this.permissions[i].type === 'EDIT SEGMENT') {
+                    this.editSegment = true;
+                }
+                if (this.permissions[i].type === 'DOWNLOAD CSV') {
+                    this.getPagination();
+                    this.csvDownload = true;
+                }
+            }
+        });
     }
 
     ngDoCheck(): void {
         this.dataList = this.dataService.getDataList();
     }
 
-    addSegment(){
-        this.dataService.setSegment(new Segment())
+    addSegment() {
+        this.dataService.setSegment(new Segment());
         this.modalService.open(AddSegmentComponent);
     }
 
@@ -94,6 +117,7 @@ export class SegmentComponent implements OnInit, DoCheck {
         this.dataService.setData(this.search);
         this.getPagination();
     }
+
     openEdit(segment: Segment) {
         this.dataService.setSegment(segment);
         this.modalService.open(AddSegmentComponent);

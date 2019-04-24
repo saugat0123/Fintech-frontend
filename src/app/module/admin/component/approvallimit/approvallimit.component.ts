@@ -26,6 +26,10 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
     currentApi: string;
     activeCount: number;
     inactiveCount: number;
+    permissions = [];
+    viewApprovalLimit = false;
+    addViewApprovalLimit = false;
+    downloadCsv = false;
 
     constructor(
         private dataService: CommonDataService,
@@ -39,6 +43,21 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
         this.dataService.changeTitle(this.title);
         this.currentApi = 'v1/approvallimit/get';
         this.getPagination();
+        this.commonService.getByPost('v1/permission/chkPerm', 'APPROVAL LIMIT').subscribe((response: any) => {
+            this.permissions = response.detail;
+            for (let i = 0; this.permissions.length > i; i++) {
+                if (this.permissions[i].type === 'ADD APPROVAL LIMIT') {
+                    this.addViewApprovalLimit = true;
+                }
+                if (this.permissions[i].type === 'VIEW APPROVAL LIMIT') {
+                    this.getPagination();
+                    this.viewApprovalLimit = true;
+                }
+                if (this.permissions[i].type === 'DOWNLOAD CSV') {
+                    this.downloadCsv = true;
+                }
+            }
+        });
     }
 
     onSearch() {

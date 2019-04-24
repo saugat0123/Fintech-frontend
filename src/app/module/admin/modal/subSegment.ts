@@ -1,4 +1,5 @@
 import {Segment} from './segment';
+import {LoanConfig} from './loan-config';
 
 export class SubSegment {
     id: number;
@@ -7,4 +8,5 @@ export class SubSegment {
     subSegmentName: string;
     segment: Segment;
     funded: boolean;
+    loanConfig: Array<LoanConfig>;
 }

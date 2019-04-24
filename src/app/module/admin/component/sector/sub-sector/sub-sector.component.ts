@@ -29,12 +29,16 @@ export class SubSectorComponent implements OnInit, DoCheck {
     activeCount: number;
     inactiveCount: number;
     subSectors: number;
-
+    permissions = [];
+    addViewSubSector = false;
+    viewSubSector = false;
+    editSubSector = false;
+    csvDownload = false;
 
     constructor(private dataService: CommonDataService,
                 private commonService: CommonService,
                 private commonPageService: CommonPageService,
-                private modalService:NgbModal) {
+                private modalService: NgbModal) {
     }
 
     ngOnInit() {
@@ -47,6 +51,24 @@ export class SubSectorComponent implements OnInit, DoCheck {
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.subSectors = response.detail.subSectors;
+        });
+        this.commonService.getByPost('v1/permission/chkPerm', 'SUBSECTOR').subscribe((response: any) => {
+            this.permissions = response.detail;
+            for (let i = 0; this.permissions.length > i; i++) {
+                if (this.permissions[i].type === 'ADD SUB-SECTOR') {
+                    this.addViewSubSector = true;
+                }
+                if (this.permissions[i].type === 'VIEW SUB-SECTOR') {
+                    this.viewSubSector = true;
+                }
+                if (this.permissions[i].type === 'EDIT SUB-SECTOR') {
+                    this.editSubSector = true;
+                }
+                if (this.permissions[i].type === 'DOWNLOAD CSV') {
+                    this.getPagination();
+                    this.csvDownload = true;
+                }
+            }
         });
     }
 
@@ -73,14 +95,16 @@ export class SubSectorComponent implements OnInit, DoCheck {
         );
     }
 
-    addSubSector(){
+    addSubSector() {
         this.dataService.setSubSector(new SubSector());
         this.modalService.open(AddSubSectorComponent);
     }
 
 
     onChange(newValue, data) {
-        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
         event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
@@ -89,7 +113,7 @@ export class SubSectorComponent implements OnInit, DoCheck {
 
     }
 
-    openEdit(subSector: SubSector){
+    openEdit(subSector: SubSector) {
         this.dataService.setSubSector(subSector);
         this.modalService.open(AddSubSectorComponent);
 
