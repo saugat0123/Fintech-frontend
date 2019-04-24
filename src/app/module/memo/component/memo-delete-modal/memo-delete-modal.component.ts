@@ -1,17 +1,17 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {MemoService} from '../../../service/memo.service';
-import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
+import {MemoService} from '../../service/memo.service';
+import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 declare var $;
 
 @Component({
     selector: 'app-delete-memo-type',
-    templateUrl: './delete-memo-type.component.html',
-    styleUrls: ['./delete-memo-type.component.css']
+    templateUrl: './memo-delete-modal.component.html',
+    styleUrls: ['./memo-delete-modal.component.css']
 })
-export class DeleteMemoTypeComponent implements OnInit, DoCheck {
+export class MemoDeleteModalComponent implements OnInit, DoCheck {
 
     modalData: any = {};
     data: any;
