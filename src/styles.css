@@ -1,7 +1,7 @@
 /** CSS fix for existing template with Bootstrap 4 **/
 
 .content-wrapper{
-    min-height: 880px;
+    min-height: 880px !important;
 }
 
 .main-header .navbar {
