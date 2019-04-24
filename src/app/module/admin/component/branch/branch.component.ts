@@ -6,8 +6,12 @@ import {CommonPageService} from '../../../../shared-service/baseservice/common-p
 import {Branch} from '../../modal/branch';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddModelComponent} from './add-model/add-model.component';
+import {MunicipalityVdc} from '../../modal/municipality_VDC';
 import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
 import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
+
+
+declare var $;
 
 @Component({
     selector: 'app-branch',
@@ -17,7 +21,7 @@ import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.componen
 export class BranchComponent implements OnInit, DoCheck {
     title = 'Branch';
     breadcrumb = 'Branch > List';
-    dataList: Array<Branch>;
+    dataList: Array<Branch> = new Array<Branch>();
     spinner = false;
     globalMsg: string;
     search: any = {};
@@ -27,11 +31,15 @@ export class BranchComponent implements OnInit, DoCheck {
     inactiveCount: number;
     branches: number;
     newValue: string;
+    municipalities: MunicipalityVdc[];
+    branch: Branch = new Branch();
+
+
     permissions = [];
     viewBranch = false;
     addViewBranch = false;
     downloadCsv = false;
-    editViewBranch=false;
+    editViewBranch = false;
 
     constructor(
         private dataService: CommonDataService,

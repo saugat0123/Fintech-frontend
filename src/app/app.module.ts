@@ -45,8 +45,9 @@ import {CommonLocation} from './shared-service/baseservice/common-location';
         SharedModule
     ],
 
-    providers: [CommonService, RestApiService, CommonDataService, NgbActiveModal, CommonLocation],
-    bootstrap: [AppComponent],
+  providers: [CommonService, RestApiService, CommonDataService, CommonLocation],
+  bootstrap: [AppComponent],
+
 
 
 })
