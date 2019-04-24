@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {CommonDataService} from "../../../../shared-service/baseservice/common-dataService";
-import {MemoService} from "../../memo.service";
+import {MemoService} from "../../service/memo.service";
 import {CommonPageService} from "../../../../shared-service/baseservice/common-pagination-service";
 import {Pageable} from "../../../../shared-service/baseservice/common-pageable";
 import {Memo} from "../../model/memo";
 import {Router} from "@angular/router";
+import {MemoDataService} from "../../service/memo-data.service";
 declare var $;
 
 @Component({
@@ -16,7 +17,7 @@ export class MemoUnderReviewComponent implements OnInit {
 
   title = "Memo - Under Review";
   dataList: any;
-  currentApi: any;
+  memoApi: string;
 
   spinner: boolean = false;
   pageable: Pageable = new Pageable();
@@ -26,13 +27,14 @@ export class MemoUnderReviewComponent implements OnInit {
   constructor(
       private dataService: CommonDataService,
       private memoService: MemoService,
+      private memoDataService: MemoDataService,
       private commonPageService: CommonPageService,
       private router: Router
   ) { }
 
   ngOnInit() {
     this.dataService.changeTitle(this.title);
-    this.currentApi = 'v1/memos';
+    this.memoApi = this.memoDataService.getMemoApi();
     this.getPagination();
   }
 
@@ -55,10 +57,10 @@ export class MemoUnderReviewComponent implements OnInit {
 
   getPagination() {
     this.spinner = true;
-    this.memoService.getAll(this.currentApi + "/all", 1, 20, null).subscribe((response: any) => {
+    this.memoService.getAll(this.memoApi + "/all", 1, 20, null).subscribe((response: any) => {
           this.dataList = response.detail;
           this.dataService.setDataList(this.dataList);
-          this.commonPageService.setCurrentApi(this.currentApi + "/all");
+          this.commonPageService.setCurrentApi(this.memoApi + "/all");
           this.pageable = this.commonPageService.setPageable(response.detail);
 
           this.spinner = false;
@@ -78,9 +80,9 @@ export class MemoUnderReviewComponent implements OnInit {
 
   memoById: Memo;
   getMemoById(id: number) {
-    this.memoService.getById(this.currentApi, id).subscribe((response: any) => {
+    this.memoService.getById(this.memoApi, id).subscribe((response: any) => {
       this.memoById = response.detail;
-      this.dataService.setMemo(this.memoById);
+      this.memoDataService.setMemo(this.memoById);
       this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
           this.router.navigate(["home/memo/read"]));
     });

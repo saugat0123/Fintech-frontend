@@ -71,10 +71,10 @@
     <div class="mailbox-controls with-border text-center">
         <div class="btn-group">
             <button class="btn btn-primary btn-sm" data-container="body" data-toggle="tooltip" title="Edit"
-                    type="button">
+                    type="button" (click)="editMemo(memo?.id)">
                 <i class="fa fa-edit"></i></button>
             <button class="btn btn-primary btn-sm" data-container="body" data-toggle="tooltip" title="Delete"
-                    type="button">
+                    type="button" (click)="openDelete()">
                 <i class="fa fa-trash-o"></i></button>
             <button class="btn btn-primary btn-sm" data-container="body" data-toggle="tooltip" title="Send Backward"
                     type="button">
@@ -94,7 +94,7 @@
 <!-- /.box-body -->
 <div class="box-footer">
     <div class="btn-group pull-left">
-        <button class="btn btn-primary" type="button"><i class="fa fa-edit"></i> Edit</button>
+        <button class="btn btn-primary" type="button" (click)="editMemo(memo?.id)"><i class="fa fa-edit"></i> Edit</button>
         <button class="btn btn-primary" type="button"><i class="fa fa-trash-o"></i> Delete</button>
         <button class="btn btn-primary" type="button"><i class="fa fa-print"></i> Print</button>
     </div>

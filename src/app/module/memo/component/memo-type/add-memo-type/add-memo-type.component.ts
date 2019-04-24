@@ -1,10 +1,11 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
-import {MemoService} from '../../../memo.service';
+import {MemoService} from '../../../service/memo.service';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {Router} from '@angular/router';
 import {MemoType} from '../../../model/memoType';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MemoDataService} from "../../../service/memo-data.service";
 
 declare var $;
 
@@ -22,6 +23,7 @@ export class AddMemoTypeComponent implements OnInit, DoCheck {
 
     constructor(
         private memoService: MemoService,
+        private memoDataService: MemoDataService,
         private dataService: CommonDataService,
         private router: Router,
         private activeModal: NgbActiveModal,
@@ -33,16 +35,16 @@ export class AddMemoTypeComponent implements OnInit, DoCheck {
     ngOnInit() {
         this.addMemoTypeForm = this.formBuilder.group(
             {
-                id: [this.dataService.getMemoType().id == null ? '' : this.dataService.getMemoType().id, Validators.required],
-                name: [this.dataService.getMemoType().name == null ? '' : this.dataService.getMemoType().name, Validators.required],
-                status: [this.dataService.getMemoType().status == null ? 'ACTIVE'
-                    : this.dataService.getMemoType().status, Validators.required]
+                id: [this.memoDataService.getMemoType().id == null ? '' : this.memoDataService.getMemoType().id, Validators.required],
+                name: [this.memoDataService.getMemoType().name == null ? '' : this.memoDataService.getMemoType().name, Validators.required],
+                status: [this.memoDataService.getMemoType().status == null ? 'ACTIVE'
+                    : this.memoDataService.getMemoType().status, Validators.required]
             }
         );
     }
 
     ngDoCheck(): void {
-        this.memoType = this.dataService.getMemoType();
+        this.memoType = this.memoDataService.getMemoType();
         if (this.memoType.id == null) {
             this.task = 'Add';
         } else {

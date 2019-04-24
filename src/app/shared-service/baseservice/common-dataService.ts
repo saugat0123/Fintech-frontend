@@ -3,8 +3,6 @@ import {BehaviorSubject} from 'rxjs';
 import {Branch} from '../../modal/branch';
 import {ApprovalLimit} from '../../modal/approval-limit';
 import {User} from '../../modal/user';
-import {MemoType} from '../../module/memo/model/memoType';
-import {Memo} from "../../module/memo/model/memo";
 
 
 @Injectable({
@@ -19,8 +17,6 @@ export class CommonDataService {
     document: Document = new Document();
     approvalLimit: ApprovalLimit = new ApprovalLimit();
     user: User = new User();
-    memoType: MemoType = new MemoType();
-    memo: Memo = new Memo();
 
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
@@ -89,23 +85,6 @@ export class CommonDataService {
 
     getUser() {
         return this.user;
-    }
-
-    setMemoType(memoType: MemoType) {
-        console.log(memoType);
-        this.memoType = memoType;
-    }
-
-    getMemoType() {
-        return this.memoType;
-    }
-
-    setMemo(memo: Memo) {
-        this.memo = memo;
-    }
-
-    getMemo() {
-        return this.memo;
     }
 
 }

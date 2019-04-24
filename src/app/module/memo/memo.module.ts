@@ -10,7 +10,8 @@ import {MemoComposeComponent} from './component/memo-compose/memo-compose.compon
 import {MemoUnderReviewComponent} from './component/memo-underReview/memo-underReview.component';
 import {MemoReadComponent} from './component/memo-read/memo-read.component';
 import {SharedModule} from '../shared/shared.module';
-import {MemoService} from './memo.service';
+import {MemoService} from './service/memo.service';
+import {MemoDataService} from "./service/memo-data.service";
 import {MemoRoutes} from './memo-routes';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {QuillModule} from 'ngx-quill';
@@ -42,7 +43,7 @@ import {SafePipe} from "./pipe/safe.pipe";
         AddMemoTypeComponent,
         DeleteMemoTypeComponent
     ],
-    providers: [MemoService]
+    providers: [MemoService, MemoDataService]
 })
 export class MemoModule {
 }

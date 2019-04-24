@@ -1,6 +1,6 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {MemoService} from '../../../memo.service';
+import {MemoService} from '../../../service/memo.service';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 

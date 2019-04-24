@@ -1,9 +1,12 @@
 <div class="box-header with-border">
-    <h3 class="box-title">Compose New Memo</h3>
+    <h3 class="box-title">{{memoTask}} Memo</h3>
 </div>
 <!-- /.box-header -->
 <form (ngSubmit)="onSubmit()" [formGroup]="memoComposeForm">
     <div class="box-body">
+        <div class="form-group">
+            <input type="hidden" formControlName="id" [hidden]="true">
+        </div>
         <div class="form-group">
             <input class="form-control" formControlName="subject" placeholder="Subject:">
         </div>
