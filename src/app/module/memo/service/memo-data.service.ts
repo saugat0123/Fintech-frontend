@@ -10,6 +10,7 @@ export class MemoDataService {
     isNewMemo: boolean = true;
     memoApi: string = "v1/memos";
     memoTypeApi: string = "v1/memos/types";
+    deleteApi: string;
 
     memoType: MemoType = new MemoType();
     memo: Memo = new Memo();
@@ -17,16 +18,8 @@ export class MemoDataService {
     constructor() {
     }
 
-    setMemoApi(memoApi: string) {
-        this.memoApi = memoApi;
-    }
-
     getMemoApi() {
         return this.memoApi;
-    }
-
-    setMemoTypeApi(memoTypeApi: string) {
-        this.memoTypeApi = memoTypeApi;
     }
 
     getMemoTypeApi() {
@@ -41,11 +34,37 @@ export class MemoDataService {
         return this.memoType;
     }
 
+    clearMemoType() {
+        this.memoType = new MemoType();
+    }
+
     setMemo(memo: Memo) {
         this.memo = memo;
     }
 
     getMemo() {
         return this.memo;
+    }
+
+    clearMemo() {
+        this.memo = new Memo();
+    }
+
+    setDeleteApi(deleteApi: string) {
+        this.deleteApi = deleteApi;
+    }
+
+    getDeleteApi() {
+        return this.deleteApi;
+    }
+
+    clearDeleteApi() {
+        this.deleteApi = "";
+    }
+
+    clearAll() {
+        this.clearMemo();
+        this.clearMemoType();
+        this.clearDeleteApi();
     }
 }

@@ -4,6 +4,8 @@ import {Memo} from "../../model/memo";
 import {Router} from "@angular/router";
 import {MemoService} from "../../service/memo.service";
 import {MemoDataService} from "../../service/memo-data.service";
+import {MemoDeleteModalComponent} from "../memo-delete-modal/memo-delete-modal.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: 'app-memo-read',
@@ -20,7 +22,8 @@ export class MemoReadComponent implements OnInit {
         private dataService: CommonDataService,
         private router: Router,
         private memoService: MemoService,
-        private memoDataService: MemoDataService
+        private memoDataService: MemoDataService,
+        private modalService: NgbModal
     ) {
     }
 
@@ -46,8 +49,10 @@ export class MemoReadComponent implements OnInit {
             this.router.navigate(['home/memo/compose']));
     }
 
-    openDelete() {
-
+    openDelete(memo: Memo) {
+        this.memoDataService.setMemo(memo);
+        this.memoDataService.setDeleteApi(this.memoDataService.getMemoApi());
+        this.modalService.open(MemoDeleteModalComponent);
     }
 
 }

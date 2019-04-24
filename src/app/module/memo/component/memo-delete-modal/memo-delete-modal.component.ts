@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {MemoService} from '../../service/memo.service';
 import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {MemoDataService} from "../../service/memo-data.service";
 
 declare var $;
 
@@ -13,39 +14,41 @@ declare var $;
 })
 export class MemoDeleteModalComponent implements OnInit, DoCheck {
 
-    modalData: any = {};
-    data: any;
+    modalName: string;
     currentUrl: any;
-    currentApi: any;
+    deleteApi: any;
+    deleteId: number;
     globalMsg;
 
     constructor(
         private router: Router,
         private memoService: MemoService,
+        private memoDataService: MemoDataService,
         private dataService: CommonDataService,
         private activeModal: NgbActiveModal
     ) {
     }
 
     ngOnInit() {
-        this.modalData = {
-            'name': 'Memo Type'
-        };
+        this.deleteApi = this.memoDataService.getDeleteApi();
 
-        this.currentApi = 'v1/memos/types';
+        if (this.deleteApi === this.memoDataService.getMemoApi()) {
+            this.modalName = "Memo";
+            this.deleteId = this.memoDataService.getMemo().id;
+        } else if (this.deleteApi === this.memoDataService.getMemoTypeApi()) {
+            this.modalName = "Memo Type";
+            this.deleteId = this.memoDataService.getMemoType().id;
+        }
     }
 
     ngDoCheck(): void {
         this.currentUrl = this.router.url;
-        if (this.dataService.getData() != null) {
-            this.data = this.dataService.getData();
-        }
     }
 
     deleteClick() {
-        this.memoService.deleteById(this.currentApi, this.data.id).subscribe(result => {
+        this.memoService.deleteById(this.deleteApi, this.deleteId).subscribe(result => {
 
-                this.globalMsg = 'SUCCESSFULLY DELETED MEMO TYPE';
+                this.globalMsg = 'SUCCESSFULLY DELETED ' + this.modalName;
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('true');
 
@@ -61,7 +64,7 @@ export class MemoDeleteModalComponent implements OnInit, DoCheck {
 
             }
         );
-
+        this.memoDataService.clearAll();
     }
 
     reloadPage() {

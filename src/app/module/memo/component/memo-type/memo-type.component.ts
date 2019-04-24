@@ -64,8 +64,9 @@ export class MemoTypeComponent implements OnInit {
         this.modalService.open(AddMemoTypeComponent);
     }
 
-    openDelete(data) {
-        this.dataService.setData(data);
+    openDelete(memoType: MemoType) {
+        this.memoDataService.setMemoType(memoType);
+        this.memoDataService.setDeleteApi(this.memoDataService.getMemoTypeApi());
         this.modalService.open(MemoDeleteModalComponent);
     }
 
