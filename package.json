@@ -22,6 +22,8 @@
     "@ng-bootstrap/ng-bootstrap": "^4.0.3",
     "@ng-select/ng-select": "^2.18.0",
     "admin-lte": "^2.4.10",
+    "ag-grid-angular": "^20.2.0",
+    "ag-grid-community": "^20.2.0",
     "angular-admin-lte": "^2.0.0",
     "bootstrap": "^4.2.1",
     "core-js": "^2.5.4",

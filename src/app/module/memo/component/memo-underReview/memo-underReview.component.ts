@@ -1,91 +1,135 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonDataService} from "../../../../shared-service/baseservice/common-dataService";
 import {MemoService} from "../../service/memo.service";
-import {CommonPageService} from "../../../../shared-service/baseservice/common-pagination-service";
-import {Pageable} from "../../../../shared-service/baseservice/common-pageable";
-import {Memo} from "../../model/memo";
-import {Router} from "@angular/router";
 import {MemoDataService} from "../../service/memo-data.service";
+import {MemoViewButtonComponent} from "./memo-view-button/memo-view-button.component";
+
 declare var $;
 
 @Component({
-  selector: 'app-memo-underReview',
-  templateUrl: './memo-underReview.component.html',
-  styleUrls: ['./memo-underReview.component.css']
+    selector: 'app-memo-underReview',
+    templateUrl: './memo-underReview.component.html',
+    styleUrls: ['./memo-underReview.component.css']
 })
 export class MemoUnderReviewComponent implements OnInit {
 
-  title = "Memo - Under Review";
-  dataList: any;
-  memoApi: string;
+    title = "Memo - Under Review";
+    memoApi: string;
 
-  spinner: boolean = false;
-  pageable: Pageable = new Pageable();
-  globalMsg;
-  search = new Object;
+    spinner: boolean = false;
+    globalMsg;
 
-  constructor(
-      private dataService: CommonDataService,
-      private memoService: MemoService,
-      private memoDataService: MemoDataService,
-      private commonPageService: CommonPageService,
-      private router: Router
-  ) { }
+    private gridApi;
+    private gridColumnApi;
+    private columnDefs;
+    private defaultColDef;
+    private rowData: any;
+    private paginationPageSize;
+    private context;
+    private frameworkComponents;
 
-  ngOnInit() {
-    this.dataService.changeTitle(this.title);
-    this.memoApi = this.memoDataService.getMemoApi();
-    this.getPagination();
-  }
-
-  ngDoCheck(): void {
-    this.dataList = this.dataService.getDataList();
-  }
-
-  onSearch() {
-    this.dataService.setData(this.search);
-    this.getPagination();
-  }
-
-  onSearchChange(searchValue: string) {
-    this.search = {
-      'name': searchValue
+    constructor(
+        private dataService: CommonDataService,
+        private memoService: MemoService,
+        private memoDataService: MemoDataService
+    ) {
+        this.columnDefs = [
+            {
+                headerName: "ID",
+                field: "id",
+                width: 100,
+                suppressSizeToFit: true,
+                sortable: true,
+                filter: true,
+                hide: true
+            },
+            {
+                headerName: "Memo Type",
+                field: "type.name",
+                width: 110,
+                sortable: true,
+                filter: true
+            },
+            {
+                headerName: "Subject",
+                field: "subject",
+                width: 110,
+                sortable: true,
+                filter: true
+            },
+            {
+                headerName: "Stage",
+                field: "stage",
+                width: 80,
+                sortable: true,
+                filter: true
+            },
+            {
+                headerName: "Status",
+                field: "status",
+                width: 80,
+                sortable: true,
+                filter: true
+            },
+            {
+                headerName: "View",
+                width: 50,
+                sortable: false,
+                filter: false,
+                cellRenderer: "viewButtonComponent"
+            }
+        ];
+        this.defaultColDef = {resizable: true};
+        this.paginationPageSize = 10;
+        this.context = {componentParent: this};
+        this.frameworkComponents = {
+            viewButtonComponent: MemoViewButtonComponent
+        };
     }
-    this.dataService.setData(this.search);
-    this.getPagination();
-  }
 
-  getPagination() {
-    this.spinner = true;
-    this.memoService.getAll(this.memoApi + "/all", 1, 20, null).subscribe((response: any) => {
-          this.dataList = response.detail;
-          this.dataService.setDataList(this.dataList);
-          this.commonPageService.setCurrentApi(this.memoApi + "/all");
-          this.pageable = this.commonPageService.setPageable(response.detail);
+    ngOnInit() {
+        this.dataService.changeTitle(this.title);
+        this.memoApi = this.memoDataService.getMemoApi();
+    }
 
-          this.spinner = false;
+    ngDoCheck(): void {
 
+    }
+
+    sizeToFit() {
+        this.gridApi.sizeColumnsToFit();
+    }
+
+    autoSizeAll() {
+        var allColumnIds = [];
+        this.gridColumnApi.getAllColumns().forEach(function (column) {
+            allColumnIds.push(column.colId);
+        });
+        this.gridColumnApi.autoSizeColumns(allColumnIds);
+    }
+
+    onGridReady(params) {
+        this.gridApi = params.api;
+        this.gridColumnApi = params.columnApi;
+
+        this.memoService.getAll(this.memoApi + "/all", 1, 20, null).subscribe((data: any) => {
+            this.rowData = data.detail;
         }, error => {
-          this.globalMsg = error.error.message;
-          if (this.globalMsg == null) {
-            this.globalMsg = "Please check your network connection"
-          }
-          this.spinner = false;
-          this.dataService.getGlobalMsg(this.globalMsg);
-          $('.global-msgModal').modal('show');
-        }
-    );
+            this.globalMsg = error.error.message;
+            if (this.globalMsg == null) {
+                this.globalMsg = "Please check your network connection"
+            }
+            this.spinner = false;
+            this.dataService.getGlobalMsg(this.globalMsg);
+            $('.global-msgModal').modal('show');
+        });
 
-  }
+        this.sizeToFit();
+    }
 
-  memoById: Memo;
-  getMemoById(id: number) {
-    this.memoService.getById(this.memoApi, id).subscribe((response: any) => {
-      this.memoById = response.detail;
-      this.memoDataService.setMemo(this.memoById);
-      this.router.navigateByUrl('home/dashboard', { skipLocationChange: true }).then(() =>
-          this.router.navigate(["home/memo/read"]));
-    });
-  }
+    onPageSizeChanged() {
+        let value = (<HTMLInputElement>document.getElementById("page-size")).value;
+        this.gridApi.paginationSetPageSize(Number(value));
+    }
 
 }
