@@ -21,6 +21,7 @@ export class MemoComposeComponent implements OnInit {
     memoTask: string;
     memoTypes$: Observable<MemoType[]>;
     memoApi: string;
+    memoTypeApi: string;
     users$: Observable<User[]>;
     memo: Memo;
     memoComposeForm: FormGroup;
@@ -39,6 +40,7 @@ export class MemoComposeComponent implements OnInit {
     ngOnInit() {
         this.dataService.changeTitle(this.title);
         this.memoApi = this.memoDataService.getMemoApi();
+        this.memoTypeApi = this.memoDataService.getMemoTypeApi();
         if (this.memoDataService.isNewMemo) {
             this.memoTask = "Compose New";
             this.memo = new Memo();
@@ -46,7 +48,7 @@ export class MemoComposeComponent implements OnInit {
             this.memoTask = "Edit";
             this.memo = this.memoDataService.getMemo();
         }
-        this.memoService.getAll( this.memoApi + '/types', 1, 20, null).subscribe((response: any) => {
+        this.memoService.getAll( this.memoTypeApi).subscribe((response: any) => {
             this.memoTypes$ = response.content;
         });
         this.commonService.getByPostAllPageable("v1/user/get", this.search, 1, 10).subscribe((response: any) => {

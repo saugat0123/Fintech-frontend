@@ -112,8 +112,8 @@ export class MemoUnderReviewComponent implements OnInit {
         this.gridApi = params.api;
         this.gridColumnApi = params.columnApi;
 
-        this.memoService.getAll(this.memoApi + "/all", 1, 20, null).subscribe((data: any) => {
-            this.rowData = data.detail;
+        this.memoService.getPageable(this.memoApi, 1, 20, null).subscribe((data: any) => {
+            this.rowData = data.content;
         }, error => {
             this.globalMsg = error.error.message;
             if (this.globalMsg == null) {

@@ -72,7 +72,7 @@ export class MemoTypeComponent implements OnInit {
 
     getPagination() {
         this.spinner = true;
-        this.memoService.getAll(this.memoTypeApi, 1, 20, null).subscribe((response: any) => {
+        this.memoService.getAll(this.memoTypeApi).subscribe((response: any) => {
                 this.dataList = response.content;
                 this.dataService.setDataList(this.dataList);
                 this.commonPageService.setCurrentApi(this.memoTypeApi);

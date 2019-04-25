@@ -14,7 +14,13 @@ export class MemoService {
     ) {
     }
 
-    getAll(reqUrl, page: number, size: number, searchParams): Observable<Object> {
+    getAll(reqUrl): Observable<Object> {
+        let url: string = reqUrl;
+        let getUrl = this.restApiService.modifyRestUrl(url);
+        return this.http.get(getUrl.url);
+    }
+
+    getPageable(reqUrl, page: number, size: number, searchParams): Observable<Object> {
         let url: string;
         if (searchParams == null) {
             url = `${reqUrl}?page=${page}&size=${size}`;
