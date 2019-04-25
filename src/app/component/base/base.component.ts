@@ -16,6 +16,7 @@ export class BaseComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dataService.currentTitle.subscribe(message => this.title = message)
   }
 
+
   ngOnDestroy(): void {
     document.body.className = '';
   }

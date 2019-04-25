@@ -20,6 +20,7 @@ import {RolePermissionComponent} from './component/role-permission/role-permissi
 import {ListRoleComponent} from './component/role-permission/list-role/list-role.component';
 import {Routes} from '@angular/router';
 import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
+import {SecurityComponent} from './component/loan-config/loan-main-template/security/security.component';
 
 
 export const adminRoutes: Routes = [
@@ -45,7 +46,8 @@ export const adminRoutes: Routes = [
         children: [
             {path: 'basic-info', component: BasicInfoComponent},
             {path: 'kyc-info', component: KycInfoComponent},
-            {path: 'company-info', component: CompanyInfoComponent}
+            {path: 'company-info', component: CompanyInfoComponent},
+            {path:'security', component: SecurityComponent}
 
         ]
     }

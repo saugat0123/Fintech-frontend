@@ -5,6 +5,10 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {CommonDataService} from '../../../../../../shared-service/baseservice/common-dataService';
 import {Customer} from '../../../../modal/customer';
 import {CustomerRelative} from '../../../../modal/customer-relative';
+import {CommonLocation} from '../../../../../../shared-service/baseservice/common-location';
+import {Province} from '../../../../modal/province';
+import {District} from '../../../../modal/district';
+import {MunicipalityVdc} from '../../../../modal/municipality_VDC';
 
 @Component({
     selector: 'app-basic-info',
@@ -15,16 +19,29 @@ export class BasicInfoComponent implements OnInit {
     customer: Customer = new Customer();
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
     basicInfo: FormGroup;
+    provinceList:Province[]=[];
+    districtList:District[]=[];
+    municipalitiesList:MunicipalityVdc[]=[];
+    province:Province=new Province();
+    district:District= new District();
+    municipality:MunicipalityVdc=new MunicipalityVdc();
 
     constructor(
         private commonService: CommonService,
         private commonDataService: CommonDataService,
         private router: Router,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private commonLocation:CommonLocation
     ) {
     }
 
     ngOnInit() {
+        this.commonLocation.getProvince().subscribe(
+            (response:any) =>{
+                console.log(response.detail);
+                this.provinceList=response.detail;
+            }
+        );
         this.basicInfo = this.formBuilder.group({
             title: [''],
             customerName: [''],
@@ -41,6 +58,25 @@ export class BasicInfoComponent implements OnInit {
             citizenshipIssuedPlace: [''],
             citizenshipIssuedDate: ['']
         });
+    }
+
+    getDistricts(){
+        console.log(this.province);
+        this.commonLocation.getDistrictByProvince(this.province).subscribe(
+            ( response:any) => {
+                console.log(response.detail);
+                this.districtList=response.detail;
+            }
+        );
+    }
+
+    getMunicipalities() {
+        console.log(this.district);
+        this.commonLocation.getMunicipalityVDCByDistrict(this.district).subscribe(
+            (response:any) => {
+                this.municipalitiesList=response.detail;
+            }
+        )
     }
 
     onSubmit() {

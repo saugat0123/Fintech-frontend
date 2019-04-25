@@ -4,8 +4,8 @@ import {Role} from './role';
 
 export class User {
     id: number;
-    created: Date;
-    lastModified: Date;
+    createdAt: Date;
+    lastModifiedAt: Date;
     accountNo: string;
     branch: Branch;
     email: string;

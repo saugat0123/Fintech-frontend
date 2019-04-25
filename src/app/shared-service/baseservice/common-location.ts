@@ -21,7 +21,7 @@ export class CommonLocation {
 
 
     getDistrictByProvince(province: Province) {
-        // province =new Province(3,'province1');
+        console.log(province);
         const url = 'v1/address/districtByProvince';
         const getUrl = this.restApiService.modifyRestUrl(url);
         return this.http.post(getUrl.url, province);
