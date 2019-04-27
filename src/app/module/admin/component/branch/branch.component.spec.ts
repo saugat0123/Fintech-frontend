@@ -1,6 +1,6 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {BranchComponent} from './branch.component';
 
-import {BranchComponent} from './branch.component.ts';
 
 describe('BranchComponent', () => {
   let component: BranchComponent;

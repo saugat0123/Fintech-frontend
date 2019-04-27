@@ -32,7 +32,10 @@ import {CommonLocation} from './shared-service/baseservice/common-location';
         HeaderComponent,
         SidebarComponent,
         FooterComponent,
-        Sidebar1Component
+        Sidebar1Component,
+
+
+
     ],
     imports: [
         BrowserModule,
@@ -45,8 +48,9 @@ import {CommonLocation} from './shared-service/baseservice/common-location';
         SharedModule
     ],
 
-    providers: [CommonService, RestApiService, CommonDataService, NgbActiveModal, CommonLocation],
-    bootstrap: [AppComponent],
+  providers: [CommonService, RestApiService, CommonDataService, CommonLocation],
+  bootstrap: [AppComponent],
+
 
 
 })

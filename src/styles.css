@@ -16,7 +16,6 @@
   .main-header .sidebar-toggle {
     padding: 0;
   }
-
   .table th, .table td {
     text-align: justify;
     padding: 2px;
@@ -72,7 +71,7 @@ html, body { height: 100vh; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
-.select-borderless{
-    border: none;
-    border-bottom: 1px solid #0062cc;
-}
+/*.select-borderless{*/
+    /*border: none;*/
+    /*border-bottom: 1px solid #0062cc;*/
+/*}*/
