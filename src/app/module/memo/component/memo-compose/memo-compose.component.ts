@@ -6,9 +6,9 @@ import {Observable} from 'rxjs';
 import {Memo} from '../../model/memo';
 import {User} from '../../../../modal/user';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {CommonService} from "../../../../shared-service/baseservice/common-baseservice";
-import {Router} from "@angular/router";
-import {MemoDataService} from "../../service/memo-data.service";
+import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MemoDataService} from '../../service/memo-data.service';
 
 @Component({
     selector: 'app-memo-compose',
@@ -17,13 +17,15 @@ import {MemoDataService} from "../../service/memo-data.service";
 })
 export class MemoComposeComponent implements OnInit {
 
+    isNewMemo: boolean;
     title = 'Memo - Compose';
     memoTask: string;
     memoTypes$: Observable<MemoType[]>;
     memoApi: string;
     memoTypeApi: string;
     users$: Observable<User[]>;
-    memo: Memo;
+    memo: Memo = new Memo();
+    memoId: any;
     memoComposeForm: FormGroup;
     search = {};
 
@@ -33,7 +35,8 @@ export class MemoComposeComponent implements OnInit {
         private memoDataService: MemoDataService,
         private formBuilder: FormBuilder,
         private commonService: CommonService,
-        private router: Router
+        private router: Router,
+        private activatedRoute: ActivatedRoute
     ) {
     }
 
@@ -41,20 +44,30 @@ export class MemoComposeComponent implements OnInit {
         this.dataService.changeTitle(this.title);
         this.memoApi = this.memoDataService.getMemoApi();
         this.memoTypeApi = this.memoDataService.getMemoTypeApi();
-        if (this.memoDataService.isNewMemo) {
-            this.memoTask = "Compose New";
+        this.memoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+        if (this.memoId === null || this.memoId === 0 || this.memoId === undefined) {
+            this.isNewMemo = true;
+            this.memoTask = 'Compose New';
             this.memo = new Memo();
         } else {
-            this.memoTask = "Edit";
-            this.memo = this.memoDataService.getMemo();
+            this.isNewMemo = false;
+            this.memoTask = 'Edit';
+            this.memoService.getById(this.memoApi, Number(this.memoId)).subscribe((response: any) => {
+                this.memo = response.detail;
+                this.buildForm();
+            }, error => console.error(error));
         }
-        this.memoService.getAll( this.memoTypeApi).subscribe((response: any) => {
+        this.memoService.getAll(this.memoTypeApi).subscribe((response: any) => {
             this.memoTypes$ = response.content;
-        });
-        this.commonService.getByPostAllPageable("v1/user/get", this.search, 1, 10).subscribe((response: any) => {
+        }, error => console.error(error));
+        this.commonService.getByPostAllPageable('v1/user/get', this.search, 1, 10).subscribe((response: any) => {
             this.users$ = response.detail.content;
-        });
+        }, error => console.error(error));
 
+        this.buildForm();
+    }
+
+    buildForm() {
         this.memoComposeForm = this.formBuilder.group(
             {
                 id: [this.memo.id],
@@ -81,22 +94,20 @@ export class MemoComposeComponent implements OnInit {
         this.memo.bcc = this.memoComposeForm.get('bcc').value;
         this.memo.content = this.memoComposeForm.get('content').value;
 
-        if (this.memoDataService.isNewMemo) {
+        if (this.isNewMemo) {
             this.memoService.save(this.memoApi, this.memo).subscribe((response: any) => {
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(["home/memo/underReview"]));
+                    this.router.navigate(['home/memo/underReview']));
             }, error => {
                 console.error(error);
             });
         } else {
             this.memoService.edit(this.memoApi, this.memo, this.memo.id).subscribe((response: any) => {
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(["home/memo/underReview"]));
+                    this.router.navigate(['home/memo/underReview']));
             }, error => {
                 console.error(error);
             });
-
-            this.memoDataService.isNewMemo = true;
         }
     }
 

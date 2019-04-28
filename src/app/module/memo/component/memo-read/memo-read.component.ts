@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
-import {Memo} from "../../model/memo";
-import {Router} from "@angular/router";
-import {MemoService} from "../../service/memo.service";
-import {MemoDataService} from "../../service/memo-data.service";
-import {MemoDeleteModalComponent} from "../memo-delete-modal/memo-delete-modal.component";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {Memo} from '../../model/memo';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MemoService} from '../../service/memo.service';
+import {MemoDataService} from '../../service/memo-data.service';
+import {MemoDeleteModalComponent} from '../memo-delete-modal/memo-delete-modal.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-memo-read',
@@ -23,30 +23,23 @@ export class MemoReadComponent implements OnInit {
         private router: Router,
         private memoService: MemoService,
         private memoDataService: MemoDataService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private activatedRoute: ActivatedRoute
     ) {
     }
 
     ngOnInit() {
         this.dataService.changeTitle(this.title);
         this.memoApi = this.memoDataService.getMemoApi();
-
-        if (this.memoDataService.getMemo().id == undefined) {
-            this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
-                this.router.navigate(['home/memo/underReview']));
-        } else {
-            this.memo = this.memoDataService.getMemo();
-        }
+        const memoId = +this.activatedRoute.snapshot.paramMap.get('id');
+        this.memoService.getById(this.memoApi, memoId).subscribe((response: any) => {
+            this.memo = response.detail;
+        });
     }
 
     editMemo(id: number) {
-        this.memoDataService.isNewMemo = false;
-        this.memoService.getById(this.memoApi, id).subscribe((response: any) => {
-            this.memoDataService.setMemo(response.detail);
-        });
-
         this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
-            this.router.navigate(['home/memo/compose']));
+            this.router.navigate([`home/memo/compose/${id}`]));
     }
 
     openDelete(memo: Memo) {

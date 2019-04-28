@@ -1,15 +1,14 @@
 import {Injectable} from '@angular/core';
-import {MemoType} from "../model/memoType";
-import {Memo} from "../model/memo";
+import {MemoType} from '../model/memoType';
+import {Memo} from '../model/memo';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MemoDataService {
 
-    isNewMemo: boolean = true;
-    memoApi: string = "v1/memos";
-    memoTypeApi: string = "v1/memos/types";
+    memoApi = 'v1/memos';
+    memoTypeApi = 'v1/memos/types';
     deleteApi: string;
 
     memoType: MemoType = new MemoType();
@@ -59,7 +58,7 @@ export class MemoDataService {
     }
 
     clearDeleteApi() {
-        this.deleteApi = "";
+        this.deleteApi = '';
     }
 
     clearAll() {

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from "../../../../shared-service/baseservice/common-dataService";
-import {MemoService} from "../../service/memo.service";
-import {MemoDataService} from "../../service/memo-data.service";
-import {MemoViewButtonComponent} from "./memo-view-button/memo-view-button.component";
+import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
+import {MemoService} from '../../service/memo.service';
+import {MemoDataService} from '../../service/memo-data.service';
+import {MemoViewButtonComponent} from './memo-view-button/memo-view-button.component';
 
 declare var $;
 
@@ -13,10 +13,10 @@ declare var $;
 })
 export class MemoUnderReviewComponent implements OnInit {
 
-    title = "Memo - Under Review";
+    title = 'Memo - Under Review';
     memoApi: string;
 
-    spinner: boolean = false;
+    spinner = false;
     globalMsg;
 
     private gridApi;
@@ -35,8 +35,8 @@ export class MemoUnderReviewComponent implements OnInit {
     ) {
         this.columnDefs = [
             {
-                headerName: "ID",
-                field: "id",
+                headerName: 'ID',
+                field: 'id',
                 width: 100,
                 suppressSizeToFit: true,
                 sortable: true,
@@ -44,39 +44,39 @@ export class MemoUnderReviewComponent implements OnInit {
                 hide: true
             },
             {
-                headerName: "Memo Type",
-                field: "type.name",
+                headerName: 'Memo Type',
+                field: 'type.name',
                 width: 110,
                 sortable: true,
                 filter: true
             },
             {
-                headerName: "Subject",
-                field: "subject",
+                headerName: 'Subject',
+                field: 'subject',
                 width: 110,
                 sortable: true,
                 filter: true
             },
             {
-                headerName: "Stage",
-                field: "stage",
+                headerName: 'Stage',
+                field: 'stage',
                 width: 80,
                 sortable: true,
                 filter: true
             },
             {
-                headerName: "Status",
-                field: "status",
+                headerName: 'Status',
+                field: 'status',
                 width: 80,
                 sortable: true,
                 filter: true
             },
             {
-                headerName: "View",
+                headerName: 'View',
                 width: 50,
                 sortable: false,
                 filter: false,
-                cellRenderer: "viewButtonComponent"
+                cellRenderer: 'viewButtonComponent'
             }
         ];
         this.defaultColDef = {resizable: true};
@@ -92,16 +92,12 @@ export class MemoUnderReviewComponent implements OnInit {
         this.memoApi = this.memoDataService.getMemoApi();
     }
 
-    ngDoCheck(): void {
-
-    }
-
     sizeToFit() {
         this.gridApi.sizeColumnsToFit();
     }
 
     autoSizeAll() {
-        var allColumnIds = [];
+        const allColumnIds = [];
         this.gridColumnApi.getAllColumns().forEach(function (column) {
             allColumnIds.push(column.colId);
         });
@@ -117,7 +113,7 @@ export class MemoUnderReviewComponent implements OnInit {
         }, error => {
             this.globalMsg = error.error.message;
             if (this.globalMsg == null) {
-                this.globalMsg = "Please check your network connection"
+                this.globalMsg = 'Please check your network connection';
             }
             this.spinner = false;
             this.dataService.getGlobalMsg(this.globalMsg);
@@ -128,7 +124,7 @@ export class MemoUnderReviewComponent implements OnInit {
     }
 
     onPageSizeChanged() {
-        let value = (<HTMLInputElement>document.getElementById("page-size")).value;
+        const value = (<HTMLInputElement>document.getElementById('page-size')).value;
         this.gridApi.paginationSetPageSize(Number(value));
     }
 
