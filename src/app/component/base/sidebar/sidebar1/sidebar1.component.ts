@@ -11,7 +11,7 @@ import {User} from '../../../../module/admin/modal/user';
     styleUrls: ['./sidebar1.component.css']
 })
 export class Sidebar1Component implements OnInit {
-    user:User=new User();
+    user: User = new User();
     currentApi;
     navList: any;
 
@@ -24,9 +24,9 @@ export class Sidebar1Component implements OnInit {
     }
 
     ngOnInit() {
-        this.commonService.getByAll("v1/user/authenticated").subscribe(
-            (response:any) => {
-                this.user=response.detail
+        this.commonService.getByAll('v1/user/authenticated').subscribe(
+            (response: any) => {
+                this.user = response.detail;
             }
         );
         this.currentApi = 'v1/nav';

@@ -42,7 +42,7 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
     ngOnInit() {
         this.dataService.changeTitle(this.title);
         this.currentApi = 'v1/approvallimit/get';
-        this.getPagination();
+
         this.commonService.getByPost('v1/permission/chkPerm', 'APPROVAL LIMIT').subscribe((response: any) => {
             this.permissions = response.detail;
             for (let i = 0; this.permissions.length > i; i++) {
