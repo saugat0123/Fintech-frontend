@@ -6,6 +6,8 @@ import {MemoService} from '../../service/memo.service';
 import {MemoDataService} from '../../service/memo-data.service';
 import {MemoDeleteComponent} from '../modal/memo-delete/memo-delete.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MemoForwardComponent} from '../modal/memo-forward/memo-forward.component';
+import {MemoBackwardComponent} from '../modal/memo-backward/memo-backward.component';
 
 @Component({
     selector: 'app-memo-read',
@@ -46,6 +48,16 @@ export class MemoReadComponent implements OnInit {
         this.memoDataService.setMemo(memo);
         this.memoDataService.setDeleteApi(this.memoDataService.getMemoApi());
         this.modalService.open(MemoDeleteComponent);
+    }
+
+    forwardMemo(memo: Memo) {
+        this.memoDataService.setMemo(memo);
+        this.modalService.open(MemoForwardComponent);
+    }
+
+    backwardMemo(memo: Memo) {
+        this.memoDataService.setMemo(memo);
+        this.modalService.open(MemoBackwardComponent);
     }
 
 }

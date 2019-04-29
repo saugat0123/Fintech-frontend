@@ -7,7 +7,7 @@ import {MemoType} from '../../model/memoType';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddMemoTypeComponent} from './add-memo-type/add-memo-type.component';
 import {MemoDeleteComponent} from '../modal/memo-delete/memo-delete.component';
-import {MemoDataService} from "../../service/memo-data.service";
+import {MemoDataService} from '../../service/memo-data.service';
 
 declare var $;
 

@@ -11,14 +11,16 @@ import {MemoUnderReviewComponent} from './component/memo-underReview/memo-underR
 import {MemoReadComponent} from './component/memo-read/memo-read.component';
 import {SharedModule} from '../shared/shared.module';
 import {MemoService} from './service/memo.service';
-import {MemoDataService} from "./service/memo-data.service";
+import {MemoDataService} from './service/memo-data.service';
 import {MemoRoutes} from './memo-routes';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {QuillModule} from 'ngx-quill';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {SafePipe} from "./pipe/safe.pipe";
-import {AgGridModule} from "ag-grid-angular";
+import {SafePipe} from './pipe/safe.pipe';
+import {AgGridModule} from 'ag-grid-angular';
 import {MemoViewButtonComponent} from './component/memo-underReview/memo-view-button/memo-view-button.component';
+import {MemoForwardComponent} from './component/modal/memo-forward/memo-forward.component';
+import {MemoBackwardComponent} from './component/modal/memo-backward/memo-backward.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +32,9 @@ import {MemoViewButtonComponent} from './component/memo-underReview/memo-view-bu
         MemoUnderReviewComponent,
         MemoReadComponent,
         SafePipe,
-        MemoViewButtonComponent
+        MemoViewButtonComponent,
+        MemoForwardComponent,
+        MemoBackwardComponent
     ],
     imports: [
         CommonModule,
@@ -45,7 +49,9 @@ import {MemoViewButtonComponent} from './component/memo-underReview/memo-view-bu
     ],
     entryComponents: [
         AddMemoTypeComponent,
-        MemoDeleteComponent
+        MemoDeleteComponent,
+        MemoForwardComponent,
+        MemoBackwardComponent
     ],
     providers: [MemoService, MemoDataService]
 })

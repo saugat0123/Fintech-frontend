@@ -77,10 +77,10 @@
                     type="button" (click)="openDelete(memo)">
                 <i class="fa fa-trash-o"></i></button>
             <button class="btn btn-primary btn-sm" data-container="body" data-toggle="tooltip" title="Send Backward"
-                    type="button">
+                    type="button" (click)="backwardMemo(memo)">
                 <i class="fa fa-reply"></i></button>
             <button class="btn btn-primary btn-sm" data-container="body" data-toggle="tooltip" title="Send Forward"
-                    type="button">
+                    type="button" (click)="forwardMemo(memo)">
                 <i class="fa fa-share"></i></button>
             <button class="btn btn-primary btn-sm" data-toggle="tooltip" title="Print" type="button">
                 <i class="fa fa-print"></i></button>
@@ -100,8 +100,8 @@
     </div>
     <!-- /.btn-group -->
     <div class="btn-group pull-right">
-        <button class="btn btn-primary" type="button"><i class="fa fa-reply"></i> Send Backward</button>
-        <button class="btn btn-primary" type="button"><i class="fa fa-share"></i> Send Forward</button>
+        <button class="btn btn-primary" type="button" (click)="backwardMemo(memo)"><i class="fa fa-reply"></i> Send Backward</button>
+        <button class="btn btn-primary" type="button" (click)="forwardMemo(memo)"><i class="fa fa-share"></i> Send Forward</button>
     </div>
     <!-- /.btn-group -->
 </div>
