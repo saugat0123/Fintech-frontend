@@ -6,7 +6,7 @@ import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
 import {MemoType} from '../../model/memoType';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddMemoTypeComponent} from './add-memo-type/add-memo-type.component';
-import {MemoDeleteModalComponent} from '../memo-delete-modal/memo-delete-modal.component';
+import {MemoDeleteComponent} from '../modal/memo-delete/memo-delete.component';
 import {MemoDataService} from "../../service/memo-data.service";
 
 declare var $;
@@ -67,7 +67,7 @@ export class MemoTypeComponent implements OnInit {
     openDelete(memoType: MemoType) {
         this.memoDataService.setMemoType(memoType);
         this.memoDataService.setDeleteApi(this.memoDataService.getMemoTypeApi());
-        this.modalService.open(MemoDeleteModalComponent);
+        this.modalService.open(MemoDeleteComponent);
     }
 
     getPagination() {

@@ -5,7 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MemoBaseComponent} from './component/memo-base/memo-base.component';
 import {MemoTypeComponent} from './component/memo-type/memo-type.component';
 import {AddMemoTypeComponent} from './component/memo-type/add-memo-type/add-memo-type.component';
-import {MemoDeleteModalComponent} from './component/memo-delete-modal/memo-delete-modal.component';
+import {MemoDeleteComponent} from './component/modal/memo-delete/memo-delete.component';
 import {MemoComposeComponent} from './component/memo-compose/memo-compose.component';
 import {MemoUnderReviewComponent} from './component/memo-underReview/memo-underReview.component';
 import {MemoReadComponent} from './component/memo-read/memo-read.component';
@@ -25,7 +25,7 @@ import {MemoViewButtonComponent} from './component/memo-underReview/memo-view-bu
         MemoBaseComponent,
         MemoTypeComponent,
         AddMemoTypeComponent,
-        MemoDeleteModalComponent,
+        MemoDeleteComponent,
         MemoComposeComponent,
         MemoUnderReviewComponent,
         MemoReadComponent,
@@ -45,7 +45,7 @@ import {MemoViewButtonComponent} from './component/memo-underReview/memo-view-bu
     ],
     entryComponents: [
         AddMemoTypeComponent,
-        MemoDeleteModalComponent
+        MemoDeleteComponent
     ],
     providers: [MemoService, MemoDataService]
 })

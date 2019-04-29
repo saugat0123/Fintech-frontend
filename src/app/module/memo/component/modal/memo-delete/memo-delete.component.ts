@@ -1,18 +1,18 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {MemoService} from '../../service/memo.service';
-import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
+import {MemoService} from '../../../service/memo.service';
+import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {MemoDataService} from "../../service/memo-data.service";
+import {MemoDataService} from '../../../service/memo-data.service';
 
 declare var $;
 
 @Component({
     selector: 'app-delete-memo-type',
-    templateUrl: './memo-delete-modal.component.html',
-    styleUrls: ['./memo-delete-modal.component.css']
+    templateUrl: './memo-delete.component.html',
+    styleUrls: ['./memo-delete.component.css']
 })
-export class MemoDeleteModalComponent implements OnInit, DoCheck {
+export class MemoDeleteComponent implements OnInit, DoCheck {
 
     modalName: string;
     currentUrl: any;
@@ -33,10 +33,10 @@ export class MemoDeleteModalComponent implements OnInit, DoCheck {
         this.deleteApi = this.memoDataService.getDeleteApi();
 
         if (this.deleteApi === this.memoDataService.getMemoApi()) {
-            this.modalName = "Memo";
+            this.modalName = 'Memo';
             this.deleteId = this.memoDataService.getMemo().id;
         } else if (this.deleteApi === this.memoDataService.getMemoTypeApi()) {
-            this.modalName = "Memo Type";
+            this.modalName = 'Memo Type';
             this.deleteId = this.memoDataService.getMemoType().id;
         }
     }

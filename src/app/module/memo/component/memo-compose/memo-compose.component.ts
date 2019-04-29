@@ -53,8 +53,7 @@ export class MemoComposeComponent implements OnInit {
             this.isNewMemo = false;
             this.memoTask = 'Edit';
             this.memoService.getById(this.memoApi, Number(this.memoId)).subscribe((response: any) => {
-                this.memo = response.detail;
-                this.buildForm();
+                this.buildMemoForm(response.detail);
             }, error => console.error(error));
         }
         this.memoService.getAll(this.memoTypeApi).subscribe((response: any) => {
@@ -64,21 +63,21 @@ export class MemoComposeComponent implements OnInit {
             this.users$ = response.detail.content;
         }, error => console.error(error));
 
-        this.buildForm();
+        this.buildMemoForm(this.memo);
     }
 
-    buildForm() {
+    buildMemoForm(memo: Memo) {
         this.memoComposeForm = this.formBuilder.group(
             {
-                id: [this.memo.id],
-                subject: [this.memo.subject],
-                referenceNo: [this.memo.referenceNo],
-                memoType: [this.memo.type],
-                sentBy: [this.memo.sentBy],
-                sentTo: [this.memo.sentTo],
-                cc: [this.memo.cc],
-                bcc: [this.memo.bcc],
-                content: [this.memo.content]
+                id: [memo.id],
+                subject: [memo.subject],
+                referenceNo: [memo.referenceNo],
+                memoType: [memo.type],
+                sentBy: [memo.sentBy],
+                sentTo: [memo.sentTo],
+                cc: [memo.cc],
+                bcc: [memo.bcc],
+                content: [memo.content]
             }
         );
     }

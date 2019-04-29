@@ -4,7 +4,7 @@ import {Memo} from '../../model/memo';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MemoService} from '../../service/memo.service';
 import {MemoDataService} from '../../service/memo-data.service';
-import {MemoDeleteModalComponent} from '../memo-delete-modal/memo-delete-modal.component';
+import {MemoDeleteComponent} from '../modal/memo-delete/memo-delete.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -45,7 +45,7 @@ export class MemoReadComponent implements OnInit {
     openDelete(memo: Memo) {
         this.memoDataService.setMemo(memo);
         this.memoDataService.setDeleteApi(this.memoDataService.getMemoApi());
-        this.modalService.open(MemoDeleteModalComponent);
+        this.modalService.open(MemoDeleteComponent);
     }
 
 }
