@@ -10,7 +10,6 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { BaseComponent } from './component/base/base.component';
 import { LoginComponent } from './component/login/login.component';
 import { NotificationComponent } from './component/dashboard/notification/notification.component';
-import { PendingLoanComponent } from './component/dashboard/pending-loan/pending-loan.component';
 import { HeaderComponent } from './component/base/header/header.component';
 import { SidebarComponent } from './component/base/sidebar/sidebar.component';
 import { FooterComponent } from './component/base/footer/footer.component';
@@ -25,16 +24,8 @@ import { MsgModalComponent } from './common/msg-modal/msg-modal.component';
 import { PaginationComponent } from './common/pagination/pagination.component';
 import { MsgAlertComponent } from './common/msg-alert/msg-alert.component';
 import { UpdateModalComponent } from './common/update-modal/update-modal.component';
-import { LoanConfigComponent } from './component/loan-config/loan-config.component';
-import { LoanTemplateComponent } from './component/loan-template/loan-template.component';
-import { TemplateAddModelComponent } from './component/loan-template/template-add-model/template-add-model.component';
-import { BasicInfoComponent } from './component/loan-main-template/basic-info/basic-info.component';
-import { LoanUiComponent } from './component/loan-ui/loan-ui.component';
-import { AddLoanComponent } from './component/loan-config/add-loan/add-loan.component';
 import { AddUserComponent } from './component/user/add-user/add-user.component';
 import { UserComponent } from './component/user/user.component';
-import { ApprovallimitComponent } from './component/approvallimit/approvallimit.component';
-import { AddApprovalLimitComponent } from './component/approvallimit/add-approval-limit/add-approval-limit.component';
 
 @NgModule({
   imports: [
@@ -50,7 +41,6 @@ import { AddApprovalLimitComponent } from './component/approvallimit/add-approva
     DashboardComponent,
     LoginComponent,
     NotificationComponent,
-    PendingLoanComponent,
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
@@ -61,16 +51,8 @@ import { AddApprovalLimitComponent } from './component/approvallimit/add-approva
     PaginationComponent,
     MsgAlertComponent,
     UpdateModalComponent,
-    LoanConfigComponent,
-    LoanTemplateComponent,
-    TemplateAddModelComponent,
-    BasicInfoComponent,
-    LoanUiComponent,
-    AddLoanComponent,
     UserComponent,
-    AddUserComponent,
-    ApprovallimitComponent,
-    AddApprovalLimitComponent,
+    AddUserComponent
   ],
   providers: [
     CommonService,
