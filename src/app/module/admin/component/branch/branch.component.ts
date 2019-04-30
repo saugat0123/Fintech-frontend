@@ -9,6 +9,9 @@ import {AddModelComponent} from './add-model/add-model.component';
 import {MunicipalityVdc} from '../../modal/municipality_VDC';
 import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
 import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
+import {Province} from '../../modal/province';
+import {District} from '../../modal/district';
+import {CommonLocation} from '../../../../shared-service/baseservice/common-location';
 
 
 declare var $;
@@ -31,7 +34,6 @@ export class BranchComponent implements OnInit, DoCheck {
     inactiveCount: number;
     branches: number;
     newValue: string;
-    municipalities: MunicipalityVdc[];
     branch: Branch = new Branch();
 
 
@@ -41,11 +43,20 @@ export class BranchComponent implements OnInit, DoCheck {
     downloadCsv = false;
     editViewBranch = false;
 
+    provinces: Province[];
+    districts: District[];
+    municipalities: MunicipalityVdc[];
+    district: District = new District();
+    province: Province = new Province();
+    municipality: MunicipalityVdc = new MunicipalityVdc();
+
+
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private location: CommonLocation
     ) {
     }
 
@@ -57,6 +68,10 @@ export class BranchComponent implements OnInit, DoCheck {
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.branches = response.detail.branches;
+        });
+
+        this.location.getProvince().subscribe((response: any) => {
+            this.provinces = response.detail;
         });
 
         this.commonService.getByPost('v1/permission/chkPerm', 'BRANCH').subscribe((response: any) => {
@@ -124,6 +139,11 @@ export class BranchComponent implements OnInit, DoCheck {
         this.onChange(allList.status, allList);
     }
 
+
+    clearSearch() {
+        this.search = {};
+    }
+
     getPagination() {
         this.spinner = true;
         this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
@@ -153,5 +173,30 @@ export class BranchComponent implements OnInit, DoCheck {
             link.setAttribute('visibility', 'hidden');
             link.click();
         });
+    }
+
+
+    getMunicipalities(districtId: number) {
+        this.search.districtId = districtId;
+        this.district.id = districtId;
+        this.location.getMunicipalityVDCByDistrict(this.district).subscribe(
+            (response: any) => {
+                this.municipalities = response.detail;
+            }
+        );
+
+    }
+
+
+    getDistricts(provinceId: number) {
+        this.search.provinceId = provinceId;
+        this.province.id = provinceId;
+        this.location.getDistrictByProvince(this.province).subscribe(
+            (response: any) => {
+                this.districts = response.detail;
+            }
+        );
+        this.municipalities = new Array();
+        console.log(this.province);
     }
 }
