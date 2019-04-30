@@ -53,7 +53,8 @@ export class MemoComposeComponent implements OnInit {
             this.isNewMemo = false;
             this.memoTask = 'Edit';
             this.memoService.getById(this.memoApi, Number(this.memoId)).subscribe((response: any) => {
-                this.buildMemoForm(response.detail);
+                this.memo = response.detail;
+                this.buildMemoForm(this.memo);
             }, error => console.error(error));
         }
         this.memoService.getAll(this.memoTypeApi).subscribe((response: any) => {
@@ -83,6 +84,7 @@ export class MemoComposeComponent implements OnInit {
     }
 
     onSubmit() {
+        console.log(this.memo);
         this.memo.id = this.memoComposeForm.get('id').value;
         this.memo.subject = this.memoComposeForm.get('subject').value;
         this.memo.referenceNo = this.memoComposeForm.get('referenceNo').value;

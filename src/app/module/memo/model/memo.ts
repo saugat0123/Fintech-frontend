@@ -10,7 +10,7 @@ export class Memo {
     cc: Array<User>;
     bcc: Array<User>;
     content: string;
-    status: any;
+    status: string;
     // stage: Stage
     stage: any;
     type: MemoType;

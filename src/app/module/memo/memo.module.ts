@@ -4,8 +4,6 @@ import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MemoBaseComponent} from './component/memo-base/memo-base.component';
 import {MemoTypeComponent} from './component/memo-type/memo-type.component';
-import {AddMemoTypeComponent} from './component/memo-type/add-memo-type/add-memo-type.component';
-import {MemoDeleteComponent} from './component/modal/memo-delete/memo-delete.component';
 import {MemoComposeComponent} from './component/memo-compose/memo-compose.component';
 import {MemoUnderReviewComponent} from './component/memo-underReview/memo-underReview.component';
 import {MemoReadComponent} from './component/memo-read/memo-read.component';
@@ -19,22 +17,18 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {SafePipe} from './pipe/safe.pipe';
 import {AgGridModule} from 'ag-grid-angular';
 import {MemoViewButtonComponent} from './component/memo-underReview/memo-view-button/memo-view-button.component';
-import {MemoForwardComponent} from './component/modal/memo-forward/memo-forward.component';
-import {MemoBackwardComponent} from './component/modal/memo-backward/memo-backward.component';
+import {ModalModule} from 'ngx-bootstrap/modal';
+
 
 @NgModule({
     declarations: [
         MemoBaseComponent,
         MemoTypeComponent,
-        AddMemoTypeComponent,
-        MemoDeleteComponent,
         MemoComposeComponent,
         MemoUnderReviewComponent,
         MemoReadComponent,
         SafePipe,
-        MemoViewButtonComponent,
-        MemoForwardComponent,
-        MemoBackwardComponent
+        MemoViewButtonComponent
     ],
     imports: [
         CommonModule,
@@ -45,13 +39,8 @@ import {MemoBackwardComponent} from './component/modal/memo-backward/memo-backwa
         ReactiveFormsModule,
         QuillModule,
         NgSelectModule,
-        AgGridModule.withComponents([MemoViewButtonComponent])
-    ],
-    entryComponents: [
-        AddMemoTypeComponent,
-        MemoDeleteComponent,
-        MemoForwardComponent,
-        MemoBackwardComponent
+        AgGridModule.withComponents([MemoViewButtonComponent]),
+        ModalModule.forRoot()
     ],
     providers: [MemoService, MemoDataService]
 })

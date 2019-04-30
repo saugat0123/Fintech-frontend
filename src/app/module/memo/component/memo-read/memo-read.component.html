@@ -20,6 +20,14 @@
         </div><!-- /.row -->
         <div class="row">
             <div class="col-md-3">
+                <h6>Status:</h6>
+            </div>
+            <div class="col-md-9">
+                <h6>{{memo?.status}}</h6>
+            </div>
+        </div><!-- /.row -->
+        <div class="row">
+            <div class="col-md-3">
                 <h6>Type:</h6>
             </div>
             <div class="col-md-9">
@@ -70,17 +78,21 @@
     <!-- /.mailbox-read-info -->
     <div class="mailbox-controls with-border text-center">
         <div class="btn-group">
-            <button class="btn btn-primary btn-sm" data-container="body" data-toggle="tooltip" title="Edit"
-                    type="button" (click)="editMemo(memo?.id)">
+            <button (click)="editMemo(memo?.id)" class="btn btn-primary btn-sm" data-container="body"
+                    data-toggle="tooltip"
+                    title="Edit" type="button">
                 <i class="fa fa-edit"></i></button>
-            <button class="btn btn-primary btn-sm" data-container="body" data-toggle="tooltip" title="Delete"
-                    type="button" (click)="openDelete(memo)">
+            <button (click)="showDeleteMemo(deleteMemoModal)" class="btn btn-primary btn-sm" data-container="body"
+                    data-toggle="tooltip"
+                    title="Delete" type="button">
                 <i class="fa fa-trash-o"></i></button>
-            <button class="btn btn-primary btn-sm" data-container="body" data-toggle="tooltip" title="Send Backward"
-                    type="button" (click)="backwardMemo(memo)">
+            <button (click)="showBackwardMemo(backwardMemoModal)" class="btn btn-primary btn-sm" data-container="body"
+                    data-toggle="tooltip"
+                    title="Send Backward" type="button">
                 <i class="fa fa-reply"></i></button>
-            <button class="btn btn-primary btn-sm" data-container="body" data-toggle="tooltip" title="Send Forward"
-                    type="button" (click)="forwardMemo(memo)">
+            <button (click)="showForwardMemo(forwardMemoModal)" class="btn btn-primary btn-sm" data-container="body"
+                    data-toggle="tooltip"
+                    title="Send Forward" type="button">
                 <i class="fa fa-share"></i></button>
             <button class="btn btn-primary btn-sm" data-toggle="tooltip" title="Print" type="button">
                 <i class="fa fa-print"></i></button>
@@ -94,15 +106,104 @@
 <!-- /.box-body -->
 <div class="box-footer">
     <div class="btn-group pull-left">
-        <button class="btn btn-primary" type="button" (click)="editMemo(memo?.id)"><i class="fa fa-edit"></i> Edit</button>
-        <button class="btn btn-primary" type="button" (click)="openDelete(memo)"><i class="fa fa-trash-o"></i> Delete</button>
+        <button (click)="editMemo(memo?.id)" class="btn btn-primary" type="button"><i class="fa fa-edit"></i> Edit
+        </button>
+        <button (click)="showDeleteMemo(deleteMemoModal)" class="btn btn-primary" type="button"><i
+                class="fa fa-trash-o"></i> Delete
+        </button>
         <button class="btn btn-primary" type="button"><i class="fa fa-print"></i> Print</button>
     </div>
     <!-- /.btn-group -->
     <div class="btn-group pull-right">
-        <button class="btn btn-primary" type="button" (click)="backwardMemo(memo)"><i class="fa fa-reply"></i> Send Backward</button>
-        <button class="btn btn-primary" type="button" (click)="forwardMemo(memo)"><i class="fa fa-share"></i> Send Forward</button>
+        <button (click)="showBackwardMemo(backwardMemoModal)" class="btn btn-primary" type="button"><i
+                class="fa fa-reply"></i> Send Backward
+        </button>
+        <button (click)="showForwardMemo(forwardMemoModal)" class="btn btn-primary" type="button"><i
+                class="fa fa-share"></i> Send Forward
+        </button>
     </div>
     <!-- /.btn-group -->
 </div>
 <!-- /.box-footer -->
+
+<ng-template #deleteMemoModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Delete Memo: {{memo?.subject}}</h4>
+        <button (click)="modalRef.hide()" aria-label="Close" class="close pull-right" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Are you sure you want to delete this memo?
+    </div>
+    <div class="modal-footer">
+        <button (click)="modalRef.hide()" class="btn btn-default" data-dismiss="modal" type="button">No</button>
+        <button (click)="deleteMemo()" class="btn btn-success" data-dismiss="modal">Yes</button>
+    </div>
+</ng-template>
+
+<ng-template #forwardMemoModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Forward Memo: {{memo?.subject}}</h4>
+        <button (click)="modalRef.hide()" aria-label="Close" class="close pull-right" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form (ngSubmit)="forwardMemo()" [formGroup]="memoForwardForm">
+        <div class="modal-body">
+            <p>Are you sure you want to forward this memo?</p>
+            <hr/>
+            <div class="form-group">
+                <ng-select
+                        [closeOnSelect]="true"
+                        [hideSelected]="true"
+                        [items]="roles$"
+                        [multiple]="false"
+                        bindLabel="name"
+                        formControlName="forwardRole"
+                        placeholder="Select Role">
+                    >
+                </ng-select>
+            </div>
+            <div class="form-group">
+                <ng-select
+                        [closeOnSelect]="true"
+                        [hideSelected]="true"
+                        [items]="users$"
+                        [multiple]="false"
+                        bindLabel="name"
+                        formControlName="forwardUser"
+                        placeholder="Select User">
+                    >
+                </ng-select>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" placeholder="Your comment here..." rows="5" formControlName="comment"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button (click)="modalRef.hide()" class="btn btn-default" data-dismiss="modal" type="button">No</button>
+            <button (click)="forwardMemo()" class="btn btn-success" data-dismiss="modal">Yes</button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #backwardMemoModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Backward Memo: {{memo?.subject}}</h4>
+        <button (click)="modalRef.hide()" aria-label="Close" class="close pull-right" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form (ngSubmit)="backwardMemo()" [formGroup]="memoBackwardForm">
+        <div class="modal-body">
+            Are you sure you want to send this memo back?
+            <hr/>
+            <textarea class="form-control" placeholder="Your comment here..." rows="5" formControlName="comment"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button (click)="modalRef.hide()" class="btn btn-default" data-dismiss="modal" type="button">No</button>
+            <button class="btn btn-success" data-dismiss="modal" type="submit">Yes</button>
+        </div>
+    </form>
+</ng-template>
