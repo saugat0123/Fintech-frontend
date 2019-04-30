@@ -1,33 +1,33 @@
-<p *ngIf="router.isActive('/customer/open/1', true)">
-    customer-form1 works!
-</p>
-<p *ngIf="router.isActive('/customer/open/2', true)">
-    customer-form2 works!
-</p>
-<p *ngIf="router.isActive('/customer/open/3', true)">
-    customer-form3 works!
-</p>
-<p *ngIf="router.isActive('/customer/open/4', true)">
-    customer-form4 works!
-</p>
-<p *ngIf="router.isActive('/customer/open/5', true)">
-    customer-form5 works!
-</p>
-<p *ngIf="router.isActive('/customer/open/6', true)">
-    customer-form6 works!
-</p>
-<p *ngIf="router.isActive('/customer/open/7', true)">
-    customer-form7 works!
-</p>
-<p *ngIf="router.isActive('/customer/open/8', true)">
-    customer-form8 works!
-</p>
-<p *ngIf="router.isActive('/customer/open/9', true)">
-    customer-form9 works!
-</p>
-<p *ngIf="router.isActive('/customer/open/10', true)">
-    customer-form10 works!
-</p>
+<div *ngIf="router.isActive('/customer/open/1', true)">
+    <h5 class="card-title">Exising Account Detail</h5>
+</div>
+<div *ngIf="router.isActive('/customer/open/2', true)">
+    <h5 class="card-title">Account Type</h5>
+</div>
+<div *ngIf="router.isActive('/customer/open/3', true)">
+    <h5 class="card-title">Applicant Personal Details</h5>
+</div>
+<div *ngIf="router.isActive('/customer/open/4', true)">
+    <h5 class="card-title">Employment Details</h5>
+</div>
+<div *ngIf="router.isActive('/customer/open/5', true)">
+    <h5 class="card-title">Joint Applicant</h5>
+</div>
+<div *ngIf="router.isActive('/customer/open/6', true)">
+    <h5 class="card-title">Beneficiary Details</h5>
+</div>
+<div *ngIf="router.isActive('/customer/open/7', true)">
+    <h5 class="card-title">Nominee Details</h5>
+</div>
+<div *ngIf="router.isActive('/customer/open/8', true)">
+    <h5 class="card-title">Required Service</h5>
+</div>
+<div *ngIf="router.isActive('/customer/open/9', true)">
+    <h5 class="card-title">Declarations</h5>
+</div>
+<div *ngIf="router.isActive('/customer/open/10', true)">
+    <h5 class="card-title">Upload</h5>
+</div>
 <!-- buttons to switch pages -->
 <a *ngIf="currentId !== 1" class="btn btn-primary pull-left" routerLink="/customer/open/{{currentId - 1}}">Previous</a>
 <a *ngIf="currentId !== finalId" class="btn btn-primary pull-right" routerLink="/customer/open/{{currentId + 1}}">Next</a>
