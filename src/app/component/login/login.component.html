@@ -1,31 +1,45 @@
 <div class="login-box">
-  <div class="login-logo">
-    <b>SB</b>Solution
-  </div>
-  <spinner *ngIf="spinner"></spinner>
-  <!-- /.login-logo -->
-  <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
-    <form name="login-form" class="login-form" #lform="ngForm" (ngSubmit)="loginClick(lform)">
-      <div class="form-group has-feedback">
-        <input type="email" id="email" class="form-control" maxlength="50" placeholder="Email" ngModel name="email"
-          pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required #email="ngModel">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="password" id="password" class="form-control" placeholder="Password" ngModel name="password"
-          #pass="ngModel" required>
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
-      <div class="row">
-        <!-- /.col -->
-        <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-        </div>
-        <!-- /.col -->
-      </div>
-    </form>
-  </div>
-  <!-- /.login-box-body -->
+    <div class="login-logo">
+        <b>Customer Account Opening</b>
+    </div>
+    <spinner *ngIf="spinner"></spinner>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <a class="btn btn-primary btn-block btn-flat" routerLink="/customer/open/1">Open New Account</a>
+        <br/>
+        <button (click)="openLoginModal(loginModal)" class="btn btn-primary btn-block btn-flat">Login as Admin
+        </button>
+    </div>
+    <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
+
+<ng-template #loginModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Login</h4>
+        <button (click)="modalRef.hide()" aria-label="Close" class="close pull-right" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form #lform="ngForm" (ngSubmit)="loginClick(lform)" class="login-form" name="login-form">
+        <div class="modal-body">
+            <div class="form-group has-feedback">
+                <input #email="ngModel" class="form-control" id="email" maxlength="50" name="email" ngModel
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                       placeholder="Email" required type="email">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input #pass="ngModel" class="form-control" id="password" name="password" ngModel placeholder="Password"
+                       required type="password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button (click)="modalRef.hide()" class="btn btn-default" data-dismiss="modal" type="button">Cancel</button>
+            <button class="btn btn-primary btn-block btn-flat" type="submit">Sign In</button>
+        </div>
+    </form>
+
+
+</ng-template>

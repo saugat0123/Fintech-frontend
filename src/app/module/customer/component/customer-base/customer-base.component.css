@@ -1,0 +1,13 @@
+.jumbotron {
+    margin-bottom: 0;
+}
+
+.custom-nav > li {
+    background-color: #eceeef;
+    color: #344a62;
+    margin: 5px 0;
+}
+
+.custom-nav > li:hover {
+    background-color: #cccccc;
+}

@@ -1,0 +1,39 @@
+<app-customer-header></app-customer-header>
+<div class="jumbotron">
+    <h1>Customer Account Opening</h1>
+    <hr/>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Fill the form</h5>
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="nav flex-column custom-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/customer/open/1">1: Content 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/customer/open/2">2: Content 2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/customer/open/3">3: Content 3</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <router-outlet></router-outlet>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <app-customer-footer></app-customer-footer>
+    </div>
+</div>
