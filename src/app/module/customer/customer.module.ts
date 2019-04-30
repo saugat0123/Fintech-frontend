@@ -6,6 +6,7 @@ import {CustomerRoutes} from './customer-routes';
 import {CustomerHeaderComponent} from './component/customer-base/customer-header/customer-header.component';
 import {CustomerFooterComponent} from './component/customer-base/customer-footer/customer-footer.component';
 import {CustomerFormComponent} from './component/customer-form/customer-form.component';
+import {CustomerDataService} from './service/customer-data.service';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import {CustomerFormComponent} from './component/customer-form/customer-form.com
     imports: [
         CommonModule,
         RouterModule.forChild(CustomerRoutes)
-    ]
+    ],
+    providers: [CustomerDataService]
 })
 export class CustomerModule {
 }

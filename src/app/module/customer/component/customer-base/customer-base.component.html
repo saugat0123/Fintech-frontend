@@ -8,14 +8,8 @@
             <div class="row">
                 <div class="col-md-3">
                     <ul class="nav flex-column custom-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/customer/open/1">1: Content 1</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/customer/open/2">2: Content 2</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/customer/open/3">3: Content 3</a>
+                        <li class="nav-item" routerLinkActive="active" *ngFor="let nav of navigations">
+                            <a class="nav-link" routerLink="/customer/open/{{nav?.id}}">{{nav?.id}}: {{nav?.name}}</a>
                         </li>
                     </ul>
                 </div>
