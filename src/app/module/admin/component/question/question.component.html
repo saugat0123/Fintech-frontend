@@ -1,0 +1,142 @@
+<div class="row">
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+      <span class="info-box-icon bg-yellow">
+        <i class="fa fa-bank"></i>
+      </span>
+            <div class="info-box-content">
+                <span class="info-box-text">Questions</span>
+                <span class="info-box-number">0</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+      <span class="info-box-icon bg-green">
+        <i class="fa fa-briefcase"></i>
+      </span>
+            <div class="info-box-content">
+                <span class="info-box-text">Active</span>
+                <span class="info-box-number">0</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+      <span class="info-box-icon bg-maroon">
+        <i class="fa fa-address-book"></i>
+      </span>
+            <div class="info-box-content">
+                <span class="info-box-text">INACTIVE</span>
+                <span class="info-box-number">0</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <div class="col-md-12">
+                    <div class=row>
+                        <div class="col-md-3">
+                            <label>Select a Scheme</label>
+                            <select class="form-control">
+                                <option>Scheme</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <hr>
+                    <form [formGroup]="questionAnswerForm" (ngSubmit)="onSubmit()">
+                        <div formArrayName="questionForm">
+                            <div class="form-group"
+                                 *ngFor="let qsn of questionAnswerForm.get('questionForm').controls; let i = index;" >
+
+                                <legend><h3>Question {{i+1}}:</h3></legend>
+                                    <div [formGroupName]="i">
+                                    <label>Question Description:</label>
+                                    <input class="form-control" formControlName="qsnDescription">
+                                    <span>
+                                        <button class="btn btn-danger" (click)="deleteQuestionField(i)">
+                                            Delete question field
+                                        </button>
+                                    </span>
+
+                                <div formArrayName="answerForm">
+                                    <div class="form-group"
+                                         *ngFor="let ans of qsn.get('answerForm').controls; let j = index;">
+
+                                            <h4>Answer {{j + 1}}:</h4>
+                                            <div [formGroupName]="j">
+                                                <div class="row">
+                                                <div class="col-md-5">
+                                                    <label>Answer:</label>
+                                                    <input class="form-control" formControlName="ansDescription">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>Points:</label>
+                                                    <input class="form-control" formControlName="points">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button class="btn btn-danger" (click)="deleteAnswerField(qsn.controls.answerForm, j)">
+                                                        Delete answer field
+                                                    </button>
+                                                </div>
+                                                </div>
+                                            </div>
+
+                                    </div>
+                                    <div class="row mt-2 mb-3 pr-3">
+                                        <div class="col-md-12 float-right">
+                                            <button class="btn btn-danger btn-sm float-right" (click)="addAnswerField(qsn.controls.answerForm)">
+                                                Add Answer field
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                    </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-md-12 float-right">
+                                <button class="btn btn-info float-right" (click)="addQuestionField()">
+                                    Add Question field
+                                </button>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <button class="btn btn-success">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <spinner *ngIf="spinner" class="d-flex justify-content-center"></spinner>
+
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            <!-- ***************************update-modal********************************** -->
+
+            <!-- ***************************update-modal********************************** -->
+        </div>
+    </div>
+</div>
