@@ -1,34 +1,156 @@
-<div *ngIf="router.isActive('/customer/open/1', true)">
-    <h5 class="card-title">Existing Account Detail</h5>
-</div>
-<div *ngIf="router.isActive('/customer/open/2', true)">
-    <h5 class="card-title">Account Type</h5>
-</div>
-<div *ngIf="router.isActive('/customer/open/3', true)">
-    <h5 class="card-title">Applicant Personal Details</h5>
-</div>
-<div *ngIf="router.isActive('/customer/open/4', true)">
-    <h5 class="card-title">Employment Details</h5>
-</div>
-<div *ngIf="router.isActive('/customer/open/5', true)">
-    <h5 class="card-title">Joint Applicant</h5>
-</div>
-<div *ngIf="router.isActive('/customer/open/6', true)">
-    <h5 class="card-title">Beneficiary Details</h5>
-</div>
-<div *ngIf="router.isActive('/customer/open/7', true)">
-    <h5 class="card-title">Nominee Details</h5>
-</div>
-<div *ngIf="router.isActive('/customer/open/8', true)">
-    <h5 class="card-title">Required Service</h5>
-</div>
-<div *ngIf="router.isActive('/customer/open/9', true)">
-    <h5 class="card-title">Declarations</h5>
-</div>
-<div *ngIf="router.isActive('/customer/open/10', true)">
-    <h5 class="card-title">Upload</h5>
-</div>
-<!-- buttons to switch pages -->
-<a *ngIf="currentId !== 1" class="btn btn-primary pull-left" routerLink="/customer/open/{{currentId - 1}}">Previous</a>
-<a *ngIf="currentId !== finalId" class="btn btn-primary pull-right" routerLink="/customer/open/{{currentId + 1}}">Next</a>
-<button *ngIf="currentId === finalId" class="btn btn-success pull-right" type="submit">Submit</button>
+<form [formGroup]="customerACOpeningForm">
+    <div [hidden]="!router.isActive('/customer/open/1', true)">
+        <div class="card">
+            <div class="card-header">
+                Existing Account Details
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Do you have existing account with this Bank?</h5>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="existingAccountRadio"
+                                   id="existingAccountYes" type="radio" value="Yes">
+                            <label class="custom-control-label" for="existingAccountYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="existingAccountRadio"
+                                   id="existingAccountNo" type="radio" value="No">
+                            <label class="custom-control-label" for="existingAccountNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div [hidden]="customerACOpeningForm.get('existingAccountRadio').value === 'No' || customerACOpeningForm.get('existingAccountRadio').value === undefined || customerACOpeningForm.get('existingAccountRadio').value === null"
+                     class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="existingAccountNumber">Account Number</label>
+                            <input class="form-control" formControlName="existingAccountNumber"
+                                   id="existingAccountNumber" placeholder="Enter your account number"
+                                   type="text">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div [hidden]="!router.isActive('/customer/open/2', true)">
+        <div class="card">
+            <div class="card-header">
+                Account Type
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Please choose the options</h5>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="card-text">TYPE OF ACCOUNT</p>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="accountTypeRadio"
+                                   id="accountTypeCurrent" type="radio" value="Current Account">
+                            <label class="custom-control-label" for="accountTypeCurrent">Current Account</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="accountTypeRadio"
+                                   id="accountTypeSavings" type="radio" value="Savings Account">
+                            <label class="custom-control-label" for="accountTypeSavings">Savings Account</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="accountTypeRadio" id="accountTypeOther"
+                                   type="radio" value="Other Account">
+                            <label class="custom-control-label" for="accountTypeOther">Other Account</label>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div [hidden]="customerACOpeningForm.get('accountTypeRadio').value !== 'Other Account'" class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="otherAccount">Account Number</label>
+                            <input class="form-control" formControlName="otherAccountName"
+                                   id="otherAccount" placeholder="Enter account name"
+                                   type="text">
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="card-text">CURRENCY</p>
+                        <select class="custom-select" formControlName="accountCurrency">
+                            <option value="NPR">NPR</option>
+                            <option value="USD">USD</option>
+                            <option value="GBP">GBP</option>
+                            <option value="AUD">AUD</option>
+                            <option value="CAD">CAD</option>
+                        </select>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="card-text">Would you like to open a Joint Account?</p>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="jointAccountRadio" id="jointAccountYes"
+                                   type="radio" value="Yes">
+                            <label class="custom-control-label" for="jointAccountYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="jointAccountRadio" id="jointAccountNo"
+                                   type="radio" value="No">
+                            <label class="custom-control-label" for="jointAccountNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="card-text">Do you have a nominee for this Account?</p>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="nomineeRadio" id="nomineeYes"
+                                   type="radio" value="Yes">
+                            <label class="custom-control-label" for="nomineeYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="nomineeRadio" id="nomineeNo"
+                                   type="radio" value="No">
+                            <label class="custom-control-label" for="nomineeNo">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div [hidden]="!router.isActive('/customer/open/3', true)">
+        <h5 class="card-title">Applicant Personal Details</h5>
+    </div>
+    <div [hidden]="!router.isActive('/customer/open/4', true)">
+        <h5 class="card-title">Employment Details</h5>
+    </div>
+    <div [hidden]="!router.isActive('/customer/open/5', true)">
+        <h5 class="card-title">Joint Applicant</h5>
+    </div>
+    <div [hidden]="!router.isActive('/customer/open/6', true)">
+        <h5 class="card-title">Beneficiary Details</h5>
+    </div>
+    <div [hidden]="!router.isActive('/customer/open/7', true)">
+        <h5 class="card-title">Nominee Details</h5>
+    </div>
+    <div [hidden]="!router.isActive('/customer/open/8', true)">
+        <h5 class="card-title">Required Service</h5>
+    </div>
+    <div [hidden]="!router.isActive('/customer/open/9', true)">
+        <h5 class="card-title">Declarations</h5>
+    </div>
+    <div [hidden]="!router.isActive('/customer/open/10', true)">
+        <h5 class="card-title">Upload</h5>
+    </div>
+    <hr/>
+    <!-- buttons to switch pages -->
+    <a *ngIf="currentId !== 1" class="btn btn-primary pull-left"
+       routerLink="/customer/open/{{currentId - 1}}">Previous</a>
+    <a *ngIf="currentId !== finalId" class="btn btn-primary pull-right"
+       routerLink="/customer/open/{{currentId + 1}}">Next</a>
+    <button *ngIf="currentId === finalId" class="btn btn-success pull-right" type="submit">Submit</button>
+</form>

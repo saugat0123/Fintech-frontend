@@ -7,6 +7,7 @@ import {CustomerHeaderComponent} from './component/customer-base/customer-header
 import {CustomerFooterComponent} from './component/customer-base/customer-footer/customer-footer.component';
 import {CustomerFormComponent} from './component/customer-form/customer-form.component';
 import {CustomerDataService} from './service/customer-data.service';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import {CustomerDataService} from './service/customer-data.service';
     ],
     imports: [
         CommonModule,
-        RouterModule.forChild(CustomerRoutes)
+        RouterModule.forChild(CustomerRoutes),
+        ReactiveFormsModule
     ],
     providers: [CustomerDataService]
 })
