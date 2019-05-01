@@ -176,8 +176,10 @@ export class BranchComponent implements OnInit, DoCheck {
     }
 
 
-    getMunicipalities(districtId: number) {
-        this.search.districtId = districtId;
+    getMunicipalities(districtId) {
+        delete this.search['districtId'];
+        delete this.search['municipalityId'];
+        this.search.districtId = districtId.toString();
         this.district.id = districtId;
         this.location.getMunicipalityVDCByDistrict(this.district).subscribe(
             (response: any) => {
@@ -188,15 +190,28 @@ export class BranchComponent implements OnInit, DoCheck {
     }
 
 
-    getDistricts(provinceId: number) {
-        this.search.provinceId = provinceId;
+    getDistricts(provinceId) {
         this.province.id = provinceId;
-        this.location.getDistrictByProvince(this.province).subscribe(
-            (response: any) => {
-                this.districts = response.detail;
-            }
-        );
-        this.municipalities = new Array();
-        console.log(this.province);
+        delete this.search['districtId'];
+        delete this.search['provinceId'];
+        delete this.search['municipalityId'];
+        console.log(this.search);
+        if (provinceId !== 'All') {
+            this.search.provinceId = provinceId.toString();
+            this.location.getDistrictByProvince(this.province).subscribe(
+                (response: any) => {
+                    this.districts = response.detail;
+                }
+            );
+        } else {
+            this.districts = [];
+            this.municipalities = [];
+
+        }
+    }
+
+    getMunicipality(municipalityId) {
+        this.search.municipalityId = municipalityId.toString();
+
     }
 }
