@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder} from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { Question } from '../../modal/question';
 
 @Component({
   selector: 'app-scheme-question',
@@ -7,7 +8,7 @@ import {FormBuilder} from '@angular/forms';
   styleUrls: ['./scheme-question.component.css']
 })
 export class SchemeQuestionComponent implements OnInit {
-  questions: Array<Question>;
+  question: Array<Question>;
   questionList: Question = new Question();
 
   constructor(private formBuilder: FormBuilder) { }
