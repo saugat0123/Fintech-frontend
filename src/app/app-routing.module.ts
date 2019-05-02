@@ -17,7 +17,7 @@ const routes: Routes = [
             {path: 'user', component: UserComponent},
         ],
     },
-    {path: 'customer', loadChildren: './module/customer/customer.module#CustomerModule'}
+    {path: 'customer', loadChildren: './module/customer-opening/customer-opening.module#CustomerOpeningModule'}
 ];
 
 @NgModule({

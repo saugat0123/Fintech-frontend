@@ -4,7 +4,7 @@ import {CustomerDataService} from '../../service/customer-data.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
-    selector: 'app-customer-form1',
+    selector: 'app-customer-form',
     templateUrl: './customer-form.component.html',
     styleUrls: ['./customer-form.component.css']
 })
