@@ -65,6 +65,13 @@ export class CommonService {
 
     }
 
+    getByGetAllPageable(reqUrl, page, size) {
+        let url: string = reqUrl + '?page=' + page + '&size=' + size;
+        let getUrl = this.restApiService.modifyRestUrl(url);
+        return this.http.get(getUrl.url, {headers: getUrl.header});
+
+    }
+
 }
 
 
