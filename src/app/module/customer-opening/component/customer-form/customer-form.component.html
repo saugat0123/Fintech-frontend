@@ -2,12 +2,22 @@
     <div [hidden]="!router.isActive('/customer/open/1', true)">
         <div class="card">
             <div class="card-header">
-                Existing Account Details
+                Account Details
             </div>
             <div class="card-body">
-                <h5 class="card-title">Do you have existing account with this Bank?</h5>
-                <div class="row">
-                    <div class="col-md-12">
+                <div class="form-group">
+                    <label for="bankBranch">BRANCH</label>
+                    <select class="custom-select" formControlName="bankBranch" id="bankBranch">
+                        <option value="Branch 1">Branch 1</option>
+                        <option value="Branch 2">Branch 2</option>
+                        <option value="Branch 3">Branch 3</option>
+                        <option value="Branch 4">Branch 4</option>
+                        <option value="Branch 5">Branch 5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="existingAccount">Do you have existing account with this Bank?</label>
+                    <div id="existingAccount">
                         <div class="custom-control custom-radio custom-control-inline">
                             <input class="custom-control-input" formControlName="existingAccountRadio"
                                    id="existingAccountYes" type="radio" value="Yes">
@@ -20,32 +30,23 @@
                         </div>
                     </div>
                 </div>
-                <br/>
                 <div [hidden]="customerACOpeningForm.get('existingAccountRadio').value === 'No' || customerACOpeningForm.get('existingAccountRadio').value === undefined || customerACOpeningForm.get('existingAccountRadio').value === null"
-                     class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="existingAccountNumber">Account Number</label>
-                            <input class="form-control" formControlName="existingAccountNumber"
-                                   id="existingAccountNumber" placeholder="Enter your account number"
-                                   type="text">
-                        </div>
-                    </div>
+                     class="form-group">
+                    <label for="existingAccountNumber">Account Number</label>
+                    <input class="form-control" formControlName="existingAccountNumber"
+                           id="existingAccountNumber" placeholder="Enter your account number" type="text">
                 </div>
-
             </div>
         </div>
-    </div>
-    <div [hidden]="!router.isActive('/customer/open/2', true)">
+        <br/>
         <div class="card">
             <div class="card-header">
                 Account Type
             </div>
             <div class="card-body">
-                <h5 class="card-title">Please choose the options</h5>
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="card-text">TYPE OF ACCOUNT</p>
+                <div class="form-group">
+                    <label for="accountType">TYPE OF ACCOUNT</label>
+                    <div id="accountType">
                         <div class="custom-control custom-radio custom-control-inline">
                             <input class="custom-control-input" formControlName="accountTypeRadio"
                                    id="accountTypeCurrent" type="radio" value="Current Account">
@@ -57,56 +58,49 @@
                             <label class="custom-control-label" for="accountTypeSavings">Savings Account</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input class="custom-control-input" formControlName="accountTypeRadio" id="accountTypeOther"
+                            <input class="custom-control-input" formControlName="accountTypeRadio"
+                                   id="accountTypeOther"
                                    type="radio" value="Other Account">
                             <label class="custom-control-label" for="accountTypeOther">Other Account</label>
                         </div>
                     </div>
                 </div>
-                <br/>
-                <div [hidden]="customerACOpeningForm.get('accountTypeRadio').value !== 'Other Account'" class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="otherAccount">Account Number</label>
-                            <input class="form-control" formControlName="otherAccountName"
-                                   id="otherAccount" placeholder="Enter account name"
-                                   type="text">
-                        </div>
-                    </div>
+                <div [hidden]="customerACOpeningForm.get('accountTypeRadio').value !== 'Other Account'"
+                     class="form-group">
+                    <label for="otherAccount">Account Number</label>
+                    <input class="form-control" formControlName="otherAccountName"
+                           id="otherAccount" placeholder="Enter account name" type="text">
                 </div>
-                <br/>
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="card-text">CURRENCY</p>
-                        <select class="custom-select" formControlName="accountCurrency">
-                            <option value="NPR">NPR</option>
-                            <option value="USD">USD</option>
-                            <option value="GBP">GBP</option>
-                            <option value="AUD">AUD</option>
-                            <option value="CAD">CAD</option>
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label for="accountCurrency">CURRENCY</label>
+                    <select class="custom-select" formControlName="accountCurrency" id="accountCurrency">
+                        <option value="NPR">NPR</option>
+                        <option value="USD">USD</option>
+                        <option value="GBP">GBP</option>
+                        <option value="AUD">AUD</option>
+                        <option value="CAD">CAD</option>
+                    </select>
                 </div>
-                <br/>
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="card-text">Would you like to open a Joint Account?</p>
+                <div class="form-group">
+                    <label for="jointAccount">Would you like to open a Joint Account?</label>
+                    <div id="jointAccount">
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input class="custom-control-input" formControlName="jointAccountRadio" id="jointAccountYes"
+                            <input class="custom-control-input" formControlName="jointAccountRadio"
+                                   id="jointAccountYes"
                                    type="radio" value="Yes">
                             <label class="custom-control-label" for="jointAccountYes">Yes</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input class="custom-control-input" formControlName="jointAccountRadio" id="jointAccountNo"
+                            <input class="custom-control-input" formControlName="jointAccountRadio"
+                                   id="jointAccountNo"
                                    type="radio" value="No">
                             <label class="custom-control-label" for="jointAccountNo">No</label>
                         </div>
                     </div>
                 </div>
-                <br/>
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="card-text">Do you have a nominee for this Account?</p>
+                <div class="form-group">
+                    <label for="nominee">Do you have a nominee for this Account?</label>
+                    <div id="nominee">
                         <div class="custom-control custom-radio custom-control-inline">
                             <input class="custom-control-input" formControlName="nomineeRadio" id="nomineeYes"
                                    type="radio" value="Yes">
@@ -122,28 +116,520 @@
             </div>
         </div>
     </div>
-    <div [hidden]="!router.isActive('/customer/open/3', true)">
-        <h5 class="card-title">Applicant Personal Details</h5>
+    <div [hidden]="!router.isActive('/customer/open/2', true)">
+        <div class="card">
+            <div class="card-header">
+                Applicant Personal Details
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="personalTitle">Title</label>
+                    <select class="custom-select" formControlName="personalTitle" id="personalTitle">
+                        <option value="Mr.">Mr.</option>
+                        <option value="Mrs.">Mrs.</option>
+                        <option value="Ms.">Ms.</option>
+                        <option value="Master">Master</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="personalFName">First Name</label>
+                            <input class="form-control" formControlName="personalFirstName" id="personalFName"
+                                   placeholder="Enter first name" type="text">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="personalMName">Middle Name</label>
+                            <input class="form-control" formControlName="personalMiddleName" id="personalMName"
+                                   placeholder="Enter middle name" type="text">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="personalLName">Last Name</label>
+                            <input class="form-control" formControlName="personalLastName" id="personalLName"
+                                   placeholder="Enter last name" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="maritalStatus">Marital Status</label>
+                                    <div id="maritalStatus">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input class="custom-control-input"
+                                                   formControlName="personalMaritalStatusRadio"
+                                                   id="personalMarried" type="radio" value="Married">
+                                            <label class="custom-control-label" for="personalMarried">Married</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input class="custom-control-input"
+                                                   formControlName="personalMaritalStatusRadio"
+                                                   id="personalUnmarried" type="radio" value="Unmarried">
+                                            <label class="custom-control-label"
+                                                   for="personalUnmarried">Unmarried</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input class="custom-control-input"
+                                                   formControlName="personalMaritalStatusRadio"
+                                                   id="personalMaritalOther"
+                                                   type="radio" value="Others">
+                                            <label class="custom-control-label"
+                                                   for="personalMaritalOther">Others</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div [hidden]="customerACOpeningForm.get('personalMaritalStatusRadio').value !== 'Others'"
+                                 class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="otherMaritalStatus">Other marital status</label>
+                                        <input class="form-control" formControlName="otherMaritalStatus"
+                                               id="otherMaritalStatus" placeholder="Enter other marital status"
+                                               type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="personalGender">Gender</label>
+                                    <div id="personalGender">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input class="custom-control-input" formControlName="personalGenderRadio"
+                                                   id="personalGenderMale" type="radio" value="Male">
+                                            <label class="custom-control-label" for="personalGenderMale">Male</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input class="custom-control-input" formControlName="personalGenderRadio"
+                                                   id="personalGenderFemale" type="radio" value="Female">
+                                            <label class="custom-control-label"
+                                                   for="personalGenderFemale">Female</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input class="custom-control-input" formControlName="personalGenderRadio"
+                                                   id="personalGenderOther"
+                                                   type="radio" value="Other Gender">
+                                            <label class="custom-control-label" for="personalGenderOther">Other
+                                                Gender</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div [hidden]="customerACOpeningForm.get('personalGenderRadio').value !== 'Other Gender'"
+                                 class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="otherPersonalGender">Gender Name</label>
+                                        <input class="form-control" formControlName="otherPersonalGender"
+                                               id="otherPersonalGender" placeholder="Enter gender name" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="purposeOfAccount">Purpose of account</label>
+                            <div id="purposeOfAccount">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input class="custom-control-input" formControlName="personalPurposeOfAccount"
+                                           id="purposeSaving" type="radio" value="Saving">
+                                    <label class="custom-control-label" for="purposeSaving">Saving</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input class="custom-control-input" formControlName="personalPurposeOfAccount"
+                                           id="purposeSalary" type="radio" value="Salary">
+                                    <label class="custom-control-label"
+                                           for="purposeSalary">Salary</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input class="custom-control-input" formControlName="personalPurposeOfAccount"
+                                           id="purposeOther"
+                                           type="radio" value="Others">
+                                    <label class="custom-control-label" for="purposeOther">Others</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div [hidden]="customerACOpeningForm.get('personalPurposeOfAccount').value !== 'Others'"
+                         class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="otherPurposeOfAccount">Other purpose</label>
+                                <input class="form-control" formControlName="otherPurposeOfAccount"
+                                       id="otherPurposeOfAccount" placeholder="Enter purpose of account" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="card">
+            <div class="card-header">
+                Residence
+            </div>
+            <div class="card-body">
+                <!-- Permanent -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6>Permanent Address</h6>
+                        <hr/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="personalPermanentHouseNo">House No.</label>
+                            <input class="form-control" formControlName="personalPermanentHouseNo"
+                                   id="personalPermanentHouseNo"
+                                   placeholder="Enter house no." type="text">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="personalPermanentStreet">Street</label>
+                            <input class="form-control" formControlName="personalPermanentStreet"
+                                   id="personalPermanentStreet"
+                                   placeholder="Enter street name" type="text">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="personalPermanentWard">Ward No</label>
+                            <input class="form-control" formControlName="personalPermanentWard"
+                                   id="personalPermanentWard"
+                                   placeholder="Enter ward number" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="personalPermanentMunicipalityOrVDC">Metro/Sub Metro/Municipality/VDC</label>
+                            <input class="form-control" formControlName="personalPermanentMunicipalityOrVDC"
+                                   id="personalPermanentMunicipalityOrVDC"
+                                   placeholder="Metro/Sub Metro/Municipality/VDC" type="text">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="personalPermanentProvince">Province No.</label>
+                            <input class="form-control" formControlName="personalPermanentProvince"
+                                   id="personalPermanentProvince"
+                                   placeholder="Enter province name" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="personalPermanentDistrict">District</label>
+                            <input class="form-control" formControlName="personalPermanentDistrict"
+                                   id="personalPermanentDistrict" placeholder="Enter district name" type="text">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="personalPermanentZone">Zone</label>
+                            <input class="form-control" formControlName="personalPermanentZone"
+                                   id="personalPermanentZone" placeholder="Enter zone name" type="text">
+                        </div>
+                    </div>
+                </div>
+                <!-- Present -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6>Present Address</h6>
+                        <hr/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="personalPresentHouseNo">House No.</label>
+                            <input class="form-control" formControlName="personalPresentHouseNo"
+                                   id="personalPresentHouseNo"
+                                   placeholder="Enter house no." type="text">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="personalPresentStreet">Street</label>
+                            <input class="form-control" formControlName="personalPresentStreet"
+                                   id="personalPresentStreet"
+                                   placeholder="Enter street name" type="text">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="personalPresentWard">Ward No</label>
+                            <input class="form-control" formControlName="personalPresentWard"
+                                   id="personalPresentWard"
+                                   placeholder="Enter ward number" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="personalPresentMunicipalityOrVDC">Metro/Sub Metro/Municipality/VDC</label>
+                            <input class="form-control" formControlName="personalPresentMunicipalityOrVDC"
+                                   id="personalPresentMunicipalityOrVDC"
+                                   placeholder="Metro/Sub Metro/Municipality/VDC" type="text">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="personalPresentProvince">Province No.</label>
+                            <input class="form-control" formControlName="personalPresentProvince"
+                                   id="personalPresentProvince"
+                                   placeholder="Enter province name" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="personalPresentDistrict">District</label>
+                            <input class="form-control" formControlName="personalPresentDistrict"
+                                   id="personalPresentDistrict" placeholder="Enter district name" type="text">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="personalPresentZone">Zone</label>
+                            <input class="form-control" formControlName="personalPresentZone"
+                                   id="personalPresentZone" placeholder="Enter zone name" type="text">
+                        </div>
+                    </div>
+                </div>
+                <!-- Rented -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6>In case of residing in Rented House</h6>
+                        <hr/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="personalLandlordName">Landlord's Name</label>
+                            <input class="form-control" formControlName="personalLandlordName"
+                                   id="personalLandlordName"
+                                   placeholder="Enter landlord's name" type="text">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="personalLandlordContact">Landlord's No.</label>
+                            <input class="form-control" formControlName="personalLandlordContact"
+                                   id="personalLandlordContact"
+                                   placeholder="Enter landlord's contact no." type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="card">
+            <div class="card-header">
+                Contact Details
+            </div>
+            <div class="card-body">
+                <!-- Phone no. -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6>Phone no.</h6>
+                        <hr/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="personalResidentialContact">Residential</label>
+                            <input class="form-control" formControlName="personalResidentialContact"
+                                   id="personalResidentialContact"
+                                   placeholder="Enter residential contact number" type="text">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="personalOfficeContact">Office</label>
+                            <input class="form-control" formControlName="personalOfficeContact"
+                                   id="personalOfficeContact"
+                                   placeholder="Enter office contact number" type="text">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="personalMobileContact">Mobile</label>
+                            <input class="form-control" formControlName="personalMobileContact"
+                                   id="personalMobileContact"
+                                   placeholder="Enter mobile number" type="text">
+                        </div>
+                    </div>
+                </div>
+                <!-- Email -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6>Email</h6>
+                        <hr/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" formControlName="personalEmail" id="personalEmail"
+                           placeholder="Enter email address" type="text">
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="card">
+            <div class="card-header">
+                Identification
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="personalDOB">Date of Birth</label>
+                            <input class="form-control" formControlName="personalDOB" id="personalDOB" type="date">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="personalNationality">Nationality</label>
+                            <select class="custom-select" formControlName="personalNationality"
+                                    id="personalNationality">
+                                <option value="Nepal">Nepal</option>
+                                <option value="India">India</option>
+                                <option value="USA">USA</option>
+                                <option value="UK">UK</option>
+                                <option value="Australia">Australia</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <!-- Citizenship -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>Citizenship Details</h6>
+                            <hr/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="personalCitizenshipNumber">Citizenship Number</label>
+                                <input class="form-control" formControlName="personalCitizenshipNumber"
+                                       id="personalCitizenshipNumber" placeholder="Enter your citizenship number"
+                                       type="text">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="personalCitizenshipIssueAddress">Place of issue</label>
+                                <input class="form-control" formControlName="personalCitizenshipIssueAddress"
+                                       id="personalCitizenshipIssueAddress"
+                                       placeholder="Enter your citizenship place of issue"
+                                       type="text">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="personalCitizenshipIssueDate">Date of issue</label>
+                                <input class="form-control" formControlName="personalCitizenshipIssueDate"
+                                       id="personalCitizenshipIssueDate" placeholder="Enter your citizenship issue date"
+                                       type="date">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Passport -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>Passport Details</h6>
+                            <hr/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="personalPassportNumber">Passport Number</label>
+                                <input class="form-control" formControlName="personalPassportNumber"
+                                       id="personalPassportNumber" placeholder="Enter your passport number"
+                                       type="text">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="personalPassportIssueAddress">Place of issue</label>
+                                <input class="form-control" formControlName="personalPassportIssueAddress"
+                                       id="personalPassportIssueAddress"
+                                       placeholder="Enter your passport place of issue"
+                                       type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="personalPassportIssueDate">Date of issue</label>
+                                <input class="form-control" formControlName="personalPassportIssueDate"
+                                       id="personalPassportIssueDate" placeholder="Enter your passport issue date"
+                                       type="date">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="personalPassportExpiryDate">Expiry date</label>
+                                <input class="form-control" formControlName="personalPassportExpiryDate"
+                                       id="personalPassportExpiryDate" placeholder="Enter your passport expiry date"
+                                       type="date">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="card">
+            <div class="card-header">
+                Family Details
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="personalGrandFather">Grandfather's Name</label>
+                                <input class="form-control" formControlName="personalGrandFatherName"
+                                       id="personalGrandFather"
+                                       placeholder="Enter grand father's name" type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="personalFather">Father's Name</label>
+                                <input class="form-control" formControlName="personalFatherName" id="personalFather"
+                                       placeholder="Enter father's name" type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="personalMother">Mother's Name</label>
+                                <input class="form-control" formControlName="personalMotherName" id="personalMother"
+                                       placeholder="Enter mother's name" type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="personalSpouse">Spouse's Name</label>
+                                <input class="form-control" formControlName="personalSpouseName" id="personalSpouse"
+                                       placeholder="Enter spouse's name" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div [hidden]="!router.isActive('/customer/open/4', true)">
+    <div [hidden]="!router.isActive('/customer/open/3', true)">
         <h5 class="card-title">Employment Details</h5>
     </div>
-    <div [hidden]="!router.isActive('/customer/open/5', true)">
+    <div [hidden]="!router.isActive('/customer/open/4', true)">
         <h5 class="card-title">Joint Applicant</h5>
     </div>
-    <div [hidden]="!router.isActive('/customer/open/6', true)">
+    <div [hidden]="!router.isActive('/customer/open/5', true)">
         <h5 class="card-title">Beneficiary Details</h5>
     </div>
-    <div [hidden]="!router.isActive('/customer/open/7', true)">
+    <div [hidden]="!router.isActive('/customer/open/6', true)">
         <h5 class="card-title">Nominee Details</h5>
     </div>
-    <div [hidden]="!router.isActive('/customer/open/8', true)">
+    <div [hidden]="!router.isActive('/customer/open/7', true)">
         <h5 class="card-title">Required Service</h5>
     </div>
-    <div [hidden]="!router.isActive('/customer/open/9', true)">
+    <div [hidden]="!router.isActive('/customer/open/8', true)">
         <h5 class="card-title">Declarations</h5>
     </div>
-    <div [hidden]="!router.isActive('/customer/open/10', true)">
+    <div [hidden]="!router.isActive('/customer/open/9', true)">
         <h5 class="card-title">Upload</h5>
     </div>
     <hr/>
