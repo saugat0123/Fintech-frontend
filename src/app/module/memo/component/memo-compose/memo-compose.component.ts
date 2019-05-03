@@ -4,11 +4,11 @@ import {MemoType} from '../../model/memoType';
 import {MemoService} from '../../service/memo.service';
 import {Observable} from 'rxjs';
 import {Memo} from '../../model/memo';
-import {User} from '../../../../modal/user';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MemoDataService} from '../../service/memo-data.service';
+import {User} from '../../../admin/modal/user';
 
 @Component({
     selector: 'app-memo-compose',
@@ -72,7 +72,7 @@ export class MemoComposeComponent implements OnInit {
             {
                 id: [memo.id],
                 subject: [memo.subject],
-                referenceNo: [memo.referenceNo],
+                refNumber: [memo.refNumber],
                 memoType: [memo.type],
                 sentBy: [memo.sentBy],
                 sentTo: [memo.sentTo],
@@ -87,7 +87,7 @@ export class MemoComposeComponent implements OnInit {
         console.log(this.memo);
         this.memo.id = this.memoComposeForm.get('id').value;
         this.memo.subject = this.memoComposeForm.get('subject').value;
-        this.memo.referenceNo = this.memoComposeForm.get('referenceNo').value;
+        this.memo.refNumber = this.memoComposeForm.get('refNumber').value;
         this.memo.type = this.memoComposeForm.get('memoType').value;
         this.memo.sentBy = this.memoComposeForm.get('sentBy').value;
         this.memo.sentTo = this.memoComposeForm.get('sentTo').value;
@@ -111,5 +111,4 @@ export class MemoComposeComponent implements OnInit {
             });
         }
     }
-
 }

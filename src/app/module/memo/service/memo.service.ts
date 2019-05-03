@@ -15,8 +15,8 @@ export class MemoService {
     }
 
     getAll(reqUrl): Observable<Object> {
-        let url: string = reqUrl;
-        let getUrl = this.restApiService.modifyRestUrl(url);
+        const url: string = reqUrl;
+        const getUrl = this.restApiService.modifyRestUrl(url);
         return this.http.get(getUrl.url);
     }
 
@@ -27,31 +27,35 @@ export class MemoService {
         } else {
             url = `${reqUrl}?page=${page}&searchParams=${searchParams}&size=${size}`;
         }
-        let getUrl = this.restApiService.modifyRestUrl(url);
-        return this.http.get(getUrl.url);
+
+        const getUrl = this.restApiService.modifyRestUrl(url);
+        return this.http.get(getUrl.url, {headers: getUrl.header});
     }
 
     save(reqUrl, model: Object): Observable<Object> {
         const url: string = reqUrl;
         const getUrl = this.restApiService.modifyRestUrl(url);
-        return this.http.post(getUrl.url, model);
+
+        return this.http.post(getUrl.url, model, {headers: getUrl.header});
     }
 
     edit(reqUrl, model: Object, id: number): Observable<Object> {
-        let url: string = reqUrl + "/" + id;
-        let getUrl = this.restApiService.modifyRestUrl(url);
-        return this.http.put(getUrl.url, model);
+        const url: string = reqUrl + '/' + id;
+        const getUrl = this.restApiService.modifyRestUrl(url);
+
+        return this.http.put(getUrl.url, model, {headers: getUrl.header});
     }
 
     deleteById(reqUrl, id: number) {
-        let url: string = reqUrl + "/" + id;
-        let getUrl = this.restApiService.modifyRestUrl(url);
-        return this.http.delete(getUrl.url);
+        const url: string = reqUrl + '/' + id;
+        const getUrl = this.restApiService.modifyRestUrl(url);
+
+        return this.http.delete(getUrl.url, {headers: getUrl.header});
     }
 
     getById(reqUrl, id: number) {
-        let url: string = reqUrl + "/" + id;
-        let getUrl = this.restApiService.modifyRestUrl(url);
-        return this.http.get(getUrl.url);
+        const url: string = reqUrl + '/' + id;
+        const getUrl = this.restApiService.modifyRestUrl(url);
+        return this.http.get(getUrl.url, {headers: getUrl.header});
     }
 }

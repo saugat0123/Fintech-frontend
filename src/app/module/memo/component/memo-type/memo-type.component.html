@@ -6,7 +6,7 @@
                     <div class=row>
                         <div class="col-md-3">
                             <form (ngSubmit)="onSearch()">
-                                <input (input)="onSearchChange($event.target.value)" [(ngModel)]="search.name"
+                                <input (input)="onSearchChange($event.target.value)" [(ngModel)]="search"
                                        class="input-sm"
                                        name="name" placeholder="search...."
                                        type="text">

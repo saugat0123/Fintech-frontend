@@ -19,14 +19,14 @@ export class MemoUnderReviewComponent implements OnInit {
     spinner = false;
     globalMsg;
 
-    private gridApi;
-    private gridColumnApi;
-    private columnDefs;
-    private defaultColDef;
-    private rowData: any;
-    private paginationPageSize;
-    private context;
-    private frameworkComponents;
+    public gridApi;
+    public gridColumnApi;
+    public columnDefs;
+    public defaultColDef;
+    public rowData: any;
+    public paginationPageSize;
+    public context;
+    public frameworkComponents;
 
     constructor(
         private dataService: CommonDataService,

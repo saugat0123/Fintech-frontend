@@ -6,10 +6,8 @@ import {MemoService} from '../../service/memo.service';
 import {MemoDataService} from '../../service/memo-data.service';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {User} from '../../../../modal/user';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
-
-declare var $;
+import {User} from '../../../admin/modal/user';
 
 @Component({
     selector: 'app-memo-read',
@@ -52,7 +50,7 @@ export class MemoReadComponent implements OnInit, DoCheck {
 
         this.roles$ = ['CEO', 'BDO', 'PDO'];
         this.commonService.getByPostAllPageable('v1/user/get', this.search, 1, 20).subscribe((response: any) => {
-           this.users$ = response.detail.content;
+            this.users$ = response.detail.content;
         });
 
         this.buildForwardForm();
@@ -92,16 +90,12 @@ export class MemoReadComponent implements OnInit, DoCheck {
                 this.globalMsg = 'SUCCESSFULLY DELETED MEMO';
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('true');
-
-                $('.alert-custom').slideDown();
-
                 this.reloadPage();
 
             }, error => {
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('false');
-                $('.alert-custom').slideDown();
 
             }
         );

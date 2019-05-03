@@ -13,7 +13,7 @@ export class MemoBaseComponent implements OnInit {
 
     constructor(
         private dataService: CommonDataService,
-        private router: Router
+        public router: Router
     ) {
     }
 

@@ -1,10 +1,10 @@
 import {MemoType} from './memoType';
-import {User} from '../../../modal/user';
+import {User} from '../../admin/modal/user';
 
 export class Memo {
     id: number;
     subject: string;
-    referenceNo: string;
+    refNumber: string;
     sentBy: User;
     sentTo: User;
     cc: Array<User>;
