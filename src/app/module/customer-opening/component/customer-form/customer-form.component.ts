@@ -81,6 +81,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 personalFatherName: [undefined, Validators.required],
                 personalMotherName: [undefined, Validators.required],
                 personalSpouseName: [undefined, Validators.required],
+                personalPAN: [undefined],
                 personalNationality: ['Nepal', Validators.required],
                 personalDOB: [undefined, Validators.required],
                 personalCitizenshipNumber: [undefined],
