@@ -271,6 +271,57 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="educationalQualification">Educational Qualification</label>
+                            <div id="educationalQualification">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input class="custom-control-input"
+                                           formControlName="personalEducationalQualification"
+                                           id="qualificationLiterate" type="radio" value="Literate">
+                                    <label class="custom-control-label" for="qualificationLiterate">Literate</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input class="custom-control-input"
+                                           formControlName="personalEducationalQualification"
+                                           id="qualificationSLC" type="radio" value="SLC">
+                                    <label class="custom-control-label" for="qualificationSLC">SLC</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input class="custom-control-input"
+                                           formControlName="personalEducationalQualification"
+                                           id="qualificationGraduate" type="radio" value="Graduate">
+                                    <label class="custom-control-label" for="qualificationGraduate">Graduate</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input class="custom-control-input"
+                                           formControlName="personalEducationalQualification"
+                                           id="qualificationPostGraduate" type="radio" value="PostGraduate">
+                                    <label class="custom-control-label" for="qualificationPostGraduate">PostGraduate</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input class="custom-control-input"
+                                           formControlName="personalEducationalQualification"
+                                           id="qualificationOther"
+                                           type="radio" value="Others">
+                                    <label class="custom-control-label" for="qualificationOther">Others</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div [hidden]="customerACOpeningForm.get('personalEducationalQualification').value !== 'Others'"
+                         class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="qualificationOtherValue">Other Educational Qualification</label>
+                                <input class="form-control" formControlName="qualificationOtherValue"
+                                       id="qualificationOtherValue" placeholder="Enter other educational qualification" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <br/>
@@ -495,7 +546,9 @@
                         </div>
                         <div class="col-md-4">
                             <label for="personalPAN">PAN</label>
-                            <input class="form-control" formControlName="personalPAN" id="personalPAN" type="text" placeholder="Enter your PAN">
+                            <input class="form-control" formControlName="personalPAN" id="personalPAN"
+                                   placeholder="Enter your PAN"
+                                   type="text">
                         </div>
                     </div>
                 </div>
@@ -616,7 +669,201 @@
         </div>
     </div>
     <div [hidden]="!router.isActive('/customer/open/3', true)">
-        <h5 class="card-title">Employment Details</h5>
+        <div class="card">
+            <div class="card-header">
+                Employment Details
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="employmentDetail">Employment Detail</label>
+                    <div id="employmentDetail">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="employmentDetailRadio"
+                                   id="employmentDetailSalaried" type="radio" value="Salaried">
+                            <label class="custom-control-label" for="employmentDetailSalaried">Salaried</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="employmentDetailRadio"
+                                   id="employmentDetailSelf" type="radio" value="Self Employed">
+                            <label class="custom-control-label" for="employmentDetailSelf">Self Employed</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Salaried -->
+                <div [hidden]="customerACOpeningForm.get('employmentDetailRadio').value !== 'Salaried'"
+                     class="form-group">
+                    <label for="employmentDetailSalariedValue">Salaried Employed with:</label>
+                    <div id="employmentDetailSalariedValue">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="employmentDetailSalariedRadio"
+                                   id="employmentDetailSalariedNepGov" type="radio" value="Nepal Government">
+                            <label class="custom-control-label" for="employmentDetailSalariedNepGov">Nepal Govt.</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="employmentDetailSalariedRadio"
+                                   id="employmentDetailSalariedPublicOrg" type="radio" value="Public Organization">
+                            <label class="custom-control-label" for="employmentDetailSalariedPublicOrg">Public
+                                Organization</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="employmentDetailSalariedRadio"
+                                   id="employmentDetailSalariedOthers"
+                                   type="radio" value="Others">
+                            <label class="custom-control-label" for="employmentDetailSalariedOthers">Others</label>
+                        </div>
+                    </div>
+                    <div [hidden]="customerACOpeningForm.get('employmentDetailSalariedRadio').value !== 'Others'"
+                         class="form-group">
+                        <label for="employmentDetailSalariedOthersValue">Salaried Employed with Others</label>
+                        <input class="form-control" formControlName="employmentDetailSalariedOthersValue"
+                               id="employmentDetailSalariedOthersValue" placeholder="Enter other details" type="text">
+                    </div>
+                </div>
+                <!-- Self -->
+                <div [hidden]="customerACOpeningForm.get('employmentDetailRadio').value !== 'Self Employed'"
+                     class="form-group">
+                    <label for="employmentDetailSelfValue">Self employed with:</label>
+                    <div id="employmentDetailSelfValue">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="employmentDetailSelfRadio"
+                                   id="employmentDetailSelfCA" type="radio" value="CA">
+                            <label class="custom-control-label" for="employmentDetailSelfCA">CA</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="employmentDetailSelfRadio"
+                                   id="employmentDetailSelfDoctor" type="radio" value="Doctor">
+                            <label class="custom-control-label" for="employmentDetailSelfDoctor">Doctor</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="employmentDetailSelfRadio"
+                                   id="employmentDetailSelfEngineer" type="radio" value="Engineer">
+                            <label class="custom-control-label" for="employmentDetailSelfEngineer">Engineer</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="employmentDetailSelfRadio"
+                                   id="employmentDetailSelfLawyer" type="radio" value="Lawyer">
+                            <label class="custom-control-label" for="employmentDetailSelfLawyer">Lawyer</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="employmentDetailSelfRadio"
+                                   id="employmentDetailSelfBusiness" type="radio" value="Business">
+                            <label class="custom-control-label" for="employmentDetailSelfBusiness">Business</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="employmentDetailSelfRadio"
+                                   id="employmentDetailSelfOthers"
+                                   type="radio" value="Others">
+                            <label class="custom-control-label" for="employmentDetailSelfOthers">Others</label>
+                        </div>
+                    </div>
+                </div>
+                <div [hidden]="customerACOpeningForm.get('employmentDetailSelfRadio').value !== 'Others'"
+                     class="form-group">
+                    <label for="employmentDetailSelfOthersValue">Self employed with Others</label>
+                    <input class="form-control" formControlName="employmentDetailSelfOthersValue"
+                           id="employmentDetailSelfOthersValue" placeholder="Enter other details" type="text">
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="card">
+            <div class="card-header">
+                Occupational Details
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="occupationOrganizationName">Name of Organization</label>
+                            <input class="form-control" formControlName="occupationOrganizationName"
+                                   id="occupationOrganizationName"
+                                   placeholder="Enter organization name" type="text">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="occupationOrganizationAddress">Address</label>
+                            <input class="form-control" formControlName="occupationOrganizationAddress"
+                                   id="occupationOrganizationAddress"
+                                   placeholder="Enter organization address" type="text">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="occupationOrganizationTel">Tel. No.</label>
+                            <input class="form-control" formControlName="occupationOrganizationTel"
+                                   id="occupationOrganizationTel"
+                                   placeholder="Enter organization tel no." type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="occupationOrganizationNature">Nature of Business</label>
+                            <input class="form-control" formControlName="occupationOrganizationNature"
+                                   id="occupationOrganizationNature"
+                                   placeholder="Enter organization nature of business" type="text">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="occupationOrganizationDesignation">Designation</label>
+                            <input class="form-control" formControlName="occupationOrganizationDesignation"
+                                   id="occupationOrganizationDesignation"
+                                   placeholder="Enter designation" type="text">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="occupationOrganizationEstimatedAnnualIncome">Estimated Annual Income</label>
+                            <input class="form-control" formControlName="occupationOrganizationEstimatedAnnualIncome"
+                                   id="occupationOrganizationEstimatedAnnualIncome"
+                                   placeholder="Enter estimated annual income" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary">Add more</button>
+                </div>
+                <hr/>
+                <div class="form-group">
+                    <label for="occupationOtherIncomeSource">If other source of income please specify</label>
+                    <input class="form-control" formControlName="occupationOtherIncomeSource"
+                           id="occupationOtherIncomeSource"
+                           placeholder="Enter other source of income" type="text">
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="occupationExpectedAnnualTurnover">Expected annual turnover in account</label>
+                            <input class="form-control" formControlName="occupationExpectedAnnualTurnover"
+                                   id="occupationExpectedAnnualTurnover"
+                                   placeholder="Enter expected annual turnover" type="text">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="occupationEstimatedTransaction">Estimated number of annual transaction in
+                                account</label>
+                            <input class="form-control" formControlName="occupationEstimatedTransaction"
+                                   id="occupationEstimatedTransaction"
+                                   placeholder="Enter estimated number of annual transaction" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="otherBankAccount">Account with other bank or financial institution?</label>
+                    <div id="otherBankAccount">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="otherBankAccount"
+                                   id="otherBankAccountNo" type="radio" value="No">
+                            <label class="custom-control-label" for="otherBankAccountNo">No</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="otherBankAccount"
+                                   id="otherBankAccountYes" type="radio" value="Yes">
+                            <label class="custom-control-label" for="otherBankAccountYes">Yes</label>
+                        </div>
+                        <div [hidden]="customerACOpeningForm.get('otherBankAccount').value !== 'Yes'"
+                             class="custom-control custom-control-inline">
+                            <input class="form-control" formControlName="otherBankAccountValue" placeholder="Name of Bank/FIs"
+                                   type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div [hidden]="!router.isActive('/customer/open/4', true)">
         <h5 class="card-title">Joint Applicant</h5>

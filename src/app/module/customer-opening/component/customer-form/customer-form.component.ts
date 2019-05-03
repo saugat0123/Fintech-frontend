@@ -57,6 +57,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 otherPersonalGender: [undefined],
                 personalPurposeOfAccount: [undefined, Validators.required],
                 otherPurposeOfAccount: [undefined],
+                personalEducationalQualification: [undefined],
+                qualificationOtherValue: [undefined],
                 personalPermanentHouseNo: [undefined, Validators.required],
                 personalPermanentStreet: [undefined, Validators.required],
                 personalPermanentWard: [undefined, Validators.required],
@@ -90,7 +92,23 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 personalPassportNumber: [undefined],
                 personalPassportIssueAddress: [undefined],
                 personalPassportIssueDate: [undefined],
-                personalPassportExpiryDate: [undefined]
+                personalPassportExpiryDate: [undefined],
+                employmentDetailRadio: [undefined, Validators.required],
+                employmentDetailSalariedRadio: [undefined, Validators.required],
+                employmentDetailSalariedOthersValue: [undefined, Validators.required],
+                employmentDetailSelfRadio: [undefined, Validators.required],
+                employmentDetailSelfOthersValue: [undefined],
+                occupationOrganizationName: [undefined],
+                occupationOrganizationAddress: [undefined],
+                occupationOrganizationTel: [undefined],
+                occupationOrganizationDesignation: [undefined],
+                occupationOrganizationNature: [undefined],
+                occupationOrganizationEstimatedAnnualIncome: [undefined],
+                occupationOtherIncomeSource: [undefined],
+                occupationExpectedAnnualTurnover: [undefined],
+                occupationEstimatedTransaction: [undefined],
+                otherBankAccount: [undefined],
+                otherBankAccountValue: [undefined]
             }
         );
     }
