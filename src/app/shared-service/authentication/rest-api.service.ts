@@ -14,32 +14,27 @@ export class RestApiService {
     }
 
     modifyRestUrl(url) {
-        let appendUrl: string = this.restUrl + '/' + url;
+        const appendUrl: string = this.restUrl + '/' + url;
         const at = localStorage.getItem('at');
 
-        let reqObj = {
+        return {
             url: appendUrl,
             header: new HttpHeaders({
                 'Authorization': 'Bearer ' + at,
                 'Content-Type': 'application/json'
             })
         };
-        return reqObj;
     }
 
     modifyFileUrl(url) {
-        let appendUrl: string = this.restUrl + '/' + url;
+        const appendUrl: string = this.restUrl + '/' + url;
         const at = localStorage.getItem('at');
-        let reqObj = {
+        return {
             url: appendUrl,
             header: new HttpHeaders({
                 'Authorization': 'Bearer ' + at,
                 'enctype': 'multipart/form-data'
-
             })
         };
-        return reqObj;
     }
-
-
 }

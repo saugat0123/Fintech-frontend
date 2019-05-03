@@ -1,0 +1,53 @@
+<div class="box-header with-border">
+    <h3 class="box-title">Under Review</h3>
+
+    <div class="box-tools pull-right">
+        <div class="has-feedback">
+            <select (change)="onPageSizeChanged()" class="form-control-sm pull-right" id="page-size">
+                <option selected value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+            </select>
+        </div>
+    </div>
+    <!-- /.box-tools -->
+</div>
+<!-- /.box-header -->
+<div class="box-body">
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <div class="btn-group" role="group">
+                <button (click)="sizeToFit()" class="btn btn-primary btn-sm" type="button">Size to Fit
+                </button>
+                <button (click)="autoSizeAll()" class="btn btn-primary btn-sm" type="button">Auto-Size All
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive mailbox-messages">
+
+                <ag-grid-angular
+                        (gridReady)="onGridReady($event)"
+                        [columnDefs]="columnDefs"
+                        [context]="context"
+                        [defaultColDef]="defaultColDef"
+                        [frameworkComponents]="frameworkComponents"
+                        [paginationPageSize]="paginationPageSize"
+                        [pagination]="true"
+                        [rowData]="rowData"
+                        class="ag-theme-balham"
+                        style="width: auto; height: 300px;"
+                ></ag-grid-angular>
+
+            </div>
+            <!-- /.mail-box-messages -->
+        </div>
+    </div>
+</div>
+<!-- /.box-body -->
