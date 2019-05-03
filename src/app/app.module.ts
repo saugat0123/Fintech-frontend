@@ -20,6 +20,7 @@ import {SharedModule} from './module/shared/shared.module';
 import {Sidebar1Component} from './component/base/sidebar/sidebar1/sidebar1.component';
 import {CommonLocation} from './shared-service/baseservice/common-location';
 import {QuillModule} from 'ngx-quill';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 
 @NgModule({
@@ -47,8 +48,13 @@ import {QuillModule} from 'ngx-quill';
         QuillModule
     ],
 
-    providers: [CommonService, RestApiService, CommonDataService, CommonLocation],
+    providers: [CommonService, RestApiService, CommonDataService, CommonLocation, {
+        provide: LocationStrategy,
+        useClass: HashLocationStrategy
+    }],
     bootstrap: [AppComponent],
+
+
 })
 export class AppModule {
 }
