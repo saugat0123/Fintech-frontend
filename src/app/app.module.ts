@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {NgbActiveModal, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -19,6 +19,7 @@ import {CommonDataService} from './shared-service/baseservice/common-dataService
 import {SharedModule} from './module/shared/shared.module';
 import {Sidebar1Component} from './component/base/sidebar/sidebar1/sidebar1.component';
 import {CommonLocation} from './shared-service/baseservice/common-location';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 
 @NgModule({
@@ -35,7 +36,6 @@ import {CommonLocation} from './shared-service/baseservice/common-location';
         Sidebar1Component,
 
 
-
     ],
     imports: [
         BrowserModule,
@@ -48,9 +48,11 @@ import {CommonLocation} from './shared-service/baseservice/common-location';
         SharedModule
     ],
 
-  providers: [CommonService, RestApiService, CommonDataService, CommonLocation],
-  bootstrap: [AppComponent],
-
+    providers: [CommonService, RestApiService, CommonDataService, CommonLocation, {
+        provide: LocationStrategy,
+        useClass: HashLocationStrategy
+    }],
+    bootstrap: [AppComponent],
 
 
 })
