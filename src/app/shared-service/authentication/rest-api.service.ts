@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
+import {Observable} from 'rxjs';
+
+import {baseApi} from './api-list.service';
 import {baseApi} from './api-list.service';
 
 @Injectable()
@@ -17,13 +20,15 @@ export class RestApiService {
         const appendUrl: string = this.restUrl + '/' + url;
         const at = localStorage.getItem('at');
 
-        return {
-            url: appendUrl,
-            header: new HttpHeaders({
-                'Authorization': 'Bearer ' + at,
-                'Content-Type': 'application/json'
-            })
-        };
+        let reqObj = {
+
+            return {
+                url: appendUrl,
+                header: new HttpHeaders({
+                    'Authorization': 'Bearer ' + at,
+                    'Content-Type': 'application/json'
+                })
+            };
     }
 
     modifyFileUrl(url) {
@@ -32,8 +37,13 @@ export class RestApiService {
         return {
             url: appendUrl,
             header: new HttpHeaders({
+                'Authorization': 'Bearer ' + at,
+
                 'Authorization': 'Bearer ' + at
             })
         };
     }
+    }
+
+
 }
