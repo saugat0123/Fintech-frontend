@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-3">
-    <div *ngIf="router.isActive('/home/memo/compose', true)">
+    <div *ngIf="router.isActive('/home/memo/compose', false)">
       <a routerLink="/home/memo/underReview" class="btn btn-primary btn-block margin-bottom">Under Review</a>
     </div>
     <div *ngIf="!router.isActive('/home/memo/compose', false)">

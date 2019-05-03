@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddMemoTypeComponent } from './add-memo-type.component';
+import { MemoViewButtonComponent } from './memo-view-button.component';
 
-describe('AddMemoTypeComponent', () => {
-  let component: AddMemoTypeComponent;
-  let fixture: ComponentFixture<AddMemoTypeComponent>;
+describe('MemoViewButtonComponent', () => {
+  let component: MemoViewButtonComponent;
+  let fixture: ComponentFixture<MemoViewButtonComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddMemoTypeComponent ]
+      declarations: [ MemoViewButtonComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddMemoTypeComponent);
+    fixture = TestBed.createComponent(MemoViewButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
