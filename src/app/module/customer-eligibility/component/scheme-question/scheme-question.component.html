@@ -6,24 +6,21 @@
                     Questions
                 </div>
                 <div class="card-body p-4 ml-2">
-                    <h4  class="card-title mt-3 mb-5">
-                        Are you employed ?
+                    <h4 class="card-title mt-3 mb-5">
+                        {{questionList[index]?.description}}
                     </h4>
 
-                    <div class="container p-3 ml-4">
-                        <div class="custom-control custom-radio p-2">
-                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio1">Toggle</label>
-                        </div>
-                        <div class="custom-control custom-radio p-2">
-                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio2">Toggle this </label>
-                        </div>
-                        <div class="custom-control custom-radio p-2">
-                            <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio3">Toggle this custom radio</label>
-                        </div>
+                    <div class="container form-check p-3 ml-4"
+                         *ngFor="let ansList of questionList[index]?.answers">
+                        <label class="form-check-label p-1">
+                            <input type="radio" [checked]="pointsMap.get(questionList[index]?.id) === ansList.id"
+                                   class="form-check-input" name="answerGroup"
+                                   (change)="onSelectionChange(ansList.id, ansList.points, questionList[index]?.id)">
+                            {{ansList.description}}
+                        </label>
                     </div>
+                    <hr>
+                    <button class="btn btn-info float-right" (click)="onNext()">Next</button>
                 </div>
             </div>
         </div>

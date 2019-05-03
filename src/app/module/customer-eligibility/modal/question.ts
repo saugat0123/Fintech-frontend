@@ -1,10 +1,10 @@
 import {Scheme} from './scheme';
 import {Answer} from './answer';
 
-export class Question {
+export class Questions {
     id: number;
     description: string;
     maximumPoints: number;
     scheme: Scheme;
-    answer: Array<Answer>;
+    answers: Array<Answer>;
 }

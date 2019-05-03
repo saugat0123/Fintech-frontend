@@ -41,6 +41,8 @@ export class CommonDataService {
     province: Province = new Province();
     nepse: Nepse = new Nepse();
     company: Company = new Company();
+    answerPoints: number;
+    questionID: number;
 
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
@@ -206,5 +208,9 @@ export class CommonDataService {
     clearData() {
         this.dataObj = new Object();
     }
+
+    // setAnsPoints(questionID, answerPoints) {
+    //     if (questionID)
+    // }
 
 }
