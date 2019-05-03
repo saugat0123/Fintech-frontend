@@ -1,8 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {DashboardComponent} from './component/dashboard/dashboard.component';
@@ -17,34 +16,13 @@ import {HttpClientModule} from '@angular/common/http';
 import {RestApiService} from './shared-service/authentication/rest-api.service';
 import {CommonService} from './shared-service/baseservice/common-baseservice';
 import {CommonDataService} from './shared-service/baseservice/common-dataService';
-import {BranchComponent} from './component/branch/branch.component';
-import {AddModelComponent} from './component/branch/add-model/add-model.component';
-import {MsgModalComponent} from './common/msg-modal/msg-modal.component';
-import {MsgAlertComponent} from './common/msg-alert/msg-alert.component';
-import {LoanConfigComponent} from './component/loan-config/loan-config.component';
-import {LoanTemplateComponent} from './component/loan-template/loan-template.component';
-import {TemplateAddModelComponent} from './component/loan-template/template-add-model/template-add-model.component';
-import {BasicInfoComponent} from './component/loan-main-template/basic-info/basic-info.component';
-import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
-import {AddLoanComponent} from './component/loan-config/add-loan/add-loan.component';
-import {AddUserComponent} from './component/user/add-user/add-user.component';
-import {UserComponent} from './component/user/user.component';
-import {ApprovallimitComponent} from './component/approvallimit/approvallimit.component';
-import {AddApprovalLimitComponent} from './component/approvallimit/add-approval-limit/add-approval-limit.component';
 import {SharedModule} from './module/shared/shared.module';
+import {Sidebar1Component} from './component/base/sidebar/sidebar1/sidebar1.component';
+import {CommonLocation} from './shared-service/baseservice/common-location';
 import {QuillModule} from 'ngx-quill';
 
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        NgbPaginationModule,
-        SharedModule,
-        QuillModule
-    ],
     declarations: [
         AppComponent,
         BaseComponent,
@@ -55,26 +33,22 @@ import {QuillModule} from 'ngx-quill';
         HeaderComponent,
         SidebarComponent,
         FooterComponent,
-        BranchComponent,
-        AddModelComponent,
-        MsgModalComponent,
-        MsgAlertComponent,
-        LoanConfigComponent,
-        LoanTemplateComponent,
-        TemplateAddModelComponent,
-        BasicInfoComponent,
-        LoanUiComponent,
-        AddLoanComponent,
-        UserComponent,
-        AddUserComponent,
-        ApprovallimitComponent,
-        AddApprovalLimitComponent,
+        Sidebar1Component
     ],
-    providers: [
-        CommonService,
-        RestApiService,
-        CommonDataService],
-    bootstrap: [AppComponent]
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        NgbPaginationModule,
+        ReactiveFormsModule,
+        ReactiveFormsModule,
+        SharedModule,
+        QuillModule
+    ],
+
+    providers: [CommonService, RestApiService, CommonDataService, CommonLocation],
+    bootstrap: [AppComponent],
 })
 export class AppModule {
 }

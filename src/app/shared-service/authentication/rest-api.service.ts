@@ -32,7 +32,8 @@ export class RestApiService {
         return {
             url: appendUrl,
             header: new HttpHeaders({
-                'Authorization': 'Bearer ' + at
+                'Authorization': 'Bearer ' + at,
+                'enctype': 'multipart/form-data'
             })
         };
     }

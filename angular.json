@@ -23,7 +23,7 @@
               "src/assets"
             ],
             "styles": [
-              
+
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/admin-lte/bower_components/font-awesome/css/font-awesome.min.css",
               "node_modules/admin-lte/bower_components/Ionicons/css/ionicons.min.css",
@@ -35,8 +35,6 @@
               "node_modules/quill/dist/quill.bubble.css",
               "node_modules/quill/dist/quill.snow.css",
               "node_modules/@ng-select/ng-select/themes/default.theme.css"
-            
-              
             ],
             "scripts": [
               "node_modules/admin-lte/bower_components/jquery/dist/jquery.min.js",

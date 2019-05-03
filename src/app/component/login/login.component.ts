@@ -11,7 +11,8 @@ import { baseApi } from '../../shared-service/authentication/api-list.service';
 })
 export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  private spinner: boolean = false;
+  spinner = false;
+  msg;
   private securityUrl = baseApi.tokenUrl;
 
   constructor(
@@ -48,7 +49,10 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
           localStorage.setItem("et", data.expires_in);
           this.router.navigate(['/home/dashboard']);
         },
-        error => { }
+        error => {
+            this.spinner = false;
+            this.msg = 'INVALID USERNAME OR PASSWORD';
+        }
       );
   }
 }

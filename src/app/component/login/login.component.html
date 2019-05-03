@@ -1,31 +1,43 @@
+<body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
+
     <b>SB</b>Solution
   </div>
-  <spinner *ngIf="spinner"></spinner>
+  <p style="color:red" class="login-box-msg">{{msg}}</p>
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
-    <form name="login-form" class="login-form" #lform="ngForm" (ngSubmit)="loginClick(lform)">
+
+    <div class="alert alert-danger" *ngIf="email.invalid && email.dirty">Enter valid Email</div>
+    <form name="login-form" class="login-form" #lform="ngForm" (ngSubmit)="lform.valid && loginClick(lform)">
       <div class="form-group has-feedback">
-        <input type="email" id="email" class="form-control" maxlength="50" placeholder="Email" ngModel name="email"
-          pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required #email="ngModel">
+        <input type="email" id="email" class="form-control" maxlength="50" placeholder="Email" ngModel
+               name="email"
+               required #email="ngModel" [ngClass]="{'is-invalid': lform.submitted && email.invalid}">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <div *ngIf="email.invalid && lform.submitted" class="invalid-feedback">
+          Email is required
+        </div>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" id="password" class="form-control" placeholder="Password" ngModel name="password"
-          #pass="ngModel" required>
+        <input type="password" id="password"
+               class="form-control" [ngClass]="{'is-invalid': lform.submitted && pass.invalid}"
+               placeholder="Password"
+               ngModel name="password" #pass="ngModel"
+               required>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
-      <div class="row">
-        <!-- /.col -->
-        <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+        <div *ngIf="pass.invalid && lform.submitted" class="invalid-feedback">
+          Password is required
         </div>
-        <!-- /.col -->
       </div>
+      <button type="submit" class="btn btn-primary  btn-flat">Sign In</button>
     </form>
   </div>
+  <spinner *ngIf="spinner"></spinner>
   <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
+
+
+</body>
