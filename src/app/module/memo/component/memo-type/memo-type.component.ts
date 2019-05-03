@@ -19,7 +19,7 @@ declare var $;
 export class MemoTypeComponent implements OnInit, DoCheck {
 
     title = 'Memo Type';
-    search = {};
+    search: String;
     spinner = false;
     dataList: any;
     memoTypeApi: string;
@@ -59,9 +59,8 @@ export class MemoTypeComponent implements OnInit, DoCheck {
     }
 
     onSearchChange(searchValue: string) {
-        this.search = {
-            'name': searchValue
-        };
+        this.search = searchValue;
+
         this.dataService.setData(this.search);
         this.getPagination();
     }

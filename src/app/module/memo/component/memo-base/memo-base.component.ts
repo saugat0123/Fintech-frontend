@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 })
 export class MemoBaseComponent implements OnInit {
 
-    title: String;
+    title: 'Memo';
 
     constructor(
         private dataService: CommonDataService,
@@ -18,7 +18,7 @@ export class MemoBaseComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dataService.currentTitle.subscribe(message => this.title = message);
+        this.dataService.changeTitle(this.title);
     }
 
 }

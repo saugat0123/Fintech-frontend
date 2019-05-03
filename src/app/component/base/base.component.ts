@@ -13,7 +13,7 @@ export class BaseComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private dataService: CommonDataService) { }
 
   ngOnInit(): void {
-    this.dataService.currentTitle.subscribe(message => this.title = message)
+    this.dataService.currentTitle.subscribe(message => this.title = message);
   }
 
 
