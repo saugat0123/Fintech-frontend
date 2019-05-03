@@ -88,7 +88,7 @@
                                                 class="form-control-sm col-md-9 justify-content-sm-center"
                                                  (change)="getDistricts($event.target.value)">
                                             <option [ngValue]="undefined" hidden>Province</option>
-                                            <option [ngValue]="All">All</option>
+                                            <option value="All">All</option>
                                             <option *ngFor="let province of provinces"
                                                     value="{{province.id}}">
                                                 {{province.name}}
