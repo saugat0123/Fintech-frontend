@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
           localStorage.setItem("rt", data.refresh_token);
           localStorage.setItem("ty", data.token_type);
           localStorage.setItem("et", data.expires_in);
+          this.modalRef.hide();
           this.router.navigate(['/home/dashboard']);
         },
         error => {

@@ -21,6 +21,7 @@ import {Sidebar1Component} from './component/base/sidebar/sidebar1/sidebar1.comp
 import {CommonLocation} from './shared-service/baseservice/common-location';
 import {QuillModule} from 'ngx-quill';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {ModalModule} from 'ngx-bootstrap';
 
 
 @NgModule({
@@ -43,9 +44,9 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
         FormsModule,
         NgbPaginationModule,
         ReactiveFormsModule,
-        ReactiveFormsModule,
         SharedModule,
-        QuillModule
+        QuillModule,
+        ModalModule.forRoot()
     ],
 
     providers: [CommonService, RestApiService, CommonDataService, CommonLocation, {
