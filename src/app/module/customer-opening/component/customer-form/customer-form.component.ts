@@ -10,12 +10,12 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class CustomerFormComponent implements OnInit, DoCheck {
 
-    private currentId: number;
-    private finalId: number;
-    private customerACOpeningForm: FormGroup;
+    currentId: number;
+    finalId: number;
+    customerACOpeningForm: FormGroup;
 
     constructor(
-        private router: Router,
+        public router: Router,
         private activatedRoute: ActivatedRoute,
         private customerDataService: CustomerDataService,
         private formBuilder: FormBuilder
