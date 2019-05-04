@@ -1,0 +1,82 @@
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header" style="display:block">
+            <button (click)="onClose()" aria-label="Close" class="close" data-dismiss="modal"
+                    type="button">
+                <span aria-hidden="true">×</span></button>
+            <h4 class="modal-title pull-left">{{task}} Sub-Segment</h4>
+        </div>
+        <div class="modal-body">
+
+            <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="name">Sub Segment Name</label>
+                            <input type="hidden" class="form-control" [(ngModel)]="subSegment.id" name="id">
+                            <input type="text" class="form-control" name="name" placeholder="Sub Segment Name" [(ngModel)]="subSegment.subSegmentName"
+                                   #subSeg="ngModel" [ngClass]="{ 'is-invalid': f.submitted && subSeg.invalid }" required />
+                            <div *ngIf="f.submitted && subSeg.invalid" class="invalid-feedback">
+                                <div *ngIf="subSeg.errors.required"> Name is required</div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="segment">Segment</label>
+                            <select class="form-control" name="selectedSubSegment" style="width: 100%;" [(ngModel)]="segment.id" tabindex="-1" aria-hidden="true" placeholder="SubSegment" (change)="setSegment()"
+                                    #segmentVal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && segmentVal.invalid }" required>
+                                <option [ngValue]="undefined" hidden>Select Segment</option>
+                                <option *ngFor="let segment of segmentList" [selected]="subSegment?.segment?.id === segment.id" [ngValue]="segment.id">{{segment.segmentName}}</option>
+                            </select>
+                            <div *ngIf="f.submitted && segmentVal.invalid" class="invalid-feedback">
+                                <div *ngIf="segmentVal.errors.required">Segment is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="loan">Loan Type</label>
+                            <select class="form-control" name="selectedLoan" style="width: 100%;" [(ngModel)]="loanConfig.id" tabindex="-1" aria-hidden="true" placeholder="loan" (change)="setLoan()"
+                                    #loanVal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && loanVal.invalid }" required>
+                                <option [ngValue]="undefined" hidden>Select Loan Type</option>
+                                <option *ngFor="let loan of loanTypeList" [selected]="loanConfig?.id === loan.id" [ngValue]="loan.id">{{loan.name}}</option>
+                            </select>
+                            <div *ngIf="f.submitted && loanVal.invalid" class="invalid-feedback">
+                                <div *ngIf="loanVal.errors.required">Loan Type is required</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <label class="checkbox-inline">
+                                Is This a Funded Loan
+                                <input type="checkbox" [(ngModel)]="subSegment.funded" [ngModelOptions]="{standalone: true}">
+
+                            </label>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+

@@ -12,51 +12,53 @@ import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 })
 export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
-    private spinner: boolean = false;
-    private securityUrl = baseApi.tokenUrl;
-    private modalRef: BsModalRef;
-    private headers = new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic Y3Atc29sdXRpb246Y3Bzb2x1dGlvbjEyMyoj',
-    });
+  spinner = false;
+  msg;
+  private modalRef: BsModalRef;
+  private securityUrl = baseApi.tokenUrl;
 
-    constructor(
-        private http: HttpClient,
-        private router: Router,
-        private modalService: BsModalService
-    ) {
-    }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private modalService: BsModalService
+  ) { }
 
-    ngOnInit(): void {
-    }
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Authorization': 'Basic Y3Atc29sdXRpb246Y3Bzb2x1dGlvbjEyMyoj',
+  });
 
-    ngAfterViewInit(): void {
-        document.body.className = 'hold-transition login-page';
-    }
+  ngOnInit(): void {
+  }
 
-    ngOnDestroy(): void {
-        document.body.className = '';
-    }
+  ngAfterViewInit(): void {
+    document.body.className = 'hold-transition login-page';
+  }
 
+  ngOnDestroy(): void {
+    document.body.className = '';
+  }
+
+  loginClick(datavalue) {
+    this.spinner = true;
+    const data: { email: string, password: string } = datavalue.value;
+    const datas = 'grant_type=password&username=' + data.email + '&password=' + data.password;
+    this.http.post(this.securityUrl, datas, { headers: this.headers })
+      .subscribe(
+        (data: any) => {
+          localStorage.setItem("at", data.access_token);
+          localStorage.setItem("rt", data.refresh_token);
+          localStorage.setItem("ty", data.token_type);
+          localStorage.setItem("et", data.expires_in);
+          this.router.navigate(['/home/dashboard']);
+        },
+        error => {
+            this.spinner = false;
+            this.msg = 'INVALID USERNAME OR PASSWORD';
+        }
+      );
+  }
     openLoginModal(template: TemplateRef<any>) {
         this.modalRef = this.modalService.show(template);
-    }
-
-    loginClick(datavalue) {
-        this.spinner = true;
-        const data: { email: string, password: string } = datavalue.value;
-        const datas = 'grant_type=password&username=' + data.email + '&password=' + data.password;
-        this.http.post(this.securityUrl, datas, {headers: this.headers})
-            .subscribe(
-                (data: any) => {
-                    localStorage.setItem('at', data.access_token);
-                    localStorage.setItem('rt', data.refresh_token);
-                    localStorage.setItem('ty', data.token_type);
-                    localStorage.setItem('et', data.expires_in);
-                    this.router.navigate(['/home/dashboard']);
-                },
-                error => {
-                }
-            );
     }
 }

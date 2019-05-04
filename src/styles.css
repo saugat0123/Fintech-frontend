@@ -1,5 +1,9 @@
 /** CSS fix for existing template with Bootstrap 4 **/
 
+.content-wrapper{
+    min-height: 880px !important;
+}
+
 .main-header .navbar {
     height: 50px;
     padding-top: 0;
@@ -12,7 +16,6 @@
   .main-header .sidebar-toggle {
     padding: 0;
   }
-
   .table th, .table td {
     text-align: justify;
     padding: 2px;
@@ -61,3 +64,18 @@ body{
 .viewBtn{
   background-color: #3c8dbc;
 }
+.title{
+  font-weight: 700;
+}
+
+.cursor{
+    cursor: pointer;
+}
+html, body { height: 100vh; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/*.select-borderless{*/
+    /*border: none;*/
+    /*border-bottom: 1px solid #0062cc;*/
+/*}*/

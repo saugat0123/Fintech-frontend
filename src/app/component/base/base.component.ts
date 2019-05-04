@@ -8,13 +8,14 @@ import { CommonDataService } from '../../shared-service/baseservice/common-dataS
 })
 export class BaseComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  private title: string;
+  title: string;
 
   constructor(private dataService: CommonDataService) { }
 
   ngOnInit(): void {
-    this.dataService.currentTitle.subscribe(message => this.title = message)
+    this.dataService.currentTitle.subscribe(message => this.title = message);
   }
+
 
   ngOnDestroy(): void {
     document.body.className = '';
