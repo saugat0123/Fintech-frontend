@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Questions} from '../../modal/question';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-scheme-question',
@@ -16,15 +17,18 @@ export class SchemeQuestionComponent implements OnInit {
     answerID: number;
     answerPoints: number;
     questionID: number;
+    proceedButton: boolean;
 
 
-    constructor(private commonService: CommonService) {
+    constructor( private commonService: CommonService,
+                 private router: Router ) {
     }
 
     ngOnInit() {
         this.currentApi = 'v1/companies/0/schemes/13/questions';
         this.index = 0;
         this.getQuestionList();
+        this.proceedButton = false;
     }
 
     getQuestionList() {
@@ -38,8 +42,18 @@ export class SchemeQuestionComponent implements OnInit {
         this.index++;
         if (this.index >= this.questionList.length) {
             this.index = 0;
+            this.proceedButton = true;
         }
+    }
 
+    onPrevious() {
+        this.index--;
+        if (this.index < 0) {
+            this.index = this.questionList.length - 1;
+        }
+        if (this.index >= this.questionList.length) {
+            this.proceedButton = true;
+        }
     }
 
     onSelectionChange(answerID, answerPoints, questionID) {
@@ -48,14 +62,10 @@ export class SchemeQuestionComponent implements OnInit {
         this.questionID = questionID;
         console.log(this.answerID, this.answerPoints, this.questionID);
         this.pointsMap.set(questionID, answerID);
-
-        /*for (let value of this.pointsMap.values()) {
-            console.log(value);
-        }*/
-
     }
 
-
-
+    onSubmit() {
+        this.router.navigate(['customer/schemeresult']);
+    }
 
 }

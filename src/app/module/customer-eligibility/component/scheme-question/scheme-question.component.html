@@ -14,18 +14,27 @@
                          *ngFor="let ansList of questionList[index]?.answers">
                         <label class="form-check-label p-1">
                             <input type="radio" [checked]="pointsMap.get(questionList[index]?.id) === ansList.id"
-                                   class="form-check-input" name="answerGroup"
+                                   class="form-check-input" name="checkedAnswer"
                                    (change)="onSelectionChange(ansList.id, ansList.points, questionList[index]?.id)">
                             {{ansList.description}}
                         </label>
                     </div>
                     <hr>
-                    <button class="btn btn-info float-right" (click)="onNext()">Next</button>
+                    <div class="btn-group float-right" role="group">
+                        <button class="btn btn-outline-info" (click)="onPrevious()">Previous</button>
+                        <button class="btn btn-info" (click)="onNext()"> Next</button>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="text-center my-3">
+            <button class="btn btn-success text-center" [hidden]="!proceedButton" (click)="onSubmit()">Proceed</button>
+        </div>
+
     </article>
 </div>
+
+
 
 
 

@@ -7,18 +7,22 @@ import { CustomerEligibilityRoutingModule } from './customer-eligibility-routing
 import { CustomerEligibilityBaseComponent } from './component/customer-eligibility-base/customer-eligibility-base.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {SharedModule} from '../shared/shared.module';
+import {CustomerEligibilityResultComponent} from './component/customer-eligibility-result/customer-eligibility-result.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
       SchemeSelectComponent,
       SchemeQuestionComponent,
-      CustomerEligibilityBaseComponent
+      CustomerEligibilityBaseComponent,
+      CustomerEligibilityResultComponent
   ],
 
   imports: [
     CommonModule,
       NgbPaginationModule,
       SharedModule,
+      ReactiveFormsModule,
     RouterModule.forChild(CustomerEligibilityRoutingModule)
   ]
 })

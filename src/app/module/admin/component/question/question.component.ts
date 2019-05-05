@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Questions } from '../../modal/question';
-import { FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-question',
@@ -25,7 +25,7 @@ export class QuestionComponent implements OnInit {
     let control = <FormArray>this.questionAnswerForm.controls.questionForm;
     control.push(
         this.formBuilder.group({
-        qsnDescription: [''],
+        qsnDescription: [ undefined, Validators.required ],
         answerForm: this.formBuilder.array([ ])
       })
     );
@@ -39,8 +39,8 @@ export class QuestionComponent implements OnInit {
   addAnswerField(control) {
    control.push(
        this.formBuilder.group({
-       ansDescription: [''],
-       points: ['']
+       ansDescription: [ undefined, Validators.required ],
+       points: [ undefined, Validators.required ]
     })
    );
   }

@@ -32,9 +32,7 @@ import {CommonLocation} from './shared-service/baseservice/common-location';
         HeaderComponent,
         SidebarComponent,
         FooterComponent,
-        Sidebar1Component,
-
-
+        Sidebar1Component
 
     ],
     imports: [
