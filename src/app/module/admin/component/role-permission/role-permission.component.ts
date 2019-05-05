@@ -48,17 +48,18 @@ export class RolePermissionComponent implements OnInit {
         this.dataService.changeTitle(this.title);
         this.currentApi = 'v1/role';
         this.commonService.getByAll(this.currentApi + '/active').subscribe((response: any) => {
+            console.log('role list:', response.detail);
             this.roleList = response.detail;
         });
         this.commonService.getByAll('v1/roleRightPermission/rights').subscribe((response: any) => {
+            console.log(response.detail);
             this.rightList = response.detail;
         });
 
         this.commonService.getByAll(this.currentApi + '/get/statusCount').subscribe((response: any) => {
-
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
-            this.roleCount = response.detail.branches;
+            this.roleCount = response.detail.roles;
 
         });
     }
@@ -68,8 +69,10 @@ export class RolePermissionComponent implements OnInit {
         this.roleId = id;
         this.roleperm = [];
         this.commonService.getByAll('v1/roleRightPermission/' + id).subscribe((response: any) => {
+            console.log('v2',response.detail);
             this.rolePermissionList = response.detail;
             this.commonService.getByAll('v1/permission').subscribe((response: any) => {
+                console.log('v1/permission',response.detail);
                 this.allPermission = response.detail;
                 this.checkPermission();
 
@@ -80,7 +83,6 @@ export class RolePermissionComponent implements OnInit {
     }
 
     updateCheckedOptions(permId, events) {
-
         this.permissions = {
             id: null,
             permission: {
@@ -208,7 +210,7 @@ export class RolePermissionComponent implements OnInit {
                 this.allPermission[i].checked = false;
                 this.apiList = this.allPermission[i].apiList;
                 this.tempRightList = this.getCheckApiRight(this.apiList, []);
-                this.allPermission[i].apiRights = this.tempRightList;
+            this.allPermission[i].apiRights = this.tempRightList;
                 this.compareCheckedPermission.push(this.allPermission[i]);
             }
 

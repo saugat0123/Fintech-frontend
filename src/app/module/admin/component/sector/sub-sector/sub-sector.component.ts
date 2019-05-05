@@ -102,9 +102,12 @@ export class SubSectorComponent implements OnInit, DoCheck {
 
 
     onChange(newValue, data) {
+
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
+
+
         event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);

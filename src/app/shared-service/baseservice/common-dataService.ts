@@ -41,6 +41,8 @@ export class CommonDataService {
     province: Province = new Province();
     nepse: Nepse = new Nepse();
     company: Company = new Company();
+    renew: Document[] = [];
+    initial: Document[] = [];
 
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
@@ -203,8 +205,24 @@ export class CommonDataService {
         return this.company;
     }
 
+
     clearData() {
         this.dataObj = new Object();
     }
+    setInitialDocument(documents:Document[]){
+        this.initial = documents;
+    }
+
+    setRenewDocument(docuemnts: Document[]){
+        this.renew = docuemnts;
+    }
+    getInitialDocument(){
+       return this.initial;
+    }
+
+    getRenewDocument(){
+       return this.renew;
+    }
+
 
 }

@@ -1,5 +1,21 @@
+<div *ngIf="addViewLoanCategory" class="container">
+    <form class="form-horizontal" [formGroup]="loanCategory">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h2>What would you like to do today?</h2>
+                    <select name="chooseAny" id="chooseAny" class="form-control rounded" formControlName="loanList" (change)="addLoan($event)">
+                        <option [ngValue]="null" hidden>Select the loan category</option>
+                        <option *ngFor="let loan of loanList">{{loan.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
 <div class="row">
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="userCountView">
         <div class="info-box">
             <span class="info-box-icon bg-blue">
                 <i class="fa fa-group"></i>
@@ -14,7 +30,7 @@
         <!-- /.info-box -->
     </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="branchCountView">
         <div class="info-box">
             <span class="info-box-icon bg-yellow">
                 <i class="fa fa-bank"></i>
@@ -29,7 +45,7 @@
         <!-- /.info-box -->
     </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="segmentCountView">
         <div class="info-box">
             <span class="info-box-icon bg-green">
                 <i class="fa fa-briefcase"></i>
@@ -44,7 +60,7 @@
         <!-- /.info-box -->
     </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="sectorCountView">
         <div class="info-box">
             <span class="info-box-icon bg-maroon">
                 <i class="fa fa-address-book"></i>
@@ -61,25 +77,6 @@
 </div>
 
 <div class="row">
-    <app-notification class="col-md-6"></app-notification>
-    <app-pending-loan class="col-md-6"></app-pending-loan>
-</div>
-
-
-
-<div class="row">
-    <div class="col-md-6">
-        <div class="row">
-            <div class="col-md-6">
-                <select [(ngModel)]="loanType" class="form-control">
-                    <option *ngFor="let allList of loanList" [value]="allList.id">{{allList.name}}</option>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <button class="btn btn-md btn-primary btn-flat" (click)="loan()">
-                    <i class="fa fa-arrow-right"></i>
-                </button>
-            </div>
-        </div>
-    </div>
+    <app-notification class="col-md-6" *ngIf="notificationView"></app-notification>
+    <app-pending-loan class="col-md-6" *ngIf="pendingView"></app-pending-loan>
 </div>

@@ -35,7 +35,8 @@ export class CompanyComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService: NgbModal
+
+        private modalService : NgbModal
     ) {
     }
 

@@ -25,6 +25,7 @@ export class BasicInfoComponent implements OnInit {
     province:Province=new Province();
     district:District= new District();
     municipality:MunicipalityVdc=new MunicipalityVdc();
+    selectProvince = 'Select Province';
 
     constructor(
         private commonService: CommonService,
@@ -39,7 +40,7 @@ export class BasicInfoComponent implements OnInit {
         this.commonLocation.getProvince().subscribe(
             (response:any) =>{
                 console.log(response.detail);
-                this.provinceList=response.detail;
+                this.provinceList = response.detail;
             }
         );
         this.basicInfo = this.formBuilder.group({
@@ -47,9 +48,9 @@ export class BasicInfoComponent implements OnInit {
             customerName: [''],
             customerId: [''],
             accountNo: [''],
-            province: [''],
-            district: [''],
-            municipalitiesOrVDC: [''],
+            province: [null],
+            district: [null],
+            municipalitiesOrVDC: [null],
             telephone: [''],
             mobile: [''],
             email: [''],
@@ -61,7 +62,7 @@ export class BasicInfoComponent implements OnInit {
     }
 
     getDistricts(){
-        console.log(this.province);
+        this.province = this.basicInfo.get('province').value;
         this.commonLocation.getDistrictByProvince(this.province).subscribe(
             ( response:any) => {
                 console.log(response.detail);
@@ -71,7 +72,7 @@ export class BasicInfoComponent implements OnInit {
     }
 
     getMunicipalities() {
-        console.log(this.district);
+       this.district = this.basicInfo.get('district').value;
         this.commonLocation.getMunicipalityVDCByDistrict(this.district).subscribe(
             (response:any) => {
                 this.municipalitiesList=response.detail;
@@ -95,6 +96,7 @@ export class BasicInfoComponent implements OnInit {
         this.customer.issuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
         this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
         this.commonDataService.setCustomer(this.customer);
+        console.log(this.customer);
         // this.commonService.saveOrEdit(this.customer,'v1/basicInfo').subscribe();
         this.router.navigate(['home/loan/kyc-info']);
     }

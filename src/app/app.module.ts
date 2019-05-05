@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {NgbActiveModal, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -34,8 +34,6 @@ import {CommonLocation} from './shared-service/baseservice/common-location';
         FooterComponent,
         Sidebar1Component,
 
-
-
     ],
     imports: [
         BrowserModule,
@@ -50,8 +48,6 @@ import {CommonLocation} from './shared-service/baseservice/common-location';
 
   providers: [CommonService, RestApiService, CommonDataService, CommonLocation],
   bootstrap: [AppComponent],
-
-
 
 })
 export class AppModule {

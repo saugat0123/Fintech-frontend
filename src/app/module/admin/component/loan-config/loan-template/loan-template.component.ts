@@ -9,6 +9,7 @@ import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.compo
 import {TemplateAddModelComponent} from './template-add-model/template-add-model.component';
 import {UpdateModalComponent} from '../../../../../common/update-modal/update-modal.component';
 
+
 @Component({
     selector: 'app-loan-template',
     templateUrl: './loan-template.component.html',

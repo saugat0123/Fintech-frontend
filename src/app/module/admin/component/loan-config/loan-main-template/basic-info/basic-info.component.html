@@ -8,7 +8,11 @@
                     <div class="form-group">
                         <label class="title" for="customerName">Customer Name</label>
                         <input id="customerName" formControlName="customerName" name="customerName" type="text"
+
                                class="form-control form-control-error rounded" placeholder="Applicant's Full Name" required
+
+                               classgit="form-control form-control-error" placeholder="Applicant's Full Name" required
+
                                minlength="2">
                     </div>
                 </div>
@@ -23,7 +27,7 @@
                     <label class="title" for="email">Email</label>
                     <input id="email" formControlName="email" name="email" type="email" class="form-control"
                            placeholder="eg. xyz@abc.com" required>
-                </div>g
+                </div>
             </div>
             <!-- END ROW -->
             <!-- START ROW -->
@@ -31,20 +35,21 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="title" for="province">Province</label>
-                        <select name="province" id="province" class="form-control"
-                                    [(ngModel)]="province" (change)="getDistricts()" [ngModelOptions]="{standalone: true}">
-                            <option [ngValue]="undefined" hidden>Province</option>
+                        <select name="province" id="province" class="form-control" formControlName="province"
+                               (change)="getDistricts()">
+                            <option [ngValue]="null" hidden> Select Province </option>
                             <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal">
                                 {{provinceVal.name}}
+                            </option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="title" for="district">District</label>
-                        <select name="district" [(ngModel)]="district" id="district"
-                                class="form-control" [ngModelOptions]="{standalone: true}" (change)="getMunicipalities()">
-                            <option [ngValue]="undefined" hidden>District</option>
+                        <select name="district" formControlName="district"
+                                class="form-control" (change)="getMunicipalities()">
+                            <option [ngValue]="null" hidden> Select District </option>
                             <option *ngFor="let districtVal of districtList" [ngValue]="districtVal">
                                 {{districtVal.name}}
                             </option>
@@ -54,8 +59,8 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="title" for="municipality">Municipalities or VDC</label>
-                        <select name="municipality" id="municipality" class="form-control">
-                            <option [ngValue]="undefined" hidden>Municipality</option>
+                        <select name="municipality" id="municipality" class="form-control" formControlName="municipalitiesOrVDC">
+                            <option [ngValue]="null" hidden>Select Municipality</option>
                             <option *ngFor="let municipalityVal of municipalitiesList" >
                                 {{municipalityVal.name}}
                             </option>
