@@ -826,54 +826,69 @@
                 Occupational Details
             </div>
             <div class="card-body">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="occupationOrganizationName">Name of Organization</label>
-                            <input class="form-control" formControlName="occupationOrganizationName"
-                                   id="occupationOrganizationName"
-                                   placeholder="Enter organization name" type="text">
+                <div *ngFor="let occupation of customerACOpeningForm.get('occupationDetails')['controls']; let occupationIndex = index"
+                     formArrayName="occupationDetails">
+                    <div [formGroupName]="occupationIndex">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="occupationOrganizationName">Name of Organization</label>
+                                    <input class="form-control" formControlName="occupationOrganizationName"
+                                           id="occupationOrganizationName"
+                                           placeholder="Enter organization name" type="text">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="occupationOrganizationAddress">Address</label>
+                                    <input class="form-control" formControlName="occupationOrganizationAddress"
+                                           id="occupationOrganizationAddress"
+                                           placeholder="Enter organization address" type="text">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="occupationOrganizationTel">Tel. No.</label>
+                                    <input class="form-control" formControlName="occupationOrganizationTel"
+                                           id="occupationOrganizationTel"
+                                           placeholder="Enter organization tel no." type="text">
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <label for="occupationOrganizationAddress">Address</label>
-                            <input class="form-control" formControlName="occupationOrganizationAddress"
-                                   id="occupationOrganizationAddress"
-                                   placeholder="Enter organization address" type="text">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="occupationOrganizationNature">Nature of Business</label>
+                                    <input class="form-control" formControlName="occupationOrganizationNature"
+                                           id="occupationOrganizationNature"
+                                           placeholder="Enter organization nature of business" type="text">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="occupationOrganizationDesignation">Designation</label>
+                                    <input class="form-control" formControlName="occupationOrganizationDesignation"
+                                           id="occupationOrganizationDesignation"
+                                           placeholder="Enter designation" type="text">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="occupationOrganizationEstimatedAnnualIncome">Estimated Annual
+                                        Income</label>
+                                    <input class="form-control"
+                                           formControlName="occupationOrganizationEstimatedAnnualIncome"
+                                           id="occupationOrganizationEstimatedAnnualIncome"
+                                           placeholder="Enter estimated annual income" type="text">
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button (click)="removeOccupationalDetail(occupationIndex)" *ngIf="customerACOpeningForm.get('occupationDetails').length>1"
+                                            class="btn btn-danger btn-sm">Remove
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <label for="occupationOrganizationTel">Tel. No.</label>
-                            <input class="form-control" formControlName="occupationOrganizationTel"
-                                   id="occupationOrganizationTel"
-                                   placeholder="Enter organization tel no." type="text">
-                        </div>
+                        <hr/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="occupationOrganizationNature">Nature of Business</label>
-                            <input class="form-control" formControlName="occupationOrganizationNature"
-                                   id="occupationOrganizationNature"
-                                   placeholder="Enter organization nature of business" type="text">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="occupationOrganizationDesignation">Designation</label>
-                            <input class="form-control" formControlName="occupationOrganizationDesignation"
-                                   id="occupationOrganizationDesignation"
-                                   placeholder="Enter designation" type="text">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="occupationOrganizationEstimatedAnnualIncome">Estimated Annual Income</label>
-                            <input class="form-control" formControlName="occupationOrganizationEstimatedAnnualIncome"
-                                   id="occupationOrganizationEstimatedAnnualIncome"
-                                   placeholder="Enter estimated annual income" type="text">
-                        </div>
-                    </div>
+                    <button (click)="addOccupationalDetail()" class="btn btn-primary">Add more</button>
                 </div>
-                <div class="form-group">
-                    <button class="btn btn-primary">Add more</button>
-                </div>
-                <hr/>
                 <div class="form-group">
                     <label for="occupationOtherIncomeSource">If other source of income please specify</label>
                     <input class="form-control" formControlName="occupationOtherIncomeSource"

@@ -1,7 +1,7 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CustomerDataService} from '../../service/customer-data.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-customer-form',
@@ -104,12 +104,9 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 employmentDetailSalariedOthersValue: [undefined, Validators.required],
                 employmentDetailSelfRadio: [undefined, Validators.required],
                 employmentDetailSelfOthersValue: [undefined],
-                occupationOrganizationName: [undefined],
-                occupationOrganizationAddress: [undefined],
-                occupationOrganizationTel: [undefined],
-                occupationOrganizationDesignation: [undefined],
-                occupationOrganizationNature: [undefined],
-                occupationOrganizationEstimatedAnnualIncome: [undefined],
+                occupationDetails: this.formBuilder.array([
+                    this.occupationalDetailsFormGroup()
+                ]),
                 occupationOtherIncomeSource: [undefined],
                 occupationExpectedAnnualTurnover: [undefined],
                 occupationEstimatedTransaction: [undefined],
@@ -138,6 +135,27 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 serviceMobileBankingRadio: [undefined, Validators.required]
             }
         );
+    }
+
+    occupationalDetailsFormGroup() {
+        return this.formBuilder.group(
+            {
+                occupationOrganizationName: [undefined],
+                occupationOrganizationAddress: [undefined],
+                occupationOrganizationTel: [undefined],
+                occupationOrganizationDesignation: [undefined],
+                occupationOrganizationNature: [undefined],
+                occupationOrganizationEstimatedAnnualIncome: [undefined],
+            }
+        );
+    }
+
+    addOccupationalDetail() {
+        (<FormArray>this.customerACOpeningForm.get('occupationDetails')).push(this.occupationalDetailsFormGroup());
+    }
+
+    removeOccupationalDetail(index: number) {
+        (<FormArray>this.customerACOpeningForm.get('occupationDetails')).removeAt(index);
     }
 
 }
