@@ -114,7 +114,20 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 occupationExpectedAnnualTurnover: [undefined],
                 occupationEstimatedTransaction: [undefined],
                 otherBankAccount: [undefined],
-                otherBankAccountValue: [undefined]
+                otherBankAccountValue: [undefined],
+                declarationPepRadio: [undefined, Validators.required],
+                declarationPepYesName: [undefined],
+                declarationPepYesRelationship: [undefined],
+                declarationBeneficialRadio: [undefined, Validators.required],
+                declarationBeneficialYesName: [undefined],
+                declarationBeneficialYesRelationship: [undefined],
+                declarationCrimeRadio: [undefined, Validators.required],
+                declarationCrimeYesValue: [undefined],
+                declarationResidentialRadio: [undefined],
+                declarationResidentialYesRadio: [undefined],
+                fatcaUSResident: [undefined, Validators.required],
+                fatcaUSCitizen: [undefined, Validators.required],
+                fatcaUSPermanent: [undefined, Validators.required]
             }
         );
     }

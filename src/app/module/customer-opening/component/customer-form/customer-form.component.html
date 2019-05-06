@@ -298,7 +298,8 @@
                                     <input class="custom-control-input"
                                            formControlName="personalEducationalQualification"
                                            id="qualificationPostGraduate" type="radio" value="PostGraduate">
-                                    <label class="custom-control-label" for="qualificationPostGraduate">PostGraduate</label>
+                                    <label class="custom-control-label"
+                                           for="qualificationPostGraduate">PostGraduate</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input class="custom-control-input"
@@ -317,7 +318,8 @@
                             <div class="form-group">
                                 <label for="qualificationOtherValue">Other Educational Qualification</label>
                                 <input class="form-control" formControlName="qualificationOtherValue"
-                                       id="qualificationOtherValue" placeholder="Enter other educational qualification" type="text">
+                                       id="qualificationOtherValue" placeholder="Enter other educational qualification"
+                                       type="text">
                             </div>
                         </div>
                     </div>
@@ -697,7 +699,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="personalFatherInLaw">Father-in-law's Name <small>(In case of married woman)</small></label>
+                                <label for="personalFatherInLaw">Father-in-law's Name
+                                    <small>(In case of married woman)</small>
+                                </label>
                                 <input class="form-control" formControlName="personalFatherInLawName"
                                        id="personalFatherInLaw"
                                        placeholder="Enter father-in-law's name" type="text">
@@ -705,7 +709,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="personalMotherInLaw">Mother-in-law's Name <small>(In case of married woman)</small></label>
+                                <label for="personalMotherInLaw">Mother-in-law's Name
+                                    <small>(In case of married woman)</small>
+                                </label>
                                 <input class="form-control" formControlName="personalMotherInLawName"
                                        id="personalMotherInLaw"
                                        placeholder="Enter mother-in-law's name" type="text">
@@ -905,7 +911,8 @@
                         </div>
                         <div [hidden]="customerACOpeningForm.get('otherBankAccount').value !== 'Yes'"
                              class="custom-control custom-control-inline">
-                            <input class="form-control" formControlName="otherBankAccountValue" placeholder="Name of Bank/FIs"
+                            <input class="form-control" formControlName="otherBankAccountValue"
+                                   placeholder="Name of Bank/FIs"
                                    type="text">
                         </div>
                     </div>
@@ -926,7 +933,231 @@
         <h5 class="card-title">Required Service</h5>
     </div>
     <div [hidden]="!router.isActive('/customer/open/8', true)">
-        <h5 class="card-title">Declarations</h5>
+        <div class="card">
+            <div class="card-header">
+                Declarations
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="declarationPep">Are you a Politically Exposed Person (PEP) or are you associated
+                        with any PEP?</label>
+                    <div id="declarationPep">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="declarationPepRadio"
+                                   id="declarationPepYes" type="radio" value="Yes">
+                            <label class="custom-control-label" for="declarationPepYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="declarationPepRadio"
+                                   id="declarationPepNo" type="radio" value="No">
+                            <label class="custom-control-label"
+                                   for="declarationPepNo">No</label>
+                        </div>
+                    </div>
+                    <br/>
+                    <div [hidden]="customerACOpeningForm.get('declarationPepRadio').value !== 'Yes'"
+                         class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="declarationPepYesName">Please specify the name of PEP</label>
+                                        <input class="form-control" formControlName="declarationPepYesName"
+                                               id="declarationPepYesName" placeholder="Specify PEP name"
+                                               type="text">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="declarationPepYesRelationship">Relationship with you</label>
+                                        <input class="form-control" formControlName="declarationPepYesRelationship"
+                                               id="declarationPepYesRelationship" placeholder="Enter relationship"
+                                               type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="declarationBeneficial">Do you have any Beneficial Owner?</label>
+                    <div id="declarationBeneficial">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="declarationBeneficialRadio"
+                                   id="declarationBeneficialYes" type="radio" value="Yes">
+                            <label class="custom-control-label" for="declarationBeneficialYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="declarationBeneficialRadio"
+                                   id="declarationBeneficialNo" type="radio" value="No">
+                            <label class="custom-control-label"
+                                   for="declarationBeneficialNo">No</label>
+                        </div>
+                    </div>
+                    <br/>
+                    <div [hidden]="customerACOpeningForm.get('declarationBeneficialRadio').value !== 'Yes'"
+                         class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="declarationBeneficialYesName">Please specify the name of Beneficial
+                                            Owner</label>
+                                        <input class="form-control" formControlName="declarationBeneficialYesName"
+                                               id="declarationBeneficialYesName"
+                                               placeholder="Specify Beneficial Owner name"
+                                               type="text">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="declarationBeneficialYesRelationship">Relationship with you</label>
+                                        <input class="form-control"
+                                               formControlName="declarationBeneficialYesRelationship"
+                                               id="declarationBeneficialYesRelationship"
+                                               placeholder="Enter relationship"
+                                               type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="declarationCrime">Declaration of Convicted/Non Convicted for any crime in past:</label>
+                    <div id="declarationCrime">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="declarationCrimeRadio"
+                                   id="declarationCrimeYes" type="radio" value="Yes">
+                            <label class="custom-control-label" for="declarationCrimeYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="declarationCrimeRadio"
+                                   id="declarationCrimeNo" type="radio" value="No">
+                            <label class="custom-control-label"
+                                   for="declarationCrimeNo">No</label>
+                        </div>
+                    </div>
+                    <br/>
+                    <div [hidden]="customerACOpeningForm.get('declarationCrimeRadio').value !== 'Yes'"
+                         class="form-group">
+                        <label for="declarationCrimeYesValue">Please specify convicted/non convicted crime</label>
+                        <input class="form-control" formControlName="declarationCrimeYesValue"
+                               id="declarationCrimeYesValue" placeholder="Specify convicted/non convicted crime name"
+                               type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="declarationResidentialPermit">Do you hold Residential Permit of foreign country?</label>
+                    <div id="declarationResidentialPermit">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="declarationResidentialRadio"
+                                   id="declarationResidentialYes" type="radio" value="Yes">
+                            <label class="custom-control-label" for="declarationResidentialYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="declarationResidentialRadio"
+                                   id="declarationResidentialNo" type="radio" value="No">
+                            <label class="custom-control-label"
+                                   for="declarationResidentialNo">No</label>
+                        </div>
+                    </div>
+                    <br/>
+                    <div [hidden]="customerACOpeningForm.get('declarationResidentialRadio').value !== 'Yes'"
+                         class="form-group">
+                        <label for="declarationResidentialYesValue">Please specify the following details: Residential Status</label>
+                        <div id="declarationResidentialYesValue">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input class="custom-control-input"
+                                       formControlName="declarationResidentialYesRadio"
+                                       id="declarationResidentialCitizen" type="radio" value="Citizen">
+                                <label class="custom-control-label" for="declarationResidentialCitizen">Citizen</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input class="custom-control-input"
+                                       formControlName="declarationResidentialYesRadio"
+                                       id="declarationResidentialPermanent" type="radio" value="Permanent resident">
+                                <label class="custom-control-label"
+                                       for="declarationResidentialPermanent">Permanent resident</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input class="custom-control-input"
+                                       formControlName="declarationResidentialYesRadio"
+                                       id="declarationResidentialResident" type="radio" value="Resident (Staying for 180 days or more in a year)">
+                                <label class="custom-control-label"
+                                       for="declarationResidentialResident">Resident (Staying for 180 days or more in a year)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="card">
+            <div class="card-header">
+                FATCA Declaration
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="declarationFATCA1">Are you a U.S. Resident?</label>
+                    <div id="declarationFATCA1">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="fatcaUSResident"
+                                   id="fatcaUSResidentYes" type="radio" value="Yes">
+                            <label class="custom-control-label" for="fatcaUSResidentYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="fatcaUSResident"
+                                   id="fatcaUSResidentNo" type="radio" value="No">
+                            <label class="custom-control-label"
+                                   for="fatcaUSResidentNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="declarationFATCA2">Are you a U.S. Citizen?</label>
+                    <div id="declarationFATCA2">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="fatcaUSCitizen"
+                                   id="fatcaUSCitizenYes" type="radio" value="Yes">
+                            <label class="custom-control-label" for="fatcaUSCitizenYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="fatcaUSCitizen"
+                                   id="fatcaUSCitizenNo" type="radio" value="No">
+                            <label class="custom-control-label"
+                                   for="fatcaUSCitizenNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="declarationFATCA3">Are you a U.S. Permanent Resident Card (Green Card) Holder?</label>
+                    <div id="declarationFATCA3">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="fatcaUSPermanent"
+                                   id="fatcaUSPermanentYes" type="radio" value="Yes">
+                            <label class="custom-control-label" for="fatcaUSPermanentYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="fatcaUSPermanent"
+                                   id="fatcaUSPermanentNo" type="radio" value="No">
+                            <label class="custom-control-label"
+                                   for="fatcaUSPermanentNo">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div [hidden]="!router.isActive('/customer/open/9', true)">
         <h5 class="card-title">Upload</h5>
