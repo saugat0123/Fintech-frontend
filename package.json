@@ -29,8 +29,6 @@
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
     "install-peers": "^1.0.3",
-    "ng-bootstrap": "^1.6.3",
-    "ngx-bootstrap": "^4.1.1",
     "ng2-file-upload": "^1.3.0",
     "ngx-quill": "^4.8.0",
     "popper.js": "^1.14.7",

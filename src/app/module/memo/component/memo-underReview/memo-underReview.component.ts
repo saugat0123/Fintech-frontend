@@ -4,10 +4,8 @@ import {MemoService} from '../../service/memo.service';
 import {MemoDataService} from '../../service/memo-data.service';
 import {MemoViewButtonComponent} from './memo-view-button/memo-view-button.component';
 
-declare var $;
-
 @Component({
-    selector: 'app-memo-underReview',
+    selector: 'app-memo-under-review',
     templateUrl: './memo-underReview.component.html',
     styleUrls: ['./memo-underReview.component.css']
 })
@@ -82,6 +80,7 @@ export class MemoUnderReviewComponent implements OnInit {
         this.defaultColDef = {resizable: true};
         this.paginationPageSize = 10;
         this.context = {componentParent: this};
+
         this.frameworkComponents = {
             viewButtonComponent: MemoViewButtonComponent
         };
@@ -117,7 +116,6 @@ export class MemoUnderReviewComponent implements OnInit {
             }
             this.spinner = false;
             this.dataService.getGlobalMsg(this.globalMsg);
-            $('.global-msgModal').modal('show');
         });
 
         this.sizeToFit();
