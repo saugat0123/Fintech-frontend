@@ -127,7 +127,15 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 declarationResidentialYesRadio: [undefined],
                 fatcaUSResident: [undefined, Validators.required],
                 fatcaUSCitizen: [undefined, Validators.required],
-                fatcaUSPermanent: [undefined, Validators.required]
+                fatcaUSPermanent: [undefined, Validators.required],
+                serviceAccountStatementRadio: [undefined, Validators.required],
+                serviceAccountStatementFrequencyRadio: [undefined],
+                serviceAccountStatementDeliveryRadio: [undefined],
+                serviceDebitCardRadio: [undefined, Validators.required],
+                serviceDebitCardTypeRadio: [undefined],
+                serviceDebitCardTypeOtherValue: [undefined],
+                serviceInternetBankingRadio: [undefined, Validators.required],
+                serviceMobileBankingRadio: [undefined, Validators.required]
             }
         );
     }

@@ -811,6 +811,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- Others -->
                 <div [hidden]="customerACOpeningForm.get('employmentDetailSelfRadio').value !== 'Others'"
                      class="form-group">
                     <label for="employmentDetailSelfOthersValue">Self employed with Others</label>
@@ -930,7 +931,130 @@
         <h5 class="card-title">Nominee Details</h5>
     </div>
     <div [hidden]="!router.isActive('/customer/open/7', true)">
-        <h5 class="card-title">Required Service</h5>
+        <div class="card">
+            <div class="card-header">
+                Required Service
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="serviceAccountStatement">Do you need account statement on a regular basis?</label>
+                    <div id="serviceAccountStatement">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="serviceAccountStatementRadio"
+                                   id="serviceAccountStatementYes" type="radio" value="Yes">
+                            <label class="custom-control-label" for="serviceAccountStatementYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="serviceAccountStatementRadio"
+                                   id="serviceAccountStatementNo" type="radio" value="No">
+                            <label class="custom-control-label"
+                                   for="serviceAccountStatementNo">No</label>
+                        </div>
+                    </div>
+                    <br/>
+                    <div [hidden]="customerACOpeningForm.get('serviceAccountStatementRadio').value !== 'Yes'"
+                         class="form-group">
+                        <label for="serviceAccountStatementFrequency">Frequency</label>
+                        <div id="serviceAccountStatementFrequency">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input class="custom-control-input"
+                                       formControlName="serviceAccountStatementFrequencyRadio"
+                                       id="serviceAccountStatementFrequencyMonthly" type="radio" value="Monthly">
+                                <label class="custom-control-label" for="serviceAccountStatementFrequencyMonthly">Monthly</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input class="custom-control-input"
+                                       formControlName="serviceAccountStatementFrequencyRadio"
+                                       id="serviceAccountStatementFrequencyQuarterly" type="radio" value="Quarterly">
+                                <label class="custom-control-label"
+                                       for="serviceAccountStatementFrequencyQuarterly">Quarterly</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input class="custom-control-input"
+                                       formControlName="serviceAccountStatementFrequencyRadio"
+                                       id="serviceAccountStatementFrequencyAnnually" type="radio" value="Annually">
+                                <label class="custom-control-label"
+                                       for="serviceAccountStatementFrequencyAnnually">Annually</label>
+                            </div>
+                        </div>
+                        <br/>
+                        <label for="serviceAccountStatementDelivery">Mode of Delivery</label>
+                        <div id="serviceAccountStatementDelivery">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input class="custom-control-input"
+                                       formControlName="serviceAccountStatementDeliveryRadio"
+                                       id="serviceAccountStatementFrequencyPrint" type="radio" value="Print on Demand">
+                                <label class="custom-control-label" for="serviceAccountStatementFrequencyPrint">Print on
+                                    Demand</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input class="custom-control-input"
+                                       formControlName="serviceAccountStatementDeliveryRadio"
+                                       id="serviceAccountStatementFrequencyEmail" type="radio" value="Email">
+                                <label class="custom-control-label"
+                                       for="serviceAccountStatementFrequencyEmail">Email</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="serviceDebitCard">Do you need DEBIT CARD?</label>
+                    <div id="serviceDebitCard">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="serviceDebitCardRadio"
+                                   id="serviceDebitCardYes" type="radio" value="Yes">
+                            <label class="custom-control-label" for="serviceDebitCardYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="serviceDebitCardRadio"
+                                   id="serviceDebitCardNo" type="radio" value="No">
+                            <label class="custom-control-label"
+                                   for="serviceDebitCardNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="serviceInternetBanking">Do you need INTERNET BANKING?</label>
+                    <div id="serviceInternetBanking">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="serviceInternetBankingRadio"
+                                   id="serviceInternetBankingYes" type="radio" value="Yes">
+                            <label class="custom-control-label" for="serviceInternetBankingYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="serviceInternetBankingRadio"
+                                   id="serviceInternetBankingNo" type="radio" value="No">
+                            <label class="custom-control-label"
+                                   for="serviceInternetBankingNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="serviceMobileBanking">Do you need MOBILE BANKING?</label>
+                    <div id="serviceMobileBanking">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="serviceMobileBankingRadio"
+                                   id="serviceMobileBankingYes" type="radio" value="Yes">
+                            <label class="custom-control-label" for="serviceMobileBankingYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input"
+                                   formControlName="serviceMobileBankingRadio"
+                                   id="serviceMobileBankingNo" type="radio" value="No">
+                            <label class="custom-control-label"
+                                   for="serviceMobileBankingNo">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div [hidden]="!router.isActive('/customer/open/8', true)">
         <div class="card">
@@ -1066,10 +1190,10 @@
                                    for="declarationResidentialNo">No</label>
                         </div>
                     </div>
-                    <br/>
                     <div [hidden]="customerACOpeningForm.get('declarationResidentialRadio').value !== 'Yes'"
                          class="form-group">
-                        <label for="declarationResidentialYesValue">Please specify the following details: Residential Status</label>
+                        <label for="declarationResidentialYesValue">Please specify the following details: Residential
+                            Status</label>
                         <div id="declarationResidentialYesValue">
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input class="custom-control-input"
@@ -1087,16 +1211,18 @@
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input class="custom-control-input"
                                        formControlName="declarationResidentialYesRadio"
-                                       id="declarationResidentialResident" type="radio" value="Resident (Staying for 180 days or more in a year)">
+                                       id="declarationResidentialResident" type="radio"
+                                       value="Resident (Staying for 180 days or more in a year)">
                                 <label class="custom-control-label"
-                                       for="declarationResidentialResident">Resident (Staying for 180 days or more in a year)</label>
+                                       for="declarationResidentialResident">Resident (Staying for 180 days or more in a
+                                    year)</label>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <br />
+        <br/>
         <div class="card">
             <div class="card-header">
                 FATCA Declaration
