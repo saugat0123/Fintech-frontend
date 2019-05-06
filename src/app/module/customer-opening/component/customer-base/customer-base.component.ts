@@ -10,6 +10,7 @@ import {CustomerDataService} from '../../service/customer-data.service';
 export class CustomerBaseComponent implements OnInit {
 
     public navigations: Array<Navigation>;
+    index = 0;
 
     constructor(
         private customerDataService: CustomerDataService
@@ -18,15 +19,14 @@ export class CustomerBaseComponent implements OnInit {
 
     ngOnInit() {
         this.navigations = new Array<Navigation>(
-            {id: 1, name: 'Account Details'},
-            {id: 2, name: 'Applicant Personal Details'},
-            {id: 3, name: 'Employment Details'},
-            {id: 4, name: 'Joint Applicant'},
-            {id: 5, name: 'Beneficiary Details'},
-            {id: 6, name: 'Nominee Details'},
-            {id: 7, name: 'Required Service'},
-            {id: 8, name: 'Declarations'},
-            {id: 9, name: 'Upload'}
+            {id: ++this.index, name: 'Account Details'},
+            {id: ++this.index, name: 'Applicant Personal Details'},
+            {id: ++this.index, name: 'Employment Details'},
+            {id: ++this.index, name: 'Beneficiary Details'},
+            {id: ++this.index, name: 'Nominee Details'},
+            {id: ++this.index, name: 'Required Service'},
+            {id: ++this.index, name: 'Declarations'},
+            {id: ++this.index, name: 'Upload'}
         );
         this.customerDataService.totalNavsCount = this.navigations.length;
     }
