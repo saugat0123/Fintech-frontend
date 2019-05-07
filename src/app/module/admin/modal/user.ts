@@ -1,5 +1,4 @@
-
-import { Branch } from './branch';
+import {Branch} from './branch';
 import {Role} from './role';
 
 export class User {
@@ -17,6 +16,4 @@ export class User {
     userName: string;
     role: Role;
     fingerPrint: [];
-    
 }
-

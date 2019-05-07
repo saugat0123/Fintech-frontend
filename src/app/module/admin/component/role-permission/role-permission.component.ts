@@ -71,6 +71,7 @@ export class RolePermissionComponent implements OnInit {
         this.roleperm = [];
         this.commonService.getByAll('v1/roleRightPermission/' + id).subscribe((response: any) => {
             this.rolePermissionList = response.detail;
+            // tslint:disable-next-line:no-shadowed-variable
             this.commonService.getByAll('v1/permission').subscribe((response: any) => {
                 this.allPermission = response.detail;
                 this.checkPermission();

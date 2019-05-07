@@ -3,7 +3,7 @@ button{
     position: relative;
     left: 220px;
 }
-spinner{
+app-spinner{
     position: relative;
     left: 135px;
 }
