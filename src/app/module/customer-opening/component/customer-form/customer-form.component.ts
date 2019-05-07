@@ -65,6 +65,18 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 occupationEstimatedTransaction: [undefined],
                 otherBankAccount: [undefined],
                 otherBankAccountValue: [undefined],
+                beneficialOwnerRadio: [undefined, Validators.required],
+                beneficiaryName: [undefined],
+                beneficiaryDOB: [undefined],
+                beneficiaryRelationship: [undefined],
+                beneficiaryPermanentAddress: [undefined],
+                beneficiaryTemporaryAddress: [undefined],
+                beneficiaryCitizenshipNumber: [undefined],
+                beneficiaryCitizenshipIssueAddress: [undefined],
+                beneficiaryPhoto: [undefined],
+                nomineesDetail: this.formBuilder.array([
+                   this.nomineeFormGroup()
+                ]),
                 declarationPepRadio: [undefined, Validators.required],
                 declarationPepYesName: [undefined],
                 declarationPepYesRelationship: [undefined],
@@ -172,6 +184,27 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     removeApplicant(index: number) {
         (<FormArray>this.customerACOpeningForm.get('applicantsDetail')).removeAt(index);
+    }
+
+    nomineeFormGroup() {
+        return this.formBuilder.group({
+            nomineeName: [undefined],
+            nomineeDOB: [undefined],
+            nomineeRelationship: [undefined],
+            nomineePermanentAddress: [undefined],
+            nomineeTemporaryAddress: [undefined],
+            nomineeCitizenshipNumber: [undefined],
+            nomineeCitizenshipIssueAddress: [undefined],
+            nomineePhoto: [undefined]
+        });
+    }
+
+    addNominee() {
+        (<FormArray>this.customerACOpeningForm.get('nomineesDetail')).push(this.nomineeFormGroup());
+    }
+
+    removeNominee(index: number) {
+        (<FormArray>this.customerACOpeningForm.get('nomineesDetail')).removeAt(index);
     }
 
 }

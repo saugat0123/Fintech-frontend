@@ -136,21 +136,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="nominee">Do you have a nominee for this Account?</label>
-                    <div id="nominee">
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input class="custom-control-input" formControlName="nomineeRadio" id="nomineeYes"
-                                   type="radio" value="Yes">
-                            <label class="custom-control-label" for="nomineeYes">Yes</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input class="custom-control-input" formControlName="nomineeRadio" id="nomineeNo"
-                                   type="radio" value="No">
-                            <label class="custom-control-label" for="nomineeNo">No</label>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -160,6 +145,10 @@
             <div [formGroupName]="applicantIndex" class="card">
                 <div class="card-header">
                     Applicant {{applicantIndex + 1}}
+                    <button (click)="removeApplicant(applicantIndex)"
+                            *ngIf="customerACOpeningForm.get('applicantsDetail').length>1"
+                            class="btn btn-danger btn-sm pull-right">Remove
+                    </button>
                 </div>
                 <div class="card-body">
                     <div class="card">
@@ -921,7 +910,7 @@
                                 <div class="col-md-12">
                                     <button (click)="removeOccupationalDetail(occupationIndex)"
                                             *ngIf="customerACOpeningForm.get('occupationDetails').length>1"
-                                            class="btn btn-danger btn-sm">Remove
+                                            class="btn btn-danger btn-sm pull-right">Remove
                                     </button>
                                 </div>
                             </div>
@@ -980,10 +969,174 @@
         </div>
     </div>
     <div [hidden]="!router.isActive('/customer/open/4', true)">
-        <h5 class="card-title">Beneficiary Details</h5>
+        <div class="card">
+            <div class="card-header">
+                Beneficiary Details
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="beneficialOwner">Do you have any beneficial owner for this Account?</label>
+                    <div id="beneficialOwner">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="beneficialOwnerRadio"
+                                   id="beneficialOwnerYes"
+                                   type="radio" value="Yes">
+                            <label class="custom-control-label" for="beneficialOwnerYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="beneficialOwnerRadio"
+                                   id="beneficialOwnerNo"
+                                   type="radio" value="No">
+                            <label class="custom-control-label" for="beneficialOwnerNo">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div [hidden]="customerACOpeningForm.get('beneficialOwnerRadio').value !== 'Yes'" class="card">
+            <div class="card-header">
+                Beneficiary Details Form
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="beneficiaryName">Full Name</label>
+                    <input class="form-control" formControlName="beneficiaryName" id="beneficiaryName"
+                           placeholder="Enter full name" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="beneficiaryDOB">Date of Birth</label>
+                    <input class="form-control" formControlName="beneficiaryDOB" id="beneficiaryDOB"
+                           type="date">
+                </div>
+                <div class="form-group">
+                    <label for="beneficiaryRelationship">Relationship with you</label>
+                    <input class="form-control" formControlName="beneficiaryRelationship" id="beneficiaryRelationship"
+                           placeholder="Enter relationship with you" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="beneficiaryPermanentAddress">Permanent Address</label>
+                    <input class="form-control" formControlName="beneficiaryPermanentAddress"
+                           id="beneficiaryPermanentAddress"
+                           placeholder="Enter permanent address" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="beneficiaryTemporaryAddress">Temporary Address</label>
+                    <input class="form-control" formControlName="beneficiaryTemporaryAddress"
+                           id="beneficiaryTemporaryAddress"
+                           placeholder="Enter temporary address" type="text">
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="beneficiaryCitizenshipNumber">Citizenship Number</label>
+                            <input class="form-control" formControlName="beneficiaryCitizenshipNumber"
+                                   id="beneficiaryCitizenshipNumber" placeholder="Enter citizenship number"
+                                   type="text">
+                        </div>
+                        <div class="col-md-5">
+                            <label for="beneficiaryCitizenshipIssueAddress">Place of issue</label>
+                            <input class="form-control"
+                                   formControlName="beneficiaryCitizenshipIssueAddress"
+                                   id="beneficiaryCitizenshipIssueAddress"
+                                   placeholder="Enter citizenship place of issue"
+                                   type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="beneficiaryPhoto">Photo</label>
+                    <input class="form-control" formControlName="beneficiaryPhoto" id="beneficiaryPhoto" type="file">
+                </div>
+            </div>
+        </div>
     </div>
     <div [hidden]="!router.isActive('/customer/open/5', true)">
-        <h5 class="card-title">Nominee Details</h5>
+        <div class="card">
+            <div class="card-header">
+                Nominee Details
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="nominee">Do you have a nominee for this Account?</label>
+                    <div id="nominee">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="nomineeRadio" id="nomineeYes"
+                                   type="radio" value="Yes">
+                            <label class="custom-control-label" for="nomineeYes">Yes</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input class="custom-control-input" formControlName="nomineeRadio" id="nomineeNo"
+                                   type="radio" value="No">
+                            <label class="custom-control-label" for="nomineeNo">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div *ngFor="let nominee of customerACOpeningForm.get('nomineesDetail')['controls']; let nomineeIndex = index"
+             formArrayName="nomineesDetail">
+            <div [hidden]="customerACOpeningForm.get('nomineeRadio').value !== 'Yes'" class="card" [formGroupName]="nomineeIndex">
+                <div class="card-header">
+                    Nominee Details {{nomineeIndex + 1}}
+                    <button (click)="removeNominee(nomineeIndex)"
+                            *ngIf="customerACOpeningForm.get('nomineesDetail').length>1"
+                            class="btn btn-danger btn-sm pull-right">Remove
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="nomineeName">Full Name</label>
+                        <input class="form-control" formControlName="nomineeName" id="nomineeName"
+                               placeholder="Enter full name" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="nomineeDOB">Date of Birth</label>
+                        <input class="form-control" formControlName="nomineeDOB" id="nomineeDOB"
+                               type="date">
+                    </div>
+                    <div class="form-group">
+                        <label for="nomineeRelationship">Relationship with you</label>
+                        <input class="form-control" formControlName="nomineeRelationship" id="nomineeRelationship"
+                               placeholder="Enter relationship with you" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="nomineePermanentAddress">Permanent Address</label>
+                        <input class="form-control" formControlName="nomineePermanentAddress" id="nomineePermanentAddress"
+                               placeholder="Enter permanent address" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="nomineeTemporaryAddress">Temporary Address</label>
+                        <input class="form-control" formControlName="nomineeTemporaryAddress" id="nomineeTemporaryAddress"
+                               placeholder="Enter temporary address" type="text">
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <label for="nomineeCitizenshipNumber">Citizenship Number</label>
+                                <input class="form-control" formControlName="nomineeCitizenshipNumber"
+                                       id="nomineeCitizenshipNumber" placeholder="Enter citizenship number"
+                                       type="text">
+                            </div>
+                            <div class="col-md-5">
+                                <label for="nomineeCitizenshipIssueAddress">Place of issue</label>
+                                <input class="form-control"
+                                       formControlName="nomineeCitizenshipIssueAddress"
+                                       id="nomineeCitizenshipIssueAddress" placeholder="Enter citizenship place of issue"
+                                       type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nomineePhoto">Photo</label>
+                        <input class="form-control" formControlName="nomineePhoto" id="nomineePhoto" type="file">
+                    </div>
+                </div>
+            </div>
+            <br />
+        </div>
+        <button *ngIf="customerACOpeningForm.get('nomineeRadio').value === 'Yes'" (click)="addNominee()" class="btn btn-primary">Add Nominee</button>
     </div>
     <div [hidden]="!router.isActive('/customer/open/6', true)">
         <div class="card">
