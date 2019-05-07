@@ -25,6 +25,7 @@ export class CommonDataService {
     data: any;
     dataObj: any;
     alertmessage: String;
+    schemeID: number;
 
     branch: Branch = new Branch();
     document: Document = new Document();
@@ -41,8 +42,6 @@ export class CommonDataService {
     province: Province = new Province();
     nepse: Nepse = new Nepse();
     company: Company = new Company();
-    answerPoints: number;
-    questionID: number;
 
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
@@ -207,6 +206,14 @@ export class CommonDataService {
 
     clearData() {
         this.dataObj = new Object();
+    }
+
+    setSchemeID(schemeID) {
+        this.schemeID = schemeID;
+    }
+
+    getSchemeID(): number{
+        return this.schemeID;
     }
 
     // setAnsPoints(questionID, answerPoints) {

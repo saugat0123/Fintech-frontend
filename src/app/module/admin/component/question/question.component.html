@@ -13,72 +13,90 @@
         <!-- /.info-box -->
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="box box-primary">
-            <div class="box-header">
-                <div class="col-md-12">
-                    <div class=row>
-                        <div class="col-md-3">
-                            <label>Select a Scheme</label>
-                            <select class="form-control">
-                                <option>Scheme</option>
-                            </select>
+<form [formGroup]="questionAnswerForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <div class="col-md-12">
+                        <div class=row>
+                            <div class="col-md-3" formGroupName="scheme">
+                                <label>Select a Scheme</label>
+                                <select class="form-control custom-select" formControlName="id"
+                                        (change)="onChangeSchemeOption()">
+                                    <option [ngValue]="null" hidden> Select a scheme</option>
+                                    <option *ngFor="let scheme of schemeList"
+                                            [ngValue]="scheme?.id">{{scheme.name}}</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <hr>
-                    <form [formGroup]="questionAnswerForm" (ngSubmit)="onSubmit()">
+                    <div class="box-body">
+                        <hr>
                         <div formArrayName="questionForm">
                             <div class="form-group"
-                                 *ngFor="let qsn of questionAnswerForm.get('questionForm').controls; let i = index;" >
+                                 *ngFor="let qsn of questionAnswerForm.get('questionForm').controls; let i = index;">
 
-                                <legend><h3>Question {{i+1}}:</h3></legend>
+                                <fieldset class="border border-primary rounded p-2">
+                                    <legend class="w-auto"><h3>Question {{i + 1}}:</h3></legend>
                                     <div [formGroupName]="i">
-                                    <label>Question Description:</label>
-                                    <input class="form-control" formControlName="qsnDescription">
-                                    <span>
-                                        <button class="btn btn-danger" (click)="deleteQuestionField(i)">
-                                            Delete question field
-                                        </button>
-                                    </span>
+                                        <label>Question Description:</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Question description"
+                                                   formControlName="qsnDescription">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-danger" (click)="deleteQuestionField(i)">
+                                                    Delete question field
+                                                </button>
+                                            </div>
+                                        </div>
 
-                                <div formArrayName="answerForm">
-                                    <div class="form-group"
-                                         *ngFor="let ans of qsn.get('answerForm').controls; let j = index;">
+                                        <div formArrayName="answerForm">
+                                            <div class="form-group"
+                                                 *ngFor="let ans of qsn.get('answerForm').controls; let j = index;">
 
-                                            <h4>Answer {{j + 1}}:</h4>
-                                            <div [formGroupName]="j">
-                                                <div class="row">
-                                                <div class="col-md-5">
-                                                    <label>Answer:</label>
-                                                    <input class="form-control" formControlName="ansDescription">
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label>Points:</label>
-                                                    <input class="form-control" formControlName="points">
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <button class="btn btn-danger" (click)="deleteAnswerField(qsn.controls.answerForm, j)">
-                                                        Delete answer field
+                                                <fieldset class="border border-info rounded p-2 bg-light">
+                                                    <legend class="w-auto"><h4>Answer {{j + 1}}:</h4></legend>
+                                                    <div [formGroupName]="j">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>Answer:</label>
+                                                                <input class="form-control"
+                                                                       formControlName="ansDescription">
+                                                            </div>
+
+                                                            <div class="col-md-6">
+                                                                <label>Points:</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input class="form-control"
+                                                                           formControlName="points">
+                                                                    <div class="input-group-append">
+                                                                        <button class="btn btn-danger btn-sm"
+                                                                                (click)="deleteAnswerField(qsn.controls.answerForm, j)">
+                                                                            Delete answer field
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+
+
+                                            </div>
+                                            <div class="row mt-2 mb-3 pr-3">
+                                                <div class="col-md-12 float-left">
+                                                    <button class="btn btn-info btn-sm float-left"
+                                                            (click)="addAnswerField(qsn.controls.answerForm)">
+                                                        Add Answer field
                                                     </button>
                                                 </div>
-                                                </div>
                                             </div>
-
-                                    </div>
-                                    <div class="row mt-2 mb-3 pr-3">
-                                        <div class="col-md-12 float-right">
-                                            <button class="btn btn-danger btn-sm float-right" (click)="addAnswerField(qsn.controls.answerForm)">
-                                                Add Answer field
-                                            </button>
                                         </div>
                                     </div>
-                                </div>
-                                    </div>
+                                </fieldset>
+
 
                             </div>
                         </div>
@@ -100,17 +118,15 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
 
-                    <spinner *ngIf="spinner" class="d-flex justify-content-center"></spinner>
+                        <spinner *ngIf="spinner" class="d-flex justify-content-center"></spinner>
 
+                    </div>
+                    <!-- /.col -->
                 </div>
-                <!-- /.col -->
             </div>
-            <!-- /.row -->
-            <!-- ***************************update-modal********************************** -->
-
-            <!-- ***************************update-modal********************************** -->
         </div>
     </div>
-</div>
+</form>
+<pre>{{questionAnswerForm.value | json}}</pre>
+

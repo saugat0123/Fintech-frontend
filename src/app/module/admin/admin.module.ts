@@ -48,7 +48,6 @@ import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
 import {UpdateModalComponent} from '../../common/update-modal/update-modal.component';
 import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
 import { QuestionComponent } from './component/question/question.component';
-import { AddQuestionComponent } from './component/question/add-question/add-question.component';
 
 // import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
 
@@ -92,8 +91,7 @@ import { AddQuestionComponent } from './component/question/add-question/add-ques
         AddCompanyComponent,
         AddRoleComponent,
         ListRoleComponent,
-        QuestionComponent,
-        AddQuestionComponent,
+        QuestionComponent
         // SecurityComponent
     ],
     imports: [

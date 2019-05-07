@@ -1,6 +1,6 @@
 <div class="card">
-    <article class="card-body">
-        <div class="row justify-content-center">
+    <div class="card-body">
+        <div *ngIf="schemeID!=null" class="row justify-content-center">
             <div class="card w-50">
                 <div class="card-header">
                     Questions
@@ -13,7 +13,7 @@
                     <div class="container form-check p-3 ml-4"
                          *ngFor="let ansList of questionList[index]?.answers">
                         <label class="form-check-label p-1">
-                            <input type="radio" [checked]="pointsMap.get(questionList[index]?.id) === ansList.id"
+                            <input type="radio" [checked]="checkedAnswerMap.get(questionList[index]?.id) === ansList.id"
                                    class="form-check-input" name="checkedAnswer"
                                    (change)="onSelectionChange(ansList.id, ansList.points, questionList[index]?.id)">
                             {{ansList.description}}
@@ -27,11 +27,18 @@
                 </div>
             </div>
         </div>
-        <div class="text-center my-3">
-            <button class="btn btn-success text-center" [hidden]="!proceedButton" (click)="onSubmit()">Proceed</button>
+
+        <div *ngIf="schemeID == null" class="container mx-auto text-center">
+            <h4>No schemes selected, please select one in your application form to proceed further.</h4>
+            <hr>
+            <button class="btn btn-success text-center" (click)="onBackToForm()">Back to form</button>
         </div>
 
-    </article>
+        <div class="text-center my-3">
+            <button class="btn btn-success text-center" [hidden]="!formValid" (click)="onSubmit()">Proceed</button>
+        </div>
+
+    </div>
 </div>
 
 

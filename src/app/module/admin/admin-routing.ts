@@ -40,7 +40,7 @@ export const adminRoutes: Routes = [
     {path: 'user', component: UserComponent},
     {path: 'approvalLimit', component: ApprovallimitComponent},
     {path: 'company', component: CompanyComponent},
-    {path: 'questions', component: QuestionComponent},
+    {path: 'question', component: QuestionComponent},
     {path: 'role', component: RolePermissionComponent},
     {path: 'roleList', component: ListRoleComponent},
     {

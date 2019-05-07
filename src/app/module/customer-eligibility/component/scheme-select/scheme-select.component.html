@@ -1,76 +1,78 @@
-<div class="card">
-    <article class="card-body mx-auto">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+<form [formGroup]="applicantForm" (ngSubmit)="onSubmit()">
+    <div class="card">
+        <div class="card-body mx-auto">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input formControlName="fullName" class="form-control" placeholder="Full name" type="text">
                     </div>
-                    <input name="" class="form-control" placeholder="First name" type="text">
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user-circle"></i> </span>
+                        </div>
+                        <input formControlName="age" class="form-control" placeholder="Age">
                     </div>
-                    <input name="" class="form-control" placeholder="Last name" type="text">
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+                        </div>
+                        <input formControlName="phoneNumber" class="form-control" placeholder="Phone number">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user-circle"></i> </span>
+                </div>
+                <input formControlName="nationality" class="form-control" placeholder="Nationality">
             </div>
-            <input name="" class="form-control" placeholder="Email address" type="email">
-        </div>
 
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-bank"></i> </span>
+                </div>
+                <select class="form-control custom-select" formControlName="branch">
+                    <option [ngValue]="null" hidden> Select a branch </option>
+                    <option *ngFor="let branch of branchList">{{branch.name}}</option>
+                </select>
             </div>
-            <input class="form-control" placeholder="Phone number">
-        </div>
 
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fa fa-bank"></i> </span>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-bank"></i> </span>
+                </div>
+                <select class="form-control custom-select" formControlName="scheme">
+                    <option [ngValue]="null" hidden> Select a scheme </option>
+                    <option *ngFor="let scheme of schemeList" [ngValue]="scheme?.id">{{scheme.name}}</option>
+                </select>
             </div>
-            <select class="form-control custom-select">
-                <option selected=""> Select a scheme</option>
-                <option>Designer</option>
-                <option>Manager</option>
-            </select>
-        </div>
 
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fa fa-bank"></i> </span>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-rupee"></i> </span>
+                </div>
+                <input formControlName="requestAmount" class="form-control" placeholder="Amount in rupees" type="text">
             </div>
-            <select class="form-control custom-select">
-                <option selected="">Select branch</option>
-                <option>Designer</option>
-                <option>Manager</option>
-            </select>
-        </div>
 
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fa fa-rupee"></i> </span>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit" [disabled]="!applicantForm.valid">Proceed</button>
             </div>
-            <select class="form-control custom-select">
-                <option selected="">Select preferred amount</option>
-                <option>Designer</option>
-                <option>Manager</option>
-            </select>
-        </div>
 
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">Proceed</button>
+            <p class="text-center">For more information, consult the respective department.</p>
         </div>
+    </div>
+</form>
 
-        <p class="text-center">For more information, consult the respective department.</p>
-    </article>
-</div>
+
 
