@@ -17,7 +17,7 @@ export class AlertComponent implements OnInit {
     ngOnInit() {
         this.service.alert.subscribe(alert => this.alert = alert);
         this.service.alert.pipe(
-            debounceTime(20000)
+            debounceTime(10000)
         ).subscribe(() => this.alert = undefined);
     }
 

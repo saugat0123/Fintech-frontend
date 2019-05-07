@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {MemoService} from '../../service/memo.service';
 import {MemoDataService} from '../../service/memo-data.service';
 import {MemoViewButtonComponent} from './memo-view-button/memo-view-button.component';
+import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
+import {AlertService} from '../../../../common/alert/alert.service';
+import {Alert, AlertType} from '../../../../common/alert/Alert';
 
 @Component({
     selector: 'app-memo-under-review',
@@ -27,7 +29,8 @@ export class MemoUnderReviewComponent implements OnInit {
     public frameworkComponents;
 
     constructor(
-        private dataService: CommonDataService,
+        private breadcrumbService: BreadcrumbService,
+        private alertService: AlertService,
         private memoService: MemoService,
         private memoDataService: MemoDataService
     ) {
@@ -87,7 +90,7 @@ export class MemoUnderReviewComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dataService.changeTitle(this.title);
+        this.breadcrumbService.notify(this.title);
         this.memoApi = this.memoDataService.getMemoApi();
     }
 
@@ -110,12 +113,10 @@ export class MemoUnderReviewComponent implements OnInit {
         this.memoService.getPageable(this.memoApi, 1, 20, null).subscribe((data: any) => {
             this.rowData = data.content;
         }, error => {
-            this.globalMsg = error.error.message;
-            if (this.globalMsg == null) {
-                this.globalMsg = 'Please check your network connection';
-            }
+
+            console.error(error);
+            this.alertService.notify(new Alert(AlertType.ERROR, 'Unable to Fetch Memo'));
             this.spinner = false;
-            this.dataService.getGlobalMsg(this.globalMsg);
         });
 
         this.sizeToFit();

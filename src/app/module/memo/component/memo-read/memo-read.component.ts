@@ -1,5 +1,4 @@
 import {Component, DoCheck, OnInit, TemplateRef} from '@angular/core';
-import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {Memo} from '../../model/memo';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MemoService} from '../../service/memo.service';
@@ -8,6 +7,9 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {User} from '../../../admin/modal/user';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
+import {AlertService} from '../../../../common/alert/alert.service';
+import {Alert, AlertType} from '../../../../common/alert/Alert';
 
 @Component({
     selector: 'app-memo-read',
@@ -29,7 +31,8 @@ export class MemoReadComponent implements OnInit, DoCheck {
     search = new Object();
 
     constructor(
-        private dataService: CommonDataService,
+        private breadcrumbService: BreadcrumbService,
+        private alertService: AlertService,
         private router: Router,
         private memoService: MemoService,
         private memoDataService: MemoDataService,
@@ -41,7 +44,7 @@ export class MemoReadComponent implements OnInit, DoCheck {
     }
 
     ngOnInit() {
-        this.dataService.changeTitle(this.title);
+        this.breadcrumbService.notify(this.title);
         this.memoApi = this.memoDataService.getMemoApi();
         const memoId = +this.activatedRoute.snapshot.paramMap.get('id');
         this.memoService.getById(this.memoApi, memoId).subscribe((response: any) => {
@@ -86,17 +89,12 @@ export class MemoReadComponent implements OnInit, DoCheck {
 
     deleteMemo() {
         this.memoService.deleteById(this.memoDataService.getMemoApi(), this.memo.id).subscribe(result => {
-
-                this.globalMsg = 'Successfully Removed Memo';
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('true');
+                this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Removed Memo'));
                 this.reloadPage();
 
             }, error => {
-                this.globalMsg = error.error.message;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('false');
-
+                this.alertService.notify(new Alert(AlertType.ERROR, 'Unable to Remove Memo'));
+                console.error(error);
             }
         );
     }

@@ -7,6 +7,7 @@ import {UpdateModalComponent} from '../../common/update-modal/update-modal.compo
 import {MsgAlertComponent} from '../../common/msg-alert/msg-alert.component';
 import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
 import {AlertComponent} from '../../common/alert/alert.component';
+import {BreadcrumbComponent} from '../../common/breadcrum/breadcrumb.component';
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import {AlertComponent} from '../../common/alert/alert.component';
         UpdateModalComponent,
         MsgAlertComponent,
         MsgModalComponent,
-        AlertComponent
+        AlertComponent,
+        BreadcrumbComponent
     ],
     imports: [
         CommonModule,
@@ -28,7 +30,8 @@ import {AlertComponent} from '../../common/alert/alert.component';
         UpdateModalComponent,
         MsgAlertComponent,
         MsgModalComponent,
-        AlertComponent
+        AlertComponent,
+        BreadcrumbComponent
     ]
 })
 export class SharedModule {

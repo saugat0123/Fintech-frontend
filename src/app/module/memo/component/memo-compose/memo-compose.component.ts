@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {MemoType} from '../../model/memoType';
 import {MemoService} from '../../service/memo.service';
 import {Observable} from 'rxjs';
@@ -9,6 +8,9 @@ import {CommonService} from '../../../../shared-service/baseservice/common-bases
 import {ActivatedRoute, Router} from '@angular/router';
 import {MemoDataService} from '../../service/memo-data.service';
 import {User} from '../../../admin/modal/user';
+import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
+import {AlertService} from '../../../../common/alert/alert.service';
+import {Alert, AlertType} from '../../../../common/alert/Alert';
 
 @Component({
     selector: 'app-memo-compose',
@@ -30,7 +32,8 @@ export class MemoComposeComponent implements OnInit {
     search = {};
 
     constructor(
-        private dataService: CommonDataService,
+        private breadcrumbService: BreadcrumbService,
+        private alertService: AlertService,
         private memoService: MemoService,
         private memoDataService: MemoDataService,
         private formBuilder: FormBuilder,
@@ -41,7 +44,7 @@ export class MemoComposeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dataService.changeTitle(this.title);
+        this.breadcrumbService.notify(this.title);
         this.memoApi = this.memoDataService.getMemoApi();
         this.memoTypeApi = this.memoDataService.getMemoTypeApi();
         this.memoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
@@ -52,6 +55,7 @@ export class MemoComposeComponent implements OnInit {
         } else {
             this.isNewMemo = false;
             this.memoTask = 'Edit';
+            this.breadcrumbService.notify('Memo - Edit');
             this.memoService.getById(this.memoApi, Number(this.memoId)).subscribe((response: any) => {
                 this.memo = response.detail;
                 this.buildMemoForm(this.memo);
@@ -84,7 +88,6 @@ export class MemoComposeComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.memo);
         this.memo.id = this.memoComposeForm.get('id').value;
         this.memo.subject = this.memoComposeForm.get('subject').value;
         this.memo.refNumber = this.memoComposeForm.get('refNumber').value;
@@ -97,16 +100,20 @@ export class MemoComposeComponent implements OnInit {
 
         if (this.isNewMemo) {
             this.memoService.save(this.memoApi, this.memo).subscribe((response: any) => {
+                this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Created Memo'));
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/memo/underReview']));
             }, error => {
                 console.error(error);
+                this.alertService.notify(new Alert(AlertType.ERROR, 'Unable to Create Memo'));
             });
         } else {
             this.memoService.edit(this.memoApi, this.memo, this.memo.id).subscribe((response: any) => {
+                this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Updated Memo'));
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/memo/underReview']));
             }, error => {
+                this.alertService.notify(new Alert(AlertType.ERROR, 'Unable to Update Memo'));
                 console.error(error);
             });
         }

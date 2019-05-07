@@ -1,5 +1,4 @@
 import {Component, DoCheck, OnInit, TemplateRef} from '@angular/core';
-import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
 import {MemoType} from '../../model/memoType';
 import {Router} from '@angular/router';
@@ -11,6 +10,7 @@ import {CustomValidator} from '../../../../core/validator/custom-validator';
 import {Status} from '../../../../core/Status';
 import {AlertService} from '../../../../common/alert/alert.service';
 import {Alert, AlertType} from '../../../../common/alert/Alert';
+import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
 
 @Component({
     selector: 'app-memo-type',
@@ -35,7 +35,7 @@ export class MemoTypeComponent implements OnInit, DoCheck {
     private modalRef: NgbModalRef;
 
     constructor(
-        private dataService: CommonDataService,
+        private breadcrumbService: BreadcrumbService,
         private alertService: AlertService,
         private memoService: MemoTypeService,
         private modalService: NgbModal,
@@ -45,7 +45,7 @@ export class MemoTypeComponent implements OnInit, DoCheck {
     }
 
     ngOnInit() {
-        this.dataService.changeTitle(MemoTypeComponent.TITLE);
+        this.breadcrumbService.notify(MemoTypeComponent.TITLE);
         this.getPagination();
     }
 
@@ -72,8 +72,6 @@ export class MemoTypeComponent implements OnInit, DoCheck {
                     (this.task === Action.UPDATE) ? [Validators.required] : []]
             }
         );
-
-        this.alertService.notify(new Alert(AlertType.INFO, 'Memo Type Form Created'));
     }
 
     addMemoType(template: TemplateRef<any>) {
@@ -104,13 +102,11 @@ export class MemoTypeComponent implements OnInit, DoCheck {
         this.spinner = true;
         this.memoService.getPagination(this.search).subscribe((response: any) => {
                 this.dataList = response.content;
-                this.dataService.setDataList(this.dataList);
 
                 this.spinner = false;
             }, error => {
-            this.alertService.notify(new Alert(AlertType.ERROR, 'Failed to Load Memo Types'));
+                this.alertService.notify(new Alert(AlertType.ERROR, 'Failed to Load Memo Types'));
                 this.spinner = false;
-                this.dataService.getGlobalMsg(this.globalMsg);
             }
         );
 
@@ -126,9 +122,9 @@ export class MemoTypeComponent implements OnInit, DoCheck {
                 this.reloadPage();
 
             }, error => {
-                this.globalMsg = error.error.message;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('false');
+
+                console.log(error);
+                this.alertService.notify(new Alert(AlertType.ERROR, 'Unable to Remove Memo Type'));
             }
         );
     }
