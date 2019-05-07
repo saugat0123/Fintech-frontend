@@ -9,6 +9,8 @@ import {Action} from '../../../../core/Action';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {CustomValidator} from '../../../../core/validator/custom-validator';
 import {Status} from '../../../../core/Status';
+import {AlertService} from '../../../../common/alert/alert.service';
+import {Alert, AlertType} from '../../../../common/alert/Alert';
 
 @Component({
     selector: 'app-memo-type',
@@ -34,6 +36,7 @@ export class MemoTypeComponent implements OnInit, DoCheck {
 
     constructor(
         private dataService: CommonDataService,
+        private alertService: AlertService,
         private memoService: MemoTypeService,
         private modalService: NgbModal,
         private router: Router,
@@ -69,6 +72,8 @@ export class MemoTypeComponent implements OnInit, DoCheck {
                     (this.task === Action.UPDATE) ? [Validators.required] : []]
             }
         );
+
+        this.alertService.notify(new Alert(AlertType.INFO, 'Memo Type Form Created'));
     }
 
     addMemoType(template: TemplateRef<any>) {
@@ -103,12 +108,7 @@ export class MemoTypeComponent implements OnInit, DoCheck {
 
                 this.spinner = false;
             }, error => {
-                this.globalMsg = error.error.message;
-
-                if (this.globalMsg == null) {
-                    this.globalMsg = 'Please check your network connection';
-                }
-
+            this.alertService.notify(new Alert(AlertType.ERROR, 'Failed to Load Memo Types'));
                 this.spinner = false;
                 this.dataService.getGlobalMsg(this.globalMsg);
             }
@@ -119,11 +119,9 @@ export class MemoTypeComponent implements OnInit, DoCheck {
     deleteMemoType() {
         this.memoService.delete(this.memoType.id).subscribe(result => {
 
-                this.globalMsg = 'Successfully Removed Memo Type';
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('true');
-
                 this.modalRef.dismiss('Deleted Memo Type');
+
+                this.alertService.notify(new Alert(AlertType.SUCCESS, 'Removed Memo Type'));
 
                 this.reloadPage();
 
@@ -147,19 +145,15 @@ export class MemoTypeComponent implements OnInit, DoCheck {
         if (this.isNewMemo) {
             this.memoService.save(this.memoTypeForm.value).subscribe(
                 () => {
-                    this.globalMsg = 'Successfully Saved Memo Type';
-                    this.dataService.getGlobalMsg(this.globalMsg);
-                    this.dataService.getAlertMsg('true');
+                    this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Created Memo Type'));
                     this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                         this.router.navigate(['home/memo/type']));
 
                     this.modalRef.dismiss('Saved Memo Type');
 
-                }, error => {
+                }, () => {
 
-                    this.globalMsg = error.error.message;
-                    this.dataService.getGlobalMsg(this.globalMsg);
-                    this.dataService.getAlertMsg('false');
+                    this.alertService.notify(new Alert(AlertType.ERROR, 'Failed to create Memo Type'));
 
                     this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                         this.router.navigate(['home/memo/type']));
@@ -171,21 +165,14 @@ export class MemoTypeComponent implements OnInit, DoCheck {
             this.memoService.update(this.memoType)
                 .subscribe(
                     () => {
-                        this.globalMsg = 'Successfully Updated Memo Type';
-
                         this.modalRef.dismiss('Updated Memo Type');
-
-                        this.dataService.getGlobalMsg(this.globalMsg);
-                        this.dataService.getAlertMsg('true');
+                        this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Updated Memo Type'));
                         this.memoType = new MemoType();
                         this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                             this.router.navigate(['home/memo/type']));
-                    }, error => {
+                    }, () => {
 
-                        this.globalMsg = error.error.message;
-                        this.dataService.getGlobalMsg(this.globalMsg);
-                        this.dataService.getAlertMsg('false');
-
+                        this.alertService.notify(new Alert(AlertType.ERROR, 'Failed to Update Memo Type'));
                         this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                             this.router.navigate(['home/memo/type']));
                     }
