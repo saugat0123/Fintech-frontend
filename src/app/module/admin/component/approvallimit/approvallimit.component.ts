@@ -8,6 +8,7 @@ import {ApprovalLimit} from '../../modal/approval-limit';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddApprovalLimitComponent} from './add-approval-limit/add-approval-limit.component';
 import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
+import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
 
 
 @Component({
@@ -35,12 +36,13 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private breadcrumbService: BreadcrumbService
     ) {
     }
 
     ngOnInit() {
-        this.dataService.changeTitle(this.title);
+        this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/approvallimit/get';
 
         this.commonService.getByPost('v1/permission/chkPerm', 'APPROVAL LIMIT').subscribe((response: any) => {

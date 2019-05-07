@@ -19,27 +19,27 @@ export class BasicInfoComponent implements OnInit {
     customer: Customer = new Customer();
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
     basicInfo: FormGroup;
-    provinceList:Province[]=[];
-    districtList:District[]=[];
-    municipalitiesList:MunicipalityVdc[]=[];
-    province:Province=new Province();
-    district:District= new District();
-    municipality:MunicipalityVdc=new MunicipalityVdc();
+    provinceList: Province[] = [];
+    districtList: District[] = [];
+    municipalitiesList: MunicipalityVdc[] = [];
+    province: Province = new Province();
+    district: District = new District();
+    municipality: MunicipalityVdc = new MunicipalityVdc();
 
     constructor(
         private commonService: CommonService,
         private commonDataService: CommonDataService,
         private router: Router,
         private formBuilder: FormBuilder,
-        private commonLocation:CommonLocation
+        private commonLocation: CommonLocation
     ) {
     }
 
     ngOnInit() {
         this.commonLocation.getProvince().subscribe(
-            (response:any) =>{
+            (response: any) => {
                 console.log(response.detail);
-                this.provinceList=response.detail;
+                this.provinceList = response.detail;
             }
         );
         this.basicInfo = this.formBuilder.group({
@@ -60,12 +60,12 @@ export class BasicInfoComponent implements OnInit {
         });
     }
 
-    getDistricts(){
+    getDistricts() {
         console.log(this.province);
         this.commonLocation.getDistrictByProvince(this.province).subscribe(
-            ( response:any) => {
+            (response: any) => {
                 console.log(response.detail);
-                this.districtList=response.detail;
+                this.districtList = response.detail;
             }
         );
     }
@@ -73,10 +73,10 @@ export class BasicInfoComponent implements OnInit {
     getMunicipalities() {
         console.log(this.district);
         this.commonLocation.getMunicipalityVDCByDistrict(this.district).subscribe(
-            (response:any) => {
-                this.municipalitiesList=response.detail;
+            (response: any) => {
+                this.municipalitiesList = response.detail;
             }
-        )
+        );
     }
 
     onSubmit() {

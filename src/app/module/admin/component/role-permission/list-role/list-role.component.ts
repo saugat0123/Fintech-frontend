@@ -5,6 +5,7 @@ import {CommonPageService} from '../../../../../shared-service/baseservice/commo
 import {Role} from '../../../modal/role';
 import {UpdateModalComponent} from '../../../../../common/update-modal/update-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {BreadcrumbService} from '../../../../../common/breadcrum/breadcrumb.service';
 
 
 @Component({
@@ -26,12 +27,13 @@ export class ListRoleComponent implements OnInit {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private breadcrumbService: BreadcrumbService
     ) {
     }
 
     ngOnInit() {
-        this.dataService.changeTitle(this.title);
+        this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/role';
         this.commonService.getByAll(this.currentApi + '/get/statusCount').subscribe((response: any) => {
             this.activeCount = response.detail.active;
@@ -47,7 +49,9 @@ export class ListRoleComponent implements OnInit {
     }
 
     onChange(newValue, data) {
-        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
         event.preventDefault();
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi(this.currentApi);
