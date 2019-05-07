@@ -6,6 +6,8 @@ import {NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {UpdateModalComponent} from '../../common/update-modal/update-modal.component';
 import {MsgAlertComponent} from '../../common/msg-alert/msg-alert.component';
 import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
+import {AlertComponent} from '../../common/alert/alert.component';
+import {BreadcrumbComponent} from '../../common/breadcrum/breadcrumb.component';
 
 @NgModule({
     declarations: [
@@ -13,7 +15,9 @@ import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
         PaginationComponent,
         UpdateModalComponent,
         MsgAlertComponent,
-        MsgModalComponent
+        MsgModalComponent,
+        AlertComponent,
+        BreadcrumbComponent
     ],
     imports: [
         CommonModule,
@@ -25,7 +29,9 @@ import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
         PaginationComponent,
         UpdateModalComponent,
         MsgAlertComponent,
-        MsgModalComponent
+        MsgModalComponent,
+        AlertComponent,
+        BreadcrumbComponent
     ]
 })
 export class SharedModule {

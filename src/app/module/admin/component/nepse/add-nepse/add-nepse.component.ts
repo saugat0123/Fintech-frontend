@@ -24,7 +24,6 @@ export class AddNepseComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private activeModal: NgbActiveModal,
         private modalService: NgbModal
-
     ) {
     }
 
@@ -42,10 +41,9 @@ export class AddNepseComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
-        console.log("Submitted");
         this.submitted = true;
         this.commonService.saveOrEdit(this.nepse, 'v1/nepseCompany').subscribe(result => {
-            this.modalService.dismissAll(AddNepseComponent);
+                this.modalService.dismissAll(AddNepseComponent);
                 if (this.nepse.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED NEPSE COMPANY';
                 } else {
@@ -61,7 +59,7 @@ export class AddNepseComponent implements OnInit, DoCheck {
 
             }, error => {
 
-            this.modalService.dismissAll(AddNepseComponent);
+                this.modalService.dismissAll(AddNepseComponent);
 
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
@@ -73,6 +71,7 @@ export class AddNepseComponent implements OnInit, DoCheck {
             }
         );
     }
+
     onClose() {
         this.activeModal.dismiss(AddNepseComponent);
     }

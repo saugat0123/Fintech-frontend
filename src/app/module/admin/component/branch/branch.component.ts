@@ -12,6 +12,7 @@ import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.componen
 import {Province} from '../../modal/province';
 import {District} from '../../modal/district';
 import {CommonLocation} from '../../../../shared-service/baseservice/common-location';
+import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
 
 
 declare var $;
@@ -56,12 +57,13 @@ export class BranchComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private location: CommonLocation
+        private location: CommonLocation,
+        private breadcrumbService: BreadcrumbService
     ) {
     }
 
     ngOnInit() {
-        this.dataService.changeTitle(this.title);
+        this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/branch/get';
 
         this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
@@ -118,7 +120,6 @@ export class BranchComponent implements OnInit, DoCheck {
 
     addBranch() {
         this.dataService.setBranch(new Branch());
-        console.log('opening modal');
         this.modalService.open(AddModelComponent);
     }
 
@@ -195,7 +196,7 @@ export class BranchComponent implements OnInit, DoCheck {
         delete this.search['districtId'];
         delete this.search['provinceId'];
         delete this.search['municipalityId'];
-        console.log(this.search);
+
         if (provinceId !== 'All') {
             this.search.provinceId = provinceId.toString();
             this.location.getDistrictByProvince(this.province).subscribe(

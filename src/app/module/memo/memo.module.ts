@@ -17,7 +17,6 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {SafePipe} from './pipe/safe.pipe';
 import {AgGridModule} from 'ag-grid-angular';
 import {MemoViewButtonComponent} from './component/memo-underReview/memo-view-button/memo-view-button.component';
-import {ModalModule} from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -39,8 +38,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
         ReactiveFormsModule,
         QuillModule,
         NgSelectModule,
-        AgGridModule.withComponents([MemoViewButtonComponent]),
-        ModalModule.forRoot()
+        AgGridModule.withComponents([MemoViewButtonComponent])
     ],
     providers: [MemoService, MemoDataService]
 })
