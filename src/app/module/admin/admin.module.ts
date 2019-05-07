@@ -47,10 +47,10 @@ import {CommonModule} from '@angular/common';
 import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
 import {UpdateModalComponent} from '../../common/update-modal/update-modal.component';
 import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
-
 import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
-import { LoanComponent } from './component/loan/loan.component';
-
+import {LoanComponent} from './component/loan-config/loan-main-template/loan/loan.component';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 @NgModule({
     declarations: [
@@ -101,8 +101,10 @@ import { LoanComponent } from './component/loan/loan.component';
         NgbPaginationModule,
         ReactiveFormsModule,
         ReactiveFormsModule,
+        NgMultiSelectDropDownModule.forRoot(),
         RouterModule.forChild(adminRoutes),
-        SharedModule
+        SharedModule,
+        NgSelectModule
     ],
 
     entryComponents: [
@@ -120,7 +122,6 @@ import { LoanComponent } from './component/loan/loan.component';
         AddUserComponent,
         AddCompanyComponent,
         MsgModalComponent,
-
         TemplateAddModelComponent,
         AddRoleComponent
     ]

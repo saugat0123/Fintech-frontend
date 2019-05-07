@@ -64,11 +64,4 @@ export class CommonService {
         return this.http.post(getUrl.url, model, {headers: getUrl.header});
 
     }
-
 }
-
-
-
-
-
-

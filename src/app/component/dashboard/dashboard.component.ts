@@ -44,6 +44,11 @@ export class DashboardComponent implements OnInit {
     ngOnInit() {
         this.dataService.changeTitle(this.title);
 
+        this.dataService.changeTitle(this.title);
+        this.commonService.getByAll('v1/config/getAll').subscribe((response: any) => {
+            this.loanList = response.detail;
+        });
+
         this.commonService.getByPost('v1/permission/chkPerm', 'DASHBOARD').subscribe(
             (response: any) => {
                 this.permissions = response.detail;
@@ -60,7 +65,7 @@ export class DashboardComponent implements OnInit {
                         this.sectorCountView = true;
                     } else if (this.permissions[i].type === 'NOTIFICATION') {
                         this.notificationView = true;
-                    }else if (this.permissions[i].type === 'PENDING') {
+                    } else if (this.permissions[i].type === 'PENDING') {
                         this.pendingView = true;
                     }
                 }
@@ -77,14 +82,19 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    addLoan(event) {
-        let loanType = event.target.value;
-        for (this.loan of this.loanList) {
-            if (loanType === this.loan.name) {
-                this.dataService.setInitialDocument(this.loan.initial);
-                this.dataService.setRenewDocument(this.loan.renew);
-            }
-        }
-        this.router.navigate(['home/loanType']);
+    getLoanTemplate() {
+        this.dataService.setData(this.loanType);
+        this.router.navigate(['/home/loan']);
     }
+
+    // addLoan(event) {
+    //     let loanType = event.target.value;
+    //     for (this.loan of this.loanList) {
+    //         if (loanType === this.loan.name) {
+    //             this.dataService.setInitialDocument(this.loan.initial);
+    //             this.dataService.setRenewDocument(this.loan.renew);
+    //         }
+    //     }
+    //     this.router.navigate(['home/loanType']);
+    // }
 }

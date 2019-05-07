@@ -46,7 +46,6 @@ export class SubSegmentComponent implements OnInit, DoCheck {
     ngOnInit() {
         this.dataService.changeTitle(this.title);
         this.currentApi = 'v1/subSegment/get';
-        this.getPagination();
         this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
@@ -61,13 +60,14 @@ export class SubSegmentComponent implements OnInit, DoCheck {
                     this.addViewSubSegment = true;
                 }
                 if (this.permissions[i].type === 'VIEW SUB-SEGMENT') {
+                    this.getPagination();
                     this.viewSubSegment = true;
                 }
                 if (this.permissions[i].type === 'EDIT SUB-SEGMENT') {
                     this.editSubSegment = true;
                 }
                 if (this.permissions[i].type === 'DOWNLOAD CSV') {
-                    this.getPagination();
+
                     this.csvDownload = true;
                 }
             }

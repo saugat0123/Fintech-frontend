@@ -164,7 +164,7 @@ export class RolePermissionComponent implements OnInit {
             this.spinner = false;
             this.roleChanged(this.roleId);
 
-           // this.commonService.getByPost('actuator/restart', null).subscribe((response: any) => {});
+           // this.commonService.getByPost('actuator/refresh', null).subscribe((response: any) => {});
         });
     }
 

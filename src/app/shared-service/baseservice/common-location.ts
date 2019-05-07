@@ -16,7 +16,7 @@ export class CommonLocation {
     getProvince() {
         const url = 'v1/address/province';
         const getUrl = this.restApiService.modifyRestUrl(url);
-        return this.http.get(getUrl.url);
+        return this.http.get(getUrl.url,{headers: getUrl.header});
     }
 
 
@@ -24,12 +24,12 @@ export class CommonLocation {
         console.log(province);
         const url = 'v1/address/districtByProvince';
         const getUrl = this.restApiService.modifyRestUrl(url);
-        return this.http.post(getUrl.url, province);
+        return this.http.post(getUrl.url, province,{headers: getUrl.header});
     }
 
     getMunicipalityVDCByDistrict(district: District) {
         const url = 'v1/address/municipalityVdcByDistrict';
         const getUrl = this.restApiService.modifyRestUrl(url);
-        return this.http.post(getUrl.url, district);
+        return this.http.post(getUrl.url, district,{headers: getUrl.header});
     }
 }

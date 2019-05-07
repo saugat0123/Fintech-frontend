@@ -1,17 +1,18 @@
-<div *ngIf="addViewLoanCategory" class="container">
-    <form class="form-horizontal" [formGroup]="loanCategory">
+<div class="row" *ngIf="addViewLoanCategory">
+    <div class="col-md-6">
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
-                    <h2>What would you like to do today?</h2>
-                    <select name="chooseAny" id="chooseAny" class="form-control rounded" formControlName="loanList" (change)="addLoan($event)">
-                        <option [ngValue]="null" hidden>Select the loan category</option>
-                        <option *ngFor="let loan of loanList">{{loan.name}}</option>
-                    </select>
-                </div>
+                <select [(ngModel)]="loanType" class="form-control">
+                    <option *ngFor="let allList of loanList" [value]="allList.id">{{allList.name}}</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-md btn-primary btn-flat" (click)="getLoanTemplate()">
+                    <i class="fa fa-arrow-right"></i>
+                </button>
             </div>
         </div>
-    </form>
+    </div>
 </div>
 
 <div class="row">

@@ -80,7 +80,7 @@
           </span>
         </a>
       </li>
-      <li class="treeview">
+      <li class="treeview" routerLinkActive="active">
         <a href="#">
           <i class="fa fa-link"></i>
           <span>Sector</span>
@@ -157,6 +157,19 @@
           <li routerLinkActive="active">
             <a routerLink="/home/sub-segment">Sub-Segment</a>
           </li>
+        </ul>
+      </li>
+      <li class="treeview" routerLinkActive="active">
+        <a href="#">
+          <i class="fa fa-envelope"></i> <span>Memo</span>
+          <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+          <li routerLinkActive="active"><a routerLink="/home/memo/underReview">Under Review</a></li>
+          <li routerLinkActive="active"><a routerLink="/home/memo/compose">Compose</a></li>
+          <li routerLinkActive="active"><a routerLink="/home/memo/type">Memo Type</a></li>
         </ul>
       </li>
     </ul>

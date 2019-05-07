@@ -1,8 +1,8 @@
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
-        <!--<li *ngFor="let allList of templateList;let i=index">
-          <a routerLink="{{allList.templateUrl}}" data-toggle="tab" aria-expanded="false">{{allList.name}}</a>
-        </li>-->
+        <li *ngFor="let allList of templateList;let i=index">
+          <a routerLink="{{allList.templateUrl}}" data-toggle="tab" aria-expanded="false" routerLinkActive="active" >{{allList.name}}</a>
+        </li>   
         <!-- <li>
           <a href="#basicInfo" data-toggle="tab" aria-expanded="false">22</a>
 
