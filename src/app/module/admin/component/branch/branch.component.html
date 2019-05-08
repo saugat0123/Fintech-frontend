@@ -46,11 +46,11 @@
                 <div class="col-md-12">
                     <div class=row>
                         <div class=" row col-md-6">
-                            <div class="col-md-5">
-                                <input type="text" class="form-control form-control-sm" [(ngModel)]="search.name"
-                                       name="name"
-                                       placeholder="name...">
-                            </div>
+                            <!--<div class="col-md-5">-->
+                                <!--<input type="text" class="form-control form-control-sm" [(ngModel)]="search.name"-->
+                                       <!--name="name"-->
+                                       <!--placeholder="name...">-->
+                            <!--</div>-->
                             <div class="col-md-4 pull-left p-0">
                                 <button data-toggle="collapse" data-target="#searchModel"
                                         class="btn btn-primary btn-sm btn-flat">
@@ -85,7 +85,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <select name="province" id="province"
-                                                class="form-control-sm col-md-9 justify-content-sm-center"
+                                                class="form-control form-control-sm col-md-9 justify-content-sm-center"
                                                  (change)="getDistricts($event.target.value)">
                                             <option [ngValue]="undefined" hidden>Province</option>
                                             <option value="All">All</option>
@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <select name="district" id="district"
-                                            class="form-control-sm col-md-9 justify-content-sm-center"
+                                            class="form-control form-control-sm col-md-9 justify-content-sm-center"
                                           (change)="getMunicipalities($event.target.value)">
                                         <option [ngValue]="undefined" hidden>District</option>
                                         <option *ngFor="let district of districts"
@@ -109,7 +109,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <select name="municipality" id="municipality"
-                                            class="form-control-sm col-md-9 justify-content-sm-center"
+                                            class="form-control form-control-sm col-md-9 justify-content-sm-center"
 
                                             (change)="getMunicipality($event.target.value)"
                                     >
@@ -123,6 +123,12 @@
                             </div>
 
 
+                        </div>
+
+                        <div class="col-md-3">
+                        <input type="text" class="form-control form-control-sm" [(ngModel)]="search.name"
+                        name="name"
+                        placeholder="name...">
                         </div>
 
 
