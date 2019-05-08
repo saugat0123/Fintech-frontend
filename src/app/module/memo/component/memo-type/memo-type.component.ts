@@ -1,15 +1,16 @@
 import {Component, DoCheck, OnInit, TemplateRef} from '@angular/core';
-import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
-import {MemoService} from '../../service/memo.service';
-import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
 import {MemoType} from '../../model/memoType';
-import {MemoDataService} from '../../service/memo-data.service';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {Router} from '@angular/router';
-import {FormBuilder, FormGroup} from '@angular/forms';
-
-declare var $;
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MemoTypeService} from '../../service/memo-type.service';
+import {Action} from '../../../../core/Action';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {CustomValidator} from '../../../../core/validator/custom-validator';
+import {Status} from '../../../../core/Status';
+import {AlertService} from '../../../../common/alert/alert.service';
+import {Alert, AlertType} from '../../../../common/alert/Alert';
+import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
 
 @Component({
     selector: 'app-memo-type',
@@ -17,35 +18,34 @@ declare var $;
     styleUrls: ['./memo-type.component.css']
 })
 export class MemoTypeComponent implements OnInit, DoCheck {
+    static TITLE = 'Memo Type';
+    private static DEFAULT_STATUS = Status.ACTIVE;
 
-    title = 'Memo Type';
-    search: String;
+    search: string;
     spinner = false;
     dataList: any;
-    memoTypeApi: string;
     currentUrl: string;
     task: string;
     isNewMemo: boolean;
     pageable: Pageable = new Pageable();
     globalMsg;
     memoType: MemoType;
-    modalRef: BsModalRef;
     memoTypeForm: FormGroup;
 
+    private modalRef: NgbModalRef;
+
     constructor(
-        private dataService: CommonDataService,
-        private memoService: MemoService,
-        private memoDataService: MemoDataService,
-        private commonPageService: CommonPageService,
-        private modalService: BsModalService,
+        private breadcrumbService: BreadcrumbService,
+        private alertService: AlertService,
+        private memoService: MemoTypeService,
+        private modalService: NgbModal,
         private router: Router,
         private formBuilder: FormBuilder
     ) {
     }
 
     ngOnInit() {
-        this.dataService.changeTitle(this.title);
-        this.memoTypeApi = this.memoDataService.getMemoTypeApi();
+        this.breadcrumbService.notify(MemoTypeComponent.TITLE);
         this.getPagination();
     }
 
@@ -54,88 +54,77 @@ export class MemoTypeComponent implements OnInit, DoCheck {
     }
 
     onSearch() {
-        this.dataService.setData(this.search);
         this.getPagination();
     }
 
     onSearchChange(searchValue: string) {
         this.search = searchValue;
 
-        this.dataService.setData(this.search);
         this.getPagination();
     }
 
     buildForm() {
         this.memoTypeForm = this.formBuilder.group(
             {
-                id: [this.memoType.id == null ? '' : this.memoType.id],
-                name: [this.memoType.name == null ? '' : this.memoType.name],
-                status: [this.memoType.status == null ? 'ACTIVE' : this.memoType.status]
+                id: [this.memoType.id === undefined ? '' : this.memoType.id],
+                name: [this.memoType.name === undefined ? '' : this.memoType.name, [Validators.required, CustomValidator.notEmpty]],
+                status: [this.memoType.status === undefined ? MemoTypeComponent.DEFAULT_STATUS : this.memoType.status,
+                    (this.task === Action.UPDATE) ? [Validators.required] : []]
             }
         );
     }
 
     addMemoType(template: TemplateRef<any>) {
         this.isNewMemo = true;
-        this.task = 'Add';
+        this.task = Action.ADD;
         this.memoType = new MemoType();
         this.buildForm();
-        this.modalRef = this.modalService.show(template);
+
+        this.modalRef = this.modalService.open(template, {backdrop: 'static'});
     }
 
     openEdit(memoType: MemoType, template: TemplateRef<any>) {
         this.isNewMemo = false;
-        this.task = 'Edit';
+        this.task = Action.UPDATE;
         this.memoType = memoType;
         this.buildForm();
-        this.modalRef = this.modalService.show(template);
+
+        this.modalRef = this.modalService.open(template, {backdrop: 'static'});
     }
 
     openDelete(memoType: MemoType, template: TemplateRef<any>) {
         this.memoType = memoType;
-        this.modalRef = this.modalService.show(template);
+
+        this.modalRef = this.modalService.open(template);
     }
 
     getPagination() {
         this.spinner = true;
-        this.memoService.getAll(this.memoTypeApi).subscribe((response: any) => {
+        this.memoService.getPagination(this.search).subscribe((response: any) => {
                 this.dataList = response.content;
-                this.dataService.setDataList(this.dataList);
-                this.commonPageService.setCurrentApi(this.memoTypeApi);
-                this.pageable = this.commonPageService.setPageable(response.content);
 
                 this.spinner = false;
-
             }, error => {
-                this.globalMsg = error.error.message;
-                if (this.globalMsg == null) {
-                    this.globalMsg = 'Please check your network connection';
-                }
+                this.alertService.notify(new Alert(AlertType.ERROR, 'Failed to Load Memo Types'));
                 this.spinner = false;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                $('.global-msgModal').modal('show');
             }
         );
 
     }
 
     deleteMemoType() {
-        this.memoService.deleteById(this.memoDataService.getMemoTypeApi(), this.memoType.id).subscribe(result => {
+        this.memoService.delete(this.memoType.id).subscribe(result => {
 
-                this.globalMsg = 'SUCCESSFULLY DELETED MEMO TYPE';
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('true');
+                this.modalRef.dismiss('Deleted Memo Type');
 
-                $('.alert-custom').slideDown();
+                this.alertService.notify(new Alert(AlertType.SUCCESS, 'Removed Memo Type'));
 
                 this.reloadPage();
 
             }, error => {
-                this.globalMsg = error.error.message;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('false');
-                $('.alert-custom').slideDown();
 
+                console.log(error);
+                this.alertService.notify(new Alert(AlertType.ERROR, 'Unable to Remove Memo Type'));
             }
         );
     }
@@ -144,67 +133,55 @@ export class MemoTypeComponent implements OnInit, DoCheck {
         this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(e => {
             if (e) {
                 this.router.navigate([this.currentUrl]);
-                this.modalRef.hide();
             }
         });
     }
 
-    onSubmit() {
+    submit() {
         if (this.isNewMemo) {
-            this.memoService.save(this.memoTypeApi, this.memoTypeForm.value).subscribe(result => {
-                    this.modalRef.hide();
-                    this.globalMsg = 'SUCCESSFULLY ADDED MEMO TYPE';
-                    this.dataService.getGlobalMsg(this.globalMsg);
-                    this.dataService.getAlertMsg('true');
+            this.memoService.save(this.memoTypeForm.value).subscribe(
+                () => {
+                    this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Created Memo Type'));
                     this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                         this.router.navigate(['home/memo/type']));
-                    $('.alert-custom').slideDown();
 
-                }, error => {
+                    this.modalRef.dismiss('Saved Memo Type');
 
-                    this.modalRef.hide();
+                }, () => {
 
-                    this.globalMsg = error.error.message;
-                    this.dataService.getGlobalMsg(this.globalMsg);
-                    this.dataService.getAlertMsg('false');
+                    this.alertService.notify(new Alert(AlertType.ERROR, 'Failed to create Memo Type'));
 
                     this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                         this.router.navigate(['home/memo/type']));
-                    $('.alert-custom').slideDown();
-
                 }
             );
         } else {
-
             this.memoType.name = this.memoTypeForm.get('name').value;
             this.memoType.status = this.memoTypeForm.get('status').value;
-            this.memoService.edit(this.memoTypeApi, this.memoType, this.memoType.id).subscribe(result => {
-                    this.modalRef.hide();
-                    this.globalMsg = 'SUCCESSFULLY EDITED MEMO TYPE';
+            this.memoService.update(this.memoType)
+                .subscribe(
+                    () => {
+                        this.modalRef.dismiss('Updated Memo Type');
+                        this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Updated Memo Type'));
+                        this.memoType = new MemoType();
+                        this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                            this.router.navigate(['home/memo/type']));
+                    }, () => {
 
-                    this.dataService.getGlobalMsg(this.globalMsg);
-                    this.dataService.getAlertMsg('true');
-                    this.memoType = new MemoType();
-                    this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
-                        this.router.navigate(['home/memo/type']));
-                    $('.alert-custom').slideDown();
-
-
-                }, error => {
-
-                    this.modalRef.hide();
-
-                    this.globalMsg = error.error.message;
-                    this.dataService.getGlobalMsg(this.globalMsg);
-                    this.dataService.getAlertMsg('false');
-
-                    this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
-                        this.router.navigate(['home/memo/type']));
-                    $('.alert-custom').slideDown();
-
-                }
-            );
+                        this.alertService.notify(new Alert(AlertType.ERROR, 'Failed to Update Memo Type'));
+                        this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                            this.router.navigate(['home/memo/type']));
+                    }
+                );
         }
+    }
+
+    get name() {
+        return this.memoTypeForm.get('name');
+    }
+
+    get status() {
+        return this.memoTypeForm.get('status');
     }
 
 }

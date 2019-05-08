@@ -8,6 +8,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddLoanComponent} from './add-loan/add-loan.component';
 import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
 import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
+import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
 
 declare var $;
 
@@ -38,13 +39,15 @@ export class LoanConfigComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private breadcrumbService: BreadcrumbService
     ) {
     }
 
     ngOnInit() {
 
-        this.dataService.changeTitle(this.title);
+        this.breadcrumbService.notify(this.title);
+
         this.currentApi = 'v1/config/get';
         this.getPagination();
         this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
@@ -87,9 +90,10 @@ export class LoanConfigComponent implements OnInit, DoCheck {
     }
 
 
-
     onChange(newValue, data) {
-        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
         event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);

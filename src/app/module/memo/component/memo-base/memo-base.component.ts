@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {Router} from '@angular/router';
+import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
 
 @Component({
     selector: 'app-memo-base',
@@ -12,13 +12,13 @@ export class MemoBaseComponent implements OnInit {
     title: 'Memo';
 
     constructor(
-        private dataService: CommonDataService,
+        private breadcrumbService: BreadcrumbService,
         public router: Router
     ) {
     }
 
     ngOnInit() {
-        this.dataService.changeTitle(this.title);
+        this.breadcrumbService.notify(this.title);
     }
 
 }
