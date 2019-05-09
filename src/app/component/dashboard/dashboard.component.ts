@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
     title = 'Dashboard';
     loanType: any;
     loanList: any;
+    spinner = false;
 
     constructor(
         private commonService: CommonService,
@@ -31,9 +32,8 @@ export class DashboardComponent implements OnInit {
     }
 
     loan() {
-        console.log(this.loanType);
-        this.dataService.setData(this.loanType);
-        this.router.navigate(['/home/loan']);
+        this.spinner = true;
+        this.router.navigate(['/home/loan/loanForm'], {queryParams: {loanId: this.loanType, customerId: 'jimmy'}});
     }
 
 }
