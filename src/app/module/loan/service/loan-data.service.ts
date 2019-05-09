@@ -7,11 +7,19 @@ import {Injectable} from '@angular/core';
 export class LoanDataService {
 
 
-    prvs = {};
+    prvs = {
+        url: null,
+        index: null,
+        name: null
+    };
     url: string;
     name: string;
     index;
-    nxt = {};
+    nxt = {
+        url: null,
+        index: null,
+        name: null
+    };
 
     constructor() {
     }

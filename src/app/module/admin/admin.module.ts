@@ -24,7 +24,7 @@ import {SubSectorComponent} from './component/sector/sub-sector/sub-sector.compo
 import {AddSectorComponent} from './component/sector/sector/add-sector/add-sector.component';
 import {AddSubSectorComponent} from './component/sector/sub-sector/add-sub-sector/add-sub-sector.component';
 
-import {UIComponent} from './component/loan-config/ui/ui.component';
+import {UIComponent} from './component/loan-config/loan-configuration/ui.component';
 import {NepseComponent} from './component/nepse/nepse.component';
 import {SegmentComponent} from './component/segment/segment/segment.component';
 import {SubSegmentComponent} from './component/segment/sub-segment/sub-segment.component';

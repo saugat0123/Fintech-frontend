@@ -9,13 +9,16 @@ import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {SharedModule} from '../shared/shared.module';
 import {CompanyInfoComponent} from './component/loan-main-template/company-info/company-info.component';
 import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
+import {KycInfoComponent} from './component/loan-main-template/kyc-info/kyc-info.component';
 
 
 @NgModule({
     declarations: [
         LoanFormComponent,
         BasicInfoComponent,
-        CompanyInfoComponent],
+        CompanyInfoComponent,
+        KycInfoComponent
+    ],
     imports: [
         CommonModule,
         LoanRoutingModule,
