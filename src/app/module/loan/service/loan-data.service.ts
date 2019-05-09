@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MemoType} from '../model/memoType';
-import {Memo} from '../model/memo';
+
 
 @Injectable({
     providedIn: 'root'

@@ -14,7 +14,9 @@ import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service
 })
 export class LoanFormComponent implements OnInit {
     templateList = [{
-        active: false
+        active: false,
+        name: null,
+        templateUrl: null
     }];
     id;
     selectedTab;
@@ -113,6 +115,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     prevTab() {
+        this.previousParameter = {};
         this.previousParameter = this.loanDataService.getPrevious();
         this.selectTab(this.previousParameter.index, this.previousParameter.name);
     }

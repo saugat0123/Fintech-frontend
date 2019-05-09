@@ -7,7 +7,7 @@ import {BranchComponent} from './component/branch/branch.component';
 import {LoanConfigComponent} from './component/loan-config/loan-config.component';
 import {LoanTemplateComponent} from './component/loan-config/loan-template/loan-template.component';
 import {TemplateAddModelComponent} from './component/loan-config/loan-template/template-add-model/template-add-model.component';
-import {BasicInfoComponent} from './component/loan-config/loan-main-template/basic-info/basic-info.component';
+
 import {AddLoanComponent} from './component/loan-config/add-loan/add-loan.component';
 import {UserComponent} from './component/user/user.component';
 import {AddUserComponent} from './component/user/add-user/add-user.component';
@@ -17,8 +17,6 @@ import {RolePermissionComponent} from './component/role-permission/role-permissi
 import {AddModelComponent} from './component/branch/add-model/add-model.component';
 import {AddRoleComponent} from './component/role-permission/add-role/add-role.component';
 import {ListRoleComponent} from './component/role-permission/list-role/list-role.component';
-
-import {KycInfoComponent} from './component/loan-config/loan-main-template/kyc-info/kyc-info.component';
 import {ValuatorComponent} from './component/valuator/valuator.component';
 import {AddValuatorComponent} from './component/valuator/add-valuator/add-valuator.component';
 import {SectorComponent} from './component/sector/sector/sector.component';
@@ -33,7 +31,7 @@ import {SubSegmentComponent} from './component/segment/sub-segment/sub-segment.c
 import {AddSegmentComponent} from './component/segment/add-segment/add-segment.component';
 import {AddNepseComponent} from './component/nepse/add-nepse/add-nepse.component';
 import {AddSubSegmentComponent} from './component/segment/add-sub-segment/add-sub-segment.component';
-import {CompanyInfoComponent} from './component/loan-config/loan-main-template/company-info/company-info.component';
+
 import {CompanyComponent} from './component/company/company.component';
 import {AddCompanyComponent} from './component/company/add-company/add-company.component';
 
@@ -44,9 +42,10 @@ import {RouterModule} from '@angular/router';
 import {adminRoutes} from './admin-routing';
 import {SharedModule} from '../shared/shared.module';
 import {CommonModule} from '@angular/common';
-import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
+
 import {UpdateModalComponent} from '../../common/update-modal/update-modal.component';
 import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
+
 // import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
 
 @NgModule({
@@ -56,8 +55,6 @@ import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
         LoanConfigComponent,
         LoanTemplateComponent,
         TemplateAddModelComponent,
-        BasicInfoComponent,
-        CompanyInfoComponent,
         AddLoanComponent,
         UserComponent,
         AddUserComponent,
@@ -66,14 +63,14 @@ import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
         RolePermissionComponent,
         AddRoleComponent,
         RolePermissionComponent,
-        KycInfoComponent,
+
         ValuatorComponent,
         AddValuatorComponent,
         SectorComponent,
         SubSectorComponent,
         AddSectorComponent,
         AddSubSectorComponent,
-        LoanUiComponent,
+
         UIComponent,
         NepseComponent,
         SegmentComponent,
