@@ -48,7 +48,7 @@ import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
 import {UpdateModalComponent} from '../../common/update-modal/update-modal.component';
 import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
 import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
-import {LoanComponent} from './component/loan-config/loan-main-template/loan/loan.component';
+import {DmsLoanFileComponent} from './component/loan-config/loan-main-template/loan-file/dms-loan-file.component';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgSelectModule} from '@ng-select/ng-select';
 
@@ -93,7 +93,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
         AddRoleComponent,
         ListRoleComponent,
         SecurityComponent,
-        LoanComponent
+        DmsLoanFileComponent
     ],
     imports: [
         CommonModule,

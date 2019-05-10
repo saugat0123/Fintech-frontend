@@ -1,4 +1,4 @@
-        import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonService} from '../../../../../../shared-service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -19,12 +19,12 @@ export class BasicInfoComponent implements OnInit {
     customer: Customer = new Customer();
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
     basicInfo: FormGroup;
-    provinceList:Province[]=[];
-    districtList:District[]=[];
-    municipalitiesList:MunicipalityVdc[]=[];
-    province:Province=new Province();
-    district:District= new District();
-    municipality:MunicipalityVdc=new MunicipalityVdc();
+    provinceList: Province[] = [];
+    districtList: District[] = [];
+    municipalitiesList: MunicipalityVdc[] = [];
+    province: Province = new Province();
+    district: District = new District();
+    municipality: MunicipalityVdc = new MunicipalityVdc();
     selectProvince = 'Select Province';
 
     constructor(
@@ -32,13 +32,13 @@ export class BasicInfoComponent implements OnInit {
         private commonDataService: CommonDataService,
         private router: Router,
         private formBuilder: FormBuilder,
-        private commonLocation:CommonLocation
+        private commonLocation: CommonLocation
     ) {
     }
 
     ngOnInit() {
         this.commonLocation.getProvince().subscribe(
-            (response:any) =>{
+            (response: any) => {
                 console.log(response.detail);
                 this.provinceList = response.detail;
             }
@@ -61,23 +61,23 @@ export class BasicInfoComponent implements OnInit {
         });
     }
 
-    getDistricts(){
+    getDistricts() {
         this.province = this.basicInfo.get('province').value;
         this.commonLocation.getDistrictByProvince(this.province).subscribe(
-            ( response:any) => {
+            (response: any) => {
                 console.log(response.detail);
-                this.districtList=response.detail;
+                this.districtList = response.detail;
             }
         );
     }
 
     getMunicipalities() {
-       this.district = this.basicInfo.get('district').value;
+        this.district = this.basicInfo.get('district').value;
         this.commonLocation.getMunicipalityVDCByDistrict(this.district).subscribe(
-            (response:any) => {
-                this.municipalitiesList=response.detail;
+            (response: any) => {
+                this.municipalitiesList = response.detail;
             }
-        )
+        );
     }
 
     onSubmit() {
@@ -96,8 +96,6 @@ export class BasicInfoComponent implements OnInit {
         this.customer.issuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
         this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
         this.commonDataService.setCustomer(this.customer);
-        console.log(this.customer);
-        // this.commonService.saveOrEdit(this.customer,'v1/basicInfo').subscribe();
         this.router.navigate(['home/loan/kyc-info']);
     }
 

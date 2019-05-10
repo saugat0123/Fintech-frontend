@@ -21,8 +21,6 @@ export class DashboardComponent implements OnInit {
     loan: LoanConfig = new LoanConfig();
     loanList: any;
     loanCategory: FormGroup;
-    initialDocument: Document[] = [];
-    renewDocument: Document[] = [];
     permissions = [];
     addViewLoanCategory = false;
     userCountView = false;
@@ -31,8 +29,6 @@ export class DashboardComponent implements OnInit {
     branchCountView = false;
     notificationView = false;
     pendingView = false;
-    rolePermissionRights: RolePermissionRight = new RolePermissionRight();
-
     constructor(
         private commonService: CommonService,
         private dataService: CommonDataService,
@@ -86,15 +82,4 @@ export class DashboardComponent implements OnInit {
         this.dataService.setData(this.loanType);
         this.router.navigate(['/home/loan']);
     }
-
-    // addLoan(event) {
-    //     let loanType = event.target.value;
-    //     for (this.loan of this.loanList) {
-    //         if (loanType === this.loan.name) {
-    //             this.dataService.setInitialDocument(this.loan.initial);
-    //             this.dataService.setRenewDocument(this.loan.renew);
-    //         }
-    //     }
-    //     this.router.navigate(['home/loanType']);
-    // }
 }

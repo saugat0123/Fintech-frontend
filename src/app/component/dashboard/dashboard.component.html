@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col-md-6">
                 <select [(ngModel)]="loanType" class="form-control">
+                    <option [ngValue]="undefined" hidden>Select the loan category</option>
                     <option *ngFor="let allList of loanList" [value]="allList.id">{{allList.name}}</option>
                 </select>
             </div>

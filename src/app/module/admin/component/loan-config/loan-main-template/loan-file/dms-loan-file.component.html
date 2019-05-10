@@ -8,15 +8,24 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="name"><b>Customer Name</b></label>
-                        <input type="text" formControlName="customerName" class="form-control rounded" id="name"
+                        <input type="text" formControlName="customerName"
+                               [ngClass]="{ 'is-invalid':submitted && form.customerName.errors}"
+                               class="form-control rounded" id="name"
                                placeholder="Enter name"/>
+                        <div *ngIf="submitted && form.customerName.errors" class="invalid-feedback">
+                            <div *ngIf="form.customerName.errors.required">Name is required</div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group rounded">
                         <label for="citizenshipNumber"><b>Citizenship Number</b></label>
                         <input type="text" formControlName="citizenshipNumber" class="form-control rounded"
+                               [ngClass]="{ 'is-invalid':submitted && form.citizenshipNumber.errors}"
                                id="citizenshipNumber" placeholder="Enter citizenship number"/>
+                        <div *ngIf="submitted && form.citizenshipNumber.errors" class="invalid-feedback">
+                            <div *ngIf="form.citizenshipNumber.errors.required">Citizenship number is required</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -25,41 +34,52 @@
                     <div class="form-group">
                         <label for="contact"><b>Contact Number</b></label>
                         <input type="text" formControlName="contactNumber" class="form-control rounded" id="contact"
+                               [ngClass]="{ 'is-invalid':submitted && form.contactNumber.errors}"
                                placeholder="Enter Contact Number"/>
+                        <div *ngIf="submitted && form.contactNumber.errors" class="invalid-feedback">
+                            <div *ngIf="form.contactNumber.errors.required">Contact number is required</div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="interest"><b>Interest Rate</b></label>
                         <input type="text" formControlName="interestRate" class="form-control rounded" id="interest"
+                               [ngClass]="{ 'is-invalid':submitted && form.interestRate.errors}"
                                placeholder="Enter interest rate"/>
+                        <div *ngIf="submitted && form.interestRate.errors" class="invalid-feedback">
+                            <div *ngIf="form.interestRate.errors.required">Interest is required</div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <!--<div class="col-md-6">-->
-                    <!--<div class="form-group">-->
-                        <!--<label for="amount"><b>Proposed Amount</b></label>-->
-                        <!--<input type="text" formControlName="proposedAmount" class="form-control rounded" id="amount"-->
-                               <!--placeholder="Enter proposed amount"/>-->
-                    <!--</div>-->
-                <!--</div>-->
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="security"><b>Security</b></label>
-                        <!--<select class="form-control rounded" id="security" formControlName="security" multiple>-->
-                            <!--<option [ngValue]="null" hidden>Select security</option>-->
-                            <!--<option value="LAND_SECURITY">Land Security</option>-->
-                            <!--<option value="APARTMENT_SECURITY">Building Security</option>-->
-                            <!--<option value="BOTH_TYPE">Both</option>-->
-                        <!--</select>-->
+                        <label for="amount"><b>Proposed Amount</b></label>
+                        <input type="text" formControlName="proposedAmount" class="form-control rounded" id="amount"
+                               [ngClass]="{ 'is-invalid':submitted && form.proposedAmount.errors}"
+                               placeholder="Enter proposed amount"/>
+                        <div *ngIf="submitted && form.proposedAmount.errors" class="invalid-feedback">
+                            <div *ngIf="form.proposedAmount.errors.required">Amount is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label><b>Security</b></label>
                         <ng-select [items]="dropdownList"
                                    bindLabel="name"
                                    bindValue="id"
                                    [multiple]="true"
                                    placeholder="Select Security"
-                                   formControlName="security">
+                                   formControlName="security"
+                                   [ngClass]="{ 'is-invalid':submitted && form.security.errors}"
+                        >
                         </ng-select>
+                        <div *ngIf="submitted && form.security.errors" class="invalid-feedback">
+                            <div *ngIf="form.security.errors.required">Amount is required</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -67,6 +87,7 @@
                 <div class="col-md-6">
                     <div class="box-header with-border">
                         <h3 class="box-title"><b>Document for initial phase</b></h3>
+                        <em><span style="color:red;">(select the image in .png or .jpg format)</span></em>
                     </div>
                     <div class="box-body">
                         <table class="table table-striped table-bordered table-hover ">
@@ -83,8 +104,14 @@
                                     {{i + 1}}
                                 </td>
                                 <td>{{document.name}}</td>
-                                <td><input type="file" class="form-control-file" id="initial"
-                                           (change)="documentUploader($event,document.name,'initial')"></td>
+                                <td><input type="file" class="form-control-file" id="initial" formControlName="file"
+
+                                           accept=".png, .jpg" multiple=""
+                                           (change)="documentUploader($event,document.name)">
+                                    <div *ngIf="showError">
+                                        Maximum Image Size Exceeds
+                                    </div>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

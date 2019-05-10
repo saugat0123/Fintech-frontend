@@ -25,7 +25,7 @@ export class CommonDataService {
     data: any;
     dataObj: any;
     alertmessage: String;
-
+    loanType: string;
     branch: Branch = new Branch();
     document: Document = new Document();
     approvalLimit: ApprovalLimit = new ApprovalLimit();
@@ -209,20 +209,29 @@ export class CommonDataService {
     clearData() {
         this.dataObj = new Object();
     }
-    setInitialDocument(documents:Document[]){
+
+    setInitialDocument(documents: Document[]) {
         this.initial = documents;
     }
 
-    setRenewDocument(docuemnts: Document[]){
+    setRenewDocument(docuemnts: Document[]) {
         this.renew = docuemnts;
     }
-    getInitialDocument(){
-       return this.initial;
+
+    getInitialDocument() {
+        return this.initial;
     }
 
-    getRenewDocument(){
-       return this.renew;
+    getRenewDocument() {
+        return this.renew;
     }
 
+    setLoanName(name: string) {
+        this.loanType = name;
+    }
+
+    getLoanName() {
+        return this.loanType;
+    }
 
 }

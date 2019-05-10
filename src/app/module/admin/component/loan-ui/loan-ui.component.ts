@@ -26,6 +26,7 @@ export class LoanUiComponent implements OnInit, DoCheck {
         this.loanId = this.dataService.getData();
         this.loanConfigApi = 'v1/config/get/'+this.loanId;
         this.commonService.getByAll(this.loanConfigApi).subscribe((response: any) => {
+             this.dataService.setLoanName(response.detail.name);
             this.dataService.setInitialDocument(response.detail.initial);
             this.dataService.setRenewDocument(response.detail.renew);
             console.log(response.detail);

@@ -21,7 +21,7 @@ import {ListRoleComponent} from './component/role-permission/list-role/list-role
 import {Routes} from '@angular/router';
 import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
 import {SecurityComponent} from './component/loan-config/loan-main-template/security/security.component';
-import {LoanComponent} from './component/loan-config/loan-main-template/loan/loan.component';
+import {DmsLoanFileComponent} from './component/loan-config/loan-main-template/loan-file/dms-loan-file.component';
 
 
 export const adminRoutes: Routes = [
@@ -42,7 +42,7 @@ export const adminRoutes: Routes = [
     {path: 'company', component: CompanyComponent},
     {path: 'role', component: RolePermissionComponent},
     {path: 'roleList', component: ListRoleComponent},
-    {path: 'loanType', component: LoanComponent},
+    {path: 'loanType', component: DmsLoanFileComponent},
     {
         path: 'loan', component: LoanUiComponent,
         children: [

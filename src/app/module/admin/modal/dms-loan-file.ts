@@ -1,11 +1,12 @@
-import {ClientDocument} from './client-document';
+import {LoanDocument} from './loan-document';
 
-export class ClientInfo{
+export class DmsLoanFile{
     id: number;
     name: string;
     citizenshipNumber: number;
     contactNumber: number;
     interestRate: number;
     securities: string;
-    documents: ClientDocument[];
+    proposedAmount: number;
+    documentPath: string[];
 }
