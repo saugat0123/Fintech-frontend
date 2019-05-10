@@ -13,7 +13,7 @@
         <!-- /.info-box -->
     </div>
 </div>
-<form [formGroup]="questionAnswerForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="questionAnswerForm">
     <div class="row">
         <div class="col-md-12">
             <div class="box box-primary">
@@ -31,8 +31,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="box-body">
-                        <hr>
+                    <hr>
+                    <div *ngIf="schemeID == null" class="text-center m-5">
+                        <h2>Please select a scheme to begin.</h2>
+                    </div>
+
+                    <div class="box-body" [hidden]="schemeID == null">
                         <div formArrayName="questionForm">
                             <div class="form-group"
                                  *ngFor="let qsn of questionAnswerForm.get('questionForm').controls; let i = index;">
@@ -43,7 +47,7 @@
                                         <label>Question Description:</label>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" placeholder="Question description"
-                                                   formControlName="qsnDescription">
+                                                   formControlName="description">
                                             <div class="input-group-append">
                                                 <button class="btn btn-danger" (click)="deleteQuestionField(i)">
                                                     Delete question field
@@ -51,9 +55,9 @@
                                             </div>
                                         </div>
 
-                                        <div formArrayName="answerForm">
+                                        <div formArrayName="answers">
                                             <div class="form-group"
-                                                 *ngFor="let ans of qsn.get('answerForm').controls; let j = index;">
+                                                 *ngFor="let ans of qsn.get('answers').controls; let j = index;">
 
                                                 <fieldset class="border border-info rounded p-2 bg-light">
                                                     <legend class="w-auto"><h4>Answer {{j + 1}}:</h4></legend>
@@ -62,17 +66,17 @@
                                                             <div class="col-md-6">
                                                                 <label>Answer:</label>
                                                                 <input class="form-control"
-                                                                       formControlName="ansDescription">
+                                                                       formControlName="description">
                                                             </div>
 
                                                             <div class="col-md-6">
                                                                 <label>Points:</label>
                                                                 <div class="input-group mb-3">
-                                                                    <input class="form-control"
+                                                                    <input class="form-control" type="number"
                                                                            formControlName="points">
                                                                     <div class="input-group-append">
                                                                         <button class="btn btn-danger btn-sm"
-                                                                                (click)="deleteAnswerField(qsn.controls.answerForm, j)">
+                                                                                (click)="deleteAnswerField(qsn.controls.answers, j)">
                                                                             Delete answer field
                                                                         </button>
                                                                     </div>
@@ -86,13 +90,20 @@
 
                                             </div>
                                             <div class="row mt-2 mb-3 pr-3">
-                                                <div class="col-md-12 float-left">
+                                                <div class="col-md-6 float-left">
                                                     <button class="btn btn-info btn-sm float-left"
-                                                            (click)="addAnswerField(qsn.controls.answerForm)">
+                                                            (click)="addAnswerField(qsn.controls.answers)">
                                                         Add Answer field
                                                     </button>
                                                 </div>
+                                                <div class="col-md-6 float-right">
+                                                    <button class="btn btn-warning float-right" [hidden]="!updateButton"
+                                                            (click)="onUpdate(qsn.controls.id.value, qsn.value)">
+                                                        Update
+                                                    </button>
+                                                </div>
                                             </div>
+                                            <!--<pre>{{qsn.value | json}}</pre>-->
                                         </div>
                                     </div>
                                 </fieldset>
@@ -113,14 +124,11 @@
 
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <button class="btn btn-success">
+                                <button class="btn btn-success" type="submit" [hidden]="!saveButton" (click)="onSave()">
                                     Save
                                 </button>
                             </div>
                         </div>
-
-                        <spinner *ngIf="spinner" class="d-flex justify-content-center"></spinner>
-
                     </div>
                     <!-- /.col -->
                 </div>

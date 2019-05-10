@@ -15,9 +15,13 @@ export class QuestionComponent implements OnInit {
     schemeApi: string;
     questionApi: string;
     schemeID: number;
+    questionID: number;
+    updateButton: boolean;
+    saveButton: boolean;
     questionList: Array<Questions> = new Array<Questions>();
     schemeList: Array<Scheme> = new Array<Scheme>();
     questions: Array<Questions> = new Array<Questions>();
+    qsnContent: Questions = new Questions();
     questionAnswerForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder,
@@ -35,14 +39,16 @@ export class QuestionComponent implements OnInit {
     ngOnInit() {
         this.schemeApi = 'v1/companies/3/schemes';
         this.getSchemeList();
+        this.updateButton = false;
+        this.saveButton = false;
     }
 
     addQuestionField() {
         let control = <FormArray>this.questionAnswerForm.controls.questionForm;
         control.push(
             this.formBuilder.group({
-                answerForm: this.formBuilder.array([]),
-                qsnDescription: [undefined, Validators.required],
+                answers: this.formBuilder.array([]),
+                description: [undefined, Validators.required],
                 scheme: this.formBuilder.group({
                     id: [this.schemeID]
                 })
@@ -58,7 +64,7 @@ export class QuestionComponent implements OnInit {
     addAnswerField(control) {
         control.push(
             this.formBuilder.group({
-                ansDescription: [undefined, Validators.required],
+                description: [undefined, Validators.required],
                 points: [undefined, Validators.required]
             })
         );
@@ -78,8 +84,10 @@ export class QuestionComponent implements OnInit {
         let control = <FormArray>this.questionAnswerForm.controls.questionForm;
         this.questionList.forEach(qsn => {
             control.push(this.formBuilder.group({
-                    qsnDescription: qsn.description,
-                    answerForm: this.setAnswers(qsn),
+                    id: qsn.id,
+                    description: qsn.description,
+                    version: qsn.version,
+                    answers: this.setAnswers(qsn),
                     scheme: this.formBuilder.group({
                         id: [this.schemeID]
                     })
@@ -92,7 +100,8 @@ export class QuestionComponent implements OnInit {
         let arr = new FormArray([]);
         qsn.answers.forEach(ans => {
             arr.push(this.formBuilder.group({
-                ansDescription: ans.description,
+                description: ans.description,
+                version: ans.version,
                 points: ans.points
             }));
         });
@@ -107,7 +116,17 @@ export class QuestionComponent implements OnInit {
         this.commonService.getByGetAllPageable(this.questionApi, 1, 10).subscribe((response: any) => {
             this.questionList = response.detail;
             this.setQuestions();
-            this.questions = this.questionAnswerForm.value.questionForm;
+
+            if (this.questionList.length !== 0) {
+                this.updateButton = true;
+                this.saveButton = false;
+            } else {
+                this.saveButton = true;
+                this.updateButton = false;
+                this.addQuestionField();
+            }
+            this.questionAnswerForm.value.questionForm = this.questionList;
+            console.log(this.questionAnswerForm.value.questionForm);
         });
     }
 
@@ -116,14 +135,39 @@ export class QuestionComponent implements OnInit {
         control.controls = [];
     }
 
-    onSubmit() {
-        this.commonService.saveOrEditQuestion(this.questions, this.questionApi).subscribe(result => {
+    onSave() {
+        this.questions = this.questionAnswerForm.value.questionForm;
+        console.log(this.questions);
+        console.log(this.questionApi);
+        this.commonService.saveQuestion(this.questions, this.questionApi).subscribe(result => {
+
                 alert('success !!');
                 this.questions = new Array<Questions>();
                 this.router.navigate(['home/question']);
+                this.onChangeSchemeOption();
+
             }, error => {
                 this.questions = new Array<Questions>();
+                alert('failed !!');
+                this.questions = new Array<Questions>();
+                this.router.navigate(['home/question']);
+            }
+        );
+    }
+
+    onUpdate(qsnID, qsnContent) {
+        this.qsnContent = qsnContent;
+        this.questionID = qsnID;
+        this.commonService.updateQuestion(this.qsnContent, this.questionApi + '/' + this.questionID).subscribe(result => {
+
                 alert('success !!');
+                this.questions = new Array<Questions>();
+                this.router.navigate(['home/question']);
+                this.onChangeSchemeOption();
+
+            }, error => {
+                this.questions = new Array<Questions>();
+                alert('failed !!');
                 this.questions = new Array<Questions>();
                 this.router.navigate(['home/question']);
             }

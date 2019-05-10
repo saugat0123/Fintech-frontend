@@ -15,9 +15,7 @@ const routes: Routes = [
 
 
     },
-    {path: '', component: LoginComponent},
-
-    { path: 'customer', loadChildren: './module/customer-eligibility/customer-eligibility.module#CustomerEligibilityModule' }
+    {path: '', component: LoginComponent}
 
 ];
 

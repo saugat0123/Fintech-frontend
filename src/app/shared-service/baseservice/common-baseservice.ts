@@ -72,10 +72,16 @@ export class CommonService {
 
     }
 
-    saveOrEditQuestion(model: Array<Object>, reqUrl): Observable<Object> {
+    saveQuestion(model: Array<Object>, reqUrl): Observable<Object> {
         let url: string = reqUrl;
         let getUrl = this.restApiService.modifyRestUrl(url);
         return this.http.post(getUrl.url, model, {headers: getUrl.header});
+    }
+
+    updateQuestion(model: Object, reqUrl): Observable<Object> {
+        let url: string = reqUrl;
+        let getUrl = this.restApiService.modifyRestUrl(url);
+        return this.http.put(getUrl.url, model, {headers: getUrl.header});
     }
 
 }
