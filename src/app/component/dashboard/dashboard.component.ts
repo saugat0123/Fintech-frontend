@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
     loan() {
         console.log(this.loanType);
         this.dataService.setData(this.loanType);
-        this.router.navigate(['/home/loan']);
+        this.router.navigate(['/pages/loan']);
     }
 
 }

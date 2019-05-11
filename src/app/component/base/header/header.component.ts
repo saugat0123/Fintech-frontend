@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonService} from '../../../shared-service/baseservice/common-baseservice';
-import {User} from '../../../module/admin/modal/user';
+import {User} from '../../../pages/admin/modal/user';
 
 @Component({
     selector: 'app-header',

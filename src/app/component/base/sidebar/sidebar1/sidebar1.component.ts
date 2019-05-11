@@ -3,7 +3,7 @@ import {CommonDataService} from '../../../../shared-service/baseservice/common-d
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
 import {Router} from '@angular/router';
-import {User} from '../../../../module/admin/modal/user';
+import {User} from '../../../../pages/admin/modal/user';
 
 @Component({
     selector: 'app-sidebar1',

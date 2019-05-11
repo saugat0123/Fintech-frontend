@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
         document.body.className = '';
     }
 
-    loginClick(datavalue) {
+    login(datavalue) {
         this.spinner = true;
         const data: { email: string, password: string } = datavalue.value;
         const datas = 'grant_type=password&username=' + data.email + '&password=' + data.password;

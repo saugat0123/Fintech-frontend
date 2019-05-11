@@ -1,20 +1,20 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
-import {Branch} from '../../module/admin/modal/branch';
-import {ApprovalLimit} from '../../module/admin/modal/approval-limit';
-import {User} from '../../module/admin/modal/user';
-import {Customer} from '../../module/admin/modal/customer';
-import {Valuator} from '../../module/admin/modal/valuator';
-import {Sector} from '../../module/admin/modal/sector';
-import {SubSector} from '../../module/admin/modal/sub-sector';
-import {Segment} from '../../module/admin/modal/segment';
-import {District} from '../../module/admin/modal/district';
-import {SubSegment} from '../../module/admin/modal/subSegment';
-import {MunicipalityVdc} from '../../module/admin/modal/municipality_VDC';
-import {Province} from '../../module/admin/modal/province';
-import {Nepse} from '../../module/admin/modal/nepse';
-import {Company} from '../../module/admin/modal/company';
-import {Document} from '../../module/admin/modal/document';
+import {Branch} from '../../pages/admin/modal/branch';
+import {ApprovalLimit} from '../../pages/admin/modal/approval-limit';
+import {User} from '../../pages/admin/modal/user';
+import {Customer} from '../../pages/admin/modal/customer';
+import {Valuator} from '../../pages/admin/modal/valuator';
+import {Sector} from '../../pages/admin/modal/sector';
+import {SubSector} from '../../pages/admin/modal/sub-sector';
+import {Segment} from '../../pages/admin/modal/segment';
+import {District} from '../../pages/admin/modal/district';
+import {SubSegment} from '../../pages/admin/modal/subSegment';
+import {MunicipalityVdc} from '../../pages/admin/modal/municipality_VDC';
+import {Province} from '../../pages/admin/modal/province';
+import {Nepse} from '../../pages/admin/modal/nepse';
+import {Company} from '../../pages/admin/modal/company';
+import {Document} from '../../pages/admin/modal/document';
 
 
 @Injectable({
