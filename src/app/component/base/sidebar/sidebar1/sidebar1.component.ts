@@ -19,7 +19,7 @@ export class Sidebar1Component implements OnInit {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private router: Router
+        protected router: Router
     ) {
     }
 
@@ -29,9 +29,11 @@ export class Sidebar1Component implements OnInit {
                 this.user = response.detail;
             }
         );
+
         this.currentApi = 'v1/nav';
         this.commonService.getByAll(this.currentApi).subscribe((response: any) => {
             this.navList = response.detail;
+            console.log(this.navList);
         });
 
     }

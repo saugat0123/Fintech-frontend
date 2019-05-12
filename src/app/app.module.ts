@@ -10,13 +10,13 @@ import {RestApiService} from './shared-service/authentication/rest-api.service';
 import {CommonService} from './shared-service/baseservice/common-baseservice';
 import {CommonDataService} from './shared-service/baseservice/common-dataService';
 import {SharedModule} from './pages/shared/shared.module';
-import {Sidebar1Component} from './component/base/sidebar/sidebar1/sidebar1.component';
 import {CommonLocation} from './shared-service/baseservice/common-location';
 import {QuillModule} from 'ngx-quill';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {ThemeModule} from './@theme/theme.module';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -24,11 +24,11 @@ import {AppRoutingModule} from './app-routing.module';
         AppComponent,
         LoginComponent,
         NotificationComponent,
-        PendingLoanComponent,
-        Sidebar1Component
+        PendingLoanComponent
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         HttpClientModule,
         FormsModule,
 
@@ -45,9 +45,7 @@ import {AppRoutingModule} from './app-routing.module';
         useClass: HashLocationStrategy
     }],
     bootstrap: [AppComponent],
-    exports: [
-        Sidebar1Component
-    ]
+    exports: []
 })
 export class AppModule {
 }

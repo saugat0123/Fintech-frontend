@@ -45,6 +45,8 @@ import {DEFAULT_THEME} from './styles/theme.default';
 import {COSMIC_THEME} from './styles/theme.cosmic';
 import {CORPORATE_THEME} from './styles/theme.corporate';
 import {BaseLayout} from './layouts';
+import {Sidebar1Component} from '../component/base/sidebar/sidebar1/sidebar1.component';
+import {RouterModule} from '@angular/router';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -89,7 +91,8 @@ const NB_MODULES = [
 const COMPONENTS = [
     HeaderComponent,
     FooterComponent,
-    BaseLayout
+    BaseLayout,
+    Sidebar1Component
 ];
 
 const ENTRY_COMPONENTS = [];
@@ -122,7 +125,7 @@ const NB_THEME_PROVIDERS = [
 ];
 
 @NgModule({
-    imports: [...BASE_MODULES, ...NB_MODULES],
+    imports: [...BASE_MODULES, ...NB_MODULES, RouterModule],
     exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
     declarations: [...COMPONENTS, ...PIPES],
     entryComponents: [...ENTRY_COMPONENTS],
