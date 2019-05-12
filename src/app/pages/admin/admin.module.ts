@@ -47,6 +47,7 @@ import {CommonModule} from '@angular/common';
 import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
 import {UpdateModalComponent} from '../../common/update-modal/update-modal.component';
 import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
+import {ThemeModule} from '../../@theme/theme.module';
 
 // import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
 
@@ -99,7 +100,8 @@ import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
         ReactiveFormsModule,
         ReactiveFormsModule,
         RouterModule.forChild(adminRoutes),
-        SharedModule
+        SharedModule,
+        ThemeModule
     ],
 
     entryComponents: [

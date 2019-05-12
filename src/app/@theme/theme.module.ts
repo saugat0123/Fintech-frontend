@@ -47,6 +47,7 @@ import {CORPORATE_THEME} from './styles/theme.corporate';
 import {BaseLayout} from './layouts';
 import {Sidebar1Component} from '../component/base/sidebar/sidebar1/sidebar1.component';
 import {RouterModule} from '@angular/router';
+import {IconCardComponent} from './components/iconcard/icon-card.component';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -92,7 +93,8 @@ const COMPONENTS = [
     HeaderComponent,
     FooterComponent,
     BaseLayout,
-    Sidebar1Component
+    Sidebar1Component,
+    IconCardComponent
 ];
 
 const ENTRY_COMPONENTS = [];
