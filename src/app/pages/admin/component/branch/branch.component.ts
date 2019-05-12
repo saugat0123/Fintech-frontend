@@ -120,7 +120,7 @@ export class BranchComponent implements OnInit, DoCheck {
 
     addBranch() {
         this.dataService.setBranch(new Branch());
-        this.modalService.open(AddModelComponent);
+        this.modalService.open(AddModelComponent, {size: 'lg'});
     }
 
 
