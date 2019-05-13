@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {Role} from '../../modal/role';
 import {AddRoleComponent} from './add-role/add-role.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
 
 declare var $;
 
@@ -40,12 +41,13 @@ export class RolePermissionComponent implements OnInit {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private router: Router,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private breadcrumbService: BreadcrumbService
     ) {
     }
 
     ngOnInit() {
-        this.dataService.changeTitle(this.title);
+        this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/role';
         this.commonService.getByAll(this.currentApi + '/active').subscribe((response: any) => {
             console.log('role list:', response.detail);
@@ -71,6 +73,7 @@ export class RolePermissionComponent implements OnInit {
         this.commonService.getByAll('v1/roleRightPermission/' + id).subscribe((response: any) => {
             console.log('v2',response.detail);
             this.rolePermissionList = response.detail;
+            // tslint:disable-next-line:no-shadowed-variable
             this.commonService.getByAll('v1/permission').subscribe((response: any) => {
                 console.log('v1/permission',response.detail);
                 this.allPermission = response.detail;
@@ -164,7 +167,7 @@ export class RolePermissionComponent implements OnInit {
             this.spinner = false;
             this.roleChanged(this.roleId);
 
-           // this.commonService.getByPost('actuator/refresh', null).subscribe((response: any) => {});
+            // this.commonService.getByPost('actuator/refresh', null).subscribe((response: any) => {});
         });
     }
 

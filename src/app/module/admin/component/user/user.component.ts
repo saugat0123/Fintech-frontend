@@ -8,6 +8,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddUserComponent} from './add-user/add-user.component';
 import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
 import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
+import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
 
 @Component({
     selector: 'app-user',
@@ -35,12 +36,13 @@ export class UserComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private breadcrumbService: BreadcrumbService
     ) {
     }
 
     ngOnInit() {
-        this.dataService.changeTitle(this.title);
+        this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/user/get';
         this.getPagination();
         this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
@@ -109,7 +111,9 @@ export class UserComponent implements OnInit, DoCheck {
     }
 
     onChange(newValue, data) {
-        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
         event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
@@ -133,4 +137,3 @@ export class UserComponent implements OnInit, DoCheck {
     }
 
 }
-

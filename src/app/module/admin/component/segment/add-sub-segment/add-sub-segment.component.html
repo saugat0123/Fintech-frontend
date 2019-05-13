@@ -15,8 +15,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="name">Sub Segment Name</label>
-                            <input type="hidden" class="form-control" [(ngModel)]="subSegment.id" name="id">
-                            <input type="text" class="form-control" name="name" placeholder="Sub Segment Name" [(ngModel)]="subSegment.subSegmentName"
+                            <input type="hidden" class="form-control form-control-sm" [(ngModel)]="subSegment.id" name="id">
+                            <input type="text" class="form-control form-control-sm" name="name" placeholder="Sub Segment Name" [(ngModel)]="subSegment.subSegmentName"
                                    #subSeg="ngModel" [ngClass]="{ 'is-invalid': f.submitted && subSeg.invalid }" required />
                             <div *ngIf="f.submitted && subSeg.invalid" class="invalid-feedback">
                                 <div *ngIf="subSeg.errors.required"> Name is required</div>
@@ -26,7 +26,7 @@
 
                         <div class="col-md-6">
                             <label for="segment">Segment</label>
-                            <select class="form-control" name="selectedSubSegment" style="width: 100%;" [(ngModel)]="segment.id" tabindex="-1" aria-hidden="true" placeholder="SubSegment" (change)="setSegment()"
+                            <select class="form-control form-control-sm" name="selectedSubSegment" style="width: 100%;" [(ngModel)]="segment.id" tabindex="-1" aria-hidden="true" placeholder="SubSegment" (change)="setSegment()"
                                     #segmentVal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && segmentVal.invalid }" required>
                                 <option [ngValue]="undefined" hidden>Select Segment</option>
                                 <option *ngFor="let segment of segmentList" [selected]="subSegment?.segment?.id === segment.id" [ngValue]="segment.id">{{segment.segmentName}}</option>
@@ -42,7 +42,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="loan">Loan Type</label>
-                            <select class="form-control" name="selectedLoan" style="width: 100%;" [(ngModel)]="loanConfig.id" tabindex="-1" aria-hidden="true" placeholder="loan" (change)="setLoan()"
+                            <select class="form-control form-control-sm" name="selectedLoan" style="width: 100%;" [(ngModel)]="loanConfig.id" tabindex="-1" aria-hidden="true" placeholder="loan" (change)="setLoan()"
                                     #loanVal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && loanVal.invalid }" required>
                                 <option [ngValue]="undefined" hidden>Select Loan Type</option>
                                 <option *ngFor="let loan of loanTypeList" [selected]="loanConfig?.id === loan.id" [ngValue]="loan.id">{{loan.name}}</option>
@@ -51,9 +51,9 @@
                                 <div *ngIf="loanVal.errors.required">Loan Type is required</div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mt-4">
 
-                            <label class="checkbox-inline">
+                            <label class="checkbox-inline ">
                                 Is This a Funded Loan
                                 <input type="checkbox" [(ngModel)]="subSegment.funded" [ngModelOptions]="{standalone: true}">
 

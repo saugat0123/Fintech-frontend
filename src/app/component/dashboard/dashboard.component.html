@@ -1,20 +1,3 @@
-<div class="row" *ngIf="addViewLoanCategory">
-    <div class="col-md-6">
-        <div class="row">
-            <div class="col-md-6">
-                <select [(ngModel)]="loanType" class="form-control">
-                    <option [ngValue]="undefined" hidden>Select the loan category</option>
-                    <option *ngFor="let allList of loanList" [value]="allList.id">{{allList.name}}</option>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <button class="btn btn-md btn-primary btn-flat" (click)="getLoanTemplate()">
-                    <i class="fa fa-arrow-right"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="userCountView">
@@ -81,4 +64,28 @@
 <div class="row">
     <app-notification class="col-md-6" *ngIf="notificationView"></app-notification>
     <app-pending-loan class="col-md-6" *ngIf="pendingView"></app-pending-loan>
+    <!--<app-notification class="col-md-6"></app-notification>-->
+    <!--<app-pending-loan class="col-md-6"></app-pending-loan>-->
 </div>
+
+
+
+<div class="row" *ngIf="addViewLoanCategory">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <select [(ngModel)]="loanType" class="form-control">
+                    <option [ngValue]="undefined" hidden>---select Loan Type---</option>
+                    <option *ngFor="let allList of loanList" [value]="allList.id">{{allList.name}}</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-md btn-primary btn-flat" (click)="loan()">
+                    <i class="fa fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>

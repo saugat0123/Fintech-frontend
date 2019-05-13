@@ -154,7 +154,7 @@ export class AddValuatorComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
-        console.log(this.valuator)
+        console.log(this.valuator);
         this.submitted = true;
         this.commonService.saveOrEdit(this.valuator, 'v1/valuator').subscribe(result => {
                 this.modalService.dismissAll(AddValuatorComponent);

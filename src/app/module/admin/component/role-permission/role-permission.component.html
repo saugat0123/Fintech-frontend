@@ -70,7 +70,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <label>Role</label>
-                            <select class="form-control" (change)="roleChanged($event.target.value)">
+                            <select class="form-control form-control-sm" (change)="roleChanged($event.target.value)">
                                 <option>---Select Role---</option>
                                 <option *ngFor="let role of roleList" value="{{role.id}}">{{role.roleName}}</option>
                             </select>
@@ -80,7 +80,7 @@
 
                     <div class="col-md-12">
                         <fieldset>
-                            <spinner *ngIf="spinner" class="d-flex justify-content-center"></spinner>
+                            <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
                             <div class="row">
                                 <div *ngFor="let permission of compareCheckedPermission;" class="col-md-4">
 

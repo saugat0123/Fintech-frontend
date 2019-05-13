@@ -15,6 +15,7 @@ import {Province} from '../../module/admin/modal/province';
 import {Nepse} from '../../module/admin/modal/nepse';
 import {Company} from '../../module/admin/modal/company';
 import {Document} from '../../module/admin/modal/document';
+import {DmsLoanFile} from '../../module/admin/modal/dms-loan-file';
 
 
 @Injectable({
@@ -43,6 +44,7 @@ export class CommonDataService {
     company: Company = new Company();
     renew: Document[] = [];
     initial: Document[] = [];
+    dmsLoanfile: DmsLoanFile = new DmsLoanFile();
 
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
@@ -232,6 +234,12 @@ export class CommonDataService {
 
     getLoanName() {
         return this.loanType;
+    }
+    setDmsLoanFile(dmsLoanFile:DmsLoanFile){
+        this.dmsLoanfile = dmsLoanFile;
+    }
+    getDmsLoanFile(){
+        return this.dmsLoanfile;
     }
 
 }

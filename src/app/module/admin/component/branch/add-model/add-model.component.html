@@ -1,9 +1,8 @@
-
 <div class="modal-document">
     <div class="modal-content">
         <div class="modal-header" style="display:block">
-            <a  class="close" data-dismiss="modal" aria-label="Close"
-                    (click)="onClose()">
+            <a class="close" data-dismiss="modal" aria-label="Close"
+               (click)="onClose()">
                 <span aria-hidden="true">×</span></a>
             <h4 class="nav navbar navbar-right pull-left">{{task}} Branch</h4>
         </div>
@@ -21,26 +20,22 @@
                                    placeholder="id">
                             <input type="text" class="form-control form-control-sm"
                                    [(ngModel)]="branch.name" id="name" name="name"
-                                   #name="ngModel"  [ngClass]="{ 'is-invalid': branchForm.submitted && name.invalid }"
+                                   #name="ngModel" [ngClass]="{ 'is-invalid': branchForm.submitted && name.invalid }"
                                    placeholder="Name" required/>
                             <div *ngIf="branchForm.submitted && name.invalid" class="invalid-feedback">
-                              Name is required
+                                Name is required
                             </div>
                         </div>
-
                         <div class="col-md-6">
-                            <label for="province">Province</label>
-                            <select name="province" id="province" class="form-control form-control-sm"
-                                    [(ngModel)]="province.id"  required (change)="getDistricts(province.id)"
-                            #provinceVal="ngModel" [ngClass]="{ 'is-invalid': branchForm.submitted && provinceVal.invalid }">
-                                <option [ngValue]="undefined" hidden>Province</option>
-                                <option *ngFor="let province of provinces"
-                                        [selected]="province.id===branch?.province?.id"
-                                        [ngValue]="province.id">
-                                    {{province.name}}
-                            </select>
-                            <div *ngIf="branchForm.submitted && provinceVal.invalid" class="invalid-feedback">
-                                Province  is required
+                            <label for="branch_code">Branch Code</label>
+                            <input type="text" class="form-control form-control-sm"
+                                   [(ngModel)]="branch.branchCode"
+                                   name="branchCode" required
+                                   placeholder="Branch Code" id="branch_code"
+                                   #branchCode="ngModel"
+                                   [ngClass]="{ 'is-invalid': branchForm.submitted && branchCode.invalid }"/>
+                            <div *ngIf="branchForm.submitted && branchCode.invalid" class="invalid-feedback">
+                                Branch code is required
                             </div>
                         </div>
                     </div>
@@ -48,24 +43,30 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="branch_code">Branch Code</label>
-                            <input type="text" class="form-control form-control-sm"
-                                   [(ngModel)]="branch.branchCode"
-                                   name="branchCode" required
-                                   placeholder="Branch Code" id="branch_code"
-                                   #branchCode="ngModel" [ngClass]="{ 'is-invalid': branchForm.submitted && branchCode.invalid }"/>
+                            <label for="province">Province</label>
+                            <select name="province" id="province" class="form-control form-control-sm"
+                                    [(ngModel)]="province.id" required (change)="getDistricts(province.id)"
+                                    #provinceVal="ngModel"
+                                    [ngClass]="{ 'is-invalid': branchForm.submitted && provinceVal.invalid }">
+                                <option [ngValue]="undefined" hidden>Province</option>
+                                <option *ngFor="let province of provinces"
+                                        [selected]="province.id===branch?.province?.id"
+                                        [ngValue]="province.id">
+                                    {{province.name}}
+                            </select>
+                            <div *ngIf="branchForm.submitted && provinceVal.invalid" class="invalid-feedback">
+                                Province is required
+                            </div>
+                        </div>
 
-                        <div *ngIf="branchForm.submitted && branchCode.invalid" class="invalid-feedback">
-                            Branch code  is required
-                        </div>
-                        </div>
                         <div class="col-md-6">
                             <label for="district">District</label>
                             <select name="district" id="district"
                                     class="form-control form-control-sm"
                                     [(ngModel)]="district.id"
                                     (change)="getMunicipalities()" required
-                                    #districtVal="ngModel"  [ngClass]="{ 'is-invalid': branchForm.submitted && districtVal.invalid }">
+                                    #districtVal="ngModel"
+                                    [ngClass]="{ 'is-invalid': branchForm.submitted && districtVal.invalid }">
                                 <option [ngValue]="undefined" hidden>District</option>
                                 <option *ngFor="let district of districts"
                                         [selected]="district.id === branch?.district?.id"
@@ -88,10 +89,10 @@
                                     [(ngModel)]="municipality.id" (change)=" getMunicipality()" required
                                     #municipal="ngModel"
                                     [ngClass]="{ 'is-invalid': branchForm.submitted && municipal.invalid }">
-                            <option [ngValue]="undefined" hidden>Municipality</option>
+                                <option [ngValue]="undefined" hidden>Municipality</option>
                                 <option *ngFor="let municipality of municipalities"
-                                [selected]="municipality.id === branch?.municipalityVdc?.id"
-                                [ngValue]="municipality.id">
+                                        [selected]="municipality.id === branch?.municipalityVdc?.id"
+                                        [ngValue]="municipality.id">
                                     {{municipality.name}}
                                 </option>
                             </select>

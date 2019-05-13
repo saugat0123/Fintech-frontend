@@ -7,6 +7,7 @@ import {Company} from '../../modal/company';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddCompanyComponent} from './add-company/add-company.component';
 import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
+import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
 
 @Component({
     selector: 'app-company',
@@ -35,13 +36,13 @@ export class CompanyComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-
-        private modalService : NgbModal
+        private modalService: NgbModal,
+        private breadcrumbSerivce: BreadcrumbService
     ) {
     }
 
     ngOnInit() {
-        this.dataService.changeTitle(this.title);
+        this.breadcrumbSerivce.notify(this.title);
         this.currentApi = 'v1/company/get';
         this.getPagination();
         this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {

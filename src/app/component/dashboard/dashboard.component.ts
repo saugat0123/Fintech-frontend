@@ -1,6 +1,7 @@
+import {CommonService} from '../../shared-service/baseservice/common-baseservice';
+import {BreadcrumbService} from '../../common/breadcrum/breadcrumb.service';
 import {Component, OnInit} from '@angular/core';
 import {CommonDataService} from '../../shared-service/baseservice/common-dataService';
-import {CommonService} from '../../shared-service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
 import {RolePermissionRight} from '../../module/admin/modal/role-permission-right';
 import {Permission} from '../../module/admin/modal/permission';
@@ -9,17 +10,19 @@ import {LoanConfig} from '../../module/admin/modal/loan-config';
 import {Document} from '../../module/admin/modal/document';
 
 @Component({
-    selector: 'app-dashboard',
-    templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.css']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-    permission: Permission = new Permission();
-    permissionName: string;
+
     title = 'Dashboard';
     loanType: any;
-    loan: LoanConfig = new LoanConfig();
     loanList: any;
+    spinner = false;
+
+    permission: Permission = new Permission();
+    permissionName: string;
     loanCategory: FormGroup;
     permissions = [];
     addViewLoanCategory = false;
@@ -29,11 +32,13 @@ export class DashboardComponent implements OnInit {
     branchCountView = false;
     notificationView = false;
     pendingView = false;
+
     constructor(
         private commonService: CommonService,
         private dataService: CommonDataService,
         private router: Router,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private breadcrumbService: BreadcrumbService
     ) {
     }
 
@@ -43,7 +48,7 @@ export class DashboardComponent implements OnInit {
         this.dataService.changeTitle(this.title);
         this.commonService.getByAll('v1/config/getAll').subscribe((response: any) => {
             this.loanList = response.detail;
-        });
+            });
 
         this.commonService.getByPost('v1/permission/chkPerm', 'DASHBOARD').subscribe(
             (response: any) => {
@@ -68,18 +73,14 @@ export class DashboardComponent implements OnInit {
             }
         );
         this.commonService.getByAll('v1/config/getAll').subscribe((response: any) => {
-            console.log(response.detail);
             this.loanList = response.detail;
         });
 
-
-        this.loanCategory = this.formBuilder.group({
-            loanList: [null]
-        });
     }
-
-    getLoanTemplate() {
-        this.dataService.setData(this.loanType);
-        this.router.navigate(['/home/loan']);
+    loan()
+    {
+        this.spinner = true;
+        this.router.navigate(['/home/loan/loanForm'], {queryParams: {loanId: this.loanType, customerId: 'jimmy'}});
     }
 }
+

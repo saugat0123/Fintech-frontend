@@ -72,7 +72,10 @@ body{
     cursor: pointer;
 }
 html, body { height: 100vh; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+    font-size: 12px;
+
+    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 .select-borderless{

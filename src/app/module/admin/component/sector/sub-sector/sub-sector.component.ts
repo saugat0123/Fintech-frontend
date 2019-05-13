@@ -8,6 +8,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddSubSectorComponent} from './add-sub-sector/add-sub-sector.component';
 import {UpdateModalComponent} from '../../../../../common/update-modal/update-modal.component';
 import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.component';
+import {BreadcrumbService} from '../../../../../common/breadcrum/breadcrumb.service';
 
 
 @Component({
@@ -35,14 +36,17 @@ export class SubSectorComponent implements OnInit, DoCheck {
     editSubSector = false;
     csvDownload = false;
 
-    constructor(private dataService: CommonDataService,
-                private commonService: CommonService,
-                private commonPageService: CommonPageService,
-                private modalService: NgbModal) {
+    constructor(
+        private dataService: CommonDataService,
+        private commonService: CommonService,
+        private commonPageService: CommonPageService,
+        private modalService: NgbModal,
+        private breadcrumbService: BreadcrumbService
+    ) {
     }
 
     ngOnInit() {
-        this.dataService.changeTitle(this.title);
+        this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/subSector/get';
         this.getPagination();
 

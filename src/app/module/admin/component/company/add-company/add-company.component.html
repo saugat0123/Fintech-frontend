@@ -11,11 +11,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="name">Company Name</label>
-                                <input type="hidden" class="form-control" [(ngModel)]="company.id" name="id"
+                                <input type="hidden" class="form-control form-control-sm" [(ngModel)]="company.id" name="id"
                                        placeholder="id">
-                                <input type="text" class="form-control" [(ngModel)]="company.companyName" name="name"
+                                <input type="text" class="form-control form-control-sm" [(ngModel)]="company.companyName" name="name"
                                        #compName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && compName.invalid }"
-                                       required>
+                                       required placeholder="company name">
                                 <div *ngIf="f.submitted && compName.invalid" class="invalid-feedback">
                                     <div *ngIf="compName.errors.required">Company Name is required</div>
                                 </div>

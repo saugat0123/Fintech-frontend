@@ -23,6 +23,7 @@ import {QuillModule} from 'ngx-quill';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -34,7 +35,8 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
         HeaderComponent,
         SidebarComponent,
         FooterComponent,
-        Sidebar1Component
+        Sidebar1Component,
+
     ],
     imports: [
         BrowserModule,

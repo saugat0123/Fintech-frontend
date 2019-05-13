@@ -59,17 +59,17 @@ export class LoanFormComponent implements OnInit {
                 this.allId = paramsValue;
                 this.id = this.allId.loanId;
             });
-        console.log('allId', this.allId);
         this.commonService.getByAll('v1/config/get/' + this.id).subscribe((response: any) => {
+            this.dataService.setLoanName(response.detail.name);
+            this.dataService.setInitialDocument(response.detail.initial);
+            this.dataService.setRenewDocument(response.detail.renew);
             this.templateList = response.detail.templateList;
-
             this.breadcrumbService.notify(response.detail.name);
             for (let i = 0; i < this.templateList.length; i++) {
                 this.templateList[i].active = false;
             }
             if (this.templateList.length > 0) {
                 this.templateList[0].active = true;
-
                 this.selectTab(0, this.templateList[0].name);
                 this.first = true;
             }
@@ -109,7 +109,6 @@ export class LoanFormComponent implements OnInit {
 
     nextTab() {
         this.nxtParameter = this.loanDataService.getNext();
-        console.log('from loan', this.dataService.getCustomer());
         this.selectTab(this.nxtParameter.index, this.nxtParameter.name);
 
     }

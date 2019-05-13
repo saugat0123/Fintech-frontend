@@ -28,23 +28,15 @@ export class BasicInfoComponent implements OnInit, DoCheck {
     province: Province = new Province();
     district: District = new District();
     municipality: MunicipalityVdc = new MunicipalityVdc();
-<<<<<<< HEAD:src/app/module/admin/component/loan-config/loan-main-template/basic-info/basic-info.component.ts
-    selectProvince = 'Select Province';
-=======
 
->>>>>>> 5a69671cadd5e61c2a52f0508382bab2fd2455a3:src/app/module/loan/component/loan-main-template/basic-info/basic-info.component.ts
 
     constructor(
         private commonService: CommonService,
         private commonDataService: CommonDataService,
         private router: Router,
         private formBuilder: FormBuilder,
-<<<<<<< HEAD:src/app/module/admin/component/loan-config/loan-main-template/basic-info/basic-info.component.ts
-        private commonLocation: CommonLocation
-=======
         private commonLocation: CommonLocation,
         private loanDataService: LoanDataService
->>>>>>> 5a69671cadd5e61c2a52f0508382bab2fd2455a3:src/app/module/loan/component/loan-main-template/basic-info/basic-info.component.ts
     ) {
     }
 
@@ -80,11 +72,7 @@ export class BasicInfoComponent implements OnInit, DoCheck {
     }
 
     getDistricts() {
-<<<<<<< HEAD:src/app/module/admin/component/loan-config/loan-main-template/basic-info/basic-info.component.ts
-        this.province = this.basicInfo.get('province').value;
-=======
         console.log(this.province);
->>>>>>> 5a69671cadd5e61c2a52f0508382bab2fd2455a3:src/app/module/loan/component/loan-main-template/basic-info/basic-info.component.ts
         this.commonLocation.getDistrictByProvince(this.province).subscribe(
             (response: any) => {
                 console.log(response.detail);
@@ -94,7 +82,7 @@ export class BasicInfoComponent implements OnInit, DoCheck {
     }
 
     getMunicipalities() {
-        this.district = this.basicInfo.get('district').value;
+        console.log(this.district);
         this.commonLocation.getMunicipalityVDCByDistrict(this.district).subscribe(
             (response: any) => {
                 this.municipalitiesList = response.detail;
@@ -118,13 +106,9 @@ export class BasicInfoComponent implements OnInit, DoCheck {
         this.customer.issuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
         this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
         this.commonDataService.setCustomer(this.customer);
-<<<<<<< HEAD:src/app/module/admin/component/loan-config/loan-main-template/basic-info/basic-info.component.ts
-        this.router.navigate(['home/loan/kyc-info']);
-=======
 
         // this.commonService.saveOrEdit(this.customer,'v1/basicInfo').subscribe();
         // this.router.navigate(['home/loan/kyc-info']);
->>>>>>> 5a69671cadd5e61c2a52f0508382bab2fd2455a3:src/app/module/loan/component/loan-main-template/basic-info/basic-info.component.ts
     }
 
 

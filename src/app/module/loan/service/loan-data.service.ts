@@ -20,7 +20,6 @@ export class LoanDataService {
         index: null,
         name: null
     };
-
     constructor() {
     }
 
@@ -48,4 +47,5 @@ export class LoanDataService {
     getPrevious() {
         return this.prvs;
     }
+
 }

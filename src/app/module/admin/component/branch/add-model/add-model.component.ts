@@ -10,6 +10,8 @@ import {CommonLocation} from '../../../../../shared-service/baseservice/common-l
 import {Province} from '../../../modal/province';
 import {District} from '../../../modal/district';
 import {MunicipalityVdc} from '../../../modal/municipality_VDC';
+import {AlertService} from '../../../../../common/alert/alert.service';
+import {Alert, AlertType} from '../../../../../common/alert/Alert';
 
 
 @Component({
@@ -36,7 +38,8 @@ export class AddModelComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private activeModal: NgbActiveModal,
         private modalService: NgbModal,
-        private location: CommonLocation
+        private location: CommonLocation,
+        private alertService: AlertService
     ) {
     }
 
@@ -114,9 +117,9 @@ export class AddModelComponent implements OnInit, DoCheck {
         this.commonService.saveOrEdit(this.branch, 'v1/branch').subscribe(result => {
                 this.modalService.dismissAll(AddModelComponent);
                 if (this.branch.id == null) {
-                    this.globalMsg = 'SUCCESSFULLY ADDED BRANCH';
+                    this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Saved Branch'));
                 } else {
-                    this.globalMsg = 'SUCCESSFULLY EDITED BRANCH';
+                    this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Updated Branch'));
                 }
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('true');

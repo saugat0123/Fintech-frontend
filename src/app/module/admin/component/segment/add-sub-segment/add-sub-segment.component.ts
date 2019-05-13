@@ -56,7 +56,7 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
             this.loanConfigs = new Array<LoanConfig>();
         } else {
             this.segment = this.subSegment.segment;
-            this.loanConfig = this.subSegment.loanConfig[0]
+            this.loanConfig = this.subSegment.loanConfig[0];
             console.log(this.loanConfig);
             this.task = 'Edit';
         }

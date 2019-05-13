@@ -8,15 +8,7 @@
                     <div class="form-group">
                         <label class="title" for="customerName">Customer Name</label>
                         <input id="customerName" formControlName="customerName" name="customerName" type="text"
-<<<<<<< HEAD:src/app/module/admin/component/loan-config/loan-main-template/basic-info/basic-info.component.html
-
-                               class="form-control form-control-error rounded" placeholder="Applicant's Full Name" required
-
-                               classgit="form-control form-control-error" placeholder="Applicant's Full Name" required
-
-=======
                                class="form-control form-control-sm form-control form-control-sm-error rounded" placeholder="Applicant's Full Name" required
->>>>>>> 5a69671cadd5e61c2a52f0508382bab2fd2455a3:src/app/module/loan/component/loan-main-template/basic-info/basic-info.component.html
                                minlength="2">
                     </div>
                 </div>
@@ -31,7 +23,7 @@
                     <label class="title" for="email">Email</label>
                     <input id="email" formControlName="email" name="email" type="email" class="form-control form-control-sm"
                            placeholder="eg. xyz@abc.com" required>
-                </div>
+                </div>g
             </div>
             <!-- END ROW -->
             <!-- START ROW -->
@@ -39,33 +31,20 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="title" for="province">Province</label>
-<<<<<<< HEAD:src/app/module/admin/component/loan-config/loan-main-template/basic-info/basic-info.component.html
-                        <select name="province" id="province" class="form-control" formControlName="province"
-                               (change)="getDistricts()">
-                            <option [ngValue]="null" hidden> Select Province </option>
-=======
                         <select name="province" id="province" class="form-control form-control-sm"
                                     [(ngModel)]="province" (change)="getDistricts()" [ngModelOptions]="{standalone: true}">
                             <option [ngValue]="undefined" hidden>Province</option>
->>>>>>> 5a69671cadd5e61c2a52f0508382bab2fd2455a3:src/app/module/loan/component/loan-main-template/basic-info/basic-info.component.html
                             <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal">
                                 {{provinceVal.name}}
-                            </option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="title" for="district">District</label>
-<<<<<<< HEAD:src/app/module/admin/component/loan-config/loan-main-template/basic-info/basic-info.component.html
-                        <select name="district" formControlName="district"
-                                class="form-control" (change)="getMunicipalities()">
-                            <option [ngValue]="null" hidden> Select District </option>
-=======
                         <select name="district" [(ngModel)]="district" id="district"
                                 class="form-control form-control-sm" [ngModelOptions]="{standalone: true}" (change)="getMunicipalities()">
                             <option [ngValue]="undefined" hidden>District</option>
->>>>>>> 5a69671cadd5e61c2a52f0508382bab2fd2455a3:src/app/module/loan/component/loan-main-template/basic-info/basic-info.component.html
                             <option *ngFor="let districtVal of districtList" [ngValue]="districtVal">
                                 {{districtVal.name}}
                             </option>
@@ -75,13 +54,8 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="title" for="municipality">Municipalities or VDC</label>
-<<<<<<< HEAD:src/app/module/admin/component/loan-config/loan-main-template/basic-info/basic-info.component.html
-                        <select name="municipality" id="municipality" class="form-control" formControlName="municipalitiesOrVDC">
-                            <option [ngValue]="null" hidden>Select Municipality</option>
-=======
                         <select name="municipality" id="municipality" class="form-control form-control-sm">
                             <option [ngValue]="undefined" hidden>Municipality</option>
->>>>>>> 5a69671cadd5e61c2a52f0508382bab2fd2455a3:src/app/module/loan/component/loan-main-template/basic-info/basic-info.component.html
                             <option *ngFor="let municipalityVal of municipalitiesList" >
                                 {{municipalityVal.name}}
                             </option>
