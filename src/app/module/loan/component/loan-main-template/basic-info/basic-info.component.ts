@@ -106,7 +106,7 @@ export class BasicInfoComponent implements OnInit, DoCheck {
         this.customer.issuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
         this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
         this.commonDataService.setCustomer(this.customer);
-
+        this.loanDataService.setLoanDocuments('basicInfo', this.commonDataService.getCustomer());
         // this.commonService.saveOrEdit(this.customer,'v1/basicInfo').subscribe();
         // this.router.navigate(['home/loan/kyc-info']);
     }

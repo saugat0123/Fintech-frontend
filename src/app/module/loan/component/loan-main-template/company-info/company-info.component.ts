@@ -13,6 +13,7 @@ import {District} from '../../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonLocation} from '../../../../../shared-service/baseservice/common-location';
+import {LoanDataService} from '../../../service/loan-data.service';
 
 
 @Component({
@@ -38,7 +39,8 @@ export class CompanyInfoComponent implements OnInit {
         private commonService: CommonService,
         private router: Router,
         private formBuilder: FormBuilder,
-        private commonLocation: CommonLocation
+        private commonLocation: CommonLocation,
+        private loanDataService: LoanDataService
     ) {
 
     }
@@ -127,7 +129,8 @@ export class CompanyInfoComponent implements OnInit {
         this.swot.opportunity = this.companyInfo.get('opportunity').value;
         this.swot.threats = this.companyInfo.get('threats').value;
         this.entityInfo.swot = this.swot;
-        this.commonService.saveOrEdit(this.entityInfo, 'v1/companyInfo').subscribe();
+        // this.commonService.saveOrEdit(this.entityInfo, 'v1/companyInfo').subscribe();
+        this.loanDataService.setLoanDocuments('companyInfo', this.entityInfo);
 
     }
 

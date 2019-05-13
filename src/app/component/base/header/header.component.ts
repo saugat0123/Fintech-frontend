@@ -22,4 +22,8 @@ export class HeaderComponent implements OnInit {
         );
     }
 
+    logout() {
+        localStorage.clear();
+    }
+
 }

@@ -108,17 +108,19 @@ export class LoanFormComponent implements OnInit {
     }
 
     nextTab() {
+        console.log(this.loanDataService.getLoanDocuments());
         this.nxtParameter = this.loanDataService.getNext();
-        console.log('from loan', this.dataService.getCustomer());
         this.selectTab(this.nxtParameter.index, this.nxtParameter.name);
 
     }
 
     prevTab() {
-
         this.previousParameter = this.loanDataService.getPrevious();
         this.selectTab(this.previousParameter.index, this.previousParameter.name);
     }
 
+    save() {
+        console.log(this.loanDataService.getLoanDocuments());
+    }
 
 }
