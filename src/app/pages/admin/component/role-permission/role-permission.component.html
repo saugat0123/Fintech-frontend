@@ -1,137 +1,97 @@
 <div class="row">
 
-
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box">
-      <span class="info-box-icon bg-yellow">
-        <i class="fa fa-bank"></i>
-      </span>
-            <a routerLink="/home/roleList">
-                <div class="info-box-content">
-                    <span class="info-box-text">Roles</span>
-                    <span class="info-box-number">{{roleCount}}</span>
-                </div>
-            </a>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
+        <a routerLink="/home/admin/roleList">
+            <app-icon-card title="Roles" type="info" detail="{{roleCount}}">
+                <i class="fas fa-user-alt"></i>
+            </app-icon-card>
+        </a>
     </div>
 
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box">
-      <span class="info-box-icon bg-green">
-        <i class="fa fa-briefcase"></i>
-      </span>
-
-            <div class="info-box-content">
-                <span class="info-box-text">Active</span>
-                <span class="info-box-number">{{activeCount}}</span>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
+        <app-icon-card title="Active" type="success" detail="{{activeCount}}">
+            <i class="fas fa-user-circle"></i>
+        </app-icon-card>
     </div>
 
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box">
-      <span class="info-box-icon bg-maroon">
-        <i class="fa fa-address-book"></i>
-      </span>
-
-            <div class="info-box-content">
-                <span class="info-box-text">INACTIVE</span>
-                <span class="info-box-number">{{inactiveCount}}</span>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
+        <app-icon-card title="Inactive" type="warning" detail="{{inactiveCount}}">
+            <i class="far fa-user-circle"></i>
+        </app-icon-card>
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
-        <div class="box box-primary">
-            <div class="box-header">
-                <div class="col-md-12">
-                    <div class=row>
-                        <div class="col-md-3">
-
-                        </div>
-                        <!-- <h3 class="box-title">Hover Data Table</h3> -->
-                        <div class="col-md-9">
-                            <button class="skin-blue pull-right" data-toggle="modal" (click)="onOpen()">
-                                <i class="skin-blue fa fa-plus"></i>
+        <nb-card>
+            <nb-card-header>
+                <div class=row>
+                    <div class="col-md-3">
+                        <label>Configure Role</label>
+                        <select class="form-control" (change)="roleChanged($event.target.value)">
+                            <option>---Select Role---</option>
+                            <option *ngFor="let role of roleList" value="{{role.id}}">{{role.roleName}}</option>
+                        </select>
+                    </div>
+                    <!-- <h3 class="box-title">Hover Data Table</h3> -->
+                    <div class="col-md-9">
+                        <div class="float-right">
+                            <button class="pull-right" data-toggle="modal" (click)="onOpen()">
+                                <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
                 </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label>Role</label>
-                            <select class="form-control" (change)="roleChanged($event.target.value)">
-                                <option>---Select Role---</option>
-                                <option *ngFor="let role of roleList" value="{{role.id}}">{{role.roleName}}</option>
-                            </select>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="col-md-12">
+                    <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
+                    <section *ngIf="compareCheckedPermission.length > 0">
+                        <div class="row">
+                            <div *ngFor="let permission of compareCheckedPermission;" class="col-md-4">
+                                <input class="big-checkbox" type="checkbox" value="{{permission.id}}"
+                                       [checked]="permission.checked"
+                                       (change)="updateCheckedOptions($event.target.value,$event.target.checked)"/>
+                                <span> {{permission.permissionName}}</span>
 
-                        </div>
-                    </div>
+                                <!--</ng-template>-->
+                                <div [className]="permission.checked==false ? 'row collapse' : 'row'"
+                                     id="{{permission.id}}">
+                                    <!--<div class="col-md-12">-->
+                                    <!--<div class="row">-->
+                                    <!--<div class=" col-md-3"-->
+                                    <!--*ngFor="let api of permission.apiList;let i=index">-->
+                                    <!--<input class="big-checkbox {{permission.id+api.type}}"-->
+                                    <!--[checked]="api.checked"-->
+                                    <!--(change)="updateCheckapiOptions(permission.id,$event.target.value,$event.target.checked,i)"-->
+                                    <!--type="checkbox" value="{{api.id}}"/>-->
+                                    <!--<span>{{api.apis}}</span></div>-->
 
-                    <div class="col-md-12">
-                        <fieldset>
-                            <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
-                            <div class="row">
-                                <div *ngFor="let permission of compareCheckedPermission;" class="col-md-4">
-
-
-                                    <input class="big-checkbox" type="checkbox" value="{{permission.id}}"
-                                           [checked]="permission.checked"
-                                           (change)="updateCheckedOptions($event.target.value,$event.target.checked)"/>
-                                    <span> {{permission.permissionName}}</span>
-
-                                    <!--</ng-template>-->
-                                    <div [className]="permission.checked==false ? 'row collapse' : 'row'"
-                                         id="{{permission.id}}">
-                                        <!--<div class="col-md-12">-->
-                                            <!--<div class="row">-->
-                                                <!--<div class=" col-md-3"-->
-                                                     <!--*ngFor="let api of permission.apiList;let i=index">-->
-                                                    <!--<input class="big-checkbox {{permission.id+api.type}}"-->
-                                                           <!--[checked]="api.checked"-->
-                                                           <!--(change)="updateCheckapiOptions(permission.id,$event.target.value,$event.target.checked,i)"-->
-                                                           <!--type="checkbox" value="{{api.id}}"/>-->
-                                                    <!--<span>{{api.apis}}</span></div>-->
-
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class=" col-md-6"
-                                                     *ngFor="let api of permission.apiList;let i=index">
-                                                    <input class="big-checkbox {{permission.id+api.type}}"
-                                                           [checked]="api.checked"
-                                                           (change)="updateCheckapiOptions(permission.id,$event.target.value,$event.target.checked,i)"
-                                                           type="checkbox" value="{{api.id}}"/>
-                                                    <span>{{api.type}}</span></div>
-
-                                            </div>
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class=" col-md-6"
+                                                 *ngFor="let api of permission.apiList; let i=index">
+                                                <input class="big-checkbox {{permission.id+api.type}}"
+                                                       [checked]="api.checked"
+                                                       (change)="updateCheckapiOptions(permission.id,$event.target.value,$event.target.checked,i)"
+                                                       type="checkbox" value="{{api.id}}"/>
+                                                <span>{{api.type}}</span></div>
                                         </div>
                                     </div>
-                                    <!--</ng-template>-->
-
                                 </div>
+                                <!--</ng-template>-->
                             </div>
-                            <button type="submit" class="btn btn-primary pull-right" (click)="save()"><i
-                                    class="fa fa-save"></i></button>
-                        </fieldset>
-                    </div>
 
-
+                        </div>
+                        <hr>
+                        <button type="submit" class="btn btn-primary" (click)="save()">
+                            <i class="fa fa-save"></i>
+                        </button>
+                    </section>
                 </div>
-                <!-- /.col -->
-            </div>
-            <!-- /.row -->
-        </div>
+            </nb-card-body>
+        </nb-card>
     </div>
 </div>

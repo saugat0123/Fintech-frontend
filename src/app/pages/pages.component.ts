@@ -23,7 +23,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
                 link: '/home/admin/config',
             },
             {
-                title: 'Role &amp; Permission',
+                title: 'Role & Permission',
                 link: '/home/admin/role',
             },
             {
