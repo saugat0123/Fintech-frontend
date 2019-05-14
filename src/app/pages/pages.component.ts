@@ -74,7 +74,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     },
     {
         title: 'Memo',
-        icon: 'fa fa-envelope',
+        icon: 'icon ion-md-browsers',
         link: '/home/memo',
         children: [
             {
