@@ -7,6 +7,7 @@ import {Nepse} from '../../modal/nepse';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddNepseComponent} from './add-nepse/add-nepse.component';
 import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
+import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
 
 @Component({
     selector: 'app-nepse',
@@ -35,12 +36,13 @@ export class NepseComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private breadcrumbService: BreadcrumbService
     ) {
     }
 
     ngOnInit() {
-        this.dataService.changeTitle(this.title);
+        this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/nepseCompany/get';
         this.getPagination();
         this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {

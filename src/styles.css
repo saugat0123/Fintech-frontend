@@ -1,7 +1,7 @@
 /** CSS fix for existing template with Bootstrap 4 **/
 
 .content-wrapper{
-    min-height: 880px !important;
+    min-height: 1000px !important;
 }
 
 .main-header .navbar {
@@ -66,6 +66,10 @@ body{
 }
 .title{
   font-weight: 700;
+}
+
+.cursor{
+    cursor: pointer;
 }
 html, body { height: 100vh; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

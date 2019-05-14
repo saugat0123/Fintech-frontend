@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {Questions} from '../../modal/question';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
-import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {Scheme} from '../../modal/scheme';
 import {Router} from '@angular/router';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-question',
@@ -15,36 +15,46 @@ export class QuestionComponent implements OnInit {
     schemeApi: string;
     questionApi: string;
     schemeID: number;
-    questionID: number;
-    updateButton: boolean;
-    saveButton: boolean;
+    totalObtainablePoints: number;
+    existingQuestionList: boolean;
+    newQuestionList: boolean;
+    task: string;
     questionList: Array<Questions> = new Array<Questions>();
     schemeList: Array<Scheme> = new Array<Scheme>();
-    questions: Array<Questions> = new Array<Questions>();
     qsnContent: Questions = new Questions();
+    addEditQuestionForm: FormGroup;
     questionAnswerForm: FormGroup;
+
+    private modalRef: NgbModalRef;
 
     constructor(private formBuilder: FormBuilder,
                 private commonService: CommonService,
-                private dataService: CommonDataService,
-                private router: Router) {
+                private router: Router,
+                private modalService: NgbModal) {
 
         this.questionAnswerForm = this.formBuilder.group({
             schemeId: [undefined, Validators.required],
+            schemeTotal: [undefined],
             questionForm: this.formBuilder.array([])
         });
 
     }
 
     ngOnInit() {
-        this.schemeApi = 'v1/companies/3/schemes';
+        this.schemeApi = 'v1/companies/1/schemes';
         this.getSchemeList();
-        this.updateButton = false;
-        this.saveButton = false;
+        this.existingQuestionList = false;
+        this.newQuestionList = false;
+    }
+
+    getSchemeList() {
+        this.commonService.getByGetAllPageable(this.schemeApi, 1, 10).subscribe((response: any) => {
+            this.schemeList = response.detail.content;
+        });
     }
 
     addQuestionField() {
-        let control = <FormArray>this.questionAnswerForm.controls.questionForm;
+        const control = <FormArray>this.questionAnswerForm.controls.questionForm;
         control.push(
             this.formBuilder.group({
                 answers: this.formBuilder.array([]),
@@ -57,7 +67,7 @@ export class QuestionComponent implements OnInit {
     }
 
     deleteQuestionField(index) {
-        let control = <FormArray>this.questionAnswerForm.controls.questionForm;
+        const control = <FormArray>this.questionAnswerForm.controls.questionForm;
         control.removeAt(index);
     }
 
@@ -74,102 +84,129 @@ export class QuestionComponent implements OnInit {
         control.removeAt(index);
     }
 
-    getSchemeList() {
-        this.commonService.getByGetAllPageable(this.schemeApi, 1, 10).subscribe((response: any) => {
-            this.schemeList = response.detail.content;
-        });
-    }
-
-    setQuestions() {
-        let control = <FormArray>this.questionAnswerForm.controls.questionForm;
-        this.questionList.forEach(qsn => {
-            control.push(this.formBuilder.group({
-                    id: qsn.id,
-                    description: qsn.description,
-                    version: qsn.version,
-                    answers: this.setAnswers(qsn),
-                    scheme: this.formBuilder.group({
-                        id: [this.schemeID]
-                    })
-                })
-            );
-        });
-    }
-
-    setAnswers(qsn) {
-        let arr = new FormArray([]);
-        qsn.answers.forEach(ans => {
-            arr.push(this.formBuilder.group({
-                description: ans.description,
-                version: ans.version,
-                points: ans.points
-            }));
-        });
-        return arr;
-    }
-
     onChangeSchemeOption() {
         this.clearFormArray();
+        this.totalObtainablePoints = 0;
         this.schemeID = this.questionAnswerForm.get('schemeId').value;
         this.questionApi = 'v1/companies/0/schemes/' + this.schemeID + '/questions';
 
         this.commonService.getByGetAllPageable(this.questionApi, 1, 10).subscribe((response: any) => {
             this.questionList = response.detail;
-            this.setQuestions();
+
+            this.questionList.forEach(qsn => {
+                this.totalObtainablePoints = this.totalObtainablePoints + qsn.maximumPoints;
+            });
 
             if (this.questionList.length !== 0) {
-                this.updateButton = true;
-                this.saveButton = false;
+                this.existingQuestionList = true;
+                this.newQuestionList = false;
             } else {
-                this.saveButton = true;
-                this.updateButton = false;
+                this.clearFormArray();
+                this.newQuestionList = true;
+                this.existingQuestionList = false;
                 this.addQuestionField();
             }
-            this.questionAnswerForm.value.questionForm = this.questionList;
-            console.log(this.questionAnswerForm.value.questionForm);
         });
     }
 
     clearFormArray() {
-        let control = <FormArray>this.questionAnswerForm.controls.questionForm;
+        const control = <FormArray>this.questionAnswerForm.controls.questionForm;
         control.controls = [];
     }
 
+    buildForm() {
+        this.addEditQuestionForm = this.formBuilder.group({
+            id: [this.qsnContent.id === undefined ? 0 : this.qsnContent.id, Validators.required],
+            answers: this.formBuilder.array([]),
+            description: [this.qsnContent.description === undefined ? '' : this.qsnContent.description, Validators.required],
+            version: [this.qsnContent.version === undefined ? '' : this.qsnContent.version],
+            scheme: this.formBuilder.group({
+                id: [this.schemeID]
+            })
+        });
+        if (this.task === 'Edit') {
+            this.setAnswers(this.qsnContent);
+        } else {
+            this.addAnswerFieldForEdit();
+        }
+    }
+
+    setAnswers(qsnContent) {
+        const control = <FormArray>this.addEditQuestionForm.controls.answers;
+        qsnContent.answers.forEach(ans => {
+            control.push(this.formBuilder.group({
+                    id: ans.id,
+                    description: ans.description,
+                    points: ans.points,
+                    version: ans.version
+                })
+            );
+        });
+    }
+
+    openEditQuestion(qsnContent: Questions, template: TemplateRef<any>) {
+        this.task = 'Edit';
+        this.qsnContent = qsnContent;
+        this.buildForm();
+
+        this.modalRef = this.modalService.open(template, {backdrop: 'static'});
+    }
+
+    openAddQuestion(template: TemplateRef<any>) {
+        this.task = 'Add';
+        this.qsnContent = new Questions();
+        this.buildForm();
+
+        this.modalRef = this.modalService.open(template, {backdrop: 'static'});
+    }
+
+    addAnswerFieldForEdit() {
+        const control = <FormArray>this.addEditQuestionForm.controls.answers;
+        control.push(
+            this.formBuilder.group({
+                description: [undefined, Validators.required],
+                points: [undefined, Validators.required]
+            })
+        );
+    }
+
+    deleteAnswerFieldForEdit(index) {
+        const control = <FormArray>this.addEditQuestionForm.controls.answers;
+        control.removeAt(index);
+    }
+
     onSave() {
-        this.questions = this.questionAnswerForm.value.questionForm;
-        console.log(this.questions);
-        console.log(this.questionApi);
-        this.commonService.saveQuestion(this.questions, this.questionApi).subscribe(result => {
+        this.questionList = this.questionAnswerForm.value.questionForm;
+        this.commonService.saveQuestion(this.questionList, this.questionApi).subscribe(result => {
 
                 alert('success !!');
-                this.questions = new Array<Questions>();
+                this.questionList = new Array<Questions>();
                 this.router.navigate(['home/question']);
                 this.onChangeSchemeOption();
 
             }, error => {
-                this.questions = new Array<Questions>();
+                this.questionList = new Array<Questions>();
                 alert('failed !!');
-                this.questions = new Array<Questions>();
                 this.router.navigate(['home/question']);
             }
         );
     }
 
-    onUpdate(qsnID, qsnContent) {
-        this.qsnContent = qsnContent;
-        this.questionID = qsnID;
-        this.commonService.updateQuestion(this.qsnContent, this.questionApi + '/' + this.questionID).subscribe(result => {
+    onUpdate(newQsnContent) {
+        this.qsnContent = this.addEditQuestionForm.value;
+        this.commonService.updateQuestion(newQsnContent, this.questionApi + '/' + this.qsnContent.id).subscribe(result => {
 
                 alert('success !!');
-                this.questions = new Array<Questions>();
+                this.questionList = new Array<Questions>();
                 this.router.navigate(['home/question']);
                 this.onChangeSchemeOption();
+                this.modalService.dismissAll('Close modal');
 
             }, error => {
-                this.questions = new Array<Questions>();
                 alert('failed !!');
-                this.questions = new Array<Questions>();
+                this.questionList = new Array<Questions>();
                 this.router.navigate(['home/question']);
+                this.modalService.dismissAll('Close modal');
             }
         );
     }

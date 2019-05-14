@@ -1,13 +1,14 @@
 
-<div class="modal-dialog">
+<div class="modal-document">
     <div class="modal-content">
         <div class="modal-header" style="display:block">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+            <a  class="close" data-dismiss="modal" aria-label="Close"
                     (click)="onClose()">
-                <span aria-hidden="true">×</span></button>
-            <h4 class="modal-title pull-left">{{task}} Branch</h4>
+                <span aria-hidden="true">×</span></a>
+            <h4 class="nav navbar navbar-right pull-left">{{task}} Branch</h4>
         </div>
         <div class="modal-body">
+
 
             <form name="form" #branchForm="ngForm" (ngSubmit)="branchForm.valid && onSubmit()">
 
@@ -15,10 +16,10 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="name">Name</label>
-                            <input type="hidden" class="form-control"
+                            <input type="hidden" class="form-control form-control-sm"
                                    [(ngModel)]="branch.id" name="id"
                                    placeholder="id">
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control form-control-sm"
                                    [(ngModel)]="branch.name" id="name" name="name"
                                    #name="ngModel"  [ngClass]="{ 'is-invalid': branchForm.submitted && name.invalid }"
                                    placeholder="Name" required/>
@@ -29,7 +30,7 @@
 
                         <div class="col-md-6">
                             <label for="province">Province</label>
-                            <select name="province" id="province" class="form-control"
+                            <select name="province" id="province" class="form-control form-control-sm"
                                     [(ngModel)]="province.id"  required (change)="getDistricts(province.id)"
                             #provinceVal="ngModel" [ngClass]="{ 'is-invalid': branchForm.submitted && provinceVal.invalid }">
                                 <option [ngValue]="undefined" hidden>Province</option>
@@ -48,7 +49,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="branch_code">Branch Code</label>
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control form-control-sm"
                                    [(ngModel)]="branch.branchCode"
                                    name="branchCode" required
                                    placeholder="Branch Code" id="branch_code"
@@ -61,7 +62,7 @@
                         <div class="col-md-6">
                             <label for="district">District</label>
                             <select name="district" id="district"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     [(ngModel)]="district.id"
                                     (change)="getMunicipalities()" required
                                     #districtVal="ngModel"  [ngClass]="{ 'is-invalid': branchForm.submitted && districtVal.invalid }">
@@ -83,7 +84,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="municipality">Municipality</label>
-                            <select name="municipality" id="municipality" class="form-control"
+                            <select name="municipality" id="municipality" class="form-control form-control-sm"
                                     [(ngModel)]="municipality.id" (change)=" getMunicipality()" required
                                     #municipal="ngModel"
                                     [ngClass]="{ 'is-invalid': branchForm.submitted && municipal.invalid }">
@@ -101,7 +102,7 @@
 
                         <div class="col-md-6">
                             <label for="street_name">Street</label>
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control form-control-sm"
                                    [(ngModel)]="branch.streetName" name="street"
                                    id="street_name"
                                    placeholder="Street Name" required
@@ -118,7 +119,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="ward_number">Ward</label>
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control form-control-sm"
                                    [(ngModel)]="branch.wardNumber" name="ward"
                                    id="ward_number"
                                    placeholder="Ward" required
@@ -134,7 +135,7 @@
 
                 <div class="modal-footer">
 
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                    <button type="submit" class="btn btn-flat  btn-primary"><i class="fa fa-save"></i></button>
                 </div>
             </form>
         </div>

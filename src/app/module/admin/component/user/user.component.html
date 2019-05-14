@@ -50,7 +50,7 @@
                                 <input type="text" class="input-sm" [(ngModel)]="search.name"
                                        (input)="onSearchChange($event.target.value)" name="name"
                                        placeholder="search....">
-                                <button type="submit" class="btn btn-primary btn-sm">
+                                <button type="submit" class="btn btn-primary btn-sm btn-flat">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </form>
@@ -108,7 +108,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <spinner *ngIf="spinner" class="d-flex justify-content-center"></spinner>
+                    <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
                     <!-- ===================table-pagination==================== -->
                     <app-pagination *ngIf="!spinner"></app-pagination>
                     <!-- ===================table-pagination==================== -->

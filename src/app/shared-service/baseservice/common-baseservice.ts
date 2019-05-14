@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {RestApiService} from '../authentication/rest-api.service';
@@ -17,77 +16,70 @@ export class CommonService {
     }
 
     saveOrEdit(model: Object, reqUrl): Observable<Object> {
-        let url: string = reqUrl;
-        let getUrl = this.restApiService.modifyRestUrl(url);
+        const url: string = reqUrl;
+        const getUrl = this.restApiService.modifyRestUrl(url);
         return this.http.post(getUrl.url, model, {headers: getUrl.header});
     }
 
 
     getById(reqUrl): Observable<Object> {
-        let url: string = reqUrl;
-        let getUrl = this.restApiService.modifyRestUrl(url);
+        const url: string = reqUrl;
+        const getUrl = this.restApiService.modifyRestUrl(url);
 
         return this.http.get(getUrl.url, {headers: getUrl.header});
     }
 
     getByAll(reqUrl): Observable<Object> {
-        let url: string = reqUrl;
-        let getUrl = this.restApiService.modifyRestUrl(url);
+        const url: string = reqUrl;
+        const getUrl = this.restApiService.modifyRestUrl(url);
 
         return this.http.get(getUrl.url, {headers: getUrl.header});
     }
 
     getByPostAllPageable(reqUrl, model, page, size) {
-        let url: string = reqUrl + '?page=' + page + '&size=' + size;
-        let getUrl = this.restApiService.modifyRestUrl(url);
+        const url: string = reqUrl + '?page=' + page + '&size=' + size;
+        const getUrl = this.restApiService.modifyRestUrl(url);
         return this.http.post(getUrl.url, model, {headers: getUrl.header});
 
     }
 
     getByPost(reqUrl, model) {
-        let url: string = reqUrl;
-        let getUrl = this.restApiService.modifyRestUrl(url);
+        const url: string = reqUrl;
+        const getUrl = this.restApiService.modifyRestUrl(url);
         return this.http.post(getUrl.url, model, {headers: getUrl.header});
     }
 
     getByFilePost(reqUrl, model) {
-        let url: string = reqUrl;
-        let getUrl = this.restApiService.modifyFileUrl(url);
+        const url: string = reqUrl;
+        const getUrl = this.restApiService.modifyFileUrl(url);
         return this.http.post(getUrl.url, model, {headers: getUrl.header});
     }
 
 
-
     getByPostDocument(reqUrl, model, loanCycleId) {
-        let url: string = reqUrl + '?loanCycleId=' + loanCycleId;
-        let getUrl = this.restApiService.modifyRestUrl(url);
+        const url: string = reqUrl + '?loanCycleId=' + loanCycleId;
+        const getUrl = this.restApiService.modifyRestUrl(url);
         return this.http.post(getUrl.url, model, {headers: getUrl.header});
 
     }
 
     getByGetAllPageable(reqUrl, page, size) {
-        let url: string = reqUrl + '?page=' + page + '&size=' + size;
-        let getUrl = this.restApiService.modifyRestUrl(url);
+        const url: string = reqUrl + '?page=' + page + '&size=' + size;
+        const getUrl = this.restApiService.modifyRestUrl(url);
         return this.http.get(getUrl.url, {headers: getUrl.header});
 
     }
 
     saveQuestion(model: Array<Object>, reqUrl): Observable<Object> {
-        let url: string = reqUrl;
-        let getUrl = this.restApiService.modifyRestUrl(url);
+        const url: string = reqUrl;
+        const getUrl = this.restApiService.modifyRestUrl(url);
         return this.http.post(getUrl.url, model, {headers: getUrl.header});
     }
 
     updateQuestion(model: Object, reqUrl): Observable<Object> {
-        let url: string = reqUrl;
-        let getUrl = this.restApiService.modifyRestUrl(url);
+        const url: string = reqUrl;
+        const getUrl = this.restApiService.modifyRestUrl(url);
         return this.http.put(getUrl.url, model, {headers: getUrl.header});
     }
 
 }
-
-
-
-
-
-

@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 
-import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {BranchComponent} from './component/branch/branch.component';
@@ -48,6 +48,9 @@ import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
 import {UpdateModalComponent} from '../../common/update-modal/update-modal.component';
 import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
 import { QuestionComponent } from './component/question/question.component';
+import { AllRequestsComponent } from './component/all-requests/all-requests.component';
+import { EligibleRequestsComponent } from './component/eligible-requests/eligible-requests.component';
+import { NonEligibleRequestsComponent } from './component/non-eligible-requests/non-eligible-requests.component';
 
 // import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
 
@@ -91,13 +94,17 @@ import { QuestionComponent } from './component/question/question.component';
         AddCompanyComponent,
         AddRoleComponent,
         ListRoleComponent,
-        QuestionComponent
+        QuestionComponent,
+        AllRequestsComponent,
+        EligibleRequestsComponent,
+        NonEligibleRequestsComponent
         // SecurityComponent
     ],
     imports: [
         CommonModule,
         FormsModule,
         NgbPaginationModule,
+        NgbModule,
         ReactiveFormsModule,
         ReactiveFormsModule,
         RouterModule.forChild(adminRoutes),

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Subject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {Branch} from '../../module/admin/modal/branch';
 import {ApprovalLimit} from '../../module/admin/modal/approval-limit';
 import {User} from '../../module/admin/modal/user';
@@ -25,7 +25,6 @@ export class CommonDataService {
     data: any;
     dataObj: any;
     alertmessage: String;
-    schemeID: number;
 
     branch: Branch = new Branch();
     document: Document = new Document();
@@ -205,19 +204,6 @@ export class CommonDataService {
     }
 
     clearData() {
-        this.dataObj = new Object();
+        this.dataObj = {};
     }
-
-    setSchemeID(schemeID) {
-        this.schemeID = schemeID;
-    }
-
-    getSchemeID(): number{
-        return this.schemeID;
-    }
-
-    // setAnsPoints(questionID, answerPoints) {
-    //     if (questionID)
-    // }
-
 }

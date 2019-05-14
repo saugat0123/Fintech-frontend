@@ -19,6 +19,8 @@ import {CommonDataService} from './shared-service/baseservice/common-dataService
 import {SharedModule} from './module/shared/shared.module';
 import {Sidebar1Component} from './component/base/sidebar/sidebar1/sidebar1.component';
 import {CommonLocation} from './shared-service/baseservice/common-location';
+import {QuillModule} from 'ngx-quill';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 
 @NgModule({
@@ -33,7 +35,6 @@ import {CommonLocation} from './shared-service/baseservice/common-location';
         SidebarComponent,
         FooterComponent,
         Sidebar1Component
-
     ],
     imports: [
         BrowserModule,
@@ -43,11 +44,15 @@ import {CommonLocation} from './shared-service/baseservice/common-location';
         NgbPaginationModule,
         ReactiveFormsModule,
         ReactiveFormsModule,
-        SharedModule
+        SharedModule,
+        QuillModule
     ],
 
-  providers: [CommonService, RestApiService, CommonDataService, CommonLocation],
-  bootstrap: [AppComponent],
+    providers: [CommonService, RestApiService, CommonDataService, CommonLocation, {
+        provide: LocationStrategy,
+        useClass: HashLocationStrategy
+    }],
+    bootstrap: [AppComponent],
 
 
 

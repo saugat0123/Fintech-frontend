@@ -8,6 +8,7 @@ import {Segment} from '../../../modal/segment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddSubSegmentComponent} from '../add-sub-segment/add-sub-segment.component';
 import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.component';
+import {BreadcrumbService} from '../../../../../common/breadcrum/breadcrumb.service';
 
 
 @Component({
@@ -39,12 +40,13 @@ export class SubSegmentComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private breadcrumbService: BreadcrumbService
     ) {
     }
 
     ngOnInit() {
-        this.dataService.changeTitle(this.title);
+        this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/subSegment/get';
         this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
 

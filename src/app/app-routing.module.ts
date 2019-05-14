@@ -10,7 +10,8 @@ const routes: Routes = [
         path: 'home', component: BaseComponent,
         children: [
             {path: 'dashboard', component: DashboardComponent},
-            {path: '', loadChildren: './module/admin/admin.module#AdminModule'}
+            {path: '', loadChildren: './module/admin/admin.module#AdminModule'},
+            {path: 'memo', loadChildren: './module/memo/memo.module#MemoModule'}
         ],
 
 

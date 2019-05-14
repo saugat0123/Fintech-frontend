@@ -7,6 +7,9 @@ import {Role} from '../../../modal/role';
 import {LoanConfig} from '../../../modal/loan-config';
 import {ApprovalLimit} from '../../../modal/approval-limit';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {BreadcrumbService} from '../../../../../common/breadcrum/breadcrumb.service';
+import {AlertService} from '../../../../../common/alert/alert.service';
+import {Alert, AlertType} from '../../../../../common/alert/Alert';
 
 
 @Component({
@@ -31,7 +34,9 @@ export class AddApprovalLimitComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private modalService: NgbModal,
         private activeModal: NgbActiveModal,
-        ) {
+        private breadcrumbService: BreadcrumbService,
+        private alertService: AlertService
+    ) {
     }
 
     ngOnInit() {
@@ -61,9 +66,7 @@ export class AddApprovalLimitComponent implements OnInit, DoCheck {
             if (this.approvalLimit.loanCategory != null) {
                 this.loanCategory = this.approvalLimit.loanCategory;
             }
-
         }
-
     }
 
     onSubmit() {
@@ -73,19 +76,19 @@ export class AddApprovalLimitComponent implements OnInit, DoCheck {
         this.commonService.saveOrEdit(this.approvalLimit, 'v1/approvallimit').subscribe(result => {
                 this.modalService.dismissAll(AddApprovalLimitComponent);
                 if (this.approvalLimit.id == null) {
-                    this.globalMsg = 'SUCCESSFULLY ADDED APPROVAL LIMIT';
+                    this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Created Approval Limit'));
                 } else {
-                    this.globalMsg = 'SUCCESSFULLY EDITED APPROVAL LIMIT';
+                    this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Updated Approval Limit'));
                 }
 
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('true');
                 this.approvalLimit = new ApprovalLimit();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/approvalLimit']));
 
 
             }, error => {
+
+                console.error(error);
 
                 this.modalService.dismissAll(AddApprovalLimitComponent);
                 this.globalMsg = 'error occurs';
@@ -94,7 +97,6 @@ export class AddApprovalLimitComponent implements OnInit, DoCheck {
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/approvalLimit']));
-
             }
         );
     }

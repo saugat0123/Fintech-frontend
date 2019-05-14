@@ -20,14 +20,20 @@
                 <div class="box-header">
                     <div class="col-md-12">
                         <div class=row>
-                            <div class="col-md-3">
+                            <div class="col-md-5">
                                 <label>Select a Scheme</label>
                                 <select class="form-control custom-select" formControlName="schemeId"
                                         (change)="onChangeSchemeOption()">
                                     <option [ngValue]="null" hidden> Select a scheme</option>
-                                    <option *ngFor="let scheme of schemeList"
+                                    <option *ngFor="let scheme of schemeList; "
                                             [ngValue]="scheme?.id">{{scheme.name}}</option>
                                 </select>
+                            </div>
+                            <div *ngIf="existingQuestionList" class="col-md-7">
+                                <button class="skin-blue pull-right"
+                                        (click)="openAddQuestion(addEditQuestion    )">
+                                    <i class="skin-blue fa fa-plus"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -36,10 +42,72 @@
                         <h2>Please select a scheme to begin.</h2>
                     </div>
 
-                    <div class="box-body" [hidden]="schemeID == null">
+                    <table *ngIf="existingQuestionList"
+                           class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Question description</th>
+                            <th>Appearance order</th>
+                            <th>Maximum Points</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr *ngFor="let qsn of questionList; let i = index">
+                            <div *ngIf="questionList?.length == 0">
+                                <p>No Content Found</p>
+                            </div>
+                            <td>{{qsn.description}}
+                                <div id="ans{{i}}" class="collapse">
+                                    <div class="card-body">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>Answer description</th>
+                                                <th>Points</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            <tr *ngFor="let ans of qsn.answers; let j = index">
+                                                <div *ngIf="qsn.answers?.length == 0">
+                                                    <p>No answers Found</p>
+                                                </div>
+                                                <td>{{ans.description}}</td>
+                                                <td>{{ans.points}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{qsn.appearanceOrder}}</td>
+                            <td>{{qsn.maximumPoints}}</td>
+                            <td>
+                                <a (click)="openEditQuestion(qsn, addEditQuestion)"
+                                   data-toggle="tooltip"
+                                   data-placement="top" title="EDIT" class="cursor">
+                                    <i class="fa fa-edit" style="color:#3c8dbc;"></i>
+                                </a>
+                                <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip"  data-placement="top" (click)="delete(allList)"  title="DELETE" style="margin-left:10px">
+                                  <i class="fa fa-trash" style="color:white;"></i>
+                                </a> -->
+                            </td>
+                            <td>
+                                <button data-toggle="collapse" [attr.data-target]="'#ans'+i"
+                                        class="btn btn-primary btn-sm btn-flat">
+                                    answers
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                    <div class="box-body" *ngIf="schemeID != null && newQuestionList">
                         <div formArrayName="questionForm">
                             <div class="form-group"
-                                 *ngFor="let qsn of questionAnswerForm.get('questionForm').controls; let i = index;">
+                                 *ngFor="let qsn of questionAnswerForm.get('questionForm')['controls']; let i = index;">
 
                                 <fieldset class="border border-primary rounded p-2">
                                     <legend class="w-auto"><h3>Question {{i + 1}}:</h3></legend>
@@ -96,18 +164,10 @@
                                                         Add Answer field
                                                     </button>
                                                 </div>
-                                                <div class="col-md-6 float-right">
-                                                    <button class="btn btn-warning float-right" [hidden]="!updateButton"
-                                                            (click)="onUpdate(qsn.controls.id.value, qsn.value)">
-                                                        Update
-                                                    </button>
-                                                </div>
                                             </div>
-                                            <!--<pre>{{qsn.value | json}}</pre>-->
                                         </div>
                                     </div>
                                 </fieldset>
-
 
                             </div>
                         </div>
@@ -124,17 +184,125 @@
 
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <button class="btn btn-success" type="submit" [hidden]="!saveButton" (click)="onSave()">
+                                <button class="btn btn-success" type="submit" (click)="onSave()">
                                     Save
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <!-- /.col -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="existingQuestionList" class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <div class="col-xs-6">
+                        <p class="lead">Scheme details</p>
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody><tr>
+                                    <th style="width:50%">Total questions:</th>
+                                    <td>{{questionList.length}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Eligibility points:</th>
+                                    <td>$10.34</td>
+                                </tr>
+                                <tr>
+                                    <th>Total obtainable points:</th>
+                                    <td>{{totalObtainablePoints}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Set eligibility (in percent):</th>
+                                    <td>
+                                        <input size="1" type="number">
+                                    </td>
+                                </tr>
+                                </tbody></table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </form>
-<pre>{{questionAnswerForm.value.questionForm | json}}</pre>
+
+
+<ng-template #addEditQuestion let-modal>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">{{task}} question</h4>
+                <button (click)="modal.dismiss()" aria-label="Close" class="close pull-right" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="addEditQuestionForm">
+                    <fieldset class="border border-primary rounded p-2">
+                        <legend class="w-auto"><h3>Question :</h3></legend>
+
+                        <label>Question Description:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Question description"
+                                   formControlName="description">
+                        </div>
+
+                        <div formArrayName="answers">
+                            <div class="form-group"
+                                 *ngFor="let ans of addEditQuestionForm.get('answers')['controls']; let j = index;">
+
+                                <fieldset class="border border-info rounded p-2 bg-light">
+                                    <legend class="w-auto"><h4>Answer {{j + 1}}:</h4></legend>
+                                    <div [formGroupName]="j">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Answer:</label>
+                                                <input class="form-control"
+                                                       formControlName="description">
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label>Points:</label>
+                                                <div class="input-group mb-3">
+                                                    <input class="form-control" type="number"
+                                                           formControlName="points">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-danger btn-sm"
+                                                                (click)="deleteAnswerFieldForEdit(j)">
+                                                            Delete answer field
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="row mt-2 mb-3 pr-3">
+                                <div class="col-md-6 float-left">
+                                    <button class="btn btn-info btn-sm float-left"
+                                            (click)="addAnswerFieldForEdit()">
+                                        Add Answer field
+                                    </button>
+                                </div>
+                                <div class="col-md-6 float-right">
+                                    <button class="btn btn-warning float-right"
+                                            (click)="onUpdate(addEditQuestionForm.value)">
+                                        Update
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
 

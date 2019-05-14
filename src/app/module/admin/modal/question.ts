@@ -6,6 +6,7 @@ export class Questions {
     description: string;
     maximumPoints: number;
     version: number;
+    appearanceOrder: number;
     scheme: Scheme;
-    answer: Array<Answer>;
+    answers: Array<Answer>;
 }
