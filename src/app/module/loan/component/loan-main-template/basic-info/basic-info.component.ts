@@ -1,7 +1,7 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 
 import {Router} from '@angular/router';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Customer} from '../../../../admin/modal/customer';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 import {Province} from '../../../../admin/modal/province';
@@ -41,48 +41,70 @@ export class BasicInfoComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck() {
-        if (this.loanDataService.getNext() !== undefined) {
-            this.onSubmit();
-        }
+        this.onSubmit();
     }
 
     ngOnInit() {
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
-                console.log(response.detail);
                 this.provinceList = response.detail;
             }
         );
         this.basicInfo = this.formBuilder.group({
-            title: [''],
-            customerName: [''],
-            customerId: [''],
-            accountNo: [''],
-            province: [''],
-            district: [''],
-            municipalitiesOrVDC: [''],
-            telephone: [''],
-            mobile: [''],
-            email: [''],
-            initialRelationDate: [''],
-            citizenshipNumber: [''],
-            citizenshipIssuedPlace: [''],
-            citizenshipIssuedDate: ['']
+            title: [undefined],
+            customerName: [undefined],
+            customerId: [undefined],
+            accountNo: [undefined],
+            province: [undefined, this.provinceList],
+            district: [undefined],
+            municipalitiesOrVDC: [undefined],
+            telephone: [undefined],
+            mobile: [undefined],
+            email: [undefined],
+            initialRelationDate: [undefined],
+            citizenshipNumber: [undefined],
+            citizenshipIssuedPlace: [undefined],
+            citizenshipIssuedDate: [undefined]
         });
+        if (this.loanDataService.getCustomer().customerName !== undefined) {
+            this.customer = this.loanDataService.getCustomer();
+            this.province = this.customer.province;
+            this.getDistricts();
+            this.district = this.customer.district;
+            this.getMunicipalities();
+            this.municipality = this.customer.municipalitiesOrVDC;
+            this.basicInfo = this.formBuilder.group({
+                title: [this.customer.title],
+                customerName: [this.customer.customerName],
+                customerId: [this.customer.customerId],
+                accountNo: [this.customer.accountNo],
+                province: [this.province],
+                district: [this.district],
+                municipalitiesOrVDC: new FormControl(this.municipality),
+                telephone: [this.customer.telephone],
+                mobile: [this.customer.mobile],
+                email: [this.customer.email],
+                initialRelationDate: [this.customer.initialRelationDate],
+                citizenshipNumber: [this.customer.citizenshipNumber],
+                citizenshipIssuedPlace: [this.customer.issuedPlace],
+                citizenshipIssuedDate: [this.customer.citizenshipIssuedDate]
+            });
+        }
+        console.log(this.loanDataService.getCustomer());
+
     }
 
     getDistricts() {
+        this.province = this.basicInfo.get('province').value;
         console.log(this.province);
         this.commonLocation.getDistrictByProvince(this.province).subscribe(
             (response: any) => {
-                console.log(response.detail);
                 this.districtList = response.detail;
             }
         );
     }
 
     getMunicipalities() {
-        console.log(this.district);
         this.commonLocation.getMunicipalityVDCByDistrict(this.district).subscribe(
             (response: any) => {
                 this.municipalitiesList = response.detail;
@@ -95,8 +117,11 @@ export class BasicInfoComponent implements OnInit, DoCheck {
         this.customer.customerName = this.basicInfo.get('customerName').value;
         this.customer.customerId = this.basicInfo.get('customerId').value;
         this.customer.accountNo = this.basicInfo.get('accountNo').value;
+        // this.province = this.basicInfo.get('province').value;
         this.customer.province = this.basicInfo.get('province').value;
+        // this.district = this.basicInfo.get('district').value;
         this.customer.district = this.basicInfo.get('district').value;
+        // this.municipality = this.basicInfo.get('municipalitiesOrVDC').value;
         this.customer.municipalitiesOrVDC = this.basicInfo.get('municipalitiesOrVDC').value;
         this.customer.telephone = this.basicInfo.get('telephone').value;
         this.customer.mobile = this.basicInfo.get('mobile').value;
@@ -105,8 +130,8 @@ export class BasicInfoComponent implements OnInit, DoCheck {
         this.customer.citizenshipNumber = this.basicInfo.get('citizenshipNumber').value;
         this.customer.issuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
         this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
-        this.commonDataService.setCustomer(this.customer);
-        this.loanDataService.setLoanDocuments('basicInfo', this.commonDataService.getCustomer());
+        this.loanDataService.setCustomer(this.customer);
+        // this.loanDataService.setLoanDocuments('basicInfo', this.commonDataService.getCustomer());
         // this.commonService.saveOrEdit(this.customer,'v1/basicInfo').subscribe();
         // this.router.navigate(['home/loan/kyc-info']);
     }
