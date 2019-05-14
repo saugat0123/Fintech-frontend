@@ -79,7 +79,7 @@
                             <th>Sector Name</th>
                             <th>Sector Code</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th *ngIf="editSector">Action</th>
                         </tr>
                         </thead>
 
@@ -91,17 +91,22 @@
                             <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                             <td>{{allList.sectorName}}</td>
                             <td>{{allList.sectorCode}}</td>
-                            <td>
-                                <select [(ngModel)]="allList.status" name="status"
+                            <td *ngIf='editSector === true; else status '>
+                                <select class="select-borderless" [(ngModel)]="allList.status" name="status"
                                         (change)="onChange($event.target.value,allList)">
                                     <option value="ACTIVE">ACTIVE</option>
                                     <option value="INACTIVE">INACTIVE</option>
-
                                 </select>
                             </td>
-                            <td>
+                            <ng-template #status>
+
+                                <td>
+                                    <p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>
+                                </td>
+                            </ng-template>
+                            <td *ngIf="editSector">
                                 <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
-                                   data-placement="top" title="EDIT" *ngIf="editSector">
+                                   data-placement="top" title="EDIT">
                                     <i class="fa fa-edit" style="color:white"></i>
                                 </a>
                                 <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px">

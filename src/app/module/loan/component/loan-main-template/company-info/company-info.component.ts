@@ -88,7 +88,6 @@ export class CompanyInfoComponent implements OnInit, DoCheck {
             this.legalStatus = this.entityInfo.legalStatus;
             this.capital = this.entityInfo.capital;
             this.swot = this.entityInfo.swot;
-            console.log('swot', this.swot);
             this.companyInfo = this.formBuilder.group({
                 // legal status
                 companyName: [this.legalStatus.companyName],
@@ -122,7 +121,6 @@ export class CompanyInfoComponent implements OnInit, DoCheck {
             });
             this.managementTeamList = this.entityInfo.managementTeamList;
             this.proprietorsList = this.entityInfo.proprietorsList;
-            console.log(this.entityInfo.managementTeamList);
             this.companyInfo.setControl('managementTeams', this.setManagementTeams(this.managementTeamList));
             this.companyInfo.setControl('proprietors', this.setProprietors(this.proprietorsList));
         }
