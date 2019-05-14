@@ -1,92 +1,107 @@
-<div class="box-header with-border">
-    <h3 class="box-title">{{memoTask}} Memo</h3>
-</div>
-<!-- /.box-header -->
-<form (ngSubmit)="onSubmit()" [formGroup]="memoComposeForm">
-    <div class="box-body">
-        <div class="form-group">
-            <input type="hidden" formControlName="id" [hidden]="true">
-        </div>
-        <div class="form-group">
-            <input class="form-control" formControlName="subject" placeholder="Subject:">
-        </div>
-        <div class="form-group">
-            <input class="form-control" formControlName="refNumber" placeholder="Reference No:">
-        </div>
-        <div class="form-group">
-            <ng-select
-                    [closeOnSelect]="true"
-                    [hideSelected]="true"
-                    [items]="memoTypes$"
-                    [multiple]="false"
-                    bindLabel="name"
-                    formControlName="memoType"
-                    placeholder="Select Memo Type">
-            </ng-select>
-        </div>
-        <div class="form-group">
-            <ng-select
-                    [closeOnSelect]="true"
-                    [hideSelected]="true"
-                    [items]="users$"
-                    [multiple]="false"
-                    bindLabel="name"
-                    formControlName="sentBy"
-                    placeholder="Sending By:">
-            </ng-select>
-        </div>
-        <div class="form-group">
-            <ng-select
-                    [closeOnSelect]="true"
-                    [hideSelected]="true"
-                    [items]="users$"
-                    [multiple]="false"
-                    bindLabel="name"
-                    formControlName="sentTo"
-                    placeholder="Sending To:">
-            </ng-select>
-        </div>
-        <div class="form-group">
-            <ng-select
-                    [closeOnSelect]="false"
-                    [hideSelected]="true"
-                    [items]="users$"
-                    [multiple]="true"
-                    bindLabel="name"
-                    formControlName="cc"
-                    placeholder="CC:">
-            </ng-select>
-        </div>
-        <div class="form-group">
-            <ng-select
-                    [closeOnSelect]="false"
-                    [hideSelected]="true"
-                    [items]="users$"
-                    [multiple]="true"
-                    bindLabel="name"
-                    formControlName="bcc"
-                    placeholder="BCC:">
-            </ng-select>
-        </div>
-        <div class="form-group">
-            <quill-editor formControlName="content" placeholder="Insert memo content..."></quill-editor>
-        </div>
-        <div class="form-group">
-            <div class="btn btn-default btn-file">
-                <i class="fa fa-paperclip"></i> Attachment
-                <input name="attachment" type="file">
+<nb-card>
+    <nb-card-header>
+        {{memoTask}} Memo
+    </nb-card-header>
+    <form (ngSubmit)="onSubmit()" [formGroup]="memoComposeForm">
+        <nb-card-body>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="hidden" formControlName="id" [hidden]="true">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" formControlName="subject" placeholder="Subject:">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" formControlName="refNumber" placeholder="Reference No:">
+                </div>
+                <div class="form-group">
+                    <ng-select
+                            [closeOnSelect]="true"
+                            [hideSelected]="true"
+                            [items]="memoTypes$"
+                            [multiple]="false"
+                            bindLabel="name"
+                            formControlName="memoType"
+                            placeholder="Select Memo Type">
+                    </ng-select>
+                </div>
+                <div class="form-group">
+                    <ng-select
+                            [closeOnSelect]="true"
+                            [hideSelected]="true"
+                            [items]="users$"
+                            [multiple]="false"
+                            bindLabel="name"
+                            formControlName="sentBy"
+                            placeholder="Sending By:">
+                    </ng-select>
+                </div>
+                <div class="form-group">
+                    <ng-select
+                            [closeOnSelect]="true"
+                            [hideSelected]="true"
+                            [items]="users$"
+                            [multiple]="false"
+                            bindLabel="name"
+                            formControlName="sentTo"
+                            placeholder="Sending To:">
+                    </ng-select>
+                </div>
+                <div class="form-group">
+                    <ng-select
+                            [closeOnSelect]="false"
+                            [hideSelected]="true"
+                            [items]="users$"
+                            [multiple]="true"
+                            bindLabel="name"
+                            formControlName="cc"
+                            placeholder="CC:">
+                    </ng-select>
+                </div>
+                <div class="form-group">
+                    <ng-select
+                            [closeOnSelect]="false"
+                            [hideSelected]="true"
+                            [items]="users$"
+                            [multiple]="true"
+                            bindLabel="name"
+                            formControlName="bcc"
+                            placeholder="BCC:">
+                    </ng-select>
+                </div>
+                <div class="form-group">
+                    <quill-editor formControlName="content"
+                                  placeholder="Insert memo content..."></quill-editor>
+                </div>
+                <div class="form-group">
+                    <div class="btn btn-default btn-file">
+                        <i class="fa fa-paperclip"></i> Attachment
+                        <input name="attachment" type="file">
+                    </div>
+                    <p class="help-block">Max. 32MB</p>
+                </div>
             </div>
-            <p class="help-block">Max. 32MB</p>
-        </div>
 
-    </div>
-    <!-- /.box-body -->
-    <div class="box-footer">
-        <div class="pull-right">
-            <button class="btn btn-default" type="button"><i class="fa fa-pencil"></i> Draft</button>
-            <button class="btn btn-primary" type="submit"><i class="fa fa-envelope-o"></i> Send</button>
-        </div>
-        <button class="btn btn-default" type="reset"><i class="fa fa-times"></i> Discard</button>
-    </div>
-    <!-- /.box-footer -->
-</form>
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="col-md-12">
+                <div class="float-left">
+                    <button nbButton status="warning" size="small" type="reset"><i class="fa fa-times"></i>
+                        Discard
+                    </button>
+                </div>
+
+                <div class="float-right">
+                    <button nbButton status="primary" size="small" type="button">
+                        <i class="fa fa-pencil"></i> Draft
+                    </button>
+                    <span class="m-1"></span>
+                    <button nbButton status="success" size="small" type="submit">
+                        <i class="fa fa-envelope-o"></i> Send
+                    </button>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </nb-card-footer>
+    </form>
+</nb-card>

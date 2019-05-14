@@ -1,62 +1,59 @@
 <div class="row">
-  <div class="col-md-3">
-    <div *ngIf="router.isActive('/pages/memo/compose', false)">
-      <a routerLink="/home/memo/underReview" class="btn btn-primary btn-block margin-bottom">Under Review</a>
-    </div>
-    <div *ngIf="!router.isActive('/pages/memo/compose', false)">
-      <a routerLink="/home/memo/compose" class="btn btn-primary btn-block margin-bottom">Compose</a>
-    </div>
-
-    <div class="box box-solid">
-      <div class="box-header with-border">
-        <h3 class="box-title">Folders</h3>
-
-        <div class="box-tools">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-          </button>
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                <nb-card>
+                    <nb-card-body>
+                        <div *ngIf="router.isActive('/pages/memo/compose', false)">
+                            <a routerLink="/home/memo/underReview" class="btn btn-primary btn-block margin-bottom">Under
+                                Review</a>
+                        </div>
+                        <div *ngIf="!router.isActive('/pages/memo/compose', false)">
+                            <a routerLink="/home/memo/compose"
+                               class="btn btn-primary btn-block margin-bottom">Compose</a>
+                        </div>
+                    </nb-card-body>
+                </nb-card>
+            </div>
         </div>
-      </div>
-      <div class="box-body no-padding">
-        <ul class="nav nav-pills nav-stacked">
-          <li routerLinkActive="active"><a routerLink="/home/memo/underReview"><i class="fa fa-inbox"></i> Under Review
-            <span class="label label-primary pull-right">12</span></a></li>
-          <li routerLinkActive="active"><a routerLink="/home/memo/sent"><i class="fa fa-envelope-o"></i> Sent</a></li>
-          <li routerLinkActive="active"><a routerLink="/home/memo/drafts"><i class="fa fa-file-text-o"></i> Drafts</a></li>
-          <li routerLinkActive="active"><a routerLink="/home/memo/approved"><i class="fa fa-check"></i> Approved <span class="label label-warning pull-right">65</span></a>
-          </li>
-          <li routerLinkActive="active"><a routerLink="/home/memo/rejected"><i class="fa fa-times"></i> Rejected</a></li>
-        </ul>
-      </div>
-      <!-- /.box-body -->
-    </div>
-    <!-- /. box -->
-    <div class="box box-solid">
-      <div class="box-header with-border">
-        <h3 class="box-title">Labels</h3>
 
-        <div class="box-tools">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-          </button>
+        <div class="row">
+            <div class="col-md-12">
+                <nb-card>
+                    <nb-card-body>
+                        <nb-list>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/memo/underReview">
+                                    <i class="fa fa-inbox"></i>
+                                    Under Review
+                                    <span class="label label-primary pull-right">12</span>
+                                </a>
+                            </nb-list-item>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/memo/sent"><i class="fa fa-envelope-o"></i> Sent</a>
+                            </nb-list-item>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/memo/drafts">
+                                    <i class="fa fa-file-text-o"></i> Drafts</a>
+                            </nb-list-item>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/memo/approved">
+                                    <i class="fa fa-check"></i> Approved
+                                    <span class="label label-warning pull-right">65</span>
+                                </a>
+                            </nb-list-item>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/memo/rejected">
+                                    <i class="fa fa-times"></i> Rejected</a>
+                            </nb-list-item>
+                        </nb-list>
+                    </nb-card-body>
+                </nb-card>
+            </div>
         </div>
-      </div>
-      <div class="box-body no-padding">
-        <ul class="nav nav-pills nav-stacked">
-          <li><a routerLink="#"><i class="fa fa-circle-o text-red"></i> Important</a></li>
-          <li><a routerLink="#"><i class="fa fa-circle-o text-yellow"></i> Promotions</a></li>
-          <li><a routerLink="#"><i class="fa fa-circle-o text-light-blue"></i> Social</a></li>
-        </ul>
-      </div>
-      <!-- /.box-body -->
     </div>
-    <!-- /.box -->
-  </div>
-  <!-- /.col -->
-  <div class="col-md-9">
-    <div class="box box-primary">
-      <router-outlet></router-outlet>
+    <!-- /.col -->
+    <div class="col-md-9">
+        <router-outlet></router-outlet>
     </div>
-    <!-- /. box -->
-  </div>
-  <!-- /.col -->
 </div>
-<!-- /.row -->
