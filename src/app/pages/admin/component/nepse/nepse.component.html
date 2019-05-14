@@ -1,99 +1,87 @@
 <div class="row">
-
-
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box">
-      <span class="info-box-icon bg-yellow">
-        <i class="fa fa-bank"></i>
-      </span>
-
-            <div class="info-box-content">
-                <span class="info-box-text">Nepse Company</span>
-                <span class="info-box-number">{{nepses}}</span>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
+        <app-icon-card title="Nepse Companies" type="info" detail="{{nepses}}">
+            <i class="fas fa-chalkboard-teacher"></i>
+        </app-icon-card>
     </div>
 
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box">
-      <span class="info-box-icon bg-green">
-        <i class="fa fa-briefcase"></i>
-      </span>
-
-            <div class="info-box-content">
-                <span class="info-box-text">Active</span>
-                <span class="info-box-number">{{activeCount}}</span>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
+        <app-icon-card title="Active" type="success" detail="{{activeCount}}">
+            <i class="fas fa-chalkboard-teacher"></i>
+        </app-icon-card>
     </div>
 
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box">
-      <span class="info-box-icon bg-maroon">
-        <i class="fa fa-address-book"></i>
-      </span>
-
-            <div class="info-box-content">
-                <span class="info-box-text">INACTIVE</span>
-                <span class="info-box-number">{{inactiveCount}}</span>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
+        <app-icon-card title="Inactive" type="warning" detail="{{inactiveCount}}">
+            <i class="fas fa-chalkboard-teacher"></i>
+        </app-icon-card>
     </div>
 </div>
 
-<div class="box box-primary">
-    <div class="box-body">
-        <div class="col-md-12">
-            <div class=row>
-                <div class="col-md-3">
-                    <form (ngSubmit)="onSearch()">
-                        <input type="text" class="input-sm" [(ngModel)]="search.name"
-                               (input)="onSearchChange($event.target.value)" name="name" placeholder="search....">
-                        <button type="submit" class="btn btn-primary btn-sm">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </form>
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                <div class=row>
+                    <div class="col-md-6">
+                        <form (ngSubmit)="onSearch()">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <input type="text" [(ngModel)]="search.name"
+                                           (input)="onSearchChange($event.target.value)" name="name"
+                                           placeholder="search...."
+                                           nbInput fullWidth
+                                    >
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" nbButton outline status="primary">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                    <!-- <h3 class="box-title">Hover Data Table</h3> -->
+                    <div class="col-md-6" *ngIf="addViewNepse">
+                        <div class="float-right">
+                            <button data-toggle="modal" (click)="addNepse()">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+
+                    </div>
                 </div>
-                <!-- <h3 class="box-title">Hover Data Table</h3> -->
-                <div class="col-md-9" *ngIf="addViewNepse">
-                    <button class="skin-blue pull-right" data-toggle="modal" (click)="addNepse()">
-                        <i class="skin-blue fa fa-plus"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <table id="add-branch-table" class="table table-striped table-bordered table-hover " *ngIf="viewNepse">
+            </nb-card-header>
+            <nb-card-body *ngIf="viewNepse">
+                <table id="add-branch-table" class="table table-striped table-bordered table-hover " >
 
-            <thead>
-            <tr>
-                <th>S.N</th>
-                <th>Company</th>
-                <th>Share Amount per Unit</th>
-            </tr>
-            </thead>
+                    <thead>
+                    <tr>
+                        <th>S.N</th>
+                        <th>Company</th>
+                        <th>Share Amount per Unit</th>
+                    </tr>
+                    </thead>
 
-            <tbody>
-            <tr *ngFor="let allList of dataList;let i=index">
-                <div *ngIf="!dataList?.length > 0">
-                    <p>No Content Found</p>
-                </div>
-                <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                <td>{{allList.companyName}}</td>
-                <td>{{allList.amountPerUnit}}</td>
+                    <tbody>
+                    <tr *ngFor="let allList of dataList;let i=index">
+                        <div *ngIf="!dataList?.length > 0">
+                            <p>No Content Found</p>
+                        </div>
+                        <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                        <td>{{allList.companyName}}</td>
+                        <td>{{allList.amountPerUnit}}</td>
 
-            </tr>
-            </tbody>
-        </table>
-        <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
-        <!-- ===================table-pagination==================== -->
-        <app-pagination *ngIf="!spinner"></app-pagination>
-        <!-- ===================table-pagination==================== -->
-
+                    </tr>
+                    </tbody>
+                </table>
+                <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
+                <!-- ===================table-pagination==================== -->
+                <app-pagination *ngIf="!spinner"></app-pagination>
+                <!-- ===================table-pagination==================== -->
+            </nb-card-body>
+        </nb-card>
     </div>
 </div>

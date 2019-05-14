@@ -1,106 +1,60 @@
-<div class="row">
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box">
-      <span class="info-box-icon bg-blue">
-        <i class="fa fa-group"></i>
-      </span>
-            <div class="info-box-content">
-                <span class="info-box-text">Users</span>
-                <span class="info-box-number">22</span>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box">
-      <span class="info-box-icon bg-yellow">
-        <i class="fa fa-bank"></i>
-      </span>
-            <div class="info-box-content">
-                <span class="info-box-text">Branches</span>
-                <span class="info-box-number">10</span>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box">
-      <span class="info-box-icon bg-green">
-        <i class="fa fa-briefcase"></i>
-      </span>
-            <div class="info-box-content">
-                <span class="info-box-text">Segments</span>
-                <span class="info-box-number">5</span>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-    </div>
-</div>
+
 <div class="row">
     <div class="col-md-12">
-        <div class="box box-primary">
-            <div class="box-header">
-                <div class="col-md-12" *ngIf='addViewApprovalLimit'>
-                    <div class=row>
-                        <div class="col-md-12">
-                            <button class="skin-blue pull-right" data-toggle="modal" (click)="addApprovalLimit()">
-                                <i class="skin-blue fa fa-plus"></i>
+        <nb-card>
+            <nb-card-header *ngIf='addViewApprovalLimit'>
+                <div class=row>
+                    <div class="col-md-12">
+                        <div class="float-right">
+                            <button data-toggle="modal" (click)="addApprovalLimit()">
+                                <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
                 </div>
-                <!-- /.box-header -->
-                <div class="box-body" *ngIf='viewApprovalLimit'>
-                    <table id="add-approvalLimit-table" class="table table-striped table-bordered table-hover ">
-                        <thead>
-                        <tr>
-                            <th>S.N</th>
-                            <th>Loan</th>
-                            <th>Amount</th>
-                            <th>Authorities</th>
-                            <th>Approval Type</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let allList of dataList;let i=index">
-                            <div *ngIf="!dataList?.length > 0">
-                                <p>No Content Found</p>
-                            </div>
-                            <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                            <td>
-                                {{allList?.loanCategory?.name}}
-                            </td>
-                            <td>{{allList.amount}}</td>
-                            <td>{{allList?.authorities?.roleName}}</td>
-                            <td>{{allList.loanApprovalType}}</td>
-                            <td>
-                                <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
-                                   data-placement="top" title="EDIT">
-                                    <i class="fa fa-edit" style="color:white"></i>
-                                </a>
-                                <!--<a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE"
-                                 style="margin-left:10px">
-                                <i class="fa fa-trash" style="color:white;"></i>
-                              </a>-->
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
-                    <!-- ===================table-pagination==================== -->
-                    <app-pagination *ngIf="!spinner"></app-pagination>
-                    <!-- ===================table-pagination==================== -->
-                    <!-- /.box-body -->
-                    <!-- /.box -->
-                </div>
-                <!-- /.col -->
-            </div>
-            <!-- /.row -->
-
-        </div>
+            </nb-card-header>
+            <nb-card-body *ngIf='viewApprovalLimit'>
+                <table id="add-approvalLimit-table" class="table table-striped table-bordered table-hover ">
+                    <thead>
+                    <tr>
+                        <th>S.N</th>
+                        <th>Loan</th>
+                        <th>Amount</th>
+                        <th>Authorities</th>
+                        <th>Approval Type</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let allList of dataList;let i=index">
+                        <div *ngIf="!dataList?.length > 0">
+                            <p>No Content Found</p>
+                        </div>
+                        <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                        <td>
+                            {{allList?.loanCategory?.name}}
+                        </td>
+                        <td>{{allList.amount}}</td>
+                        <td>{{allList?.authorities?.roleName}}</td>
+                        <td>{{allList.loanApprovalType}}</td>
+                        <td>
+                            <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
+                               data-placement="top" title="EDIT">
+                                <i class="fa fa-edit" style="color:white"></i>
+                            </a>
+                            <!--<a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE"
+                             style="margin-left:10px">
+                            <i class="fa fa-trash" style="color:white;"></i>
+                          </a>-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
+                <!-- ===================table-pagination==================== -->
+                <app-pagination *ngIf="!spinner"></app-pagination>
+                <!-- ===================table-pagination==================== -->
+            </nb-card-body>
+        </nb-card>
     </div>
 </div>
