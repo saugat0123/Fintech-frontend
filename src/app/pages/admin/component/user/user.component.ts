@@ -1,9 +1,9 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 import {User} from '../../modal/user';
-import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
-import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
-import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
+import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
+import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
+import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
+import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddUserComponent} from './add-user/add-user.component';
 import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';

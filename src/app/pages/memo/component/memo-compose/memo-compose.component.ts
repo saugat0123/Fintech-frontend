@@ -4,7 +4,7 @@ import {MemoService} from '../../service/memo.service';
 import {Observable} from 'rxjs';
 import {Memo} from '../../model/memo';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
+import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MemoDataService} from '../../service/memo-data.service';
 import {User} from '../../../admin/modal/user';

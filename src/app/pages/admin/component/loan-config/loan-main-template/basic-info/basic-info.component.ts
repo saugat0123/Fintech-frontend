@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonService} from '../../../../../../shared-service/baseservice/common-baseservice';
+import {CommonService} from '../../../../../../@core/service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {CommonDataService} from '../../../../../../shared-service/baseservice/common-dataService';
+import {CommonDataService} from '../../../../../../@core/service/baseservice/common-dataService';
 import {Customer} from '../../../../modal/customer';
 import {CustomerRelative} from '../../../../modal/customer-relative';
-import {CommonLocation} from '../../../../../../shared-service/baseservice/common-location';
+import {CommonLocation} from '../../../../../../@core/service/baseservice/common-location';
 import {Province} from '../../../../modal/province';
 import {District} from '../../../../modal/district';
 import {MunicipalityVdc} from '../../../../modal/municipality_VDC';

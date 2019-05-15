@@ -1,8 +1,8 @@
 import {Component, DoCheck} from '@angular/core';
-import {Pageable} from '../../shared-service/baseservice/common-pageable';
-import {CommonPageService} from '../../shared-service/baseservice/common-pagination-service';
-import {CommonService} from '../../shared-service/baseservice/common-baseservice';
-import {CommonDataService} from '../../shared-service/baseservice/common-dataService';
+import {Pageable} from '../../@core/service/baseservice/common-pageable';
+import {CommonPageService} from '../../@core/service/baseservice/common-pagination-service';
+import {CommonService} from '../../@core/service/baseservice/common-baseservice';
+import {CommonDataService} from '../../@core/service/baseservice/common-dataService';
 
 
 @Component({

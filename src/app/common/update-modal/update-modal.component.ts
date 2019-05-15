@@ -1,8 +1,8 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
-import {CommonService} from '../../shared-service/baseservice/common-baseservice';
+import {CommonService} from '../../@core/service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
-import {CommonDataService} from '../../shared-service/baseservice/common-dataService';
-import {CommonPageService} from '../../shared-service/baseservice/common-pagination-service';
+import {CommonDataService} from '../../@core/service/baseservice/common-dataService';
+import {CommonPageService} from '../../@core/service/baseservice/common-pagination-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

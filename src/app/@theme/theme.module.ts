@@ -45,7 +45,7 @@ import {DEFAULT_THEME} from './styles/theme.default';
 import {COSMIC_THEME} from './styles/theme.cosmic';
 import {CORPORATE_THEME} from './styles/theme.corporate';
 import {BaseLayout} from './layouts';
-import {Sidebar1Component} from '../component/base/sidebar/sidebar1/sidebar1.component';
+import {MainNavComponent} from './main-nav/main-nav.component';
 import {RouterModule} from '@angular/router';
 import {IconCardComponent} from './components/iconcard/icon-card.component';
 
@@ -93,7 +93,7 @@ const COMPONENTS = [
     HeaderComponent,
     FooterComponent,
     BaseLayout,
-    Sidebar1Component,
+    MainNavComponent,
     IconCardComponent
 ];
 

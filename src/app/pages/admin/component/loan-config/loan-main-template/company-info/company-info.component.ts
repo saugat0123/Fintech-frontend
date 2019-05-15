@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonService} from '../../../../../../shared-service/baseservice/common-baseservice';
+import {CommonService} from '../../../../../../@core/service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
 import {EntityInfo} from '../../../../modal/entity-info';
 import {LegalStatus} from '../../../../modal/legal-status';
@@ -7,7 +7,7 @@ import {Capital} from '../../../../modal/capital';
 import {Swot} from '../../../../modal/swot';
 import {Proprietors} from '../../../../modal/proprietors';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {CommonLocation} from '../../../../../../shared-service/baseservice/common-location';
+import {CommonLocation} from '../../../../../../@core/service/baseservice/common-location';
 import {Province} from '../../../../modal/province';
 import {District} from '../../../../modal/district';
 import {MunicipalityVdc} from '../../../../modal/municipality_VDC';

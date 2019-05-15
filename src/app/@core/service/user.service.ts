@@ -1,5 +1,5 @@
 import {HttpClient} from '@angular/common/http';
-import {RestApiService} from '../../shared-service/authentication/rest-api.service';
+import {RestApiService} from './authentication/rest-api.service';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 

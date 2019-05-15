@@ -1,5 +1,5 @@
 import {Component, DoCheck, OnInit, TemplateRef} from '@angular/core';
-import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
+import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {MemoType} from '../../model/memoType';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';

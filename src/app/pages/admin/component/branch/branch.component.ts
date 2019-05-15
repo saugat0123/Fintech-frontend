@@ -1,8 +1,8 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
-import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
-import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
-import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
+import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
+import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
+import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
+import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
 import {Branch} from '../../modal/branch';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddModelComponent} from './add-model/add-model.component';
@@ -11,7 +11,7 @@ import {UpdateModalComponent} from '../../../../common/update-modal/update-modal
 import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
 import {Province} from '../../modal/province';
 import {District} from '../../modal/district';
-import {CommonLocation} from '../../../../shared-service/baseservice/common-location';
+import {CommonLocation} from '../../../../@core/service/baseservice/common-location';
 import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
 
 

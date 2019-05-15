@@ -1,9 +1,9 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 
-import {Pageable} from '../../../../shared-service/baseservice/common-pageable';
-import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
-import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
+import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
+import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
+import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
+import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
 import {Valuator} from '../../modal/valuator';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddValuatorComponent} from './add-valuator/add-valuator.component';

@@ -2,7 +2,7 @@ import {IBaseService} from '../../../core/IBaseService';
 import {MemoType} from '../model/memoType';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {RestApiService} from '../../../shared-service/authentication/rest-api.service';
+import {RestApiService} from '../../../@core/service/authentication/rest-api.service';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({

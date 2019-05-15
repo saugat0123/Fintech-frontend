@@ -1,8 +1,8 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 
 import {Router} from '@angular/router';
-import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
-import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
+import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
+import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {Role} from '../../../modal/role';
 import {LoanConfig} from '../../../modal/loan-config';
 import {ApprovalLimit} from '../../../modal/approval-limit';

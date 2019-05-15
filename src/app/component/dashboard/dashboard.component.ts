@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from '../../shared-service/baseservice/common-dataService';
-import {CommonService} from '../../shared-service/baseservice/common-baseservice';
+import {CommonDataService} from '../../@core/service/baseservice/common-dataService';
+import {CommonService} from '../../@core/service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
 import {BreadcrumbService} from '../../common/breadcrum/breadcrumb.service';
 

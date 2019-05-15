@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MemoBaseComponent} from './component/memo-base/memo-base.component';
@@ -19,7 +18,6 @@ import {AgGridModule} from 'ag-grid-angular';
 import {MemoViewButtonComponent} from './component/memo-underReview/memo-view-button/memo-view-button.component';
 import {ThemeModule} from '../../@theme/theme.module';
 
-
 @NgModule({
     declarations: [
         MemoBaseComponent,
@@ -31,7 +29,6 @@ import {ThemeModule} from '../../@theme/theme.module';
         MemoViewButtonComponent
     ],
     imports: [
-        CommonModule,
         FormsModule,
         SharedModule,
         RouterModule.forChild(MemoRoutes),

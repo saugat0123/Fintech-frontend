@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MemoService} from '../../service/memo.service';
 import {MemoDataService} from '../../service/memo-data.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
+import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {User} from '../../../admin/modal/user';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';

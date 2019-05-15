@@ -1,9 +1,9 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 
-import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
-import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
-import {Pageable} from '../../../../../shared-service/baseservice/common-pageable';
+import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
+import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
+import {CommonPageService} from '../../../../../@core/service/baseservice/common-pagination-service';
+import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {Segment} from '../../../modal/segment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddSegmentComponent} from '../add-segment/add-segment.component';

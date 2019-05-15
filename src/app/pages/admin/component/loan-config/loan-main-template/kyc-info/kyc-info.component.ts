@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Customer} from '../../../../modal/customer';
-import {CommonService} from '../../../../../../shared-service/baseservice/common-baseservice';
+import {CommonService} from '../../../../../../@core/service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
 import {CustomerRelative} from '../../../../modal/customer-relative';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {CommonDataService} from '../../../../../../shared-service/baseservice/common-dataService';
+import {CommonDataService} from '../../../../../../@core/service/baseservice/common-dataService';
 
 @Component({
     selector: 'app-kyc-info',

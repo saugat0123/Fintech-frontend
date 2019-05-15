@@ -3,8 +3,8 @@ import {User} from '../../../modal/user';
 import {Router} from '@angular/router';
 import {Branch} from '../../../modal/branch';
 import {Role} from '../../../modal/role';
-import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
-import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
+import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
+import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 

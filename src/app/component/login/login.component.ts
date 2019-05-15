@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 
-import {baseApi} from '../../shared-service/authentication/api-list.service';
+import {baseApi} from '../../@core/service/authentication/api-list.service';
 
 @Component({
     selector: 'app-login',

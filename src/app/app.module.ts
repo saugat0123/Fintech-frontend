@@ -3,14 +3,13 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './component/login/login.component';
-import {NotificationComponent} from './component/dashboard/notification/notification.component';
 import {PendingLoanComponent} from './component/dashboard/pending-loan/pending-loan.component';
 import {HttpClientModule} from '@angular/common/http';
-import {RestApiService} from './shared-service/authentication/rest-api.service';
-import {CommonService} from './shared-service/baseservice/common-baseservice';
-import {CommonDataService} from './shared-service/baseservice/common-dataService';
+import {RestApiService} from './@core/service/authentication/rest-api.service';
+import {CommonService} from './@core/service/baseservice/common-baseservice';
+import {CommonDataService} from './@core/service/baseservice/common-dataService';
 import {SharedModule} from './pages/shared/shared.module';
-import {CommonLocation} from './shared-service/baseservice/common-location';
+import {CommonLocation} from './@core/service/baseservice/common-location';
 import {QuillModule} from 'ngx-quill';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {ThemeModule} from './@theme/theme.module';
@@ -23,7 +22,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     declarations: [
         AppComponent,
         LoginComponent,
-        NotificationComponent,
         PendingLoanComponent
     ],
     imports: [

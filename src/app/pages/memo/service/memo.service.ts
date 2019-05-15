@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {RestApiService} from '../../../shared-service/authentication/rest-api.service';
+import {RestApiService} from '../../../@core/service/authentication/rest-api.service';
 
 @Injectable({
     providedIn: 'root'

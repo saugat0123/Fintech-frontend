@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
-import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../../shared-service/baseservice/common-pagination-service';
+import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
+import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
+import {CommonPageService} from '../../../../../@core/service/baseservice/common-pagination-service';
 import {Role} from '../../../modal/role';
 import {UpdateModalComponent} from '../../../../../common/update-modal/update-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';

@@ -1,11 +1,11 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 
 import {Router} from '@angular/router';
-import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
-import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
+import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
+import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {Valuator} from '../../../modal/valuator';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {CommonLocation} from '../../../../../shared-service/baseservice/common-location';
+import {CommonLocation} from '../../../../../@core/service/baseservice/common-location';
 import {Province} from '../../../modal/province';
 import {District} from '../../../modal/district';
 import {MunicipalityVdc} from '../../../modal/municipality_VDC';
