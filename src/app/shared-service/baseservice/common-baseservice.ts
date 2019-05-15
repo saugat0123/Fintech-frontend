@@ -44,7 +44,7 @@ export class CommonService {
 
     }
 
-    getByPost(reqUrl, model) {
+        getByPost(reqUrl, model) {
         const url: string = reqUrl;
         const getUrl = this.restApiService.modifyRestUrl(url);
         return this.http.post(getUrl.url, model, {headers: getUrl.header});

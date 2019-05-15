@@ -7,6 +7,8 @@ import {Role} from '../../modal/role';
 import {AddRoleComponent} from './add-role/add-role.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
+import {AlertService} from '../../../../common/alert/alert.service';
+import {Alert, AlertType} from '../../../../common/alert/Alert';
 
 declare var $;
 
@@ -34,6 +36,7 @@ export class RolePermissionComponent implements OnInit {
     activeCount: number;
     inactiveCount: number;
     roleCount: number;
+    isDisabled = false;
 
 
     constructor(
@@ -42,6 +45,7 @@ export class RolePermissionComponent implements OnInit {
         private commonPageService: CommonPageService,
         private router: Router,
         private modalService: NgbModal,
+        private alertService: AlertService,
         private breadcrumbService: BreadcrumbService
     ) {
     }
@@ -157,17 +161,24 @@ export class RolePermissionComponent implements OnInit {
     }
 
     save() {
-        this.spinner = false;
+        this.isDisabled = true;
+        this.spinner = true;
 
         this.commonService.saveOrEdit(this.roleperm, 'v1/roleRightPermission').subscribe(result => {
-            this.globalMsg = 'SUCCESSFULLY ADDED ROLE AND PERMISSION';
-            this.dataService.getGlobalMsg(this.globalMsg);
-            this.dataService.getAlertMsg('true');
+
             this.roleperm = [];
             this.spinner = false;
-            this.roleChanged(this.roleId);
+            // this.roleChanged(this.roleId);
+            this.isDisabled = false;
+            this.router.navigateByUrl('/home').then(e => {
+                if (e) {
 
-            // this.commonService.getByPost('actuator/refresh', null).subscribe((response: any) => {});
+                    this.router.navigate(['/home/role']);
+
+                }
+            });
+            this.alertService.notify(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY ADDED ROLE AND PERMISSION'));
+
         });
     }
 
@@ -200,7 +211,8 @@ export class RolePermissionComponent implements OnInit {
                         },
                         lastModified: new Date(),
                         del: false,
-                        apiRights: this.tempRightList
+                        apiRights: this.tempRightList,
+                        version: this.rolePermissionList[j].version
                     };
 
                     this.roleperm.push(this.permissions);

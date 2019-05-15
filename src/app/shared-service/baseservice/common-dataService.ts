@@ -16,6 +16,7 @@ import {Nepse} from '../../module/admin/modal/nepse';
 import {Company} from '../../module/admin/modal/company';
 import {Document} from '../../module/admin/modal/document';
 import {DmsLoanFile} from '../../module/admin/modal/dms-loan-file';
+import {LoanConfig} from '../../module/admin/modal/loan-config';
 
 
 @Injectable({
@@ -45,6 +46,7 @@ export class CommonDataService {
     renew: Document[] = [];
     initial: Document[] = [];
     dmsLoanfile: DmsLoanFile = new DmsLoanFile();
+    loanConfig: LoanConfig;
 
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
@@ -100,7 +102,6 @@ export class CommonDataService {
     }
 
     setApprovalLimit(approvalLimit: ApprovalLimit) {
-        console.log(approvalLimit);
         this.approvalLimit = approvalLimit;
     }
 
@@ -150,7 +151,6 @@ export class CommonDataService {
     }
 
     setSegment(segment: Segment) {
-        console.log(segment);
         this.segment = segment;
     }
 
@@ -167,7 +167,6 @@ export class CommonDataService {
     }
 
     setDistrict(district: District) {
-        console.log(district);
         this.district = district;
     }
 
@@ -215,6 +214,12 @@ export class CommonDataService {
     setInitialDocument(documents: Document[]) {
         this.initial = documents;
     }
+    setLoan(loanConfig: LoanConfig) {
+        this.loanConfig = loanConfig;
+    }
+    getLoan() {
+        return this.loanConfig;
+    }
 
     setRenewDocument(docuemnts: Document[]) {
         this.renew = docuemnts;
@@ -231,7 +236,6 @@ export class CommonDataService {
     setLoanName(name: string) {
         this.loanType = name;
     }
-
     getLoanName() {
         return this.loanType;
     }

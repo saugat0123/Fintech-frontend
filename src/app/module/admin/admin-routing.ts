@@ -17,6 +17,7 @@ import {ApprovallimitComponent} from './component/approvallimit/approvallimit.co
 import {RolePermissionComponent} from './component/role-permission/role-permission.component';
 import {ListRoleComponent} from './component/role-permission/list-role/list-role.component';
 import {Routes} from '@angular/router';
+import {RoleHierarchyComponent} from './component/role-hierarchy/role-hierarchy.component';
 import {SecurityComponent} from '../loan/component/loan-main-template/security/security.component';
 
 
@@ -41,6 +42,7 @@ export const adminRoutes: Routes = [
     {path: 'company', component: CompanyComponent},
     {path: 'role', component: RolePermissionComponent},
     {path: 'roleList', component: ListRoleComponent},
+    {path: 'roleHierarchy', component: RoleHierarchyComponent},
 
 ];
 

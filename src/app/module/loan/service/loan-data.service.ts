@@ -4,6 +4,11 @@ import {Injectable} from '@angular/core';
 @Injectable({
     providedIn: 'root'
 })
+
+// export interface LooseObject {
+//     [key: string]: any
+// }
+
 export class LoanDataService {
 
 
@@ -20,6 +25,10 @@ export class LoanDataService {
         index: null,
         name: null
     };
+
+
+    loanDocument:   {};
+
     constructor() {
     }
 
@@ -46,6 +55,16 @@ export class LoanDataService {
 
     getPrevious() {
         return this.prvs;
+    }
+
+
+    setLoanDocuments(type, loanDoc) {
+        this.loanDocument = loanDoc;
+
+    }
+
+    getLoanDocuments() {
+        return this.loanDocument;
     }
 
 }

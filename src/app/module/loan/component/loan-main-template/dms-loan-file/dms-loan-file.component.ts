@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {Document} from '../../../../admin/modal/document';
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
@@ -30,8 +30,10 @@ export class DmsLoanFileComponent implements OnInit {
     customerId: number;
     proceed = false;
     errorMessage: string;
-    dmsLoan: DmsLoanFile = new DmsLoanFile();
     dropdownPriorities = [];
+    count = 0;
+    documentMaps = [];
+    documentMap: string;
 
     constructor(private commonService: CommonService,
                 private dataService: CommonDataService,
@@ -43,12 +45,13 @@ export class DmsLoanFileComponent implements OnInit {
     get form() {
         return this.loanForm.controls;
     }
+
     ngOnInit() {
         this.loanType = this.dataService.getLoanName();
         this.dropdownList = [
-            {id: 'LAND_SECURITY', name: 'Land Security'},
-            {id: 'APARTMENT_SECURITY', name: 'Apartment Security'},
-            {id: 'BOTH_TYPE', name: 'Both'},
+            {id: 0, name: 'Land Security'},
+            {id: 1, name: 'Apartment Security'},
+            {id: 2, name: 'Both'},
 
         ];
         this.dropdownPriorities = [
@@ -79,10 +82,6 @@ export class DmsLoanFileComponent implements OnInit {
         }
     }
 
-    onSave() {
-        this.router.navigate(['/summary', this.customerId]);
-    }
-
     onSubmit() {
         // if (this.loanForm.invalid || this.errorMessage !== undefined) {
         if (this.loanForm.invalid) {
@@ -100,15 +99,20 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFile.priority = this.loanForm.get('priority').value;
         this.loanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
         this.loanFile.waiver = this.loanForm.get('waiver').value;
+        this.loanFile.documentMap = this.documentMaps;
         this.commonService.saveOrEdit(this.loanFile, 'v1/dmsLoanFile').subscribe(
             (response: any) => {
-                console.log(response.detail);
                 this.customerId = response.detail.id;
                 this.loanFile = response.detail;
                 this.dataService.setDmsLoanFile(response.detail);
+                this.count++;
+                if (this.count > 1) {
+                    this.router.navigate(['/home/loan/summary', this.customerId]);
+                }
             }
         );
     }
+
     documentUploader(event, documentName: string) {
         const file = event.target.files[0];
         const formdata: FormData = new FormData();
@@ -120,14 +124,17 @@ export class DmsLoanFileComponent implements OnInit {
         this.commonService.getByFilePost('v1/dmsLoanFile/uploadFile', formdata).subscribe(
             (result: any) => {
                 console.log(result.detail);
-                // console.log(result.message);
                 this.document.name = documentName;
                 this.documentPath = result.detail;
                 if (!this.documentPaths.includes(result.detail)) {
                     this.documentPaths.push(this.documentPath);
                 }
                 this.loanFile.documents.push(this.document);
-                console.log(this.documentPaths);
+                this.documentMap = documentName + ':' + result.detail;
+                console.log(this.documentMap);
+                if (!this.documentMaps.includes(this.documentMap)) {
+                    this.documentMaps.push(this.documentMap);
+                }
                 this.document = new LoanDocument();
             });
 

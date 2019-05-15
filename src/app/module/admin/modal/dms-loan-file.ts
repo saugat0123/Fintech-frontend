@@ -7,12 +7,16 @@ export class DmsLoanFile{
     contactNumber: number;
     interestRate: number;
     securities: string;
+    security: string;
     proposedAmount: number;
-    documentPath: string[];
     documentPaths: string[];
+    documentPath: string[];
     tenure: Date;
     priority: string;
+    documentMap:string[];
     recommendationConclusion: string;
     waiver: string;
+    documentPathDocument:[];
     documents: Array<LoanDocument>;
+    createdAt: Date;
 }

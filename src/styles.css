@@ -31,17 +31,15 @@
 .main-sidebar{
     padding-top: 0px;
 }
-body{
-    font-size: 14px;
+
+
+/** End of CSS fix **/
+
+/** Start of Dashboard Box **/
+.dashboard-box .box-body {
+    max-height: 300px;
+    overflow-y: scroll;
 }
-  
-  /** End of CSS fix **/
-  
-  /** Start of Dashboard Box **/
-  .dashboard-box .box-body {
-      max-height: 300px;
-      overflow-y: scroll;
-  }
 
   
   
@@ -74,14 +72,17 @@ body{
 html, body { height: 100vh; }
 body {
     font-size: 12px;
-
-    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
-.select-borderless{
-    border: none;
-    border-bottom: 1px solid #0062cc;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+
+
+
+/*.select-borderless{*/
+    /*border: none;*/
+    /*border-bottom: 1px solid #0062cc;*/
+/*}*/
 .document{
     font-size: 18px;
 }
