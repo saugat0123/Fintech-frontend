@@ -103,15 +103,19 @@
 
                                 </select>
                             </td>
-                            <td>
+                            <td *ngIf="editValuator==true;else status">
                                 <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
                                    data-placement="top" title="EDIT" *ngIf="editValuator">
                                     <i class="fa fa-edit" style="color:white"></i>
                                 </a>
-                                <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px">
-                                  <i class="fa fa-trash" style="color:white;"></i>
-                                </a> -->
+
                             </td>
+                            <ng-template #status>
+
+                                <td>
+                                    <p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>
+                                </td>
+                            </ng-template>
 
                         </tr>
                         </tbody>

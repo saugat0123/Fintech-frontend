@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'app-role-hierarchy',
@@ -8,17 +9,21 @@ import {CommonService} from '../../../../shared-service/baseservice/common-bases
     styleUrls: ['./role-hierarchy.component.css']
 })
 export class RoleHierarchyComponent implements OnInit {
-    currentApi = 'v1/role';
+    currentApi = 'v1/roleHierarchy';
     roleList;
     activeCount: number;
     inactiveCount: number;
     roleCount: number;
+    roleHeirarchy = [];
+    spinner = false;
+    isDisabled = false;
 
-    constructor(
-        private dataService: CommonDataService,
-        private commonService: CommonService,
+
+    constructor(private dataService: CommonDataService,
+                private commonService: CommonService,
     ) {
     }
+
 
     ngOnInit() {
 
@@ -27,7 +32,7 @@ export class RoleHierarchyComponent implements OnInit {
             console.log(response);
         });
 
-        this.commonService.getByAll(this.currentApi + '/get/statusCount').subscribe((response: any) => {
+        this.commonService.getByAll('v1/role/get/statusCount').subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
@@ -36,9 +41,39 @@ export class RoleHierarchyComponent implements OnInit {
         });
     }
 
-    roleChanged(val) {
-        alert(val);
-        this.roleList.splice(val, 1);
+
+    drop(event: CdkDragDrop<string[]>) {
+        this.roleHeirarchy = [];
+
+            if (event.previousContainer === event.container) {
+                moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+            } else {
+                transferArrayItem(event.previousContainer.data,
+                    event.container.data,
+                    event.previousIndex,
+                    event.currentIndex);
+            }
+
+
+        for (let x = 1; x <= event.container.data.length; x++) {
+            const roleOrder = x + 1;
+            event.container.data[x].roleOrder = roleOrder;
+
+            this.roleHeirarchy.push(event.container.data[x]);
+
+        }
+
+    }
+
+    save() {
+        this.spinner = true;
+        this.isDisabled = true;
+        this.commonService.saveOrEdit(this.roleHeirarchy, 'v1/roleHierarchy').subscribe((response: any) => {
+            this.isDisabled = false;
+            this.spinner = false;
+            this.roleList = response.detail;
+
+        });
     }
 
 }

@@ -1,8 +1,9 @@
 <div class="modal-document">
     <div class="modal-content">
         <div class="modal-header" style="display:block">
-            <button type="button" class="close" (click)="onClose()" aria-label="Close">
-                <span aria-hidden="true">×</span></button>
+            <a  class="close cursor" data-dismiss="modal" aria-label="Close"
+                (click)="onClose()">
+                <span aria-hidden="true">×</span></a>
             <h4 class="modal-title pull-left">Add Role</h4>
         </div>
         <div class="modal-body">
@@ -26,7 +27,7 @@
                     </div>
 
                     <div class="modal-footer">
-
+                        <div><sup>*</sup>New Role will added in Lowest Order</div>
                         <button type="submit" class="btn btn-primary"><i
                                 class="fa fa-save"></i>
                         </button>

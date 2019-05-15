@@ -74,6 +74,8 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>UserName</th>
+                            <th>Role</th>
+                            <th>Branch</th>
                             <th>Account No</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -88,18 +90,25 @@
                             <td>{{allList.name}}</td>
                             <td>{{allList.email}}</td>
                             <td>{{allList.userName}}</td>
+                            <td>{{allList.role?.roleName}}</td>
+                            <td>{{allList.branch?.name}}</td>
                             <td>{{allList.accountNo}}</td>
-                            <td>
+                            <td *ngIf="allList.role?.roleName !== 'admin'; else status">
                                 <select [(ngModel)]="allList.status" name="status"
                                         (change)="onChange($event.target.value,allList)">
                                     <option value="ACTIVE">ACTIVE</option>
                                     <option value="INACTIVE">INACTIVE</option>
                                 </select>
                             </td>
-                            <td>
-                                <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
+                            <ng-template #status>
+                                <td>
+                                    <p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>
+                                </td>
+                            </ng-template>
+                            <td *ngIf="allList.role?.roleName !== 'admin';">
+                                <a (click)="openEdit(allList)" class="cursor" data-toggle="tooltip"
                                    data-placement="top" title="EDIT">
-                                    <i class="fa fa-edit" style="color:white"></i>
+                                    <i class="fa fa-edit" style="color:#3c8dbc;"></i>
                                 </a>
                                 <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px">
                                   <i class="fa fa-trash" style="color:white;"></i>

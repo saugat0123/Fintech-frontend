@@ -83,6 +83,16 @@ body {
 
 
 
+.redP{
+    color:red;
+}
+
+.greenP{
+    color:green;
+}
+
+
+
 /*.select-borderless{*/
 /*border: none;*/
 /*border-bottom: 1px solid #0062cc;*/
