@@ -23,7 +23,7 @@
                     <label class="title" for="email">Email</label>
                     <input id="email" formControlName="email" name="email" type="email" class="form-control form-control-sm"
                            placeholder="eg. xyz@abc.com" required>
-                </div>g
+                </div>
             </div>
             <!-- END ROW -->
             <!-- START ROW -->
@@ -32,9 +32,8 @@
                     <div class="form-group">
                         <label class="title" for="province">Province</label>
                         <select name="province" id="province" class="form-control form-control-sm"
-                                    [(ngModel)]="province" (change)="getDistricts()" [ngModelOptions]="{standalone: true}">
-                            <option [ngValue]="undefined" hidden>Province</option>
-                            <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal">
+                                formControlName="province" (change)="getDistricts()">
+                            <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal" [selected]="provinceVal.id === province?.id">
                                 {{provinceVal.name}}
                         </select>
                     </div>
@@ -43,9 +42,9 @@
                     <div class="form-group">
                         <label class="title" for="district">District</label>
                         <select name="district" [(ngModel)]="district" id="district"
-                                class="form-control form-control-sm" [ngModelOptions]="{standalone: true}" (change)="getMunicipalities()">
+                                formControlName="district" class="form-control form-control-sm" (change)="getMunicipalities()">
                             <option [ngValue]="undefined" hidden>District</option>
-                            <option *ngFor="let districtVal of districtList" [ngValue]="districtVal">
+                        <option *ngFor="let districtVal of districtList" [ngValue]="districtVal" [selected]="districtVal.id === district?.id">
                                 {{districtVal.name}}
                             </option>
                         </select>
@@ -54,9 +53,9 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="title" for="municipality">Municipalities or VDC</label>
-                        <select name="municipality" id="municipality" class="form-control form-control-sm">
+                        <select name="municipality" id="municipality" formControlName="municipalitiesOrVDC" class="form-control form-control-sm">
                             <option [ngValue]="undefined" hidden>Municipality</option>
-                            <option *ngFor="let municipalityVal of municipalitiesList" >
+                            <option *ngFor="let municipalityVal of municipalitiesList" [ngValue]="municipalityVal" [selected]="municipalityVal.id === municipality?.id">
                                 {{municipalityVal.name}}
                             </option>
                         </select>
@@ -117,10 +116,10 @@
                 </div>
             </div>
             <!-- END ROW -->
-            <!--<div class="text-center">-->
-                <!--<a class="btn btn-sm btn-flat btn-primary nav-link" data-toggle="tab" aria-expanded="false"-->
-                    <!--type="submit" value="Next" href="{{nxtTab}}" (click)="nextTab()">NEXT</a>-->
-            <!--</div>-->
+           <!-- <div class="text-center">
+                <a class="btn btn-sm btn-flat btn-primary nav-link" data-toggle="tab" aria-expanded="false"
+                    type="submit" value="Next" (click)="onSubmit()">NEXT</a>
+            </div>-->
 
 
         </form>

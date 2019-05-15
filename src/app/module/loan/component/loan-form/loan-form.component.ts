@@ -120,7 +120,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     save() {
-        console.log(this.loanDataService.getLoanDocuments());
+        console.log('save', this.loanDataService.getLoanDocuments());
     }
 
 }

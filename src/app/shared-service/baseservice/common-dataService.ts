@@ -30,7 +30,6 @@ export class CommonDataService {
     document: Document = new Document();
     approvalLimit: ApprovalLimit = new ApprovalLimit();
     user: User = new User();
-    customer: Customer = new Customer();
     valuator: Valuator = new Valuator();
     sector: Sector = new Sector();
     subSector: SubSector = new SubSector();
@@ -113,13 +112,6 @@ export class CommonDataService {
         return this.user;
     }
 
-    setCustomer(customer: Customer) {
-        return this.customer = customer;
-    }
-
-    getCustomer() {
-        return this.customer;
-    }
 
     setValuator(valuator: Valuator) {
         return this.valuator = valuator;

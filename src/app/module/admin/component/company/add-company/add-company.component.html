@@ -13,7 +13,7 @@
                                 <label for="name">Company Name</label>
                                 <input type="hidden" class="form-control" [(ngModel)]="company.id" name="id"
                                        placeholder="id">
-                                <input type="text" class="form-control" [(ngModel)]="company.companyName" name="name"
+                                <input type="text" class="form-control" [(ngModel)]="company.name" name="name"
                                        #compName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && compName.invalid }"
                                        required>
                                 <div *ngIf="f.submitted && compName.invalid" class="invalid-feedback">

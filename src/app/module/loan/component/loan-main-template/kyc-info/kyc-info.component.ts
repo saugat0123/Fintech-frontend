@@ -28,7 +28,6 @@ export class KycInfoComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.customer = this.commonDateService.getCustomer();
         this.basicInfo = this.formBuilder.group({
             otherRelatives: this.formBuilder.array([
                 this.relativeFormGroup()
