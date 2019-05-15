@@ -1,8 +1,10 @@
- <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" style="display:block">
-                <a type="button" class="cursor" data-dismiss="modal" (click)="onClose()" aria-label="Close">
-                    <span aria-hidden="true">×</span></a>
+
+<div class="modal-document">
+    <div class="modal-content">
+        <div class="modal-header" style="display:block">
+            <a  class="close cursor" data-dismiss="modal" aria-label="Close"
+                (click)="onClose()">
+                <span aria-hidden="true">×</span></a>
                 <h4 class="modal-title pull-left">{{task}} User</h4>
             </div>
             <div class="modal-body">

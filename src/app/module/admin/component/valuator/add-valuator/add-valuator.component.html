@@ -1,9 +1,9 @@
-<div class="modal-dialog">
+<div class="modal-document document">
     <div class="modal-content">
         <div class="modal-header" style="display:block">
-            <button (click)="onClose()" aria-label="Close" class="close" data-dismiss="modal"
-                    type="button">
-                <span aria-hidden="true">×</span></button>
+            <a  class="close cursor" data-dismiss="modal" aria-label="Close"
+                (click)="onClose()">
+                <span aria-hidden="true">×</span></a>
             <h4 class="modal-title pull-left">{{task}} Valuator</h4>
         </div>
         <div class="modal-body">
@@ -14,8 +14,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="name">Name</label>
-                            <input type="hidden" class="form-control" [(ngModel)]="valuator.id" name="id">
-                            <input type="text" class="form-control" required
+                            <input type="hidden" class="form-control form-control-sm" [(ngModel)]="valuator.id" name="id">
+                            <input type="text" class="form-control form-control-sm" required
                                    [(ngModel)]="valuator.name" name="name" placeholder="Name"
                                    #name="ngModel" [ngClass]="{'is-invalid': valuatorForm.submitted && name.invalid}"/>
                             <div *ngIf="name.invalid && valuatorForm.submitted" class="invalid-feedback">
@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="province">Province</label>
-                            <select name="province" id="province" class="form-control"
+                            <select name="province" id="province" class="form-control form-control-sm"
                                     [(ngModel)]="province.id" required (change)="getDistricts(province,1)"
                                     (change)="setProvince(province)"
                                     #provinceVal="ngModel"
@@ -46,7 +46,7 @@
                         <div class="col-md-6">
                             <label for="district">District</label>
                             <select name="district" id="district"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     [(ngModel)]="district.id" (change)="setDistrict(district)"
                                     (change)="getMunicipalities(district,1)" required
                                     #districtVal="ngModel"
@@ -64,7 +64,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="municipality">Municipality</label>
-                            <select name="municipality" id="municipality" class="form-control"
+                            <select name="municipality" id="municipality" class="form-control form-control-sm"
                                     [(ngModel)]="municipality.id" (change)="setMunicipality(municipality)" required
                                     #municipal="ngModel"
                                     [ngClass]="{ 'is-invalid': valuatorForm.submitted && municipal.invalid }">
@@ -85,7 +85,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="street_name">Street</label>
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control form-control-sm"
                                    [(ngModel)]="valuator.streetName" name="street"
                                    id="street_name"
                                    placeholder="Street Name" required
@@ -97,7 +97,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="ward_number">Ward</label>
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control form-control-sm"
                                    [(ngModel)]="valuator.wardNumber" name="ward"
                                    id="ward_number"
                                    placeholder="Ward" required
@@ -113,7 +113,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="contactNo">Contact Number</label>
-                            <input type="text" class="form-control" [(ngModel)]="valuator.contactNo" name="contactNo"
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="valuator.contactNo" name="contactNo"
                                    placeholder="Phone Number"
                                    #contact="ngModel"
                                    [ngClass]="{'is-invalid': valuatorForm.submitted && contact.invalid}" required/>
@@ -123,7 +123,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="site_province">Site Province</label>
-                            <select name="province" id="site_province" class="form-control"
+                            <select name="province" id="site_province" class="form-control form-control-sm"
                                     [(ngModel)]="siteProvince.id" required (change)="getDistricts(siteProvince,0)"
                                     (change)="setSiteProvince(siteProvince)"
                                     #provinceValSite="ngModel"
@@ -145,7 +145,7 @@
                         <div class="col-md-6">
                             <label for="site_district">Site District</label>
                             <select name="site_district" id="site_district"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     [(ngModel)]="siteDistrict.id" (change)="setSiteDistrict(siteDistrict)"
                                     (change)="getMunicipalities(siteDistrict,0)" required
                                     #districtSiteVal="ngModel"
@@ -163,7 +163,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="site_municipality">Site Municipality</label>
-                            <select name="site_municipality" id="site_municipality" class="form-control"
+                            <select name="site_municipality" id="site_municipality" class="form-control form-control-sm"
                                     [(ngModel)]="siteMunicipality.id" (change)="setSiteMunicipality(siteMunicipality)" required
                                     #municipalSite="ngModel"
                                     [ngClass]="{ 'is-invalid': valuatorForm.submitted && municipalSite.invalid }">
@@ -184,7 +184,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="site_street_name">Site Street</label>
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control form-control-sm"
                                    [(ngModel)]="valuator.siteStreetName" name="site_street_name"
                                    id="site_street_name"
                                    placeholder="Site Street Name" required
@@ -196,7 +196,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="site_ward_number">Site Ward</label>
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control form-control-sm"
                                    [(ngModel)]="valuator.siteWardNumber" name="site_ward_number"
                                    id="site_ward_number"
                                    placeholder="Site Ward" required

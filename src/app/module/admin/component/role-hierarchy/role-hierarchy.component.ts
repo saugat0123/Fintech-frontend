@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {RoleOrders} from '../../modal/roleOrders';
 
 @Component({
     selector: 'app-role-hierarchy',
@@ -17,6 +18,7 @@ export class RoleHierarchyComponent implements OnInit {
     roleHeirarchy = [];
     spinner = false;
     isDisabled = false;
+    tempRoleOrders: RoleOrders[];
 
 
     constructor(private dataService: CommonDataService,
@@ -42,24 +44,23 @@ export class RoleHierarchyComponent implements OnInit {
     }
 
 
-    drop(event: CdkDragDrop<string[]>) {
+    drop(event: CdkDragDrop<RoleOrders[]>) {
         this.roleHeirarchy = [];
 
-            if (event.previousContainer === event.container) {
-                moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-            } else {
-                transferArrayItem(event.previousContainer.data,
-                    event.container.data,
-                    event.previousIndex,
-                    event.currentIndex);
-            }
+        if (event.previousContainer === event.container) {
+            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        } else {
+            transferArrayItem(event.previousContainer.data,
+                event.container.data,
+                event.previousIndex,
+                event.currentIndex);
+        }
+        this.tempRoleOrders = event.container.data;
 
-
-        for (let x = 1; x <= event.container.data.length; x++) {
+        for (let x = 0; x < this.tempRoleOrders.length; x++) {
             const roleOrder = x + 1;
-            event.container.data[x].roleOrder = roleOrder;
-
-            this.roleHeirarchy.push(event.container.data[x]);
+            this.tempRoleOrders[x].roleOrder = roleOrder;
+            this.roleHeirarchy.push(this.tempRoleOrders[x]);
 
         }
 

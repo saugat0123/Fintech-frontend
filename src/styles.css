@@ -81,7 +81,12 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+label{
+    font-weight: 500;
+    padding-top:10px;
+    margin-bottom: 2px;
 
+}
 
 .redP{
     color:red;
