@@ -53,26 +53,33 @@
             <div class="box-header">
                 <div class="col-md-12">
                     <div class="box-body">
-
-                        <div class="section-heading justify-content-center">
-                            <div class="titleRole">Role Order</div></div>
-                        <div class="drag-container" align="center">
-                            <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="roleList"
-                                 class="item-list" (cdkDropListDropped)="drop($event)">
-                                <div class="item-box" *ngFor="let item of roleList;let i=index" cdkDrag>
-                                    <div class="col-md-2">{{i+1}}</div>
-                                    <div class="col-md-10 pull-right">{{item.role?.roleName}}</div>
+                        <div *ngIf="!roleList?.length > 0">
+                            <p>NO Role Has Been Created Yet!</p>
+                        </div>
+                        <div *ngIf="roleList?.length > 0">
+                            <div class="section-heading justify-content-center">
+                                <div class="titleRole">Role Order</div>
+                            </div>
+                            <div class="drag-container" align="center">
+                                <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="roleList"
+                                     class="item-list" (cdkDropListDropped)="drop($event)">
+                                    <div class="item-box" *ngFor="let item of roleList;let i=index" cdkDrag>
+                                        <div class="col-md-2">{{i+1}}</div>
+                                        <div class="col-md-10 pull-right">{{item.role?.roleName}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn btn-sm btn-flat btn-primary pull-right" value="SAVE"
+                                            (click)="save()" [disabled]="isDisabled">
+                                        <span *ngIf="!isDisabled">SAVE</span>
+                                        <app-spinner *ngIf="spinner"
+                                                     class="d-flex justify-content-center"></app-spinner>
+                                    </button>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <button class="btn btn-sm btn-flat btn-primary pull-right" value="SAVE" (click)="save()" [disabled]="isDisabled">
-                                    <span *ngIf="!isDisabled">SAVE</span>
-                                    <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
-                                </button>
-                            </div>
+
+
                         </div>
-
-
                     </div>
 
                 </div>
