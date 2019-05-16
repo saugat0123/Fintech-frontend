@@ -10,9 +10,9 @@ import {LoanConfig} from '../../module/admin/modal/loan-config';
 import {Document} from '../../module/admin/modal/document';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
 
@@ -48,7 +48,7 @@ export class DashboardComponent implements OnInit {
         this.dataService.changeTitle(this.title);
         this.commonService.getByAll('v1/config/getAll').subscribe((response: any) => {
             this.loanList = response.detail;
-            });
+        });
 
         this.commonService.getByPost('v1/permission/chkPerm', 'DASHBOARD').subscribe(
             (response: any) => {
@@ -77,8 +77,8 @@ export class DashboardComponent implements OnInit {
         });
 
     }
-    loan()
-    {
+
+    loan() {
         this.spinner = true;
         this.router.navigate(['/home/loan/loanForm'], {queryParams: {loanId: this.loanType, customerId: 'jimmy'}});
     }

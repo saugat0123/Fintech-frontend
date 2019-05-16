@@ -138,12 +138,5 @@ export class DmsLoanFileComponent implements OnInit {
                 }
                 this.document = new LoanDocument();
             });
-
-        // (error) => {
-        //     this.errorMessage = error.error.message;
-        //     console.log(error.error.message);
-        //     console.log(this.errorMessage);
-        // });
-        // this.errorMessage = undefined;
     }
 }

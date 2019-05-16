@@ -13,6 +13,8 @@ import {KycInfoComponent} from './component/loan-main-template/kyc-info/kyc-info
 import {DmsLoanFileComponent} from './component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {DmsSummaryComponent} from './component/loan-main-template/dms-summary/dms-summary.component';
+import {SecurityComponent} from './component/loan-main-template/security/security.component';
+
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import {DmsSummaryComponent} from './component/loan-main-template/dms-summary/dm
         KycInfoComponent,
         DmsLoanFileComponent,
         DmsSummaryComponent,
+        SecurityComponent
 
     ],
     imports: [
@@ -38,7 +41,9 @@ import {DmsSummaryComponent} from './component/loan-main-template/dms-summary/dm
     ],
     entryComponents: [
         MsgModalComponent
+
     ]
+
 })
 export class LoanModule {
 }

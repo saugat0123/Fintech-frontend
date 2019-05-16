@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 
 import {Router} from '@angular/router';
 
@@ -14,6 +14,7 @@ import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {CommonLocation} from '../../../../../shared-service/baseservice/common-location';
 import {LoanDataService} from '../../../service/loan-data.service';
+import {ManagementTeam} from '../../../../admin/modal/management-team';
 
 
 @Component({
@@ -21,12 +22,14 @@ import {LoanDataService} from '../../../service/loan-data.service';
     templateUrl: './company-info.component.html',
     styleUrls: ['./company-info.component.css']
 })
-export class CompanyInfoComponent implements OnInit {
+export class CompanyInfoComponent implements OnInit, DoCheck {
     entityInfo: EntityInfo = new EntityInfo();
     legalStatus: LegalStatus = new LegalStatus();
     capital: Capital = new Capital();
     swot: Swot = new Swot();
+    managementTeamList: Array<ManagementTeam> = new Array<ManagementTeam>();
     proprietors: Proprietors = new Proprietors();
+    proprietorsList: Array<Proprietors> = new Array<Proprietors>();
     companyInfo: FormGroup;
     provinceList: Province[] = [];
     districtList: District[] = [];
@@ -53,34 +56,137 @@ export class CompanyInfoComponent implements OnInit {
             }
         );
         this.companyInfo = this.formBuilder.group({
-            companyName: [''],
-            corporateStructure: [''],
-            registeredOffice: [''],
-            registeredUnderAct: [''],
-            registrationNo: [''],
-            registrationDate: [''],
-            panRegistrationOffice: [''],
-            panNumber: [''],
-            panRegistrationDate: [''],
-            authorizedCapital: [''],
-            paidUpCapital: [''],
-            issuedCapital: [''],
-            totalCapital: [''],
-            fixedCapital: [''],
-            workingCapital: [''],
-            numberOfShareholder: [''],
+            companyName: [undefined],
+            corporateStructure: [undefined],
+            registeredOffice: [undefined],
+            registeredUnderAct: [undefined],
+            registrationNo: [undefined],
+            registrationDate: [undefined],
+            panRegistrationOffice: [undefined],
+            panNumber: [undefined],
+            panRegistrationDate: [undefined],
+            authorizedCapital: [undefined],
+            paidUpCapital: [undefined],
+            issuedCapital: [undefined],
+            totalCapital: [undefined],
+            fixedCapital: [undefined],
+            workingCapital: [undefined],
+            numberOfShareholder: [undefined],
             managementTeams: this.formBuilder.array([
                 this.managementTeamFormGroup()
             ]),
             proprietors: this.formBuilder.array([
                 this.proprietorsFormGroup()
             ]),
-            strength: [''],
-            weakness: [''],
-            opportunity: [''],
-            threats: [''],
-
+            strength: [undefined],
+            weakness: [undefined],
+            opportunity: [undefined],
+            threats: [undefined]
         });
+        if (this.loanDataService.getEntityInfo().legalStatus !== undefined) {
+            this.entityInfo = this.loanDataService.getEntityInfo();
+            this.legalStatus = this.entityInfo.legalStatus;
+            this.capital = this.entityInfo.capital;
+            this.swot = this.entityInfo.swot;
+            this.companyInfo = this.formBuilder.group({
+                // legal status
+                companyName: [this.legalStatus.companyName],
+                corporateStructure: [this.legalStatus.corporateStructure],
+                registeredOffice: [this.legalStatus.registeredOffice],
+                registeredUnderAct: [this.legalStatus.registeredUnderAct],
+                registrationNo: [this.legalStatus.registrationNo],
+                registrationDate: [this.legalStatus.registrationDate],
+                panRegistrationOffice: [this.legalStatus.registeredOffice],
+                panNumber: [this.legalStatus.panNumber],
+                panRegistrationDate: [this.legalStatus.panRegistrationDate],
+                // company information
+                authorizedCapital: [this.capital.authorizedCapital],
+                paidUpCapital: [this.capital.paidUpCapital],
+                issuedCapital: [this.capital.issuedCapital],
+                totalCapital: [this.capital.totalCapital],
+                fixedCapital: [this.capital.fixedCapital],
+                workingCapital: [this.capital.workingCapital],
+                numberOfShareholder: [this.capital.numberOfShareholder],
+                managementTeams: this.formBuilder.array([
+                    this.managementTeamFormGroup()
+                ]),
+                proprietors: this.formBuilder.array([
+                    this.proprietorsFormGroup()
+                ]),
+                // swot
+                strength: [this.swot.strength],
+                weakness: [this.swot.weakness],
+                opportunity: [this.swot.opportunity],
+                threats: [this.swot.threats]
+            });
+            this.managementTeamList = this.entityInfo.managementTeamList;
+            this.proprietorsList = this.entityInfo.proprietorsList;
+            this.companyInfo.setControl('managementTeams', this.setManagementTeams(this.managementTeamList));
+            this.companyInfo.setControl('proprietors', this.setProprietors(this.proprietorsList));
+        }
+    }
+
+    ngDoCheck(): void {
+        this.onSubmit();
+    }
+
+    setManagementTeams(managementTeamList: ManagementTeam[]): FormArray {
+        const managementTeamFormArray = new FormArray([]);
+        managementTeamList.forEach(managementTeam => {
+            console.log(managementTeam);
+            console.log(managementTeam.name);
+            managementTeamFormArray.push(this.formBuilder.group({
+                name: managementTeam.name,
+                designation: managementTeam.designation
+            }));
+        });
+        return managementTeamFormArray;
+    }
+
+    managementTeamFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            name: [undefined],
+            designation: [undefined]
+        });
+    }
+
+    removeManagementTeam(index: number) {
+        (<FormArray>this.companyInfo.get('managementTeams')).removeAt(index);
+    }
+
+    addManagementTeam() {
+        (<FormArray>this.companyInfo.get('managementTeams')).push(this.managementTeamFormGroup());
+    }
+
+    proprietorsFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            name: [undefined],
+            contactNo: [undefined],
+            address: [undefined],
+            share: [undefined],
+        });
+    }
+
+    setProprietors(proprietorsList: Proprietors[]): FormArray {
+        const managementTeamFormArray = new FormArray([]);
+        proprietorsList.forEach(proprietors => {
+            managementTeamFormArray.push(this.formBuilder.group({
+                name: proprietors.name,
+                contactNo: proprietors.contactNo,
+                address: proprietors.address,
+                share: proprietors.share
+            }));
+        });
+        return managementTeamFormArray;
+    }
+
+    removeProprietor(index: number) {
+        (<FormArray>this.companyInfo.get('proprietors')).removeAt(index);
+
+    }
+
+    addProprietor() {
+        (<FormArray>this.companyInfo.get('proprietors')).push(this.proprietorsFormGroup());
     }
 
     getDistricts() {
@@ -103,7 +209,7 @@ export class CompanyInfoComponent implements OnInit {
     }
 
     onSubmit() {
-
+        console.log(this.companyInfo.get('companyName').value);
         this.legalStatus.companyName = this.companyInfo.get('companyName').value;
         this.legalStatus.corporateStructure = this.companyInfo.get('corporateStructure').value;
         this.legalStatus.registeredOffice = this.companyInfo.get('registeredOffice').value;
@@ -129,43 +235,9 @@ export class CompanyInfoComponent implements OnInit {
         this.swot.opportunity = this.companyInfo.get('opportunity').value;
         this.swot.threats = this.companyInfo.get('threats').value;
         this.entityInfo.swot = this.swot;
+        this.loanDataService.setEntityInfo(this.entityInfo);
         // this.commonService.saveOrEdit(this.entityInfo, 'v1/companyInfo').subscribe();
-        this.loanDataService.setLoanDocuments('companyInfo', this.entityInfo);
 
-    }
-
-    managementTeamFormGroup(): FormGroup {
-        return this.formBuilder.group({
-            name: [''],
-            designation: ['']
-        });
-    }
-
-    proprietorsFormGroup(): FormGroup {
-        return this.formBuilder.group({
-            name: [''],
-            contactNo: [''],
-            address: [''],
-            share: [''],
-        });
-    }
-
-
-    removeManagementTeam(index: number) {
-        (<FormArray>this.companyInfo.get('managementTeams')).removeAt(index);
-    }
-
-    removeProprietor(index: number) {
-        (<FormArray>this.companyInfo.get('proprietors')).removeAt(index);
-
-    }
-
-    addProprietor() {
-        (<FormArray>this.companyInfo.get('proprietors')).push(this.proprietorsFormGroup());
-    }
-
-    addManagementTeam() {
-        (<FormArray>this.companyInfo.get('managementTeams')).push(this.managementTeamFormGroup());
     }
 
 

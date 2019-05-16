@@ -45,7 +45,7 @@ export class SecurityComponent implements OnInit {
 
 
     onChange(event) {
-        let selected = event.target.value;
+        const selected = event.target.value;
         if (selected === 'Land Security') {
             this.showLand();
         } else if (selected === 'Apartment Security') {

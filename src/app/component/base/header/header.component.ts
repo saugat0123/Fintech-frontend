@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
     user: User = new User();
 
     constructor(private commonService: CommonService,
-                private dataService:CommonDataService ) {
+                private dataService: CommonDataService) {
     }
 
     ngOnInit() {

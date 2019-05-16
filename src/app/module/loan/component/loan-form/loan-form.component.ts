@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {LoanDataService} from '../../service/loan-data.service';
@@ -6,11 +6,15 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
+import {LoanDataHolder} from '../../model/loanData';
+import {BasicInfoComponent} from '../loan-main-template/basic-info/basic-info.component';
 
 @Component({
     selector: 'app-loan-form',
     templateUrl: './loan-form.component.html',
-    styleUrls: ['./loan-form.component.css']
+    styleUrls: ['./loan-form.component.css'],
+
+
 })
 export class LoanFormComponent implements OnInit {
     templateList = [{
@@ -22,6 +26,7 @@ export class LoanFormComponent implements OnInit {
     selectedTab;
     nxtTab;
     previousTab;
+    currentTab;
     first = false;
     last = false;
     allId;
@@ -36,6 +41,10 @@ export class LoanFormComponent implements OnInit {
         index: null
     };
 
+    loanDocument: LoanDataHolder = new LoanDataHolder();
+
+    @ViewChild('basicInfo')
+    basicInfo: BasicInfoComponent;
 
     constructor(
         private dataService: CommonDataService,
@@ -46,7 +55,9 @@ export class LoanFormComponent implements OnInit {
         private router: Router,
         private breadcrumbService: BreadcrumbService
     ) {
+
     }
+
 
     ngOnInit() {
 
@@ -59,18 +70,21 @@ export class LoanFormComponent implements OnInit {
                 this.allId = paramsValue;
                 this.id = this.allId.loanId;
             });
+        this.loanDocument = this.loanDataService.getLoanDocuments();
         this.commonService.getByAll('v1/config/get/' + this.id).subscribe((response: any) => {
             this.dataService.setLoanName(response.detail.name);
             this.dataService.setLoan(response.detail);
             this.dataService.setInitialDocument(response.detail.initial);
             this.dataService.setRenewDocument(response.detail.renew);
             this.templateList = response.detail.templateList;
+
             this.breadcrumbService.notify(response.detail.name);
             for (let i = 0; i < this.templateList.length; i++) {
                 this.templateList[i].active = false;
             }
             if (this.templateList.length > 0) {
                 this.templateList[0].active = true;
+
                 this.selectTab(0, this.templateList[0].name);
                 this.first = true;
             }
@@ -102,6 +116,7 @@ export class LoanFormComponent implements OnInit {
             this.nxtTab = this.templateList[index + 1].templateUrl;
             this.last = false;
         } else {
+            this.currentTab = index;
             this.last = true;
         }
 

@@ -75,11 +75,11 @@ export class RolePermissionComponent implements OnInit {
         this.roleId = id;
         this.roleperm = [];
         this.commonService.getByAll('v1/roleRightPermission/' + id).subscribe((response: any) => {
-            console.log('v2',response.detail);
+            console.log('v2', response.detail);
             this.rolePermissionList = response.detail;
             // tslint:disable-next-line:no-shadowed-variable
             this.commonService.getByAll('v1/permission').subscribe((response: any) => {
-                console.log('v1/permission',response.detail);
+                console.log('v1/permission', response.detail);
                 this.allPermission = response.detail;
                 this.checkPermission();
 
@@ -225,7 +225,7 @@ export class RolePermissionComponent implements OnInit {
                 this.allPermission[i].checked = false;
                 this.apiList = this.allPermission[i].apiList;
                 this.tempRightList = this.getCheckApiRight(this.apiList, []);
-            this.allPermission[i].apiRights = this.tempRightList;
+                this.allPermission[i].apiRights = this.tempRightList;
                 this.compareCheckedPermission.push(this.allPermission[i]);
             }
 

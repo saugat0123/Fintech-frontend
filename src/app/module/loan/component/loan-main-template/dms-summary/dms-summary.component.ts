@@ -48,7 +48,7 @@ export class DmsSummaryComponent implements OnInit {
                 this.securities = this.security.split(',');
                 this.user = this.dataService.getUser();
                 this.documents = this.dmsLoanFile.documentPathMaps;
-                for (let document of this.documents) {
+                for (const document of this.documents) {
                     this.documentNames.push(Object.keys(document));
                     this.documentUrls.push(Object.values(document));
                 }

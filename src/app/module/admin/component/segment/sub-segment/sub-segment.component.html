@@ -74,7 +74,7 @@
                 <th>Loan Type</th>
                 <th>Segment</th>
                 <th>Funding Type</th>
-                <th>Action</th>
+                <th *ngIf="editSubSegment">Action</th>
             </tr>
             </thead>
 
@@ -86,9 +86,9 @@
                 <td>{{allList.subSegmentName}}</td>
                 <td>{{allList?.segment?.segmentName}}</td>
                 <td>{{allList.funded}}</td>
-                <td>
+                <td *ngIf="editSubSegment">
                     <a (click)="openEdit(allList,allList.segment)" class="btn btn-primary btn-sm" data-toggle="tooltip"
-                       data-placement="top" title="EDIT" *ngIf="editSubSegment">
+                       data-placement="top" title="EDIT">
                         <i class="fa fa-edit" style="color:white"></i>
                     </a>
                     <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px">

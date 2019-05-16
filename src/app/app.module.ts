@@ -21,7 +21,7 @@ import {Sidebar1Component} from './component/base/sidebar/sidebar1/sidebar1.comp
 import {CommonLocation} from './shared-service/baseservice/common-location';
 import {QuillModule} from 'ngx-quill';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -47,7 +47,8 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
         ReactiveFormsModule,
         ReactiveFormsModule,
         SharedModule,
-        QuillModule
+        QuillModule,
+        DragDropModule
     ],
 
     providers: [CommonService, RestApiService, CommonDataService, CommonLocation, {

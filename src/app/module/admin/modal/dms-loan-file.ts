@@ -1,7 +1,7 @@
 import {LoanDocument} from './loan-document';
 import {LoanConfig} from './loan-config';
 
-export class DmsLoanFile{
+export class DmsLoanFile {
     id: number;
     customerName: string;
     citizenshipNumber: number;
@@ -14,11 +14,11 @@ export class DmsLoanFile{
     documentPath: string[];
     tenure: Date;
     priority: string;
-    documentMap:string[];
+    documentMap: string[];
     recommendationConclusion: string;
     loanType: LoanConfig;
     waiver: string;
-    documentPathMaps:[];
+    documentPathMaps: [];
     documents: Array<LoanDocument>;
     createdAt: Date;
 }

@@ -42,7 +42,7 @@ export class AddValuatorComponent implements OnInit, DoCheck {
         private modalService: NgbModal,
         private activeModal: NgbActiveModal,
         private location: CommonLocation
-    ){
+    ) {
 
     }
 
@@ -185,6 +185,7 @@ export class AddValuatorComponent implements OnInit, DoCheck {
             }
         );
     }
+
     onClose() {
         this.activeModal.dismiss(AddValuatorComponent);
     }

@@ -3,6 +3,6 @@ import {Permission} from './permission';
 
 export class RolePermissionRight {
     id: number;
-    role: Role
+    role: Role;
     permission: Permission;
 }

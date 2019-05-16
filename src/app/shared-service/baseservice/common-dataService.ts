@@ -32,7 +32,6 @@ export class CommonDataService {
     document: Document = new Document();
     approvalLimit: ApprovalLimit = new ApprovalLimit();
     user: User = new User();
-    customer: Customer = new Customer();
     valuator: Valuator = new Valuator();
     sector: Sector = new Sector();
     subSector: SubSector = new SubSector();
@@ -118,13 +117,6 @@ export class CommonDataService {
         return this.user;
     }
 
-    setCustomer(customer: Customer) {
-        return this.customer = customer;
-    }
-
-    getCustomer() {
-        return this.customer;
-    }
 
     setValuator(valuator: Valuator) {
         return this.valuator = valuator;
@@ -214,9 +206,11 @@ export class CommonDataService {
     setInitialDocument(documents: Document[]) {
         this.initial = documents;
     }
+
     setLoan(loanConfig: LoanConfig) {
         this.loanConfig = loanConfig;
     }
+
     getLoan() {
         return this.loanConfig;
     }
@@ -236,13 +230,16 @@ export class CommonDataService {
     setLoanName(name: string) {
         this.loanType = name;
     }
+
     getLoanName() {
         return this.loanType;
     }
-    setDmsLoanFile(dmsLoanFile:DmsLoanFile){
+
+    setDmsLoanFile(dmsLoanFile: DmsLoanFile) {
         this.dmsLoanfile = dmsLoanFile;
     }
-    getDmsLoanFile(){
+
+    getDmsLoanFile() {
         return this.dmsLoanfile;
     }
 

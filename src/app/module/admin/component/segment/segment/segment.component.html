@@ -77,7 +77,7 @@
             <tr>
                 <th>S.N</th>
                 <th>Segment Name</th>
-                <th>Action</th>
+                <th *ngIf="editSegment">Action</th>
             </tr>
             </thead>
 
@@ -88,9 +88,9 @@
                 </div>
                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                 <td>{{allList.segmentName}}</td>
-                <td>
+                <td *ngIf="editSegment">
                     <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
-                       data-placement="top" title="EDIT" *ngIf="editSegment">
+                       data-placement="top" title="EDIT">
                         <i class="fa fa-edit" style="color:white"></i>
                     </a>
                     <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px">

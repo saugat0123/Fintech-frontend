@@ -3,3 +3,4 @@ export enum Security {
     APARTMENT_SECURITY,
     BOTH_TYPE
 }
+

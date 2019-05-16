@@ -46,9 +46,9 @@ import {CommonModule} from '@angular/common';
 import {UpdateModalComponent} from '../../common/update-modal/update-modal.component';
 import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
 import { RoleHierarchyComponent } from './component/role-hierarchy/role-hierarchy.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 // import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
-import { SecurityComponent } from '../loan/component/loan-main-template/security/security.component';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgSelectModule} from '@ng-select/ng-select';
 
@@ -92,7 +92,6 @@ import {NgSelectModule} from '@ng-select/ng-select';
         ListRoleComponent,
         RoleHierarchyComponent,
         // SecurityComponent
-        SecurityComponent,
     ],
     imports: [
         CommonModule,
@@ -103,6 +102,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
         NgMultiSelectDropDownModule.forRoot(),
         RouterModule.forChild(adminRoutes),
         SharedModule,
+        DragDropModule,
         NgSelectModule
     ],
 
