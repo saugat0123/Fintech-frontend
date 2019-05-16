@@ -12,6 +12,7 @@ import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
 import {KycInfoComponent} from './component/loan-main-template/kyc-info/kyc-info.component';
 
 
+
 @NgModule({
     declarations: [
         LoanFormComponent,
@@ -31,7 +32,9 @@ import {KycInfoComponent} from './component/loan-main-template/kyc-info/kyc-info
     ],
     entryComponents: [
         MsgModalComponent
+
     ]
+
 })
 export class LoanModule {
 }

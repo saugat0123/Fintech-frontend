@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {LoanDataService} from '../../service/loan-data.service';
@@ -6,11 +6,15 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
+import {LoanDataHolder} from '../../model/loanData';
+import {BasicInfoComponent} from '../loan-main-template/basic-info/basic-info.component';
 
 @Component({
     selector: 'app-loan-form',
     templateUrl: './loan-form.component.html',
-    styleUrls: ['./loan-form.component.css']
+    styleUrls: ['./loan-form.component.css'],
+
+
 })
 export class LoanFormComponent implements OnInit {
     templateList = [{
@@ -22,9 +26,11 @@ export class LoanFormComponent implements OnInit {
     selectedTab;
     nxtTab;
     previousTab;
+    currentTab;
     first = false;
     last = false;
     allId;
+
     nxtParameter = {
         url: null,
         name: null,
@@ -36,6 +42,10 @@ export class LoanFormComponent implements OnInit {
         index: null
     };
 
+    loanDocument: LoanDataHolder = new LoanDataHolder();
+
+    @ViewChild('basicInfo')
+    basicInfo: BasicInfoComponent;
 
     constructor(
         private dataService: CommonDataService,
@@ -46,9 +56,12 @@ export class LoanFormComponent implements OnInit {
         private router: Router,
         private breadcrumbService: BreadcrumbService
     ) {
+
     }
 
+
     ngOnInit() {
+
 
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
@@ -59,7 +72,7 @@ export class LoanFormComponent implements OnInit {
                 this.allId = paramsValue;
                 this.id = this.allId.loanId;
             });
-        console.log('allId', this.allId);
+        this.loanDocument = this.loanDataService.getLoanDocuments();
         this.commonService.getByAll('v1/config/get/' + this.id).subscribe((response: any) => {
             this.templateList = response.detail.templateList;
 
@@ -101,14 +114,16 @@ export class LoanFormComponent implements OnInit {
             this.nxtTab = this.templateList[index + 1].templateUrl;
             this.last = false;
         } else {
+            this.currentTab = index;
             this.last = true;
         }
 
 
     }
 
+
     nextTab() {
-        console.log(this.loanDataService.getLoanDocuments());
+        this.basicInfo.onSubmit();
         this.nxtParameter = this.loanDataService.getNext();
         this.selectTab(this.nxtParameter.index, this.nxtParameter.name);
 
@@ -120,7 +135,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     save() {
-        console.log('save', this.loanDataService.getLoanDocuments());
+        console.log('save:::::', this.loanDataService.getLoanDocuments());
     }
 
 }

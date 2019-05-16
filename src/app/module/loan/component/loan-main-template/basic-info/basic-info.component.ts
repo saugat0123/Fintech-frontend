@@ -1,4 +1,4 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
@@ -18,10 +18,12 @@ import {LoanDataService} from '../../../service/loan-data.service';
     templateUrl: './basic-info.component.html',
     styleUrls: ['./basic-info.component.css']
 })
-export class BasicInfoComponent implements OnInit, DoCheck {
+export class BasicInfoComponent implements OnInit {
+    @Input() formValue: any;
     customer: Customer = new Customer();
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
     basicInfo: FormGroup;
+
     provinceList: Province[] = [];
     districtList: District[] = [];
     municipalitiesList: MunicipalityVdc[] = [];
@@ -40,9 +42,10 @@ export class BasicInfoComponent implements OnInit, DoCheck {
     ) {
     }
 
-    ngDoCheck() {
-        this.onSubmit();
-    }
+    // ngDoCheck() {
+    //     this.onSubmit();
+    // }
+
 
     ngOnInit() {
         this.commonLocation.getProvince().subscribe(
@@ -50,6 +53,7 @@ export class BasicInfoComponent implements OnInit, DoCheck {
                 this.provinceList = response.detail;
             }
         );
+
         this.basicInfo = this.formBuilder.group({
             title: [undefined],
             customerName: [undefined],
@@ -128,6 +132,8 @@ export class BasicInfoComponent implements OnInit, DoCheck {
         this.customer.issuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
         this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
         this.loanDataService.setCustomer(this.customer);
+
+        console.log('running state');
     }
 
 
