@@ -5,12 +5,14 @@ import {CommonService} from '../../../../../shared-service/baseservice/common-ba
 import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {Branch} from '../../../modal/branch';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+
 import {CommonLocation} from '../../../../../shared-service/baseservice/common-location';
 import {Province} from '../../../modal/province';
 import {District} from '../../../modal/district';
 import {MunicipalityVdc} from '../../../modal/municipality_VDC';
 import {AlertService} from '../../../../../common/alert/alert.service';
 import {Alert, AlertType} from '../../../../../common/alert/Alert';
+
 
 @Component({
     selector: 'app-add-model',
@@ -78,7 +80,6 @@ export class AddModelComponent implements OnInit, DoCheck {
                 this.municipalities = response.detail;
             }
         );
-
     }
 
 
@@ -136,6 +137,7 @@ export class AddModelComponent implements OnInit, DoCheck {
             }
         );
     }
+
 
     onClose() {
         this.activeModal.dismiss(AddModelComponent);

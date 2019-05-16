@@ -13,9 +13,9 @@
       <div class="box-body">
           <ul class="list-group list-group-flush">
               <li class="list-group-item">
-                  <div class="row">
+                  <div class="row" *ngFor="let dmsLoanFile of dmsLoanFiles">
                       <div class="col-md-8">
-                          <div>Test Loan <span class="badge badge-info">Urgent</span></div>
+                          <div>{{dmsLoanFile?.loanType?.name}} <span class="badge badge-info">Urgent</span></div>
                           <div>2,00,00,000</div>
                           <small>Working Capital Loan (New)</small>
                       </div>
@@ -28,56 +28,6 @@
                       </div>
                   </div>
               </li>
-              <!-- /.item -->
-              <li class="list-group-item">
-                  <div class="row">
-                      <div class="col-md-8">
-                          <div>Test Loan <span class="badge badge-info">Urgent</span></div>
-                          <div>2,00,00,000</div>
-                          <small>Working Capital Loan (New)</small>
-                      </div>
-                      <div class="col-md-4">
-                          <small>
-                              Via Sunil
-                          </small>
-                          <small>Relation Manager</small>
-                          <small>Samakhushi Branch</small>
-                      </div>
-                  </div>
-              </li>
-              <li class="list-group-item">
-                  <div class="row">
-                      <div class="col-md-8">
-                          <div>Test Loan <span class="badge badge-info">Urgent</span></div>
-                          <div>2,00,00,000</div>
-                          <small>Working Capital Loan (New)</small>
-                      </div>
-                      <div class="col-md-4">
-                          <small>
-                              Via Sunil
-                          </small>
-                          <small>Relation Manager</small>
-                          <small>Samakhushi Branch</small>
-                      </div>
-                  </div>
-              </li>
-              <li class="list-group-item">
-                  <div class="row">
-                      <div class="col-md-8">
-                          <div>Test Loan <span class="badge badge-info">Urgent</span></div>
-                          <div>2,00,00,000</div>
-                          <small>Working Capital Loan (New)</small>
-                      </div>
-                      <div class="col-md-4">
-                          <small>
-                              Via Sunil
-                          </small>
-                          <small>Relation Manager</small>
-                          <small>Samakhushi Branch</small>
-                      </div>
-                  </div>
-              </li>
-              <!-- /.item -->
           </ul>
       </div>
       <!-- /.box-body -->

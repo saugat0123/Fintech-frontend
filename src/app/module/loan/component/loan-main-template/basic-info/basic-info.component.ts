@@ -53,7 +53,6 @@ export class BasicInfoComponent implements OnInit {
                 this.provinceList = response.detail;
             }
         );
-
         this.basicInfo = this.formBuilder.group({
             title: [undefined],
             customerName: [undefined],

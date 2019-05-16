@@ -5,6 +5,7 @@ import {CommonDataService} from '../../../../../shared-service/baseservice/commo
 import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {Valuator} from '../../../modal/valuator';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+
 import {CommonLocation} from '../../../../../shared-service/baseservice/common-location';
 import {Province} from '../../../modal/province';
 import {District} from '../../../modal/district';
@@ -42,6 +43,7 @@ export class AddValuatorComponent implements OnInit, DoCheck {
         private activeModal: NgbActiveModal,
         private location: CommonLocation
     ) {
+
     }
 
     ngOnInit() {
@@ -187,6 +189,7 @@ export class AddValuatorComponent implements OnInit, DoCheck {
     onClose() {
         this.activeModal.dismiss(AddValuatorComponent);
     }
+
 
     setProvince(province: Province) {
         this.valuator.province = province;

@@ -30,7 +30,6 @@ export class LoanFormComponent implements OnInit {
     first = false;
     last = false;
     allId;
-
     nxtParameter = {
         url: null,
         name: null,
@@ -62,7 +61,6 @@ export class LoanFormComponent implements OnInit {
 
     ngOnInit() {
 
-
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.allId = {
@@ -74,6 +72,10 @@ export class LoanFormComponent implements OnInit {
             });
         this.loanDocument = this.loanDataService.getLoanDocuments();
         this.commonService.getByAll('v1/config/get/' + this.id).subscribe((response: any) => {
+            this.dataService.setLoanName(response.detail.name);
+            this.dataService.setLoan(response.detail);
+            this.dataService.setInitialDocument(response.detail.initial);
+            this.dataService.setRenewDocument(response.detail.renew);
             this.templateList = response.detail.templateList;
 
             this.breadcrumbService.notify(response.detail.name);
@@ -121,9 +123,8 @@ export class LoanFormComponent implements OnInit {
 
     }
 
-
     nextTab() {
-        this.basicInfo.onSubmit();
+        console.log(this.loanDataService.getLoanDocuments());
         this.nxtParameter = this.loanDataService.getNext();
         this.selectTab(this.nxtParameter.index, this.nxtParameter.name);
 
@@ -135,7 +136,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     save() {
-        console.log('save:::::', this.loanDataService.getLoanDocuments());
+        console.log(this.loanDataService.getLoanDocuments());
     }
 
 }

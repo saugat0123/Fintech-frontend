@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
 import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
-import {Router} from '@angular/router';
 import {User} from '../../../../module/admin/modal/user';
+import {RolePermissionRight} from '../../../../module/admin/modal/role-permission-right';
+import {Permission} from '../../../../module/admin/modal/permission';
+import {Router} from '@angular/router';
+import {CommonPageService} from '../../../../shared-service/baseservice/common-pagination-service';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
     selector: 'app-sidebar1',
@@ -14,6 +16,11 @@ export class Sidebar1Component implements OnInit {
     user: User = new User();
     currentApi;
     navList: any;
+    nav: RolePermissionRight = new RolePermissionRight();
+    permissions: Permission[] = [];
+    permissionName: string;
+    permission: Permission = new Permission();
+    imageUrl: string;
 
     constructor(
         private dataService: CommonDataService,

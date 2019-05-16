@@ -49,6 +49,8 @@ import { RoleHierarchyComponent } from './component/role-hierarchy/role-hierarch
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 // import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 @NgModule({
     declarations: [
@@ -97,9 +99,11 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         NgbPaginationModule,
         ReactiveFormsModule,
         ReactiveFormsModule,
+        NgMultiSelectDropDownModule.forRoot(),
         RouterModule.forChild(adminRoutes),
         SharedModule,
-        DragDropModule
+        DragDropModule,
+        NgSelectModule
     ],
 
     entryComponents: [

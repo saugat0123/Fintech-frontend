@@ -221,11 +221,12 @@
                         <div class="form-group">
                             <label for="province" class="title">Province</label>
                             <select name="province" [(ngModel)]="province" id="province"
-                                    class="form-control" [ngModelOptions]="{standalone: true}" (change)="getDistricts()">
+                                    class="form-control" [ngModelOptions]="{standalone: true}"
+                                    (change)="getDistricts()">
                                 <option [ngValue]="undefined" hidden>Province</option>
-                               <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal">
-                                   {{provinceVal.name}}
-                               </option>
+                                <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal">
+                                    {{provinceVal.name}}
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -233,7 +234,8 @@
                         <div class="form-group">
                             <label class="title" for="district">District</label>
                             <select name="district" [(ngModel)]="district" id="district"
-                                    class="form-control" [ngModelOptions]="{standalone: true}" (change)="getMunicipalities()">
+                                    class="form-control" [ngModelOptions]="{standalone: true}"
+                                    (change)="getMunicipalities()">
                                 <option [ngValue]="undefined" hidden>District</option>
                                 <option *ngFor="let districtVal of districtList" [ngValue]="districtVal">
                                     {{districtVal.name}}
@@ -246,7 +248,7 @@
                             <label class="title" for="municipality">Municipalities or VDC</label>
                             <select name="municipality" id="municipality" class="form-control">
                                 <option [ngValue]="undefined" hidden>Municipality</option>
-                                <option *ngFor="let municipalityVal of municipalitiesList" >
+                                <option *ngFor="let municipalityVal of municipalitiesList">
                                     {{municipalityVal.name}}
                                 </option>
                             </select>

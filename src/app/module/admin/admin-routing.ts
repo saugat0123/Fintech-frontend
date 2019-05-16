@@ -18,6 +18,7 @@ import {RolePermissionComponent} from './component/role-permission/role-permissi
 import {ListRoleComponent} from './component/role-permission/list-role/list-role.component';
 import {Routes} from '@angular/router';
 import {RoleHierarchyComponent} from './component/role-hierarchy/role-hierarchy.component';
+import {SecurityComponent} from '../loan/component/loan-main-template/security/security.component';
 
 
 // import {SecurityComponent} from './component/loan-config/loan-main-template/security/security.component';

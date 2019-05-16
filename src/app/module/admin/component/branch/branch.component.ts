@@ -6,6 +6,7 @@ import {CommonPageService} from '../../../../shared-service/baseservice/common-p
 import {Branch} from '../../modal/branch';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddModelComponent} from './add-model/add-model.component';
+
 import {MunicipalityVdc} from '../../modal/municipality_VDC';
 import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
 import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
@@ -13,9 +14,6 @@ import {Province} from '../../modal/province';
 import {District} from '../../modal/district';
 import {CommonLocation} from '../../../../shared-service/baseservice/common-location';
 import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
-
-
-declare var $;
 
 @Component({
     selector: 'app-branch',
@@ -125,9 +123,13 @@ export class BranchComponent implements OnInit, DoCheck {
 
 
     onChange(newValue, data) {
+
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
+
+        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+
         event.preventDefault();
         this.newValue = newValue;
         this.dataService.setData(data);
