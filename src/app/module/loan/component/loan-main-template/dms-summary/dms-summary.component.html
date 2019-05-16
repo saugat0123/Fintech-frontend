@@ -58,7 +58,7 @@
                 <tbody>
                 <tr>
                     <td>1</td>
-                    <td>{{loanType}}</td>
+                    <td>{{dmsLoanFile?.loanType?.name}}</td>
                     <td>{{dmsLoanFile.proposedAmount}}</td>
                     <td>{{dmsLoanFile.interestRate}}</td>
                     <td>{{dmsLoanFile.tenure | date}}</td>
@@ -136,7 +136,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let document of documentName; let i = index">
+                <tr *ngFor="let document of documentNames; let i = index">
                     <td>{{i+1}}</td>
                     <td>{{document}}</td>
                     <td><button class="btn-sm btn-primary flat" (click)="download(i)">Download</button> </td>

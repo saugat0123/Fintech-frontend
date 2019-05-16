@@ -10,20 +10,19 @@ import {CommonService} from '../../../shared-service/baseservice/common-baseserv
     styleUrls: ['./pending-loan.component.css']
 })
 export class PendingLoanComponent implements OnInit {
-    loanConfig : LoanConfig = new LoanConfig();
+    loanConfig: LoanConfig = new LoanConfig();
     dmsLoanFiles: DmsLoanFile[] = [];
+
     constructor(private dataService: CommonDataService,
                 private commonDataService: CommonService) {
     }
-
     ngOnInit() {
-     this.commonDataService.getByAll("v1/dmsLoanFile/getAll").subscribe(
-           (response: any) =>{
-               console.log(response.detail);
-               this.dmsLoanFiles.push(response.detail);
-           }
-       );
-     this.loanConfig = this.dataService.getLoan();
+        this.commonDataService.getByAll('v1/dmsLoanFile/getAll').subscribe(
+            (response: any) => {
+                console.log(response.detail);
+                this.dmsLoanFiles.push(response.detail);
+                this.loanConfig = response.detail.loanType;
+            }
+        );
     }
-
 }

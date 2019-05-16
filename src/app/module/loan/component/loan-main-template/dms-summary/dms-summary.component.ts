@@ -27,49 +27,51 @@ export class DmsSummaryComponent implements OnInit {
     Security: typeof Security = Security;
     documents: [] = [];
     documentPaths: string[] = [];
+    documentUrls = [];
     documentUrl: string;
-    documentName=[];
+    documentNames = [];
+    documentName: string;
     id: number;
-    keys:any;
+
     constructor(private dataService: CommonDataService,
                 private commonService: CommonService,
                 private router: ActivatedRoute) {
+
     }
 
     ngOnInit() {
         this.id = this.router.snapshot.params['id'];
-        console.log(this.id);
         this.commonService.getById('v1/dmsLoanFile/getById/' + this.id).subscribe(
             (response: any) => {
-                console.log('from summary', response.detail);
                 this.dmsLoanFile = response.detail;
                 this.security = this.dmsLoanFile.security;
                 this.securities = this.security.split(',');
                 this.user = this.dataService.getUser();
-                this.documents = this.dmsLoanFile.documentPathDocument;
-                console.log(this.documents);
-                // console.log(this.documents);
-                // for(let document of this.documents){
-                //     console.log(Object.keys(document));
-                //     this.documentName.push(Object.keys(document));
-                //     console.log(Object.values(document));
-                //     console.log(this.documentName);
-                // }
+                this.documents = this.dmsLoanFile.documentPathMaps;
+                for (let document of this.documents) {
+                    this.documentNames.push(Object.keys(document));
+                    this.documentUrls.push(Object.values(document));
+                }
             }
         );
-
     }
 
     download(i) {
-        // console.log(this.documentPath[2]);
-        // console.log(i);
-        this.documentUrl = this.documentPaths[i];
-        // console.log(this.documentUrl);
-        this.commonService.getByPost('v1/dmsLoanFile/download', this.documentUrl).subscribe(
+        this.documentUrl = this.documentUrls[i];
+        this.documentName = this.documentNames[i];
+        this.commonService.getByPath('v1/dmsLoanFile/download', this.documentUrl).subscribe(
             (response: any) => {
-                console.log(response.detail);
+                const newBlob = new Blob([response], {type: 'application/txt'});
+                const downloadUrl = window.URL.createObjectURL(response);
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                link.download = this.documentName + '.jpg';
+                link.click();
+            },
+            error1 => {
+                console.log('Error downloading the file');
             }
         );
-
     }
 }
+

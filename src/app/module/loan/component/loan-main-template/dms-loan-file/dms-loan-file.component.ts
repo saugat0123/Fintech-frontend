@@ -26,7 +26,8 @@ export class DmsLoanFileComponent implements OnInit {
     documentPath: string;
     dropdownList = [];
     submitted = false;
-    loanType: string;
+    loanName: string;
+    loanType: LoanConfig = new LoanConfig();
     customerId: number;
     proceed = false;
     errorMessage: string;
@@ -47,7 +48,8 @@ export class DmsLoanFileComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loanType = this.dataService.getLoanName();
+        this.loanName = this.dataService.getLoanName();
+        this.loanType = this.dataService.getLoan();
         this.dropdownList = [
             {id: 0, name: 'Land Security'},
             {id: 1, name: 'Apartment Security'},
@@ -100,6 +102,7 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
         this.loanFile.waiver = this.loanForm.get('waiver').value;
         this.loanFile.documentMap = this.documentMaps;
+        this.loanFile.loanType = this.loanType;
         this.commonService.saveOrEdit(this.loanFile, 'v1/dmsLoanFile').subscribe(
             (response: any) => {
                 this.customerId = response.detail.id;
@@ -117,13 +120,12 @@ export class DmsLoanFileComponent implements OnInit {
         const file = event.target.files[0];
         const formdata: FormData = new FormData();
         formdata.append('file', file);
-        formdata.append('type', this.loanType);
+        formdata.append('type', this.loanName);
         formdata.append('id', this.customerId + '');
         formdata.append('customerName', this.loanFile.customerName);
         formdata.append('documentName', documentName);
         this.commonService.getByFilePost('v1/dmsLoanFile/uploadFile', formdata).subscribe(
             (result: any) => {
-                console.log(result.detail);
                 this.document.name = documentName;
                 this.documentPath = result.detail;
                 if (!this.documentPaths.includes(result.detail)) {
@@ -131,7 +133,6 @@ export class DmsLoanFileComponent implements OnInit {
                 }
                 this.loanFile.documents.push(this.document);
                 this.documentMap = documentName + ':' + result.detail;
-                console.log(this.documentMap);
                 if (!this.documentMaps.includes(this.documentMap)) {
                     this.documentMaps.push(this.documentMap);
                 }

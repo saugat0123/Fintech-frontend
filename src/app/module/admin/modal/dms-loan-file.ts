@@ -1,4 +1,5 @@
 import {LoanDocument} from './loan-document';
+import {LoanConfig} from './loan-config';
 
 export class DmsLoanFile{
     id: number;
@@ -15,8 +16,9 @@ export class DmsLoanFile{
     priority: string;
     documentMap:string[];
     recommendationConclusion: string;
+    loanType: LoanConfig;
     waiver: string;
-    documentPathDocument:[];
+    documentPathMaps:[];
     documents: Array<LoanDocument>;
     createdAt: Date;
 }

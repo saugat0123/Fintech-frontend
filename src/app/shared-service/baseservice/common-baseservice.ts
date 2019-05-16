@@ -63,4 +63,13 @@ export class CommonService {
         return this.http.post(getUrl.url, model, {headers: getUrl.header});
 
     }
+    getByPath(reqUrl,path) {
+        const url: string = reqUrl + '?path=' + path;
+        const getUrl = this.restApiService.modifyRestUrl(url);
+        const httpOptions = {
+            responseType: 'blob' as 'json',
+            headers: getUrl.header
+        }
+        return this.http.get(getUrl.url,httpOptions);
+    }
 }
