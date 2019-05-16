@@ -77,21 +77,30 @@
                                 <td>{{allList.roleName}}</td>
 
 
-                                <td>
-                                    <select class="select-borderless" [(ngModel)]="allList.status" name="status"
+                                <td *ngIf="allList.roleName !== 'admin'; else status">
+                                    <select [(ngModel)]="allList.status" name="status"
                                             (change)="onChange($event.target.value,allList)">
                                         <option value="ACTIVE">ACTIVE</option>
                                         <option value="INACTIVE">INACTIVE</option>
-
                                     </select>
                                 </td>
+                                <ng-template #status>
+                                    <td>
+                                        <p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">
+                                            {{allList.status}}</p>
+                                    </td>
+                                </ng-template>
 
-                                <td *ngIf="allList.createdBy==null || allList.createdBy=='' ; else createdBy">Not Available</td>
+                                <td *ngIf="allList.createdBy==null || allList.createdBy=='' ; else createdBy">Not
+                                    Available
+                                </td>
                                 <ng-template #createdBy>
                                     <td>{{allList.createdBy.name}}</td>
                                 </ng-template>
 
-                                <td *ngIf="allList.lastModifiedBy==null || allList.lastModifiedBy=='' ; else lastModifiedBy">Not Available</td>
+                                <td *ngIf="allList.lastModifiedBy==null || allList.lastModifiedBy=='' ; else lastModifiedBy">
+                                    Not Available
+                                </td>
                                 <ng-template #lastModifiedBy>
                                     <td>{{allList.lastModifiedBy.name}}</td>
                                 </ng-template>
