@@ -125,6 +125,24 @@
                 </div>
 
             </div>
+            <div class="row">
+                <div class="box box-primary col-md-6">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"> Eligibility <span class="badge badge-info"></span></h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-4" *ngFor="let document of documentList">
+                                <input class="big-checkbox" type="checkbox"
+                                       (change)="updateInitialDocument($event,document)"
+                                       value="{{document}}"/>
+                                <span>{{document.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
             <!-- /.col -->
 

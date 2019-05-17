@@ -45,9 +45,9 @@ export class UserComponent implements OnInit, DoCheck {
         this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/user/get';
         this.getPagination();
-        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-            this.user = response.detail.user;
-        });
+        // this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
+        //     this.user = response.detail.user;
+        // });
         this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
