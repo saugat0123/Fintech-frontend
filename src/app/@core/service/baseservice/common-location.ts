@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Province} from '../../../pages/admin/modal/province';
-import {District} from '../../../pages/admin/modal/district';
+import {Province} from '../../../module/admin/modal/province';
+import {District} from '../../../module/admin/modal/district';
 import {HttpClient} from '@angular/common/http';
 import {RestApiService} from '../authentication/rest-api.service';
 

@@ -8,7 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {RestApiService} from './@core/service/authentication/rest-api.service';
 import {CommonService} from './@core/service/baseservice/common-baseservice';
 import {CommonDataService} from './@core/service/baseservice/common-dataService';
-import {SharedModule} from './pages/shared/shared.module';
+import {SharedModule} from './module/shared/shared.module';
 import {CommonLocation} from './@core/service/baseservice/common-location';
 import {QuillModule} from 'ngx-quill';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
