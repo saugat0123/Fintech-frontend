@@ -109,7 +109,6 @@ export class CommonDataService {
     }
 
     setUser(user: User) {
-        console.log(user);
         this.user = user;
     }
 

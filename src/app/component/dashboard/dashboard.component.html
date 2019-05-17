@@ -60,21 +60,11 @@
         <!-- /.info-box -->
     </div>
 </div>
-
-<div class="row">
-    <app-notification class="col-md-6" *ngIf="notificationView"></app-notification>
-    <app-pending-loan class="col-md-6" *ngIf="pendingView"></app-pending-loan>
-    <!--<app-notification class="col-md-6"></app-notification>-->
-    <!--<app-pending-loan class="col-md-6"></app-pending-loan>-->
-</div>
-
-
-
-<div class="row" *ngIf="addViewLoanCategory">
-    <div class="col-md-6">
-        <div class="row">
+<div class="row ml-auto" *ngIf="addViewLoanCategory">
+    <div class="col-md-7">
+        <div class="row mb-4">
             <div class="col-md-6">
-                <select [(ngModel)]="loanType" class="form-control">
+                <select [(ngModel)]="loanType" class="form-control rounded">
                     <option [ngValue]="undefined" hidden>---select Loan Type---</option>
                     <option *ngFor="let allList of loanList" [value]="allList.id">{{allList.name}}</option>
                 </select>
@@ -87,5 +77,13 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <app-notification class="col-md-6" *ngIf="notificationView"></app-notification>
+    <app-pending-loan class="col-md-6" *ngIf="pendingView"></app-pending-loan>
+    <!--<app-notification class="col-md-6"></app-notification>-->
+    <!--<app-pending-loan class="col-md-6"></app-pending-loan>-->
+</div>
+
 
 <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>

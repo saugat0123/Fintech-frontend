@@ -1,7 +1,15 @@
 <section class="invoice">
     <div class="row">
         <div class="col-md-3">
-            Priority: <span class="badge badge-danger" style="font-size: 11px">{{dmsLoanFile.priority | lowercase}}</span>
+            Priority: <span class="badge badge-danger"
+                            style="font-size: 11px">{{dmsLoanFile.priority | lowercase}}</span>
+
+            <div class="row ml-0 mt-1">
+                <div class="inline">
+                    Loan Status:
+                    <span class="badge badge-info" style="font-size: 11px">{{dmsLoanFile.stage}}</span>
+                </div>
+            </div>
         </div>
         <div class="col-md-5 col-xs-5 " style="text-align: center">
             <h2>BANKING &amp; FINANCE INSTITUTIONS</h2>
@@ -81,8 +89,8 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let security of securities; let i = index">
-                    <td>{{i+1}}</td>
-                   <td>{{Security[security]}}</td>
+                    <td>{{i + 1}}</td>
+                    <td>{{Security[security]}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -137,9 +145,11 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let document of documentNames; let i = index">
-                    <td>{{i+1}}</td>
+                    <td>{{i + 1}}</td>
                     <td>{{document}}</td>
-                    <td><button class="btn-sm btn-primary flat" (click)="download(i)">Download</button> </td>
+                    <!--<td><button class="btn-sm btn-primary flat" (click)="download(i)">Download</button> </td>-->
+                    <td><i class="fa fa-download" (click)="download(i)" aria-hidden="true" style="cursor: pointer"></i>
+                    </td>
                 </tr>
                 </tbody>
             </table>

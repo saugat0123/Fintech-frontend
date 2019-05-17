@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit {
             (response: any) => {
                 this.user = response.detail;
                 this.dataService.setUser(response.detail);
-                console.log(response.detail);
             }
         );
     }

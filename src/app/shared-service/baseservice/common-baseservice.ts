@@ -73,4 +73,10 @@ export class CommonService {
         };
         return this.http.get(getUrl.url, httpOptions);
     }
+
+    getByStage(reqUrl, stage) {
+        const url: string = reqUrl + '?stage=' + stage;
+        const getUrl = this.restApiService.modifyRestUrl(url);
+        return this.http.get(getUrl.url, {headers: getUrl.header});
+    }
 }

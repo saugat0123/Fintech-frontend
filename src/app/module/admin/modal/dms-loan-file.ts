@@ -21,4 +21,5 @@ export class DmsLoanFile {
     documentPathMaps: [];
     documents: Array<LoanDocument>;
     createdAt: Date;
+    stage: string;
 }
