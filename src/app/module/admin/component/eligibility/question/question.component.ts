@@ -189,13 +189,11 @@ export class QuestionComponent implements OnInit {
 
                 alert('success !!');
                 this.questionList = new Array<Questions>();
-                this.router.navigate(['home/eligibility/question']);
                 this.onChangeSchemeOption();
 
             }, error => {
                 this.questionList = new Array<Questions>();
                 alert('failed !!');
-                this.router.navigate(['home/eligibility/question']);
             }
         );
     }
@@ -206,14 +204,12 @@ export class QuestionComponent implements OnInit {
                 alert('success !!');
                 this.questionList = new Array<Questions>();
                 this.qsnContent = new Questions();
-                this.router.navigate(['home/eligibility/question']);
                 this.onChangeSchemeOption();
                 this.modalService.dismissAll('Close modal');
 
             }, error => {
                 alert('failed !!');
                 this.questionList = new Array<Questions>();
-                this.router.navigate(['home/eligibility/question']);
                 this.modalService.dismissAll('Close modal');
             }
         );

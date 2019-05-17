@@ -47,25 +47,25 @@
     </div>
 </div>
 <div class="box box-primary">
-    <div class="box-header with-border">
-        <h3 class="box-title"><b>Segment</b></h3>
-    </div>
 
     <div class="box-body">
         <div class="col-md-12">
             <div class=row>
                 <div class="col-md-3">
                     <form (ngSubmit)="onSearch()">
-                        <input type="text" class="input-sm" [(ngModel)]="search.name"
+                    <div class="row">
+                        <input type="text" class="col-md-8 form-control form-control-sm" [(ngModel)]="search.name"
                                (input)="onSearchChange($event.target.value)" name="name" placeholder="search....">
-                        <button type="submit" class="btn btn-primary btn-sm">
+                        <button type="submit" class="col-md-2 btn btn-primary btn-sm btn-flat">
                             <i class="fa fa-search"></i>
                         </button>
+                    </div>
                     </form>
                 </div>
                 <!-- <h3 class="box-title">Hover Data Table</h3> -->
                 <div class="col-md-9">
-                    <button class="skin-blue pull-right" data-toggle="modal" (click)="addSegment()" *ngIf="addViewSegment">
+                    <button class="skin-blue pull-right" data-toggle="modal" (click)="addSegment()"
+                            *ngIf="addViewSegment">
                         <i class="skin-blue fa fa-plus"></i>
                     </button>
                 </div>
@@ -77,7 +77,7 @@
             <tr>
                 <th>S.N</th>
                 <th>Segment Name</th>
-                <th>Action</th>
+                <th *ngIf="editSegment">Action</th>
             </tr>
             </thead>
 
@@ -88,9 +88,9 @@
                 </div>
                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                 <td>{{allList.segmentName}}</td>
-                <td>
+                <td *ngIf="editSegment">
                     <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
-                       data-placement="top" title="EDIT" *ngIf="editSegment">
+                       data-placement="top" title="EDIT">
                         <i class="fa fa-edit" style="color:white"></i>
                     </a>
                     <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px">

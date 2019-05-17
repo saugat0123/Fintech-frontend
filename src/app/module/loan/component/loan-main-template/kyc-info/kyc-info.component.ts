@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Customer} from '../../../../modal/customer';
-import {CommonService} from '../../../../../../shared-service/baseservice/common-baseservice';
+
 import {Router} from '@angular/router';
-import {CustomerRelative} from '../../../../modal/customer-relative';
+
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {CommonDataService} from '../../../../../../shared-service/baseservice/common-dataService';
+import {Customer} from '../../../../admin/modal/customer';
+import {CustomerRelative} from '../../../../admin/modal/customer-relative';
+import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
+import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 
 @Component({
     selector: 'app-kyc-info',
@@ -26,7 +28,6 @@ export class KycInfoComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.customer = this.commonDateService.getCustomer();
         this.basicInfo = this.formBuilder.group({
             otherRelatives: this.formBuilder.array([
                 this.relativeFormGroup()
@@ -60,6 +61,7 @@ export class KycInfoComponent implements OnInit {
 
     previousPage() {
         this.router.navigate(['home/loan/basic-info']);
+
     }
 
 }

@@ -3,4 +3,5 @@ export class Answer {
     description: string;
     version: number;
     points: number;
+    status: string;
 }

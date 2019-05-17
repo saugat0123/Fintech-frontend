@@ -55,16 +55,18 @@
                     <div class=row>
                         <div class="col-md-3">
                             <form (ngSubmit)="onSearch()">
-                                <input type="text" class="input-sm" [(ngModel)]="search.name" name="name"
+                                <div class="row">
+                                    <input type="text" class="col-md-8 form-control form-control-sm" [(ngModel)]="search.name" name="name"
                                        placeholder="search....">
-                                <button type="submit" class="btn btn-primary btn-sm" (click)="onSearch()">
+                                <button type="submit" class="col-md-2 btn btn-primary btn-sm btn-flat" (click)="onSearch()">
                                     <i class="fa fa-search"></i>
                                 </button>
+                                </div>
                             </form>
                         </div>
                         <!-- <h3 class="box-title">Hover Data Table</h3> -->
                         <div class="col-md-9">
-                            <a routerLink="/home/ui">
+                            <a routerLink="/home/configLoan">
                             <button class="skin-blue pull-right" data-toggle="modal">
                                 <i class="skin-blue fa fa-plus"></i>
                             </button>
@@ -99,8 +101,6 @@
                                 <div *ngFor="let template of allList.templateList">
                                     <a (click)="viewTemplate(template.templateView,template.name)" class="cursor">
                                         <span>{{template.name}}</span>
-
-
                                     </a>
                                 </div>
                             </td>

@@ -44,6 +44,7 @@ export class AddCompanyComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
+        console.log(this.company);
         this.commonService.saveOrEdit(this.company, 'v1/company').subscribe(result => {
             this.modalService.dismissAll(AddCompanyComponent);
                 if (this.company.id == null) {

@@ -10,6 +10,7 @@ import {TemplateAddModelComponent} from './template-add-model/template-add-model
 import {UpdateModalComponent} from '../../../../../common/update-modal/update-modal.component';
 import {BreadcrumbService} from '../../../../../common/breadcrum/breadcrumb.service';
 
+
 @Component({
     selector: 'app-loan-template',
     templateUrl: './loan-template.component.html',

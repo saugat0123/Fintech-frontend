@@ -109,6 +109,7 @@ export class AddUserComponent implements OnInit, DoCheck {
         formdata.append('type', 'profile');
         this.commonService.getByFilePost('v1/user/uploadFile', formdata).subscribe((result: any) => {
             this.user.profilePicture = result.detail;
+
         });
     }
 

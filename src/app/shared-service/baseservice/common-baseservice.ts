@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {RestApiService} from '../authentication/rest-api.service';
@@ -61,6 +62,16 @@ export class CommonService {
         const getUrl = this.restApiService.modifyRestUrl(url);
         return this.http.post(getUrl.url, model, {headers: getUrl.header});
 
+    }
+
+    getByPath(reqUrl, path) {
+        const url: string = reqUrl + '?path=' + path;
+        const getUrl = this.restApiService.modifyRestUrl(url);
+        const httpOptions = {
+            responseType: 'blob' as 'json',
+            headers: getUrl.header
+        };
+        return this.http.get(getUrl.url, httpOptions);
     }
 
     getByGetAllPageable(reqUrl, page, size) {
