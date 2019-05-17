@@ -57,8 +57,8 @@
                             <p>NO Role Has Been Created Yet!</p>
                         </div>
                         <div *ngIf="length">
-                            <div class="section-heading justify-content-center">
-                                <div class="titleRole">Role Order</div>
+                            <div class="section-heading">
+                                <div class="titleRole pull-left">Role Order</div>
                             </div>
                             <div class="drag-container" align="center">
                                 <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="roleList"

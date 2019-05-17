@@ -51,13 +51,16 @@
                 <div class="col-md-12">
                     <div class=row>
                         <div class="col-md-3">
+
                             <form (ngSubmit)="onSearch()">
-                                <input type="text" class="input-sm" [(ngModel)]="search.sectorName"
+                                <div class="row">
+                                <input type="text" class="col-md-8 form-control form-control-sm" [(ngModel)]="search.sectorName"
                                        (input)="onSearchChange($event.target.value)" name="name"
                                        placeholder="search....">
-                                <button type="submit" class="btn btn-primary btn-sm">
+                                <button type="submit" class="col-md-2 btn btn-primary btn-sm">
                                     <i class="fa fa-search"></i>
                                 </button>
+                                </div>
                             </form>
                         </div>
                         <!-- <h3 class="box-title">Hover Data Table</h3> -->

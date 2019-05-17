@@ -1,6 +1,5 @@
 .section-heading {
 
-    padding-left: 20%;
     font-size: 15px;
     font-weight: bold;
     /*background-color: #3c8dbc;*/
@@ -11,7 +10,7 @@
 }
 
 .titleRole{
-    align-items: center;
+
     padding-top:3%;
 }
 
