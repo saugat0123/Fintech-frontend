@@ -4,6 +4,8 @@ import {Document} from './document';
 export class LoanConfig {
     id: number;
     name: string;
+    totalPoints: number;
+    eligibilityPoints: number;
     isFundable: boolean;
     templateList: Array<LoanTemplate>;
     status: string;

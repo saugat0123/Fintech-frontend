@@ -22,7 +22,7 @@
                         <div class=row>
                             <div class="col-md-5">
                                 <label>Select a Scheme</label>
-                                <select class="form-control custom-select" formControlName="schemeId"
+                                <select class="form-control custom-select" formControlName="loanConfigID"
                                         (change)="onChangeSchemeOption()">
                                     <option [ngValue]="null" hidden> Select a scheme</option>
                                     <option *ngFor="let scheme of schemeList; "
@@ -31,14 +31,14 @@
                             </div>
                             <div *ngIf="existingQuestionList" class="col-md-7">
                                 <button class="skin-blue pull-right"
-                                        (click)="openAddQuestion(addEditQuestion    )">
+                                        (click)="openAddQuestion(addEditQuestion)">
                                     <i class="skin-blue fa fa-plus"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
                     <hr>
-                    <div *ngIf="schemeID == null" class="text-center m-5">
+                    <div *ngIf="loanConfigID == null" class="text-center m-5">
                         <h2>Please select a scheme to begin.</h2>
                     </div>
 
@@ -49,6 +49,8 @@
                             <th>Question description</th>
                             <th>Appearance order</th>
                             <th>Maximum Points</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -83,15 +85,16 @@
                             </td>
                             <td>{{qsn.appearanceOrder}}</td>
                             <td>{{qsn.maximumPoints}}</td>
+                            <td>{{qsn.status}}</td>
                             <td>
                                 <a (click)="openEditQuestion(qsn, addEditQuestion)"
                                    data-toggle="tooltip"
                                    data-placement="top" title="EDIT" class="cursor">
                                     <i class="fa fa-edit" style="color:#3c8dbc;"></i>
                                 </a>
-                                <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip"  data-placement="top" (click)="delete(allList)"  title="DELETE" style="margin-left:10px">
-                                  <i class="fa fa-trash" style="color:white;"></i>
-                                </a> -->
+                                <a class="btn btn-danger btn-sm" data-toggle="tooltip"  data-placement="top" (click)="onDelete(qsn)"  title="DELETE" style="margin-left:10px">
+                                    <i class="fa fa-trash" style="color:white;"></i>
+                                </a>
                             </td>
                             <td>
                                 <button data-toggle="collapse" [attr.data-target]="'#ans'+i"
@@ -104,7 +107,7 @@
                     </table>
 
 
-                    <div class="box-body" *ngIf="schemeID != null && newQuestionList">
+                    <div class="box-body" *ngIf="loanConfigID != null && newQuestionList">
                         <div formArrayName="questionForm">
                             <div class="form-group"
                                  *ngFor="let qsn of questionAnswerForm.get('questionForm')['controls']; let i = index;">
@@ -204,7 +207,8 @@
 
                         <div class="table-responsive">
                             <table class="table">
-                                <tbody><tr>
+                                <tbody>
+                                <tr>
                                     <th style="width:50%">Total questions:</th>
                                     <td>{{questionList.length}}</td>
                                 </tr>
@@ -222,7 +226,8 @@
                                         <input size="1" type="number">
                                     </td>
                                 </tr>
-                                </tbody></table>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -268,16 +273,22 @@
 
                                             <div class="col-md-6">
                                                 <label>Points:</label>
-                                                <div class="input-group mb-3">
-                                                    <input class="form-control" type="number"
-                                                           formControlName="points">
-                                                    <div class="input-group-append">
-                                                        <button class="btn btn-danger btn-sm"
-                                                                (click)="deleteAnswerFieldForEdit(j)">
-                                                            Delete answer field
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                                <input class="form-control" type="number" formControlName="points">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Status</label>
+                                                <select class="form-control custom-select" formControlName="status">
+                                                    <option value="ACTIVE">ACTIVE</option>
+                                                    <option value="INACTIVE">INACTIVE</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 pt-4 text-center">
+                                                <button class="btn btn-danger"
+                                                        (click)="deleteAnswerFieldForEdit(j)">
+                                                    Delete answer field
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -292,9 +303,9 @@
                                     </button>
                                 </div>
                                 <div class="col-md-6 float-right">
-                                    <button class="btn btn-warning float-right"
+                                    <button class="btn btn-info float-right"
                                             (click)="onUpdate(addEditQuestionForm.value)">
-                                        Update
+                                        {{task}}
                                     </button>
                                 </div>
                             </div>
@@ -305,4 +316,5 @@
         </div>
     </div>
 </ng-template>
+<!--<pre>{{addEditQuestionForm.value | json}}</pre>-->
 

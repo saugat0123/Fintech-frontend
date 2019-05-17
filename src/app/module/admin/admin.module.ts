@@ -47,10 +47,11 @@ import {CommonModule} from '@angular/common';
 import {LoanUiComponent} from './component/loan-ui/loan-ui.component';
 import {UpdateModalComponent} from '../../common/update-modal/update-modal.component';
 import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
-import { QuestionComponent } from './component/question/question.component';
+import { QuestionComponent } from './component/eligibility/question/question.component';
 import { AllRequestsComponent } from './component/all-requests/all-requests.component';
-import { EligibleRequestsComponent } from './component/eligible-requests/eligible-requests.component';
-import { NonEligibleRequestsComponent } from './component/non-eligible-requests/non-eligible-requests.component';
+import { EligibleRequestsComponent } from './component/eligibility/eligible-requests/eligible-requests.component';
+import { NonEligibleRequestsComponent } from './component/eligibility/non-eligible-requests/non-eligible-requests.component';
+import { NewRequestsComponent } from './component/eligibility/new-requests/new-requests.component';
 
 // import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
 
@@ -97,7 +98,8 @@ import { NonEligibleRequestsComponent } from './component/non-eligible-requests/
         QuestionComponent,
         AllRequestsComponent,
         EligibleRequestsComponent,
-        NonEligibleRequestsComponent
+        NonEligibleRequestsComponent,
+        NewRequestsComponent
         // SecurityComponent
     ],
     imports: [
