@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 
-import {baseApi} from '../../shared-service/authentication/api-list.service';
+import {baseApi} from '../../@core/service/authentication/api-list.service';
 
 @Component({
     selector: 'app-login',
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
         document.body.className = '';
     }
 
-    loginClick(datavalue) {
+    login(datavalue) {
         this.spinner = true;
         const data: { email: string, password: string } = datavalue.value;
         const datas = 'grant_type=password&username=' + data.email + '&password=' + data.password;

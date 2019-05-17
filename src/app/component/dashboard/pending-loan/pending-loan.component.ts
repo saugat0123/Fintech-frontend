@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {LoanConfig} from '../../../module/admin/modal/loan-config';
-import {CommonDataService} from '../../../shared-service/baseservice/common-dataService';
-import {DmsLoanFile} from '../../../module/admin/modal/dms-loan-file';
-import {CommonService} from '../../../shared-service/baseservice/common-baseservice';
+import {LoanConfig} from '../../../feature/admin/modal/loan-config';
+import {DmsLoanFile} from '../../../feature/admin/modal/dms-loan-file';
+import {CommonDataService} from '../../../@core/service/baseservice/common-dataService';
+import {CommonService} from '../../../@core/service/baseservice/common-baseservice';
 
 @Component({
     selector: 'app-pending-loan',
