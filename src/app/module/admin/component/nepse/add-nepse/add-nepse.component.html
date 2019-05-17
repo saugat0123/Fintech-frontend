@@ -1,10 +1,10 @@
 
-<div class="modal-dialog">
+<div class="modal-document">
     <div class="modal-content">
         <div class="modal-header" style="display:block">
-            <button (click)="onClose()" aria-label="Close" class="close" data-dismiss="modal"
-                    type="button">
-                <span aria-hidden="true">×</span></button>
+            <a  class="close cursor" data-dismiss="modal" aria-label="Close"
+                (click)="onClose()">
+                <span aria-hidden="true">×</span></a>
             <h4 class="modal-title pull-left">{{task}} Nepse</h4>
         </div>
         <div class="modal-body">
@@ -15,8 +15,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="name">Company Name</label>
-                            <input type="hidden" class="form-control"  [(ngModel)]="nepse.id" name="id" placeholder="id">
-                            <input type="text" class="form-control" required [(ngModel)]="nepse.companyName"
+                            <input type="hidden" class="form-control form-control-sm"  [(ngModel)]="nepse.id" name="id" placeholder="id">
+                            <input type="text" class="form-control form-control-sm" required [(ngModel)]="nepse.companyName"
                                    #companyVal="ngModel" name="name" placeholder="Name"
                                    [ngClass]="{'is-invalid': nepseForm.submitted && companyVal.invalid}"/>
                             <div *ngIf="companyVal.invalid && nepseForm.submitted" class="invalid-feedback">
@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="amount">Share Amount per unit</label>
-                            <input type="text" class="form-control"  placeholder="amount" required
+                            <input type="text" class="form-control form-control-sm"  placeholder="amount" required
                                    [(ngModel)]="nepse.amountPerUnit" name="amount"
                             #amountVal="ngModel"  [ngClass]="{'is-invalid': nepseForm.submitted && amountVal.invalid}" />
                             <div *ngIf="amountVal.invalid && nepseForm.submitted" class="invalid-feedback">

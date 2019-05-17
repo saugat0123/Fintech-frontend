@@ -51,13 +51,16 @@
                 <div class="col-md-12">
                     <div class=row>
                         <div class="col-md-3">
+
                             <form (ngSubmit)="onSearch()">
-                                <input type="text" class="input-sm" [(ngModel)]="search.sectorName"
+                                <div class="row">
+                                <input type="text" class="col-md-8 form-control form-control-sm" [(ngModel)]="search.sectorName"
                                        (input)="onSearchChange($event.target.value)" name="name"
                                        placeholder="search....">
-                                <button type="submit" class="btn btn-primary btn-sm">
+                                <button type="submit" class="col-md-2 btn btn-primary btn-sm">
                                     <i class="fa fa-search"></i>
                                 </button>
+                                </div>
                             </form>
                         </div>
                         <!-- <h3 class="box-title">Hover Data Table</h3> -->
@@ -80,7 +83,7 @@
                             <th>Sub Sector Code</th>
                             <th>Sector</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th *ngIf="editSubSector">Action</th>
                         </tr>
                         </thead>
 
@@ -93,17 +96,22 @@
                             <td>{{allList.subSectorName}}</td>
                             <td>{{allList.subSectorCode}}</td>
                             <td>{{allList?.sector?.sectorName}}</td>
-                            <td>
-                                <select [(ngModel)]="allList.status" name="status"
+                            <td *ngIf='editSubSector === true; else status '>
+                                <select class="select-borderless" [(ngModel)]="allList.status" name="status"
                                         (change)="onChange($event.target.value,allList)">
                                     <option value="ACTIVE">ACTIVE</option>
                                     <option value="INACTIVE">INACTIVE</option>
-
                                 </select>
                             </td>
-                            <td>
+                            <ng-template #status>
+
+                                <td>
+                                    <p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>
+                                </td>
+                            </ng-template>
+                            <td *ngIf="editSubSector">
                                 <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
-                                   data-placement="top" title="EDIT" *ngIf="editSubSector">
+                                   data-placement="top" title="EDIT">
                                     <i class="fa fa-edit" style="color:white"></i>
                                 </a>
                                 <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px">

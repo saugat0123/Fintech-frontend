@@ -1,8 +1,9 @@
-<div class="modal-dialog">
+<div class="modal-document">
         <div class="modal-content">
             <div class="modal-header" style="display:block">
-                <button type="button" class="close" data-dismiss="modal" (click)="onClose()" aria-label="Close">
-                    <span aria-hidden="true">×</span></button>
+                <a  class="close cursor" data-dismiss="modal" aria-label="Close"
+                    (click)="onClose()">
+                    <span aria-hidden="true">×</span></a>
                 <h4 class="modal-title pull-left">{{task}} Company</h4>
             </div>
             <div class="modal-body">
@@ -11,9 +12,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="name">Company Name</label>
-                                <input type="hidden" class="form-control" [(ngModel)]="company.id" name="id"
+                                <input type="hidden" class="form-control form-control-sm" [(ngModel)]="company.id" name="id"
                                        placeholder="id">
-                                <input type="text" class="form-control" [(ngModel)]="company.companyName" name="name"
+                                <input type="text" class="form-control form-control-sm" [(ngModel)]="company.name" name="name"
                                        #compName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && compName.invalid }"
                                        required>
                                 <div *ngIf="f.submitted && compName.invalid" class="invalid-feedback">

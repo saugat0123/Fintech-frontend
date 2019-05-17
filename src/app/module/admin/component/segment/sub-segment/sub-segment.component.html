@@ -52,11 +52,13 @@
             <div class=row>
                 <div class="col-md-3">
                     <form (ngSubmit)="onSearch()">
-                        <input type="text" class="input-sm" [(ngModel)]="search.name"
+                        <div class="row">
+                            <input type="text" class="col-md-8 form-control form-control-sm" [(ngModel)]="search.name"
                                (input)="onSearchChange($event.target.value)" name="name" placeholder="search....">
-                        <button type="submit" class="btn btn-primary btn-sm">
+                        <button type="submit" class="col-md-2 btn btn-primary btn-sm btn-flat">
                             <i class="fa fa-search"></i>
                         </button>
+                        </div>
                     </form>
                 </div>
                 <!-- <h3 class="box-title">Hover Data Table</h3> -->
@@ -74,7 +76,7 @@
                 <th>Loan Type</th>
                 <th>Segment</th>
                 <th>Funding Type</th>
-                <th>Action</th>
+                <th *ngIf="editSubSegment">Action</th>
             </tr>
             </thead>
 
@@ -86,9 +88,9 @@
                 <td>{{allList.subSegmentName}}</td>
                 <td>{{allList?.segment?.segmentName}}</td>
                 <td>{{allList.funded}}</td>
-                <td>
+                <td *ngIf="editSubSegment">
                     <a (click)="openEdit(allList,allList.segment)" class="btn btn-primary btn-sm" data-toggle="tooltip"
-                       data-placement="top" title="EDIT" *ngIf="editSubSegment">
+                       data-placement="top" title="EDIT">
                         <i class="fa fa-edit" style="color:white"></i>
                     </a>
                     <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px">
