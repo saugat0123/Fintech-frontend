@@ -67,8 +67,25 @@ export const MENU_ITEMS: NbMenuItem[] = [
                 link: '/home/admin/document',
             },
             {
-                title: 'Template',
-                link: '/home/admin/template',
+                title: 'Eligibility',
+                children: [
+                    {
+                        title: 'Question',
+                        link: '/home/admin/eligibility/question'
+                    },
+                    {
+                        title: 'New Request',
+                        link: '/home/admin/eligibility/new-requests'
+                    },
+                    {
+                        title: 'Eligible',
+                        link: '/home/admin/eligibility/eligible'
+                    },
+                    {
+                        title: 'None Eligible',
+                        link: '/home/admin/eligibility/non-eligible'
+                    }
+                ]
             },
         ]
     },

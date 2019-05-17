@@ -73,4 +73,24 @@ export class CommonService {
         };
         return this.http.get(getUrl.url, httpOptions);
     }
+
+    getByGetAllPageable(reqUrl, page, size) {
+        const url: string = reqUrl + '?page=' + page + '&size=' + size;
+        const getUrl = this.restApiService.modifyRestUrl(url);
+        return this.http.get(getUrl.url, {headers: getUrl.header});
+
+    }
+
+    saveQuestion(model: Array<Object>, reqUrl): Observable<Object> {
+        const url: string = reqUrl;
+        const getUrl = this.restApiService.modifyRestUrl(url);
+        return this.http.post(getUrl.url, model, {headers: getUrl.header});
+    }
+
+    updateQuestion(model: Object, reqUrl): Observable<Object> {
+        const url: string = reqUrl;
+        const getUrl = this.restApiService.modifyRestUrl(url);
+        return this.http.put(getUrl.url, model, {headers: getUrl.header});
+    }
+
 }

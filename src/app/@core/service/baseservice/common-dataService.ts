@@ -198,7 +198,7 @@ export class CommonDataService {
 
 
     clearData() {
-        this.dataObj = new Object();
+        this.dataObj = {};
     }
 
     setInitialDocument(documents: Document[]) {

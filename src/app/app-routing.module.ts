@@ -5,6 +5,7 @@ import {LoginComponent} from './component/login/login.component';
 const routes: Routes = [
     {path: 'home', loadChildren: './feature/feature.module#FeatureModule'},
     {path: '', component: LoginComponent}
+
 ];
 
 const config: ExtraOptions = {

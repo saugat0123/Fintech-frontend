@@ -17,6 +17,11 @@ import {ApprovallimitComponent} from './component/approvallimit/approvallimit.co
 import {RolePermissionComponent} from './component/role-permission/role-permission.component';
 import {ListRoleComponent} from './component/role-permission/list-role/list-role.component';
 import {Routes} from '@angular/router';
+
+import {QuestionComponent} from './component/eligibility/question/question.component';
+import {NewRequestsComponent} from './component/eligibility/new-requests/new-requests.component';
+import {NonEligibleRequestsComponent} from './component/eligibility/non-eligible-requests/non-eligible-requests.component';
+import {EligibleRequestsComponent} from './component/eligibility/eligible-requests/eligible-requests.component';
 import {RoleHierarchyComponent} from './component/role-hierarchy/role-hierarchy.component';
 import {SecurityComponent} from '../loan/component/loan-main-template/security/security.component';
 
@@ -40,6 +45,15 @@ export const adminRoutes: Routes = [
     {path: 'user', component: UserComponent},
     {path: 'approvalLimit', component: ApprovallimitComponent},
     {path: 'company', component: CompanyComponent},
+    {
+        path: 'eligibility',
+        children: [
+            {path: 'question', component: QuestionComponent},
+            {path: 'new-requests', component: NewRequestsComponent},
+            {path: 'eligible', component: EligibleRequestsComponent},
+            {path: 'non-eligible', component: NonEligibleRequestsComponent}
+        ]
+    },
     {path: 'role', component: RolePermissionComponent},
     {path: 'roleList', component: ListRoleComponent},
     {path: 'roleHierarchy', component: RoleHierarchyComponent},
