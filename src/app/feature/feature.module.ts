@@ -1,20 +1,20 @@
 import {NgModule} from '@angular/core';
-import {ModuleRoutingModule} from './module-routing.module';
+import {FeatureRoutingModule} from './feature-routing.module';
 import {ThemeModule} from '../@theme/theme.module';
-import {ModuleComponent} from './module.component';
+import {FeatureComponent} from './feature.component';
 import {DashboardComponent} from '../component/dashboard/dashboard.component';
 
 @NgModule({
     imports: [
-        ModuleRoutingModule,
+        FeatureRoutingModule,
         ThemeModule
     ],
         declarations: [
-            ModuleComponent,
+            FeatureComponent,
             DashboardComponent
         ]
     }
 )
-export class ModuleModule {
+export class FeatureModule {
 
 }

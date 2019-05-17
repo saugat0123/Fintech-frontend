@@ -3,7 +3,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NbMenuService, NbSidebarService, NbThemeService} from '@nebular/theme';
 import {LayoutService} from '../../../@core/utils';
 import {UserService} from '../../../@core/service/user.service';
-import {User} from '../../../module/admin/modal/user';
+import {User} from '../../../feature/admin/modal/user';
 
 @Component({
     selector: 'app-header',

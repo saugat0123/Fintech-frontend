@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {LoginComponent} from './component/login/login.component';
 
 const routes: Routes = [
-    {path: 'home', loadChildren: './module/module.module#ModuleModule'},
+    {path: 'home', loadChildren: './feature/feature.module#FeatureModule'},
     {path: '', component: LoginComponent}
 ];
 

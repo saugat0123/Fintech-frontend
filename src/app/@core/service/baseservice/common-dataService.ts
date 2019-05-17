@@ -1,21 +1,21 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {Branch} from '../../../module/admin/modal/branch';
-import {ApprovalLimit} from '../../../module/admin/modal/approval-limit';
-import {User} from '../../../module/admin/modal/user';
-import {Valuator} from '../../../module/admin/modal/valuator';
-import {Sector} from '../../../module/admin/modal/sector';
-import {SubSector} from '../../../module/admin/modal/sub-sector';
-import {Segment} from '../../../module/admin/modal/segment';
-import {SubSegment} from '../../../module/admin/modal/subSegment';
-import {District} from '../../../module/admin/modal/district';
-import {MunicipalityVdc} from '../../../module/admin/modal/municipality_VDC';
-import {Province} from '../../../module/admin/modal/province';
-import {Nepse} from '../../../module/admin/modal/nepse';
-import {Company} from '../../../module/admin/modal/company';
-import {DmsLoanFile} from '../../../module/admin/modal/dms-loan-file';
-import {LoanConfig} from '../../../module/admin/modal/loan-config';
-import {Document} from '../../../module/admin/modal/document';
+import {Branch} from '../../../feature/admin/modal/branch';
+import {ApprovalLimit} from '../../../feature/admin/modal/approval-limit';
+import {User} from '../../../feature/admin/modal/user';
+import {Valuator} from '../../../feature/admin/modal/valuator';
+import {Sector} from '../../../feature/admin/modal/sector';
+import {SubSector} from '../../../feature/admin/modal/sub-sector';
+import {Segment} from '../../../feature/admin/modal/segment';
+import {SubSegment} from '../../../feature/admin/modal/subSegment';
+import {District} from '../../../feature/admin/modal/district';
+import {MunicipalityVdc} from '../../../feature/admin/modal/municipality_VDC';
+import {Province} from '../../../feature/admin/modal/province';
+import {Nepse} from '../../../feature/admin/modal/nepse';
+import {Company} from '../../../feature/admin/modal/company';
+import {DmsLoanFile} from '../../../feature/admin/modal/dms-loan-file';
+import {LoanConfig} from '../../../feature/admin/modal/loan-config';
+import {Document} from '../../../feature/admin/modal/document';
 
 @Injectable({
     providedIn: 'root'

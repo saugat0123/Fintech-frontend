@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {LoanConfig} from '../../../module/admin/modal/loan-config';
-import {DmsLoanFile} from '../../../module/admin/modal/dms-loan-file';
+import {LoanConfig} from '../../../feature/admin/modal/loan-config';
+import {DmsLoanFile} from '../../../feature/admin/modal/dms-loan-file';
 import {CommonDataService} from '../../../@core/service/baseservice/common-dataService';
 import {CommonService} from '../../../@core/service/baseservice/common-baseservice';
 
