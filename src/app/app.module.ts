@@ -8,7 +8,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {RestApiService} from './@core/service/authentication/rest-api.service';
 import {CommonService} from './@core/service/baseservice/common-baseservice';
 import {CommonDataService} from './@core/service/baseservice/common-dataService';
-import {SharedModule} from './module/shared/shared.module';
 import {CommonLocation} from './@core/service/baseservice/common-location';
 import {QuillModule} from 'ngx-quill';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
@@ -16,7 +15,7 @@ import {ThemeModule} from './@theme/theme.module';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -32,7 +31,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         FormsModule,
 
         ThemeModule.forRoot(),
-        SharedModule,
         QuillModule,
         RouterModule,
         AppRoutingModule,

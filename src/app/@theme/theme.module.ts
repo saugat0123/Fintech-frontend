@@ -38,7 +38,15 @@ import {
     NbWindowModule,
 } from '@nebular/theme';
 
-import {FooterComponent, HeaderComponent} from './components';
+import {
+    AlertComponent,
+    BreadcrumbComponent,
+    FooterComponent,
+    HeaderComponent,
+    MsgAlertComponent,
+    MsgModalComponent,
+    PaginationComponent, SpinnerComponent, UpdateModalComponent
+} from './components';
 
 import {CapitalizePipe, EvaIconsPipe, NumberWithCommasPipe, PluralPipe, RoundPipe, TimingPipe} from './pipes';
 import {DEFAULT_THEME} from './styles/theme.default';
@@ -48,6 +56,7 @@ import {BaseLayout} from './layouts';
 import {MainNavComponent} from './main-nav/main-nav.component';
 import {RouterModule} from '@angular/router';
 import {IconCardComponent} from './components/iconcard/icon-card.component';
+import {PaginationComp} from 'ag-grid-community/dist/lib/rowModels/pagination/paginationComp';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -94,7 +103,14 @@ const COMPONENTS = [
     FooterComponent,
     BaseLayout,
     MainNavComponent,
-    IconCardComponent
+    IconCardComponent,
+    AlertComponent,
+    BreadcrumbComponent,
+    MsgAlertComponent,
+    MsgModalComponent,
+    PaginationComponent,
+    SpinnerComponent,
+    UpdateModalComponent
 ];
 
 const ENTRY_COMPONENTS = [];

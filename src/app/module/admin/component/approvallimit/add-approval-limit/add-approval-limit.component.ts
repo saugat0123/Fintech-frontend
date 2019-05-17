@@ -7,9 +7,9 @@ import {Role} from '../../../modal/role';
 import {LoanConfig} from '../../../modal/loan-config';
 import {ApprovalLimit} from '../../../modal/approval-limit';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {BreadcrumbService} from '../../../../../common/breadcrum/breadcrumb.service';
-import {AlertService} from '../../../../../common/alert/alert.service';
-import {Alert, AlertType} from '../../../../../common/alert/Alert';
+import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
+import {AlertService} from '../../../../../@theme/components/alert/alert.service';
+import {Alert, AlertType} from '../../../../../@theme/components/alert/Alert';
 
 
 @Component({

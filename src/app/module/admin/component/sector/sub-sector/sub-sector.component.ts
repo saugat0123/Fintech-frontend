@@ -6,9 +6,8 @@ import {CommonPageService} from '../../../../../@core/service/baseservice/common
 import {SubSector} from '../../../modal/sub-sector';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddSubSectorComponent} from './add-sub-sector/add-sub-sector.component';
-import {UpdateModalComponent} from '../../../../../common/update-modal/update-modal.component';
-import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.component';
-import {BreadcrumbService} from '../../../../../common/breadcrum/breadcrumb.service';
+import {MsgModalComponent, UpdateModalComponent} from '../../../../../@theme/components';
+import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
 
 
 @Component({

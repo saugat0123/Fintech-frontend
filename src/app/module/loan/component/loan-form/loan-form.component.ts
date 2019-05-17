@@ -1,13 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
-import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
+
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
 import {LoanDataHolder} from '../../model/loanData';
 import {BasicInfoComponent} from '../loan-main-template/basic-info/basic-info.component';
+import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
+import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
+import {MsgModalComponent} from '../../../../@theme/components';
+import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
 @Component({
     selector: 'app-loan-form',

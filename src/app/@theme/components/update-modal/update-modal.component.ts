@@ -1,9 +1,9 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
-import {CommonService} from '../../@core/service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
-import {CommonDataService} from '../../@core/service/baseservice/common-dataService';
-import {CommonPageService} from '../../@core/service/baseservice/common-pagination-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CommonService} from '../../../@core/service/baseservice/common-baseservice';
+import {CommonPageService} from '../../../@core/service/baseservice/common-pagination-service';
+import {CommonDataService} from '../../../@core/service/baseservice/common-dataService';
 
 @Component({
     selector: 'app-update-modal',
@@ -45,7 +45,6 @@ export class UpdateModalComponent implements OnInit, DoCheck {
         this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(e => {
             if (e) {
                 this.router.navigate([this.currentUrl]);
-
             }
             this.modalService.dismissAll(UpdateModalComponent);
             this.dataService.clearData();
@@ -55,8 +54,8 @@ export class UpdateModalComponent implements OnInit, DoCheck {
     updateStatus(data: any) {
 
         this.commonService.saveOrEdit(this.data, this.currentApi).subscribe(result => {
-            this.modalService.dismissAll(UpdateModalComponent);
-            this.dataService.clearData();
+                this.modalService.dismissAll(UpdateModalComponent);
+                this.dataService.clearData();
                 this.globalMsg = 'SUCCESSFULLY UPDATED STATUS';
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('true');
@@ -70,7 +69,7 @@ export class UpdateModalComponent implements OnInit, DoCheck {
 
 
             }, error => {
-            this.modalService.dismissAll(UpdateModalComponent);
+                this.modalService.dismissAll(UpdateModalComponent);
                 this.dataService.clearData();
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);

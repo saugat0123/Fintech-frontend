@@ -6,8 +6,8 @@ import {CommonPageService} from '../../../../@core/service/baseservice/common-pa
 import {Company} from '../../modal/company';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddCompanyComponent} from './add-company/add-company.component';
-import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
-import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
+import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
+import {MsgModalComponent} from '../../../../@theme/components';
 
 @Component({
     selector: 'app-company',

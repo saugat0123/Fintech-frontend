@@ -7,8 +7,8 @@ import {Pageable} from '../../../../../@core/service/baseservice/common-pageable
 import {Segment} from '../../../modal/segment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddSegmentComponent} from '../add-segment/add-segment.component';
-import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.component';
-import {BreadcrumbService} from '../../../../../common/breadcrum/breadcrumb.service';
+import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
+import {MsgModalComponent} from '../../../../../@theme/components';
 
 
 @Component({

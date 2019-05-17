@@ -6,11 +6,8 @@ import {CommonPageService} from '../../../../@core/service/baseservice/common-pa
 import {LoanConfig} from '../../modal/loan-config';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddLoanComponent} from './add-loan/add-loan.component';
-import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
-import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
-import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
-
-declare var $;
+import {MsgModalComponent, UpdateModalComponent} from '../../../../@theme/components';
+import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
 @Component({
     selector: 'app-loan-config',
@@ -130,7 +127,6 @@ export class LoanConfigComponent implements OnInit, DoCheck {
         this.tName = x;
         const div = document.getElementById('tempView');
         div.innerHTML = this.modalTemplate;
-        $('.view-template').modal('show');
     }
 
 }

@@ -6,9 +6,8 @@ import {CommonService} from '../../../../@core/service/baseservice/common-basese
 import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddUserComponent} from './add-user/add-user.component';
-import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
-import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
-import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
+import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
+import {MsgModalComponent, UpdateModalComponent} from '../../../../@theme/components';
 
 @Component({
     selector: 'app-user',

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
+import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
 @Component({
     selector: 'app-memo-base',

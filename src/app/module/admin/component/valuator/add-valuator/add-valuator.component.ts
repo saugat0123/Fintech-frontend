@@ -7,7 +7,6 @@ import {Valuator} from '../../../modal/valuator';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CommonLocation} from '../../../../../@core/service/baseservice/common-location';
 
-import {CommonLocation} from '../../../../../shared-service/baseservice/common-location';
 import {Province} from '../../../modal/province';
 import {District} from '../../../modal/district';
 import {MunicipalityVdc} from '../../../modal/municipality_VDC';

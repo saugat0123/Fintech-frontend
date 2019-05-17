@@ -6,7 +6,6 @@ import {MemoTypeComponent} from './component/memo-type/memo-type.component';
 import {MemoComposeComponent} from './component/memo-compose/memo-compose.component';
 import {MemoUnderReviewComponent} from './component/memo-underReview/memo-underReview.component';
 import {MemoReadComponent} from './component/memo-read/memo-read.component';
-import {SharedModule} from '../shared/shared.module';
 import {MemoService} from './service/memo.service';
 import {MemoDataService} from './service/memo-data.service';
 import {MemoRoutes} from './memo-routes';
@@ -30,7 +29,6 @@ import {ThemeModule} from '../../@theme/theme.module';
     ],
     imports: [
         FormsModule,
-        SharedModule,
         RouterModule.forChild(MemoRoutes),
         NgbModule,
         ReactiveFormsModule,

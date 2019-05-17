@@ -7,9 +7,9 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {User} from '../../../admin/modal/user';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
-import {AlertService} from '../../../../common/alert/alert.service';
-import {Alert, AlertType} from '../../../../common/alert/Alert';
+import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
+import {AlertService} from '../../../../@theme/components/alert/alert.service';
+import {Alert, AlertType} from '../../../../@theme/components/alert/Alert';
 
 @Component({
     selector: 'app-memo-read',

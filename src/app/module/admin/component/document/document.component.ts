@@ -7,10 +7,8 @@ import {Document} from '../../modal/document';
 import {LoanCycle} from '../../modal/loan-cycle';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddDocumentComponent} from './add-document/add-document.component';
-import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
-import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
-import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
-
+import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
+import {MsgModalComponent, UpdateModalComponent} from '../../../../@theme/components';
 
 @Component({
     selector: 'app-document',

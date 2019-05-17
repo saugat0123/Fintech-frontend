@@ -1,15 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {DmsLoanFile} from '../../../../admin/modal/dms-loan-file';
-import {Document} from '../../../../admin/modal/document';
 import {User} from '../../../../admin/modal/user';
 import {Security} from '../../../../admin/modal/security';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
-import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {ActivatedRoute} from '@angular/router';
-import {LoanDocument} from '../../../../admin/modal/loan-document';
-import {forEach} from '@angular/router/src/utils/collection';
-import {of} from 'rxjs';
+import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
+import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 
 @Component({
     selector: 'app-dms-summary',

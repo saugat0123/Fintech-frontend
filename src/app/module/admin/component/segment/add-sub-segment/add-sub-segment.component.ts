@@ -33,7 +33,6 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private activeModal: NgbActiveModal,
         private modalService: NgbModal
-
     ) {
     }
 

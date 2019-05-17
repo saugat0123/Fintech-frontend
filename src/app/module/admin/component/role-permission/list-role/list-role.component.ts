@@ -3,9 +3,9 @@ import {CommonDataService} from '../../../../../@core/service/baseservice/common
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../../@core/service/baseservice/common-pagination-service';
 import {Role} from '../../../modal/role';
-import {UpdateModalComponent} from '../../../../../common/update-modal/update-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {BreadcrumbService} from '../../../../../common/breadcrum/breadcrumb.service';
+import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
+import {UpdateModalComponent} from '../../../../../@theme/components';
 
 
 @Component({

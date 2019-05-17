@@ -40,18 +40,15 @@ import {UpdateDocumentComponent} from './component/document/update-document/upda
 import {AddDocumentComponent} from './component/document/add-document/add-document.component';
 import {RouterModule} from '@angular/router';
 import {adminRoutes} from './admin-routing';
-import {SharedModule} from '../shared/shared.module';
 import {CommonModule} from '@angular/common';
 
-import {UpdateModalComponent} from '../../common/update-modal/update-modal.component';
-import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
-import { RoleHierarchyComponent } from './component/role-hierarchy/role-hierarchy.component';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import {RoleHierarchyComponent} from './component/role-hierarchy/role-hierarchy.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ThemeModule} from '../../@theme/theme.module';
-
 // import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {MsgModalComponent, UpdateModalComponent} from '../../@theme/components';
 
 @NgModule({
     declarations: [
@@ -103,7 +100,6 @@ import {NgSelectModule} from '@ng-select/ng-select';
         NgMultiSelectDropDownModule.forRoot(),
         RouterModule.forChild(adminRoutes),
         ThemeModule,
-        SharedModule,
         DragDropModule,
         NgSelectModule
     ],

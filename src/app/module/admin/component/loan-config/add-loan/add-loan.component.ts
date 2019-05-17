@@ -71,6 +71,7 @@ export class AddLoanComponent implements OnInit, DoCheck {
             }
         );
     }
+
     onClose() {
         this.activeModal.dismiss(AddLoanComponent);
     }

@@ -7,8 +7,8 @@ import {SubSegment} from '../../../modal/subSegment';
 import {Segment} from '../../../modal/segment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddSubSegmentComponent} from '../add-sub-segment/add-sub-segment.component';
-import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.component';
-import {BreadcrumbService} from '../../../../../common/breadcrum/breadcrumb.service';
+import {MsgModalComponent} from '../../../../../@theme/components';
+import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
 
 
 @Component({

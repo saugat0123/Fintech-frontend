@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {Document} from '../../../../admin/modal/document';
-import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DmsLoanFile} from '../../../../admin/modal/dms-loan-file';
 import {LoanDocument} from '../../../../admin/modal/loan-document';
+import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
+import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 
 @Component({
     selector: 'app-dms-loan',

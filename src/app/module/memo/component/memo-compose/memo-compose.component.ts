@@ -8,9 +8,9 @@ import {CommonService} from '../../../../@core/service/baseservice/common-basese
 import {ActivatedRoute, Router} from '@angular/router';
 import {MemoDataService} from '../../service/memo-data.service';
 import {User} from '../../../admin/modal/user';
-import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
-import {AlertService} from '../../../../common/alert/alert.service';
-import {Alert, AlertType} from '../../../../common/alert/Alert';
+import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
+import {AlertService} from '../../../../@theme/components/alert/alert.service';
+import {Alert, AlertType} from '../../../../@theme/components/alert/Alert';
 
 @Component({
     selector: 'app-memo-compose',
@@ -101,8 +101,8 @@ export class MemoComposeComponent implements OnInit {
         if (this.isNewMemo) {
             this.memoService.save(this.memoApi, this.memo).subscribe((response: any) => {
                 this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Created Memo'));
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/memo/underReview']));
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/memo/underReview']));
             }, error => {
                 console.error(error);
                 this.alertService.notify(new Alert(AlertType.ERROR, 'Unable to Create Memo'));
@@ -110,8 +110,8 @@ export class MemoComposeComponent implements OnInit {
         } else {
             this.memoService.edit(this.memoApi, this.memo, this.memo.id).subscribe((response: any) => {
                 this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Updated Memo'));
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/memo/underReview']));
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/memo/underReview']));
             }, error => {
                 this.alertService.notify(new Alert(AlertType.ERROR, 'Unable to Update Memo'));
                 console.error(error);

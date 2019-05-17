@@ -4,11 +4,11 @@ import {CommonService} from '../../../../../@core/service/baseservice/common-bas
 import {CommonPageService} from '../../../../../@core/service/baseservice/common-pagination-service';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.component';
 import {LoanConfig} from '../../../modal/loan-config';
 import {Document} from '../../../modal/document';
-import { Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {LoanTemplate} from '../../../modal/template';
+import {MsgModalComponent} from '../../../../../@theme/components';
 
 
 @Component({

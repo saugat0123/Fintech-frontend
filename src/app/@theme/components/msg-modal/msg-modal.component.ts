@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonDataService } from '../../@core/service/baseservice/common-dataService';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {CommonDataService} from '../../../@core/service/baseservice/common-dataService';
 
 @Component({
   selector: 'app-msg-modal',

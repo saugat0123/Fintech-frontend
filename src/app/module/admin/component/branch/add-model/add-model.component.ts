@@ -9,8 +9,8 @@ import {CommonLocation} from '../../../../../@core/service/baseservice/common-lo
 import {Province} from '../../../modal/province';
 import {District} from '../../../modal/district';
 import {MunicipalityVdc} from '../../../modal/municipality_VDC';
-import {AlertService} from '../../../../../common/alert/alert.service';
-import {Alert, AlertType} from '../../../../../common/alert/Alert';
+import {Alert, AlertType} from '../../../../../@theme/components/alert/Alert';
+import {AlertService} from '../../../../../@theme/components/alert/alert.service';
 
 
 @Component({

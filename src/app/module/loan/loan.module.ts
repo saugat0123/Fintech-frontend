@@ -6,14 +6,13 @@ import {LoanFormComponent} from './component/loan-form/loan-form.component';
 import {BasicInfoComponent} from './component/loan-main-template/basic-info/basic-info.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
-import {SharedModule} from '../shared/shared.module';
 import {CompanyInfoComponent} from './component/loan-main-template/company-info/company-info.component';
-import {MsgModalComponent} from '../../common/msg-modal/msg-modal.component';
 import {KycInfoComponent} from './component/loan-main-template/kyc-info/kyc-info.component';
 import {DmsLoanFileComponent} from './component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {DmsSummaryComponent} from './component/loan-main-template/dms-summary/dms-summary.component';
 import {SecurityComponent} from './component/loan-main-template/security/security.component';
+import {MsgModalComponent} from '../../@theme/components';
 
 
 
@@ -35,13 +34,11 @@ import {SecurityComponent} from './component/loan-main-template/security/securit
         NgbPaginationModule,
         ReactiveFormsModule,
         ReactiveFormsModule,
-        SharedModule,
         NgSelectModule
 
     ],
     entryComponents: [
         MsgModalComponent
-
     ]
 
 })

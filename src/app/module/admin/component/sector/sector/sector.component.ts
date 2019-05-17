@@ -6,9 +6,7 @@ import {CommonPageService} from '../../../../../@core/service/baseservice/common
 import {Sector} from '../../../modal/sector';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddSectorComponent} from './add-sector/add-sector.component';
-import {UpdateModalComponent} from '../../../../../common/update-modal/update-modal.component';
-import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.component';
-
+import {MsgModalComponent, UpdateModalComponent} from '../../../../../@theme/components';
 
 @Component({
     selector: 'app-sector',
@@ -102,7 +100,9 @@ export class SectorComponent implements OnInit, DoCheck {
 
     onChange(newValue, data) {
 
-        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
 
         event.preventDefault();
         this.newValue = newValue;

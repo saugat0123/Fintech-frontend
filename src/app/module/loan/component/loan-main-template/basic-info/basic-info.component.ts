@@ -7,10 +7,10 @@ import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 import {Province} from '../../../../admin/modal/province';
 import {District} from '../../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
-import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
-import {CommonDataService} from '../../../../../shared-service/baseservice/common-dataService';
-import {CommonLocation} from '../../../../../shared-service/baseservice/common-location';
 import {LoanDataService} from '../../../service/loan-data.service';
+import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
+import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
+import {CommonLocation} from '../../../../../@core/service/baseservice/common-location';
 
 
 @Component({
@@ -134,6 +134,4 @@ export class BasicInfoComponent implements OnInit {
 
         console.log('running state');
     }
-
-
 }

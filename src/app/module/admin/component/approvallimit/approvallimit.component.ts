@@ -7,9 +7,8 @@ import {CommonPageService} from '../../../../@core/service/baseservice/common-pa
 import {ApprovalLimit} from '../../modal/approval-limit';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddApprovalLimitComponent} from './add-approval-limit/add-approval-limit.component';
-import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
-import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
-
+import {MsgModalComponent} from '../../../../@theme/components';
+import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
 @Component({
     selector: 'app-approvallimit',

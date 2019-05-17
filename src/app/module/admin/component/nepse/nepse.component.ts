@@ -6,8 +6,8 @@ import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {Nepse} from '../../modal/nepse';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddNepseComponent} from './add-nepse/add-nepse.component';
-import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
-import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
+import {MsgModalComponent} from '../../../../@theme/components';
+import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
 @Component({
     selector: 'app-nepse',

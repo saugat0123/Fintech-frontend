@@ -8,9 +8,9 @@ import {Action} from '../../../../core/Action';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {CustomValidator} from '../../../../core/validator/custom-validator';
 import {Status} from '../../../../core/Status';
-import {AlertService} from '../../../../common/alert/alert.service';
-import {Alert, AlertType} from '../../../../common/alert/Alert';
-import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
+import {Alert, AlertType} from '../../../../@theme/components/alert/Alert';
+import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
+import {AlertService} from '../../../../@theme/components/alert/alert.service';
 
 @Component({
     selector: 'app-memo-type',

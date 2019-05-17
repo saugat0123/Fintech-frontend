@@ -24,7 +24,6 @@ export class AddSegmentComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private modalService: NgbModal,
         private activeModal: NgbActiveModal
-
     ) {
     }
 
@@ -44,7 +43,7 @@ export class AddSegmentComponent implements OnInit, DoCheck {
     onSubmit() {
         this.submitted = true;
         this.commonService.saveOrEdit(this.segment, 'v1/segment').subscribe(result => {
-            this.modalService.dismissAll(AddSegmentComponent);
+                this.modalService.dismissAll(AddSegmentComponent);
                 if (this.segment.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED SEGMENT';
                 } else {
@@ -60,7 +59,7 @@ export class AddSegmentComponent implements OnInit, DoCheck {
 
             }, error => {
 
-            this.modalService.dismissAll(AddSegmentComponent);
+                this.modalService.dismissAll(AddSegmentComponent);
 
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
@@ -72,6 +71,7 @@ export class AddSegmentComponent implements OnInit, DoCheck {
             }
         );
     }
+
     onClose() {
         this.activeModal.dismiss(AddSegmentComponent);
     }

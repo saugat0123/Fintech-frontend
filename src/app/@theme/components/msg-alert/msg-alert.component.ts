@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from '../../@core/service/baseservice/common-dataService';
 import {debounceTime} from 'rxjs/operators';
+import {CommonDataService} from '../../../@core/service/baseservice/common-dataService';
 
 @Component({
   selector: 'app-msg-alert',

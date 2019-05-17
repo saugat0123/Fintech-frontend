@@ -7,9 +7,8 @@ import {CommonPageService} from '../../../../@core/service/baseservice/common-pa
 import {Valuator} from '../../modal/valuator';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddValuatorComponent} from './add-valuator/add-valuator.component';
-import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
-import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
-import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
+import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
+import {MsgModalComponent, UpdateModalComponent} from '../../../../@theme/components';
 
 
 @Component({

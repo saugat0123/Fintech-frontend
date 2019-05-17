@@ -11,10 +11,10 @@ import {Proprietors} from '../../../../admin/modal/proprietors';
 import {Province} from '../../../../admin/modal/province';
 import {District} from '../../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
-import {CommonService} from '../../../../../shared-service/baseservice/common-baseservice';
-import {CommonLocation} from '../../../../../shared-service/baseservice/common-location';
 import {LoanDataService} from '../../../service/loan-data.service';
 import {ManagementTeam} from '../../../../admin/modal/management-team';
+import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
+import {CommonLocation} from '../../../../../@core/service/baseservice/common-location';
 
 
 @Component({

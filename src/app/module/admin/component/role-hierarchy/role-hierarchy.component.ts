@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from '../../../../shared-service/baseservice/common-dataService';
-import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {RoleOrders} from '../../modal/roleOrders';
-import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
+import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
+import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
+import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
 @Component({
     selector: 'app-role-hierarchy',

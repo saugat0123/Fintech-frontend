@@ -8,12 +8,13 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddModelComponent} from './add-model/add-model.component';
 
 import {MunicipalityVdc} from '../../modal/municipality_VDC';
-import {UpdateModalComponent} from '../../../../common/update-modal/update-modal.component';
-import {MsgModalComponent} from '../../../../common/msg-modal/msg-modal.component';
+
+
 import {Province} from '../../modal/province';
 import {District} from '../../modal/district';
 import {CommonLocation} from '../../../../@core/service/baseservice/common-location';
-import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
+import {MsgModalComponent, UpdateModalComponent} from '../../../../@theme/components';
+import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
 @Component({
     selector: 'app-branch',

@@ -1,10 +1,11 @@
-import {BreadcrumbService} from '../../common/breadcrum/breadcrumb.service';
+
 import {Component, OnInit} from '@angular/core';
 import {CommonDataService} from '../../@core/service/baseservice/common-dataService';
 import {CommonService} from '../../@core/service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
 import {Permission} from '../../module/admin/modal/permission';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {BreadcrumbService} from '../../@theme/components/breadcrum/breadcrumb.service';
 
 @Component({
     selector: 'app-dashboard',

@@ -5,10 +5,9 @@ import {CommonService} from '../../../../../@core/service/baseservice/common-bas
 import {CommonPageService} from '../../../../../@core/service/baseservice/common-pagination-service';
 import {LoanTemplate} from '../../../modal/template';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {MsgModalComponent} from '../../../../../common/msg-modal/msg-modal.component';
+import {MsgModalComponent, UpdateModalComponent} from '../../../../../@theme/components';
 import {TemplateAddModelComponent} from './template-add-model/template-add-model.component';
-import {UpdateModalComponent} from '../../../../../common/update-modal/update-modal.component';
-import {BreadcrumbService} from '../../../../../common/breadcrum/breadcrumb.service';
+import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
 
 
 @Component({

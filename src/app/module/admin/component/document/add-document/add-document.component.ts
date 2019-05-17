@@ -17,7 +17,7 @@ export class AddDocumentComponent implements OnInit, DoCheck {
     submitted = false;
     spinner = false;
     globalMsg: string;
-    document: Document = new Document();
+    document: Document;
 
     constructor(
         private commonService: CommonService,
@@ -47,7 +47,7 @@ export class AddDocumentComponent implements OnInit, DoCheck {
         this.globalMsg = 'test successful';
         this.commonService.saveOrEdit(this.document, 'v1/document').subscribe(result => {
 
-            this.modalService.dismissAll(AddDocumentComponent);
+                this.modalService.dismissAll(AddDocumentComponent);
                 if (this.document.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED DOCUMENT';
                 } else {
@@ -63,7 +63,7 @@ export class AddDocumentComponent implements OnInit, DoCheck {
 
             }, error => {
 
-            this.modalService.dismissAll(AddDocumentComponent);
+                this.modalService.dismissAll(AddDocumentComponent);
 
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
@@ -75,6 +75,7 @@ export class AddDocumentComponent implements OnInit, DoCheck {
             }
         );
     }
+
     onClose() {
         this.activeModal.dismiss(AddDocumentComponent);
     }

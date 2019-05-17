@@ -15,6 +15,7 @@ import {Nepse} from '../../../module/admin/modal/nepse';
 import {Company} from '../../../module/admin/modal/company';
 import {DmsLoanFile} from '../../../module/admin/modal/dms-loan-file';
 import {LoanConfig} from '../../../module/admin/modal/loan-config';
+import {Document} from '../../../module/admin/modal/document';
 
 @Injectable({
     providedIn: 'root'

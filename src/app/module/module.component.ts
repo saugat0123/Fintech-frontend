@@ -103,7 +103,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         </app-base-layout>
     `,
 })
-export class PagesComponent {
+export class ModuleComponent {
     menu = MENU_ITEMS;
 }
 
