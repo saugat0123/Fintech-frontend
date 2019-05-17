@@ -1,9 +1,10 @@
 import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {LoginComponent} from './component/login/login.component';
+import {AuthGuard} from './shared-service/authentication/auth.guard';
 
 const routes: Routes = [
-    {path: 'home', loadChildren: './pages/pages.module#PagesModule'},
+    {path: 'home', loadChildren: './module/module.module#ModuleModule'},
     {path: '', component: LoginComponent}
 ];
 

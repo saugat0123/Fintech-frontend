@@ -28,11 +28,12 @@
     <app-main-nav></app-main-nav>
 </div>-->
 
-<div class="row">
+<div class="row" *ngIf="addViewLoanCategory">
     <div class="col-md-6">
         <div class="row">
             <div class="col-md-6">
                 <select [(ngModel)]="loanType" class="form-control">
+                    <option [ngValue]="undefined" hidden>---select Loan Type---</option>
                     <option *ngFor="let allList of loanList" [value]="allList.id">{{allList.name}}</option>
                 </select>
             </div>
@@ -44,3 +45,5 @@
         </div>
     </div>
 </div>
+
+<app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>

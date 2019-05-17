@@ -1,8 +1,9 @@
-<div class="modal-dialog">
+<div class="modal-document">
     <div class="modal-content">
         <div class="modal-header" style="display:block">
-            <button type="button" class="close" (click)="onClose()" aria-label="Close">
-                <span aria-hidden="true">×</span></button>
+            <a  class="close cursor" data-dismiss="modal" aria-label="Close"
+                (click)="onClose()">
+                <span aria-hidden="true">×</span></a>
             <h4 class="modal-title pull-left">Add Role</h4>
         </div>
         <div class="modal-body">
@@ -12,9 +13,9 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label>Name</label>
-                            <input type="hidden" class="form-control" [(ngModel)]="role.id" name="id"
+                            <input type="hidden" class="form-control form-control-sm" [(ngModel)]="role.id" name="id"
                                    placeholder="id">
-                            <input type="text" class="form-control" required [(ngModel)]="role.roleName"
+                            <input type="text" class="form-control form-control-sm" required [(ngModel)]="role.roleName"
                                    name="roleName" placeholder="Name" #roleVal="ngModel"
                                    [ngClass]="{ 'is-invalid': f.submitted && roleVal.invalid }">
                             <div *ngIf="f.submitted && roleVal.invalid" class="invalid-feedback">
@@ -26,7 +27,7 @@
                     </div>
 
                     <div class="modal-footer">
-
+                        <div><sup>*</sup>New Role will added in Lowest Order</div>
                         <button type="submit" class="btn btn-primary"><i
                                 class="fa fa-save"></i>
                         </button>

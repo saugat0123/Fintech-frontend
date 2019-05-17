@@ -5,7 +5,9 @@ import {CommonDataService} from '../../../../../@core/service/baseservice/common
 import {SubSegment} from '../../../modal/subSegment';
 import {Segment} from '../../../modal/segment';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+
 import {LoanConfig} from '../../../modal/loan-config';
+
 
 @Component({
     selector: 'app-add-sub-segment',
@@ -31,6 +33,7 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private activeModal: NgbActiveModal,
         private modalService: NgbModal
+
     ) {
     }
 

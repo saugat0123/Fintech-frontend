@@ -7,6 +7,8 @@ import {Role} from '../../modal/role';
 import {AddRoleComponent} from './add-role/add-role.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
+import {AlertService} from '../../../../common/alert/alert.service';
+import {Alert, AlertType} from '../../../../common/alert/Alert';
 
 declare var $;
 
@@ -34,6 +36,7 @@ export class RolePermissionComponent implements OnInit {
     activeCount: number;
     inactiveCount: number;
     roleCount: number;
+    isDisabled = false;
 
 
     constructor(
@@ -42,6 +45,7 @@ export class RolePermissionComponent implements OnInit {
         private commonPageService: CommonPageService,
         private router: Router,
         private modalService: NgbModal,
+        private alertService: AlertService,
         private breadcrumbService: BreadcrumbService
     ) {
     }
@@ -50,17 +54,18 @@ export class RolePermissionComponent implements OnInit {
         this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/role';
         this.commonService.getByAll(this.currentApi + '/active').subscribe((response: any) => {
+            console.log('role list:', response.detail);
             this.roleList = response.detail;
         });
         this.commonService.getByAll('v1/roleRightPermission/rights').subscribe((response: any) => {
+            console.log(response.detail);
             this.rightList = response.detail;
         });
 
         this.commonService.getByAll(this.currentApi + '/get/statusCount').subscribe((response: any) => {
-
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
-            this.roleCount = response.detail.branches;
+            this.roleCount = response.detail.roles;
 
         });
     }
@@ -70,9 +75,11 @@ export class RolePermissionComponent implements OnInit {
         this.roleId = id;
         this.roleperm = [];
         this.commonService.getByAll('v1/roleRightPermission/' + id).subscribe((response: any) => {
+            console.log('v2', response.detail);
             this.rolePermissionList = response.detail;
             // tslint:disable-next-line:no-shadowed-variable
             this.commonService.getByAll('v1/permission').subscribe((response: any) => {
+                console.log('v1/permission', response.detail);
                 this.allPermission = response.detail;
                 this.checkPermission();
 
@@ -83,7 +90,6 @@ export class RolePermissionComponent implements OnInit {
     }
 
     updateCheckedOptions(permId, events) {
-
         this.permissions = {
             id: null,
             permission: {
@@ -155,17 +161,24 @@ export class RolePermissionComponent implements OnInit {
     }
 
     save() {
-        this.spinner = false;
+        this.isDisabled = true;
+        this.spinner = true;
 
         this.commonService.saveOrEdit(this.roleperm, 'v1/roleRightPermission').subscribe(result => {
-            this.globalMsg = 'SUCCESSFULLY ADDED ROLE AND PERMISSION';
-            this.dataService.getGlobalMsg(this.globalMsg);
-            this.dataService.getAlertMsg('true');
+
             this.roleperm = [];
             this.spinner = false;
-            this.roleChanged(this.roleId);
+            // this.roleChanged(this.roleId);
+            this.isDisabled = false;
+            this.router.navigateByUrl('/home').then(e => {
+                if (e) {
 
-            // this.commonService.getByPost('actuator/refresh', null).subscribe((response: any) => {});
+                    this.router.navigate(['/home/role']);
+
+                }
+            });
+            this.alertService.notify(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY ADDED ROLE AND PERMISSION'));
+
         });
     }
 
@@ -198,7 +211,8 @@ export class RolePermissionComponent implements OnInit {
                         },
                         lastModified: new Date(),
                         del: false,
-                        apiRights: this.tempRightList
+                        apiRights: this.tempRightList,
+                        version: this.rolePermissionList[j].version
                     };
 
                     this.roleperm.push(this.permissions);

@@ -16,6 +16,7 @@ import {ThemeModule} from './@theme/theme.module';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         QuillModule,
         RouterModule,
         AppRoutingModule,
-        ThemeModule
+        ThemeModule,
+        DragDropModule
     ],
 
     providers: [CommonService, RestApiService, CommonDataService, CommonLocation, {

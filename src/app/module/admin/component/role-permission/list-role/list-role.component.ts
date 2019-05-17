@@ -38,7 +38,7 @@ export class ListRoleComponent implements OnInit {
         this.commonService.getByAll(this.currentApi + '/get/statusCount').subscribe((response: any) => {
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
-            this.roleCount = response.detail.branches;
+            this.roleCount = response.detail.roles;
 
         });
 

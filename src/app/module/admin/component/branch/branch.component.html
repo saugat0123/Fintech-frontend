@@ -122,7 +122,7 @@
                             <th>Street</th>
                             <th>Ward</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th *ngIf='editViewBranch === true'>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -138,13 +138,19 @@
                             <td>{{allList.municipalityVdc?.name}}</td>
                             <td>{{allList.streetName}}</td>
                             <td>{{allList.wardNumber}}</td>
-                            <td>
+                            <td *ngIf='editViewBranch ==true; else status '>
                                 <select class="select-borderless" [(ngModel)]="allList.status" name="status"
                                         (change)="onChange($event.target.value,allList)">
                                     <option value="ACTIVE">ACTIVE</option>
                                     <option value="INACTIVE">INACTIVE</option>
                                 </select>
                             </td>
+                            <ng-template #status>
+
+                                <td>
+                                    <p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>
+                                </td>
+                            </ng-template>
                             <td>
                                 <a *ngIf='editViewBranch' (click)="openEdit(allList)"
                                    data-toggle="tooltip"

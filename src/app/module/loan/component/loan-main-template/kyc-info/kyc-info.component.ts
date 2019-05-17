@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Customer} from '../../../../modal/customer';
-import {CommonService} from '../../../../../../@core/service/baseservice/common-baseservice';
+
 import {Router} from '@angular/router';
-import {CustomerRelative} from '../../../../modal/customer-relative';
+
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {CommonDataService} from '../../../../../../@core/service/baseservice/common-dataService';
+import {Customer} from '../../../../admin/modal/customer';
+import {CustomerRelative} from '../../../../admin/modal/customer-relative';
+import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
+import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 
 @Component({
     selector: 'app-kyc-info',
@@ -26,7 +28,6 @@ export class KycInfoComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.customer = this.commonDateService.getCustomer();
         this.basicInfo = this.formBuilder.group({
             otherRelatives: this.formBuilder.array([
                 this.relativeFormGroup()
@@ -37,7 +38,7 @@ export class KycInfoComponent implements OnInit {
     onSubmit() {
         this.customer.customerRelatives = this.basicInfo.get('otherRelatives').value;
         this.commonService.saveOrEdit(this.customer, 'v1/basicInfo').subscribe();
-        this.router.navigate(['pages/loan/company-info']);
+        this.router.navigate(['home/loan/company-info']);
     }
 
     addCustomerRelative() {
@@ -59,7 +60,7 @@ export class KycInfoComponent implements OnInit {
     }
 
     previousPage() {
-        this.router.navigate(['pages/loan/basic-info']);
+        this.router.navigate(['home/loan/basic-info']);
     }
 
 }

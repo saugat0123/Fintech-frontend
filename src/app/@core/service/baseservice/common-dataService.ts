@@ -1,21 +1,20 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Subject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {Branch} from '../../../module/admin/modal/branch';
 import {ApprovalLimit} from '../../../module/admin/modal/approval-limit';
 import {User} from '../../../module/admin/modal/user';
-import {Customer} from '../../../module/admin/modal/customer';
 import {Valuator} from '../../../module/admin/modal/valuator';
 import {Sector} from '../../../module/admin/modal/sector';
 import {SubSector} from '../../../module/admin/modal/sub-sector';
 import {Segment} from '../../../module/admin/modal/segment';
-import {District} from '../../../module/admin/modal/district';
 import {SubSegment} from '../../../module/admin/modal/subSegment';
+import {District} from '../../../module/admin/modal/district';
 import {MunicipalityVdc} from '../../../module/admin/modal/municipality_VDC';
 import {Province} from '../../../module/admin/modal/province';
 import {Nepse} from '../../../module/admin/modal/nepse';
 import {Company} from '../../../module/admin/modal/company';
-import {Document} from '../../../module/admin/modal/document';
-
+import {DmsLoanFile} from '../../../module/admin/modal/dms-loan-file';
+import {LoanConfig} from '../../../module/admin/modal/loan-config';
 
 @Injectable({
     providedIn: 'root'
@@ -25,12 +24,11 @@ export class CommonDataService {
     data: any;
     dataObj: any;
     alertmessage: String;
-
+    loanType: string;
     branch: Branch = new Branch();
     document: Document = new Document();
     approvalLimit: ApprovalLimit = new ApprovalLimit();
     user: User = new User();
-    customer: Customer = new Customer();
     valuator: Valuator = new Valuator();
     sector: Sector = new Sector();
     subSector: SubSector = new SubSector();
@@ -41,6 +39,10 @@ export class CommonDataService {
     province: Province = new Province();
     nepse: Nepse = new Nepse();
     company: Company = new Company();
+    renew: Document[] = [];
+    initial: Document[] = [];
+    dmsLoanfile: DmsLoanFile = new DmsLoanFile();
+    loanConfig: LoanConfig;
 
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
@@ -96,7 +98,6 @@ export class CommonDataService {
     }
 
     setApprovalLimit(approvalLimit: ApprovalLimit) {
-        console.log(approvalLimit);
         this.approvalLimit = approvalLimit;
     }
 
@@ -113,13 +114,6 @@ export class CommonDataService {
         return this.user;
     }
 
-    setCustomer(customer: Customer) {
-        return this.customer = customer;
-    }
-
-    getCustomer() {
-        return this.customer;
-    }
 
     setValuator(valuator: Valuator) {
         return this.valuator = valuator;
@@ -146,7 +140,6 @@ export class CommonDataService {
     }
 
     setSegment(segment: Segment) {
-        console.log(segment);
         this.segment = segment;
     }
 
@@ -163,7 +156,6 @@ export class CommonDataService {
     }
 
     setDistrict(district: District) {
-        console.log(district);
         this.district = district;
     }
 
@@ -203,8 +195,49 @@ export class CommonDataService {
         return this.company;
     }
 
+
     clearData() {
         this.dataObj = new Object();
+    }
+
+    setInitialDocument(documents: Document[]) {
+        this.initial = documents;
+    }
+
+    setLoan(loanConfig: LoanConfig) {
+        this.loanConfig = loanConfig;
+    }
+
+    getLoan() {
+        return this.loanConfig;
+    }
+
+    setRenewDocument(docuemnts: Document[]) {
+        this.renew = docuemnts;
+    }
+
+    getInitialDocument() {
+        return this.initial;
+    }
+
+    getRenewDocument() {
+        return this.renew;
+    }
+
+    setLoanName(name: string) {
+        this.loanType = name;
+    }
+
+    getLoanName() {
+        return this.loanType;
+    }
+
+    setDmsLoanFile(dmsLoanFile: DmsLoanFile) {
+        this.dmsLoanfile = dmsLoanFile;
+    }
+
+    getDmsLoanFile() {
+        return this.dmsLoanfile;
     }
 
 }

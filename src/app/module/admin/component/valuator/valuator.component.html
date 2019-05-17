@@ -61,7 +61,7 @@
                             <th>Contact Number</th>
                             <th>Site Location</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th *ngIf='editValuator === true'>Action</th>
                         </tr>
                         </thead>
 
@@ -72,20 +72,23 @@
                             </div>
                             <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                             <td>{{allList.name}}</td>
-                            <td>{{allList?.province?.name}}, {{allList?.district?.name}}
-                                , {{allList?.municipalityVdc?.name}}</td>
+                            <td>{{allList?.province?.name}}, {{allList?.district?.name}}, {{allList?.municipalityVdc?.name}}</td>
                             <td>{{allList.contactNo}}</td>
-                            <td>{{allList?.siteProvince?.name}}, {{allList?.siteDistrict?.name}}
-                                , {{allList?.siteMunicipalityVdc?.name}}</td>
-                            <td>
-                                <select [(ngModel)]="allList.status" name="status"
+                            <td>{{allList?.siteProvince?.name}}, {{allList?.siteDistrict?.name}}, {{allList?.siteMunicipalityVdc?.name}}</td>
+                            <td *ngIf='editValuator === true; else status '>
+                                <select class="select-borderless" [(ngModel)]="allList.status" name="status"
                                         (change)="onChange($event.target.value,allList)">
                                     <option value="ACTIVE">ACTIVE</option>
                                     <option value="INACTIVE">INACTIVE</option>
-
                                 </select>
                             </td>
-                            <td>
+                            <ng-template #status>
+
+                                <td>
+                                    <p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>
+                                </td>
+                            </ng-template>
+                            <td *ngIf='editValuator === true'>
                                 <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
                                    data-placement="top" title="EDIT" *ngIf="editValuator">
                                     <i class="fa fa-edit" style="color:white"></i>

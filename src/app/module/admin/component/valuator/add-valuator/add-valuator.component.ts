@@ -6,6 +6,8 @@ import {CommonService} from '../../../../../@core/service/baseservice/common-bas
 import {Valuator} from '../../../modal/valuator';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CommonLocation} from '../../../../../@core/service/baseservice/common-location';
+
+import {CommonLocation} from '../../../../../shared-service/baseservice/common-location';
 import {Province} from '../../../modal/province';
 import {District} from '../../../modal/district';
 import {MunicipalityVdc} from '../../../modal/municipality_VDC';
@@ -42,6 +44,7 @@ export class AddValuatorComponent implements OnInit, DoCheck {
         private activeModal: NgbActiveModal,
         private location: CommonLocation
     ) {
+
     }
 
     ngOnInit() {
@@ -165,8 +168,8 @@ export class AddValuatorComponent implements OnInit, DoCheck {
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('true');
                 this.valuator = new Valuator();
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/valuator']));
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/valuator']));
 
 
             }, error => {
@@ -177,8 +180,8 @@ export class AddValuatorComponent implements OnInit, DoCheck {
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('false');
 
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/valuator']));
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/valuator']));
 
             }
         );
@@ -187,6 +190,7 @@ export class AddValuatorComponent implements OnInit, DoCheck {
     onClose() {
         this.activeModal.dismiss(AddValuatorComponent);
     }
+
 
     setProvince(province: Province) {
         this.valuator.province = province;

@@ -12,6 +12,7 @@ import {MunicipalityVdc} from '../../../modal/municipality_VDC';
 import {AlertService} from '../../../../../common/alert/alert.service';
 import {Alert, AlertType} from '../../../../../common/alert/Alert';
 
+
 @Component({
     selector: 'app-add-model',
     templateUrl: './add-model.component.html',
@@ -78,7 +79,6 @@ export class AddModelComponent implements OnInit, DoCheck {
                 this.municipalities = response.detail;
             }
         );
-
     }
 
 
@@ -123,16 +123,16 @@ export class AddModelComponent implements OnInit, DoCheck {
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('true');
                 this.branch = new Branch();
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/branch']));
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/branch']));
 
             }, error => {
                 this.modalService.dismissAll(AddModelComponent);
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('false');
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/branch']));
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/branch']));
             }
         );
     }
