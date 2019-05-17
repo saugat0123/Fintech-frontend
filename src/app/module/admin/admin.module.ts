@@ -56,8 +56,6 @@ import { NewRequestsComponent } from './component/eligibility/new-requests/new-r
 // import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {CompanyInfoComponent} from '../loan/component/loan-main-template/company-info/company-info.component';
-import {BasicInfoComponent} from '../loan/component/loan-main-template/basic-info/basic-info.component';
 
 @NgModule({
     declarations: [
@@ -66,8 +64,6 @@ import {BasicInfoComponent} from '../loan/component/loan-main-template/basic-inf
         LoanConfigComponent,
         LoanTemplateComponent,
         TemplateAddModelComponent,
-        BasicInfoComponent,
-        CompanyInfoComponent,
         AddLoanComponent,
         UserComponent,
         AddUserComponent,
