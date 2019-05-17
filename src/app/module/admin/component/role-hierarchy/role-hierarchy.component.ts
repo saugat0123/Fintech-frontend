@@ -3,6 +3,7 @@ import {CommonDataService} from '../../../../shared-service/baseservice/common-d
 import {CommonService} from '../../../../shared-service/baseservice/common-baseservice';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {RoleOrders} from '../../modal/roleOrders';
+import {BreadcrumbService} from '../../../../common/breadcrum/breadcrumb.service';
 
 @Component({
     selector: 'app-role-hierarchy',
@@ -19,19 +20,26 @@ export class RoleHierarchyComponent implements OnInit {
     spinner = false;
     isDisabled = false;
     tempRoleOrders: RoleOrders[];
-
+    length = false;
+    title = 'Role Hierarchy';
 
     constructor(private dataService: CommonDataService,
                 private commonService: CommonService,
+                private breadcrumbService: BreadcrumbService
     ) {
     }
 
 
     ngOnInit() {
-
+        this.breadcrumbService.notify(this.title);
         this.commonService.getByAll(this.currentApi).subscribe((response: any) => {
             this.roleList = response.detail;
-            console.log(response);
+            if (this.roleList.length > 0) {
+                this.length = true;
+            } else {
+                this.length = false;
+            }
+
         });
 
         this.commonService.getByAll('v1/role/get/statusCount').subscribe((response: any) => {

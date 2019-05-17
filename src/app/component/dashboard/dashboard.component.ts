@@ -3,11 +3,8 @@ import {BreadcrumbService} from '../../common/breadcrum/breadcrumb.service';
 import {Component, OnInit} from '@angular/core';
 import {CommonDataService} from '../../shared-service/baseservice/common-dataService';
 import {Router} from '@angular/router';
-import {RolePermissionRight} from '../../module/admin/modal/role-permission-right';
 import {Permission} from '../../module/admin/modal/permission';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {LoanConfig} from '../../module/admin/modal/loan-config';
-import {Document} from '../../module/admin/modal/document';
 
 @Component({
     selector: 'app-dashboard',
@@ -43,9 +40,7 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dataService.changeTitle(this.title);
-
-        this.dataService.changeTitle(this.title);
+        this.breadcrumbService.notify(this.title);
         this.commonService.getByAll('v1/config/getAll').subscribe((response: any) => {
             this.loanList = response.detail;
         });
