@@ -11,6 +11,7 @@ export class LoanConfig {
     status: string;
     isRenewable: boolean;
     loanConfigCode: string;
+    eligibilityPercentage: number;
     initial: Array<Document>;
     renew: Array<Document>;
 }

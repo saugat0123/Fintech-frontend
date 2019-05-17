@@ -22,6 +22,7 @@ export class QuestionComponent implements OnInit {
     questionList: Array<Questions> = new Array<Questions>();
     schemeList: Array<LoanConfig> = new Array<LoanConfig>();
     qsnContent: Questions = new Questions();
+    loanConfig: LoanConfig = new LoanConfig();
     addEditQuestionForm: FormGroup;
     questionAnswerForm: FormGroup;
 
@@ -33,7 +34,7 @@ export class QuestionComponent implements OnInit {
                 private modalService: NgbModal) {
 
         this.questionAnswerForm = this.formBuilder.group({
-            loanConfigID: [undefined, Validators.required],
+            loanConfig: [undefined, Validators.required],
             questionForm: this.formBuilder.array([])
         });
 
@@ -88,7 +89,8 @@ export class QuestionComponent implements OnInit {
     onChangeSchemeOption() {
         this.clearFormArray();
         this.totalObtainablePoints = 0;
-        this.loanConfigID = this.questionAnswerForm.get('loanConfigID').value;
+        this.loanConfig = this.questionAnswerForm.get('loanConfig').value;
+        this.loanConfigID = this.loanConfig.id;
         this.questionApi = 'v1/loan-configs/' + this.loanConfigID + '/questions';
 
         this.commonService.getByGetAllPageable(this.questionApi, 1, 10).subscribe((response: any) => {
@@ -187,7 +189,7 @@ export class QuestionComponent implements OnInit {
         console.log(this.questionList);
         this.commonService.saveQuestion(this.questionList, this.questionApi).subscribe(result => {
 
-                alert('success !!');
+                alert('Success !!');
                 this.questionList = new Array<Questions>();
                 this.onChangeSchemeOption();
 
@@ -201,18 +203,30 @@ export class QuestionComponent implements OnInit {
     onUpdate(newQsnContent) {
         this.commonService.updateQuestion(newQsnContent, this.questionApi + '/' + newQsnContent.id).subscribe(result => {
 
-                alert('success !!');
+                alert('Success !!');
                 this.questionList = new Array<Questions>();
                 this.qsnContent = new Questions();
                 this.onChangeSchemeOption();
                 this.modalService.dismissAll('Close modal');
 
             }, error => {
-                alert('failed !!');
+                alert('Failed !!');
                 this.questionList = new Array<Questions>();
                 this.modalService.dismissAll('Close modal');
             }
         );
+    }
+
+    onUpdateEligibilityPercent(loanConfigId, eligibilityPercentValue) {
+        this.loanConfig.id = loanConfigId;
+        this.loanConfig.eligibilityPercentage = eligibilityPercentValue;
+        this.commonService.saveOrEdit(this.loanConfig, 'v1/config').subscribe(result => {
+            alert('Success !!');
+            this.onChangeSchemeOption();
+
+        }, error => {
+            alert('Failed !!');
+        });
     }
 
     onDelete(qsnContent) {

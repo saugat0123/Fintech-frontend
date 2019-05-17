@@ -22,11 +22,11 @@
                         <div class=row>
                             <div class="col-md-5">
                                 <label>Select a Scheme</label>
-                                <select class="form-control custom-select" formControlName="loanConfigID"
+                                <select class="form-control custom-select" formControlName="loanConfig"
                                         (change)="onChangeSchemeOption()">
                                     <option [ngValue]="null" hidden> Select a scheme</option>
                                     <option *ngFor="let scheme of schemeList; "
-                                            [ngValue]="scheme?.id">{{scheme.name}}</option>
+                                            [ngValue]="scheme">{{scheme.name}}</option>
                                 </select>
                             </div>
                             <div *ngIf="existingQuestionList" class="col-md-7">
@@ -94,7 +94,8 @@
                                    data-placement="top" title="EDIT" class="cursor">
                                     <i class="fa fa-edit" style="color:#3c8dbc;"></i>
                                 </a>
-                                <a class="btn btn-danger btn-sm" data-toggle="tooltip"  data-placement="top" (click)="onDelete(qsn)"  title="DELETE" style="margin-left:10px">
+                                <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top"
+                                   (click)="onDelete(qsn)" title="DELETE" style="margin-left:10px">
                                     <i class="fa fa-trash" style="color:white;"></i>
                                 </a>
                             </td>
@@ -221,7 +222,16 @@
                                 <tr>
                                     <th>Set eligibility (in percent):</th>
                                     <td>
-                                        <input size="1" type="number">
+                                        <div class="input-group mb-3">
+                                            <input #eligibilityValue size="1" type="number"
+                                                   placeholder="Eligibility in %">
+                                            <div class="input-group-append">
+                                                <a class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top"
+                                                   (click)="onUpdateEligibilityPercent(loanConfigID, eligibilityValue.value)" style="margin-left:10px">
+                                                    <i class="fa fa-save" style="color:white;"></i>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 </tbody>
