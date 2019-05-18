@@ -7,7 +7,7 @@ import {baseApi} from '../../@core/service/authentication/api-list.service';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
