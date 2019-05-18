@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 import {Role} from '../../modal/role';
 import {AddRoleComponent} from './add-role/add-role.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {Alert, AlertType} from '../../../../@theme/components/alert/Alert';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {AlertService} from '../../../../@theme/components/alert/alert.service';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 

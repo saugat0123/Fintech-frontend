@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NbMenuItem} from '@nebular/theme';
+import {FeatureMenuService} from './FeatureMenuService';
 
 
 export const MENU_ITEMS: NbMenuItem[] = [
@@ -115,12 +116,27 @@ export const MENU_ITEMS: NbMenuItem[] = [
     selector: 'app-pages',
     template: `
         <app-base-layout>
-            <nb-menu [items]="menu"></nb-menu>
+            <nb-menu [items]="menus"></nb-menu>
             <router-outlet></router-outlet>
         </app-base-layout>
     `,
 })
-export class FeatureComponent {
-    menu = MENU_ITEMS;
+export class FeatureComponent implements OnInit {
+    // menu = MENU_ITEMS;
+    menus: NbMenuItem[] = [];
+
+    private items;
+
+    constructor(private menuService: FeatureMenuService) {
+    }
+
+    ngOnInit() {
+        this.items = this.menuService.getMenus().subscribe(res => {
+                this.menus = [...res.detail];
+            },
+            () => {
+            },
+            () => console.log('request complete'));
+    }
 }
 

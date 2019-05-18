@@ -9,7 +9,7 @@ import {CommonLocation} from '../../../../../@core/service/baseservice/common-lo
 import {Province} from '../../../modal/province';
 import {District} from '../../../modal/district';
 import {MunicipalityVdc} from '../../../modal/municipality_VDC';
-import {Alert, AlertType} from '../../../../../@theme/components/alert/Alert';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {AlertService} from '../../../../../@theme/components/alert/alert.service';
 
 

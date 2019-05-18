@@ -10,7 +10,8 @@ import {MemoDataService} from '../../service/memo-data.service';
 import {User} from '../../../admin/modal/user';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {AlertService} from '../../../../@theme/components/alert/alert.service';
-import {Alert, AlertType} from '../../../../@theme/components/alert/Alert';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {ToastService} from '../../../../@core/utils';
 
 @Component({
     selector: 'app-memo-compose',
@@ -39,7 +40,8 @@ export class MemoComposeComponent implements OnInit {
         private formBuilder: FormBuilder,
         private commonService: CommonService,
         private router: Router,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private toastService: ToastService
     ) {
     }
 
@@ -100,21 +102,21 @@ export class MemoComposeComponent implements OnInit {
 
         if (this.isNewMemo) {
             this.memoService.save(this.memoApi, this.memo).subscribe((response: any) => {
-                this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Created Memo'));
-                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['home/memo/underReview']));
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Created Memo'));
+
+                this.router.navigate(['home/memo/underReview']);
+
             }, error => {
                 console.error(error);
-                this.alertService.notify(new Alert(AlertType.ERROR, 'Unable to Create Memo'));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Create Memo'));
             });
         } else {
             this.memoService.edit(this.memoApi, this.memo, this.memo.id).subscribe((response: any) => {
-                this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Updated Memo'));
-                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['home/memo/underReview']));
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Memo'));
+                this.router.navigate(['home/memo/underReview']);
             }, error => {
-                this.alertService.notify(new Alert(AlertType.ERROR, 'Unable to Update Memo'));
                 console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Memo'));
             });
         }
     }

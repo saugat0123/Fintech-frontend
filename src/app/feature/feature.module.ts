@@ -5,14 +5,15 @@ import {FeatureComponent} from './feature.component';
 import {DashboardComponent} from '../component/dashboard/dashboard.component';
 
 @NgModule({
-    imports: [
-        FeatureRoutingModule,
-        ThemeModule
-    ],
+        imports: [
+            FeatureRoutingModule,
+            ThemeModule
+        ],
         declarations: [
             FeatureComponent,
             DashboardComponent
-        ]
+        ],
+        providers: []
     }
 )
 export class FeatureModule {

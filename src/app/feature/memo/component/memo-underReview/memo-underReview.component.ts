@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MemoService} from '../../service/memo.service';
 import {MemoDataService} from '../../service/memo-data.service';
 import {MemoViewButtonComponent} from './memo-view-button/memo-view-button.component';
-import {Alert, AlertType} from '../../../../@theme/components/alert/Alert';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {AlertService} from '../../../../@theme/components/alert/alert.service';
 
