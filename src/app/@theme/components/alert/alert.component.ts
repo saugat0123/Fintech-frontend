@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AlertService} from './alert.service';
 import {debounceTime} from 'rxjs/operators';
-import {Alert} from './Alert';
+import {Alert} from '../../model/Alert';
 
 @Component({
     selector: 'app-alert',

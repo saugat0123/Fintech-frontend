@@ -1,4 +1,4 @@
-import {IBaseService} from '../../../core/IBaseService';
+import {IBaseService} from '../../../@core/IBaseService';
 import {MemoType} from '../model/memoType';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';

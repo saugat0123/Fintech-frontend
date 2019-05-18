@@ -34,8 +34,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
         QuillModule,
         RouterModule,
         AppRoutingModule,
-        ThemeModule,
-        DragDropModule
+        DragDropModule,
+        ThemeModule
     ],
 
     providers: [CommonService, RestApiService, CommonDataService, CommonLocation, {

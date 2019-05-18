@@ -16,6 +16,7 @@ import {SafePipe} from './pipe/safe.pipe';
 import {AgGridModule} from 'ag-grid-angular';
 import {MemoViewButtonComponent} from './component/memo-underReview/memo-view-button/memo-view-button.component';
 import {ThemeModule} from '../../@theme/theme.module';
+import {CoreModule} from '../../@core/core.module';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import {ThemeModule} from '../../@theme/theme.module';
         QuillModule,
         NgSelectModule,
         AgGridModule.withComponents([MemoViewButtonComponent]),
-        ThemeModule
+        ThemeModule,
+        CoreModule
     ],
     providers: [MemoService, MemoDataService]
 })
