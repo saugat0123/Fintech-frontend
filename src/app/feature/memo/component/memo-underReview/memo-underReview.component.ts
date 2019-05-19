@@ -5,6 +5,7 @@ import {MemoViewButtonComponent} from './memo-view-button/memo-view-button.compo
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {AlertService} from '../../../../@theme/components/alert/alert.service';
+import {ToastService} from '../../../../@core/utils';
 
 @Component({
     selector: 'app-memo-under-review',
@@ -32,7 +33,8 @@ export class MemoUnderReviewComponent implements OnInit {
         private breadcrumbService: BreadcrumbService,
         private alertService: AlertService,
         private memoService: MemoService,
-        private memoDataService: MemoDataService
+        private memoDataService: MemoDataService,
+        private toastService: ToastService
     ) {
         this.columnDefs = [
             {
@@ -115,7 +117,7 @@ export class MemoUnderReviewComponent implements OnInit {
         }, error => {
 
             console.error(error);
-            this.alertService.notify(new Alert(AlertType.ERROR, 'Unable to Fetch Memo'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Fetch Memo'));
             this.spinner = false;
         });
 

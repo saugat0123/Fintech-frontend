@@ -36,8 +36,7 @@ export class MemoViewButtonComponent implements OnInit, ICellRendererAngularComp
 
     getMemoById() {
         const id = this.params.api.getRowNode(this.params.node.rowIndex).data.id;
-        this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-            this.router.navigate([`home/memo/read/${id}`]));
+        this.router.navigate([`home/memo/read/${id}`]);
     }
 
 }

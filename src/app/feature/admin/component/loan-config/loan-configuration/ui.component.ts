@@ -8,7 +8,8 @@ import {LoanConfig} from '../../../modal/loan-config';
 import {Document} from '../../../modal/document';
 import {Router} from '@angular/router';
 import {LoanTemplate} from '../../../modal/template';
-import {MsgModalComponent} from '../../../../../@theme/components';
+import {ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 
 @Component({
@@ -39,7 +40,8 @@ export class UIComponent implements OnInit {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private router: Router
+        private router: Router,
+        private toastService: ToastService
     ) {
 
     }
@@ -62,13 +64,11 @@ export class UIComponent implements OnInit {
             this.spinner = false;
 
         }, error => {
-            this.globalMsg = error.error.message;
-            if (this.globalMsg == null) {
-                this.globalMsg = 'Please check your network connection';
-            }
+
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Templates'));
+
             this.spinner = false;
-            this.dataService.getGlobalMsg(this.globalMsg);
-            this.modalService.open(MsgModalComponent);
         });
 
     }
@@ -149,11 +149,8 @@ export class UIComponent implements OnInit {
         console.log(this.loanConfig);
         this.commonService.saveOrEdit(this.loanConfig, 'v1/config').subscribe(result => {
 
-                if (this.loanConfig.id == null) {
-                    this.globalMsg = 'SUCCESSFULLY ADDED LOAN CONFIG';
-                }
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('true');
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Config!'));
+
                 this.loanConfig = new LoanConfig();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/configLoan']));
@@ -161,10 +158,10 @@ export class UIComponent implements OnInit {
 
             }, error => {
 
+                console.log(error);
 
-                this.globalMsg = error.error.message;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('false');
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Loan Config!'));
+
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/configLoan']));
 

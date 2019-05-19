@@ -8,7 +8,9 @@ import {LoanCycle} from '../../modal/loan-cycle';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddDocumentComponent} from './add-document/add-document.component';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
-import {MsgModalComponent, UpdateModalComponent} from '../../../../@theme/components';
+import {UpdateModalComponent} from '../../../../@theme/components';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-document',
@@ -37,7 +39,8 @@ export class DocumentComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService
     ) {
     }
 
@@ -53,12 +56,11 @@ export class DocumentComponent implements OnInit, DoCheck {
             this.inactiveCount = response.detail.inactive;
             this.documents = response.detail.documents;
         });
+
         this.commonService.getByAll('v1/document/lifeCycle').subscribe((response: any) => {
 
             this.loanCycleList = response.detail;
         });
-
-
     }
 
     onSearch() {
@@ -114,13 +116,10 @@ export class DocumentComponent implements OnInit, DoCheck {
             this.spinner = false;
 
         }, error => {
-            this.globalMsg = error.error.message;
-            if (this.globalMsg == null) {
-                this.globalMsg = 'Please check your network connection';
-            }
-            this.spinner = false;
-            this.dataService.getGlobalMsg(this.globalMsg);
-            this.modalService.open(MsgModalComponent);
+
+            console.log(error);
+
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Documents'));
         });
 
     }

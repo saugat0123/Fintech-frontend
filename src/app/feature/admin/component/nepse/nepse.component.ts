@@ -6,8 +6,9 @@ import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {Nepse} from '../../modal/nepse';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddNepseComponent} from './add-nepse/add-nepse.component';
-import {MsgModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-nepse',
@@ -37,7 +38,8 @@ export class NepseComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService
     ) {
     }
 
@@ -45,6 +47,7 @@ export class NepseComponent implements OnInit, DoCheck {
         this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/nepseCompany/get';
         this.getPagination();
+
         this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
@@ -52,6 +55,7 @@ export class NepseComponent implements OnInit, DoCheck {
             this.nepses = response.detail.nepses;
 
         });
+
         this.commonService.getByPost('v1/permission/chkPerm', 'Nepse Company').subscribe((response: any) => {
             this.permissions = response.detail;
             for (let i = 0; this.permissions.length > i; i++) {
@@ -76,13 +80,11 @@ export class NepseComponent implements OnInit, DoCheck {
                 this.spinner = false;
 
             }, error => {
-                this.globalMsg = error.error.message;
-                if (this.globalMsg == null) {
-                    this.globalMsg = 'Please check your network connection';
-                }
+
+                console.log(error);
+
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
                 this.spinner = false;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.modalService.open(MsgModalComponent);
             }
         );
 
