@@ -7,7 +7,9 @@ import {CommonPageService} from '../../../../@core/service/baseservice/common-pa
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddUserComponent} from './add-user/add-user.component';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
-import {MsgModalComponent, UpdateModalComponent} from '../../../../@theme/components';
+import {UpdateModalComponent} from '../../../../@theme/components';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-user',
@@ -36,7 +38,8 @@ export class UserComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService
     ) {
     }
 
@@ -98,13 +101,12 @@ export class UserComponent implements OnInit, DoCheck {
             this.spinner = false;
 
         }, error => {
-            this.globalMsg = error.error.message;
-            if (this.globalMsg == null) {
-                this.globalMsg = 'Please check your network connection';
-            }
+
+            console.log(error);
+
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
+
             this.spinner = false;
-            this.dataService.getGlobalMsg(this.globalMsg);
-            this.modalService.open(MsgModalComponent);
         });
 
     }

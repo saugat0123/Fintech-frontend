@@ -107,7 +107,8 @@ export class MemoTypeComponent implements OnInit, DoCheck {
 
                 this.spinner = false;
             }, error => {
-                this.alertService.notify(new Alert(AlertType.ERROR, 'Failed to Load Memo Types'));
+                console.log(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Failed to Load Memo Types'));
                 this.spinner = false;
             }
         );
@@ -118,7 +119,7 @@ export class MemoTypeComponent implements OnInit, DoCheck {
 
                 this.modalRef.dismiss('Deleted Memo Type');
 
-                const alert = new Alert(AlertType.SUCCESS, 'Removed Memo Type');
+                const alert = new Alert(AlertType.SUCCESS, 'Successfully Removed Memo Type');
                 this.toastService.show(alert);
 
                 this.getPagination();
@@ -139,12 +140,14 @@ export class MemoTypeComponent implements OnInit, DoCheck {
 
                     this.modalRef.dismiss('Saved Memo Type');
 
-                    const alert = new Alert(AlertType.SUCCESS, 'Successfully Created Memo Type');
+                    const alert = new Alert(AlertType.SUCCESS, 'Successfully Saved Memo Type');
                     this.toastService.show(alert);
 
                     this.getPagination();
 
-                }, () => {
+                }, (error) => {
+
+                    console.log(error);
 
                     const alert = new Alert(AlertType.SUCCESS, 'Failed to create Memo Type');
                     this.toastService.show(alert);
@@ -159,12 +162,13 @@ export class MemoTypeComponent implements OnInit, DoCheck {
                 .subscribe(
                     () => {
                         this.modalRef.dismiss('Updated Memo Type');
-                        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Memo Type'));
+                        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Memo Type'));
                         this.memoType = new MemoType();
 
                         this.getPagination();
 
-                    }, () => {
+                    }, (error) => {
+                        console.log(error);
 
                         this.toastService.show(new Alert(AlertType.ERROR, 'Failed to Update Memo Type'));
 

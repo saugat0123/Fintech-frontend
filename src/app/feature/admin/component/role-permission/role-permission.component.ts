@@ -9,6 +9,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {AlertService} from '../../../../@theme/components/alert/alert.service';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
+import {ToastService} from '../../../../@core/utils';
 
 declare var $;
 
@@ -46,7 +47,8 @@ export class RolePermissionComponent implements OnInit {
         private router: Router,
         private modalService: NgbModal,
         private alertService: AlertService,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService
     ) {
     }
 
@@ -166,20 +168,24 @@ export class RolePermissionComponent implements OnInit {
 
         this.commonService.saveOrEdit(this.roleperm, 'v1/roleRightPermission').subscribe(result => {
 
-            this.roleperm = [];
-            this.spinner = false;
-            // this.roleChanged(this.roleId);
-            this.isDisabled = false;
-            this.router.navigateByUrl('/home').then(e => {
-                if (e) {
+                this.roleperm = [];
+                this.spinner = false;
+                // this.roleChanged(this.roleId);
+                this.isDisabled = false;
+                this.router.navigateByUrl('/home').then(e => {
+                    if (e) {
+                        this.router.navigate(['/home/role']);
+                    }
+                });
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Role & Permission!'));
 
-                    this.router.navigate(['/home/role']);
+            },
+            error => {
+                console.log(error);
 
-                }
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to sAve Role & Permission!'));
+
             });
-            this.alertService.notify(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY ADDED ROLE AND PERMISSION'));
-
-        });
     }
 
 

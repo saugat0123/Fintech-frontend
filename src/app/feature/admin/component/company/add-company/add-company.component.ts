@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {Company} from '../../../modal/company';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 
 @Component({
@@ -25,7 +27,8 @@ export class AddCompanyComponent implements OnInit, DoCheck {
         private router: Router,
         private dataService: CommonDataService,
         private activeModal: NgbActiveModal,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private toastService: ToastService
     ) {
     }
 
@@ -39,41 +42,34 @@ export class AddCompanyComponent implements OnInit, DoCheck {
         } else {
             this.task = 'Edit';
         }
-
     }
 
     onSubmit() {
         this.submitted = true;
         console.log(this.company);
         this.commonService.saveOrEdit(this.company, 'v1/company').subscribe(result => {
-            this.modalService.dismissAll(AddCompanyComponent);
-                if (this.company.id == null) {
-                    this.globalMsg = 'SUCCESSFULLY ADDED COMPANY';
-                } else {
-                    this.globalMsg = 'SUCCESSFULLY EDITED COMPANY';
-                }
+                this.modalService.dismissAll(AddCompanyComponent);
 
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('true');
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Company Information'));
+
                 this.company = new Company();
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/company']));
 
-
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/company']));
             }, error => {
 
-            this.modalService.dismissAll(AddCompanyComponent);
+                console.log(error);
 
-                this.globalMsg = error.error.message;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('false');
+                this.modalService.dismissAll(AddCompanyComponent);
 
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/company']));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Company Information'));
 
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/company']));
             }
         );
     }
+
     onClose() {
         this.activeModal.dismiss(AddCompanyComponent);
     }

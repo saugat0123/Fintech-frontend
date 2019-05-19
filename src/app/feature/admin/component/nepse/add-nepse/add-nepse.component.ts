@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {Nepse} from '../../../modal/nepse';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 
 @Component({
@@ -23,7 +25,8 @@ export class AddNepseComponent implements OnInit, DoCheck {
         private router: Router,
         private dataService: CommonDataService,
         private activeModal: NgbActiveModal,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private toastService: ToastService
     ) {
     }
 
@@ -44,30 +47,23 @@ export class AddNepseComponent implements OnInit, DoCheck {
         this.submitted = true;
         this.commonService.saveOrEdit(this.nepse, 'v1/nepseCompany').subscribe(result => {
                 this.modalService.dismissAll(AddNepseComponent);
-                if (this.nepse.id == null) {
-                    this.globalMsg = 'SUCCESSFULLY ADDED NEPSE COMPANY';
-                } else {
-                    this.globalMsg = 'SUCCESSFULLY EDITED NEPSE COMPANY';
-                }
 
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('true');
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Nepse Company'));
+
                 this.nepse = new Nepse();
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/nepse']));
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/nepse']));
 
 
             }, error => {
 
+                console.log(error);
                 this.modalService.dismissAll(AddNepseComponent);
 
-                this.globalMsg = error.error.message;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('false');
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Nepse Company'));
 
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/nepse']));
-
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/nepse']));
             }
         );
     }

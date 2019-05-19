@@ -6,6 +6,8 @@ import {Role} from '../../../modal/role';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 
 @Component({
@@ -29,7 +31,8 @@ export class AddUserComponent implements OnInit, DoCheck {
         private router: Router,
         private dataService: CommonDataService,
         private modalService: NgbModal,
-        private activeModal: NgbActiveModal
+        private activeModal: NgbActiveModal,
+        private toastService: ToastService
     ) {
     }
 
@@ -68,38 +71,30 @@ export class AddUserComponent implements OnInit, DoCheck {
         this.user.role = this.role;
         this.commonService.saveOrEdit(this.user, 'v1/user').subscribe(result => {
                 this.modalService.dismissAll(AddUserComponent);
-                if (this.user.id == null) {
-                    this.globalMsg = 'SUCCESSFULLY ADDED USER';
-                } else {
-                    this.globalMsg = 'SUCCESSFULLY EDITED USER';
-                }
 
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('true');
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved User'));
+
                 this.user = new User();
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/user']));
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/user']));
 
 
             }, error => {
 
+                console.log(error);
+
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save User'));
                 this.modalService.dismissAll(AddUserComponent);
 
-                this.globalMsg = error.error.message;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('false');
-
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/user']));
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/user']));
 
             }
         );
     }
 
     onClose() {
-
         this.activeModal.dismiss(AddUserComponent);
-
     }
 
     profileUploader(event) {
@@ -122,6 +117,5 @@ export class AddUserComponent implements OnInit, DoCheck {
             this.user.signatureImage = result.detail;
         });
     }
-
 }
 

@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {LoanConfig} from '../../../modal/loan-config';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
+import {ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-question',
@@ -30,7 +32,8 @@ export class QuestionComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 private commonService: CommonService,
                 private router: Router,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                private toastService: ToastService) {
 
         this.questionAnswerForm = this.formBuilder.group({
             loanConfigID: [undefined, Validators.required],
@@ -187,13 +190,18 @@ export class QuestionComponent implements OnInit {
         console.log(this.questionList);
         this.commonService.saveQuestion(this.questionList, this.questionApi).subscribe(result => {
 
-                alert('success !!');
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Questions'));
+
                 this.questionList = new Array<Questions>();
+
                 this.onChangeSchemeOption();
 
             }, error => {
+                console.log(error);
+
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Question'));
+
                 this.questionList = new Array<Questions>();
-                alert('failed !!');
             }
         );
     }
@@ -201,14 +209,15 @@ export class QuestionComponent implements OnInit {
     onUpdate(newQsnContent) {
         this.commonService.updateQuestion(newQsnContent, this.questionApi + '/' + newQsnContent.id).subscribe(result => {
 
-                alert('success !!');
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Questions'));
                 this.questionList = new Array<Questions>();
                 this.qsnContent = new Questions();
                 this.onChangeSchemeOption();
                 this.modalService.dismissAll('Close modal');
 
             }, error => {
-                alert('failed !!');
+                console.log(error);
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Save Question'));
                 this.questionList = new Array<Questions>();
                 this.modalService.dismissAll('Close modal');
             }
@@ -221,5 +230,4 @@ export class QuestionComponent implements OnInit {
             this.onUpdate(qsnContent);
         }
     }
-
 }

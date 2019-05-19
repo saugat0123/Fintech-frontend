@@ -7,8 +7,9 @@ import {CommonPageService} from '../../../../@core/service/baseservice/common-pa
 import {ApprovalLimit} from '../../modal/approval-limit';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddApprovalLimitComponent} from './add-approval-limit/add-approval-limit.component';
-import {MsgModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-approvallimit',
@@ -36,7 +37,8 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService
     ) {
     }
 
@@ -97,13 +99,11 @@ export class ApprovallimitComponent implements OnInit, DoCheck {
             this.pageable = this.commonPageService.setPageable(response.detail);
             this.spinner = false;
         }, error => {
-            this.globalMsg = error.error.message;
-            if (this.globalMsg == null) {
-                this.globalMsg = 'Please check your network connection';
-            }
+
+            const alert = new Alert(AlertType.ERROR, error.error.message);
+            this.toastService.show(alert);
+
             this.spinner = false;
-            this.dataService.getGlobalMsg(this.globalMsg);
-            this.modalService.open(MsgModalComponent);
         });
     }
 }

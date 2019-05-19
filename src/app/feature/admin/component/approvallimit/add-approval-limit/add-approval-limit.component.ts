@@ -10,6 +10,7 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
 import {AlertService} from '../../../../../@theme/components/alert/alert.service';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {ToastService} from '../../../../../@core/utils';
 
 
 @Component({
@@ -35,7 +36,8 @@ export class AddApprovalLimitComponent implements OnInit, DoCheck {
         private modalService: NgbModal,
         private activeModal: NgbActiveModal,
         private breadcrumbService: BreadcrumbService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private toastService: ToastService
     ) {
     }
 
@@ -74,18 +76,20 @@ export class AddApprovalLimitComponent implements OnInit, DoCheck {
         this.approvalLimit.loanCategory = this.loanCategory;
         this.approvalLimit.authorities = this.authorities;
         this.commonService.saveOrEdit(this.approvalLimit, 'v1/approvallimit').subscribe(result => {
+
                 this.modalService.dismissAll(AddApprovalLimitComponent);
+
                 if (this.approvalLimit.id == null) {
-                    this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Created Approval Limit'));
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Created Approval Limit'));
                 } else {
-                    this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Updated Approval Limit'));
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Approval Limit'));
                 }
 
                 this.approvalLimit = new ApprovalLimit();
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/approvalLimit']));
 
 
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/approvalLimit']));
             }, error => {
 
                 console.error(error);
@@ -95,8 +99,11 @@ export class AddApprovalLimitComponent implements OnInit, DoCheck {
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('false');
 
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/approvalLimit']));
+                const alert = new Alert(AlertType.ERROR, error.error.message);
+                this.toastService.show(alert);
+
+                this.router.navigateByUrl('home/admin/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/approvalLimit']));
             }
         );
     }
