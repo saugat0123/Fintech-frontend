@@ -14,7 +14,7 @@ import {CommonService} from '../../../../../@core/service/baseservice/common-bas
 export class QuestionComponent implements OnInit {
     loanConfigApi: string;
     questionApi: string;
-    loanConfigID: number;
+    loanConfigId: number;
     totalObtainablePoints: number;
     existingQuestionList: boolean;
     newQuestionList: boolean;
@@ -34,7 +34,7 @@ export class QuestionComponent implements OnInit {
                 private modalService: NgbModal) {
 
         this.questionAnswerForm = this.formBuilder.group({
-            loanConfig: [undefined, Validators.required],
+            loanConfigId: [undefined, Validators.required],
             questionForm: this.formBuilder.array([])
         });
 
@@ -61,7 +61,7 @@ export class QuestionComponent implements OnInit {
                 answers: this.formBuilder.array([]),
                 description: [undefined, Validators.required],
                 loanConfig: this.formBuilder.group({
-                    id: [this.loanConfigID]
+                    id: [this.loanConfigId]
                 })
             })
         );
@@ -89,9 +89,11 @@ export class QuestionComponent implements OnInit {
     onChangeSchemeOption() {
         this.clearFormArray();
         this.totalObtainablePoints = 0;
-        this.loanConfig = this.questionAnswerForm.get('loanConfig').value;
-        this.loanConfigID = this.loanConfig.id;
-        this.questionApi = 'v1/loan-configs/' + this.loanConfigID + '/questions';
+        this.loanConfigId = this.questionAnswerForm.get('loanConfigId').value;
+        this.commonService.getById('v1/config/get/' + this.loanConfigId).subscribe((response: any) => {
+            this.loanConfig = response.detail;
+        });
+        this.questionApi = 'v1/loan-configs/' + this.loanConfigId + '/questions';
 
         this.commonService.getByGetAllPageable(this.questionApi, 1, 10).subscribe((response: any) => {
             this.questionList = response.detail;
@@ -126,7 +128,7 @@ export class QuestionComponent implements OnInit {
             version: [this.qsnContent.version === undefined ? 1 : this.qsnContent.version],
             new: [this.qsnContent.new === undefined ? 'true' : this.qsnContent.new],
             loanConfig: this.formBuilder.group({
-                id: [this.loanConfigID]
+                id: [this.loanConfigId]
             })
         });
         if (this.task === 'Update') {
@@ -201,7 +203,7 @@ export class QuestionComponent implements OnInit {
     }
 
     onUpdate(newQsnContent) {
-        this.commonService.updateQuestion(newQsnContent, this.questionApi + '/' + newQsnContent.id).subscribe(result => {
+        this.commonService.updateQuestion(newQsnContent, this.questionApi + '/' + newQsnContent.id).subscribe((response: any) => {
 
                 alert('Success !!');
                 this.questionList = new Array<Questions>();
@@ -217,13 +219,13 @@ export class QuestionComponent implements OnInit {
         );
     }
 
-    onUpdateEligibilityPercent(loanConfigId, eligibilityPercentValue) {
-        this.loanConfig.id = loanConfigId;
+    onUpdateEligibilityPercent(eligibilityPercentValue) {
+        this.loanConfig.id = this.loanConfigId;
         this.loanConfig.eligibilityPercentage = eligibilityPercentValue;
-        this.commonService.saveOrEdit(this.loanConfig, 'v1/config').subscribe(result => {
+        this.commonService.saveOrEdit(this.loanConfig, 'v1/config').subscribe((response: any) => {
             alert('Success !!');
+            this.loanConfig = new LoanConfig();
             this.onChangeSchemeOption();
-
         }, error => {
             alert('Failed !!');
         });
