@@ -1,0 +1,10 @@
+
+<ngb-alert  *ngIf="globalMsg && flag=='true'" class="alert alert-success alert-custom"  role="alert">
+    <button type="button" class="close" (click)="closeAlert()"><span>&times;</span></button>
+    <strong>Success!</strong> {{globalMsg}}
+  </ngb-alert>
+
+<ngb-alert *ngIf="globalMsg && flag=='false'"  class="alert alert-danger alert-custom"  role="alert">
+    <button type="button" class="close" (click)="closeAlert()"><span>&times;</span></button>
+      <strong>Error!</strong> {{globalMsg}}
+</ngb-alert>

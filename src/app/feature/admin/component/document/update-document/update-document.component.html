@@ -1,0 +1,27 @@
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">{{title}} <span class="badge badge-info"></span></h3>
+        <div class="box-tools pull-right">
+            <button type="button" (click)="toggle()" class="btn btn-box-tool" data-widget="collapse"><i
+                    class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div *ngIf="show">
+        <div class="box-body">
+            <div class="col-sm-offset-2 col-sm-10" *ngFor="let document of documentList">
+                <input class="big-checkbox" type="checkbox" id="document.id" (change)="updateCheckedOptions($event)"
+                       value="{{document.id}}"/>
+                <span>{{document.name}}</span>
+            </div>
+
+
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer text-right">
+            <button type="button" (click)="updateLoanCycle()" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+    <!-- /.box-footer -->
+</div>

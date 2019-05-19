@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                <nb-card>
+                    <nb-card-body>
+                        <div *ngIf="router.isActive('/pages/memo/compose', false)">
+                            <a routerLink="/home/memo/underReview" class="btn btn-primary btn-block margin-bottom">Under
+                                Review</a>
+                        </div>
+                        <div *ngIf="!router.isActive('/pages/memo/compose', false)">
+                            <a routerLink="/home/memo/compose"
+                               class="btn btn-primary btn-block margin-bottom">Compose</a>
+                        </div>
+                    </nb-card-body>
+                </nb-card>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <nb-card>
+                    <nb-card-body>
+                        <nb-list>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/memo/underReview">
+                                    <i class="fa fa-inbox"></i>
+                                    Under Review
+                                    <span class="label label-primary pull-right">12</span>
+                                </a>
+                            </nb-list-item>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/memo/sent"><i class="fa fa-envelope-o"></i> Sent</a>
+                            </nb-list-item>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/memo/drafts">
+                                    <i class="fa fa-file-text-o"></i> Drafts</a>
+                            </nb-list-item>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/memo/approved">
+                                    <i class="fa fa-check"></i> Approved
+                                    <span class="label label-warning pull-right">65</span>
+                                </a>
+                            </nb-list-item>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/memo/rejected">
+                                    <i class="fa fa-times"></i> Rejected</a>
+                            </nb-list-item>
+                        </nb-list>
+                    </nb-card-body>
+                </nb-card>
+            </div>
+        </div>
+    </div>
+    <!-- /.col -->
+    <div class="col-md-9">
+        <router-outlet></router-outlet>
+    </div>
+</div>

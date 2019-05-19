@@ -1,0 +1,48 @@
+
+<div class="modal-document">
+    <div class="modal-content">
+        <div class="modal-header" style="display:block">
+            <a  class="close cursor" data-dismiss="modal" aria-label="Close"
+                (click)="onClose()">
+                <span aria-hidden="true">×</span></a>
+            <h4 class="modal-title pull-left">{{task}} Nepse</h4>
+        </div>
+        <div class="modal-body">
+
+            <form name="form" (ngSubmit)="nepseForm.form.valid && onSubmit()" #nepseForm="ngForm">
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="name">Company Name</label>
+                            <input type="hidden" class="form-control form-control-sm"  [(ngModel)]="nepse.id" name="id" placeholder="id">
+                            <input type="text" class="form-control form-control-sm" required [(ngModel)]="nepse.companyName"
+                                   #companyVal="ngModel" name="name" placeholder="Name"
+                                   [ngClass]="{'is-invalid': nepseForm.submitted && companyVal.invalid}"/>
+                            <div *ngIf="companyVal.invalid && nepseForm.submitted" class="invalid-feedback">
+                                Name is required
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="amount">Share Amount per unit</label>
+                            <input type="text" class="form-control form-control-sm"  placeholder="amount" required
+                                   [(ngModel)]="nepse.amountPerUnit" name="amount"
+                            #amountVal="ngModel"  [ngClass]="{'is-invalid': nepseForm.submitted && amountVal.invalid}" />
+                            <div *ngIf="amountVal.invalid && nepseForm.submitted" class="invalid-feedback">
+                                Amount is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-primary">Bulk Upload</button>-->
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
