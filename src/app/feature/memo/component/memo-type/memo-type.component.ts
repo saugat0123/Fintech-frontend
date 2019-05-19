@@ -102,7 +102,7 @@ export class MemoTypeComponent implements OnInit, DoCheck {
 
     getPagination() {
         this.spinner = true;
-        this.memoService.getPagination(this.search).subscribe((response: any) => {
+        this.memoService.getPaginationWithSearch(this.search, 1, 10).subscribe((response: any) => {
                 this.dataList = response.content;
 
                 this.spinner = false;
@@ -158,7 +158,7 @@ export class MemoTypeComponent implements OnInit, DoCheck {
         } else {
             this.memoType.name = this.memoTypeForm.get('name').value;
             this.memoType.status = this.memoTypeForm.get('status').value;
-            this.memoService.update(this.memoType)
+            this.memoService.update(this.memoType.id, this.memoType)
                 .subscribe(
                     () => {
                         this.modalRef.dismiss('Updated Memo Type');
