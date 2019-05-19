@@ -17,6 +17,7 @@ export class PendingLoanComponent implements OnInit {
     loanType: LoanConfig = new LoanConfig();
     user: User = new User();
     count = 0;
+
     constructor(private dataService: CommonDataService,
                 private commonDataService: CommonService,
                 private router: Router) {
@@ -34,8 +35,9 @@ export class PendingLoanComponent implements OnInit {
         this.user = this.dataService.getUser();
         console.log(this.user);
     }
-    onClick(id){
+
+    onClick(id) {
         console.log('asd');
-        this.router.navigate(['/home/loan/summary',id])
+        this.router.navigate(['/home/loan/summary', id]);
     }
 }
