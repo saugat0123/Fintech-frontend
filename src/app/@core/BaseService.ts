@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {RestApiService} from './service/authentication/rest-api.service';
+import {ApiUtils} from './utils/api/ApiUtils';
 
 /**
  * API are expected to be developed in rest pattern
@@ -17,32 +17,32 @@ export abstract class BaseService<T> {
     private obj: T;
     private objs: T[];
 
-    protected constructor(protected http: HttpClient, protected apiService: RestApiService) {
+    protected constructor(protected http: HttpClient) {
     }
 
     protected abstract getApi(): string;
 
     public save(obj: T): Observable<any> {
-        const req = this.apiService.modifyRestUrl(this.getApi());
+        const req = ApiUtils.getRequest(this.getApi());
 
         return this.http.post(req.url, obj, {headers: req.header});
     }
 
     public saveWithFile(obj: T): Observable<any> {
-        const req = this.apiService.modifyFileUrl(this.getApi());
+        const req = ApiUtils.getRequestWithFileSupport(this.getApi());
         return this.http.post(req.url, obj, {headers: req.header});
     }
 
     public update(id: number, obj: T): Observable<any> {
         const api = `${this.getApi()}/${id}`;
-        const req = this.apiService.modifyRestUrl(api);
+        const req = ApiUtils.getRequest(api);
 
         return this.http.put(req.url, obj, {headers: req.header});
     }
 
     public updateWithFile(id: number, obj: T): Observable<any> {
         const api = `${this.getApi()}/${id}`;
-        const req = this.apiService.modifyFileUrl(api);
+        const req = ApiUtils.getRequestWithFileSupport(api);
 
         return this.http.put(req.url, obj, {headers: req.header});
     }
@@ -51,7 +51,7 @@ export abstract class BaseService<T> {
     public delete(id: number): Observable<any> {
         const api = `${this.getApi()}/${id}`;
 
-        const req = this.apiService.modifyRestUrl(api);
+        const req = ApiUtils.getRequest(api);
 
         return this.http.delete(req.url, {headers: req.header});
     }
@@ -59,7 +59,7 @@ export abstract class BaseService<T> {
     public getAll(): Observable<any> {
 
         const api = `${this.getApi()}/all`;
-        const req = this.apiService.modifyRestUrl(api);
+        const req = ApiUtils.getRequest(api);
 
         return this.http.get(req.url, {headers: req.header});
     }
@@ -73,14 +73,14 @@ export abstract class BaseService<T> {
             api = `${this.getApi()}?page=${page}&&size=${size}&searchParams=${search}`;
         }
 
-        const req = this.apiService.modifyRestUrl(api);
+        const req = ApiUtils.getRequest(api);
 
         return this.http.get(req.url, {headers: req.header});
     }
 
     public getPaginationWithSearchObject(searchObj: Object, page: number = 1, size: number = 20): Observable<any> {
         const api = `${this.getApi()}?page=${page}&size=${size}`;
-        const req = this.apiService.modifyRestUrl(api);
+        const req = ApiUtils.getRequest(api);
         return this.http.post(req.url, searchObj, {headers: req.header});
     }
 

@@ -1,7 +1,7 @@
 import {BaseService} from '../../../@core/BaseService';
 import {MemoType} from '../model/memoType';
 import {Injectable} from '@angular/core';
-import {RestApiService} from '../../../@core/service/authentication/rest-api.service';
+import {ApiUtils} from '../../../@core/utils/api/ApiUtils';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -10,8 +10,8 @@ import {HttpClient} from '@angular/common/http';
 export class MemoTypeService extends BaseService<MemoType> {
     static API = 'v1/memos/types';
 
-    public constructor(protected http: HttpClient, protected apiService: RestApiService) {
-        super(http, apiService);
+    public constructor(protected http: HttpClient) {
+        super(http);
     }
 
     protected getApi(): string {
