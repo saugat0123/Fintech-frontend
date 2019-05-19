@@ -4,13 +4,14 @@ import {MemoType} from '../../model/memoType';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MemoTypeService} from '../../service/memo-type.service';
-import {Action} from '../../../../core/Action';
+import {Action} from '../../../../@core/Action';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {CustomValidator} from '../../../../core/validator/custom-validator';
-import {Status} from '../../../../core/Status';
-import {Alert, AlertType} from '../../../../@theme/components/alert/Alert';
+import {CustomValidator} from '../../../../@core/validator/custom-validator';
+import {Status} from '../../../../@core/Status';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {AlertService} from '../../../../@theme/components/alert/alert.service';
+import {ToastService} from '../../../../@core/utils';
 
 @Component({
     selector: 'app-memo-type',
@@ -40,7 +41,8 @@ export class MemoTypeComponent implements OnInit, DoCheck {
         private memoService: MemoTypeService,
         private modalService: NgbModal,
         private router: Router,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private toastService: ToastService
     ) {
     }
 
@@ -109,7 +111,6 @@ export class MemoTypeComponent implements OnInit, DoCheck {
                 this.spinner = false;
             }
         );
-
     }
 
     deleteMemoType() {
@@ -117,42 +118,38 @@ export class MemoTypeComponent implements OnInit, DoCheck {
 
                 this.modalRef.dismiss('Deleted Memo Type');
 
-                this.alertService.notify(new Alert(AlertType.SUCCESS, 'Removed Memo Type'));
+                const alert = new Alert(AlertType.SUCCESS, 'Removed Memo Type');
+                this.toastService.show(alert);
 
-                this.reloadPage();
+                this.getPagination();
 
             }, error => {
 
                 console.log(error);
-                this.alertService.notify(new Alert(AlertType.ERROR, 'Unable to Remove Memo Type'));
+                const alert = new Alert(AlertType.ERROR, 'Unable to Remove Memo Type');
+                this.toastService.show(alert);
             }
         );
-    }
-
-    reloadPage() {
-        this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(e => {
-            if (e) {
-                this.router.navigate([this.currentUrl]);
-            }
-        });
     }
 
     submit() {
         if (this.isNewMemo) {
             this.memoService.save(this.memoTypeForm.value).subscribe(
                 () => {
-                    this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Created Memo Type'));
-                    this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                        this.router.navigate(['pages/memo/type']));
 
                     this.modalRef.dismiss('Saved Memo Type');
 
+                    const alert = new Alert(AlertType.SUCCESS, 'Successfully Created Memo Type');
+                    this.toastService.show(alert);
+
+                    this.getPagination();
+
                 }, () => {
 
-                    this.alertService.notify(new Alert(AlertType.ERROR, 'Failed to create Memo Type'));
+                    const alert = new Alert(AlertType.SUCCESS, 'Failed to create Memo Type');
+                    this.toastService.show(alert);
 
-                    this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                        this.router.navigate(['pages/memo/type']));
+                    this.getPagination();
                 }
             );
         } else {
@@ -162,15 +159,16 @@ export class MemoTypeComponent implements OnInit, DoCheck {
                 .subscribe(
                     () => {
                         this.modalRef.dismiss('Updated Memo Type');
-                        this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Updated Memo Type'));
+                        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Memo Type'));
                         this.memoType = new MemoType();
-                        this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                            this.router.navigate(['pages/memo/type']));
+
+                        this.getPagination();
+
                     }, () => {
 
-                        this.alertService.notify(new Alert(AlertType.ERROR, 'Failed to Update Memo Type'));
-                        this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                            this.router.navigate(['pages/memo/type']));
+                        this.toastService.show(new Alert(AlertType.ERROR, 'Failed to Update Memo Type'));
+
+                        this.getPagination();
                     }
                 );
         }

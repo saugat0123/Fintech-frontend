@@ -1,7 +1,7 @@
 import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {throwIfAlreadyLoaded} from './module-import-guard';
-import {AnalyticsService, LayoutService, PlayerService, StateService} from './utils';
+import {AnalyticsService, LayoutService, StateService, ToastService} from './utils';
 import {CommonDataService} from './service/baseservice/common-dataService';
 import {RestApiService} from './service/authentication/rest-api.service';
 import {CommonService} from './service/baseservice/common-baseservice';
@@ -74,11 +74,11 @@ export const NB_CORE_PROVIDERS = [
      },*/
     AnalyticsService,
     LayoutService,
-    PlayerService,
     StateService,
     CommonService,
     CommonDataService,
-    RestApiService
+    RestApiService,
+    ToastService
 
 ];
 
