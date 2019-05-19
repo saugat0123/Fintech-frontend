@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 
-import {baseApi} from '../../@core/service/authentication/api-list.service';
+import {ApiConfig} from '../../@core/utils/api/ApiConfig';
 
 @Component({
     selector: 'app-login',
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
     spinner = false;
     msg;
-    private securityUrl = baseApi.tokenUrl;
+    private securityUrl = ApiConfig.TOKEN;
 
     constructor(
         private http: HttpClient,

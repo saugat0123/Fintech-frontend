@@ -5,7 +5,6 @@ import {AppComponent} from './app.component';
 import {LoginComponent} from './component/login/login.component';
 import {PendingLoanComponent} from './component/dashboard/pending-loan/pending-loan.component';
 import {HttpClientModule} from '@angular/common/http';
-import {RestApiService} from './@core/service/authentication/rest-api.service';
 import {CommonService} from './@core/service/baseservice/common-baseservice';
 import {CommonDataService} from './@core/service/baseservice/common-dataService';
 import {CommonLocation} from './@core/service/baseservice/common-location';
@@ -38,7 +37,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
         ThemeModule
     ],
 
-    providers: [CommonService, RestApiService, CommonDataService, CommonLocation, {
+    providers: [CommonService, CommonDataService, CommonLocation, {
         provide: LocationStrategy,
         useClass: HashLocationStrategy
     }],

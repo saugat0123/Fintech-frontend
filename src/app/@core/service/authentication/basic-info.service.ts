@@ -1,25 +1,23 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-// import 'rxjs/add/operator/map';
-import {RestApiService} from './rest-api.service';
+
+import {ApiUtils} from '../../utils/api/ApiUtils';
 
 @Injectable()
 export class BasicInfoService {
     role: any;
 
-    constructor(private http: HttpClient,
-                private restApiService: RestApiService) {
+    constructor(private http: HttpClient) {
     }
 
     getBasicInfo() {
-        const basicInfo = this.restApiService.modifyRestUrl('v1/user/authenticated');
+        const basicInfo = ApiUtils.getRequest('v1/user/authenticated');
         return this.http.get(basicInfo.url, {headers: basicInfo.header});
-
     }
 
 
     getUsrRole() {
-        const basicInfo = this.restApiService.modifyRestUrl('v1/user/role');
+        const basicInfo = ApiUtils.getRequest('v1/user/role');
         return this.http.get(basicInfo.url, {headers: basicInfo.header});
 
     }
@@ -29,5 +27,4 @@ export class BasicInfoService {
         localStorage.clear();
 
     }
-
 }
