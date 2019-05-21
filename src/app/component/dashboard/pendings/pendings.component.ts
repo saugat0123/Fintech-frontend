@@ -1,47 +1,42 @@
 import {Component, OnInit} from '@angular/core';
-import {LoanConfig} from '../../../feature/admin/modal/loan-config';
-import {DmsLoanFile} from '../../../feature/admin/modal/dms-loan-file';
 import {CommonService} from '../../../@core/service/baseservice/common-baseservice';
-import {Router} from '@angular/router';
+import {DmsLoanFile} from '../../../feature/admin/modal/dms-loan-file';
 import {User} from '../../../feature/admin/modal/user';
 import {UserService} from '../../../@core/service/user.service';
+import {LoanConfig} from '../../../feature/admin/modal/loan-config';
 
 @Component({
-    selector: 'app-pending-loan',
-    templateUrl: './pending-loan.component.html',
-    styleUrls: ['./pending-loan.component.css']
+    selector: 'app-pendings',
+    templateUrl: './pendings.component.html',
+    styleUrls: ['./pendings.component.css']
 })
-export class PendingLoanComponent implements OnInit {
-    // loanTypes: LoanConfig[] = [];
+export class PendingsComponent implements OnInit {
     dmsLoanFiles: Array<DmsLoanFile>;
-    loanType: LoanConfig = new LoanConfig();
     user: User = new User();
-    count = 0;
-
-
-    constructor(private userService: UserService,
-                private commonDataService: CommonService,
-                private router: Router) {
+    loanTypes: LoanConfig[] = [];
+    constructor(private commonDataService: CommonService,
+                private userService: UserService) {
     }
 
     ngOnInit() {
         this.commonDataService.getByStage('v1/dmsLoanFile/getLoan', 'UNDER_REVIEW').subscribe(
             (response: any) => {
+                console.log(response.detail);
                 this.dmsLoanFiles = response.detail;
                 this.dmsLoanFiles.forEach((dmsLoanFile => {
-                    this.count++;
+                    this.loanTypes.push(dmsLoanFile.loanType);
                 }));
-
+                console.log(this.loanTypes);
             });
         this.userService.getLoggedInUser().subscribe(
             (response: any) => {
                 this.user = response.detail;
             }
         );
-        console.log(this.user);
+    }
+    onType(event){
+      console.log(event.target.value);
+
     }
 
-    onClick(id) {
-        this.router.navigate(['/home/loan/summary', id]);
-    }
 }

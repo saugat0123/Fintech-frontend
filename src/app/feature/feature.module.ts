@@ -3,15 +3,21 @@ import {FeatureRoutingModule} from './feature-routing.module';
 import {ThemeModule} from '../@theme/theme.module';
 import {FeatureComponent} from './feature.component';
 import {DashboardComponent} from '../component/dashboard/dashboard.component';
+import {PendingLoanComponent} from '../component/dashboard/pending-loan/pending-loan.component';
+import {PendingsComponent} from '../component/dashboard/pendings/pendings.component';
+import {NbAccordionModule} from '@nebular/theme';
 
 @NgModule({
         imports: [
             FeatureRoutingModule,
-            ThemeModule
+            ThemeModule,
+            NbAccordionModule,
         ],
         declarations: [
             FeatureComponent,
-            DashboardComponent
+            DashboardComponent,
+            PendingLoanComponent,
+            PendingsComponent,
         ],
         providers: []
     }

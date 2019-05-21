@@ -1,43 +1,57 @@
-<body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
+<div  style=" min-height: 100vh">
+    <div class="container">
+        <div class="card" style="min-height: calc(100vh - 2 * 2.5rem); margin-top: 5rem">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6" style="margin: auto;">
+                        <div class="login-box" style="margin: 0 auto;">
+                            <div class="login-logo">
 
-    <b>SB</b>Solution
-  </div>
-  <p style="color:red" class="login-box-msg">{{msg}}</p>
-  <!-- /.login-logo -->
-  <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+                                <h2>SB Solutions</h2>
+                            </div>
+                            <p style="color:red" class="login-box-msg">{{msg}}</p>
 
-    <div class="alert alert-danger" *ngIf="email.invalid && email.dirty">Enter valid Email</div>
-    <form name="login-form" class="login-form" #lform="ngForm" (ngSubmit)="lform.valid && loginClick(lform)">
-      <div class="form-group has-feedback">
-        <input type="email" id="email" class="form-control" maxlength="50" placeholder="Email" ngModel
-               name="email"
-               required #email="ngModel" [ngClass]="{'is-invalid': lform.submitted && email.invalid}">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-        <div *ngIf="email.invalid && lform.submitted" class="invalid-feedback">
-          Email is required
+                            <div class="login-box-body">
+                                <p class="login-box-msg">LogIn</p>
+
+                                <div class="alert alert-danger" *ngIf="email.invalid && email.dirty">Enter valid Email</div>
+                                <form name="login-form" class="login-form" #lform="ngForm" (ngSubmit)="lform.valid && login(lform)">
+                                    <div class="form-group has-feedback">
+                                        <input type="email" id="email" class="form-control" maxlength="50" placeholder="Email"
+                                               ngModel
+                                               name="email"
+                                               required #email="ngModel"
+                                               [ngClass]="{'is-invalid': lform.submitted && email.invalid}">
+                                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                        <div *ngIf="email.invalid && lform.submitted" class="invalid-feedback">
+                                            Email is required
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <input type="password" id="password"
+                                               class="form-control" [ngClass]="{'is-invalid': lform.submitted && pass.invalid}"
+                                               placeholder="Password"
+                                               ngModel name="password" #pass="ngModel"
+                                               required>
+                                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                        <div *ngIf="pass.invalid && lform.submitted" class="invalid-feedback">
+                                            Password is required
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary  btn-flat">Sign In</button>
+                                </form>
+                            </div>
+                            <app-spinner *ngIf="spinner"></app-spinner>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="password" id="password"
-               class="form-control" [ngClass]="{'is-invalid': lform.submitted && pass.invalid}"
-               placeholder="Password"
-               ngModel name="password" #pass="ngModel"
-               required>
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-        <div *ngIf="pass.invalid && lform.submitted" class="invalid-feedback">
-          Password is required
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary  btn-flat">Sign In</button>
-    </form>
-  </div>
-  <app-spinner *ngIf="spinner"></app-spinner>
-  <!-- /.login-box-body -->
+
+    </div>
 </div>
+
+
+
 <!-- /.login-box -->
-
-
-</body>

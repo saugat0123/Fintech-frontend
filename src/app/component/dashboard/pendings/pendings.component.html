@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <button data-toggle="collapse" data-target="#searchModel"
+                    nbButton outline status="primary">
+                <i class="fa fa-filter"> Filter</i>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="searchModel" class="collapse">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="From">From Date</label>
+                            <input id="From" [nbDatepicker]="dateFrom" class="form-control">
+                            <nb-datepicker #dateFrom></nb-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="To">To Date</label>
+                            <input id="To" [nbDatepicker]="datepicker" class="form-control">
+                            <nb-datepicker #datepicker></nb-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" (keyup)="onType($event)">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="facility">Facility</label>
+                            <select id="facility" class="form-control">
+                                <option [ngValue]="undefined" hidden>Select the facility</option>
+                                <option *ngFor="let facility of dmsLoan"></option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nb-card-body>
+        <div class="box-body">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>S.N</th>
+                    <th>Branch</th>
+                    <th>Name</th>
+                    <th>Contact Number</th>
+                    <th>Facility</th>
+                    <th>Priority</th>
+                    <th>File Possession</th>
+                    <th>Stage</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let dmsloan of dmsLoanFiles; let i =index">
+                    <td>{{i + 1}}</td>
+                    <td>{{user?.branch?.name}}</td>
+                    <td>{{dmsloan.customerName}}</td>
+                    <td>{{dmsloan.contactNumber}}</td>
+                    <td>{{dmsloan?.loanType?.name}}</td>
+                    <td>{{dmsloan.priority}}</td>
+                    <td>{{user?.role?.roleName}}</td>
+                    <td>{{dmsloan.stage}}</td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </nb-card-body>
+    <app-pagination *ngIf="!spinner"></app-pagination>
+</div>

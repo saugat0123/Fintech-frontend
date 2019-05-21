@@ -41,8 +41,8 @@ export class AddRoleComponent implements OnInit {
             this.dataService.getGlobalMsg(this.globalMsg);
             this.dataService.getAlertMsg('true');
             this.role = new Role();
-            this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                this.router.navigate(['pages/role']));
+            this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                this.router.navigate(['home/admin/role']));
 
         });
     }

@@ -1,45 +1,39 @@
-<div class="box box-info dashboard-box">
-    <div class="box box-info collapsed-box dashboard-box">
-        <div class="box-header with-border">
-            <h3 class="box-title"> Pending Loans&nbsp;(<span style="color: red; font-size: 18px">{{count}}</span>)</h3>
-
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool"
-                        data-widget="collapse"><i class="fa fa-plus"></i>
-                </button>
-            </div>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <div class="row" *ngFor="let dmsLoan of dmsLoanFiles" style="cursor: pointer">
-                        <div class="col-md-8 mt-1" (click)="onClick(dmsLoan.id)">
-                            <div>{{dmsLoan?.loanType?.name}} <span class="badge badge-info">{{dmsLoan.priority}}</span>
+<div style="width:550px">
+    <nb-accordion>
+        <nb-accordion-item>
+            <nb-accordion-item-header>Pending Loans {{count}}</nb-accordion-item-header>
+            <nb-accordion-item-body>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row block border-bottom border-grey mb-1 list-group-item-action"
+                             *ngFor="let dmsLoan of dmsLoanFiles"
+                             style="cursor: pointer">
+                            <div class="col-md-8 mt-1 " (click)="onClick(dmsLoan.id)">
+                                <div>{{dmsLoan?.loanType?.name}} <span class="badge"
+                                                                       [ngClass]="{'badge-success':dmsLoan.priority=='MEDIUM','badge-info':dmsLoan.priority=='LOW','badge-danger':dmsLoan.priority=='HIGH'}">{{dmsLoan.priority}}</span>
+                                </div>
+                                <div>{{dmsLoan.proposedAmount}}</div>
+                                <small>{{dmsLoan.loanType.name}}</small>
                             </div>
-                            <div>{{dmsLoan.proposedAmount}}</div>
-                            <small>{{dmsLoan.loanType.name}}</small>
+                            <div class="col-md-4">
+                                <div>
+                                    <small>
+                                        Via {{user.name}}
+                                    </small>
+                                </div>
+                                <div>
+                                    <small>{{user?.role?.roleName}}</small>
+                                </div>
+                                <small>{{user?.branch?.name}}</small>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <div>
-                                <small>
-                                    Via {{user.name}}
-                                </small>
-                            </div>
-                            <div>
-                                <small>{{user.role.roleName}}</small>
-                            </div>
-                            <small>{{user.branch.name}}</small>
-                        </div>
-                    </div>
-                    <hr>
-                </li>
-            </ul>
-        </div>
-        <!-- /.box-body -->
-        <div class="box-footer text-center">
-            <a href="javascript:void(0)" class="uppercase">View All Pending Loans</a>
-        </div>
-        <!-- /.box-footer -->
-    </div>
+                    </li>
+                </ul>
+                <div class="box-footer text-center">
+                    <a routerLink="/home/pending">View All Pending Loans</a>
+                </div>
+            </nb-accordion-item-body>
+        </nb-accordion-item>
+    </nb-accordion>
 </div>
+

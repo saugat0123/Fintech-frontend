@@ -111,20 +111,20 @@
             <nb-card-body>
                 <div class="box-body" *ngIf='viewBranch'>
                     <table id="add-branch-table" class="table table-striped table-bordered table-hover ">
-                        <thead>
-                        <tr>
-                            <th>S.N</th>
-                            <th>Branch Name</th>
-                            <th>Code</th>
-                            <th>Province</th>
-                            <th>District</th>
-                            <th>Municipality</th>
-                            <th>Street</th>
-                            <th>Ward</th>
-                            <th>Status</th>
-                            <th *ngIf='editViewBranch === true'>Action</th>
-                        </tr>
-                        </thead>
+                            <thead>
+                            <tr>
+                                <th>S.N</th>
+                                <th>Branch Name</th>
+                                <th>Code</th>
+                                <th>Province</th>
+                                <th>District</th>
+                                <th>Municipality</th>
+                                <th>Street</th>
+                                <th>Ward</th>
+                                <th>Status</th>
+                                <th *ngIf='editViewBranch === true'>Action</th>
+                            </tr>
+                            </thead>
                         <tbody>
                         <tr *ngFor="let allList of dataList; let i=index">
                             <div *ngIf="!dataList?.length > 0">

@@ -12,8 +12,6 @@ import {DmsLoanFileComponent} from './component/loan-main-template/dms-loan-file
 import {NgSelectModule} from '@ng-select/ng-select';
 import {DmsSummaryComponent} from './component/loan-main-template/dms-summary/dms-summary.component';
 import {SecurityComponent} from './component/loan-main-template/security/security.component';
-import {MsgModalComponent} from '../../@theme/components';
-
 
 
 @NgModule({
@@ -36,11 +34,7 @@ import {MsgModalComponent} from '../../@theme/components';
         ReactiveFormsModule,
         NgSelectModule
 
-    ],
-    entryComponents: [
-        MsgModalComponent
     ]
-
 })
 export class LoanModule {
 }

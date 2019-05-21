@@ -1,31 +1,22 @@
+import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {BaseComponent} from './component/base/base.component';
-import {DashboardComponent} from './component/dashboard/dashboard.component';
 import {LoginComponent} from './component/login/login.component';
-import {AuthGuard} from './shared-service/authentication/auth.guard';
-
+import {PendingsComponent} from './component/dashboard/pendings/pendings.component';
 
 const routes: Routes = [
-    {
-        path: 'home', component: BaseComponent, canActivate: [AuthGuard],
-        children: [
-            {path: 'dashboard', component: DashboardComponent},
-            {path: '', loadChildren: './module/admin/admin.module#AdminModule'},
-            {path: 'memo', loadChildren: './module/memo/memo.module#MemoModule'},
-            {path: 'loan', loadChildren: './module/loan/loan.module#LoanModule'}
-        ],
+    {path: 'home', loadChildren: './feature/feature.module#FeatureModule'},
 
-
-    },
     {path: '', component: LoginComponent}
+
 ];
 
+const config: ExtraOptions = {
+    useHash: true,
+};
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes, config)],
+    exports: [RouterModule],
 })
 export class AppRoutingModule {
-
 }
