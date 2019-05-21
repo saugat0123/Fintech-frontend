@@ -12,6 +12,7 @@ import {MunicipalityVdc} from '../../../modal/municipality_VDC';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {AlertService} from '../../../../../@theme/components/alert/alert.service';
 import {ToastService} from '../../../../../@core/utils';
+import {ModalResponse} from '../../../../../@core/utils/modal/ModalResponse';
 
 
 @Component({
@@ -116,17 +117,14 @@ export class AddModelComponent implements OnInit, DoCheck {
     onSubmit() {
         this.submitted = true;
         this.commonService.saveOrEdit(this.branch, 'v1/branch').subscribe(result => {
-                this.modalService.dismissAll(AddModelComponent);
+                this.activeModal.close(ModalResponse.SUCCESS);
                 if (this.branch.id == null) {
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Branch'));
                 } else {
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Branch'));
                 }
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('true');
+
                 this.branch = new Branch();
-                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['home/admin/branch']));
 
             }, error => {
 
@@ -143,7 +141,7 @@ export class AddModelComponent implements OnInit, DoCheck {
     }
 
     onClose() {
-        this.activeModal.dismiss(AddModelComponent);
+        this.activeModal.dismiss(ModalResponse.CANCEL);
     }
 
     getMunicipality() {
