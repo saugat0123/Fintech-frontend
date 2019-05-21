@@ -1,25 +1,25 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
 
-import {Router} from '@angular/router';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
+import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
-import {LoanTemplate} from '../../../modal/template';
-import {LoanConfig} from '../../../modal/loan-config';
+import {Company} from '../../../modal/company';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 
 @Component({
-    selector: 'app-add-loan',
-    templateUrl: './add-loan.component.html'
+    selector: 'app-company-form',
+    templateUrl: './company-form.component.html'
 })
-export class AddLoanComponent implements OnInit, DoCheck {
+export class CompanyFormComponent implements OnInit, DoCheck {
 
-    loanConfig = new LoanConfig();
     task: string;
+    submitted = false;
+    spinner = false;
     globalMsg: string;
-    templateList: Array<LoanTemplate>;
+    company: Company = new Company();
 
     constructor(
         private commonService: CommonService,
@@ -31,26 +31,24 @@ export class AddLoanComponent implements OnInit, DoCheck {
     }
 
     ngOnInit() {
-        this.commonService.getByAll('v1/loanTemplate/getAll').subscribe((response: any) => {
-            this.templateList = response.detail;
-        });
     }
 
     ngDoCheck(): void {
-        if (this.dataService.getData() == null) {
+        this.company = this.dataService.getCompany();
+        if (this.company.id == null) {
             this.task = 'Add';
         } else {
-            this.loanConfig = this.dataService.getData();
-            this.task = 'Add';
+            this.task = 'Edit';
         }
     }
 
     onSubmit() {
-        this.commonService.saveOrEdit(this.loanConfig, 'v1/config').subscribe(() => {
+        this.submitted = true;
+        console.log(this.company);
+        this.commonService.saveOrEdit(this.company, 'v1/company').subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Company Information'));
 
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Template'));
-
-                this.loanConfig = new LoanConfig();
+                this.company = new Company();
 
                 this.activeModal.close(ModalResponse.SUCCESS);
 
@@ -58,10 +56,9 @@ export class AddLoanComponent implements OnInit, DoCheck {
 
                 console.log(error);
 
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Loan Template'));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Company Information'));
 
                 this.activeModal.dismiss(error);
-
             }
         );
     }
@@ -69,4 +66,5 @@ export class AddLoanComponent implements OnInit, DoCheck {
     onClose() {
         this.activeModal.dismiss(ModalResponse.CANCEL);
     }
+
 }
