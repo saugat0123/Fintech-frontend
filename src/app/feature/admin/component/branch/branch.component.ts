@@ -5,7 +5,7 @@ import {CommonService} from '../../../../@core/service/baseservice/common-basese
 import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
 import {Branch} from '../../modal/branch';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {AddModelComponent} from './add-model/add-model.component';
+import {BranchFormComponent} from './branch-form/branch-form.component';
 
 import {MunicipalityVdc} from '../../modal/municipality_VDC';
 
@@ -20,8 +20,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-branch',
-    templateUrl: './branch.component.html',
-    styleUrls: ['./branch.component.scss']
+    templateUrl: './branch.component.html'
 })
 export class BranchComponent implements OnInit, DoCheck {
     title = 'Branch';
@@ -134,13 +133,13 @@ export class BranchComponent implements OnInit, DoCheck {
 
     openEdit(branch: Branch) {
         this.dataService.setBranch(branch);
-        this.modalService.open(AddModelComponent);
+        ModalUtils.resolve(this.modalService.open(BranchFormComponent, {size: 'lg'}).result, BranchComponent.loadData, this);
     }
 
     addBranch() {
         this.dataService.setBranch(new Branch());
 
-        ModalUtils.resolve(this.modalService.open(AddModelComponent, {size: 'lg'}).result, BranchComponent.loadData, this);
+        ModalUtils.resolve(this.modalService.open(BranchFormComponent, {size: 'lg'}).result, BranchComponent.loadData, this);
     }
 
 

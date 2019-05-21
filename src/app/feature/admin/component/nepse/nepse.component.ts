@@ -5,15 +5,14 @@ import {CommonPageService} from '../../../../@core/service/baseservice/common-pa
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {Nepse} from '../../modal/nepse';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {AddNepseComponent} from './add-nepse/add-nepse.component';
+import {NepseFormComponent} from './nepse-form/nepse-form.component';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
-import {ToastService} from '../../../../@core/utils';
+import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-nepse',
-    templateUrl: './nepse.component.html',
-    styleUrls: ['./nepse.component.css']
+    templateUrl: './nepse.component.html'
 })
 export class NepseComponent implements OnInit, DoCheck {
 
@@ -43,10 +42,31 @@ export class NepseComponent implements OnInit, DoCheck {
     ) {
     }
 
+    static loadData(other: any) {
+        other.spinner = true;
+        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+                other.dataList = response.detail.content;
+                other.dataService.setDataList(other.dataList);
+                other.commonPageService.setCurrentApi(other.currentApi);
+                other.pageable = other.commonPageService.setPageable(response.detail);
+                other.spinner = false;
+
+            }, error => {
+
+                console.log(error);
+
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
+                other.spinner = false;
+            }
+        );
+
+    }
+
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/nepseCompany/get';
-        this.getPagination();
+
+        NepseComponent.loadData(this);
 
         this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
 
@@ -63,31 +83,11 @@ export class NepseComponent implements OnInit, DoCheck {
                     this.addViewNepse = true;
                 }
                 if (this.permissions[i].type === 'VIEW NEPSE') {
-                    this.getPagination();
+                    NepseComponent.loadData(this);
                     this.viewNepse = true;
                 }
             }
         });
-    }
-
-    getPagination() {
-        this.spinner = true;
-        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-                this.dataList = response.detail.content;
-                this.dataService.setDataList(this.dataList);
-                this.commonPageService.setCurrentApi(this.currentApi);
-                this.pageable = this.commonPageService.setPageable(response.detail);
-                this.spinner = false;
-
-            }, error => {
-
-                console.log(error);
-
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
-                this.spinner = false;
-            }
-        );
-
     }
 
     ngDoCheck(): void {
@@ -96,7 +96,7 @@ export class NepseComponent implements OnInit, DoCheck {
 
     onSearch() {
         this.dataService.setData(this.search);
-        this.getPagination();
+        NepseComponent.loadData(this);
     }
 
     onSearchChange(searchValue: string) {
@@ -104,12 +104,12 @@ export class NepseComponent implements OnInit, DoCheck {
             'name': searchValue
         };
         this.dataService.setData(this.search);
-        this.getPagination();
+        NepseComponent.loadData(this);
     }
 
     addNepse() {
         this.dataService.setNepse(new Nepse());
-        this.modalService.open(AddNepseComponent);
+        ModalUtils.resolve(this.modalService.open(NepseFormComponent).result, NepseComponent.loadData, this);
     }
 
 }

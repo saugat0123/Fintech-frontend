@@ -13,7 +13,7 @@ import {LoanTemplateComponent} from './component/loan-config/loan-template/loan-
 import {LoanConfigComponent} from './component/loan-config/loan-config.component';
 
 import {UserComponent} from './component/user/user.component';
-import {ApprovallimitComponent} from './component/approvallimit/approvallimit.component';
+import {ApprovalLimitComponent} from './component/approvallimit/approval-limit.component';
 import {RolePermissionComponent} from './component/role-permission/role-permission.component';
 import {ListRoleComponent} from './component/role-permission/list-role/list-role.component';
 import {Routes} from '@angular/router';
@@ -43,7 +43,7 @@ export const adminRoutes: Routes = [
     {path: 'segment', component: SegmentComponent},
     {path: 'sub-segment', component: SubSegmentComponent},
     {path: 'user', component: UserComponent},
-    {path: 'approvalLimit', component: ApprovallimitComponent},
+    {path: 'approvalLimit', component: ApprovalLimitComponent},
     {path: 'company', component: CompanyComponent},
     {
         path: 'eligibility',

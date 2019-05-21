@@ -10,30 +10,30 @@ import {TemplateAddModelComponent} from './component/loan-config/loan-template/t
 
 import {AddLoanComponent} from './component/loan-config/add-loan/add-loan.component';
 import {UserComponent} from './component/user/user.component';
-import {AddUserComponent} from './component/user/add-user/add-user.component';
-import {ApprovallimitComponent} from './component/approvallimit/approvallimit.component';
-import {AddApprovalLimitComponent} from './component/approvallimit/add-approval-limit/add-approval-limit.component';
+import {UserFormComponent} from './component/user/user-form/user-form.component';
+import {ApprovalLimitComponent} from './component/approvallimit/approval-limit.component';
+import {ApprovalLimitFormComponent} from './component/approvallimit/approval-limit-form/approval-limit-form.component';
 import {RolePermissionComponent} from './component/role-permission/role-permission.component';
-import {AddModelComponent} from './component/branch/add-model/add-model.component';
-import {AddRoleComponent} from './component/role-permission/add-role/add-role.component';
+import {BranchFormComponent} from './component/branch/branch-form/branch-form.component';
+import {RoleFormComponent} from './component/role-permission/role-form/role-form.component';
 import {ListRoleComponent} from './component/role-permission/list-role/list-role.component';
 import {ValuatorComponent} from './component/valuator/valuator.component';
-import {AddValuatorComponent} from './component/valuator/add-valuator/add-valuator.component';
+import {ValuatorFormComponent} from './component/valuator/valuator-form/valuator-form.component';
 import {SectorComponent} from './component/sector/sector/sector.component';
 import {SubSectorComponent} from './component/sector/sub-sector/sub-sector.component';
-import {AddSectorComponent} from './component/sector/sector/add-sector/add-sector.component';
-import {AddSubSectorComponent} from './component/sector/sub-sector/add-sub-sector/add-sub-sector.component';
+import {SectorFormComponent} from './component/sector/sector/sector-form/sector-form.component';
+import {SubSectorFormComponent} from './component/sector/sub-sector/sub-sector-form/sub-sector-form.component';
 
 import {UIComponent} from './component/loan-config/loan-configuration/ui.component';
 import {NepseComponent} from './component/nepse/nepse.component';
 import {SegmentComponent} from './component/segment/segment/segment.component';
 import {SubSegmentComponent} from './component/segment/sub-segment/sub-segment.component';
-import {AddSegmentComponent} from './component/segment/add-segment/add-segment.component';
-import {AddNepseComponent} from './component/nepse/add-nepse/add-nepse.component';
-import {AddSubSegmentComponent} from './component/segment/add-sub-segment/add-sub-segment.component';
+import {SegmentFormComponent} from './component/segment/segment/segment-form/segment-form.component';
+import {NepseFormComponent} from './component/nepse/nepse-form/nepse-form.component';
+import {SubSegmentFormComponent} from './component/segment/sub-segment/sub-segment-form/sub-segment-form.component';
 
 import {CompanyComponent} from './component/company/company.component';
-import {AddCompanyComponent} from './component/company/add-company/add-company.component';
+import {CompanyFormComponent} from './component/company/company-form/company-form.component';
 
 import {DocumentComponent} from './component/document/document.component';
 import {UpdateDocumentComponent} from './component/document/update-document/update-document.component';
@@ -57,40 +57,40 @@ import {MsgModalComponent, UpdateModalComponent} from '../../@theme/components';
 @NgModule({
     declarations: [
         BranchComponent,
-        AddModelComponent,
+        BranchFormComponent,
         LoanConfigComponent,
         LoanTemplateComponent,
         TemplateAddModelComponent,
         AddLoanComponent,
         UserComponent,
-        AddUserComponent,
-        ApprovallimitComponent,
-        AddApprovalLimitComponent,
+        UserFormComponent,
+        ApprovalLimitComponent,
+        ApprovalLimitFormComponent,
         RolePermissionComponent,
-        AddRoleComponent,
+        RoleFormComponent,
         RolePermissionComponent,
 
         ValuatorComponent,
-        AddValuatorComponent,
+        ValuatorFormComponent,
         SectorComponent,
         SubSectorComponent,
-        AddSectorComponent,
-        AddSubSectorComponent,
+        SectorFormComponent,
+        SubSectorFormComponent,
 
         UIComponent,
         NepseComponent,
         SegmentComponent,
         SubSegmentComponent,
-        AddSegmentComponent,
-        AddNepseComponent,
-        AddSubSegmentComponent,
+        SegmentFormComponent,
+        NepseFormComponent,
+        SubSegmentFormComponent,
         DocumentComponent,
         UpdateDocumentComponent,
         AddDocumentComponent,
-        AddSubSegmentComponent,
+        SubSegmentFormComponent,
         CompanyComponent,
-        AddCompanyComponent,
-        AddRoleComponent,
+        CompanyFormComponent,
+        RoleFormComponent,
         ListRoleComponent,
         RoleHierarchyComponent,
         QuestionComponent,
@@ -114,22 +114,22 @@ import {MsgModalComponent, UpdateModalComponent} from '../../@theme/components';
     ],
 
     entryComponents: [
-        AddApprovalLimitComponent,
-        AddModelComponent,
-        AddNepseComponent,
-        AddSegmentComponent,
-        AddSubSegmentComponent,
-        AddValuatorComponent,
-        AddSectorComponent,
-        AddSubSectorComponent,
+        ApprovalLimitFormComponent,
+        BranchFormComponent,
+        NepseFormComponent,
+        SegmentFormComponent,
+        SubSegmentFormComponent,
+        ValuatorFormComponent,
+        SectorFormComponent,
+        SubSectorFormComponent,
         AddDocumentComponent,
         AddLoanComponent,
         UpdateModalComponent,
-        AddUserComponent,
-        AddCompanyComponent,
+        UserFormComponent,
+        CompanyFormComponent,
         MsgModalComponent,
         TemplateAddModelComponent,
-        AddRoleComponent
+        RoleFormComponent
     ]
 
 })
