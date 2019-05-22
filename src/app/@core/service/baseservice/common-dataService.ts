@@ -16,6 +16,7 @@ import {Company} from '../../../feature/admin/modal/company';
 import {DmsLoanFile} from '../../../feature/admin/modal/dms-loan-file';
 import {LoanConfig} from '../../../feature/admin/modal/loan-config';
 import {Document} from '../../../feature/admin/modal/document';
+import {OpeningForm} from '../../../feature/admin/modal/openingForm';
 
 @Injectable({
     providedIn: 'root'
@@ -44,7 +45,7 @@ export class CommonDataService {
     initial: Document[] = [];
     dmsLoanfile: DmsLoanFile = new DmsLoanFile();
     loanConfig: LoanConfig;
-
+    openingForm: OpeningForm;
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
 
@@ -239,6 +240,14 @@ export class CommonDataService {
 
     getDmsLoanFile() {
         return this.dmsLoanfile;
+    }
+
+    setOpeningForm(openingForm: OpeningForm) {
+        this.openingForm = openingForm;
+    }
+
+    getOpeningForm() {
+        return this.openingForm;
     }
 
 }

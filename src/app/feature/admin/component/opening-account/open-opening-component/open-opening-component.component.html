@@ -1,0 +1,1144 @@
+<div class="container-fluid bg-white text-dark">
+    <div class="wizard-title text-center"><h1>Opening Account</h1></div>
+    <div class="form-group">
+        <form class="form-horizontal" (ngSubmit)="onSubmit()" [formGroup]="openingAccount">
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="branch"><b>Bank Branch</b></label>
+                        <select class="form-control" id="branch" formControlName="branch" required>
+                            <option value="">Samakushi</option>
+                            <option value="">Baneshwor</option>
+                            <option value="">Boudha</option>
+                            <option value="">Lazimpath</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="accountType"><b>Account Type</b></label>
+                        <input id="accountType" formControlName="accountType" type="text"
+                               class="form-control form -control-error rounded" placeholder="Applicant Account Type"
+                               required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="proposeOfAccount"><b>Propose of Account</b></label>
+                        <input id="proposeOfAccount" formControlName="proposeOfAccount" type="text" required
+                               class="form-control form-control-error rounded"
+                               placeholder="Applicant's Account Propose">
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="existingAccountNumber"><b>Existing Account Number</b></label>
+                        <input id="existingAccountNumber" formControlName="existingAccountNumber" type="text" required
+                               class="form-control form-control-error rounded"
+                               placeholder="Applicant Existing Account Number">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="accountCurrency"><b>Account Currency</b></label>
+                        <input id="accountCurrency" formControlName="accountCurrency" type="text" required
+                               class="form-control form-control-error rounded" placeholder="Applicant Account Currency">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="jointAccountRadio"><b>Joint Account</b></label>
+                        <div id="jointAccountRadio">
+                            <input class="big-radio" type="radio" id="jointAccountRadioTrue"
+                                   formControlName="jointAccountRadio" value="true">
+                            <label for="jointAccountRadioTrue">Yes</label>
+                            <input class="big-radio" type="radio" id="jointAccountRadioFalse"
+                                   formControlName="jointAccountRadio" value="false">
+                            <label for="jointAccountRadioFalse">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="nomineeRadio"><b>Have Nominee</b></label>
+                        <div id="nomineeRadio">
+                            <input class="big-radio" type="radio" id="nomineeRadioTrue"
+                                   formControlName="nomineeRadio" value="true">
+                            <label for="nomineeRadioTrue">Yes</label>
+                            <input class="big-radio" type="radio" id="nomineeRadioFalse"
+                                   formControlName="nomineeRadio" value="false">
+                            <label for="nomineeRadioFalse">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="beneficiaryRadio"><b>Have Beneficiary</b></label>
+                        <div id="beneficiaryRadio">
+                            <input class="big-radio" type="radio" id="beneficiaryRadioTrue"
+                                   formControlName="beneficiaryRadio"
+                                   value="true">
+                            <label for="beneficiaryRadioTrue">Yes</label>
+                            <input class="big-radio" type="radio" id="beneficiaryRadioFalse"
+                                   formControlName="beneficiaryRadio"
+                                   value="false">
+                            <label for="beneficiaryRadioFalse">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <div formArrayName="applicantDetail"
+                 *ngFor="let applicantDetail of openingAccount.get('applicantDetail')['controls'];
+                  let applicantIndex = index">
+                <div [formGroupName]="applicantIndex">
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="box-header with-border col-md-10">
+                            <h2 class="box-title title"><b>Applicant {{applicantIndex + 1}} Details</b></h2>
+                        </div>
+                        <div class="text-right col-md-2">
+                            <input *ngIf="openingAccount.get('applicantDetail')['controls'].length > 1"
+                                   class="btn btn-sm btn-flat btn-danger" type="button"
+                                   (click)="removeApplicantDetail(applicantIndex)" value="Remove Applicant">
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="customerTitle"><b>Customer Title</b></label>
+                                <select class="form-control" id="customerTitle" formControlName="customerTitle"
+                                        required>
+                                    <option [ngValue]="undefined" hidden>Customer Title</option>
+                                    <option value="Mr.">Mr</option>
+                                    <option value="Mrs.">Mrs</option>
+                                    <option value="Master">Master</option>
+                                    <option value="Miss.">Miss</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="customerFirstName"><b>Customer First Name</b></label>
+                                <input id="customerFirstName" formControlName="customerFirstName" type="text" required
+                                       class="form-control form-control-error rounded"
+                                       placeholder="Applicant's First Name">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="customerMiddleName"><b>Customer Middle Name</b></label>
+                                <input id="customerMiddleName" formControlName="customerMiddleName" type="text" required
+                                       class="form-control form-control-error rounded"
+                                       placeholder="Applicant's Middle Name">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="customerLastName"><b>Customer Last Name</b></label>
+                                <input id="customerLastName" formControlName="customerLastName" type="text" required
+                                       class="form-control form-control-error rounded"
+                                       placeholder="Applicant's Last Name">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantMaritalStatusRadio">
+                                    <b>Applicant's Marital Status</b>
+                                </label>
+                                <div id="applicantMaritalStatusRadio">
+                                    <input class="big-radio" type="radio" id="applicantMaritalStatusRadioMarried"
+                                           formControlName="applicantMaritalStatusRadio" value="Married">
+                                    <label for="applicantMaritalStatusRadioMarried">Married</label>
+                                    <input class="big-radio" type="radio" id="applicantMaritalStatusRadioSingle"
+                                           formControlName="applicantMaritalStatusRadio" value="Unmarried">
+                                    <label for="applicantMaritalStatusRadioSingle">Unmarried</label>
+                                    <input class="big-radio" type="radio" id="applicantMaritalStatusRadioOther"
+                                           formControlName="applicantMaritalStatusRadio" value="Others">
+                                    <label for="applicantMaritalStatusRadioOther">Others</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantGenderRadio"><b>Applicant Gender</b></label>
+                                <div id="applicantGenderRadio">
+                                    <input class="big-radio" type="radio" id="applicantGenderRadioMale"
+                                           formControlName="applicantGenderRadio" value="Male">
+                                    <label for="applicantGenderRadioMale">Male</label>
+                                    <input class="big-radio" type="radio" id="applicantGenderRadioFemale"
+                                           formControlName="applicantGenderRadio" value="Female">
+                                    <label for="applicantGenderRadioFemale">Female</label>
+                                    <input class="big-radio" type="radio" id="applicantGenderRadioOther"
+                                           formControlName="applicantGenderRadio" value="Other">
+                                    <label for="applicantGenderRadioOther">Other</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantEducationalQualification">
+                                    <b>Education Qualification</b>
+                                </label>
+                                <input id="applicantEducationalQualification"
+                                       formControlName="applicantEducationalQualification"
+                                       type="text" class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Education Qualification">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Permanent Address</b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPermanentProvince">
+                                    <b>Applicant Permanent Province</b>
+                                </label>
+                                <input id="applicantPermanentProvince" formControlName="applicantPermanentProvince"
+                                       type="text" class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Permanent Province">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPermanentDistrict">
+                                    <b>Applicant Permanent District</b>
+                                </label>
+                                <input id="applicantPermanentDistrict" formControlName="applicantPermanentDistrict"
+                                       type="text" class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Permanent District">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPermanentMunicipalityOrVDC">
+                                    <b>Applicant Permanent Municipality/VDC</b>
+                                </label>
+                                <input id="applicantPermanentMunicipalityOrVDC"
+                                       formControlName="applicantPermanentMunicipalityOrVDC" type="text"
+                                       class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Permanent Municipality/VDC">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPermanentWard"><b>Applicant Permanent Ward</b></label>
+                                <input id="applicantPermanentWard" formControlName="applicantPermanentWard"
+                                       type="text" class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Permanent Ward">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPermanentStreet"><b>Applicant Permanent Street</b></label>
+                                <input id="applicantPermanentStreet" formControlName="applicantPermanentStreet"
+                                       type="text" class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Permanent Street">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPermanentHouseNo">
+                                    <b>Applicant Permanent House Number</b>
+                                </label>
+                                <input id="applicantPermanentHouseNo" formControlName="applicantPermanentHouseNo"
+                                       type="text"
+                                       class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Permanent House Number">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Present Address</b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPresentProvince"><b>Applicant Present Province</b></label>
+                                <input id="applicantPresentProvince" formControlName="applicantPresentProvince"
+                                       type="text"
+                                       class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Present Province">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPresentDistrict"><b>Applicant Present District</b></label>
+                                <input id="applicantPresentDistrict" formControlName="applicantPresentDistrict"
+                                       type="text" class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Present District">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPresentMunicipalityOrVDC">
+                                    <b>Applicant Present Municipality/VDC</b>
+                                </label>
+                                <input id="applicantPresentMunicipalityOrVDC"
+                                       formControlName="applicantPresentMunicipalityOrVDC"
+                                       type="text" class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Present Municipality/VDC">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPresentWard"><b>Applicant Present Ward</b></label>
+                                <input id="applicantPresentWard" formControlName="applicantPresentWard" type="text"
+                                       class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Present Ward">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPresentStreet"><b>Applicant Present Street</b></label>
+                                <input id="applicantPresentStreet" formControlName="applicantPresentStreet" type="text"
+                                       class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Present Street">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPresentHouseNo">
+                                    <b>Applicant Present House Number</b>
+                                </label>
+                                <input id="applicantPresentHouseNo" formControlName="applicantPresentHouseNo"
+                                       type="text"
+                                       class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Present House Number">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>In case of residing in Rented House</b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="applicantLandLordName"><b>Applicant Land Lord Name</b></label>
+                                <input id="applicantLandLordName" formControlName="applicantLandLordName" type="text"
+                                       class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Land Lord Name">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="applicantLandLordContactNumber">
+                                    <b>Applicant Land Lord Contact Number</b>
+                                </label>
+                                <input id="applicantLandLordContactNumber"
+                                       formControlName="applicantLandLordContactNumber"
+                                       type="text" class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Land Lord Contact Number">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Contact Number</b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantResidentialContact"><b>Resident Contact Number</b></label>
+                                <input id="applicantResidentialContact" formControlName="applicantResidentialContact"
+                                       type="text" class="form-control form-control-error rounded" required
+                                       placeholder="Resident Contact Number">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantOfficeContact"><b>Office Contact Number</b></label>
+                                <input id="applicantOfficeContact" formControlName="applicantOfficeContact" required
+                                       type="text" class="form-control form-control-error rounded"
+                                       placeholder="Office Contact Number">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantMobileContact"><b>Mobile Number</b></label>
+                                <input id="applicantMobileContact" formControlName="applicantMobileContact"
+                                       type="text" class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Mobile Number">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="applicantEmail"><b>Resident Email</b></label>
+                                <input id="applicantEmail" formControlName="applicantEmail" type="text"
+                                       class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Email Address">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Applicant Relative</b></h4>
+                    </div>
+                    <div formArrayName="applicantRelative" class="border-bottom border-dark m-4"
+                         *ngFor="let relative of applicantDetail['controls'].applicantRelative['controls'];
+                          let relativeIndex = index">
+                        <div [formGroupName]="relativeIndex">
+                            <!-- START ROW -->
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="box-header with-border">
+                                        <h5 class="box-title title"><b>{{relativeIndex + 1.}} Relative</b></h5>
+                                    </div>
+                                </div>
+                                <div class="text-right col-md-2">
+                                    <input *ngIf="applicantDetail['controls'].applicantRelative['controls'].length > 1"
+                                           class="btn btn-sm btn-flat btn-danger" type="button"
+                                           (click)="removeApplicantRelative(applicantDetail.controls.applicantRelative, relativeIndex)"
+                                           value="Remove Relative">
+                                </div>
+                            </div>
+                            <!-- END ROW -->
+                            <!-- START ROW -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="applicantRelationWith"><b>Relation With Applicant</b></label>
+                                        <input id="applicantRelationWith" formControlName="applicantRelationWith"
+                                               type="text" class="form-control form-control-error rounded" required
+                                               placeholder="Relation With Applicant">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="applicantRelativeName"><b>Relative Name</b></label>
+                                        <input id="applicantRelativeName" formControlName="applicantRelativeName"
+                                               type="text" required class="form-control form-control-error rounded"
+                                               placeholder="Office Contact Number">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END ROW -->
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <input class="btn btn-sm btn-flat btn-primary" type="button"
+                               (click)="addApplicantRelative(applicantIndex)"
+                               value="Add Relative"/>
+                    </div>
+
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Applicant Identification</b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantNationality"><b>Nationality</b></label>
+                                <input id="applicantNationality" formControlName="applicantNationality" type="text"
+                                       required
+                                       class="form-control form-control-error rounded"
+                                       placeholder="Applicant Nationality">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantDateOfBirth"><b>Date of Birth</b></label>
+                                <input id="applicantDateOfBirth" formControlName="applicantDateOfBirth" type="date"
+                                       class="form-control form-control-error rounded" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPanNumber"><b>Applicant PAN Number</b></label>
+                                <input id="applicantPanNumber" formControlName="applicantPanNumber" type="text" required
+                                       class="form-control form-control-error rounded"
+                                       placeholder="Applicant PAN Number">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Citizenship Details</b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantCitizenNumber"><b>Applicant Citizen Number</b></label>
+                                <input id="applicantCitizenNumber" formControlName="applicantCitizenNumber" type="text"
+                                       class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Citizenship Number">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantCitizenIssuedPlace"><b>Place of issue</b></label>
+                                <input id="applicantCitizenIssuedPlace" formControlName="applicantCitizenIssuedPlace"
+                                       type="text" class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Citizenship Issued Place">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantCitizenIssuedDate">
+                                    <b>Applicant Citizen Issued Date</b>
+                                </label>
+                                <input id="applicantCitizenIssuedDate" formControlName="applicantCitizenIssuedDate"
+                                       type="date" class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Citizen Issued Date">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+
+
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Passport Details</b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPassportNumber"><b>Applicant Passport Number</b></label>
+                                <input id="applicantPassportNumber" formControlName="applicantPassportNumber"
+                                       type="text"
+                                       class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Passport Number">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPassportIssuedPlace"><b>Place of issue</b></label>
+                                <input id="applicantPassportIssuedPlace" formControlName="applicantPassportIssuedPlace"
+                                       type="text" class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Passport Issued Place">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPassportIssuedDate">
+                                    <b>Applicant Passport Issued Date</b></label>
+                                <input id="applicantPassportIssuedDate" formControlName="applicantPassportIssuedDate"
+                                       type="date" class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Passport Issued Date">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPassportExpireDate">
+                                    <b>Applicant Passport Expire Date</b>
+                                </label>
+                                <input id="applicantPassportExpireDate" formControlName="applicantPassportExpireDate"
+                                       type="date" class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Passport Issued Date">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Employment Details</b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantSalaried"><b>Salaried</b></label>
+                                <input id="applicantSalaried" formControlName="applicantSalaried" type="text" required
+                                       class="form-control form-control-error rounded" placeholder="Applicant Salaried">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantSelfEmployed"><b>Self Employed</b></label>
+                                <input id="applicantSelfEmployed" formControlName="applicantSelfEmployed"
+                                       name="applicantSelfEmployed" type="text"
+                                       class="form-control form-control-error rounded" required
+                                       placeholder="Applicant Self Employed">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Occupational Details</b></h4>
+                    </div>
+                    <div formArrayName="occupationDetails" class="border-bottom border-dark m-4"
+                         *ngFor="let occupation of applicantDetail['controls'].occupationDetails['controls'];
+                         let occupationIndex = index">
+                        <div [formGroupName]="occupationIndex">
+                            <!-- START ROW -->
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="box-header with-border">
+                                        <h5 class="box-title title"><b>{{occupationIndex + 1.}} Occupation</b></h5>
+                                    </div>
+                                </div>
+                                <div class="text-right col-md-2">
+                                    <input *ngIf="applicantDetail['controls'].occupationDetails['controls'].length > 1"
+                                           class="btn btn-sm btn-flat btn-danger" type="button"
+                                           (click)="removeApplicantOccupationDetails(applicantDetail.controls.occupationDetails, occupationIndex)"
+                                           value="Remove Occupation">
+                                </div>
+                            </div>
+                            <!-- END ROW -->
+                            <!-- START ROW -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="nameOfOrganization"><b>Name of Organization</b></label>
+                                        <input id="nameOfOrganization" formControlName="nameOfOrganization" type="text"
+                                               required
+                                               class="form-control form-control-error rounded"
+                                               placeholder="Organization Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="organizationAddress"><b>Address</b></label>
+                                        <input id="organizationAddress" formControlName="organizationAddress"
+                                               type="text" required
+                                               class="form-control form-control-error rounded"
+                                               placeholder="Organization Address">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="organizationTelephone"><b>Telephone Number</b></label>
+                                        <input id="organizationTelephone" formControlName="organizationTelephone"
+                                               type="text"
+                                               class="form-control form-control-error rounded" required
+                                               placeholder="Organization Contact Number">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END ROW -->
+                            <!-- START ROW -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="organizationBusiness"><b>Nature of Business</b></label>
+                                        <input id="organizationBusiness" formControlName="organizationBusiness"
+                                               type="text"
+                                               class="form-control form-control-error rounded" required
+                                               placeholder="Organization Nature of Business">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="applicantDesignation"><b>Designation</b></label>
+                                        <input id="applicantDesignation" formControlName="applicantDesignation"
+                                               type="text"
+                                               class="form-control form-control-error rounded" required
+                                               placeholder="Applicant Position in Organization">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="annualIncomeFromOrganization">
+                                            <b>Estimated Annual Income</b>
+                                        </label>
+                                        <input id="annualIncomeFromOrganization"
+                                               formControlName="annualIncomeFromOrganization"
+                                               type="text" class="form-control form-control-error rounded" required
+                                               placeholder="Estimated Annual Income">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END ROW -->
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <input class="btn btn-sm btn-flat btn-primary" type="button"
+                               (click)="addApplicantOccupationDetails(applicantIndex)"
+                               value="Add Occupation"/>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="otherIncomeSource"><b>Other Source of Income</b></label>
+                                <input id="otherIncomeSource" formControlName="otherIncomeSource" type="text"
+                                       class="form-control form-control-error rounded" required
+                                       placeholder="Other Source of Income">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Declarative</b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="isPoliticallyExposed">
+                                    Are you a Politically Exposed Person (PEP) or are you associated with any PEP?
+                                </label>
+                                <div id="isPoliticallyExposed">
+                                    <input class="big-radio" type="radio" id="isPoliticallyExposedTrue"
+                                           formControlName="isPoliticallyExposed" value="true">
+                                    <label for="isPoliticallyExposedTrue">Yes</label>
+                                    <input class="big-radio" type="radio" id="isPoliticallyExposedFalse"
+                                           formControlName="isPoliticallyExposed" value="false">
+                                    <label for="isPoliticallyExposedFalse">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="pepName"><b>Please specify the name of PEP</b></label>
+                                <input id="pepName" formControlName="pepName" type="text"
+                                       class="form-control form-control-error rounded" required placeholder="PEP Name">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="pepRelationWithApplicant"><b>Relationship with you</b></label>
+                                <input id="pepRelationWithApplicant" formControlName="pepRelationWithApplicant"
+                                       type="text" required
+                                       class="form-control form-control-error rounded"
+                                       placeholder="PEP Relation With Applicant">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="isConvictedForCrime">
+                                    Declaration of Convicted/Non Convicted for any crime in past?
+                                </label>
+                                <div id="isConvictedForCrime">
+                                    <input class="big-radio" type="radio" id="isConvictedForCrimeTrue"
+                                           formControlName="isConvictedForCrime" value="true">
+                                    <label for="isConvictedForCrimeTrue">Yes</label>
+                                    <input class="big-radio" type="radio" id="isConvictedForCrimeFalse"
+                                           formControlName="isConvictedForCrime" value="false">
+                                    <label for="isConvictedForCrimeFalse">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="crimeConvictedFor">
+                                    Please specify convicted/non convicted crime
+                                </label>
+                                <input id="crimeConvictedFor" formControlName="crimeConvictedFor" type="text"
+                                       class="form-control form-control-error rounded" required placeholder="PEP Name">
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="holdResidentialOfForeign">
+                                    Do you hold Residential Permit of foreign country?
+                                </label>
+                                <div id="holdResidentialOfForeign">
+                                    <input class="big-radio" type="radio" id="holdResidentialOfForeignTrue"
+                                           formControlName="holdResidentialOfForeign" value="true">
+                                    <label for="holdResidentialOfForeignTrue">Yes</label>
+                                    <input class="big-radio" type="radio" id="holdResidentialOfForeignFalse"
+                                           formControlName="holdResidentialOfForeign" value="false">
+                                    <label for="holdResidentialOfForeignFalse">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="holdResidentialOfForeignType">
+                                    Please specify the following details: Residential Status
+                                </label>
+                                <div id="holdResidentialOfForeignType">
+                                    <input class="big-radio" type="radio" id="holdResidentialOfForeignTrueCitizen"
+                                           formControlName="holdResidentialOfForeignType" value="Citizen">
+                                    <label for="holdResidentialOfForeignTrueCitizen">Citizen</label>
+                                    <input class="big-radio" type="radio" id="holdResidentialOfForeignPermanentResident"
+                                           formControlName="holdResidentialOfForeignType" value="Permanent Resident">
+                                    <label for="holdResidentialOfForeignFalse">Permanent Resident</label>
+                                    <input class="big-radio" type="radio"
+                                           id="holdResidentialOfForeignTypeStayingForDays"
+                                           formControlName="holdResidentialOfForeignType" value="StayingForDays">
+                                    <label for="holdResidentialOfForeignTypeStayingForDays">
+                                        Resident (Staying for 180 days or more in a year)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="isUsResidentRadio">Are you a U.S. Resident?</label>
+                                <div id="isUsResidentRadio">
+                                    <input class="big-radio" type="radio" id="isUsResidentRadioTrue"
+                                           formControlName="isUsResidentRadio" value="true">
+                                    <label for="isUsResidentRadioTrue">Yes</label>
+                                    <input class="big-radio" type="radio" id="isUsResidentRadioFalse"
+                                           formControlName="isUsResidentRadio" value="false">
+                                    <label for="isUsResidentRadioFalse">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="isUsCitizenRadio">Are you a U.S. Citizen?</label>
+                                <div id="isUsCitizenRadio">
+                                    <input class="big-radio" type="radio" id="isUsCitizenRadioTrue"
+                                           formControlName="isUsCitizenRadio" value="true">
+                                    <label for="isUsCitizenRadioTrue">Yes</label>
+                                    <input class="big-radio" type="radio" id="isUsCitizenRadioFalse"
+                                           formControlName="isUsCitizenRadio" value="false">
+                                    <label for="isUsCitizenRadioFalse">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="isUsGreenCardHolderRadio">
+                                    Are you a U.S. Permanent Resident Card (Green Card) Holder?
+                                </label>
+                                <div id="isUsGreenCardHolderRadio">
+                                    <input class="big-radio" type="radio" id="isUsGreenCardHolderRadioTrue"
+                                           formControlName="isUsGreenCardHolderRadio" value="true">
+                                    <label for="isUsGreenCardHolderRadioTrue">Yes</label>
+                                    <input class="big-radio" type="radio" id="isUsGreenCardHolderRadioFalse"
+                                           formControlName="isUsGreenCardHolderRadio" value="false">
+                                    <label for="isUsGreenCardHolderRadioFalse">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                </div>
+            </div>
+            <div class="text-right">
+                <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addApplicantDetail()"
+                       value="Add Applicant"/>
+            </div>
+
+            <div class="box-header with-border">
+                <h3 class="box-title title"><b>Applicant Nominee</b></h3>
+            </div>
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="nomineeName"><b>Nominee Name</b></label>
+                        <input id="nomineeName" formControlName="nomineeName" type="text"
+                               class="form-control form-control-error rounded" required placeholder="Nominee Name">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="relationWithNominee"><b>Relation With Nominee</b></label>
+                        <input id="relationWithNominee" formControlName="relationWithNominee" type="text"
+                               class="form-control form-control-error rounded" required
+                               placeholder="Relation With Nominee">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="nomineeDateOfBirth"><b>Nominee Date of Birth</b></label>
+                        <input id="nomineeDateOfBirth" formControlName="nomineeDateOfBirth" type="date"
+                               class="form-control form-control-error rounded" required>
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="nomineePermanentAddress"><b>Nominee Permanent Address</b></label>
+                        <input id="nomineePermanentAddress" formControlName="nomineePermanentAddress" type="text"
+                               class="form-control form-control-error rounded" required
+                               placeholder="Nominee Permanent Address">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="nomineePresentAddress"><b>Nominee Present Address</b></label>
+                        <input id="nomineePresentAddress" formControlName="nomineePresentAddress" type="text"
+                               class="form-control form-control-error rounded" required
+                               placeholder="Nominee Present Address">
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="nomineeCitizenshipNumber"><b>Citizenship Number</b></label>
+                        <input id="nomineeCitizenshipNumber" formControlName="nomineeCitizenshipNumber" type="text"
+                               class="form-control form-control-error rounded" required
+                               placeholder="Nominee Citizenship Number">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="nomineeCitizenshipIssueAddress"><b>Citizenship Issued Address</b></label>
+                        <input id="nomineeCitizenshipIssueAddress" formControlName="nomineeCitizenshipIssueAddress"
+                               type="text" class="form-control form-control-error rounded" required
+                               placeholder="Nominee Citizenship Issued Address">
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <div class="box-header with-border">
+                <h3 class="box-title title"><b>Applicant Beneficiary Details</b></h3>
+            </div>
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="beneficiaryName"><b>Beneficiary Name</b></label>
+                        <input id="beneficiaryName" formControlName="beneficiaryName" type="text"
+                               class="form-control form-control-error rounded" required placeholder="Beneficiary Name">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="relationWithBeneficiary"><b>Relation With Beneficiary</b></label>
+                        <input id="relationWithBeneficiary" formControlName="relationWithBeneficiary" type="text"
+                               class="form-control form-control-error rounded" required
+                               placeholder="Relation With Beneficiary">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="beneficiaryDateOfBirth"><b>Beneficiary Date of Birth</b></label>
+                        <input id="beneficiaryDateOfBirth" formControlName="beneficiaryDateOfBirth" type="date"
+                               class="form-control form-control-error rounded" required>
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="beneficiaryAddress"><b>Beneficiary Permanent Address</b></label>
+                        <input id="beneficiaryAddress" formControlName="beneficiaryAddress" type="text"
+                               class="form-control form-control-error rounded" required
+                               placeholder="Beneficiary Permanent Address">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="beneficiaryPresentAddress"><b>Beneficiary Present Address</b></label>
+                        <input id="beneficiaryPresentAddress" formControlName="beneficiaryPresentAddress" type="text"
+                               class="form-control form-control-error rounded" required
+                               placeholder="Beneficiary Present Address">
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="beneficiaryCitizenshipNumber"><b>Citizenship Number</b></label>
+                        <input id="beneficiaryCitizenshipNumber" formControlName="beneficiaryCitizenshipNumber"
+                               type="text"
+                               class="form-control form-control-error rounded" required
+                               placeholder="Beneficiary Citizenship Number">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="beneficiaryCitizenshipIssueAddress"><b>Citizenship Issued Address</b></label>
+                        <input id="beneficiaryCitizenshipIssueAddress"
+                               formControlName="beneficiaryCitizenshipIssueAddress"
+                               type="text" class="form-control form-control-error rounded" required
+                               placeholder="Beneficiary Citizenship Issued Address">
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <div class="box-header with-border">
+                <h3 class="box-title title"><b>Account Transaction Details</b></h3>
+            </div>
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="annualTurnOver"><b>Expected Annual Turnover In Account</b></label>
+                        <input id="annualTurnOver" formControlName="annualTurnOver" type="text"
+                               class="form-control form-control-error rounded" required
+                               placeholder="Expected Annual Turnover">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="annualTransaction">
+                            <b>Estimated Number of Annual Transaction In Account</b>
+                        </label>
+                        <input id="annualTransaction" formControlName="annualTransaction" type="text"
+                               class="form-control form-control-error rounded" required
+                               placeholder="Expected Annual Transaction">
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+
+            <div class="box-header with-border">
+                <h3 class="box-title title"><b>Service</b></h3>
+            </div>
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="accountStatementRadio"><b>Account Statement</b></label>
+                        <div id="accountStatementRadio">
+                            <input class="big-radio" type="radio" id="accountStatementRadioTrue"
+                                   formControlName="accountStatementRadio" value="true">
+                            <label for="accountStatementRadioTrue">Yes</label>
+                            <input class="big-radio" type="radio" id="accountStatementRadioFalse"
+                                   formControlName="accountStatementRadio" value="false">
+                            <label for="accountStatementRadioFalse">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="accountStatementFrequencyRadio"><b>Statement Frequency</b></label>
+                        <div id="accountStatementFrequencyRadio">
+                            <input class="big-radio" type="radio" id="accountStatementFrequencyRadioMonthly"
+                                   formControlName="accountStatementFrequencyRadio" value="Monthly">
+                            <label for="accountStatementFrequencyRadioMonthly">Monthly</label>
+                            <input class="big-radio" type="radio" id="accountStatementFrequencyRadioQuarterly"
+                                   formControlName="accountStatementFrequencyRadio" value="Quarterly">
+                            <label for="accountStatementFrequencyRadioQuarterly">Quarterly</label>
+                            <input class="big-radio" type="radio" id="accountStatementFrequencyRadioAnnually"
+                                   formControlName="accountStatementFrequencyRadio" value="Annually">
+                            <label for="accountStatementFrequencyRadioAnnually">Annually</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="statementMode"><b>Statement Mode</b></label>
+                        <div id="statementMode">
+                            <input class="big-radio" type="radio" id="statementModePrint"
+                                   formControlName="statementMode"
+                                   value="Print">
+                            <label for="statementModePrint">Print on Demand</label>
+                            <input class="big-radio" type="radio" id="statementModeEmail"
+                                   formControlName="statementMode"
+                                   value="Email">
+                            <label for="statementModeEmail">Email</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="debitCardRadio"><b>Debit Card</b></label>
+                        <div id="debitCardRadio">
+                            <input class="big-radio" type="radio" id="debitCardRadioTrue"
+                                   formControlName="debitCardRadio"
+                                   value="true">
+                            <label for="debitCardRadioTrue">Yes</label>
+                            <input class="big-radio" type="radio" id="debitCardRadioFalse"
+                                   formControlName="debitCardRadio"
+                                   value="false">
+                            <label for="debitCardRadioFalse">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="internetBankingRadio"><b>Internet Banking</b></label>
+                        <div id="internetBankingRadio">
+                            <input class="big-radio" type="radio" id="internetBankingRadioTrue"
+                                   formControlName="internetBankingRadio" value="true">
+                            <label for="internetBankingRadioTrue">Yes</label>
+                            <input class="big-radio" type="radio" id="internetBankingRadioFalse"
+                                   formControlName="internetBankingRadio" value="false">
+                            <label for="internetBankingRadioFalse">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="mobileBankingRadio"><b>Mobile Banking</b></label>
+                        <div id="mobileBankingRadio">
+                            <input class="big-radio" type="radio" id="mobileBankingRadioTrue"
+                                   formControlName="mobileBankingRadio" value="true">
+                            <label for="mobileBankingRadioTrue">Yes</label>
+                            <input class="big-radio" type="radio" id="mobileBankingRadioFalse"
+                                   formControlName="mobileBankingRadio" value="false">
+                            <label for="mobileBankingRadioFalse">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+        </form>
+    </div>
+</div>

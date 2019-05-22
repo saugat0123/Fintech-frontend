@@ -24,6 +24,8 @@ import {NonEligibleRequestsComponent} from './component/eligibility/non-eligible
 import {EligibleRequestsComponent} from './component/eligibility/eligible-requests/eligible-requests.component';
 import {RoleHierarchyComponent} from './component/role-hierarchy/role-hierarchy.component';
 import {SecurityComponent} from '../loan/component/loan-main-template/security/security.component';
+import {OpeningAccountComponent} from './component/opening-account/opening-account.component';
+import {OpenOpeningComponentComponent} from './component/opening-account/open-opening-component/open-opening-component.component';
 
 
 // import {SecurityComponent} from './component/loan-config/loan-main-template/security/security.component';
@@ -57,6 +59,8 @@ export const adminRoutes: Routes = [
     {path: 'role', component: RolePermissionComponent},
     {path: 'roleList', component: ListRoleComponent},
     {path: 'roleHierarchy', component: RoleHierarchyComponent},
+    {path: 'openingAccount', component: OpeningAccountComponent},
+    {path: 'openOpeningAccount', component: OpenOpeningComponentComponent},
 
 ];
 

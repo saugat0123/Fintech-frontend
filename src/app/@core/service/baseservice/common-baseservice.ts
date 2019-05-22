@@ -42,6 +42,15 @@ export class CommonService {
 
     }
 
+    getByPostOpeningAccount(reqUrl, model, page, size, accountStatus) {
+        const url: string = reqUrl + '?accountStatus=' + accountStatus + '&page=' + page + '&size=' + size;
+        const getUrl = ApiUtils.getRequest(url);
+        console.log(getUrl.url);
+        return this.http.post(getUrl.url, model);
+
+    }
+
+
     getByPost(reqUrl, model) {
         const url: string = reqUrl;
         const getUrl = ApiUtils.getRequest(url);

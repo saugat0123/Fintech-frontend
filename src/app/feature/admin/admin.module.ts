@@ -53,6 +53,10 @@ import {ThemeModule} from '../../@theme/theme.module';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {MsgModalComponent, UpdateModalComponent} from '../../@theme/components';
+import {OpeningAccountComponent} from './component/opening-account/opening-account.component';
+import {OpenOpeningComponentComponent} from './component/opening-account/open-opening-component/open-opening-component.component';
+import {ApprovalOpeningAccountComponent} from './component/opening-account/approval-opening-account/approval-opening-account.component';
+import {RejectedOpeningAccountComponent} from './component/opening-account/rejected-opening-account/rejected-opening-account.component';
 
 @NgModule({
     declarations: [
@@ -97,7 +101,11 @@ import {MsgModalComponent, UpdateModalComponent} from '../../@theme/components';
         AllRequestsComponent,
         EligibleRequestsComponent,
         NonEligibleRequestsComponent,
-        NewRequestsComponent
+        NewRequestsComponent,
+        OpeningAccountComponent,
+        OpenOpeningComponentComponent,
+        ApprovalOpeningAccountComponent,
+        RejectedOpeningAccountComponent
         // SecurityComponent
     ],
     imports: [

@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <div class="col-md-12">
+                    <div class="box-body">
+                        <table id="add-branch-table" class="table table-striped table-bordered table-hover ">
+                            <thead>
+                            <tr>
+                                <th>S.N</th>
+                                <th>Account Holder Name</th>
+                                <th>Requested Date</th>
+                                <th>Account Type</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let openingForm of openingForms;let i=index" (click)="onEdit(openingForm)">
+                                <div *ngIf="!openingForms?.length > 0">
+                                    <p>No Content Found</p>
+                                </div>
+                                <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                                <td>{{openingForm?.fullName}}</td>
+                                <td>{{openingForm?.requestedDate | date}}</td>
+                                <td>{{openingForm?.openingAccount?.accountType}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
+                        <!-- ===================table-pagination==================== -->
+                        <app-pagination *ngIf="!spinner"></app-pagination>
+                        <!-- ===================table-pagination==================== -->
+                        <!-- /.box-body -->
+                        <!-- /.box -->
+
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+                <!-- ***************************update-modal********************************** -->
+
+                <!-- ***************************update-modal********************************** -->
+            </div>
+        </div>
+    </div>
+</div>
