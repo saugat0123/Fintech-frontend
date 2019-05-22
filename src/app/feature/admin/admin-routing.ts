@@ -23,7 +23,6 @@ import {NewRequestsComponent} from './component/eligibility/new-requests/new-req
 import {NonEligibleRequestsComponent} from './component/eligibility/non-eligible-requests/non-eligible-requests.component';
 import {EligibleRequestsComponent} from './component/eligibility/eligible-requests/eligible-requests.component';
 import {RoleHierarchyComponent} from './component/role-hierarchy/role-hierarchy.component';
-import {SecurityComponent} from '../loan/component/loan-main-template/security/security.component';
 import {OpeningAccountComponent} from './component/opening-account/opening-account.component';
 import {OpenOpeningComponentComponent} from './component/opening-account/open-opening-component/open-opening-component.component';
 
