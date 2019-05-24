@@ -5,9 +5,11 @@ import {CommonService} from '../../../../../@core/service/baseservice/common-bas
 import {CommonPageService} from '../../../../../@core/service/baseservice/common-pagination-service';
 import {LoanTemplate} from '../../../modal/template';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {MsgModalComponent, UpdateModalComponent} from '../../../../../@theme/components';
+import {UpdateModalComponent} from '../../../../../@theme/components';
 import {TemplateAddModelComponent} from './template-add-model/template-add-model.component';
 import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
+import {ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 
 @Component({
@@ -16,7 +18,6 @@ import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/brea
     styleUrls: ['./loan-template.component.css']
 })
 export class LoanTemplateComponent implements OnInit, DoCheck {
-    test = 'app-basic-info';
     title = 'Template';
     spinner = false;
     globalMsg: string;
@@ -33,7 +34,8 @@ export class LoanTemplateComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService
     ) {
     }
 
@@ -63,13 +65,10 @@ export class LoanTemplateComponent implements OnInit, DoCheck {
                 this.spinner = false;
 
             }, error => {
-                this.globalMsg = error.error.message;
-                if (this.globalMsg == null) {
-                    this.globalMsg = 'Please check your network connection';
-                }
-                this.spinner = false;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.modalService.open(MsgModalComponent);
+
+                console.log(error);
+
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
             }
         );
 

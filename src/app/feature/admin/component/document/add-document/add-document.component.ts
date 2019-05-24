@@ -57,8 +57,8 @@ export class AddDocumentComponent implements OnInit, DoCheck {
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('true');
                 this.document = new Document();
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/document']));
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/document']));
 
 
             }, error => {
@@ -69,8 +69,8 @@ export class AddDocumentComponent implements OnInit, DoCheck {
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('false');
 
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/document']));
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/document']));
 
             }
         );

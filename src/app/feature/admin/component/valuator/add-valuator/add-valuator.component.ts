@@ -10,6 +10,8 @@ import {CommonLocation} from '../../../../../@core/service/baseservice/common-lo
 import {Province} from '../../../modal/province';
 import {District} from '../../../modal/district';
 import {MunicipalityVdc} from '../../../modal/municipality_VDC';
+import {ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 
 @Component({
@@ -41,7 +43,8 @@ export class AddValuatorComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private modalService: NgbModal,
         private activeModal: NgbActiveModal,
-        private location: CommonLocation
+        private location: CommonLocation,
+        private toastService: ToastService
     ) {
 
     }
@@ -158,14 +161,9 @@ export class AddValuatorComponent implements OnInit, DoCheck {
         this.submitted = true;
         this.commonService.saveOrEdit(this.valuator, 'v1/valuator').subscribe(result => {
                 this.modalService.dismissAll(AddValuatorComponent);
-                if (this.valuator.id == null) {
-                    this.globalMsg = 'SUCCESSFULLY ADDED VALUATOR';
-                } else {
-                    this.globalMsg = 'SUCCESSFULLY EDITED VALUATOR';
-                }
 
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('true');
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Valuator!'));
+
                 this.valuator = new Valuator();
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/valuator']));
@@ -173,15 +171,12 @@ export class AddValuatorComponent implements OnInit, DoCheck {
 
             }, error => {
 
+                console.log(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Valuator!'));
                 this.modalService.dismissAll(AddValuatorComponent);
-
-                this.globalMsg = error.error.message;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('false');
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/valuator']));
-
             }
         );
     }

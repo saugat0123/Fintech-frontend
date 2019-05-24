@@ -6,6 +6,8 @@ import {CommonDataService} from '../../../../../@core/service/baseservice/common
 import {LoanTemplate} from '../../../modal/template';
 import {LoanConfig} from '../../../modal/loan-config';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 
 @Component({
@@ -26,6 +28,7 @@ export class AddLoanComponent implements OnInit, DoCheck {
         private dataService: CommonDataService,
         private activeModal: NgbActiveModal,
         private modalService: NgbModal,
+        private toastService: ToastService
     ) {
     }
 
@@ -47,27 +50,23 @@ export class AddLoanComponent implements OnInit, DoCheck {
     onSubmit() {
         this.commonService.saveOrEdit(this.loanConfig, 'v1/config').subscribe(result => {
                 this.modalService.dismissAll(AddLoanComponent);
-                if (this.loanConfig.id == null) {
-                    this.globalMsg = 'SUCCESSFULLY ADDED LOAN CONFIGURATION';
-                } else {
-                    this.globalMsg = 'SUCCESSFULLY EDITED LOAN CONFIGURATION';
-                }
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('true');
+
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Template'));
+
                 this.loanConfig = new LoanConfig();
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/config']));
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/config']));
 
             }, error => {
 
+                console.log(error);
+
                 this.modalService.dismissAll(AddLoanComponent);
 
-                this.globalMsg = error.error.message;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('false');
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Loan Template'));
 
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/config']));
+                this.router.navigateByUrl('home/admin/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/config']));
             }
         );
     }

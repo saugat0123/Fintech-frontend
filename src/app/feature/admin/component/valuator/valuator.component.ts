@@ -8,7 +8,9 @@ import {Valuator} from '../../modal/valuator';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddValuatorComponent} from './add-valuator/add-valuator.component';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
-import {MsgModalComponent, UpdateModalComponent} from '../../../../@theme/components';
+import {UpdateModalComponent} from '../../../../@theme/components';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 
 @Component({
@@ -40,7 +42,8 @@ export class ValuatorComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService
     ) {
     }
 
@@ -87,14 +90,11 @@ export class ValuatorComponent implements OnInit, DoCheck {
                 this.spinner = false;
 
             }, error => {
-                this.globalMsg = error.error.message;
-                if (this.globalMsg == null) {
-                    this.globalMsg = 'Please check your network connection';
-                }
-                this.spinner = false;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.modalService.open(MsgModalComponent);
+                console.log(error);
 
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
+
+                this.spinner = false;
             }
         );
     }

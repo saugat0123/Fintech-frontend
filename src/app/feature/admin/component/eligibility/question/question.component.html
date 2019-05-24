@@ -14,7 +14,7 @@
                                             [ngValue]="scheme?.id">{{scheme.name}}</option>
                                 </select>
                             </div>
-                            <div *ngIf="existingQuestionList" class="col-md-7">
+                            <div *ngIf="existingQuestionList" class="col-md-7 text-right mt-5">
                                 <button (click)="openAddQuestion(addEditQuestion)"
                                         class="skin-blue pull-right">
                                     <i class="skin-blue fa fa-plus"></i>
@@ -243,11 +243,25 @@
                     <fieldset class="border border-primary rounded p-2">
                         <legend class="w-auto"><h3>Question :</h3></legend>
 
-                        <label>Question Description:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Question description"
-                                   formControlName="description">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label>Question Description:</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Question description"
+                                           formControlName="description">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-md-12">
+                                    <label>Status</label>
+                                    <select class="form-control custom-select" formControlName="status">
+                                        <option value="ACTIVE">ACTIVE</option>
+                                        <option value="INACTIVE">INACTIVE</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
+
 
                         <div formArrayName="answers">
                             <div class="form-group"

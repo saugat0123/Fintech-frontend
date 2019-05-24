@@ -65,6 +65,7 @@ export class DmsSummaryComponent implements OnInit {
                 link.click();
             },
             error1 => {
+                console.log(error1);
                 console.log('Error downloading the file');
             }
         );

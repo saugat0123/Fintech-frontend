@@ -7,7 +7,8 @@ import {Company} from '../../modal/company';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddCompanyComponent} from './add-company/add-company.component';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
-import {MsgModalComponent} from '../../../../@theme/components';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-company',
@@ -37,7 +38,8 @@ export class CompanyComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private breadcrumbSerivce: BreadcrumbService
+        private breadcrumbSerivce: BreadcrumbService,
+        private toastService: ToastService
     ) {
     }
 
@@ -56,14 +58,14 @@ export class CompanyComponent implements OnInit, DoCheck {
         this.commonService.getByPost('v1/permission/chkPerm', 'COMPANY').subscribe((response: any) => {
             this.permissions = response.detail;
             for (let i = 0; this.permissions.length > i; i++) {
-                if (this.permissions[i].type === 'ADD COMPANY') {
+                if (this.permissions[i].type === 'Add Company') {
                     this.addViewCompany = true;
                 }
-                if (this.permissions[i].type === 'VIEW COMPANY') {
+                if (this.permissions[i].type === 'View Company') {
                     this.getPagination();
                     this.viewCompany = true;
                 }
-                if (this.permissions[i].type === 'VIEW STATUS') {
+                if (this.permissions[i].type === 'View Status') {
                     this.statusCompany = true;
                 }
             }
@@ -80,13 +82,9 @@ export class CompanyComponent implements OnInit, DoCheck {
                 this.spinner = false;
 
             }, error => {
-                this.globalMsg = error.error.message;
-                if (this.globalMsg == null) {
-                    this.globalMsg = 'Please check your network connection';
-                }
-                this.spinner = false;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.modalService.open(MsgModalComponent);
+
+                console.log(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Company Data'));
             }
         );
 

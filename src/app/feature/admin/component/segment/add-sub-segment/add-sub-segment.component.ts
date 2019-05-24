@@ -7,6 +7,8 @@ import {Segment} from '../../../modal/segment';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {LoanConfig} from '../../../modal/loan-config';
+import {ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 
 @Component({
@@ -32,7 +34,8 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
         private router: Router,
         private dataService: CommonDataService,
         private activeModal: NgbActiveModal,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private toastService: ToastService
     ) {
     }
 
@@ -72,30 +75,26 @@ export class AddSubSegmentComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
-        this.commonService.saveOrEdit(this.subSegment, 'v1/subSegment').subscribe(result => {
+        this.commonService.saveOrEdit(this.subSegment, 'v1/subSegment').subscribe(() => {
                 this.modalService.dismissAll(AddSubSegmentComponent);
-                if (this.subSegment.id == null) {
-                    this.globalMsg = 'SUCCESSFULLY ADDED SUB SEGMENT';
-                } else {
-                    this.globalMsg = 'SUCCESSFULLY EDITED SUB SEGMENT';
-                }
 
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('true');
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Sub-Segment!'));
+
                 this.subSegment = new SubSegment();
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/sub-segment']));
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/sub-segment']));
 
 
             }, error => {
 
-                this.modalService.dismissAll(AddSubSegmentComponent);
-                this.globalMsg = error.error.message;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('false');
+                console.log(error);
 
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/sub-segment']));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Sub-Segment!'));
+
+                this.modalService.dismissAll(AddSubSegmentComponent);
+
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/sub-segment']));
 
             }
         );

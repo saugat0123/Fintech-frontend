@@ -4,6 +4,8 @@ import {CommonDataService} from '../../../../../../@core/service/baseservice/com
 import {Component, DoCheck, OnInit} from '@angular/core';
 import {LoanTemplate} from '../../../../modal/template';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ToastService} from '../../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 
 
 @Component({
@@ -23,7 +25,8 @@ export class TemplateAddModelComponent implements OnInit, DoCheck {
         private router: Router,
         private dataService: CommonDataService,
         private modalService: NgbModal,
-        private activeModal: NgbActiveModal
+        private activeModal: NgbActiveModal,
+        private toastService: ToastService
     ) {
     }
 
@@ -50,34 +53,34 @@ export class TemplateAddModelComponent implements OnInit, DoCheck {
         this.submitted = true;
         // this.branch.created=null;
         this.commonService.saveOrEdit(this.loanTemplate, 'v1/loanTemplate').subscribe(result => {
-            this.modalService.dismissAll(TemplateAddModelComponent);
-                if (this.loanTemplate.id == null) {
-                    this.globalMsg = 'SUCCESSFULLY ADDED loan Template';
-                } else {
-                    this.globalMsg = 'SUCCESSFULLY EDITED loan Template';
-                }
+                this.modalService.dismissAll(TemplateAddModelComponent);
 
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('true');
+
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Template'));
+
                 this.loanTemplate = new LoanTemplate;
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/template']));
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/template']));
 
 
             }, error => {
 
+                console.log(error);
+
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Loan Template'));
                 this.modalService.dismissAll(TemplateAddModelComponent);
 
                 this.globalMsg = error.error.message;
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('false');
 
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/branch']));
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/template']));
 
             }
         );
     }
+
     onClose() {
         this.activeModal.dismiss(TemplateAddModelComponent);
     }

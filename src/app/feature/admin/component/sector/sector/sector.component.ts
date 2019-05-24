@@ -6,7 +6,9 @@ import {CommonPageService} from '../../../../../@core/service/baseservice/common
 import {Sector} from '../../../modal/sector';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddSectorComponent} from './add-sector/add-sector.component';
-import {MsgModalComponent, UpdateModalComponent} from '../../../../../@theme/components';
+import {UpdateModalComponent} from '../../../../../@theme/components';
+import {ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-sector',
@@ -36,7 +38,8 @@ export class SectorComponent implements OnInit, DoCheck {
     constructor(private dataService: CommonDataService,
                 private commonService: CommonService,
                 private commonPageService: CommonPageService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                private toastService: ToastService) {
     }
 
     ngOnInit() {
@@ -81,13 +84,11 @@ export class SectorComponent implements OnInit, DoCheck {
                 this.spinner = false;
 
             }, error => {
-                this.globalMsg = error.error.message;
-                if (this.globalMsg == null) {
-                    this.globalMsg = 'Please check your network connection';
-                }
+
+                console.log(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
+
                 this.spinner = false;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.modalService.open(MsgModalComponent);
             }
         );
     }

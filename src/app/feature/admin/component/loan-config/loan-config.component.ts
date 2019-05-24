@@ -6,8 +6,10 @@ import {CommonPageService} from '../../../../@core/service/baseservice/common-pa
 import {LoanConfig} from '../../modal/loan-config';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddLoanComponent} from './add-loan/add-loan.component';
-import {MsgModalComponent, UpdateModalComponent} from '../../../../@theme/components';
+import {UpdateModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-loan-config',
@@ -37,7 +39,8 @@ export class LoanConfigComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService
     ) {
     }
 
@@ -110,13 +113,11 @@ export class LoanConfigComponent implements OnInit, DoCheck {
                 this.spinner = false;
 
             }, error => {
-                this.globalMsg = error.error.message;
-                if (this.globalMsg == null) {
-                    this.globalMsg = 'Please check your network connection';
-                }
+
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data, Please Contact Support!'));
+                console.log(error);
+
                 this.spinner = false;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.modalService.open(MsgModalComponent);
             }
         );
 

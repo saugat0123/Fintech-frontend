@@ -5,6 +5,8 @@ import {CommonPageService} from '../../../../../@core/service/baseservice/common
 import {Router} from '@angular/router';
 import {Role} from '../../../modal/role';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 
 @Component({
@@ -23,29 +25,31 @@ export class AddRoleComponent implements OnInit {
         private commonPageService: CommonPageService,
         private router: Router,
         private activeModal: NgbActiveModal,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private toastService: ToastService
     ) {
     }
 
     ngOnInit() {
     }
 
-
     onSubmit() {
         this.currentApi = 'v1/role';
-        this.commonService.saveOrEdit(this.role, this.currentApi).subscribe(result => {
-            this.modalService.dismissAll(AddRoleComponent);
-            this.globalMsg = 'SUCCESSFULLY ADDED ROLE';
+        this.commonService.saveOrEdit(this.role, this.currentApi).subscribe(() => {
 
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Role!'));
 
-            this.dataService.getGlobalMsg(this.globalMsg);
-            this.dataService.getAlertMsg('true');
-            this.role = new Role();
-            this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                this.router.navigate(['pages/role']));
+                this.role = new Role();
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/role']));
 
-        });
+            },
+            (error) => {
+                console.log(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Role!'));
+            });
     }
+
     onClose() {
         this.activeModal.dismiss(AddRoleComponent);
     }

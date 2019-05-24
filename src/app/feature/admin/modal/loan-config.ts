@@ -15,4 +15,5 @@ export class LoanConfig {
     eligibilityPercentage: number;
     initial: Array<Document>;
     renew: Array<Document>;
+    eligibilityDocuments: Array<Document>;
 }

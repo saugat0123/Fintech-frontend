@@ -11,6 +11,7 @@ import {District} from '../../../modal/district';
 import {MunicipalityVdc} from '../../../modal/municipality_VDC';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {AlertService} from '../../../../../@theme/components/alert/alert.service';
+import {ToastService} from '../../../../../@core/utils';
 
 
 @Component({
@@ -38,7 +39,8 @@ export class AddModelComponent implements OnInit, DoCheck {
         private activeModal: NgbActiveModal,
         private modalService: NgbModal,
         private location: CommonLocation,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private toastService: ToastService
     ) {
     }
 
@@ -116,9 +118,9 @@ export class AddModelComponent implements OnInit, DoCheck {
         this.commonService.saveOrEdit(this.branch, 'v1/branch').subscribe(result => {
                 this.modalService.dismissAll(AddModelComponent);
                 if (this.branch.id == null) {
-                    this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Saved Branch'));
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Branch'));
                 } else {
-                    this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Updated Branch'));
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Branch'));
                 }
                 this.dataService.getGlobalMsg(this.globalMsg);
                 this.dataService.getAlertMsg('true');
@@ -127,10 +129,13 @@ export class AddModelComponent implements OnInit, DoCheck {
                     this.router.navigate(['home/admin/branch']));
 
             }, error => {
+
+                console.log(error);
+
                 this.modalService.dismissAll(AddModelComponent);
-                this.globalMsg = error.error.message;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('false');
+
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Branch'));
+
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
                     this.router.navigate(['home/admin/branch']));
             }

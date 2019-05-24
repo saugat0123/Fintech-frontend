@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {throwIfAlreadyLoaded} from './module-import-guard';
 import {AnalyticsService, LayoutService, StateService, ToastService} from './utils';
 import {CommonDataService} from './service/baseservice/common-dataService';
-import {RestApiService} from './service/authentication/rest-api.service';
 import {CommonService} from './service/baseservice/common-baseservice';
 // import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 // import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
@@ -77,7 +76,6 @@ export const NB_CORE_PROVIDERS = [
     StateService,
     CommonService,
     CommonDataService,
-    RestApiService,
     ToastService
 
 ];
