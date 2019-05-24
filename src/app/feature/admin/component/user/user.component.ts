@@ -5,14 +5,15 @@ import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {AddUserComponent} from './add-user/add-user.component';
+import {UserFormComponent} from './user-form/user-form.component';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
-import {MsgModalComponent, UpdateModalComponent} from '../../../../@theme/components';
+import {UpdateModalComponent} from '../../../../@theme/components';
+import {ModalUtils, ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-user',
-    templateUrl: './user.component.html',
-    styleUrls: ['./user.component.css']
+    templateUrl: './user.component.html'
 })
 export class UserComponent implements OnInit, DoCheck {
 
@@ -36,14 +37,38 @@ export class UserComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService
     ) {
+    }
+
+    static loadData(other: any) {
+        other.spinner = true;
+        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+            other.dataList = response.detail.content;
+            other.dataService.setDataList(other.dataList);
+            other.commonPageService.setCurrentApi(other.currentApi);
+            other.pageable = other.commonPageService.setPageable(response.detail);
+
+            other.spinner = false;
+
+        }, error => {
+
+            console.log(error);
+
+            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
+
+            other.spinner = false;
+        });
+
     }
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/user/get';
-        this.getPagination();
+
+        UserComponent.loadData(this);
+
         // this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
         //     this.user = response.detail.user;
         // });
@@ -60,7 +85,7 @@ export class UserComponent implements OnInit, DoCheck {
 
     onSearch() {
         this.dataService.setData(this.search);
-        this.getPagination();
+        UserComponent.loadData(this);
     }
 
     onSearchChange(searchValue: string) {
@@ -68,7 +93,7 @@ export class UserComponent implements OnInit, DoCheck {
             'name': searchValue
         };
         this.dataService.setData(this.search);
-        this.getPagination();
+        UserComponent.loadData(this);
     }
 
 
@@ -78,35 +103,12 @@ export class UserComponent implements OnInit, DoCheck {
 
     openEdit(user: User) {
         this.dataService.setUser(user);
-        this.modalService.open(AddUserComponent);
+        ModalUtils.resolve(this.modalService.open(UserFormComponent).result, UserComponent.loadData, this);
     }
 
     addUser() {
         this.dataService.setUser(new User());
-        this.modalService.open(AddUserComponent);
-    }
-
-
-    getPagination() {
-        this.spinner = true;
-        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-            this.dataList = response.detail.content;
-            this.dataService.setDataList(this.dataList);
-            this.commonPageService.setCurrentApi(this.currentApi);
-            this.pageable = this.commonPageService.setPageable(response.detail);
-
-            this.spinner = false;
-
-        }, error => {
-            this.globalMsg = error.error.message;
-            if (this.globalMsg == null) {
-                this.globalMsg = 'Please check your network connection';
-            }
-            this.spinner = false;
-            this.dataService.getGlobalMsg(this.globalMsg);
-            this.modalService.open(MsgModalComponent);
-        });
-
+        ModalUtils.resolve(this.modalService.open(UserFormComponent).result, UserComponent.loadData, this);
     }
 
     onChange(newValue, data) {

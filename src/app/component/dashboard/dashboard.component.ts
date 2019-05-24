@@ -43,6 +43,8 @@ export class DashboardComponent implements OnInit {
         this.breadcrumbService.notify(this.title);
         this.commonService.getByAll('v1/config/getAll').subscribe((response: any) => {
             this.loanList = response.detail;
+            this.dataService.setLoan(response.detail);
+
         });
 
         this.commonService.getByPost('v1/permission/chkPerm', 'DASHBOARD').subscribe(

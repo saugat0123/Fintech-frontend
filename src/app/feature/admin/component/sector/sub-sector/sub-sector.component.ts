@@ -5,15 +5,16 @@ import {CommonService} from '../../../../../@core/service/baseservice/common-bas
 import {CommonPageService} from '../../../../../@core/service/baseservice/common-pagination-service';
 import {SubSector} from '../../../modal/sub-sector';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {AddSubSectorComponent} from './add-sub-sector/add-sub-sector.component';
-import {MsgModalComponent, UpdateModalComponent} from '../../../../../@theme/components';
+import {SubSectorFormComponent} from './sub-sector-form/sub-sector-form.component';
+import {UpdateModalComponent} from '../../../../../@theme/components';
 import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
+import {ModalUtils, ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 
 @Component({
     selector: 'app-sub-sector',
-    templateUrl: './sub-sector.component.html',
-    styleUrls: ['./sub-sector.component.css']
+    templateUrl: './sub-sector.component.html'
 })
 export class SubSectorComponent implements OnInit, DoCheck {
 
@@ -40,14 +41,36 @@ export class SubSectorComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService
     ) {
+    }
+
+    static loadData(other: any) {
+
+        other.spinner = true;
+        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+                other.dataList = response.detail.content;
+                other.dataService.setDataList(other.dataList);
+                other.commonPageService.setCurrentApi(other.currentApi);
+                other.pageable = other.commonPageService.setPageable(response.detail);
+
+                other.spinner = false;
+
+            }, error => {
+
+                console.log(error);
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
+                other.spinner = false;
+            }
+        );
     }
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/subSector/get';
-        this.getPagination();
+
+        SubSectorComponent.loadData(this);
 
         this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
 
@@ -68,39 +91,16 @@ export class SubSectorComponent implements OnInit, DoCheck {
                     this.editSubSector = true;
                 }
                 if (this.permissions[i].type === 'DOWNLOAD CSV') {
-                    this.getPagination();
+                    SubSectorComponent.loadData(this);
                     this.csvDownload = true;
                 }
             }
         });
     }
 
-    getPagination() {
-
-        this.spinner = true;
-        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-                this.dataList = response.detail.content;
-                this.dataService.setDataList(this.dataList);
-                this.commonPageService.setCurrentApi(this.currentApi);
-                this.pageable = this.commonPageService.setPageable(response.detail);
-
-                this.spinner = false;
-
-            }, error => {
-                this.globalMsg = error.error.message;
-                if (this.globalMsg == null) {
-                    this.globalMsg = 'Please check your network connection';
-                }
-                this.spinner = false;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.modalService.open(MsgModalComponent);
-            }
-        );
-    }
-
     addSubSector() {
         this.dataService.setSubSector(new SubSector());
-        this.modalService.open(AddSubSectorComponent);
+        ModalUtils.resolve(this.modalService.open(SubSectorFormComponent).result, SubSectorComponent.loadData, this);
     }
 
 
@@ -121,8 +121,7 @@ export class SubSectorComponent implements OnInit, DoCheck {
 
     openEdit(subSector: SubSector) {
         this.dataService.setSubSector(subSector);
-        this.modalService.open(AddSubSectorComponent);
-
+        ModalUtils.resolve(this.modalService.open(SubSectorFormComponent).result, SubSectorComponent.loadData, this);
     }
 
 
@@ -131,12 +130,12 @@ export class SubSectorComponent implements OnInit, DoCheck {
             'subSectorName': searchValue
         };
         this.dataService.setData(this.search);
-        this.getPagination();
+        SubSectorComponent.loadData(this);
     }
 
     onSearch() {
         this.dataService.setData(this.search);
-        this.getPagination();
+        SubSectorComponent.loadData(this);
     }
 
     ngDoCheck(): void {

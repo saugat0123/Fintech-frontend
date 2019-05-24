@@ -1,5 +1,5 @@
 import {HttpClient} from '@angular/common/http';
-import {RestApiService} from './authentication/rest-api.service';
+import {ApiUtils} from '../utils/api/ApiUtils';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 
@@ -9,11 +9,11 @@ import {Injectable} from '@angular/core';
 export class UserService {
     static API = 'v1/user/authenticated';
 
-    constructor(private http: HttpClient, private restService: RestApiService) {
+    constructor(private http: HttpClient) {
     }
 
     public getLoggedInUser(): Observable<Object> {
-        const req = this.restService.modifyRestUrl(UserService.API);
+        const req = ApiUtils.getRequest(UserService.API);
         return this.http.get(req.url, {headers: req.header});
     }
 }

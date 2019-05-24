@@ -5,14 +5,14 @@ import {CommonService} from '../../../../@core/service/baseservice/common-basese
 import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
 import {Company} from '../../modal/company';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {AddCompanyComponent} from './add-company/add-company.component';
+import {CompanyFormComponent} from './company-form/company-form.component';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
-import {MsgModalComponent} from '../../../../@theme/components';
+import {ModalUtils, ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-company',
-    templateUrl: './company.component.html',
-    styleUrls: ['./company.component.css']
+    templateUrl: './company.component.html'
 })
 export class CompanyComponent implements OnInit, DoCheck {
 
@@ -37,14 +37,35 @@ export class CompanyComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private breadcrumbSerivce: BreadcrumbService
+        private breadcrumbSerivce: BreadcrumbService,
+        private toastService: ToastService
     ) {
+    }
+
+    static loadData(other: any) {
+        other.spinner = true;
+        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+                other.dataList = response.detail.content;
+                other.dataService.setDataList(other.dataList);
+                other.commonPageService.setCurrentApi(other.currentApi);
+                other.pageable = other.commonPageService.setPageable(response.detail);
+                other.spinner = false;
+
+            }, error => {
+
+                console.log(error);
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Company Data'));
+            }
+        );
+
     }
 
     ngOnInit() {
         this.breadcrumbSerivce.notify(this.title);
         this.currentApi = 'v1/company/get';
-        this.getPagination();
+
+        CompanyComponent.loadData(this);
+
         this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
@@ -56,40 +77,18 @@ export class CompanyComponent implements OnInit, DoCheck {
         this.commonService.getByPost('v1/permission/chkPerm', 'COMPANY').subscribe((response: any) => {
             this.permissions = response.detail;
             for (let i = 0; this.permissions.length > i; i++) {
-                if (this.permissions[i].type === 'ADD COMPANY') {
+                if (this.permissions[i].type === 'Add Company') {
                     this.addViewCompany = true;
                 }
-                if (this.permissions[i].type === 'VIEW COMPANY') {
-                    this.getPagination();
+                if (this.permissions[i].type === 'View Company') {
+                    CompanyComponent.loadData(this);
                     this.viewCompany = true;
                 }
-                if (this.permissions[i].type === 'VIEW STATUS') {
+                if (this.permissions[i].type === 'View Status') {
                     this.statusCompany = true;
                 }
             }
         });
-    }
-
-    getPagination() {
-        this.spinner = true;
-        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-                this.dataList = response.detail.content;
-                this.dataService.setDataList(this.dataList);
-                this.commonPageService.setCurrentApi(this.currentApi);
-                this.pageable = this.commonPageService.setPageable(response.detail);
-                this.spinner = false;
-
-            }, error => {
-                this.globalMsg = error.error.message;
-                if (this.globalMsg == null) {
-                    this.globalMsg = 'Please check your network connection';
-                }
-                this.spinner = false;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.modalService.open(MsgModalComponent);
-            }
-        );
-
     }
 
     ngDoCheck(): void {
@@ -98,7 +97,7 @@ export class CompanyComponent implements OnInit, DoCheck {
 
     onSearch() {
         this.dataService.setData(this.search);
-        this.getPagination();
+        CompanyComponent.loadData(this);
     }
 
     onSearchChange(searchValue: string) {
@@ -106,17 +105,18 @@ export class CompanyComponent implements OnInit, DoCheck {
             'name': searchValue
         };
         this.dataService.setData(this.search);
-        this.getPagination();
+        CompanyComponent.loadData(this);
     }
 
     addCompany() {
         this.dataService.setCompany(new Company());
-        this.modalService.open(AddCompanyComponent);
+
+        ModalUtils.resolve(this.modalService.open(CompanyFormComponent).result, CompanyComponent.loadData, this);
     }
 
     openEdit(company: Company) {
         this.dataService.setCompany(company);
-        this.modalService.open(AddCompanyComponent);
+        ModalUtils.resolve(this.modalService.open(CompanyFormComponent).result, CompanyComponent.loadData, this);
     }
 
 }

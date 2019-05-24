@@ -5,13 +5,14 @@ import {CommonService} from '../../../../../@core/service/baseservice/common-bas
 import {CommonPageService} from '../../../../../@core/service/baseservice/common-pagination-service';
 import {Sector} from '../../../modal/sector';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {AddSectorComponent} from './add-sector/add-sector.component';
-import {MsgModalComponent, UpdateModalComponent} from '../../../../../@theme/components';
+import {SectorFormComponent} from './sector-form/sector-form.component';
+import {UpdateModalComponent} from '../../../../../@theme/components';
+import {ModalUtils, ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-sector',
-    templateUrl: './sector.component.html',
-    styleUrls: ['./sector.component.css']
+    templateUrl: './sector.component.html'
 })
 export class SectorComponent implements OnInit, DoCheck {
 
@@ -36,13 +37,35 @@ export class SectorComponent implements OnInit, DoCheck {
     constructor(private dataService: CommonDataService,
                 private commonService: CommonService,
                 private commonPageService: CommonPageService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                private toastService: ToastService) {
+    }
+
+    static loadData(other: any) {
+        other.spinner = true;
+        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+                other.dataList = response.detail.content;
+                other.dataService.setDataList(other.dataList);
+                other.commonPageService.setCurrentApi(other.currentApi);
+                other.pageable = other.commonPageService.setPageable(response.detail);
+
+                other.spinner = false;
+
+            }, error => {
+
+                console.log(error);
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
+
+                other.spinner = false;
+            }
+        );
     }
 
     ngOnInit() {
         this.dataService.changeTitle(this.title);
         this.currentApi = 'v1/sector/get';
-        this.getPagination();
+
+        SectorComponent.loadData(this);
 
         this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
 
@@ -63,38 +86,19 @@ export class SectorComponent implements OnInit, DoCheck {
                     this.editSector = true;
                 }
                 if (this.permissions[i].type === 'DOWNLOAD CSV') {
-                    this.getPagination();
+                    SectorComponent.loadData(this);
                     this.csvDownload = true;
                 }
             }
         });
     }
 
-    getPagination() {
-        this.spinner = true;
-        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-                this.dataList = response.detail.content;
-                this.dataService.setDataList(this.dataList);
-                this.commonPageService.setCurrentApi(this.currentApi);
-                this.pageable = this.commonPageService.setPageable(response.detail);
-
-                this.spinner = false;
-
-            }, error => {
-                this.globalMsg = error.error.message;
-                if (this.globalMsg == null) {
-                    this.globalMsg = 'Please check your network connection';
-                }
-                this.spinner = false;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.modalService.open(MsgModalComponent);
-            }
-        );
-    }
 
     addSector() {
+
         this.dataService.setSector(new Sector());
-        this.modalService.open(AddSectorComponent);
+
+        ModalUtils.resolve(this.modalService.open(SectorFormComponent).result, SectorComponent.loadData, this);
     }
 
 
@@ -113,8 +117,7 @@ export class SectorComponent implements OnInit, DoCheck {
 
     openEdit(sector: Sector) {
         this.dataService.setSector(sector);
-        this.modalService.open(AddSectorComponent);
-
+        ModalUtils.resolve(this.modalService.open(SectorFormComponent).result, SectorComponent.loadData, this);
     }
 
     onSearchChange(searchValue: string) {
@@ -122,12 +125,12 @@ export class SectorComponent implements OnInit, DoCheck {
             'name': searchValue
         };
         this.dataService.setData(this.search);
-        this.getPagination();
+        SectorComponent.loadData(this);
     }
 
     onSearch() {
         this.dataService.setData(this.search);
-        this.getPagination();
+        SectorComponent.loadData(this);
     }
 
     ngDoCheck(): void {

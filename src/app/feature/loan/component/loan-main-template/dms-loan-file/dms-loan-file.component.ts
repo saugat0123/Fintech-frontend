@@ -71,7 +71,7 @@ export class DmsLoanFileComponent implements OnInit {
             interestRate: ['', Validators.required],
             proposedAmount: ['', Validators.required],
             security: ['', Validators.required],
-            tenure: [''],
+            tenure: ['', Validators.required],
             priority: [''],
             recommendation: [''],
             waiver: [''],
@@ -85,18 +85,19 @@ export class DmsLoanFileComponent implements OnInit {
     }
 
     onSubmit() {
-        // if (this.loanForm.invalid || this.errorMessage !== undefined) {
         if (this.loanForm.invalid) {
             return;
         }
-        this.proceed = true;
+        if (this.errorMessage !== undefined) {
+            this.proceed = true;
+            this.errorMessage = undefined;
+        }
         this.loanFile.customerName = this.loanForm.get('customerName').value;
         this.loanFile.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
         this.loanFile.contactNumber = this.loanForm.get('contactNumber').value;
         this.loanFile.interestRate = this.loanForm.get('interestRate').value;
         this.loanFile.proposedAmount = this.loanForm.get('proposedAmount').value;
         this.loanFile.securities = this.loanForm.get('security').value;
-        this.loanFile.documentPaths = this.documentPaths;
         this.loanFile.tenure = this.loanForm.get('tenure').value;
         this.loanFile.priority = this.loanForm.get('priority').value;
         this.loanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
@@ -112,6 +113,9 @@ export class DmsLoanFileComponent implements OnInit {
                 if (this.count > 1) {
                     this.router.navigate(['/home/loan/summary', this.customerId]);
                 }
+            },
+            error => {
+                this.errorMessage = error.error.message;
             }
         );
     }

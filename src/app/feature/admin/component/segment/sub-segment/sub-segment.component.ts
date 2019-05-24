@@ -6,15 +6,15 @@ import {CommonPageService} from '../../../../../@core/service/baseservice/common
 import {SubSegment} from '../../../modal/subSegment';
 import {Segment} from '../../../modal/segment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {AddSubSegmentComponent} from '../add-sub-segment/add-sub-segment.component';
-import {MsgModalComponent} from '../../../../../@theme/components';
+import {SubSegmentFormComponent} from './sub-segment-form/sub-segment-form.component';
 import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
+import {ModalUtils, ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 
 @Component({
     selector: 'app-sub-segment',
-    templateUrl: './sub-segment.component.html',
-    styleUrls: ['./sub-segment.component.css']
+    templateUrl: './sub-segment.component.html'
 })
 export class SubSegmentComponent implements OnInit, DoCheck {
 
@@ -41,8 +41,29 @@ export class SubSegmentComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService
     ) {
+    }
+
+    static loadData(other: any) {
+        other.spinner = true;
+        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+                other.dataList = response.detail.content;
+                other.dataService.setDataList(other.dataList);
+                other.commonPageService.setCurrentApi(other.currentApi);
+                other.pageable = other.commonPageService.setPageable(response.detail);
+                other.spinner = false;
+
+            }, error => {
+
+                console.log(error);
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
+
+                other.spinner = false;
+            }
+        );
+
     }
 
     ngOnInit() {
@@ -62,7 +83,7 @@ export class SubSegmentComponent implements OnInit, DoCheck {
                     this.addViewSubSegment = true;
                 }
                 if (this.permissions[i].type === 'VIEW SUB-SEGMENT') {
-                    this.getPagination();
+                    SubSegmentComponent.loadData(this);
                     this.viewSubSegment = true;
                 }
                 if (this.permissions[i].type === 'EDIT SUB-SEGMENT') {
@@ -80,37 +101,9 @@ export class SubSegmentComponent implements OnInit, DoCheck {
         this.dataList = this.dataService.getDataList();
     }
 
-    addSubSegment() {
-        this.dataService.setSubSegment(new SubSegment());
-        this.modalService.open(AddSubSegmentComponent);
-    }
-
-
-    getPagination() {
-        this.spinner = true;
-        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-                this.dataList = response.detail.content;
-                this.dataService.setDataList(this.dataList);
-                this.commonPageService.setCurrentApi(this.currentApi);
-                this.pageable = this.commonPageService.setPageable(response.detail);
-                this.spinner = false;
-
-            }, error => {
-                this.globalMsg = error.error.message;
-                if (this.globalMsg == null) {
-                    this.globalMsg = 'Please check your network connection';
-                }
-                this.spinner = false;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.modalService.open(MsgModalComponent);
-            }
-        );
-
-    }
-
     onSearch() {
         this.dataService.setData(this.search);
-        this.getPagination();
+        SubSegmentComponent.loadData(this);
     }
 
     onSearchChange(searchValue: string) {
@@ -118,16 +111,20 @@ export class SubSegmentComponent implements OnInit, DoCheck {
             'name': searchValue
         };
         this.dataService.setData(this.search);
-        this.getPagination();
+        SubSegmentComponent.loadData(this);
+    }
+
+    addSubSegment() {
+        this.dataService.setSubSegment(new SubSegment());
+        ModalUtils.resolve(this.modalService.open(SubSegmentFormComponent).result, SubSegmentComponent.loadData, this);
     }
 
     openEdit(subSegment: SubSegment, segment: Segment) {
         this.dataService.setSubSegment(subSegment);
         this.dataService.setSegment(segment);
         this.segment = this.dataService.getSegment();
-        console.log(subSegment);
-        console.log(this.segment.segmentName);
-        this.modalService.open(AddSubSegmentComponent);
+
+        ModalUtils.resolve(this.modalService.open(SubSegmentFormComponent).result, SubSegmentComponent.loadData, this);
     }
 
 }

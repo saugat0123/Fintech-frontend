@@ -8,7 +8,7 @@ import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcr
 @Component({
     selector: 'app-role-hierarchy',
     templateUrl: './role-hierarchy.component.html',
-    styleUrls: ['./role-hierarchy.component.css']
+    styleUrls: ['./role-hierarchy.component.scss']
 })
 export class RoleHierarchyComponent implements OnInit {
     currentApi = 'v1/roleHierarchy';
@@ -34,11 +34,7 @@ export class RoleHierarchyComponent implements OnInit {
         this.breadcrumbService.notify(this.title);
         this.commonService.getByAll(this.currentApi).subscribe((response: any) => {
             this.roleList = response.detail;
-            if (this.roleList.length > 0) {
-                this.length = true;
-            } else {
-                this.length = false;
-            }
+            this.length = this.roleList.length > 0;
 
         });
 

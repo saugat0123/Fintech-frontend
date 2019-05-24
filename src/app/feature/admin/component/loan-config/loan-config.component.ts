@@ -6,13 +6,14 @@ import {CommonPageService} from '../../../../@core/service/baseservice/common-pa
 import {LoanConfig} from '../../modal/loan-config';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddLoanComponent} from './add-loan/add-loan.component';
-import {MsgModalComponent, UpdateModalComponent} from '../../../../@theme/components';
+import {UpdateModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
+import {ModalUtils, ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-loan-config',
-    templateUrl: './loan-config.component.html',
-    styleUrls: ['./loan-config.component.css']
+    templateUrl: './loan-config.component.html'
 })
 export class LoanConfigComponent implements OnInit, DoCheck {
 
@@ -37,8 +38,30 @@ export class LoanConfigComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService
     ) {
+    }
+
+    static loadData(other: any) {
+        other.spinner = true;
+        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+                other.dataList = response.detail.content;
+                other.dataService.setDataList(other.dataList);
+                other.commonPageService.setCurrentApi(other.currentApi);
+                other.pageable = other.commonPageService.setPageable(response.detail);
+
+                other.spinner = false;
+
+            }, error => {
+
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data, Please Contact Support!'));
+                console.log(error);
+
+                other.spinner = false;
+            }
+        );
+
     }
 
     ngOnInit() {
@@ -46,7 +69,7 @@ export class LoanConfigComponent implements OnInit, DoCheck {
         this.breadcrumbService.notify(this.title);
 
         this.currentApi = 'v1/config/get';
-        this.getPagination();
+        LoanConfigComponent.loadData(this);
         this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
@@ -60,7 +83,7 @@ export class LoanConfigComponent implements OnInit, DoCheck {
 
     onSearch() {
         this.dataService.setData(this.search);
-        this.getPagination();
+        LoanConfigComponent.loadData(this);
     }
 
     onSearchChange(searchValue: string) {
@@ -68,7 +91,7 @@ export class LoanConfigComponent implements OnInit, DoCheck {
             'name': searchValue
         };
         this.dataService.setData(this.search);
-        this.getPagination();
+        LoanConfigComponent.loadData(this);
     }
 
     ngDoCheck(): void {
@@ -77,13 +100,13 @@ export class LoanConfigComponent implements OnInit, DoCheck {
 
     openEdit(loanConfig: any) {
         this.dataService.setData(loanConfig);
-        this.modalService.open(AddLoanComponent);
+        ModalUtils.resolve(this.modalService.open(AddLoanComponent).result, LoanConfigComponent.loadData, this);
     }
 
     addLoanConfig() {
 
         this.dataService.setData(new Object);
-        this.modalService.open(AddLoanComponent);
+        ModalUtils.resolve(this.modalService.open(AddLoanComponent).result, LoanConfigComponent.loadData, this);
     }
 
 
@@ -96,29 +119,6 @@ export class LoanConfigComponent implements OnInit, DoCheck {
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/config');
         this.modalService.open(UpdateModalComponent);
-
-    }
-
-    getPagination() {
-        this.spinner = true;
-        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-                this.dataList = response.detail.content;
-                this.dataService.setDataList(this.dataList);
-                this.commonPageService.setCurrentApi(this.currentApi);
-                this.pageable = this.commonPageService.setPageable(response.detail);
-
-                this.spinner = false;
-
-            }, error => {
-                this.globalMsg = error.error.message;
-                if (this.globalMsg == null) {
-                    this.globalMsg = 'Please check your network connection';
-                }
-                this.spinner = false;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.modalService.open(MsgModalComponent);
-            }
-        );
 
     }
 

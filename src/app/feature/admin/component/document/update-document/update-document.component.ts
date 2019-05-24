@@ -6,8 +6,7 @@ import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-update-document',
-    templateUrl: './update-document.component.html',
-    styleUrls: ['./update-document.component.css']
+    templateUrl: './update-document.component.html'
 })
 export class UpdateDocumentComponent implements OnInit {
 
@@ -40,8 +39,8 @@ export class UpdateDocumentComponent implements OnInit {
     updateLoanCycle() {
         this.commonService.getByPostDocument('v1/document/saveList', this.selectedDocumentList, this.loanCycle.id)
             .subscribe((response: any) => {
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/document']));
+                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
+                    this.router.navigate(['home/admin/document']));
             });
 
 

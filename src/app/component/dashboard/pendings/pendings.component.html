@@ -13,33 +13,34 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="From">From Date</label>
-                            <input id="From" [nbDatepicker]="dateFrom" class="form-control">
-                            <nb-datepicker #dateFrom></nb-datepicker>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="To">To Date</label>
-                            <input id="To" [nbDatepicker]="datepicker" class="form-control">
-                            <nb-datepicker #datepicker></nb-datepicker>
+                            <label for="From">Date</label>
+                            <input id="From" [nbDatepicker]="date" class="form-control" [(ngModel)]="search.date">
+                            <nb-datepicker #date></nb-datepicker>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" id="name" class="form-control" (keyup)="onType($event)">
+                            <input type="text" id="name" class="form-control" [(ngModel)]="search.name">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="facility">Facility</label>
-                            <select id="facility" class="form-control">
+                            <select id="facility" class="form-control" [(ngModel)]="search.loanType">
                                 <option [ngValue]="undefined" hidden>Select the facility</option>
-                                <option *ngFor="let facility of dmsLoan"></option>
+                                <option *ngFor="let facility of loanList">{{facility.name}}</option>
 
                             </select>
                         </div>
+                    </div>
+                    <div class="col-md-12" style="padding-top: 20px">
+                        <button (click)="clearSearch()" data-toggle="collapse" data-target="#searchModel"
+                                class="btn btn-sm btn-flat btn-outline-secondary">Cancel
+                        </button>
+                        <button class="btn btn-primary btn-sm btn-flat pull-right" (click)="onSearch()">
+                            Advance Search
+                        </button>
                     </div>
                 </div>
             </div>
@@ -62,7 +63,10 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let dmsloan of dmsLoanFiles; let i =index">
-                    <td>{{i + 1}}</td>
+                    <div *ngIf="!dmsLoanFiles?.length > 0">
+                        <p>No Content Found</p>
+                    </div>
+                    <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                     <td>{{user?.branch?.name}}</td>
                     <td>{{dmsloan.customerName}}</td>
                     <td>{{dmsloan.contactNumber}}</td>

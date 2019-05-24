@@ -40,7 +40,7 @@ export class DmsSummaryComponent implements OnInit {
     ngOnInit() {
         this.id = this.router.snapshot.params['id'];
         this.userService.getLoggedInUser().subscribe(
-            (response: any) =>{
+            (response: any) => {
                 this.user = response.detail;
             }
         );
@@ -71,6 +71,7 @@ export class DmsSummaryComponent implements OnInit {
                 link.click();
             },
             error1 => {
+                console.log(error1);
                 console.log('Error downloading the file');
             }
         );

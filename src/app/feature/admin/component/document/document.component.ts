@@ -8,12 +8,13 @@ import {LoanCycle} from '../../modal/loan-cycle';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddDocumentComponent} from './add-document/add-document.component';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
-import {MsgModalComponent, UpdateModalComponent} from '../../../../@theme/components';
+import {UpdateModalComponent} from '../../../../@theme/components';
+import {ModalUtils, ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-document',
-    templateUrl: './document.component.html',
-    styleUrls: ['./document.component.css']
+    templateUrl: './document.component.html'
 })
 export class DocumentComponent implements OnInit, DoCheck {
 
@@ -37,15 +38,31 @@ export class DocumentComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService
     ) {
     }
 
-    ngOnInit() {
+    static loadData(other: any) {
+        console.log('from static method', other);
+        other.spinner = true;
+        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 5).subscribe((response: any) => {
+            other.dataList = response.detail.content;
+            other.dataService.setDataList(other.dataList);
+            other.commonPageService.setCurrentApi(other.currentApi);
+            other.pageable = other.commonPageService.setPageable(response.detail);
+            other.spinner = false;
 
+        }, error => {
+            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Documents'));
+        });
+
+    }
+
+    ngOnInit() {
         this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/document/get';
-        this.getPagination();
+        DocumentComponent.loadData(this);
 
         this.commonService.getByAll(this.currentApi + '/getStatusCount').subscribe((response: any) => {
 
@@ -53,17 +70,16 @@ export class DocumentComponent implements OnInit, DoCheck {
             this.inactiveCount = response.detail.inactive;
             this.documents = response.detail.documents;
         });
+
         this.commonService.getByAll('v1/document/lifeCycle').subscribe((response: any) => {
 
             this.loanCycleList = response.detail;
         });
-
-
     }
 
     onSearch() {
         this.dataService.setData(this.search);
-        this.getPagination();
+        DocumentComponent.loadData(this);
     }
 
     onSearchChange(searchValue: string) {
@@ -71,7 +87,7 @@ export class DocumentComponent implements OnInit, DoCheck {
             'name': searchValue
         };
         this.dataService.setData(this.search);
-        this.getPagination();
+        DocumentComponent.loadData(this);
     }
 
 
@@ -81,15 +97,14 @@ export class DocumentComponent implements OnInit, DoCheck {
 
     openEdit(document: Document) {
         this.dataService.setDocument(document);
-        this.modalService.open(AddDocumentComponent);
+        ModalUtils.resolve(this.modalService.open(AddDocumentComponent).result, DocumentComponent.loadData, this);
     }
 
     addDocument() {
         this.dataService.setDocument(new Document());
-        this.modalService.open(AddDocumentComponent);
+        ModalUtils.resolve(this.modalService.open(AddDocumentComponent).result, DocumentComponent.loadData, this);
 
     }
-
 
     onChange(newValue, data) {
         if (document.activeElement instanceof HTMLElement) {
@@ -100,29 +115,6 @@ export class DocumentComponent implements OnInit, DoCheck {
         this.dataService.setData(data);
         this.commonPageService.setCurrentApi('v1/document');
         this.modalService.open(UpdateModalComponent);
-
-    }
-
-    getPagination() {
-        this.spinner = true;
-        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-            this.dataList = response.detail.content;
-            this.dataService.setDataList(this.dataList);
-            this.commonPageService.setCurrentApi(this.currentApi);
-            this.pageable = this.commonPageService.setPageable(response.detail);
-
-            this.spinner = false;
-
-        }, error => {
-            this.globalMsg = error.error.message;
-            if (this.globalMsg == null) {
-                this.globalMsg = 'Please check your network connection';
-            }
-            this.spinner = false;
-            this.dataService.getGlobalMsg(this.globalMsg);
-            this.modalService.open(MsgModalComponent);
-        });
-
     }
 
 }

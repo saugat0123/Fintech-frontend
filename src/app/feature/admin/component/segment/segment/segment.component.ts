@@ -6,15 +6,15 @@ import {CommonPageService} from '../../../../../@core/service/baseservice/common
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {Segment} from '../../../modal/segment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {AddSegmentComponent} from '../add-segment/add-segment.component';
+import {SegmentFormComponent} from './segment-form/segment-form.component';
 import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
-import {MsgModalComponent} from '../../../../../@theme/components';
+import {ModalUtils, ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 
 @Component({
     selector: 'app-segment',
-    templateUrl: './segment.component.html',
-    styleUrls: ['./segment.component.css']
+    templateUrl: './segment.component.html'
 })
 export class SegmentComponent implements OnInit, DoCheck {
 
@@ -41,14 +41,36 @@ export class SegmentComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService
     ) {
+    }
+
+    static loadData(other: any) {
+        other.spinner = true;
+        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+                other.dataList = response.detail.content;
+                other.dataService.setDataList(other.dataList);
+                other.commonPageService.setCurrentApi(other.currentApi);
+                other.pageable = other.commonPageService.setPageable(response.detail);
+                other.spinner = false;
+
+            }, error => {
+
+                console.log(error);
+
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
+                other.spinner = false;
+            }
+        );
     }
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/segment/get';
-        this.getPagination();
+
+        SegmentComponent.loadData(this);
+
         this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
@@ -69,7 +91,7 @@ export class SegmentComponent implements OnInit, DoCheck {
                     this.editSegment = true;
                 }
                 if (this.permissions[i].type === 'DOWNLOAD CSV') {
-                    this.getPagination();
+                    SegmentComponent.loadData(this);
                     this.csvDownload = true;
                 }
             }
@@ -80,36 +102,9 @@ export class SegmentComponent implements OnInit, DoCheck {
         this.dataList = this.dataService.getDataList();
     }
 
-    addSegment() {
-        this.dataService.setSegment(new Segment());
-        this.modalService.open(AddSegmentComponent);
-    }
-
-    getPagination() {
-        this.spinner = true;
-        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-                this.dataList = response.detail.content;
-                this.dataService.setDataList(this.dataList);
-                this.commonPageService.setCurrentApi(this.currentApi);
-                this.pageable = this.commonPageService.setPageable(response.detail);
-                this.spinner = false;
-
-            }, error => {
-                this.globalMsg = error.error.message;
-                if (this.globalMsg == null) {
-                    this.globalMsg = 'Please check your network connection';
-                }
-                this.spinner = false;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.modalService.open(MsgModalComponent);
-            }
-        );
-
-    }
-
     onSearch() {
         this.dataService.setData(this.search);
-        this.getPagination();
+        SegmentComponent.loadData(this);
     }
 
     onSearchChange(searchValue: string) {
@@ -117,12 +112,17 @@ export class SegmentComponent implements OnInit, DoCheck {
             'name': searchValue
         };
         this.dataService.setData(this.search);
-        this.getPagination();
+        SegmentComponent.loadData(this);
+    }
+
+    addSegment() {
+        this.dataService.setSegment(new Segment());
+        ModalUtils.resolve(this.modalService.open(SegmentFormComponent).result, SegmentComponent.loadData, this);
     }
 
     openEdit(segment: Segment) {
         this.dataService.setSegment(segment);
-        this.modalService.open(AddSegmentComponent);
+        ModalUtils.resolve(this.modalService.open(SegmentFormComponent).result, SegmentComponent.loadData, this);
     }
 
 }

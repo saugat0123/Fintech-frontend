@@ -5,7 +5,7 @@ import {CommonService} from '../../../../@core/service/baseservice/common-basese
 import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
 import {Branch} from '../../modal/branch';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {AddModelComponent} from './add-model/add-model.component';
+import {BranchFormComponent} from './branch-form/branch-form.component';
 
 import {MunicipalityVdc} from '../../modal/municipality_VDC';
 
@@ -13,13 +13,14 @@ import {MunicipalityVdc} from '../../modal/municipality_VDC';
 import {Province} from '../../modal/province';
 import {District} from '../../modal/district';
 import {CommonLocation} from '../../../../@core/service/baseservice/common-location';
-import {MsgModalComponent, UpdateModalComponent} from '../../../../@theme/components';
+import {UpdateModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
+import {ModalUtils, ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-branch',
-    templateUrl: './branch.component.html',
-    styleUrls: ['./branch.component.scss']
+    templateUrl: './branch.component.html'
 })
 export class BranchComponent implements OnInit, DoCheck {
     title = 'Branch';
@@ -50,18 +51,38 @@ export class BranchComponent implements OnInit, DoCheck {
     province: Province = new Province();
     municipality: MunicipalityVdc = new MunicipalityVdc();
 
-
     constructor(
         private dataService: CommonDataService,
         private commonService: CommonService,
         private commonPageService: CommonPageService,
         private modalService: NgbModal,
         private location: CommonLocation,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService
     ) {
     }
 
+    static loadData(other: any) {
+        other.spinner = true;
+        console.log(other);
+        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+                other.dataList = response.detail.content;
+                other.dataService.setDataList(other.dataList);
+                other.commonPageService.setCurrentApi(other.currentApi);
+                other.pageable = other.commonPageService.setPageable(response.detail);
+                other.spinner = false;
+            }, error => {
+
+                console.log(error);
+
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
+                other.spinner = false;
+            }
+        );
+    }
+
     ngOnInit() {
+        console.log(this);
         this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/branch/get';
 
@@ -82,7 +103,7 @@ export class BranchComponent implements OnInit, DoCheck {
                     this.addViewBranch = true;
                 }
                 if (this.permissions[i].type === 'VIEW BRANCH') {
-                    this.getPagination();
+                    BranchComponent.loadData(this);
                     this.viewBranch = true;
                 }
                 if (this.permissions[i].type === 'EDIT BRANCH') {
@@ -96,16 +117,20 @@ export class BranchComponent implements OnInit, DoCheck {
     }
 
     onSearch() {
+        console.log(this.search);
         this.dataService.setData(this.search);
-        this.getPagination();
+        console.log(this);
+        BranchComponent.loadData(this);
     }
 
     onSearchChange(searchValue: string) {
+        console.log(searchValue);
         this.search = {
             'name': searchValue
         };
         this.dataService.setData(this.search);
-        this.getPagination();
+        BranchComponent.loadData(this);
+
     }
 
     ngDoCheck(): void {
@@ -114,12 +139,13 @@ export class BranchComponent implements OnInit, DoCheck {
 
     openEdit(branch: Branch) {
         this.dataService.setBranch(branch);
-        this.modalService.open(AddModelComponent);
+        ModalUtils.resolve(this.modalService.open(BranchFormComponent, {size: 'lg'}).result, BranchComponent.loadData, this);
     }
 
     addBranch() {
         this.dataService.setBranch(new Branch());
-        this.modalService.open(AddModelComponent, {size: 'lg'});
+
+        ModalUtils.resolve(this.modalService.open(BranchFormComponent, {size: 'lg'}).result, BranchComponent.loadData, this);
     }
 
 
@@ -129,7 +155,9 @@ export class BranchComponent implements OnInit, DoCheck {
             document.activeElement.blur();
         }
 
-        if (document.activeElement instanceof HTMLElement) { document.activeElement.blur(); }
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
 
         event.preventDefault();
         this.newValue = newValue;
@@ -146,26 +174,6 @@ export class BranchComponent implements OnInit, DoCheck {
 
     clearSearch() {
         this.search = {};
-    }
-
-    getPagination() {
-        this.spinner = true;
-        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-                this.dataList = response.detail.content;
-                this.dataService.setDataList(this.dataList);
-                this.commonPageService.setCurrentApi(this.currentApi);
-                this.pageable = this.commonPageService.setPageable(response.detail);
-                this.spinner = false;
-            }, error => {
-                this.globalMsg = error.error.message;
-                if (this.globalMsg == null) {
-                    this.globalMsg = 'Please check your network connection';
-                }
-                this.spinner = false;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.modalService.open(MsgModalComponent);
-            }
-        );
     }
 
     getCsv() {

@@ -3,13 +3,13 @@ import {CommonService} from '../../../../../@core/service/baseservice/common-bas
 import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {Document} from '../../../modal/document';
-import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {ModalResponse} from '../../../../../@core/utils';
 
 
 @Component({
     selector: 'app-add-document',
-    templateUrl: './add-document.component.html',
-    styleUrls: ['./add-document.component.css']
+    templateUrl: './add-document.component.html'
 })
 export class AddDocumentComponent implements OnInit, DoCheck {
 
@@ -23,7 +23,6 @@ export class AddDocumentComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private router: Router,
         private dataService: CommonDataService,
-        private modalService: NgbModal,
         private activeModal: NgbActiveModal,
     ) {
     }
@@ -47,37 +46,27 @@ export class AddDocumentComponent implements OnInit, DoCheck {
         this.globalMsg = 'test successful';
         this.commonService.saveOrEdit(this.document, 'v1/document').subscribe(result => {
 
-                this.modalService.dismissAll(AddDocumentComponent);
                 if (this.document.id == null) {
                     this.globalMsg = 'SUCCESSFULLY ADDED DOCUMENT';
                 } else {
                     this.globalMsg = 'SUCCESSFULLY EDITED DOCUMENT';
                 }
 
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('true');
                 this.document = new Document();
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/document']));
 
+                this.activeModal.dismiss(ModalResponse.SUCCESS);
 
             }, error => {
 
-                this.modalService.dismissAll(AddDocumentComponent);
+                console.log(error);
 
-                this.globalMsg = error.error.message;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('false');
-
-                this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['pages/document']));
-
+                this.activeModal.dismiss(error);
             }
         );
     }
 
     onClose() {
-        this.activeModal.dismiss(AddDocumentComponent);
+        this.activeModal.dismiss(ModalResponse.CANCEL);
     }
 
 }

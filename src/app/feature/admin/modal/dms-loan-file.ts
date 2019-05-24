@@ -10,7 +10,6 @@ export class DmsLoanFile {
     securities: string;
     security: string;
     proposedAmount: number;
-    documentPaths: string[];
     documentPath: string[];
     tenure: Date;
     priority: string;

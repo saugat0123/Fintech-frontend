@@ -10,6 +10,7 @@ import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {AlertService} from '../../../../@theme/components/alert/alert.service';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {ToastService} from '../../../../@core/utils';
 
 @Component({
     selector: 'app-memo-read',
@@ -39,7 +40,8 @@ export class MemoReadComponent implements OnInit, DoCheck {
         private modalService: NgbModal,
         private activatedRoute: ActivatedRoute,
         private commonService: CommonService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private toastService: ToastService
     ) {
     }
 
@@ -88,18 +90,18 @@ export class MemoReadComponent implements OnInit, DoCheck {
 
     deleteMemo() {
         this.memoService.deleteById(this.memoDataService.getMemoApi(), this.memo.id).subscribe(result => {
-                this.alertService.notify(new Alert(AlertType.SUCCESS, 'Successfully Removed Memo'));
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Removed Memo'));
                 this.reloadPage();
 
             }, error => {
-                this.alertService.notify(new Alert(AlertType.ERROR, 'Unable to Remove Memo'));
                 console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Remove Memo'));
             }
         );
     }
 
     reloadPage() {
-        this.router.navigateByUrl('pages/dashboard', {skipLocationChange: true}).then(e => {
+        this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(e => {
             if (e) {
                 this.router.navigate([this.currentUrl]);
                 this.modalRef.dismiss();
