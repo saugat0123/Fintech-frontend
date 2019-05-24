@@ -8,14 +8,13 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {UpdateModalComponent} from '../../../../../@theme/components';
 import {TemplateAddModelComponent} from './template-add-model/template-add-model.component';
 import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
-import {ToastService} from '../../../../../@core/utils';
+import {ModalUtils, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 
 @Component({
     selector: 'app-loan-template',
-    templateUrl: './loan-template.component.html',
-    styleUrls: ['./loan-template.component.css']
+    templateUrl: './loan-template.component.html'
 })
 export class LoanTemplateComponent implements OnInit, DoCheck {
     title = 'Template';
@@ -39,13 +38,34 @@ export class LoanTemplateComponent implements OnInit, DoCheck {
     ) {
     }
 
+    static loadData(other: any) {
+        other.spinner = true;
+        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+                other.dataList = response.detail.content;
+                other.dataService.setDataList(other.dataList);
+                other.commonPageService.setCurrentApi(other.currentApi);
+                other.pageable = other.commonPageService.setPageable(response.detail);
+
+                other.spinner = false;
+
+            }, error => {
+
+                console.log(error);
+
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
+            }
+        );
+
+    }
+
 
     ngOnInit() {
 
         this.breadcrumbService.notify(this.title);
 
         this.currentApi = 'v1/loanTemplate/get';
-        this.getPagination();
+
+        LoanTemplateComponent.loadData(this);
 
     }
 
@@ -54,35 +74,15 @@ export class LoanTemplateComponent implements OnInit, DoCheck {
         this.dataList = this.dataService.getDataList();
     }
 
-    getPagination() {
-        this.spinner = true;
-        this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
-                this.dataList = response.detail.content;
-                this.dataService.setDataList(this.dataList);
-                this.commonPageService.setCurrentApi(this.currentApi);
-                this.pageable = this.commonPageService.setPageable(response.detail);
-
-                this.spinner = false;
-
-            }, error => {
-
-                console.log(error);
-
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
-            }
-        );
-
-    }
-
     addTemplate() {
         this.dataService.setData(new LoanTemplate());
 
-        this.modalService.open(TemplateAddModelComponent);
+        ModalUtils.resolve(this.modalService.open(TemplateAddModelComponent).result, LoanTemplateComponent.loadData, this);
     }
 
     openEdit(loanTemplate: LoanTemplate) {
         this.dataService.setData(loanTemplate);
-        this.modalService.open(TemplateAddModelComponent);
+        ModalUtils.resolve(this.modalService.open(TemplateAddModelComponent).result, LoanTemplateComponent.loadData, this);
     }
 
     onChange(newValue, data) {

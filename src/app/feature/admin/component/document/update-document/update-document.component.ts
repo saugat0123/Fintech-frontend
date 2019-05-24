@@ -6,8 +6,7 @@ import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-update-document',
-    templateUrl: './update-document.component.html',
-    styleUrls: ['./update-document.component.css']
+    templateUrl: './update-document.component.html'
 })
 export class UpdateDocumentComponent implements OnInit {
 

@@ -1,27 +1,24 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
+
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
 import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
-import {Document} from '../../modal/document';
-import {LoanCycle} from '../../modal/loan-cycle';
+import {ApprovalLimit} from '../../modal/approval-limit';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {AddDocumentComponent} from './add-document/add-document.component';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
-import {UpdateModalComponent} from '../../../../@theme/components';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {ApprovalLimitFormComponent} from './approval-limit-form/approval-limit-form.component';
 
 @Component({
-    selector: 'app-document',
-    templateUrl: './document.component.html'
+    selector: 'app-approval-limit',
+    templateUrl: './approval-limit.component.html',
 })
-export class DocumentComponent implements OnInit, DoCheck {
-
-    title = 'Document';
-    breadcrumb = 'Document > List';
-    dataList: Array<Document>;
-    loanCycleList: Array<LoanCycle>;
+export class ApprovalLimitComponent implements OnInit, DoCheck {
+    title = 'ApprovalLimit';
+    breadcrumb = 'ApprovalLimit > List';
+    dataList: Array<ApprovalLimit>;
     spinner = false;
     globalMsg: string;
     search: any = {};
@@ -29,9 +26,10 @@ export class DocumentComponent implements OnInit, DoCheck {
     currentApi: string;
     activeCount: number;
     inactiveCount: number;
-    documents: number;
-    newValue: string;
-
+    permissions = [];
+    viewApprovalLimit = false;
+    addViewApprovalLimit = false;
+    downloadCsv = false;
 
     constructor(
         private dataService: CommonDataService,
@@ -50,40 +48,40 @@ export class DocumentComponent implements OnInit, DoCheck {
             other.dataService.setDataList(other.dataList);
             other.commonPageService.setCurrentApi(other.currentApi);
             other.pageable = other.commonPageService.setPageable(response.detail);
-
             other.spinner = false;
-
         }, error => {
 
-            console.log(error);
+            const alert = new Alert(AlertType.ERROR, error.error.message);
+            other.toastService.show(alert);
 
-            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Documents'));
+            other.spinner = false;
         });
-
     }
 
     ngOnInit() {
-
         this.breadcrumbService.notify(this.title);
-        this.currentApi = 'v1/document/get';
-        DocumentComponent.loadData(this);
+        this.currentApi = 'v1/approvallimit/get';
 
-        this.commonService.getByAll(this.currentApi + '/getStatusCount').subscribe((response: any) => {
-
-            this.activeCount = response.detail.active;
-            this.inactiveCount = response.detail.inactive;
-            this.documents = response.detail.documents;
-        });
-
-        this.commonService.getByAll('v1/document/lifeCycle').subscribe((response: any) => {
-
-            this.loanCycleList = response.detail;
+        this.commonService.getByPost('v1/permission/chkPerm', 'APPROVAL LIMIT').subscribe((response: any) => {
+            this.permissions = response.detail;
+            for (let i = 0; this.permissions.length > i; i++) {
+                if (this.permissions[i].type === 'ADD APPROVAL LIMIT') {
+                    this.addViewApprovalLimit = true;
+                }
+                if (this.permissions[i].type === 'VIEW APPROVAL LIMIT') {
+                    ApprovalLimitComponent.loadData(this);
+                    this.viewApprovalLimit = true;
+                }
+                if (this.permissions[i].type === 'DOWNLOAD CSV') {
+                    this.downloadCsv = true;
+                }
+            }
         });
     }
 
     onSearch() {
         this.dataService.setData(this.search);
-        DocumentComponent.loadData(this);
+        ApprovalLimitComponent.loadData(this);
     }
 
     onSearchChange(searchValue: string) {
@@ -91,36 +89,20 @@ export class DocumentComponent implements OnInit, DoCheck {
             'name': searchValue
         };
         this.dataService.setData(this.search);
-        DocumentComponent.loadData(this);
+        ApprovalLimitComponent.loadData(this);
     }
-
 
     ngDoCheck(): void {
         this.dataList = this.dataService.getDataList();
     }
 
-    openEdit(document: Document) {
-        this.dataService.setDocument(document);
-        ModalUtils.resolve(this.modalService.open(AddDocumentComponent).result, DocumentComponent.loadData, this);
+    openEdit(approvalLimit: ApprovalLimit) {
+        this.dataService.setApprovalLimit(approvalLimit);
+        ModalUtils.resolve(this.modalService.open(ApprovalLimitFormComponent, {size: 'lg'}).result, ApprovalLimitComponent.loadData, this);
     }
 
-    addDocument() {
-        this.dataService.setDocument(new Document());
-        ModalUtils.resolve(this.modalService.open(AddDocumentComponent).result, DocumentComponent.loadData, this);
-
+    addApprovalLimit() {
+        this.dataService.setApprovalLimit(new ApprovalLimit());
+        ModalUtils.resolve(this.modalService.open(ApprovalLimitFormComponent, {size: 'lg'}).result, ApprovalLimitComponent.loadData, this);
     }
-
-
-    onChange(newValue, data) {
-        if (document.activeElement instanceof HTMLElement) {
-            document.activeElement.blur();
-        }
-        event.preventDefault();
-        this.newValue = newValue;
-        this.dataService.setData(data);
-        this.commonPageService.setCurrentApi('v1/document');
-        this.modalService.open(UpdateModalComponent);
-
-    }
-
 }
