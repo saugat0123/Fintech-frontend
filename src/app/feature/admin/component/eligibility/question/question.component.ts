@@ -63,6 +63,7 @@ export class QuestionComponent implements OnInit {
                 status: ['ACTIVE'],
                 answers: this.formBuilder.array([]),
                 description: [undefined, Validators.required],
+                appearanceOrder: [undefined, Validators.required],
                 loanConfig: this.formBuilder.group({
                     id: [this.loanConfigId]
                 })
@@ -129,6 +130,7 @@ export class QuestionComponent implements OnInit {
             answers: this.formBuilder.array([]),
             description: [this.qsnContent.description === undefined ? '' : this.qsnContent.description, Validators.required],
             version: [this.qsnContent.version === undefined ? 1 : this.qsnContent.version],
+            appearanceOrder: [this.qsnContent.appearanceOrder === undefined ? 0 : this.qsnContent.appearanceOrder],
             new: [this.qsnContent.new === undefined ? 'true' : this.qsnContent.new],
             loanConfig: this.formBuilder.group({
                 id: [this.loanConfigId]

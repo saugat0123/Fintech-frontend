@@ -101,17 +101,25 @@
                                 <fieldset class="border border-primary rounded p-2">
                                     <legend class="w-auto"><h3>Question {{i + 1}}:</h3></legend>
                                     <div [formGroupName]="i">
-                                        <label>Question Description:</label>
-                                        <div class="input-group mb-3">
-                                            <input class="form-control" formControlName="description" placeholder="Question description"
-                                                   type="text">
-                                            <div class="input-group-append">
-                                                <button (click)="deleteQuestionField(i)" class="btn btn-danger">
-                                                    Delete question field
-                                                </button>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <label>Question Description:</label>
+                                                <input class="form-control" formControlName="description" placeholder="Question description"
+                                                       type="text">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Appearance order:</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" formControlName="appearanceOrder" placeholder="Appearance order"
+                                                           type="number">
+                                                    <div class="input-group-append">
+                                                        <button (click)="deleteQuestionField(i)" class="btn btn-danger btn-sm">
+                                                            x
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-
                                         <div formArrayName="answers">
                                             <div *ngFor="let ans of qsn.get('answers').controls; let j = index;"
                                                  class="form-group">
@@ -244,14 +252,21 @@
                         <legend class="w-auto"><h3>Question :</h3></legend>
 
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-5">
                                 <label>Question Description:</label>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" placeholder="Question description"
                                            formControlName="description">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+
+                            <div class="col-md-3 px-0 mx-0">
+                                    <label>Appearance order:</label>
+                                    <input class="form-control" formControlName="appearanceOrder"
+                                           type="number">
+                            </div>
+
+                            <div class="col-md-4 px-0 mx-0">
                                 <div class="col-md-12">
                                     <label>Status</label>
                                     <select class="form-control custom-select" formControlName="status">
