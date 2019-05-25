@@ -1,20 +1,21 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
-import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
 import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
 import {Company} from '../../modal/company';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CompanyFormComponent} from './company-form/company-form.component';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 
 @Component({
     selector: 'app-company',
     templateUrl: './company.component.html'
 })
-export class CompanyComponent implements OnInit, DoCheck {
+export class CompanyComponent implements OnInit {
+
+    page = 1;
 
     title = 'Company';
     breadcrumb = 'Company > List';
@@ -33,22 +34,19 @@ export class CompanyComponent implements OnInit, DoCheck {
     statusCompany = false;
 
     constructor(
-        private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService,
         private modalService: NgbModal,
         private breadcrumbSerivce: BreadcrumbService,
         private toastService: ToastService
     ) {
     }
 
-    static loadData(other: any) {
+    static loadData(other: CompanyComponent) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+        other.commonService.getByPostAllPageable(other.currentApi, other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
-                other.dataService.setDataList(other.dataList);
-                other.commonPageService.setCurrentApi(other.currentApi);
-                other.pageable = other.commonPageService.setPageable(response.detail);
+
+                other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
 
             }, error => {
@@ -57,7 +55,6 @@ export class CompanyComponent implements OnInit, DoCheck {
                 other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Company Data'));
             }
         );
-
     }
 
     ngOnInit() {
@@ -91,12 +88,13 @@ export class CompanyComponent implements OnInit, DoCheck {
         });
     }
 
-    ngDoCheck(): void {
-        this.dataList = this.dataService.getDataList();
+    changePage(page: number) {
+        this.page = page;
+
+        CompanyComponent.loadData(this);
     }
 
     onSearch() {
-        this.dataService.setData(this.search);
         CompanyComponent.loadData(this);
     }
 
@@ -104,19 +102,23 @@ export class CompanyComponent implements OnInit, DoCheck {
         this.search = {
             'name': searchValue
         };
-        this.dataService.setData(this.search);
+
         CompanyComponent.loadData(this);
     }
 
-    addCompany() {
-        this.dataService.setCompany(new Company());
+    add() {
+        const modalRef = this.modalService.open(CompanyFormComponent);
+        modalRef.componentInstance.company = new Company();
 
-        ModalUtils.resolve(this.modalService.open(CompanyFormComponent).result, CompanyComponent.loadData, this);
+        ModalUtils.resolve(modalRef.result, CompanyComponent.loadData, this);
     }
 
-    openEdit(company: Company) {
-        this.dataService.setCompany(company);
-        ModalUtils.resolve(this.modalService.open(CompanyFormComponent).result, CompanyComponent.loadData, this);
+    edit(company: Company) {
+
+        const modalRef = this.modalService.open(CompanyFormComponent);
+        modalRef.componentInstance.company = company;
+
+        ModalUtils.resolve(modalRef.result, CompanyComponent.loadData, this);
     }
 
 }

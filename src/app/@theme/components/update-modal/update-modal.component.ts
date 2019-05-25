@@ -1,9 +1,8 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CommonService} from '../../../@core/service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../@core/service/baseservice/common-pagination-service';
-import {CommonDataService} from '../../../@core/service/baseservice/common-dataService';
 
 @Component({
     selector: 'app-update-modal',
@@ -11,7 +10,10 @@ import {CommonDataService} from '../../../@core/service/baseservice/common-dataS
     styleUrls: ['./update-modal.component.css']
 })
 export class UpdateModalComponent implements OnInit, DoCheck {
+
+    @Input()
     data: any = {};
+
     currentApi: any;
     globalMsg: any;
     currentUrl: any;
@@ -19,7 +21,6 @@ export class UpdateModalComponent implements OnInit, DoCheck {
     constructor(private commonService: CommonService,
                 private router: Router,
                 private commonPageService: CommonPageService,
-                private dataService: CommonDataService,
                 private modalService: NgbModal
     ) {
     }
@@ -32,11 +33,6 @@ export class UpdateModalComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck(): void {
-        if (this.dataService.getData() == null) {
-        } else {
-            this.data = this.dataService.getData();
-        }
-
         this.currentApi = this.commonPageService.getCurrentApi();
         this.currentUrl = this.router.url;
     }
@@ -47,7 +43,6 @@ export class UpdateModalComponent implements OnInit, DoCheck {
                 this.router.navigate([this.currentUrl]);
             }
             this.modalService.dismissAll(UpdateModalComponent);
-            this.dataService.clearData();
         });
     }
 
@@ -55,10 +50,8 @@ export class UpdateModalComponent implements OnInit, DoCheck {
 
         this.commonService.saveOrEdit(this.data, this.currentApi).subscribe(result => {
                 this.modalService.dismissAll(UpdateModalComponent);
-                this.dataService.clearData();
+
                 this.globalMsg = 'SUCCESSFULLY UPDATED STATUS';
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('true');
 
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(e => {
                     if (e) {
@@ -70,10 +63,8 @@ export class UpdateModalComponent implements OnInit, DoCheck {
 
             }, error => {
                 this.modalService.dismissAll(UpdateModalComponent);
-                this.dataService.clearData();
+
                 this.globalMsg = error.error.message;
-                this.dataService.getGlobalMsg(this.globalMsg);
-                this.dataService.getAlertMsg('false');
 
             }
         );

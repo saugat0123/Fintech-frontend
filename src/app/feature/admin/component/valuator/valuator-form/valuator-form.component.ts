@@ -1,4 +1,4 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
 
 import {Router} from '@angular/router';
 import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
@@ -19,11 +19,14 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
     templateUrl: './add-valuator.component.html'
 })
 export class ValuatorFormComponent implements OnInit, DoCheck {
+
+    @Input()
+    model: Valuator = new Valuator();
+
     task: string;
     submitted = false;
     spinner = false;
     globalMsg: string;
-    valuator: Valuator = new Valuator();
     provinces: Province[];
     districts: District[];
     municipalities: MunicipalityVdc[];
@@ -50,19 +53,19 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
     ngOnInit() {
         this.location.getProvince().subscribe((response: any) => {
             this.provinces = response.detail;
-            this.province = this.valuator.province;
+            this.province = this.model.province;
             if (this.province !== undefined) {
                 this.getSelectedProvinceDistrict();
             }
-            this.district = this.valuator.district;
+            this.district = this.model.district;
             if (this.district !== undefined) {
                 this.getSelectedDistrictMunicipality();
             }
-            this.siteProvince = this.valuator.siteProvince;
+            this.siteProvince = this.model.siteProvince;
             if (this.siteProvince !== undefined) {
                 this.getSelectedProvinceSiteDistrict();
             }
-            this.siteDistrict = this.valuator.siteDistrict;
+            this.siteDistrict = this.model.siteDistrict;
             if (this.siteDistrict !== undefined) {
                 this.getSelectedDistrictSiteMunicipality();
             }
@@ -70,7 +73,7 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
     }
 
     getSelectedProvinceDistrict() {
-        this.location.getDistrictByProvince(this.valuator.province).subscribe(
+        this.location.getDistrictByProvince(this.model.province).subscribe(
             (response: any) => {
                 this.districts = response.detail;
             }
@@ -78,7 +81,7 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
     }
 
     getSelectedDistrictMunicipality() {
-        this.location.getMunicipalityVDCByDistrict(this.valuator.district).subscribe(
+        this.location.getMunicipalityVDCByDistrict(this.model.district).subscribe(
             (response: any) => {
                 this.municipalities = response.detail;
             }
@@ -86,7 +89,7 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
     }
 
     getSelectedProvinceSiteDistrict() {
-        this.location.getDistrictByProvince(this.valuator.siteProvince).subscribe(
+        this.location.getDistrictByProvince(this.model.siteProvince).subscribe(
             (response: any) => {
                 this.siteDistricts = response.detail;
             }
@@ -94,7 +97,7 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
     }
 
     getSelectedDistrictSiteMunicipality() {
-        this.location.getMunicipalityVDCByDistrict(this.valuator.siteDistrict).subscribe(
+        this.location.getMunicipalityVDCByDistrict(this.model.siteDistrict).subscribe(
             (response: any) => {
                 this.siteMunicipalities = response.detail;
             }
@@ -133,8 +136,8 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck(): void {
-        this.valuator = this.dataService.getValuator();
-        if (this.valuator.id == null) {
+        this.model = this.dataService.getValuator();
+        if (this.model.id == null) {
             this.task = 'Add';
             this.district = new District();
             this.province = new Province();
@@ -143,25 +146,25 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
             this.siteProvince = new Province();
             this.siteMunicipality = new MunicipalityVdc();
         } else {
-            this.district = this.valuator.district;
-            this.province = this.valuator.province;
-            this.municipality = this.valuator.municipalityVdc;
-            this.siteDistrict = this.valuator.siteDistrict;
-            this.siteProvince = this.valuator.siteProvince;
-            this.siteMunicipality = this.valuator.siteMunicipalityVdc;
+            this.district = this.model.district;
+            this.province = this.model.province;
+            this.municipality = this.model.municipalityVdc;
+            this.siteDistrict = this.model.siteDistrict;
+            this.siteProvince = this.model.siteProvince;
+            this.siteMunicipality = this.model.siteMunicipalityVdc;
             this.task = 'Edit';
         }
 
     }
 
     onSubmit() {
-        console.log(this.valuator);
+
         this.submitted = true;
-        this.commonService.saveOrEdit(this.valuator, 'v1/valuator').subscribe(result => {
+        this.commonService.saveOrEdit(this.model, 'v1/valuator').subscribe(result => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Valuator!'));
 
-                this.valuator = new Valuator();
+                this.model = new Valuator();
 
                 this.activeModal.close(ModalResponse.SUCCESS);
             }, error => {
@@ -181,26 +184,26 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
 
 
     setProvince(province: Province) {
-        this.valuator.province = province;
+        this.model.province = province;
     }
 
     setDistrict(district: District) {
-        this.valuator.district = district;
+        this.model.district = district;
     }
 
     setMunicipality(municipalityVdc: MunicipalityVdc) {
-        this.valuator.municipalityVdc = municipalityVdc;
+        this.model.municipalityVdc = municipalityVdc;
     }
 
     setSiteProvince(province: Province) {
-        this.valuator.siteProvince = province;
+        this.model.siteProvince = province;
     }
 
     setSiteDistrict(district: District) {
-        this.valuator.siteDistrict = district;
+        this.model.siteDistrict = district;
     }
 
     setSiteMunicipality(municipalityVdc: MunicipalityVdc) {
-        this.valuator.siteMunicipalityVdc = municipalityVdc;
+        this.model.siteMunicipalityVdc = municipalityVdc;
     }
 }

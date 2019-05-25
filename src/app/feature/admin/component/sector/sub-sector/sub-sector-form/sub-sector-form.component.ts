@@ -1,6 +1,4 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {CommonDataService} from '../../../../../../@core/service/baseservice/common-dataService';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {CommonService} from '../../../../../../@core/service/baseservice/common-baseservice';
 import {Sector} from '../../../../modal/sector';
 import {SubSector} from '../../../../modal/sub-sector';
@@ -15,18 +13,17 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 })
 export class SubSectorFormComponent implements OnInit, DoCheck {
 
+    @Input()
+    model: SubSector;
+
     task: string;
     submitted = false;
     spinner = false;
-    globalMsg: string;
     sectorList: Array<Sector>;
-    subSector: SubSector = new SubSector();
     sector: Sector = new Sector();
 
     constructor(
         private commonService: CommonService,
-        private router: Router,
-        private dataService: CommonDataService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
@@ -40,13 +37,12 @@ export class SubSectorFormComponent implements OnInit, DoCheck {
 
 
     ngDoCheck(): void {
-        this.subSector = this.dataService.getSubSector();
-        if (this.subSector.id == null) {
+        if (this.model.id == null) {
             this.task = 'Add';
         } else {
             this.task = 'Edit';
-            if (this.subSector.sector != null) {
-                this.sector = this.subSector.sector;
+            if (this.model.sector != null) {
+                this.sector = this.model.sector;
             } else {
                 this.sector = new Sector();
             }
@@ -56,10 +52,10 @@ export class SubSectorFormComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
-        this.subSector.sector = this.sector;
-        this.commonService.saveOrEdit(this.subSector, 'v1/subSector').subscribe(result => {
+        this.model.sector = this.sector;
+        this.commonService.saveOrEdit(this.model, 'v1/subSector').subscribe(result => {
 
-                this.subSector = new SubSector();
+                this.model = new SubSector();
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Sub-Sector'));
 

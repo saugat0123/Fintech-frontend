@@ -1,8 +1,5 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
-
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
+import {Component, OnInit} from '@angular/core';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../../@core/service/baseservice/common-pagination-service';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {Segment} from '../../../modal/segment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -10,16 +7,20 @@ import {SegmentFormComponent} from './segment-form/segment-form.component';
 import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
 import {ModalUtils, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 
 
 @Component({
     selector: 'app-segment',
     templateUrl: './segment.component.html'
 })
-export class SegmentComponent implements OnInit, DoCheck {
+export class SegmentComponent implements OnInit {
 
     title = 'Segment';
     breadcrumb = 'Nepse > List';
+
+    page = 1;
+
     dataList: Array<Segment>;
 
     spinner = false;
@@ -37,22 +38,18 @@ export class SegmentComponent implements OnInit, DoCheck {
     csvDownload = false;
 
     constructor(
-        private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
     ) {
     }
 
-    static loadData(other: any) {
+    static loadData(other: SegmentComponent) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+        other.commonService.getByPostAllPageable(other.currentApi, other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
-                other.dataService.setDataList(other.dataList);
-                other.commonPageService.setCurrentApi(other.currentApi);
-                other.pageable = other.commonPageService.setPageable(response.detail);
+                other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
 
             }, error => {
@@ -98,12 +95,13 @@ export class SegmentComponent implements OnInit, DoCheck {
         });
     }
 
-    ngDoCheck(): void {
-        this.dataList = this.dataService.getDataList();
+    changePage(page: number) {
+        this.page = page;
+
+        SegmentComponent.loadData(this);
     }
 
     onSearch() {
-        this.dataService.setData(this.search);
         SegmentComponent.loadData(this);
     }
 
@@ -111,18 +109,23 @@ export class SegmentComponent implements OnInit, DoCheck {
         this.search = {
             'name': searchValue
         };
-        this.dataService.setData(this.search);
+
         SegmentComponent.loadData(this);
     }
 
-    addSegment() {
-        this.dataService.setSegment(new Segment());
-        ModalUtils.resolve(this.modalService.open(SegmentFormComponent).result, SegmentComponent.loadData, this);
+    add() {
+        const modelRef = this.modalService.open(SegmentFormComponent);
+        modelRef.componentInstance.model = new Segment();
+
+        ModalUtils.resolve(modelRef.result, SegmentComponent.loadData, this);
     }
 
-    openEdit(segment: Segment) {
-        this.dataService.setSegment(segment);
-        ModalUtils.resolve(this.modalService.open(SegmentFormComponent).result, SegmentComponent.loadData, this);
+    edit(segment: Segment) {
+
+        const modelRef = this.modalService.open(SegmentFormComponent);
+        modelRef.componentInstance.model = segment;
+
+        ModalUtils.resolve(modelRef.result, SegmentComponent.loadData, this);
     }
 
 }

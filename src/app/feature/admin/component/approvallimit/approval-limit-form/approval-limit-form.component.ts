@@ -1,8 +1,7 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
 
 import {Router} from '@angular/router';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {Role} from '../../../modal/role';
 import {LoanConfig} from '../../../modal/loan-config';
 import {ApprovalLimit} from '../../../modal/approval-limit';
@@ -18,6 +17,10 @@ import {ModalResponse, ToastService} from '../../../../../@core/utils';
     templateUrl: './approval-limit-form.component.html'
 })
 export class ApprovalLimitFormComponent implements OnInit, DoCheck {
+
+    @Input()
+    model: ApprovalLimit;
+
     task: string;
     submitted = false;
     spinner = false;
@@ -26,14 +29,10 @@ export class ApprovalLimitFormComponent implements OnInit, DoCheck {
     globalMsg: string;
     loanCategory = new LoanConfig();
     authorities = new Role();
-    approvalLimit: ApprovalLimit = new ApprovalLimit();
 
     constructor(
         private activeModal: NgbActiveModal,
-        private router: Router,
         private commonService: CommonService,
-        private dataService: CommonDataService,
-        private breadcrumbService: BreadcrumbService,
         private alertService: AlertService,
         private toastService: ToastService
     ) {
@@ -49,39 +48,36 @@ export class ApprovalLimitFormComponent implements OnInit, DoCheck {
 
             this.loanList = response.detail;
         });
-
     }
 
-
     ngDoCheck(): void {
-        this.approvalLimit = this.dataService.getApprovalLimit();
 
-        if (this.approvalLimit.id == null) {
+        if (this.model.id == null) {
             this.task = 'Add';
         } else {
             this.task = 'Edit';
-            if (this.approvalLimit.authorities != null) {
-                this.authorities = this.approvalLimit.authorities;
+            if (this.model.authorities != null) {
+                this.authorities = this.model.authorities;
             }
-            if (this.approvalLimit.loanCategory != null) {
-                this.loanCategory = this.approvalLimit.loanCategory;
+            if (this.model.loanCategory != null) {
+                this.loanCategory = this.model.loanCategory;
             }
         }
     }
 
     onSubmit() {
         this.submitted = true;
-        this.approvalLimit.loanCategory = this.loanCategory;
-        this.approvalLimit.authorities = this.authorities;
-        this.commonService.saveOrEdit(this.approvalLimit, 'v1/approvallimit').subscribe(() => {
+        this.model.loanCategory = this.loanCategory;
+        this.model.authorities = this.authorities;
+        this.commonService.saveOrEdit(this.model, 'v1/approvallimit').subscribe(() => {
 
-                if (this.approvalLimit.id == null) {
+                if (this.model.id == null) {
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Created Approval Limit'));
                 } else {
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Approval Limit'));
                 }
 
-                this.approvalLimit = new ApprovalLimit();
+                this.model = new ApprovalLimit();
 
                 this.activeModal.close(ModalResponse.SUCCESS);
 
@@ -101,7 +97,6 @@ export class ApprovalLimitFormComponent implements OnInit, DoCheck {
     onClose() {
         this.activeModal.dismiss(ModalResponse.CANCEL);
     }
-
 }
 
 

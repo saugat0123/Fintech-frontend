@@ -1,10 +1,8 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {User} from '../../../modal/user';
-import {Router} from '@angular/router';
 import {Branch} from '../../../modal/branch';
 import {Role} from '../../../modal/role';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
@@ -15,11 +13,14 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
     templateUrl: './user-form.component.html'
 })
 export class UserFormComponent implements OnInit, DoCheck {
+
+    @Input()
+    model: User;
+
     task: string;
     submitted = false;
+
     spinner = false;
-    globalMsg: string;
-    user: User = new User();
     branchList: Array<Branch>;
     branch = new Branch();
     roleList: Array<Role>;
@@ -27,8 +28,6 @@ export class UserFormComponent implements OnInit, DoCheck {
 
     constructor(
         private commonService: CommonService,
-        private router: Router,
-        private dataService: CommonDataService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
@@ -48,27 +47,25 @@ export class UserFormComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck(): void {
-        this.user = this.dataService.getUser();
-        if (this.user.id == null) {
+        if (this.model.id == null) {
             this.task = 'Add';
         } else {
-            if (this.user.branch != null) {
-                this.branch = this.user.branch;
+            if (this.model.branch != null) {
+                this.branch = this.model.branch;
             }
-            if (this.user.role != null) {
-                this.role = this.user.role;
+            if (this.model.role != null) {
+                this.role = this.model.role;
             }
             this.task = 'Edit';
         }
-
     }
 
     onSubmit() {
         this.submitted = true;
-        this.user.branch = this.branch;
-        this.user.role = this.role;
-        this.commonService.saveOrEdit(this.user, 'v1/user').subscribe(() => {
-                this.user = new User();
+        this.model.branch = this.branch;
+        this.model.role = this.role;
+        this.commonService.saveOrEdit(this.model, 'v1/user').subscribe(() => {
+                this.model = new User();
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved User'));
 
@@ -95,7 +92,7 @@ export class UserFormComponent implements OnInit, DoCheck {
         formdata.append('file', file);
         formdata.append('type', 'profile');
         this.commonService.getByFilePost('v1/user/uploadFile', formdata).subscribe((result: any) => {
-            this.user.profilePicture = result.detail;
+            this.model.profilePicture = result.detail;
 
         });
     }
@@ -106,7 +103,7 @@ export class UserFormComponent implements OnInit, DoCheck {
         formdata.append('file', file);
         formdata.append('type', 'signature');
         this.commonService.getByFilePost('v1/user/uploadFile', formdata).subscribe((result: any) => {
-            this.user.signatureImage = result.detail;
+            this.model.signatureImage = result.detail;
         });
     }
 }

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {RoleOrders} from '../../modal/roleOrders';
-import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
 import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
@@ -23,9 +22,9 @@ export class RoleHierarchyComponent implements OnInit {
     length = false;
     title = 'Role Hierarchy';
 
-    constructor(private dataService: CommonDataService,
-                private commonService: CommonService,
-                private breadcrumbService: BreadcrumbService
+    constructor(
+        private commonService: CommonService,
+        private breadcrumbService: BreadcrumbService
     ) {
     }
 

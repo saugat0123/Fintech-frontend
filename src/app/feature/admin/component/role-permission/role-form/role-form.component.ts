@@ -1,11 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../../@core/service/baseservice/common-pagination-service';
-import {Router} from '@angular/router';
 import {Role} from '../../../modal/role';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {ToastService} from '../../../../../@core/utils';
+import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 
@@ -19,10 +16,7 @@ export class RoleFormComponent implements OnInit {
     globalMsg: string;
 
     constructor(
-        private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService,
-        private router: Router,
         private activeModal: NgbActiveModal,
         private modalService: NgbModal,
         private toastService: ToastService
@@ -39,18 +33,18 @@ export class RoleFormComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Role!'));
 
                 this.role = new Role();
-                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['home/admin/role']));
 
+                this.activeModal.close(ModalResponse.SUCCESS);
             },
             (error) => {
                 console.log(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Role!'));
+                this.activeModal.dismiss(error);
             });
     }
 
     onClose() {
-        this.activeModal.dismiss(RoleFormComponent);
+        this.activeModal.dismiss(ModalResponse.CANCEL);
     }
 
 }

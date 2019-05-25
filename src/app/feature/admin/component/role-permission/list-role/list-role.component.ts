@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../../@core/service/baseservice/common-pagination-service';
 import {Role} from '../../../modal/role';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
@@ -24,9 +22,7 @@ export class ListRoleComponent implements OnInit {
 
 
     constructor(
-        private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService
     ) {
@@ -53,8 +49,6 @@ export class ListRoleComponent implements OnInit {
             document.activeElement.blur();
         }
         event.preventDefault();
-        this.dataService.setData(data);
-        this.commonPageService.setCurrentApi(this.currentApi);
         this.modalService.open(UpdateModalComponent);
 
     }

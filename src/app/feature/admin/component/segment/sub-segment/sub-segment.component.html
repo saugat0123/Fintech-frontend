@@ -56,7 +56,7 @@
             </nb-card-header>
 
             <nb-card-body *ngIf="viewSubSegment">
-                <table id="add-branch-table" class="table table-striped table-bordered table-hover " >
+                <table id="add-branch-table" class="table table-striped table-bordered table-hover ">
 
                     <thead>
                     <tr>
@@ -76,7 +76,8 @@
                         <td>{{allList?.segment?.segmentName}}</td>
                         <td>{{allList.funded}}</td>
                         <td>
-                            <a (click)="openEdit(allList,allList.segment)" class="btn btn-primary btn-sm" data-toggle="tooltip"
+                            <a (click)="openEdit(allList,allList.segment)" class="btn btn-primary btn-sm"
+                               data-toggle="tooltip"
                                data-placement="top" title="EDIT" *ngIf="editSubSegment">
                                 <i class="fa fa-edit" style="color:white"></i>
                             </a>
@@ -89,7 +90,7 @@
                 </table>
                 <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
                 <!-- ===================table-pagination==================== -->
-                <app-pagination *ngIf="!spinner"></app-pagination>
+                <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
                 <!-- ===================table-pagination==================== -->
             </nb-card-body>
         </nb-card>

@@ -44,7 +44,7 @@
                     <!-- <h3 class="box-title">Hover Data Table</h3> -->
                     <div class="col-md-6">
                         <div class="float-right">
-                            <button class="pull-right" data-toggle="modal" (click)="addSubSector()" *ngIf="addViewSubSector">
+                            <button class="pull-right" data-toggle="modal" (click)="add()" *ngIf="addViewSubSector">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -90,7 +90,7 @@
                                 </td>
                             </ng-template>
                             <td *ngIf="editSubSector">
-                                <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
+                                <a (click)="edit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
                                    data-placement="top" title="EDIT">
                                     <i class="fa fa-edit" style="color:white"></i>
                                 </a>
@@ -106,7 +106,7 @@
 
                     <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
                     <!-- ===================table-pagination==================== -->
-                    <app-pagination *ngIf="!spinner"></app-pagination>
+                    <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
                     <!-- ===================table-pagination==================== -->
                     <!-- /.box-body -->
 

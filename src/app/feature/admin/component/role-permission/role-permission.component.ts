@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
 import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
 import {Router} from '@angular/router';
 import {Role} from '../../modal/role';
 import {RoleFormComponent} from './role-form/role-form.component';
@@ -41,9 +39,7 @@ export class RolePermissionComponent implements OnInit {
 
 
     constructor(
-        private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService,
         private router: Router,
         private modalService: NgbModal,
         private alertService: AlertService,

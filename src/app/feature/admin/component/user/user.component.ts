@@ -1,25 +1,26 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../../modal/user';
-import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {UserFormComponent} from './user-form/user-form.component';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {UpdateModalComponent} from '../../../../@theme/components';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 
 @Component({
     selector: 'app-user',
     templateUrl: './user.component.html'
 })
-export class UserComponent implements OnInit, DoCheck {
+export class UserComponent implements OnInit {
 
     title = 'User';
     breadcrumb = 'User > List';
     dataList: Array<User>;
+
+    page = 1;
 
     spinner = false;
     globalMsg: string;
@@ -33,22 +34,19 @@ export class UserComponent implements OnInit, DoCheck {
     users: number;
 
     constructor(
-        private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
     ) {
     }
 
-    static loadData(other: any) {
+    static loadData(other: UserComponent) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+        other.commonService.getByPostAllPageable(other.currentApi, other.search, other.page, 10).subscribe((response: any) => {
             other.dataList = response.detail.content;
-            other.dataService.setDataList(other.dataList);
-            other.commonPageService.setCurrentApi(other.currentApi);
-            other.pageable = other.commonPageService.setPageable(response.detail);
+
+            other.pageable = PaginationUtils.getPageable(response.detail);
 
             other.spinner = false;
 
@@ -79,12 +77,15 @@ export class UserComponent implements OnInit, DoCheck {
             this.users = response.detail.users;
 
         });
+    }
 
+    changePage(page: number) {
+        this.page = page;
 
+        UserComponent.loadData(this);
     }
 
     onSearch() {
-        this.dataService.setData(this.search);
         UserComponent.loadData(this);
     }
 
@@ -92,23 +93,22 @@ export class UserComponent implements OnInit, DoCheck {
         this.search = {
             'name': searchValue
         };
-        this.dataService.setData(this.search);
+
         UserComponent.loadData(this);
     }
 
+    edit(user: User) {
+        const modalRef = this.modalService.open(UserFormComponent);
+        modalRef.componentInstance.model = user;
 
-    ngDoCheck(): void {
-        this.dataList = this.dataService.getDataList();
+        ModalUtils.resolve(modalRef.result, UserComponent.loadData, this);
     }
 
-    openEdit(user: User) {
-        this.dataService.setUser(user);
-        ModalUtils.resolve(this.modalService.open(UserFormComponent).result, UserComponent.loadData, this);
-    }
+    add() {
+        const modalRef = this.modalService.open(UserFormComponent);
+        modalRef.componentInstance.model = new User();
 
-    addUser() {
-        this.dataService.setUser(new User());
-        ModalUtils.resolve(this.modalService.open(UserFormComponent).result, UserComponent.loadData, this);
+        ModalUtils.resolve(modalRef.result, UserComponent.loadData, this);
     }
 
     onChange(newValue, data) {
@@ -117,10 +117,7 @@ export class UserComponent implements OnInit, DoCheck {
         }
         event.preventDefault();
         this.newValue = newValue;
-        this.dataService.setData(data);
-        this.commonPageService.setCurrentApi('v1/user');
         this.modalService.open(UpdateModalComponent);
-
     }
 
 

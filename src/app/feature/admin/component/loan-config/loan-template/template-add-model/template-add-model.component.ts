@@ -1,7 +1,5 @@
 import {CommonService} from '../../../../../../@core/service/baseservice/common-baseservice';
-import {Router} from '@angular/router';
-import {CommonDataService} from '../../../../../../@core/service/baseservice/common-dataService';
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {LoanTemplate} from '../../../../modal/template';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../../@core/utils';
@@ -13,16 +11,16 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
     templateUrl: './template-add-model.component.html'
 })
 export class TemplateAddModelComponent implements OnInit, DoCheck {
+
+    @Input()
+    model: LoanTemplate = new LoanTemplate;
+
     task: string;
     submitted = false;
     spinner = false;
-    globalMsg: string;
-    loanTemplate: LoanTemplate = new LoanTemplate;
 
     constructor(
         private commonService: CommonService,
-        private router: Router,
-        private dataService: CommonDataService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
@@ -33,16 +31,10 @@ export class TemplateAddModelComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck(): void {
-        if (this.dataService.getData() === undefined) {
+        if (this.model.id == null) {
             this.task = 'Add';
         } else {
-            this.loanTemplate = this.dataService.getData();
-            if (this.loanTemplate.id !== undefined) {
-                this.task = 'Edit';
-            } else {
-                this.task = 'Add';
-            }
-
+            this.task = 'Edit';
         }
 
     }
@@ -50,11 +42,11 @@ export class TemplateAddModelComponent implements OnInit, DoCheck {
     onSubmit() {
         this.submitted = true;
         // this.branch.created=null;
-        this.commonService.saveOrEdit(this.loanTemplate, 'v1/loanTemplate').subscribe(() => {
+        this.commonService.saveOrEdit(this.model, 'v1/loanTemplate').subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Template'));
 
-                this.loanTemplate = new LoanTemplate();
+                this.model = new LoanTemplate();
 
                 this.activeModal.dismiss(ModalResponse.SUCCESS);
 

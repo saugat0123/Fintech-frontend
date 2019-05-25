@@ -15,8 +15,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="name">Sub Segment Name</label>
-                            <input type="hidden" class="form-control form-control-sm" [(ngModel)]="subSegment.id" name="id">
-                            <input type="text" class="form-control form-control-sm" name="name" placeholder="Sub Segment Name" [(ngModel)]="subSegment.subSegmentName"
+                            <input type="hidden" class="form-control form-control-sm" [(ngModel)]="model.id" name="id">
+                            <input type="text" class="form-control form-control-sm" name="name" placeholder="Sub Segment Name" [(ngModel)]="model.subSegmentName"
                                    #subSeg="ngModel" [ngClass]="{ 'is-invalid': f.submitted && subSeg.invalid }" required />
                             <div *ngIf="f.submitted && subSeg.invalid" class="invalid-feedback">
                                 <div *ngIf="subSeg.errors.required"> Name is required</div>
@@ -29,7 +29,7 @@
                             <select class="form-control form-control-sm" name="selectedSubSegment" style="width: 100%;" [(ngModel)]="segment.id" tabindex="-1" aria-hidden="true" placeholder="SubSegment" (change)="setSegment()"
                                     #segmentVal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && segmentVal.invalid }" required>
                                 <option [ngValue]="undefined" hidden>Select Segment</option>
-                                <option *ngFor="let segment of segmentList" [selected]="subSegment?.segment?.id === segment.id" [ngValue]="segment.id">{{segment.segmentName}}</option>
+                                <option *ngFor="let segment of segmentList" [selected]="model?.segment?.id === segment.id" [ngValue]="segment.id">{{segment.segmentName}}</option>
                             </select>
                             <div *ngIf="f.submitted && segmentVal.invalid" class="invalid-feedback">
                                 <div *ngIf="segmentVal.errors.required">Segment is required</div>
@@ -55,7 +55,7 @@
 
                             <label class="checkbox-inline ">
                                 Is This a Funded Loan
-                                <input type="checkbox" [(ngModel)]="subSegment.funded" [ngModelOptions]="{standalone: true}">
+                                <input type="checkbox" [(ngModel)]="model.funded" [ngModelOptions]="{standalone: true}">
 
                             </label>
 

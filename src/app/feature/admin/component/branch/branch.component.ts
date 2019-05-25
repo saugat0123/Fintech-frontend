@@ -1,8 +1,6 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
-import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
 import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
 import {Branch} from '../../modal/branch';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {BranchFormComponent} from './branch-form/branch-form.component';
@@ -17,17 +15,20 @@ import {UpdateModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 
 @Component({
     selector: 'app-branch',
     templateUrl: './branch.component.html'
 })
-export class BranchComponent implements OnInit, DoCheck {
+export class BranchComponent implements OnInit {
     title = 'Branch';
     breadcrumb = 'Branch > List';
     dataList: Array<Branch> = new Array<Branch>();
     spinner = false;
-    globalMsg: string;
+
+    page = 1;
+
     search: any = {};
     pageable: Pageable = new Pageable();
     currentApi: string;
@@ -36,7 +37,6 @@ export class BranchComponent implements OnInit, DoCheck {
     branches: number;
     newValue: string;
     branch: Branch = new Branch();
-
 
     permissions = [];
     viewBranch = false;
@@ -52,23 +52,22 @@ export class BranchComponent implements OnInit, DoCheck {
     municipality: MunicipalityVdc = new MunicipalityVdc();
 
     constructor(
-        private dataService: CommonDataService,
         private commonService: CommonService,
-        private commonPageService: CommonPageService,
-        private modalService: NgbModal,
         private location: CommonLocation,
+        private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
     ) {
     }
 
-    static loadData(other: any) {
+    static loadData(other: BranchComponent) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+        other.commonService.getByPostAllPageable(other.currentApi, other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
-                other.dataService.setDataList(other.dataList);
-                other.commonPageService.setCurrentApi(other.currentApi);
-                other.pageable = other.commonPageService.setPageable(response.detail);
+                other.pageable = PaginationUtils.getPageable(response.detail);
+
+                console.log(other.pageable);
+
                 other.spinner = false;
             }, error => {
 
@@ -81,6 +80,7 @@ export class BranchComponent implements OnInit, DoCheck {
     }
 
     ngOnInit() {
+
         this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/branch/get';
 
@@ -114,8 +114,13 @@ export class BranchComponent implements OnInit, DoCheck {
         });
     }
 
+    changePage(page: number) {
+        this.page = page;
+
+        BranchComponent.loadData(this);
+    }
+
     onSearch() {
-        this.dataService.setData(this.search);
         BranchComponent.loadData(this);
     }
 
@@ -123,23 +128,24 @@ export class BranchComponent implements OnInit, DoCheck {
         this.search = {
             'name': searchValue
         };
-        this.dataService.setData(this.search);
         BranchComponent.loadData(this);
     }
 
-    ngDoCheck(): void {
-        this.dataList = this.dataService.getDataList();
+    edit(branch: Branch) {
+
+        const modalRef = this.modalService.open(BranchFormComponent, {size: 'lg'});
+        modalRef.componentInstance.model = branch;
+
+        ModalUtils.resolve(modalRef.result, BranchComponent.loadData, this);
     }
 
-    openEdit(branch: Branch) {
-        this.dataService.setBranch(branch);
-        ModalUtils.resolve(this.modalService.open(BranchFormComponent, {size: 'lg'}).result, BranchComponent.loadData, this);
-    }
+    add() {
 
-    addBranch() {
-        this.dataService.setBranch(new Branch());
+        const modalRef = this.modalService.open(BranchFormComponent, {size: 'lg'});
 
-        ModalUtils.resolve(this.modalService.open(BranchFormComponent, {size: 'lg'}).result, BranchComponent.loadData, this);
+        modalRef.componentInstance.model = new Branch();
+
+        ModalUtils.resolve(modalRef.result, BranchComponent.loadData, this);
     }
 
 
@@ -155,8 +161,7 @@ export class BranchComponent implements OnInit, DoCheck {
 
         event.preventDefault();
         this.newValue = newValue;
-        this.dataService.setData(data);
-        this.commonPageService.setCurrentApi('v1/branch');
+
         this.modalService.open(UpdateModalComponent);
     }
 
@@ -192,9 +197,7 @@ export class BranchComponent implements OnInit, DoCheck {
                 this.municipalities = response.detail;
             }
         );
-
     }
-
 
     getDistricts(provinceId) {
         this.province.id = provinceId;
@@ -218,6 +221,5 @@ export class BranchComponent implements OnInit, DoCheck {
 
     getMunicipality(municipalityId) {
         this.search.municipalityId = municipalityId.toString();
-
     }
 }
