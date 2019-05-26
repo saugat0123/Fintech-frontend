@@ -4,6 +4,8 @@ import {NbMenuService, NbSidebarService, NbThemeService} from '@nebular/theme';
 import {LayoutService} from '../../../@core/utils';
 import {UserService} from '../../../@core/service/user.service';
 import {User} from '../../../feature/admin/modal/user';
+import {filter, map} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -12,17 +14,21 @@ import {User} from '../../../feature/admin/modal/user';
 })
 export class HeaderComponent implements OnInit {
 
+    static LOGOUT = 'Log out';
+    contextMenuTag = 'user-context-menu';
+
     @Input() position = 'normal';
 
     user: User;
 
-    userMenu = [{title: 'Profile'}, {title: 'Log out'}];
+    userMenu = [{title: HeaderComponent.LOGOUT}, {title: 'Profile'}];
 
     constructor(private sidebarService: NbSidebarService,
                 private menuService: NbMenuService,
                 private userService: UserService,
                 private layoutService: LayoutService,
-                private themeService: NbThemeService) {
+                private themeService: NbThemeService,
+                private router: Router) {
     }
 
     ngOnInit() {
@@ -30,6 +36,14 @@ export class HeaderComponent implements OnInit {
             .subscribe((res: any) => this.user = res.detail);
 
         console.log(this.themeService.currentTheme);
+
+        this.menuService.onItemClick().pipe(
+            filter(({tag}) => tag === this.contextMenuTag),
+            map(({item: {title}}) => title),
+            filter((title) => title === HeaderComponent.LOGOUT)
+        ).subscribe(() => {
+            this.logout();
+        });
     }
 
     toggleSidebar(): boolean {
@@ -41,5 +55,10 @@ export class HeaderComponent implements OnInit {
 
     goToHome() {
         this.menuService.navigateHome();
+    }
+
+    logout() {
+        localStorage.clear();
+        this.router.navigate(['/login']);
     }
 }

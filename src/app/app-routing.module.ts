@@ -4,6 +4,7 @@ import {LoginComponent} from './component/login/login.component';
 
 const routes: Routes = [
     {path: 'home', loadChildren: './feature/feature.module#FeatureModule'},
+    {path: 'login', component: LoginComponent},
     {path: '', component: LoginComponent}
 
 ];
