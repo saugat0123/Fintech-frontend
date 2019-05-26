@@ -1,7 +1,4 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
-import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
+import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {Nepse} from '../../modal/nepse';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -9,12 +6,17 @@ import {NepseFormComponent} from './nepse-form/nepse-form.component';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
+import {NepseService} from './nepse.service';
+import {PermissionService} from '../../../../@core/service/permission.service';
 
 @Component({
     selector: 'app-nepse',
     templateUrl: './nepse.component.html'
 })
-export class NepseComponent implements OnInit, DoCheck {
+export class NepseComponent implements OnInit {
+
+    page = 1;
 
     title = 'Nepse';
     breadcrumb = 'Nepse > List';
@@ -33,22 +35,20 @@ export class NepseComponent implements OnInit, DoCheck {
     addViewNepse = false;
 
     constructor(
-        private dataService: CommonDataService,
-        private commonService: CommonService,
-        private commonPageService: CommonPageService,
+        private service: NepseService,
+        private permissionService: PermissionService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
     ) {
     }
 
-    static loadData(other: any) {
+    static loadData(other: NepseComponent) {
+
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
-                other.dataService.setDataList(other.dataList);
-                other.commonPageService.setCurrentApi(other.currentApi);
-                other.pageable = other.commonPageService.setPageable(response.detail);
+                other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
 
             }, error => {
@@ -68,7 +68,7 @@ export class NepseComponent implements OnInit, DoCheck {
 
         NepseComponent.loadData(this);
 
-        this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+        this.service.getStatus().subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
@@ -76,7 +76,7 @@ export class NepseComponent implements OnInit, DoCheck {
 
         });
 
-        this.commonService.getByPost('v1/permission/chkPerm', 'Nepse Company').subscribe((response: any) => {
+        this.permissionService.getPermissionOf('Nepse Company').subscribe((response: any) => {
             this.permissions = response.detail;
             for (let i = 0; this.permissions.length > i; i++) {
                 if (this.permissions[i].type === 'ADD NEPSE') {
@@ -90,12 +90,13 @@ export class NepseComponent implements OnInit, DoCheck {
         });
     }
 
-    ngDoCheck(): void {
-        this.dataList = this.dataService.getDataList();
+    changePage(page: number) {
+        this.page = page;
+
+        NepseComponent.loadData(this);
     }
 
     onSearch() {
-        this.dataService.setData(this.search);
         NepseComponent.loadData(this);
     }
 
@@ -103,13 +104,14 @@ export class NepseComponent implements OnInit, DoCheck {
         this.search = {
             'name': searchValue
         };
-        this.dataService.setData(this.search);
+
         NepseComponent.loadData(this);
     }
 
-    addNepse() {
-        this.dataService.setNepse(new Nepse());
-        ModalUtils.resolve(this.modalService.open(NepseFormComponent).result, NepseComponent.loadData, this);
-    }
+    add() {
+        const modalRef = this.modalService.open(NepseFormComponent);
+        modalRef.componentInstance.model = new Nepse();
 
+        ModalUtils.resolve(modalRef.result, NepseComponent.loadData, this);
+    }
 }

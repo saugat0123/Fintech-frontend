@@ -4,6 +4,7 @@ import {throwIfAlreadyLoaded} from './module-import-guard';
 import {AnalyticsService, LayoutService, StateService, ToastService} from './utils';
 import {CommonDataService} from './service/baseservice/common-dataService';
 import {CommonService} from './service/baseservice/common-baseservice';
+import {PermissionService} from './service/permission.service';
 // import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 // import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 
@@ -76,7 +77,8 @@ export const NB_CORE_PROVIDERS = [
     StateService,
     CommonService,
     CommonDataService,
-    ToastService
+    ToastService,
+    PermissionService
 
 ];
 

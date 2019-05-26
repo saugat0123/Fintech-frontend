@@ -1,12 +1,9 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
-
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {Router} from '@angular/router';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {Company} from '../../../modal/company';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {CompanyService} from '../company.service';
 
 
 @Component({
@@ -15,16 +12,15 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 })
 export class CompanyFormComponent implements OnInit, DoCheck {
 
+    @Input()
+    company: Company;
+
     task: string;
     submitted = false;
     spinner = false;
-    globalMsg: string;
-    company: Company = new Company();
 
     constructor(
-        private commonService: CommonService,
-        private router: Router,
-        private dataService: CommonDataService,
+        private service: CompanyService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
@@ -34,7 +30,6 @@ export class CompanyFormComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck(): void {
-        this.company = this.dataService.getCompany();
         if (this.company.id == null) {
             this.task = 'Add';
         } else {
@@ -44,8 +39,8 @@ export class CompanyFormComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
-        console.log(this.company);
-        this.commonService.saveOrEdit(this.company, 'v1/company').subscribe(() => {
+
+        this.service.save(this.company).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Company Information'));
 
                 this.company = new Company();
@@ -66,5 +61,4 @@ export class CompanyFormComponent implements OnInit, DoCheck {
     onClose() {
         this.activeModal.dismiss(ModalResponse.CANCEL);
     }
-
 }

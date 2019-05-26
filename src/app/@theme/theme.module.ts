@@ -45,7 +45,10 @@ import {
     HeaderComponent,
     MsgAlertComponent,
     MsgModalComponent,
-    PaginationComponent, SpinnerComponent, UpdateModalComponent
+    PaginationComponent,
+    SpinnerComponent,
+    UpdateModalComponent,
+    PagingComponent
 } from './components';
 
 import {CapitalizePipe, EvaIconsPipe, NumberWithCommasPipe, PluralPipe, RoundPipe, TimingPipe} from './pipes';
@@ -56,7 +59,6 @@ import {BaseLayout} from './layouts';
 import {MainNavComponent} from './main-nav/main-nav.component';
 import {RouterModule} from '@angular/router';
 import {IconCardComponent} from './components/iconcard/icon-card.component';
-import {PaginationComp} from 'ag-grid-community/dist/lib/rowModels/pagination/paginationComp';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -110,7 +112,8 @@ const COMPONENTS = [
     MsgModalComponent,
     PaginationComponent,
     SpinnerComponent,
-    UpdateModalComponent
+    UpdateModalComponent,
+    PagingComponent
 ];
 
 const ENTRY_COMPONENTS = [];

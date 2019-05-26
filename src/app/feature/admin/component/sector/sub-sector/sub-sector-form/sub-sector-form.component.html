@@ -15,8 +15,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="subSectorName">Sub Sector Name</label>
-                            <input type="hidden" class="form-control form-control-sm"  [(ngModel)]="subSector.id" name="id">
-                            <input type="text" class="form-control form-control-sm" required [(ngModel)]="subSector.subSectorName" name="subSectorName" placeholder="Sub Sector Name"
+                            <input type="hidden" class="form-control form-control-sm" [(ngModel)]="model.id" name="id">
+                            <input type="text" class="form-control form-control-sm" required [(ngModel)]="model.subSectorName" name="subSectorName" placeholder="Sub Sector Name"
                                    #name="ngModel" [ngClass]="{'is-invalid': f.submitted && name.invalid}"/>
                             <div *ngIf="name.invalid && f.submitted" class="invalid-feedback">
                                 Name is required
@@ -27,7 +27,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="subSectorCode">Sub Sector Code</label>
-                            <input type="text" class="form-control form-control-sm"  placeholder="Sub Sector Code" required [(ngModel)]="subSector.subSectorCode" name="subSectorCode"
+                            <input type="text" class="form-control form-control-sm" placeholder="Sub Sector Code" required [(ngModel)]="model.subSectorCode" name="subSectorCode"
                                    #code="ngModel" [ngClass]="{'is-invalid': f.submitted && code.invalid}"/>
                             <div *ngIf="code.invalid && f.submitted" class="invalid-feedback">
                                 Code is required
@@ -38,10 +38,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="selectedSector">Sector</label>
-                            <select class="form-control form-control-sm" name="selectedSector" style="width: 100%;" [(ngModel)]="sector.id" tabindex="-1" aria-hidden="true" placeholder="Sector"
-                            #sectorVal="ngModel" required [ngClass]="{'is-invalid': f.submitted && sectorVal.invalid}">
+                            <select class="form-control form-control-sm" name="selectedSector" style="width: 100%;" [(ngModel)]="model.id" tabindex="-1" aria-hidden="true" placeholder="Sector"
+                                    #sectorVal="ngModel" required [ngClass]="{'is-invalid': f.submitted && sectorVal.invalid}">
                                 <option [ngValue]="undefined" hidden>Select Sector</option>
-                                <option *ngFor="let sector of sectorList" [selected]="subSector?.sector?.id === sector.id" [ngValue]="sector.id">{{sector.sectorName}}</option>
+                                <option *ngFor="let sector of sectorList" [selected]="model?.sector?.id === sector.id" [ngValue]="sector.id">{{sector.sectorName}}</option>
                             </select>
                             <div *ngIf="sectorVal.invalid && f.submitted" class="invalid-feedback">
                                 Sector is required

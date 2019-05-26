@@ -13,13 +13,13 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="address">Name</label>
-                        <input type="hidden" class="form-control" required [(ngModel)]="loanConfig.id" name="id" placeholder="id">
-                        <input type="text" class="form-control" required [(ngModel)]="loanConfig.name" name="name" placeholder="Name">
+                        <input type="hidden" class="form-control" required [(ngModel)]="model.id" name="id" placeholder="id">
+                        <input type="text" class="form-control" required [(ngModel)]="model.name" name="name" placeholder="Name">
 
                     </div>
                     <div class="col-md-6">
                         <label for="address">Templates</label>
-                        <select multiple="multiple" [(ngModel)]="loanConfig.templateList" class="form-control">
+                        <select multiple="multiple" [(ngModel)]="model.templateList" class="form-control">
                             <option *ngFor="let allList of templateList" [value]="allList">{{allList.name}}</option>
                         </select>
                     </div>
@@ -30,7 +30,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="address">loanConfig Code</label>
-                        <input type="text" class="form-control" [(ngModel)]="loanConfig.loanConfigCode" name="loanConfigCode" placeholder="SREBNK">
+                        <input type="text" class="form-control" [(ngModel)]="model.loanConfigCode" name="loanConfigCode" placeholder="SREBNK">
 
                     </div>
 

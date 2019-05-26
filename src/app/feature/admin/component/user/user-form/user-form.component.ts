@@ -1,25 +1,28 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {User} from '../../../modal/user';
-import {Router} from '@angular/router';
 import {Branch} from '../../../modal/branch';
 import {Role} from '../../../modal/role';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-
+import {UserService} from '../user.service';
+import {RoleService} from '../../role-permission/role.service';
+import {BranchService} from '../../branch/branch.service';
 
 @Component({
     selector: 'app-user-form',
     templateUrl: './user-form.component.html'
 })
 export class UserFormComponent implements OnInit, DoCheck {
+
+    @Input()
+    model: User;
+
     task: string;
     submitted = false;
+
     spinner = false;
-    globalMsg: string;
-    user: User = new User();
     branchList: Array<Branch>;
     branch = new Branch();
     roleList: Array<Role>;
@@ -27,48 +30,47 @@ export class UserFormComponent implements OnInit, DoCheck {
 
     constructor(
         private commonService: CommonService,
-        private router: Router,
-        private dataService: CommonDataService,
+        private service: UserService,
+        private roleService: RoleService,
+        private branchService: BranchService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
     }
 
     ngOnInit() {
-        this.commonService.getByAll('v1/branch/getList').subscribe((response: any) => {
+        this.branchService.getAll().subscribe((response: any) => {
             this.branchList = response.detail;
         });
-        this.commonService.getByAll('v1/role').subscribe((response: any) => {
+        this.roleService.getAll().subscribe((response: any) => {
             this.roleList = response.detail;
         });
 
-        this.commonService.getByAll('v1/role/active').subscribe((response: any) => {
+        this.roleService.getActiveRoles().subscribe((response: any) => {
             this.roleList = response.detail;
         });
     }
 
     ngDoCheck(): void {
-        this.user = this.dataService.getUser();
-        if (this.user.id == null) {
+        if (this.model.id == null) {
             this.task = 'Add';
         } else {
-            if (this.user.branch != null) {
-                this.branch = this.user.branch;
+            if (this.model.branch != null) {
+                this.branch = this.model.branch;
             }
-            if (this.user.role != null) {
-                this.role = this.user.role;
+            if (this.model.role != null) {
+                this.role = this.model.role;
             }
             this.task = 'Edit';
         }
-
     }
 
     onSubmit() {
         this.submitted = true;
-        this.user.branch = this.branch;
-        this.user.role = this.role;
-        this.commonService.saveOrEdit(this.user, 'v1/user').subscribe(() => {
-                this.user = new User();
+        this.model.branch = this.branch;
+        this.model.role = this.role;
+        this.service.save(this.model).subscribe(() => {
+                this.model = new User();
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved User'));
 
@@ -94,9 +96,9 @@ export class UserFormComponent implements OnInit, DoCheck {
         const formdata: FormData = new FormData();
         formdata.append('file', file);
         formdata.append('type', 'profile');
-        this.commonService.getByFilePost('v1/user/uploadFile', formdata).subscribe((result: any) => {
-            this.user.profilePicture = result.detail;
 
+        this.service.uploadFile(formdata).subscribe((result: any) => {
+            this.model.profilePicture = result.detail;
         });
     }
 
@@ -105,8 +107,9 @@ export class UserFormComponent implements OnInit, DoCheck {
         const formdata: FormData = new FormData();
         formdata.append('file', file);
         formdata.append('type', 'signature');
-        this.commonService.getByFilePost('v1/user/uploadFile', formdata).subscribe((result: any) => {
-            this.user.signatureImage = result.detail;
+
+        this.service.uploadFile(formdata).subscribe((result: any) => {
+            this.model.signatureImage = result.detail;
         });
     }
 }

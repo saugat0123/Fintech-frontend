@@ -1,22 +1,24 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../../@core/service/baseservice/common-pagination-service';
-import {LoanTemplate} from '../../../modal/template';
+import {LoanTemplate} from '../../../modal/loan-template';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {UpdateModalComponent} from '../../../../../@theme/components';
 import {TemplateAddModelComponent} from './template-add-model/template-add-model.component';
 import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
 import {ModalUtils, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
+import {LoanTemplateService} from './loan-template.service';
 
 
 @Component({
     selector: 'app-loan-template',
     templateUrl: './loan-template.component.html'
 })
-export class LoanTemplateComponent implements OnInit, DoCheck {
+export class LoanTemplateComponent implements OnInit {
+
+    page = 1;
+
     title = 'Template';
     spinner = false;
     globalMsg: string;
@@ -29,22 +31,19 @@ export class LoanTemplateComponent implements OnInit, DoCheck {
 
 
     constructor(
-        private dataService: CommonDataService,
-        private commonService: CommonService,
-        private commonPageService: CommonPageService,
+        private service: LoanTemplateService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
     ) {
     }
 
-    static loadData(other: any) {
+    static loadData(other: LoanTemplateComponent) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
-                other.dataService.setDataList(other.dataList);
-                other.commonPageService.setCurrentApi(other.currentApi);
-                other.pageable = other.commonPageService.setPageable(response.detail);
+
+                other.pageable = PaginationUtils.getPageable(response.detail);
 
                 other.spinner = false;
 
@@ -55,46 +54,41 @@ export class LoanTemplateComponent implements OnInit, DoCheck {
                 other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
             }
         );
-
     }
 
 
     ngOnInit() {
-
         this.breadcrumbService.notify(this.title);
+        LoanTemplateComponent.loadData(this);
+    }
 
-        this.currentApi = 'v1/loanTemplate/get';
+    changePage(page: number) {
+        this.page = page;
 
         LoanTemplateComponent.loadData(this);
-
     }
 
-
-    ngDoCheck(): void {
-        this.dataList = this.dataService.getDataList();
-    }
-
-    addTemplate() {
-        this.dataService.setData(new LoanTemplate());
+    add() {
+        const modelRef = this.modalService.open(TemplateAddModelComponent);
+        modelRef.componentInstance.model = new LoanTemplate();
 
         ModalUtils.resolve(this.modalService.open(TemplateAddModelComponent).result, LoanTemplateComponent.loadData, this);
     }
 
-    openEdit(loanTemplate: LoanTemplate) {
-        this.dataService.setData(loanTemplate);
-        ModalUtils.resolve(this.modalService.open(TemplateAddModelComponent).result, LoanTemplateComponent.loadData, this);
+    edit(loanTemplate: LoanTemplate) {
+        const modelRef = this.modalService.open(TemplateAddModelComponent);
+        modelRef.componentInstance.model = loanTemplate;
+
+        ModalUtils.resolve(modelRef.result, LoanTemplateComponent.loadData, this);
     }
 
     onChange(newValue, data) {
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
+
         event.preventDefault();
-        this.dataService.setData(data);
-        this.commonPageService.setCurrentApi('v1/loanTemplate');
+
         this.modalService.open(UpdateModalComponent);
-
     }
-
-
 }

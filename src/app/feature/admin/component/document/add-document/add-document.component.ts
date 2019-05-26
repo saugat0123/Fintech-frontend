@@ -1,10 +1,9 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {Router} from '@angular/router';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {Document} from '../../../modal/document';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {ModalResponse} from '../../../../../@core/utils';
+import {ModalResponse, ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {DocumentService} from '../document.service';
 
 
 @Component({
@@ -13,17 +12,17 @@ import {ModalResponse} from '../../../../../@core/utils';
 })
 export class AddDocumentComponent implements OnInit, DoCheck {
 
+    @Input()
+    model: Document;
+
     task: string;
     submitted = false;
     spinner = false;
-    globalMsg: string;
-    document: Document;
 
     constructor(
-        private commonService: CommonService,
-        private router: Router,
-        private dataService: CommonDataService,
+        private service: DocumentService,
         private activeModal: NgbActiveModal,
+        private toastService: ToastService
     ) {
     }
 
@@ -32,8 +31,7 @@ export class AddDocumentComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck(): void {
-        this.document = this.dataService.getDocument();
-        if (this.document.id == null) {
+        if (this.model.id == null) {
             this.task = 'Add';
         } else {
             this.task = 'Edit';
@@ -43,18 +41,14 @@ export class AddDocumentComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
-        this.globalMsg = 'test successful';
-        this.commonService.saveOrEdit(this.document, 'v1/document').subscribe(result => {
 
-                if (this.document.id == null) {
-                    this.globalMsg = 'SUCCESSFULLY ADDED DOCUMENT';
-                } else {
-                    this.globalMsg = 'SUCCESSFULLY EDITED DOCUMENT';
-                }
+        this.service.save(this.model).subscribe(() => {
 
-                this.document = new Document();
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Document!'));
 
-                this.activeModal.dismiss(ModalResponse.SUCCESS);
+                this.model = new Document();
+
+                this.activeModal.close(ModalResponse.SUCCESS);
 
             }, error => {
 
@@ -68,6 +62,5 @@ export class AddDocumentComponent implements OnInit, DoCheck {
     onClose() {
         this.activeModal.dismiss(ModalResponse.CANCEL);
     }
-
 }
 
