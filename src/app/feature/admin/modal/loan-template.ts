@@ -1,7 +1,8 @@
 export class LoanTemplate {
-     name: string;
-     templateUrl: string;
-     orderUrl: number;
-     templateView: string;
-     status: string;
+    id: number;
+    name: string;
+    templateUrl: string;
+    orders: number;
+    created: string;
+    lastModified: string;
 }

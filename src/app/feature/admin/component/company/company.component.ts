@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {Company} from '../../modal/company';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CompanyFormComponent} from './company-form/company-form.component';
@@ -8,6 +7,8 @@ import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcr
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
+import {CompanyService} from './company.service';
+import {PermissionService} from '../../../../@core/service/permission.service';
 
 @Component({
     selector: 'app-company',
@@ -24,7 +25,6 @@ export class CompanyComponent implements OnInit {
     globalMsg: string;
     search: any = {};
     pageable: Pageable = new Pageable();
-    currentApi: string;
     activeCount: number;
     inactiveCount: number;
     companys: number;
@@ -34,7 +34,8 @@ export class CompanyComponent implements OnInit {
     statusCompany = false;
 
     constructor(
-        private commonService: CommonService,
+        private service: CompanyService,
+        private permissionService: PermissionService,
         private modalService: NgbModal,
         private breadcrumbSerivce: BreadcrumbService,
         private toastService: ToastService
@@ -43,7 +44,7 @@ export class CompanyComponent implements OnInit {
 
     static loadData(other: CompanyComponent) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, other.page, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
 
                 other.pageable = PaginationUtils.getPageable(response.detail);
@@ -59,11 +60,10 @@ export class CompanyComponent implements OnInit {
 
     ngOnInit() {
         this.breadcrumbSerivce.notify(this.title);
-        this.currentApi = 'v1/company/get';
 
         CompanyComponent.loadData(this);
 
-        this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+        this.service.getStatus().subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
@@ -71,7 +71,7 @@ export class CompanyComponent implements OnInit {
 
         });
 
-        this.commonService.getByPost('v1/permission/chkPerm', 'COMPANY').subscribe((response: any) => {
+        this.permissionService.getPermissionOf('COMPANY').subscribe((response: any) => {
             this.permissions = response.detail;
             for (let i = 0; this.permissions.length > i; i++) {
                 if (this.permissions[i].type === 'Add Company') {

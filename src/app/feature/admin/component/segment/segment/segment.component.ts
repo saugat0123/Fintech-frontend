@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {Segment} from '../../../modal/segment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -8,6 +7,8 @@ import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/brea
 import {ModalUtils, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
+import {SegmentService} from './segment.service';
+import {PermissionService} from '../../../../../@core/service/permission.service';
 
 
 @Component({
@@ -24,10 +25,8 @@ export class SegmentComponent implements OnInit {
     dataList: Array<Segment>;
 
     spinner = false;
-    globalMsg: string;
     search: any = {};
     pageable: Pageable = new Pageable();
-    currentApi: string;
     activeCount: number;
     inactiveCount: number;
     segments: number;
@@ -38,7 +37,8 @@ export class SegmentComponent implements OnInit {
     csvDownload = false;
 
     constructor(
-        private commonService: CommonService,
+        private service: SegmentService,
+        private permissionService: PermissionService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
@@ -47,7 +47,7 @@ export class SegmentComponent implements OnInit {
 
     static loadData(other: SegmentComponent) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, other.page, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
@@ -64,18 +64,17 @@ export class SegmentComponent implements OnInit {
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
-        this.currentApi = 'v1/segment/get';
 
         SegmentComponent.loadData(this);
 
-        this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+        this.service.getStatus().subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.segments = response.detail.segments;
 
         });
-        this.commonService.getByPost('v1/permission/chkPerm', 'SEGMENT').subscribe((response: any) => {
+        this.permissionService.getPermissionOf('SEGMENT').subscribe((response: any) => {
             this.permissions = response.detail;
             for (let i = 0; this.permissions.length > i; i++) {
                 if (this.permissions[i].type === 'ADD SEGMENT') {

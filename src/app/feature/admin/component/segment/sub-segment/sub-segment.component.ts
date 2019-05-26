@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {SubSegment} from '../../../modal/subSegment';
 import {Segment} from '../../../modal/segment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -9,6 +8,8 @@ import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/brea
 import {ModalUtils, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
+import {SubSegmentService} from './sub-segment.service';
+import {PermissionService} from '../../../../../@core/service/permission.service';
 
 
 @Component({
@@ -38,7 +39,8 @@ export class SubSegmentComponent implements OnInit {
     csvDownload = false;
 
     constructor(
-        private commonService: CommonService,
+        private service: SubSegmentService,
+        private permissionService: PermissionService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
@@ -47,7 +49,7 @@ export class SubSegmentComponent implements OnInit {
 
     static loadData(other: SubSegmentComponent) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, other.page, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
 
                 other.pageable = PaginationUtils.getPageable(response.detail);
@@ -67,14 +69,14 @@ export class SubSegmentComponent implements OnInit {
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
         this.currentApi = 'v1/subSegment/get';
-        this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+        this.service.getStatus().subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.subSegments = response.detail.subSegments;
 
         });
-        this.commonService.getByPost('v1/permission/chkPerm', 'SUB SEGMENT').subscribe((response: any) => {
+        this.permissionService.getPermissionOf('SUB SEGMENT').subscribe((response: any) => {
             this.permissions = response.detail;
             for (let i = 0; this.permissions.length > i; i++) {
                 if (this.permissions[i].type === 'ADD SUB-SEGMENT') {

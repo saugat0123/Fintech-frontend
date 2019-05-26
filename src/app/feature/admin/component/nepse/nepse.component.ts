@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {Nepse} from '../../modal/nepse';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -8,6 +7,8 @@ import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcr
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
+import {NepseService} from './nepse.service';
+import {PermissionService} from '../../../../@core/service/permission.service';
 
 @Component({
     selector: 'app-nepse',
@@ -34,7 +35,8 @@ export class NepseComponent implements OnInit {
     addViewNepse = false;
 
     constructor(
-        private commonService: CommonService,
+        private service: NepseService,
+        private permissionService: PermissionService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
@@ -42,8 +44,9 @@ export class NepseComponent implements OnInit {
     }
 
     static loadData(other: NepseComponent) {
+
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, other.page, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
@@ -65,7 +68,7 @@ export class NepseComponent implements OnInit {
 
         NepseComponent.loadData(this);
 
-        this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+        this.service.getStatus().subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
@@ -73,7 +76,7 @@ export class NepseComponent implements OnInit {
 
         });
 
-        this.commonService.getByPost('v1/permission/chkPerm', 'Nepse Company').subscribe((response: any) => {
+        this.permissionService.getPermissionOf('Nepse Company').subscribe((response: any) => {
             this.permissions = response.detail;
             for (let i = 0; this.permissions.length > i; i++) {
                 if (this.permissions[i].type === 'ADD NEPSE') {

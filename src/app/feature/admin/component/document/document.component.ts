@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {Document} from '../../modal/document';
 import {LoanCycle} from '../../modal/loan-cycle';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -10,6 +9,7 @@ import {UpdateModalComponent} from '../../../../@theme/components';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
+import {DocumentService} from './document.service';
 
 @Component({
     selector: 'app-document',
@@ -27,7 +27,6 @@ export class DocumentComponent implements OnInit {
 
     search: any = {};
     pageable: Pageable = new Pageable();
-    currentApi: string;
     activeCount: number;
     inactiveCount: number;
     documents: number;
@@ -35,7 +34,7 @@ export class DocumentComponent implements OnInit {
 
 
     constructor(
-        private commonService: CommonService,
+        private service: DocumentService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
@@ -44,7 +43,7 @@ export class DocumentComponent implements OnInit {
 
     static loadData(other: DocumentComponent) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, other.page, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
             other.dataList = response.detail.content;
 
             other.pageable = PaginationUtils.getPageable(response.detail);
@@ -63,17 +62,16 @@ export class DocumentComponent implements OnInit {
     ngOnInit() {
 
         this.breadcrumbService.notify(this.title);
-        this.currentApi = 'v1/document/get';
         DocumentComponent.loadData(this);
 
-        this.commonService.getByAll(this.currentApi + '/getStatusCount').subscribe((response: any) => {
+        this.service.getStatus().subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.documents = response.detail.documents;
         });
 
-        this.commonService.getByAll('v1/document/lifeCycle').subscribe((response: any) => {
+        this.service.getAllLoanCycle().subscribe((response: any) => {
 
             this.loanCycleList = response.detail;
         });

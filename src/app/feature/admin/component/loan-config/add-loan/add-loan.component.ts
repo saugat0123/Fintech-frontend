@@ -1,10 +1,11 @@
 import {Component, DoCheck, Input, OnInit} from '@angular/core';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {LoanTemplate} from '../../../modal/template';
+import {LoanTemplate} from '../../../modal/loan-template';
 import {LoanConfig} from '../../../modal/loan-config';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {LoanTemplateService} from '../loan-template/loan-template.service';
+import {LoanConfigService} from '../loan-config.service';
 
 
 @Component({
@@ -21,14 +22,15 @@ export class AddLoanComponent implements OnInit, DoCheck {
     templateList: Array<LoanTemplate>;
 
     constructor(
-        private commonService: CommonService,
+        private service: LoanConfigService,
+        private loanTemplateService: LoanTemplateService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
     }
 
     ngOnInit() {
-        this.commonService.getByAll('v1/loanTemplate/getAll').subscribe((response: any) => {
+        this.loanTemplateService.getAll().subscribe((response: any) => {
             this.templateList = response.detail;
         });
     }
@@ -42,7 +44,8 @@ export class AddLoanComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
-        this.commonService.saveOrEdit(this.model, 'v1/config').subscribe(() => {
+
+        this.service.save(this.model).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Template'));
 

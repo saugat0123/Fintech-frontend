@@ -10,7 +10,7 @@ import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {LoanDataService} from '../../../service/loan-data.service';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
-import {CommonLocation} from '../../../../../@core/service/baseservice/common-location';
+import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 
 
 @Component({
@@ -37,7 +37,7 @@ export class BasicInfoComponent implements OnInit {
         private commonDataService: CommonDataService,
         private router: Router,
         private formBuilder: FormBuilder,
-        private commonLocation: CommonLocation,
+        private commonLocation: AddressService,
         private loanDataService: LoanDataService
     ) {
     }

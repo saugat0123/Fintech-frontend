@@ -1,10 +1,9 @@
 import {Component, DoCheck, Input, OnInit} from '@angular/core';
-import {CommonService} from '../../../../../../@core/service/baseservice/common-baseservice';
-import {Router} from '@angular/router';
 import {Segment} from '../../../../modal/segment';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {SegmentService} from '../segment.service';
 
 @Component({
     selector: 'app-segment-form',
@@ -21,8 +20,7 @@ export class SegmentFormComponent implements OnInit, DoCheck {
     globalMsg: string;
 
     constructor(
-        private commonService: CommonService,
-        private router: Router,
+        private service: SegmentService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
@@ -41,7 +39,7 @@ export class SegmentFormComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
-        this.commonService.saveOrEdit(this.model, 'v1/segment').subscribe(() => {
+        this.service.save(this.model).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Segment!'));
 

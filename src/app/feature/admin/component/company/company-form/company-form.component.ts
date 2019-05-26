@@ -1,10 +1,9 @@
 import {Component, DoCheck, Input, OnInit} from '@angular/core';
-
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {Company} from '../../../modal/company';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {CompanyService} from '../company.service';
 
 
 @Component({
@@ -21,7 +20,7 @@ export class CompanyFormComponent implements OnInit, DoCheck {
     spinner = false;
 
     constructor(
-        private commonService: CommonService,
+        private service: CompanyService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
@@ -41,7 +40,7 @@ export class CompanyFormComponent implements OnInit, DoCheck {
     onSubmit() {
         this.submitted = true;
 
-        this.commonService.saveOrEdit(this.company, 'v1/company').subscribe(() => {
+        this.service.save(this.company).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Company Information'));
 
                 this.company = new Company();

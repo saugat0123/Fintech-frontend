@@ -1,9 +1,9 @@
 import {Component, DoCheck, Input, OnInit} from '@angular/core';
-import {CommonService} from '../../../../../../@core/service/baseservice/common-baseservice';
 import {Sector} from '../../../../modal/sector';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {SectorService} from '../SectorService';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class SectorFormComponent implements OnInit, DoCheck {
     spinner = false;
 
     constructor(
-        private commonService: CommonService,
+        private service: SectorService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
@@ -41,7 +41,7 @@ export class SectorFormComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
-        this.commonService.saveOrEdit(this.model, 'v1/sector').subscribe(() => {
+        this.service.save(this.model).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Sector!'));
 
                 this.model = new Sector();

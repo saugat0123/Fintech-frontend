@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {LoanConfig} from '../../modal/loan-config';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddLoanComponent} from './add-loan/add-loan.component';
@@ -9,6 +8,7 @@ import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcr
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
+import {LoanConfigService} from './loan-config.service';
 
 @Component({
     selector: 'app-loan-config',
@@ -27,7 +27,7 @@ export class LoanConfigComponent implements OnInit {
     globalMsg: string;
     search: any = {};
     pageable: Pageable = new Pageable();
-    currentApi: string;
+
     activeCount: number;
     inactiveCount: number;
     loans: number;
@@ -35,7 +35,7 @@ export class LoanConfigComponent implements OnInit {
     tName;
 
     constructor(
-        private commonService: CommonService,
+        private service: LoanConfigService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
@@ -44,7 +44,7 @@ export class LoanConfigComponent implements OnInit {
 
     static loadData(other: LoanConfigComponent) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, other.page, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
 
                 other.pageable = PaginationUtils.getPageable(response.detail);
@@ -66,9 +66,9 @@ export class LoanConfigComponent implements OnInit {
 
         this.breadcrumbService.notify(this.title);
 
-        this.currentApi = 'v1/config/get';
         LoanConfigComponent.loadData(this);
-        this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+
+        this.service.getStatus().subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;

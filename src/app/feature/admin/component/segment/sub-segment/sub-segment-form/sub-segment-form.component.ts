@@ -2,10 +2,12 @@ import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {SubSegment} from '../../../../modal/subSegment';
 import {Segment} from '../../../../modal/segment';
 import {LoanConfig} from '../../../../modal/loan-config';
-import {CommonService} from '../../../../../../@core/service/baseservice/common-baseservice';
 import {ModalResponse, ToastService} from '../../../../../../@core/utils';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {SegmentService} from '../../segment/segment.service';
+import {SubSegmentService} from '../sub-segment.service';
+import {LoanConfigService} from '../../../loan-config/loan-config.service';
 
 
 @Component({
@@ -28,18 +30,20 @@ export class SubSegmentFormComponent implements OnInit, DoCheck {
     loanConfigs: Array<LoanConfig> = new Array<LoanConfig>();
 
     constructor(
-        private commonService: CommonService,
+        private service: SubSegmentService,
+        private segmentService: SegmentService,
+        private loanConfigSevice: LoanConfigService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
     }
 
     ngOnInit() {
-        this.commonService.getByAll('v1/segment/getList').subscribe((response: any) => {
+        this.segmentService.getAll().subscribe((response: any) => {
             this.segmentList = response.detail;
 
         });
-        this.commonService.getByAll('v1/config/getAll').subscribe((response: any) => {
+        this.loanConfigSevice.getAll().subscribe((response: any) => {
             this.loanTypeList = response.detail;
 
         });
@@ -67,7 +71,7 @@ export class SubSegmentFormComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
-        this.commonService.saveOrEdit(this.model, 'v1/subSegment').subscribe(() => {
+        this.service.save(this.model).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Sub-Segment!'));
 

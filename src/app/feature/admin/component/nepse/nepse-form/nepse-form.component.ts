@@ -1,9 +1,9 @@
 import {Component, DoCheck, Input, OnInit} from '@angular/core';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {Nepse} from '../../../modal/nepse';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {NepseService} from '../nepse.service';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class NepseFormComponent implements OnInit, DoCheck {
     spinner = false;
 
     constructor(
-        private commonService: CommonService,
+        private service: NepseService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
@@ -39,7 +39,7 @@ export class NepseFormComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
-        this.commonService.saveOrEdit(this.model, 'v1/nepseCompany').subscribe(result => {
+        this.service.save(this.model).subscribe(result => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Nepse Company'));
 

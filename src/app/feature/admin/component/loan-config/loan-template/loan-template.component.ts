@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {LoanTemplate} from '../../../modal/template';
+import {LoanTemplate} from '../../../modal/loan-template';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {UpdateModalComponent} from '../../../../../@theme/components';
 import {TemplateAddModelComponent} from './template-add-model/template-add-model.component';
@@ -9,6 +8,7 @@ import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/brea
 import {ModalUtils, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
+import {LoanTemplateService} from './loan-template.service';
 
 
 @Component({
@@ -31,7 +31,7 @@ export class LoanTemplateComponent implements OnInit {
 
 
     constructor(
-        private commonService: CommonService,
+        private service: LoanTemplateService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
@@ -40,7 +40,7 @@ export class LoanTemplateComponent implements OnInit {
 
     static loadData(other: LoanTemplateComponent) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, other.page, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
 
                 other.pageable = PaginationUtils.getPageable(response.detail);
@@ -58,13 +58,8 @@ export class LoanTemplateComponent implements OnInit {
 
 
     ngOnInit() {
-
         this.breadcrumbService.notify(this.title);
-
-        this.currentApi = 'v1/loanTemplate/get';
-
         LoanTemplateComponent.loadData(this);
-
     }
 
     changePage(page: number) {
@@ -74,7 +69,6 @@ export class LoanTemplateComponent implements OnInit {
     }
 
     add() {
-
         const modelRef = this.modalService.open(TemplateAddModelComponent);
         modelRef.componentInstance.model = new LoanTemplate();
 

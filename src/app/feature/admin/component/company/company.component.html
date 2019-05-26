@@ -42,10 +42,9 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" *ngIf="addViewCompany">
                         <div class="float-right">
-                            <button data-toggle="modal" (click)="add()"
-                                    *ngIf="addViewCompany">
+                            <button data-toggle="modal" (click)="add()">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -67,7 +66,7 @@
                         <div *ngIf="!dataList?.length > 0">
                             <p>No Content Found</p>
                         </div>
-                        <td>{{allList.companyName}}</td>
+                        <td>{{allList.name}}</td>
                         <td>
                             <a (click)="edit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
                                data-placement="top"

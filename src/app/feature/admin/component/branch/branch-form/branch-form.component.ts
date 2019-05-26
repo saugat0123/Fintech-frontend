@@ -1,14 +1,14 @@
 import {Component, DoCheck, Input, OnInit} from '@angular/core';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {Branch} from '../../../modal/branch';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {CommonLocation} from '../../../../../@core/service/baseservice/common-location';
+import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {Province} from '../../../modal/province';
 import {District} from '../../../modal/district';
 import {MunicipalityVdc} from '../../../modal/municipality_VDC';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {AlertService} from '../../../../../@theme/components/alert/alert.service';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
+import {BranchService} from '../branch.service';
 
 
 @Component({
@@ -32,9 +32,9 @@ export class BranchFormComponent implements OnInit, DoCheck {
     municipality: MunicipalityVdc = new MunicipalityVdc();
 
     constructor(
-        private commonService: CommonService,
+        private service: BranchService,
+        private location: AddressService,
         private activeModal: NgbActiveModal,
-        private location: CommonLocation,
         private alertService: AlertService,
         private toastService: ToastService
     ) {
@@ -111,7 +111,7 @@ export class BranchFormComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
-        this.commonService.saveOrEdit(this.model, 'v1/branch').subscribe(result => {
+        this.service.save(this.model).subscribe(() => {
 
                 this.activeModal.close(ModalResponse.SUCCESS);
 

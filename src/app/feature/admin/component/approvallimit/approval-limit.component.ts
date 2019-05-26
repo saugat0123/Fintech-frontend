@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {ApprovalLimit} from '../../modal/approval-limit';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
@@ -9,6 +8,8 @@ import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ApprovalLimitFormComponent} from './approval-limit-form/approval-limit-form.component';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
+import {ApprovalLimitService} from './approval-limit.service';
+import {PermissionService} from '../../../../@core/service/permission.service';
 
 @Component({
     selector: 'app-approval-limit',
@@ -17,15 +18,14 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 export class ApprovalLimitComponent implements OnInit {
 
     page = 1;
-
     title = 'ApprovalLimit';
     breadcrumb = 'ApprovalLimit > List';
+
     dataList: Array<ApprovalLimit>;
     spinner = false;
-    globalMsg: string;
     search: any = {};
     pageable: Pageable = new Pageable();
-    currentApi: string;
+
     activeCount: number;
     inactiveCount: number;
     permissions = [];
@@ -34,7 +34,8 @@ export class ApprovalLimitComponent implements OnInit {
     downloadCsv = false;
 
     constructor(
-        private commonService: CommonService,
+        private service: ApprovalLimitService,
+        private permissionService: PermissionService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
@@ -43,7 +44,7 @@ export class ApprovalLimitComponent implements OnInit {
 
     static loadData(other: ApprovalLimitComponent) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, other.page, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
 
             other.pageable = PaginationUtils.getPageable(response.detail);
 
@@ -61,9 +62,8 @@ export class ApprovalLimitComponent implements OnInit {
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
-        this.currentApi = 'v1/approvallimit/get';
 
-        this.commonService.getByPost('v1/permission/chkPerm', 'APPROVAL LIMIT').subscribe((response: any) => {
+        this.permissionService.getPermissionOf('APPROVAL LIMIT').subscribe((response: any) => {
             this.permissions = response.detail;
             for (let i = 0; this.permissions.length > i; i++) {
                 if (this.permissions[i].type === 'ADD APPROVAL LIMIT') {

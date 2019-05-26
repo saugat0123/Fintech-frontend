@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {Branch} from '../../modal/branch';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {BranchFormComponent} from './branch-form/branch-form.component';
@@ -10,12 +9,14 @@ import {MunicipalityVdc} from '../../modal/municipality_VDC';
 
 import {Province} from '../../modal/province';
 import {District} from '../../modal/district';
-import {CommonLocation} from '../../../../@core/service/baseservice/common-location';
+import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {UpdateModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
+import {BranchService} from './branch.service';
+import {PermissionService} from '../../../../@core/service/permission.service';
 
 @Component({
     selector: 'app-branch',
@@ -31,7 +32,7 @@ export class BranchComponent implements OnInit {
 
     search: any = {};
     pageable: Pageable = new Pageable();
-    currentApi: string;
+
     activeCount: number;
     inactiveCount: number;
     branches: number;
@@ -52,8 +53,9 @@ export class BranchComponent implements OnInit {
     municipality: MunicipalityVdc = new MunicipalityVdc();
 
     constructor(
-        private commonService: CommonService,
-        private location: CommonLocation,
+        private service: BranchService,
+        private permissionService: PermissionService,
+        private location: AddressService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
@@ -61,19 +63,18 @@ export class BranchComponent implements OnInit {
     }
 
     static loadData(other: BranchComponent) {
+
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, other.page, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
-
-                console.log(other.pageable);
 
                 other.spinner = false;
             }, error => {
 
                 console.log(error);
 
-                other.toastService.show(new Alert(AlertType.ERROR, 'Unalble to Load Data!'));
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
                 other.spinner = false;
             }
         );
@@ -82,9 +83,9 @@ export class BranchComponent implements OnInit {
     ngOnInit() {
 
         this.breadcrumbService.notify(this.title);
-        this.currentApi = 'v1/branch/get';
 
-        this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+        this.service.getStatus().subscribe((response: any) => {
+            console.log(response);
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.branches = response.detail.branches;
@@ -94,7 +95,7 @@ export class BranchComponent implements OnInit {
             this.provinces = response.detail;
         });
 
-        this.commonService.getByPost('v1/permission/chkPerm', 'BRANCH').subscribe((response: any) => {
+        this.permissionService.getPermissionOf('BRANCH').subscribe((response: any) => {
             this.permissions = response.detail;
             for (let i = 0; this.permissions.length > i; i++) {
                 if (this.permissions[i].type === 'ADD BRANCH') {
@@ -176,7 +177,7 @@ export class BranchComponent implements OnInit {
     }
 
     getCsv() {
-        this.commonService.saveOrEdit(this.search, 'v1/branch/csv').subscribe((response: any) => {
+        this.service.download(this.search).subscribe((response: any) => {
             const link = document.createElement('a');
             link.target = '_blank';
             link.href = response.detail;
@@ -222,4 +223,5 @@ export class BranchComponent implements OnInit {
     getMunicipality(municipalityId) {
         this.search.municipalityId = municipalityId.toString();
     }
+
 }

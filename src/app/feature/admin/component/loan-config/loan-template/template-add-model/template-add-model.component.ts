@@ -1,9 +1,10 @@
 import {CommonService} from '../../../../../../@core/service/baseservice/common-baseservice';
 import {Component, DoCheck, Input, OnInit} from '@angular/core';
-import {LoanTemplate} from '../../../../modal/template';
+import {LoanTemplate} from '../../../../modal/loan-template';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {LoanTemplateService} from '../loan-template.service';
 
 
 @Component({
@@ -13,14 +14,14 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 export class TemplateAddModelComponent implements OnInit, DoCheck {
 
     @Input()
-    model: LoanTemplate = new LoanTemplate;
+    model: LoanTemplate = new LoanTemplate();
 
     task: string;
     submitted = false;
     spinner = false;
 
     constructor(
-        private commonService: CommonService,
+        private service: LoanTemplateService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
@@ -42,7 +43,7 @@ export class TemplateAddModelComponent implements OnInit, DoCheck {
     onSubmit() {
         this.submitted = true;
         // this.branch.created=null;
-        this.commonService.saveOrEdit(this.model, 'v1/loanTemplate').subscribe(() => {
+        this.service.save(this.model).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Template'));
 

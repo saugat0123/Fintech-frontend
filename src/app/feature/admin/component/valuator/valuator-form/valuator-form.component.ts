@@ -1,17 +1,14 @@
 import {Component, DoCheck, Input, OnInit} from '@angular/core';
-
-import {Router} from '@angular/router';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {Valuator} from '../../../modal/valuator';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {CommonLocation} from '../../../../../@core/service/baseservice/common-location';
+import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 
 import {Province} from '../../../modal/province';
 import {District} from '../../../modal/district';
 import {MunicipalityVdc} from '../../../modal/municipality_VDC';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {ValuatorService} from '../valuator.service';
 
 
 @Component({
@@ -40,11 +37,9 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
     siteMunicipality: MunicipalityVdc = new MunicipalityVdc();
 
     constructor(
-        private commonService: CommonService,
-        private router: Router,
-        private dataService: CommonDataService,
+        private service: ValuatorService,
+        private location: AddressService,
         private activeModal: NgbActiveModal,
-        private location: CommonLocation,
         private toastService: ToastService
     ) {
 
@@ -136,7 +131,6 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck(): void {
-        this.model = this.dataService.getValuator();
         if (this.model.id == null) {
             this.task = 'Add';
             this.district = new District();
@@ -160,7 +154,7 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
     onSubmit() {
 
         this.submitted = true;
-        this.commonService.saveOrEdit(this.model, 'v1/valuator').subscribe(result => {
+        this.service.save(this.model).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Valuator!'));
 

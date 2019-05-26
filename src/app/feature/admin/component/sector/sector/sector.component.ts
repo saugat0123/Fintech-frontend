@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {Sector} from '../../../modal/sector';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SectorFormComponent} from './sector-form/sector-form.component';
@@ -8,6 +7,8 @@ import {UpdateModalComponent} from '../../../../../@theme/components';
 import {ModalUtils, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
+import {SectorService} from './SectorService';
+import {PermissionService} from '../../../../../@core/service/permission.service';
 
 @Component({
     selector: 'app-sector',
@@ -22,10 +23,8 @@ export class SectorComponent implements OnInit {
     dataList: Array<Sector>;
     newValue: string;
     spinner = false;
-    globalMsg: string;
     search: any = {};
     pageable: Pageable = new Pageable();
-    currentApi: string;
     activeCount: number;
     inactiveCount: number;
     sectors: number;
@@ -36,14 +35,15 @@ export class SectorComponent implements OnInit {
     csvDownload = false;
 
     constructor(
-        private commonService: CommonService,
+        private service: SectorService,
+        private permissionService: PermissionService,
         private modalService: NgbModal,
         private toastService: ToastService) {
     }
 
     static loadData(other: SectorComponent) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, other.page, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
 
                 other.pageable = PaginationUtils.getPageable(response.detail);
@@ -61,18 +61,15 @@ export class SectorComponent implements OnInit {
     }
 
     ngOnInit() {
-
-        this.currentApi = 'v1/sector/get';
-
         SectorComponent.loadData(this);
 
-        this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+        this.service.getStatus().subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.sectors = response.detail.sectors;
         });
-        this.commonService.getByPost('v1/permission/chkPerm', 'SECTOR').subscribe((response: any) => {
+        this.permissionService.getPermissionOf('SECTOR').subscribe((response: any) => {
             this.permissions = response.detail;
             for (let i = 0; this.permissions.length > i; i++) {
                 if (this.permissions[i].type === 'ADD SECTOR') {

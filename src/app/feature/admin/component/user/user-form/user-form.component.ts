@@ -6,7 +6,9 @@ import {CommonService} from '../../../../../@core/service/baseservice/common-bas
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-
+import {UserService} from '../user.service';
+import {RoleService} from '../../role-permission/role.service';
+import {BranchService} from '../../branch/branch.service';
 
 @Component({
     selector: 'app-user-form',
@@ -28,20 +30,23 @@ export class UserFormComponent implements OnInit, DoCheck {
 
     constructor(
         private commonService: CommonService,
+        private service: UserService,
+        private roleService: RoleService,
+        private branchService: BranchService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
     }
 
     ngOnInit() {
-        this.commonService.getByAll('v1/branch/getList').subscribe((response: any) => {
+        this.branchService.getAll().subscribe((response: any) => {
             this.branchList = response.detail;
         });
-        this.commonService.getByAll('v1/role').subscribe((response: any) => {
+        this.roleService.getAll().subscribe((response: any) => {
             this.roleList = response.detail;
         });
 
-        this.commonService.getByAll('v1/role/active').subscribe((response: any) => {
+        this.roleService.getActiveRoles().subscribe((response: any) => {
             this.roleList = response.detail;
         });
     }
@@ -64,7 +69,7 @@ export class UserFormComponent implements OnInit, DoCheck {
         this.submitted = true;
         this.model.branch = this.branch;
         this.model.role = this.role;
-        this.commonService.saveOrEdit(this.model, 'v1/user').subscribe(() => {
+        this.service.save(this.model).subscribe(() => {
                 this.model = new User();
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved User'));
@@ -91,9 +96,9 @@ export class UserFormComponent implements OnInit, DoCheck {
         const formdata: FormData = new FormData();
         formdata.append('file', file);
         formdata.append('type', 'profile');
-        this.commonService.getByFilePost('v1/user/uploadFile', formdata).subscribe((result: any) => {
-            this.model.profilePicture = result.detail;
 
+        this.service.uploadFile(formdata).subscribe((result: any) => {
+            this.model.profilePicture = result.detail;
         });
     }
 
@@ -102,7 +107,8 @@ export class UserFormComponent implements OnInit, DoCheck {
         const formdata: FormData = new FormData();
         formdata.append('file', file);
         formdata.append('type', 'signature');
-        this.commonService.getByFilePost('v1/user/uploadFile', formdata).subscribe((result: any) => {
+
+        this.service.uploadFile(formdata).subscribe((result: any) => {
             this.model.signatureImage = result.detail;
         });
     }

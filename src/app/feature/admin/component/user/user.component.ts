@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../modal/user';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {UserFormComponent} from './user-form/user-form.component';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
@@ -9,6 +8,7 @@ import {UpdateModalComponent} from '../../../../@theme/components';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
+import {UserService} from './user.service';
 
 @Component({
     selector: 'app-user',
@@ -34,7 +34,7 @@ export class UserComponent implements OnInit {
     users: number;
 
     constructor(
-        private commonService: CommonService,
+        private service: UserService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
@@ -43,7 +43,7 @@ export class UserComponent implements OnInit {
 
     static loadData(other: UserComponent) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, other.page, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
             other.dataList = response.detail.content;
 
             other.pageable = PaginationUtils.getPageable(response.detail);
@@ -63,14 +63,13 @@ export class UserComponent implements OnInit {
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
-        this.currentApi = 'v1/user/get';
 
         UserComponent.loadData(this);
 
         // this.commonService.getByPostAllPageable(this.currentApi, this.search, 1, 10).subscribe((response: any) => {
         //     this.user = response.detail.user;
         // });
-        this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+        this.service.getStatus().subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
@@ -123,7 +122,7 @@ export class UserComponent implements OnInit {
 
     getCsv() {
 
-        this.commonService.saveOrEdit(this.search, 'v1/user/csv').subscribe((response: any) => {
+        this.service.download(this.search).subscribe((response: any) => {
             const link = document.createElement('a');
             link.target = '_blank';
             link.href = response.detail;

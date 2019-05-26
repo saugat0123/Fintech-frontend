@@ -8,6 +8,9 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {AlertService} from '../../../../@theme/components/alert/alert.service';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {ToastService} from '../../../../@core/utils';
+import {RolePermissionService} from './role-permission.service';
+import {RoleService} from './role.service';
+import {PermissionService} from '../../../../@core/service/permission.service';
 
 declare var $;
 
@@ -18,7 +21,7 @@ declare var $;
 })
 export class RolePermissionComponent implements OnInit {
     title = 'Role and Permission';
-    currentApi: string;
+
     roleList: Array<Role>;
     rightList: any;
     allPermission: any = [];
@@ -37,9 +40,11 @@ export class RolePermissionComponent implements OnInit {
     roleCount: number;
     isDisabled = false;
 
-
     constructor(
         private commonService: CommonService,
+        private service: RolePermissionService,
+        private roleService: RoleService,
+        private permissionService: PermissionService,
         private router: Router,
         private modalService: NgbModal,
         private alertService: AlertService,
@@ -50,17 +55,16 @@ export class RolePermissionComponent implements OnInit {
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
-        this.currentApi = 'v1/role';
-        this.commonService.getByAll(this.currentApi + '/active').subscribe((response: any) => {
-            console.log('role list:', response.detail);
+
+        this.roleService.getActiveRoles().subscribe((response: any) => {
             this.roleList = response.detail;
         });
-        this.commonService.getByAll('v1/roleRightPermission/rights').subscribe((response: any) => {
+        this.service.getRights().subscribe((response: any) => {
             console.log(response.detail);
             this.rightList = response.detail;
         });
 
-        this.commonService.getByAll(this.currentApi + '/get/statusCount').subscribe((response: any) => {
+        this.roleService.getStatus().subscribe((response: any) => {
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.roleCount = response.detail.roles;
@@ -72,15 +76,14 @@ export class RolePermissionComponent implements OnInit {
     roleChanged(id) {
         this.roleId = id;
         this.roleperm = [];
-        this.commonService.getByAll('v1/roleRightPermission/' + id).subscribe((response: any) => {
-            console.log('v2', response.detail);
+
+        this.service.detail(id).subscribe((response: any) => {
+
             this.rolePermissionList = response.detail;
             // tslint:disable-next-line:no-shadowed-variable
-            this.commonService.getByAll('v1/permission').subscribe((response: any) => {
-                console.log('v1/permission', response.detail);
+            this.permissionService.getAll().subscribe((response: any) => {
                 this.allPermission = response.detail;
                 this.checkPermission();
-
             });
 
         });
@@ -123,8 +126,6 @@ export class RolePermissionComponent implements OnInit {
                     }
                 }
             }
-
-
         }
 
     }
@@ -162,7 +163,7 @@ export class RolePermissionComponent implements OnInit {
         this.isDisabled = true;
         this.spinner = true;
 
-        this.commonService.saveOrEdit(this.roleperm, 'v1/roleRightPermission').subscribe(result => {
+        this.service.save(this.roleperm).subscribe(result => {
 
                 this.roleperm = [];
                 this.spinner = false;
@@ -178,12 +179,9 @@ export class RolePermissionComponent implements OnInit {
             },
             error => {
                 console.log(error);
-
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to sAve Role & Permission!'));
-
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Role & Permission!'));
             });
     }
-
 
     checkPermission() {
         this.roleperm = [];
@@ -250,17 +248,14 @@ export class RolePermissionComponent implements OnInit {
                     this.tempRightList.push(tempRight[y]);
                     break;
                 }
-
-
             }
+
             if (!isRightMatch) {
                 tempRight[x].checked = false;
                 this.tempRightList.push(tempRight[x]);
             }
-
-
         }
-        return this.tempRightList;
 
+        return this.tempRightList;
     }
 }

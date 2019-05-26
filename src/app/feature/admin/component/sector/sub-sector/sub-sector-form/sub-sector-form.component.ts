@@ -1,10 +1,11 @@
 import {Component, DoCheck, Input, OnInit} from '@angular/core';
-import {CommonService} from '../../../../../../@core/service/baseservice/common-baseservice';
 import {Sector} from '../../../../modal/sector';
 import {SubSector} from '../../../../modal/sub-sector';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {SubSectorService} from '../sub-sector.service';
+import {SectorService} from '../../sector/SectorService';
 
 
 @Component({
@@ -23,15 +24,18 @@ export class SubSectorFormComponent implements OnInit, DoCheck {
     sector: Sector = new Sector();
 
     constructor(
-        private commonService: CommonService,
+        private service: SubSectorService,
+        private sectorService: SectorService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
     }
 
     ngOnInit() {
-        this.commonService.getByAll('v1/sector/getList').subscribe((response: any) => {
+        this.sectorService.getAll().subscribe((response: any) => {
+            console.log(response.detail);
             this.sectorList = response.detail;
+            console.log(this.sectorList);
         });
     }
 
@@ -53,7 +57,10 @@ export class SubSectorFormComponent implements OnInit, DoCheck {
     onSubmit() {
         this.submitted = true;
         this.model.sector = this.sector;
-        this.commonService.saveOrEdit(this.model, 'v1/subSector').subscribe(result => {
+
+        console.log(this.model);
+        console.log(this.sector);
+        this.service.save(this.model).subscribe(() => {
 
                 this.model = new SubSector();
 

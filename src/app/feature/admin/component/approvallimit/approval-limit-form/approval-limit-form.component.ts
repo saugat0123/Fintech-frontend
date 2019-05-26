@@ -1,15 +1,14 @@
 import {Component, DoCheck, Input, OnInit} from '@angular/core';
-
-import {Router} from '@angular/router';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {Role} from '../../../modal/role';
 import {LoanConfig} from '../../../modal/loan-config';
 import {ApprovalLimit} from '../../../modal/approval-limit';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
 import {AlertService} from '../../../../../@theme/components/alert/alert.service';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
+import {ApprovalLimitService} from '../approval-limit.service';
+import {LoanConfigService} from '../../loan-config/loan-config.service';
+import {RoleService} from '../../role-permission/role.service';
 
 
 @Component({
@@ -26,25 +25,27 @@ export class ApprovalLimitFormComponent implements OnInit, DoCheck {
     spinner = false;
     roleList: Array<Role>;
     loanList: Array<LoanConfig>;
-    globalMsg: string;
+
     loanCategory = new LoanConfig();
     authorities = new Role();
 
     constructor(
+        private service: ApprovalLimitService,
+        private loanConfigService: LoanConfigService,
+        private roleService: RoleService,
         private activeModal: NgbActiveModal,
-        private commonService: CommonService,
         private alertService: AlertService,
         private toastService: ToastService
     ) {
     }
 
     ngOnInit() {
-        this.commonService.getByAll('v1/role/active').subscribe((response: any) => {
+        this.roleService.getActiveRoles().subscribe((response: any) => {
 
             this.roleList = response.detail;
         });
 
-        this.commonService.getByAll('v1/config/getAll').subscribe((response: any) => {
+        this.loanConfigService.getAll().subscribe((response: any) => {
 
             this.loanList = response.detail;
         });
@@ -69,7 +70,7 @@ export class ApprovalLimitFormComponent implements OnInit, DoCheck {
         this.submitted = true;
         this.model.loanCategory = this.loanCategory;
         this.model.authorities = this.authorities;
-        this.commonService.saveOrEdit(this.model, 'v1/approvallimit').subscribe(() => {
+        this.service.save(this.model).subscribe(() => {
 
                 if (this.model.id == null) {
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Created Approval Limit'));

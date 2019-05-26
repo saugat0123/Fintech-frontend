@@ -1,10 +1,9 @@
 import {Component, DoCheck, Input, OnInit} from '@angular/core';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {Router} from '@angular/router';
 import {Document} from '../../../modal/document';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {DocumentService} from '../document.service';
 
 
 @Component({
@@ -19,10 +18,9 @@ export class AddDocumentComponent implements OnInit, DoCheck {
     task: string;
     submitted = false;
     spinner = false;
-    globalMsg: string;
 
     constructor(
-        private commonService: CommonService,
+        private service: DocumentService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
@@ -43,8 +41,8 @@ export class AddDocumentComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
-        this.globalMsg = 'test successful';
-        this.commonService.saveOrEdit(this.model, 'v1/document').subscribe(() => {
+
+        this.service.save(this.model).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Document!'));
 
@@ -64,6 +62,5 @@ export class AddDocumentComponent implements OnInit, DoCheck {
     onClose() {
         this.activeModal.dismiss(ModalResponse.CANCEL);
     }
-
 }
 
