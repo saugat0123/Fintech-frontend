@@ -12,7 +12,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {AlertService} from '../../../../@theme/components/alert/alert.service';
 import {ToastService} from '../../../../@core/utils';
-import {PaginationUtils} from "../../../../@core/utils/PaginationUtils";
+import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 
 @Component({
     selector: 'app-memo-type',
