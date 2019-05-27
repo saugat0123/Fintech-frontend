@@ -16,7 +16,7 @@ import {UserService} from '../../../../../@core/service/user.service';
 export class DmsSummaryComponent implements OnInit {
     dmsLoanFile: DmsLoanFile = new DmsLoanFile();
     loan: LoanConfig = new LoanConfig();
-    loanType: string;
+    loanConfig: string;
     index = 0;
     user: User = new User();
     security: string;
@@ -47,6 +47,7 @@ export class DmsSummaryComponent implements OnInit {
         this.commonService.getById('v1/dmsLoanFile/getById/' + this.id).subscribe(
             (response: any) => {
                 this.dmsLoanFile = response.detail;
+                console.log('dms',this.dmsLoanFile);
                 this.security = this.dmsLoanFile.security;
                 this.securities = this.security.split(',');
                 this.documents = this.dmsLoanFile.documentPathMaps;

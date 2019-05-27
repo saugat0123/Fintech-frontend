@@ -17,7 +17,7 @@ import {Pageable} from '../../../@core/service/baseservice/common-pageable';
 export class PendingsComponent implements OnInit, DoCheck {
     dmsLoanFiles: Array<DmsLoanFile>;
     user: User = new User();
-    loanTypes: LoanConfig[] = [];
+    loanConfigs: LoanConfig[] = [];
     search: any = {};
     loanList: Array<LoanConfig>;
     currentApi: string;

@@ -14,6 +14,7 @@ import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {NbDatepickerModule} from '@nebular/theme';
 
 
 @NgModule({
@@ -32,7 +33,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
         RouterModule,
         AppRoutingModule,
         DragDropModule,
-        ThemeModule
+        ThemeModule,
+        NbDatepickerModule.forRoot(),
+
     ],
 
     providers: [CommonService, CommonDataService, CommonLocation, {

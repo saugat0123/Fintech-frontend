@@ -72,8 +72,8 @@ export class CommonService {
         return this.http.get(getUrl.url, httpOptions);
     }
 
-    getByStage(reqUrl, stage) {
-        const url: string = reqUrl + '?stage=' + stage;
+    getByDocumentStatus(reqUrl, status) {
+        const url: string = reqUrl + '?status=' + status;
         const getUrl = ApiUtils.getRequest(url);
         return this.http.get(getUrl.url, {headers: getUrl.header});
     }

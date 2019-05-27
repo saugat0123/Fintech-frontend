@@ -9,11 +9,11 @@
                              *ngFor="let dmsLoan of dmsLoanFiles"
                              style="cursor: pointer">
                             <div class="col-md-8 mt-1 " (click)="onClick(dmsLoan.id)">
-                                <div>{{dmsLoan?.loanType?.name}} <span class="badge"
+                                <div>{{dmsLoan?.loanConfig?.name}} <span class="badge"
                                                                        [ngClass]="{'badge-success':dmsLoan.priority=='MEDIUM','badge-info':dmsLoan.priority=='LOW','badge-danger':dmsLoan.priority=='HIGH'}">{{dmsLoan.priority}}</span>
                                 </div>
                                 <div>{{dmsLoan.proposedAmount}}</div>
-                                <small>{{dmsLoan.loanType.name}}</small>
+                                <small>{{dmsLoan.loanConfig.name}}</small>
                             </div>
                             <div class="col-md-4">
                                 <div>

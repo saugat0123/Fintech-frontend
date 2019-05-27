@@ -15,10 +15,10 @@ export class DmsLoanFile {
     priority: string;
     documentMap: string[];
     recommendationConclusion: string;
-    loanType: LoanConfig;
+    loanConfig: LoanConfig;
     waiver: string;
     documentPathMaps: [];
     documents: Array<LoanDocument>;
     createdAt: Date;
-    stage: string;
+    documentStatus: string;
 }

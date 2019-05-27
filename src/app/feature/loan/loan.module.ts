@@ -12,6 +12,7 @@ import {DmsLoanFileComponent} from './component/loan-main-template/dms-loan-file
 import {NgSelectModule} from '@ng-select/ng-select';
 import {DmsSummaryComponent} from './component/loan-main-template/dms-summary/dms-summary.component';
 import {SecurityComponent} from './component/loan-main-template/security/security.component';
+import {NbDatepickerModule} from '@nebular/theme';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {SecurityComponent} from './component/loan-main-template/security/securit
         NgbPaginationModule,
         ReactiveFormsModule,
         ReactiveFormsModule,
-        NgSelectModule
+        NgSelectModule,
+        NbDatepickerModule
 
     ]
 })

@@ -25,7 +25,7 @@ export class PendingLoanComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.commonDataService.getByStage('v1/dmsLoanFile/getLoan', 'UNDER_REVIEW').subscribe(
+        this.commonDataService.getByDocumentStatus('v1/dmsLoanFile/getLoan', 'PENDING').subscribe(
             (response: any) => {
                 this.dmsLoanFiles = response.detail;
                 this.dmsLoanFiles.forEach((dmsLoanFile => {

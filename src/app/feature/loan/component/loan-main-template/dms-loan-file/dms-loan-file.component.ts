@@ -2,11 +2,24 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {Document} from '../../../../admin/modal/document';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DmsLoanFile} from '../../../../admin/modal/dms-loan-file';
 import {LoanDocument} from '../../../../admin/modal/loan-document';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {ToastService} from '../../../../../@core/utils';
+
+
+function validateTenure(tenure: FormControl) {
+
+    if (tenure.value.toLocaleString() < new Date().toLocaleString()) {
+        console.log(tenure.value.toLocaleString());
+        console.log('inside');
+        return {invalidTenure: true};
+    }
+    return null;
+}
 
 @Component({
     selector: 'app-dms-loan',
@@ -19,6 +32,7 @@ export class DmsLoanFileComponent implements OnInit {
     document: LoanDocument = new LoanDocument();
     renew = false;
     loanForm: FormGroup;
+    documentForm: FormGroup;
     loan: LoanConfig = new LoanConfig();
     permissions = [];
     loanFile: DmsLoanFile = new DmsLoanFile();
@@ -27,19 +41,21 @@ export class DmsLoanFileComponent implements OnInit {
     dropdownList = [];
     submitted = false;
     loanName: string;
-    loanType: LoanConfig = new LoanConfig();
+    loanConfig: LoanConfig = new LoanConfig();
     customerId: number;
-    proceed = false;
     errorMessage: string;
     dropdownPriorities = [];
     count = 0;
+    proceed = false;
     documentMaps = [];
     documentMap: string;
+    proceeded = false;
 
     constructor(private commonService: CommonService,
                 private dataService: CommonDataService,
                 private formBuilder: FormBuilder,
-                private router: Router) {
+                private router: Router,
+                private toastService: ToastService) {
         this.loanFile.documents = Array<LoanDocument>();
     }
 
@@ -47,9 +63,14 @@ export class DmsLoanFileComponent implements OnInit {
         return this.loanForm.controls;
     }
 
+    get docForm() {
+        return this.documentForm.controls;
+    }
+
     ngOnInit() {
+        console.log(this.errorMessage);
         this.loanName = this.dataService.getLoanName();
-        this.loanType = this.dataService.getLoan();
+        this.loanConfig = this.dataService.getLoan();
         this.dropdownList = [
             {id: 0, name: 'Land Security'},
             {id: 1, name: 'Apartment Security'},
@@ -71,11 +92,13 @@ export class DmsLoanFileComponent implements OnInit {
             interestRate: ['', Validators.required],
             proposedAmount: ['', Validators.required],
             security: ['', Validators.required],
-            tenure: ['', Validators.required],
-            priority: [''],
-            recommendation: [''],
-            waiver: [''],
-            file: ['']
+            tenure: ['', [Validators.required, validateTenure]],
+            priority: ['', Validators.required],
+        });
+        this.documentForm = this.formBuilder.group({
+            recommendation: ['', Validators.required],
+            waiver: ['', Validators.required],
+            file: ['', Validators.required]
         });
         this.initialDocuments = this.dataService.getInitialDocument();
         this.renewDocuments = this.dataService.getRenewDocument();
@@ -85,12 +108,11 @@ export class DmsLoanFileComponent implements OnInit {
     }
 
     onSubmit() {
+        this.submitted = true;
         if (this.loanForm.invalid) {
             return;
-        }
-        if (this.errorMessage !== undefined) {
+        } else {
             this.proceed = true;
-            this.errorMessage = undefined;
         }
         this.loanFile.customerName = this.loanForm.get('customerName').value;
         this.loanFile.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
@@ -100,10 +122,16 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFile.securities = this.loanForm.get('security').value;
         this.loanFile.tenure = this.loanForm.get('tenure').value;
         this.loanFile.priority = this.loanForm.get('priority').value;
-        this.loanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
-        this.loanFile.waiver = this.loanForm.get('waiver').value;
+
+        this.loanFile.waiver = this.documentForm.get('waiver').value;
+        this.loanFile.recommendationConclusion = this.documentForm.get('recommendation').value;
         this.loanFile.documentMap = this.documentMaps;
-        this.loanFile.loanType = this.loanType;
+        // this.loanFile.tenure = this.loanForm.get('tenure').value;
+        // this.loanFile.priority = this.loanForm.get('priority').value;
+        // this.loanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
+        // this.loanFile.waiver = this.loanForm.get('waiver').value;
+        // this.loanFile.documentMap = this.documentMaps;
+        this.loanFile.loanConfig = this.loanConfig;
         this.commonService.saveOrEdit(this.loanFile, 'v1/dmsLoanFile').subscribe(
             (response: any) => {
                 this.customerId = response.detail.id;
@@ -115,13 +143,32 @@ export class DmsLoanFileComponent implements OnInit {
                 }
             },
             error => {
-                this.errorMessage = error.error.message;
+                this.toastService.show(new Alert(AlertType.ERROR, 'Error Occurs while saving!'));
             }
         );
     }
 
+    onProceed() {
+        this.proceeded = true;
+        if (this.documentForm.invalid) {
+            return;
+        } else {
+            this.onSubmit();
+        }
+        // this.loanFile.tenure = this.loanForm.get('tenure').value;
+        // this.loanFile.priority = this.loanForm.get('priority').value;
+        // this.loanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
+        // this.loanFile.waiver = this.loanForm.get('waiver').value;
+        // this.loanFile.documentMap = this.documentMaps;
+        // this.router.navigate(['/home/loan/summary', this.customerId]);
+
+    }
+
     documentUploader(event, documentName: string) {
         const file = event.target.files[0];
+        if(file.size>20000){
+            this.errorMessage = 'Maximum File Size Exceeds';
+        }
         const formdata: FormData = new FormData();
         formdata.append('file', file);
         formdata.append('type', this.loanName);
@@ -130,6 +177,7 @@ export class DmsLoanFileComponent implements OnInit {
         formdata.append('documentName', documentName);
         this.commonService.getByFilePost('v1/dmsLoanFile/uploadFile', formdata).subscribe(
             (result: any) => {
+                this.errorMessage = undefined;
                 this.document.name = documentName;
                 this.documentPath = result.detail;
                 if (!this.documentPaths.includes(result.detail)) {
@@ -141,6 +189,10 @@ export class DmsLoanFileComponent implements OnInit {
                     this.documentMaps.push(this.documentMap);
                 }
                 this.document = new LoanDocument();
-            });
+            },
+            error => {
+                this.toastService.show(new Alert(AlertType.ERROR,"Error occurs while uploading the document"));
+            }
+        );
     }
 }
