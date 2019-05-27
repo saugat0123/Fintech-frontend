@@ -12,6 +12,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {AlertService} from '../../../../@theme/components/alert/alert.service';
 import {ToastService} from '../../../../@core/utils';
+import {PaginationUtils} from "../../../../@core/utils/PaginationUtils";
 
 @Component({
     selector: 'app-memo-type',
@@ -52,7 +53,7 @@ export class MemoTypeComponent implements OnInit, DoCheck {
         other.spinner = true;
         other.memoService.getPaginationWithSearch(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.content;
-
+                other.pageable = PaginationUtils.getPageable(response);
                 other.spinner = false;
             }, error => {
                 console.log(error);
@@ -64,6 +65,12 @@ export class MemoTypeComponent implements OnInit, DoCheck {
 
     ngOnInit() {
         this.breadcrumbService.notify(MemoTypeComponent.TITLE);
+        MemoTypeComponent.loadData(this);
+    }
+
+    changePage(page: number) {
+        this.page = page;
+
         MemoTypeComponent.loadData(this);
     }
 
