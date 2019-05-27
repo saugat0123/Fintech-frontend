@@ -1,8 +1,5 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
-import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
 import {LoanConfig} from '../../modal/loan-config';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddLoanComponent} from './add-loan/add-loan.component';
@@ -10,14 +7,18 @@ import {UpdateModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
+import {LoanConfigService} from './loan-config.service';
 
 @Component({
     selector: 'app-loan-config',
     templateUrl: './loan-config.component.html'
 })
-export class LoanConfigComponent implements OnInit, DoCheck {
+export class LoanConfigComponent implements OnInit {
 
     title = 'Loan Configuration';
+
+    page = 1;
 
     dataList: Array<LoanConfig>;
 
@@ -26,7 +27,7 @@ export class LoanConfigComponent implements OnInit, DoCheck {
     globalMsg: string;
     search: any = {};
     pageable: Pageable = new Pageable();
-    currentApi: string;
+
     activeCount: number;
     inactiveCount: number;
     loans: number;
@@ -34,22 +35,19 @@ export class LoanConfigComponent implements OnInit, DoCheck {
     tName;
 
     constructor(
-        private dataService: CommonDataService,
-        private commonService: CommonService,
-        private commonPageService: CommonPageService,
+        private service: LoanConfigService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
     ) {
     }
 
-    static loadData(other: any) {
+    static loadData(other: LoanConfigComponent) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
-                other.dataService.setDataList(other.dataList);
-                other.commonPageService.setCurrentApi(other.currentApi);
-                other.pageable = other.commonPageService.setPageable(response.detail);
+
+                other.pageable = PaginationUtils.getPageable(response.detail);
 
                 other.spinner = false;
 
@@ -68,21 +66,24 @@ export class LoanConfigComponent implements OnInit, DoCheck {
 
         this.breadcrumbService.notify(this.title);
 
-        this.currentApi = 'v1/config/get';
         LoanConfigComponent.loadData(this);
-        this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+
+        this.service.getStatus().subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.loans = response.detail.loans;
 
         });
+    }
 
+    changePage(page: number) {
+        this.page = page;
 
+        LoanConfigComponent.loadData(this);
     }
 
     onSearch() {
-        this.dataService.setData(this.search);
         LoanConfigComponent.loadData(this);
     }
 
@@ -90,23 +91,23 @@ export class LoanConfigComponent implements OnInit, DoCheck {
         this.search = {
             'name': searchValue
         };
-        this.dataService.setData(this.search);
+
         LoanConfigComponent.loadData(this);
     }
 
-    ngDoCheck(): void {
-        this.dataList = this.dataService.getDataList();
+    edit(loanConfig: any) {
+
+        const modalRef = this.modalService.open(AddLoanComponent);
+        modalRef.componentInstance.model = loanConfig;
+
+        ModalUtils.resolve(modalRef.result, LoanConfigComponent.loadData, this);
     }
 
-    openEdit(loanConfig: any) {
-        this.dataService.setData(loanConfig);
-        ModalUtils.resolve(this.modalService.open(AddLoanComponent).result, LoanConfigComponent.loadData, this);
-    }
+    add() {
+        const modalRef = this.modalService.open(AddLoanComponent);
+        modalRef.componentInstance.model = new LoanConfig();
 
-    addLoanConfig() {
-
-        this.dataService.setData(new Object);
-        ModalUtils.resolve(this.modalService.open(AddLoanComponent).result, LoanConfigComponent.loadData, this);
+        ModalUtils.resolve(modalRef.result, LoanConfigComponent.loadData, this);
     }
 
 
@@ -116,8 +117,6 @@ export class LoanConfigComponent implements OnInit, DoCheck {
         }
         event.preventDefault();
         this.newValue = newValue;
-        this.dataService.setData(data);
-        this.commonPageService.setCurrentApi('v1/config');
         this.modalService.open(UpdateModalComponent);
 
     }

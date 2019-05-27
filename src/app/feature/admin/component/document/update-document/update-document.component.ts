@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {LoanCycle} from '../../../modal/loan-cycle';
 import {Document} from '../../../modal/document';
 import {Router} from '@angular/router';
+import {DocumentService} from '../document.service';
 
 @Component({
     selector: 'app-update-document',
@@ -19,7 +19,7 @@ export class UpdateDocumentComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private commonService: CommonService
+        private service: DocumentService
     ) {
     }
 
@@ -31,16 +31,15 @@ export class UpdateDocumentComponent implements OnInit {
     }
 
     documentsNotContaining(loanCycle: LoanCycle) {
-        this.commonService.getByPost('v1/document/list', loanCycle).subscribe((response: any) => {
+        this.service.getByLoanCycle(loanCycle).subscribe((response: any) => {
             this.documentList = response.detail;
         });
     }
 
     updateLoanCycle() {
-        this.commonService.getByPostDocument('v1/document/saveList', this.selectedDocumentList, this.loanCycle.id)
-            .subscribe((response: any) => {
-                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(() =>
-                    this.router.navigate(['home/admin/document']));
+        this.service.updateDocumentByLoanCycle(this.loanCycle.id, this.selectedDocumentList)
+            .subscribe(() => {
+                console.log('operation success');
             });
 
 

@@ -1,3 +1,65 @@
-<p>
-  new-requests works!
-</p>
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-body>
+        <div class="box-body" *ngIf='viewBranch'>
+          <table id="add-branch-table" class="table table-striped table-bordered table-hover ">
+            <thead>
+            <tr>
+              <th>S.N</th>
+              <th>Applicant name</th>
+              <th>Age</th>
+              <th>Branch</th>
+              <th>Scheme</th>
+              <th>Phone number</th>
+              <th>Requested amount</th>
+              <th>Ward</th>
+              <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let allList of dataList; let i=index">
+              <div *ngIf="!dataList?.length > 0">
+                <p>No Content Found</p>
+              </div>
+              <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+              <td>{{allList.name}}</td>
+              <td>{{allList.branchCode}}</td>
+              <td>{{allList.province?.name}}</td>
+              <td>{{allList.district?.name}}</td>
+              <td>{{allList.municipalityVdc?.name}}</td>
+              <td>{{allList.streetName}}</td>
+              <td>{{allList.wardNumber}}</td>
+              <td *ngIf='editViewBranch ==true; else status '>
+                <select class="select-borderless" [(ngModel)]="allList.status" name="status"
+                        (change)="onChange($event.target.value,allList)">
+                  <option value="ACTIVE">ACTIVE</option>
+                  <option value="INACTIVE">INACTIVE</option>
+                </select>
+              </td>
+              <ng-template #status>
+
+                <td>
+                  <p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>
+                </td>
+              </ng-template>
+              <td>
+                <a *ngIf='editViewBranch' (click)="openEdit(allList)"
+                   data-toggle="tooltip"
+                   data-placement="top" title="EDIT" class="cursor">
+                  <i class="fa fa-edit" style="color:#3c8dbc;"></i>
+                </a>
+                <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip"  data-placement="top" (click)="delete(allList)"  title="DELETE" style="margin-left:10px">
+                  <i class="fa fa-trash" style="color:white;"></i>
+                </a> -->
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+

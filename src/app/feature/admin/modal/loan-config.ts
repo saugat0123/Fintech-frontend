@@ -1,4 +1,4 @@
-import {LoanTemplate} from './template';
+import {LoanTemplate} from './loan-template';
 import {Document} from './document';
 
 export class LoanConfig {

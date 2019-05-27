@@ -91,4 +91,10 @@ export class CommonService {
         return this.http.put(getUrl.url, model, {headers: getUrl.header});
     }
 
+    deleteByDelete(reqUrl): Observable<Object> {
+        const url: string = reqUrl;
+        const getUrl = ApiUtils.getRequest(url);
+        return this.http.delete(getUrl.url, {headers: getUrl.header});
+    }
+
 }

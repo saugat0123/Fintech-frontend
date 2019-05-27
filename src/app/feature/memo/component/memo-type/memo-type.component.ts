@@ -22,6 +22,8 @@ export class MemoTypeComponent implements OnInit, DoCheck {
     static TITLE = 'Memo Type';
     private static DEFAULT_STATUS = Status.ACTIVE;
 
+    page = 1;
+
     search: string;
     spinner = false;
     dataList: any;
@@ -46,9 +48,23 @@ export class MemoTypeComponent implements OnInit, DoCheck {
     ) {
     }
 
+    static loadData(other: MemoTypeComponent) {
+        other.spinner = true;
+        other.memoService.getPaginationWithSearch(other.search, other.page, 10).subscribe((response: any) => {
+                other.dataList = response.content;
+
+                other.spinner = false;
+            }, error => {
+                console.log(error);
+                other.toastService.show(new Alert(AlertType.ERROR, 'Failed to Load Memo Types'));
+                other.spinner = false;
+            }
+        );
+    }
+
     ngOnInit() {
         this.breadcrumbService.notify(MemoTypeComponent.TITLE);
-        this.getPagination();
+        MemoTypeComponent.loadData(this);
     }
 
     ngDoCheck(): void {
@@ -56,13 +72,13 @@ export class MemoTypeComponent implements OnInit, DoCheck {
     }
 
     onSearch() {
-        this.getPagination();
+        MemoTypeComponent.loadData(this);
     }
 
     onSearchChange(searchValue: string) {
         this.search = searchValue;
 
-        this.getPagination();
+        MemoTypeComponent.loadData(this);
     }
 
     buildForm() {
@@ -100,29 +116,15 @@ export class MemoTypeComponent implements OnInit, DoCheck {
         this.modalRef = this.modalService.open(template);
     }
 
-    getPagination() {
-        this.spinner = true;
-        this.memoService.getPaginationWithSearch(this.search, 1, 10).subscribe((response: any) => {
-                this.dataList = response.content;
-
-                this.spinner = false;
-            }, error => {
-                console.log(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Failed to Load Memo Types'));
-                this.spinner = false;
-            }
-        );
-    }
-
     deleteMemoType() {
-        this.memoService.delete(this.memoType.id).subscribe(result => {
+        this.memoService.delete(this.memoType.id).subscribe(() => {
 
                 this.modalRef.dismiss('Deleted Memo Type');
 
                 const alert = new Alert(AlertType.SUCCESS, 'Successfully Removed Memo Type');
                 this.toastService.show(alert);
 
-                this.getPagination();
+                MemoTypeComponent.loadData(this);
 
             }, error => {
 
@@ -143,7 +145,7 @@ export class MemoTypeComponent implements OnInit, DoCheck {
                     const alert = new Alert(AlertType.SUCCESS, 'Successfully Saved Memo Type');
                     this.toastService.show(alert);
 
-                    this.getPagination();
+                    MemoTypeComponent.loadData(this);
 
                 }, (error) => {
 
@@ -151,8 +153,6 @@ export class MemoTypeComponent implements OnInit, DoCheck {
 
                     const alert = new Alert(AlertType.SUCCESS, 'Failed to create Memo Type');
                     this.toastService.show(alert);
-
-                    this.getPagination();
                 }
             );
         } else {
@@ -165,14 +165,12 @@ export class MemoTypeComponent implements OnInit, DoCheck {
                         this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Memo Type'));
                         this.memoType = new MemoType();
 
-                        this.getPagination();
+                        MemoTypeComponent.loadData(this);
 
                     }, (error) => {
                         console.log(error);
 
                         this.toastService.show(new Alert(AlertType.ERROR, 'Failed to Update Memo Type'));
-
-                        this.getPagination();
                     }
                 );
         }

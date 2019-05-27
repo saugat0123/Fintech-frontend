@@ -33,7 +33,7 @@ export const adminRoutes: Routes = [
 
     {path: 'document', component: DocumentComponent},
     {path: 'branch', component: BranchComponent},
-    {path: 'template', component: LoanTemplateComponent},
+    {path: 'loan-template.ts', component: LoanTemplateComponent},
     {path: 'config', component: LoanConfigComponent},
     {path: 'valuator', component: ValuatorComponent},
     {path: 'sector', component: SectorComponent},

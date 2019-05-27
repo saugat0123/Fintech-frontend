@@ -45,7 +45,7 @@
                         <div class="float-right">
                             <a class="pull-right btn btn-transparent-primary" (click)="getCsv()">
                                 <i class="fa fa-download" aria-hidden="true"></i> Download</a>
-                            <button class="skin-blue pull-right" data-toggle="modal" (click)="addUser()">
+                            <button class="skin-blue pull-right" data-toggle="modal" (click)="add()">
                                 <i class="skin-blue fa fa-plus"></i>
                             </button>
                         </div>
@@ -93,7 +93,7 @@
                                 </td>
                             </ng-template>
                             <td *ngIf="allList.role?.roleName !== 'admin';">
-                                <a (click)="openEdit(allList)" class="cursor" data-toggle="tooltip"
+                                <a (click)="edit(allList)" class="cursor" data-toggle="tooltip"
                                    data-placement="top" title="EDIT">
                                     <i class="fa fa-edit" style="color:#3c8dbc;"></i>
                                 </a>
@@ -103,7 +103,7 @@
                     </table>
                     <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
                     <!-- ===================table-pagination==================== -->
-                    <app-pagination *ngIf="!spinner"></app-pagination>
+                    <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
                     <!-- ===================table-pagination==================== -->
                     <!-- /.box-body -->
                     <!-- /.box -->

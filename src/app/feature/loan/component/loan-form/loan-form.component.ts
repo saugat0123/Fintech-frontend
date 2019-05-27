@@ -14,8 +14,6 @@ import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcr
     selector: 'app-loan-form',
     templateUrl: './loan-form.component.html',
     styleUrls: ['./loan-form.component.css'],
-
-
 })
 export class LoanFormComponent implements OnInit {
     templateList = [{
@@ -120,8 +118,6 @@ export class LoanFormComponent implements OnInit {
             this.currentTab = index;
             this.last = true;
         }
-
-
     }
 
     nextTab() {
