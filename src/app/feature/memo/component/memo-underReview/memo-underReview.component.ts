@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {MemoService} from '../../service/memo.service';
-import {MemoDataService} from '../../service/memo-data.service';
 import {MemoViewButtonComponent} from './memo-view-button/memo-view-button.component';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
@@ -14,11 +13,11 @@ import {ToastService} from '../../../../@core/utils';
 })
 export class MemoUnderReviewComponent implements OnInit {
 
-    title = 'Memo - Under Review';
-    memoApi: string;
+    static TITLE = 'Memo - Under Review';
 
     spinner = false;
     globalMsg;
+    search: string;
 
     public gridApi;
     public gridColumnApi;
@@ -33,7 +32,6 @@ export class MemoUnderReviewComponent implements OnInit {
         private breadcrumbService: BreadcrumbService,
         private alertService: AlertService,
         private memoService: MemoService,
-        private memoDataService: MemoDataService,
         private toastService: ToastService
     ) {
         this.columnDefs = [
@@ -92,8 +90,7 @@ export class MemoUnderReviewComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.breadcrumbService.notify(this.title);
-        this.memoApi = this.memoDataService.getMemoApi();
+        this.breadcrumbService.notify(MemoUnderReviewComponent.TITLE);
     }
 
     sizeToFit() {
@@ -112,7 +109,7 @@ export class MemoUnderReviewComponent implements OnInit {
         this.gridApi = params.api;
         this.gridColumnApi = params.columnApi;
 
-        this.memoService.getPageable(this.memoApi, 1, 20, null).subscribe((data: any) => {
+        this.memoService.getPaginationWithSearch(this.search).subscribe((data: any) => {
             this.rowData = data.content;
         }, error => {
 

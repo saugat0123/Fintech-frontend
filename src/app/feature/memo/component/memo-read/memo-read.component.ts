@@ -49,7 +49,7 @@ export class MemoReadComponent implements OnInit, DoCheck {
         this.breadcrumbService.notify(this.title);
         this.memoApi = this.memoDataService.getMemoApi();
         const memoId = +this.activatedRoute.snapshot.paramMap.get('id');
-        this.memoService.getById(this.memoApi, memoId).subscribe((response: any) => {
+        this.memoService.detail(memoId).subscribe((response: any) => {
             this.memo = response.detail;
         });
 
@@ -89,7 +89,7 @@ export class MemoReadComponent implements OnInit, DoCheck {
     }
 
     deleteMemo() {
-        this.memoService.deleteById(this.memoDataService.getMemoApi(), this.memo.id).subscribe(result => {
+        this.memoService.delete(this.memo.id).subscribe(result => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Removed Memo'));
                 this.reloadPage();
 
