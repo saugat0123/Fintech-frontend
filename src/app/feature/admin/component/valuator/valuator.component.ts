@@ -1,9 +1,6 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
-import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
 import {Valuator} from '../../modal/valuator';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ValuatorFormComponent} from './valuator-form/valuator-form.component';
@@ -11,22 +8,26 @@ import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcr
 import {UpdateModalComponent} from '../../../../@theme/components';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
-
+import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
+import {ValuatorService} from './valuator.service';
+import {PermissionService} from '../../../../@core/service/permission.service';
 
 @Component({
     selector: 'app-valuator',
     templateUrl: './valuator.component.html'
 })
-export class ValuatorComponent implements OnInit, DoCheck {
+export class ValuatorComponent implements OnInit {
     title = 'Valuator';
     breadcrumb = 'Valuator > List';
+
+    page = 1;
+
     dataList: Array<Valuator>;
     newValue: string;
     spinner = false;
     globalMsg: string;
     search: any = {};
     pageable: Pageable = new Pageable();
-    currentApi: string;
     activeCount: number;
     inactiveCount: number;
     valuators: number;
@@ -37,23 +38,21 @@ export class ValuatorComponent implements OnInit, DoCheck {
     csvDownload = false;
 
     constructor(
-        private dataService: CommonDataService,
-        private commonService: CommonService,
-        private commonPageService: CommonPageService,
+        private service: ValuatorService,
+        private permissionService: PermissionService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
     ) {
     }
 
-    static loadData(other: any) {
+    static loadData(other: ValuatorComponent) {
 
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
-                other.dataService.setDataList(other.dataList);
-                other.commonPageService.setCurrentApi(other.currentApi);
-                other.pageable = other.commonPageService.setPageable(response.detail);
+
+                other.pageable = PaginationUtils.getPageable(response.detail);
 
                 other.spinner = false;
 
@@ -69,17 +68,16 @@ export class ValuatorComponent implements OnInit, DoCheck {
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
-        this.currentApi = 'v1/valuator/get';
 
         ValuatorComponent.loadData(this);
 
-        this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+        this.service.getStatus().subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.valuators = response.detail.valuators;
         });
-        this.commonService.getByPost('v1/permission/chkPerm', 'VALUATOR').subscribe((response: any) => {
+        this.permissionService.getPermissionOf('VALUATOR').subscribe((response: any) => {
             this.permissions = response.detail;
             for (let i = 0; this.permissions.length > i; i++) {
                 if (this.permissions[i].type === 'ADD VALUATOR') {
@@ -99,9 +97,24 @@ export class ValuatorComponent implements OnInit, DoCheck {
         });
     }
 
-    addValuator() {
-        this.dataService.setValuator(new Valuator());
-        ModalUtils.resolve(this.modalService.open(ValuatorFormComponent).result, ValuatorComponent.loadData, this);
+    changePage(page: number) {
+        this.page = page;
+
+        ValuatorComponent.loadData(this);
+    }
+
+    add() {
+        const modalRef = this.modalService.open(ValuatorFormComponent);
+        modalRef.componentInstance.model = new Valuator();
+
+        ModalUtils.resolve(modalRef.result, ValuatorComponent.loadData, this);
+    }
+
+    edit(valuator: Valuator) {
+        const modalRef = this.modalService.open(ValuatorFormComponent);
+        modalRef.componentInstance.model = valuator;
+
+        ModalUtils.resolve(modalRef.result, ValuatorComponent.loadData, this);
     }
 
 
@@ -109,35 +122,23 @@ export class ValuatorComponent implements OnInit, DoCheck {
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
+
         event.preventDefault();
         this.newValue = newValue;
-        this.dataService.setData(data);
-        this.commonPageService.setCurrentApi('v1/valuator');
-
         this.modalService.open(UpdateModalComponent);
-
     }
-
-    openEdit(valuator: Valuator) {
-        this.dataService.setValuator(valuator);
-        ModalUtils.resolve(this.modalService.open(ValuatorFormComponent).result, ValuatorComponent.loadData, this);
-    }
-
 
     onSearchChange(searchValue: string) {
         this.search = {
             'name': searchValue
         };
-        this.dataService.setData(this.search);
+
         ValuatorComponent.loadData(this);
     }
 
     onSearch() {
-        this.dataService.setData(this.search);
+
         ValuatorComponent.loadData(this);
     }
 
-    ngDoCheck(): void {
-        this.dataList = this.dataService.getDataList();
-    }
 }

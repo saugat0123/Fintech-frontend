@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {LoanConfig} from '../../../feature/admin/modal/loan-config';
-import {DmsLoanFile} from '../../../feature/admin/modal/dms-loan-file';
-import {CommonService} from '../../../@core/service/baseservice/common-baseservice';
+import {LoanConfig} from '../../../../feature/admin/modal/loan-config';
+import {DmsLoanFile} from '../../../../feature/admin/modal/dms-loan-file';
+import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
-import {User} from '../../../feature/admin/modal/user';
-import {UserService} from '../../../@core/service/user.service';
+import {User} from '../../../../feature/admin/modal/user';
+import {UserService} from '../../../../@core/service/user.service';
+import {PendingService} from '../pending.service';
 
 @Component({
     selector: 'app-pending-loan',
@@ -21,11 +22,12 @@ export class PendingLoanComponent implements OnInit {
 
     constructor(private userService: UserService,
                 private commonDataService: CommonService,
-                private router: Router) {
+                private router: Router,
+                private pendingService: PendingService) {
     }
 
     ngOnInit() {
-        this.commonDataService.getByDocumentStatus('v1/dmsLoanFile/getLoan', 'PENDING').subscribe(
+        this.pendingService.getDocumentByStatus('PENDING').subscribe(
             (response: any) => {
                 this.dmsLoanFiles = response.detail;
                 this.dmsLoanFiles.forEach((dmsLoanFile => {

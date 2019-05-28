@@ -3,8 +3,8 @@ import {FeatureRoutingModule} from './feature-routing.module';
 import {ThemeModule} from '../@theme/theme.module';
 import {FeatureComponent} from './feature.component';
 import {DashboardComponent} from '../component/dashboard/dashboard.component';
-import {PendingLoanComponent} from '../component/dashboard/pending-loan/pending-loan.component';
-import {PendingsComponent} from '../component/dashboard/pendings/pendings.component';
+import {PendingLoanComponent} from '../component/dashboard/pending/pending-loan/pending-loan.component';
+import {PendingsComponent} from '../component/dashboard/pending/pendings/pendings.component';
 import {NbAccordionModule} from '@nebular/theme';
 
 @NgModule({

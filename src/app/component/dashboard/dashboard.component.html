@@ -24,20 +24,16 @@
     </div>
 </div>
 
-<!--<div class="row">
-    <app-main-nav></app-main-nav>
-</div>-->
-
 <div class="row center mb-3" *ngIf="addViewLoanCategory">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-11">
                 <select [(ngModel)]="loanType" class="form-control rounded" >
                     <option [ngValue]="undefined" hidden>---select Loan Type---</option>
                     <option *ngFor="let allList of loanList" [value]="allList.id">{{allList.name}}</option>
                 </select>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-1">
                 <button class="btn btn-md btn-primary btn-flat" (click)="loan()">
                     <i class="fa fa-arrow-right"></i>
                 </button>

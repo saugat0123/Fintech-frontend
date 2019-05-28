@@ -1,13 +1,13 @@
 import {Component, DoCheck, OnInit} from '@angular/core';
-import {CommonService} from '../../../@core/service/baseservice/common-baseservice';
-import {DmsLoanFile} from '../../../feature/admin/modal/dms-loan-file';
-import {User} from '../../../feature/admin/modal/user';
-import {UserService} from '../../../@core/service/user.service';
-import {LoanConfig} from '../../../feature/admin/modal/loan-config';
-import {CommonDataService} from '../../../@core/service/baseservice/common-dataService';
-import {Alert, AlertType} from '../../../@theme/model/Alert';
-import {CommonPageService} from '../../../@core/service/baseservice/common-pagination-service';
-import {Pageable} from '../../../@core/service/baseservice/common-pageable';
+import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
+import {DmsLoanFile} from '../../../../feature/admin/modal/dms-loan-file';
+import {User} from '../../../../feature/admin/modal/user';
+import {UserService} from '../../../../@core/service/user.service';
+import {LoanConfig} from '../../../../feature/admin/modal/loan-config';
+import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
+import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 
 @Component({
     selector: 'app-pendings',

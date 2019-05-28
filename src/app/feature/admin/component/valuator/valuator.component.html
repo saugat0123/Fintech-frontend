@@ -43,7 +43,7 @@
                     <!-- <h3 class="box-title">Hover Data Table</h3> -->
                     <div class="col-md-6">
                         <div class="float-right">
-                            <button class="" data-toggle="modal" (click)="addValuator()" *ngIf="addViewValuator">
+                            <button class="" data-toggle="modal" (click)="add()" *ngIf="addViewValuator">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -72,9 +72,11 @@
                             </div>
                             <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                             <td>{{allList.name}}</td>
-                            <td>{{allList?.province?.name}}, {{allList?.district?.name}}, {{allList?.municipalityVdc?.name}}</td>
+                            <td>{{allList?.province?.name}}, {{allList?.district?.name}}
+                                , {{allList?.municipalityVdc?.name}}</td>
                             <td>{{allList.contactNo}}</td>
-                            <td>{{allList?.siteProvince?.name}}, {{allList?.siteDistrict?.name}}, {{allList?.siteMunicipalityVdc?.name}}</td>
+                            <td>{{allList?.siteProvince?.name}}, {{allList?.siteDistrict?.name}}
+                                , {{allList?.siteMunicipalityVdc?.name}}</td>
                             <td *ngIf='editValuator === true; else status '>
                                 <select class="select-borderless" [(ngModel)]="allList.status" name="status"
                                         (change)="onChange($event.target.value,allList)">
@@ -89,7 +91,7 @@
                                 </td>
                             </ng-template>
                             <td *ngIf='editValuator === true'>
-                                <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
+                                <a (click)="edit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
                                    data-placement="top" title="EDIT" *ngIf="editValuator">
                                     <i class="fa fa-edit" style="color:white"></i>
                                 </a>
@@ -103,7 +105,7 @@
 
                     <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
                     <!-- ===================table-pagination==================== -->
-                    <app-pagination *ngIf="!spinner"></app-pagination>
+                    <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
                     <!-- ===================table-pagination==================== -->
                     <!-- /.box-body -->
 

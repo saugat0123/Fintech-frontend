@@ -14,7 +14,7 @@ import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {LoanDataService} from '../../../service/loan-data.service';
 import {ManagementTeam} from '../../../../admin/modal/management-team';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {CommonLocation} from '../../../../../@core/service/baseservice/common-location';
+import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 
 
 @Component({
@@ -42,7 +42,7 @@ export class CompanyInfoComponent implements OnInit, DoCheck {
         private commonService: CommonService,
         private router: Router,
         private formBuilder: FormBuilder,
-        private commonLocation: CommonLocation,
+        private commonLocation: AddressService,
         private loanDataService: LoanDataService
     ) {
 

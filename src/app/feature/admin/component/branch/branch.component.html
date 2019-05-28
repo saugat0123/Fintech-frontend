@@ -39,7 +39,7 @@
                     <!-- <h3 class="box-title">Hover Data Table</h3> -->
                     <div class="col-md-6">
                         <button *ngIf='addViewBranch' class="skin-blue pull-right" data-toggle="modal"
-                                (click)="addBranch()">
+                                (click)="add()">
                             <i class="skin-blue fa fa-plus"></i>
                         </button>
                         <a *ngIf='downloadCsv' class="pull-right btn btn-transparent-primary"
@@ -126,11 +126,11 @@
                             </tr>
                             </thead>
                         <tbody>
-                        <tr *ngFor="let allList of dataList; let i=index">
+                        <tr *ngFor="let allList of dataList; let i = index">
                             <div *ngIf="!dataList?.length > 0">
                                 <p>No Content Found</p>
                             </div>
-                            <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                            <td>{{i + 1}}</td>
                             <td>{{allList.name}}</td>
                             <td>{{allList.branchCode}}</td>
                             <td>{{allList.province?.name}}</td>
@@ -152,7 +152,7 @@
                                 </td>
                             </ng-template>
                             <td>
-                                <a *ngIf='editViewBranch' (click)="openEdit(allList)"
+                                <a *ngIf='editViewBranch' (click)="edit(allList)"
                                    data-toggle="tooltip"
                                    data-placement="top" title="EDIT" class="cursor">
                                     <i class="fa fa-edit" style="color:#3c8dbc;"></i>
@@ -166,7 +166,7 @@
                     </table>
                     <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
                     <!-- ===================table-pagination==================== -->
-                    <app-pagination *ngIf="!spinner"></app-pagination>
+                    <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
                     <!-- ===================table-pagination==================== -->
                     <!-- /.box-body -->
                     <!-- /.box -->

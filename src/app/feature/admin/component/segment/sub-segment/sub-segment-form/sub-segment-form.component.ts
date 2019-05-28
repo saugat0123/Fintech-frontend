@@ -1,13 +1,13 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {SubSegment} from '../../../../modal/subSegment';
 import {Segment} from '../../../../modal/segment';
 import {LoanConfig} from '../../../../modal/loan-config';
-import {CommonService} from '../../../../../../@core/service/baseservice/common-baseservice';
-import {Router} from '@angular/router';
-import {CommonDataService} from '../../../../../../@core/service/baseservice/common-dataService';
 import {ModalResponse, ToastService} from '../../../../../../@core/utils';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {SegmentService} from '../../segment/segment.service';
+import {SubSegmentService} from '../sub-segment.service';
+import {LoanConfigService} from '../../../loan-config/loan-config.service';
 
 
 @Component({
@@ -16,11 +16,13 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 })
 export class SubSegmentFormComponent implements OnInit, DoCheck {
 
+    @Input()
+    model: SubSegment;
+
     task: string;
     submitted = false;
     spinner = false;
     globalMsg: string;
-    subSegment: SubSegment = new SubSegment();
     segment: Segment = new Segment();
     segmentList: Array<Segment>;
     loanTypeList: Array<LoanConfig>;
@@ -28,54 +30,52 @@ export class SubSegmentFormComponent implements OnInit, DoCheck {
     loanConfigs: Array<LoanConfig> = new Array<LoanConfig>();
 
     constructor(
-        private commonService: CommonService,
-        private router: Router,
-        private dataService: CommonDataService,
+        private service: SubSegmentService,
+        private segmentService: SegmentService,
+        private loanConfigSevice: LoanConfigService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
     }
 
     ngOnInit() {
-        this.commonService.getByAll('v1/segment/getList').subscribe((response: any) => {
+        this.segmentService.getAll().subscribe((response: any) => {
             this.segmentList = response.detail;
 
         });
-        this.commonService.getByAll('v1/config/getAll').subscribe((response: any) => {
+        this.loanConfigSevice.getAll().subscribe((response: any) => {
             this.loanTypeList = response.detail;
 
         });
     }
 
     ngDoCheck(): void {
-        this.subSegment = this.dataService.getSubSegment();
-        if (this.subSegment.id == null) {
+        if (this.model.id == null) {
             this.task = 'Add';
             this.segment = new Segment();
             this.loanConfigs = new Array<LoanConfig>();
         } else {
-            this.segment = this.subSegment.segment;
-            this.loanConfig = this.subSegment.loanConfig[0];
-            console.log(this.loanConfig);
+            this.segment = this.model.segment;
+            this.loanConfig = this.model.loanConfig[0];
             this.task = 'Edit';
         }
     }
 
     setSegment() {
-        this.subSegment.segment = this.segment;
+        this.model.segment = this.segment;
     }
 
     setLoan() {
-        this.subSegment.loanConfig = [this.loanConfig];
+        this.model.loanConfig = [this.loanConfig];
     }
 
     onSubmit() {
         this.submitted = true;
-        this.commonService.saveOrEdit(this.subSegment, 'v1/subSegment').subscribe(() => {
+        this.service.save(this.model).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Sub-Segment!'));
 
-                this.subSegment = new SubSegment();
+                this.model = new SubSegment();
 
                 this.activeModal.close(ModalResponse.SUCCESS);
 

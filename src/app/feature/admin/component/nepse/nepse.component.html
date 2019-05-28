@@ -46,7 +46,7 @@
                     <!-- <h3 class="box-title">Hover Data Table</h3> -->
                     <div class="col-md-6" *ngIf="addViewNepse">
                         <div class="float-right">
-                            <button data-toggle="modal" (click)="addNepse()">
+                            <button data-toggle="modal" (click)="add()">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -55,7 +55,7 @@
                 </div>
             </nb-card-header>
             <nb-card-body *ngIf="viewNepse">
-                <table id="add-branch-table" class="table table-striped table-bordered table-hover " >
+                <table id="add-branch-table" class="table table-striped table-bordered table-hover ">
 
                     <thead>
                     <tr>
@@ -79,7 +79,7 @@
                 </table>
                 <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
                 <!-- ===================table-pagination==================== -->
-                <app-pagination *ngIf="!spinner"></app-pagination>
+                <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
                 <!-- ===================table-pagination==================== -->
             </nb-card-body>
         </nb-card>

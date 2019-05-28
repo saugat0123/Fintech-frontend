@@ -2,7 +2,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from '../component/dashboard/dashboard.component';
 import {NgModule} from '@angular/core';
 import {FeatureComponent} from './feature.component';
-import {PendingsComponent} from '../component/dashboard/pendings/pendings.component';
+import {PendingsComponent} from '../component/dashboard/pending/pendings/pendings.component';
 
 const routes: Routes = [
     {

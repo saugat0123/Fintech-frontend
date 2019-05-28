@@ -6,16 +6,14 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DmsLoanFile} from '../../../../admin/modal/dms-loan-file';
 import {LoanDocument} from '../../../../admin/modal/loan-document';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
+import {DmsLoanService} from './dms-loan-service';
 
 
 function validateTenure(tenure: FormControl) {
 
     if (tenure.value.toLocaleString() < new Date().toLocaleString()) {
-        console.log(tenure.value.toLocaleString());
-        console.log('inside');
         return {invalidTenure: true};
     }
     return null;
@@ -52,9 +50,9 @@ export class DmsLoanFileComponent implements OnInit {
     proceeded = false;
 
     constructor(private commonService: CommonService,
-                private dataService: CommonDataService,
                 private formBuilder: FormBuilder,
                 private router: Router,
+                private dmsLoanService: DmsLoanService,
                 private toastService: ToastService) {
         this.loanFile.documents = Array<LoanDocument>();
     }
@@ -68,9 +66,8 @@ export class DmsLoanFileComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.errorMessage);
-        this.loanName = this.dataService.getLoanName();
-        this.loanConfig = this.dataService.getLoan();
+        this.loanName = this.dmsLoanService.getLoanName();
+        this.loanConfig = this.dmsLoanService.getLoan();
         this.dropdownList = [
             {id: 0, name: 'Land Security'},
             {id: 1, name: 'Apartment Security'},
@@ -100,8 +97,8 @@ export class DmsLoanFileComponent implements OnInit {
             waiver: ['', Validators.required],
             file: ['', Validators.required]
         });
-        this.initialDocuments = this.dataService.getInitialDocument();
-        this.renewDocuments = this.dataService.getRenewDocument();
+        this.initialDocuments = this.dmsLoanService.getInitialDocument();
+        this.renewDocuments = this.dmsLoanService.getRenewDocument();
         if (this.renewDocuments.length > 0) {
             this.renew = true;
         }
@@ -126,17 +123,12 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFile.waiver = this.documentForm.get('waiver').value;
         this.loanFile.recommendationConclusion = this.documentForm.get('recommendation').value;
         this.loanFile.documentMap = this.documentMaps;
-        // this.loanFile.tenure = this.loanForm.get('tenure').value;
-        // this.loanFile.priority = this.loanForm.get('priority').value;
-        // this.loanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
-        // this.loanFile.waiver = this.loanForm.get('waiver').value;
-        // this.loanFile.documentMap = this.documentMaps;
         this.loanFile.loanConfig = this.loanConfig;
-        this.commonService.saveOrEdit(this.loanFile, 'v1/dmsLoanFile').subscribe(
+        this.dmsLoanService.save(this.loanFile).subscribe(
             (response: any) => {
                 this.customerId = response.detail.id;
                 this.loanFile = response.detail;
-                this.dataService.setDmsLoanFile(response.detail);
+                this.dmsLoanService.setDmsLoanFile(response.detail);
                 this.count++;
                 if (this.count > 1) {
                     this.router.navigate(['/home/loan/summary', this.customerId]);
@@ -155,18 +147,11 @@ export class DmsLoanFileComponent implements OnInit {
         } else {
             this.onSubmit();
         }
-        // this.loanFile.tenure = this.loanForm.get('tenure').value;
-        // this.loanFile.priority = this.loanForm.get('priority').value;
-        // this.loanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
-        // this.loanFile.waiver = this.loanForm.get('waiver').value;
-        // this.loanFile.documentMap = this.documentMaps;
-        // this.router.navigate(['/home/loan/summary', this.customerId]);
-
     }
 
     documentUploader(event, documentName: string) {
         const file = event.target.files[0];
-        if(file.size>20000){
+        if (file.size > 20000) {
             this.errorMessage = 'Maximum File Size Exceeds';
         }
         const formdata: FormData = new FormData();
@@ -175,7 +160,7 @@ export class DmsLoanFileComponent implements OnInit {
         formdata.append('id', this.customerId + '');
         formdata.append('customerName', this.loanFile.customerName);
         formdata.append('documentName', documentName);
-        this.commonService.getByFilePost('v1/dmsLoanFile/uploadFile', formdata).subscribe(
+        this.dmsLoanService.uploadFile(formdata).subscribe(
             (result: any) => {
                 this.errorMessage = undefined;
                 this.document.name = documentName;
@@ -191,7 +176,7 @@ export class DmsLoanFileComponent implements OnInit {
                 this.document = new LoanDocument();
             },
             error => {
-                this.toastService.show(new Alert(AlertType.ERROR,"Error occurs while uploading the document"));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Error occurs while uploading the document'));
             }
         );
     }

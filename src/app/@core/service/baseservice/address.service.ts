@@ -7,28 +7,25 @@ import {ApiUtils} from '../../utils/api/ApiUtils';
 @Injectable({
     providedIn: 'root'
 })
-export class CommonLocation {
+export class AddressService {
+    static API = 'v1/address';
 
     constructor(private http: HttpClient) {
     }
 
     getProvince() {
-        const url = 'v1/address/province';
-        const getUrl = ApiUtils.getRequest(url);
+        const getUrl = ApiUtils.getRequest(`${AddressService.API}/province`);
         return this.http.get(getUrl.url, {headers: getUrl.header});
     }
 
 
     getDistrictByProvince(province: Province) {
-        console.log(province);
-        const url = 'v1/address/districtByProvince';
-        const getUrl = ApiUtils.getRequest(url);
+        const getUrl = ApiUtils.getRequest(`${AddressService.API}/districtByProvince'`);
         return this.http.post(getUrl.url, province, {headers: getUrl.header});
     }
 
     getMunicipalityVDCByDistrict(district: District) {
-        const url = 'v1/address/municipalityVdcByDistrict';
-        const getUrl = ApiUtils.getRequest(url);
+        const getUrl = ApiUtils.getRequest(`${AddressService.API}/municipalityVdcByDistrict`);
         return this.http.post(getUrl.url, district, {headers: getUrl.header});
     }
 }

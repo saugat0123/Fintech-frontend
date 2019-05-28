@@ -9,13 +9,13 @@ import {CommonDataService} from '../../../../@core/service/baseservice/common-da
 import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {MsgModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
+import {LoanFormService} from '../loan-form.service';
+import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-service';
 
 @Component({
     selector: 'app-loan-form',
     templateUrl: './loan-form.component.html',
     styleUrls: ['./loan-form.component.css'],
-
-
 })
 export class LoanFormComponent implements OnInit {
     templateList = [{
@@ -51,6 +51,8 @@ export class LoanFormComponent implements OnInit {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private loanDataService: LoanDataService,
+        private dmsLoanService: DmsLoanService,
+        private loanFormService: LoanFormService,
         private activatedRoute: ActivatedRoute,
         private modalService: NgbModal,
         private router: Router,
@@ -72,11 +74,11 @@ export class LoanFormComponent implements OnInit {
                 this.id = this.allId.loanId;
             });
         this.loanDocument = this.loanDataService.getLoanDocuments();
-        this.commonService.getByAll('v1/config/get/' + this.id).subscribe((response: any) => {
-            this.dataService.setLoanName(response.detail.name);
-            this.dataService.setLoan(response.detail);
-            this.dataService.setInitialDocument(response.detail.initial);
-            this.dataService.setRenewDocument(response.detail.renew);
+        this.loanFormService.detail(this.id).subscribe((response: any) => {
+            this.dmsLoanService.setLoanName(response.detail.name);
+            this.dmsLoanService.setLoan(response.detail);
+            this.dmsLoanService.setInitialDocument(response.detail.initial);
+            this.dmsLoanService.setRenewDocument(response.detail.renew);
             this.templateList = response.detail.templateList;
 
             this.breadcrumbService.notify(response.detail.name);
@@ -120,8 +122,6 @@ export class LoanFormComponent implements OnInit {
             this.currentTab = index;
             this.last = true;
         }
-
-
     }
 
     nextTab() {

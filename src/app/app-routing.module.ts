@@ -1,7 +1,7 @@
 import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {LoginComponent} from './component/login/login.component';
-import {PendingsComponent} from './component/dashboard/pendings/pendings.component';
+import {PendingsComponent} from './component/dashboard/pending/pendings/pendings.component';
 
 const routes: Routes = [
     {path: 'home', loadChildren: './feature/feature.module#FeatureModule'},

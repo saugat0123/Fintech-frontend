@@ -7,6 +7,7 @@ import {ActivatedRoute} from '@angular/router';
 import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {UserService} from '../../../../../@core/service/user.service';
+import {DmsSummaryService} from './dms-summary.service';
 
 @Component({
     selector: 'app-dms-summary',
@@ -33,7 +34,8 @@ export class DmsSummaryComponent implements OnInit {
     constructor(private dataService: CommonDataService,
                 private commonService: CommonService,
                 private userService: UserService,
-                private router: ActivatedRoute) {
+                private router: ActivatedRoute,
+                private dmsSummaryService: DmsSummaryService) {
 
     }
 
@@ -44,10 +46,9 @@ export class DmsSummaryComponent implements OnInit {
                 this.user = response.detail;
             }
         );
-        this.commonService.getById('v1/dmsLoanFile/getById/' + this.id).subscribe(
+        this.dmsSummaryService.detail(this.id).subscribe(
             (response: any) => {
                 this.dmsLoanFile = response.detail;
-                console.log('dms',this.dmsLoanFile);
                 this.security = this.dmsLoanFile.security;
                 this.securities = this.security.split(',');
                 this.documents = this.dmsLoanFile.documentPathMaps;
@@ -62,7 +63,7 @@ export class DmsSummaryComponent implements OnInit {
     download(i) {
         this.documentUrl = this.documentUrls[i];
         this.documentName = this.documentNames[i];
-        this.commonService.getByPath('v1/dmsLoanFile/download', this.documentUrl).subscribe(
+        this.dmsSummaryService.downloadDocument(this.documentUrl).subscribe(
             (response: any) => {
                 const newBlob = new Blob([response], {type: 'application/txt'});
                 const downloadUrl = window.URL.createObjectURL(response);

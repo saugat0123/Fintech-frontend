@@ -28,6 +28,18 @@ export abstract class BaseService<T> {
         return this.http.post(req.url, obj, {headers: req.header});
     }
 
+    public saveAny(obj: any): Observable<any> {
+        const req = ApiUtils.getRequest(this.getApi());
+
+        return this.http.post(req.url, obj, {headers: req.header});
+    }
+
+    public saveAll(obj: T[]): Observable<any> {
+        const req = ApiUtils.getRequest(this.getApi());
+
+        return this.http.post(req.url, obj, {headers: req.header});
+    }
+
     public saveWithFile(obj: T): Observable<any> {
         const req = ApiUtils.getRequestWithFileSupport(this.getApi());
         return this.http.post(req.url, obj, {headers: req.header});
@@ -47,6 +59,13 @@ export abstract class BaseService<T> {
         return this.http.put(req.url, obj, {headers: req.header});
     }
 
+    public detail(id: number): Observable<any> {
+        const api = `${this.getApi()}/${id}`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.get(req.url, {headers: req.header});
+    }
+
 
     public delete(id: number): Observable<any> {
         const api = `${this.getApi()}/${id}`;
@@ -60,7 +79,6 @@ export abstract class BaseService<T> {
 
         const api = `${this.getApi()}/all`;
         const req = ApiUtils.getRequest(api);
-
         return this.http.get(req.url, {headers: req.header});
     }
 
@@ -78,11 +96,27 @@ export abstract class BaseService<T> {
         return this.http.get(req.url, {headers: req.header});
     }
 
-    public getPaginationWithSearchObject(searchObj: Object, page: number = 1, size: number = 20): Observable<any> {
-        const api = `${this.getApi()}?page=${page}&size=${size}`;
+    public getPaginationWithSearchObject(searchObj: any, page: number = 1, size: number = 20): Observable<any> {
+        const api = `${this.getApi()}/list?page=${page}&size=${size}`;
         const req = ApiUtils.getRequest(api);
+
         return this.http.post(req.url, searchObj, {headers: req.header});
     }
+
+    public download(searchObj: Object): Observable<any> {
+        const api = `${this.getApi()}/csv`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.post(req.url, searchObj, {headers: req.header});
+    }
+
+    public getStatus(): Observable<any> {
+        const api = `${this.getApi()}/statusCount`;
+
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
+    public
 
 
     public set(obj: T): void {
