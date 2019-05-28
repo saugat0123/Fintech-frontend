@@ -75,7 +75,7 @@ export class OpenOpeningComponentComponent implements OnInit {
                 // Opening Account
                 accountType: this.openingForm.openingAccount.accountType,
                 proposeOfAccount: this.openingForm.openingAccount.purposeOfAccount,
-                haveExistingAccount: this.openingForm.openingAccount.haveExistingAccountNo,
+                haveExistingAccount: this.openingForm.openingAccount.haveExistingAccountNo + '',
                 existingAccountNumber: this.openingForm.openingAccount.existingAccountNo,
                 accountCurrency: this.openingForm.openingAccount.currency,
                 jointAccountRadio: this.openingForm.openingAccount.haveJoint + '',

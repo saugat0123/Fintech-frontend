@@ -45,13 +45,12 @@ export class OpeningAccountComponent implements OnInit {
             this.newed = response.detail.newed;
             this.approval = response.detail.approval;
             this.rejected = response.detail.rejected;
-            console.log(response);
         });
     }
 
     getPagination() {
         this.spinner = true;
-        this.branch.id = 1;
+        this.branch.id = 2;
         this.commonService.getByPostOpeningAccount(this.currentApi + '/get', this.branch, 1, 10, 'NEW_REQUEST')
             .subscribe((response: any) => {
                     this.openingForms = response.detail.content;
