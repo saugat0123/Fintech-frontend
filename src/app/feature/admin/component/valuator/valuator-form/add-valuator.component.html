@@ -14,9 +14,9 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="name">Name</label>
-                            <input type="hidden" class="form-control form-control-sm" [(ngModel)]="valuator.id" name="id">
+                            <input type="hidden" class="form-control form-control-sm" [(ngModel)]="model.id" name="id">
                             <input type="text" class="form-control form-control-sm" required
-                                   [(ngModel)]="valuator.name" name="name" placeholder="Name"
+                                   [(ngModel)]="model.name" name="name" placeholder="Name"
                                    #name="ngModel" [ngClass]="{'is-invalid': valuatorForm.submitted && name.invalid}"/>
                             <div *ngIf="name.invalid && valuatorForm.submitted" class="invalid-feedback">
                                 Name is required
@@ -31,7 +31,7 @@
                                     [ngClass]="{ 'is-invalid': valuatorForm.submitted && provinceVal.invalid }">
                                 <option [ngValue]="undefined" hidden>Province</option>
                                 <option *ngFor="let province of provinces"
-                                        [selected]="province.id===valuator?.province?.id"
+                                        [selected]="province.id===model?.province?.id"
                                         [ngValue]="province.id">
                                     {{province.name}}
                             </select>
@@ -53,7 +53,7 @@
                                     [ngClass]="{ 'is-invalid': valuatorForm.submitted && districtVal.invalid }">
                                 <option [ngValue]="undefined" hidden>District</option>
                                 <option *ngFor="let district of districts"
-                                        [selected]="district.id === valuator?.district?.id"
+                                        [selected]="district.id === model?.district?.id"
                                         [ngValue]="district.id">
                                     {{district.name}}
                                 </option>
@@ -70,7 +70,7 @@
                                     [ngClass]="{ 'is-invalid': valuatorForm.submitted && municipal.invalid }">
                                 <option [ngValue]="undefined" hidden>Municipality</option>
                                 <option *ngFor="let municipality of municipalities"
-                                        [selected]="municipality.id === valuator?.municipalityVdc?.id"
+                                        [selected]="municipality.id === model?.municipalityVdc?.id"
                                         [ngValue]="municipality.id">
                                     {{municipality.name}}
                                 </option>
@@ -86,7 +86,7 @@
                         <div class="col-md-6">
                             <label for="street_name">Street</label>
                             <input type="text" class="form-control form-control-sm"
-                                   [(ngModel)]="valuator.streetName" name="street"
+                                   [(ngModel)]="model.streetName" name="street"
                                    id="street_name"
                                    placeholder="Street Name" required
                                    #streetVal="ngModel"
@@ -98,7 +98,7 @@
                         <div class="col-md-6">
                             <label for="ward_number">Ward</label>
                             <input type="text" class="form-control form-control-sm"
-                                   [(ngModel)]="valuator.wardNumber" name="ward"
+                                   [(ngModel)]="model.wardNumber" name="ward"
                                    id="ward_number"
                                    placeholder="Ward" required
                                    #wardVal="ngModel"
@@ -113,7 +113,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="contactNo">Contact Number</label>
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="valuator.contactNo" name="contactNo"
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="model.contactNo" name="contactNo"
                                    placeholder="Phone Number"
                                    #contact="ngModel"
                                    [ngClass]="{'is-invalid': valuatorForm.submitted && contact.invalid}" required/>
@@ -130,7 +130,7 @@
                                     [ngClass]="{ 'is-invalid': provinceValSite.submitted && provinceValSite.invalid }">
                                 <option [ngValue]="undefined" hidden>Site Province</option>
                                 <option *ngFor="let province of provinces"
-                                        [selected]="province.id===valuator?.siteProvince?.id"
+                                        [selected]="province.id===model?.siteProvince?.id"
                                         [ngValue]="province.id">
                                     {{province.name}}
                             </select>
@@ -152,7 +152,7 @@
                                     [ngClass]="{ 'is-invalid': valuatorForm.submitted && districtSiteVal.invalid }">
                                 <option [ngValue]="undefined" hidden>Site District</option>
                                 <option *ngFor="let district of siteDistricts"
-                                        [selected]="district.id === valuator?.siteDistrict?.id"
+                                        [selected]="district.id === model?.siteDistrict?.id"
                                         [ngValue]="district.id">
                                     {{district.name}}
                                 </option>
@@ -169,7 +169,7 @@
                                     [ngClass]="{ 'is-invalid': valuatorForm.submitted && municipalSite.invalid }">
                                 <option [ngValue]="undefined" hidden>Site Municipality</option>
                                 <option *ngFor="let municipality of siteMunicipalities"
-                                        [selected]="municipality.id === valuator?.siteMunicipalityVdc?.id"
+                                        [selected]="municipality.id === model?.siteMunicipalityVdc?.id"
                                         [ngValue]="municipality.id">
                                     {{municipality.name}}
                                 </option>
@@ -185,7 +185,7 @@
                         <div class="col-md-6">
                             <label for="site_street_name">Site Street</label>
                             <input type="text" class="form-control form-control-sm"
-                                   [(ngModel)]="valuator.siteStreetName" name="site_street_name"
+                                   [(ngModel)]="model.siteStreetName" name="site_street_name"
                                    id="site_street_name"
                                    placeholder="Site Street Name" required
                                    #streetSiteVal="ngModel"
@@ -197,7 +197,7 @@
                         <div class="col-md-6">
                             <label for="site_ward_number">Site Ward</label>
                             <input type="text" class="form-control form-control-sm"
-                                   [(ngModel)]="valuator.siteWardNumber" name="site_ward_number"
+                                   [(ngModel)]="model.siteWardNumber" name="site_ward_number"
                                    id="site_ward_number"
                                    placeholder="Site Ward" required
                                    #wardSiteVal="ngModel"

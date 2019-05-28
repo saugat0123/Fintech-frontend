@@ -24,9 +24,9 @@ export class FeatureComponent implements OnInit {
         this.items = this.menuService.getMenus().subscribe(res => {
                 this.menus = [...res.detail];
             },
-            () => {
-            },
-            () => console.log('request complete'));
+            (error) => {
+                console.log(error);
+            });
     }
 }
 

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {RoleOrders} from '../../modal/roleOrders';
-import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
+import {RoleHierarchyService} from './role-hierarchy.service';
+import {RoleService} from '../role-permission/role.service';
 
 @Component({
     selector: 'app-role-hierarchy',
@@ -23,23 +23,23 @@ export class RoleHierarchyComponent implements OnInit {
     length = false;
     title = 'Role Hierarchy';
 
-    constructor(private dataService: CommonDataService,
-                private commonService: CommonService,
-                private breadcrumbService: BreadcrumbService
+    constructor(
+        private service: RoleHierarchyService,
+        private roleService: RoleService,
+        private breadcrumbService: BreadcrumbService
     ) {
     }
 
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
-        this.commonService.getByAll(this.currentApi).subscribe((response: any) => {
+        this.service.getAll().subscribe((response: any) => {
             this.roleList = response.detail;
             this.length = this.roleList.length > 0;
 
         });
 
-        this.commonService.getByAll('v1/role/get/statusCount').subscribe((response: any) => {
-
+        this.roleService.getStatus().subscribe((response: any) => {
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.roleCount = response.detail.roles;
@@ -59,21 +59,20 @@ export class RoleHierarchyComponent implements OnInit {
                 event.previousIndex,
                 event.currentIndex);
         }
+
         this.tempRoleOrders = event.container.data;
 
         for (let x = 0; x < this.tempRoleOrders.length; x++) {
             const roleOrder = x + 1;
             this.tempRoleOrders[x].roleOrder = roleOrder;
             this.roleHeirarchy.push(this.tempRoleOrders[x]);
-
         }
-
     }
 
     save() {
         this.spinner = true;
         this.isDisabled = true;
-        this.commonService.saveOrEdit(this.roleHeirarchy, 'v1/roleHierarchy').subscribe((response: any) => {
+        this.service.saveAll(this.roleHeirarchy).subscribe((response: any) => {
             this.isDisabled = false;
             this.spinner = false;
             this.roleList = response.detail;

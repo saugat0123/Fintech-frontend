@@ -1,8 +1,5 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
-import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
 import {Branch} from '../../modal/branch';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {BranchFormComponent} from './branch-form/branch-form.component';
@@ -12,31 +9,35 @@ import {MunicipalityVdc} from '../../modal/municipality_VDC';
 
 import {Province} from '../../modal/province';
 import {District} from '../../modal/district';
-import {CommonLocation} from '../../../../@core/service/baseservice/common-location';
+import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {UpdateModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
+import {BranchService} from './branch.service';
+import {PermissionService} from '../../../../@core/service/permission.service';
 
 @Component({
     selector: 'app-branch',
     templateUrl: './branch.component.html'
 })
-export class BranchComponent implements OnInit, DoCheck {
+export class BranchComponent implements OnInit {
     title = 'Branch';
     breadcrumb = 'Branch > List';
     dataList: Array<Branch> = new Array<Branch>();
     spinner = false;
-    globalMsg: string;
+
+    page = 1;
+
     search: any = {};
     pageable: Pageable = new Pageable();
-    currentApi: string;
+
     activeCount: number;
     inactiveCount: number;
     branches: number;
     newValue: string;
     branch: Branch = new Branch();
-
 
     permissions = [];
     viewBranch = false;
@@ -52,39 +53,39 @@ export class BranchComponent implements OnInit, DoCheck {
     municipality: MunicipalityVdc = new MunicipalityVdc();
 
     constructor(
-        private dataService: CommonDataService,
-        private commonService: CommonService,
-        private commonPageService: CommonPageService,
+        private service: BranchService,
+        private permissionService: PermissionService,
+        private location: AddressService,
         private modalService: NgbModal,
-        private location: CommonLocation,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
     ) {
     }
 
-    static loadData(other: any) {
+    static loadData(other: BranchComponent) {
+
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
-                other.dataService.setDataList(other.dataList);
-                other.commonPageService.setCurrentApi(other.currentApi);
-                other.pageable = other.commonPageService.setPageable(response.detail);
+                other.pageable = PaginationUtils.getPageable(response.detail);
+
                 other.spinner = false;
             }, error => {
 
                 console.log(error);
 
-                other.toastService.show(new Alert(AlertType.ERROR, 'Unalble to Load Data!'));
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
                 other.spinner = false;
             }
         );
     }
 
     ngOnInit() {
-        this.breadcrumbService.notify(this.title);
-        this.currentApi = 'v1/branch/get';
 
-        this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+        this.breadcrumbService.notify(this.title);
+
+        this.service.getStatus().subscribe((response: any) => {
+            console.log(response);
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.branches = response.detail.branches;
@@ -94,7 +95,7 @@ export class BranchComponent implements OnInit, DoCheck {
             this.provinces = response.detail;
         });
 
-        this.commonService.getByPost('v1/permission/chkPerm', 'BRANCH').subscribe((response: any) => {
+        this.permissionService.getPermissionOf('BRANCH').subscribe((response: any) => {
             this.permissions = response.detail;
             for (let i = 0; this.permissions.length > i; i++) {
                 if (this.permissions[i].type === 'ADD BRANCH') {
@@ -114,8 +115,13 @@ export class BranchComponent implements OnInit, DoCheck {
         });
     }
 
+    changePage(page: number) {
+        this.page = page;
+
+        BranchComponent.loadData(this);
+    }
+
     onSearch() {
-        this.dataService.setData(this.search);
         BranchComponent.loadData(this);
     }
 
@@ -123,23 +129,24 @@ export class BranchComponent implements OnInit, DoCheck {
         this.search = {
             'name': searchValue
         };
-        this.dataService.setData(this.search);
         BranchComponent.loadData(this);
     }
 
-    ngDoCheck(): void {
-        this.dataList = this.dataService.getDataList();
+    edit(branch: Branch) {
+
+        const modalRef = this.modalService.open(BranchFormComponent, {size: 'lg'});
+        modalRef.componentInstance.model = branch;
+
+        ModalUtils.resolve(modalRef.result, BranchComponent.loadData, this);
     }
 
-    openEdit(branch: Branch) {
-        this.dataService.setBranch(branch);
-        ModalUtils.resolve(this.modalService.open(BranchFormComponent, {size: 'lg'}).result, BranchComponent.loadData, this);
-    }
+    add() {
 
-    addBranch() {
-        this.dataService.setBranch(new Branch());
+        const modalRef = this.modalService.open(BranchFormComponent, {size: 'lg'});
 
-        ModalUtils.resolve(this.modalService.open(BranchFormComponent, {size: 'lg'}).result, BranchComponent.loadData, this);
+        modalRef.componentInstance.model = new Branch();
+
+        ModalUtils.resolve(modalRef.result, BranchComponent.loadData, this);
     }
 
 
@@ -155,8 +162,7 @@ export class BranchComponent implements OnInit, DoCheck {
 
         event.preventDefault();
         this.newValue = newValue;
-        this.dataService.setData(data);
-        this.commonPageService.setCurrentApi('v1/branch');
+
         this.modalService.open(UpdateModalComponent);
     }
 
@@ -171,7 +177,7 @@ export class BranchComponent implements OnInit, DoCheck {
     }
 
     getCsv() {
-        this.commonService.saveOrEdit(this.search, 'v1/branch/csv').subscribe((response: any) => {
+        this.service.download(this.search).subscribe((response: any) => {
             const link = document.createElement('a');
             link.target = '_blank';
             link.href = response.detail;
@@ -192,9 +198,7 @@ export class BranchComponent implements OnInit, DoCheck {
                 this.municipalities = response.detail;
             }
         );
-
     }
-
 
     getDistricts(provinceId) {
         this.province.id = provinceId;
@@ -218,6 +222,6 @@ export class BranchComponent implements OnInit, DoCheck {
 
     getMunicipality(municipalityId) {
         this.search.municipalityId = municipalityId.toString();
-
     }
+
 }

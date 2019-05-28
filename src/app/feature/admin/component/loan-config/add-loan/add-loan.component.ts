@@ -1,13 +1,11 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
-
-import {Router} from '@angular/router';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
-import {LoanTemplate} from '../../../modal/template';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
+import {LoanTemplate} from '../../../modal/loan-template';
 import {LoanConfig} from '../../../modal/loan-config';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {LoanTemplateService} from '../loan-template/loan-template.service';
+import {LoanConfigService} from '../loan-config.service';
 
 
 @Component({
@@ -16,41 +14,42 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 })
 export class AddLoanComponent implements OnInit, DoCheck {
 
-    loanConfig = new LoanConfig();
+    @Input()
+    model: LoanConfig;
+
     task: string;
-    globalMsg: string;
+
     templateList: Array<LoanTemplate>;
 
     constructor(
-        private commonService: CommonService,
-        private router: Router,
-        private dataService: CommonDataService,
+        private service: LoanConfigService,
+        private loanTemplateService: LoanTemplateService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
     }
 
     ngOnInit() {
-        this.commonService.getByAll('v1/loanTemplate/getAll').subscribe((response: any) => {
+        this.loanTemplateService.getAll().subscribe((response: any) => {
             this.templateList = response.detail;
         });
     }
 
     ngDoCheck(): void {
-        if (this.dataService.getData() == null) {
+        if (this.model.id == null) {
             this.task = 'Add';
         } else {
-            this.loanConfig = this.dataService.getData();
-            this.task = 'Add';
+            this.task = 'Edit';
         }
     }
 
     onSubmit() {
-        this.commonService.saveOrEdit(this.loanConfig, 'v1/config').subscribe(() => {
+
+        this.service.save(this.model).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Template'));
 
-                this.loanConfig = new LoanConfig();
+                this.model = new LoanConfig();
 
                 this.activeModal.close(ModalResponse.SUCCESS);
 

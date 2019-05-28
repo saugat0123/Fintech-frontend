@@ -42,10 +42,9 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" *ngIf="addViewCompany">
                         <div class="float-right">
-                            <button data-toggle="modal" (click)="addCompany()"
-                                    *ngIf="addViewCompany">
+                            <button data-toggle="modal" (click)="add()">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -67,9 +66,9 @@
                         <div *ngIf="!dataList?.length > 0">
                             <p>No Content Found</p>
                         </div>
-                        <td>{{allList.companyName}}</td>
+                        <td>{{allList.name}}</td>
                         <td>
-                            <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
+                            <a (click)="edit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
                                data-placement="top"
                                title="EDIT">
                                 <i class="fa fa-edit" style="color:white"></i>
@@ -83,7 +82,7 @@
                 </table>
                 <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
                 <!-- ===================table-pagination==================== -->
-                <app-pagination *ngIf="!spinner"></app-pagination>
+                <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
                 <!-- ===================table-pagination==================== -->
 
             </nb-card-body>

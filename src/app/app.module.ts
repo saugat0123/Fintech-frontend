@@ -7,7 +7,7 @@ import {PendingLoanComponent} from './component/dashboard/pending-loan/pending-l
 import {HttpClientModule} from '@angular/common/http';
 import {CommonService} from './@core/service/baseservice/common-baseservice';
 import {CommonDataService} from './@core/service/baseservice/common-dataService';
-import {CommonLocation} from './@core/service/baseservice/common-location';
+import {AddressService} from './@core/service/baseservice/address.service';
 import {QuillModule} from 'ngx-quill';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {ThemeModule} from './@theme/theme.module';
@@ -37,7 +37,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
         ThemeModule
     ],
 
-    providers: [CommonService, CommonDataService, CommonLocation, {
+    providers: [CommonService, CommonDataService, AddressService, {
         provide: LocationStrategy,
         useClass: HashLocationStrategy
     }],

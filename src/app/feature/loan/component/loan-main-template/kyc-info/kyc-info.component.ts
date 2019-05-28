@@ -5,8 +5,7 @@ import {Router} from '@angular/router';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Customer} from '../../../../admin/modal/customer';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
+import {BasicInfoService} from '../../../service/basic-info.service';
 
 @Component({
     selector: 'app-kyc-info',
@@ -20,8 +19,7 @@ export class KycInfoComponent implements OnInit {
     basicInfo: FormGroup;
 
     constructor(
-        private commonService: CommonService,
-        private commonDateService: CommonDataService,
+        private service: BasicInfoService,
         private router: Router,
         private formBuilder: FormBuilder
     ) {
@@ -37,7 +35,7 @@ export class KycInfoComponent implements OnInit {
 
     onSubmit() {
         this.customer.customerRelatives = this.basicInfo.get('otherRelatives').value;
-        this.commonService.saveOrEdit(this.customer, 'v1/basicInfo').subscribe();
+        this.service.save(this.customer).subscribe();
         this.router.navigate(['home/loan/company-info']);
     }
 

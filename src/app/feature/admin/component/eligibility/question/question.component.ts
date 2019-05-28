@@ -7,6 +7,7 @@ import {LoanConfig} from '../../../modal/loan-config';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {LoanConfigService} from '../../loan-config/loan-config.service';
 
 @Component({
     selector: 'app-question',
@@ -31,6 +32,7 @@ export class QuestionComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder,
                 private commonService: CommonService,
+                private loanConfigService: LoanConfigService,
                 private router: Router,
                 private modalService: NgbModal,
                 private toastService: ToastService) {
@@ -43,14 +45,13 @@ export class QuestionComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loanConfigApi = 'v1/config/getAll';
         this.getSchemeList();
         this.existingQuestionList = false;
         this.newQuestionList = false;
     }
 
     getSchemeList() {
-        this.commonService.getByGetAllPageable(this.loanConfigApi, 1, 10).subscribe((response: any) => {
+        this.loanConfigService.getAll().subscribe((response: any) => {
             this.schemeList = response.detail;
         });
     }
@@ -188,7 +189,7 @@ export class QuestionComponent implements OnInit {
     onSave() {
         this.questionList = this.questionAnswerForm.value.questionForm;
         console.log(this.questionList);
-        this.commonService.saveQuestion(this.questionList, this.questionApi).subscribe(result => {
+        this.commonService.saveQuestion(this.questionList, this.questionApi).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Questions'));
 

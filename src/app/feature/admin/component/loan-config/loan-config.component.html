@@ -96,7 +96,7 @@
                             </select>
                         </td>
                         <td>
-                            <a (click)="openEdit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
+                            <a (click)="edit(allList)" class="btn btn-primary btn-sm" data-toggle="tooltip"
                                data-placement="top" title="EDIT">
                                 <i class="fa fa-edit" style="color:white"></i>
                             </a>
@@ -108,7 +108,7 @@
 
                 <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
                 <!-- ===================table-pagination==================== -->
-                <app-pagination *ngIf="!spinner"></app-pagination>
+                <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
                 <!-- ===================table-pagination==================== -->
 
                 <div class="modal fade in view-template">

@@ -1,8 +1,4 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
-
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {CommonPageService} from '../../../../../@core/service/baseservice/common-pagination-service';
+import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {Segment} from '../../../modal/segment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -10,23 +6,27 @@ import {SegmentFormComponent} from './segment-form/segment-form.component';
 import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
 import {ModalUtils, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
+import {SegmentService} from './segment.service';
+import {PermissionService} from '../../../../../@core/service/permission.service';
 
 
 @Component({
     selector: 'app-segment',
     templateUrl: './segment.component.html'
 })
-export class SegmentComponent implements OnInit, DoCheck {
+export class SegmentComponent implements OnInit {
 
     title = 'Segment';
     breadcrumb = 'Nepse > List';
+
+    page = 1;
+
     dataList: Array<Segment>;
 
     spinner = false;
-    globalMsg: string;
     search: any = {};
     pageable: Pageable = new Pageable();
-    currentApi: string;
     activeCount: number;
     inactiveCount: number;
     segments: number;
@@ -37,22 +37,19 @@ export class SegmentComponent implements OnInit, DoCheck {
     csvDownload = false;
 
     constructor(
-        private dataService: CommonDataService,
-        private commonService: CommonService,
-        private commonPageService: CommonPageService,
+        private service: SegmentService,
+        private permissionService: PermissionService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
     ) {
     }
 
-    static loadData(other: any) {
+    static loadData(other: SegmentComponent) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe((response: any) => {
+        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
-                other.dataService.setDataList(other.dataList);
-                other.commonPageService.setCurrentApi(other.currentApi);
-                other.pageable = other.commonPageService.setPageable(response.detail);
+                other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
 
             }, error => {
@@ -67,18 +64,17 @@ export class SegmentComponent implements OnInit, DoCheck {
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
-        this.currentApi = 'v1/segment/get';
 
         SegmentComponent.loadData(this);
 
-        this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
+        this.service.getStatus().subscribe((response: any) => {
 
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.segments = response.detail.segments;
 
         });
-        this.commonService.getByPost('v1/permission/chkPerm', 'SEGMENT').subscribe((response: any) => {
+        this.permissionService.getPermissionOf('SEGMENT').subscribe((response: any) => {
             this.permissions = response.detail;
             for (let i = 0; this.permissions.length > i; i++) {
                 if (this.permissions[i].type === 'ADD SEGMENT') {
@@ -98,12 +94,13 @@ export class SegmentComponent implements OnInit, DoCheck {
         });
     }
 
-    ngDoCheck(): void {
-        this.dataList = this.dataService.getDataList();
+    changePage(page: number) {
+        this.page = page;
+
+        SegmentComponent.loadData(this);
     }
 
     onSearch() {
-        this.dataService.setData(this.search);
         SegmentComponent.loadData(this);
     }
 
@@ -111,18 +108,23 @@ export class SegmentComponent implements OnInit, DoCheck {
         this.search = {
             'name': searchValue
         };
-        this.dataService.setData(this.search);
+
         SegmentComponent.loadData(this);
     }
 
-    addSegment() {
-        this.dataService.setSegment(new Segment());
-        ModalUtils.resolve(this.modalService.open(SegmentFormComponent).result, SegmentComponent.loadData, this);
+    add() {
+        const modelRef = this.modalService.open(SegmentFormComponent);
+        modelRef.componentInstance.model = new Segment();
+
+        ModalUtils.resolve(modelRef.result, SegmentComponent.loadData, this);
     }
 
-    openEdit(segment: Segment) {
-        this.dataService.setSegment(segment);
-        ModalUtils.resolve(this.modalService.open(SegmentFormComponent).result, SegmentComponent.loadData, this);
+    edit(segment: Segment) {
+
+        const modelRef = this.modalService.open(SegmentFormComponent);
+        modelRef.componentInstance.model = segment;
+
+        ModalUtils.resolve(modelRef.result, SegmentComponent.loadData, this);
     }
 
 }

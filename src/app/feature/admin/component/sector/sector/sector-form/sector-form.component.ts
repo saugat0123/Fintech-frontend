@@ -1,11 +1,9 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {CommonDataService} from '../../../../../../@core/service/baseservice/common-dataService';
-import {CommonService} from '../../../../../../@core/service/baseservice/common-baseservice';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {Sector} from '../../../../modal/sector';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {SectorService} from '../SectorService';
 
 
 @Component({
@@ -14,16 +12,16 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 })
 
 export class SectorFormComponent implements OnInit, DoCheck {
+
+    @Input()
+    model: Sector;
+
     task: string;
     submitted = false;
     spinner = false;
-    globalMsg: string;
-    sector: Sector = new Sector();
 
     constructor(
-        private commonService: CommonService,
-        private router: Router,
-        private dataService: CommonDataService,
+        private service: SectorService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
@@ -34,21 +32,19 @@ export class SectorFormComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck(): void {
-        this.sector = this.dataService.getSector();
-        if (this.sector.id == null) {
+        if (this.model.id == null) {
             this.task = 'Add';
         } else {
             this.task = 'Edit';
         }
-
     }
 
     onSubmit() {
         this.submitted = true;
-        this.commonService.saveOrEdit(this.sector, 'v1/sector').subscribe(() => {
+        this.service.save(this.model).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Sector!'));
 
-                this.sector = new Sector();
+                this.model = new Sector();
 
                 this.activeModal.close(ModalResponse.SUCCESS);
 
