@@ -17,14 +17,6 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="accountType"><b>Account Type</b></label>
-                        <input id="accountType" formControlName="accountType" type="text"
-                               class="form-control form -control-error rounded" placeholder="Applicant Account Type"
-                               required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
                         <label for="proposeOfAccount"><b>Propose of Account</b></label>
                         <input id="proposeOfAccount" formControlName="proposeOfAccount" type="text" required
                                class="form-control form-control-error rounded"
@@ -35,6 +27,46 @@
             <!-- END ROW -->
             <!-- START ROW -->
             <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="accountType"><b>Account Type</b></label>
+                        <div id="accountType">
+                            <input class="big-radio" type="radio" id="accountTypeCurrent"
+                                   formControlName="accountType" value="Current Account">
+                            <label for="jointAccountRadioTrue">Current Account</label>
+                            <input class="big-radio" type="radio" id="accountTypeSaving"
+                                   formControlName="accountType" value="Savings Account">
+                            <label for="jointAccountRadioFalse">Savings Account</label>
+                            <input class="big-radio" type="radio" id="accountTypeOther"
+                                   formControlName="accountType" value="Other Account">
+                            <label for="jointAccountRadioFalse">Other Account</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <div [hidden]="openingAccount.get('accountType').value !== 'Other Account'"
+                         class="form-group">
+                        <input class="form-control" formControlName="accountType"
+                               id="AccountTypeOtherName" placeholder="Enter account type" type="text">
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="haveExistingAccount"><b>Have Existing Account</b></label>
+                        <div id="haveExistingAccount">
+                            <input class="big-radio" type="radio" id="haveExistingAccountTrue"
+                                   formControlName="haveExistingAccount" value="true">
+                            <label for="jointAccountRadioTrue">Yes</label>
+                            <input class="big-radio" type="radio" id="haveExistingAccountFalse"
+                                   formControlName="haveExistingAccount" value="false">
+                            <label for="jointAccountRadioFalse">No</label>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="existingAccountNumber"><b>Existing Account Number</b></label>
@@ -50,6 +82,10 @@
                                class="form-control form-control-error rounded" placeholder="Applicant Account Currency">
                     </div>
                 </div>
+            </div>
+            <!-- END ROW -->
+            <!-- START ROW -->
+            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="jointAccountRadio"><b>Joint Account</b></label>
@@ -63,10 +99,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- END ROW -->
-            <!-- START ROW -->
-            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="nomineeRadio"><b>Have Nominee</b></label>
@@ -185,7 +217,7 @@
                                            formControlName="applicantGenderRadio" value="Female">
                                     <label for="applicantGenderRadioFemale">Female</label>
                                     <input class="big-radio" type="radio" id="applicantGenderRadioOther"
-                                           formControlName="applicantGenderRadio" value="Other">
+                                           formControlName="applicantGenderRadio" value="Other Gender">
                                     <label for="applicantGenderRadioOther">Other</label>
                                 </div>
                             </div>
@@ -475,7 +507,7 @@
                             <div class="form-group">
                                 <label for="applicantDateOfBirth"><b>Date of Birth</b></label>
                                 <input id="applicantDateOfBirth" formControlName="applicantDateOfBirth" type="date"
-                                       class="form-control form-control-error rounded" required>
+                                               class="form-control form-control-error rounded">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -808,7 +840,7 @@
                                     <label for="holdResidentialOfForeignFalse">Permanent Resident</label>
                                     <input class="big-radio" type="radio"
                                            id="holdResidentialOfForeignTypeStayingForDays"
-                                           formControlName="holdResidentialOfForeignType" value="StayingForDays">
+                                           formControlName="holdResidentialOfForeignType" value="Resident (Staying for 180 days or more in a year)">
                                     <label for="holdResidentialOfForeignTypeStayingForDays">
                                         Resident (Staying for 180 days or more in a year)
                                     </label>
@@ -1083,7 +1115,7 @@
                         <div id="statementMode">
                             <input class="big-radio" type="radio" id="statementModePrint"
                                    formControlName="statementMode"
-                                   value="Print">
+                                   value="Print on Demand">
                             <label for="statementModePrint">Print on Demand</label>
                             <input class="big-radio" type="radio" id="statementModeEmail"
                                    formControlName="statementMode"

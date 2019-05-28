@@ -4,7 +4,8 @@ import {OpeningCustomer} from './openingCustomer';
 
 export class OpeningAccount {
   accountType: string;
-  accountNo: string;
+  haveExistingAccountNo: boolean;
+  existingAccountNo: string;
   purposeOfAccount: string;
   currency: string;
   haveJoint: boolean;
@@ -18,7 +19,7 @@ export class OpeningAccount {
   internetBanking: boolean;
   mobileBanking: boolean;
   debitCard: boolean;
-  accountStatementRadio: boolean;
+  statement: boolean;
   statementFrequency: string;
   statementMode: string;
 }

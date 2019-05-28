@@ -1,4 +1,26 @@
 <div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <app-icon-card title="Total" type="info" detail="{{total}}">
+            <i class="fa fa-bank"></i>
+        </app-icon-card>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <app-icon-card title="New" type="success" detail="{{newed}}">
+            <i class="fa fa-briefcase"></i>
+        </app-icon-card>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <app-icon-card title="Approved" type="warning" detail="{{approval}}">
+            <i class="fa fa-address-book-o"></i>
+        </app-icon-card>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <app-icon-card title="Rejected" type="warning" detail="{{rejected}}">
+            <i class="fa fa-address-book-o"></i>
+        </app-icon-card>
+    </div>
+</div>
+<div class="row">
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header">

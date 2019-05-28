@@ -32,6 +32,7 @@ export class OpenOpeningComponentComponent implements OnInit {
             // Opening Account
             accountType: [undefined],
             proposeOfAccount: [undefined],
+            haveExistingAccount: [undefined],
             existingAccountNumber: [undefined],
             accountCurrency: [undefined],
             jointAccountRadio: [undefined],
@@ -74,7 +75,8 @@ export class OpenOpeningComponentComponent implements OnInit {
                 // Opening Account
                 accountType: this.openingForm.openingAccount.accountType,
                 proposeOfAccount: this.openingForm.openingAccount.purposeOfAccount,
-                existingAccountNumber: this.openingForm.openingAccount.accountNo,
+                haveExistingAccount: this.openingForm.openingAccount.haveExistingAccountNo,
+                existingAccountNumber: this.openingForm.openingAccount.existingAccountNo,
                 accountCurrency: this.openingForm.openingAccount.currency,
                 jointAccountRadio: this.openingForm.openingAccount.haveJoint + '',
                 applicantDetail: this.formBuilder.array([
@@ -101,7 +103,7 @@ export class OpenOpeningComponentComponent implements OnInit {
                 beneficiaryCitizenshipNumber: this.openingForm.openingAccount.beneficiary.citizenNumber,
                 beneficiaryCitizenshipIssueAddress: this.openingForm.openingAccount.beneficiary.issuedPlace,
                 // Account Services
-                accountStatementRadio: this.openingForm.openingAccount.accountStatementRadio + '',
+                accountStatementRadio: this.openingForm.openingAccount.statement + '',
                 accountStatementFrequencyRadio: this.openingForm.openingAccount.statementFrequency + '',
                 statementMode: this.openingForm.openingAccount.statementMode + '',
                 debitCardRadio: this.openingForm.openingAccount.debitCard + '',
@@ -207,7 +209,7 @@ export class OpenOpeningComponentComponent implements OnInit {
                         this.applicantRelativeFormGroup()
                     ]),
                     applicantNationality: applicant.nationality,
-                    applicantDateOfBirth: applicant.dateOfBirthAD,
+                    applicantDateOfBirth: new Date(applicant.dateOfBirthAD),
                     applicantPanNumber: applicant.panNo,
                     applicantCitizenNumber: applicant.citizenNumber,
                     applicantCitizenIssuedPlace: applicant.citizenIssuedPlace,
@@ -225,8 +227,8 @@ export class OpenOpeningComponentComponent implements OnInit {
                     isPoliticallyExposed: applicant.exposeToPep + '',
                     pepName: applicant.pepName,
                     pepRelationWithApplicant: applicant.pepRelationToYou,
-                    isConvictedForCrime: applicant.convictedCrime + '',
-                    crimeConvictedFor: applicant.convictedOfCrime,
+                    isConvictedForCrime: applicant.convictedOfCrime + '',
+                    crimeConvictedFor: applicant.convictedCrime,
                     holdResidentialOfForeign: applicant.residentialPermitOfForeign + '',
                     holdResidentialOfForeignType: applicant.residentialPermitOfForeignType + '',
                     isUsResidentRadio: applicant.usResident + '',
@@ -238,6 +240,7 @@ export class OpenOpeningComponentComponent implements OnInit {
                 applicantControl.setControl('occupationDetails', this.setOccupationDetailsFormGroup
                 (applicant.kyc.occupationalDetails));
                 applicantFormArray.push(applicantControl);
+                console.log('date of birth', applicant.dateOfBirthAD);
             }
         );
         return applicantFormArray;
