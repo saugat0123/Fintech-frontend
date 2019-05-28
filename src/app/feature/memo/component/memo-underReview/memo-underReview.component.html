@@ -1,49 +1,49 @@
 <nb-card>
     <nb-card-header>
         <div class="col-md-12">
-
             <h3>Under Review</h3>
         </div>
     </nb-card-header>
     <nb-card-body>
         <div class="col-md-12">
-            <div class="has-feedback">
-                <select (change)="onPageSizeChanged()" class="form-control-sm pull-right" id="page-size">
-                    <option selected value="10">10</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                    <option value="500">500</option>
-                    <option value="1000">1000</option>
-                </select>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <div class="btn-group" role="group">
-                        <button (click)="sizeToFit()" class="btn btn-primary btn-sm" type="button">Size to Fit
-                        </button>
-                        <button (click)="autoSizeAll()" class="btn btn-primary btn-sm" type="button">Auto-Size All
-                        </button>
-                    </div>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive mailbox-messages">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>S.N</th>
+                                <th>Memo Type</th>
+                                <th>Subject</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
 
-                        <ag-grid-angular
-                                (gridReady)="onGridReady($event)"
-                                [columnDefs]="columnDefs"
-                                [context]="context"
-                                [defaultColDef]="defaultColDef"
-                                [frameworkComponents]="frameworkComponents"
-                                [paginationPageSize]="paginationPageSize"
-                                [pagination]="true"
-                                [rowData]="rowData"
-                                class="ag-theme-balham"
-                                style="width: auto; height: 300px;"
-                        ></ag-grid-angular>
+                            <tbody>
+                            <tr *ngFor="let memo of dataList;let i=index">
+                                <div *ngIf="!dataList?.length > 0">
+                                    <p>No Content Found</p>
+                                </div>
+                                <td>{{i + 1}}</td>
+                                <td>{{memo.type.name}}</td>
+                                <td>{{memo.subject}}</td>
+                                <td>{{memo.status}}</td>
+                                <td>
+                                    <a (click)="viewMemo(memo.id)" class="btn btn-info btn-sm"
+                                       data-placement="top" data-toggle="tooltip" style="margin-left:10px" title="View">
+                                        <i class="fa fa-inbox" style="color:white;"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
 
+
+                        <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
+                        <!-- ===================table-pagination==================== -->
+                        <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+                        <!-- ===================table-pagination==================== -->
                     </div>
                     <!-- /.mail-box-messages -->
                 </div>

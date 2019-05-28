@@ -13,8 +13,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {QuillModule} from 'ngx-quill';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {SafePipe} from './pipe/safe.pipe';
-import {AgGridModule} from 'ag-grid-angular';
-import {MemoViewButtonComponent} from './component/memo-underReview/memo-view-button/memo-view-button.component';
 import {ThemeModule} from '../../@theme/theme.module';
 import {CoreModule} from '../../@core/core.module';
 
@@ -25,8 +23,7 @@ import {CoreModule} from '../../@core/core.module';
         MemoComposeComponent,
         MemoUnderReviewComponent,
         MemoReadComponent,
-        SafePipe,
-        MemoViewButtonComponent
+        SafePipe
     ],
     imports: [
         FormsModule,
@@ -35,7 +32,6 @@ import {CoreModule} from '../../@core/core.module';
         ReactiveFormsModule,
         QuillModule,
         NgSelectModule,
-        AgGridModule.withComponents([MemoViewButtonComponent]),
         ThemeModule,
         CoreModule
     ],

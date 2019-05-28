@@ -41,7 +41,7 @@ export class MemoTypeComponent implements OnInit, DoCheck {
     constructor(
         private breadcrumbService: BreadcrumbService,
         private alertService: AlertService,
-        private memoService: MemoTypeService,
+        private memoTypeService: MemoTypeService,
         private modalService: NgbModal,
         private router: Router,
         private formBuilder: FormBuilder,
@@ -51,12 +51,12 @@ export class MemoTypeComponent implements OnInit, DoCheck {
 
     static loadData(other: MemoTypeComponent) {
         other.spinner = true;
-        other.memoService.getPaginationWithSearch(other.search, other.page, 10).subscribe((response: any) => {
+        other.memoTypeService.getPaginationWithSearch(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.content;
                 other.pageable = PaginationUtils.getPageable(response);
                 other.spinner = false;
             }, error => {
-                console.log(error);
+                console.error(error);
                 other.toastService.show(new Alert(AlertType.ERROR, 'Failed to Load Memo Types'));
                 other.spinner = false;
             }
@@ -124,7 +124,7 @@ export class MemoTypeComponent implements OnInit, DoCheck {
     }
 
     deleteMemoType() {
-        this.memoService.delete(this.memoType.id).subscribe(() => {
+        this.memoTypeService.delete(this.memoType.id).subscribe(() => {
 
                 this.modalRef.dismiss('Deleted Memo Type');
 
@@ -144,7 +144,7 @@ export class MemoTypeComponent implements OnInit, DoCheck {
 
     submit() {
         if (this.isNewMemo) {
-            this.memoService.save(this.memoTypeForm.value).subscribe(
+            this.memoTypeService.save(this.memoTypeForm.value).subscribe(
                 () => {
 
                     this.modalRef.dismiss('Saved Memo Type');
@@ -165,7 +165,7 @@ export class MemoTypeComponent implements OnInit, DoCheck {
         } else {
             this.memoType.name = this.memoTypeForm.get('name').value;
             this.memoType.status = this.memoTypeForm.get('status').value;
-            this.memoService.update(this.memoType.id, this.memoType)
+            this.memoTypeService.update(this.memoType.id, this.memoType)
                 .subscribe(
                     () => {
                         this.modalRef.dismiss('Updated Memo Type');
