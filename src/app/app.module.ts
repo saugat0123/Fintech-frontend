@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './component/login/login.component';
-import {PendingLoanComponent} from './component/dashboard/pending-loan/pending-loan.component';
 import {HttpClientModule} from '@angular/common/http';
 import {CommonService} from './@core/service/baseservice/common-baseservice';
 import {CommonDataService} from './@core/service/baseservice/common-dataService';
@@ -15,13 +14,13 @@ import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {NbDatepickerModule} from '@nebular/theme';
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        LoginComponent,
-        PendingLoanComponent
+        LoginComponent
     ],
     imports: [
         BrowserModule,
@@ -34,15 +33,16 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
         RouterModule,
         AppRoutingModule,
         DragDropModule,
-        ThemeModule
+        ThemeModule,
+        NbDatepickerModule.forRoot(),
+
     ],
 
     providers: [CommonService, CommonDataService, AddressService, {
         provide: LocationStrategy,
         useClass: HashLocationStrategy
     }],
-    bootstrap: [AppComponent],
-    exports: []
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

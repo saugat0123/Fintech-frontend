@@ -97,7 +97,8 @@ import {MsgModalComponent, UpdateModalComponent} from '../../@theme/components';
         AllRequestsComponent,
         EligibleRequestsComponent,
         NonEligibleRequestsComponent,
-        NewRequestsComponent
+        NewRequestsComponent,
+
         // SecurityComponent
     ],
     imports: [

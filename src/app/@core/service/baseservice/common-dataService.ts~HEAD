@@ -42,7 +42,7 @@ export class CommonDataService {
     company: Company = new Company();
     renew: Document[] = [];
     initial: Document[] = [];
-    dmsLoanfile: Array<DmsLoanFile> = new Array<DmsLoanFile>();
+    dmsLoanfile: DmsLoanFile = new DmsLoanFile();
     loanConfig: LoanConfig;
 
     private breadcrumTitle = new BehaviorSubject('default message');
@@ -233,7 +233,7 @@ export class CommonDataService {
     }
 
     setDmsLoanFile(dmsLoanFile: DmsLoanFile) {
-        this.dmsLoanfile.push(dmsLoanFile);
+        this.dmsLoanfile = dmsLoanFile;
     }
 
     getDmsLoanFile() {
