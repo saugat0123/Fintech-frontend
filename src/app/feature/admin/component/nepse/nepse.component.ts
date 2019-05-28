@@ -69,7 +69,6 @@ export class NepseComponent implements OnInit {
         NepseComponent.loadData(this);
 
         this.service.getStatus().subscribe((response: any) => {
-
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.nepses = response.detail.nepses;

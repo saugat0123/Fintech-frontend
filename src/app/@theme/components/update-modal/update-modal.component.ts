@@ -47,7 +47,7 @@ export class UpdateModalComponent implements OnInit, DoCheck {
     }
 
     updateStatus(data: any) {
-
+        console.log(this.currentApi);
         this.commonService.saveOrEdit(this.data, this.currentApi).subscribe(result => {
                 this.modalService.dismissAll(UpdateModalComponent);
 
