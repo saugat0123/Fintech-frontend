@@ -8,6 +8,7 @@ import {CommonService} from '../../../../../@core/service/baseservice/common-bas
 import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {LoanConfigService} from '../../loan-config/loan-config.service';
+import {QuestionService} from './question.service';
 
 @Component({
     selector: 'app-question',
@@ -15,8 +16,6 @@ import {LoanConfigService} from '../../loan-config/loan-config.service';
     styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit {
-    loanConfigApi: string;
-    questionApi: string;
     loanConfigId: number;
     totalObtainablePoints: number;
     existingQuestionList: boolean;
@@ -32,7 +31,7 @@ export class QuestionComponent implements OnInit {
     private modalRef: NgbModalRef;
 
     constructor(private formBuilder: FormBuilder,
-                private commonService: CommonService,
+                private questionService: QuestionService,
                 private loanConfigService: LoanConfigService,
                 private router: Router,
                 private modalService: NgbModal,
@@ -95,12 +94,11 @@ export class QuestionComponent implements OnInit {
         this.clearFormArray();
         this.totalObtainablePoints = 0;
         this.loanConfigId = this.questionAnswerForm.get('loanConfigId').value;
-        this.commonService.getById('v1/config/get/' + this.loanConfigId).subscribe((response: any) => {
+        this.loanConfigService.detail(this.loanConfigId).subscribe((response: any) => {
             this.loanConfig = response.detail;
         });
-        this.questionApi = 'v1/loan-configs/' + this.loanConfigId + '/questions';
 
-        this.commonService.getByGetAllPageable(this.questionApi, 1, 10).subscribe((response: any) => {
+        this.questionService.getAllQuestions(this.loanConfigId).subscribe((response: any) => {
             this.questionList = response.detail;
 
             this.questionList.forEach(qsn => {
@@ -165,7 +163,7 @@ export class QuestionComponent implements OnInit {
         this.qsnContent = qsnContent;
         this.buildForm();
 
-        this.modalRef = this.modalService.open(template, {backdrop: 'static'});
+        this.modalRef = this.modalService.open(template, {size: 'lg'});
     }
 
     openAddQuestion(template: TemplateRef<any>) {
@@ -173,7 +171,7 @@ export class QuestionComponent implements OnInit {
         this.qsnContent = new Questions();
         this.buildForm();
 
-        this.modalRef = this.modalService.open(template, {backdrop: 'static'});
+        this.modalRef = this.modalService.open(template, {size: 'lg'});
     }
 
     addAnswerFieldForEdit() {
@@ -193,9 +191,10 @@ export class QuestionComponent implements OnInit {
     }
 
     onSave() {
+        if (this.questionAnswerForm.invalid) { return; }
         this.questionList = this.questionAnswerForm.value.questionForm;
         console.log(this.questionList);
-        this.commonService.saveQuestion(this.questionList, this.questionApi).subscribe(() => {
+        this.questionService.saveQuestionList(this.questionList, this.loanConfigId).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Questions'));
 
@@ -214,7 +213,8 @@ export class QuestionComponent implements OnInit {
     }
 
     onUpdate(newQsnContent) {
-        this.commonService.updateQuestion(newQsnContent, this.questionApi + '/' + newQsnContent.id).subscribe((response: any) => {
+        if (newQsnContent.invalid) { return; }
+        this.questionService.editQuestion(newQsnContent, this.loanConfigId, newQsnContent.id).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Questions'));
                 this.questionList = new Array<Questions>();
@@ -234,7 +234,7 @@ export class QuestionComponent implements OnInit {
     onUpdateEligibilityPercent(eligibilityPercentValue) {
         this.loanConfig.id = this.loanConfigId;
         this.loanConfig.eligibilityPercentage = eligibilityPercentValue;
-        this.commonService.saveOrEdit(this.loanConfig, 'v1/config').subscribe((response: any) => {
+            this.loanConfigService.save(this.loanConfig).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Eligibility Percentage'));
             this.loanConfig = new LoanConfig();
             this.onChangeSchemeOption();
@@ -246,8 +246,22 @@ export class QuestionComponent implements OnInit {
 
     onDelete(qsnContent) {
         if (confirm('Are you sure to delete this question?')) {
-            qsnContent.status = 'DELETED';
-            this.onUpdate(qsnContent);
+            this.questionService.deleteQuestion(this.loanConfigId, qsnContent.id).subscribe(() => {
+
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Deleted Questions'));
+                    this.questionList = new Array<Questions>();
+                    this.qsnContent = new Questions();
+                    this.onChangeSchemeOption();
+                    this.modalService.dismissAll('Close modal');
+
+                }, error => {
+                    console.log(error);
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Update Question'));
+                    this.questionList = new Array<Questions>();
+                    this.modalService.dismissAll('Close modal');
+                }
+            );
         }
     }
+
 }

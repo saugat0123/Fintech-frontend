@@ -75,9 +75,9 @@
                             <td>{{qsn.status}}</td>
                             <td>
                                 <a (click)="openEditQuestion(qsn, addEditQuestion)"
-                                   class="cursor"
-                                   data-placement="top" data-toggle="tooltip" title="EDIT">
-                                    <i class="fa fa-edit" style="color:#3c8dbc;"></i>
+                                   class="btn btn-primary btn-sm"
+                                   data-toggle="tooltip" title="EDIT">
+                                    <i class="fa fa-edit" style="color:white;"></i>
                                 </a>
                                 <a (click)="onDelete(qsn)" class="btn btn-danger btn-sm" data-placement="top"
                                    data-toggle="tooltip" style="margin-left:10px" title="DELETE">
@@ -238,7 +238,7 @@
 </form>
 
 <ng-template #addEditQuestion let-modal>
-    <div class="modal-dialog">
+    <div class="modal-document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title pull-left">{{task}} question</h4>
