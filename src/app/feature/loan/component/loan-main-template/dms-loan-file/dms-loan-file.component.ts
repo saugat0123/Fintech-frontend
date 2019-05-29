@@ -5,15 +5,13 @@ import {Document} from '../../../../admin/modal/document';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DmsLoanFile} from '../../../../admin/modal/dms-loan-file';
 import {LoanDocument} from '../../../../admin/modal/loan-document';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {DmsLoanService} from './dms-loan-service';
 
 
 function validateTenure(tenure: FormControl) {
-
-    if (tenure.value.toLocaleString() < new Date().toLocaleString()) {
+    if (tenure.value < new Date()) {
         return {invalidTenure: true};
     }
     return null;
@@ -25,6 +23,7 @@ function validateTenure(tenure: FormControl) {
     styleUrls: ['./dms-loan-file.component.css']
 })
 export class DmsLoanFileComponent implements OnInit {
+    public static FILE_SIZE = 20000;
     initialDocuments: Document[] = [];
     renewDocuments: Document[] = [];
     document: LoanDocument = new LoanDocument();
@@ -49,8 +48,7 @@ export class DmsLoanFileComponent implements OnInit {
     documentMap: string;
     proceeded = false;
 
-    constructor(private commonService: CommonService,
-                private formBuilder: FormBuilder,
+    constructor(private formBuilder: FormBuilder,
                 private router: Router,
                 private dmsLoanService: DmsLoanService,
                 private toastService: ToastService) {
@@ -151,7 +149,7 @@ export class DmsLoanFileComponent implements OnInit {
 
     documentUploader(event, documentName: string) {
         const file = event.target.files[0];
-        if (file.size > 20000) {
+        if (file.size > DmsLoanFileComponent.FILE_SIZE) {
             this.errorMessage = 'Maximum File Size Exceeds';
         }
         const formdata: FormData = new FormData();
@@ -176,6 +174,7 @@ export class DmsLoanFileComponent implements OnInit {
                 this.document = new LoanDocument();
             },
             error => {
+                console.log(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Error occurs while uploading the document'));
             }
         );

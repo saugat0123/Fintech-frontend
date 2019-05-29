@@ -1,45 +1,46 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
+import {Component, OnInit} from '@angular/core';
 import {DmsLoanFile} from '../../../../feature/admin/modal/dms-loan-file';
 import {User} from '../../../../feature/admin/modal/user';
 import {UserService} from '../../../../@core/service/user.service';
 import {LoanConfig} from '../../../../feature/admin/modal/loan-config';
-import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
-import {CommonPageService} from '../../../../@core/service/baseservice/common-pagination-service';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
+
+import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
+import {LoanConfigService} from '../../../../feature/admin/component/loan-config/loan-config.service';
+import {DmsLoanService} from '../../../../feature/loan/component/loan-main-template/dms-loan-file/dms-loan-service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-pendings',
     templateUrl: './pendings.component.html',
     styleUrls: ['./pendings.component.css']
 })
-export class PendingsComponent implements OnInit, DoCheck {
+export class PendingsComponent implements OnInit {
     dmsLoanFiles: Array<DmsLoanFile>;
     user: User = new User();
-    loanConfigs: LoanConfig[] = [];
     search: any = {};
     loanList: Array<LoanConfig>;
-    currentApi: string;
     pageable: Pageable = new Pageable();
     spinner = false;
+    page = 1;
 
-    constructor(private commonService: CommonService,
-                private dataService: CommonDataService,
+    constructor(private service: DmsLoanService,
                 private userService: UserService,
-                private commonPageService: CommonPageService) {
+                private loanConfigService: LoanConfigService,
+                private router: Router) {
     }
 
     static loadData(other: any) {
         other.spinner = true;
-        other.commonService.getByPostAllPageable(other.currentApi, other.search, 1, 10).subscribe(
+        other.service.getPaginationWithSearchObject(other.search).subscribe(
             (response: any) => {
                 other.dmsLoanFiles = response.detail.content;
-                other.dataService.setDataList(other.dmsLoanFiles);
-                other.commonPageService.setCurrentApi(other.currentApi);
-                other.pageable = other.commonPageService.setPageable(response.detail);
+                other.service.setDataList(other.dmsLoanFiles);
+                other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
             }, error => {
+                console.log(error);
                 other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
                 other.spinner = false;
             }
@@ -47,14 +48,13 @@ export class PendingsComponent implements OnInit, DoCheck {
     }
 
     ngOnInit() {
-        this.currentApi = 'v1/dmsLoanFile/get';
         PendingsComponent.loadData(this);
         this.userService.getLoggedInUser().subscribe(
             (response: any) => {
                 this.user = response.detail;
             }
         );
-        this.commonService.getByAll('v1/config/getAll').subscribe(
+        this.loanConfigService.getAll().subscribe(
             (response: any) => {
                 this.loanList = response.detail;
             }
@@ -65,14 +65,19 @@ export class PendingsComponent implements OnInit, DoCheck {
         this.search = {};
     }
 
-    ngDoCheck(): void {
-        this.dmsLoanFiles = this.dataService.getDataList();
-    }
-
     onSearch() {
-        this.dataService.setData(this.search);
         PendingsComponent.loadData(this);
 
+    }
+
+    onClick(id: number) {
+        this.router.navigate(['/home/loan/summary', id]);
+
+    }
+
+    changePage(page: number) {
+        this.page = page;
+        PendingsComponent.loadData(this);
     }
 
 

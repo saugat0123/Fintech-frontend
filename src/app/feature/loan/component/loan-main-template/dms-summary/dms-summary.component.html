@@ -147,7 +147,6 @@
                 <tr *ngFor="let document of documentNames; let i = index">
                     <td>{{i + 1}}</td>
                     <td>{{document}}</td>
-                    <!--<td><button class="btn-sm btn-primary flat" (click)="download(i)">Download</button> </td>-->
                     <td><i class="fa fa-download" (click)="download(i)" aria-hidden="true" style="cursor: pointer"></i>
                     </td>
                 </tr>

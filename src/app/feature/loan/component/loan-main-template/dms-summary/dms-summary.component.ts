@@ -4,10 +4,8 @@ import {User} from '../../../../admin/modal/user';
 import {Security} from '../../../../admin/modal/security';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {ActivatedRoute} from '@angular/router';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {UserService} from '../../../../../@core/service/user.service';
-import {DmsSummaryService} from './dms-summary.service';
+import {DmsLoanService} from '../dms-loan-file/dms-loan-service';
 
 @Component({
     selector: 'app-dms-summary',
@@ -31,11 +29,9 @@ export class DmsSummaryComponent implements OnInit {
     documentName: string;
     id: number;
 
-    constructor(private dataService: CommonDataService,
-                private commonService: CommonService,
-                private userService: UserService,
+    constructor(private userService: UserService,
                 private router: ActivatedRoute,
-                private dmsSummaryService: DmsSummaryService) {
+                private dmsLoanService: DmsLoanService) {
 
     }
 
@@ -46,7 +42,7 @@ export class DmsSummaryComponent implements OnInit {
                 this.user = response.detail;
             }
         );
-        this.dmsSummaryService.detail(this.id).subscribe(
+        this.dmsLoanService.detail(this.id).subscribe(
             (response: any) => {
                 this.dmsLoanFile = response.detail;
                 this.security = this.dmsLoanFile.security;
@@ -63,7 +59,7 @@ export class DmsSummaryComponent implements OnInit {
     download(i) {
         this.documentUrl = this.documentUrls[i];
         this.documentName = this.documentNames[i];
-        this.dmsSummaryService.downloadDocument(this.documentUrl).subscribe(
+        this.dmsLoanService.downloadDocument(this.documentUrl).subscribe(
             (response: any) => {
                 const newBlob = new Blob([response], {type: 'application/txt'});
                 const downloadUrl = window.URL.createObjectURL(response);

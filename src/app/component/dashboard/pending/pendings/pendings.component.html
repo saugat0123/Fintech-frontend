@@ -1,4 +1,4 @@
-<div class="container">
+<div class="nb-card">
     <div class="row">
         <div class="col-md-6">
             <button data-toggle="collapse" data-target="#searchModel"
@@ -62,11 +62,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let dmsloan of dmsLoanFiles; let i =index">
+                <tr *ngFor="let dmsloan of dmsLoanFiles; let i =index" (click)="onClick(dmsloan.id)" style="cursor: pointer">
                     <div *ngIf="!dmsLoanFiles?.length > 0">
                         <p>No Content Found</p>
                     </div>
-                    <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+                    <td>{{i + 1}}</td>
                     <td>{{user?.branch?.name}}</td>
                     <td>{{dmsloan.customerName}}</td>
                     <td>{{dmsloan.contactNumber}}</td>
@@ -80,5 +80,7 @@
             </table>
         </div>
     </nb-card-body>
-    <app-pagination *ngIf="!spinner"></app-pagination>
+    <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
+    <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+
 </div>
