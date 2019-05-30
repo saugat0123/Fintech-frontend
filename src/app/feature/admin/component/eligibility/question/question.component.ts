@@ -57,7 +57,7 @@ export class QuestionComponent implements OnInit {
     }
 
     addQuestionField() {
-        const control = <FormArray>this.questionAnswerForm.controls.questionForm;
+        const control = this.questionAnswerForm.controls.questionForm as FormArray;
         control.push(
             this.formBuilder.group({
                 status: ['ACTIVE'],
@@ -72,7 +72,7 @@ export class QuestionComponent implements OnInit {
     }
 
     deleteQuestionField(index) {
-        const control = <FormArray>this.questionAnswerForm.controls.questionForm;
+        const control = this.questionAnswerForm.controls.questionForm as FormArray;
         control.removeAt(index);
     }
 
@@ -118,7 +118,7 @@ export class QuestionComponent implements OnInit {
     }
 
     clearFormArray() {
-        const control = <FormArray>this.questionAnswerForm.controls.questionForm;
+        const control = this.questionAnswerForm.controls.questionForm as FormArray;
         control.controls = [];
     }
 
@@ -143,7 +143,7 @@ export class QuestionComponent implements OnInit {
     }
 
     setAnswers(qsnContent) {
-        const control = <FormArray>this.addEditQuestionForm.controls.answers;
+        const control = this.addEditQuestionForm.controls.answers as FormArray;
         qsnContent.answers.forEach(ans => {
             if (ans.status !== 'DELETED') {
                 control.push(this.formBuilder.group({
@@ -175,7 +175,7 @@ export class QuestionComponent implements OnInit {
     }
 
     addAnswerFieldForEdit() {
-        const control = <FormArray>this.addEditQuestionForm.controls.answers;
+        const control = this.addEditQuestionForm.controls.answers as FormArray;
         control.push(
             this.formBuilder.group({
                 description: [undefined, Validators.required],
@@ -186,7 +186,7 @@ export class QuestionComponent implements OnInit {
     }
 
     deleteAnswerFieldForEdit(index) {
-        const control = <FormArray>this.addEditQuestionForm.controls.answers;
+        const control = this.addEditQuestionForm.controls.answers as FormArray;
         control.removeAt(index);
     }
 
@@ -256,7 +256,7 @@ export class QuestionComponent implements OnInit {
 
                 }, error => {
                     console.log(error);
-                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Update Question'));
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Delete Question'));
                     this.questionList = new Array<Questions>();
                     this.modalService.dismissAll('Close modal');
                 }

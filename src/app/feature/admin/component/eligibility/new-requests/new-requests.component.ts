@@ -5,7 +5,6 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {Applicant} from '../../../modal/applicant';
 import {ToastService} from '../../../../../@core/utils';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
-import {QuestionService} from '../question/question.service';
 
 @Component({
   selector: 'app-new-requests',
@@ -21,13 +20,12 @@ export class NewRequestsComponent implements OnInit {
   pageable: Pageable = new Pageable();
 
   constructor(private newRequestService: NewRequestService,
-              private toastService: ToastService,
-              private questionService: QuestionService) { }
+              private toastService: ToastService) { }
 
   static loadData(other: NewRequestsComponent) {
 
     other.spinner = true;
-    other.newRequestService.getAllApplicants(other.page, 10).subscribe((response: any) => {
+    other.newRequestService.getAllWithoutSearchObject(other.page, 10).subscribe((response: any) => {
           other.applicantList = response.detail.content;
           console.log(other.applicantList);
           other.pageable = PaginationUtils.getPageable(response.detail);
