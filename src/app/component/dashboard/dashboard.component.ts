@@ -1,4 +1,3 @@
-
 import {Component, OnInit} from '@angular/core';
 import {CommonDataService} from '../../@core/service/baseservice/common-dataService';
 import {CommonService} from '../../@core/service/baseservice/common-baseservice';
@@ -6,6 +5,8 @@ import {Router} from '@angular/router';
 import {Permission} from '../../feature/admin/modal/permission';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {BreadcrumbService} from '../../@theme/components/breadcrum/breadcrumb.service';
+import {LoanDataService} from '../../feature/loan/service/loan-data.service';
+import {DashboardService} from './dashboard.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -32,9 +33,10 @@ export class DashboardComponent implements OnInit {
     pendingView = false;
 
     constructor(
-        private commonService: CommonService,
+        private dashboardService: DashboardService,
         private dataService: CommonDataService,
         private router: Router,
+        private commonService: CommonService,
         private formBuilder: FormBuilder,
         private breadcrumbService: BreadcrumbService
     ) {
@@ -42,8 +44,10 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
-        this.commonService.getByAll('v1/config/getAll').subscribe((response: any) => {
+        this.dashboardService.getAll().subscribe((response: any) => {
             this.loanList = response.detail;
+            this.dataService.setLoan(response.detail);
+
         });
 
         this.commonService.getByPost('v1/permission/chkPerm', 'DASHBOARD').subscribe(
@@ -68,7 +72,7 @@ export class DashboardComponent implements OnInit {
                 }
             }
         );
-        this.commonService.getByAll('v1/config/getAll').subscribe((response: any) => {
+        this.dashboardService.getAll().subscribe((response: any) => {
             this.loanList = response.detail;
         });
 

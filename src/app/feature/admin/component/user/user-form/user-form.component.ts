@@ -18,10 +18,8 @@ export class UserFormComponent implements OnInit, DoCheck {
 
     @Input()
     model: User;
-
     task: string;
     submitted = false;
-
     spinner = false;
     branchList: Array<Branch>;
     branch = new Branch();
@@ -39,6 +37,7 @@ export class UserFormComponent implements OnInit, DoCheck {
     }
 
     ngOnInit() {
+        console.log(this.model.userName);
         this.branchService.getAll().subscribe((response: any) => {
             this.branchList = response.detail;
         });
@@ -63,6 +62,7 @@ export class UserFormComponent implements OnInit, DoCheck {
             }
             this.task = 'Edit';
         }
+        console.log(this.model);
     }
 
     onSubmit() {

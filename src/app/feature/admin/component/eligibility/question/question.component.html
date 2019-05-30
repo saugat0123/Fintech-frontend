@@ -58,12 +58,12 @@
                                             <tbody>
 
                                             <tr *ngFor="let ans of qsn.answers; let j = index">
-                                                <div *ngIf="qsn.answers?.length == 0">
-                                                    <p>No answers Found</p>
-                                                </div>
-                                                <td>{{ans.description}}</td>
-                                                <td>{{ans.points}}</td>
-                                                <td>{{ans.status}}</td>
+                                                    <div *ngIf="qsn.answers?.length == 0">
+                                                        <p>No answers Found</p>
+                                                    </div>
+                                                    <td *ngIf="ans.status !== 'DELETED'">{{ans.description}}</td>
+                                                    <td *ngIf="ans.status !== 'DELETED'">{{ans.points}}</td>
+                                                    <td *ngIf="ans.status !== 'DELETED'">{{ans.status}}</td>
                                             </tr>
                                             </tbody>
                                         </table>

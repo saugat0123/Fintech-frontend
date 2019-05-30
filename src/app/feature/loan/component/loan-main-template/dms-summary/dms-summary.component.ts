@@ -6,6 +6,8 @@ import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {ActivatedRoute} from '@angular/router';
 import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
+import {UserService} from '../../../../../@core/service/user.service';
+import {DmsSummaryService} from './dms-summary.service';
 
 @Component({
     selector: 'app-dms-summary',
@@ -15,7 +17,7 @@ import {CommonService} from '../../../../../@core/service/baseservice/common-bas
 export class DmsSummaryComponent implements OnInit {
     dmsLoanFile: DmsLoanFile = new DmsLoanFile();
     loan: LoanConfig = new LoanConfig();
-    loanType: string;
+    loanConfig: string;
     index = 0;
     user: User = new User();
     security: string;
@@ -31,18 +33,24 @@ export class DmsSummaryComponent implements OnInit {
 
     constructor(private dataService: CommonDataService,
                 private commonService: CommonService,
-                private router: ActivatedRoute) {
+                private userService: UserService,
+                private router: ActivatedRoute,
+                private dmsSummaryService: DmsSummaryService) {
 
     }
 
     ngOnInit() {
         this.id = this.router.snapshot.params['id'];
-        this.commonService.getById('v1/dmsLoanFile/getById/' + this.id).subscribe(
+        this.userService.getLoggedInUser().subscribe(
+            (response: any) => {
+                this.user = response.detail;
+            }
+        );
+        this.dmsSummaryService.detail(this.id).subscribe(
             (response: any) => {
                 this.dmsLoanFile = response.detail;
                 this.security = this.dmsLoanFile.security;
                 this.securities = this.security.split(',');
-                this.user = this.dataService.getUser();
                 this.documents = this.dmsLoanFile.documentPathMaps;
                 for (const document of this.documents) {
                     this.documentNames.push(Object.keys(document));
@@ -55,7 +63,7 @@ export class DmsSummaryComponent implements OnInit {
     download(i) {
         this.documentUrl = this.documentUrls[i];
         this.documentName = this.documentNames[i];
-        this.commonService.getByPath('v1/dmsLoanFile/download', this.documentUrl).subscribe(
+        this.dmsSummaryService.downloadDocument(this.documentUrl).subscribe(
             (response: any) => {
                 const newBlob = new Blob([response], {type: 'application/txt'});
                 const downloadUrl = window.URL.createObjectURL(response);

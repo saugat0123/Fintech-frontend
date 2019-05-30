@@ -15,5 +15,5 @@ export class Branch {
     streetName: string;
     wardNumber: string;
     municipalityVdc: MunicipalityVdc;
-
+    status: string;
 }
