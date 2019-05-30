@@ -3,7 +3,7 @@ import {MemoType} from '../../model/memoType';
 import {MemoService} from '../../service/memo.service';
 import {Observable} from 'rxjs';
 import {Memo} from '../../model/memo';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../../admin/modal/user';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
@@ -13,6 +13,7 @@ import {ToastService} from '../../../../@core/utils';
 import {MemoTypeService} from '../../service/memo-type.service';
 import {UserService} from '../../../admin/component/user/user.service';
 import {MemoBaseComponent} from '../memo-base/memo-base.component';
+import {CustomValidator} from '../../../../@core/validator/custom-validator';
 
 @Component({
     selector: 'app-memo-compose',
@@ -75,15 +76,15 @@ export class MemoComposeComponent implements OnInit {
     buildMemoForm(memo: Memo) {
         this.memoComposeForm = this.formBuilder.group(
             {
-                id: [memo.id],
-                subject: [memo.subject],
-                refNumber: [memo.refNumber],
-                memoType: [memo.type],
-                sentBy: [memo.sentBy],
-                sentTo: [memo.sentTo],
+                id: [memo.id, (memo.id === null || memo.id === 0 || memo.id === undefined) ? [] : Validators.required],
+                subject: [memo.subject, [Validators.required, CustomValidator.notEmpty]],
+                refNumber: [memo.refNumber, [Validators.required, CustomValidator.notEmpty]],
+                memoType: [memo.type, Validators.required],
+                sentBy: [memo.sentBy, Validators.required],
+                sentTo: [memo.sentTo, Validators.required],
                 cc: [memo.cc],
                 bcc: [memo.bcc],
-                content: [memo.content]
+                content: [memo.content, [Validators.required, CustomValidator.notEmpty]]
             }
         );
     }
@@ -119,4 +120,28 @@ export class MemoComposeComponent implements OnInit {
             });
         }
     }
+
+    get subject() {
+        return this.memoComposeForm.get('subject');
+    }
+
+    get refNumber() {
+        return this.memoComposeForm.get('refNumber');
+    }
+
+    get memoType() {
+        return this.memoComposeForm.get('memoType');
+    }
+    get sentBy() {
+        return this.memoComposeForm.get('sentBy');
+    }
+
+    get sentTo() {
+        return this.memoComposeForm.get('sentTo');
+    }
+
+    get content() {
+        return this.memoComposeForm.get('content');
+    }
+
 }
