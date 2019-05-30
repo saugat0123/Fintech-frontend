@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Pageable} from './common-pageable';
 import {ApiUtils} from '../../utils/api/ApiUtils';
+import {any} from 'codelyzer/util/function';
 
 @Injectable({
     providedIn: 'root'
@@ -45,7 +46,6 @@ export class CommonService {
     getByPostOpeningAccount(reqUrl, model, page, size, accountStatus) {
         const url: string = reqUrl + '?accountStatus=' + accountStatus + '&page=' + page + '&size=' + size;
         const getUrl = ApiUtils.getRequest(url);
-        console.log(getUrl.url);
         return this.http.post(getUrl.url, model);
 
     }
@@ -98,6 +98,11 @@ export class CommonService {
         const url: string = reqUrl;
         const getUrl = ApiUtils.getRequest(url);
         return this.http.put(getUrl.url, model, {headers: getUrl.header});
+    }
+    updateStatus(id, status, reqUrl): Observable<Object> {
+        const url: string = reqUrl + '?id=' + id + '&status=' + status;
+        const getUrl = ApiUtils.getRequest(url);
+        return this.http.post(getUrl.url, new Object());
     }
 
 }

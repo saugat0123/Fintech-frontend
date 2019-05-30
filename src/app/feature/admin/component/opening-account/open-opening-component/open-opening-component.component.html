@@ -4,7 +4,7 @@
         <form class="form-horizontal" (ngSubmit)="onSubmit()" [formGroup]="openingAccount">
             <!-- START ROW -->
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-8">
                     <div class="form-group">
                         <label for="branch"><b>Bank Branch</b></label>
                         <input id="branch" formControlName="branch" type="text" required
@@ -12,12 +12,31 @@
                                placeholder="Branch">
                     </div>
                 </div>
+            </div>
+            <!-- END ROW -->
+            <!-- START ROW -->
+            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="proposeOfAccount"><b>Propose of Account</b></label>
-                        <input id="proposeOfAccount" formControlName="proposeOfAccount" type="text" required
-                               class="form-control form-control-error rounded"
-                               placeholder="Applicant's Account Propose">
+                        <label for="purposeOfAccount"><b>Purpose of Account</b></label>
+                        <div id="purposeOfAccount">
+                            <input class="big-radio" type="radio" id="purposeOfAccountSaving"
+                                   formControlName="purposeOfAccount" value="Saving">
+                            <label for="purposeOfAccountSaving">Saving</label>
+                            <input class="big-radio" type="radio" id="purposeOfAccountSalary"
+                                   formControlName="purposeOfAccount" value="Salary">
+                            <label for="purposeOfAccountSalary">Salary</label>
+                            <input class="big-radio" type="radio" id="purposeOfAccountOther"
+                                   formControlName="purposeOfAccount" value="Others">
+                            <label for="purposeOfAccountOther">Others</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <div [hidden]="openingAccount.get('purposeOfAccount').value !== 'Others'"
+                         class="form-group">
+                        <input class="form-control" formControlName="purposeOfAccountOther"
+                               id="purposeOfAccountOtherName" placeholder="Purpose of Account" type="text">
                     </div>
                 </div>
             </div>
@@ -30,20 +49,20 @@
                         <div id="accountType">
                             <input class="big-radio" type="radio" id="accountTypeCurrent"
                                    formControlName="accountType" value="Current Account">
-                            <label for="jointAccountRadioTrue">Current Account</label>
+                            <label for="accountTypeCurrent">Current Account</label>
                             <input class="big-radio" type="radio" id="accountTypeSaving"
                                    formControlName="accountType" value="Savings Account">
-                            <label for="jointAccountRadioFalse">Savings Account</label>
+                            <label for="accountTypeSaving">Savings Account</label>
                             <input class="big-radio" type="radio" id="accountTypeOther"
                                    formControlName="accountType" value="Other Account">
-                            <label for="jointAccountRadioFalse">Other Account</label>
+                            <label for="accountTypeOther">Other Account</label>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 form-group">
                     <div [hidden]="openingAccount.get('accountType').value !== 'Other Account'"
                          class="form-group">
-                        <input class="form-control" formControlName="accountType"
+                        <input class="form-control" formControlName="accountTypeOther"
                                id="AccountTypeOtherName" placeholder="Enter account type" type="text">
                     </div>
                 </div>
@@ -57,14 +76,14 @@
                         <div id="haveExistingAccount">
                             <input class="big-radio" type="radio" id="haveExistingAccountTrue"
                                    formControlName="haveExistingAccount" value="true">
-                            <label for="jointAccountRadioTrue">Yes</label>
+                            <label for="haveExistingAccountTrue">Yes</label>
                             <input class="big-radio" type="radio" id="haveExistingAccountFalse"
                                    formControlName="haveExistingAccount" value="false">
-                            <label for="jointAccountRadioFalse">No</label>
+                            <label for="haveExistingAccountFalse">No</label>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" [hidden]="openingAccount.get('haveExistingAccount').value !== 'true'">
                     <div class="form-group">
                         <label for="existingAccountNumber"><b>Existing Account Number</b></label>
                         <input id="existingAccountNumber" formControlName="existingAccountNumber" type="text" required
@@ -203,6 +222,19 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-4 form-group">
+                            <div [hidden]="applicantDetail.get('applicantMaritalStatusRadio').value !== 'Others'"
+                                 class="form-group">
+                                <input class="form-control"
+                                       formControlName="applicantMaritalStatusRadioOtherMarriedStatus"
+                                       id="applicantMaritalStatusRadioOtherMarriedStatus"
+                                       placeholder="Enter Martial Status" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantGenderRadio"><b>Applicant Gender</b></label>
@@ -219,15 +251,48 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-4 form-group">
+                            <div [hidden]="applicantDetail.get('applicantGenderRadio').value !== 'Other Gender'"
+                                 class="form-group">
+                                <input class="form-control" formControlName="applicantGenderRadioOtherGender"
+                                       id="applicantGenderRadioOtherGender" placeholder="Enter Gender" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantEducationalQualification">
                                     <b>Education Qualification</b>
                                 </label>
-                                <input id="applicantEducationalQualification"
-                                       formControlName="applicantEducationalQualification"
-                                       type="text" class="form-control form-control-error rounded" required
-                                       placeholder="Applicant Education Qualification">
+                                <div id="applicantEducationalQualification">
+                                    <input class="big-radio" type="radio" id="applicantEducationalQualificationLiterate"
+                                           formControlName="applicantEducationalQualification" value="Literate">
+                                    <label for="applicantEducationalQualificationLiterate">Literate</label>
+                                    <input class="big-radio" type="radio" id="applicantEducationalQualificationSLC"
+                                           formControlName="applicantEducationalQualification" value="SLC">
+                                    <label for="applicantEducationalQualificationSLC">SLC</label>
+                                    <input class="big-radio" type="radio" id="applicantEducationalQualificationGraduate"
+                                           formControlName="applicantEducationalQualification" value="Graduate">
+                                    <label for="applicantEducationalQualificationGraduate">Graduate</label>
+                                    <input class="big-radio" type="radio"
+                                           id="applicantEducationalQualificationPostGraduate"
+                                           formControlName="applicantEducationalQualification" value="PostGraduate">
+                                    <label for="applicantEducationalQualificationPostGraduate">PostGraduate</label>
+                                    <input class="big-radio" type="radio" id="applicantEducationalQualificationOthers"
+                                           formControlName="applicantEducationalQualification" value="Others">
+                                    <label for="applicantEducationalQualificationOthers">Other</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <div [hidden]="applicantDetail.get('applicantEducationalQualification').value !== 'Others'"
+                                 class="form-group">
+                                <input class="form-control" formControlName="applicantEducationalQualificationOther"
+                                       id="applicantEducationalQualificationOtherName"
+                                       placeholder="Enter Education Qualification" type="text">
                             </div>
                         </div>
                     </div>
@@ -504,7 +569,7 @@
                             <div class="form-group">
                                 <label for="applicantDateOfBirth"><b>Date of Birth</b></label>
                                 <input id="applicantDateOfBirth" formControlName="applicantDateOfBirth" type="date"
-                                               class="form-control form-control-error rounded">
+                                       class="form-control form-control-error rounded">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -750,7 +815,7 @@
                     </div>
                     <!-- END ROW -->
                     <!-- START ROW -->
-                    <div class="row">
+                    <div class="row" [hidden]="applicantDetail.get('isPoliticallyExposed').value !== 'true'">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="pepName"><b>Please specify the name of PEP</b></label>
@@ -789,7 +854,7 @@
                     </div>
                     <!-- END ROW -->
                     <!-- START ROW -->
-                    <div class="row">
+                    <div class="row" [hidden]="applicantDetail.get('isConvictedForCrime').value !== 'true'">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="crimeConvictedFor">
@@ -822,7 +887,7 @@
                     </div>
                     <!-- END ROW -->
                     <!-- START ROW -->
-                    <div class="row">
+                    <div class="row" [hidden]="applicantDetail.get('holdResidentialOfForeign').value !== 'true'">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="holdResidentialOfForeignType">
@@ -837,7 +902,8 @@
                                     <label for="holdResidentialOfForeignFalse">Permanent Resident</label>
                                     <input class="big-radio" type="radio"
                                            id="holdResidentialOfForeignTypeStayingForDays"
-                                           formControlName="holdResidentialOfForeignType" value="Resident (Staying for 180 days or more in a year)">
+                                           formControlName="holdResidentialOfForeignType"
+                                           value="Resident (Staying for 180 days or more in a year)">
                                     <label for="holdResidentialOfForeignTypeStayingForDays">
                                         Resident (Staying for 180 days or more in a year)
                                     </label>
@@ -905,147 +971,150 @@
                 <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addApplicantDetail()"
                        value="Add Applicant"/>
             </div>
-
-            <div class="box-header with-border">
-                <h3 class="box-title title"><b>Applicant Nominee</b></h3>
+            <div [hidden]="openingAccount.get('nomineeRadio').value !== 'true'">
+                <div class="box-header with-border">
+                    <h3 class="box-title title"><b>Applicant Nominee</b></h3>
+                </div>
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="nomineeName"><b>Nominee Name</b></label>
+                            <input id="nomineeName" formControlName="nomineeName" type="text"
+                                   class="form-control form-control-error rounded" required placeholder="Nominee Name">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="relationWithNominee"><b>Relation With Nominee</b></label>
+                            <input id="relationWithNominee" formControlName="relationWithNominee" type="text"
+                                   class="form-control form-control-error rounded" required
+                                   placeholder="Relation With Nominee">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="nomineeDateOfBirth"><b>Nominee Date of Birth</b></label>
+                            <input id="nomineeDateOfBirth" formControlName="nomineeDateOfBirth" type="date"
+                                   class="form-control form-control-error rounded" required>
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="nomineePermanentAddress"><b>Nominee Permanent Address</b></label>
+                            <input id="nomineePermanentAddress" formControlName="nomineePermanentAddress" type="text"
+                                   class="form-control form-control-error rounded" required
+                                   placeholder="Nominee Permanent Address">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="nomineePresentAddress"><b>Nominee Present Address</b></label>
+                            <input id="nomineePresentAddress" formControlName="nomineePresentAddress" type="text"
+                                   class="form-control form-control-error rounded" required
+                                   placeholder="Nominee Present Address">
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="nomineeCitizenshipNumber"><b>Citizenship Number</b></label>
+                            <input id="nomineeCitizenshipNumber" formControlName="nomineeCitizenshipNumber" type="text"
+                                   class="form-control form-control-error rounded" required
+                                   placeholder="Nominee Citizenship Number">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="nomineeCitizenshipIssueAddress"><b>Citizenship Issued Address</b></label>
+                            <input id="nomineeCitizenshipIssueAddress" formControlName="nomineeCitizenshipIssueAddress"
+                                   type="text" class="form-control form-control-error rounded" required
+                                   placeholder="Nominee Citizenship Issued Address">
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
             </div>
-            <!-- START ROW -->
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="nomineeName"><b>Nominee Name</b></label>
-                        <input id="nomineeName" formControlName="nomineeName" type="text"
-                               class="form-control form-control-error rounded" required placeholder="Nominee Name">
+            <div [hidden]="openingAccount.get('beneficiaryRadio').value !== 'true'">
+                <div class="box-header with-border">
+                    <h3 class="box-title title"><b>Applicant Beneficiary Details</b></h3>
+                </div>
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="beneficiaryName"><b>Beneficiary Name</b></label>
+                            <input id="beneficiaryName" formControlName="beneficiaryName" type="text"
+                                   class="form-control form-control-error rounded" required placeholder="Beneficiary Name">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="relationWithBeneficiary"><b>Relation With Beneficiary</b></label>
+                            <input id="relationWithBeneficiary" formControlName="relationWithBeneficiary" type="text"
+                                   class="form-control form-control-error rounded" required
+                                   placeholder="Relation With Beneficiary">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="beneficiaryDateOfBirth"><b>Beneficiary Date of Birth</b></label>
+                            <input id="beneficiaryDateOfBirth" formControlName="beneficiaryDateOfBirth" type="date"
+                                   class="form-control form-control-error rounded" required>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="relationWithNominee"><b>Relation With Nominee</b></label>
-                        <input id="relationWithNominee" formControlName="relationWithNominee" type="text"
-                               class="form-control form-control-error rounded" required
-                               placeholder="Relation With Nominee">
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="beneficiaryAddress"><b>Beneficiary Permanent Address</b></label>
+                            <input id="beneficiaryAddress" formControlName="beneficiaryAddress" type="text"
+                                   class="form-control form-control-error rounded" required
+                                   placeholder="Beneficiary Permanent Address">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="beneficiaryPresentAddress"><b>Beneficiary Present Address</b></label>
+                            <input id="beneficiaryPresentAddress" formControlName="beneficiaryPresentAddress" type="text"
+                                   class="form-control form-control-error rounded" required
+                                   placeholder="Beneficiary Present Address">
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="nomineeDateOfBirth"><b>Nominee Date of Birth</b></label>
-                        <input id="nomineeDateOfBirth" formControlName="nomineeDateOfBirth" type="date"
-                               class="form-control form-control-error rounded" required>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="beneficiaryCitizenshipNumber"><b>Citizenship Number</b></label>
+                            <input id="beneficiaryCitizenshipNumber" formControlName="beneficiaryCitizenshipNumber"
+                                   type="text"
+                                   class="form-control form-control-error rounded" required
+                                   placeholder="Beneficiary Citizenship Number">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="beneficiaryCitizenshipIssueAddress"><b>Citizenship Issued Address</b></label>
+                            <input id="beneficiaryCitizenshipIssueAddress"
+                                   formControlName="beneficiaryCitizenshipIssueAddress"
+                                   type="text" class="form-control form-control-error rounded" required
+                                   placeholder="Beneficiary Citizenship Issued Address">
+                        </div>
                     </div>
                 </div>
+                <!-- END ROW -->
             </div>
-            <!-- END ROW -->
-            <!-- START ROW -->
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="nomineePermanentAddress"><b>Nominee Permanent Address</b></label>
-                        <input id="nomineePermanentAddress" formControlName="nomineePermanentAddress" type="text"
-                               class="form-control form-control-error rounded" required
-                               placeholder="Nominee Permanent Address">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="nomineePresentAddress"><b>Nominee Present Address</b></label>
-                        <input id="nomineePresentAddress" formControlName="nomineePresentAddress" type="text"
-                               class="form-control form-control-error rounded" required
-                               placeholder="Nominee Present Address">
-                    </div>
-                </div>
-            </div>
-            <!-- END ROW -->
-            <!-- START ROW -->
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="nomineeCitizenshipNumber"><b>Citizenship Number</b></label>
-                        <input id="nomineeCitizenshipNumber" formControlName="nomineeCitizenshipNumber" type="text"
-                               class="form-control form-control-error rounded" required
-                               placeholder="Nominee Citizenship Number">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="nomineeCitizenshipIssueAddress"><b>Citizenship Issued Address</b></label>
-                        <input id="nomineeCitizenshipIssueAddress" formControlName="nomineeCitizenshipIssueAddress"
-                               type="text" class="form-control form-control-error rounded" required
-                               placeholder="Nominee Citizenship Issued Address">
-                    </div>
-                </div>
-            </div>
-            <!-- END ROW -->
-            <div class="box-header with-border">
-                <h3 class="box-title title"><b>Applicant Beneficiary Details</b></h3>
-            </div>
-            <!-- START ROW -->
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="beneficiaryName"><b>Beneficiary Name</b></label>
-                        <input id="beneficiaryName" formControlName="beneficiaryName" type="text"
-                               class="form-control form-control-error rounded" required placeholder="Beneficiary Name">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="relationWithBeneficiary"><b>Relation With Beneficiary</b></label>
-                        <input id="relationWithBeneficiary" formControlName="relationWithBeneficiary" type="text"
-                               class="form-control form-control-error rounded" required
-                               placeholder="Relation With Beneficiary">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="beneficiaryDateOfBirth"><b>Beneficiary Date of Birth</b></label>
-                        <input id="beneficiaryDateOfBirth" formControlName="beneficiaryDateOfBirth" type="date"
-                               class="form-control form-control-error rounded" required>
-                    </div>
-                </div>
-            </div>
-            <!-- END ROW -->
-            <!-- START ROW -->
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="beneficiaryAddress"><b>Beneficiary Permanent Address</b></label>
-                        <input id="beneficiaryAddress" formControlName="beneficiaryAddress" type="text"
-                               class="form-control form-control-error rounded" required
-                               placeholder="Beneficiary Permanent Address">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="beneficiaryPresentAddress"><b>Beneficiary Present Address</b></label>
-                        <input id="beneficiaryPresentAddress" formControlName="beneficiaryPresentAddress" type="text"
-                               class="form-control form-control-error rounded" required
-                               placeholder="Beneficiary Present Address">
-                    </div>
-                </div>
-            </div>
-            <!-- END ROW -->
-            <!-- START ROW -->
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="beneficiaryCitizenshipNumber"><b>Citizenship Number</b></label>
-                        <input id="beneficiaryCitizenshipNumber" formControlName="beneficiaryCitizenshipNumber"
-                               type="text"
-                               class="form-control form-control-error rounded" required
-                               placeholder="Beneficiary Citizenship Number">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="beneficiaryCitizenshipIssueAddress"><b>Citizenship Issued Address</b></label>
-                        <input id="beneficiaryCitizenshipIssueAddress"
-                               formControlName="beneficiaryCitizenshipIssueAddress"
-                               type="text" class="form-control form-control-error rounded" required
-                               placeholder="Beneficiary Citizenship Issued Address">
-                    </div>
-                </div>
-            </div>
-            <!-- END ROW -->
             <div class="box-header with-border">
                 <h3 class="box-title title"><b>Account Transaction Details</b></h3>
             </div>
@@ -1090,37 +1159,36 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="accountStatementFrequencyRadio"><b>Statement Frequency</b></label>
-                        <div id="accountStatementFrequencyRadio">
-                            <input class="big-radio" type="radio" id="accountStatementFrequencyRadioMonthly"
-                                   formControlName="accountStatementFrequencyRadio" value="Monthly">
-                            <label for="accountStatementFrequencyRadioMonthly">Monthly</label>
-                            <input class="big-radio" type="radio" id="accountStatementFrequencyRadioQuarterly"
-                                   formControlName="accountStatementFrequencyRadio" value="Quarterly">
-                            <label for="accountStatementFrequencyRadioQuarterly">Quarterly</label>
-                            <input class="big-radio" type="radio" id="accountStatementFrequencyRadioAnnually"
-                                   formControlName="accountStatementFrequencyRadio" value="Annually">
-                            <label for="accountStatementFrequencyRadioAnnually">Annually</label>
+                    <div class="col-md-4" [hidden]="openingAccount.get('accountStatementRadio').value !== 'true'">
+                        <div class="form-group">
+                            <label for="accountStatementFrequencyRadio"><b>Statement Frequency</b></label>
+                            <div id="accountStatementFrequencyRadio">
+                                <input class="big-radio" type="radio" id="accountStatementFrequencyRadioMonthly"
+                                       formControlName="accountStatementFrequencyRadio" value="Monthly">
+                                <label for="accountStatementFrequencyRadioMonthly">Monthly</label>
+                                <input class="big-radio" type="radio" id="accountStatementFrequencyRadioQuarterly"
+                                       formControlName="accountStatementFrequencyRadio" value="Quarterly">
+                                <label for="accountStatementFrequencyRadioQuarterly">Quarterly</label>
+                                <input class="big-radio" type="radio" id="accountStatementFrequencyRadioAnnually"
+                                       formControlName="accountStatementFrequencyRadio" value="Annually">
+                                <label for="accountStatementFrequencyRadioAnnually">Annually</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="statementMode"><b>Statement Mode</b></label>
-                        <div id="statementMode">
-                            <input class="big-radio" type="radio" id="statementModePrint"
-                                   formControlName="statementMode"
-                                   value="Print on Demand">
-                            <label for="statementModePrint">Print on Demand</label>
-                            <input class="big-radio" type="radio" id="statementModeEmail"
-                                   formControlName="statementMode"
-                                   value="Email">
-                            <label for="statementModeEmail">Email</label>
+                    <div class="col-md-4" [hidden]="openingAccount.get('accountStatementRadio').value !== 'true'">
+                        <div class="form-group">
+                            <label for="statementMode"><b>Statement Mode</b></label>
+                            <div id="statementMode">
+                                <input class="big-radio" type="radio" id="statementModePrint"
+                                       formControlName="statementMode"
+                                       value="Print on Demand">
+                                <label for="statementModePrint">Print on Demand</label>
+                                <input class="big-radio" type="radio" id="statementModeEmail"
+                                       formControlName="statementMode" value="Email">
+                                <label for="statementModeEmail">Email</label>
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
             <!-- END ROW -->
             <!-- START ROW -->
@@ -1166,6 +1234,14 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <!-- END ROW -->
+            <!-- START ROW -->
+            <div class="text-right">
+                <input class="btn btn-flat btn-lg btn-primary m-4" type="button"
+                       value="Approve"/>
+                <input class="btn btn-flat btn-lg btn-danger m-4" type="button"
+                       value="Reject"/>
             </div>
             <!-- END ROW -->
         </form>

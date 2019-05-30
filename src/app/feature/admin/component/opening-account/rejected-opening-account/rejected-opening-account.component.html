@@ -1,22 +1,26 @@
 <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-12">
         <app-icon-card title="Total" type="info" detail="{{total}}">
-            <i class="fa fa-bank"></i>
+            <i class="fa fa-money-check"></i>
         </app-icon-card>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <app-icon-card title="New" type="success" detail="{{newed}}">
-            <i class="fa fa-briefcase"></i>
-        </app-icon-card>
+        <a routerLink="/home/admin/approvalOpeningAccount">
+            <app-icon-card title="Pending" type="success" detail="{{pending}}">
+                <i class="fa fa-money-check"></i>
+            </app-icon-card>
+        </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <app-icon-card title="Approved" type="warning" detail="{{approval}}">
-            <i class="fa fa-address-book-o"></i>
-        </app-icon-card>
+        <a routerLink="/home/admin/approvalOpeningAccount">
+            <app-icon-card title="Approved" type="primary" detail="{{approval}}">
+                <i class="fa fa-money-check"></i>
+            </app-icon-card>
+        </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <app-icon-card title="Rejected" type="warning" detail="{{rejected}}">
-            <i class="fa fa-address-book-o"></i>
+        <app-icon-card title="Rejected" type="danger" detail="{{rejected}}">
+            <i class="fa fa-money-check"></i>
         </app-icon-card>
     </div>
 </div>
@@ -33,17 +37,23 @@
                                 <th>Account Holder Name</th>
                                 <th>Requested Date</th>
                                 <th>Account Type</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let openingForm of openingForms;let i=index" (click)="onEdit(openingForm)">
+                            <tr *ngFor="let openingForm of openingForms;let i=index" style="cursor: pointer">
                                 <div *ngIf="!openingForms?.length > 0">
                                     <p>No Content Found</p>
                                 </div>
                                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                                <td>{{openingForm?.fullName}}</td>
-                                <td>{{openingForm?.requestedDate | date}}</td>
-                                <td>{{openingForm?.openingAccount?.accountType}}</td>
+                                <td (click)="onEdit(openingForm)">{{openingForm?.fullName}}</td>
+                                <td (click)="onEdit(openingForm)">{{openingForm?.requestedDate | date}}</td>
+                                <td (click)="onEdit(openingForm)">{{openingForm?.openingAccount?.accountType}}</td>
+                                <td>
+                                    <button nbButton status="primary" size="xsmall"
+                                            (click)="updateStatus(openingForm.id,'APPROVAL')">Approve
+                                    </button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

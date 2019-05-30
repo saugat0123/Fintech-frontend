@@ -7,6 +7,10 @@ import {CommonPageService} from '../../../../../@core/service/baseservice/common
 import {Router} from '@angular/router';
 import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
 import {OpeningForm} from '../../../modal/openingForm';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {ModalResponse, ToastService} from '../../../../../@core/utils';
+import {OpeningAccountService} from '../opening-account.service';
+import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 
 @Component({
     selector: 'app-rejected-opening-account',
@@ -15,63 +19,65 @@ import {OpeningForm} from '../../../modal/openingForm';
 })
 export class RejectedOpeningAccountComponent implements OnInit {
 
-    title = 'Opening Account';
-    openingForms: [];
+    title = 'Rejected Opening Account';
+    page = 1;
+    openingForms: Array<OpeningForm>;
     currentApi: string;
     pageable: Pageable = new Pageable();
     branch: Branch = new Branch();
     spinner = false;
     globalMsg: string;
     total: number;
-    newed: number;
+    pending: number;
     approval: number;
     rejected: number;
 
     constructor(
-        private dataService: CommonDataService,
-        private commonService: CommonService,
+        private service: OpeningAccountService,
         private commonPageService: CommonPageService,
+        private toastService: ToastService,
         private router: Router,
         private breadcrumbService: BreadcrumbService
     ) {
     }
 
-    ngOnInit() {
-        this.breadcrumbService.notify(this.title);
-        this.breadcrumbService.notify(this.title);
-        this.currentApi = 'v1/accountOpening';
-        this.getPagination();
-        this.commonService.getByAll(this.currentApi + '/statusCount').subscribe((response: any) => {
-            this.total = response.detail.total;
-            this.newed = response.detail.newed;
-            this.approval = response.detail.approval;
-            this.rejected = response.detail.rejected;
-            console.log(response);
-        });
-    }
-
-    getPagination() {
-        this.spinner = true;
-        this.branch.id = 1;
-        this.commonService.getByPostOpeningAccount(this.currentApi + '/get', this.branch, 1, 10, 'REJECTED').subscribe((response: any) => {
-                this.openingForms = response.detail.content;
-                this.dataService.setDataList(this.openingForms);
-                this.commonPageService.setCurrentApi(this.currentApi);
-                this.pageable = this.commonPageService.setPageable(response.detail);
-                this.spinner = false;
+    static loadData(other: RejectedOpeningAccountComponent) {
+        other.spinner = true;
+        other.service.getA(other.branch, other.page, 10, 'REJECTED').subscribe((response: any) => {
+                other.openingForms = response.detail.content;
+                other.pageable = PaginationUtils.getPageable(response.detail);
+                other.spinner = false;
             }, error => {
-                this.globalMsg = error.error.message;
-                if (this.globalMsg == null) {
-                    this.globalMsg = 'Please check your network connection';
-                }
-                this.spinner = false;
-                this.dataService.getGlobalMsg(this.globalMsg);
+                console.log(error);
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
+                other.spinner = false;
             }
         );
     }
 
+    ngOnInit() {
+        this.breadcrumbService.notify(this.title);
+        this.service.getStatus().subscribe((response: any) => {
+            this.total = response.detail.total;
+            this.pending = response.detail.newed;
+            this.approval = response.detail.approval;
+            this.rejected = response.detail.rejected;
+        });
+        this.branch.id = 1;
+        RejectedOpeningAccountComponent.loadData(this);
+    }
+
     onEdit(openingForm: OpeningForm) {
-        this.dataService.setOpeningForm(openingForm);
+        this.service.setOpeningForm(openingForm);
         this.router.navigate(['home/admin/openOpeningAccount']);
+    }
+
+    updateStatus(id, status) {
+        this.service.update(id, status).subscribe((response: any) => {
+                RejectedOpeningAccountComponent.loadData(this);
+            }, error => {
+                console.log(error);
+            }
+        );
     }
 }

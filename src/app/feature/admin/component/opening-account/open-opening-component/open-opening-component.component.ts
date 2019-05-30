@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {OpeningForm} from '../../../modal/openingForm';
 import {OpeningCustomerRelative} from '../../../modal/openingCustomerRelative';
 import {OpeningOccupationalDetails} from '../../../modal/openingOccupationalDetails';
 import {OpeningCustomer} from '../../../modal/openingCustomer';
+import {OpeningAccountService} from '../opening-account.service';
 
 @Component({
     selector: 'app-open-opening-component',
@@ -17,13 +17,13 @@ export class OpenOpeningComponentComponent implements OnInit {
     openingForm: OpeningForm = new OpeningForm();
 
     constructor(
-        private formBuilder: FormBuilder,
-        private dataService: CommonDataService
+        private service: OpeningAccountService,
+        private formBuilder: FormBuilder
     ) {
     }
 
     ngOnInit() {
-        this.openingForm = this.dataService.getOpeningForm();
+        this.openingForm = this.service.getOpeningForm();
         console.log('opening Form', this.openingForm);
         this.openingAccount = this.formBuilder.group({
             // OpeningForm
@@ -31,7 +31,9 @@ export class OpenOpeningComponentComponent implements OnInit {
             requestedDate: [undefined],
             // Opening Account
             accountType: [undefined],
-            proposeOfAccount: [undefined],
+            accountTypeOther: [undefined],
+            purposeOfAccount: [undefined],
+            purposeOfAccountOther: [undefined],
             haveExistingAccount: [undefined],
             existingAccountNumber: [undefined],
             accountCurrency: [undefined],
@@ -67,14 +69,16 @@ export class OpenOpeningComponentComponent implements OnInit {
             internetBankingRadio: [undefined],
             mobileBankingRadio: [undefined]
         });
-        if (this.openingForm.id !== undefined) {
+        if (this.openingForm.id !== undefined && this.openingForm.id !== 0) {
             this.openingAccount = this.formBuilder.group({
                 // OpeningForm
                 branch: this.openingForm.branch.name,
                 requestedDate: this.openingForm.requestedDate,
                 // Opening Account
                 accountType: this.openingForm.openingAccount.accountType,
-                proposeOfAccount: this.openingForm.openingAccount.purposeOfAccount,
+                accountTypeOther: [undefined],
+                purposeOfAccount: this.openingForm.openingAccount.purposeOfAccount,
+                purposeOfAccountOther: [undefined],
                 haveExistingAccount: this.openingForm.openingAccount.haveExistingAccountNo + '',
                 existingAccountNumber: this.openingForm.openingAccount.existingAccountNo,
                 accountCurrency: this.openingForm.openingAccount.currency,
@@ -110,6 +114,16 @@ export class OpenOpeningComponentComponent implements OnInit {
                 internetBankingRadio: this.openingForm.openingAccount.internetBanking + '',
                 mobileBankingRadio: this.openingForm.openingAccount.mobileBanking + '',
             });
+            if (this.openingForm.openingAccount.accountType !== 'Current Account' &&
+                this.openingForm.openingAccount.accountType !== 'Savings Account') {
+                this.openingAccount.get('accountType').setValue('Other Account');
+                this.openingAccount.get('accountTypeOther').setValue(this.openingForm.openingAccount.accountType);
+            }
+            if (this.openingForm.openingAccount.purposeOfAccount !== 'Saving' &&
+                this.openingForm.openingAccount.purposeOfAccount !== 'Salary') {
+                this.openingAccount.get('purposeOfAccount').setValue('Others');
+                this.openingAccount.get('purposeOfAccountOther').setValue(this.openingForm.openingAccount.purposeOfAccount);
+            }
             this.openingAccount.setControl('applicantDetail', this.setApplicantDetailFormGroup
             (this.openingForm.openingAccount.openingCustomers));
         }
@@ -124,8 +138,11 @@ export class OpenOpeningComponentComponent implements OnInit {
             customerMiddleName: [undefined],
             customerLastName: [undefined],
             applicantMaritalStatusRadio: [undefined],
+            applicantMaritalStatusRadioOtherMarriedStatus: [undefined],
             applicantGenderRadio: [undefined],
+            applicantGenderRadioOtherGender: [undefined],
             applicantEducationalQualification: [undefined],
+            applicantEducationalQualificationOther: [undefined],
             applicantPermanentProvince: [undefined],
             applicantPermanentDistrict: [undefined],
             applicantPermanentMunicipalityOrVDC: [undefined],
@@ -185,8 +202,11 @@ export class OpenOpeningComponentComponent implements OnInit {
                     customerMiddleName: applicant.middleName,
                     customerLastName: applicant.lastName,
                     applicantMaritalStatusRadio: applicant.maritalStatus,
+                    applicantMaritalStatusRadioOtherMarriedStatus: [undefined],
                     applicantGenderRadio: applicant.gender,
+                    applicantGenderRadioOtherGender: [undefined],
                     applicantEducationalQualification: applicant.education,
+                    applicantEducationalQualificationOther: [undefined],
                     applicantPermanentProvince: applicant.permanentProvince,
                     applicantPermanentDistrict: applicant.permanentDistrict,
                     applicantPermanentMunicipalityOrVDC: applicant.permanentMunicipality,
@@ -235,12 +255,24 @@ export class OpenOpeningComponentComponent implements OnInit {
                     isUsCitizenRadio: applicant.usCitizen + '',
                     isUsGreenCardHolderRadio: applicant.greenCardHolder + ''
                 });
+                if (applicant.maritalStatus !== 'Married' && applicant.maritalStatus !== 'Unmarried') {
+                    applicantControl.get('applicantMaritalStatusRadio').setValue('Others');
+                    applicantControl.get('applicantMaritalStatusRadioOtherMarriedStatus').setValue(applicant.maritalStatus);
+                }
+                if (applicant.gender !== 'Male' && applicant.gender !== 'Female') {
+                    applicantControl.get('applicantGenderRadio').setValue('Other Gender');
+                    applicantControl.get('applicantGenderRadioOtherGender').setValue(applicant.gender);
+                }
+                if (applicant.education !== 'Literate' && applicant.education !== 'SLC' &&
+                    applicant.education !== 'Literate' && applicant.education !== 'PostGraduate' ) {
+                    applicantControl.get('applicantEducationalQualification').setValue('Others');
+                    applicantControl.get('applicantEducationalQualificationOther').setValue(applicant.gender);
+                }
                 applicantControl.setControl('applicantRelative', this.setApplicantRelativeFormGroup
                 (applicant.kyc.customerRelatives));
                 applicantControl.setControl('occupationDetails', this.setOccupationDetailsFormGroup
                 (applicant.kyc.occupationalDetails));
                 applicantFormArray.push(applicantControl);
-                console.log('date of birth', applicant.dateOfBirthAD);
             }
         );
         return applicantFormArray;

@@ -45,7 +45,7 @@ export class CommonDataService {
     initial: Document[] = [];
     dmsLoanfile: DmsLoanFile = new DmsLoanFile();
     loanConfig: LoanConfig;
-    openingForm: OpeningForm;
+    openingForm: OpeningForm = new OpeningForm();
     private breadcrumTitle = new BehaviorSubject('default message');
     currentTitle = this.breadcrumTitle.asObservable();
 
