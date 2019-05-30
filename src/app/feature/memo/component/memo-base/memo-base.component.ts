@@ -9,16 +9,15 @@ import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcr
 })
 export class MemoBaseComponent implements OnInit {
 
-    title: 'Memo';
+    static TITLE = 'Memo';
 
     constructor(
         private breadcrumbService: BreadcrumbService,
         public router: Router
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
-        this.breadcrumbService.notify(this.title);
+        this.breadcrumbService.notify(MemoBaseComponent.TITLE);
     }
 
 }

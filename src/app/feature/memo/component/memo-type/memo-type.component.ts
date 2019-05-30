@@ -13,6 +13,7 @@ import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcr
 import {AlertService} from '../../../../@theme/components/alert/alert.service';
 import {ToastService} from '../../../../@core/utils';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
+import {MemoBaseComponent} from '../memo-base/memo-base.component';
 
 @Component({
     selector: 'app-memo-type',
@@ -20,7 +21,7 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
     styleUrls: ['./memo-type.component.css']
 })
 export class MemoTypeComponent implements OnInit, DoCheck {
-    static TITLE = 'Memo Type';
+    static TITLE = `${MemoBaseComponent.TITLE} - Type`;
     private static DEFAULT_STATUS = Status.ACTIVE;
 
     page = 1;

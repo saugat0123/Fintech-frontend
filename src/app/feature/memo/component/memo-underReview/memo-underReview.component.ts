@@ -7,6 +7,7 @@ import {ToastService} from '../../../../@core/utils';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {Router} from '@angular/router';
+import {MemoBaseComponent} from '../memo-base/memo-base.component';
 
 @Component({
     selector: 'app-memo-under-review',
@@ -15,11 +16,10 @@ import {Router} from '@angular/router';
 })
 export class MemoUnderReviewComponent implements OnInit {
 
-    static TITLE = 'Memo - Under Review';
+    static TITLE = `${MemoBaseComponent.TITLE} - Under Review`;
 
     page = 1;
     spinner = false;
-    globalMsg;
     search: string;
     dataList: any;
     pageable: Pageable = new Pageable();

@@ -12,6 +12,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ToastService} from '../../../../@core/utils';
 import {MemoTypeService} from '../../service/memo-type.service';
 import {UserService} from '../../../admin/component/user/user.service';
+import {MemoBaseComponent} from '../memo-base/memo-base.component';
 
 @Component({
     selector: 'app-memo-compose',
@@ -20,13 +21,14 @@ import {UserService} from '../../../admin/component/user/user.service';
 })
 export class MemoComposeComponent implements OnInit {
 
+    static TITLE = `${MemoBaseComponent.TITLE} - Compose`;
+
     isNewMemo: boolean;
-    title = 'Memo - Compose';
     memoTask: string;
     memoTypes$: Observable<MemoType[]>;
     users$: Observable<User[]>;
     memo: Memo = new Memo();
-    memoId: any;
+    memoId: number;
     memoComposeForm: FormGroup;
     searchMemo: string;
     search: any = {};
@@ -45,7 +47,7 @@ export class MemoComposeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.breadcrumbService.notify(this.title);
+        this.breadcrumbService.notify(MemoComposeComponent.TITLE);
         this.memoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
         if (this.memoId === null || this.memoId === 0 || this.memoId === undefined) {
             this.isNewMemo = true;
