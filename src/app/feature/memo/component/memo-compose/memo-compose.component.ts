@@ -5,7 +5,6 @@ import {Observable} from 'rxjs';
 import {Memo} from '../../model/memo';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MemoDataService} from '../../service/memo-data.service';
 import {User} from '../../../admin/modal/user';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {AlertService} from '../../../../@theme/components/alert/alert.service';
@@ -25,8 +24,6 @@ export class MemoComposeComponent implements OnInit {
     title = 'Memo - Compose';
     memoTask: string;
     memoTypes$: Observable<MemoType[]>;
-    memoApi: string;
-    memoTypeApi: string;
     users$: Observable<User[]>;
     memo: Memo = new Memo();
     memoId: any;
@@ -39,7 +36,6 @@ export class MemoComposeComponent implements OnInit {
         private alertService: AlertService,
         private memoService: MemoService,
         private memoTypeService: MemoTypeService,
-        private memoDataService: MemoDataService,
         private formBuilder: FormBuilder,
         private userService: UserService,
         private router: Router,
@@ -50,8 +46,6 @@ export class MemoComposeComponent implements OnInit {
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
-        this.memoApi = this.memoDataService.getMemoApi();
-        this.memoTypeApi = this.memoDataService.getMemoTypeApi();
         this.memoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
         if (this.memoId === null || this.memoId === 0 || this.memoId === undefined) {
             this.isNewMemo = true;

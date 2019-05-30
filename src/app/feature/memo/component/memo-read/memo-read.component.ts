@@ -2,7 +2,6 @@ import {Component, DoCheck, OnInit, TemplateRef} from '@angular/core';
 import {Memo} from '../../model/memo';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MemoService} from '../../service/memo.service';
-import {MemoDataService} from '../../service/memo-data.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {User} from '../../../admin/modal/user';
@@ -20,7 +19,6 @@ import {ToastService} from '../../../../@core/utils';
 export class MemoReadComponent implements OnInit, DoCheck {
 
     title = 'Memo - Read';
-    memoApi: string;
     memo: Memo;
     modalRef: NgbModalRef;
     globalMsg: string;
@@ -36,7 +34,6 @@ export class MemoReadComponent implements OnInit, DoCheck {
         private alertService: AlertService,
         private router: Router,
         private memoService: MemoService,
-        private memoDataService: MemoDataService,
         private modalService: NgbModal,
         private activatedRoute: ActivatedRoute,
         private commonService: CommonService,
@@ -47,7 +44,6 @@ export class MemoReadComponent implements OnInit, DoCheck {
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
-        this.memoApi = this.memoDataService.getMemoApi();
         const memoId = +this.activatedRoute.snapshot.paramMap.get('id');
         this.memoService.detail(memoId).subscribe((response: any) => {
             this.memo = response.detail;
