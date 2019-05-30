@@ -92,11 +92,14 @@
                                 }"></quill-editor>
                 </div>
                 <div class="form-group">
-                    <div class="btn btn-default btn-file">
-                        <i class="fa fa-paperclip"></i> Attachment
-                        <input name="attachment" type="file">
-                    </div>
-                    <p class="help-block">Max. 32MB</p>
+                    <nb-card>
+                        <nb-card-header>
+                            Attachments <small>Max. 32MB</small>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <input type="file" multiple="multiple" class="form-control-file">
+                        </nb-card-body>
+                    </nb-card>
                 </div>
             </div>
 
