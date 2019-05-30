@@ -50,8 +50,8 @@ export class DmsLoanService extends BaseService<DmsLoanFile> {
         this.initial = documents;
     }
 
-    setRenewDocument(docuemnts: Document[]) {
-        this.renew = docuemnts;
+    setRenewDocument(documents: Document[]) {
+        this.renew = documents;
     }
 
     getInitialDocument() {

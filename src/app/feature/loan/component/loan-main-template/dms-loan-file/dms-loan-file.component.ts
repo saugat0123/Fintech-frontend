@@ -2,20 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {Document} from '../../../../admin/modal/document';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DmsLoanFile} from '../../../../admin/modal/dms-loan-file';
 import {LoanDocument} from '../../../../admin/modal/loan-document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {DmsLoanService} from './dms-loan-service';
-
-
-function validateTenure(tenure: FormControl) {
-    if (tenure.value < new Date()) {
-        return {invalidTenure: true};
-    }
-    return null;
-}
+import {BeforeTodayValidator} from '../../../../../@core/validator/before-today-validator';
 
 @Component({
     selector: 'app-dms-loan',
@@ -87,7 +80,7 @@ export class DmsLoanFileComponent implements OnInit {
             interestRate: ['', Validators.required],
             proposedAmount: ['', Validators.required],
             security: ['', Validators.required],
-            tenure: ['', [Validators.required, validateTenure]],
+            tenure: ['', [Validators.required, BeforeTodayValidator.beforeToday]],
             priority: ['', Validators.required],
         });
         this.documentForm = this.formBuilder.group({

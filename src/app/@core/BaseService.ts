@@ -116,7 +116,6 @@ export abstract class BaseService<T> {
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }
-    public
 
 
     public set(obj: T): void {

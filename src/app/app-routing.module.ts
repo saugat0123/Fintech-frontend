@@ -5,7 +5,7 @@ import {PendingsComponent} from './component/dashboard/pending/pendings/pendings
 
 const routes: Routes = [
     {path: 'home', loadChildren: './feature/feature.module#FeatureModule'},
-
+    {path: 'login', component: LoginComponent},
     {path: '', component: LoginComponent}
 
 ];

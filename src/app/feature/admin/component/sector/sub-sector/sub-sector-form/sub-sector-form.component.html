@@ -38,7 +38,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="selectedSector">Sector</label>
-                            <select class="form-control form-control-sm" name="selectedSector" style="width: 100%;" [(ngModel)]="model.id" tabindex="-1" aria-hidden="true" placeholder="Sector"
+                            <select class="form-control form-control-sm" name="selectedSector" style="width: 100%;" [(ngModel)]="sector.id" tabindex="-1" aria-hidden="true" placeholder="Sector"
                                     #sectorVal="ngModel" required [ngClass]="{'is-invalid': f.submitted && sectorVal.invalid}">
                                 <option [ngValue]="undefined" hidden>Select Sector</option>
                                 <option *ngFor="let sector of sectorList" [selected]="model?.sector?.id === sector.id" [ngValue]="sector.id">{{sector.sectorName}}</option>

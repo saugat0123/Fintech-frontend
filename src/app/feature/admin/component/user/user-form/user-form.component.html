@@ -12,10 +12,10 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="name">Name</label>
-                            <input type="hidden" class="form-control form-control-sm" [(ngModel)]="model.id" name="id"
-                                   placeholder="id">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="model.name" name="name"
-                                   placeholder="Name" #name="ngModel"
+                            <input type="hidden" class="form-control form-control-sm" [(ngModel)]="model.id"
+                                   placeholder="id" name="id">
+                            <input id="name" name="name" type="text" class="form-control form-control-sm"
+                                   [(ngModel)]="model.name" placeholder="Name" #name="ngModel"
                                    [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required/>
                             <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
                                 <div *ngIf="name.errors.required">First Name is required</div>
@@ -23,9 +23,8 @@
                         </div>
                         <div class="col-md-6">
                             <label for="branch">Branch</label>
-                            <select class="form-control form-control-sm" name="branch" style="width: 100%;"
-                                    [(ngModel)]="branch.id"
-                                    required #branchVal="ngModel"
+                            <select id="branch" name="branch" class="form-control form-control-sm" style="width: 100%;"
+                                    [(ngModel)]="branch.id" required #branchVal="ngModel"
                                     [ngClass]="{ 'is-invalid': f.submitted && branchVal.invalid }">
                                 <option [ngValue]="undefined" hidden>Branch</option>
                                 <option *ngFor="let branch of branchList"
@@ -41,9 +40,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="model.email"
-                                   name="email"
-                                   placeholder="Email" #email="ngModel"
+                            <input id="email" name="email" type="text" class="form-control form-control-sm"
+                                   [(ngModel)]="model.email" placeholder="Email" #email="ngModel"
                                    [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required/>
                             <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
                                 <div *ngIf="email.errors.required">Email is required</div>
@@ -51,8 +49,8 @@
                         </div>
                         <div class="col-md-6">
                             <label for="userName">Username</label>
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="model.userName"
-                                   name="userName"
+                            <input id="userName" name="userName" type="text" class="form-control form-control-sm"
+                                   [(ngModel)]="model.userName"
                                    placeholder="Username" #userName="ngModel"
                                    [ngClass]="{ 'is-invalid': f.submitted && userName.invalid }" required/>
                             <div *ngIf="f.submitted && userName.invalid" class="invalid-feedback">
@@ -64,8 +62,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="authorities">Role</label>
-                                <select class="form-control form-control-sm" [(ngModel)]="role.id" name="role"
-                                        #roleVal="ngModel"
+                                <select id="authorities" name="authorities" class="form-control form-control-sm"
+                                        [(ngModel)]="role.id" #roleVal="ngModel"
                                         [ngClass]="{ 'is-invalid': f.submitted && roleVal.invalid }" required>
 
                                     <option [ngValue]="undefined" hidden>Role</option>
@@ -79,8 +77,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="accountNo">Account No</label>
-                                <input type="text" class="form-control form-control-sm" [(ngModel)]="model.accountNo"
-                                       name="accountNo" #accountNoVal="ngModel"
+                                <input id="accountNo" name="accountNo" type="text" class="form-control form-control-sm"
+                                       [(ngModel)]="model.accountNo" name="accountNo" #accountNoVal="ngModel"
                                        [ngClass]="{ 'is-invalid': f.submitted && accountNoVal.invalid }" required
                                        placeholder="Account No">
                                 <div *ngIf="f.submitted && accountNoVal.invalid" class="invalid-feedback">
@@ -91,8 +89,8 @@
                         <div class="row">
                             <div *ngIf="model.id==null" class="col-md-6">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control form-control-sm" [(ngModel)]="model.password"
-                                       name="password" #passwordVal="ngModel"
+                                <input id="password" name="password" type="password" class="form-control form-control-sm"
+                                       [(ngModel)]="model.password" name="password" #passwordVal="ngModel"
                                        [ngClass]="{ 'is-invalid': f.submitted && passwordVal.invalid }" required
                                        placeholder="Password" name="password">
                                 <div *ngIf="f.submitted && passwordVal.invalid" class="invalid-feedback">
@@ -103,12 +101,12 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="signatureImage">Signature</label>
-                                <input type="file" name="photo" accept="image/*"
+                                <input id="signatureImage" name="signatureImage" type="file" name="photo" accept="image/*"
                                        (change)="signatureUploader($event)"/>
                             </div>
                             <div class="col-md-6">
                                 <label for="profilePicture">Profile</label>
-                                <input type="file" name="photo" accept="image/*"
+                                <input id="profilePicture" name="profilePicture" type="file" name="photo" accept="image/*"
                                        (change)="profileUploader($event)"/>
                             </div>
                         </div>
