@@ -1,8 +1,8 @@
-import {FormControl} from '@angular/forms';
+import {AbstractControl} from '@angular/forms';
 
 export class BeforeTodayValidator {
-    static beforeToday(tenure: FormControl) {
-        const dateString = tenure.value;
+    static tenureValidator(control: AbstractControl): { [key: string]: boolean } | null {
+        const dateString = control.value;
         const newDate = new Date(dateString);
         if (newDate < new Date()) {
             return {invalidTenure: true};

@@ -9,7 +9,6 @@ import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {LoanConfigService} from './loan-config.service';
-import {UIComponent} from './loan-configuration/ui.component';
 import {Router} from '@angular/router';
 
 @Component({
@@ -107,7 +106,6 @@ export class LoanConfigComponent implements OnInit {
     }
 
     add() {
-        console.log('loan config ui');
         this.router.navigate(['home/admin/configLoan']);
     }
 

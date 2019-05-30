@@ -49,6 +49,7 @@ export class ApprovalLimitComponent implements OnInit {
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
         }, error => {
+            console.log(error);
             const alert = new Alert(AlertType.ERROR, error.error.message);
             other.toastService.show(alert);
             other.spinner = false;

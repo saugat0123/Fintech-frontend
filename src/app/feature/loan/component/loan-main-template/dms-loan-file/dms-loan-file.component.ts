@@ -80,7 +80,7 @@ export class DmsLoanFileComponent implements OnInit {
             interestRate: ['', Validators.required],
             proposedAmount: ['', Validators.required],
             security: ['', Validators.required],
-            tenure: ['', [Validators.required, BeforeTodayValidator.beforeToday]],
+            tenure: ['', [Validators.required, BeforeTodayValidator.tenureValidator]],
             priority: ['', Validators.required],
         });
         this.documentForm = this.formBuilder.group({
@@ -126,7 +126,7 @@ export class DmsLoanFileComponent implements OnInit {
                 }
             },
             error => {
-                this.toastService.show(new Alert(AlertType.ERROR, 'Error Occurs while saving!'));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Error occurred while saving!'));
             }
         );
     }
@@ -168,7 +168,7 @@ export class DmsLoanFileComponent implements OnInit {
             },
             error => {
                 console.log(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Error occurs while uploading the document'));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Error occurred while uploading the document'));
             }
         );
     }

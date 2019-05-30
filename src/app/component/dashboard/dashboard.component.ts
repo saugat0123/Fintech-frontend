@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {BreadcrumbService} from '../../@theme/components/breadcrum/breadcrumb.service';
 import {LoanDataService} from '../../feature/loan/service/loan-data.service';
 import {LoanConfigService} from '../../feature/admin/component/loan-config/loan-config.service';
+import {PermissionService} from '../../@core/service/permission.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -36,6 +37,7 @@ export class DashboardComponent implements OnInit {
         private loanService: LoanDataService,
         private router: Router,
         private commonService: CommonService,
+        private permissionService: PermissionService,
         private formBuilder: FormBuilder,
         private breadcrumbService: BreadcrumbService
     ) {
@@ -49,7 +51,7 @@ export class DashboardComponent implements OnInit {
 
         });
 
-        this.commonService.getByPost('v1/permission/chkPerm', 'DASHBOARD').subscribe(
+        this.permissionService.getPermissionOf('DASHBOARD').subscribe(
             (response: any) => {
                 this.permissions = response.detail;
                 for (let i = 0; this.permissions.length > i; i++) {

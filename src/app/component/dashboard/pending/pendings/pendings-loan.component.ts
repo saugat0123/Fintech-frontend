@@ -10,17 +10,18 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {LoanConfigService} from '../../../../feature/admin/component/loan-config/loan-config.service';
 import {DmsLoanService} from '../../../../feature/loan/component/loan-main-template/dms-loan-file/dms-loan-service';
 import {Router} from '@angular/router';
+import {ToastService} from '../../../../@core/utils';
 
 @Component({
     selector: 'app-pendings',
-    templateUrl: './pendings.component.html',
-    styleUrls: ['./pendings.component.css']
+    templateUrl: './pendings-loan.component.html',
+    styleUrls: ['./pendings-loan.component.css']
 })
-export class PendingsComponent implements OnInit {
+export class PendingsLoanComponent implements OnInit {
     dmsLoanFiles: Array<DmsLoanFile>;
     user: User = new User();
     search: any = {};
-    loanList: Array<LoanConfig>;
+    loanList: Array<LoanConfig> = new Array<LoanConfig>();
     pageable: Pageable = new Pageable();
     spinner = false;
     page = 1;
@@ -28,10 +29,11 @@ export class PendingsComponent implements OnInit {
     constructor(private service: DmsLoanService,
                 private userService: UserService,
                 private loanConfigService: LoanConfigService,
-                private router: Router) {
+                private router: Router,
+                private toastService: ToastService) {
     }
 
-    static loadData(other: any) {
+    static loadData(other: PendingsLoanComponent) {
         other.spinner = true;
         other.service.getPaginationWithSearchObject(other.search).subscribe(
             (response: any) => {
@@ -48,15 +50,15 @@ export class PendingsComponent implements OnInit {
     }
 
     ngOnInit() {
-        PendingsComponent.loadData(this);
+        PendingsLoanComponent.loadData(this);
         this.userService.getLoggedInUser().subscribe(
             (response: any) => {
                 this.user = response.detail;
             }
         );
         this.loanConfigService.getAll().subscribe(
-            (response: any) => {
-                this.loanList = response.detail;
+            (response: LoanConfig) => {
+                this.loanList.push(response);
             }
         );
     }
@@ -66,7 +68,7 @@ export class PendingsComponent implements OnInit {
     }
 
     onSearch() {
-        PendingsComponent.loadData(this);
+        PendingsLoanComponent.loadData(this);
 
     }
 
@@ -77,7 +79,7 @@ export class PendingsComponent implements OnInit {
 
     changePage(page: number) {
         this.page = page;
-        PendingsComponent.loadData(this);
+        PendingsLoanComponent.loadData(this);
     }
 
 

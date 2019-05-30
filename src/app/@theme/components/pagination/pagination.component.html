@@ -3,9 +3,7 @@
         to {{((pageable.number - 1) * pageable.size) + pageable.numberOfElements}}
         of {{pageable.totalElements}} entries
     </p>
-    <ngb-pagination class="col-md-6 d-flex justify-content-end" [collectionSize]="pageable.totalElements"
-                    [pageSize]="pageable.size"
-                    [(page)]="pageable.number" [maxSize]="pageable.totalPages" [rotate]="false"
-                    (pageChange)="loadPage($event)">
-    </ngb-pagination>
+ <app-paging>
+
+ </app-paging>
 </div>
