@@ -2,15 +2,15 @@ import {Component, DoCheck, OnInit, TemplateRef} from '@angular/core';
 import {Memo} from '../../model/memo';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MemoService} from '../../service/memo.service';
-import {MemoDataService} from '../../service/memo-data.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {User} from '../../../admin/modal/user';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {AlertService} from '../../../../@theme/components/alert/alert.service';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ToastService} from '../../../../@core/utils';
+import {MemoBaseComponent} from '../memo-base/memo-base.component';
+import {UserService} from '../../../admin/component/user/user.service';
 
 @Component({
     selector: 'app-memo-read',
@@ -19,11 +19,9 @@ import {ToastService} from '../../../../@core/utils';
 })
 export class MemoReadComponent implements OnInit, DoCheck {
 
-    title = 'Memo - Read';
-    memoApi: string;
+    static TITLE = `${MemoBaseComponent.TITLE} - Read`;
     memo: Memo;
     modalRef: NgbModalRef;
-    globalMsg: string;
     currentUrl: string;
     memoForwardForm: FormGroup;
     memoBackwardForm: FormGroup;
@@ -36,25 +34,23 @@ export class MemoReadComponent implements OnInit, DoCheck {
         private alertService: AlertService,
         private router: Router,
         private memoService: MemoService,
-        private memoDataService: MemoDataService,
         private modalService: NgbModal,
         private activatedRoute: ActivatedRoute,
-        private commonService: CommonService,
+        private userService: UserService,
         private formBuilder: FormBuilder,
         private toastService: ToastService
     ) {
     }
 
     ngOnInit() {
-        this.breadcrumbService.notify(this.title);
-        this.memoApi = this.memoDataService.getMemoApi();
+        this.breadcrumbService.notify(MemoReadComponent.TITLE);
         const memoId = +this.activatedRoute.snapshot.paramMap.get('id');
-        this.memoService.getById(this.memoApi, memoId).subscribe((response: any) => {
+        this.memoService.detail(memoId).subscribe((response: any) => {
             this.memo = response.detail;
         });
 
         this.roles$ = ['CEO', 'BDO', 'PDO'];
-        this.commonService.getByPostAllPageable('v1/user/get', this.search, 1, 20).subscribe((response: any) => {
+        this.userService.getPaginationWithSearchObject(this.search, 1, 20).subscribe((response: any) => {
             this.users$ = response.detail.content;
         });
 
@@ -89,7 +85,7 @@ export class MemoReadComponent implements OnInit, DoCheck {
     }
 
     deleteMemo() {
-        this.memoService.deleteById(this.memoDataService.getMemoApi(), this.memo.id).subscribe(result => {
+        this.memoService.delete(this.memo.id).subscribe(result => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Removed Memo'));
                 this.reloadPage();
 
