@@ -1,48 +1,50 @@
 <div class="row">
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="userCountView">
         <app-icon-card title="Users" type="primary" detail="44">
             <i class="fa fa-users"></i>
         </app-icon-card>
     </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="branchCountView">
         <app-icon-card title="Branches" type="success" detail="4">
             <i class="fas fa-building"></i>
         </app-icon-card>
     </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="segmentCountView">
         <app-icon-card title="Segments" type="info" detail="2">
             <i class="fa fa-briefcase"></i>
         </app-icon-card>
     </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="sectorCountView">
         <app-icon-card title="Sectors" type="warning" detail="32">
             <i class="fa fa-address-book"></i>
         </app-icon-card>
     </div>
 </div>
-<!--
-<div class="row">
-    <app-main-nav></app-main-nav>
-</div>-->
 
-<div class="row" *ngIf="addViewLoanCategory">
-    <div class="col-md-6">
+<div class="row center mb-3" *ngIf="addViewLoanCategory">
+    <div class="col-md-12">
         <div class="row">
-            <div class="col-md-6">
-                <select [(ngModel)]="loanType" class="form-control">
+            <div class="col-md-11">
+                <select [(ngModel)]="loanType" class="form-control rounded">
                     <option [ngValue]="undefined" hidden>---select Loan Type---</option>
                     <option *ngFor="let allList of loanList" [value]="allList.id">{{allList.name}}</option>
                 </select>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-1">
                 <button class="btn btn-md btn-primary btn-flat" (click)="loan()">
                     <i class="fa fa-arrow-right"></i>
                 </button>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="pendingView">
+    <div class="col-md-11">
+        <app-pending-loan></app-pending-loan>
     </div>
 </div>
 

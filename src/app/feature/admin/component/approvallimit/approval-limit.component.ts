@@ -21,7 +21,7 @@ export class ApprovalLimitComponent implements OnInit {
     title = 'ApprovalLimit';
     breadcrumb = 'ApprovalLimit > List';
 
-    dataList: Array<ApprovalLimit>;
+    dataList: Array<ApprovalLimit> = new Array<ApprovalLimit>();
     spinner = false;
     search: any = {};
     pageable: Pageable = new Pageable();
@@ -45,24 +45,19 @@ export class ApprovalLimitComponent implements OnInit {
     static loadData(other: ApprovalLimitComponent) {
         other.spinner = true;
         other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
-
+            other.dataList = response.detail.content;
             other.pageable = PaginationUtils.getPageable(response.detail);
-
             other.spinner = false;
         }, error => {
-
             console.log(error);
-
             const alert = new Alert(AlertType.ERROR, error.error.message);
             other.toastService.show(alert);
-
             other.spinner = false;
         });
     }
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
-
         this.permissionService.getPermissionOf('APPROVAL LIMIT').subscribe((response: any) => {
             this.permissions = response.detail;
             for (let i = 0; this.permissions.length > i; i++) {
@@ -82,7 +77,6 @@ export class ApprovalLimitComponent implements OnInit {
 
     changePage(page: number) {
         this.page = page;
-
         ApprovalLimitComponent.loadData(this);
     }
 
@@ -108,7 +102,6 @@ export class ApprovalLimitComponent implements OnInit {
     edit(approvalLimit: ApprovalLimit) {
         const modalRef = this.modalService.open(ApprovalLimitFormComponent, {size: 'lg'});
         modalRef.componentInstance.model = approvalLimit;
-
         ModalUtils.resolve(modalRef.result, ApprovalLimitComponent.loadData, this);
     }
 }

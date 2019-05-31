@@ -79,7 +79,6 @@ export abstract class BaseService<T> {
 
         const api = `${this.getApi()}/all`;
         const req = ApiUtils.getRequest(api);
-
         return this.http.get(req.url, {headers: req.header});
     }
 

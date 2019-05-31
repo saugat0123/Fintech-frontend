@@ -57,9 +57,7 @@ export class SubSectorFormComponent implements OnInit, DoCheck {
     onSubmit() {
         this.submitted = true;
         this.model.sector = this.sector;
-
         console.log(this.model);
-        console.log(this.sector);
         this.service.save(this.model).subscribe(() => {
 
                 this.model = new SubSector();
