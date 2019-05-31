@@ -9,6 +9,7 @@ import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {LoanConfigService} from './loan-config.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-loan-config',
@@ -38,7 +39,8 @@ export class LoanConfigComponent implements OnInit {
         private service: LoanConfigService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private router: Router
     ) {
     }
 
@@ -104,10 +106,7 @@ export class LoanConfigComponent implements OnInit {
     }
 
     add() {
-        const modalRef = this.modalService.open(AddLoanComponent);
-        modalRef.componentInstance.model = new LoanConfig();
-
-        ModalUtils.resolve(modalRef.result, LoanConfigComponent.loadData, this);
+        this.router.navigate(['home/admin/configLoan']);
     }
 
 

@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {Customer} from '../../admin/modal/customer';
 import {EntityInfo} from '../../admin/modal/entity-info';
 import {LoanDataHolder} from '../model/loanData';
+import {LoanConfig} from '../../admin/modal/loan-config';
+import {Document} from '../../admin/modal/document';
 
 
 @Injectable({
@@ -13,7 +15,7 @@ import {LoanDataHolder} from '../model/loanData';
 // }
 
 export class LoanDataService {
-
+loanType: string;
 
     prvs = {
         url: null,
@@ -32,7 +34,9 @@ export class LoanDataService {
     customer: Customer = new Customer();
     entityInfo: EntityInfo = new EntityInfo();
     loanDocument: LoanDataHolder = new LoanDataHolder();
-
+    loanConfig: LoanConfig = new LoanConfig();
+    renew: Document[] = [];
+    initial: Document[] = [];
 
     setNext(index, url, name) {
         this.nxt = {
@@ -84,6 +88,33 @@ export class LoanDataService {
 
     getEntityInfo() {
         return this.entityInfo;
+    }
+    setLoanName(name: string) {
+        this.loanType = name;
+    }
+
+    getLoanName() {
+        return this.loanType;
+    }
+    setLoan(loanConfig: LoanConfig) {
+        this.loanConfig = loanConfig;
+    }
+
+    getLoan() {
+        return this.loanConfig;
+    }
+    setInitialDocument(documents: Document[]) {
+        this.initial = documents;
+    }
+    setRenewDocument(docuemnts: Document[]) {
+        this.renew = docuemnts;
+    }
+    getInitialDocument() {
+        return this.initial;
+    }
+
+    getRenewDocument() {
+        return this.renew;
     }
 
 }

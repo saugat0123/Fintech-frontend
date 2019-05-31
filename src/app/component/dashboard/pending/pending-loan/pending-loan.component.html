@@ -1,0 +1,40 @@
+<div>
+    <nb-accordion>
+        <nb-accordion-item>
+            <nb-accordion-item-header>Pending Loans &nbsp;<span style="color: red;">({{pendingCount}})</span>
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row block border-bottom border-grey mb-1 list-group-item-action"
+                             *ngFor="let dmsLoan of dmsLoanFiles"
+                             style="cursor: pointer">
+                            <div class="col-md-8 mt-1 " (click)="onClick(dmsLoan.id)">
+                                <div>{{dmsLoan?.loanConfig?.name}} <span class="badge"
+                                                                         [ngClass]="{'badge-success':dmsLoan.priority=='MEDIUM','badge-info':dmsLoan.priority=='LOW','badge-danger':dmsLoan.priority=='HIGH'}">{{dmsLoan.priority}}</span>
+                                </div>
+                                <div>{{dmsLoan.proposedAmount}}</div>
+                                <small>{{dmsLoan.loanConfig.name}}</small>
+                            </div>
+                            <div class="col-md-4">
+                                <div>
+                                    <small>
+                                        Via {{user.name}}
+                                    </small>
+                                </div>
+                                <div>
+                                    <small>{{user?.role?.roleName}}</small>
+                                </div>
+                                <small>{{user?.branch?.name}}</small>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="box-footer text-center">
+                    <a routerLink="/home/pending">View All Pending Loans</a>
+                </div>
+            </nb-accordion-item-body>
+        </nb-accordion-item>
+    </nb-accordion>
+</div>
+

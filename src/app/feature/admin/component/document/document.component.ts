@@ -22,7 +22,7 @@ export class DocumentComponent implements OnInit {
     title = 'Document';
     breadcrumb = 'Document > List';
     dataList: Array<Document>;
-    loanCycleList: Array<LoanCycle>;
+    loanCycleList: Array<LoanCycle> = new Array<LoanCycle>();
     spinner = false;
 
     search: any = {};
