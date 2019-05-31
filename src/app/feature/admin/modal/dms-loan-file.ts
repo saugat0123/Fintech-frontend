@@ -18,7 +18,7 @@ export class DmsLoanFile {
     loanConfig: LoanConfig;
     waiver: string;
     documentPathMaps: [];
-    documents: Array<LoanDocument>;
+    documents = new Array<LoanDocument>();
     createdAt: Date;
     documentStatus: string;
 }

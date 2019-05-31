@@ -16,7 +16,7 @@ export class PendingLoanComponent implements OnInit, DoCheck {
     dmsLoanFiles: Array<DmsLoanFile> = new Array<DmsLoanFile>();
     loanType: LoanConfig = new LoanConfig();
     user: User = new User();
-    count = 0;
+    pendingCount: number;
 
 
     constructor(private userService: UserService,
@@ -29,11 +29,13 @@ export class PendingLoanComponent implements OnInit, DoCheck {
         this.dmsLoanService.getDocumentByStatus('PENDING').subscribe(
             (response: any) => {
                 this.dmsLoanFiles = response.detail;
-                this.dmsLoanFiles.forEach((dmsLoanFile => {
-                    this.count++;
-                }));
 
             });
+        this.dmsLoanService.getStatus().subscribe(
+            (response: any) => {
+                this.pendingCount = response.detail.pendings;
+            }
+        );
         this.userService.getLoggedInUser().subscribe(
             (response: any) => {
                 this.user = response.detail;

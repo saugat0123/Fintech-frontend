@@ -3,7 +3,7 @@ import {DmsLoanFile} from '../../../../admin/modal/dms-loan-file';
 import {User} from '../../../../admin/modal/user';
 import {Security} from '../../../../admin/modal/security';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../../../../@core/service/user.service';
 import {DmsLoanService} from '../dms-loan-file/dms-loan-service';
 
@@ -28,10 +28,12 @@ export class DmsSummaryComponent implements OnInit {
     documentNames = [];
     documentName: string;
     id: number;
+    loanConfigId: number;
 
     constructor(private userService: UserService,
                 private router: ActivatedRoute,
-                private dmsLoanService: DmsLoanService) {
+                private dmsLoanService: DmsLoanService,
+                private route: Router) {
 
     }
 
@@ -45,6 +47,7 @@ export class DmsSummaryComponent implements OnInit {
         this.dmsLoanService.detail(this.id).subscribe(
             (response: any) => {
                 this.dmsLoanFile = response.detail;
+                this.loanConfigId = response.detail.loanConfig.id;
                 this.security = this.dmsLoanFile.security;
                 this.securities = this.security.split(',');
                 this.documents = this.dmsLoanFile.documentPathMaps;
@@ -73,6 +76,10 @@ export class DmsSummaryComponent implements OnInit {
                 console.log('Error downloading the file');
             }
         );
+    }
+
+    onEdit() {
+        this.route.navigate(['/home/loan/loanForm'], {queryParams: {loanId: this.loanConfigId, customerId: this.id}});
     }
 }
 
