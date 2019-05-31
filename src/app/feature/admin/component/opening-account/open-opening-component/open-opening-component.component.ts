@@ -13,7 +13,7 @@ import {OpeningNominee} from '../../../modal/openingNominee';
 import {BranchService} from '../../branch/branch.service';
 import {Branch} from '../../../modal/branch';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {ModalResponse, ToastService} from '../../../../../@core/utils';
+import {ToastService} from '../../../../../@core/utils';
 import {Router} from '@angular/router';
 
 @Component({
@@ -34,6 +34,7 @@ export class OpenOpeningComponentComponent implements OnInit {
     openingCustomerRelative: OpeningCustomerRelative = new OpeningCustomerRelative();
     branchList: Array<Branch> = new Array<Branch>();
     branch: Branch = new Branch();
+
     constructor(
         private service: OpeningAccountService,
         private formBuilder: FormBuilder,
@@ -47,7 +48,6 @@ export class OpenOpeningComponentComponent implements OnInit {
     ngOnInit() {
         this.branchService.getAll().subscribe((response: any) => {
             this.branchList = response.detail;
-            console.log(this.branchList);
         });
         this.openingForm = this.service.getOpeningForm();
         this.openingAccount = this.formBuilder.group({
@@ -102,7 +102,7 @@ export class OpenOpeningComponentComponent implements OnInit {
             this.openingAccount = this.formBuilder.group({
                 // OpeningForm
                 id: this.openingForm.id,
-                branch: this.openingForm.branch.name,
+                branch : this.openingForm.branch,
                 requestedDate: this.openingForm.requestedDate,
                 // Opening Account
                 accountType: this.openingForm.openingAccount.accountType,
@@ -404,7 +404,7 @@ export class OpenOpeningComponentComponent implements OnInit {
         this.openingForm.status = status;
         this.setCustomers();
         this.service.saveWithoutToken(this.openingForm).subscribe((response: any) => {
-            this.router.navigate(['home/admin/openingAccount']);
+                this.router.navigate(['home/admin/openingAccount']);
 
             }, error => {
                 console.log(error);

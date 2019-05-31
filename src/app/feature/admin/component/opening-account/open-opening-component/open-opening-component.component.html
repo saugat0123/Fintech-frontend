@@ -8,9 +8,9 @@
                 <div class="col-md-8">
                     <div class="form-group">
                         <label for="branch"><b>Bank Branch</b></label>
-                        <input id="branch" formControlName="branch" type="text" required
-                               class="form-control form-control-error rounded"
-                               placeholder="Branch">
+                        <select class="custom-select" formControlName="branch" id="bankBranch">
+                            <option *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}</option>
+                        </select>
                     </div>
                 </div>
             </div>
