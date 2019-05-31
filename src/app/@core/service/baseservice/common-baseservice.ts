@@ -72,12 +72,6 @@ export class CommonService {
         return this.http.get(getUrl.url, httpOptions);
     }
 
-    getByDocumentStatus(reqUrl, status) {
-        const url: string = reqUrl + '?status=' + status;
-        const getUrl = ApiUtils.getRequest(url);
-        return this.http.get(getUrl.url, {headers: getUrl.header});
-    }
-
     getByGetAllPageable(reqUrl, page, size) {
         const url: string = reqUrl + '?page=' + page + '&size=' + size;
         const getUrl = ApiUtils.getRequest(url);

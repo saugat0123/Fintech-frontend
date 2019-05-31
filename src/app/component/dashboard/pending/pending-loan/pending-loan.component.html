@@ -1,7 +1,8 @@
-<div style="width:550px">
+<div>
     <nb-accordion>
         <nb-accordion-item>
-            <nb-accordion-item-header>Pending Loans &nbsp;<span style="color: red;">({{count}})</span></nb-accordion-item-header>
+            <nb-accordion-item-header>Pending Loans &nbsp;<span style="color: red;">({{count}})</span>
+            </nb-accordion-item-header>
             <nb-accordion-item-body>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
@@ -10,7 +11,7 @@
                              style="cursor: pointer">
                             <div class="col-md-8 mt-1 " (click)="onClick(dmsLoan.id)">
                                 <div>{{dmsLoan?.loanConfig?.name}} <span class="badge"
-                                                                       [ngClass]="{'badge-success':dmsLoan.priority=='MEDIUM','badge-info':dmsLoan.priority=='LOW','badge-danger':dmsLoan.priority=='HIGH'}">{{dmsLoan.priority}}</span>
+                                                                         [ngClass]="{'badge-success':dmsLoan.priority=='MEDIUM','badge-info':dmsLoan.priority=='LOW','badge-danger':dmsLoan.priority=='HIGH'}">{{dmsLoan.priority}}</span>
                                 </div>
                                 <div>{{dmsLoan.proposedAmount}}</div>
                                 <small>{{dmsLoan.loanConfig.name}}</small>

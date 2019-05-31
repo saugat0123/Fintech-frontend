@@ -11,9 +11,10 @@ import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
     providedIn: 'root'
 })
 export class DmsLoanService extends BaseService<DmsLoanFile> {
-    static API = 'v1/dmsLoanFile';
+    static API = 'v1/dms-loan-file';
     renew: Document[] = [];
     initial: Document[] = [];
+    data: any;
     loanType: string;
     loanConfig: LoanConfig = new LoanConfig();
     dmsLoanfile: Array<DmsLoanFile> = new Array<DmsLoanFile>();
@@ -22,8 +23,14 @@ export class DmsLoanService extends BaseService<DmsLoanFile> {
         super(http);
     }
 
-    protected getApi(): string {
-        return DmsLoanService.API;
+    downloadDocument(path: string) {
+        const url: string = this.getApi() + '/download?path=' + path;
+        const getUrl = ApiUtils.getRequest(url);
+        const httpOptions = {
+            responseType: 'blob' as 'json',
+            headers: getUrl.header
+        };
+        return this.http.get(getUrl.url, httpOptions);
     }
 
     public uploadFile(formData: FormData): Observable<object> {
@@ -43,8 +50,8 @@ export class DmsLoanService extends BaseService<DmsLoanFile> {
         this.initial = documents;
     }
 
-    setRenewDocument(docuemnts: Document[]) {
-        this.renew = docuemnts;
+    setRenewDocument(documents: Document[]) {
+        this.renew = documents;
     }
 
     getInitialDocument() {
@@ -70,5 +77,23 @@ export class DmsLoanService extends BaseService<DmsLoanFile> {
     getDmsLoanFile() {
         return this.dmsLoanfile;
     }
+
+    public getDocumentByStatus(status: string): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/getLoanByStatus` + '?status=' + status);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
+    setDataList(datalist: Object) {
+        this.data = datalist;
+    }
+
+    getDataList() {
+        return this.data;
+    }
+
+    protected getApi(): string {
+        return DmsLoanService.API;
+    }
+
 
 }

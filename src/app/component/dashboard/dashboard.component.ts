@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataService} from '../../@core/service/baseservice/common-dataService';
 import {CommonService} from '../../@core/service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
 import {Permission} from '../../feature/admin/modal/permission';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {BreadcrumbService} from '../../@theme/components/breadcrum/breadcrumb.service';
 import {LoanDataService} from '../../feature/loan/service/loan-data.service';
-import {DashboardService} from './dashboard.service';
+import {LoanConfigService} from '../../feature/admin/component/loan-config/loan-config.service';
+import {PermissionService} from '../../@core/service/permission.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -33,10 +33,11 @@ export class DashboardComponent implements OnInit {
     pendingView = false;
 
     constructor(
-        private dashboardService: DashboardService,
-        private dataService: CommonDataService,
+        private loanConfigService: LoanConfigService,
+        private loanService: LoanDataService,
         private router: Router,
         private commonService: CommonService,
+        private permissionService: PermissionService,
         private formBuilder: FormBuilder,
         private breadcrumbService: BreadcrumbService
     ) {
@@ -44,13 +45,13 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
-        this.dashboardService.getAll().subscribe((response: any) => {
+        this.loanConfigService.getAll().subscribe((response: any) => {
             this.loanList = response.detail;
-            this.dataService.setLoan(response.detail);
+            this.loanService.setLoan(response.detail);
 
         });
 
-        this.commonService.getByPost('v1/permission/chkPerm', 'DASHBOARD').subscribe(
+        this.permissionService.getPermissionOf('DASHBOARD').subscribe(
             (response: any) => {
                 this.permissions = response.detail;
                 for (let i = 0; this.permissions.length > i; i++) {
@@ -72,7 +73,7 @@ export class DashboardComponent implements OnInit {
                 }
             }
         );
-        this.dashboardService.getAll().subscribe((response: any) => {
+        this.loanConfigService.getAll().subscribe((response: any) => {
             this.loanList = response.detail;
         });
 
