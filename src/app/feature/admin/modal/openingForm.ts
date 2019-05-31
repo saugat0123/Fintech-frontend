@@ -9,4 +9,5 @@ export class OpeningForm {
   fullName: string;
   customerDetailsJson: string;
   openingAccount: OpeningAccount;
+  status: string;
 }

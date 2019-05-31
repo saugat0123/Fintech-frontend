@@ -33,6 +33,13 @@ export class OpeningAccountService extends BaseService<OpeningForm> {
 
     }
 
+    public saveWithoutToken(obj): Observable<any> {
+        const req = ApiUtils.getRequest(this.getApi());
+
+        return this.http.post(req.url, obj);
+
+    }
+
     getA(model, page, size, accountStatus) {
         const url: string = this.getApi() + '/list' + '?accountStatus=' + accountStatus + '&page=' + page + '&size=' + size;
         const getUrl = ApiUtils.getRequest(url);

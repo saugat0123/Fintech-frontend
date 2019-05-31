@@ -6,13 +6,13 @@
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
         <a routerLink="/home/admin/openingAccount">
-            <app-icon-card title="Pending" type="success" detail="{{pending}}">
+            <app-icon-card title="Pending" type="primary" detail="{{pending}}">
                 <i class="fa fa-money-check"></i>
             </app-icon-card>
         </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <app-icon-card title="Approved" type="primary" detail="{{approval}}">
+        <app-icon-card title="Approved" type="success" detail="{{approval}}">
             <i class="fa fa-money-check"></i>
         </app-icon-card>
     </div>
@@ -52,6 +52,9 @@
                                 <td>
                                     <button nbButton status="danger" size="xsmall"
                                             (click)="updateStatus(openingForm.id,'REJECTED')">Reject
+                                    </button>
+                                    <button nbButton status="primary" size="xsmall"
+                                            (click)="updateStatus(openingForm.id,'NEW_REQUEST')">Pending
                                     </button>
                                 </td>
                             </tr>

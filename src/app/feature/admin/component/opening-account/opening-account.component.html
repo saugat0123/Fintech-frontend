@@ -5,13 +5,13 @@
         </app-icon-card>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <app-icon-card title="Pending" type="success" detail="{{pending}}">
+        <app-icon-card title="Pending" type="primary" detail="{{pending}}">
             <i class="fa fa-money-check"></i>
         </app-icon-card>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
         <a routerLink="/home/admin/approvalOpeningAccount">
-            <app-icon-card title="Approved" type="primary" detail="{{approval}}">
+            <app-icon-card title="Approved" type="success" detail="{{approval}}">
                 <i class="fa fa-money-check"></i>
             </app-icon-card>
         </a>
@@ -50,7 +50,7 @@
                                 <td (click)="onEdit(openingForm)">{{openingForm?.requestedDate | date}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.openingAccount?.accountType}}</td>
                                 <td>
-                                    <button nbButton status="primary" size="xsmall"
+                                    <button nbButton status="success" size="xsmall"
                                             (click)="updateStatus(openingForm.id,'APPROVAL')">Approve
                                     </button>
                                     <button nbButton status="danger" size="xsmall"

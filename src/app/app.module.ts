@@ -9,7 +9,7 @@ import {CommonService} from './@core/service/baseservice/common-baseservice';
 import {CommonDataService} from './@core/service/baseservice/common-dataService';
 import {AddressService} from './@core/service/baseservice/address.service';
 import {QuillModule} from 'ngx-quill';
-import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {DatePipe, HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {ThemeModule} from './@theme/theme.module';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
@@ -40,7 +40,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     providers: [CommonService, CommonDataService, AddressService, {
         provide: LocationStrategy,
         useClass: HashLocationStrategy
-    }],
+    }, DatePipe],
     bootstrap: [AppComponent],
     exports: []
 })

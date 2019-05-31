@@ -1,7 +1,8 @@
 <div class="container-fluid bg-white text-dark">
     <div class="wizard-title text-center"><h1>Opening Account</h1></div>
     <div class="form-group">
-        <form class="form-horizontal" (ngSubmit)="onSubmit()" [formGroup]="openingAccount">
+        <form class="form-horizontal" [formGroup]="openingAccount">
+            <input hidden formControlName="id" type="text">
             <!-- START ROW -->
             <div class="row">
                 <div class="col-md-8">
@@ -115,34 +116,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="nomineeRadio"><b>Have Nominee</b></label>
-                        <div id="nomineeRadio">
-                            <input class="big-radio" type="radio" id="nomineeRadioTrue"
-                                   formControlName="nomineeRadio" value="true">
-                            <label for="nomineeRadioTrue">Yes</label>
-                            <input class="big-radio" type="radio" id="nomineeRadioFalse"
-                                   formControlName="nomineeRadio" value="false">
-                            <label for="nomineeRadioFalse">No</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="beneficiaryRadio"><b>Have Beneficiary</b></label>
-                        <div id="beneficiaryRadio">
-                            <input class="big-radio" type="radio" id="beneficiaryRadioTrue"
-                                   formControlName="beneficiaryRadio"
-                                   value="true">
-                            <label for="beneficiaryRadioTrue">Yes</label>
-                            <input class="big-radio" type="radio" id="beneficiaryRadioFalse"
-                                   formControlName="beneficiaryRadio"
-                                   value="false">
-                            <label for="beneficiaryRadioFalse">No</label>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- END ROW -->
             <div formArrayName="applicantDetail"
@@ -166,8 +139,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="customerTitle"><b>Customer Title</b></label>
-                                <select class="form-control" id="customerTitle" formControlName="customerTitle"
-                                        required>
+                                <select class="form-control" id="customerTitle" formControlName="customerTitle">
                                     <option [ngValue]="undefined" hidden>Customer Title</option>
                                     <option value="Mr.">Mr</option>
                                     <option value="Mrs.">Mrs</option>
@@ -687,6 +659,34 @@
                         </div>
                     </div>
                     <!-- END ROW -->
+
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="haveAccountInOtherBank">
+                                Have Account In Other Bank
+                            </label>
+                            <div id="haveAccountInOtherBank">
+                                <input class="big-radio" type="radio" id="haveAccountInOtherBankTrue"
+                                       formControlName="haveAccountInOtherBank" value="true">
+                                <label for="haveAccountInOtherBankTrue">Yes</label>
+                                <input class="big-radio" type="radio" id="haveAccountInOtherBankFalse"
+                                       formControlName="haveAccountInOtherBank" value="false">
+                                <label for="haveAccountInOtherBankFalse">No</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4" [hidden]="applicantDetail.get('isPoliticallyExposed').value !== 'true'">
+                            <div class="form-group">
+                                <label for="accountInOtherBankName"><b>Bank Name</b></label>
+                                <input id="accountInOtherBankName" formControlName="accountInOtherBankName"
+                                       name="accountInOtherBankName" type="text"
+                                       class="form-control form-control-error rounded" required
+                                       placeholder="Bank Name">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+
                     <div class="box-header with-border">
                         <h4 class="box-title title"><b>Occupational Details</b></h4>
                     </div>
@@ -971,6 +971,23 @@
                 <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addApplicantDetail()"
                        value="Add Applicant"/>
             </div>
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="nomineeRadio"><b>Have Nominee</b></label>
+                        <div id="nomineeRadio">
+                            <input class="big-radio" type="radio" id="nomineeRadioTrue"
+                                   formControlName="nomineeRadio" value="true">
+                            <label for="nomineeRadioTrue">Yes</label>
+                            <input class="big-radio" type="radio" id="nomineeRadioFalse"
+                                   formControlName="nomineeRadio" value="false">
+                            <label for="nomineeRadioFalse">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
             <div [hidden]="openingAccount.get('nomineeRadio').value !== 'true'">
                 <div class="box-header with-border">
                     <h3 class="box-title title"><b>Applicant Nominee</b></h3>
@@ -1003,6 +1020,14 @@
                 <!-- END ROW -->
                 <!-- START ROW -->
                 <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="nomineeContactNumber"><b>Nominee Contact Number</b></label>
+                            <input id="nomineeContactNumber" formControlName="nomineeContactNumber" type="text"
+                                   class="form-control form-control-error rounded" required
+                                   placeholder="Nominee Contact Number">
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="nomineePermanentAddress"><b>Nominee Permanent Address</b></label>
@@ -1042,6 +1067,25 @@
                 </div>
                 <!-- END ROW -->
             </div>
+            <!-- START ROW -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="beneficiaryRadio"><b>Have Beneficiary</b></label>
+                        <div id="beneficiaryRadio">
+                            <input class="big-radio" type="radio" id="beneficiaryRadioTrue"
+                                   formControlName="beneficiaryRadio"
+                                   value="true">
+                            <label for="beneficiaryRadioTrue">Yes</label>
+                            <input class="big-radio" type="radio" id="beneficiaryRadioFalse"
+                                   formControlName="beneficiaryRadio"
+                                   value="false">
+                            <label for="beneficiaryRadioFalse">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
             <div [hidden]="openingAccount.get('beneficiaryRadio').value !== 'true'">
                 <div class="box-header with-border">
                     <h3 class="box-title title"><b>Applicant Beneficiary Details</b></h3>
@@ -1074,6 +1118,14 @@
                 <!-- END ROW -->
                 <!-- START ROW -->
                 <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="beneficiaryContactNumber"><b>Beneficiary Contact Number</b></label>
+                            <input id="beneficiaryContactNumber" formControlName="beneficiaryContactNumber" type="text"
+                                   class="form-control form-control-error rounded" required
+                                   placeholder="Beneficiary Contact Number">
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="beneficiaryAddress"><b>Beneficiary Permanent Address</b></label>
@@ -1238,9 +1290,11 @@
             <!-- END ROW -->
             <!-- START ROW -->
             <div class="text-right">
-                <input class="btn btn-flat btn-lg btn-primary m-4" type="button"
+                <input class="btn btn-flat btn-lg btn-primary m-4" type="button" (click)="onSubmit('NEW_REQUEST')"
+                       value="Pending"/>
+                <input class="btn btn-flat btn-lg btn-success m-4" type="button" (click)="onSubmit('APPROVAL')"
                        value="Approve"/>
-                <input class="btn btn-flat btn-lg btn-danger m-4" type="button"
+                <input class="btn btn-flat btn-lg btn-danger m-4" type="button" (click)="onSubmit('REJECTED')"
                        value="Reject"/>
             </div>
             <!-- END ROW -->

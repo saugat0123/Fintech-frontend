@@ -50,6 +50,8 @@ export class OpeningCustomer {
   salariedEmployedWith: string;
   selfEmployedWith: string;
   otherSourceOfIncome: string;
+  accountInAnotherBank: boolean;
+  bankName: string;
   map: string;
   usResident: boolean;
   usCitizen: boolean;
