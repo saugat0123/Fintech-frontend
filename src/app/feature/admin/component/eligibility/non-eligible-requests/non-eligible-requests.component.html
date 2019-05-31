@@ -1,3 +1,107 @@
-<p>
-  non-eligible-requests works!
-</p>
+<div class="row">
+  <div class="col-md-4 col-sm-6 col-xs-12">
+    <app-icon-card title="Applicants" type="info" detail="{{applicantList.length}}">
+      <i class="fa fa-user"></i>
+    </app-icon-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+
+      </nb-card-header>
+      <nb-card-body>
+        <div class="box-body">
+          <table id="add-branch-table" class="table table-striped table-bordered table-hover ">
+            <thead>
+            <tr>
+              <th>S.N</th>
+              <th>Applicant name</th>
+              <th>Age</th>
+              <th>Branch</th>
+              <th>Scheme</th>
+              <th>Phone number</th>
+              <th>Requested amount</th>
+              <th>Status</th>
+              <th>Documents</th>
+              <th>Answers</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let allList of applicantList; let i=index">
+              <div *ngIf="applicantList?.length == 0">
+                <p>No Content Found</p>
+              </div>
+              <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+              <td>{{allList.fullName}}
+                <div class="collapse" id="ans{{i}}">
+                  <div class="card-body">
+                    <table class="table table-striped table-bordered table-hover">
+                      <thead>
+                      <tr>
+                        <th>Questions</th>
+                        <th>Answer</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let ans of allList.answers; let j = index">
+                        <div *ngIf="allList.answers?.length == 0">
+                          <p>No answers Found</p>
+                        </div>
+                        <td>{{ans.description}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="collapse" id="doc{{i}}">
+                  <div class="card-body">
+                    <table class="table table-striped table-bordered table-hover">
+                      <thead>
+                      <tr>
+                        <th>Document</th>
+                        <th>View</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let doc of allList.documents; let k = index">
+                        <div *ngIf="allList.documents?.length == 0">
+                          <p>No documents Found</p>
+                        </div>
+                        <td>{{doc.name}}</td>
+                        <td>
+                          <button class="btn btn-primary btn-sm">View</button>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </td>
+              <td>{{allList.age}}</td>
+              <td>{{allList.branch?.name}}</td>
+              <td>{{allList.loanConfig?.name}}</td>
+              <td>{{allList.phoneNumber}}</td>
+              <td>{{allList.requestAmount}}</td>
+              <td>{{allList.eligibilityStatus}}</td>
+              <td>
+                <button [attr.data-target]="'#doc'+i" class="btn btn-primary btn-sm" data-toggle="collapse">View</button>
+              </td>
+              <td>
+                <button [attr.data-target]="'#ans'+i" class="btn btn-primary btn-sm" data-toggle="collapse">answers</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+          <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
+          <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+
