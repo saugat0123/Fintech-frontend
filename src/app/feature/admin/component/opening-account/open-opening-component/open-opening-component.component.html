@@ -2,13 +2,13 @@
     <div class="wizard-title text-center"><h1>Opening Account</h1></div>
     <div class="form-group">
         <form class="form-horizontal" [formGroup]="openingAccount">
-            <input hidden formControlName="id" type="text">
+            <input hidden formControlName="id" type="text"/>
             <!-- START ROW -->
             <div class="row">
                 <div class="col-md-8">
                     <div class="form-group">
                         <label for="branch"><b>Bank Branch</b></label>
-                        <select class="custom-select" formControlName="branch" id="bankBranch">
+                        <select id="branch" class="custom-select" formControlName="branch">
                             <option *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}</option>
                         </select>
                     </div>
@@ -37,7 +37,7 @@
                     <div [hidden]="openingAccount.get('purposeOfAccount').value !== 'Others'"
                          class="form-group">
                         <input class="form-control" formControlName="purposeOfAccountOther"
-                               id="purposeOfAccountOtherName" placeholder="Purpose of Account" type="text">
+                               id="purposeOfAccountOtherName" placeholder="Purpose of Account" type="text"/>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                     <div [hidden]="openingAccount.get('accountType').value !== 'Other Account'"
                          class="form-group">
                         <input class="form-control" formControlName="accountTypeOther"
-                               id="AccountTypeOtherName" placeholder="Enter account type" type="text">
+                               id="AccountTypeOtherName" placeholder="Enter account type" type="text"/>
                     </div>
                 </div>
             </div>
@@ -139,7 +139,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="customerTitle"><b>Customer Title</b></label>
-                                <select class="form-control" id="customerTitle" formControlName="customerTitle">
+                                <select class="custom-select" id="customerTitle" formControlName="customerTitle">
                                     <option [ngValue]="undefined" hidden>Customer Title</option>
                                     <option value="Mr.">Mr</option>
                                     <option value="Mrs.">Mrs</option>
@@ -182,15 +182,15 @@
                                     <b>Applicant's Marital Status</b>
                                 </label>
                                 <div id="applicantMaritalStatusRadio">
-                                    <input class="big-radio" type="radio" id="applicantMaritalStatusRadioMarried"
+                                    <input class="big-radio" type="radio" id="{{'applicantMaritalStatusRadioMarried'+applicantIndex}}"
                                            formControlName="applicantMaritalStatusRadio" value="Married">
-                                    <label for="applicantMaritalStatusRadioMarried">Married</label>
-                                    <input class="big-radio" type="radio" id="applicantMaritalStatusRadioSingle"
+                                    <label for="{{'applicantMaritalStatusRadioMarried'+applicantIndex}}">Married</label>
+                                    <input class="big-radio" type="radio" id="{{'applicantMaritalStatusRadioSingle'+applicantIndex}}"
                                            formControlName="applicantMaritalStatusRadio" value="Unmarried">
-                                    <label for="applicantMaritalStatusRadioSingle">Unmarried</label>
-                                    <input class="big-radio" type="radio" id="applicantMaritalStatusRadioOther"
+                                    <label for="{{'applicantMaritalStatusRadioSingle'+applicantIndex}}">Unmarried</label>
+                                    <input class="big-radio" type="radio" id="{{'applicantMaritalStatusRadioOther'+applicantIndex}}"
                                            formControlName="applicantMaritalStatusRadio" value="Others">
-                                    <label for="applicantMaritalStatusRadioOther">Others</label>
+                                    <label for="{{'applicantMaritalStatusRadioOther'+applicantIndex}}">Others</label>
                                 </div>
                             </div>
                         </div>
@@ -200,7 +200,7 @@
                                 <input class="form-control"
                                        formControlName="applicantMaritalStatusRadioOtherMarriedStatus"
                                        id="applicantMaritalStatusRadioOtherMarriedStatus"
-                                       placeholder="Enter Martial Status" type="text">
+                                       placeholder="Enter Martial Status" type="text"/>
                             </div>
                         </div>
                     </div>
@@ -211,15 +211,15 @@
                             <div class="form-group">
                                 <label for="applicantGenderRadio"><b>Applicant Gender</b></label>
                                 <div id="applicantGenderRadio">
-                                    <input class="big-radio" type="radio" id="applicantGenderRadioMale"
+                                    <input class="big-radio" type="radio" id="{{'applicantGenderRadioMale'+applicantIndex}}"
                                            formControlName="applicantGenderRadio" value="Male">
-                                    <label for="applicantGenderRadioMale">Male</label>
-                                    <input class="big-radio" type="radio" id="applicantGenderRadioFemale"
+                                    <label for="{{'applicantGenderRadioMale'+applicantIndex}}">Male</label>
+                                    <input class="big-radio" type="radio" id="{{'applicantGenderRadioFemale'+applicantIndex}}"
                                            formControlName="applicantGenderRadio" value="Female">
-                                    <label for="applicantGenderRadioFemale">Female</label>
-                                    <input class="big-radio" type="radio" id="applicantGenderRadioOther"
+                                    <label for="{{'applicantGenderRadioFemale'+applicantIndex}}">Female</label>
+                                    <input class="big-radio" type="radio" id="{{'applicantGenderRadioOther'+applicantIndex}}"
                                            formControlName="applicantGenderRadio" value="Other Gender">
-                                    <label for="applicantGenderRadioOther">Other</label>
+                                    <label for="{{'applicantGenderRadioOther'+applicantIndex}}">Other</label>
                                 </div>
                             </div>
                         </div>
@@ -227,7 +227,7 @@
                             <div [hidden]="applicantDetail.get('applicantGenderRadio').value !== 'Other Gender'"
                                  class="form-group">
                                 <input class="form-control" formControlName="applicantGenderRadioOtherGender"
-                                       id="applicantGenderRadioOtherGender" placeholder="Enter Gender" type="text">
+                                       id="applicantGenderRadioOtherGender" placeholder="Enter Gender" type="text"/>
                             </div>
                         </div>
                     </div>
@@ -240,22 +240,22 @@
                                     <b>Education Qualification</b>
                                 </label>
                                 <div id="applicantEducationalQualification">
-                                    <input class="big-radio" type="radio" id="applicantEducationalQualificationLiterate"
+                                    <input class="big-radio" type="radio" id="{{'applicantEducationalQualification'+applicantIndex}}"
                                            formControlName="applicantEducationalQualification" value="Literate">
-                                    <label for="applicantEducationalQualificationLiterate">Literate</label>
-                                    <input class="big-radio" type="radio" id="applicantEducationalQualificationSLC"
+                                    <label for="{{'applicantEducationalQualification'+applicantIndex}}">Literate</label>
+                                    <input class="big-radio" type="radio" id="{{'applicantEducationalQualificationSLC'+applicantIndex}}"
                                            formControlName="applicantEducationalQualification" value="SLC">
-                                    <label for="applicantEducationalQualificationSLC">SLC</label>
-                                    <input class="big-radio" type="radio" id="applicantEducationalQualificationGraduate"
+                                    <label for="{{'applicantEducationalQualificationSLC'+applicantIndex}}">SLC</label>
+                                    <input class="big-radio" type="radio" id="{{'applicantEducationalQualificationGraduate'+applicantIndex}}"
                                            formControlName="applicantEducationalQualification" value="Graduate">
-                                    <label for="applicantEducationalQualificationGraduate">Graduate</label>
+                                    <label for="{{'applicantEducationalQualificationGraduate'+applicantIndex}}">Graduate</label>
                                     <input class="big-radio" type="radio"
-                                           id="applicantEducationalQualificationPostGraduate"
+                                           id="{{'applicantEducationalQualificationPostGraduate'+applicantIndex}}"
                                            formControlName="applicantEducationalQualification" value="PostGraduate">
-                                    <label for="applicantEducationalQualificationPostGraduate">PostGraduate</label>
-                                    <input class="big-radio" type="radio" id="applicantEducationalQualificationOthers"
+                                    <label for="{{'applicantEducationalQualificationPostGraduate'+applicantIndex}}">PostGraduate</label>
+                                    <input class="big-radio" type="radio" id="{{'applicantEducationalQualificationOthers'+applicantIndex}}"
                                            formControlName="applicantEducationalQualification" value="Others">
-                                    <label for="applicantEducationalQualificationOthers">Other</label>
+                                    <label for="{{'applicantEducationalQualificationOthers'+applicantIndex}}">Other</label>
                                 </div>
                             </div>
                         </div>
@@ -264,7 +264,7 @@
                                  class="form-group">
                                 <input class="form-control" formControlName="applicantEducationalQualificationOther"
                                        id="applicantEducationalQualificationOtherName"
-                                       placeholder="Enter Education Qualification" type="text">
+                                       placeholder="Enter Education Qualification" type="text"/>
                             </div>
                         </div>
                     </div>
@@ -667,12 +667,12 @@
                                 Have Account In Other Bank
                             </label>
                             <div id="haveAccountInOtherBank">
-                                <input class="big-radio" type="radio" id="haveAccountInOtherBankTrue"
+                                <input class="big-radio" type="radio" id="{{'haveAccountInOtherBankTrue'+applicantIndex}}"
                                        formControlName="haveAccountInOtherBank" value="true">
-                                <label for="haveAccountInOtherBankTrue">Yes</label>
-                                <input class="big-radio" type="radio" id="haveAccountInOtherBankFalse"
+                                <label for="{{'haveAccountInOtherBankTrue'+applicantIndex}}">Yes</label>
+                                <input class="big-radio" type="radio" id="{{'haveAccountInOtherBankFalse'+applicantIndex}}"
                                        formControlName="haveAccountInOtherBank" value="false">
-                                <label for="haveAccountInOtherBankFalse">No</label>
+                                <label for="{{'haveAccountInOtherBankFalse'+applicantIndex}}">No</label>
                             </div>
                         </div>
                         <div class="col-md-4" [hidden]="applicantDetail.get('isPoliticallyExposed').value !== 'true'">
@@ -803,12 +803,12 @@
                                     Are you a Politically Exposed Person (PEP) or are you associated with any PEP?
                                 </label>
                                 <div id="isPoliticallyExposed">
-                                    <input class="big-radio" type="radio" id="isPoliticallyExposedTrue"
+                                    <input class="big-radio" type="radio" id="{{'isPoliticallyExposedTrue'+applicantIndex}}"
                                            formControlName="isPoliticallyExposed" value="true">
-                                    <label for="isPoliticallyExposedTrue">Yes</label>
-                                    <input class="big-radio" type="radio" id="isPoliticallyExposedFalse"
+                                    <label for="{{'isPoliticallyExposedTrue'+applicantIndex}}">Yes</label>
+                                    <input class="big-radio" type="radio" id="{{'isPoliticallyExposedFalse'+applicantIndex}}"
                                            formControlName="isPoliticallyExposed" value="false">
-                                    <label for="isPoliticallyExposedFalse">No</label>
+                                    <label for="{{'isPoliticallyExposedFalse'+applicantIndex}}">No</label>
                                 </div>
                             </div>
                         </div>
@@ -842,12 +842,12 @@
                                     Declaration of Convicted/Non Convicted for any crime in past?
                                 </label>
                                 <div id="isConvictedForCrime">
-                                    <input class="big-radio" type="radio" id="isConvictedForCrimeTrue"
+                                    <input class="big-radio" type="radio" id="{{'isConvictedForCrimeTrue'+applicantIndex}}"
                                            formControlName="isConvictedForCrime" value="true">
-                                    <label for="isConvictedForCrimeTrue">Yes</label>
-                                    <input class="big-radio" type="radio" id="isConvictedForCrimeFalse"
+                                    <label for="{{'isConvictedForCrimeTrue'+applicantIndex}}">Yes</label>
+                                    <input class="big-radio" type="radio" id="{{'isConvictedForCrimeFalse'+applicantIndex}}"
                                            formControlName="isConvictedForCrime" value="false">
-                                    <label for="isConvictedForCrimeFalse">No</label>
+                                    <label for="{{'isConvictedForCrimeFalse'+applicantIndex}}">No</label>
                                 </div>
                             </div>
                         </div>
@@ -875,12 +875,12 @@
                                     Do you hold Residential Permit of foreign country?
                                 </label>
                                 <div id="holdResidentialOfForeign">
-                                    <input class="big-radio" type="radio" id="holdResidentialOfForeignTrue"
+                                    <input class="big-radio" type="radio" id="{{'holdResidentialOfForeignTrue'+applicantIndex}}"
                                            formControlName="holdResidentialOfForeign" value="true">
-                                    <label for="holdResidentialOfForeignTrue">Yes</label>
-                                    <input class="big-radio" type="radio" id="holdResidentialOfForeignFalse"
+                                    <label for="{{'holdResidentialOfForeignTrue'+applicantIndex}}">Yes</label>
+                                    <input class="big-radio" type="radio" id="{{'holdResidentialOfForeignFalse'+applicantIndex}}"
                                            formControlName="holdResidentialOfForeign" value="false">
-                                    <label for="holdResidentialOfForeignFalse">No</label>
+                                    <label for="{{'holdResidentialOfForeignFalse'+applicantIndex}}">No</label>
                                 </div>
                             </div>
                         </div>
@@ -894,17 +894,17 @@
                                     Please specify the following details: Residential Status
                                 </label>
                                 <div id="holdResidentialOfForeignType">
-                                    <input class="big-radio" type="radio" id="holdResidentialOfForeignTrueCitizen"
+                                    <input class="big-radio" type="radio" id="{{'holdResidentialOfForeignTrueCitizen'+applicantIndex}}"
                                            formControlName="holdResidentialOfForeignType" value="Citizen">
-                                    <label for="holdResidentialOfForeignTrueCitizen">Citizen</label>
-                                    <input class="big-radio" type="radio" id="holdResidentialOfForeignPermanentResident"
+                                    <label for="{{'holdResidentialOfForeignTrueCitizen'+applicantIndex}}">Citizen</label>
+                                    <input class="big-radio" type="radio" id="{{'holdResidentialOfForeignPR'+applicantIndex}}"
                                            formControlName="holdResidentialOfForeignType" value="Permanent Resident">
-                                    <label for="holdResidentialOfForeignFalse">Permanent Resident</label>
+                                    <label for="{{'holdResidentialOfForeignPR'+applicantIndex}}">Permanent Resident</label>
                                     <input class="big-radio" type="radio"
-                                           id="holdResidentialOfForeignTypeStayingForDays"
+                                           id="{{'holdResidentialOfForeignTypeStayingForDays'+applicantIndex}}"
                                            formControlName="holdResidentialOfForeignType"
                                            value="Resident (Staying for 180 days or more in a year)">
-                                    <label for="holdResidentialOfForeignTypeStayingForDays">
+                                    <label for="{{'holdResidentialOfForeignTypeStayingForDays'+applicantIndex}}">
                                         Resident (Staying for 180 days or more in a year)
                                     </label>
                                 </div>
@@ -918,12 +918,12 @@
                             <div class="form-group">
                                 <label for="isUsResidentRadio">Are you a U.S. Resident?</label>
                                 <div id="isUsResidentRadio">
-                                    <input class="big-radio" type="radio" id="isUsResidentRadioTrue"
+                                    <input class="big-radio" type="radio" id="{{'isUsResidentRadioTrue'+applicantIndex}}"
                                            formControlName="isUsResidentRadio" value="true">
-                                    <label for="isUsResidentRadioTrue">Yes</label>
-                                    <input class="big-radio" type="radio" id="isUsResidentRadioFalse"
+                                    <label for="{{'isUsResidentRadioTrue'+applicantIndex}}">Yes</label>
+                                    <input class="big-radio" type="radio" id="{{'isUsResidentRadioFalse'+applicantIndex}}"
                                            formControlName="isUsResidentRadio" value="false">
-                                    <label for="isUsResidentRadioFalse">No</label>
+                                    <label for="{{'isUsResidentRadioFalse'+applicantIndex}}">No</label>
                                 </div>
                             </div>
                         </div>
@@ -935,12 +935,12 @@
                             <div class="form-group">
                                 <label for="isUsCitizenRadio">Are you a U.S. Citizen?</label>
                                 <div id="isUsCitizenRadio">
-                                    <input class="big-radio" type="radio" id="isUsCitizenRadioTrue"
+                                    <input class="big-radio" type="radio" id="{{'isUsCitizenRadioTrue'+applicantIndex}}"
                                            formControlName="isUsCitizenRadio" value="true">
-                                    <label for="isUsCitizenRadioTrue">Yes</label>
-                                    <input class="big-radio" type="radio" id="isUsCitizenRadioFalse"
+                                    <label for="{{'isUsCitizenRadioTrue'+applicantIndex}}">Yes</label>
+                                    <input class="big-radio" type="radio" id="{{'isUsCitizenRadioFalse'+applicantIndex}}"
                                            formControlName="isUsCitizenRadio" value="false">
-                                    <label for="isUsCitizenRadioFalse">No</label>
+                                    <label for="{{'isUsCitizenRadioFalse'+applicantIndex}}">No</label>
                                 </div>
                             </div>
                         </div>
@@ -954,12 +954,12 @@
                                     Are you a U.S. Permanent Resident Card (Green Card) Holder?
                                 </label>
                                 <div id="isUsGreenCardHolderRadio">
-                                    <input class="big-radio" type="radio" id="isUsGreenCardHolderRadioTrue"
+                                    <input class="big-radio" type="radio" id="{{'isUsGreenCardHolderRadioTrue'+applicantIndex}}"
                                            formControlName="isUsGreenCardHolderRadio" value="true">
-                                    <label for="isUsGreenCardHolderRadioTrue">Yes</label>
-                                    <input class="big-radio" type="radio" id="isUsGreenCardHolderRadioFalse"
+                                    <label for="{{'isUsGreenCardHolderRadioTrue'+applicantIndex}}">Yes</label>
+                                    <input class="big-radio" type="radio" id="{{'isUsGreenCardHolderRadioFalse'+applicantIndex}}"
                                            formControlName="isUsGreenCardHolderRadio" value="false">
-                                    <label for="isUsGreenCardHolderRadioFalse">No</label>
+                                    <label for="{{'isUsGreenCardHolderRadioFalse'+applicantIndex}}">No</label>
                                 </div>
                             </div>
                         </div>
