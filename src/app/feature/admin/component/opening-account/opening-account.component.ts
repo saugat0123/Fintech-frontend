@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
-import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Branch} from '../../modal/branch';
 import {OpeningForm} from '../../modal/openingForm';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -39,6 +38,7 @@ export class OpeningAccountComponent implements OnInit {
         private router: Router
     ) {
     }
+
     static loadData(other: OpeningAccountComponent) {
         other.spinner = true;
         other.service.getA(other.branch, other.page, 10, 'NEW_REQUEST').subscribe((response: any) => {
@@ -66,8 +66,7 @@ export class OpeningAccountComponent implements OnInit {
     }
 
     onEdit(openingForm: OpeningForm) {
-        this.service.setOpeningForm(openingForm);
-        this.router.navigate(['home/admin/openOpeningAccount']);
+        this.router.navigate(['home/admin/openOpeningAccount'], {queryParams: {openingFormId: openingForm.id}});
     }
 
     updateStatus(id, status) {

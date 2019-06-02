@@ -136,7 +136,6 @@ export class BranchComponent implements OnInit {
 
         const modalRef = this.modalService.open(BranchFormComponent, {size: 'lg'});
         modalRef.componentInstance.model = branch;
-
         ModalUtils.resolve(modalRef.result, BranchComponent.loadData, this);
     }
 
