@@ -46,9 +46,9 @@ import {
     MsgAlertComponent,
     MsgModalComponent,
     PaginationComponent,
+    PagingComponent,
     SpinnerComponent,
-    UpdateModalComponent,
-    PagingComponent
+    UpdateModalComponent
 } from './components';
 
 import {CapitalizePipe, EvaIconsPipe, NumberWithCommasPipe, PluralPipe, RoundPipe, TimingPipe} from './pipes';
@@ -97,7 +97,7 @@ const NB_MODULES = [
     NbSelectModule,
     NbChatModule,
     NbTooltipModule,
-    NbCalendarKitModule,
+    NbCalendarKitModule
 ];
 
 const COMPONENTS = [

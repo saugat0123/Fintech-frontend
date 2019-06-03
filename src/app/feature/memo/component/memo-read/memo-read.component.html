@@ -1,11 +1,5 @@
 <div class="box-header with-border">
     <h3 class="box-title">Read Memo</h3>
-
-    <div class="box-tools pull-right">
-        <a class="btn btn-box-tool" data-toggle="tooltip" href="#" title="Previous"><i
-                class="fa fa-chevron-left"></i></a>
-        <a class="btn btn-box-tool" data-toggle="tooltip" href="#" title="Next"><i class="fa fa-chevron-right"></i></a>
-    </div>
 </div>
 <!-- /.box-header -->
 <div class="box-body no-padding">
@@ -75,46 +69,41 @@
             </div>
         </div><!-- /.row -->
     </div>
+    <div class="blank-div"></div>
     <!-- /.mailbox-read-info -->
     <div class="mailbox-controls with-border text-center">
         <div class="btn-group">
-            <button (click)="editMemo(memo?.id)" class="btn btn-primary btn-sm" data-container="body"
-                    data-toggle="tooltip"
-                    title="Edit" type="button">
-                <i class="fa fa-edit"></i></button>
-            <button (click)="showDeleteMemo(deleteMemoModal)" class="btn btn-primary btn-sm" data-container="body"
-                    data-toggle="tooltip"
-                    title="Delete" type="button">
-                <i class="fa fa-trash-o"></i></button>
-            <button (click)="showBackwardMemo(backwardMemoModal)" class="btn btn-primary btn-sm" data-container="body"
-                    data-toggle="tooltip"
-                    title="Send Backward" type="button">
-                <i class="fa fa-reply"></i></button>
-            <button (click)="showForwardMemo(forwardMemoModal)" class="btn btn-primary btn-sm" data-container="body"
-                    data-toggle="tooltip"
-                    title="Send Forward" type="button">
-                <i class="fa fa-share"></i></button>
-            <button class="btn btn-primary btn-sm" data-toggle="tooltip" title="Print" type="button">
+            <button (click)="editMemo(memo?.id)" class="btn btn-primary" data-container="body"
+                    data-toggle="tooltip" title="Edit" type="button"><i class="fa fa-edit"></i></button>
+            <button (click)="showDeleteMemo(deleteMemoModal)" class="btn btn-primary" data-container="body"
+                    data-toggle="tooltip" title="Delete" type="button"><i class="fa fa-trash"></i></button>
+            <button (click)="showBackwardMemo(backwardMemoModal)" class="btn btn-primary" data-container="body"
+                    data-toggle="tooltip" title="Send Backward" type="button"><i class="fa fa-reply"></i></button>
+            <button (click)="showForwardMemo(forwardMemoModal)" class="btn btn-primary" data-container="body"
+                    data-toggle="tooltip" title="Send Forward" type="button"><i class="fa fa-share"></i></button>
+            <button class="btn btn-primary" data-toggle="tooltip" title="Print" type="button">
                 <i class="fa fa-print"></i></button>
         </div>
         <!-- /.btn-group -->
     </div>
     <!-- /.mailbox-controls -->
-    <div [innerHtml]="memo?.content | safeHtml" class="mailbox-read-message"></div>
+    <div class="blank-div"></div>
+    <div [innerHtml]="memo?.content | safeHtml" class="text-black-50 text-justify"></div>
     <!-- /.mailbox-read-message -->
+    <div class="blank-div"></div>
 </div>
 <!-- /.box-body -->
 <div class="box-footer">
-    <div class="btn-group pull-left">
+    <div class="btn-group float-left">
         <button (click)="editMemo(memo?.id)" class="btn btn-primary" type="button"><i class="fa fa-edit"></i> Edit
         </button>
         <button (click)="showDeleteMemo(deleteMemoModal)" class="btn btn-primary" type="button"><i
-                class="fa fa-trash-o"></i> Delete
+                class="fa fa-trash"></i> Delete
         </button>
         <button class="btn btn-primary" type="button"><i class="fa fa-print"></i> Print</button>
     </div>
     <!-- /.btn-group -->
-    <div class="btn-group pull-right">
+    <div class="btn-group float-right">
         <button (click)="showBackwardMemo(backwardMemoModal)" class="btn btn-primary" type="button"><i
                 class="fa fa-reply"></i> Send Backward
         </button>

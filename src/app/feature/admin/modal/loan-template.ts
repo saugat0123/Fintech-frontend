@@ -5,4 +5,5 @@ export class LoanTemplate {
     orders: number;
     created: string;
     lastModified: string;
+    status: string;
 }

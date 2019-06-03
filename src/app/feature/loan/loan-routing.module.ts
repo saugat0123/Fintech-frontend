@@ -1,9 +1,8 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {LoanFormComponent} from './component/loan-form/loan-form.component';
 import {DmsLoanFileComponent} from './component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {DmsSummaryComponent} from './component/loan-main-template/dms-summary/dms-summary.component';
-
 
 export const routes: Routes = [
     {path: 'loanForm', component: LoanFormComponent},

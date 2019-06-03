@@ -1,15 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {LoanConfig} from '../../../modal/loan-config';
 import {Document} from '../../../modal/document';
-import {Router} from '@angular/router';
 import {LoanTemplate} from '../../../modal/loan-template';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {LoanTemplateService} from '../loan-template/loan-template.service';
 import {DocumentService} from '../../document/document.service';
 import {LoanConfigService} from '../loan-config.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -30,17 +29,16 @@ export class UIComponent implements OnInit {
     renewal: boolean;
     show = false;
     submitted: boolean;
-    initialDocuemnt = Array<Document>();
-    renewalDocuemnt = Array<Document>();
+    initialDocument = Array<Document>();
+    renewalDocument = Array<Document>();
     documentList = Array<Document>();
 
     constructor(
         private loanTemplateService: LoanTemplateService,
         private documentService: DocumentService,
         private service: LoanConfigService,
-        private activeModal: NgbActiveModal,
-        private router: Router,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private router: Router
     ) {
 
     }
@@ -109,13 +107,13 @@ export class UIComponent implements OnInit {
     updateInitialDocument(events, document: Document) {
         const d: Document = document;
         if (events.target.checked === true) {
-            this.initialDocuemnt.push(d);
-            console.log(this.initialDocuemnt);
+            this.initialDocument.push(d);
+            console.log(this.initialDocument);
         } else {
-            const index: number = this.initialDocuemnt.indexOf(d);
+            const index: number = this.initialDocument.indexOf(d);
             if (index !== -1) {
-                this.initialDocuemnt.splice(index, 1);
-                console.log(this.initialDocuemnt);
+                this.initialDocument.splice(index, 1);
+                console.log(this.initialDocument);
             }
         }
     }
@@ -123,13 +121,13 @@ export class UIComponent implements OnInit {
     updateRenewalDocument(events, document: Document) {
         const d: Document = document;
         if (events.target.checked === true) {
-            this.renewalDocuemnt.push(d);
-            console.log(this.renewalDocuemnt);
+            this.renewalDocument.push(d);
+            console.log(this.renewalDocument);
         } else {
-            const index: number = this.renewalDocuemnt.indexOf(d);
+            const index: number = this.renewalDocument.indexOf(d);
             if (index !== -1) {
-                this.renewalDocuemnt.splice(index, 1);
-                console.log(this.renewalDocuemnt);
+                this.renewalDocument.splice(index, 1);
+                console.log(this.renewalDocument);
             }
         }
     }
@@ -140,26 +138,15 @@ export class UIComponent implements OnInit {
         this.loanConfig.isRenewable = this.renewal;
         this.loanConfig.isFundable = this.fundable;
         this.loanConfig.templateList = this.comfirmLoanTemplateList;
-        this.loanConfig.initial = this.initialDocuemnt;
-        this.loanConfig.renew = this.renewalDocuemnt;
-
-
+        this.loanConfig.initial = this.initialDocument;
+        this.loanConfig.renew = this.renewalDocument;
         this.service.save(this.loanConfig).subscribe(() => {
-
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Config!'));
-
                 this.loanConfig = new LoanConfig();
-
-                this.activeModal.close(ModalResponse.SUCCESS);
-
-
+                this.router.navigate(['home/admin/config']);
             }, error => {
-
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Loan Config!'));
-
-                this.activeModal.dismiss(error);
             }
         );
     }
-
 }

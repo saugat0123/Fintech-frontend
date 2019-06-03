@@ -36,7 +36,6 @@
                                 <th>S.N</th>
                                 <th>Account Holder Name</th>
                                 <th>Requested Date</th>
-                                <th>Account Type</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -48,7 +47,6 @@
                                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.fullName}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.requestedDate | date}}</td>
-                                <td (click)="onEdit(openingForm)">{{openingForm?.openingAccount?.accountType}}</td>
                                 <td>
                                     <button nbButton status="success" size="xsmall"
                                             (click)="updateStatus(openingForm.id,'APPROVAL')">Approve
@@ -62,7 +60,7 @@
                         </table>
                         <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
                         <!-- ===================table-pagination==================== -->
-                        <app-pagination *ngIf="!spinner"></app-pagination>
+                        <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
                         <!-- ===================table-pagination==================== -->
                         <!-- /.box-body -->
                         <!-- /.box -->
@@ -70,10 +68,6 @@
                     </div>
                     <!-- /.col -->
                 </div>
-                <!-- /.row -->
-                <!-- ***************************update-modal********************************** -->
-
-                <!-- ***************************update-modal********************************** -->
             </div>
         </div>
     </div>

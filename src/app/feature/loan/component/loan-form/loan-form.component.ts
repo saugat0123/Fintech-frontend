@@ -9,6 +9,9 @@ import {CommonDataService} from '../../../../@core/service/baseservice/common-da
 import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {MsgModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
+import {LoanFormService} from '../loan-form.service';
+import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-service';
+import {DmsLoanFile} from '../../../admin/modal/dms-loan-file';
 
 @Component({
     selector: 'app-loan-form',
@@ -16,11 +19,15 @@ import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcr
     styleUrls: ['./loan-form.component.css'],
 })
 export class LoanFormComponent implements OnInit {
+
+    loanFile: DmsLoanFile;
+
     templateList = [{
         active: false,
         name: null,
         templateUrl: null
     }];
+    customerId: number;
     id;
     selectedTab;
     nxtTab;
@@ -49,6 +56,8 @@ export class LoanFormComponent implements OnInit {
         private dataService: CommonDataService,
         private commonService: CommonService,
         private loanDataService: LoanDataService,
+        private dmsLoanService: DmsLoanService,
+        private loanFormService: LoanFormService,
         private activatedRoute: ActivatedRoute,
         private modalService: NgbModal,
         private router: Router,
@@ -56,7 +65,6 @@ export class LoanFormComponent implements OnInit {
     ) {
 
     }
-
 
     ngOnInit() {
 
@@ -66,15 +74,31 @@ export class LoanFormComponent implements OnInit {
                     loanId: null,
                     customerId: null
                 };
+
+                console.log(paramsValue);
                 this.allId = paramsValue;
                 this.id = this.allId.loanId;
+                this.customerId = this.allId.customerId;
+                this.dmsLoanService.setId(this.customerId);
+                if (this.customerId !== undefined) {
+                    console.log(this.customerId);
+                    this.dmsLoanService.detail(this.customerId).subscribe(
+                        (response: any) => {
+                            console.log(response.detail);
+                            this.loanFile = response.detail;
+                        }
+                    );
+                } else {
+                    this.loanFile = new DmsLoanFile();
+                }
             });
+
         this.loanDocument = this.loanDataService.getLoanDocuments();
-        this.commonService.getByAll('v1/config/get/' + this.id).subscribe((response: any) => {
-            this.dataService.setLoanName(response.detail.name);
-            this.dataService.setLoan(response.detail);
-            this.dataService.setInitialDocument(response.detail.initial);
-            this.dataService.setRenewDocument(response.detail.renew);
+        this.loanFormService.detail(this.id).subscribe((response: any) => {
+            this.dmsLoanService.setLoanName(response.detail.name);
+            this.dmsLoanService.setLoan(response.detail);
+            this.dmsLoanService.setInitialDocument(response.detail.initial);
+            this.dmsLoanService.setRenewDocument(response.detail.renew);
             this.templateList = response.detail.templateList;
 
             this.breadcrumbService.notify(response.detail.name);

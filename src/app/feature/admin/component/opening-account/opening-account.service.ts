@@ -10,7 +10,6 @@ import {Observable} from 'rxjs';
 })
 export class OpeningAccountService extends BaseService<OpeningForm> {
     static API = 'v1/accountOpening';
-    private openingForm: OpeningForm = new OpeningForm();
 
     constructor(protected http: HttpClient) {
         super(http);
@@ -20,17 +19,10 @@ export class OpeningAccountService extends BaseService<OpeningForm> {
         return OpeningAccountService.API;
     }
 
-    public getStatus(): Observable<any> {
-        const api = `${this.getApi()}/statusCount`;
+    public getStatusByBranch(branchId: number): Observable<any> {
+        const api = `${this.getApi()}/statusCount?branchId=${branchId}`;
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url);
-    }
-
-    getByPostOpeningAccount(model, page, size, accountStatus) {
-        const api = `${this.getApi()}/list?accountStatus=${accountStatus}?page=${page}&size=${size}`;
-        const req = ApiUtils.getRequest(api);
-        return this.http.post(req.url, model);
-
     }
 
     public saveWithoutToken(obj): Observable<any> {
@@ -40,18 +32,11 @@ export class OpeningAccountService extends BaseService<OpeningForm> {
 
     }
 
-    getA(model, page, size, accountStatus) {
+    getByPostOpeningAccount(model, page, size, accountStatus) {
         const url: string = this.getApi() + '/list' + '?accountStatus=' + accountStatus + '&page=' + page + '&size=' + size;
         const getUrl = ApiUtils.getRequest(url);
         return this.http.post(getUrl.url, model);
     }
 
-    setOpeningForm(openingForm) {
-        this.openingForm = openingForm;
-    }
-
-    getOpeningForm(): OpeningForm {
-        return this.openingForm;
-    }
 
 }

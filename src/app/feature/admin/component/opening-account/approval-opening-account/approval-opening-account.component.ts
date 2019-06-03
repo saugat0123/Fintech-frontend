@@ -11,11 +11,11 @@ import {OpeningAccountService} from '../opening-account.service';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
+import {UserService} from '../../user/user.service';
 
 @Component({
     selector: 'app-approval-opening-account',
-    templateUrl: './approval-opening-account.component.html',
-    styleUrls: ['./approval-opening-account.component.css']
+    templateUrl: './approval-opening-account.component.html'
 })
 export class ApprovalOpeningAccountComponent implements OnInit {
 
@@ -37,13 +37,14 @@ export class ApprovalOpeningAccountComponent implements OnInit {
         private commonPageService: CommonPageService,
         private toastService: ToastService,
         private router: Router,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private userService: UserService
     ) {
     }
 
     static loadData(other: ApprovalOpeningAccountComponent) {
         other.spinner = true;
-        other.service.getA(other.branch, other.page, 10, 'APPROVAL').subscribe((response: any) => {
+        other.service.getByPostOpeningAccount(other.branch, other.page, 10, 'APPROVAL').subscribe((response: any) => {
                 other.openingForms = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
@@ -57,19 +58,30 @@ export class ApprovalOpeningAccountComponent implements OnInit {
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
-        this.service.getStatus().subscribe((response: any) => {
-            this.total = response.detail.total;
-            this.pending = response.detail.newed;
-            this.approval = response.detail.approval;
-            this.rejected = response.detail.rejected;
-        });
-        this.branch.id = 1;
+        this.userService.getLoggedInUser().subscribe((response: any) => {
+            this.branch = response.detail.branch;
+            this.service.getStatusByBranch(this.branch.id).subscribe((res: any) => {
+                this.total = res.detail.total;
+                this.pending = res.detail.newed;
+                this.approval = res.detail.approval;
+                this.rejected = res.detail.rejected;
+            });
+            ApprovalOpeningAccountComponent.loadData(this);
+        }, error => {
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
+            this.spinner = false;
+        }
+    );
+    }
+
+    changePage(page: number) {
+        this.page = page;
         ApprovalOpeningAccountComponent.loadData(this);
     }
 
     onEdit(openingForm: OpeningForm) {
-        this.service.setOpeningForm(openingForm);
-        this.router.navigate(['home/admin/openOpeningAccount']);
+        this.router.navigate(['home/admin/openOpeningAccount'], {queryParams: {openingFormId: openingForm.id}});
     }
 
     updateStatus(id, status) {

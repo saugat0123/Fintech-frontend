@@ -101,3 +101,7 @@ label{
 .document{
     font-size: 18px;
 }
+
+.d-contents{
+    display: contents;
+}

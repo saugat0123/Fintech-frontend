@@ -15,7 +15,6 @@ import {Branch} from '../../../modal/branch';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {UserService} from '../../user/user.service';
 
 @Component({
     selector: 'app-open-opening-component',
@@ -45,8 +44,7 @@ export class OpenOpeningComponentComponent implements OnInit {
         private branchService: BranchService,
         private toastService: ToastService,
         private router: Router,
-        private activatedRoute: ActivatedRoute,
-        private userService: UserService
+        private activatedRoute: ActivatedRoute
     ) {
     }
 
@@ -110,7 +108,6 @@ export class OpenOpeningComponentComponent implements OnInit {
             mobileBankingRadio: [undefined]
         });
         this.service.detail(this.id).subscribe((response: any) => {
-            console.log(response);
             this.openingForm = response.detail;
             console.log(this.openingForm);
             this.setOpeningForm(this.openingForm);
@@ -166,6 +163,11 @@ export class OpenOpeningComponentComponent implements OnInit {
             debitCardRadio: openingForm.openingAccount.debitCard + '',
             internetBankingRadio: openingForm.openingAccount.internetBanking + '',
             mobileBankingRadio: openingForm.openingAccount.mobileBanking + '',
+        });
+        this.branchList.forEach(branch => {
+            if (branch.branchCode === openingForm.branch.branchCode) {
+                this.openingAccount.controls.branch.setValue(branch);
+            }
         });
         if (this.openingForm.openingAccount.accountType !== 'Current Account' &&
             this.openingForm.openingAccount.accountType !== 'Savings Account') {
@@ -341,7 +343,6 @@ export class OpenOpeningComponentComponent implements OnInit {
                     applicantControl.get('applicantSelfEmployed').setValue('Others');
                     applicantControl.get('applicantSelfEmployedOther').setValue(applicant.selfEmployedWith);
                 }
-                this.openingAccount.controls.branch.setValue(this.branchList[0]);
                 applicantControl.setControl('applicantRelative', this.setApplicantRelativeFormGroup
                 (applicant.kyc.customerRelatives));
                 applicantControl.setControl('occupationDetails', this.setOccupationDetailsFormGroup
@@ -357,12 +358,12 @@ export class OpenOpeningComponentComponent implements OnInit {
     }
 
     removeApplicantDetail(index: number) {
-        (<FormArray>this.openingAccount.get('applicantDetail')).removeAt(index);
+        (this.openingAccount.get('applicantDetail') as FormArray).removeAt(index);
     }
 
 
     addApplicantDetail() {
-        (<FormArray>this.openingAccount.get('applicantDetail')).push(this.applicantDetailFormGroup());
+        (this.openingAccount.get('applicantDetail')as FormArray).push(this.applicantDetailFormGroup());
     }
 
     applicantRelativeFormGroup(): FormGroup {
@@ -392,7 +393,7 @@ export class OpenOpeningComponentComponent implements OnInit {
     }
 
     addApplicantRelative(applicantIndex) {
-        const control = (<FormArray>this.openingAccount.controls['applicantDetail'])
+        const control = (this.openingAccount.controls['applicantDetail'] as FormArray)
             .at(applicantIndex).get('applicantRelative') as FormArray;
         control.push(this.applicantRelativeFormGroup());
     }
@@ -432,7 +433,7 @@ export class OpenOpeningComponentComponent implements OnInit {
     }
 
     addApplicantOccupationDetails(applicantIndex) {
-        const control = (<FormArray>this.openingAccount.controls['applicantDetail'])
+        const control = (this.openingAccount.controls['applicantDetail'] as FormArray)
             .at(applicantIndex).get('occupationDetails') as FormArray;
         control.push(this.applicantOccupationDetailsFormGroup());
     }
@@ -459,11 +460,11 @@ export class OpenOpeningComponentComponent implements OnInit {
     }
 
     setCustomers() {
-        this.branch.id = 1;
-        this.openingForm.branch = this.branch;
+        this.openingForm.branch = this.openingAccount.get('branch').value;
         this.openingForm.id = this.openingAccount.get('id').value;
         // Account Details
-        this.openingForm.fullName = this.getApplicantDetail()[0].customerFirstName + ' ' + this.getApplicantDetail()[0].customerLastName;
+        this.openingForm.fullName = this.getApplicantDetail()[0].customerFirstName + ' ' + this.getApplicantDetail()[0].customerMiddleName
+            + ' ' + this.getApplicantDetail()[0].customerLastName;
         this.openingForm.requestedDate = this.openingAccount.get('requestedDate').value;
         this.account.haveExistingAccountNo = this.openingAccount.get('haveExistingAccount').value;
         this.account.existingAccountNo = this.openingAccount.get('existingAccountNumber').value;

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {Branch} from '../../modal/branch';
 import {OpeningForm} from '../../modal/openingForm';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -9,11 +9,11 @@ import {ToastService} from '../../../../@core/utils';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {OpeningAccountService} from './opening-account.service';
+import {UserService} from '../user/user.service';
 
 @Component({
     selector: 'app-opening-account',
-    templateUrl: './opening-account.component.html',
-    styleUrls: ['./opening-account.component.css']
+    templateUrl: './opening-account.component.html'
 })
 export class OpeningAccountComponent implements OnInit {
     title = 'Opening Account';
@@ -35,13 +35,14 @@ export class OpeningAccountComponent implements OnInit {
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService,
-        private router: Router
+        private router: Router,
+        private userService: UserService
     ) {
     }
 
     static loadData(other: OpeningAccountComponent) {
         other.spinner = true;
-        other.service.getA(other.branch, other.page, 10, 'NEW_REQUEST').subscribe((response: any) => {
+        other.service.getByPostOpeningAccount(other.branch, other.page, 10, 'NEW_REQUEST').subscribe((response: any) => {
                 other.openingForms = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
@@ -54,14 +55,26 @@ export class OpeningAccountComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.userService.getLoggedInUser().subscribe((response: any) => {
+                this.branch = response.detail.branch;
+                this.service.getStatusByBranch(this.branch.id).subscribe((res: any) => {
+                    this.total = res.detail.total;
+                    this.pending = res.detail.newed;
+                    this.approval = res.detail.approval;
+                    this.rejected = res.detail.rejected;
+                });
+                OpeningAccountComponent.loadData(this);
+            }, error => {
+                console.log(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
+                this.spinner = false;
+            }
+        );
         this.breadcrumbService.notify(this.title);
-        this.service.getStatus().subscribe((response: any) => {
-            this.total = response.detail.total;
-            this.pending = response.detail.newed;
-            this.approval = response.detail.approval;
-            this.rejected = response.detail.rejected;
-        });
-        this.branch.id = 1;
+    }
+
+    changePage(page: number) {
+        this.page = page;
         OpeningAccountComponent.loadData(this);
     }
 

@@ -2,11 +2,13 @@ import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from '../component/dashboard/dashboard.component';
 import {NgModule} from '@angular/core';
 import {FeatureComponent} from './feature.component';
+import {PendingsLoanComponent} from '../component/dashboard/pending/pendings/pendings-loan.component';
 
 const routes: Routes = [
     {
         path: '', component: FeatureComponent,
         children: [
+            {path: 'pending', component: PendingsLoanComponent},
             {path: 'dashboard', component: DashboardComponent},
             {path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
             {path: 'memo', loadChildren: './memo/memo.module#MemoModule'},
