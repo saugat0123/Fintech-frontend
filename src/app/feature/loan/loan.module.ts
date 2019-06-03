@@ -14,6 +14,7 @@ import {DmsSummaryComponent} from './component/loan-main-template/dms-summary/dm
 import {SecurityComponent} from './component/loan-main-template/security/security.component';
 import {NbDatepickerModule} from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
+import {LoanActionComponent} from './loan-action/loan-action.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {ThemeModule} from '../../@theme/theme.module';
         KycInfoComponent,
         DmsLoanFileComponent,
         DmsSummaryComponent,
-        SecurityComponent
+        SecurityComponent,
+        LoanActionComponent
 
     ],
     imports: [
