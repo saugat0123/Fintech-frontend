@@ -24,6 +24,7 @@ import {NonEligibleRequestsComponent} from './component/eligibility/non-eligible
 import {EligibleRequestsComponent} from './component/eligibility/eligible-requests/eligible-requests.component';
 import {RoleHierarchyComponent} from './component/role-hierarchy/role-hierarchy.component';
 import {SecurityComponent} from '../loan/component/loan-main-template/security/security.component';
+import {GeneralQuestionComponent} from './component/eligibility/general-question/general-question.component';
 
 
 // import {SecurityComponent} from './component/loan-config/loan-main-template/security/security.component';
@@ -49,6 +50,7 @@ export const adminRoutes: Routes = [
         path: 'eligibility',
         children: [
             {path: 'question', component: QuestionComponent},
+            {path: 'general-question', component: GeneralQuestionComponent},
             {path: 'new-requests', component: NewRequestsComponent},
             {path: 'eligible', component: EligibleRequestsComponent},
             {path: 'non-eligible', component: NonEligibleRequestsComponent}

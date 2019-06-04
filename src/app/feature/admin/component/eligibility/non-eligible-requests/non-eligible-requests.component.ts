@@ -33,7 +33,6 @@ export class NonEligibleRequestsComponent implements OnInit {
               other.applicantList.splice(index, 1);
             }
           });
-          console.log(other.applicantList);
           other.pageable = PaginationUtils.getPageable(response.detail);
 
           other.spinner = false;
@@ -49,7 +48,6 @@ export class NonEligibleRequestsComponent implements OnInit {
 
   ngOnInit() {
     NonEligibleRequestsComponent.loadData(this);
-    console.log(this.applicantList);
   }
 
   changePage(page: number) {

@@ -11,6 +11,7 @@ import {MsgModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {LoanFormService} from '../loan-form.service';
 import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-service';
+import {DmsLoanFile} from '../../../admin/modal/dms-loan-file';
 
 @Component({
     selector: 'app-loan-form',
@@ -18,11 +19,15 @@ import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-servi
     styleUrls: ['./loan-form.component.css'],
 })
 export class LoanFormComponent implements OnInit {
+
+    loanFile: DmsLoanFile;
+
     templateList = [{
         active: false,
         name: null,
         templateUrl: null
     }];
+    customerId: number;
     id;
     selectedTab;
     nxtTab;
@@ -61,7 +66,6 @@ export class LoanFormComponent implements OnInit {
 
     }
 
-
     ngOnInit() {
 
         this.activatedRoute.queryParams.subscribe(
@@ -70,9 +74,25 @@ export class LoanFormComponent implements OnInit {
                     loanId: null,
                     customerId: null
                 };
+
+                console.log(paramsValue);
                 this.allId = paramsValue;
                 this.id = this.allId.loanId;
+                this.customerId = this.allId.customerId;
+                this.dmsLoanService.setId(this.customerId);
+                if (this.customerId !== undefined) {
+                    console.log(this.customerId);
+                    this.dmsLoanService.detail(this.customerId).subscribe(
+                        (response: any) => {
+                            console.log(response.detail);
+                            this.loanFile = response.detail;
+                        }
+                    );
+                } else {
+                    this.loanFile = new DmsLoanFile();
+                }
             });
+
         this.loanDocument = this.loanDataService.getLoanDocuments();
         this.loanFormService.detail(this.id).subscribe((response: any) => {
             this.dmsLoanService.setLoanName(response.detail.name);

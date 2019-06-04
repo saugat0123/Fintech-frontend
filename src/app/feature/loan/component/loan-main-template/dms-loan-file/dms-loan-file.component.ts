@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {Document} from '../../../../admin/modal/document';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -8,7 +8,7 @@ import {LoanDocument} from '../../../../admin/modal/loan-document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {DmsLoanService} from './dms-loan-service';
-import {BeforeTodayValidator} from '../../../../../@core/validator/before-today-validator';
+import {AfterTodayValidator} from '../../../../../@core/validator/after-today-validator';
 
 @Component({
     selector: 'app-dms-loan',
@@ -17,6 +17,8 @@ import {BeforeTodayValidator} from '../../../../../@core/validator/before-today-
 })
 export class DmsLoanFileComponent implements OnInit {
     public static FILE_SIZE = 20000;
+    @Input()
+    loanFile: DmsLoanFile = new DmsLoanFile();
     initialDocuments: Document[] = [];
     renewDocuments: Document[] = [];
     document: LoanDocument = new LoanDocument();
@@ -25,7 +27,6 @@ export class DmsLoanFileComponent implements OnInit {
     documentForm: FormGroup;
     loan: LoanConfig = new LoanConfig();
     permissions = [];
-    loanFile: DmsLoanFile = new DmsLoanFile();
     documentPaths: string[] = [];
     documentPath: string;
     dropdownList = [];
@@ -40,9 +41,11 @@ export class DmsLoanFileComponent implements OnInit {
     documentMaps = [];
     documentMap: string;
     proceeded = false;
+    allId;
 
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
+                private activatedRoute: ActivatedRoute,
                 private dmsLoanService: DmsLoanService,
                 private toastService: ToastService) {
         this.loanFile.documents = Array<LoanDocument>();
@@ -57,14 +60,29 @@ export class DmsLoanFileComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.activatedRoute.queryParams.subscribe(
+            (paramsValue: Params) => {
+                this.allId = {
+                    loanId: null,
+                    customerId: null
+                };
+                this.allId = paramsValue;
+            });
         this.loanName = this.dmsLoanService.getLoanName();
         this.loanConfig = this.dmsLoanService.getLoan();
+
+
+        if (this.loanFile.id !== undefined) {
+            this.proceed = true;
+        }
+
         this.dropdownList = [
             {id: 0, name: 'Land Security'},
             {id: 1, name: 'Apartment Security'},
             {id: 2, name: 'Both'},
 
         ];
+
         this.dropdownPriorities = [
             {id: 'HIGH', name: 'High'},
             {id: 'MEDIUM', name: 'Medium'},
@@ -72,20 +90,20 @@ export class DmsLoanFileComponent implements OnInit {
 
         ];
 
-
         this.loanForm = this.formBuilder.group({
-            customerName: ['', Validators.required],
-            citizenshipNumber: ['', Validators.required],
-            contactNumber: ['', Validators.required],
-            interestRate: ['', Validators.required],
-            proposedAmount: ['', Validators.required],
-            security: ['', Validators.required],
-            tenure: ['', [Validators.required, BeforeTodayValidator.tenureValidator]],
-            priority: ['', Validators.required],
+            customerName: [this.loanFile.customerName === undefined ? '' : this.loanFile.customerName, Validators.required],
+            citizenshipNumber: [this.loanFile.citizenshipNumber === undefined ? '' : this.loanFile.citizenshipNumber, Validators.required],
+            contactNumber: [this.loanFile.contactNumber === undefined ? '' : this.loanFile.contactNumber, Validators.required],
+            interestRate: [this.loanFile.interestRate === undefined ? '' : this.loanFile.interestRate, Validators.required],
+            proposedAmount: [this.loanFile.proposedAmount === undefined ? '' : this.loanFile.proposedAmount, Validators.required],
+            security: [this.loanFile.security === undefined ? '' : this.loanFile.security, Validators.required],
+            tenure: [this.loanFile.tenure === undefined ? '' : this.loanFile.tenure, [Validators.required, AfterTodayValidator.isValid]],
+            priority: [this.loanFile.priority === undefined ? '' : this.loanFile.priority, Validators.required],
         });
         this.documentForm = this.formBuilder.group({
-            recommendation: ['', Validators.required],
-            waiver: ['', Validators.required],
+            recommendation: [this.loanFile.recommendationConclusion === undefined ? '' : this.loanFile.recommendationConclusion,
+                Validators.required],
+            waiver: [this.loanFile.waiver === undefined ? '' : this.loanFile.waiver, Validators.required],
             file: ['', Validators.required]
         });
         this.initialDocuments = this.dmsLoanService.getInitialDocument();
@@ -108,6 +126,8 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFile.interestRate = this.loanForm.get('interestRate').value;
         this.loanFile.proposedAmount = this.loanForm.get('proposedAmount').value;
         this.loanFile.securities = this.loanForm.get('security').value;
+        console.log(this.loanFile.securities);
+        console.log(this.loanFile.security);
         this.loanFile.tenure = this.loanForm.get('tenure').value;
         this.loanFile.priority = this.loanForm.get('priority').value;
 

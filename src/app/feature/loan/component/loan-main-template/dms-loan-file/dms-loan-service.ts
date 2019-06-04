@@ -18,6 +18,8 @@ export class DmsLoanService extends BaseService<DmsLoanFile> {
     loanType: string;
     loanConfig: LoanConfig = new LoanConfig();
     dmsLoanfile: Array<DmsLoanFile> = new Array<DmsLoanFile>();
+    dmsLoanid: number;
+    count: number;
 
     constructor(readonly http: HttpClient) {
         super(http);
@@ -36,6 +38,11 @@ export class DmsLoanService extends BaseService<DmsLoanFile> {
     public uploadFile(formData: FormData): Observable<object> {
         const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/uploadFile`);
         return this.http.post(req.url, formData, {headers: req.header});
+    }
+
+    public getDocumentByStatus(status: string): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/getLoanByStatus` + '?status=' + status);
+        return this.http.get(req.url, {headers: req.header});
     }
 
     setLoanName(name: string) {
@@ -78,11 +85,6 @@ export class DmsLoanService extends BaseService<DmsLoanFile> {
         return this.dmsLoanfile;
     }
 
-    public getDocumentByStatus(status: string): Observable<any> {
-        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/getLoanByStatus` + '?status=' + status);
-        return this.http.get(req.url, {headers: req.header});
-    }
-
     setDataList(datalist: Object) {
         this.data = datalist;
     }
@@ -91,9 +93,15 @@ export class DmsLoanService extends BaseService<DmsLoanFile> {
         return this.data;
     }
 
+    setId(id: number) {
+        this.dmsLoanid = id;
+    }
+
+    getId() {
+        return this.dmsLoanid;
+    }
+
     protected getApi(): string {
         return DmsLoanService.API;
     }
-
-
 }

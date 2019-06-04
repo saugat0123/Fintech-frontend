@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonService} from '../../@core/service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
 import {Permission} from '../../feature/admin/modal/permission';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -36,7 +35,6 @@ export class DashboardComponent implements OnInit {
         private loanConfigService: LoanConfigService,
         private loanService: LoanDataService,
         private router: Router,
-        private commonService: CommonService,
         private permissionService: PermissionService,
         private formBuilder: FormBuilder,
         private breadcrumbService: BreadcrumbService
@@ -81,6 +79,6 @@ export class DashboardComponent implements OnInit {
 
     loan() {
         this.spinner = true;
-        this.router.navigate(['/home/loan/loanForm'], {queryParams: {loanId: this.loanType, customerId: 'jimmy'}});
+        this.router.navigate(['/home/loan/loanForm'], {queryParams: {loanId: this.loanType, customerId: null}});
     }
 }

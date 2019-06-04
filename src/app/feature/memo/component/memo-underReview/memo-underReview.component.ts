@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {MemoService} from '../../service/memo.service';
-import {MemoDataService} from '../../service/memo-data.service';
-import {MemoViewButtonComponent} from './memo-view-button/memo-view-button.component';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {AlertService} from '../../../../@theme/components/alert/alert.service';
 import {ToastService} from '../../../../@core/utils';
+import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
+import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
+import {Router} from '@angular/router';
+import {MemoBaseComponent} from '../memo-base/memo-base.component';
 
 @Component({
     selector: 'app-memo-under-review',
@@ -14,119 +16,49 @@ import {ToastService} from '../../../../@core/utils';
 })
 export class MemoUnderReviewComponent implements OnInit {
 
-    title = 'Memo - Under Review';
-    memoApi: string;
+    static TITLE = `${MemoBaseComponent.TITLE} - Under Review`;
 
+    page = 1;
     spinner = false;
-    globalMsg;
-
-    public gridApi;
-    public gridColumnApi;
-    public columnDefs;
-    public defaultColDef;
-    public rowData: any;
-    public paginationPageSize;
-    public context;
-    public frameworkComponents;
+    search: string;
+    dataList: any;
+    pageable: Pageable = new Pageable();
 
     constructor(
         private breadcrumbService: BreadcrumbService,
         private alertService: AlertService,
         private memoService: MemoService,
-        private memoDataService: MemoDataService,
-        private toastService: ToastService
-    ) {
-        this.columnDefs = [
-            {
-                headerName: 'ID',
-                field: 'id',
-                width: 100,
-                suppressSizeToFit: true,
-                sortable: true,
-                filter: true,
-                hide: true
-            },
-            {
-                headerName: 'Memo Type',
-                field: 'type.name',
-                width: 110,
-                sortable: true,
-                filter: true
-            },
-            {
-                headerName: 'Subject',
-                field: 'subject',
-                width: 110,
-                sortable: true,
-                filter: true
-            },
-            {
-                headerName: 'Stage',
-                field: 'stage',
-                width: 80,
-                sortable: true,
-                filter: true
-            },
-            {
-                headerName: 'Status',
-                field: 'status',
-                width: 80,
-                sortable: true,
-                filter: true
-            },
-            {
-                headerName: 'View',
-                width: 50,
-                sortable: false,
-                filter: false,
-                cellRenderer: 'viewButtonComponent'
-            }
-        ];
-        this.defaultColDef = {resizable: true};
-        this.paginationPageSize = 10;
-        this.context = {componentParent: this};
+        private toastService: ToastService,
+        private router: Router
+    ) {}
 
-        this.frameworkComponents = {
-            viewButtonComponent: MemoViewButtonComponent
-        };
+    static loadData(other: MemoUnderReviewComponent) {
+        other.spinner = true;
+        other.memoService.getPaginationWithSearch(other.search, other.page, 10).subscribe((response: any) => {
+                other.dataList = response.content;
+                other.pageable = PaginationUtils.getPageable(response);
+                other.spinner = false;
+            }, error => {
+                console.error(error);
+                other.toastService.show(new Alert(AlertType.ERROR, 'Failed to Load Memos'));
+                other.spinner = false;
+            }
+        );
     }
 
     ngOnInit() {
-        this.breadcrumbService.notify(this.title);
-        this.memoApi = this.memoDataService.getMemoApi();
+        this.breadcrumbService.notify(MemoUnderReviewComponent.TITLE);
+        MemoUnderReviewComponent.loadData(this);
     }
 
-    sizeToFit() {
-        this.gridApi.sizeColumnsToFit();
+    changePage(page: number) {
+        this.page = page;
+
+        MemoUnderReviewComponent.loadData(this);
     }
 
-    autoSizeAll() {
-        const allColumnIds = [];
-        this.gridColumnApi.getAllColumns().forEach(function (column) {
-            allColumnIds.push(column.colId);
-        });
-        this.gridColumnApi.autoSizeColumns(allColumnIds);
-    }
-
-    onGridReady(params) {
-        this.gridApi = params.api;
-        this.gridColumnApi = params.columnApi;
-
-        this.memoService.getPageable(this.memoApi, 1, 20, null).subscribe((data: any) => {
-            this.rowData = data.content;
-        }, error => {
-
-            console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Fetch Memo'));
-            this.spinner = false;
-        });
-
-        this.sizeToFit();
-    }
-
-    onPageSizeChanged() {
-        const value = (<HTMLInputElement>document.getElementById('page-size')).value;
-        this.gridApi.paginationSetPageSize(Number(value));
+    viewMemo(id: number) {
+        this.router.navigate([`home/memo/read/${id}`]);
     }
 
 }

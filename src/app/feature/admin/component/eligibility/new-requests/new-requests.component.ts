@@ -27,7 +27,6 @@ export class NewRequestsComponent implements OnInit {
     other.spinner = true;
     other.newRequestService.getAllWithoutSearchObject(other.page, 10).subscribe((response: any) => {
           other.applicantList = response.detail.content;
-          console.log(other.applicantList);
           other.pageable = PaginationUtils.getPageable(response.detail);
 
           other.spinner = false;
@@ -43,7 +42,6 @@ export class NewRequestsComponent implements OnInit {
 
   ngOnInit() {
     NewRequestsComponent.loadData(this);
-    console.log(this.applicantList);
   }
 
   changePage(page: number) {

@@ -4,7 +4,6 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {LoanConfig} from '../../../modal/loan-config';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {LoanConfigService} from '../../loan-config/loan-config.service';

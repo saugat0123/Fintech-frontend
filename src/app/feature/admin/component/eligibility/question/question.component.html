@@ -6,7 +6,7 @@
                     <div class="col-md-12">
                         <div class=row>
                             <div class="col-md-5">
-                                <label>Select a Scheme</label>
+                                <label>Please select a scheme to begin.</label>
                                 <select (change)="onChangeSchemeOption()" class="form-control custom-select"
                                         formControlName="loanConfigId">
                                     <option [ngValue]="null" hidden> Select a scheme</option>
@@ -23,9 +23,6 @@
                         </div>
                     </div>
                     <hr>
-                    <div *ngIf="loanConfigId == null" class="text-center m-5">
-                        <h2>Please select a scheme to begin.</h2>
-                    </div>
 
                     <table *ngIf="existingQuestionList"
                            class="table table-striped table-bordered table-hover">
@@ -114,7 +111,7 @@
                                                            type="number">
                                                     <div class="input-group-append">
                                                         <button (click)="deleteQuestionField(i)" class="btn btn-danger btn-sm">
-                                                            x
+                                                            <i class="fa fa-trash" style="color:white;"></i>
                                                         </button>
                                                     </div>
                                                 </div>
