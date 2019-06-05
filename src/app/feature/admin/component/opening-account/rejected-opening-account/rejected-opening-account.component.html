@@ -60,7 +60,8 @@
                         </table>
                         <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
                         <!-- ===================table-pagination==================== -->
-                        <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+                        <app-paging *ngIf="!spinner" [pageable]="pageable"
+                                    (changePage)="changePage($event)"></app-paging>
                         <!-- ===================table-pagination==================== -->
                         <!-- /.box-body -->
                         <!-- /.box -->

@@ -363,7 +363,7 @@ export class OpenOpeningComponentComponent implements OnInit {
 
 
     addApplicantDetail() {
-        (this.openingAccount.get('applicantDetail')as FormArray).push(this.applicantDetailFormGroup());
+        (this.openingAccount.get('applicantDetail') as FormArray).push(this.applicantDetailFormGroup());
     }
 
     applicantRelativeFormGroup(): FormGroup {

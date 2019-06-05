@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {Branch} from '../../../modal/branch';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../../../@core/service/baseservice/common-pagination-service';
 import {Router} from '@angular/router';
 import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
@@ -59,20 +57,20 @@ export class ApprovalOpeningAccountComponent implements OnInit {
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
         this.userService.getLoggedInUser().subscribe((response: any) => {
-            this.branch = response.detail.branch;
-            this.service.getStatusByBranch(this.branch.id).subscribe((res: any) => {
-                this.total = res.detail.total;
-                this.pending = res.detail.newed;
-                this.approval = res.detail.approval;
-                this.rejected = res.detail.rejected;
-            });
-            ApprovalOpeningAccountComponent.loadData(this);
-        }, error => {
-            console.log(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
-            this.spinner = false;
-        }
-    );
+                this.branch = response.detail.branch;
+                this.service.getStatusByBranch(this.branch.id).subscribe((res: any) => {
+                    this.total = res.detail.total;
+                    this.pending = res.detail.newed;
+                    this.approval = res.detail.approval;
+                    this.rejected = res.detail.rejected;
+                });
+                ApprovalOpeningAccountComponent.loadData(this);
+            }, error => {
+                console.log(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
+                this.spinner = false;
+            }
+        );
     }
 
     changePage(page: number) {
