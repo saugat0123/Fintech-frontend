@@ -7,7 +7,7 @@ export class OpeningForm {
   branch: Branch;
   requestedDate: Date;
   fullName: string;
-  customerDetailsJson: string;
+  accountType: string;
   openingAccount: OpeningAccount;
   status: string;
 }

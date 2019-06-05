@@ -123,7 +123,7 @@ export class OpenOpeningComponentComponent implements OnInit {
             branch: openingForm.branch,
             requestedDate: openingForm.requestedDate,
             // Opening Account
-            accountType: openingForm.openingAccount.accountType,
+            accountType: openingForm.accountType,
             accountTypeOther: [undefined],
             purposeOfAccount: openingForm.openingAccount.purposeOfAccount,
             purposeOfAccountOther: [undefined],
@@ -169,10 +169,10 @@ export class OpenOpeningComponentComponent implements OnInit {
                 this.openingAccount.controls.branch.setValue(branch);
             }
         });
-        if (this.openingForm.openingAccount.accountType !== 'Current Account' &&
-            this.openingForm.openingAccount.accountType !== 'Savings Account') {
+        if (this.openingForm.accountType !== 'Current Account' &&
+            this.openingForm.accountType !== 'Savings Account') {
             this.openingAccount.get('accountType').setValue('Other Account');
-            this.openingAccount.get('accountTypeOther').setValue(this.openingForm.openingAccount.accountType);
+            this.openingAccount.get('accountTypeOther').setValue(this.openingForm.accountType);
         }
         if (this.openingForm.openingAccount.purposeOfAccount !== 'Saving' &&
             this.openingForm.openingAccount.purposeOfAccount !== 'Salary') {
@@ -474,9 +474,9 @@ export class OpenOpeningComponentComponent implements OnInit {
             this.account.purposeOfAccount = this.openingAccount.get('purposeOfAccountOther').value;
         }
         if (this.openingAccount.get('accountType').value !== 'Other Account') {
-            this.account.accountType = this.openingAccount.get('accountType').value;
+            this.openingForm.accountType = this.openingAccount.get('accountType').value;
         } else {
-            this.account.accountType = this.openingAccount.get('accountTypeOther').value;
+            this.openingForm.accountType = this.openingAccount.get('accountTypeOther').value;
         }
         this.account.currency = this.openingAccount.get('accountCurrency').value;
         this.account.haveJoint = this.openingAccount.get('jointAccountRadio').value;

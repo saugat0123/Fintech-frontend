@@ -3,7 +3,6 @@ import {OpeningBeneficiary} from './openingBeneficiary';
 import {OpeningCustomer} from './openingCustomer';
 
 export class OpeningAccount {
-  accountType: string;
   haveExistingAccountNo: boolean;
   existingAccountNo: string;
   purposeOfAccount: string;

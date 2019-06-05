@@ -36,6 +36,7 @@
                                 <th>S.N</th>
                                 <th>Account Holder Name</th>
                                 <th>Requested Date</th>
+                                <th>Account Type</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -47,6 +48,7 @@
                                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.fullName}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.requestedDate | date}}</td>
+                                <td (click)="onEdit(openingForm)">{{openingForm?.accountType}}</td>
                                 <td>
                                     <button nbButton status="danger" size="xsmall"
                                             (click)="updateStatus(openingForm.id,'REJECTED')">Reject
