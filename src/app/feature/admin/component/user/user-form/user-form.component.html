@@ -8,108 +8,105 @@
         </div>
         <div class="modal-body">
             <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="name">Name</label>
-                            <input type="hidden" class="form-control form-control-sm" [(ngModel)]="model.id"
-                                   placeholder="id" name="id">
-                            <input id="name" name="name" type="text" class="form-control form-control-sm"
-                                   [(ngModel)]="model.name" placeholder="Name" #name="ngModel"
-                                   [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required/>
-                            <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
-                                <div *ngIf="name.errors.required">First Name is required</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="branch">Branch</label>
-                            <select id="branch" name="branch" class="form-control form-control-sm" style="width: 100%;"
-                                    [(ngModel)]="branch.id" required #branchVal="ngModel"
-                                    [ngClass]="{ 'is-invalid': f.submitted && branchVal.invalid }">
-                                <option [ngValue]="undefined" hidden>Branch</option>
-                                <option *ngFor="let branch of branchList"
-                                        [selected]="branch.id === model?.branch?.id" [ngValue]="branch.id">
-                                    {{branch.name}}
-                                </option>
-                            </select>
-                            <div *ngIf="f.submitted && branchVal.invalid" class="invalid-feedback">
-                                <div *ngIf="branchVal.errors.required">Branch is required</div>
-                            </div>
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="name">Name</label>
+                        <input type="hidden" class="form-control" [(ngModel)]="model.id"
+                               placeholder="id" name="id">
+                        <input id="name" name="name" type="text" class="form-control"
+                               [(ngModel)]="model.name" placeholder="Name" #name="ngModel"
+                               [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required/>
+                        <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                            <div *ngIf="name.errors.required">First Name is required</div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="email">Email</label>
-                            <input id="email" name="email" type="text" class="form-control form-control-sm"
-                                   [(ngModel)]="model.email" placeholder="Email" #email="ngModel"
-                                   [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required/>
-                            <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
-                                <div *ngIf="email.errors.required">Email is required</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="userName">Username</label>
-                            <input id="userName" name="userName" type="text" class="form-control form-control-sm"
-                                   [(ngModel)]="model.userName"
-                                   placeholder="Username" #userName="ngModel"
-                                   [ngClass]="{ 'is-invalid': f.submitted && userName.invalid }" required/>
-                            <div *ngIf="f.submitted && userName.invalid" class="invalid-feedback">
-                                <div *ngIf="userName.errors.required">User Name is required</div>
-                            </div>
+                    <div class="col-md-6">
+                        <label for="branch">Branch</label>
+                        <select id="branch" name="branch" class="custom-select" style="width: 100%;"
+                                [(ngModel)]="branch.id" required #branchVal="ngModel"
+                                [ngClass]="{ 'is-invalid': f.submitted && branchVal.invalid }">
+                            <option [ngValue]="undefined" hidden>Branch</option>
+                            <option *ngFor="let branch of branchList"
+                                    [selected]="branch.id === model?.branch?.id" [ngValue]="branch.id">
+                                {{branch.name}}
+                            </option>
+                        </select>
+                        <div *ngIf="f.submitted && branchVal.invalid" class="invalid-feedback">
+                            <div *ngIf="branchVal.errors.required">Branch is required</div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="authorities">Role</label>
-                                <select id="authorities" name="authorities" class="form-control form-control-sm"
-                                        [(ngModel)]="role.id" #roleVal="ngModel"
-                                        [ngClass]="{ 'is-invalid': f.submitted && roleVal.invalid }" required>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="text" class="form-control"
+                               [(ngModel)]="model.email" placeholder="Email" #email="ngModel"
+                               [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required/>
+                        <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+                            <div *ngIf="email.errors.required">Email is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="userName">Username</label>
+                        <input id="userName" name="userName" type="text" class="form-control"
+                               [(ngModel)]="model.userName"
+                               placeholder="Username" #userName="ngModel"
+                               [ngClass]="{ 'is-invalid': f.submitted && userName.invalid }" required/>
+                        <div *ngIf="f.submitted && userName.invalid" class="invalid-feedback">
+                            <div *ngIf="userName.errors.required">User Name is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="authorities">Role</label>
+                        <select id="authorities" name="authorities" class="custom-select"
+                                [(ngModel)]="role.id" #roleVal="ngModel"
+                                [ngClass]="{ 'is-invalid': f.submitted && roleVal.invalid }" required>
 
-                                    <option [ngValue]="undefined" hidden>Role</option>
-                                    <option *ngFor="let role of roleList" [selected]="model?.role?.id === role.id"
-                                            [ngValue]="role.id">{{role.roleName}}
-                                    </option>
-                                </select>
-                                <div *ngIf="f.submitted && roleVal.invalid" class="invalid-feedback">
-                                    <div *ngIf="roleVal.errors.required">Role is required</div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="accountNo">Account No</label>
-                                <input id="accountNo" name="accountNo" type="text" class="form-control form-control-sm"
-                                       [(ngModel)]="model.accountNo" name="accountNo" #accountNoVal="ngModel"
-                                       [ngClass]="{ 'is-invalid': f.submitted && accountNoVal.invalid }" required
-                                       placeholder="Account No">
-                                <div *ngIf="f.submitted && accountNoVal.invalid" class="invalid-feedback">
-                                    <div *ngIf="accountNoVal.errors.required">Account number is required</div>
-                                </div>
-                            </div>
+                            <option [ngValue]="undefined" hidden>Role</option>
+                            <option *ngFor="let role of roleList" [selected]="model?.role?.id === role.id"
+                                    [ngValue]="role.id">{{role.roleName}}
+                            </option>
+                        </select>
+                        <div *ngIf="f.submitted && roleVal.invalid" class="invalid-feedback">
+                            <div *ngIf="roleVal.errors.required">Role is required</div>
                         </div>
-                        <div class="row">
-                            <div *ngIf="model.id==null" class="col-md-6">
-                                <label for="password">Password</label>
-                                <input id="password" name="password" type="password" class="form-control form-control-sm"
-                                       [(ngModel)]="model.password" name="password" #passwordVal="ngModel"
-                                       [ngClass]="{ 'is-invalid': f.submitted && passwordVal.invalid }" required
-                                       placeholder="Password" name="password">
-                                <div *ngIf="f.submitted && passwordVal.invalid" class="invalid-feedback">
-                                    <div *ngIf="passwordVal.errors.required">Password is required</div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="accountNo">Account No</label>
+                        <input id="accountNo" name="accountNo" type="text" class="form-control"
+                               [(ngModel)]="model.accountNo" name="accountNo" #accountNoVal="ngModel"
+                               [ngClass]="{ 'is-invalid': f.submitted && accountNoVal.invalid }" required
+                               placeholder="Account No">
+                        <div *ngIf="f.submitted && accountNoVal.invalid" class="invalid-feedback">
+                            <div *ngIf="accountNoVal.errors.required">Account number is required</div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="signatureImage">Signature</label>
-                                <input id="signatureImage" name="signatureImage" type="file" name="photo" accept="image/*"
-                                       (change)="signatureUploader($event)"/>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="profilePicture">Profile</label>
-                                <input id="profilePicture" name="profilePicture" type="file" name="photo" accept="image/*"
-                                       (change)="profileUploader($event)"/>
-                            </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div *ngIf="model.id==null" class="col-md-6">
+                        <label for="password">Password</label>
+                        <input id="password" name="password" type="password" class="form-control"
+                               [(ngModel)]="model.password" name="password" #passwordVal="ngModel"
+                               [ngClass]="{ 'is-invalid': f.submitted && passwordVal.invalid }" required
+                               placeholder="Password" name="password">
+                        <div *ngIf="f.submitted && passwordVal.invalid" class="invalid-feedback">
+                            <div *ngIf="passwordVal.errors.required">Password is required</div>
                         </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="signatureImage" class="d-block">Signature</label>
+                        <input id="signatureImage" name="signatureImage" type="file"
+                               name="photo" accept="image/*"
+                               (change)="signatureUploader($event)"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="profilePicture" class="d-block">Profile</label>
+                        <input id="profilePicture" name="profilePicture" type="file" name="photo" accept="image/*"
+                               (change)="profileUploader($event)"/>
                     </div>
                 </div>
                 <div class="modal-footer">

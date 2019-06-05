@@ -3,7 +3,7 @@ import {Pageable} from '../../../../../@core/service/baseservice/common-pageable
 import {LoanConfig} from '../../../modal/loan-config';
 import {Document} from '../../../modal/document';
 import {LoanTemplate} from '../../../modal/loan-template';
-import {ModalResponse, ToastService} from '../../../../../@core/utils';
+import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {LoanTemplateService} from '../loan-template/loan-template.service';
 import {DocumentService} from '../../document/document.service';
@@ -23,7 +23,7 @@ export class UIComponent implements OnInit {
     search: any = {};
     globalMsg: any;
     loanTemplateList: any;
-    comfirmLoanTemplateList = Array<LoanTemplate>();
+    confirmLoanTemplateList = Array<LoanTemplate>();
     loanConfig: LoanConfig = new LoanConfig();
     fundable: boolean;
     renewal: boolean;
@@ -31,6 +31,7 @@ export class UIComponent implements OnInit {
     submitted: boolean;
     initialDocument = Array<Document>();
     renewalDocument = Array<Document>();
+    eligibilityDocument = Array<Document>();
     documentList = Array<Document>();
 
     constructor(
@@ -69,7 +70,7 @@ export class UIComponent implements OnInit {
 
     updateSelectTemplate(template) {
         const t: LoanTemplate = template;
-        this.comfirmLoanTemplateList.push(t);
+        this.confirmLoanTemplateList.push(t);
         this.loanTemplateList.splice(this.loanTemplateList.indexOf(t), 1);
     }
 
@@ -77,7 +78,7 @@ export class UIComponent implements OnInit {
     updateUnselectTemplate(template) {
         const t: LoanTemplate = template;
         this.loanTemplateList.push(t);
-        this.comfirmLoanTemplateList.splice(this.comfirmLoanTemplateList.indexOf(t), 1);
+        this.confirmLoanTemplateList.splice(this.confirmLoanTemplateList.indexOf(t), 1);
     }
 
     setFunableTrue() {
@@ -132,21 +133,37 @@ export class UIComponent implements OnInit {
         }
     }
 
+    updateEligibilityDocument(events, document: Document) {
+        const d: Document = document;
+        if (events.target.checked === true) {
+            this.renewalDocument.push(d);
+            console.log(this.renewalDocument);
+        } else {
+            const index: number = this.renewalDocument.indexOf(d);
+            if (index !== -1) {
+                this.renewalDocument.splice(index, 1);
+                console.log(this.renewalDocument);
+            }
+        }
+    }
+
     onSubmit() {
         this.submitted = true;
         this.globalMsg = 'test successful';
         this.loanConfig.isRenewable = this.renewal;
         this.loanConfig.isFundable = this.fundable;
-        this.loanConfig.templateList = this.comfirmLoanTemplateList;
+        this.loanConfig.templateList = this.confirmLoanTemplateList;
         this.loanConfig.initial = this.initialDocument;
         this.loanConfig.renew = this.renewalDocument;
-        this.service.save(this.loanConfig).subscribe(() => {
+        this.loanConfig.eligibilityDocuments = this.eligibilityDocument;
+        console.log(this.loanConfig);
+        /*this.service.save(this.loanConfig).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Config!'));
                 this.loanConfig = new LoanConfig();
                 this.router.navigate(['home/admin/config']);
             }, error => {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Loan Config!'));
             }
-        );
+        );*/
     }
 }
