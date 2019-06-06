@@ -40,9 +40,14 @@ export class DmsLoanService extends BaseService<DmsLoanFile> {
         return this.http.post(req.url, formData, {headers: req.header});
     }
 
-    public getDocumentByStatus(status: string): Observable<any> {
-        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/getLoanByStatus` + '?status=' + status);
-        return this.http.get(req.url, {headers: req.header});
+    // public getDocumentByStatus(status: string): Observable<any> {
+    //     const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/getLoanByStatus` + '?status=' + status);
+    //     return this.http.get(req.url, {headers: req.header});
+    // }
+
+    public getDocumentByStatus(status: any): Observable<any> {
+        const req = ApiUtils.getRequest(`v1/loan-customer/status`);
+        return this.http.post(req.url, status, {headers: req.header});
     }
 
     setLoanName(name: string) {

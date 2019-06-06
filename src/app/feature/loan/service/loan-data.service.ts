@@ -4,6 +4,7 @@ import {EntityInfo} from '../../admin/modal/entity-info';
 import {LoanDataHolder} from '../model/loanData';
 import {LoanConfig} from '../../admin/modal/loan-config';
 import {Document} from '../../admin/modal/document';
+import {DmsLoanFile} from '../../admin/modal/dms-loan-file';
 
 
 @Injectable({
@@ -15,7 +16,7 @@ import {Document} from '../../admin/modal/document';
 // }
 
 export class LoanDataService {
-loanType: string;
+
 
     prvs = {
         url: null,
@@ -33,8 +34,10 @@ loanType: string;
 
     customer: Customer = new Customer();
     entityInfo: EntityInfo = new EntityInfo();
+    dmsLoanFile: DmsLoanFile = new DmsLoanFile();
     loanDocument: LoanDataHolder = new LoanDataHolder();
     loanConfig: LoanConfig = new LoanConfig();
+    loan: LoanConfig = new LoanConfig();
     renew: Document[] = [];
     initial: Document[] = [];
 
@@ -74,11 +77,11 @@ loanType: string;
 
     setCustomer(customer: Customer) {
         this.customer = customer;
-        this.loanDocument.customer = this.customer;
+        this.loanDocument.customerInfo = this.customer;
     }
 
     getCustomer() {
-        return this.customer;
+        return  this.customer;
     }
 
     setEntityInfo(entityInfo: EntityInfo) {
@@ -89,26 +92,26 @@ loanType: string;
     getEntityInfo() {
         return this.entityInfo;
     }
-    setLoanName(name: string) {
-        this.loanType = name;
-    }
 
-    getLoanName() {
-        return this.loanType;
-    }
+
+
     setLoan(loanConfig: LoanConfig) {
         this.loanConfig = loanConfig;
+        this.loanDocument.loan = loanConfig;
     }
 
     getLoan() {
         return this.loanConfig;
     }
+
     setInitialDocument(documents: Document[]) {
         this.initial = documents;
     }
+
     setRenewDocument(docuemnts: Document[]) {
         this.renew = docuemnts;
     }
+
     getInitialDocument() {
         return this.initial;
     }
@@ -116,5 +119,18 @@ loanType: string;
     getRenewDocument() {
         return this.renew;
     }
+
+    setDmsLoanFile(dmsLoanFile: DmsLoanFile) {
+        this.dmsLoanFile = dmsLoanFile;
+        this.loanDocument.dmsLoanFile = this.dmsLoanFile;
+    }
+
+    getDmsLoanFile() {
+        return this.entityInfo;
+    }
+
+
+
+
 
 }

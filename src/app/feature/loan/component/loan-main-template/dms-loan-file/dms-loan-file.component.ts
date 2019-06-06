@@ -9,6 +9,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {DmsLoanService} from './dms-loan-service';
 import {AfterTodayValidator} from '../../../../../@core/validator/after-today-validator';
+import {LoanDataService} from '../../../service/loan-data.service';
 
 @Component({
     selector: 'app-dms-loan',
@@ -44,6 +45,7 @@ export class DmsLoanFileComponent implements OnInit {
     allId;
 
     constructor(private formBuilder: FormBuilder,
+                private loanDataService: LoanDataService,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
                 private dmsLoanService: DmsLoanService,
@@ -135,11 +137,18 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFile.recommendationConclusion = this.documentForm.get('recommendation').value;
         this.loanFile.documentMap = this.documentMaps;
         this.loanFile.loanConfig = this.loanConfig;
+        this.loanDataService.setDmsLoanFile(this.loanFile);
+        this.save();
+
+    }
+
+    save() {
         this.dmsLoanService.save(this.loanFile).subscribe(
             (response: any) => {
                 this.customerId = response.detail.id;
                 this.loanFile = response.detail;
                 this.dmsLoanService.setDmsLoanFile(response.detail);
+                this.loanDataService.setDmsLoanFile(this.loanFile);
                 this.count++;
                 if (this.count > 1) {
                     this.router.navigate(['/home/loan/summary', this.customerId]);
@@ -157,6 +166,7 @@ export class DmsLoanFileComponent implements OnInit {
             return;
         } else {
             this.onSubmit();
+
         }
     }
 
