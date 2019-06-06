@@ -7,12 +7,17 @@
             <form class="form-horizontal" [formGroup]="openingAccount">
                 <input hidden formControlName="id" type="text"/>
                 <!-- START ROW -->
-                <div class="row">
-                    <div class="col-md-8 form-group">
+                <div class="row form-group">
+                    <div class="col-md-8">
                         <label for="branch"><b>Bank Branch</b></label>
                         <select id="branch" class="custom-select" formControlName="branch">
                             <option *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}</option>
                         </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="requestedDate"><b>Requested Date</b></label>
+                        <input id="requestedDate" type="text" class="form-control" disabled style="border: 0;"
+                               formControlName="requestedDate"/>
                     </div>
                 </div>
                 <!-- END ROW -->

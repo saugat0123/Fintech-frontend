@@ -121,7 +121,7 @@ export class OpenOpeningComponentComponent implements OnInit {
             // OpeningForm
             id: openingForm.id,
             branch: openingForm.branch,
-            requestedDate: openingForm.requestedDate,
+            requestedDate: this.formatDate(openingForm.requestedDate),
             // Opening Account
             accountType: openingForm.accountType,
             accountTypeOther: [undefined],
@@ -376,10 +376,12 @@ export class OpenOpeningComponentComponent implements OnInit {
     setApplicantRelativeFormGroup(relativeList: Array<OpeningCustomerRelative>): FormArray {
         const relativeFormArray = new FormArray([]);
         relativeList.forEach(relative => {
-            relativeFormArray.push(this.formBuilder.group({
-                applicantRelationWith: relative.customerRelation,
-                applicantRelativeName: relative.customerRelativeName
-            }));
+            if (relative.customerRelativeName !== null && relative.customerRelativeName !== '') {
+                relativeFormArray.push(this.formBuilder.group({
+                    applicantRelationWith: relative.customerRelation,
+                    applicantRelativeName: relative.customerRelativeName
+                }));
+            }
         });
         return relativeFormArray;
     }
