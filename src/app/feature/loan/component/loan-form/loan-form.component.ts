@@ -9,9 +9,12 @@ import {CommonDataService} from '../../../../@core/service/baseservice/common-da
 import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {MsgModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
-import {LoanFormService} from '../loan-form.service';
+
 import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-service';
 import {DmsLoanFile} from '../../../admin/modal/dms-loan-file';
+import {LoanFormService} from './service/loan-form.service';
+import {DmsLoanFileComponent} from '../loan-main-template/dms-loan-file/dms-loan-file.component';
+import {LoanConfig} from '../../../admin/modal/loan-config';
 
 @Component({
     selector: 'app-loan-form',
@@ -27,12 +30,15 @@ export class LoanFormComponent implements OnInit {
         name: null,
         templateUrl: null
     }];
-    customerId: number;
+    customerId;
     id;
     selectedTab;
     nxtTab;
     previousTab;
-    currentTab;
+    currentTab = {
+        tabIndex: null,
+        tabName: null
+    };
     first = false;
     last = false;
     allId;
@@ -47,10 +53,14 @@ export class LoanFormComponent implements OnInit {
         index: null
     };
 
-    loanDocument: LoanDataHolder = new LoanDataHolder();
+    loanDocument: LoanDataHolder ;
+    loan: LoanConfig = new LoanConfig();
 
     @ViewChild('basicInfo')
     basicInfo: BasicInfoComponent;
+
+    @ViewChild('dmsLoanFile')
+    dmsLoanFile: DmsLoanFileComponent;
 
     constructor(
         private dataService: CommonDataService,
@@ -78,23 +88,34 @@ export class LoanFormComponent implements OnInit {
                 console.log(paramsValue);
                 this.allId = paramsValue;
                 this.id = this.allId.loanId;
+                this.loan.id = this.id;
+                this.loanDataService.setLoan(this.loan);
                 this.customerId = this.allId.customerId;
                 this.dmsLoanService.setId(this.customerId);
                 if (this.customerId !== undefined) {
-                    console.log(this.customerId);
-                    this.dmsLoanService.detail(this.customerId).subscribe(
+                    this.loanFormService.detail(this.customerId).subscribe(
                         (response: any) => {
-                            console.log(response.detail);
-                            this.loanFile = response.detail;
+                            this.loanFile = response.detail.dmsLoanFile;
+                            this.loanDataService.setLoanDocuments(response.detail);
+                            this.loanDocument = response.detail;
+
                         }
                     );
                 } else {
+                    this.loanDocument = new LoanDataHolder();
                     this.loanFile = new DmsLoanFile();
                 }
             });
 
-        this.loanDocument = this.loanDataService.getLoanDocuments();
-        this.loanFormService.detail(this.id).subscribe((response: any) => {
+        this.populateTemplate();
+
+
+    }
+
+
+    populateTemplate() {
+        this.loanFormService.getTemplates(this.id).subscribe((response: any) => {
+
             this.dmsLoanService.setLoanName(response.detail.name);
             this.dmsLoanService.setLoan(response.detail);
             this.dmsLoanService.setInitialDocument(response.detail.initial);
@@ -107,8 +128,10 @@ export class LoanFormComponent implements OnInit {
             }
             if (this.templateList.length > 0) {
                 this.templateList[0].active = true;
-
                 this.selectTab(0, this.templateList[0].name);
+                this.currentTab.tabName = this.templateList[0].name;
+                this.selectedTab = this.templateList[0].name;
+                console.log(this.selectedTab);
                 this.first = true;
             }
             if (this.templateList.length === 0) {
@@ -133,31 +156,54 @@ export class LoanFormComponent implements OnInit {
             this.first = false;
         } else {
             this.first = true;
+
         }
         if (((index + 1) < this.templateList.length)) {
             this.loanDataService.setNext(index + 1, this.templateList[index + 1].templateUrl, this.templateList[index + 1].name);
             this.nxtTab = this.templateList[index + 1].templateUrl;
             this.last = false;
         } else {
-            this.currentTab = index;
+            this.currentTab = {
+                tabIndex: index,
+                tabName: name
+            };
             this.last = true;
         }
     }
 
     nextTab() {
-        console.log(this.loanDataService.getLoanDocuments());
+        this.selectChild(this.selectedTab);
         this.nxtParameter = this.loanDataService.getNext();
         this.selectTab(this.nxtParameter.index, this.nxtParameter.name);
 
     }
 
     prevTab() {
+        this.selectChild(this.selectedTab);
         this.previousParameter = this.loanDataService.getPrevious();
         this.selectTab(this.previousParameter.index, this.previousParameter.name);
     }
 
     save() {
+        this.selectChild(this.selectedTab);
         console.log(this.loanDataService.getLoanDocuments());
+        this.loanFormService.save(this.loanDataService.getLoanDocuments()).subscribe((response: any) => {
+            console.log('response of save', response);
+        });
+    }
+
+
+    selectChild(name) {
+        alert(name);
+        if (name === 'Customer Info') {
+            this.basicInfo.onSubmit();
+        }
+
+        if (name === 'General') {
+            alert(name);
+            this.dmsLoanFile.onSubmit();
+        }
+
     }
 
 }

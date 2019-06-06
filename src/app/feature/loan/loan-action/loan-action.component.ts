@@ -32,7 +32,7 @@ export class LoanActionComponent implements OnInit {
     ngOnInit() {
         this.formAction = this.formBuilder.group(
             {
-                loanId: [undefined],
+                id: [undefined],
                 customerId: [undefined],
                 toUser: [undefined],
                 docAction: [undefined],
@@ -49,7 +49,7 @@ export class LoanActionComponent implements OnInit {
                 this.sendForwardBackwardList = response.detail;
             });
         this.formAction.patchValue({
-                docAction: 'Backward'
+                docAction: 'BACKWARD'
             }
         );
 
@@ -61,18 +61,21 @@ export class LoanActionComponent implements OnInit {
                 this.sendForwardBackwardList = response.detail;
             });
         this.formAction.patchValue({
-                docAction: 'Forward'
+                docAction: 'FORWARD'
             }
         );
     }
 
     onSubmit() {
         this.formAction.patchValue({
-                loanId: this.loanConfigId,
+                id: this.loanConfigId,
                 customerId: this.id
             }
         );
-        console.log(this.formAction);
+
+        this.loanActionService.postLoanAction(this.formAction.value).subscribe((response: any) => {
+        });
+
     }
 
     onEdit() {

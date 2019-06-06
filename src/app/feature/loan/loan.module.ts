@@ -15,6 +15,7 @@ import {SecurityComponent} from './component/loan-main-template/security/securit
 import {NbDatepickerModule} from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
 import {LoanActionComponent} from './loan-action/loan-action.component';
+import {LoanFormService} from './component/loan-form/service/loan-form.service';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import {LoanActionComponent} from './loan-action/loan-action.component';
         NgSelectModule,
         NbDatepickerModule
 
-    ]
+    ],
+    providers: [LoanFormService]
 })
 export class LoanModule {
 }

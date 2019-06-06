@@ -13,6 +13,7 @@ export class LoanActionService extends BaseService<LoanConfig> {
 
     static API = 'v1/role-hierarchy';
 
+
     constructor(protected http: HttpClient) {
         super(http);
     }
@@ -29,5 +30,10 @@ export class LoanActionService extends BaseService<LoanConfig> {
     public getSendBackwardList(): Observable<any> {
         const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/getBackward`);
         return this.http.get(req.url, {headers: req.header});
+    }
+
+        public postLoanAction(object): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`v1/loan-action`);
+        return this.http.post(req.url, object, {headers: req.header});
     }
 }
