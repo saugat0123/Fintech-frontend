@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 
 import {LoanRoutingModule} from './loan-routing.module';
 import {LoanFormComponent} from './component/loan-form/loan-form.component';
@@ -14,6 +14,7 @@ import {DmsSummaryComponent} from './component/loan-main-template/dms-summary/dm
 import {SecurityComponent} from './component/loan-main-template/security/security.component';
 import {NbDatepickerModule} from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
+import { LoanSummaryComponent } from './component/loan-summary/loan-summary.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {ThemeModule} from '../../@theme/theme.module';
         KycInfoComponent,
         DmsLoanFileComponent,
         DmsSummaryComponent,
-        SecurityComponent
+        SecurityComponent,
+        LoanSummaryComponent,
 
     ],
     imports: [
@@ -38,6 +40,9 @@ import {ThemeModule} from '../../@theme/theme.module';
         NgSelectModule,
         NbDatepickerModule
 
+    ],
+    providers: [
+        DatePipe
     ]
 })
 export class LoanModule {

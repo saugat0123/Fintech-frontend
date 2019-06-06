@@ -9,12 +9,15 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {DmsLoanService} from './dms-loan-service';
 import {AfterTodayValidator} from '../../../../../@core/validator/after-today-validator';
+import {Security} from '../../../../admin/modal/security';
+import {LoanFormService} from '../../loan-form.service';
 
 @Component({
     selector: 'app-dms-loan',
     templateUrl: './dms-loan-file.component.html',
     styleUrls: ['./dms-loan-file.component.css']
 })
+
 export class DmsLoanFileComponent implements OnInit {
     public static FILE_SIZE = 20000;
     @Input()
@@ -42,11 +45,19 @@ export class DmsLoanFileComponent implements OnInit {
     documentMap: string;
     proceeded = false;
     allId;
+    securities: string[];
+    securityEnum: Security[] = [];
+    loanId: number;
+    imagePaths: string[] = [];
+    imageUrl = [];
+    imagePathMap: string[] = [];
+    action: string;
 
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
                 private dmsLoanService: DmsLoanService,
+                private loanFormService: LoanFormService,
                 private toastService: ToastService) {
         this.loanFile.documents = Array<LoanDocument>();
     }
@@ -67,19 +78,31 @@ export class DmsLoanFileComponent implements OnInit {
                     customerId: null
                 };
                 this.allId = paramsValue;
+                this.customerId = this.allId.customerId;
+                this.loanId = this.allId.loanId;
             });
-        this.loanName = this.dmsLoanService.getLoanName();
-        this.loanConfig = this.dmsLoanService.getLoan();
-
-
         if (this.loanFile.id !== undefined) {
+            this.action = 'EDIT';
             this.proceed = true;
+            this.imagePaths = JSON.parse(this.loanFile.documentPath);
+            this.imagePathMap = this.loanFile.documentPathMaps;
+            for (const imagePath of this.imagePathMap) {
+                this.imageUrl.push(Object.values(imagePath));
+            }
         }
+        this.loanFormService.detail(this.loanId).subscribe(
+            (response: any) => {
+                this.loanConfig = response.detail;
+                this.loanName = this.loanConfig.name;
+                this.initialDocuments = this.loanConfig.initial;
+                this.renewDocuments = this.loanConfig.renew;
+            }
+        );
 
         this.dropdownList = [
-            {id: 0, name: 'Land Security'},
-            {id: 1, name: 'Apartment Security'},
-            {id: 2, name: 'Both'},
+            {id: 'LAND_SECURITY', name: 'Land Security'},
+            {id: 'APARTMENT_SECURITY', name: 'Apartment Security'},
+            {id: 'BOTH_TYPE', name: 'Both'},
 
         ];
 
@@ -96,7 +119,7 @@ export class DmsLoanFileComponent implements OnInit {
             contactNumber: [this.loanFile.contactNumber === undefined ? '' : this.loanFile.contactNumber, Validators.required],
             interestRate: [this.loanFile.interestRate === undefined ? '' : this.loanFile.interestRate, Validators.required],
             proposedAmount: [this.loanFile.proposedAmount === undefined ? '' : this.loanFile.proposedAmount, Validators.required],
-            security: [this.loanFile.security === undefined ? '' : this.loanFile.security, Validators.required],
+            security: [this.loanFile.security === undefined ? '' : this.showSecurity(this.loanFile.security), Validators.required],
             tenure: [this.loanFile.tenure === undefined ? '' : this.loanFile.tenure, [Validators.required, AfterTodayValidator.isValid]],
             priority: [this.loanFile.priority === undefined ? '' : this.loanFile.priority, Validators.required],
         });
@@ -106,14 +129,26 @@ export class DmsLoanFileComponent implements OnInit {
             waiver: [this.loanFile.waiver === undefined ? '' : this.loanFile.waiver, Validators.required],
             file: ['', Validators.required]
         });
-        this.initialDocuments = this.dmsLoanService.getInitialDocument();
-        this.renewDocuments = this.dmsLoanService.getRenewDocument();
         if (this.renewDocuments.length > 0) {
             this.renew = true;
         }
+        if (this.action === 'EDIT') {
+            this.documentForm.controls['file'].setValidators([]);
+        }
+
+    }
+
+
+    showSecurity(security: string) {
+        this.securities = security.split(',');
+        this.securities.forEach((security => {
+            this.securityEnum.push(Security[security]);
+        }));
+        return this.securityEnum;
     }
 
     onSubmit() {
+
         this.submitted = true;
         if (this.loanForm.invalid) {
             return;
@@ -126,26 +161,24 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFile.interestRate = this.loanForm.get('interestRate').value;
         this.loanFile.proposedAmount = this.loanForm.get('proposedAmount').value;
         this.loanFile.securities = this.loanForm.get('security').value;
-        console.log(this.loanFile.securities);
-        console.log(this.loanFile.security);
         this.loanFile.tenure = this.loanForm.get('tenure').value;
         this.loanFile.priority = this.loanForm.get('priority').value;
 
         this.loanFile.waiver = this.documentForm.get('waiver').value;
         this.loanFile.recommendationConclusion = this.documentForm.get('recommendation').value;
-        this.loanFile.documentMap = this.documentMaps;
+        this.loanFile.documentMap = this.action == 'EDIT' ? this.imagePaths : this.documentMaps;
         this.loanFile.loanConfig = this.loanConfig;
         this.dmsLoanService.save(this.loanFile).subscribe(
             (response: any) => {
                 this.customerId = response.detail.id;
                 this.loanFile = response.detail;
-                this.dmsLoanService.setDmsLoanFile(response.detail);
                 this.count++;
                 if (this.count > 1) {
                     this.router.navigate(['/home/loan/summary', this.customerId]);
                 }
             },
             error => {
+                console.log(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Error occurred while saving!'));
             }
         );
@@ -153,6 +186,9 @@ export class DmsLoanFileComponent implements OnInit {
 
     onProceed() {
         this.proceeded = true;
+        if (this.action == 'EDIT') {
+            this.count++;
+        }
         if (this.documentForm.invalid) {
             return;
         } else {
@@ -171,14 +207,11 @@ export class DmsLoanFileComponent implements OnInit {
         formdata.append('id', this.customerId + '');
         formdata.append('customerName', this.loanFile.customerName);
         formdata.append('documentName', documentName);
+
         this.dmsLoanService.uploadFile(formdata).subscribe(
             (result: any) => {
                 this.errorMessage = undefined;
                 this.document.name = documentName;
-                this.documentPath = result.detail;
-                if (!this.documentPaths.includes(result.detail)) {
-                    this.documentPaths.push(this.documentPath);
-                }
                 this.loanFile.documents.push(this.document);
                 this.documentMap = documentName + ':' + result.detail;
                 if (!this.documentMaps.includes(this.documentMap)) {

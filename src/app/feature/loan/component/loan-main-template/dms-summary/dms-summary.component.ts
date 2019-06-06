@@ -22,7 +22,6 @@ export class DmsSummaryComponent implements OnInit {
     securities: any = [];
     Security: typeof Security = Security;
     documents: [] = [];
-    documentPaths: string[] = [];
     documentUrls = [];
     documentUrl: string;
     documentNames = [];
@@ -57,6 +56,7 @@ export class DmsSummaryComponent implements OnInit {
                 }
             }
         );
+
     }
 
     download(i) {

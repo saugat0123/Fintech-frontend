@@ -81,11 +81,8 @@ export class BranchComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.breadcrumbService.notify(this.title);
-
         this.service.getStatus().subscribe((response: any) => {
-            console.log(response);
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.branches = response.detail.branches;
@@ -122,6 +119,7 @@ export class BranchComponent implements OnInit {
     }
 
     onSearch() {
+        console.log(this.search);
         BranchComponent.loadData(this);
     }
 

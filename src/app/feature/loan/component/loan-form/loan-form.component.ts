@@ -6,7 +6,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LoanDataHolder} from '../../model/loanData';
 import {BasicInfoComponent} from '../loan-main-template/basic-info/basic-info.component';
 import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {MsgModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {LoanFormService} from '../loan-form.service';
@@ -54,7 +53,6 @@ export class LoanFormComponent implements OnInit {
 
     constructor(
         private dataService: CommonDataService,
-        private commonService: CommonService,
         private loanDataService: LoanDataService,
         private dmsLoanService: DmsLoanService,
         private loanFormService: LoanFormService,
@@ -75,16 +73,12 @@ export class LoanFormComponent implements OnInit {
                     customerId: null
                 };
 
-                console.log(paramsValue);
                 this.allId = paramsValue;
                 this.id = this.allId.loanId;
                 this.customerId = this.allId.customerId;
-                this.dmsLoanService.setId(this.customerId);
                 if (this.customerId !== undefined) {
-                    console.log(this.customerId);
                     this.dmsLoanService.detail(this.customerId).subscribe(
                         (response: any) => {
-                            console.log(response.detail);
                             this.loanFile = response.detail;
                         }
                     );
@@ -95,10 +89,6 @@ export class LoanFormComponent implements OnInit {
 
         this.loanDocument = this.loanDataService.getLoanDocuments();
         this.loanFormService.detail(this.id).subscribe((response: any) => {
-            this.dmsLoanService.setLoanName(response.detail.name);
-            this.dmsLoanService.setLoan(response.detail);
-            this.dmsLoanService.setInitialDocument(response.detail.initial);
-            this.dmsLoanService.setRenewDocument(response.detail.renew);
             this.templateList = response.detail.templateList;
 
             this.breadcrumbService.notify(response.detail.name);
