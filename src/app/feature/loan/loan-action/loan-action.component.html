@@ -25,7 +25,7 @@
                     <label class="toUser" for="toUser">User List</label>
                     <select name="toUser" id="toUser" class="form-control form-control-sm"
                             formControlName="toUser">
-                        <option *ngFor="let forwardBackward of sendForwardBackwardList" [ngValue]="forwardBackward">
+                        <option *ngFor="let forwardBackward of sendForwardBackwardList" [ngValue]="forwardBackward.roleId">
                             {{forwardBackward.roleName}}
                     </select>
                 </div>

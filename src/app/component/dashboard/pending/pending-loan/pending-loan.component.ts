@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {User} from '../../../../feature/admin/modal/user';
 import {UserService} from '../../../../@core/service/user.service';
 import {DmsLoanService} from '../../../../feature/loan/component/loan-main-template/dms-loan-file/dms-loan-service';
+import {LoanDataHolder} from '../../../../feature/loan/model/loanData';
+import {LoanFormService} from '../../../../feature/loan/component/loan-form/service/loan-form.service';
 
 
 @Component({
@@ -15,6 +17,7 @@ import {DmsLoanService} from '../../../../feature/loan/component/loan-main-templ
 export class PendingLoanComponent implements OnInit, DoCheck {
     dmsLoanFiles: Array<DmsLoanFile> = new Array<DmsLoanFile>();
     loanType: LoanConfig = new LoanConfig();
+    loanDataHolders: Array<LoanDataHolder> = new Array<LoanDataHolder>();
     user: User = new User();
     pendingCount: number;
     status = {
@@ -24,15 +27,16 @@ export class PendingLoanComponent implements OnInit, DoCheck {
 
     constructor(private userService: UserService,
                 private router: Router,
-                private dmsLoanService: DmsLoanService
+                private dmsLoanService: DmsLoanService,
+                private loanFormServcie: LoanFormService
     ) {
     }
 
     ngOnInit() {
-         this.dmsLoanService.getDocumentByStatus(this.status).subscribe(
+        this.dmsLoanService.getDocumentByStatus(this.status).subscribe(
             (response: any) => {
-                this.dmsLoanFiles = response.detail;
-
+                console.log(response.detail);
+                this.loanDataHolders = response.detail;
             });
         this.dmsLoanService.getStatus().subscribe(
             (response: any) => {
@@ -48,7 +52,7 @@ export class PendingLoanComponent implements OnInit, DoCheck {
     }
 
     onClick(id) {
-        this.router.navigate(['/home/loan/summary', id]);
+        // this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: id, customerId: this.customerLoanId}});
     }
 
     ngDoCheck(): void {

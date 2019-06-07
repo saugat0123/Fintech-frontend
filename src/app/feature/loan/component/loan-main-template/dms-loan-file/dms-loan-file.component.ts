@@ -25,7 +25,7 @@ import {LoanConfigService} from '../../../../admin/component/loan-config/loan-co
 export class DmsLoanFileComponent implements OnInit {
     public static FILE_SIZE = 20000;
     @Input()
-    loanFile: DmsLoanFile = new DmsLoanFile();
+    loanFile: DmsLoanFile;
     initialDocuments: Document[] = [];
     renewDocuments: Document[] = [];
     document: LoanDocument = new LoanDocument();
@@ -66,7 +66,6 @@ export class DmsLoanFileComponent implements OnInit {
                 private loanFormService: LoanFormService,
                 private loanConfigService: LoanConfigService,
                 private toastService: ToastService) {
-        this.loanFile.documents = Array<LoanDocument>();
     }
 
     get form() {
@@ -87,8 +86,10 @@ export class DmsLoanFileComponent implements OnInit {
                 this.allId = paramsValue;
                 this.customerId = this.allId.customerId;
                 this.loanConfigId = this.allId.loanId;
+
             });
-        console.log('from', this.loanFile);
+        console.log('from out side', this.loanFile);
+
         if (this.loanFile.id !== undefined) {
             this.action = 'EDIT';
             this.proceed = true;

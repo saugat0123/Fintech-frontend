@@ -12,6 +12,7 @@ import {DmsLoanService} from '../../../../feature/loan/component/loan-main-templ
 import {Router} from '@angular/router';
 import {ToastService} from '../../../../@core/utils';
 import {DatePipe} from '@angular/common';
+import {LoanFormService} from '../../../../feature/loan/component/loan-form/service/loan-form.service';
 
 @Component({
     selector: 'app-pendings',
@@ -30,6 +31,7 @@ export class PendingsLoanComponent implements OnInit {
     constructor(private service: DmsLoanService,
                 private userService: UserService,
                 private loanConfigService: LoanConfigService,
+                private loanFormService: LoanFormService,
                 private router: Router,
                 private toastService: ToastService,
                 private datePipe: DatePipe) {
@@ -38,7 +40,7 @@ export class PendingsLoanComponent implements OnInit {
 
     static loadData(other: PendingsLoanComponent) {
         other.spinner = true;
-        other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe(
+        other.loanFormService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe(
             (response: any) => {
                 other.dmsLoanFiles = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
@@ -71,10 +73,8 @@ export class PendingsLoanComponent implements OnInit {
 
     onSearch() {
         if (this.search.createdAt != null) {
-            console.log(this.search.createdAt);
             const date = this.search.createdAt;
             this.search.createdAt = this.datePipe.transform(date, 'yyyy-MM-dd');
-            console.log(this.search.createdAt);
 
         }
         PendingsLoanComponent.loadData(this);
@@ -86,6 +86,7 @@ export class PendingsLoanComponent implements OnInit {
 
     onClick(id: number) {
         this.router.navigate(['/home/loan/summary', id]);
+
 
     }
 

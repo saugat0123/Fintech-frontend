@@ -32,6 +32,8 @@ export class DmsSummaryComponent implements OnInit {
     document: string;
     documentNamesSplit: string[] = [];
     id: number;
+    loanData: any;
+    customerInfo: any;
     loanDataHolder: LoanDataHolder = new LoanDataHolder();
     allId;
     customerId;
@@ -42,8 +44,7 @@ export class DmsSummaryComponent implements OnInit {
                 private loanFormService: LoanFormService,
                 private dmsLoanService: DmsLoanService,
                 private activatedRoute: ActivatedRoute,
-                private loanConfigService: LoanConfigService,
-                private route: Router) {
+                private loanConfigService: LoanConfigService) {
 
     }
 
@@ -56,13 +57,11 @@ export class DmsSummaryComponent implements OnInit {
                 };
                 this.allId = paramsValue;
                 this.customerId = this.allId.customerId;
-                console.log('id', this.customerId);
                 this.loanConfigId = this.allId.loanConfigId;
             });
         this.id = this.router.snapshot.params['id'];
         this.loanConfigService.detail(this.loanConfigId).subscribe(
             (response: any) => {
-                console.log('loan name', this.loanConfigId);
                 this.loanConfig = response.detail;
             }
         );
@@ -107,10 +106,6 @@ export class DmsSummaryComponent implements OnInit {
                 console.log('Error downloading the file');
             }
         );
-    }
-
-    onEdit() {
-        this.route.navigate(['/home/loan/loanForm'], {queryParams: {loanId: this.loanConfigId, customerId: this.id}});
     }
 }
 

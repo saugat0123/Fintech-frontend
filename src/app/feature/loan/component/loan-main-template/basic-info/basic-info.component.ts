@@ -106,7 +106,7 @@ export class BasicInfoComponent implements OnInit {
     }
 
     getDistricts() {
-// this.province = this.basicInfo.get('province').value;
+ this.province = this.basicInfo.get('province').value;
         this.commonLocation.getDistrictByProvince(this.province).subscribe(
             (response: any) => {
                 this.districtList = response.detail;

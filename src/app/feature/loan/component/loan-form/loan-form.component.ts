@@ -87,6 +87,7 @@ export class LoanFormComponent implements OnInit {
                 this.allId = paramsValue;
                 this.id = this.allId.loanId;
                 this.loan.id = this.id;
+                this.loanDataService.setLoan(this.loan);
                 this.customerId = this.allId.customerId;
                 if (this.customerId !== undefined) {
                     this.loanFormService.detail(this.customerId).subscribe(
@@ -98,9 +99,8 @@ export class LoanFormComponent implements OnInit {
                         }
                     );
                 } else {
-                    // this.loanDocument = new LoanDataHolder();
+                    this.loanDocument = new LoanDataHolder();
                     this.loanFile = new DmsLoanFile();
-                    // this.loanFile.loanConfig = this.loan;
                 }
             });
 
@@ -179,23 +179,20 @@ export class LoanFormComponent implements OnInit {
         this.selectChild(this.selectedTab);
         this.loanFormService.save(this.loanDataService.getLoanDocuments()).subscribe((response: any) => {
             this.loanDataHolder = response.detail;
-            console.log('lona', this.loanDataHolder);
             this.customerLoanId = this.loanDataHolder.id;
-            console.log('id:', this.customerLoanId);
-            // this.router.navigate(['/home/loan/summary', this.customerLoanId]);
             this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}});
 
         });
     }
 
     selectChild(name) {
-        alert(name);
+
         if (name === 'Customer Info') {
             this.basicInfo.onSubmit();
         }
 
         if (name === 'General') {
-            alert(name);
+
             this.dmsLoanFile.onProceed();
         }
 
