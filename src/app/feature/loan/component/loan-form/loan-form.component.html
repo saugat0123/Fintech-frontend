@@ -10,9 +10,9 @@
     </ul>
     <div class="tab-content">
 
-        <app-basic-info [formValue]="loanDocument.customer" *ngIf="selectedTab==='Customer Info'"
+        <app-basic-info [formValue]="loanDocument.customerInfo" *ngIf="selectedTab==='Customer Info'"
                         #basicInfo></app-basic-info>
-        <app-dms-loan [loanFile]="loanFile" *ngIf="selectedTab==='General' && loanFile"></app-dms-loan>
+        <app-dms-loan [loanFile]="loanFile" *ngIf="selectedTab==='General' && loanFile" #dmsLoanFile></app-dms-loan>
         <app-company-info *ngIf="selectedTab==='Company Info'"></app-company-info>
 
         <!-- /.tab-pane -->

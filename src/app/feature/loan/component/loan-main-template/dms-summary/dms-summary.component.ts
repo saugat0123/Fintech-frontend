@@ -3,9 +3,12 @@ import {DmsLoanFile} from '../../../../admin/modal/dms-loan-file';
 import {User} from '../../../../admin/modal/user';
 import {Security} from '../../../../admin/modal/security';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {UserService} from '../../../../../@core/service/user.service';
 import {DmsLoanService} from '../dms-loan-file/dms-loan-service';
+import {LoanDataHolder} from '../../../model/loanData';
+import {LoanFormService} from '../../loan-form/service/loan-form.service';
+import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 
 @Component({
     selector: 'app-dms-summary',
@@ -14,8 +17,8 @@ import {DmsLoanService} from '../dms-loan-file/dms-loan-service';
 })
 export class DmsSummaryComponent implements OnInit {
     dmsLoanFile: DmsLoanFile = new DmsLoanFile();
-    loan: LoanConfig = new LoanConfig();
-    loanConfig: string;
+    loanConfig: LoanConfig = new LoanConfig();
+    loan: string;
     index = 0;
     user: User = new User();
     security: string;
@@ -26,33 +29,61 @@ export class DmsSummaryComponent implements OnInit {
     documentUrl: string;
     documentNames = [];
     documentName: string;
+    document: string;
+    documentNamesSplit: string[] = [];
     id: number;
-    loanConfigId: number;
+    loanDataHolder: LoanDataHolder = new LoanDataHolder();
+    allId;
+    customerId;
+    loanConfigId;
 
     constructor(private userService: UserService,
                 private router: ActivatedRoute,
+                private loanFormService: LoanFormService,
                 private dmsLoanService: DmsLoanService,
+                private activatedRoute: ActivatedRoute,
+                private loanConfigService: LoanConfigService,
                 private route: Router) {
 
     }
 
     ngOnInit() {
+        this.activatedRoute.queryParams.subscribe(
+            (paramsValue: Params) => {
+                this.allId = {
+                    loanConfigId: null,
+                    customerId: null
+                };
+                this.allId = paramsValue;
+                this.customerId = this.allId.customerId;
+                console.log('id', this.customerId);
+                this.loanConfigId = this.allId.loanConfigId;
+            });
         this.id = this.router.snapshot.params['id'];
+        this.loanConfigService.detail(this.loanConfigId).subscribe(
+            (response: any) => {
+                console.log('loan name', this.loanConfigId);
+                this.loanConfig = response.detail;
+            }
+        );
         this.userService.getLoggedInUser().subscribe(
             (response: any) => {
                 this.user = response.detail;
             }
         );
-        this.dmsLoanService.detail(this.id).subscribe(
+        this.loanFormService.detail(this.customerId).subscribe(
             (response: any) => {
-                this.dmsLoanFile = response.detail;
-                this.loanConfigId = response.detail.loanConfig.id;
+                this.loanDataHolder = response.detail;
+                console.log(this.loanDataHolder);
+                this.id = this.loanDataHolder.id;
+                this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
                 this.security = this.dmsLoanFile.security;
                 this.securities = this.security.split(',');
-                this.documents = this.dmsLoanFile.documentPathMaps;
-                for (const document of this.documents) {
-                    this.documentNames.push(Object.keys(document));
-                    this.documentUrls.push(Object.values(document));
+                this.documents = JSON.parse(this.dmsLoanFile.documentPath);
+                for (this.document of this.documents) {
+                    this.documentNamesSplit = this.document.split(':');
+                    this.documentNames.push(this.documentNamesSplit[0]);
+                    this.documentUrls.push(this.documentNamesSplit[1]);
                 }
             }
         );

@@ -19,7 +19,7 @@ import {AddressService} from '../../../../../@core/service/baseservice/address.s
     styleUrls: ['./basic-info.component.css']
 })
 export class BasicInfoComponent implements OnInit {
-    @Input() formValue: any;
+    @Input() formValue: Customer;
     customer: Customer = new Customer();
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
     basicInfo: FormGroup;
@@ -69,37 +69,44 @@ export class BasicInfoComponent implements OnInit {
             citizenshipIssuedPlace: [undefined],
             citizenshipIssuedDate: [undefined]
         });
-        if (this.loanDataService.getCustomer().customerName !== undefined) {
-            this.customer = this.loanDataService.getCustomer();
-            this.province = this.customer.province;
-            this.getDistricts();
-            this.district = this.customer.district;
-            this.getMunicipalities();
-            this.municipality = this.customer.municipalitiesOrVDC;
-            console.log(this.customer);
-            this.basicInfo = this.formBuilder.group({
-                title: [this.customer.title],
-                customerName: [this.customer.customerName],
-                customerId: [this.customer.customerId],
-                accountNo: [this.customer.accountNo],
-                province: [this.province],
-                district: [this.district],
-                municipalitiesOrVDC: new FormControl(this.municipality),
-                telephone: [this.customer.telephone],
-                mobile: [this.customer.mobile],
-                email: [this.customer.email],
-                initialRelationDate: [this.customer.initialRelationDate],
-                citizenshipNumber: [this.customer.citizenshipNumber],
-                citizenshipIssuedPlace: [this.customer.issuedPlace],
-                citizenshipIssuedDate: [this.customer.citizenshipIssuedDate]
-            });
+
+        if (this.formValue !== undefined) {
+            this.loanDataService.setCustomer(this.formValue);
+        }
+        if (this.loanDataService.getCustomer() !== null) {
+            if (this.loanDataService.getCustomer().customerName !== undefined) {
+                this.customer = this.loanDataService.getCustomer();
+                this.province = this.customer.province;
+                alert(this.province.name);
+                this.getDistricts();
+                this.district = this.customer.district;
+                this.getMunicipalities();
+                this.municipality = this.customer.municipalitiesOrVDC;
+                console.log(this.customer);
+                this.basicInfo = this.formBuilder.group({
+                    title: [this.customer.title],
+                    customerName: [this.customer.customerName],
+                    customerId: [this.customer.customerId],
+                    accountNo: [this.customer.accountNo],
+                    province: [this.province],
+                    district: [this.district],
+                    municipalitiesOrVDC: new FormControl(this.municipality),
+                    telephone: [this.customer.telephone],
+                    mobile: [this.customer.mobile],
+                    email: [this.customer.email],
+                    initialRelationDate: [this.customer.initialRelationDate],
+                    citizenshipNumber: [this.customer.citizenshipNumber],
+                    citizenshipIssuedPlace: [this.customer.issuedPlace],
+                    citizenshipIssuedDate: [this.customer.citizenshipIssuedDate]
+                });
+            }
         }
 
 
     }
 
     getDistricts() {
-        this.province = this.basicInfo.get('province').value;
+// this.province = this.basicInfo.get('province').value;
         this.commonLocation.getDistrictByProvince(this.province).subscribe(
             (response: any) => {
                 this.districtList = response.detail;

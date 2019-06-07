@@ -17,6 +17,9 @@ export class PendingLoanComponent implements OnInit, DoCheck {
     loanType: LoanConfig = new LoanConfig();
     user: User = new User();
     pendingCount: number;
+    status = {
+        docStatus: 'PENDING'
+    };
 
 
     constructor(private userService: UserService,
@@ -26,7 +29,7 @@ export class PendingLoanComponent implements OnInit, DoCheck {
     }
 
     ngOnInit() {
-        this.dmsLoanService.getDocumentByStatus('PENDING').subscribe(
+         this.dmsLoanService.getDocumentByStatus(this.status).subscribe(
             (response: any) => {
                 this.dmsLoanFiles = response.detail;
 

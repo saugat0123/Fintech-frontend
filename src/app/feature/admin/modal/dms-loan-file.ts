@@ -14,7 +14,6 @@ export class DmsLoanFile {
     priority: string;
     documentMap: string[] = [];
     recommendationConclusion: string;
-    loanConfig: LoanConfig;
     waiver: string;
     documentPath: string;
     documentPathMaps: [];

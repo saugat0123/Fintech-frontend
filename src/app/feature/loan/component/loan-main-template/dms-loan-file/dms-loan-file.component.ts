@@ -9,8 +9,12 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {DmsLoanService} from './dms-loan-service';
 import {AfterTodayValidator} from '../../../../../@core/validator/after-today-validator';
+import {LoanDataService} from '../../../service/loan-data.service';
 import {Security} from '../../../../admin/modal/security';
-import {LoanFormService} from '../../loan-form.service';
+import {LoanFormService} from '../../loan-form/service/loan-form.service';
+import {LoanDataHolder} from '../../../model/loanData';
+import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
+
 
 @Component({
     selector: 'app-dms-loan',
@@ -47,17 +51,20 @@ export class DmsLoanFileComponent implements OnInit {
     allId;
     securities: string[];
     securityEnum: Security[] = [];
-    loanId: number;
     imagePaths: string[] = [];
     imageUrl = [];
     imagePathMap: string[] = [];
     action: string;
+    loanDataHolder: LoanDataHolder = new LoanDataHolder();
+    loanConfigId: number;
 
     constructor(private formBuilder: FormBuilder,
+                private loanDataService: LoanDataService,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
                 private dmsLoanService: DmsLoanService,
                 private loanFormService: LoanFormService,
+                private loanConfigService: LoanConfigService,
                 private toastService: ToastService) {
         this.loanFile.documents = Array<LoanDocument>();
     }
@@ -79,18 +86,20 @@ export class DmsLoanFileComponent implements OnInit {
                 };
                 this.allId = paramsValue;
                 this.customerId = this.allId.customerId;
-                this.loanId = this.allId.loanId;
+                this.loanConfigId = this.allId.loanId;
             });
+        console.log('from', this.loanFile);
         if (this.loanFile.id !== undefined) {
             this.action = 'EDIT';
             this.proceed = true;
             this.imagePaths = JSON.parse(this.loanFile.documentPath);
-            this.imagePathMap = this.loanFile.documentPathMaps;
-            for (const imagePath of this.imagePathMap) {
-                this.imageUrl.push(Object.values(imagePath));
-            }
+            //  this.imagePathMap = this.loanFile.documentPathMaps;
+            // this.loanFile.loanConfig.id = this.loanId;
+            // for (const imagePath of this.imagePathMap) {
+            //     this.imageUrl.push(Object.values(imagePath));
+            // }
         }
-        this.loanFormService.detail(this.loanId).subscribe(
+        this.loanConfigService.detail(this.loanConfigId).subscribe(
             (response: any) => {
                 this.loanConfig = response.detail;
                 this.loanName = this.loanConfig.name;
@@ -114,6 +123,7 @@ export class DmsLoanFileComponent implements OnInit {
         ];
 
         this.loanForm = this.formBuilder.group({
+            // loanConfig: [this.loanFile.loanConfig === undefined ? {} : this.loanFile.loanConfig, Validators.required],
             customerName: [this.loanFile.customerName === undefined ? '' : this.loanFile.customerName, Validators.required],
             citizenshipNumber: [this.loanFile.citizenshipNumber === undefined ? '' : this.loanFile.citizenshipNumber, Validators.required],
             contactNumber: [this.loanFile.contactNumber === undefined ? '' : this.loanFile.contactNumber, Validators.required],
@@ -141,14 +151,13 @@ export class DmsLoanFileComponent implements OnInit {
 
     showSecurity(security: string) {
         this.securities = security.split(',');
-        this.securities.forEach((security => {
-            this.securityEnum.push(Security[security]);
+        this.securities.forEach((securityLoop => {
+            this.securityEnum.push(Security[securityLoop]);
         }));
         return this.securityEnum;
     }
 
     onSubmit() {
-
         this.submitted = true;
         if (this.loanForm.invalid) {
             return;
@@ -166,16 +175,18 @@ export class DmsLoanFileComponent implements OnInit {
 
         this.loanFile.waiver = this.documentForm.get('waiver').value;
         this.loanFile.recommendationConclusion = this.documentForm.get('recommendation').value;
-        this.loanFile.documentMap = this.action == 'EDIT' ? this.imagePaths : this.documentMaps;
-        this.loanFile.loanConfig = this.loanConfig;
+        this.loanFile.documentMap = this.action === 'EDIT' ? this.imagePaths : this.documentMaps;
+        this.loanDataService.setDmsLoanFile(this.loanFile);
+        this.save();
+
+    }
+
+    save() {
         this.dmsLoanService.save(this.loanFile).subscribe(
             (response: any) => {
                 this.customerId = response.detail.id;
                 this.loanFile = response.detail;
-                this.count++;
-                if (this.count > 1) {
-                    this.router.navigate(['/home/loan/summary', this.customerId]);
-                }
+                this.loanDataService.setDmsLoanFile(this.loanFile);
             },
             error => {
                 console.log(error);
@@ -186,13 +197,14 @@ export class DmsLoanFileComponent implements OnInit {
 
     onProceed() {
         this.proceeded = true;
-        if (this.action == 'EDIT') {
+        if (this.action === 'EDIT') {
             this.count++;
         }
         if (this.documentForm.invalid) {
             return;
         } else {
             this.onSubmit();
+
         }
     }
 
@@ -207,7 +219,6 @@ export class DmsLoanFileComponent implements OnInit {
         formdata.append('id', this.customerId + '');
         formdata.append('customerName', this.loanFile.customerName);
         formdata.append('documentName', documentName);
-
         this.dmsLoanService.uploadFile(formdata).subscribe(
             (result: any) => {
                 this.errorMessage = undefined;

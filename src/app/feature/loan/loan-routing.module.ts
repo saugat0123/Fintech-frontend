@@ -8,7 +8,7 @@ import {LoanSummaryComponent} from './component/loan-summary/loan-summary.compon
 export const routes: Routes = [
     {path: 'loanForm', component: LoanFormComponent},
     {path: 'loanType', component: DmsLoanFileComponent},
-    {path: 'summary/:id', component: DmsSummaryComponent},
+    {path: 'summary', component: DmsSummaryComponent},
     {path: 'loan-summary', component: LoanSummaryComponent},
 ];
 

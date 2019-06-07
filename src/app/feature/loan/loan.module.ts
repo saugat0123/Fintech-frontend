@@ -15,6 +15,8 @@ import {SecurityComponent} from './component/loan-main-template/security/securit
 import {NbDatepickerModule} from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
 import { LoanSummaryComponent } from './component/loan-summary/loan-summary.component';
+import {LoanActionComponent} from './loan-action/loan-action.component';
+import {LoanFormService} from './component/loan-form/service/loan-form.service';
 
 
 @NgModule({
@@ -27,6 +29,7 @@ import { LoanSummaryComponent } from './component/loan-summary/loan-summary.comp
         DmsSummaryComponent,
         SecurityComponent,
         LoanSummaryComponent,
+        LoanActionComponent
 
     ],
     imports: [
@@ -42,8 +45,10 @@ import { LoanSummaryComponent } from './component/loan-summary/loan-summary.comp
 
     ],
     providers: [
-        DatePipe
+        DatePipe,
+        LoanFormService
     ]
+
 })
 export class LoanModule {
 }

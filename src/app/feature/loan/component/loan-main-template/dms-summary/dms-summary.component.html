@@ -1,22 +1,25 @@
 <section>
     <nb-card>
+        <nb-card-header>
+            <app-loan-action [loanConfigId]="loanConfigId" [id]="id"></app-loan-action>
+        </nb-card-header>
         <nb-card-body>
-            <div class="row">
+            <div class="row ">
                 <div class="col-md-3">
                     Priority: <span class="badge badge-danger"
                                     style="font-size: 11px">{{dmsLoanFile.priority | lowercase}}</span>
 
                     <div class="row ml-0 mt-1">
                         <div class="inline">
-                            Loan Status:
-                            <span class="badge badge-info" style="font-size: 11px">{{dmsLoanFile.documentStatus}}</span>
+
+                            Loan Status:<span class="badge badge-info"
+                                              style="font-size: 11px">{{loanDataHolder.documentStatus | lowercase}}</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-5 col-xs-5 " style="text-align: center">
                     <h2>BANKING &amp; FINANCE INSTITUTIONS</h2>
                 </div>
-                <button class="btn btn-primary" (click)="onEdit()">Edit</button>
             </div>
             <div class="row">
                 <div class="col-md-5">
@@ -34,7 +37,6 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-
                     <p style="font-size: 15px"><b>Details of Borrower</b></p>
                     <table class="table table-condensed table-bordered border-3">
                         <thead>
@@ -70,10 +72,10 @@
                         <tbody>
                         <tr>
                             <td>1</td>
-                            <td>{{dmsLoanFile?.loanConfig?.name}}</td>
-                            <td>{{dmsLoanFile.proposedAmount}}</td>
-                            <td>{{dmsLoanFile.interestRate}}</td>
-                            <td>{{dmsLoanFile.tenure | date}}</td>
+                            <td>{{loan?.name}}</td>
+                            <td>{{dmsLoanFile?.proposedAmount}}</td>
+                            <td>{{dmsLoanFile?.interestRate}}</td>
+                            <td>{{dmsLoanFile?.tenure | date}}</td>
                         </tr>
                         </tbody>
                     </table>
