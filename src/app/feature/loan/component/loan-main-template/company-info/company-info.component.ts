@@ -2,7 +2,7 @@ import {Component, DoCheck, OnInit} from '@angular/core';
 
 import {Router} from '@angular/router';
 
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EntityInfo} from '../../../../admin/modal/entity-info';
 import {LegalStatus} from '../../../../admin/modal/legal-status';
 import {Swot} from '../../../../admin/modal/swot';
@@ -55,75 +55,63 @@ export class CompanyInfoComponent implements OnInit, DoCheck {
                 this.provinceList = response.detail;
             }
         );
+        this.entityInfo = this.loanDataService.getEntityInfo();
+        console.log(this.entityInfo);
+        if (this.entityInfo.legalStatus === null || this.entityInfo.legalStatus === undefined) {
+            this.entityInfo.legalStatus = new LegalStatus();
+            this.entityInfo.capital = new Capital();
+            this.entityInfo.swot = new Swot();
+            this.entityInfo.managementTeamList = new Array<ManagementTeam>();
+            this.entityInfo.proprietorsList = new Array<Proprietors>();
+        }
         this.companyInfo = this.formBuilder.group({
-            companyName: [undefined],
-            corporateStructure: [undefined],
-            registeredOffice: [undefined],
-            registeredUnderAct: [undefined],
-            registrationNo: [undefined],
-            registrationDate: [undefined],
-            panRegistrationOffice: [undefined],
-            panNumber: [undefined],
-            panRegistrationDate: [undefined],
-            authorizedCapital: [undefined],
-            paidUpCapital: [undefined],
-            issuedCapital: [undefined],
-            totalCapital: [undefined],
-            fixedCapital: [undefined],
-            workingCapital: [undefined],
-            numberOfShareholder: [undefined],
+            companyName: [this.entityInfo.legalStatus.companyName === undefined ? '' :
+                this.entityInfo.legalStatus.companyName, Validators.required],
+            corporateStructure: [this.entityInfo.legalStatus.corporateStructure === undefined ? '' :
+                this.entityInfo.legalStatus.corporateStructure, Validators.required],
+            registeredOffice: [this.entityInfo.legalStatus.registeredOffice === undefined ? '' :
+                this.entityInfo.legalStatus.registeredOffice, Validators.required],
+            registeredUnderAct: [this.entityInfo.legalStatus.registeredUnderAct === undefined ? '' :
+                this.entityInfo.legalStatus.registeredUnderAct, Validators.required],
+            registrationNo: [this.entityInfo.legalStatus.registrationNo === undefined ? '' :
+                this.entityInfo.legalStatus.registrationNo, Validators.required],
+            registrationDate: [this.entityInfo.legalStatus.registrationDate === undefined ? '' :
+                this.entityInfo.legalStatus.registrationDate, Validators.required],
+            panRegistrationOffice: [this.entityInfo.legalStatus.panRegistrationOffice === undefined ? '' :
+                this.entityInfo.legalStatus.panRegistrationOffice, Validators.required],
+            panNumber: [this.entityInfo.legalStatus.panNumber === undefined ? '' :
+                this.entityInfo.legalStatus.panNumber, Validators.required],
+            panRegistrationDate: [this.entityInfo.legalStatus.panRegistrationDate === undefined ? '' :
+                this.entityInfo.legalStatus.panRegistrationDate, Validators.required],
+            authorizedCapital: [this.entityInfo.capital.authorizedCapital === undefined ? '' :
+                this.entityInfo.capital.authorizedCapital, Validators.required],
+            paidUpCapital: [this.entityInfo.capital.paidUpCapital === undefined ? '' :
+                this.entityInfo.capital.paidUpCapital, Validators.required],
+            issuedCapital: [this.entityInfo.capital.issuedCapital === undefined ? '' :
+                this.entityInfo.capital.issuedCapital, Validators.required],
+            totalCapital: [this.entityInfo.capital.totalCapital === undefined ? '' :
+                this.entityInfo.capital.totalCapital, Validators.required],
+            fixedCapital: [this.entityInfo.capital.fixedCapital === undefined ? '' :
+                this.entityInfo.capital.fixedCapital, Validators.required],
+            workingCapital: [this.entityInfo.capital.workingCapital === undefined ? '' :
+                this.entityInfo.capital.workingCapital, Validators.required],
+            numberOfShareholder: [this.entityInfo.capital.numberOfShareholder === undefined ? '' :
+                this.entityInfo.capital.numberOfShareholder, Validators.required],
             managementTeams: this.formBuilder.array([
                 this.managementTeamFormGroup()
             ]),
             proprietors: this.formBuilder.array([
                 this.proprietorsFormGroup()
             ]),
-            strength: [undefined],
-            weakness: [undefined],
-            opportunity: [undefined],
-            threats: [undefined]
+            strength: [this.entityInfo.swot.strength === undefined ? '' : this.entityInfo.swot.strength, Validators.required],
+            weakness: [this.entityInfo.swot.weakness === undefined ? '' : this.entityInfo.swot.weakness, Validators.required],
+            opportunity: [this.entityInfo.swot.opportunity === undefined ? '' : this.entityInfo.swot.opportunity, Validators.required],
+            threats: [this.entityInfo.swot.threats === undefined ? '' : this.entityInfo.swot.threats, Validators.required],
         });
-        if (this.loanDataService.getEntityInfo().legalStatus !== undefined) {
-            this.entityInfo = this.loanDataService.getEntityInfo();
-            this.legalStatus = this.entityInfo.legalStatus;
-            this.capital = this.entityInfo.capital;
-            this.swot = this.entityInfo.swot;
-            this.companyInfo = this.formBuilder.group({
-                // legal status
-                companyName: [this.legalStatus.companyName],
-                corporateStructure: [this.legalStatus.corporateStructure],
-                registeredOffice: [this.legalStatus.registeredOffice],
-                registeredUnderAct: [this.legalStatus.registeredUnderAct],
-                registrationNo: [this.legalStatus.registrationNo],
-                registrationDate: [this.legalStatus.registrationDate],
-                panRegistrationOffice: [this.legalStatus.registeredOffice],
-                panNumber: [this.legalStatus.panNumber],
-                panRegistrationDate: [this.legalStatus.panRegistrationDate],
-                // company information
-                authorizedCapital: [this.capital.authorizedCapital],
-                paidUpCapital: [this.capital.paidUpCapital],
-                issuedCapital: [this.capital.issuedCapital],
-                totalCapital: [this.capital.totalCapital],
-                fixedCapital: [this.capital.fixedCapital],
-                workingCapital: [this.capital.workingCapital],
-                numberOfShareholder: [this.capital.numberOfShareholder],
-                managementTeams: this.formBuilder.array([
-                    this.managementTeamFormGroup()
-                ]),
-                proprietors: this.formBuilder.array([
-                    this.proprietorsFormGroup()
-                ]),
-                // swot
-                strength: [this.swot.strength],
-                weakness: [this.swot.weakness],
-                opportunity: [this.swot.opportunity],
-                threats: [this.swot.threats]
-            });
-            this.managementTeamList = this.entityInfo.managementTeamList;
-            this.proprietorsList = this.entityInfo.proprietorsList;
-            this.companyInfo.setControl('managementTeams', this.setManagementTeams(this.managementTeamList));
-            this.companyInfo.setControl('proprietors', this.setProprietors(this.proprietorsList));
-        }
+        this.managementTeamList = this.entityInfo.managementTeamList;
+        this.proprietorsList = this.entityInfo.proprietorsList;
+/*        this.companyInfo.setControl('managementTeams', this.setManagementTeams(this.managementTeamList));
+        this.companyInfo.setControl('proprietors', this.setProprietors(this.proprietorsList));*/
     }
 
     ngDoCheck(): void {
@@ -162,8 +150,10 @@ export class CompanyInfoComponent implements OnInit, DoCheck {
         return this.formBuilder.group({
             name: [undefined],
             contactNo: [undefined],
-            address: [undefined],
             share: [undefined],
+            province: [null],
+            district: [null],
+            municipalityOrVdc: [null]
         });
     }
 
@@ -173,7 +163,9 @@ export class CompanyInfoComponent implements OnInit, DoCheck {
             managementTeamFormArray.push(this.formBuilder.group({
                 name: proprietors.name,
                 contactNo: proprietors.contactNo,
-                address: proprietors.address,
+                province: proprietors.province,
+                district: proprietors.district,
+                municipalityOrVdc: proprietors.municipalitiesOrVDC,
                 share: proprietors.share
             }));
         });
@@ -189,9 +181,8 @@ export class CompanyInfoComponent implements OnInit, DoCheck {
         (<FormArray>this.companyInfo.get('proprietors')).push(this.proprietorsFormGroup());
     }
 
-    getDistricts() {
-        console.log(this.province);
-        this.commonLocation.getDistrictByProvince(this.province).subscribe(
+    getDistricts(province: Province) {
+        this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 console.log(response.detail);
                 this.districtList = response.detail;
@@ -199,9 +190,8 @@ export class CompanyInfoComponent implements OnInit, DoCheck {
         );
     }
 
-    getMunicipalities() {
-        console.log(this.district);
-        this.commonLocation.getMunicipalityVDCByDistrict(this.district).subscribe(
+    getMunicipalities(district: District) {
+        this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.municipalitiesList = response.detail;
             }
@@ -209,7 +199,6 @@ export class CompanyInfoComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
-        console.log(this.companyInfo.get('companyName').value);
         this.legalStatus.companyName = this.companyInfo.get('companyName').value;
         this.legalStatus.corporateStructure = this.companyInfo.get('corporateStructure').value;
         this.legalStatus.registeredOffice = this.companyInfo.get('registeredOffice').value;
@@ -238,11 +227,6 @@ export class CompanyInfoComponent implements OnInit, DoCheck {
         this.loanDataService.setEntityInfo(this.entityInfo);
         // this.commonService.saveOrEdit(this.entityInfo, 'v1/companyInfo').subscribe();
 
-    }
-
-
-    previousPage() {
-        this.router.navigate(['home/loan/kyc-info']);
     }
 
 }

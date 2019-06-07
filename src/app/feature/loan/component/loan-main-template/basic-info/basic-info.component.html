@@ -1,130 +1,139 @@
-<div class="tab-pane fade active show" id="basicInfo">
-    <div class="wizard-title text-center"><h1>Basic Information</h1></div>
-    <div class="form-group">
-        <form class="form-horizontal" (ngSubmit)="onSubmit()" [formGroup]="basicInfo">
-            <!-- START ROW -->
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="title" for="customerName">Customer Name</label>
-                        <input id="customerName" formControlName="customerName" name="customerName" type="text"
-                               class="form-control form-control-sm form-control form-control-sm-error rounded" placeholder="Applicant's Full Name" required
-                               minlength="2">
+<nb-card>
+    <nb-card-body>
+        <div class="form-group">
+            <form class="form-horizontal" (ngSubmit)="onSubmit()" [formGroup]="basicInfo">
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="customerName"><b>Customer Name</b></label>
+                            <input id="customerName" formControlName="customerName" name="customerName" type="text"
+                                   class="form-control form-control-sm-error rounded"
+                                   placeholder="Applicant's Full Name" required
+                                   minlength="2">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="customerID"><b>Customer ID</b></label>
+                            <input id="customerID" formControlName="customerId" name="customerId" type="text"
+                                   class="form-control" placeholder="8 alpha numeric customer ID" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="email"><b>Email</b></label>
+                        <input id="email" formControlName="email" name="email" type="email" class="form-control"
+                               placeholder="eg. xyz@abc.com" required>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="title" for="customerID">Customer ID</label>
-                        <input id="customerID" formControlName="customerId" name="customerId" type="text"
-                               class="form-control form-control-sm" placeholder="8 alpha numeric customer ID" required>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="province"><b>Province</b></label>
+                            <select name="province" id="province" class="custom-select"
+                                    formControlName="province" (change)="getDistricts(this.basicInfo.get('province').value)">
+                                <option [value]="null" hidden>Select Province</option>
+                                <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal"
+                                        [selected]="provinceVal.id === province?.id">
+                                    {{provinceVal.name}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="district"><b>District</b></label>
+                            <select name="district" id="district" class="custom-select"
+                                    formControlName="district" (change)="getMunicipalities(this.basicInfo.get('district').value)">
+                                <option [ngValue]="null" hidden>Select District</option>
+                                <option *ngFor="let districtVal of districtList" [ngValue]="districtVal"
+                                        [selected]="districtVal.id === district?.id">
+                                    {{districtVal.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="municipality"><b>Municipalities or VDC</b></label>
+                            <select name="municipality" id="municipality" formControlName="municipalitiesOrVDC"
+                                    class="custom-select">
+                                <option [ngValue]="null" hidden>Select Municipality</option>
+                                <option *ngFor="let municipalityVal of municipalitiesList" [ngValue]="municipalityVal"
+                                        [selected]="municipalityVal.id === municipality?.id">
+                                    {{municipalityVal.name}}
+                                </option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <label class="title" for="email">Email</label>
-                    <input id="email" formControlName="email" name="email" type="email" class="form-control form-control-sm"
-                           placeholder="eg. xyz@abc.com" required>
-                </div>
-            </div>
-            <!-- END ROW -->
-            <!-- START ROW -->
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="title" for="province">Province</label>
-                        <select name="province" id="province" class="form-control form-control-sm"
-                                formControlName="province" (change)="getDistricts()">
-                            <option value="undefined" hidden>Select</option>
-                            <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal" [selected]="provinceVal.id === province?.id">
-                                {{provinceVal.name}}
-                        </select>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="mobile"><b>Mobile</b></label>
+                            <input id="mobile" formControlName="mobile" name="mobile" type="text" class="form-control"
+                                   placeholder="Mobile number" required pattern="[0-9]{10}">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="phone"><b>Phone</b></label>
+                            <input id="phone" formControlName="telephone" name="telephone" type="text"
+                                   class="form-control"
+                                   placeholder="Landline number" required pattern="[0-9]{9}">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="accountNo"><b>Account No.</b></label>
+                            <input id="accountNo" formControlName="accountNo" name="accountNo" type="text"
+                                   class="form-control" placeholder="Applicant's Account Number" required>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="title" for="district">District</label>
-                        <select name="district" [(ngModel)]="district" id="district"
-                                formControlName="district" class="form-control form-control-sm" (change)="getMunicipalities()">
-                            <option [ngValue]="undefined" hidden>District</option>
-                        <option *ngFor="let districtVal of districtList" [ngValue]="districtVal" [selected]="districtVal.id === district?.id">
-                                {{districtVal.name}}
-                            </option>
-                        </select>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="citizenshipNumber"><b>Citizenship Number</b></label>
+                            <input id="citizenshipNumber" type="text" formControlName="citizenshipNumber"
+                                   name="citizenshipNumber" class="form-control" placeholder="Citizenship Number"
+                                   required>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="title" for="municipality">Municipalities or VDC</label>
-                        <select name="municipality" id="municipality" formControlName="municipalitiesOrVDC" class="form-control form-control-sm">
-                            <option [ngValue]="undefined" hidden>Municipality</option>
-                            <option *ngFor="let municipalityVal of municipalitiesList" [ngValue]="municipalityVal" [selected]="municipalityVal.id === municipality?.id">
-                                {{municipalityVal.name}}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <!-- END ROW -->
-            <!-- START ROW -->
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="title" for="mobile">Mobile</label>
-                        <input id="mobile" formControlName="mobile" name="mobile" type="text" class="form-control form-control-sm"
-                               placeholder="Mobile number" required pattern="[0-9]{10}">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="title" for="phone">Phone</label>
-                        <input id="phone" formControlName="telephone" name="telephone" type="text" class="form-control form-control-sm"
-                               placeholder="Landline number" required pattern="[0-9]{9}">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="title" for="accountNo">Account No.</label>
-                        <input id="accountNo" formControlName="accountNo" name="accountNo" type="text"
-                               class="form-control form-control-sm" placeholder="Applicant's Account Number" required>
-                    </div>
-                </div>
-            </div>
-            <!-- END ROW -->
-            <!-- START ROW -->
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="title" for="citizenshipNumber">Citizenship Number</label>
-                        <input id="citizenshipNumber" type="text" formControlName="citizenshipNumber"
-                               name="citizenshipNumber" class="form-control form-control-sm" placeholder="Citizenship Number" required>
-                    </div>
-                </div>
 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="title" for="citizenshipIssuedPlace">Issued Place</label>
-                        <input id="citizenshipIssuedPlace" formControlName="citizenshipIssuedPlace"
-                               name="citizenshipIssuedPlace" type="text" class="form-control form-control-sm"
-                               placeholder="Citizenship Issued Date" required>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="citizenshipIssuedPlace"><b>Issued Place</b></label>
+                            <input id="citizenshipIssuedPlace" formControlName="citizenshipIssuedPlace"
+                                   name="citizenshipIssuedPlace" type="text" class="form-control"
+                                   placeholder="Citizenship Issued Date" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="customerCitizenshipIssuedDate"><b>Issued Date</b></label>
+                            <input id="customerCitizenshipIssuedDate" formControlName="citizenshipIssuedDate"
+                                   name="customerCitizenshipIssuedDate" [nbDatepicker]="customerCitizenshipIssuedDate" class="form-control"
+                                   placeholder="Citizenship Issued Date" required>
+                            <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="title" for="customercitizenshipIssuedDate">Issued Date</label>
-                        <input id="customercitizenshipIssuedDate" formControlName="citizenshipIssuedDate"
-                               name="customercitizenshipIssuedDate" type="date" class="form-control form-control-sm"
-                               placeholder="Citizenship Issued Date" required>
-                    </div>
-                </div>
-            </div>
-            <!-- END ROW -->
-           <!-- <div class="text-center">
-                <a class="btn btn-sm btn-flat btn-primary nav-link" data-toggle="tab" aria-expanded="false"
-                    type="submit" value="Next" (click)="onSubmit()">NEXT</a>
-            </div>-->
+                <!-- END ROW -->
+                <!--<div class="text-center">
+                    <a class="btn btn-sm btn-flat btn-primary nav-link" data-toggle="tab" aria-expanded="false"
+                        type="submit" value="Next" (click)="onSubmit()">NEXT</a>
+                </div>-->
 
 
-        </form>
-      testing input paramameters ::::::  {{formValue}}
-    </div>
-</div>
+            </form>
+            <!--testing input paramameters ::::::  {{formValue}}-->
+        </div>
+    </nb-card-body>
+</nb-card>
 
