@@ -16,38 +16,42 @@
                                     <div class="form-group">
                                         <label for="From">Date</label>
                                         <input id="From" [nbDatepicker]="date" class="form-control"
-                                               [(ngModel)]="search.date">
+                                               [(ngModel)]="search.createdAt">
                                         <nb-datepicker #date></nb-datepicker>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="name">Name</label>
-                                        <input type="text" id="name" class="form-control" [(ngModel)]="search.name">
+                                        <input type="text" id="name" class="form-control"
+                                               [(ngModel)]="search.customerName">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="facility">Facility</label>
-                                        <select id="facility" class="form-control" [(ngModel)]="search.loanType">
+                                        <select id="facility" class="custom-select"
+                                                (change)="onChoose($event.target.value)">
                                             <option [ngValue]="undefined" hidden>Select the facility</option>
-                                            <option *ngFor="let facility of loanList">{{facility.name}}</option>
+                                            <option *ngFor="let facility of loanList"
+                                                    [value]="facility.id">{{facility.name}}</option>
 
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-12" style="padding-top: 20px">
-                                    <button (click)="clearSearch()" data-toggle="collapse" data-target="#searchModel"
-                                            class="btn btn-sm btn-flat btn-outline-secondary">Cancel
-                                    </button>
-                                    <button class="btn btn-primary btn-sm btn-flat pull-right" (click)="onSearch()">
-                                        Advance Search
-                                    </button>
-                                </div>
+                            </div>
+                            <div class="col-md-12" style="padding-top: 20px">
+                                <button (click)="clearSearch()" data-toggle="collapse" data-target="#searchModel"
+                                        class="btn btn-sm btn-flat btn-outline-secondary">Cancel
+                                </button>
+                                <button class="btn btn-primary btn-sm btn-flat pull-right" (click)="onSearch()">
+                                    Advance Search
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!--</div>-->
             </nb-card-header>
             <nb-card-body>
                 <div class="box-body">
