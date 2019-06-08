@@ -69,19 +69,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let dmsloan of dmsLoanFiles; let i =index" (click)="onClick(dmsloan.id)"
+                        <tr *ngFor="let customerLoan of loanDataHolders; let i =index" (click)="onClick(customerLoan.id,customerLoan.loan.id)"
                             style="cursor: pointer">
-                            <div *ngIf="!dmsLoanFiles?.length > 0">
+                            <div *ngIf="!loanDataHolders?.length > 0">
                                 <p>No Content Found</p>
                             </div>
                             <td>{{i + 1}}</td>
                             <td>{{user?.branch?.name}}</td>
-                            <td>{{dmsloan.customerName}}</td>
-                            <td>{{dmsloan.contactNumber}}</td>
-                            <td>{{dmsloan?.loanConfig?.name}}</td>
-                            <td>{{dmsloan.priority}}</td>
+                            <td>{{customerLoan?.dmsLoanFile?.customerName || customerLoan?.customerInfo?.customerName}}</td>
+                            <td>{{customerLoan?.dmsLoanFile?.contactNumber || customerLoan?.customerInfo?.mobile}}</td>
+                            <td>{{customerLoan?.loan?.name}}</td>
+                            <td>{{customerLoan?.dmsLoanFile?.priority}}</td>
                             <td>{{user?.role?.roleName}}</td>
-                            <td>{{dmsloan.documentStatus}}</td>
+                            <td>{{customerLoan?.documentStatus}}</td>
 
                         </tr>
                         </tbody>

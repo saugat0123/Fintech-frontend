@@ -1,3 +1,7 @@
+<nb-card-header>
+    <h2 class="d-flex justify-content-center" style="margin-top: -3%">{{loanTitle}}</h2>
+    <span class="d-flex justify-content-end">{{currentDate}}</span></nb-card-header>
+
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
         <li *ngFor="let allList of templateList;let i=index ;"
@@ -13,7 +17,7 @@
         <app-basic-info [formValue]="loanDocument.customerInfo" *ngIf="selectedTab==='Customer Info'"
                         #basicInfo></app-basic-info>
         <app-dms-loan [loanFile]="loanFile" *ngIf="selectedTab==='General' && loanFile" #dmsLoanFile></app-dms-loan>
-        <app-company-info *ngIf="selectedTab==='Company Info'"></app-company-info>
+        <app-company-info [formValue]="loanDocument.entityInfo" *ngIf="selectedTab==='Company Info'" #entityInfo></app-company-info>
 
         <!-- /.tab-pane -->
     </div>

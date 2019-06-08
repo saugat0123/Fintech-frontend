@@ -70,14 +70,10 @@ export class BasicInfoComponent implements OnInit {
             citizenshipIssuedDate: [undefined]
         });
 
-        if (this.formValue !== undefined) {
-            this.loanDataService.setCustomer(this.formValue);
-        }
-        if (this.loanDataService.getCustomer() !== null) {
-            if (this.loanDataService.getCustomer().customerName !== undefined) {
-                this.customer = this.loanDataService.getCustomer();
+        if (this.formValue !== null) {
+            if (this.formValue !== undefined) {
+                this.customer = this.formValue;
                 this.province = this.customer.province;
-                alert(this.province.name);
                 this.getDistricts();
                 this.district = this.customer.district;
                 this.getMunicipalities();
@@ -106,7 +102,7 @@ export class BasicInfoComponent implements OnInit {
     }
 
     getDistricts() {
- this.province = this.basicInfo.get('province').value;
+        this.province = this.basicInfo.get('province').value;
         this.commonLocation.getDistrictByProvince(this.province).subscribe(
             (response: any) => {
                 this.districtList = response.detail;

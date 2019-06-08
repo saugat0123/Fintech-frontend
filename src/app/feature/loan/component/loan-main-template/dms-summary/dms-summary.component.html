@@ -29,10 +29,10 @@
             <hr>
             <div class="row">
                 <div class="col-md-5">
-                    <span><b>Ref. No: {{dmsLoanFile.id}}</b></span>
+                    <span><b>Ref. No: {{dmsLoanFile?.id}}</b></span>
                 </div>
                 <div class="col-md-6">
-                    <p class="text-right"><b>Date:{{dmsLoanFile.createdAt | date}}</b></p>
+                    <p class="text-right"><b>Date:{{dmsLoanFile?.createdAt | date}}</b></p>
                 </div>
             </div>
             <div class="row">
@@ -48,9 +48,9 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>{{dmsLoanFile.customerName}}</td>
-                            <td>{{dmsLoanFile.citizenshipNumber}}</td>
-                            <td>{{dmsLoanFile.contactNumber}}</td>
+                            <td>{{dmsLoanFile?.customerName}}</td>
+                            <td>{{dmsLoanFile?.citizenshipNumber}}</td>
+                            <td>{{dmsLoanFile?.contactNumber}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -108,7 +108,7 @@
                     <table class="table table-condensed table-bordered">
                         <tbody>
                         <tr>
-                            <td>{{dmsLoanFile.recommendationConclusion}}</td>
+                            <td>{{dmsLoanFile?.recommendationConclusion}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -130,7 +130,7 @@
                         <tbody>
                         <tr>
                             <td>1</td>
-                            <td>{{dmsLoanFile.waiver}}</td>
+                            <td>{{dmsLoanFile?.waiver}}</td>
                             <td>{{user.name}}</td>
                             <td>{{user?.role?.roleName}}</td>
                         </tr>

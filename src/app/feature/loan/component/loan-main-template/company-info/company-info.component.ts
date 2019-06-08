@@ -1,4 +1,4 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
 
 import {Router} from '@angular/router';
 
@@ -23,6 +23,7 @@ import {AddressService} from '../../../../../@core/service/baseservice/address.s
     styleUrls: ['./company-info.component.css']
 })
 export class CompanyInfoComponent implements OnInit, DoCheck {
+    @Input() formValue: EntityInfo;
     entityInfo: EntityInfo = new EntityInfo();
     legalStatus: LegalStatus = new LegalStatus();
     capital: Capital = new Capital();

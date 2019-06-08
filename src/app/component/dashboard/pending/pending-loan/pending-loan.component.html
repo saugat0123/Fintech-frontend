@@ -14,7 +14,7 @@
                                                                   [ngClass]="{'badge-success':loanDataHolder?.dmsLoanFile?.priority=='MEDIUM','badge-info':loanDataHolder?.dmsLoanFile?.priority=='LOW','badge-danger':loanDataHolder?.dmsLoanFile?.priority=='HIGH'}">{{loanDataHolder?.dmsLoanFile?.priority}}</span>
                                 </div>
                                 <div>{{loanDataHolder?.dmsLoanFile?.proposedAmount}}</div>
-                                <small>{{loanDataHolder?.loan.name}}</small>
+                                <small>{{loanDataHolder?.loan?.name}}</small>
                             </div>
                             <div class="col-md-4">
                                 <div>
