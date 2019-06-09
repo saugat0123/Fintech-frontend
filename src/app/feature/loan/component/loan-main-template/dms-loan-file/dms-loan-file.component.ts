@@ -176,14 +176,10 @@ export class DmsLoanFileComponent implements OnInit {
     }
 
     save() {
-        console.log(this.loanFile);
         this.dmsLoanService.save(this.loanFile).subscribe(
             (response: any) => {
                 this.customerId = response.detail.id;
                 this.loanFile = response.detail;
-                console.log('response', response);
-                this.loanFile.securities = this.loanForm.get('security').value;
-                this.loanFile.security = null;
                 this.loanDataService.setDmsLoanFile(this.loanFile);
             },
             error => {
