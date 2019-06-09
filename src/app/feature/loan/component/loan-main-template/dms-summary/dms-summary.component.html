@@ -7,7 +7,7 @@
             <div class="row ">
                 <div class="col-md-3">
                     Priority: <span class="badge badge-danger"
-                                    style="font-size: 11px">{{loanDataHolder?.dmsLoanFile?.priority | lowercase}}</span>
+                                    style="font-size: 11px">{{loanDataHolder?.dmsLoanFile?.priority  || loanDataHolder?.priority | lowercase}}</span>
 
                     <div class="row ml-0 mt-1">
                         <div class="inline">
@@ -48,9 +48,9 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>{{dmsLoanFile?.customerName}}</td>
-                            <td>{{dmsLoanFile?.citizenshipNumber}}</td>
-                            <td>{{dmsLoanFile?.contactNumber}}</td>
+                            <td>{{dmsLoanFile?.customerName || loanDataHolder?.customerInfo?.customerName}}</td>
+                            <td>{{dmsLoanFile?.citizenshipNumber || loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+                            <td>{{dmsLoanFile?.contactNumber || loanDataHolder?.customerInfo?.mobile}}</td>
                         </tr>
                         </tbody>
                     </table>

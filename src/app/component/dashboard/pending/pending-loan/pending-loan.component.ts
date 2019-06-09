@@ -7,6 +7,7 @@ import {UserService} from '../../../../@core/service/user.service';
 import {DmsLoanService} from '../../../../feature/loan/component/loan-main-template/dms-loan-file/dms-loan-service';
 import {LoanDataHolder} from '../../../../feature/loan/model/loanData';
 import {LoanFormService} from '../../../../feature/loan/component/loan-form/service/loan-form.service';
+import {DashboardService} from '../../service/dashboard.service';
 
 
 @Component({
@@ -22,28 +23,32 @@ export class PendingLoanComponent implements OnInit, DoCheck {
     customerId: number;
     pendingCount: number;
     status = {
-        docStatus: 'PENDING'
+        documentStatus: 'PENDING'
     };
 
 
     constructor(private userService: UserService,
                 private router: Router,
                 private dmsLoanService: DmsLoanService,
-                private loanFormServcie: LoanFormService
+                private loanFormServcie: LoanFormService,
+                private dashboardService: DashboardService
     ) {
     }
 
     ngOnInit() {
-        this.dmsLoanService.getDocumentByStatus(this.status).subscribe(
+
+        this.dashboardService.getCustomerLoanCount().subscribe(
             (response: any) => {
-                console.log(response.detail);
-                this.loanDataHolders = response.detail;
+                this.pendingCount = response.detail.pending;
             });
-        this.dmsLoanService.getStatus().subscribe(
+
+        this.dashboardService.getLoanByStatus(this.status).subscribe(
             (response: any) => {
-                this.pendingCount = response.detail.pendings;
+
+                this.loanDataHolders = response.detail;
             }
         );
+
         this.userService.getLoggedInUser().subscribe(
             (response: any) => {
                 this.user = response.detail;

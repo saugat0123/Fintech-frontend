@@ -43,14 +43,19 @@ export class BasicInfoComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.customer = this.formValue;
+
+        if (this.formValue !== undefined) {
+            this.customer = this.formValue;
+        }
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
                 this.provinceList.forEach(province => {
-                    if (this.customer.province !== undefined && province.id === this.customer.province.id) {
-                        this.basicInfo.controls.province.setValue(province);
-                        this.getDistricts(province);
+                    if (this.customer !== undefined) {
+                        if (this.customer.province !== undefined && province.id === this.customer.province.id) {
+                            this.basicInfo.controls.province.setValue(province);
+                            this.getDistricts(province);
+                        }
                     }
                 });
             }

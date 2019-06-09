@@ -13,5 +13,6 @@ export class LoanDataHolder {
     loan: LoanConfig;
     documentStatus: DocStatus;
     priority: Priority;
+    createdAt: any;
 
 }

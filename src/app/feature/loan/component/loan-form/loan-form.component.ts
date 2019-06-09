@@ -84,16 +84,14 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
                 this.allId = paramsValue;
                 this.id = this.allId.loanId;
                 this.loan.id = this.id;
-                // this.loanDataService.setLoan(this.loan);
                 this.customerId = this.allId.customerId;
                 if (this.customerId !== undefined) {
                     this.loanFormService.detail(this.customerId).subscribe(
                         (response: any) => {
                             this.loanFile = response.detail.dmsLoanFile;
-                            console.log('asd', this.loanFile);
-                            // this.loanDataService.setLoanDocuments(response.detail);
-                            this.loanDocument.customerInfo = response.detail.customerInfo;
-                            console.log('this.loan file document', this.loanDocument.customerInfo);
+                            this.loanDocument = response.detail;
+                            this.loanDocument.id = response.detail.id;
+
                         }
                     );
                 } else {
@@ -179,7 +177,6 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
         this.submitEnable = false;
         this.selectChild(this.selectedTab, true);
         this.loanDocument.loan = this.loan;
-        console.log(this.loanDocument);
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
             this.loanDocument = response.detail;
             this.customerLoanId = this.loanDocument.id;

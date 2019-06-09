@@ -6,7 +6,7 @@ import {LoanDataHolder} from '../../../model/loanData';
 
 export class LoanChildService {
 
-    loanDocument: LoanDataHolder = new LoanDataHolder();
+    loanDocument: LoanDataHolder;
 
     @ViewChild('basicInfo')
     basicInfo: BasicInfoComponent;
@@ -26,8 +26,9 @@ export class LoanChildService {
 
         if (name === 'General' && action) {
             this.dmsLoanFile.onProceed();
-            this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanForm.value;
+            this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanFile;
             this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
+
         }
 
         if (name === 'Company Info' && action) {
