@@ -98,7 +98,7 @@ export class PendingsLoanComponent implements OnInit {
         this.search.documentStatus = docStatus;
     }
 
-    onClick(customerId: number, loanConfigId: number) {
+    onClick(loanConfigId: number, customerId: number) {
         this.spinner = true;
         this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: loanConfigId, customerId: customerId}});
 

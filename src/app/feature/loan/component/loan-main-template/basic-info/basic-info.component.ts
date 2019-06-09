@@ -43,7 +43,7 @@ export class BasicInfoComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.customer = this.loanDataService.getCustomer();
+        this.customer = this.formValue;
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
