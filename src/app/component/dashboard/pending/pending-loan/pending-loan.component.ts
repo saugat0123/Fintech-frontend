@@ -19,6 +19,7 @@ export class PendingLoanComponent implements OnInit, DoCheck {
     loanType: LoanConfig = new LoanConfig();
     loanDataHolders: Array<LoanDataHolder> = new Array<LoanDataHolder>();
     user: User = new User();
+    customerId: number;
     pendingCount: number;
     status = {
         docStatus: 'PENDING'

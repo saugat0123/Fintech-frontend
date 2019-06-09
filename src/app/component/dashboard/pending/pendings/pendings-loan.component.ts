@@ -75,10 +75,7 @@ export class PendingsLoanComponent implements OnInit {
                 this.loanList = response.detail;
             }
         );
-
-
     }
-
 
     clearSearch() {
         this.search = {};

@@ -22,7 +22,7 @@ export abstract class BaseService<T> {
 
     protected abstract getApi(): string;
 
-    public save(obj: T): Observable<any> {
+    public  save(obj: T): Observable<any> {
         const req = ApiUtils.getRequest(this.getApi());
 
         return this.http.post(req.url, obj, {headers: req.header});
