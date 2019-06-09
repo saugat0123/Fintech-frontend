@@ -10,13 +10,12 @@ export class DmsLoanFile {
     securities: string;
     security: string;
     proposedAmount: number;
-    documentPath: string[];
     tenure: Date;
     priority: string;
-    documentMap: string[];
+    documentMap: string[] = [];
     recommendationConclusion: string;
-    loanConfig: LoanConfig;
     waiver: string;
+    documentPath: string;
     documentPathMaps: [];
     documents = new Array<LoanDocument>();
     createdAt: Date;

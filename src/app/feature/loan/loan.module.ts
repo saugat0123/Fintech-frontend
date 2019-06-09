@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 
 import {LoanRoutingModule} from './loan-routing.module';
 import {LoanFormComponent} from './component/loan-form/loan-form.component';
 import {BasicInfoComponent} from './component/loan-main-template/basic-info/basic-info.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {CompanyInfoComponent} from './component/loan-main-template/company-info/company-info.component';
 import {KycInfoComponent} from './component/loan-main-template/kyc-info/kyc-info.component';
 import {DmsLoanFileComponent} from './component/loan-main-template/dms-loan-file/dms-loan-file.component';
@@ -14,6 +14,7 @@ import {DmsSummaryComponent} from './component/loan-main-template/dms-summary/dm
 import {SecurityComponent} from './component/loan-main-template/security/security.component';
 import {NbDatepickerModule} from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
+import {LoanSummaryComponent} from './component/loan-summary/loan-summary.component';
 import {LoanActionComponent} from './loan-action/loan-action.component';
 import {LoanFormService} from './component/loan-form/service/loan-form.service';
 
@@ -27,6 +28,7 @@ import {LoanFormService} from './component/loan-form/service/loan-form.service';
         DmsLoanFileComponent,
         DmsSummaryComponent,
         SecurityComponent,
+        LoanSummaryComponent,
         LoanActionComponent
 
     ],
@@ -42,7 +44,13 @@ import {LoanFormService} from './component/loan-form/service/loan-form.service';
         NbDatepickerModule
 
     ],
-    providers: [LoanFormService]
+
+    providers: [
+        DatePipe,
+        LoanFormService,
+        NgbActiveModal
+    ]
+
 })
 export class LoanModule {
 }

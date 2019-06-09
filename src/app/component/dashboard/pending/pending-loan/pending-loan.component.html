@@ -7,14 +7,14 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <div class="row block border-bottom border-grey mb-1 list-group-item-action"
-                             *ngFor="let dmsLoan of dmsLoanFiles"
+                             *ngFor="let loanDataHolder of loanDataHolders"
                              style="cursor: pointer">
-                            <div class="col-md-8 mt-1 " (click)="onClick(dmsLoan.id)">
-                                <div>{{dmsLoan?.dmsLoanFile?.loanConfig?.name}} <span class="badge"
-                                                                         [ngClass]="{'badge-success':dmsLoan.dmsLoanFile?.priority=='MEDIUM','badge-info':dmsLoan.dmsLoanFile?.priority=='LOW','badge-danger':dmsLoan.dmsLoanFile?.priority=='HIGH'}">{{dmsLoan.dmsLoanFile?.priority}}</span>
+                            <div class="col-md-8 mt-1 " (click)="onClick(loanDataHolder.loan.id)">
+                                <div>{{user?.branch?.name}} <span class="badge"
+                                                                  [ngClass]="{'badge-success':loanDataHolder?.dmsLoanFile?.priority=='MEDIUM','badge-info':loanDataHolder?.dmsLoanFile?.priority=='LOW','badge-danger':loanDataHolder?.dmsLoanFile?.priority=='HIGH'}">{{loanDataHolder?.dmsLoanFile?.priority}}</span>
                                 </div>
-                                <div>{{dmsLoan.dmsLoanFile?.proposedAmount}}</div>
-                                <small>{{dmsLoan.dmsLoanFile?.loanConfig.name}}</small>
+                                <div>{{loanDataHolder?.dmsLoanFile?.proposedAmount}}</div>
+                                <small>{{loanDataHolder?.loan?.name}}</small>
                             </div>
                             <div class="col-md-4">
                                 <div>

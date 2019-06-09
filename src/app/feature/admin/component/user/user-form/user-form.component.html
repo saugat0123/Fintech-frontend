@@ -49,7 +49,7 @@
                     <div class="col-md-6">
                         <label for="userName">Username</label>
                         <input id="userName" name="userName" type="text" class="form-control"
-                               [(ngModel)]="model.userName"
+                               [(ngModel)]="model.username"
                                placeholder="Username" #userName="ngModel"
                                [ngClass]="{ 'is-invalid': f.submitted && userName.invalid }" required/>
                         <div *ngIf="f.submitted && userName.invalid" class="invalid-feedback">

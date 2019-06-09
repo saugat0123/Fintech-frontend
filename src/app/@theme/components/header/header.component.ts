@@ -35,7 +35,6 @@ export class HeaderComponent implements OnInit {
         this.userService.getLoggedInUser()
             .subscribe((res: any) => this.user = res.detail);
 
-        console.log(this.themeService.currentTheme);
 
         this.menuService.onItemClick().pipe(
             filter(({tag}) => tag === this.contextMenuTag),

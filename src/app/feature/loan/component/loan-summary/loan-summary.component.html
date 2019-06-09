@@ -1,19 +1,15 @@
 <section>
     <nb-card>
-        <nb-card-header>
-            <app-loan-action [loanConfigId]="loanConfigId" [id]="id"></app-loan-action>
-        </nb-card-header>
         <nb-card-body>
-            <div class="row ">
+            <div class="row">
                 <div class="col-md-3">
                     Priority: <span class="badge badge-danger"
-                                    style="font-size: 11px">{{loanDataHolder?.dmsLoanFile?.priority | lowercase}}</span>
+                                    style="font-size: 11px"></span>
 
                     <div class="row ml-0 mt-1">
                         <div class="inline">
-
-                            Loan Status:<span class="badge badge-info"
-                                              style="font-size: 11px">{{loanDataHolder.documentStatus | lowercase}}</span>
+                            Loan Status:
+                            <span class="badge badge-info" style="font-size: 11px"></span>
                         </div>
                     </div>
                 </div>
@@ -23,20 +19,21 @@
             </div>
             <div class="row">
                 <div class="col-md-5">
-                    <span><b>Pending Under: {{user?.role?.roleName}}</b></span>
+                    <span><b>Pending Under:</b></span>
                 </div>
             </div>
             <hr>
             <div class="row">
                 <div class="col-md-5">
-                    <span><b>Ref. No: {{dmsLoanFile?.id}}</b></span>
+                    <span><b>Ref. No: </b></span>
                 </div>
                 <div class="col-md-6">
-                    <p class="text-right"><b>Date:{{dmsLoanFile?.createdAt | date}}</b></p>
+                    <p class="text-right"><b>Date:</b></p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
+
                     <p style="font-size: 15px"><b>Details of Borrower</b></p>
                     <table class="table table-condensed table-bordered border-3">
                         <thead>
@@ -48,9 +45,7 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>{{dmsLoanFile?.customerName}}</td>
-                            <td>{{dmsLoanFile?.citizenshipNumber}}</td>
-                            <td>{{dmsLoanFile?.contactNumber}}</td>
+
                         </tr>
                         </tbody>
                     </table>
@@ -70,18 +65,60 @@
                         </tr>
                         </thead>
                         <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <p style="font-size: 15px"><b>Purpose of Submission</b></p>
+                    <table class="table table-condensed table-bordered">
+                        <tbody>
                         <tr>
-                            <td>1</td>
-                            <td>{{loanDataHolder?.loan?.name}}</td>
-                            <td>{{dmsLoanFile?.proposedAmount}}</td>
-                            <td>{{dmsLoanFile?.interestRate}}</td>
-                            <td>{{dmsLoanFile?.tenure | date}}</td>
+                            <td></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-12">
+                    <p style="font-size: 15px"><b>Valuator's Detail</b></p>
+                    <table class="table table-condensed table-bordered">
+                        <tr>
+                            <th>Valuator Name</th>
+                            <th>Valuated Date</th>
+                            <th>Valuator Represenative Name</th>
+                            <th>Staff Representative Name</th>
+                        </tr>
+                        <tbody>
+                        <tr>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <p style="font-size: 15px"><b>Guarantor's Detail</b></p>
+                    <table class="table table-condensed table-bordered">
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Cititzenship Number</th>
+                            <th>Contact Number</th>
+                            <th>Relationship</th>
+                        </tr>
+                        <tbody>
+                        <tr>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
             <div class="row mt-3">
                 <div class="col-md-12">
@@ -94,10 +131,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let security of securities; let i = index">
-                            <td>{{i + 1}}</td>
-                            <td>{{Security[security]}}</td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -108,7 +141,7 @@
                     <table class="table table-condensed table-bordered">
                         <tbody>
                         <tr>
-                            <td>{{dmsLoanFile?.recommendationConclusion}}</td>
+                            <td></td>
                         </tr>
                         </tbody>
                     </table>
@@ -128,12 +161,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>{{dmsLoanFile?.waiver}}</td>
-                            <td>{{user.name}}</td>
-                            <td>{{user?.role?.roleName}}</td>
-                        </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -150,13 +178,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let document of documentNames; let i = index">
-                            <td>{{i + 1}}</td>
-                            <td>{{document}}</td>
-                            <td><i class="fa fa-download" (click)="download(i)" aria-hidden="true"
-                                   style="cursor: pointer"></i>
-                            </td>
-                        </tr>
+
                         </tbody>
                     </table>
                 </div>

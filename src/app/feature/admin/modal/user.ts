@@ -13,7 +13,7 @@ export class User {
     profilePicture: string;
     signatureImage: string;
     status: string;
-    userName: string;
+    username: string;
     role: Role;
     fingerPrint: [];
 }

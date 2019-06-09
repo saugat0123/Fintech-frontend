@@ -1,36 +1,37 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LoanDataHolder} from '../../model/loanData';
-import {BasicInfoComponent} from '../loan-main-template/basic-info/basic-info.component';
 import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {MsgModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
 import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-service';
 import {DmsLoanFile} from '../../../admin/modal/dms-loan-file';
 import {LoanFormService} from './service/loan-form.service';
-import {DmsLoanFileComponent} from '../loan-main-template/dms-loan-file/dms-loan-file.component';
 import {LoanConfig} from '../../../admin/modal/loan-config';
+import {LoanChildService} from './service/child.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-loan-form',
     templateUrl: './loan-form.component.html',
     styleUrls: ['./loan-form.component.css'],
 })
-export class LoanFormComponent implements OnInit {
+export class LoanFormComponent extends LoanChildService implements OnInit {
 
-    loanFile: DmsLoanFile;
+    loanFile: DmsLoanFile = new DmsLoanFile();
+    loanTitle: string;
 
+    customerLoanId: number;
     templateList = [{
         active: false,
         name: null,
         templateUrl: null
     }];
-    customerId;
+    customerId: number;
     id;
     selectedTab;
     nxtTab;
@@ -53,31 +54,25 @@ export class LoanFormComponent implements OnInit {
         index: null
     };
 
-    loanDocument: LoanDataHolder ;
+
     loan: LoanConfig = new LoanConfig();
 
-    @ViewChild('basicInfo')
-    basicInfo: BasicInfoComponent;
-
-    @ViewChild('dmsLoanFile')
-    dmsLoanFile: DmsLoanFileComponent;
 
     constructor(
         private dataService: CommonDataService,
-        private commonService: CommonService,
         private loanDataService: LoanDataService,
         private dmsLoanService: DmsLoanService,
         private loanFormService: LoanFormService,
         private activatedRoute: ActivatedRoute,
         private modalService: NgbModal,
         private router: Router,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private datePipe: DatePipe
     ) {
-
+        super();
     }
 
     ngOnInit() {
-
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.allId = {
@@ -85,20 +80,19 @@ export class LoanFormComponent implements OnInit {
                     customerId: null
                 };
 
-                console.log(paramsValue);
                 this.allId = paramsValue;
                 this.id = this.allId.loanId;
                 this.loan.id = this.id;
-                this.loanDataService.setLoan(this.loan);
+
+                // this.loanDataService.setLoan(this.loan);
                 this.customerId = this.allId.customerId;
-                this.dmsLoanService.setId(this.customerId);
                 if (this.customerId !== undefined) {
                     this.loanFormService.detail(this.customerId).subscribe(
                         (response: any) => {
                             this.loanFile = response.detail.dmsLoanFile;
-                            this.loanDataService.setLoanDocuments(response.detail);
+                            console.log('asd', this.loanFile);
+                            // this.loanDataService.setLoanDocuments(response.detail);
                             this.loanDocument = response.detail;
-
                         }
                     );
                 } else {
@@ -114,14 +108,10 @@ export class LoanFormComponent implements OnInit {
 
 
     populateTemplate() {
+        // this.loanDocument = this.loanDataService.getLoanDocuments();
         this.loanFormService.getTemplates(this.id).subscribe((response: any) => {
-
-            this.dmsLoanService.setLoanName(response.detail.name);
-            this.dmsLoanService.setLoan(response.detail);
-            this.dmsLoanService.setInitialDocument(response.detail.initial);
-            this.dmsLoanService.setRenewDocument(response.detail.renew);
             this.templateList = response.detail.templateList;
-
+            this.loanTitle = response.detail.name;
             this.breadcrumbService.notify(response.detail.name);
             for (let i = 0; i < this.templateList.length; i++) {
                 this.templateList[i].active = false;
@@ -131,7 +121,6 @@ export class LoanFormComponent implements OnInit {
                 this.selectTab(0, this.templateList[0].name);
                 this.currentTab.tabName = this.templateList[0].name;
                 this.selectedTab = this.templateList[0].name;
-                console.log(this.selectedTab);
                 this.first = true;
             }
             if (this.templateList.length === 0) {
@@ -141,7 +130,6 @@ export class LoanFormComponent implements OnInit {
 
             }
         });
-
     }
 
     selectTab(index, name) {
@@ -172,38 +160,28 @@ export class LoanFormComponent implements OnInit {
     }
 
     nextTab() {
-        this.selectChild(this.selectedTab);
+        this.selectChild(this.selectedTab, true);
         this.nxtParameter = this.loanDataService.getNext();
         this.selectTab(this.nxtParameter.index, this.nxtParameter.name);
 
     }
 
     prevTab() {
-        this.selectChild(this.selectedTab);
         this.previousParameter = this.loanDataService.getPrevious();
         this.selectTab(this.previousParameter.index, this.previousParameter.name);
     }
 
     save() {
-        this.selectChild(this.selectedTab);
-        console.log(this.loanDataService.getLoanDocuments());
-        this.loanFormService.save(this.loanDataService.getLoanDocuments()).subscribe((response: any) => {
-            console.log('response of save', response);
+        this.selectChild(this.selectedTab, true);
+        this.loanDocument.loan = this.loan;
+        this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
+            this.loanDocument = response.detail;
+            this.customerLoanId = this.loanDocument.id;
+            this.loanDocument = new LoanDataHolder();
+            this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}});
+
         });
     }
 
-
-    selectChild(name) {
-        alert(name);
-        if (name === 'Customer Info') {
-            this.basicInfo.onSubmit();
-        }
-
-        if (name === 'General') {
-            alert(name);
-            this.dmsLoanFile.onSubmit();
-        }
-
-    }
 
 }
