@@ -73,7 +73,6 @@ export class DmsSummaryComponent implements OnInit {
         this.loanFormService.detail(this.customerId).subscribe(
             (response: any) => {
                 this.loanDataHolder = response.detail;
-                console.log(this.loanDataHolder);
                 this.id = this.loanDataHolder.id;
                 this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
                 this.security = this.dmsLoanFile.security;

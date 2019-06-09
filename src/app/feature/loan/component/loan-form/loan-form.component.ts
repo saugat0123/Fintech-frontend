@@ -22,7 +22,7 @@ import {LoanConfig} from '../../../admin/modal/loan-config';
 })
 export class LoanFormComponent implements OnInit {
 
-    loanFile: DmsLoanFile = new DmsLoanFile();
+    loanFile: DmsLoanFile
     loanDataHolder: LoanDataHolder = new LoanDataHolder();
     customerLoanId: number;
     templateList = [{
@@ -60,7 +60,7 @@ export class LoanFormComponent implements OnInit {
     basicInfo: BasicInfoComponent;
 
     @ViewChild('dmsLoanFile')
-    dmsLoanFile: DmsLoanFileComponent;
+     dmsLoanFile: DmsLoanFileComponent;
 
     constructor(
         private dataService: CommonDataService,
@@ -93,7 +93,6 @@ export class LoanFormComponent implements OnInit {
                     this.loanFormService.detail(this.customerId).subscribe(
                         (response: any) => {
                             this.loanFile = response.detail.dmsLoanFile;
-                            console.log('asd', this.loanFile);
                             this.loanDataService.setLoanDocuments(response.detail);
                             this.loanDocument = response.detail;
                         }

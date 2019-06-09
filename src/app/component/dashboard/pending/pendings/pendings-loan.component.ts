@@ -13,6 +13,7 @@ import {Router} from '@angular/router';
 import {ToastService} from '../../../../@core/utils';
 import {DatePipe} from '@angular/common';
 import {LoanFormService} from '../../../../feature/loan/component/loan-form/service/loan-form.service';
+import {LoanDataHolder} from '../../../../feature/loan/model/loanData';
 
 @Component({
     selector: 'app-pendings',
@@ -27,7 +28,7 @@ export class PendingsLoanComponent implements OnInit {
     pageable: Pageable = new Pageable();
     spinner = false;
     page = 1;
-
+    loanDataHolders: Array<LoanDataHolder> = new Array<LoanDataHolder>();
     constructor(private service: DmsLoanService,
                 private userService: UserService,
                 private loanConfigService: LoanConfigService,
@@ -42,7 +43,7 @@ export class PendingsLoanComponent implements OnInit {
         other.spinner = true;
         other.loanFormService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe(
             (response: any) => {
-                other.dmsLoanFiles = response.detail.content;
+                other.loanDataHolders = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
             }, error => {
@@ -84,8 +85,9 @@ export class PendingsLoanComponent implements OnInit {
         this.search.loanConfigId = loanConfigId;
     }
 
-    onClick(id: number) {
-        this.router.navigate(['/home/loan/summary', id]);
+    onClick(loanConfigId, customerLoanId) {
+        this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: loanConfigId, customerId: customerLoanId}});
+
 
 
     }
