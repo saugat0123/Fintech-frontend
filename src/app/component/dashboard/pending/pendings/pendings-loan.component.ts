@@ -22,16 +22,13 @@ import {LoanDataHolder} from '../../../../feature/loan/model/loanData';
 })
 export class PendingsLoanComponent implements OnInit {
     dmsLoanFiles: Array<DmsLoanFile>;
-    loanDataHolders: Array<LoanDataHolder>;
     user: User = new User();
-    search: any = {
-        documentStatus: 'PENDING'
-    };
+    search: any = {};
     loanList: Array<LoanConfig> = new Array<LoanConfig>();
     pageable: Pageable = new Pageable();
     spinner = false;
     page = 1;
-
+    loanDataHolders: Array<LoanDataHolder> = new Array<LoanDataHolder>();
     constructor(private service: DmsLoanService,
                 private userService: UserService,
                 private loanConfigService: LoanConfigService,
@@ -46,7 +43,6 @@ export class PendingsLoanComponent implements OnInit {
         other.spinner = true;
         other.loanFormService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe(
             (response: any) => {
-                other.dmsLoanFiles = response.detail.content;
                 other.loanDataHolders = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
@@ -89,9 +85,9 @@ export class PendingsLoanComponent implements OnInit {
         this.search.loanConfigId = loanConfigId;
     }
 
-    onClick(customerId: number, loanConfigId: number) {
-        this.spinner = true;
-        this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: loanConfigId, customerId: customerId}});
+    onClick(loanConfigId, customerLoanId) {
+        this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: loanConfigId, customerId: customerLoanId}});
+
 
 
     }

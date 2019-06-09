@@ -88,17 +88,11 @@ export class DmsLoanFileComponent implements OnInit {
                 this.loanConfigId = this.allId.loanId;
 
             });
-        console.log('from out side', this.loanFile);
 
         if (this.loanFile.id !== undefined) {
             this.action = 'EDIT';
             this.proceed = true;
             this.imagePaths = JSON.parse(this.loanFile.documentPath);
-            //  this.imagePathMap = this.loanFile.documentPathMaps;
-            // this.loanFile.loanConfig.id = this.loanId;
-            // for (const imagePath of this.imagePathMap) {
-            //     this.imageUrl.push(Object.values(imagePath));
-            // }
         }
         this.loanConfigService.detail(this.loanConfigId).subscribe(
             (response: any) => {
@@ -124,7 +118,6 @@ export class DmsLoanFileComponent implements OnInit {
         ];
 
         this.loanForm = this.formBuilder.group({
-            // loanConfig: [this.loanFile.loanConfig === undefined ? {} : this.loanFile.loanConfig, Validators.required],
             customerName: [this.loanFile.customerName === undefined ? '' : this.loanFile.customerName, Validators.required],
             citizenshipNumber: [this.loanFile.citizenshipNumber === undefined ? '' : this.loanFile.citizenshipNumber, Validators.required],
             contactNumber: [this.loanFile.contactNumber === undefined ? '' : this.loanFile.contactNumber, Validators.required],
@@ -183,10 +176,14 @@ export class DmsLoanFileComponent implements OnInit {
     }
 
     save() {
+        console.log(this.loanFile);
         this.dmsLoanService.save(this.loanFile).subscribe(
             (response: any) => {
                 this.customerId = response.detail.id;
                 this.loanFile = response.detail;
+                console.log('response', response);
+                this.loanFile.securities = this.loanForm.get('security').value;
+                this.loanFile.security = null;
                 this.loanDataService.setDmsLoanFile(this.loanFile);
             },
             error => {

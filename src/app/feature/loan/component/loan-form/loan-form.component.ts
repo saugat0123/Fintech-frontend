@@ -174,6 +174,7 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
     save() {
         this.selectChild(this.selectedTab, true);
         this.loanDocument.loan = this.loan;
+        console.log(this.loanDocument);
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
             this.loanDocument = response.detail;
             this.customerLoanId = this.loanDocument.id;

@@ -19,5 +19,4 @@ export class DmsLoanFile {
     documentPathMaps: [];
     documents = new Array<LoanDocument>();
     createdAt: Date;
-    documentStatus: string;
 }

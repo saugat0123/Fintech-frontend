@@ -19,6 +19,7 @@ export class PendingLoanComponent implements OnInit, DoCheck {
     loanType: LoanConfig = new LoanConfig();
     loanDataHolders: Array<LoanDataHolder> = new Array<LoanDataHolder>();
     user: User = new User();
+    customerId: number;
     pendingCount: number;
     status = {
         docStatus: 'PENDING'
@@ -35,7 +36,6 @@ export class PendingLoanComponent implements OnInit, DoCheck {
     ngOnInit() {
         this.dmsLoanService.getDocumentByStatus(this.status).subscribe(
             (response: any) => {
-                console.log(response.detail);
                 this.loanDataHolders = response.detail;
             });
         this.dmsLoanService.getStatus().subscribe(
@@ -51,8 +51,8 @@ export class PendingLoanComponent implements OnInit, DoCheck {
 
     }
 
-    onClick(id) {
-        // this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: id, customerId: this.customerLoanId}});
+    onClick(loanConfigId, customerLoanId) {
+        this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: loanConfigId, customerId: customerLoanId}});
     }
 
     ngDoCheck(): void {
