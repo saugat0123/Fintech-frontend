@@ -13,25 +13,25 @@ export class QuestionService {
   constructor(private http: HttpClient) { }
 
   saveQuestionList(model: Object, loanConfigId): Observable<Object> {
-    const url: string = this.loanConfigApi + loanConfigId + this.questionApi;
+    const url = `${this.loanConfigApi}${loanConfigId}${this.questionApi}`;
     const getUrl = ApiUtils.getRequest(url);
     return this.http.post(getUrl.url, model, {headers: getUrl.header});
   }
 
   editQuestion(model: Object, loanConfigId, questionId): Observable<Object> {
-    const url: string = this.loanConfigApi + loanConfigId + this.questionApi + '/' + questionId;
+    const url = `${this.loanConfigApi}${loanConfigId}${this.questionApi}/${questionId}`;
     const getUrl = ApiUtils.getRequest(url);
     return this.http.put(getUrl.url, model, {headers: getUrl.header});
   }
 
   getAllQuestions(loanConfigId): Observable<Object> {
-    const url: string = this.loanConfigApi + loanConfigId + this.questionApi;
+    const url = `${this.loanConfigApi}${loanConfigId}${this.questionApi}`;
     const getUrl = ApiUtils.getRequest(url);
     return this.http.get(getUrl.url, {headers: getUrl.header});
   }
 
   deleteQuestion(loanConfigId, questionId): Observable<Object> {
-    const url: string = this.loanConfigApi + loanConfigId + this.questionApi + '/' + questionId;
+    const url = `${this.loanConfigApi}${loanConfigId}${this.questionApi}/${questionId}`;
     const getUrl = ApiUtils.getRequest(url);
     return this.http.delete(getUrl.url, {headers: getUrl.header});
   }

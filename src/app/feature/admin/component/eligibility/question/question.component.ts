@@ -192,7 +192,6 @@ export class QuestionComponent implements OnInit {
     onSave() {
         if (this.questionAnswerForm.invalid) { return; }
         this.questionList = this.questionAnswerForm.value.questionForm;
-        console.log(this.questionList);
         this.questionService.saveQuestionList(this.questionList, this.loanConfigId).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Questions'));
