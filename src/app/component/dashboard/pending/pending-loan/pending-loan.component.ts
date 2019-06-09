@@ -51,8 +51,9 @@ export class PendingLoanComponent implements OnInit, DoCheck {
 
     }
 
-    onClick(id) {
-        // this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: id, customerId: this.customerLoanId}});
+    onClick(id, customerId) {
+
+        this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: id, customerId: customerId}});
     }
 
     ngDoCheck(): void {

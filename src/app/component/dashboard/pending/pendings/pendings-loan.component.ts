@@ -34,7 +34,6 @@ export class PendingsLoanComponent implements OnInit {
     page = 1;
     documentStatusList = DocStatus;
 
-;
 
     constructor(private service: DmsLoanService,
                 private userService: UserService,

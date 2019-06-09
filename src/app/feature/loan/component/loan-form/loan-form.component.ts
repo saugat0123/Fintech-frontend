@@ -22,7 +22,7 @@ import {DatePipe} from '@angular/common';
 })
 export class LoanFormComponent extends LoanChildService implements OnInit {
 
-    loanFile: DmsLoanFile = new DmsLoanFile();
+    loanFile: DmsLoanFile;
     loanTitle: string;
 
     customerLoanId: number;
@@ -57,6 +57,7 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
 
     loan: LoanConfig = new LoanConfig();
     currentNepDate;
+    submitEnable = false;
 
     constructor(
         private dataService: CommonDataService,
@@ -83,7 +84,6 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
                 this.allId = paramsValue;
                 this.id = this.allId.loanId;
                 this.loan.id = this.id;
-
                 // this.loanDataService.setLoan(this.loan);
                 this.customerId = this.allId.customerId;
                 if (this.customerId !== undefined) {
@@ -92,7 +92,8 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
                             this.loanFile = response.detail.dmsLoanFile;
                             console.log('asd', this.loanFile);
                             // this.loanDataService.setLoanDocuments(response.detail);
-                            this.loanDocument = response.detail;
+                            this.loanDocument.customerInfo = response.detail.customerInfo;
+                            console.log('this.loan file document', this.loanDocument.customerInfo);
                         }
                     );
                 } else {
@@ -112,7 +113,6 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
 
 
     populateTemplate() {
-        // this.loanDocument = this.loanDataService.getLoanDocuments();
         this.loanFormService.getTemplates(this.id).subscribe((response: any) => {
             this.templateList = response.detail.templateList;
             this.loanTitle = response.detail.name;
@@ -176,6 +176,7 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
     }
 
     save() {
+        this.submitEnable = false;
         this.selectChild(this.selectedTab, true);
         this.loanDocument.loan = this.loan;
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {

@@ -48,11 +48,6 @@ export class BasicInfoComponent implements OnInit {
 
 
     ngOnInit() {
-        this.commonLocation.getProvince().subscribe(
-            (response: any) => {
-                this.provinceList = response.detail;
-            }
-        );
         this.basicInfo = this.formBuilder.group({
             title: [undefined],
             customerName: [undefined],
@@ -69,7 +64,7 @@ export class BasicInfoComponent implements OnInit {
             citizenshipIssuedPlace: [undefined],
             citizenshipIssuedDate: [undefined]
         });
-
+        console.log('form valuess:::', this.formValue);
         if (this.formValue !== null) {
             if (this.formValue !== undefined) {
                 this.customer = this.formValue;
@@ -98,6 +93,11 @@ export class BasicInfoComponent implements OnInit {
             }
         }
 
+        this.commonLocation.getProvince().subscribe(
+            (response: any) => {
+                this.provinceList = response.detail;
+            }
+        );
 
     }
 
