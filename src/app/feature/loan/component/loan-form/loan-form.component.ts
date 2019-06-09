@@ -56,7 +56,7 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
 
 
     loan: LoanConfig = new LoanConfig();
-
+    currentNepDate;
 
     constructor(
         private dataService: CommonDataService,
@@ -100,6 +100,10 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
                     this.loanFile = new DmsLoanFile();
                 }
             });
+
+        this.loanFormService.getCurrentNepaliDate().subscribe((response: any) => {
+            this.currentNepDate = response.detail.nepDateFormat;
+        });
 
         this.populateTemplate();
 

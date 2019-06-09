@@ -14,6 +14,7 @@ import {ToastService} from '../../../../@core/utils';
 import {DatePipe} from '@angular/common';
 import {LoanFormService} from '../../../../feature/loan/component/loan-form/service/loan-form.service';
 import {LoanDataHolder} from '../../../../feature/loan/model/loanData';
+import {DocStatus} from '../../../../feature/loan/model/docStatus';
 
 @Component({
     selector: 'app-pendings',
@@ -31,6 +32,9 @@ export class PendingsLoanComponent implements OnInit {
     pageable: Pageable = new Pageable();
     spinner = false;
     page = 1;
+    documentStatusList = DocStatus;
+
+;
 
     constructor(private service: DmsLoanService,
                 private userService: UserService,
@@ -39,6 +43,8 @@ export class PendingsLoanComponent implements OnInit {
                 private router: Router,
                 private toastService: ToastService,
                 private datePipe: DatePipe) {
+
+
     }
 
 
@@ -70,7 +76,10 @@ export class PendingsLoanComponent implements OnInit {
                 this.loanList = response.detail;
             }
         );
+
+
     }
+
 
     clearSearch() {
         this.search = {};
@@ -87,6 +96,10 @@ export class PendingsLoanComponent implements OnInit {
 
     onChoose(loanConfigId) {
         this.search.loanConfigId = loanConfigId;
+    }
+
+    statusSelect(docStatus) {
+        this.search.documentStatus = docStatus;
     }
 
     onClick(customerId: number, loanConfigId: number) {
