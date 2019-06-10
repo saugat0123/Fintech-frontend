@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {Document} from '../../../../admin/modal/document';
@@ -26,6 +26,8 @@ export class DmsLoanFileComponent implements OnInit {
     public static FILE_SIZE = 20000;
     @Input()
     loanFile: DmsLoanFile;
+
+    @Output() dmsDisableButton: EventEmitter<> = new EventEmitter<>();
     initialDocuments: Document[] = [];
     renewDocuments: Document[] = [];
     document: LoanDocument = new LoanDocument();
@@ -176,6 +178,7 @@ export class DmsLoanFileComponent implements OnInit {
     }
 
     save() {
+        this.dmsDisableButton.emit(false);
         this.dmsLoanService.save(this.loanFile).subscribe(
             (response: any) => {
                 this.customerId = response.detail.id;
@@ -198,7 +201,6 @@ export class DmsLoanFileComponent implements OnInit {
             return;
         } else {
             this.onSubmit();
-
         }
     }
 

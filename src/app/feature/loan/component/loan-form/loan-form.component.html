@@ -17,7 +17,7 @@
         <app-basic-info [formValue]="loanDocument?.customerInfo"
                         *ngIf="selectedTab==='Customer Info' && loanDocument"
                         #basicInfo></app-basic-info>
-        <app-dms-loan [loanFile]="loanFile" *ngIf="selectedTab==='General' && loanFile" #dmsLoanFile></app-dms-loan>
+        <app-dms-loan [loanFile]="loanFile" *ngIf="selectedTab==='General' && loanFile" (dmsDisableButton)="submitButton($event)" #dmsLoanFile></app-dms-loan>
         <app-company-info [formValue]="loanDocument?.entityInfo" *ngIf="selectedTab==='Company Info'"
                           #entityInfo></app-company-info>
 
@@ -38,7 +38,7 @@
 
                     <button class="btn btn-sm btn-flat btn-primary" style="float:right;" data-toggle="tab"
                             aria-expanded="false"
-                            (click)="save()" *ngIf="last">SAVE
+                            (click)="save()" *ngIf="last" [disabled]="submitDisable">SAVE
                     </button>
                 </div>
             </div>

@@ -6,12 +6,14 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
+
                             <label for="customerName"><b>Customer Name</b></label>
                             <input id="customerName" formControlName="customerName" name="customerName" type="text"
                                    class="form-control form-control-sm-error rounded"
                                    placeholder="Applicant's Full Name" required
                                    minlength="2">
                         </div>
+
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
@@ -33,7 +35,8 @@
                         <div class="form-group">
                             <label for="province"><b>Province</b></label>
                             <select name="province" id="province" class="custom-select"
-                                    formControlName="province" (change)="getDistricts(this.basicInfo.get('province').value)">
+                                    formControlName="province"
+                                    (change)="getDistricts(this.basicInfo.get('province').value)">
                                 <option [value]="null" hidden>Select Province</option>
                                 <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal"
                                         [selected]="provinceVal.id === province?.id">
@@ -45,7 +48,8 @@
                         <div class="form-group">
                             <label for="district"><b>District</b></label>
                             <select name="district" id="district" class="custom-select"
-                                    formControlName="district" (change)="getMunicipalities(this.basicInfo.get('district').value)">
+                                    formControlName="district"
+                                    (change)="getMunicipalities(this.basicInfo.get('district').value)">
                                 <option [ngValue]="null" hidden>Select District</option>
                                 <option *ngFor="let districtVal of districtList" [ngValue]="districtVal"
                                         [selected]="districtVal.id === district?.id">
@@ -57,7 +61,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="municipality"><b>Municipalities or VDC</b></label>
-                            <select name="municipality" id="municipality" formControlName="municipalitiesOrVDC"
+                            <select name="municipality" id="municipality" formControlName="municipalities"
                                     class="custom-select">
                                 <option [ngValue]="null" hidden>Select Municipality</option>
                                 <option *ngFor="let municipalityVal of municipalitiesList" [ngValue]="municipalityVal"
@@ -118,7 +122,8 @@
                         <div class="form-group">
                             <label for="customerCitizenshipIssuedDate"><b>Issued Date</b></label>
                             <input id="customerCitizenshipIssuedDate" formControlName="citizenshipIssuedDate"
-                                   name="customerCitizenshipIssuedDate" [nbDatepicker]="customerCitizenshipIssuedDate" class="form-control"
+                                   name="customerCitizenshipIssuedDate" [nbDatepicker]="customerCitizenshipIssuedDate"
+                                   class="form-control"
                                    placeholder="Citizenship Issued Date" required>
                             <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
                         </div>

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -20,6 +20,7 @@ import {AddressService} from '../../../../../@core/service/baseservice/address.s
 })
 export class BasicInfoComponent implements OnInit {
     @Input() formValue: Customer;
+
     customer: Customer = new Customer();
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
     basicInfo: FormGroup;
@@ -67,7 +68,7 @@ export class BasicInfoComponent implements OnInit {
             accountNo: [this.customer.accountNo === undefined ? '' : this.customer.accountNo, Validators.required],
             province: [this.customer.province === null ? '' : this.customer.province, Validators.required],
             district: [this.customer.district === null ? '' : this.customer.district, Validators.required],
-            municipalitiesOrVDC: [this.customer.municipalitiesOrVDC === null ? '' : this.customer.municipalitiesOrVDC, Validators.required],
+            municipalities: [this.customer.municipalities === null ? '' : this.customer.municipalities, Validators.required],
             telephone: [this.customer.telephone === undefined ? '' : this.customer.telephone, Validators.required],
             mobile: [this.customer.mobile === undefined ? '' : this.customer.mobile, Validators.required],
             email: [this.customer.email === undefined ? '' : this.customer.email, Validators.required],
@@ -102,22 +103,24 @@ export class BasicInfoComponent implements OnInit {
             (response: any) => {
                 this.municipalitiesList = response.detail;
                 this.municipalitiesList.forEach(municipality => {
-                    if (this.customer.municipalitiesOrVDC !== undefined && municipality.id === this.customer.municipalitiesOrVDC.id) {
-                        this.basicInfo.controls.municipalitiesOrVDC.setValue(municipality);
+                    if (this.customer.municipalities !== undefined && municipality.id === this.customer.municipalities.id) {
+                        this.basicInfo.controls.municipalities.setValue(municipality);
                     }
                 });
             }
         );
+
     }
 
     onSubmit() {
+
         this.customer.title = this.basicInfo.get('title').value;
         this.customer.customerName = this.basicInfo.get('customerName').value;
         this.customer.customerId = this.basicInfo.get('customerId').value;
         this.customer.accountNo = this.basicInfo.get('accountNo').value;
         this.customer.province = this.basicInfo.get('province').value;
         this.customer.district = this.basicInfo.get('district').value;
-        this.customer.municipalitiesOrVDC = this.basicInfo.get('municipalitiesOrVDC').value;
+        this.customer.municipalities = this.basicInfo.get('municipalities').value;
         this.customer.telephone = this.basicInfo.get('telephone').value;
         this.customer.mobile = this.basicInfo.get('mobile').value;
         this.customer.email = this.basicInfo.get('email').value;
@@ -129,4 +132,5 @@ export class BasicInfoComponent implements OnInit {
 
         console.log('running state');
     }
+
 }
