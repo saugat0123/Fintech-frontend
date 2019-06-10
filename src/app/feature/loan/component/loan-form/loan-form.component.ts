@@ -12,7 +12,6 @@ import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-servi
 import {DmsLoanFile} from '../../../admin/modal/dms-loan-file';
 import {LoanFormService} from './service/loan-form.service';
 import {LoanConfig} from '../../../admin/modal/loan-config';
-import {DatePipe} from '@angular/common';
 import {CompanyInfoComponent} from '../loan-main-template/company-info/company-info.component';
 import {BasicInfoComponent} from '../loan-main-template/basic-info/basic-info.component';
 import {DmsLoanFileComponent} from '../loan-main-template/dms-loan-file/dms-loan-file.component';
