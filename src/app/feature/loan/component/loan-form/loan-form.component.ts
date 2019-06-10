@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
@@ -12,15 +12,17 @@ import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-servi
 import {DmsLoanFile} from '../../../admin/modal/dms-loan-file';
 import {LoanFormService} from './service/loan-form.service';
 import {LoanConfig} from '../../../admin/modal/loan-config';
-import {LoanChildService} from './service/child.service';
 import {DatePipe} from '@angular/common';
+import {CompanyInfoComponent} from '../loan-main-template/company-info/company-info.component';
+import {BasicInfoComponent} from '../loan-main-template/basic-info/basic-info.component';
+import {DmsLoanFileComponent} from '../loan-main-template/dms-loan-file/dms-loan-file.component';
 
 @Component({
     selector: 'app-loan-form',
     templateUrl: './loan-form.component.html',
     styleUrls: ['./loan-form.component.css'],
 })
-export class LoanFormComponent extends LoanChildService implements OnInit {
+export class LoanFormComponent implements OnInit {
 
     loanFile: DmsLoanFile;
     loanTitle: string;
@@ -58,6 +60,16 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
     loan: LoanConfig = new LoanConfig();
     currentNepDate;
     submitEnable = false;
+    loanDocument: LoanDataHolder;
+
+    @ViewChild('basicInfo')
+    basicInfo: BasicInfoComponent;
+
+    @ViewChild('dmsLoanFile')
+    dmsLoanFile: DmsLoanFileComponent;
+
+    @ViewChild('entityInfo')
+    entityInfo: CompanyInfoComponent;
 
     constructor(
         private dataService: CommonDataService,
@@ -67,10 +79,9 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
         private activatedRoute: ActivatedRoute,
         private modalService: NgbModal,
         private router: Router,
-        private breadcrumbService: BreadcrumbService,
-        private datePipe: DatePipe
+        private breadcrumbService: BreadcrumbService
     ) {
-        super();
+
     }
 
     ngOnInit() {
@@ -186,5 +197,25 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
         });
     }
 
+
+    selectChild(name, action) {
+
+        if (name === 'Customer Info' && action) {
+            this.basicInfo.onSubmit();
+            this.loanDocument.customerInfo = this.basicInfo.basicInfo.value;
+        }
+
+        if (name === 'General' && action) {
+            this.dmsLoanFile.onProceed();
+            this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanFile;
+            this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
+
+        }
+
+        if (name === 'Company Info' && action) {
+            this.entityInfo.onSubmit();
+            this.loanDocument.entityInfo = this.entityInfo.companyInfo.value;
+        }
+    }
 
 }
