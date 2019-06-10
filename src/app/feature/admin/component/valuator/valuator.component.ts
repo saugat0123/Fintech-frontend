@@ -104,14 +104,14 @@ export class ValuatorComponent implements OnInit {
     }
 
     add() {
-        const modalRef = this.modalService.open(ValuatorFormComponent);
+        const modalRef = this.modalService.open(ValuatorFormComponent, {size: 'lg'});
         modalRef.componentInstance.model = new Valuator();
 
         ModalUtils.resolve(modalRef.result, ValuatorComponent.loadData, this);
     }
 
     edit(valuator: Valuator) {
-        const modalRef = this.modalService.open(ValuatorFormComponent);
+        const modalRef = this.modalService.open(ValuatorFormComponent, {size: 'lg'});
         modalRef.componentInstance.model = valuator;
 
         ModalUtils.resolve(modalRef.result, ValuatorComponent.loadData, this);

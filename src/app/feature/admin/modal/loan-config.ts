@@ -13,4 +13,5 @@ export class LoanConfig {
     loanConfigCode: string;
     initial: Array<Document>;
     renew: Array<Document>;
+    eligibilityDocuments: Array<Document>;
 }

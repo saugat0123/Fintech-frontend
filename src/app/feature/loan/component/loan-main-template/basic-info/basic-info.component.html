@@ -33,6 +33,7 @@
                         <label class="title" for="province">Province</label>
                         <select name="province" id="province" class="form-control form-control-sm"
                                 formControlName="province" (change)="getDistricts()">
+                            <option value="undefined" hidden>Select</option>
                             <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal" [selected]="provinceVal.id === province?.id">
                                 {{provinceVal.name}}
                         </select>

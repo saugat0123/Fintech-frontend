@@ -1,7 +1,7 @@
 <div class="row">
 
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <app-icon-card title="Companies" type="info" detail="{{documents}}">
+        <app-icon-card title="Documents" type="info" detail="{{documents}}">
             <i class="fas fa-file-alt"></i>
         </app-icon-card>
     </div>
@@ -76,7 +76,6 @@
                                     (change)="onChange($event.target.value,allList)">
                                 <option value="ACTIVE">ACTIVE</option>
                                 <option value="INACTIVE">INACTIVE</option>
-
                             </select>
                         </td>
                         <td>
@@ -89,31 +88,25 @@
                               <i class="fa fa-trash" style="color:white;"></i>
                             </a> -->
                         </td>
-
                     </tr>
                     </tbody>
                 </table>
-
-
                 <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
                 <!-- ===================table-pagination==================== -->
                 <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
                 <!-- ===================table-pagination==================== -->
                 <!-- /.box-body -->
-
                 <!-- /.box -->
             </nb-card-body>
         </nb-card>
     </div>
 </div>
-
 <div class="row" *ngIf="loanCycleList.length > 0">
     <div class="col-md-12">
         <nb-card>
             <nb-card-body>
                 <div class="row">
                     <div class="col-6" *ngFor="let loanCycle of loanCycleList">
-                        {{loanCycle.name}}
                         <app-update-document [cycle]="loanCycle"></app-update-document>
                     </div>
                 </div>

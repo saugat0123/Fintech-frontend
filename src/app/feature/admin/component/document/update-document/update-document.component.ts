@@ -15,8 +15,8 @@ export class UpdateDocumentComponent implements OnInit {
     documentList: Array<Document>;
     show = false;
     loanCycle: LoanCycle = new LoanCycle();
-    selectedDocumentList = Array<Document>();
-
+    selectedDocumentList = Array<number>();
+    label: string;
     constructor(
         private router: Router,
         private service: DocumentService
@@ -26,7 +26,7 @@ export class UpdateDocumentComponent implements OnInit {
     ngOnInit() {
         this.loanCycle = this.cycle;
         this.title = this.loanCycle.cycle;
-        this.loanCycle.level = '';
+        this.label = this.loanCycle.label;
         this.documentsNotContaining(this.loanCycle);
     }
 
@@ -36,24 +36,22 @@ export class UpdateDocumentComponent implements OnInit {
         });
     }
 
-    updateLoanCycle() {
-        this.service.updateDocumentByLoanCycle(this.loanCycle.id, this.selectedDocumentList)
+    updateLoanCycleInBulk() {
+        // not complete
+        /*this.service.updateDocumentByLoanCycle(this.loanCycle.id, this.selectedDocumentList)
             .subscribe(() => {
                 console.log('operation success');
-            });
-
-
+            });*/
     }
 
-    updateCheckedOptions(events) {
-        let d: Document = new Document();
-        d = events.target.value;
+    updateCheckedOptions(events, number) {
         if (events.target.checked === true) {
-            this.selectedDocumentList.push(d);
+            this.selectedDocumentList.push(number);
         } else {
-            const index: number = this.selectedDocumentList.indexOf(d);
+            const index: number = this.selectedDocumentList.indexOf(number);
             if (index !== -1) {
                 this.selectedDocumentList.splice(index, 1);
+                console.log(this.selectedDocumentList);
             }
         }
 
