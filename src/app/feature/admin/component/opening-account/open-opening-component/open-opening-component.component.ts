@@ -15,6 +15,8 @@ import {Branch} from '../../../modal/branch';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {AccountType} from '../../../modal/accountType';
+import {AccountPurpose} from '../../../modal/accountPurpose';
 
 @Component({
     selector: 'app-open-opening-component',
@@ -22,7 +24,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
     styleUrls: ['./open-opening-component.component.css']
 })
 export class OpenOpeningComponentComponent implements OnInit {
-
+    title: string;
     openingAccount: FormGroup;
     account: OpeningAccount = new OpeningAccount();
     openingForm: OpeningForm = new OpeningForm();
@@ -33,7 +35,8 @@ export class OpenOpeningComponentComponent implements OnInit {
     openingOccupationalDetails: OpeningOccupationalDetails = new OpeningOccupationalDetails();
     openingCustomerRelative: OpeningCustomerRelative = new OpeningCustomerRelative();
     branchList: Array<Branch> = new Array<Branch>();
-    branch: Branch = new Branch();
+    accountPurposeList: Array<AccountPurpose> = new Array<AccountPurpose>();
+    accountTypeList: Array<AccountType> = new Array<AccountType>();
     allId;
     id = 0;
 
@@ -48,6 +51,17 @@ export class OpenOpeningComponentComponent implements OnInit {
     ) {
     }
 
+    getAccountType(accountPurposeId) {
+        const accountPurpose = new AccountPurpose();
+        accountPurpose.id = accountPurposeId;
+        this.service.getByPostWithoutToken('v1/accountType/byAccountPurpose', accountPurpose).subscribe((response: any) => {
+            this.accountTypeList = response.detail;
+        }, error => {
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to loan Account Type'));
+        });
+    }
+
     ngOnInit() {
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
@@ -57,6 +71,9 @@ export class OpenOpeningComponentComponent implements OnInit {
                 this.allId = paramsValue;
                 this.id = this.allId.openingFormId;
             });
+        this.service.getByAllWithoutToken('v1/accountPurpose/all').subscribe((response: any) => {
+            this.accountPurposeList = response.detail;
+        });
         this.branchService.getAll().subscribe((response: any) => {
             this.branchList = response.detail;
         });
@@ -67,9 +84,7 @@ export class OpenOpeningComponentComponent implements OnInit {
             requestedDate: [undefined],
             // Opening Account
             accountType: [undefined],
-            accountTypeOther: [undefined],
             purposeOfAccount: [undefined],
-            purposeOfAccountOther: [undefined],
             haveExistingAccount: [undefined],
             existingAccountNumber: [undefined],
             accountCurrency: [undefined],
@@ -109,24 +124,21 @@ export class OpenOpeningComponentComponent implements OnInit {
         });
         this.service.detail(this.id).subscribe((response: any) => {
             this.openingForm = response.detail;
-            console.log(this.openingForm);
             this.setOpeningForm(this.openingForm);
         });
 
     }
 
     setOpeningForm(openingForm: OpeningForm) {
-        this.branch = openingForm.branch;
+        this.title = openingForm.accountType.name;
         this.openingAccount = this.formBuilder.group({
             // OpeningForm
             id: openingForm.id,
-            branch: openingForm.branch,
+            branch: openingForm.branch.id,
             requestedDate: this.formatDate(openingForm.requestedDate),
             // Opening Account
-            accountType: openingForm.accountType,
-            accountTypeOther: [undefined],
-            purposeOfAccount: openingForm.openingAccount.purposeOfAccount,
-            purposeOfAccountOther: [undefined],
+            accountType: openingForm.accountType.id,
+            purposeOfAccount: openingForm.openingAccount.purposeOfAccount.id,
             haveExistingAccount: openingForm.openingAccount.haveExistingAccountNo + '',
             existingAccountNumber: openingForm.openingAccount.existingAccountNo,
             accountCurrency: openingForm.openingAccount.currency,
@@ -164,21 +176,7 @@ export class OpenOpeningComponentComponent implements OnInit {
             internetBankingRadio: openingForm.openingAccount.internetBanking + '',
             mobileBankingRadio: openingForm.openingAccount.mobileBanking + '',
         });
-        this.branchList.forEach(branch => {
-            if (branch.branchCode === openingForm.branch.branchCode) {
-                this.openingAccount.controls.branch.setValue(branch);
-            }
-        });
-        if (this.openingForm.accountType !== 'Current Account' &&
-            this.openingForm.accountType !== 'Savings Account') {
-            this.openingAccount.get('accountType').setValue('Other Account');
-            this.openingAccount.get('accountTypeOther').setValue(this.openingForm.accountType);
-        }
-        if (this.openingForm.openingAccount.purposeOfAccount !== 'Saving' &&
-            this.openingForm.openingAccount.purposeOfAccount !== 'Salary') {
-            this.openingAccount.get('purposeOfAccount').setValue('Others');
-            this.openingAccount.get('purposeOfAccountOther').setValue(this.openingForm.openingAccount.purposeOfAccount);
-        }
+        this.getAccountType(this.openingAccount.get('purposeOfAccount').value);
         this.openingAccount.setControl('applicantDetail', this.setApplicantDetailFormGroup
         (this.openingForm.openingAccount.openingCustomers));
     }
@@ -311,7 +309,7 @@ export class OpenOpeningComponentComponent implements OnInit {
                     otherIncomeSource: applicant.otherSourceOfIncome,
                     isPoliticallyExposed: applicant.exposeToPep + '',
                     pepName: applicant.pepName,
-                    pepRelationWithApplicant: applicant.pepRelationToYou,
+                    pepRelationWithApplicant: applicant.pepDesignation,
                     isConvictedForCrime: applicant.convictedOfCrime + '',
                     crimeConvictedFor: applicant.convictedCrime,
                     holdResidentialOfForeign: applicant.residentialPermitOfForeign + '',
@@ -462,7 +460,9 @@ export class OpenOpeningComponentComponent implements OnInit {
     }
 
     setCustomers() {
-        this.openingForm.branch = this.openingAccount.get('branch').value;
+        const branch = new Branch();
+        branch.id = this.openingAccount.get('branch').value;
+        this.openingForm.branch = branch;
         this.openingForm.id = this.openingAccount.get('id').value;
         // Account Details
         this.openingForm.fullName = this.getApplicantDetail()[0].customerFirstName + ' ' + this.getApplicantDetail()[0].customerMiddleName
@@ -470,16 +470,14 @@ export class OpenOpeningComponentComponent implements OnInit {
         this.openingForm.requestedDate = this.openingAccount.get('requestedDate').value;
         this.account.haveExistingAccountNo = this.openingAccount.get('haveExistingAccount').value;
         this.account.existingAccountNo = this.openingAccount.get('existingAccountNumber').value;
-        if (this.openingAccount.get('purposeOfAccount').value !== 'Others') {
-            this.account.purposeOfAccount = this.openingAccount.get('purposeOfAccount').value;
-        } else {
-            this.account.purposeOfAccount = this.openingAccount.get('purposeOfAccountOther').value;
-        }
-        if (this.openingAccount.get('accountType').value !== 'Other Account') {
-            this.openingForm.accountType = this.openingAccount.get('accountType').value;
-        } else {
-            this.openingForm.accountType = this.openingAccount.get('accountTypeOther').value;
-        }
+        const accountType = new AccountType();
+        accountType.id = this.openingAccount.get('accountType').value;
+        this.openingForm.accountType = accountType;
+        this.accountPurposeList.forEach(accountPurpose => {
+            if (accountPurpose.id === this.openingAccount.get('purposeOfAccount').value) {
+                this.account.purposeOfAccount = accountPurpose;
+            }
+        });
         this.account.currency = this.openingAccount.get('accountCurrency').value;
         this.account.haveJoint = this.openingAccount.get('jointAccountRadio').value;
         // Applicant Personal Details
@@ -579,7 +577,7 @@ export class OpenOpeningComponentComponent implements OnInit {
             // Declarations
             this.openingCustomer.exposeToPep = this.getApplicantDetail()[customerIndex].isPoliticallyExposed;
             this.openingCustomer.pepName = this.getApplicantDetail()[customerIndex].pepName;
-            this.openingCustomer.pepRelationToYou = this.getApplicantDetail()[customerIndex].pepRelationWithApplicant;
+            this.openingCustomer.pepDesignation = this.getApplicantDetail()[customerIndex].pepRelationWithApplicant;
             this.openingCustomer.convictedOfCrime = this.getApplicantDetail()[customerIndex].isConvictedForCrime;
             this.openingCustomer.convictedCrime = this.getApplicantDetail()[customerIndex].crimeConvictedFor;
             this.openingCustomer.residentialPermitOfForeign = this.getApplicantDetail()[customerIndex].holdResidentialOfForeign;

@@ -1,6 +1,6 @@
 <nb-card>
     <nb-card-header>
-        <div class="wizard-title text-center"><h1>Opening Account</h1></div>
+        <div class="wizard-title text-center"><h1> {{title}} Opening Account</h1></div>
     </nb-card-header>
     <nb-card-body>
         <div class="form-group">
@@ -11,12 +11,12 @@
                     <div class="col-md-8">
                         <label for="branch"><b>Bank Branch</b></label>
                         <select id="branch" class="custom-select" formControlName="branch">
-                            <option *ngFor="let branch of branchList" [ngValue]="branch">{{branch.name}}</option>
+                            <option *ngFor="let branch of branchList" [ngValue]="branch.id">{{branch.name}}</option>
                         </select>
                     </div>
-                    <div class="col-md-4">
+                    <div class="offset-md-2">
                         <label for="requestedDate"><b>Requested Date</b></label>
-                        <input id="requestedDate" type="text" class="form-control" disabled style="border: 0;"
+                        <input id="requestedDate" type="text" class="form-control" disabled
                                formControlName="requestedDate"/>
                     </div>
                 </div>
@@ -28,38 +28,24 @@
                         <div class="row ml-2">
                             <nb-radio-group class="col-md-4 d-contents form-control" id="purposeOfAccount"
                                             name="purposeOfAccount" formControlName="purposeOfAccount">
-                                <nb-radio class="form-group" value="Saving">Saving</nb-radio>
-                                <nb-radio class="form-group" value="Salary">Salary</nb-radio>
-                                <nb-radio class="form-group" value="Others">Others</nb-radio>
+                                <nb-radio *ngFor="let accountPurpose of accountPurposeList" class="form-group"
+                                          [value]="accountPurpose.id" (click)="getAccountType(accountPurpose.id)">
+                                    {{accountPurpose.name}}
+                                </nb-radio>
                             </nb-radio-group>
-                            <div class="col-md-4">
-                                <div [hidden]="openingAccount.get('purposeOfAccount').value !== 'Others'">
-                                    <input class="form-control" formControlName="purposeOfAccountOther"
-                                           id="purposeOfAccountOtherName" placeholder="Purpose of Account" type="text"/>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- END ROW -->
                 <!-- START ROW -->
-                <div class="row">
-                    <div class="col-md-12">
+                <div class="row form-group">
+                    <div class="col-md-8">
                         <label for="accountType"><b>Account Type</b></label>
-                        <div class="row ml-2">
-                            <nb-radio-group class="col-md-4 d-contents form-control" id="accountType"
-                                            name="accountType" formControlName="accountType">
-                                <nb-radio class="form-group" value="Current Account">Current Account</nb-radio>
-                                <nb-radio class="form-group" value="Savings Account">Savings Account</nb-radio>
-                                <nb-radio class="form-group" value="Other Account">Other Account</nb-radio>
-                            </nb-radio-group>
-                            <div class="col-md-4">
-                                <div [hidden]="openingAccount.get('accountType').value !== 'Other Account'">
-                                    <input class="form-control" formControlName="accountTypeOther"
-                                           id="AccountTypeOtherName" placeholder="Enter account type" type="text"/>
-                                </div>
-                            </div>
-                        </div>
+                        <select class="custom-select" formControlName="accountType" id="accountType">
+                            <option hidden [ngValue]=null>Select Account Type</option>
+                            <option *ngFor="let accountType of accountTypeList"
+                                    [ngValue]="accountType.id">{{accountType.name}}</option>
+                        </select>
                     </div>
                 </div>
                 <!-- END ROW -->
@@ -86,7 +72,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="accountCurrency"><b>Account Currency</b></label>
+                            <label for="accountCurrency"><b>Currency Type</b></label>
                             <select id="accountCurrency" class="custom-select" formControlName="accountCurrency">
                                 <option value="NPR">NPR</option>
                                 <option value="USD">USD</option>
@@ -520,10 +506,15 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="applicantNationality"><b>Nationality</b></label>
-                                    <input id="applicantNationality" formControlName="applicantNationality" type="text"
-                                           required
-                                           class="form-control form-control-error rounded"
-                                           placeholder="Applicant Nationality">
+                                    <select id="applicantNationality" class="custom-select"
+                                            formControlName="applicantNationality">
+                                        <option [value]="null" selected disabled hidden>Applicant Nationality</option>
+                                        <option value="Nepal">Nepal</option>
+                                        <option value="India">India</option>
+                                        <option value="USA">USA</option>
+                                        <option value="UK">UK</option>
+                                        <option value="Australia">Australia</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -883,7 +874,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="pepRelationWithApplicant"><b>Relationship with you</b></label>
+                                    <label for="pepRelationWithApplicant"><b>Designation/Position</b></label>
                                     <input id="pepRelationWithApplicant" formControlName="pepRelationWithApplicant"
                                            type="text" required
                                            class="form-control form-control-error rounded"

@@ -2,6 +2,7 @@ import {OpeningKyc} from './openingKyc';
 
 export class OpeningCustomer {
   title: string;
+  imagePath: string;
   firstName: string;
   middleName: string;
   lastName: string;
@@ -58,7 +59,7 @@ export class OpeningCustomer {
   greenCardHolder: boolean;
   exposeToPep: boolean;
   pepName: string;
-  pepRelationToYou: string;
+  pepDesignation: string;
   convictedOfCrime: boolean;
   convictedCrime: string;
   residentialPermitOfForeign: boolean;

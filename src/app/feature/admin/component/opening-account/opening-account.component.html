@@ -48,7 +48,7 @@
                                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.fullName}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.requestedDate | date}}</td>
-                                <td (click)="onEdit(openingForm)">{{openingForm?.accountType}}</td>
+                                <td (click)="onEdit(openingForm)">{{openingForm?.accountType?.name}}</td>
                                 <td>
                                     <button nbButton status="success" size="xsmall"
                                             (click)="updateStatus(openingForm.id,'APPROVAL')">Approve
