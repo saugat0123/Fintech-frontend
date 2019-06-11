@@ -81,6 +81,8 @@
                 </table>
             </div>
         </div>
+        <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
+        <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
     </nb-card-body>
         <form [formGroup]="generalQuestionForm" *ngIf="!showCriteriaList && addOrEditCriteria" (mouseenter)="setValuesInOption()">
             <nb-card-header>
@@ -100,11 +102,13 @@
                                         <input class="form-control" formControlName="description"
                                                placeholder="Question description"
                                                type="text">
+                                        <span class="small text-danger" *ngIf="submitted && qsn.get('description').invalid">Please enter question description</span>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Operand Character:</label>
                                         <input class="form-control" formControlName="operandCharacter" maxlength="1"
                                                placeholder="variable(x,y,z etc.)" type="text" oninput="this.value = this.value.toUpperCase()">
+                                        <span class="small text-danger" *ngIf="submitted && qsn.get('operandCharacter').invalid">Please enter operand character</span>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Appearance order:</label>
@@ -118,6 +122,7 @@
                                                 </button>
                                             </div>
                                         </div>
+                                        <span class="small text-danger" *ngIf="submitted && qsn.get('appearanceOrder').invalid">Please enter appearance order</span>
                                     </div>
                                 </div>
                             </div>
@@ -174,6 +179,7 @@
                                             <input placeholder="% of Amount (For eligibility)" size="1"
                                                    type="number" formControlName="percentageOfAmount">
                                         </div>
+                                        <span class="small text-danger" *ngIf="submitted && generalQuestionForm.get('percentageOfAmount').invalid">Please enter appearance order</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -183,6 +189,7 @@
                                             <input placeholder="Threshold amount" size="1"
                                                    type="number" formControlName="thresholdAmount">
                                         </div>
+                                        <span class="small text-danger" *ngIf="submitted && generalQuestionForm.get('thresholdAmount').invalid">Please enter threshold amount</span>
                                     </td>
                                 </tr>
                                 </tbody>
