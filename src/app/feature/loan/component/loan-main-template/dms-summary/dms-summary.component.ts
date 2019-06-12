@@ -3,7 +3,7 @@ import {DmsLoanFile} from '../../../../admin/modal/dms-loan-file';
 import {User} from '../../../../admin/modal/user';
 import {Security} from '../../../../admin/modal/security';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import {UserService} from '../../../../../@core/service/user.service';
 import {DmsLoanService} from '../dms-loan-file/dms-loan-service';
 import {LoanDataHolder} from '../../../model/loanData';
@@ -75,13 +75,15 @@ export class DmsSummaryComponent implements OnInit {
                 this.loanDataHolder = response.detail;
                 this.id = this.loanDataHolder.id;
                 this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
-                this.security = this.dmsLoanFile.security;
-                this.securities = this.security.split(',');
-                this.documents = JSON.parse(this.dmsLoanFile.documentPath);
-                for (this.document of this.documents) {
-                    this.documentNamesSplit = this.document.split(':');
-                    this.documentNames.push(this.documentNamesSplit[0]);
-                    this.documentUrls.push(this.documentNamesSplit[1]);
+                if (this.dmsLoanFile != null) {
+                    this.security = this.dmsLoanFile.security;
+                    this.securities = this.security.split(',');
+                    this.documents = JSON.parse(this.dmsLoanFile.documentPath);
+                    for (this.document of this.documents) {
+                        this.documentNamesSplit = this.document.split(':');
+                        this.documentNames.push(this.documentNamesSplit[0]);
+                        this.documentUrls.push(this.documentNamesSplit[1]);
+                    }
                 }
             }
         );

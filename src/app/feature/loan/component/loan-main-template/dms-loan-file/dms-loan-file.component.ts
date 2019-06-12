@@ -164,6 +164,7 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFile.interestRate = this.loanForm.get('interestRate').value;
         this.loanFile.proposedAmount = this.loanForm.get('proposedAmount').value;
         this.loanFile.securities = this.loanForm.get('security').value;
+        console.log(this.loanFile.securities);
         this.loanFile.tenure = this.loanForm.get('tenure').value;
         this.loanFile.priority = this.loanForm.get('priority').value;
 

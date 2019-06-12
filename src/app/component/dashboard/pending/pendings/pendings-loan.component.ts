@@ -14,6 +14,7 @@ import {ToastService} from '../../../../@core/utils';
 import {DatePipe} from '@angular/common';
 import {LoanFormService} from '../../../../feature/loan/component/loan-form/service/loan-form.service';
 import {LoanDataHolder} from '../../../../feature/loan/model/loanData';
+import {DocStatus} from '../../../../feature/loan/model/docStatus';
 
 @Component({
     selector: 'app-pendings',
@@ -22,13 +23,17 @@ import {LoanDataHolder} from '../../../../feature/loan/model/loanData';
 })
 export class PendingsLoanComponent implements OnInit {
     dmsLoanFiles: Array<DmsLoanFile>;
+    loanDataHolders: Array<LoanDataHolder>;
     user: User = new User();
-    search: any = {};
+    search: any = {
+        documentStatus: 'PENDING'
+    };
     loanList: Array<LoanConfig> = new Array<LoanConfig>();
     pageable: Pageable = new Pageable();
     spinner = false;
     page = 1;
-    loanDataHolders: Array<LoanDataHolder> = new Array<LoanDataHolder>();
+    documentStatusList = DocStatus;
+
     constructor(private service: DmsLoanService,
                 private userService: UserService,
                 private loanConfigService: LoanConfigService,
@@ -36,6 +41,8 @@ export class PendingsLoanComponent implements OnInit {
                 private router: Router,
                 private toastService: ToastService,
                 private datePipe: DatePipe) {
+
+
     }
 
 
@@ -43,6 +50,7 @@ export class PendingsLoanComponent implements OnInit {
         other.spinner = true;
         other.loanFormService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe(
             (response: any) => {
+                other.dmsLoanFiles = response.detail.content;
                 other.loanDataHolders = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
@@ -66,7 +74,10 @@ export class PendingsLoanComponent implements OnInit {
                 this.loanList = response.detail;
             }
         );
+
+
     }
+
 
     clearSearch() {
         this.search = {};
@@ -85,9 +96,13 @@ export class PendingsLoanComponent implements OnInit {
         this.search.loanConfigId = loanConfigId;
     }
 
-    onClick(loanConfigId, customerLoanId) {
-        this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: loanConfigId, customerId: customerLoanId}});
+    statusSelect(docStatus) {
+        this.search.documentStatus = docStatus;
+    }
 
+    onClick(customerId: number, loanConfigId: number) {
+        this.spinner = true;
+        this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: loanConfigId, customerId: customerId}});
 
 
     }
