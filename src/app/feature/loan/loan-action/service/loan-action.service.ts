@@ -18,10 +18,6 @@ export class LoanActionService extends BaseService<LoanConfig> {
         super(http);
     }
 
-    protected getApi(): string {
-        return LoanActionService.API;
-    }
-
     public getSendForwardList(): Observable<any> {
         const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/getForward`);
         return this.http.get(req.url, {headers: req.header});
@@ -32,8 +28,17 @@ export class LoanActionService extends BaseService<LoanConfig> {
         return this.http.get(req.url, {headers: req.header});
     }
 
-        public postLoanAction(object): Observable<any> {
+    public getUserList(id): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`v1/user/${id}/users`);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
+    public postLoanAction(object): Observable<any> {
         const req = ApiUtils.getRequestWithFileSupport(`v1/loan-customer/action`);
         return this.http.post(req.url, object, {headers: req.header});
+    }
+
+    protected getApi(): string {
+        return LoanActionService.API;
     }
 }

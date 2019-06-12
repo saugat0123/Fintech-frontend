@@ -27,7 +27,7 @@ export class DmsLoanFileComponent implements OnInit {
     @Input()
     loanFile: DmsLoanFile;
 
-    @Output() dmsDisableButton: EventEmitter<> = new EventEmitter<>();
+    @Output() dmsDisableButton: EventEmitter<any> = new EventEmitter<any>();
     initialDocuments: Document[] = [];
     renewDocuments: Document[] = [];
     document: LoanDocument = new LoanDocument();
@@ -95,6 +95,7 @@ export class DmsLoanFileComponent implements OnInit {
             this.action = 'EDIT';
             this.proceed = true;
             this.imagePaths = JSON.parse(this.loanFile.documentPath);
+            this.dmsDisableButton.emit(false);
         }
         this.loanConfigService.detail(this.loanConfigId).subscribe(
             (response: any) => {

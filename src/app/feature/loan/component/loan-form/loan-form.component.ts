@@ -29,11 +29,14 @@ export class LoanFormComponent implements OnInit {
     loanTitle: string;
 
     customerLoanId: number;
-    templateList = [{
-        active: false,
-        name: null,
-        templateUrl: null
-    }];
+    templateList = [
+        {
+            active: false,
+            name: null,
+            templateUrl: null
+        }
+    ];
+
     customerId: number;
     id;
     selectedTab;
@@ -105,7 +108,7 @@ export class LoanFormComponent implements OnInit {
                             this.loanFile = response.detail.dmsLoanFile;
                             this.loanDocument = response.detail;
                             this.loanDocument.id = response.detail.id;
-
+                            this.submitDisable = false;
                         }
                     );
                 } else {
@@ -171,7 +174,7 @@ export class LoanFormComponent implements OnInit {
                 tabIndex: index,
                 tabName: name
             };
-            if (name === 'General') {
+            if (name === 'General' && this.customerId == null) {
                 this.submitDisable = true;
             }
             this.last = true;

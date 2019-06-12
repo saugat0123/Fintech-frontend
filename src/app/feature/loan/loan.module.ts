@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
-
+import { NgxPrintModule } from 'ngx-print';
 import {LoanRoutingModule} from './loan-routing.module';
 import {LoanFormComponent} from './component/loan-form/loan-form.component';
 import {BasicInfoComponent} from './component/loan-main-template/basic-info/basic-info.component';
@@ -41,7 +41,8 @@ import {LoanFormService} from './component/loan-form/service/loan-form.service';
         ReactiveFormsModule,
         ReactiveFormsModule,
         NgSelectModule,
-        NbDatepickerModule
+        NbDatepickerModule,
+        NgxPrintModule
 
     ],
 

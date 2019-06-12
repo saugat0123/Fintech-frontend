@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {DmsLoanFile} from '../../../../admin/modal/dms-loan-file';
 import {User} from '../../../../admin/modal/user';
 import {Security} from '../../../../admin/modal/security';
@@ -38,6 +38,8 @@ export class DmsSummaryComponent implements OnInit {
     allId;
     customerId;
     loanConfigId;
+
+    @ViewChild('print') print;
 
     constructor(private userService: UserService,
                 private router: ActivatedRoute,
