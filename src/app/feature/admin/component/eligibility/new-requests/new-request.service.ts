@@ -20,7 +20,7 @@ export class NewRequestService extends BaseService<Applicant> {
   }
 
   getAllWithoutSearchObject(page, size): Observable<Object> {
-    const url = `${NewRequestService.API}/list?page=${page}&size=${size}`;
+    const url = `${NewRequestService.API}?page=${page}&size=${size}`;
     const getUrl = ApiUtils.getRequest(url);
     return this.http.get(getUrl.url, {headers: getUrl.header});
   }

@@ -23,7 +23,6 @@ export class QuestionComponent implements OnInit {
     questionList: Array<Questions> = new Array<Questions>();
     schemeList: Array<LoanConfig> = new Array<LoanConfig>();
     qsnContent: Questions = new Questions();
-    loanConfig: LoanConfig = new LoanConfig();
     addEditQuestionForm: FormGroup;
     questionAnswerForm: FormGroup;
 
@@ -93,9 +92,6 @@ export class QuestionComponent implements OnInit {
         this.clearFormArray();
         this.totalObtainablePoints = 0;
         this.loanConfigId = this.questionAnswerForm.get('loanConfigId').value;
-        this.loanConfigService.detail(this.loanConfigId).subscribe((response: any) => {
-            this.loanConfig = response.detail;
-        });
 
         this.questionService.getAllQuestions(this.loanConfigId).subscribe((response: any) => {
             this.questionList = response.detail;
@@ -227,19 +223,6 @@ export class QuestionComponent implements OnInit {
                 this.modalService.dismissAll('Close modal');
             }
         );
-    }
-
-    onUpdateEligibilityPercent(eligibilityPercentValue) {
-        this.loanConfig.id = this.loanConfigId;
-        this.loanConfig.eligibilityPercentage = eligibilityPercentValue;
-            this.loanConfigService.save(this.loanConfig).subscribe(() => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Eligibility Percentage'));
-            this.loanConfig = new LoanConfig();
-            this.onChangeSchemeOption();
-        }, error => {
-            console.log(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Eligibility Percentage'));
-        });
     }
 
     onDelete(qsnContent) {

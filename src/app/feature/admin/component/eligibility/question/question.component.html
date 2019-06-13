@@ -202,23 +202,6 @@
                                         <th>Total obtainable points:</th>
                                         <td>{{totalObtainablePoints}}</td>
                                     </tr>
-                                    <tr>
-                                        <th>Set eligibility (in percent):</th>
-                                        <td>
-                                            <div class="input-group mb-3">
-                                                <input #eligibilityValue placeholder="Eligibility in %" size="1"
-                                                       type="number" value="{{loanConfig.eligibilityPercentage}}">
-                                                <div class="input-group-append">
-                                                    <a (click)="onUpdateEligibilityPercent(eligibilityValue.value)" class="btn btn-info btn-sm"
-                                                       data-placement="top"
-                                                       data-toggle="tooltip"
-                                                       style="margin-left:10px">
-                                                        <i class="fa fa-save" style="color:white;"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
                                     </tbody>
                                 </table>
                             </div>

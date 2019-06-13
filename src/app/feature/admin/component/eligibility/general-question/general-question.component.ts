@@ -140,10 +140,12 @@ export class GeneralQuestionComponent implements OnInit {
                 this.formula = this.formula + (childParent[j] as HTMLInputElement).value;
             }
         }
+        this.formula = this.formula.split('').join(' ');
     }
 
     setValuesInOption() {
         let f = 0;
+        this.formula = this.formula.replace(/\s/g, '');
         const formulaArray = this.formula.split('', this.formula.length);
         const formulaParent = document.getElementById('formulaParent').children;
         for (let i = 0; i < formulaParent.length; i++) {
@@ -154,6 +156,7 @@ export class GeneralQuestionComponent implements OnInit {
                 f++;
             }
         }
+        this.formula = this.formula.split('').join(' ');
     }
 
     addCriteria() {
@@ -190,11 +193,12 @@ export class GeneralQuestionComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Saved Criteria !!'));
             this.eligibilityCriteria = new EligibilityCriteria();
         });
+        this.submitted = false;
     }
 
     onUpdate() {
+        this.submitted = true;
         if (this.generalQuestionForm.invalid) {
-            alert('Please dont leave the fields blank !!');
             return;
         }
         this.eligibilityCriteria = this.generalQuestionForm.value;
@@ -206,6 +210,7 @@ export class GeneralQuestionComponent implements OnInit {
             console.log(error);
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Update Criteria !!'));
         });
+        this.submitted = false;
     }
 
     onDelete(criteriaId) {
