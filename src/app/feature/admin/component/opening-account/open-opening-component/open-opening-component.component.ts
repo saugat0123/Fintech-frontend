@@ -37,6 +37,7 @@ export class OpenOpeningComponentComponent implements OnInit {
     branchList: Array<Branch> = new Array<Branch>();
     accountPurposeList: Array<AccountPurpose> = new Array<AccountPurpose>();
     accountTypeList: Array<AccountType> = new Array<AccountType>();
+    accountPurpose: AccountPurpose = new AccountPurpose();
     allId;
     id = 0;
 
@@ -51,10 +52,9 @@ export class OpenOpeningComponentComponent implements OnInit {
     ) {
     }
 
-    getAccountType(accountPurposeId) {
-        const accountPurpose = new AccountPurpose();
-        accountPurpose.id = accountPurposeId;
-        this.service.getByPostWithoutToken('v1/accountType/byAccountPurpose', accountPurpose).subscribe((response: any) => {
+    getAccountType(accountPurpose) {
+        this.accountPurpose = accountPurpose;
+        this.service.getByPostWithoutToken('v1/accountType/byAccountPurpose', this.accountPurpose).subscribe((response: any) => {
             this.accountTypeList = response.detail;
         }, error => {
             console.log(error);
@@ -176,7 +176,7 @@ export class OpenOpeningComponentComponent implements OnInit {
             internetBankingRadio: openingForm.openingAccount.internetBanking + '',
             mobileBankingRadio: openingForm.openingAccount.mobileBanking + '',
         });
-        this.getAccountType(this.openingAccount.get('purposeOfAccount').value);
+        this.getAccountType(openingForm.openingAccount.purposeOfAccount);
         this.openingAccount.setControl('applicantDetail', this.setApplicantDetailFormGroup
         (this.openingForm.openingAccount.openingCustomers));
     }
@@ -473,11 +473,7 @@ export class OpenOpeningComponentComponent implements OnInit {
         const accountType = new AccountType();
         accountType.id = this.openingAccount.get('accountType').value;
         this.openingForm.accountType = accountType;
-        this.accountPurposeList.forEach(accountPurpose => {
-            if (accountPurpose.id === this.openingAccount.get('purposeOfAccount').value) {
-                this.account.purposeOfAccount = accountPurpose;
-            }
-        });
+        this.account.purposeOfAccount = this.accountPurpose;
         this.account.currency = this.openingAccount.get('accountCurrency').value;
         this.account.haveJoint = this.openingAccount.get('jointAccountRadio').value;
         // Applicant Personal Details

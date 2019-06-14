@@ -14,7 +14,7 @@
                             <option *ngFor="let branch of branchList" [ngValue]="branch.id">{{branch.name}}</option>
                         </select>
                     </div>
-                    <div class="offset-md-2">
+                    <div class="offset-sm-2">
                         <label for="requestedDate"><b>Requested Date</b></label>
                         <input id="requestedDate" type="text" class="form-control" disabled
                                formControlName="requestedDate"/>
@@ -29,7 +29,7 @@
                             <nb-radio-group class="col-md-4 d-contents form-control" id="purposeOfAccount"
                                             name="purposeOfAccount" formControlName="purposeOfAccount">
                                 <nb-radio *ngFor="let accountPurpose of accountPurposeList" class="form-group"
-                                          [value]="accountPurpose.id" (click)="getAccountType(accountPurpose.id)">
+                                          [value]="accountPurpose.id" (click)="getAccountType(accountPurpose)">
                                     {{accountPurpose.name}}
                                 </nb-radio>
                             </nb-radio-group>

@@ -157,13 +157,13 @@ export class UIComponent implements OnInit {
         this.loanConfig.renew = this.renewalDocument;
         this.loanConfig.eligibilityDocuments = this.eligibilityDocument;
         console.log(this.loanConfig);
-        /*this.service.save(this.loanConfig).subscribe(() => {
+        this.service.save(this.loanConfig).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Config!'));
                 this.loanConfig = new LoanConfig();
                 this.router.navigate(['home/admin/config']);
             }, error => {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Loan Config!'));
             }
-        );*/
+        );
     }
 }
