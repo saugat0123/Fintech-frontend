@@ -1,43 +1,35 @@
-import {Component, DoCheck, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {MemoType} from '../../model/memoType';
 import {Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {MemoTypeService} from '../../service/memo-type.service';
 import {Action} from '../../../../@core/Action';
-import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {CustomValidator} from '../../../../@core/validator/custom-validator';
-import {Status} from '../../../../@core/Status';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {AlertService} from '../../../../@theme/components/alert/alert.service';
-import {ToastService} from '../../../../@core/utils';
+import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {MemoBaseComponent} from '../memo-base/memo-base.component';
+import {MemoTypeFormComponent} from './memo-type-form/memo-type-form.component';
+import {MemoTypeDeleteComponent} from './memo-type-form/memo-type-delete.component';
 
 @Component({
     selector: 'app-memo-type',
     templateUrl: './memo-type.component.html',
     styleUrls: ['./memo-type.component.css']
 })
-export class MemoTypeComponent implements OnInit, DoCheck {
+export class MemoTypeComponent implements OnInit {
     static TITLE = `${MemoBaseComponent.TITLE} - Type`;
-    private static DEFAULT_STATUS = Status.ACTIVE;
-
     page = 1;
+
+    types: Array<MemoType>;
 
     search: string;
     spinner = false;
-    dataList: any;
-    currentUrl: string;
-    task: string;
-    isNewMemo: boolean;
     pageable: Pageable = new Pageable();
-    globalMsg;
     memoType: MemoType;
-    memoTypeForm: FormGroup;
-
-    private modalRef: NgbModalRef;
 
     constructor(
         private breadcrumbService: BreadcrumbService,
@@ -53,7 +45,7 @@ export class MemoTypeComponent implements OnInit, DoCheck {
     static loadData(other: MemoTypeComponent) {
         other.spinner = true;
         other.memoTypeService.getPaginationWithSearch(other.search, other.page, 10).subscribe((response: any) => {
-                other.dataList = response.content;
+                other.types = response.content;
                 other.pageable = PaginationUtils.getPageable(response);
                 other.spinner = false;
             }, error => {
@@ -75,10 +67,6 @@ export class MemoTypeComponent implements OnInit, DoCheck {
         MemoTypeComponent.loadData(this);
     }
 
-    ngDoCheck(): void {
-        this.currentUrl = this.router.url;
-    }
-
     onSearch() {
         MemoTypeComponent.loadData(this);
     }
@@ -89,107 +77,32 @@ export class MemoTypeComponent implements OnInit, DoCheck {
         MemoTypeComponent.loadData(this);
     }
 
-    buildForm() {
-        this.memoTypeForm = this.formBuilder.group(
-            {
-                id: [this.memoType.id === undefined ? '' : this.memoType.id],
-                name: [this.memoType.name === undefined ? '' : this.memoType.name, [Validators.required, CustomValidator.notEmpty]],
-                status: [this.memoType.status === undefined ? MemoTypeComponent.DEFAULT_STATUS : this.memoType.status,
-                    (this.task === Action.UPDATE) ? [Validators.required] : []]
-            }
-        );
+    add() {
+        const modalRef = this.modalService.open(MemoTypeFormComponent, {backdrop: 'static'});
+
+        modalRef.componentInstance.model = new MemoType();
+        modalRef.componentInstance.action = Action.ADD;
+
+        ModalUtils.resolve(modalRef.result, MemoTypeComponent.loadData, this);
     }
 
-    addMemoType(template: TemplateRef<any>) {
-        this.isNewMemo = true;
-        this.task = Action.ADD;
-        this.memoType = new MemoType();
-        this.buildForm();
+    update(memoType: MemoType) {
 
-        this.modalRef = this.modalService.open(template, {backdrop: 'static'});
+        const modalRef = this.modalService.open(MemoTypeFormComponent, {backdrop: 'static'});
+
+        modalRef.componentInstance.model = memoType;
+        modalRef.componentInstance.action = Action.UPDATE;
+        ModalUtils.resolve(modalRef.result, MemoTypeComponent.loadData, this);
     }
 
-    openEdit(memoType: MemoType, template: TemplateRef<any>) {
-        this.isNewMemo = false;
-        this.task = Action.UPDATE;
-        this.memoType = memoType;
-        this.buildForm();
-
-        this.modalRef = this.modalService.open(template, {backdrop: 'static'});
-    }
-
-    openDelete(memoType: MemoType, template: TemplateRef<any>) {
+    delete(memoType: MemoType) {
         this.memoType = memoType;
 
-        this.modalRef = this.modalService.open(template);
+        const modalRef = this.modalService.open(MemoTypeDeleteComponent);
+
+        modalRef.componentInstance.model = memoType;
+        modalRef.componentInstance.action = Action.DELETE;
+
+        ModalUtils.resolve(modalRef.result, MemoTypeComponent.loadData, this);
     }
-
-    deleteMemoType() {
-        this.memoTypeService.delete(this.memoType.id).subscribe(() => {
-
-                this.modalRef.dismiss('Deleted Memo Type');
-
-                const alert = new Alert(AlertType.SUCCESS, 'Successfully Removed Memo Type');
-                this.toastService.show(alert);
-
-                MemoTypeComponent.loadData(this);
-
-            }, error => {
-
-                console.log(error);
-                const alert = new Alert(AlertType.ERROR, 'Unable to Remove Memo Type');
-                this.toastService.show(alert);
-            }
-        );
-    }
-
-    submit() {
-        if (this.isNewMemo) {
-            this.memoTypeService.save(this.memoTypeForm.value).subscribe(
-                () => {
-
-                    this.modalRef.dismiss('Saved Memo Type');
-
-                    const alert = new Alert(AlertType.SUCCESS, 'Successfully Saved Memo Type');
-                    this.toastService.show(alert);
-
-                    MemoTypeComponent.loadData(this);
-
-                }, (error) => {
-
-                    console.log(error);
-
-                    const alert = new Alert(AlertType.SUCCESS, 'Failed to create Memo Type');
-                    this.toastService.show(alert);
-                }
-            );
-        } else {
-            this.memoType.name = this.memoTypeForm.get('name').value;
-            this.memoType.status = this.memoTypeForm.get('status').value;
-            this.memoTypeService.update(this.memoType.id, this.memoType)
-                .subscribe(
-                    () => {
-                        this.modalRef.dismiss('Updated Memo Type');
-                        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Memo Type'));
-                        this.memoType = new MemoType();
-
-                        MemoTypeComponent.loadData(this);
-
-                    }, (error) => {
-                        console.log(error);
-
-                        this.toastService.show(new Alert(AlertType.ERROR, 'Failed to Update Memo Type'));
-                    }
-                );
-        }
-    }
-
-    get name() {
-        return this.memoTypeForm.get('name');
-    }
-
-    get status() {
-        return this.memoTypeForm.get('status');
-    }
-
 }
