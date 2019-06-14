@@ -15,16 +15,21 @@ import {SafePipe} from './pipe/safe.pipe';
 import {ThemeModule} from '../../@theme/theme.module';
 import {CoreModule} from '../../@core/core.module';
 import {MemoTypeService} from './service/memo-type.service';
+import {MemoTypeFormComponent} from './component/memo-type/memo-type-form/memo-type-form.component';
+import {MemoTypeDeleteComponent} from './component/memo-type/memo-type-form/memo-type-delete.component';
 
 @NgModule({
     declarations: [
         MemoBaseComponent,
         MemoTypeComponent,
+        MemoTypeFormComponent,
+        MemoTypeDeleteComponent,
         MemoComposeComponent,
         MemoUnderReviewComponent,
         MemoReadComponent,
         SafePipe
     ],
+
     imports: [
         FormsModule,
         RouterModule.forChild(MemoRoutes),
@@ -35,7 +40,10 @@ import {MemoTypeService} from './service/memo-type.service';
         ThemeModule,
         CoreModule
     ],
-    providers: [MemoService, MemoTypeService]
+    providers: [MemoService, MemoTypeService],
+    entryComponents: [
+        MemoTypeFormComponent
+    ]
 })
 export class MemoModule {
 }
