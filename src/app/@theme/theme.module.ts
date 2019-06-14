@@ -48,7 +48,8 @@ import {
     PaginationComponent,
     PagingComponent,
     SpinnerComponent,
-    UpdateModalComponent
+    UpdateModalComponent,
+    ValidationErrorComponent
 } from './components';
 
 import {CapitalizePipe, EvaIconsPipe, NumberWithCommasPipe, PluralPipe, RoundPipe, TimingPipe} from './pipes';
@@ -113,7 +114,8 @@ const COMPONENTS = [
     PaginationComponent,
     SpinnerComponent,
     UpdateModalComponent,
-    PagingComponent
+    PagingComponent,
+    ValidationErrorComponent
 ];
 
 const ENTRY_COMPONENTS = [];
