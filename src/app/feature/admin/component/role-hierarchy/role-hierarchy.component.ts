@@ -11,7 +11,6 @@ import {RoleService} from '../role-permission/role.service';
     styleUrls: ['./role-hierarchy.component.scss']
 })
 export class RoleHierarchyComponent implements OnInit {
-    currentApi = 'v1/roleHierarchy';
     roleList;
     activeCount: number;
     inactiveCount: number;
@@ -61,7 +60,6 @@ export class RoleHierarchyComponent implements OnInit {
         }
 
         this.tempRoleOrders = event.container.data;
-
         for (let x = 0; x < this.tempRoleOrders.length; x++) {
             const roleOrder = x + 1;
             this.tempRoleOrders[x].roleOrder = roleOrder;

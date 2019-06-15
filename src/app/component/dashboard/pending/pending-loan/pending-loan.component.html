@@ -19,13 +19,13 @@
                             <div class="col-md-4">
                                 <div>
                                     <small>
-                                        Via {{user.name}}
+                                        Via {{loanDataHolder?.currentStage?.fromUser?.username}}
                                     </small>
                                 </div>
                                 <div>
-                                    <small>{{user?.role?.roleName}}</small>
+                                    <small>{{loanDataHolder?.currentStage?.fromRole?.roleName}}</small>
                                 </div>
-                                <small>{{user?.branch?.name}}</small>
+                                <small>{{loanDataHolder?.branch?.name}}</small>
                             </div>
                         </div>
                     </li>

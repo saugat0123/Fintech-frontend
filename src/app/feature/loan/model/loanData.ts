@@ -15,5 +15,7 @@ export class LoanDataHolder {
     priority: Priority;
     createdAt: any;
     previousList: any;
+    currentStage: any;
+    createdBy: number;
 
 }

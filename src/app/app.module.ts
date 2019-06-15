@@ -37,7 +37,6 @@ import {NbDatepickerModule} from '@nebular/theme';
         NbDatepickerModule.forRoot(),
 
     ],
-
     providers: [CommonService, CommonDataService, AddressService, {
         provide: LocationStrategy,
         useClass: HashLocationStrategy

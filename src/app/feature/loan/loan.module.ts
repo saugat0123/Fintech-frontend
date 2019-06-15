@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
-import { NgxPrintModule } from 'ngx-print';
+import {NgxPrintModule} from 'ngx-print';
 import {LoanRoutingModule} from './loan-routing.module';
 import {LoanFormComponent} from './component/loan-form/loan-form.component';
 import {BasicInfoComponent} from './component/loan-main-template/basic-info/basic-info.component';
@@ -17,6 +17,7 @@ import {ThemeModule} from '../../@theme/theme.module';
 import {LoanSummaryComponent} from './component/loan-summary/loan-summary.component';
 import {LoanActionComponent} from './loan-action/loan-action.component';
 import {LoanFormService} from './component/loan-form/service/loan-form.service';
+import {LoginComponent} from '../../component/login/login.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {LoanFormService} from './component/loan-form/service/loan-form.service';
         SecurityComponent,
         LoanSummaryComponent,
         LoanActionComponent
+
 
     ],
     imports: [

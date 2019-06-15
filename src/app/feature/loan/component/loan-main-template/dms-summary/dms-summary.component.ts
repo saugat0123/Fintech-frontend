@@ -9,6 +9,8 @@ import {DmsLoanService} from '../dms-loan-file/dms-loan-service';
 import {LoanDataHolder} from '../../../model/loanData';
 import {LoanFormService} from '../../loan-form/service/loan-form.service';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
+import {ActionModel} from '../../../model/action';
+import {LoanActionService} from '../../../loan-action/service/loan-action.service';
 
 @Component({
     selector: 'app-dms-summary',
@@ -38,12 +40,15 @@ export class DmsSummaryComponent implements OnInit {
     allId;
     customerId;
     loanConfigId;
+    actionsList: ActionModel = new ActionModel();
+    showAction = true;
 
     @ViewChild('print') print;
 
     constructor(private userService: UserService,
                 private router: ActivatedRoute,
                 private loanFormService: LoanFormService,
+                private loanActionService: LoanActionService,
                 private dmsLoanService: DmsLoanService,
                 private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService) {
@@ -75,6 +80,23 @@ export class DmsSummaryComponent implements OnInit {
         this.loanFormService.detail(this.customerId).subscribe(
             (response: any) => {
                 this.loanDataHolder = response.detail;
+                this.actionsList.approved = true;
+                this.actionsList.sendForward = true;
+                this.actionsList.edit = true;
+                this.actionsList.sendBackward = true;
+                if (this.loanDataHolder.createdBy.toString() === localStorage.getItem('userId')) {
+                    this.actionsList.sendBackward = false;
+                    this.actionsList.edit = true;
+                    this.actionsList.approved = false;
+                } else {
+                    this.actionsList.edit = false;
+                }
+                this.loanActionService.getSendForwardList().subscribe((res: any) => {
+                    const forward = res.detail;
+                    if (forward.length === 0) {
+                        this.actionsList.sendForward = false;
+                    }
+                });
                 this.id = this.loanDataHolder.id;
                 this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
                 if (this.dmsLoanFile != null) {
@@ -87,6 +109,7 @@ export class DmsSummaryComponent implements OnInit {
                         this.documentUrls.push(this.documentNamesSplit[1]);
                     }
                 }
+
             }
         );
 

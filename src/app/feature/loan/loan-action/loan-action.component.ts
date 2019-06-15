@@ -1,13 +1,16 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoanActionService} from './service/loan-action.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastService} from '../../../@core/utils';
 import {AlertService} from '../../../@theme/components/alert/alert.service';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {User} from '../../admin/modal/user';
 import {UserService} from '../../admin/component/user/user.service';
+import {ActionModel} from '../model/action';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 
 
 @Component({
@@ -20,10 +23,18 @@ export class LoanActionComponent implements OnInit {
 
     @Input() loanConfigId: number;
     @Input() id: number;
+
+    @Input() actionsList: ActionModel;
     popUpTitle: string;
     sendForwardBackwardList = [];
     formAction: FormGroup;
     userList: Array<User> = new Array<User>();
+    submitted = false;
+    private securityUrl = ApiConfig.TOKEN;
+    private headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Basic Y3Atc29sdXRpb246Y3Bzb2x1dGlvbjEyMyoj',
+    });
 
     constructor(
         private router: ActivatedRoute,
@@ -34,7 +45,8 @@ export class LoanActionComponent implements OnInit {
         private toastService: ToastService,
         private userService: UserService,
         private activeModal: NgbActiveModal,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private http: HttpClient
     ) {
     }
 
@@ -42,14 +54,14 @@ export class LoanActionComponent implements OnInit {
         this.formAction = this.formBuilder.group(
             {
                 loanConfigId: [undefined],
-                customerId: [undefined],
+                customerLoanId: [undefined],
                 toUser: [undefined],
                 toRole: [undefined],
                 docAction: [undefined],
-                comment: [undefined]
+                comment: [undefined, Validators.required]
             }
         );
-
+        console.log(this.actionsList);
 
     }
 
@@ -79,36 +91,29 @@ export class LoanActionComponent implements OnInit {
         this.modalService.open(template);
     }
 
-    onSubmit() {
+    onSubmit(templateLogin) {
+        this.submitted = true;
+        if (this.formAction.invalid) {
+            return;
+        }
+        this.modalService.open(templateLogin);
         this.formAction.patchValue({
                 loanConfigId: this.loanConfigId,
-                customerId: this.id
+                customerLoanId: this.id
             }
         );
-
         this.onClose();
-
-        this.loanActionService.postLoanAction(this.formAction.value).subscribe((response: any) => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
-                this.formAction.get('docAction').value));
-            this.route.navigate(['/home/pending']);
-        }, error => {
-
-            console.log(error);
-
-            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-
-        });
+        this.modalService.open(templateLogin);
 
     }
 
     getUserList(roleId) {
-        this.userService.getUserListByRoleId(roleId).subscribe((response: any) => {
+        this.userService.getUserListByRoleId(roleId.id).subscribe((response: any) => {
             this.userList = response.detail;
 
             if (this.userList.length === 1) {
                 this.formAction.patchValue({
-                        toUser: this.userList[0].id
+                        toUser: this.userList[0]
                     }
                 );
             }
@@ -121,6 +126,40 @@ export class LoanActionComponent implements OnInit {
 
     onEdit() {
         this.route.navigate(['/home/loan/loanForm'], {queryParams: {loanId: this.loanConfigId, customerId: this.id}});
+    }
+
+    onLogin(datavalue) {
+        this.onClose();
+        const data: { email: string, password: string } = datavalue.value;
+        if (data.email !== localStorage.getItem('username')) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'INVALID'));
+        } else {
+            const datas = 'grant_type=password&username=' + data.email + '&password=' + data.password;
+            this.http.post(this.securityUrl, datas, {headers: this.headers})
+                .subscribe(
+                    (res: any) => {
+                        this.postAction();
+
+                    },
+                    error => {
+
+                        this.toastService.show(new Alert(AlertType.ERROR, error.error.errorDescription));
+                    }
+                );
+        }
+    }
+
+    postAction() {
+        this.loanActionService.postLoanAction(this.formAction.value).subscribe((response: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
+                this.formAction.get('docAction').value));
+            this.route.navigate(['/home/pending']);
+        }, error => {
+
+
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+
+        });
     }
 
 }
