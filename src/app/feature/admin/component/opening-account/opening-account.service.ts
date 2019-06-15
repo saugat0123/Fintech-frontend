@@ -38,17 +38,4 @@ export class OpeningAccountService extends BaseService<OpeningForm> {
         return this.http.post(getUrl.url, model);
     }
 
-    getByAllWithoutToken(reqUrl): Observable<Object> {
-        const url: string = reqUrl;
-        const getUrl = ApiUtils.getRequest(url);
-        return this.http.get(getUrl.url);
-    }
-
-    getByPostWithoutToken(reqUrl, model) {
-        const url: string = reqUrl;
-        const getUrl = ApiUtils.getRequest(url);
-        return this.http.post(getUrl.url, model);
-    }
-
-
 }

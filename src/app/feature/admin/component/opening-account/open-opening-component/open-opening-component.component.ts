@@ -17,6 +17,8 @@ import {ToastService} from '../../../../../@core/utils';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {AccountType} from '../../../modal/accountType';
 import {AccountPurpose} from '../../../modal/accountPurpose';
+import {AccountPurposeService} from '../account-purpose.service';
+import {AccountTypeService} from '../account-type.service';
 
 @Component({
     selector: 'app-open-opening-component',
@@ -48,13 +50,15 @@ export class OpenOpeningComponentComponent implements OnInit {
         private branchService: BranchService,
         private toastService: ToastService,
         private router: Router,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private accountPurposeService: AccountPurposeService,
+        private accountTypeService: AccountTypeService
     ) {
     }
 
     getAccountType(accountPurpose) {
         this.accountPurpose = accountPurpose;
-        this.service.getByPostWithoutToken('v1/accountType/byAccountPurpose', this.accountPurpose).subscribe((response: any) => {
+        this.accountTypeService.getAllByAccountTypeWithoutToken(this.accountPurpose).subscribe((response: any) => {
             this.accountTypeList = response.detail;
         }, error => {
             console.log(error);
@@ -71,7 +75,7 @@ export class OpenOpeningComponentComponent implements OnInit {
                 this.allId = paramsValue;
                 this.id = this.allId.openingFormId;
             });
-        this.service.getByAllWithoutToken('v1/accountPurpose/all').subscribe((response: any) => {
+        this.accountPurposeService.getByAccountPurposeWithoutToken().subscribe((response: any) => {
             this.accountPurposeList = response.detail;
         });
         this.branchService.getAll().subscribe((response: any) => {
