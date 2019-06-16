@@ -4,6 +4,7 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {RoleService} from '../role.service';
+import {RoleType} from '../../../modal/roleType';
 
 
 @Component({
@@ -13,6 +14,8 @@ import {RoleService} from '../role.service';
 export class RoleFormComponent implements OnInit {
 
     role: Role = new Role();
+    roleTypeList;
+    hideRoleType = false;
 
     constructor(
         private service: RoleService,
@@ -23,9 +26,14 @@ export class RoleFormComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.roleTypeList = RoleType;
+        this.service.checkRoleContainMaker().subscribe((res: any) => {
+            this.hideRoleType = res.detail;
+        });
     }
 
     onSubmit() {
+        console.log(this.role)
         this.service.save(this.role).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Role!'));

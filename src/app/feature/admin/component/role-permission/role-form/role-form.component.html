@@ -20,6 +20,15 @@
                                 <div *ngIf="roleVal.errors.required">Role is required</div>
                             </div>
                         </div>
+
+                        <div class="col-md-6" *ngIf="!hideRoleType">
+                            <label>Role Type</label>
+                           <select class="custom-select" [(ngModel)]="role.roleType" name="roleType">
+                               <option [ngValue]="undefined" hidden>Select the Role Type</option>
+                               <option *ngFor="let roleType of roleTypeList.values()"
+                                          [ngValue]="roleType">{{roleType}}</option>
+                           </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <div><sup>*</sup>New Role will added in Lowest Order</div>

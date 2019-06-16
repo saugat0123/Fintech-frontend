@@ -11,6 +11,7 @@ import {LoanFormService} from '../../loan-form/service/loan-form.service';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {ActionModel} from '../../../model/action';
 import {LoanActionService} from '../../../loan-action/service/loan-action.service';
+import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 
 @Component({
     selector: 'app-dms-summary',
@@ -42,6 +43,7 @@ export class DmsSummaryComponent implements OnInit {
     loanConfigId;
     actionsList: ActionModel = new ActionModel();
     showAction = true;
+    private RootUrl = ApiConfig.URL;
 
     @ViewChild('print') print;
 
@@ -91,12 +93,19 @@ export class DmsSummaryComponent implements OnInit {
                 } else {
                     this.actionsList.edit = false;
                 }
+
                 this.loanActionService.getSendForwardList().subscribe((res: any) => {
                     const forward = res.detail;
                     if (forward.length === 0) {
                         this.actionsList.sendForward = false;
                     }
                 });
+                if (this.loanDataHolder.currentStage.docAction.toString() === 'APPROVED') {
+                    this.actionsList.approved = false;
+                    this.actionsList.sendForward = false;
+                    this.actionsList.edit = false;
+                    this.actionsList.sendBackward = false;
+                }
                 this.id = this.loanDataHolder.id;
                 this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
                 if (this.dmsLoanFile != null) {

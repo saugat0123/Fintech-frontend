@@ -40,7 +40,7 @@ export class ApprovalLimitFormComponent implements OnInit, DoCheck {
     }
 
     ngOnInit() {
-        this.roleService.getActiveRoles().subscribe((response: any) => {
+        this.roleService.getApprovalRoles().subscribe((response: any) => {
 
             this.roleList = response.detail;
         });

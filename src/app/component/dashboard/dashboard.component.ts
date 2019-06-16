@@ -6,6 +6,7 @@ import {BreadcrumbService} from '../../@theme/components/breadcrum/breadcrumb.se
 import {LoanDataService} from '../../feature/loan/service/loan-data.service';
 import {LoanConfigService} from '../../feature/admin/component/loan-config/loan-config.service';
 import {PermissionService} from '../../@core/service/permission.service';
+import {RoleType} from '../../feature/admin/modal/roleType';
 
 @Component({
     selector: 'app-dashboard',
@@ -30,6 +31,7 @@ export class DashboardComponent implements OnInit {
     branchCountView = false;
     notificationView = false;
     pendingView = false;
+    roleType = false;
 
     constructor(
         private loanConfigService: LoanConfigService,
@@ -43,11 +45,14 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
-        this.loanConfigService.getAll().subscribe((response: any) => {
-            this.loanList = response.detail;
-            this.loanService.setLoan(response.detail);
+        if (localStorage.getItem('roleType') === RoleType[0]) {
+            this.roleType = true;
+            this.loanConfigService.getAll().subscribe((response: any) => {
+                this.loanList = response.detail;
+                this.loanService.setLoan(response.detail);
 
-        });
+            });
+        }
 
         this.permissionService.getPermissionOf('DASHBOARD').subscribe(
             (response: any) => {

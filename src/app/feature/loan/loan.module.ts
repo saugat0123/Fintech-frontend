@@ -17,7 +17,6 @@ import {ThemeModule} from '../../@theme/theme.module';
 import {LoanSummaryComponent} from './component/loan-summary/loan-summary.component';
 import {LoanActionComponent} from './loan-action/loan-action.component';
 import {LoanFormService} from './component/loan-form/service/loan-form.service';
-import {LoginComponent} from '../../component/login/login.component';
 
 
 @NgModule({

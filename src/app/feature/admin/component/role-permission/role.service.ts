@@ -24,4 +24,19 @@ export class RoleService extends BaseService<Role> {
         return this.http.get(req.url, {headers: req.header});
     }
 
+    public checkRoleContainMaker(): Observable<any> {
+        const api = `${RoleService.API}/chkMaker`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.get(req.url, {headers: req.header});
+    }
+
+
+    public getApprovalRoles(): Observable<any> {
+        const api = `${RoleService.API}/getApproval`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.get(req.url, {headers: req.header});
+    }
+
 }

@@ -11,6 +11,7 @@ import {UserService} from '../../admin/component/user/user.service';
 import {ActionModel} from '../model/action';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
+import {DocStatus} from '../model/docStatus';
 
 
 @Component({
@@ -58,7 +59,8 @@ export class LoanActionComponent implements OnInit {
                 toUser: [undefined],
                 toRole: [undefined],
                 docAction: [undefined],
-                comment: [undefined, Validators.required]
+                comment: [undefined, Validators.required],
+                documentStatus: [undefined]
             }
         );
         console.log(this.actionsList);
@@ -72,7 +74,8 @@ export class LoanActionComponent implements OnInit {
                 this.sendForwardBackwardList = response.detail;
             });
         this.formAction.patchValue({
-                docAction: 'BACKWARD'
+                docAction: 'BACKWARD',
+                documentStatus: DocStatus.PENDING
             }
         );
         this.modalService.open(template);
@@ -85,7 +88,8 @@ export class LoanActionComponent implements OnInit {
                 this.sendForwardBackwardList = response.detail;
             });
         this.formAction.patchValue({
-                docAction: 'FORWARD'
+                docAction: 'FORWARD',
+                documentStatus: DocStatus.PENDING
             }
         );
         this.modalService.open(template);
@@ -131,22 +135,21 @@ export class LoanActionComponent implements OnInit {
     onLogin(datavalue) {
         this.onClose();
         const data: { email: string, password: string } = datavalue.value;
-        if (data.email !== localStorage.getItem('username')) {
-            this.toastService.show(new Alert(AlertType.ERROR, 'INVALID'));
-        } else {
-            const datas = 'grant_type=password&username=' + data.email + '&password=' + data.password;
-            this.http.post(this.securityUrl, datas, {headers: this.headers})
-                .subscribe(
-                    (res: any) => {
-                        this.postAction();
+        data.email = localStorage.getItem('username');
+        const datas = 'grant_type=password&username=' + data.email + '&password=' + data.password;
+        this.http.post(this.securityUrl, datas, {headers: this.headers})
+            .subscribe(
+                (res: any) => {
+                    this.postAction();
 
-                    },
-                    error => {
+                },
+                error => {
 
-                        this.toastService.show(new Alert(AlertType.ERROR, error.error.errorDescription));
-                    }
-                );
-        }
+                    this.toastService.show(new Alert(AlertType.ERROR, error.error.errorDescription));
+                }
+            );
+
+
     }
 
     postAction() {
@@ -160,6 +163,42 @@ export class LoanActionComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
 
         });
+    }
+
+    approved(templateLogin) {
+        this.formAction.patchValue({
+                loanConfigId: this.loanConfigId,
+                customerLoanId: this.id,
+                docAction: 'APPROVED',
+                comment: 'APPROVED',
+                documentStatus: DocStatus.APPROVED
+            }
+        );
+        this.modalService.open(templateLogin);
+
+
+    }
+
+    closeReject(templateLogin, value) {
+        let docAction = value;
+        let documentStatus = null;
+        if (value === 'REJECTED') {
+            docAction = 'REJECT';
+            documentStatus = DocStatus.REJECTED;
+        } else {
+            docAction = 'CLOSE';
+            documentStatus = DocStatus.CLOSED;
+        }
+        this.formAction.patchValue({
+                loanConfigId: this.loanConfigId,
+                customerLoanId: this.id,
+                docAction: docAction,
+                comment: value,
+                documentStatus: documentStatus
+            }
+        );
+        this.modalService.open(templateLogin);
+
     }
 
 }

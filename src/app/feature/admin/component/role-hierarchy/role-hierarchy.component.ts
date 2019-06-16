@@ -4,6 +4,8 @@ import {RoleOrders} from '../../modal/roleOrders';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {RoleHierarchyService} from './role-hierarchy.service';
 import {RoleService} from '../role-permission/role.service';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-role-hierarchy',
@@ -25,7 +27,8 @@ export class RoleHierarchyComponent implements OnInit {
     constructor(
         private service: RoleHierarchyService,
         private roleService: RoleService,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService :ToastService
     ) {
     }
 
@@ -74,6 +77,7 @@ export class RoleHierarchyComponent implements OnInit {
             this.isDisabled = false;
             this.spinner = false;
             this.roleList = response.detail;
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Role Order!'));
 
         });
     }
