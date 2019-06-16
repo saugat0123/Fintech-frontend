@@ -1,13 +1,13 @@
 <section>
     <nb-card>
         <nb-card-header>
-            <app-loan-action [loanConfigId]="loanConfigId" [id]="id"></app-loan-action>
+            <app-loan-action [loanConfigId]="loanConfigId" [id]="customerId"></app-loan-action>
         </nb-card-header>
-        <nb-card-body>
+        <nb-card-body id="print-summary">
             <div class="row ">
                 <div class="col-md-3">
                     Priority: <span class="badge badge-danger"
-                                    style="font-size: 11px">{{loanDataHolder?.dmsLoanFile?.priority | lowercase}}</span>
+                                    style="font-size: 11px">{{loanDataHolder?.dmsLoanFile?.priority  || loanDataHolder?.priority | lowercase}}</span>
 
                     <div class="row ml-0 mt-1">
                         <div class="inline">
@@ -48,9 +48,10 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>{{dmsLoanFile?.customerName}}</td>
-                            <td>{{dmsLoanFile?.citizenshipNumber}}</td>
-                            <td>{{dmsLoanFile?.contactNumber}}</td>
+                            <td>{{dmsLoanFile?.customerName || loanDataHolder?.customerInfo?.customerName}}</td>
+                            <td>{{dmsLoanFile?.citizenshipNumber || loanDataHolder?.customerInfo?.citizenshipNumber}}
+                            </td>
+                            <td>{{dmsLoanFile?.contactNumber || loanDataHolder?.customerInfo?.mobile}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -159,6 +160,26 @@
                         </tr>
                         </tbody>
                     </table>
+                </div>
+                <div *ngFor="let previous of loanDataHolder.previousList;" class="col-md-6" style="padding-top: 50px">
+                    <div class="row d-flex justify-content-center signature">
+                        <span>signature</span>
+                    </div>
+
+                    <div class="row d-flex justify-content-center">
+
+                        <hr style="border-top: 2px dotted #8c8b8b;background-color: #fff;  height: 1px;clear:both; display:block;width:50%">
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <span>{{previous?.toUser?.role.roleName}}</span>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <span>  <span>{{previous?.toUser?.username}}</span></span>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <span>(<span>{{previous?.toUser?.branch.name}}</span>)</span>
+                    </div>
+
                 </div>
             </div>
         </nb-card-body>

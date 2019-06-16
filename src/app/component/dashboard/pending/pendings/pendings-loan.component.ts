@@ -34,6 +34,7 @@ export class PendingsLoanComponent implements OnInit {
     page = 1;
     documentStatusList = DocStatus;
 
+
     constructor(private service: DmsLoanService,
                 private userService: UserService,
                 private loanConfigService: LoanConfigService,
@@ -74,10 +75,7 @@ export class PendingsLoanComponent implements OnInit {
                 this.loanList = response.detail;
             }
         );
-
-
     }
-
 
     clearSearch() {
         this.search = {};
@@ -100,7 +98,7 @@ export class PendingsLoanComponent implements OnInit {
         this.search.documentStatus = docStatus;
     }
 
-    onClick(customerId: number, loanConfigId: number) {
+    onClick(loanConfigId: number, customerId: number) {
         this.spinner = true;
         this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: loanConfigId, customerId: customerId}});
 

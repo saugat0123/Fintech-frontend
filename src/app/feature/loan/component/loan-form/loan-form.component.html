@@ -14,10 +14,12 @@
     </ul>
     <div class="tab-content">
 
-        <app-basic-info [formValue]="loanDocument.customerInfo" *ngIf="selectedTab==='Customer Info'"
+        <app-basic-info [formValue]="loanDocument?.customerInfo"
+                        *ngIf="selectedTab==='Customer Info' && loanDocument"
                         #basicInfo></app-basic-info>
-        <app-dms-loan [loanFile]="loanFile" *ngIf="selectedTab==='General' && loanFile" #dmsLoanFile></app-dms-loan>
-        <!--<app-company-info [formValue]="loanDocument.entityInfo" *ngIf="selectedTab==='Company Info'" #entityInfo></app-company-info>-->
+        <app-dms-loan [loanFile]="loanFile" *ngIf="selectedTab==='General' && loanFile" (dmsDisableButton)="submitButton($event)" #dmsLoanFile></app-dms-loan>
+        <app-company-info [formValue]="loanDocument?.entityInfo" *ngIf="selectedTab==='Company Info'"
+                          #entityInfo></app-company-info>
 
         <!-- /.tab-pane -->
     </div>
@@ -34,9 +36,11 @@
                        aria-expanded="false"
                        href="{{nxtTab}}" (click)="nextTab()" *ngIf="!last">NEXT</a>
 
-                    <a class="btn btn-sm btn-flat btn-primary" style="float:right;" data-toggle="tab"
-                       aria-expanded="false"
-                       (click)="save()" *ngIf="last">SAVE</a></div>
+                    <button class="btn btn-sm btn-flat btn-primary" style="float:right;" data-toggle="tab"
+                            aria-expanded="false"
+                            (click)="save()" *ngIf="last" [disabled]="submitDisable">SAVE
+                    </button>
+                </div>
             </div>
         </div>
 

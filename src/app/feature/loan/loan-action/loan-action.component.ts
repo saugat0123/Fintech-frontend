@@ -6,6 +6,9 @@ import {ToastService} from '../../../@core/utils';
 import {AlertService} from '../../../@theme/components/alert/alert.service';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {User} from '../../admin/modal/user';
+import {UserService} from '../../admin/component/user/user.service';
+
 
 @Component({
     selector: 'app-loan-action',
@@ -15,6 +18,13 @@ import {Alert, AlertType} from '../../../@theme/model/Alert';
 export class LoanActionComponent implements OnInit {
 
 
+    @Input() loanConfigId: number;
+    @Input() id: number;
+    popUpTitle: string;
+    sendForwardBackwardList = [];
+    formAction: FormGroup;
+    userList: Array<User> = new Array<User>();
+
     constructor(
         private router: ActivatedRoute,
         private route: Router,
@@ -22,20 +32,11 @@ export class LoanActionComponent implements OnInit {
         private formBuilder: FormBuilder,
         private alertService: AlertService,
         private toastService: ToastService,
+        private userService: UserService,
         private activeModal: NgbActiveModal,
         private modalService: NgbModal
     ) {
     }
-
-    @Input() loanConfigId: number;
-    @Input() id: number;
-
-    popUpTitle: string;
-
-    sendForwardBackwardList = [];
-
-    formAction: FormGroup;
-
 
     ngOnInit() {
         this.formAction = this.formBuilder.group(
@@ -43,6 +44,7 @@ export class LoanActionComponent implements OnInit {
                 loanConfigId: [undefined],
                 customerId: [undefined],
                 toUser: [undefined],
+                toRole: [undefined],
                 docAction: [undefined],
                 comment: [undefined]
             }
@@ -89,8 +91,28 @@ export class LoanActionComponent implements OnInit {
         this.loanActionService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
+            this.route.navigate(['/home/pending']);
+        }, error => {
+
+            console.log(error);
+
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+
         });
 
+    }
+
+    getUserList(roleId) {
+        this.userService.getUserListByRoleId(roleId).subscribe((response: any) => {
+            this.userList = response.detail;
+
+            if (this.userList.length === 1) {
+                this.formAction.patchValue({
+                        toUser: this.userList[0].id
+                    }
+                );
+            }
+        });
     }
 
     onClose() {

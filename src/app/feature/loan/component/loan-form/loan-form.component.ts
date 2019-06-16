@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
@@ -12,25 +12,31 @@ import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-servi
 import {DmsLoanFile} from '../../../admin/modal/dms-loan-file';
 import {LoanFormService} from './service/loan-form.service';
 import {LoanConfig} from '../../../admin/modal/loan-config';
-import {LoanChildService} from './service/child.service';
-import {DatePipe} from '@angular/common';
+import {CompanyInfoComponent} from '../loan-main-template/company-info/company-info.component';
+import {BasicInfoComponent} from '../loan-main-template/basic-info/basic-info.component';
+import {DmsLoanFileComponent} from '../loan-main-template/dms-loan-file/dms-loan-file.component';
+import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
+import {DateService} from '../../../../@core/service/baseservice/date.service';
 
 @Component({
     selector: 'app-loan-form',
     templateUrl: './loan-form.component.html',
     styleUrls: ['./loan-form.component.css'],
 })
-export class LoanFormComponent extends LoanChildService implements OnInit {
+export class LoanFormComponent implements OnInit {
 
     loanFile: DmsLoanFile;
     loanTitle: string;
 
     customerLoanId: number;
-    templateList = [{
-        active: false,
-        name: null,
-        templateUrl: null
-    }];
+    templateList = [
+        {
+            active: false,
+            name: null,
+            templateUrl: null
+        }
+    ];
+
     customerId: number;
     id;
     selectedTab;
@@ -57,19 +63,31 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
 
     loan: LoanConfig = new LoanConfig();
     currentNepDate;
+    submitDisable = false;
+    loanDocument: LoanDataHolder;
+
+    @ViewChild('basicInfo')
+    basicInfo: BasicInfoComponent;
+
+    @ViewChild('dmsLoanFile')
+    dmsLoanFile: DmsLoanFileComponent;
+
+    @ViewChild('entityInfo')
+    entityInfo: CompanyInfoComponent;
 
     constructor(
         private dataService: CommonDataService,
         private loanDataService: LoanDataService,
         private dmsLoanService: DmsLoanService,
+        private dateService: DateService,
         private loanFormService: LoanFormService,
         private activatedRoute: ActivatedRoute,
+        private loanConfigService: LoanConfigService,
         private modalService: NgbModal,
         private router: Router,
-        private breadcrumbService: BreadcrumbService,
-        private datePipe: DatePipe
+        private breadcrumbService: BreadcrumbService
     ) {
-        super();
+
     }
 
     ngOnInit() {
@@ -83,16 +101,14 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
                 this.allId = paramsValue;
                 this.id = this.allId.loanId;
                 this.loan.id = this.id;
-
-                // this.loanDataService.setLoan(this.loan);
                 this.customerId = this.allId.customerId;
                 if (this.customerId !== undefined) {
                     this.loanFormService.detail(this.customerId).subscribe(
                         (response: any) => {
                             this.loanFile = response.detail.dmsLoanFile;
-                            console.log('asd', this.loanFile);
-                            // this.loanDataService.setLoanDocuments(response.detail);
                             this.loanDocument = response.detail;
+                            this.loanDocument.id = response.detail.id;
+                            this.submitDisable = false;
                         }
                     );
                 } else {
@@ -101,9 +117,9 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
                 }
             });
 
-        // this.loanFormService.getCurrentNepaliDate().subscribe((response: any) => {
-        //     this.currentNepDate = response.detail.nepDateFormat;
-        // });
+        this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
+            this.currentNepDate = response.detail.nepDateFormat;
+        });
 
         this.populateTemplate();
 
@@ -112,8 +128,7 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
 
 
     populateTemplate() {
-        // this.loanDocument = this.loanDataService.getLoanDocuments();
-        this.loanFormService.getTemplates(this.id).subscribe((response: any) => {
+        this.loanConfigService.detail(this.id).subscribe((response: any) => {
             this.templateList = response.detail.templateList;
             this.loanTitle = response.detail.name;
             this.breadcrumbService.notify(response.detail.name);
@@ -159,6 +174,9 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
                 tabIndex: index,
                 tabName: name
             };
+            if (name === 'General' && this.customerId == null) {
+                this.submitDisable = true;
+            }
             this.last = true;
         }
     }
@@ -178,6 +196,7 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
     save() {
         this.selectChild(this.selectedTab, true);
         this.loanDocument.loan = this.loan;
+
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
             this.loanDocument = response.detail;
             this.customerLoanId = this.loanDocument.id;
@@ -185,7 +204,32 @@ export class LoanFormComponent extends LoanChildService implements OnInit {
             this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}});
 
         });
+
     }
 
 
+    selectChild(name, action) {
+
+        if (name === 'Customer Info' && action) {
+            this.basicInfo.onSubmit();
+            this.loanDocument.customerInfo = this.basicInfo.basicInfo.value;
+        }
+
+        if (name === 'General' && action) {
+            this.dmsLoanFile.onProceed();
+            this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanFile;
+            this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
+
+        }
+
+        if (name === 'Company Info' && action) {
+            this.entityInfo.onSubmit();
+            this.loanDocument.entityInfo = this.entityInfo.companyInfo.value;
+        }
+    }
+
+
+    submitButton(event) {
+        this.submitDisable = event;
+    }
 }

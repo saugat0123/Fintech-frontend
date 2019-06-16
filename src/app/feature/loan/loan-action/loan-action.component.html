@@ -10,7 +10,9 @@
                 class="col-md-1 fa fa-arrow-circle-left"></i></button>
         <button class="btn btn-flat btn-sm btn-primary" (click)="onEdit()">EDIT<i class="col-md-1 fa fa-edit"></i>
         </button>
-        <button class="btn btn-flat btn-sm btn-warning">PRINT<i class="col-md-1 fa fa-print"></i></button>
+        <button class="btn btn-flat btn-sm btn-warning" printSectionId="print-summary"
+
+                [useExistingCss]="true" #print ngxPrint>PRINT<i class="col-md-1 fa fa-print"></i></button>
     </div>
 </div>
 
@@ -18,23 +20,35 @@
     <div>
         <div class="modal-content">
             <div class="modal-header" style="display:block">
-                <a  class="close cursor" data-dismiss="modal" aria-label="Close"
-                    (click)="onClose()">
+                <a class="close cursor" data-dismiss="modal" aria-label="Close"
+                   (click)="onClose()">
                     <span aria-hidden="true">×</span></a>
                 <h4 class="nav navbar navbar-right pull-left">{{popUpTitle}}</h4>
             </div>
 
             <form (ngSubmit)="onSubmit()" [formGroup]="formAction">
 
-                <div class="form-group">
-                    <label class="toUser" for="toUser">User List</label>
-                    <select name="toUser" id="toUser" class="form-control form-control-sm"
-                            formControlName="toUser">
+            <div class="col-md-12 row">
+                <div class="form-group col-md-6">
+                    <label class="toRole" for="toRole">Role</label>
+                    <select name="toRole" id="toRole"  class="custom-select"
+                            formControlName="toRole"   (change)="getUserList(this.formAction.get('toRole').value)">
                         <option *ngFor="let forwardBackward of sendForwardBackwardList"
                                 [ngValue]="forwardBackward.roleId">
                             {{forwardBackward.roleName}}
                     </select>
                 </div>
+
+                <div class="form-group col-md-6" *ngIf="userList?.length > 1">
+                    <label class="toUser" for="toUser">To User</label>
+                    <select name="toUser" id="toUser" class="custom-select"
+                            formControlName="toUser">
+                        <option *ngFor="let user of userList"
+                                [ngValue]="user.id">
+                            {{user.username}}
+                    </select>
+                </div>
+            </div>
 
                 <div class="form-group col-md-12">
                     <label for="comment">Comment:</label>
