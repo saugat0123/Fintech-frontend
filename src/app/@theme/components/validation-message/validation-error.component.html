@@ -1,0 +1,7 @@
+<ngb-alert *ngIf="errors" [type]="'danger'" [dismissible]="true" role="alert" (close)="close()">
+    <ul>
+        <li *ngFor="let err of errors">
+            {{err.field}} {{err.message}}
+        </li>
+    </ul>
+</ngb-alert>
