@@ -3,26 +3,26 @@ import {LoanFormService} from '../../../feature/loan/component/loan-form/service
 import {PieChart} from '../../../feature/admin/modal/pie-chart';
 import {BranchService} from '../../../feature/admin/component/branch/branch.service';
 import {Branch} from '../../../feature/admin/modal/branch';
+import {UserService} from '../../../@core/service/user.service';
+import {User} from '../../../feature/admin/modal/user';
 
 @Component({
     selector: 'app-pie-chart',
-    templateUrl: './pie-chart.component.html',
-    styleUrls: ['./pie-chart.component.css']
+    templateUrl: './data-visualization.component.html',
+    styleUrls: ['./data-visualization.css']
 })
-export class PieChartComponent implements OnInit {
+export class DataVisualizationComponent implements OnInit {
     pieChart: PieChart = new PieChart();
     branches: Branch[] = [];
     branchId: number;
     view: any[];
-    showLegend = true;
     colorScheme = {
         domain: ['#F45123', '#B523F4', '#10E9AE', '#2D23F4']
     };
-    showLabels = true;
-    explodeSlices = false;
-    doughnut = false;
+    user: User = new User();
 
     constructor(private loanFormService: LoanFormService,
+                private userService: UserService,
                 private branchService: BranchService) {
     }
 
