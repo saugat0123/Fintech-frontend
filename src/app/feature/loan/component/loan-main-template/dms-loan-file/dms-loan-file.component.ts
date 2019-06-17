@@ -219,6 +219,7 @@ export class DmsLoanFileComponent implements OnInit {
         formdata.append('documentName', documentName);
         this.dmsLoanService.uploadFile(formdata).subscribe(
             (result: any) => {
+                console.log('return path',result.detail);
                 this.errorMessage = undefined;
                 this.document.name = documentName;
                 this.loanFile.documents.push(this.document);

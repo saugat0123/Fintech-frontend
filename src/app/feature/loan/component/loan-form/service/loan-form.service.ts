@@ -34,7 +34,8 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }
-    public getLoanAmountByBranch(id:number){
+
+    public getLoanAmountByBranch(id: number) {
         const api = `${this.getApi()}/loan-amount/${id}`;
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});

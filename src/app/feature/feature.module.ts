@@ -22,7 +22,6 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
             PendingLoanComponent,
             PendingsLoanComponent,
             PieChartComponent,
-
         ],
         providers: []
     }

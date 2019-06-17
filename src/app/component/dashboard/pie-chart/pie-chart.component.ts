@@ -13,10 +13,10 @@ export class PieChartComponent implements OnInit {
     pieChart: PieChart = new PieChart();
     branches: Branch[] = [];
     branchId: number;
-    view: any[] = [900, 600];
+    view: any[];
     showLegend = true;
     colorScheme = {
-        domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+        domain: ['#F45123', '#B523F4', '#10E9AE', '#2D23F4']
     };
     showLabels = true;
     explodeSlices = false;
