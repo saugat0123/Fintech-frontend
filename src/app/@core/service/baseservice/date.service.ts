@@ -12,7 +12,7 @@ export class DateService {
     }
 
     getCurrentDateInNepali() {
-        const getUrl = ApiUtils.getRequest(`${DateService.API}/nepDate`);
+        const getUrl = ApiUtils.getRequest(`${DateService.API}/nepali-date`);
         return this.http.get(getUrl.url, {headers: getUrl.header});
     }
 
