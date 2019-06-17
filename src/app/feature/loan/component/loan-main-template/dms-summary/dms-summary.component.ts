@@ -12,6 +12,7 @@ import {LoanConfigService} from '../../../../admin/component/loan-config/loan-co
 import {ActionModel} from '../../../model/action';
 import {LoanActionService} from '../../../loan-action/service/loan-action.service';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
+import {ApprovalLimitService} from '../../../../admin/component/approvallimit/approval-limit.service';
 
 
 @Component({
@@ -36,7 +37,6 @@ export class DmsSummaryComponent implements OnInit {
     document: string;
     documentNamesSplit: string[] = [];
     id: number;
-    loanData: any;
     customerInfo: any;
     loanDataHolder: LoanDataHolder = new LoanDataHolder();
     allId;
@@ -56,7 +56,8 @@ export class DmsSummaryComponent implements OnInit {
                 private loanActionService: LoanActionService,
                 private dmsLoanService: DmsLoanService,
                 private activatedRoute: ActivatedRoute,
-                private loanConfigService: LoanConfigService) {
+                private loanConfigService: LoanConfigService,
+                private approvalLimitService: ApprovalLimitService) {
 
     }
 
@@ -116,6 +117,17 @@ export class DmsSummaryComponent implements OnInit {
                     this.actionsList.rejected = false;
                     this.actionsList.closed = false;
                 }
+                this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id).subscribe((res: any) => {
+                    if (res.detail === undefined) {
+                        this.actionsList.approved = false;
+                    } else {
+                        if (this.loanDataHolder.dmsLoanFile !== null
+                            && this.loanDataHolder.dmsLoanFile.proposedAmount > res.detail.amount) {
+                            this.actionsList.approved = false;
+                        }
+                    }
+                });
+
                 this.id = this.loanDataHolder.id;
                 this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
                 if (this.dmsLoanFile != null) {
