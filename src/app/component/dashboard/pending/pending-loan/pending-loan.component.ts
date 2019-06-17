@@ -21,6 +21,10 @@ export class PendingLoanComponent implements OnInit, DoCheck {
     user: User = new User();
     customerId: number;
     pendingCount: number;
+    approvedCount: number;
+    rejectedCount: number;
+    closedCount: number;
+    pendings: number;
     status = {
         documentStatus: 'PENDING'
     };
@@ -34,12 +38,18 @@ export class PendingLoanComponent implements OnInit, DoCheck {
     }
 
     ngOnInit() {
-
-        this.loanFormService.getCustomerLoanCount().subscribe(
+        this.loanFormService.getStatus().subscribe(
             (response: any) => {
+                console.log(response.detail);
+                console.log(response.detail.pending);
+                console.log(response.detail.Approved);
                 this.pendingCount = response.detail.pending;
-            });
+                this.approvedCount = response.detail.Approved;
+                this.rejectedCount = response.detail.Rejected;
+                this.closedCount = response.detail.Closed;
 
+            }
+        );
         this.loanFormService.getLoanByStatus(this.status).subscribe(
             (response: any) => {
 
