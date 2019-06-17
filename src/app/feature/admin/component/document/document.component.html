@@ -57,7 +57,7 @@
                     <tr>
                         <th>S.N</th>
                         <th>Document Name</th>
-                        <th>URL</th>
+                        <!--<th>URL</th>-->
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -70,7 +70,7 @@
                         </div>
                         <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                         <td>{{allList.name}}</td>
-                        <td>{{allList.url}}</td>
+                        <!--<td>{{allList.url}}</td>-->
                         <td>
                             <select [(ngModel)]="allList.status" name="status"
                                     (change)="onChange($event.target.value,allList)">

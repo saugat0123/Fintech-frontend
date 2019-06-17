@@ -41,12 +41,16 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button class="btn btn-sm btn-flat btn-primary pull-right" value="SAVE"
+                                    <button class="btn btn-primary"   (click)="save()" [disabled]="isDisabled">
+                                        <span *ngIf="spinner" class="spinner-border spinner-border-sm"></span>
+                                        SAVE
+                                    </button>
+                                   <!-- <button class="btn btn-sm btn-flat btn-primary pull-right" value="SAVE"
                                             (click)="save()" [disabled]="isDisabled">
                                         <span *ngIf="!isDisabled">SAVE</span>
                                         <app-spinner *ngIf="spinner"
                                                      class="d-flex justify-content-center"></app-spinner>
-                                    </button>
+                                    </button>-->
                                 </div>
                             </div>
 

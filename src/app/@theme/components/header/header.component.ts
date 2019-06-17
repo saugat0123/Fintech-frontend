@@ -33,7 +33,14 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit() {
         this.userService.getLoggedInUser()
-            .subscribe((res: any) => this.user = res.detail);
+            .subscribe((res: any) => {
+                this.user = res.detail;
+                localStorage.setItem('userId', (this.user.id).toString());
+                localStorage.setItem('username', (this.user.username));
+                if (this.user.role.roleName !== 'admin') {
+                    localStorage.setItem('roleType', JSON.stringify(this.user.role.roleType));
+                }
+            });
 
 
         this.menuService.onItemClick().pipe(

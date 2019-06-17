@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {DmsLoanFile} from '../../../admin/modal/dms-loan-file';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {User} from '../../../admin/modal/user';
 import {Security} from '../../../admin/modal/security';
@@ -9,6 +8,11 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {LoanFormService} from '../loan-form/service/loan-form.service';
 import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-service';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
+import {DmsLoanFile} from '../../../admin/modal/dms-loan-file';
+import {ActionModel} from '../../model/action';
+import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
+import {LoanActionService} from '../../loan-action/service/loan-action.service';
+import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
 
 @Component({
     selector: 'app-loan-summary',
@@ -16,7 +20,6 @@ import {LoanConfigService} from '../../../admin/component/loan-config/loan-confi
     styleUrls: ['./loan-summary.component.css']
 })
 export class LoanSummaryComponent implements OnInit {
-
     dmsLoanFile: DmsLoanFile = new DmsLoanFile();
     loanConfig: LoanConfig = new LoanConfig();
     loan: string;
@@ -33,21 +36,27 @@ export class LoanSummaryComponent implements OnInit {
     document: string;
     documentNamesSplit: string[] = [];
     id: number;
-    loanData: any;
     customerInfo: any;
     loanDataHolder: LoanDataHolder = new LoanDataHolder();
     allId;
     customerId;
     loanConfigId;
+    actionsList: ActionModel = new ActionModel();
+    showAction = true;
+    RootUrl = ApiConfig.URL;
+    signatureList = [];
 
     @ViewChild('print') print;
+
 
     constructor(private userService: UserService,
                 private router: ActivatedRoute,
                 private loanFormService: LoanFormService,
+                private loanActionService: LoanActionService,
                 private dmsLoanService: DmsLoanService,
                 private activatedRoute: ActivatedRoute,
-                private loanConfigService: LoanConfigService) {
+                private loanConfigService: LoanConfigService,
+                private approvalLimitService: ApprovalLimitService) {
 
     }
 
@@ -76,6 +85,48 @@ export class LoanSummaryComponent implements OnInit {
         this.loanFormService.detail(this.customerId).subscribe(
             (response: any) => {
                 this.loanDataHolder = response.detail;
+                this.signatureList = this.loanDataHolder.distinctPreviousList;
+                this.actionsList.approved = true;
+                this.actionsList.sendForward = true;
+                this.actionsList.edit = true;
+                this.actionsList.sendBackward = true;
+                this.actionsList.rejected = true;
+                this.actionsList.closed = true;
+                if (this.loanDataHolder.createdBy.toString() === localStorage.getItem('userId')) {
+                    this.actionsList.sendBackward = false;
+                    this.actionsList.edit = true;
+                    this.actionsList.approved = false;
+                } else {
+                    this.actionsList.edit = false;
+                }
+
+                this.loanActionService.getSendForwardList().subscribe((res: any) => {
+                    const forward = res.detail;
+                    if (forward.length === 0) {
+                        this.actionsList.sendForward = false;
+                    }
+                });
+                if (this.loanDataHolder.currentStage.docAction.toString() === 'APPROVED' ||
+                    this.loanDataHolder.currentStage.docAction.toString() === 'REJECTED' ||
+                    this.loanDataHolder.currentStage.docAction.toString() === 'CLOSED') {
+                    this.actionsList.approved = false;
+                    this.actionsList.sendForward = false;
+                    this.actionsList.edit = false;
+                    this.actionsList.sendBackward = false;
+                    this.actionsList.rejected = false;
+                    this.actionsList.closed = false;
+                }
+                this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id).subscribe((res: any) => {
+                    if (res.detail === undefined) {
+                        this.actionsList.approved = false;
+                    } else {
+                        if (this.loanDataHolder.dmsLoanFile !== null
+                            && this.loanDataHolder.dmsLoanFile.proposedAmount > res.detail.amount) {
+                            this.actionsList.approved = false;
+                        }
+                    }
+                });
+
                 this.id = this.loanDataHolder.id;
                 this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
                 if (this.dmsLoanFile != null) {
@@ -88,6 +139,7 @@ export class LoanSummaryComponent implements OnInit {
                         this.documentUrls.push(this.documentNamesSplit[1]);
                     }
                 }
+
             }
         );
 
@@ -113,3 +165,4 @@ export class LoanSummaryComponent implements OnInit {
     }
 
 }
+

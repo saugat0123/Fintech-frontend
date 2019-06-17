@@ -1,4 +1,4 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoanConfig} from '../../../../feature/admin/modal/loan-config';
 import {DmsLoanFile} from '../../../../feature/admin/modal/dms-loan-file';
 import {Router} from '@angular/router';
@@ -14,7 +14,7 @@ import {LoanFormService} from '../../../../feature/loan/component/loan-form/serv
     templateUrl: './pending-loan.component.html',
     styleUrls: ['./pending-loan.component.css']
 })
-export class PendingLoanComponent implements OnInit, DoCheck {
+export class PendingLoanComponent implements OnInit {
     dmsLoanFiles: Array<DmsLoanFile> = new Array<DmsLoanFile>();
     loanType: LoanConfig = new LoanConfig();
     loanDataHolders: Array<LoanDataHolder> = new Array<LoanDataHolder>();
@@ -24,7 +24,6 @@ export class PendingLoanComponent implements OnInit, DoCheck {
     approvedCount: number;
     rejectedCount: number;
     closedCount: number;
-    pendings: number;
     status = {
         documentStatus: 'PENDING'
     };
@@ -40,9 +39,6 @@ export class PendingLoanComponent implements OnInit, DoCheck {
     ngOnInit() {
         this.loanFormService.getStatus().subscribe(
             (response: any) => {
-                console.log(response.detail);
-                console.log(response.detail.pending);
-                console.log(response.detail.Approved);
                 this.pendingCount = response.detail.pending;
                 this.approvedCount = response.detail.Approved;
                 this.rejectedCount = response.detail.Rejected;
@@ -52,7 +48,6 @@ export class PendingLoanComponent implements OnInit, DoCheck {
         );
         this.loanFormService.getLoanByStatus(this.status).subscribe(
             (response: any) => {
-
                 this.loanDataHolders = response.detail;
             }
         );
@@ -63,16 +58,5 @@ export class PendingLoanComponent implements OnInit, DoCheck {
             }
         );
 
-    }
-
-    onClick(id, customerId) {
-
-        this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: id, customerId: customerId}});
-    }
-
-    ngDoCheck(): void {
-        if (this.dmsLoanFiles.length > 5) {
-            this.dmsLoanFiles.pop();
-        }
     }
 }
