@@ -7,4 +7,7 @@ export class ActionModel {
     sendBackward: boolean;
 
     edit: boolean;
+
+    rejected: boolean;
+    closed: boolean;
 }

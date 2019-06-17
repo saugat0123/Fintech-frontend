@@ -13,6 +13,7 @@ import {ActionModel} from '../../../model/action';
 import {LoanActionService} from '../../../loan-action/service/loan-action.service';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 
+
 @Component({
     selector: 'app-dms-summary',
     templateUrl: './dms-summary.component.html',
@@ -47,6 +48,7 @@ export class DmsSummaryComponent implements OnInit {
     signatureList = [];
 
     @ViewChild('print') print;
+
 
     constructor(private userService: UserService,
                 private router: ActivatedRoute,
@@ -83,12 +85,13 @@ export class DmsSummaryComponent implements OnInit {
         this.loanFormService.detail(this.customerId).subscribe(
             (response: any) => {
                 this.loanDataHolder = response.detail;
-
                 this.signatureList = this.loanDataHolder.distinctPreviousList;
                 this.actionsList.approved = true;
                 this.actionsList.sendForward = true;
                 this.actionsList.edit = true;
                 this.actionsList.sendBackward = true;
+                this.actionsList.rejected = true;
+                this.actionsList.closed = true;
                 if (this.loanDataHolder.createdBy.toString() === localStorage.getItem('userId')) {
                     this.actionsList.sendBackward = false;
                     this.actionsList.edit = true;
@@ -103,11 +106,15 @@ export class DmsSummaryComponent implements OnInit {
                         this.actionsList.sendForward = false;
                     }
                 });
-                if (this.loanDataHolder.currentStage.docAction.toString() === 'APPROVED') {
+                if (this.loanDataHolder.currentStage.docAction.toString() === 'APPROVED' ||
+                    this.loanDataHolder.currentStage.docAction.toString() === 'REJECTED' ||
+                    this.loanDataHolder.currentStage.docAction.toString() === 'CLOSED') {
                     this.actionsList.approved = false;
                     this.actionsList.sendForward = false;
                     this.actionsList.edit = false;
                     this.actionsList.sendBackward = false;
+                    this.actionsList.rejected = false;
+                    this.actionsList.closed = false;
                 }
                 this.id = this.loanDataHolder.id;
                 this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
@@ -145,5 +152,6 @@ export class DmsSummaryComponent implements OnInit {
             }
         );
     }
+
 }
 

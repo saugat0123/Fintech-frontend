@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Permission} from '../../feature/admin/modal/permission';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -13,7 +13,7 @@ import {RoleType} from '../../feature/admin/modal/roleType';
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterContentInit {
 
     title = 'Dashboard';
     loanType: any;
@@ -43,9 +43,8 @@ export class DashboardComponent implements OnInit {
     ) {
     }
 
-    ngOnInit() {
-        this.breadcrumbService.notify(this.title);
-        if (localStorage.getItem('roleType') === RoleType[0]) {
+    ngAfterContentInit() {
+        if (localStorage.getItem('roleType') !== RoleType[1]) {
             this.roleType = true;
             this.loanConfigService.getAll().subscribe((response: any) => {
                 this.loanList = response.detail;
@@ -53,6 +52,11 @@ export class DashboardComponent implements OnInit {
 
             });
         }
+
+    }
+
+    ngOnInit() {
+        this.breadcrumbService.notify(this.title);
 
         this.permissionService.getPermissionOf('DASHBOARD').subscribe(
             (response: any) => {
@@ -76,9 +80,7 @@ export class DashboardComponent implements OnInit {
                 }
             }
         );
-        this.loanConfigService.getAll().subscribe((response: any) => {
-            this.loanList = response.detail;
-        });
+
 
     }
 

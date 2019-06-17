@@ -7,16 +7,18 @@
                 (click)=" sendForwardList(sendForwardBackward)" [disabled]="!actionsList.sendForward">SEND FORWARD<i
                 class="col-md-1 fa fa-arrow-circle-up"></i></button>
 
-        <button class="btn  btn-outline-danger"
+        <button class="btn" style="color:lightseagreen;"
                 (click)="sendBackwardList(sendForwardBackward)" [disabled]="!actionsList.sendBackward">SEND BACKWARD<i
                 class="col-md-1 fa fa-arrow-circle-left"></i></button>
         <button class="btn btn-flat btn-sm btn-primary" (click)="onEdit()" [disabled]="!actionsList.edit">EDIT<i
                 class="col-md-1 fa fa-edit"></i></button>
         <button class="btn  btn-sm btn-info"
-                (click)=" closeReject(sendForwardBackward,$event.target.value)" value="CLOSED">CLOSE<i
+                (click)=" closeReject(sendForwardBackward,$event.target.value)" [disabled]="!actionsList.closed"
+                value="CLOSED">CLOSE<i
                 class="col-md-1 fa-close"></i></button>
         <button class="btn  btn-sm btn-danger"
-                (click)=" closeReject(sendForwardBackward,$event.target.value)" value="REJECTED">REJECTED<i
+                (click)=" closeReject(sendForwardBackward,$event.target.value)" [disabled]="!actionsList.rejected"
+                value="REJECTED">REJECTED<i
                 class="col-md-1 fa fa-ban"></i></button>
 
         <button class="btn btn-flat btn-sm btn-warning d-flex justify-content-end" printSectionId="print-summary"

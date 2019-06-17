@@ -190,7 +190,7 @@ export class LoanActionComponent implements OnInit {
             docAction = 'REJECT';
             documentStatus = DocStatus.REJECTED;
         } else {
-            docAction = 'CLOSE';
+            docAction = 'CLOSED';
             documentStatus = DocStatus.CLOSED;
         }
         this.formAction.patchValue({

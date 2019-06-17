@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
                 localStorage.setItem('userId', (this.user.id).toString());
                 localStorage.setItem('username', (this.user.username));
                 if (this.user.role.roleName !== 'admin') {
-                    localStorage.setItem('roleType', this.user.role.roleType.toString());
+                    localStorage.setItem('roleType', JSON.stringify(this.user.role.roleType));
                 }
             });
 
