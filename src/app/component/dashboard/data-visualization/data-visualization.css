@@ -1,7 +1,7 @@
 #pie{
-    height: 100vh;
-    width: 80vw;
-}
-.total-label{
-    margin-bottom: 12px;
+    position: relative;
+    bottom: 15px;
+    margin-top: 10px;
+    height: 50vh;
+    width: 60vw;
 }
