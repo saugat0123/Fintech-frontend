@@ -33,7 +33,6 @@ export class RoleFormComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.role)
         this.service.save(this.role).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Role!'));

@@ -28,7 +28,7 @@ export class RoleHierarchyComponent implements OnInit {
         private service: RoleHierarchyService,
         private roleService: RoleService,
         private breadcrumbService: BreadcrumbService,
-        private toastService :ToastService
+        private toastService: ToastService
     ) {
     }
 

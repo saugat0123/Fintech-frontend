@@ -1,8 +1,5 @@
-
-
-
 @media print {
-    .signature{
+    .signature {
         visibility: hidden;
     }
 

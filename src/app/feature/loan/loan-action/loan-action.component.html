@@ -13,10 +13,10 @@
         <button class="btn btn-flat btn-sm btn-primary" (click)="onEdit()" [disabled]="!actionsList.edit">EDIT<i
                 class="col-md-1 fa fa-edit"></i></button>
         <button class="btn  btn-sm btn-info"
-                (click)=" closeReject(verify,$event.target.value)" value="CLOSED">CLOSE<i
+                (click)=" closeReject(sendForwardBackward,$event.target.value)" value="CLOSED">CLOSE<i
                 class="col-md-1 fa-close"></i></button>
         <button class="btn  btn-sm btn-danger"
-                (click)=" closeReject(verify,$event.target.value)" value="REJECTED">REJECTED<i
+                (click)=" closeReject(sendForwardBackward,$event.target.value)" value="REJECTED">REJECTED<i
                 class="col-md-1 fa fa-ban"></i></button>
 
         <button class="btn btn-flat btn-sm btn-warning d-flex justify-content-end" printSectionId="print-summary"

@@ -162,7 +162,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div *ngFor="let previous of loanDataHolder.previousList;" class="col-md-6" style="padding-top: 50px">
+                <div *ngFor="let previous of signatureList;" class="col-md-6" style="padding-top: 50px">
                     <div class="row d-flex justify-content-center signature">
 
                         <img *ngIf="previous.toUser?.signatureImage !==null"  src="{{RootUrl}}{{previous.toUser?.signatureImage }}" height="100px" width="250px"/>

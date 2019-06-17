@@ -75,7 +75,8 @@ export class LoanActionComponent implements OnInit {
             });
         this.formAction.patchValue({
                 docAction: 'BACKWARD',
-                documentStatus: DocStatus.PENDING
+                documentStatus: DocStatus.PENDING,
+                comment: null
             }
         );
         this.modalService.open(template);
@@ -89,7 +90,8 @@ export class LoanActionComponent implements OnInit {
             });
         this.formAction.patchValue({
                 docAction: 'FORWARD',
-                documentStatus: DocStatus.PENDING
+                documentStatus: DocStatus.PENDING,
+                comment: null
             }
         );
         this.modalService.open(template);
@@ -179,7 +181,9 @@ export class LoanActionComponent implements OnInit {
 
     }
 
-    closeReject(templateLogin, value) {
+    closeReject(commentTemplate, value) {
+        this.popUpTitle = value;
+        this.modalService.open(commentTemplate);
         let docAction = value;
         let documentStatus = null;
         if (value === 'REJECTED') {
@@ -193,11 +197,10 @@ export class LoanActionComponent implements OnInit {
                 loanConfigId: this.loanConfigId,
                 customerLoanId: this.id,
                 docAction: docAction,
-                comment: value,
                 documentStatus: documentStatus
             }
         );
-        this.modalService.open(templateLogin);
+
 
     }
 

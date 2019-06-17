@@ -43,7 +43,8 @@ export class DmsSummaryComponent implements OnInit {
     loanConfigId;
     actionsList: ActionModel = new ActionModel();
     showAction = true;
-    private RootUrl = ApiConfig.URL;
+    RootUrl = ApiConfig.URL;
+    signatureList = [];
 
     @ViewChild('print') print;
 
@@ -82,6 +83,8 @@ export class DmsSummaryComponent implements OnInit {
         this.loanFormService.detail(this.customerId).subscribe(
             (response: any) => {
                 this.loanDataHolder = response.detail;
+
+                this.signatureList = this.loanDataHolder.distinctPreviousList;
                 this.actionsList.approved = true;
                 this.actionsList.sendForward = true;
                 this.actionsList.edit = true;
