@@ -3,7 +3,6 @@ import {Pageable} from '../service/baseservice/common-pageable';
 export class PaginationUtils {
     public static getPageable(res: any): Pageable {
 
-        console.log(res);
         const page = new Pageable();
         page.first = res.first;
         page.last = res.last;

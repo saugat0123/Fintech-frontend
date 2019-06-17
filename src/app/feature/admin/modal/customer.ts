@@ -13,7 +13,7 @@ export class Customer {
     accountNo: string;
     province: Province;
     district: District;
-    municipalitiesOrVDC: MunicipalityVdc;
+    municipalities: MunicipalityVdc;
     telephone: string;
     mobile: string;
     email: string;

@@ -1,50 +1,22 @@
 <div class="row">
-
-
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box">
-      <span class="info-box-icon bg-yellow">
-        <i class="fa fa-bank"></i>
-      </span>
-            <a routerLink="/home/roleList">
-                <div class="info-box-content">
-                    <span class="info-box-text">Roles</span>
-                    <span class="info-box-number">{{roleCount}}</span>
-                </div>
-            </a>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
+        <a routerLink="/home/admin/roleList">
+            <app-icon-card title="Roles" type="info" detail="{{roleCount}}">
+                <i class="fas fa-user-alt"></i>
+            </app-icon-card>
+        </a>
     </div>
 
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box">
-      <span class="info-box-icon bg-green">
-        <i class="fa fa-briefcase"></i>
-      </span>
-
-            <div class="info-box-content">
-                <span class="info-box-text">Active</span>
-                <span class="info-box-number">{{activeCount}}</span>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
+        <app-icon-card title="Active" type="success" detail="{{activeCount}}">
+            <i class="fas fa-user-circle"></i>
+        </app-icon-card>
     </div>
 
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box">
-      <span class="info-box-icon bg-maroon">
-        <i class="fa fa-address-book"></i>
-      </span>
-
-            <div class="info-box-content">
-                <span class="info-box-text">INACTIVE</span>
-                <span class="info-box-number">{{inactiveCount}}</span>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
+        <app-icon-card title="Inactive" type="warning" detail="{{inactiveCount}}">
+            <i class="far fa-user-circle"></i>
+        </app-icon-card>
     </div>
 </div>
 <div class="row">
@@ -69,12 +41,16 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button class="btn btn-sm btn-flat btn-primary pull-right" value="SAVE"
+                                    <button class="btn btn-primary"   (click)="save()" [disabled]="isDisabled">
+                                        <span *ngIf="spinner" class="spinner-border spinner-border-sm"></span>
+                                        SAVE
+                                    </button>
+                                   <!-- <button class="btn btn-sm btn-flat btn-primary pull-right" value="SAVE"
                                             (click)="save()" [disabled]="isDisabled">
                                         <span *ngIf="!isDisabled">SAVE</span>
                                         <app-spinner *ngIf="spinner"
                                                      class="d-flex justify-content-center"></app-spinner>
-                                    </button>
+                                    </button>-->
                                 </div>
                             </div>
 
