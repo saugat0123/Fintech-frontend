@@ -548,8 +548,16 @@ export class OpenOpeningComponentComponent implements OnInit {
                 relativeIndex++;
             }
             // Employment Details
-            this.openingCustomer.salariedEmployedWith = this.getApplicantDetail()[customerIndex].applicantSalaried;
-            this.openingCustomer.selfEmployedWith = this.getApplicantDetail()[customerIndex].applicantSelfEmployed;
+            if (this.getApplicantDetail()[customerIndex].applicantSalaried === 'Others') {
+                this.openingCustomer.salariedEmployedWith = this.getApplicantDetail()[customerIndex].applicantSalariedOther;
+            } else {
+                this.openingCustomer.salariedEmployedWith = this.getApplicantDetail()[customerIndex].applicantSalaried;
+            }
+            if (this.getApplicantDetail()[customerIndex].applicantSelfEmployed === 'Others') {
+                this.openingCustomer.selfEmployedWith = this.getApplicantDetail()[customerIndex].applicantSelfEmployedOther;
+            } else {
+                this.openingCustomer.selfEmployedWith = this.getApplicantDetail()[customerIndex].applicantSelfEmployed;
+            }
             this.openingCustomer.otherSourceOfIncome = this.getApplicantDetail()[customerIndex].otherIncomeSource;
             this.openingCustomer.accountInAnotherBank = this.getApplicantDetail()[customerIndex].haveAccountInOtherBank;
             this.openingCustomer.bankName = this.getApplicantDetail()[customerIndex].accountInOtherBankName;

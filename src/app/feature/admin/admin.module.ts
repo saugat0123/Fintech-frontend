@@ -57,6 +57,8 @@ import {OpeningAccountComponent} from './component/opening-account/opening-accou
 import {OpenOpeningComponentComponent} from './component/opening-account/open-opening-component/open-opening-component.component';
 import {ApprovalOpeningAccountComponent} from './component/opening-account/approval-opening-account/approval-opening-account.component';
 import {RejectedOpeningAccountComponent} from './component/opening-account/rejected-opening-account/rejected-opening-account.component';
+import {NgxPrintModule} from 'ngx-print';
+import { OpeningAccountPrintComponent } from './component/opening-account/opening-account-print/opening-account-print.component';
 
 @NgModule({
     declarations: [
@@ -105,7 +107,8 @@ import {RejectedOpeningAccountComponent} from './component/opening-account/rejec
         OpeningAccountComponent,
         OpenOpeningComponentComponent,
         ApprovalOpeningAccountComponent,
-        RejectedOpeningAccountComponent
+        RejectedOpeningAccountComponent,
+        OpeningAccountPrintComponent
         // SecurityComponent
     ],
     imports: [
@@ -118,7 +121,8 @@ import {RejectedOpeningAccountComponent} from './component/opening-account/rejec
         RouterModule.forChild(adminRoutes),
         ThemeModule,
         DragDropModule,
-        NgSelectModule
+        NgSelectModule,
+        NgxPrintModule
     ],
 
     entryComponents: [
