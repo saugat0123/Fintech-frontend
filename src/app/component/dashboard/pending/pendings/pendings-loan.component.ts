@@ -28,6 +28,7 @@ export class PendingsLoanComponent implements OnInit {
     search: any = {
         documentStatus: 'PENDING'
     };
+
     loanList: Array<LoanConfig> = new Array<LoanConfig>();
     pageable: Pageable = new Pageable();
     spinner = false;
