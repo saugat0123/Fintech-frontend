@@ -1,15 +1,20 @@
 <section>
     <nb-card>
-        <nb-card-body>
-            <div class="row">
+        <nb-card-header>
+            <app-loan-action [loanConfigId]="loanConfigId" [id]="customerId" [actionsList]="actionsList"
+                             *ngIf="showAction"></app-loan-action>
+        </nb-card-header>
+        <nb-card-body id="print-summary">
+            <div class="row ">
                 <div class="col-md-3">
                     Priority: <span class="badge badge-danger"
-                                    style="font-size: 11px"></span>
+                                    style="font-size: 11px">{{loanDataHolder?.dmsLoanFile?.priority  || loanDataHolder?.priority | lowercase}}</span>
 
                     <div class="row ml-0 mt-1">
                         <div class="inline">
-                            Loan Status:
-                            <span class="badge badge-info" style="font-size: 11px"></span>
+
+                            Loan Status:<span class="badge badge-info"
+                                              style="font-size: 11px">{{loanDataHolder.documentStatus | lowercase}}</span>
                         </div>
                     </div>
                 </div>
@@ -19,21 +24,20 @@
             </div>
             <div class="row">
                 <div class="col-md-5">
-                    <span><b>Pending Under:</b></span>
+                    <span><b>Pending Under: {{user?.role?.roleName}}</b></span>
                 </div>
             </div>
             <hr>
             <div class="row">
                 <div class="col-md-5">
-                    <span><b>Ref. No: </b></span>
+                    <span><b>Ref. No: {{dmsLoanFile?.id}}</b></span>
                 </div>
                 <div class="col-md-6">
-                    <p class="text-right"><b>Date:</b></p>
+                    <p class="text-right"><b>Date:{{dmsLoanFile?.createdAt | date}}</b></p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-
                     <p style="font-size: 15px"><b>Details of Borrower</b></p>
                     <table class="table table-condensed table-bordered border-3">
                         <thead>
@@ -45,7 +49,10 @@
                         </thead>
                         <tbody>
                         <tr>
-
+                            <td>{{dmsLoanFile?.customerName || loanDataHolder?.customerInfo?.customerName}}</td>
+                            <td>{{dmsLoanFile?.citizenshipNumber || loanDataHolder?.customerInfo?.citizenshipNumber}}
+                            </td>
+                            <td>{{dmsLoanFile?.contactNumber || loanDataHolder?.customerInfo?.mobile}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -65,60 +72,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <p style="font-size: 15px"><b>Purpose of Submission</b></p>
-                    <table class="table table-condensed table-bordered">
-                        <tbody>
                         <tr>
-                            <td></td>
+                            <td>1</td>
+                            <td>{{loanDataHolder?.loan?.name}}</td>
+                            <td>{{dmsLoanFile?.proposedAmount}}</td>
+                            <td>{{dmsLoanFile?.interestRate}}</td>
+                            <td>{{dmsLoanFile?.tenure | date}}</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <p style="font-size: 15px"><b>Valuator's Detail</b></p>
-                    <table class="table table-condensed table-bordered">
-                        <tr>
-                            <th>Valuator Name</th>
-                            <th>Valuated Date</th>
-                            <th>Valuator Represenative Name</th>
-                            <th>Staff Representative Name</th>
-                        </tr>
-                        <tbody>
-                        <tr>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <p style="font-size: 15px"><b>Guarantor's Detail</b></p>
-                    <table class="table table-condensed table-bordered">
-                        <tr>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Cititzenship Number</th>
-                            <th>Contact Number</th>
-                            <th>Relationship</th>
-                        </tr>
-                        <tbody>
-                        <tr>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
 
             <div class="row mt-3">
                 <div class="col-md-12">
@@ -131,6 +96,10 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <tr *ngFor="let security of securities; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{Security[security]}}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -141,7 +110,7 @@
                     <table class="table table-condensed table-bordered">
                         <tbody>
                         <tr>
-                            <td></td>
+                            <td>{{dmsLoanFile?.recommendationConclusion}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -161,7 +130,12 @@
                         </tr>
                         </thead>
                         <tbody>
-
+                        <tr>
+                            <td>1</td>
+                            <td>{{dmsLoanFile?.waiver}}</td>
+                            <td>{{user.name}}</td>
+                            <td>{{user?.role?.roleName}}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -178,9 +152,36 @@
                         </tr>
                         </thead>
                         <tbody>
-
+                        <tr *ngFor="let document of documentNames; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{document}}</td>
+                            <td><i class="fa fa-download" (click)="download(i)" aria-hidden="true"
+                                   style="cursor: pointer"></i>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
+                </div>
+                <div *ngFor="let previous of signatureList;" class="col-md-6" style="padding-top: 50px">
+                    <div class="row d-flex justify-content-center signature">
+
+                        <img *ngIf="previous.toUser?.signatureImage !==null"  src="{{RootUrl}}{{previous.toUser?.signatureImage }}" height="100px" width="250px"/>
+                    </div>
+
+                    <div class="row d-flex justify-content-center">
+
+                        <hr style="border-top: 2px dotted #8c8b8b;background-color: #fff;  height: 1px;clear:both; display:block;width:50%">
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <span>{{previous?.toUser?.role.roleName}}</span>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <span>  <span>{{previous?.toUser?.username}}</span></span>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <span>(<span>{{previous?.toUser?.branch.name}}</span>)</span>
+                    </div>
+
                 </div>
             </div>
         </nb-card-body>

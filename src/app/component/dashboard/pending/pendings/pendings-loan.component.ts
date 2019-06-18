@@ -9,7 +9,7 @@ import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {LoanConfigService} from '../../../../feature/admin/component/loan-config/loan-config.service';
 import {DmsLoanService} from '../../../../feature/loan/component/loan-main-template/dms-loan-file/dms-loan-service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ToastService} from '../../../../@core/utils';
 import {DatePipe} from '@angular/common';
 import {LoanFormService} from '../../../../feature/loan/component/loan-form/service/loan-form.service';
@@ -28,6 +28,7 @@ export class PendingsLoanComponent implements OnInit {
     search: any = {
         documentStatus: 'PENDING'
     };
+
     loanList: Array<LoanConfig> = new Array<LoanConfig>();
     pageable: Pageable = new Pageable();
     spinner = false;
@@ -41,6 +42,7 @@ export class PendingsLoanComponent implements OnInit {
                 private loanFormService: LoanFormService,
                 private router: Router,
                 private toastService: ToastService,
+                private route: ActivatedRoute,
                 private datePipe: DatePipe) {
 
 
@@ -64,6 +66,9 @@ export class PendingsLoanComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.route.params.subscribe(params => {
+            this.search.documentStatus = params['name'];
+        });
         PendingsLoanComponent.loadData(this);
         this.userService.getLoggedInUser().subscribe(
             (response: any) => {

@@ -1,40 +1,30 @@
-<div>
-    <nb-accordion>
-        <nb-accordion-item>
-            <nb-accordion-item-header>Pending Loans &nbsp;<span style="color: red;">({{pendingCount}})</span>
-            </nb-accordion-item-header>
-            <nb-accordion-item-body>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <div class="row block border-bottom border-grey mb-1 list-group-item-action"
-                             *ngFor="let loanDataHolder of loanDataHolders"
-                             style="cursor: pointer">
-                            <div class="col-md-8 mt-1 " (click)="onClick(loanDataHolder.loan.id,loanDataHolder?.id)">
-                                <div>{{user?.branch?.name}} <span class="badge"
-                                                                  [ngClass]="{'badge-success':loanDataHolder?.dmsLoanFile?.priority=='MEDIUM','badge-info':loanDataHolder?.dmsLoanFile?.priority=='LOW','badge-danger':loanDataHolder?.dmsLoanFile?.priority=='HIGH'}">{{loanDataHolder?.dmsLoanFile?.priority}}</span>
-                                </div>
-                                <div>{{loanDataHolder?.dmsLoanFile?.proposedAmount}}</div>
-                                <small>{{loanDataHolder?.loan?.name}}</small>
-                            </div>
-                            <div class="col-md-4">
-                                <div>
-                                    <small>
-                                        Via {{loanDataHolder?.currentStage?.fromUser?.username}}
-                                    </small>
-                                </div>
-                                <div>
-                                    <small>{{loanDataHolder?.currentStage?.fromRole?.roleName}}</small>
-                                </div>
-                                <small>{{loanDataHolder?.branch?.name}}</small>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <div class="box-footer text-center">
-                    <a routerLink="/home/pending">View All Pending Loans</a>
-                </div>
-            </nb-accordion-item-body>
-        </nb-accordion-item>
-    </nb-accordion>
+<div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <a routerLink="/home/status/PENDING">
+            <app-icon-card title="Pendings" type="info" detail="{{pendingCount}}">
+                <i class="fas fa-hourglass"></i>
+            </app-icon-card>
+        </a>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <a routerLink="/home/status/APPROVED">
+            <app-icon-card title="Approved" type="success" detail="{{approvedCount}}">
+                <i class="fas fa-thumbs-up"></i>
+            </app-icon-card>
+        </a>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <a routerLink="/home/status/REJECTED">
+            <app-icon-card title="Rejected" type="info" detail="{{rejectedCount}}">
+                <i class="fa fa-ban"></i>
+            </app-icon-card>
+        </a>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <a routerLink="/home/status/CLOSED">
+            <app-icon-card title="Closed" type="success" detail="{{closedCount}}">
+                <i class="fa fa-times"></i>
+            </app-icon-card>
+        </a>
+    </div>
 </div>
-
