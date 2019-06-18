@@ -19,8 +19,8 @@ export class NewRequestService extends BaseService<Applicant> {
     return NewRequestService.API;
   }
 
-  getAllWithoutSearchObject(page, size): Observable<Object> {
-    const url = `${NewRequestService.API}?page=${page}&size=${size}`;
+  getAllWithSearchObject(page, size, eligibilityStatus): Observable<Object> {
+    const url = `${NewRequestService.API}?page=${page}&size=${size}&search=eligibilityStatus:${eligibilityStatus}`;
     const getUrl = ApiUtils.getRequest(url);
     return this.http.get(getUrl.url, {headers: getUrl.header});
   }

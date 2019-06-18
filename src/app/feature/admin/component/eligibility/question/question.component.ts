@@ -233,13 +233,11 @@ export class QuestionComponent implements OnInit {
                     this.questionList = new Array<Questions>();
                     this.qsnContent = new Questions();
                     this.onChangeSchemeOption();
-                    this.modalService.dismissAll('Close modal');
 
                 }, error => {
                     console.log(error);
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Delete Question'));
                     this.questionList = new Array<Questions>();
-                    this.modalService.dismissAll('Close modal');
                 }
             );
         }

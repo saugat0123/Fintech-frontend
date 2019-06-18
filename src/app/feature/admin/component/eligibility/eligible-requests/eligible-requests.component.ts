@@ -5,6 +5,7 @@ import {NewRequestService} from '../new-requests/new-request.service';
 import {ToastService} from '../../../../../@core/utils';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {Status} from '../../../modal/eligibility';
 
 @Component({
     selector: 'app-eligible-requests',
@@ -28,13 +29,8 @@ export class EligibleRequestsComponent implements OnInit {
 
         other.spinner = true;
         other.applicantList = [];
-        other.newRequestService.getAllWithoutSearchObject(other.page, 10).subscribe((response: any) => {
+        other.newRequestService.getAllWithSearchObject(other.page, 10, Status.ELIGIBLE).subscribe((response: any) => {
                 other.applicantList = response.detail.content;
-                other.applicantList.forEach((applicant, index) => {
-                    if (applicant.eligibilityStatus !== 'ELIGIBLE') {
-                        other.applicantList.splice(index, 1);
-                    }
-                });
                 other.pageable = PaginationUtils.getPageable(response.detail);
 
                 other.spinner = false;

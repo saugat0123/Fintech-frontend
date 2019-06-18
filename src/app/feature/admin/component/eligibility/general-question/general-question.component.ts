@@ -49,7 +49,7 @@ export class GeneralQuestionComponent implements OnInit {
             other.spinner = false;
         }, error => {
             console.log(error);
-            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Criteria List !!'));
+            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Criteria List !'));
             other.spinner = false;
         });
     }
@@ -185,12 +185,12 @@ export class GeneralQuestionComponent implements OnInit {
         this.eligibilityCriteria = this.generalQuestionForm.value;
         this.eligibilityCriteria.formula = this.formula;
         this.generalQuestionService.saveEligibilityCriteria(this.eligibilityCriteria).subscribe(() => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Criteria !!'));
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Criteria !'));
             this.eligibilityCriteria = new EligibilityCriteria();
             GeneralQuestionComponent.loadData(this);
         }, error => {
             console.log(error);
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Saved Criteria !!'));
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Saved Criteria !'));
             this.eligibilityCriteria = new EligibilityCriteria();
         });
         this.submitted = false;
@@ -204,11 +204,11 @@ export class GeneralQuestionComponent implements OnInit {
         this.eligibilityCriteria = this.generalQuestionForm.value;
         this.eligibilityCriteria.formula = this.formula;
         this.generalQuestionService.updateEligibilityCriteria(this.eligibilityCriteria, this.eligibilityCriteria.id).subscribe(() => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Criteria !!'));
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Criteria !'));
             GeneralQuestionComponent.loadData(this);
         }, error => {
             console.log(error);
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Update Criteria !!'));
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Update Criteria !'));
         });
         this.submitted = false;
     }
@@ -216,11 +216,11 @@ export class GeneralQuestionComponent implements OnInit {
     onDelete(criteriaId) {
         if (confirm('Are you sure you want to delete this Criteria?')) {
             this.generalQuestionService.deleteEligibilityCriteria(criteriaId).subscribe(() => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Deleted Criteria !!'));
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Deleted Criteria !'));
                 GeneralQuestionComponent.loadData(this);
             }, error => {
                 console.log(error);
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Delete Criteria !!'));
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Delete Criteria !'));
             });
         }
     }

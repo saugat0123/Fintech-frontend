@@ -25,7 +25,7 @@ export class NewRequestsComponent implements OnInit {
   static loadData(other: NewRequestsComponent) {
 
     other.spinner = true;
-    other.newRequestService.getAllWithoutSearchObject(other.page, 10).subscribe((response: any) => {
+    other.newRequestService.getAllWithSearchObject(other.page, 10, '').subscribe((response: any) => {
           other.applicantList = response.detail.content;
           other.pageable = PaginationUtils.getPageable(response.detail);
 
