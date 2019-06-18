@@ -26,10 +26,11 @@ export class NonEligibleRequestsComponent implements OnInit {
   static loadData(other: NonEligibleRequestsComponent) {
 
     other.spinner = true;
+    other.applicantList = [];
     other.newRequestService.getAllWithoutSearchObject(other.page, 10).subscribe((response: any) => {
           other.applicantList = response.detail.content;
           other.applicantList.forEach((applicant, index) => {
-            if (applicant.eligibilityStatus === 'ELIGIBLE') {
+            if (applicant.eligibilityStatus !== 'NOT_ELIGIBLE') {
               other.applicantList.splice(index, 1);
             }
           });

@@ -27,10 +27,11 @@ export class EligibleRequestsComponent implements OnInit {
     static loadData(other: EligibleRequestsComponent) {
 
         other.spinner = true;
+        other.applicantList = [];
         other.newRequestService.getAllWithoutSearchObject(other.page, 10).subscribe((response: any) => {
                 other.applicantList = response.detail.content;
                 other.applicantList.forEach((applicant, index) => {
-                    if (applicant.eligibilityStatus === 'NOT_ELIGIBLE') {
+                    if (applicant.eligibilityStatus !== 'ELIGIBLE') {
                         other.applicantList.splice(index, 1);
                     }
                 });
