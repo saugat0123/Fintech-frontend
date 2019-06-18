@@ -15,6 +15,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {NbDatepickerModule} from '@nebular/theme';
+import {NgxPrintModule} from 'ngx-print';
 
 
 @NgModule({
@@ -34,10 +35,10 @@ import {NbDatepickerModule} from '@nebular/theme';
         AppRoutingModule,
         DragDropModule,
         ThemeModule,
+        NgxPrintModule,
         NbDatepickerModule.forRoot(),
 
     ],
-
     providers: [CommonService, CommonDataService, AddressService, {
         provide: LocationStrategy,
         useClass: HashLocationStrategy

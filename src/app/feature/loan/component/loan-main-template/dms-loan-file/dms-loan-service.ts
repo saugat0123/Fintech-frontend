@@ -2,8 +2,6 @@ import {Injectable} from '@angular/core';
 import {DmsLoanFile} from '../../../../admin/modal/dms-loan-file';
 import {BaseService} from '../../../../../@core/BaseService';
 import {HttpClient} from '@angular/common/http';
-import {Document} from '../../../../admin/modal/document';
-import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
 
@@ -12,14 +10,6 @@ import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
 })
 export class DmsLoanService extends BaseService<DmsLoanFile> {
     static API = 'v1/dms-loan-file';
-    renew: Document[] = [];
-    initial: Document[] = [];
-    data: any;
-    loanType: string;
-    loanConfig: LoanConfig = new LoanConfig();
-    dmsLoanfile: Array<DmsLoanFile> = new Array<DmsLoanFile>();
-    dmsLoanid: number;
-    count: number;
 
     constructor(readonly http: HttpClient) {
         super(http);
@@ -40,65 +30,9 @@ export class DmsLoanService extends BaseService<DmsLoanFile> {
         return this.http.post(req.url, formData, {headers: req.header});
     }
 
-    public getDocumentByStatus(status: string): Observable<any> {
-        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/getLoanByStatus` + '?status=' + status);
-        return this.http.get(req.url, {headers: req.header});
-    }
-
-    setLoanName(name: string) {
-        this.loanType = name;
-    }
-
-    getLoanName() {
-        return this.loanType;
-    }
-
-    setInitialDocument(documents: Document[]) {
-        this.initial = documents;
-    }
-
-    setRenewDocument(documents: Document[]) {
-        this.renew = documents;
-    }
-
-    getInitialDocument() {
-        return this.initial;
-    }
-
-    getRenewDocument() {
-        return this.renew;
-    }
-
-    setLoan(loanConfig: LoanConfig) {
-        this.loanConfig = loanConfig;
-    }
-
-    getLoan() {
-        return this.loanConfig;
-    }
-
-    setDmsLoanFile(dmsLoanFile: DmsLoanFile) {
-        this.dmsLoanfile.push(dmsLoanFile);
-    }
-
-    getDmsLoanFile() {
-        return this.dmsLoanfile;
-    }
-
-    setDataList(datalist: Object) {
-        this.data = datalist;
-    }
-
-    getDataList() {
-        return this.data;
-    }
-
-    setId(id: number) {
-        this.dmsLoanid = id;
-    }
-
-    getId() {
-        return this.dmsLoanid;
+    public getDocumentByStatus(status: any): Observable<any> {
+        const req = ApiUtils.getRequest(`v1/loan-customer/status`);
+        return this.http.post(req.url, status, {headers: req.header});
     }
 
     protected getApi(): string {

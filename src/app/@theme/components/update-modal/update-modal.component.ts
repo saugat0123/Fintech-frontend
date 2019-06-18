@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CommonService} from '../../../@core/service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../@core/service/baseservice/common-pagination-service';
+import {ToastService} from '../../../@core/utils';
+import {Alert, AlertType} from '../../model/Alert';
 
 @Component({
     selector: 'app-update-modal',
@@ -21,15 +23,14 @@ export class UpdateModalComponent implements OnInit, DoCheck {
     constructor(private commonService: CommonService,
                 private router: Router,
                 private commonPageService: CommonPageService,
-                private modalService: NgbModal
+                private modalService: NgbModal,
+                private toastService: ToastService
     ) {
     }
 
     ngOnInit() {
-        this.data = {
-            id: null,
-            status: 'INACTIVE'
-        };
+
+
     }
 
     ngDoCheck(): void {
@@ -47,12 +48,12 @@ export class UpdateModalComponent implements OnInit, DoCheck {
     }
 
     updateStatus(data: any) {
-        console.log(this.currentApi);
-        this.commonService.saveOrEdit(this.data, this.currentApi).subscribe(result => {
+        console.log(this.data.api);
+        this.commonService.saveOrEdit(this.data.data, this.data.api).subscribe(result => {
                 this.modalService.dismissAll(UpdateModalComponent);
 
                 this.globalMsg = 'SUCCESSFULLY UPDATED STATUS';
-
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED STATUS'));
                 this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(e => {
                     if (e) {
                         this.router.navigate([this.currentUrl]);

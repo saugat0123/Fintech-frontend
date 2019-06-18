@@ -11,6 +11,10 @@ import {LoanConfigService} from '../../../../feature/admin/component/loan-config
 import {DmsLoanService} from '../../../../feature/loan/component/loan-main-template/dms-loan-file/dms-loan-service';
 import {Router} from '@angular/router';
 import {ToastService} from '../../../../@core/utils';
+import {DatePipe} from '@angular/common';
+import {LoanFormService} from '../../../../feature/loan/component/loan-form/service/loan-form.service';
+import {LoanDataHolder} from '../../../../feature/loan/model/loanData';
+import {DocStatus} from '../../../../feature/loan/model/docStatus';
 
 @Component({
     selector: 'app-pendings',
@@ -19,26 +23,36 @@ import {ToastService} from '../../../../@core/utils';
 })
 export class PendingsLoanComponent implements OnInit {
     dmsLoanFiles: Array<DmsLoanFile>;
+    loanDataHolders: Array<LoanDataHolder>;
     user: User = new User();
-    search: any = {};
+    search: any = {
+        documentStatus: 'PENDING'
+    };
     loanList: Array<LoanConfig> = new Array<LoanConfig>();
     pageable: Pageable = new Pageable();
     spinner = false;
     page = 1;
+    documentStatusList = DocStatus;
+
 
     constructor(private service: DmsLoanService,
                 private userService: UserService,
                 private loanConfigService: LoanConfigService,
+                private loanFormService: LoanFormService,
                 private router: Router,
-                private toastService: ToastService) {
+                private toastService: ToastService,
+                private datePipe: DatePipe) {
+
+
     }
+
 
     static loadData(other: PendingsLoanComponent) {
         other.spinner = true;
-        other.service.getPaginationWithSearchObject(other.search).subscribe(
+        other.loanFormService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe(
             (response: any) => {
                 other.dmsLoanFiles = response.detail.content;
-                other.service.setDataList(other.dmsLoanFiles);
+                other.loanDataHolders = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
             }, error => {
@@ -57,8 +71,8 @@ export class PendingsLoanComponent implements OnInit {
             }
         );
         this.loanConfigService.getAll().subscribe(
-            (response: LoanConfig) => {
-                this.loanList.push(response);
+            (response: any) => {
+                this.loanList = response.detail;
             }
         );
     }
@@ -68,19 +82,32 @@ export class PendingsLoanComponent implements OnInit {
     }
 
     onSearch() {
-        PendingsLoanComponent.loadData(this);
+        if (this.search.createdAt != null) {
+            const date = this.search.createdAt;
+            this.search.createdAt = this.datePipe.transform(date, 'yyyy-MM-dd');
 
+        }
+        PendingsLoanComponent.loadData(this);
     }
 
-    onClick(id: number) {
-        this.router.navigate(['/home/loan/summary', id]);
+    onChoose(loanConfigId) {
+        this.search.loanConfigId = loanConfigId;
+    }
+
+    statusSelect(docStatus) {
+        this.search.documentStatus = docStatus;
+    }
+
+    onClick(loanConfigId: number, customerId: number) {
+        this.spinner = true;
+        this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: loanConfigId, customerId: customerId}});
+
 
     }
 
     changePage(page: number) {
+
         this.page = page;
         PendingsLoanComponent.loadData(this);
     }
-
-
 }

@@ -111,12 +111,18 @@ export class LoanConfigComponent implements OnInit {
 
 
     onChange(newValue, data) {
+        const dataSend = {
+            data: data,
+            api: this.service.getApi()
+        };
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
         event.preventDefault();
         this.newValue = newValue;
-        this.modalService.open(UpdateModalComponent);
+        const modalRef = this.modalService.open(UpdateModalComponent);
+        modalRef.componentInstance.data = dataSend;
+
 
     }
 

@@ -16,7 +16,10 @@ export class UserService extends BaseService<User> {
     protected getApi(): string {
         return UserService.API;
     }
-
+    public getUserListByRoleId(id): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${UserService.API}/${id}/users`);
+        return this.http.get(req.url, {headers: req.header});
+    }
     public getUsersByRole(roles: any): Observable<any> {
         const req = ApiUtils.getRequest(`${UserService.API}/listByRole`);
 
