@@ -1,17 +1,17 @@
 <div class="row">
     <div class="col-md-4 col-sm-6 col-xs-12">
         <app-icon-card title="Branches" type="info" detail="{{branches}}">
-            <i class="fa fa-bank"></i>
+            <i class="fa fa-university"></i>
         </app-icon-card>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <app-icon-card title="Active" type="success" detail="{{activeCount}}">
-            <i class="fa fa-briefcase"></i>
+            <i class="fa fa-university"></i>
         </app-icon-card>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
         <app-icon-card title="Inactive" type="warning" detail="{{inactiveCount}}">
-            <i class="fa fa-address-book-o"></i>
+            <i class="fa fa-university"></i>
         </app-icon-card>
     </div>
 </div>
@@ -38,13 +38,15 @@
                     </div>
                     <!-- <h3 class="box-title">Hover Data Table</h3> -->
                     <div class="col-md-6">
-                        <button *ngIf='addViewBranch' class="skin-blue pull-right" data-toggle="modal"
-                                (click)="add()">
-                            <i class="skin-blue fa fa-plus"></i>
-                        </button>
-                        <a *ngIf='downloadCsv' class="pull-right btn btn-transparent-primary"
-                           (click)="getCsv()">
-                            <i class="fa fa-download" aria-hidden="true"></i> Download</a>
+                        <div class="float-right">
+                            <a *ngIf='downloadCsv' class="pull-right btn btn-transparent-primary"
+                               (click)="getCsv()">
+                                <i class="fa fa-download" aria-hidden="true"></i> Download</a>
+                            <button *ngIf='addViewBranch' class="skin-blue pull-right" data-toggle="modal"
+                                    (click)="add()">
+                                <i class="skin-blue fa fa-plus"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="row">

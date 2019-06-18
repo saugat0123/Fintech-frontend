@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {User} from '../../../../feature/admin/modal/user';
 import {UserService} from '../../../../@core/service/user.service';
 import {DmsLoanService} from '../../../../feature/loan/component/loan-main-template/dms-loan-file/dms-loan-service';
+import {LoanDataHolder} from '../../../../feature/loan/model/loanData';
+import {LoanFormService} from '../../../../feature/loan/component/loan-form/service/loan-form.service';
 
 
 @Component({
@@ -15,27 +17,36 @@ import {DmsLoanService} from '../../../../feature/loan/component/loan-main-templ
 export class PendingLoanComponent implements OnInit, DoCheck {
     dmsLoanFiles: Array<DmsLoanFile> = new Array<DmsLoanFile>();
     loanType: LoanConfig = new LoanConfig();
+    loanDataHolders: Array<LoanDataHolder> = new Array<LoanDataHolder>();
     user: User = new User();
+    customerId: number;
     pendingCount: number;
+    status = {
+        documentStatus: 'PENDING'
+    };
 
 
     constructor(private userService: UserService,
                 private router: Router,
-                private dmsLoanService: DmsLoanService
+                private dmsLoanService: DmsLoanService,
+                private loanFormService: LoanFormService
     ) {
     }
 
     ngOnInit() {
-        this.dmsLoanService.getDocumentByStatus('PENDING').subscribe(
-            (response: any) => {
-                this.dmsLoanFiles = response.detail;
 
-            });
-        this.dmsLoanService.getStatus().subscribe(
+        this.loanFormService.getCustomerLoanCount().subscribe(
             (response: any) => {
-                this.pendingCount = response.detail.pendings;
+                this.pendingCount = response.detail.pending;
+            });
+
+        this.loanFormService.getLoanByStatus(this.status).subscribe(
+            (response: any) => {
+
+                this.loanDataHolders = response.detail;
             }
         );
+
         this.userService.getLoggedInUser().subscribe(
             (response: any) => {
                 this.user = response.detail;
@@ -44,8 +55,9 @@ export class PendingLoanComponent implements OnInit, DoCheck {
 
     }
 
-    onClick(id) {
-        this.router.navigate(['/home/loan/summary', id]);
+    onClick(id, customerId) {
+
+        this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: id, customerId: customerId}});
     }
 
     ngDoCheck(): void {

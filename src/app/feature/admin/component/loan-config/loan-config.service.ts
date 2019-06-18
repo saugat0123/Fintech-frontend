@@ -13,7 +13,7 @@ export class LoanConfigService extends BaseService<LoanConfig> {
         super(http);
     }
 
-    protected getApi(): string {
+    public getApi(): string {
         return LoanConfigService.API;
     }
 

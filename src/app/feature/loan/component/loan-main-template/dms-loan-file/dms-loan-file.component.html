@@ -160,8 +160,10 @@
                                                        [ngClass]="{'is-invalid':proceeded && docForm.file.errors}"
                                                        accept=".png, .jpg" multiple=""
                                                        (change)="documentUploader($event,document.name)">
-                                                <div *ngIf="proceeded && docForm.file.errors" class="invalid-feedback">
-                                                    <div *ngIf="docForm.file.errors.required">Please upload the required
+                                                <div *ngIf="proceeded && docForm.file.errors"
+                                                     class="invalid-feedback">
+                                                    <div *ngIf="docForm.file.errors.required">Please upload the
+                                                        required
                                                         documents
                                                     </div>
                                                 </div>
@@ -169,6 +171,9 @@
                                         </tr>
                                         </tbody>
                                     </table>
+                                    <div *ngFor="let path of imageUrl">
+                                        <img width="100%" id="image" [src]="path"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -202,11 +207,6 @@
                             </div>
                         </div>
 
-                    </div>
-                </div>
-                <div class="row" [hidden]="!proceed">
-                    <div class="col-md-3 pull-right">
-                        <button class="btn btn-sm btn-flat btn-primary" type="submit">Save</button>
                     </div>
                 </div>
             </form>

@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import {Router} from '@angular/router';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Customer} from '../../../../admin/modal/customer';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 import {Province} from '../../../../admin/modal/province';
@@ -19,7 +19,8 @@ import {AddressService} from '../../../../../@core/service/baseservice/address.s
     styleUrls: ['./basic-info.component.css']
 })
 export class BasicInfoComponent implements OnInit {
-    @Input() formValue: any;
+    @Input() formValue: Customer;
+
     customer: Customer = new Customer();
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
     basicInfo: FormGroup;
@@ -42,87 +43,84 @@ export class BasicInfoComponent implements OnInit {
     ) {
     }
 
-    // ngDoCheck() {
-    //     this.onSubmit();
-    // }
-
-
     ngOnInit() {
+
+        if (this.formValue !== undefined) {
+            this.customer = this.formValue;
+        }
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
+                this.provinceList.forEach(province => {
+                    if (this.customer !== undefined) {
+                        if (this.customer.province !== undefined && province.id === this.customer.province.id) {
+                            this.basicInfo.controls.province.setValue(province);
+                            this.getDistricts(province);
+                        }
+                    }
+                });
             }
         );
         this.basicInfo = this.formBuilder.group({
-            title: [undefined],
-            customerName: [undefined],
-            customerId: [undefined],
-            accountNo: [undefined],
-            province: [undefined],
-            district: [undefined],
-            municipalitiesOrVDC: [undefined],
-            telephone: [undefined],
-            mobile: [undefined],
-            email: [undefined],
-            initialRelationDate: [undefined],
-            citizenshipNumber: [undefined],
-            citizenshipIssuedPlace: [undefined],
-            citizenshipIssuedDate: [undefined]
+            title: [this.customer.title === undefined ? '' : this.customer.title, Validators.required],
+            customerName: [this.customer.customerName === undefined ? '' : this.customer.customerName, Validators.required],
+            customerId: [this.customer.customerId === undefined ? '' : this.customer.customerId, Validators.required],
+            accountNo: [this.customer.accountNo === undefined ? '' : this.customer.accountNo, Validators.required],
+            province: [this.customer.province === null ? '' : this.customer.province, Validators.required],
+            district: [this.customer.district === null ? '' : this.customer.district, Validators.required],
+            municipalities: [this.customer.municipalities === null ? '' : this.customer.municipalities, Validators.required],
+            telephone: [this.customer.telephone === undefined ? '' : this.customer.telephone, Validators.required],
+            mobile: [this.customer.mobile === undefined ? '' : this.customer.mobile, Validators.required],
+            email: [this.customer.email === undefined ? '' : this.customer.email, Validators.required],
+            initialRelationDate: [this.customer.initialRelationDate === undefined ? '' :
+                this.customer.initialRelationDate, Validators.required],
+            citizenshipNumber: [this.customer.citizenshipNumber === undefined ? '' : this.customer.citizenshipNumber, Validators.required],
+            citizenshipIssuedPlace: [this.customer.issuedPlace === undefined ? '' : this.customer.issuedPlace, Validators.required],
+            citizenshipIssuedDate: [this.customer.citizenshipIssuedDate === undefined ? '' :
+                this.customer.citizenshipIssuedDate, Validators.required],
         });
-        if (this.loanDataService.getCustomer().customerName !== undefined) {
-            this.customer = this.loanDataService.getCustomer();
-            this.province = this.customer.province;
-            this.getDistricts();
-            this.district = this.customer.district;
-            this.getMunicipalities();
-            this.municipality = this.customer.municipalitiesOrVDC;
-            console.log(this.customer);
-            this.basicInfo = this.formBuilder.group({
-                title: [this.customer.title],
-                customerName: [this.customer.customerName],
-                customerId: [this.customer.customerId],
-                accountNo: [this.customer.accountNo],
-                province: [this.province],
-                district: [this.district],
-                municipalitiesOrVDC: new FormControl(this.municipality),
-                telephone: [this.customer.telephone],
-                mobile: [this.customer.mobile],
-                email: [this.customer.email],
-                initialRelationDate: [this.customer.initialRelationDate],
-                citizenshipNumber: [this.customer.citizenshipNumber],
-                citizenshipIssuedPlace: [this.customer.issuedPlace],
-                citizenshipIssuedDate: [this.customer.citizenshipIssuedDate]
-            });
-        }
-
-
+        /*if (this.formValue !== undefined) {
+            this.loanDataService.setCustomer(this.formValue);
+        }*/
     }
 
-    getDistricts() {
-        this.province = this.basicInfo.get('province').value;
-        this.commonLocation.getDistrictByProvince(this.province).subscribe(
+    getDistricts(province: Province) {
+        this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.districtList = response.detail;
+                this.districtList.forEach(district => {
+                    if (this.customer.district !== undefined && district.id === this.customer.district.id) {
+                        this.basicInfo.controls.district.setValue(district);
+                        this.getMunicipalities(district);
+                    }
+                });
             }
         );
     }
 
-    getMunicipalities() {
-        this.commonLocation.getMunicipalityVDCByDistrict(this.district).subscribe(
+    getMunicipalities(district: District) {
+        this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.municipalitiesList = response.detail;
+                this.municipalitiesList.forEach(municipality => {
+                    if (this.customer.municipalities !== undefined && municipality.id === this.customer.municipalities.id) {
+                        this.basicInfo.controls.municipalities.setValue(municipality);
+                    }
+                });
             }
         );
+
     }
 
     onSubmit() {
+
         this.customer.title = this.basicInfo.get('title').value;
         this.customer.customerName = this.basicInfo.get('customerName').value;
         this.customer.customerId = this.basicInfo.get('customerId').value;
         this.customer.accountNo = this.basicInfo.get('accountNo').value;
         this.customer.province = this.basicInfo.get('province').value;
         this.customer.district = this.basicInfo.get('district').value;
-        this.customer.municipalitiesOrVDC = this.basicInfo.get('municipalitiesOrVDC').value;
+        this.customer.municipalities = this.basicInfo.get('municipalities').value;
         this.customer.telephone = this.basicInfo.get('telephone').value;
         this.customer.mobile = this.basicInfo.get('mobile').value;
         this.customer.email = this.basicInfo.get('email').value;
@@ -134,4 +132,5 @@ export class BasicInfoComponent implements OnInit {
 
         console.log('running state');
     }
+
 }
