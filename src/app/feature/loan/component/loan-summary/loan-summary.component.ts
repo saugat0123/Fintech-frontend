@@ -107,7 +107,7 @@ export class LoanSummaryComponent implements OnInit {
                     }
                 });
                 if (this.loanDataHolder.currentStage.docAction.toString() === 'APPROVED' ||
-                    this.loanDataHolder.currentStage.docAction.toString() === 'REJECTED' ||
+                    this.loanDataHolder.currentStage.docAction.toString() === 'REJECT' ||
                     this.loanDataHolder.currentStage.docAction.toString() === 'CLOSED') {
                     this.actionsList.approved = false;
                     this.actionsList.sendForward = false;

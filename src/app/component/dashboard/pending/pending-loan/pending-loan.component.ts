@@ -39,7 +39,6 @@ export class PendingLoanComponent implements OnInit {
     ngOnInit() {
         this.loanFormService.getStatus().subscribe(
             (response: any) => {
-                console.log(response.detail);
                 this.pendingCount = response.detail.pending;
                 this.approvedCount = response.detail.Approved;
                 this.rejectedCount = response.detail.Rejected;
