@@ -8,7 +8,7 @@ const routes: Routes = [
     {
         path: '', component: FeatureComponent,
         children: [
-            {path: 'pending', component: PendingsLoanComponent},
+            {path: 'status/:name', component: PendingsLoanComponent},
             {path: 'dashboard', component: DashboardComponent},
             {path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
             {path: 'memo', loadChildren: './memo/memo.module#MemoModule'},

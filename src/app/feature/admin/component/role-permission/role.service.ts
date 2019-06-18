@@ -25,7 +25,7 @@ export class RoleService extends BaseService<Role> {
     }
 
     public checkRoleContainMaker(): Observable<any> {
-        const api = `${RoleService.API}/chkMaker`;
+        const api = `${RoleService.API}/maker`;
         const req = ApiUtils.getRequest(api);
 
         return this.http.get(req.url, {headers: req.header});

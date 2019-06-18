@@ -21,7 +21,7 @@ import {NgxPrintModule} from 'ngx-print';
 @NgModule({
     declarations: [
         AppComponent,
-        LoginComponent
+        LoginComponent,
     ],
     imports: [
         BrowserModule,

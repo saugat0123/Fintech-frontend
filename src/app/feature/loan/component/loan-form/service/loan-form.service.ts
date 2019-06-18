@@ -29,6 +29,18 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, status, {headers: req.header});
     }
 
+    public getProposedAmount() {
+        const api = `${this.getApi()}/proposed-amount`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
+    public getLoanAmountByBranch(id: number) {
+        const api = `${this.getApi()}/loan-amount/${id}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
     protected getApi(): string {
         return LoanFormService.API;
     }

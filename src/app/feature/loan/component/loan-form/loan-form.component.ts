@@ -24,7 +24,6 @@ import {DateService} from '../../../../@core/service/baseservice/date.service';
     styleUrls: ['./loan-form.component.css'],
 })
 export class LoanFormComponent implements OnInit {
-
     loanFile: DmsLoanFile;
     loanTitle: string;
 
