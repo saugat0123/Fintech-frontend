@@ -20,7 +20,6 @@ export class ApprovalOpeningAccountComponent implements OnInit {
     title = 'Approved Opening Account';
     page = 1;
     openingForms: Array<OpeningForm>;
-    currentApi: string;
     pageable: Pageable = new Pageable();
     branch: Branch = new Branch();
     spinner = false;

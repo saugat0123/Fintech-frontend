@@ -40,7 +40,6 @@ export class OpenOpeningComponentComponent implements OnInit {
     accountPurposeList: Array<AccountPurpose> = new Array<AccountPurpose>();
     accountTypeList: Array<AccountType> = new Array<AccountType>();
     accountPurpose: AccountPurpose = new AccountPurpose();
-    allId;
     id = 0;
 
     constructor(
@@ -67,14 +66,7 @@ export class OpenOpeningComponentComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.activatedRoute.queryParams.subscribe(
-            (paramsValue: Params) => {
-                this.allId = {
-                    openingFormId: null
-                };
-                this.allId = paramsValue;
-                this.id = this.allId.openingFormId;
-            });
+        this.id = Number(this.activatedRoute.snapshot.queryParamMap.get('openingFormId'));
         this.accountPurposeService.getByAccountPurposeWithoutToken().subscribe((response: any) => {
             this.accountPurposeList = response.detail;
         });

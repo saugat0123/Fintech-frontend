@@ -4,7 +4,7 @@ import {LoanDataHolder} from '../model/loanData';
 import {LoanConfig} from '../../admin/modal/loan-config';
 import {Document} from '../../admin/modal/document';
 import {DmsLoanFile} from '../../admin/modal/dms-loan-file';
-import {Customer} from '../model/customer';
+import {Customer} from '../../admin/modal/customer';
 
 
 @Injectable({

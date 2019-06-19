@@ -8,7 +8,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {LoanTemplateService} from '../loan-template/loan-template.service';
 import {DocumentService} from '../../document/document.service';
 import {LoanConfigService} from '../loan-config.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({
@@ -25,31 +25,73 @@ export class UIComponent implements OnInit {
     loanTemplateList: any;
     confirmLoanTemplateList = Array<LoanTemplate>();
     loanConfig: LoanConfig = new LoanConfig();
-    fundable: boolean;
-    renewal: boolean;
     show = false;
     submitted: boolean;
-    initialDocument = Array<Document>();
-    renewalDocument = Array<Document>();
-    eligibilityDocument = Array<Document>();
-    documentList = Array<Document>();
+    initialDocumentList =  [];
+    finalInitialDocument = Array<Document>();
+    renewalDocumentList = [];
+    finalRenewalDocument = Array<Document>();
+    eligibilityDocumentList = [];
+    finalEligibilityDocument = Array<Document>();
+    id: number;
 
     constructor(
         private loanTemplateService: LoanTemplateService,
         private documentService: DocumentService,
         private service: LoanConfigService,
         private toastService: ToastService,
-        private router: Router
+        private router: Router,
+        private route: ActivatedRoute
     ) {
-
+        this.getTemplate();
     }
 
     ngOnInit() {
-        this.getTemplate();
-
+        this.id = Number(this.route.snapshot.queryParamMap.get('id'));
         this.documentService.getAll().subscribe((response: any) => {
-            this.documentList = response.detail;
+            this.initialDocumentList = response.detail;
         });
+        this.documentService.getAll().subscribe((response: any) => {
+            this.renewalDocumentList = response.detail;
+        });
+        this.documentService.getAll().subscribe((response: any) => {
+            this.eligibilityDocumentList = response.detail;
+        });
+        if (this.id !== undefined && this.  id !== 0) {
+            this.service.detail(this.id).subscribe((response: any) => {
+                this.loanConfig = response.detail;
+                this.loanConfig.templateList.forEach(loanConfigTemplate => {
+                    if (loanConfigTemplate.id === loanConfigTemplate.id) {
+                        this.confirmLoanTemplateList.push(loanConfigTemplate);
+                        this.loanTemplateList.splice(this.loanTemplateList.indexOf(loanConfigTemplate), 1);
+                    }
+                });
+                this.initialDocumentList.forEach(initialDocument => {
+                    this.loanConfig.initial.forEach(loanConfigInitialDocument => {
+                        if (initialDocument.id === loanConfigInitialDocument.id) {
+                            this.finalInitialDocument.push(initialDocument);
+                            initialDocument.checked = true;
+                        }
+                    });
+                });
+                this.renewalDocumentList.forEach(renewalDocument => {
+                    this.loanConfig.renew.forEach(loanConfigRenewalDocument => {
+                        if (renewalDocument.id === loanConfigRenewalDocument.id) {
+                            this.finalRenewalDocument.push(renewalDocument);
+                            renewalDocument.checked = true;
+                        }
+                    });
+                });
+                this.eligibilityDocumentList.forEach(eligibilityDocument => {
+                    this.loanConfig.eligibilityDocuments.forEach(loanEligibilityDocument => {
+                        if (eligibilityDocument.id === loanEligibilityDocument.id) {
+                            this.finalEligibilityDocument.push(eligibilityDocument);
+                            eligibilityDocument.checked = true;
+                        }
+                    });
+                });
+            });
+        }
     }
 
     getTemplate() {
@@ -62,7 +104,6 @@ export class UIComponent implements OnInit {
 
             console.log(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Templates'));
-
             this.spinner = false;
         });
 
@@ -81,26 +122,6 @@ export class UIComponent implements OnInit {
         this.confirmLoanTemplateList.splice(this.confirmLoanTemplateList.indexOf(t), 1);
     }
 
-    setFunableTrue() {
-        this.fundable = true;
-        console.log(this.fundable);
-    }
-
-    setFunableFalse() {
-        this.fundable = false;
-        console.log(this.fundable);
-    }
-
-    setRenewalTrue() {
-        this.renewal = true;
-        console.log(this.renewal);
-    }
-
-    setRenewalFalse() {
-        this.renewal = false;
-        console.log(this.renewal);
-    }
-
     toggle() {
         this.show = !this.show;
     }
@@ -108,41 +129,39 @@ export class UIComponent implements OnInit {
     updateInitialDocument(events, document: Document) {
         const d: Document = document;
         if (events.target.checked === true) {
-            this.initialDocument.push(d);
-            console.log(this.initialDocument);
+            this.finalInitialDocument.push(d);
+            console.log(this.finalInitialDocument);
         } else {
-            const index: number = this.initialDocument.indexOf(d);
+            const index: number = this.finalInitialDocument.indexOf(d);
             if (index !== -1) {
-                this.initialDocument.splice(index, 1);
-                console.log(this.initialDocument);
+                this.finalInitialDocument.splice(index, 1);
             }
+            console.log(this.finalInitialDocument);
         }
     }
 
     updateRenewalDocument(events, document: Document) {
         const d: Document = document;
         if (events.target.checked === true) {
-            this.renewalDocument.push(d);
-            console.log(this.renewalDocument);
+            this.finalRenewalDocument.push(d);
+            console.log(this.finalRenewalDocument);
         } else {
-            const index: number = this.renewalDocument.indexOf(d);
+            const index: number = this.finalRenewalDocument.indexOf(d);
             if (index !== -1) {
-                this.renewalDocument.splice(index, 1);
-                console.log(this.renewalDocument);
+                this.finalRenewalDocument.splice(index, 1);
             }
+            console.log(this.finalRenewalDocument);
         }
     }
 
     updateEligibilityDocument(events, document: Document) {
         const d: Document = document;
         if (events.target.checked === true) {
-            this.renewalDocument.push(d);
-            console.log(this.renewalDocument);
+            this.finalEligibilityDocument.push(d);
         } else {
-            const index: number = this.renewalDocument.indexOf(d);
+            const index: number = this.finalEligibilityDocument.indexOf(d);
             if (index !== -1) {
-                this.renewalDocument.splice(index, 1);
-                console.log(this.renewalDocument);
+                this.finalEligibilityDocument.splice(index, 1);
             }
         }
     }
@@ -150,13 +169,10 @@ export class UIComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
         this.globalMsg = 'test successful';
-        this.loanConfig.isRenewable = this.renewal;
-        this.loanConfig.isFundable = this.fundable;
         this.loanConfig.templateList = this.confirmLoanTemplateList;
-        this.loanConfig.initial = this.initialDocument;
-        this.loanConfig.renew = this.renewalDocument;
-        this.loanConfig.eligibilityDocuments = this.eligibilityDocument;
-        console.log(this.loanConfig);
+        this.loanConfig.initial = this.finalInitialDocument;
+        this.loanConfig.renew = this.finalRenewalDocument;
+        this.loanConfig.eligibilityDocuments = this.finalEligibilityDocument;
         this.service.save(this.loanConfig).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Config!'));
                 this.loanConfig = new LoanConfig();

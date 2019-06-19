@@ -59,6 +59,7 @@ import {ApprovalOpeningAccountComponent} from './component/opening-account/appro
 import {RejectedOpeningAccountComponent} from './component/opening-account/rejected-opening-account/rejected-opening-account.component';
 import {NgxPrintModule} from 'ngx-print';
 import { OpeningAccountPrintComponent } from './component/opening-account/opening-account-print/opening-account-print.component';
+import { GeneralQuestionComponent } from './component/eligibility/general-question/general-question.component';
 
 @NgModule({
     declarations: [
@@ -108,7 +109,9 @@ import { OpeningAccountPrintComponent } from './component/opening-account/openin
         OpenOpeningComponentComponent,
         ApprovalOpeningAccountComponent,
         RejectedOpeningAccountComponent,
-        OpeningAccountPrintComponent
+        OpeningAccountPrintComponent,
+        GeneralQuestionComponent
+
         // SecurityComponent
     ],
     imports: [

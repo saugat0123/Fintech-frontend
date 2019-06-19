@@ -1,13 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import {Router} from '@angular/router';
 
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {BasicInfoService} from '../../../service/basic-info.service';
-import {Customer} from '../../../model/customer';
-import {CustomerRelative} from '../../../model/customer-relative';
-import {Kyc} from '../../../model/kyc';
 import {LoanDataService} from '../../../service/loan-data.service';
+import {Customer} from '../../../../admin/modal/customer';
+import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 
 @Component({
     selector: 'app-kyc-info',
@@ -19,12 +16,9 @@ export class KycInfoComponent implements OnInit {
 
     customer: Customer;
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
-    kyc: Kyc = new Kyc();
-    basicInfo: FormGroup;
+    kycInfo: FormGroup;
 
     constructor(
-        private service: BasicInfoService,
-        private router: Router,
         private formBuilder: FormBuilder,
         private loanDataService: LoanDataService
     ) {
@@ -34,22 +28,28 @@ export class KycInfoComponent implements OnInit {
         if (this.formValue !== undefined) {
             this.customer = this.formValue;
         }
+        console.log(this.customer);
         this.customer = this.loanDataService.getCustomer();
-        this.basicInfo = this.formBuilder.group({
+        console.log(this.customer);
+        this.kycInfo = this.formBuilder.group({
             otherRelatives: this.formBuilder.array([
                 this.relativeFormGroup()
             ])
         });
+        console.log(this.customer.customerRelatives);
+        if (this.customer.customerRelatives !== undefined) {
+            console.log('in');
+            this.kycInfo.setControl('otherRelatives', this.setRelativeForm(this.customer.customerRelatives));
+        }
     }
 
     onSubmit() {
-        this.kyc.customerRelatives = this.basicInfo.get('otherRelatives').value;
-        this.customer.kyc = this.kyc;
+        this.customer.customerRelatives = this.kycInfo.get('otherRelatives').value;
         this.loanDataService.setCustomer(this.customer);
     }
 
     addCustomerRelative() {
-        (<FormArray>this.basicInfo.get('otherRelatives')).push(this.relativeFormGroup());
+        (<FormArray>this.kycInfo.get('otherRelatives')).push(this.relativeFormGroup());
     }
 
     relativeFormGroup(): FormGroup {
@@ -63,7 +63,22 @@ export class KycInfoComponent implements OnInit {
     }
 
     removeRelative(index: number) {
-        (<FormArray>this.basicInfo.get('otherRelatives')).removeAt(index);
+        (<FormArray>this.kycInfo.get('otherRelatives')).removeAt(index);
+    }
+
+    setRelativeForm(relativeList: Array<CustomerRelative>): FormArray {
+        const relativeFormArray = new FormArray([]);
+        relativeList.forEach(relative => {
+            console.log(relative);
+            relativeFormArray.push(this.formBuilder.group({
+                customerRelation: relative.customerRelation,
+                customerRelativeName: relative.customerRelativeName,
+                citizenshipNumber: relative.citizenshipNumber,
+                citizenshipIssuedDate: relative.citizenshipIssuedDate,
+                citizenshipIssuedPlace: relative.citizenshipIssuedPlace
+            }));
+        });
+        return relativeFormArray;
     }
 
 

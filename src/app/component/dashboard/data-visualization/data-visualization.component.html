@@ -1,0 +1,29 @@
+<div class="row mt-3">
+    <div class="col-md-11">
+        <nb-card>
+            <nb-card-header class="text-center"><h1>Data Visualization</h1></nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-3 float-right mb-5">
+                        <select (change)="onChange($event)" class="form-control">
+                            <option>All Branches</option>
+                            <option *ngFor="let branch of branches" [value]="branch.id">{{branch.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="pie">
+                            <ngx-charts-advanced-pie-chart
+                                    [view]="view"
+                                    [scheme]="colorScheme"
+                                    [results]="pieChart">
+                            </ngx-charts-advanced-pie-chart>
+                        </div>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

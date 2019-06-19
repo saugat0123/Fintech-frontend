@@ -4,7 +4,7 @@ import {DmsLoanFile} from '../../admin/modal/dms-loan-file';
 import {LoanConfig} from '../../admin/modal/loan-config';
 import {DocStatus} from './docStatus';
 import {Priority} from './priority';
-import {Customer} from './customer';
+import {Customer} from '../../admin/modal/customer';
 
 export class LoanDataHolder {
     id: number;

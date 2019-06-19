@@ -20,7 +20,6 @@ export class OpeningAccountComponent implements OnInit {
     page = 1;
     search: any = {};
     openingForms: Array<OpeningForm> = new Array<OpeningForm>();
-    currentApi: string;
     pageable: Pageable = new Pageable();
     branch: Branch = new Branch();
     spinner = false;

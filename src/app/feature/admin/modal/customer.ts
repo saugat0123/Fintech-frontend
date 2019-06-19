@@ -20,6 +20,6 @@ export class Customer {
     initialRelationDate: Date;
     citizenshipNumber: string;
     citizenshipIssuedDate: Date;
-    issuedPlace: string;
+    citizenshipIssuedPlace: string;
     customerRelatives: Array<CustomerRelative>;
 }

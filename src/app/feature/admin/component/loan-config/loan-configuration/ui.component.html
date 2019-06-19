@@ -18,10 +18,11 @@
                             <label for="fundable"><h4>Loan Type</h4></label>
                             <div class="row ml-2">
                                 <nb-radio-group class="col-md-12 d-contents form-control" id="fundable"
+                                                [(ngModel)]="loanConfig.isFundable"
                                                 name="fundable">
-                                    <nb-radio class="form-group" (click)="setFunableTrue()" value="true">Fundable
+                                    <nb-radio class="form-group" [value]=true>Fundable
                                     </nb-radio>
-                                    <nb-radio class="form-group" (click)="setFunableFalse()" value="false">Non-Fundable
+                                    <nb-radio class="form-group" [value]=false>Non-Fundable
                                     </nb-radio>
                                 </nb-radio-group>
                             </div>
@@ -71,10 +72,11 @@
                         <label for="renewable"><h4>Renewable</h4></label><br>
                         <div class="row ml-2">
                             <nb-radio-group class="col-md-12 d-contents form-control" id="renewable"
+                                            [(ngModel)]="loanConfig.isRenewable"
                                             name="renewable">
-                                <nb-radio class="form-group" (click)="setRenewalTrue()" value="true">Renewable
+                                <nb-radio class="form-group" [value]="true">Renewable
                                 </nb-radio>
-                                <nb-radio class="form-group" (click)="setRenewalFalse()" value="false">Non-Renewable
+                                <nb-radio class="form-group" [value]="false">Non-Renewable
                                 </nb-radio>
                             </nb-radio-group>
                         </div>
@@ -90,11 +92,14 @@
                                 <nb-accordion-item-body>
                                     <div class="row">
                                         <div class="col-md-4"
-                                             *ngFor="let document of documentList; let documentIndex = index">
-                                            <nb-checkbox id="{{'initialDocument'+documentIndex}}" status="primary"
-                                                         (change)="updateInitialDocument($event,document)">
-                                                {{document.name}}
-                                            </nb-checkbox>
+                                             *ngFor="let initialDocument of initialDocumentList; let documentIndex = index">
+                                            <div>
+                                                <nb-checkbox id="{{'initialDocument'+documentIndex}}" status="primary"
+                                                             (change)="updateInitialDocument($event,initialDocument)"
+                                                             [value]="initialDocument.checked">
+                                                    {{initialDocument.name}}
+                                                </nb-checkbox>
+                                            </div>
                                         </div>
                                     </div>
                                 </nb-accordion-item-body>
@@ -107,10 +112,12 @@
                                 <nb-accordion-item-header>Renew</nb-accordion-item-header>
                                 <nb-accordion-item-body>
                                     <div class="row">
-                                        <div class="col-md-4" *ngFor="let document of documentList; let documentIndex = index;">
+                                        <div class="col-md-4"
+                                             *ngFor="let renewalDocument of renewalDocumentList; let documentIndex = index;">
                                             <nb-checkbox id="{{'renewDocument'+documentIndex}}" status="primary"
-                                                    (change)="updateRenewalDocument($event,document)">
-                                                <span>{{document.name}}</span>
+                                                         (change)="updateRenewalDocument($event,renewalDocument)"
+                                                         [value]="renewalDocument.checked">
+                                                <span>{{renewalDocument.name}}</span>
                                             </nb-checkbox>
                                         </div>
                                     </div>
@@ -127,10 +134,12 @@
                                 <nb-accordion-item-header>Eligibility</nb-accordion-item-header>
                                 <nb-accordion-item-body>
                                     <div class="row">
-                                        <div class="col-md-4" *ngFor="let document of documentList; let documentIndex = index">
+                                        <div class="col-md-4"
+                                             *ngFor="let eligibilityDocument of eligibilityDocumentList; let documentIndex = index">
                                             <nb-checkbox id="{{'eligibility'+documentIndex}}" status="primary"
-                                                         (change)="updateEligibilityDocument($event,document)">
-                                                <span>{{document.name}}</span>
+                                                         (change)="updateEligibilityDocument($event,eligibilityDocument)"
+                                                         [value]="eligibilityDocument.checked">
+                                                <span>{{eligibilityDocument.name}}</span>
                                             </nb-checkbox>
                                         </div>
                                     </div>

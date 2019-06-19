@@ -122,8 +122,6 @@ export class CompanyInfoComponent implements OnInit, DoCheck {
     setManagementTeams(managementTeamList: ManagementTeam[]): FormArray {
         const managementTeamFormArray = new FormArray([]);
         managementTeamList.forEach(managementTeam => {
-            console.log(managementTeam);
-            console.log(managementTeam.name);
             managementTeamFormArray.push(this.formBuilder.group({
                 name: managementTeam.name,
                 designation: managementTeam.designation

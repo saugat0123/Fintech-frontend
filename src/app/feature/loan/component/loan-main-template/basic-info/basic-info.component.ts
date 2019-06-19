@@ -10,7 +10,7 @@ import {LoanDataService} from '../../../service/loan-data.service';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
-import {Customer} from '../../../model/customer';
+import {Customer} from '../../../../admin/modal/customer';
 
 
 @Component({
@@ -61,6 +61,7 @@ export class BasicInfoComponent implements OnInit {
                 });
             }
         );
+        console.log(this.customer.citizenshipIssuedPlace);
         this.basicInfo = this.formBuilder.group({
             title: [this.customer.title === undefined ? '' : this.customer.title, Validators.required],
             customerName: [this.customer.customerName === undefined ? '' : this.customer.customerName, Validators.required],
@@ -75,13 +76,11 @@ export class BasicInfoComponent implements OnInit {
             initialRelationDate: [this.customer.initialRelationDate === undefined ? '' :
                 this.customer.initialRelationDate, Validators.required],
             citizenshipNumber: [this.customer.citizenshipNumber === undefined ? '' : this.customer.citizenshipNumber, Validators.required],
-            citizenshipIssuedPlace: [this.customer.issuedPlace === undefined ? '' : this.customer.issuedPlace, Validators.required],
+            citizenshipIssuedPlace: [this.customer.citizenshipIssuedPlace === undefined ? '' : this.customer.citizenshipIssuedPlace,
+                Validators.required],
             citizenshipIssuedDate: [this.customer.citizenshipIssuedDate === undefined ? '' :
                 this.customer.citizenshipIssuedDate, Validators.required],
         });
-        /*if (this.formValue !== undefined) {
-            this.loanDataService.setCustomer(this.formValue);
-        }*/
     }
 
     getDistricts(province: Province) {
@@ -116,6 +115,8 @@ export class BasicInfoComponent implements OnInit {
 
         this.customer.title = this.basicInfo.get('title').value;
         this.customer.customerName = this.basicInfo.get('customerName').value;
+        console.log(this.basicInfo.get('customerId').value);
+        console.log(this.basicInfo.get('citizenshipIssuedPlace').value);
         this.customer.customerId = this.basicInfo.get('customerId').value;
         this.customer.accountNo = this.basicInfo.get('accountNo').value;
         this.customer.province = this.basicInfo.get('province').value;
@@ -126,7 +127,7 @@ export class BasicInfoComponent implements OnInit {
         this.customer.email = this.basicInfo.get('email').value;
         this.customer.initialRelationDate = this.basicInfo.get('initialRelationDate').value;
         this.customer.citizenshipNumber = this.basicInfo.get('citizenshipNumber').value;
-        this.customer.issuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
+        this.customer.citizenshipIssuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
         this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
         this.loanDataService.setCustomer(this.customer);
 
