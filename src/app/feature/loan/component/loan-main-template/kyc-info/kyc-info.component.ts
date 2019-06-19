@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 import {Router} from '@angular/router';
 
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {Customer} from '../../../../admin/modal/customer';
-import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 import {BasicInfoService} from '../../../service/basic-info.service';
+import {Customer} from '../../../model/customer';
+import {CustomerRelative} from '../../../model/customer-relative';
+import {Kyc} from '../../../model/kyc';
 
 @Component({
     selector: 'app-kyc-info',
@@ -13,9 +14,11 @@ import {BasicInfoService} from '../../../service/basic-info.service';
     styleUrls: ['./kyc-info.component.css']
 })
 export class KycInfoComponent implements OnInit {
+    @Input() formValue: Customer;
 
-    customer: Customer = new Customer();
+    customer: Customer;
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
+    kyc: Kyc = new Kyc();
     basicInfo: FormGroup;
 
     constructor(
@@ -26,6 +29,9 @@ export class KycInfoComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (this.formValue !== undefined) {
+            this.customer = this.formValue;
+        }
         this.basicInfo = this.formBuilder.group({
             otherRelatives: this.formBuilder.array([
                 this.relativeFormGroup()
@@ -34,7 +40,8 @@ export class KycInfoComponent implements OnInit {
     }
 
     onSubmit() {
-        this.customer.customerRelatives = this.basicInfo.get('otherRelatives').value;
+        this.kyc.customerRelatives = this.basicInfo.get('otherRelatives').value;
+        this.customer.kyc = this.kyc;
         this.service.save(this.customer).subscribe();
         this.router.navigate(['home/loan/company-info']);
     }

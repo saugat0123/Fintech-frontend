@@ -1,111 +1,111 @@
-/** CSS fix for existing template with Bootstrap 4 **/
+/*!** CSS fix for existing template with Bootstrap 4 **!*/
 
-.content-wrapper {
-    min-height: 1100px !important;
-}
+/*.content-wrapper {*/
+/*    min-height: 1100px !important;*/
+/*}*/
 
-.main-header .navbar {
-    height: 50px;
-    padding-top: 0;
-    padding-bottom: 0;
-}
+/*.main-header .navbar {*/
+/*    height: 50px;*/
+/*    padding-top: 0;*/
+/*    padding-bottom: 0;*/
+/*}*/
 
-.navbar-custom-menu .navbar-nav {
-    flex-direction: row;
-}
+/*.navbar-custom-menu .navbar-nav {*/
+/*    flex-direction: row;*/
+/*}*/
 
-.main-header .sidebar-toggle {
-    padding: 0;
-}
+/*.main-header .sidebar-toggle {*/
+/*    padding: 0;*/
+/*}*/
 
-.table th, .table td {
-    text-align: justify;
-    padding: 2px;
-    vertical-align: top;
-    border-top: 1px solid #dee2e6;
-}
+/*.table th, .table td {*/
+/*    text-align: justify;*/
+/*    padding: 2px;*/
+/*    vertical-align: top;*/
+/*    border-top: 1px solid #dee2e6;*/
+/*}*/
 
-.navbar-custom-menu > .navbar-nav > li {
-    margin-left: 15px;
-    position: relative;
-}
+/*.navbar-custom-menu > .navbar-nav > li {*/
+/*    margin-left: 15px;*/
+/*    position: relative;*/
+/*}*/
 
-.main-sidebar {
-    padding-top: 0px;
-}
-
-
-/** End of CSS fix **/
-
-/** Start of Dashboard Box **/
-.dashboard-box .box-body {
-    max-height: 300px;
-    overflow-y: scroll;
-}
+/*.main-sidebar {*/
+/*    padding-top: 0px;*/
+/*}*/
 
 
-/** End of Dashboard box **/
+/*!** End of CSS fix **!*/
 
-/** Start of Pagination box **/
+/*!** Start of Dashboard Box **!*/
+/*.dashboard-box .box-body {*/
+/*    max-height: 300px;*/
+/*    overflow-y: scroll;*/
+/*}*/
 
-.page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    cursor: default;
-    background-color: #337ab7;
-    border-color: #337ab7;
-}
 
-.page-custom {
-    padding-top: 10px;
-}
+/*!** End of Dashboard box **!*/
 
-.viewBtn {
-    background-color: #3c8dbc;
-}
+/*!** Start of Pagination box **!*/
 
-.title {
-    font-weight: 700;
-}
+/*.page-item.active .page-link {*/
+/*    z-index: 3;*/
+/*    color: #fff;*/
+/*    cursor: default;*/
+/*    background-color: #337ab7;*/
+/*    border-color: #337ab7;*/
+/*}*/
+
+/*.page-custom {*/
+/*    padding-top: 10px;*/
+/*}*/
+
+/*.viewBtn {*/
+/*    background-color: #3c8dbc;*/
+/*}*/
+
+/*.title {*/
+/*    font-weight: 700;*/
+/*}*/
 
 .cursor {
     cursor: pointer;
 }
 
-html, body {
-    height: 100vh;
-}
-
-body {
-    font-size: 12px;
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-label {
-    font-weight: 500;
-    padding-top: 10px;
-    margin-bottom: 2px;
-
-}
-
-.redP {
-    color: red;
-}
-
-.greenP {
-    color: green;
-}
-
-
-/*.select-borderless{*/
-/*border: none;*/
-/*border-bottom: 1px solid #0062cc;*/
+/*html, body {*/
+/*    height: 100vh;*/
 /*}*/
-.document {
-    font-size: 18px;
-}
 
-.d-contents{
-    display: contents;
-}
+/*body {*/
+/*    font-size: 12px;*/
+/*    margin: 0;*/
+/*    font-family: Roboto, "Helvetica Neue", sans-serif;*/
+/*}*/
+
+/*label {*/
+/*    font-weight: 500;*/
+/*    padding-top: 10px;*/
+/*    margin-bottom: 2px;*/
+
+/*}*/
+
+/*.redP {*/
+/*    color: red;*/
+/*}*/
+
+/*.greenP {*/
+/*    color: green;*/
+/*}*/
+
+
+/*!*.select-borderless{*!*/
+/*!*border: none;*!*/
+/*!*border-bottom: 1px solid #0062cc;*!*/
+/*!*}*!*/
+/*.document {*/
+/*    font-size: 18px;*/
+/*}*/
+
+/*.d-contents{*/
+/*    display: contents;*/
+/*}*/

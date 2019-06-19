@@ -16,12 +16,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {NbDatepickerModule} from '@nebular/theme';
 import {NgxPrintModule} from 'ngx-print';
+import {ForgotPasswordComponent} from './component/forgot-password/forgot-password.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        LoginComponent
+        LoginComponent,
+        ForgotPasswordComponent
     ],
     imports: [
         BrowserModule,

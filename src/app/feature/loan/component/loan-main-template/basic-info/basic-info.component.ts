@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Customer} from '../../../../admin/modal/customer';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 import {Province} from '../../../../admin/modal/province';
 import {District} from '../../../../admin/modal/district';
@@ -11,6 +10,7 @@ import {LoanDataService} from '../../../service/loan-data.service';
 import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
+import {Customer} from '../../../model/customer';
 
 
 @Component({

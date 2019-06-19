@@ -17,6 +17,7 @@ import {BasicInfoComponent} from '../loan-main-template/basic-info/basic-info.co
 import {DmsLoanFileComponent} from '../loan-main-template/dms-loan-file/dms-loan-file.component';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
 import {DateService} from '../../../../@core/service/baseservice/date.service';
+import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -74,6 +75,8 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('entityInfo')
     entityInfo: CompanyInfoComponent;
+    @ViewChild('kycInfo')
+    kycInfo: KycInfoComponent;
 
     constructor(
         private dataService: CommonDataService,

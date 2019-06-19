@@ -363,7 +363,6 @@ export class OpenOpeningComponentComponent implements OnInit {
         (this.openingAccount.get('applicantDetail') as FormArray).removeAt(index);
     }
 
-
     addApplicantDetail() {
         (this.openingAccount.get('applicantDetail') as FormArray).push(this.applicantDetailFormGroup());
     }

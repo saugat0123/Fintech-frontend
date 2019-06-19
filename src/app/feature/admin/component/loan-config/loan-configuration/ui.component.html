@@ -33,7 +33,7 @@
                     <div class="col-md-5">
                         <div class="form-group">
                             <div class="box box-default border border-gray rounded" style="height: 300px">
-                                <div class="box-body" style="cursor: pointer;">
+                                <div class="box-body" class="cursor">
                                     <div class="col-sm-offset-2 col-sm-10"
                                          *ngFor="let loanTemplate of loanTemplateList">
                                         <div (dblclick)="updateSelectTemplate(loanTemplate)">
@@ -53,7 +53,7 @@
                     <div class="col-md-5">
                         <div class="form-group">
                             <div class="box box-default border border-gray rounded" style="height: 300px">
-                                <div class="box-body" style="cursor: pointer;">
+                                <div class="box-body cursor">
                                     <div class="col-sm-offset-2 col-sm-10"
                                          *ngFor="let confirmLoanTemplate of confirmLoanTemplateList">
                                         <div (dblclick)="updateUnselectTemplate(confirmLoanTemplate)">

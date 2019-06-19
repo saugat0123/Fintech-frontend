@@ -26,13 +26,13 @@
                         <form (ngSubmit)="onSearch()">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <input type="text" [(ngModel)]="search.name"
+                                    <input type="text" [(ngModel)]="search.name" class="cursor"
                                            (input)="onSearchChange($event.target.value)" name="name"
                                            placeholder="search...."
                                            nbInput fullWidth>
                                 </div>
                                 <div class="col-md-4">
-                                    <button type="submit" nbButton outline status="primary">
+                                    <button type="submit" style="cursor: pointer" nbButton outline status="primary">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </div>
@@ -42,7 +42,7 @@
                     <!-- <h3 class="box-title">Hover Data Table</h3> -->
                     <div class="col-md-6">
                         <div class="float-right">
-                            <a class="pull-right btn btn-transparent-primary" (click)="getCsv()">
+                            <a class="pull-right btn btn-transparent-primary" style="cursor: pointer" (click)="getCsv()">
                                 <i class="fa fa-download" aria-hidden="true"></i> Download</a>
                             <button class="skin-blue pull-right" data-toggle="modal" (click)="add()">
                                 <i class="skin-blue fa fa-plus"></i>
