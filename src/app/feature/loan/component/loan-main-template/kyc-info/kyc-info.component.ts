@@ -7,6 +7,7 @@ import {BasicInfoService} from '../../../service/basic-info.service';
 import {Customer} from '../../../model/customer';
 import {CustomerRelative} from '../../../model/customer-relative';
 import {Kyc} from '../../../model/kyc';
+import {LoanDataService} from '../../../service/loan-data.service';
 
 @Component({
     selector: 'app-kyc-info',
@@ -24,7 +25,8 @@ export class KycInfoComponent implements OnInit {
     constructor(
         private service: BasicInfoService,
         private router: Router,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private loanDataService: LoanDataService
     ) {
     }
 
@@ -32,6 +34,7 @@ export class KycInfoComponent implements OnInit {
         if (this.formValue !== undefined) {
             this.customer = this.formValue;
         }
+        this.customer = this.loanDataService.getCustomer();
         this.basicInfo = this.formBuilder.group({
             otherRelatives: this.formBuilder.array([
                 this.relativeFormGroup()
@@ -42,8 +45,7 @@ export class KycInfoComponent implements OnInit {
     onSubmit() {
         this.kyc.customerRelatives = this.basicInfo.get('otherRelatives').value;
         this.customer.kyc = this.kyc;
-        this.service.save(this.customer).subscribe();
-        this.router.navigate(['home/loan/company-info']);
+        this.loanDataService.setCustomer(this.customer);
     }
 
     addCustomerRelative() {
@@ -64,8 +66,5 @@ export class KycInfoComponent implements OnInit {
         (<FormArray>this.basicInfo.get('otherRelatives')).removeAt(index);
     }
 
-    previousPage() {
-        this.router.navigate(['home/loan/basic-info']);
-    }
 
 }

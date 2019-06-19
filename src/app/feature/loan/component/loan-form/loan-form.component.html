@@ -13,10 +13,10 @@
 
     </ul>
     <div class="tab-content">
-<!--
+
         <app-basic-info [formValue]="loanDocument?.customerInfo"
                         *ngIf="selectedTab==='Customer Info' && loanDocument"
-                        #basicInfo>-->
+                        #basicInfo></app-basic-info>
         <app-kyc-info [formValue]="loanDocument?.customerInfo"
                       *ngIf="selectedTab==='Kyc Info' && loanDocument"
                       #kycInfo></app-kyc-info>
