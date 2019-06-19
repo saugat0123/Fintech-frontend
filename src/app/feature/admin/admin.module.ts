@@ -53,6 +53,7 @@ import {ThemeModule} from '../../@theme/theme.module';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {MsgModalComponent, UpdateModalComponent} from '../../@theme/components';
+import { GeneralQuestionComponent } from './component/eligibility/general-question/general-question.component';
 
 @NgModule({
     declarations: [
@@ -98,6 +99,7 @@ import {MsgModalComponent, UpdateModalComponent} from '../../@theme/components';
         EligibleRequestsComponent,
         NonEligibleRequestsComponent,
         NewRequestsComponent,
+        GeneralQuestionComponent,
 
         // SecurityComponent
     ],

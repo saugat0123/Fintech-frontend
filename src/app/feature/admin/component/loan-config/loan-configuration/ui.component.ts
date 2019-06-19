@@ -136,13 +136,13 @@ export class UIComponent implements OnInit {
     updateEligibilityDocument(events, document: Document) {
         const d: Document = document;
         if (events.target.checked === true) {
-            this.renewalDocument.push(d);
-            console.log(this.renewalDocument);
+            this.eligibilityDocument.push(d);
+            console.log(this.eligibilityDocument);
         } else {
-            const index: number = this.renewalDocument.indexOf(d);
+            const index: number = this.eligibilityDocument.indexOf(d);
             if (index !== -1) {
-                this.renewalDocument.splice(index, 1);
-                console.log(this.renewalDocument);
+                this.eligibilityDocument.splice(index, 1);
+                console.log(this.eligibilityDocument);
             }
         }
     }
