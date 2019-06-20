@@ -9,4 +9,5 @@ export class LoanStage {
     toRole: Role;
     comment: string;
     docAction: DocAction;
+
 }

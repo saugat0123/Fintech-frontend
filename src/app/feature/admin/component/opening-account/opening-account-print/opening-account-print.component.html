@@ -1,0 +1,833 @@
+<nb-card id="formId" hidden>
+    <nb-card-header>
+        <div class="wizard-title text-center"><h1> {{openingForm?.accountType?.name}} Opening Account</h1></div>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="form-group">
+                <input hidden="id" type="text"/>
+                <!-- START ROW -->
+                <div class="row form-group">
+                    <div class="col-md-8">
+                        <label for="branch"><b>Bank Branch:- </b></label>
+                        <span id="branch"> {{openingForm?.branch?.name}}</span>
+                    </div>
+                    <div class="offset-sm-1">
+                        <label for="requestedDate"><b>Requested Date:- </b></label>
+                        <span id="requestedDate"> {{openingForm?.requestedDate | date}}</span>
+                    </div>
+                </div>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label for="purposeOfAccount"><b>Purpose of Account:- </b></label>
+                        <span id="purposeOfAccount"> {{openingForm?.openingAccount?.purposeOfAccount?.name}}</span>
+                    </div>
+                </div>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row form-group">
+                    <div class="col-md-8">
+                        <label for="accountType"><b>Account Type:- </b></label>
+                        <span id="accountType"> {{openingForm?.accountType?.name}}</span>
+                    </div>
+                </div>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="haveExistingAccount"><b>Have Existing Account:- </b></label>
+                        <span id="haveExistingAccount"> {{openingForm?.openingAccount?.haveExistingAccountNo === true ? 'Yes' : 'No'}}</span>
+                    </div>
+                    <div class="col-md-4" [hidden]="openingForm?.openingAccount?.haveExistingAccountNo !== true">
+                        <span> {{openingForm?.openingAccount?.existingAccountNo}}</span>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="accountCurrency"><b>Currency Type:- </b></label>
+                            <span id="accountCurrency"> {{openingForm?.openingAccount?.currency}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="jointAccountRadio"><b>Joint Account:- </b></label>
+                        <span id="jointAccountRadio"> {{openingForm?.openingAccount?.haveJoint === true ? 'Yes' : 'No'}}</span>
+                    </div>
+                </div>
+                <!-- END ROW -->
+                <div *ngFor="let applicantDetail of openingForm?.openingAccount?.openingCustomers;
+                  let applicantIndex = index">
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="box-header with-border col-md-9">
+                            <h2 class="box-title title"><b>Applicant {{applicantIndex + 1}} Details</b></h2>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="customerTitle"><b>Customer Title:- </b></label>
+                                <span id="customerTitle"> {{applicantDetail?.title}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="customerFirstName"><b>Customer First Name:- </b></label>
+                                <span id="customerFirstName"> {{applicantDetail?.firstName}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="customerMiddleName"><b>Customer Middle Name:- </b></label>
+                                <span id="customerMiddleName"> {{applicantDetail?.middleName}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="customerLastName"><b>Customer Last Name:- </b></label>
+                                <span id="customerLastName"> {{applicantDetail?.lastName}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantMaritalStatus">
+                                    <b>Applicant's Marital Status:- </b>
+                                </label>
+                                <span id="applicantMaritalStatus"> {{applicantDetail?.maritalStatus}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantGender"><b>Applicant Gender:- </b></label>
+                                <span id="applicantGender"> {{applicantDetail?.gender}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantEducationalQualification">
+                                    <b>Education Qualification:- </b>
+                                </label>
+                                <span id="applicantEducationalQualification"> {{applicantDetail?.education}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Permanent Address:- </b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPermanentProvince">
+                                    <b>Applicant Permanent Province:- </b>
+                                </label>
+                                <span id="applicantPermanentProvince"> {{applicantDetail?.permanentProvince}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPermanentDistrict">
+                                    <b>Applicant Permanent District:- </b>
+                                </label>
+                                <span id="applicantPermanentDistrict"> {{applicantDetail?.permanentDistrict}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPermanentMunicipalityOrVDC">
+                                    <b>Applicant Permanent Municipality/VDC:- </b></label>
+                                <span id="applicantPermanentMunicipalityOrVDC"> {{applicantDetail?.permanentMunicipality}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPermanentWard"><b>Applicant Permanent Ward:- </b></label>
+                                <span id="applicantPermanentWard"> {{applicantDetail?.permanentWard}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPermanentStreet"><b>Applicant Permanent Street:- </b></label>
+                                <span id="applicantPermanentStreet"> {{applicantDetail?.permanentStreet}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPermanentHouseNo">
+                                    <b>Applicant Permanent House Number:- </b>
+                                    <span id="applicantPermanentHouseNo"> {{applicantDetail?.permanentHouseNumber}}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Present Address:- </b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPresentProvince"><b>Applicant Present Province:- </b></label>
+                                <span id="applicantPresentProvince"> {{applicantDetail?.presentProvince}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPresentDistrict"><b>Applicant Present District:- </b></label>
+                                <span id="applicantPresentDistrict"> {{applicantDetail?.presentDistrict}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPresentMunicipalityOrVDC">
+                                    <b>Applicant Present Municipality/VDC:- </b>
+                                </label>
+                                <span id="applicantPresentMunicipalityOrVDC"> {{applicantDetail?.presentMunicipality}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPresentWard"><b>Applicant Present Ward:- </b></label>
+                                <span id="applicantPresentWard"> {{applicantDetail?.presentWard}}</span>
+                            </div>
+                        </div><div class="col-md-4">
+                        <div class="form-group">
+                            <label for="applicantPresentStreet"><b>Applicant Present Street:- </b></label>
+                            <span id="applicantPresentStreet"> {{applicantDetail?.presentStreet}}</span>
+                        </div>
+                    </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPresentHouseNo">
+                                    <b>Applicant Present House Number:- </b>
+                                </label>
+                                <span id="applicantPresentHouseNo"> {{applicantDetail?.presentHouseNumber}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>In case of residing in Rented House:- </b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="applicantLandLordName"><b>Applicant Land Lord Name:- </b></label>
+                                <span id="applicantLandLordName"> {{applicantDetail?.landLordName}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="applicantLandLordContactNumber">
+                                    <b>Applicant Land Lord Contact Number:- </b>
+                                </label>
+                                <span id="applicantLandLordContactNumber"> {{applicantDetail?.landLordContactNo}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Contact Number:- </b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantResidentialContact"><b>Resident Contact Number:- </b></label>
+                                <span id="applicantResidentialContact"> {{applicantDetail?.residentialContactNo}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantOfficeContact"><b>Office Contact Number:- </b></label>
+                                <span id="applicantOfficeContact"> {{applicantDetail?.officeContactNo}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantMobileContact"><b>Mobile Number:- </b></label>
+                                <span id="applicantMobileContact"> {{applicantDetail?.mobileContactNo}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="applicantEmail"><b>Resident Email:- </b></label>
+                                <span id="applicantEmail"> {{applicantDetail?.email}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Applicant Relative</b></h4>
+                    </div>
+                    <div class="border-bottom border-dark m-4 row">
+
+                            <div class="col-md-6"
+                                 *ngFor="let relative of applicantDetail?.kyc?.customerRelatives;
+                          let relativeIndex = index">
+                                <div class="form-group">
+                                    <label for="applicantRelation"><b>{{relative?.customerRelation}}:-</b></label>
+                                    <span id="applicantRelation"> {{relative?.customerRelativeName}}</span>
+                                </div>
+                            <!--<div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="applicantRelativeName"><b>Relative Name:- </b></label>
+                                    <span id="applicantRelativeName">{{relative?.customerRelativeName}}</span>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Applicant Identification</b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantNationality"><b>Nationality:- </b></label>
+                                <span id="applicantNationality"> {{applicantDetail?.nationality}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantDateOfBirth"><b>Date of Birth:- </b></label>
+                                <span id="applicantDateOfBirth"> {{applicantDetail?.dateOfBirthAD | date}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPanNumber"><b>Applicant PAN Number:- </b></label>
+                                <span id="applicantPanNumber"> {{applicantDetail?.panNo}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Citizenship Details</b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantCitizenNumber"><b>Applicant Citizen Number:- </b></label>
+                                <span id="applicantCitizenNumber"> {{applicantDetail?.citizenNumber}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantCitizenIssuedPlace"><b>Place of issue:- </b></label>
+                                <span id="applicantCitizenIssuedPlace"> {{applicantDetail?.citizenIssuedPlace}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantCitizenIssuedDate">
+                                    <b>Applicant Citizen Issued Date:- </b>
+                                </label>
+                                <span id="applicantCitizenIssuedDate"> {{applicantDetail?.citizenIssuedDate | date}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+
+
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Passport Details</b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPassportNumber"><b>Applicant Passport Number:- </b></label>
+                                <span id="applicantPassportNumber"> {{applicantDetail?.passportNumber}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPassportIssuedPlace"><b>Place of issue:- </b></label>
+                                <span id="applicantPassportIssuedPlace"> {{applicantDetail?.passportIssuedPlace}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPassportIssuedDate">
+                                    <b>Applicant Passport Issued Date:- </b></label>
+                                <span id="applicantPassportIssuedDate"> {{applicantDetail?.passportIssuedDate | date}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="applicantPassportExpireDate">
+                                    <b>Applicant Passport Expire Date:- </b>
+                                </label>
+                                <span id="applicantPassportExpireDate"> {{applicantDetail?.passportExpireDate | date}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Employment Details</b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row" [hidden]="applicantDetail?.salariedEmployedWith === undefined">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="salariedEmployedWith">
+                                    <b>Salaried Employed with:- </b>
+                                </label>
+                                <span id="salariedEmployedWith"> {{applicantDetail?.salariedEmployedWith}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row" [hidden]="applicantDetail?.selfEmployedWith === undefined">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="selfEmployedWith">
+                                    <b>Self Employed with:- </b>
+                                </label>
+                                <span id="selfEmployedWith"> {{applicantDetail?.selfEmployedWith}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Occupational Details</b></h4>
+                    </div>
+                    <div class="border-bottom border-dark m-4"
+                         *ngFor="let occupation of applicantDetail?.kyc?.occupationalDetails;
+                         let occupationIndex = index">
+                        <!-- START ROW -->
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="box-header with-border">
+                                    <h5 class="box-title title"><b>{{occupationIndex + 1.}} Occupation</b></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END ROW -->
+                        <!-- START ROW -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="nameOfOrganization"><b>Name of Organization:- </b></label>
+                                    <span id="nameOfOrganization"> {{occupation?.nameOfOrganization}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="organizationAddress"><b>Address:- </b></label>
+                                    <span id="organizationAddress"> {{occupation?.address}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="organizationTelephone"><b>Telephone Number:- </b></label>
+                                    <span id="organizationTelephone"> {{occupation?.telNo}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END ROW -->
+                        <!-- START ROW -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="organizationBusiness"><b>Nature of Business:- </b></label>
+                                    <span id="organizationBusiness"> {{occupation?.natureOfBusiness}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="applicantDesignation"><b>Designation:- </b></label>
+                                    <span id="applicantDesignation"> {{occupation?.designation}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="annualIncomeFromOrganization">
+                                        <b>Estimated Annual Income:- </b>
+                                    </label>
+                                    <span id="annualIncomeFromOrganization"> {{occupation?.estimatedAnnualIncome}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END ROW -->
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label for="haveAccountInOtherBank">
+                                <b>Have Account In Other Bank:- </b>
+                            </label>
+                            <span id="haveAccountInOtherBank"> {{applicantDetail?.accountInAnotherBank  === true ? 'Yes' : 'No'}}</span>
+                        </div>
+                        <div class="col-md-4 form-group"
+                             [hidden]="applicantDetail?.accountInAnotherBank !== true">
+                            <label for="accountInOtherBankName"><b>Bank Name:- </b></label>
+                            <span id="accountInOtherBankName"> {{applicantDetail?.bankName}}</span>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="otherIncomeSource"><b>Other Source of Income:- </b></label>
+                                <span id="otherIncomeSource"> {{applicantDetail?.otherSourceOfIncome}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <div class="box-header with-border">
+                        <h4 class="box-title title"><b>Declarative</b></h4>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                                <label for="isPoliticallyExposed">
+                                    Are you a Politically Exposed Person (PEP) or are you associated with any PEP?
+                                </label>
+                        </div>
+                        <span id="isPoliticallyExposed" class="ml-4">{{applicantDetail?.exposeToPep === true ? 'Yes' : 'No'}}</span>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row" [hidden]="applicantDetail?.exposeToPep !== true">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="pepName"><b>Please specify the name of PEP:- </b></label>
+                                <span id="pepName"> {{applicantDetail?.pepName}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="pepRelationWithApplicant"><b>Designation/Position:- </b></label>
+                                <span id="pepRelationWithApplicant"> {{applicantDetail?.pepDesignation}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                                <label for="isConvictedForCrime">
+                                    Declaration of Convicted/Non Convicted for any crime in past?
+                                </label>
+                        </div>
+                        <span id="isConvictedForCrime" class="ml-4">{{applicantDetail?.convictedOfCrime === true ? 'Yes' : 'No'}}</span>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row" [hidden]="applicantDetail?.convictedOfCrime !== true">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="crimeConvictedFor">
+                                    Please specify convicted/non convicted crime:-
+                                </label>
+                                <span id="crimeConvictedFor"> {{applicantDetail?.convictedCrime}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                                <label for="holdResidentialOfForeign">
+                                    Do you hold Residential Permit of foreign country?
+                                </label>
+                        </div>
+                        <span id="holdResidentialOfForeign" class="ml-4">{{applicantDetail?.residentialPermitOfForeign === true ? 'Yes' : 'No'}}</span>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row" [hidden]="applicantDetail?.residentialPermitOfForeign !== true">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="holdResidentialOfForeignType">
+                                    Please specify the following details: Residential Status:-
+                                </label>
+                                <span id="holdResidentialOfForeignType"> {{applicantDetail?.residentialPermitOfForeignType}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                                <label for="isUsResident">Are you a U.S. Resident? </label>
+                        </div>
+                        <span id="isUsResident" class="ml-4">{{applicantDetail?.usResident === true ? 'Yes' : 'No'}}</span>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                                <label for="isUsCitizen">Are you a U.S. Citizen?</label>
+                            </div>
+                        <span id="isUsCitizen" class="ml-4">{{applicantDetail?.usCitizen === true ? 'Yes' : 'No'}}</span>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                                <label for="isUsGreenCardHolder">
+                                    Are you a U.S. Permanent Resident Card (Green Card) Holder?
+                                </label>
+                        </div>
+                        <span id="isUsGreenCardHolder" class="ml-4">{{applicantDetail?.greenCardHolder === true ? 'Yes' : 'No'}}</span>
+                    </div>
+                    <!-- END ROW -->
+                </div>
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="nomineeRadio"><b>Have Nominee:- </b></label>
+                            <span id="nomineeRadio"> {{openingForm?.openingAccount?.haveNominee === true ? 'Yes' : 'No'}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
+                <div [hidden]="openingForm?.openingAccount?.haveNominee !== true">
+                    <div class="box-header with-border">
+                        <h3 class="box-title title"><b>Applicant Nominee</b></h3>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="nomineeName"><b>Nominee Name:- </b></label>
+                                <span id="nomineeName"> {{openingForm?.openingAccount?.nominee?.fullName}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="relationWithNominee"><b>Relation With Nominee:- </b></label>
+                                <span id="relationWithNominee"> {{openingForm?.openingAccount?.nominee?.relationToMe}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="nomineeDateOfBirth"><b>Nominee Date of Birth:- </b></label>
+                                <span id="nomineeDateOfBirth"> {{openingForm?.openingAccount?.nominee?.dateOfBirth | date}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="nomineeContactNumber"><b>Nominee Contact Number:- </b></label>
+                                <span id="nomineeContactNumber"> {{openingForm?.openingAccount?.nominee?.contactNumber}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="nomineePermanentAddress"><b>Nominee Permanent Address:- </b></label>
+                                <span id="nomineePermanentAddress"> {{openingForm?.openingAccount?.nominee?.permanentAddress}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="nomineePresentAddress"><b>Nominee Present Address:- </b></label>
+                                <span id="nomineePresentAddress"> {{openingForm?.openingAccount?.nominee?.temporaryAddress}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="nomineeCitizenshipNumber"><b>Citizenship Number:- </b></label>
+                                <span id="nomineeCitizenshipNumber"> {{openingForm?.openingAccount?.nominee?.citizenNumber}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="nomineeCitizenshipIssueAddress"><b>Citizenship Issued Address:- </b></label>
+                                <span id="nomineeCitizenshipIssueAddress"> {{openingForm?.openingAccount?.nominee?.issuedPlace}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                </div>
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="beneficiaryRadio"><b>Have Beneficiary:- </b></label>
+                            <span id="beneficiaryRadio"> {{openingForm?.openingAccount?.haveBeneficiary === true ? 'Yes' : 'No'}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
+                <div [hidden]="openingForm?.openingAccount?.haveBeneficiary !== true">
+                    <div class="box-header with-border">
+                        <h3 class="box-title title"><b>Applicant Beneficiary Details</b></h3>
+                    </div>
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="beneficiaryName"><b>Beneficiary Name:- </b></label>
+                                <span id="beneficiaryName"> {{openingForm?.openingAccount?.beneficiary?.fullName}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="relationWithBeneficiary"><b>Relation With Beneficiary:- </b></label>
+                                <span id="relationWithBeneficiary"> {{openingForm?.openingAccount?.beneficiary?.relationToMe}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="beneficiaryDateOfBirth"><b>Beneficiary Date of Birth:- </b></label>
+                                <span id="beneficiaryDateOfBirth"> {{openingForm?.openingAccount?.beneficiary?.dateOfBirth | date}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="beneficiaryContactNumber"><b>Beneficiary Contact Number:- </b></label>
+                                <span id="beneficiaryContactNumber"> {{openingForm?.openingAccount?.beneficiary?.contactNumber}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="beneficiaryAddress"><b>Beneficiary Permanent Address:- </b></label>
+                                <span id="beneficiaryAddress"> {{openingForm?.openingAccount?.beneficiary?.permanentAddress}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="beneficiaryPresentAddress"><b>Beneficiary Present Address:- </b></label>
+                                <span id="beneficiaryPresentAddress"> {{openingForm?.openingAccount?.beneficiary?.temporaryAddress}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                    <!-- START ROW -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="beneficiaryCitizenshipNumber"><b>Citizenship Number:- </b></label>
+                                <span id="beneficiaryCitizenshipNumber"> {{openingForm?.openingAccount?.beneficiary?.citizenNumber}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="beneficiaryCitizenshipIssueAddress"><b>Citizenship Issued
+                                    Address:- </b></label>
+                                <span id="beneficiaryCitizenshipIssueAddress"> {{openingForm?.openingAccount?.beneficiary?.issuedPlace}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END ROW -->
+                </div>
+                <div class="box-header with-border">
+                    <h3 class="box-title title"><b>Account Transaction Details</b></h3>
+                </div>
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="annualTurnOver"><b>Expected Annual Turnover In Account:- </b></label>
+                            <span id="annualTurnOver"> {{openingForm?.openingAccount?.annualTurnover}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="annualTransaction">
+                                <b>Estimated Number of Annual Transaction In Account:- </b>
+                            </label>
+                            <span id="annualTransaction"> {{openingForm?.openingAccount?.annualTransaction}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
+
+                <div class="box-header with-border">
+                    <h3 class="box-title title"><b>Service</b></h3>
+                </div>
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="accountStatementRadio"><b>Account Statement:- </b></label>
+                            <span id="accountStatementRadio"> {{openingForm?.openingAccount?.statement === true ? 'Yes' : 'No'}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4" [hidden]="openingForm?.openingAccount?.statement !== true">
+                        <div class="form-group">
+                            <label for="accountStatementFrequencyRadio"><b>Statement Frequency:- </b></label>
+                            <span id="accountStatementFrequencyRadio"> {{openingForm?.openingAccount?.statementFrequency}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4" [hidden]="openingForm?.openingAccount?.statement !== true">
+                        <div class="form-group">
+                            <label for="statementMode"><b>Statement Mode:- </b></label>
+                            <span id="statementMode"> {{openingForm?.openingAccount?.statementMode}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="debitCardRadio"><b>Debit Card:- </b></label>
+                            <span id="debitCardRadio"> {{openingForm?.openingAccount?.debitCard === true ? 'Yes' : 'No'}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="internetBankingRadio"><b>Internet Banking:- </b></label>
+                            <span id="internetBankingRadio"> {{openingForm?.openingAccount?.internetBanking === true ? 'Yes' : 'No'}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="mobileBankingRadio"><b>Mobile Banking:- </b></label>
+                            <span id="mobileBankingRadio"> {{openingForm?.openingAccount?.mobileBanking === true ? 'Yes' : 'No'}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
+        </div>
+    </nb-card-body>
+</nb-card>

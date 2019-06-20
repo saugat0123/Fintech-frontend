@@ -6,4 +6,5 @@ export enum DocAction {
     REJECT,
     CLOSED,
     TRANSFER,
+
 }

@@ -124,22 +124,28 @@
                         <thead>
                         <tr>
                             <th>S.N</th>
+                            <th>Waiver</th>
                             <th>Comment</th>
                             <th>User</th>
+                            <th>Status</th>
                             <th>Position</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
+                        <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
+                            <td>{{i + 1}}</td>
                             <td>{{dmsLoanFile?.waiver}}</td>
-                            <td>{{user.name}}</td>
-                            <td>{{user?.role?.roleName}}</td>
+                            <td>{{previousList?.comment}}</td>
+                            <td>{{previousList?.fromUser?.name}}</td>
+                            <td>{{previousList?.docAction}}</td>
+                            <td>{{previousList?.fromRole?.roleName}}</td>
                         </tr>
                         <tr>
-                            <td>2</td>
+                            <td>{{currentIndex+1}}</td>
+                            <td>{{dmsLoanFile?.waiver}}</td>
                             <td>{{loanDataHolder?.currentStage?.comment}}</td>
                             <td>{{loanDataHolder?.currentStage?.fromUser?.name}}</td>
+                            <td>{{loanDataHolder?.currentStage?.docAction}}</td>
                             <td>{{loanDataHolder?.currentStage?.fromRole?.roleName}}</td>
                         </tr>
                         </tbody>
@@ -171,6 +177,8 @@
                 <div *ngFor="let previous of signatureList;" class="col-md-6" style="padding-top: 50px">
                     <div class="row d-flex justify-content-center signature">
 
+                        <img *ngIf="previous.toUser?.signatureImage !==null"
+                             src="{{RootUrl}}/{{previous.toUser?.signatureImage }}" height="100px" width="250px"/>
                         <img *ngIf="previous.toUser?.signatureImage !==null"
                              src="{{RootUrl}}{{previous.toUser?.signatureImage }}" height="100px" width="250px"/>
                     </div>
