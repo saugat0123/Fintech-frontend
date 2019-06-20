@@ -40,7 +40,7 @@
                     <table class="table table-striped table-bordered table-hover">
                       <thead>
                       <tr>
-                        <!--<th>Questions</th>-->
+                        <th>Questions</th>
                         <th>Answer</th>
                       </tr>
                       </thead>
@@ -49,6 +49,7 @@
                         <div *ngIf="allList.answers?.length == 0">
                           <p>No answers Found</p>
                         </div>
+                        <td>{{ans.question.description}}</td>
                         <td>{{ans.description}}</td>
                       </tr>
                       </tbody>
@@ -71,7 +72,7 @@
                         </div>
                         <td>{{doc.name}}</td>
                         <td>
-                          <button class="btn btn-primary btn-sm">View</button>
+                          <button (click)="viewDocument(doc)" class="btn btn-primary btn-sm">View</button>
                         </td>
                       </tr>
                       </tbody>

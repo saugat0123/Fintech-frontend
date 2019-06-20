@@ -3,8 +3,11 @@ import {NewRequestService} from './new-request.service';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {Applicant} from '../../../modal/applicant';
-import {ToastService} from '../../../../../@core/utils';
+import {ModalUtils, ToastService} from '../../../../../@core/utils';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {EligibilityDocumentViewComponent} from '../eligibility-document-view/eligibility-document-view.component';
+import {SubmissionDocument} from '../../../modal/submission-document';
 
 @Component({
   selector: 'app-new-requests',
@@ -20,7 +23,8 @@ export class NewRequestsComponent implements OnInit {
   pageable: Pageable = new Pageable();
 
   constructor(private newRequestService: NewRequestService,
-              private toastService: ToastService) { }
+              private toastService: ToastService,
+              private modalService: NgbModal) { }
 
   static loadData(other: NewRequestsComponent) {
 
@@ -48,6 +52,13 @@ export class NewRequestsComponent implements OnInit {
     this.page = page;
 
     NewRequestsComponent.loadData(this);
+  }
+
+  viewDocument(document: SubmissionDocument) {
+
+    const modalRef = this.modalService.open(EligibilityDocumentViewComponent, {size: 'lg'});
+    modalRef.componentInstance.model = document;
+    ModalUtils.resolve(modalRef.result, NewRequestsComponent.loadData, this);
   }
 
 }
