@@ -13,6 +13,7 @@ import {ActionModel} from '../../model/action';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {LoanActionService} from '../../loan-action/service/loan-action.service';
 import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
+import {LoanStage} from '../../model/loanStage';
 
 @Component({
     selector: 'app-loan-summary',
@@ -24,6 +25,7 @@ export class LoanSummaryComponent implements OnInit {
     loanConfig: LoanConfig = new LoanConfig();
     loan: string;
     index = 0;
+    currentIndex: number;
     user: User = new User();
     security: string;
     securities: any = [];
@@ -45,6 +47,8 @@ export class LoanSummaryComponent implements OnInit {
     showAction = true;
     RootUrl = ApiConfig.URL;
     signatureList = [];
+    previousList: Array<LoanStage> = new Array<LoanStage>();
+    loanStage: LoanStage = new LoanStage();
 
     @ViewChild('print') print;
 
@@ -84,8 +88,11 @@ export class LoanSummaryComponent implements OnInit {
         );
         this.loanFormService.detail(this.customerId).subscribe(
             (response: any) => {
+                console.log('response:', response.detail);
                 this.loanDataHolder = response.detail;
+                this.currentIndex = this.loanDataHolder.previousList.length;
                 this.signatureList = this.loanDataHolder.distinctPreviousList;
+                this.previousList = this.loanDataHolder.previousList;
                 this.actionsList.approved = true;
                 this.actionsList.sendForward = true;
                 this.actionsList.edit = true;

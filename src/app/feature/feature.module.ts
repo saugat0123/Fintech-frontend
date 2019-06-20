@@ -21,7 +21,7 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
             DashboardComponent,
             PendingLoanComponent,
             PendingsLoanComponent,
-            DataVisualizationComponent,
+            DataVisualizationComponent
         ],
         providers: []
     }
