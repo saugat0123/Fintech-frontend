@@ -13,6 +13,7 @@ import {ActionModel} from '../../model/action';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {LoanActionService} from '../../loan-action/service/loan-action.service';
 import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
+import {LoanStage} from '../../model/loanStage';
 
 @Component({
     selector: 'app-loan-summary',
@@ -45,6 +46,7 @@ export class LoanSummaryComponent implements OnInit {
     showAction = true;
     RootUrl = ApiConfig.URL;
     signatureList = [];
+    loanStage: LoanStage = new LoanStage();
 
     @ViewChild('print') print;
 
@@ -84,6 +86,7 @@ export class LoanSummaryComponent implements OnInit {
         );
         this.loanFormService.detail(this.customerId).subscribe(
             (response: any) => {
+                console.log('response:', response.detail);
                 this.loanDataHolder = response.detail;
                 this.signatureList = this.loanDataHolder.distinctPreviousList;
                 this.actionsList.approved = true;

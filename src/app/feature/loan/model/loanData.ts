@@ -4,6 +4,7 @@ import {DmsLoanFile} from '../../admin/modal/dms-loan-file';
 import {LoanConfig} from '../../admin/modal/loan-config';
 import {DocStatus} from './docStatus';
 import {Priority} from './priority';
+import {LoanStage} from './loanStage';
 
 export class LoanDataHolder {
     id: number;
@@ -16,7 +17,7 @@ export class LoanDataHolder {
     createdAt: any;
     previousList: any;
     distinctPreviousList: any;
-    currentStage: any;
+    currentStage: LoanStage;
     createdBy: number;
 
 }
