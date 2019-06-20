@@ -17,7 +17,7 @@ export class LoanDataHolder {
     createdAt: any;
     previousList: LoanStage[] = [];
     distinctPreviousList: any;
-    currentStage: LoanStage;
+    currentStage: LoanStage = new LoanStage();
     createdBy: number;
 
 }

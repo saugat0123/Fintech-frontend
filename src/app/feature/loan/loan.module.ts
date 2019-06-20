@@ -19,6 +19,8 @@ import {LoanSummaryComponent} from './component/loan-summary/loan-summary.compon
 import {SummaryComponent} from './component/print-summary/summary.component';
 
 
+
+
 @NgModule({
     declarations: [
         LoanFormComponent,
@@ -29,7 +31,7 @@ import {SummaryComponent} from './component/print-summary/summary.component';
         SecurityComponent,
         LoanActionComponent,
         LoanSummaryComponent,
-        SummaryComponent
+        SummaryComponent,
 
     ],
     imports: [
@@ -42,8 +44,7 @@ import {SummaryComponent} from './component/print-summary/summary.component';
         ReactiveFormsModule,
         NgSelectModule,
         NbDatepickerModule,
-        NgxPrintModule
-
+        NgxPrintModule,
     ],
 
     providers: [
