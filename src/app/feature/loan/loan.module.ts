@@ -16,6 +16,7 @@ import {ThemeModule} from '../../@theme/theme.module';
 import {LoanActionComponent} from './loan-action/loan-action.component';
 import {LoanFormService} from './component/loan-form/service/loan-form.service';
 import {LoanSummaryComponent} from './component/loan-summary/loan-summary.component';
+import { OfferLetterNepaliComponent } from './component/loan-main-template/offer-letter-nepali/offer-letter-nepali.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {LoanSummaryComponent} from './component/loan-summary/loan-summary.compon
         DmsLoanFileComponent,
         SecurityComponent,
         LoanActionComponent,
-        LoanSummaryComponent
+        LoanSummaryComponent,
+        OfferLetterNepaliComponent
 
     ],
     imports: [

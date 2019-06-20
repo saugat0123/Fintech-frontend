@@ -92,6 +92,9 @@ export class UIComponent implements OnInit {
                 });
             });
         }
+        console.log(this.initialDocumentList);
+        console.log(this.finalRenewalDocument);
+        console.log(this.finalEligibilityDocument);
     }
 
     getTemplate() {
