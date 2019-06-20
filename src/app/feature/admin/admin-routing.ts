@@ -25,6 +25,10 @@ import {EligibleRequestsComponent} from './component/eligibility/eligible-reques
 import {RoleHierarchyComponent} from './component/role-hierarchy/role-hierarchy.component';
 import {SecurityComponent} from '../loan/component/loan-main-template/security/security.component';
 import {GeneralQuestionComponent} from './component/eligibility/general-question/general-question.component';
+import {OpeningAccountComponent} from './component/opening-account/opening-account.component';
+import {OpenOpeningComponentComponent} from './component/opening-account/open-opening-component/open-opening-component.component';
+import {RejectedOpeningAccountComponent} from './component/opening-account/rejected-opening-account/rejected-opening-account.component';
+import {ApprovalOpeningAccountComponent} from './component/opening-account/approval-opening-account/approval-opening-account.component';
 
 
 // import {SecurityComponent} from './component/loan-config/loan-main-template/security/security.component';
@@ -59,6 +63,10 @@ export const adminRoutes: Routes = [
     {path: 'role', component: RolePermissionComponent},
     {path: 'roleList', component: ListRoleComponent},
     {path: 'roleHierarchy', component: RoleHierarchyComponent},
+    {path: 'openingAccount', component: OpeningAccountComponent},
+    {path: 'rejectedOpeningAccount', component: RejectedOpeningAccountComponent},
+    {path: 'approvalOpeningAccount', component: ApprovalOpeningAccountComponent},
+    {path: 'openOpeningAccount', component: OpenOpeningComponentComponent},
 
 ];
 

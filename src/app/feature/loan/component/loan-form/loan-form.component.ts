@@ -17,6 +17,8 @@ import {BasicInfoComponent} from '../loan-main-template/basic-info/basic-info.co
 import {DmsLoanFileComponent} from '../loan-main-template/dms-loan-file/dms-loan-file.component';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
 import {DateService} from '../../../../@core/service/baseservice/date.service';
+import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.component';
+import {CustomerRelative} from '../../../admin/modal/customer-relative';
 
 @Component({
     selector: 'app-loan-form',
@@ -73,6 +75,8 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('entityInfo')
     entityInfo: CompanyInfoComponent;
+    @ViewChild('kycInfo')
+    kycInfo: KycInfoComponent;
 
     constructor(
         private dataService: CommonDataService,
@@ -195,7 +199,7 @@ export class LoanFormComponent implements OnInit {
     save() {
         this.selectChild(this.selectedTab, true);
         this.loanDocument.loan = this.loan;
-
+        console.log(this.loanDataService);
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
             this.loanDocument = response.detail;
             this.customerLoanId = this.loanDocument.id;
@@ -224,6 +228,11 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Company Info' && action) {
             this.entityInfo.onSubmit();
             this.loanDocument.entityInfo = this.entityInfo.companyInfo.value;
+        }
+        if (name === 'Kyc Info' && action) {
+            this.kycInfo.onSubmit();
+            const customerRelatives = this.kycInfo.kycInfo.value.otherRelatives as Array<CustomerRelative>;
+            this.loanDocument.customerInfo.customerRelatives = customerRelatives;
         }
     }
 

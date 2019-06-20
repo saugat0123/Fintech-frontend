@@ -85,7 +85,7 @@
                         <tbody>
                         <tr *ngFor="let loanDataHolder of loanDataHolders; let i =index"
                             (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)"
-                            style="cursor: pointer">
+                            class="cursor">
                             <div *ngIf="!loanDataHolders.length > 0">
                                 <p>No Content Found</p>
                             </div>

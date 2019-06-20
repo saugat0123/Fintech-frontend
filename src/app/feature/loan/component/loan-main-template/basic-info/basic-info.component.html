@@ -1,4 +1,4 @@
-cti<nb-card>
+<nb-card>
     <nb-card-body>
         <div class="form-group">
             <form class="form-horizontal" (ngSubmit)="onSubmit()" [formGroup]="basicInfo">
@@ -115,7 +115,7 @@ cti<nb-card>
                             <label for="citizenshipIssuedPlace"><b>Issued Place</b></label>
                             <input id="citizenshipIssuedPlace" formControlName="citizenshipIssuedPlace"
                                    name="citizenshipIssuedPlace" type="text" class="form-control"
-                                   placeholder="Citizenship Issued Date" required>
+                                   placeholder="Citizenship Issued Place" required>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -129,10 +129,7 @@ cti<nb-card>
                         </div>
                     </div>
                 </div>
-
-
             </form>
-
         </div>
     </nb-card-body>
 </nb-card>

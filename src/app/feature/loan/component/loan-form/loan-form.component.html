@@ -8,7 +8,7 @@
             [ngClass]="allList.active === true ?'nav-item active ': 'nav-item'"
             (click)="selectTab(i,allList.name)">
             <a href="{{allList.templateUrl}}" data-toggle="tab" aria-expanded="false"
-               class="nav-link">{{allList.name}}</a>loan
+               class="nav-link">{{allList.name}}</a>
         </li>
 
     </ul>
@@ -17,6 +17,9 @@
         <app-basic-info [formValue]="loanDocument?.customerInfo"
                         *ngIf="selectedTab==='Customer Info' && loanDocument"
                         #basicInfo></app-basic-info>
+        <app-kyc-info [formValue]="loanDocument?.customerInfo"
+                      *ngIf="selectedTab==='Kyc Info' && loanDocument"
+                      #kycInfo></app-kyc-info>
         <app-dms-loan [loanFile]="loanFile" *ngIf="selectedTab==='General' && loanFile" (dmsDisableButton)="submitButton($event)" #dmsLoanFile></app-dms-loan>
         <app-company-info [formValue]="loanDocument?.entityInfo" *ngIf="selectedTab==='Company Info'"
                           #entityInfo></app-company-info>

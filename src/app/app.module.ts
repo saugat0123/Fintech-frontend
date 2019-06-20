@@ -8,7 +8,7 @@ import {CommonService} from './@core/service/baseservice/common-baseservice';
 import {CommonDataService} from './@core/service/baseservice/common-dataService';
 import {AddressService} from './@core/service/baseservice/address.service';
 import {QuillModule} from 'ngx-quill';
-import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {DatePipe, HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {ThemeModule} from './@theme/theme.module';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
@@ -16,12 +16,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {NbDatepickerModule} from '@nebular/theme';
 import {NgxPrintModule} from 'ngx-print';
+import {ForgotPasswordComponent} from './component/forgot-password/forgot-password.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
+        ForgotPasswordComponent
     ],
     imports: [
         BrowserModule,
@@ -42,8 +44,9 @@ import {NgxPrintModule} from 'ngx-print';
     providers: [CommonService, CommonDataService, AddressService, {
         provide: LocationStrategy,
         useClass: HashLocationStrategy
-    }],
-    bootstrap: [AppComponent]
+    }, DatePipe],
+    bootstrap: [AppComponent],
+    exports: []
 })
 export class AppModule {
 }

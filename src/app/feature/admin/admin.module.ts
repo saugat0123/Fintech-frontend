@@ -53,6 +53,12 @@ import {ThemeModule} from '../../@theme/theme.module';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {MsgModalComponent, UpdateModalComponent} from '../../@theme/components';
+import {OpeningAccountComponent} from './component/opening-account/opening-account.component';
+import {OpenOpeningComponentComponent} from './component/opening-account/open-opening-component/open-opening-component.component';
+import {ApprovalOpeningAccountComponent} from './component/opening-account/approval-opening-account/approval-opening-account.component';
+import {RejectedOpeningAccountComponent} from './component/opening-account/rejected-opening-account/rejected-opening-account.component';
+import {NgxPrintModule} from 'ngx-print';
+import { OpeningAccountPrintComponent } from './component/opening-account/opening-account-print/opening-account-print.component';
 import { GeneralQuestionComponent } from './component/eligibility/general-question/general-question.component';
 
 @NgModule({
@@ -99,7 +105,12 @@ import { GeneralQuestionComponent } from './component/eligibility/general-questi
         EligibleRequestsComponent,
         NonEligibleRequestsComponent,
         NewRequestsComponent,
-        GeneralQuestionComponent,
+        OpeningAccountComponent,
+        OpenOpeningComponentComponent,
+        ApprovalOpeningAccountComponent,
+        RejectedOpeningAccountComponent,
+        OpeningAccountPrintComponent,
+        GeneralQuestionComponent
 
         // SecurityComponent
     ],
@@ -113,7 +124,8 @@ import { GeneralQuestionComponent } from './component/eligibility/general-questi
         RouterModule.forChild(adminRoutes),
         ThemeModule,
         DragDropModule,
-        NgSelectModule
+        NgSelectModule,
+        NgxPrintModule
     ],
 
     entryComponents: [

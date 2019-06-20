@@ -97,12 +97,8 @@ export class LoanConfigComponent implements OnInit {
         LoanConfigComponent.loadData(this);
     }
 
-    edit(loanConfig: any) {
-
-        const modalRef = this.modalService.open(AddLoanComponent);
-        modalRef.componentInstance.model = loanConfig;
-
-        ModalUtils.resolve(modalRef.result, LoanConfigComponent.loadData, this);
+    edit(loanConfigId: number) {
+        this.router.navigate(['home/admin/configLoan'], {queryParams: {id: loanConfigId}});
     }
 
     add() {
