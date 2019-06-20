@@ -4,14 +4,11 @@ import {LoanFormComponent} from './component/loan-form/loan-form.component';
 import {DmsLoanFileComponent} from './component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {LoanSummaryComponent} from './component/loan-summary/loan-summary.component';
 import {KycInfoComponent} from './component/loan-main-template/kyc-info/kyc-info.component';
-import {SummaryComponent} from './component/summary/summary.component';
-
 export const routes: Routes = [
     {path: 'loanForm', component: LoanFormComponent},
     {path: 'loanType', component: DmsLoanFileComponent},
     {path: 'summary', component: LoanSummaryComponent},
     {path: 'kyc', component: KycInfoComponent},
-    {path: 'summary1', component: SummaryComponent}
 
 ];
 

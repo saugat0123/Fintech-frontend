@@ -1,4 +1,3 @@
-
 import {EntityInfo} from '../../admin/modal/entity-info';
 import {DmsLoanFile} from '../../admin/modal/dms-loan-file';
 import {LoanConfig} from '../../admin/modal/loan-config';
@@ -16,7 +15,7 @@ export class LoanDataHolder {
     documentStatus: DocStatus;
     priority: Priority;
     createdAt: any;
-    previousList: LoanStage[]=[];
+    previousList: LoanStage[] = [];
     distinctPreviousList: any;
     currentStage: LoanStage;
     createdBy: number;
