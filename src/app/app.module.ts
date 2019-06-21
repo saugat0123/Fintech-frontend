@@ -17,7 +17,6 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {NbDatepickerModule} from '@nebular/theme';
 import {NgxPrintModule} from 'ngx-print';
 import {ForgotPasswordComponent} from './component/forgot-password/forgot-password.component';
-import {ModalModule} from 'ngx-bootstrap';
 
 
 @NgModule({
@@ -40,7 +39,6 @@ import {ModalModule} from 'ngx-bootstrap';
         ThemeModule,
         NgxPrintModule,
         NbDatepickerModule.forRoot(),
-        ModalModule.forRoot(),
     ],
     providers: [CommonService, CommonDataService, AddressService, {
         provide: LocationStrategy,
