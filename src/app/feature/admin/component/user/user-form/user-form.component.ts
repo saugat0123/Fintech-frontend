@@ -40,10 +40,6 @@ export class UserFormComponent implements OnInit, DoCheck {
         this.branchService.getAll().subscribe((response: any) => {
             this.branchList = response.detail;
         });
-        this.roleService.getAll().subscribe((response: any) => {
-            this.roleList = response.detail;
-        });
-
         this.roleService.getActiveRoles().subscribe((response: any) => {
             this.roleList = response.detail;
         });
