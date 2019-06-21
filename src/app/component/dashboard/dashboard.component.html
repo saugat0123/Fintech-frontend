@@ -1,27 +1,17 @@
 <div class="row">
-    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="userCountView">
-        <app-icon-card title="Users" type="primary" detail="44">
+    <div class="col-md-4 col-sm-6 col-xs-12" *ngIf="userCountView">
+        <app-icon-card title="Users" type="primary" detail="{{userCount}}">
             <i class="fa fa-users"></i>
         </app-icon-card>
     </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="branchCountView">
-        <app-icon-card title="Branches" type="success" detail="4">
+    <div class="col-md-4 col-sm-6 col-xs-12" *ngIf="branchCountView">
+        <app-icon-card title="Branches" type="success" detail="{{branchCount}}">
             <i class="fas fa-building"></i>
         </app-icon-card>
     </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="segmentCountView">
-        <app-icon-card title="Segments" type="info" detail="2">
-            <i class="fa fa-briefcase"></i>
-        </app-icon-card>
-    </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="sectorCountView">
-        <app-icon-card title="Sectors" type="warning" detail="32">
-            <i class="fa fa-address-book"></i>
-        </app-icon-card>
-    </div>
 </div>
 
 <div class="row center mb-3" *ngIf="addViewLoanCategory && roleType">
@@ -34,14 +24,39 @@
                 </select>
             </div>
             <div class="col-md-1">
-                <button class="btn btn-md btn-primary btn-flat" (click)="loan()">
+                <button class="btn btn-md btn-primary btn-flat" (click)="selectLoan(template)">
                     <i class="fa fa-arrow-right"></i>
                 </button>
             </div>
         </div>
     </div>
 </div>
-
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Choose</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <button type="button" class="btn btn-primary" (click)="newLoan()">New Loan</button>
+        <button type="button" class="btn btn-success float-right" (click)="existingLoan(loanTemplate)">Existing Loan</button>
+    </div>
+</ng-template>
+<ng-template #loanTemplate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Existing Loan</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            Enter the customer id:
+            <input type="text" class="form-control" [(ngModel)]="customerId"></div>
+        <button type="button" class="btn btn-success float-right" (click)="getLoanData()">Next</button>
+    </div>
+</ng-template>
 <div class="row" *ngIf="pendingView">
     <div class="col-md-11">
         <app-pending-loan></app-pending-loan>

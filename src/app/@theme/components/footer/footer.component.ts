@@ -4,7 +4,9 @@ import {Component} from '@angular/core';
     selector: 'app-footer',
     styleUrls: ['./footer.component.scss'],
     template: `
-        <span class="created-by">Created with ♥ by <b><a href="https://akveo.com" target="_blank">Akveo</a></b> 2017</span>
+        <span class="created-by">
+            Powered by <b><a href="https://www.sbsolutionsnepal.com/" target="_blank">Sb Solutions Pvt. Limited</a></b> 2019
+        </span>
         <div class="socials">
             <a href="#" target="_blank" class="ion ion-social-github"></a>
             <a href="#" target="_blank" class="ion ion-social-facebook"></a>

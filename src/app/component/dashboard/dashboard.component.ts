@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, OnInit} from '@angular/core';
+import {AfterContentInit, Component, OnInit, TemplateRef} from '@angular/core';
 import {Router} from '@angular/router';
 import {Permission} from '../../feature/admin/modal/permission';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -7,6 +7,10 @@ import {LoanDataService} from '../../feature/loan/service/loan-data.service';
 import {LoanConfigService} from '../../feature/admin/component/loan-config/loan-config.service';
 import {PermissionService} from '../../@core/service/permission.service';
 import {RoleType} from '../../feature/admin/modal/roleType';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {UserService} from '../../feature/admin/component/user/user.service';
+import {BranchService} from '../../feature/admin/component/branch/branch.service';
+
 
 @Component({
     selector: 'app-dashboard',
@@ -19,7 +23,9 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     loanType: any;
     loanList: any;
     spinner = false;
-
+    customerId: number;
+    modalRef: BsModalRef | null;
+    modalRef2: BsModalRef;
     permission: Permission = new Permission();
     permissionName: string;
     loanCategory: FormGroup;
@@ -32,6 +38,8 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     notificationView = false;
     pendingView = false;
     roleType = false;
+    userCount;
+    branchCount;
 
     constructor(
         private loanConfigService: LoanConfigService,
@@ -39,7 +47,11 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         private router: Router,
         private permissionService: PermissionService,
         private formBuilder: FormBuilder,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private modalService: BsModalService,
+        private userService: UserService,
+        private branchService: BranchService,
+        private route: Router,
     ) {
     }
 
@@ -80,12 +92,35 @@ export class DashboardComponent implements OnInit, AfterContentInit {
                 }
             }
         );
+        this.userService.getStatus().subscribe((response: any) => {
 
+            this.userCount = response.detail.users;
+
+        });
+
+        this.branchService.getStatus().subscribe((response: any) => {
+
+            this.branchCount = response.detail.branches;
+        });
 
     }
 
-    loan() {
-        this.spinner = true;
+    selectLoan(template: TemplateRef<any>) {
+        this.modalRef = this.modalService.show(template, {class: 'modal-lg'});
+    }
+
+    newLoan() {
         this.router.navigate(['/home/loan/loanForm'], {queryParams: {loanId: this.loanType, customerId: null}});
+        this.modalRef.hide();
+    }
+
+    existingLoan(template: TemplateRef<any>) {
+        this.modalRef2 = this.modalService.show(template, {class: 'modal-lg'});
+    }
+
+    getLoanData() {
+        this.route.navigate(['/home/loan/loanForm'], {queryParams: {loanId: this.loanType, customerId: this.customerId}});
+        this.modalRef2.hide();
+        this.modalRef.hide();
     }
 }

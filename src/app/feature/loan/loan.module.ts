@@ -17,6 +17,9 @@ import {LoanActionComponent} from './loan-action/loan-action.component';
 import {LoanFormService} from './component/loan-form/service/loan-form.service';
 import {LoanSummaryComponent} from './component/loan-summary/loan-summary.component';
 import { OfferLetterNepaliComponent } from './component/loan-main-template/offer-letter-nepali/offer-letter-nepali.component';
+import {SummaryComponent} from './component/print-summary/summary.component';
+
+
 
 
 @NgModule({
@@ -29,7 +32,8 @@ import { OfferLetterNepaliComponent } from './component/loan-main-template/offer
         SecurityComponent,
         LoanActionComponent,
         LoanSummaryComponent,
-        OfferLetterNepaliComponent
+        OfferLetterNepaliComponent,
+        SummaryComponent,
 
     ],
     imports: [
@@ -42,8 +46,7 @@ import { OfferLetterNepaliComponent } from './component/loan-main-template/offer
         ReactiveFormsModule,
         NgSelectModule,
         NbDatepickerModule,
-        NgxPrintModule
-
+        NgxPrintModule,
     ],
 
     providers: [
