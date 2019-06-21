@@ -8,6 +8,9 @@ import {LoanConfigService} from '../../feature/admin/component/loan-config/loan-
 import {PermissionService} from '../../@core/service/permission.service';
 import {RoleType} from '../../feature/admin/modal/roleType';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {UserService} from '../../feature/admin/component/user/user.service';
+import {BranchService} from '../../feature/admin/component/branch/branch.service';
+
 
 @Component({
     selector: 'app-dashboard',
@@ -35,6 +38,8 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     notificationView = false;
     pendingView = false;
     roleType = false;
+    userCount;
+    branchCount;
 
     constructor(
         private loanConfigService: LoanConfigService,
@@ -44,6 +49,8 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         private formBuilder: FormBuilder,
         private breadcrumbService: BreadcrumbService,
         private modalService: BsModalService,
+        private userService: UserService,
+        private branchService: BranchService,
         private route: Router,
     ) {
     }
@@ -85,7 +92,16 @@ export class DashboardComponent implements OnInit, AfterContentInit {
                 }
             }
         );
+        this.userService.getStatus().subscribe((response: any) => {
 
+            this.userCount = response.detail.users;
+
+        });
+
+        this.branchService.getStatus().subscribe((response: any) => {
+
+            this.branchCount = response.detail.branches;
+        });
 
     }
 

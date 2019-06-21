@@ -1,27 +1,17 @@
 <div class="row">
-    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="userCountView">
-        <app-icon-card title="Users" type="primary" detail="44">
+    <div class="col-md-4 col-sm-6 col-xs-12" *ngIf="userCountView">
+        <app-icon-card title="Users" type="primary" detail="{{userCount}}">
             <i class="fa fa-users"></i>
         </app-icon-card>
     </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="branchCountView">
-        <app-icon-card title="Branches" type="success" detail="4">
+    <div class="col-md-4 col-sm-6 col-xs-12" *ngIf="branchCountView">
+        <app-icon-card title="Branches" type="success" detail="{{branchCount}}">
             <i class="fas fa-building"></i>
         </app-icon-card>
     </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="segmentCountView">
-        <app-icon-card title="Segments" type="info" detail="2">
-            <i class="fa fa-briefcase"></i>
-        </app-icon-card>
-    </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="sectorCountView">
-        <app-icon-card title="Sectors" type="warning" detail="32">
-            <i class="fa fa-address-book"></i>
-        </app-icon-card>
-    </div>
 </div>
 
 <div class="row center mb-3" *ngIf="addViewLoanCategory && roleType">
