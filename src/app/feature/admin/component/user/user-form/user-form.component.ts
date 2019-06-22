@@ -9,6 +9,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {UserService} from '../user.service';
 import {RoleService} from '../../role-permission/role.service';
 import {BranchService} from '../../branch/branch.service';
+import {RoleAccess} from '../../../modal/role-access';
 
 @Component({
     selector: 'app-user-form',
@@ -25,6 +26,8 @@ export class UserFormComponent implements OnInit, DoCheck {
     branch = new Branch();
     roleList: Array<Role>;
     role = new Role();
+    selectedRole;
+    isSpecific = false;
 
     constructor(
         private commonService: CommonService,
@@ -110,5 +113,25 @@ export class UserFormComponent implements OnInit, DoCheck {
             this.model.signatureImage = result.detail;
         });
     }
+
+    getBranchByRole(id) {
+        this.isSpecific = false;
+        this.roleService.detail(id).subscribe((res: any) => {
+            this.selectedRole = res.detail;
+            if (this.selectedRole.roleAccess === RoleAccess[2]) {
+                this.isSpecific = false;
+            }
+
+            if (this.selectedRole.roleAccess === RoleAccess[1]) {
+                this.isSpecific = false;
+            }
+
+            if (this.selectedRole.roleAccess === RoleAccess[0]) {
+                this.isSpecific = true;
+
+            }
+        });
+    }
+
 }
 

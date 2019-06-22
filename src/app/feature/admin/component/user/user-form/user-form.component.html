@@ -20,21 +20,21 @@
                             <div *ngIf="name.errors.required">First Name is required</div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <label for="branch">Branch</label>
-                        <select id="branch" name="branch" class="custom-select" style="width: 100%;"
-                                [(ngModel)]="branch.id" required #branchVal="ngModel"
-                                [ngClass]="{ 'is-invalid': f.submitted && branchVal.invalid }">
-                            <option [ngValue]="undefined" hidden>Branch</option>
-                            <option *ngFor="let branch of branchList"
-                                    [selected]="branch.id === model?.branch?.id" [ngValue]="branch.id">
-                                {{branch.name}}
-                            </option>
-                        </select>
-                        <div *ngIf="f.submitted && branchVal.invalid" class="invalid-feedback">
-                            <div *ngIf="branchVal.errors.required">Branch is required</div>
-                        </div>
-                    </div>
+                    <!--<div class="col-md-6">-->
+                    <!--<label for="branch">Branch</label>-->
+                    <!--<select id="branch" name="branch" class="custom-select" style="width: 100%;"-->
+                    <!--[(ngModel)]="branch.id" required #branchVal="ngModel" [multiple]="isSpecific"-->
+                    <!--[ngClass]="{ 'is-invalid': f.submitted && branchVal.invalid }">-->
+                    <!--<option [ngValue]="undefined" hidden>Branch</option>-->
+                    <!--<option *ngFor="let branch of branchList"-->
+                    <!--[selected]="branch.id === model?.branch?.id" [ngValue]="branch.id">-->
+                    <!--{{branch.name}}-->
+                    <!--</option>-->
+                    <!--</select>-->
+                    <!--<div *ngIf="f.submitted && branchVal.invalid" class="invalid-feedback">-->
+                    <!--<div *ngIf="branchVal.errors.required">Branch is required</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
                 </div>
                 <div class="row form-group">
                     <div class="col-md-6">
@@ -61,6 +61,7 @@
                     <div class="col-md-6">
                         <label for="authorities">Role</label>
                         <select id="authorities" name="authorities" class="custom-select"
+                                (change)="getBranchByRole(role.id)"
                                 [(ngModel)]="role.id" #roleVal="ngModel"
                                 [ngClass]="{ 'is-invalid': f.submitted && roleVal.invalid }" required>
 
@@ -73,9 +74,35 @@
                             <div *ngIf="roleVal.errors.required">Role is required</div>
                         </div>
                     </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><b>Branch</b></label>
+                            <ng-select [items]="branchList" name="branch" *ngIf="isSpecific"
+                                       bindLabel="name"
+                                       bindValue="id"
+                                       [multiple]=isSpecific
+                                       placeholder="Select Branches"
+                                       [(ngModel)]="branchIdList">
+
+
+                            </ng-select>
+                            <ng-select [items]="branchList" name="branch" *ngIf="!isSpecific"
+                                       bindLabel="name"
+                                       bindValue="id"
+                                       [multiple]= false
+                                       placeholder="Select Branches"
+                                       [(ngModel)]="tempBranch">
+
+
+                            </ng-select>
+                        </div>
+                    </div>
+
+
                     <div class="col-md-6">
                         <label for="accountNo">Account No</label>
-                        <input id="accountNo" name="accountNo" type="text" class="form-control"
+                        <input id="accountNo" type="text" class="form-control"
                                [(ngModel)]="model.accountNo" name="accountNo" #accountNoVal="ngModel"
                                [ngClass]="{ 'is-invalid': f.submitted && accountNoVal.invalid }" required
                                placeholder="Account No">
@@ -87,10 +114,10 @@
                 <div class="row form-group">
                     <div *ngIf="model.id==null" class="col-md-6">
                         <label for="password">Password</label>
-                        <input id="password" name="password" type="password" class="form-control"
+                        <input id="password" type="password" class="form-control"
                                [(ngModel)]="model.password" name="password" #passwordVal="ngModel"
                                [ngClass]="{ 'is-invalid': f.submitted && passwordVal.invalid }" required
-                               placeholder="Password" name="password">
+                               placeholder="Password">
                         <div *ngIf="f.submitted && passwordVal.invalid" class="invalid-feedback">
                             <div *ngIf="passwordVal.errors.required">Password is required</div>
                         </div>
@@ -103,11 +130,11 @@
                                name="photo" accept="image/*"
                                (change)="signatureUploader($event)"/>
                     </div>
-                    <div class="col-md-6">
-                        <label for="profilePicture" class="d-block">Profile</label>
-                        <input id="profilePicture" name="profilePicture" type="file" name="photo" accept="image/*"
-                               (change)="profileUploader($event)"/>
-                    </div>
+                    <!--<div class="col-md-6">-->
+                    <!--<label for="profilePicture" class="d-block">Profile</label>-->
+                    <!--<input id="profilePicture" name="profilePicture" type="file" name="photo" accept="image/*"-->
+                    <!--(change)="profileUploader($event)"/>-->
+                    <!--</div>-->
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" style="cursor: pointer"><i class="fa fa-save"></i></button>
