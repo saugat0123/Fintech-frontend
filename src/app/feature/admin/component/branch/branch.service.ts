@@ -21,6 +21,13 @@ export class BranchService extends BaseService<Branch> {
         return this.http.get(req.url, {headers: req.header});
     }
 
+    public getBranchNoTAssignUser(id: number) {
+        const api = `${this.getApi()}/${id}/unique`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.get(req.url, {headers: req.header});
+    }
+
     protected getApi(): string {
         return BranchService.API;
     }

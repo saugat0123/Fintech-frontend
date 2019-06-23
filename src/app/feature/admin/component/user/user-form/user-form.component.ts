@@ -44,9 +44,7 @@ export class UserFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.branchService.getAll().subscribe((response: any) => {
-            this.branchList = response.detail;
-        });
+
         this.roleService.getAll().subscribe((response: any) => {
             this.roleList = response.detail;
         });
@@ -142,10 +140,16 @@ export class UserFormComponent implements OnInit {
 
             if (this.selectedRole.roleAccess === RoleAccess[1]) {
                 this.isSpecific = false;
+                this.branchService.getBranchNoTAssignUser(id).subscribe((r: any) => {
+                    this.branchList = r.detail;
+                });
             }
 
             if (this.selectedRole.roleAccess === RoleAccess[0]) {
                 this.isSpecific = true;
+                this.branchService.getBranchNoTAssignUser(id).subscribe((re: any) => {
+                    this.branchList = re.detail;
+                });
 
             }
             this.role = res.detail;
