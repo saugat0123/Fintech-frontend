@@ -1,11 +1,12 @@
 <div class="row mt-3">
     <div class="col-md-11">
         <nb-card>
-            <nb-card-header class="text-center"><h1>Data Visualization</h1></nb-card-header>
+            <nb-card-header class="text-center"><h1>Loan By Category For {{selectedBranch}}</h1></nb-card-header>
             <nb-card-body>
-                <div class="row">
-                    <div class="col-md-3 float-right mb-5">
-                        <select (change)="onChange($event)" class="form-control">
+                <div class="col-md-12 ">
+                    <div class="col-md-3 mb-5 offset-sm-9">
+                        <select (change)="onChange($event)" class="custom-select">
+                            <option [value]="null" selected hidden>Select Branch</option>
                             <option>All Branches</option>
                             <option *ngFor="let branch of branches" [value]="branch.id">{{branch.name}}
                             </option>
