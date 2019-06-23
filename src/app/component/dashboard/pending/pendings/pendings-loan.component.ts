@@ -15,6 +15,7 @@ import {DatePipe} from '@angular/common';
 import {LoanFormService} from '../../../../feature/loan/component/loan-form/service/loan-form.service';
 import {LoanDataHolder} from '../../../../feature/loan/model/loanData';
 import {DocStatus} from '../../../../feature/loan/model/docStatus';
+import {BranchService} from '../../../../feature/admin/component/branch/branch.service';
 
 @Component({
     selector: 'app-pendings',
@@ -34,12 +35,15 @@ export class PendingsLoanComponent implements OnInit {
     spinner = false;
     page = 1;
     documentStatusList = DocStatus;
+    branchList = [];
+    branchFilter = true;
 
 
     constructor(private service: DmsLoanService,
                 private userService: UserService,
                 private loanConfigService: LoanConfigService,
                 private loanFormService: LoanFormService,
+                private branchService: BranchService,
                 private router: Router,
                 private toastService: ToastService,
                 private route: ActivatedRoute,
@@ -80,6 +84,26 @@ export class PendingsLoanComponent implements OnInit {
                 this.loanList = response.detail;
             }
         );
+
+        const roleAccess = localStorage.getItem('roleAccess');
+        if (roleAccess === 'ALL') {
+            this.branchService.getAll().subscribe((res: any) => {
+                this.branchFilter = true;
+                this.branchList = res.detail;
+            });
+        } else {
+
+            this.branchService.getBranchAccessByCurrentUser().subscribe((res: any) => {
+                if (roleAccess === 'OWN') {
+                    this.branchList = [];
+                    this.branchFilter = false;
+                }
+                this.branchList = res.detail;
+            });
+
+
+
+        }
     }
 
     clearSearch() {
@@ -101,6 +125,10 @@ export class PendingsLoanComponent implements OnInit {
 
     statusSelect(docStatus) {
         this.search.documentStatus = docStatus;
+    }
+
+    branchSelect(id) {
+        this.search.branchIds = id;
     }
 
     onClick(loanConfigId: number, customerId: number) {
