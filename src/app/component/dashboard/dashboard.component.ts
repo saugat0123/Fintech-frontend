@@ -102,7 +102,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     }
 
     selectLoan(template: TemplateRef<any>) {
-
+        this.newLoan();
     }
 
     newLoan() {
