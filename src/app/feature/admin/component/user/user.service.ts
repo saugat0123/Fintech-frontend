@@ -43,4 +43,10 @@ export class UserService extends BaseService<User> {
 
         return this.http.get(req.url, {headers: req.header});
     }
+
+    public postDismiss(user: any): Observable<any> {
+        const req = ApiUtils.getRequest(`${UserService.API}/dismiss`);
+
+        return this.http.post(req.url, user, {headers: req.header});
+    }
 }
