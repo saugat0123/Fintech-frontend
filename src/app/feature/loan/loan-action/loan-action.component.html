@@ -42,12 +42,13 @@
 
                 <div class="col-md-12 row">
                     <div class="form-group col-md-6" *ngIf="popUpTitle == 'Send Forward'">
-                        <label class="toRole" for="toRole">Role</label>
+                        <label class="toRole" for="toRole">TO</label>
                         <select name="toRole" id="toRole" class="custom-select"
                                 formControlName="toRole" (change)="getUserList(this.formAction.get('toRole').value)">
+                            <option [value]="null" hidden>Select To</option>
                             <option *ngFor="let forwardBackward of sendForwardBackwardList"
                                     [ngValue]="forwardBackward">
-                                {{forwardBackward.roleName}}
+                                {{forwardBackward.roleName}}</option>
                         </select>
                     </div>
 

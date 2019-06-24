@@ -6,7 +6,7 @@ export class User {
     createdAt: Date;
     lastModifiedAt: Date;
     accountNo: string;
-    branch: Branch;
+    branch: Array<Branch>;
     email: string;
     name: string;
     password: string;
