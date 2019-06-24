@@ -77,14 +77,14 @@
                             <td>{{allList.name}}</td>
                             <td>{{allList.email}}</td>
                             <td>{{allList.username}}</td>
-                            <td>{{allList.role?.roleName || 'ROLE IS DISABLED'}}</td>
+                            <td [className]="allList.role?.roleName!== null ? '' : 'alert-danger'">{{allList.role?.roleName || 'ROLE IS DISABLED'}}</td>
                             <td *ngIf="allList.role?.roleAccess=='ALL';else branchList">
                                 <span style="color:green">ALL BRANCHES</span>
                             </td>
                             <ng-template #branchList>
                                 <td>
                                     <div *ngIf="!allList.branch?.length > 0">
-                                        <p style="color:red">USER IS DISABLED</p>
+                                        <p class="alert-danger">BRANCH IS DISABLED</p>
                                     </div>
                                     <div class="col-md-12 row" *ngFor="let branch of allList.branch;">
                                         {{branch?.name}}

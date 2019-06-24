@@ -169,6 +169,16 @@ export class UserFormComponent implements OnInit {
             }
             this.task = 'Edit';
             this.isAll = false;
+
+            this.branchService.getBranchNoTAssignUser(this.model.role.id).subscribe((re: any) => {
+                const temp = re.detail;
+                this.branchList = this.model.branch;
+                temp.forEach(t => {
+                    console.log(t);
+                    this.branchList.push(t);
+                });
+            });
+            this.selectedRole = this.model.role;
             const tempRoleAccess = this.model.role.roleAccess;
             this.branchIdList = [];
             if (tempRoleAccess === RoleAccess[0]) {
