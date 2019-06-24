@@ -204,4 +204,9 @@ export class LoanActionComponent implements OnInit {
 
     }
 
+    generateOfferLetter() {
+        console.log(this.loanConfigId);
+        this.route.navigate(['home/loan/birthMarkLetter'], {queryParams: {customerId: this.id}});
+    }
+
 }

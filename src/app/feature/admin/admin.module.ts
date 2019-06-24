@@ -61,6 +61,7 @@ import {NgxPrintModule} from 'ngx-print';
 import { OpeningAccountPrintComponent } from './component/opening-account/opening-account-print/opening-account-print.component';
 import { GeneralQuestionComponent } from './component/eligibility/general-question/general-question.component';
 import { EligibilityDocumentViewComponent } from './component/eligibility/eligibility-document-view/eligibility-document-view.component';
+import { CatalogueComponent } from './component/catalogue/catalogue.component';
 
 @NgModule({
     declarations: [
@@ -112,7 +113,8 @@ import { EligibilityDocumentViewComponent } from './component/eligibility/eligib
         RejectedOpeningAccountComponent,
         OpeningAccountPrintComponent,
         GeneralQuestionComponent,
-        EligibilityDocumentViewComponent
+        EligibilityDocumentViewComponent,
+        CatalogueComponent
 
         // SecurityComponent
     ],

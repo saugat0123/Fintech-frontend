@@ -11,7 +11,7 @@ export const routes: Routes = [
     {path: 'loanType', component: DmsLoanFileComponent},
     {path: 'summary', component: LoanSummaryComponent},
     {path: 'kyc', component: KycInfoComponent},
-    {path: 'offerLetter', component: OfferLetterNepaliComponent},
+    {path: 'birthMarkLetter', component: OfferLetterNepaliComponent},
 ];
 
 @NgModule({

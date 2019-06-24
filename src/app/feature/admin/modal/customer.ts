@@ -14,6 +14,8 @@ export class Customer {
     province: Province;
     district: District;
     municipalities: MunicipalityVdc;
+    street: string;
+    wardNo: string;
     telephone: string;
     mobile: string;
     email: string;

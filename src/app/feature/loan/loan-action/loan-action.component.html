@@ -1,29 +1,32 @@
 <div class="d-flex justify-content-center">
 
     <div class="row">
-        <button class="btn  btn-sm btn-success" [disabled]="!actionsList.approved" (click)=" approved(verify)">
+        <button class="btn-sm btn-success" [disabled]="!actionsList.approved" (click)=" approved(verify)">
             APPROVED<i class="col-md-1 fa fa-check"></i></button>
-        <button class="btn  btn-sm btn-info"
+        <button class="btn-sm btn-info"
                 (click)=" sendForwardList(sendForwardBackward)" [disabled]="!actionsList.sendForward">SEND FORWARD<i
                 class="col-md-1 fa fa-arrow-circle-up"></i></button>
 
-        <button class="btn" style="color:lightseagreen;"
+        <button class="btn-sm" style="color:lightseagreen;"
                 (click)="sendBackwardList(sendForwardBackward)" [disabled]="!actionsList.sendBackward">SEND BACKWARD<i
                 class="col-md-1 fa fa-arrow-circle-left"></i></button>
-        <button class="btn btn-flat btn-sm btn-primary" (click)="onEdit()" [disabled]="!actionsList.edit">EDIT<i
+        <button class="btn-flat btn-sm btn-primary" (click)="onEdit()" [disabled]="!actionsList.edit">EDIT<i
                 class="col-md-1 fa fa-edit"></i></button>
-        <button class="btn  btn-sm btn-info"
+        <button class="btn-sm btn-info"
                 (click)=" closeReject(sendForwardBackward,$event.target.value)" [disabled]="!actionsList.closed"
                 value="CLOSED">CLOSE<i
                 class="col-md-1 fa-close"></i></button>
-        <button class="btn  btn-sm btn-danger"
+        <button class="btn-sm btn-danger"
                 (click)=" closeReject(sendForwardBackward,$event.target.value)" [disabled]="!actionsList.rejected"
                 value="REJECTED">REJECTED<i
                 class="col-md-1 fa fa-ban"></i></button>
+        <button class="btn-sm btn-primary" value="Offer Letter" (click)="generateOfferLetter()">Offer Letter<i
+                class="col-md-1 fa fa-envelope-square"></i></button>
 
-        <button class="btn btn-flat btn-sm btn-warning d-flex justify-content-end" printSectionId="print-summary"
+        <button class="btn-sm btn-warning d-flex justify-content-end" printSectionId="print-summary"
 
                 [useExistingCss]="true" #print ngxPrint>PRINT<i class="col-md-1 fa fa-print"></i></button>
+
 
     </div>
 </div>

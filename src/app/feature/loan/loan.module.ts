@@ -18,6 +18,8 @@ import {LoanFormService} from './component/loan-form/service/loan-form.service';
 import {LoanSummaryComponent} from './component/loan-summary/loan-summary.component';
 import { OfferLetterNepaliComponent } from './component/loan-main-template/offer-letter-nepali/offer-letter-nepali.component';
 import {SummaryComponent} from './component/print-summary/summary.component';
+// tslint:disable-next-line:max-line-length
+import { OfferLetterPrintComponent } from './component/loan-main-template/offer-letter-nepali/offer-letter-print/offer-letter-print.component';
 
 
 
@@ -34,6 +36,7 @@ import {SummaryComponent} from './component/print-summary/summary.component';
         LoanSummaryComponent,
         OfferLetterNepaliComponent,
         SummaryComponent,
+        OfferLetterPrintComponent,
 
     ],
     imports: [

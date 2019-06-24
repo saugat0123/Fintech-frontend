@@ -9,6 +9,8 @@ import {LoanTemplateService} from '../loan-template/loan-template.service';
 import {DocumentService} from '../../document/document.service';
 import {LoanConfigService} from '../loan-config.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {OfferLetter} from '../../../modal/offerLetter';
+import {OfferLetterService} from '../offer-letter.service';
 
 
 @Component({
@@ -20,24 +22,28 @@ export class UIComponent implements OnInit {
     spinner = false;
     title: string;
     pageable: Pageable = new Pageable();
-    search: any = {};
-    globalMsg: any;
+    search: string;
+    globalMsg: string;
     loanTemplateList: any;
     confirmLoanTemplateList = Array<LoanTemplate>();
     loanConfig: LoanConfig = new LoanConfig();
     show = false;
     submitted: boolean;
-    initialDocumentList =  [];
+    initialDocumentList = [];
     finalInitialDocument = Array<Document>();
     renewalDocumentList = [];
     finalRenewalDocument = Array<Document>();
     eligibilityDocumentList = [];
     finalEligibilityDocument = Array<Document>();
     id: number;
+    offerLetterList: Array<OfferLetter> = new Array<OfferLetter>();
+    selectedOfferLetterIdList: Array<string> = new Array<string>();
+    selectedOfferLetterList: Array<OfferLetter> = new Array<OfferLetter>();
 
     constructor(
         private loanTemplateService: LoanTemplateService,
         private documentService: DocumentService,
+        private offerLetterService: OfferLetterService,
         private service: LoanConfigService,
         private toastService: ToastService,
         private router: Router,
@@ -48,6 +54,12 @@ export class UIComponent implements OnInit {
 
     ngOnInit() {
         this.id = Number(this.route.snapshot.queryParamMap.get('id'));
+        this.offerLetterService.getAll().subscribe((response: any) => {
+            this.offerLetterList = response.detail;
+        }, error => {
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Offer Letter'));
+        });
         this.documentService.getAll().subscribe((response: any) => {
             this.initialDocumentList = response.detail;
         });
@@ -57,9 +69,16 @@ export class UIComponent implements OnInit {
         this.documentService.getAll().subscribe((response: any) => {
             this.eligibilityDocumentList = response.detail;
         });
-        if (this.id !== undefined && this.  id !== 0) {
+        if (this.id !== undefined && this.id !== 0) {
             this.service.detail(this.id).subscribe((response: any) => {
                 this.loanConfig = response.detail;
+                this.loanConfig.offerLetters.forEach(selectedOfferLetter => {
+                    this.offerLetterList.forEach(offerLetter => {
+                        if (offerLetter.id === selectedOfferLetter.id) {
+                            this.selectedOfferLetterIdList.push(String(offerLetter.id));
+                        }
+                    });
+                });
                 this.loanConfig.templateList.forEach(loanConfigTemplate => {
                     if (loanConfigTemplate.id === loanConfigTemplate.id) {
                         this.confirmLoanTemplateList.push(loanConfigTemplate);
@@ -92,9 +111,6 @@ export class UIComponent implements OnInit {
                 });
             });
         }
-        console.log(this.initialDocumentList);
-        console.log(this.finalRenewalDocument);
-        console.log(this.finalEligibilityDocument);
     }
 
     getTemplate() {
@@ -133,13 +149,11 @@ export class UIComponent implements OnInit {
         const d: Document = document;
         if (events.target.checked === true) {
             this.finalInitialDocument.push(d);
-            console.log(this.finalInitialDocument);
         } else {
             const index: number = this.finalInitialDocument.indexOf(d);
             if (index !== -1) {
                 this.finalInitialDocument.splice(index, 1);
             }
-            console.log(this.finalInitialDocument);
         }
     }
 
@@ -147,13 +161,11 @@ export class UIComponent implements OnInit {
         const d: Document = document;
         if (events.target.checked === true) {
             this.finalRenewalDocument.push(d);
-            console.log(this.finalRenewalDocument);
         } else {
             const index: number = this.finalRenewalDocument.indexOf(d);
             if (index !== -1) {
                 this.finalRenewalDocument.splice(index, 1);
             }
-            console.log(this.finalRenewalDocument);
         }
     }
 
@@ -171,16 +183,23 @@ export class UIComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-        this.globalMsg = 'test successful';
+        this.selectedOfferLetterIdList.forEach(offerLetterId => {
+            const offerLetter = new OfferLetter();
+            offerLetter.id = Number(offerLetterId);
+            this.selectedOfferLetterList.push(offerLetter);
+        });
         this.loanConfig.templateList = this.confirmLoanTemplateList;
         this.loanConfig.initial = this.finalInitialDocument;
         this.loanConfig.renew = this.finalRenewalDocument;
         this.loanConfig.eligibilityDocuments = this.finalEligibilityDocument;
+        this.loanConfig.offerLetters = this.selectedOfferLetterList;
+        console.log(this.loanConfig);
         this.service.save(this.loanConfig).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Config!'));
                 this.loanConfig = new LoanConfig();
                 this.router.navigate(['home/admin/config']);
             }, error => {
+                console.log(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Loan Config!'));
             }
         );
