@@ -70,4 +70,8 @@ export class HeaderComponent implements OnInit {
         localStorage.clear();
         this.router.navigate(['/login']);
     }
+
+    userGuide() {
+        this.router.navigate(['/home/admin/user-guide']);
+    }
 }
