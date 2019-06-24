@@ -174,7 +174,6 @@ export class UserFormComponent implements OnInit {
                 const temp = re.detail;
                 this.branchList = this.model.branch;
                 temp.forEach(t => {
-                    console.log(t);
                     this.branchList.push(t);
                 });
             });
