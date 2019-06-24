@@ -1,0 +1,70 @@
+<nb-card>
+    <nb-card-body>
+        <nb-accordion>
+            <nb-accordion-item>
+                <nb-accordion-item-header>
+                    <p class="m-0 ml-2">Filter</p>
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <select class="custom-select">
+                                <option [value]="null" selected hidden>Select Branch</option>
+                                <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="custom-select">
+                                <option [value]="null" selected hidden>Select Loan Type</option>
+                                <option *ngFor="let loanType of loanTypeList"
+                                        [value]="loanType.id">{{loanType.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="custom-select">
+                                <option [value]="null" selected hidden>Select Document Status</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input id="startDate" [nbDatepicker]="startDate" class="form-control rounded"
+                                   placeholder="Enter Start Date">
+                            <nb-datepicker #startDate></nb-datepicker>
+                            <!--<select class="custom-select">
+                                <option [value]="null" selected hidden>Select Start Date</option>
+                            </select>-->
+                        </div>
+                        <div class="col-md-2">
+                            <input id="endDate" [nbDatepicker]="endDate" class="form-control rounded"
+                                   placeholder="Enter End Date">
+                            <nb-datepicker #endDate></nb-datepicker>
+                            <!--<select class="custom-select">
+                                <option [value]="null" selected hidden>Select End Date</option>
+                            </select>-->
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn-sm btn-primary">Search</button>
+                        </div>
+                    </div>
+                </nb-accordion-item-body>
+            </nb-accordion-item>
+        </nb-accordion>
+        <br>
+        <table id="add-branch-table" class="table table-striped table-bordered table-hover ">
+            <thead>
+            <tr>
+                <th>Branch</th>
+                <th>Name</th>
+                <th>Loan Type</th>
+                <th>Status</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Possesion Under/Days</th>
+                <th>Age</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </nb-card-body>
+</nb-card>
