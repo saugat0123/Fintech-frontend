@@ -1,0 +1,100 @@
+<nb-card>
+    <nb-card accent="info" status="primary">
+        <nb-card-header class="text-white">User Documentation</nb-card-header>
+        <nb-card-body>
+            <nb-card>
+                <nb-card-body>
+                    <nb-stepper orientation="horizontal">
+                        <nb-step [label]="labelOne">
+                            <ng-template #labelOne>First step</ng-template>
+                            <h4>Step #1 : Create Branch</h4>
+
+                            <nb-accordion>
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>Click on Branch Menu</nb-accordion-item-header>
+                                    <nb-accordion-item-body class="d-flex justify-content-sm-center">
+                                        <img src="../../../../assets/documentation/branch-menu.JPG">
+                                    </nb-accordion-item-body>
+
+                                </nb-accordion-item>
+                            </nb-accordion>
+                            <nb-accordion style="margin-bottom: 20px;">
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>Click on
+
+                                        <button>
+                                          +
+                                        </button>
+                                         Branch Page
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body class="d-flex justify-content-center">
+
+                                        <img src="../../../../assets/documentation/branch-add-btn.JPG"  width="100%">
+                                        <img src="../../../../assets/documentation/branch-add.JPG">
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+                            </nb-accordion>
+
+
+                            <nb-layout-column>
+                                <button nbButton disabled nbStepperNext>prev</button>
+                                <button nbButton nbStepperNext>next</button>
+                            </nb-layout-column>
+                        </nb-step>
+                        <nb-step [label]="labelTwo">
+                            <ng-template #labelTwo>Second step</ng-template>
+                            <h4>Step #2 : Create Role</h4>
+
+                            <p class="lorem">
+                                Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
+                                Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the
+                                shizzle up,
+                                gravida vizzle, dang.
+                            </p>
+                            <button nbButton nbStepperPrevious>prev</button>
+                            <button nbButton nbStepperNext>next</button>
+                        </nb-step>
+                        <nb-step label="Third step">
+                            <h4>Step #3 : Assign Role &amp; Permission</h4>
+
+                            <p class="lorem">
+                                Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
+                                Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the
+                                shizzle up,
+                                gravida vizzle, dang.
+                            </p>
+                            <button nbButton nbStepperPrevious>prev</button>
+                            <button nbButton nbStepperNext>next</button>
+                        </nb-step>
+                        <nb-step [label]="labelFour">
+                            <ng-template #labelFour>Fourth step</ng-template>
+                            <h4>Step content #4 : Create Role Hierarchy</h4>
+
+                            <p class="lorem">
+                                Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
+                                Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the
+                                shizzle up,
+                                gravida vizzle, dang.
+                            </p>
+                            <button nbButton nbStepperPrevious>prev</button>
+                            <button nbButton nbStepperNext>next</button>
+                        </nb-step>
+                        <nb-step [label]="labelFive">
+                            <ng-template #labelFive>Fifth step</ng-template>
+                            <h4>Step #5 : Create User</h4>
+
+                            <p class="lorem">
+                                Lorizzle ipsum dolizzle stuff fizzle, consectetuer adipiscing break it down.
+                                Nullizzle sapien velizzle, my shizz pimpin', shizzle my nizzle crocodizzle shut the
+                                shizzle up,
+                                gravida vizzle, dang.
+                            </p>
+                            <button nbButton nbStepperPrevious>prev</button>
+                            <button nbButton disabled nbStepperNext>next</button>
+                        </nb-step>
+                    </nb-stepper>
+                </nb-card-body>
+            </nb-card>
+        </nb-card-body>
+    </nb-card>
+</nb-card>
