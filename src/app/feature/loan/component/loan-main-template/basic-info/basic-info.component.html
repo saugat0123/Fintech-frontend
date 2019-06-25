@@ -10,8 +10,12 @@
                             <label for="customerName"><b>Customer Name</b></label>
                             <input id="customerName" formControlName="customerName" name="customerName" type="text"
                                    class="form-control form-control-sm-error rounded"
-                                   placeholder="Applicant's Full Name" required
-                                   minlength="2">
+                                   placeholder="Applicant's Full Name"
+                                   [ngClass]="{ 'is-invalid': (submitted || basicInfoControls.customerName.touched || basicInfoControls.customerName.dirty )
+                                    && basicInfoControls.customerName.errors }">
+                            <div *ngIf="(submitted || basicInfoControls.customerName.touched || basicInfoControls.customerName.dirty ) && basicInfoControls.customerName.invalid" class="invalid-feedback">
+                                <div *ngIf="basicInfoControls.customerName.errors.required">Customer name is required</div>
+                            </div>
                         </div>
 
                     </div>
@@ -19,13 +23,23 @@
                         <div class="form-group">
                             <label for="customerID"><b>Customer ID</b></label>
                             <input id="customerID" formControlName="customerId" name="customerId" type="text"
-                                   class="form-control" placeholder="8 alpha numeric customer ID" required>
+                                   class="form-control" placeholder="8 alpha numeric customer ID"
+                                   [ngClass]="{ 'is-invalid': (submitted || basicInfoControls.customerId.touched || basicInfoControls.customerId.dirty )
+                                    && basicInfoControls.customerId.errors }">
+                            <div *ngIf="(submitted || basicInfoControls.customerId.touched || basicInfoControls.customerId.dirty ) && basicInfoControls.customerId.invalid" class="invalid-feedback">
+                                <div *ngIf="basicInfoControls.customerId.errors.required">Customer ID is required</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <label for="email"><b>Email</b></label>
                         <input id="email" formControlName="email" name="email" type="email" class="form-control"
-                               placeholder="eg. xyz@abc.com" required>
+                               placeholder="eg. xyz@abc.com" [ngClass]="{ 'is-invalid': (submitted || basicInfoControls.email.touched || basicInfoControls.email.dirty )
+                                    && basicInfoControls.email.errors }">
+                        <div *ngIf="(submitted || basicInfoControls.email.touched || basicInfoControls.email.dirty ) && basicInfoControls.email.invalid" class="invalid-feedback">
+                            <div *ngIf="basicInfoControls.email.errors.required">Email is required</div>
+                            <div *ngIf="basicInfoControls.email.errors.email">Valid email address has form xyz@abc.com</div>
+                        </div>
                     </div>
                 </div>
                 <!-- END ROW -->
@@ -36,12 +50,16 @@
                             <label for="province"><b>Province</b></label>
                             <select name="province" id="province" class="custom-select"
                                     formControlName="province"
-                                    (change)="getDistricts(this.basicInfo.get('province').value)">
+                                    (change)="getDistricts(this.basicInfo.get('province').value)"
+                                    [ngClass]="{ 'is-invalid': (submitted || basicInfoControls.province.touched) && basicInfoControls.province.errors }">
                                 <option [value]="null" hidden>Select Province</option>
                                 <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal"
                                         [selected]="provinceVal.id === province?.id">
                                     {{provinceVal.name}}
                             </select>
+                            <div *ngIf="(submitted || basicInfoControls.province.touched ) && basicInfo.get('province').invalid" class="invalid-feedback">
+                                <span *ngIf="basicInfoControls.province.errors.required">Province is required</span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -49,26 +67,33 @@
                             <label for="district"><b>District</b></label>
                             <select name="district" id="district" class="custom-select"
                                     formControlName="district"
-                                    (change)="getMunicipalities(this.basicInfo.get('district').value)">
+                                    (change)="getMunicipalities(this.basicInfo.get('district').value)"
+                                    [ngClass]="{ 'is-invalid': (submitted || basicInfoControls.district.touched ) && basicInfoControls.district.errors }">
                                 <option [ngValue]="null" hidden>Select District</option>
                                 <option *ngFor="let districtVal of districtList" [ngValue]="districtVal"
                                         [selected]="districtVal.id === district?.id">
                                     {{districtVal.name}}
                                 </option>
                             </select>
+                            <div *ngIf="(submitted || basicInfoControls.district.touched) && basicInfo.get('district').invalid" class="invalid-feedback">
+                                <span *ngIf="basicInfoControls.district.errors.required">Municipality is required</span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="municipality"><b>Municipalities or VDC</b></label>
-                            <select name="municipality" id="municipality" formControlName="municipalities"
-                                    class="custom-select">
+                            <select name="municipality" id="municipality" formControlName="municipalities" class="custom-select"
+                                    [ngClass]="{ 'is-invalid': (submitted || basicInfoControls.municipalities.touched ) && basicInfoControls.municipalities.errors }">
                                 <option [ngValue]="null" hidden>Select Municipality</option>
                                 <option *ngFor="let municipalityVal of municipalitiesList" [ngValue]="municipalityVal"
                                         [selected]="municipalityVal.id === municipality?.id">
                                     {{municipalityVal.name}}
                                 </option>
                             </select>
+                            <div *ngIf="(submitted || basicInfoControls.municipalities.touched ) && basicInfo.get('municipalities').invalid" class="invalid-feedback">
+                                <span *ngIf="basicInfoControls.municipalities.errors.required">Province is required</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -79,7 +104,12 @@
                         <div class="form-group">
                             <label for="mobile"><b>Mobile</b></label>
                             <input id="mobile" formControlName="mobile" name="mobile" type="text" class="form-control"
-                                   placeholder="Mobile number" required pattern="[0-9]{10}">
+                                   placeholder="Mobile number" required [ngClass]="{ 'is-invalid': (submitted || basicInfoControls.mobile.touched || basicInfoControls.mobile.dirty )
+                                    && basicInfoControls.mobile.errors }">
+                            <div *ngIf="(submitted || basicInfoControls.mobile.touched || basicInfoControls.mobile.dirty ) && basicInfoControls.mobile.invalid" class="invalid-feedback">
+                                <div *ngIf="basicInfoControls.mobile.errors.required">Mobile number is required</div>
+                                <div *ngIf="basicInfoControls.mobile.errors.pattern">Mobile number is invalid.</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -87,14 +117,23 @@
                             <label for="phone"><b>Phone</b></label>
                             <input id="phone" formControlName="telephone" name="telephone" type="text"
                                    class="form-control"
-                                   placeholder="Landline number" required pattern="[0-9]{9}">
+                                   placeholder="Landline number" required [ngClass]="{ 'is-invalid': (submitted || basicInfoControls.telephone.touched || basicInfoControls.telephone.dirty )
+                                    && basicInfoControls.telephone.errors }">
+                            <div *ngIf="(submitted || basicInfoControls.telephone.touched || basicInfoControls.telephone.dirty ) && basicInfoControls.telephone.invalid" class="invalid-feedback">
+                                <div *ngIf="basicInfoControls.telephone.errors.required">Telephone number is required</div>
+                                <div *ngIf="basicInfoControls.telephone.errors.pattern">Telephone number is invalid.</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="accountNo"><b>Account No.</b></label>
                             <input id="accountNo" formControlName="accountNo" name="accountNo" type="text"
-                                   class="form-control" placeholder="Applicant's Account Number" required>
+                                   class="form-control" placeholder="Applicant's Account Number" [ngClass]="{ 'is-invalid': (submitted || basicInfoControls.accountNo.touched || basicInfoControls.accountNo.dirty )
+                                    && basicInfoControls.accountNo.errors }">
+                            <div *ngIf="(submitted || basicInfoControls.accountNo.touched || basicInfoControls.accountNo.dirty ) && basicInfoControls.accountNo.invalid" class="invalid-feedback">
+                                <div *ngIf="basicInfoControls.accountNo.errors.required">Account number is required</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -106,7 +145,11 @@
                             <label for="citizenshipNumber"><b>Citizenship Number</b></label>
                             <input id="citizenshipNumber" type="text" formControlName="citizenshipNumber"
                                    name="citizenshipNumber" class="form-control" placeholder="Citizenship Number"
-                                   required>
+                                   [ngClass]="{ 'is-invalid': (submitted || basicInfoControls.citizenshipNumber.touched || basicInfoControls.citizenshipNumber.dirty )
+                                    && basicInfoControls.citizenshipNumber.errors }">
+                            <div *ngIf="(submitted || basicInfoControls.citizenshipNumber.touched || basicInfoControls.citizenshipNumber.dirty ) && basicInfoControls.citizenshipNumber.invalid" class="invalid-feedback">
+                                <div *ngIf="basicInfoControls.citizenshipNumber.errors.required">Citizenship number is required</div>
+                            </div>
                         </div>
                     </div>
 
@@ -115,7 +158,11 @@
                             <label for="citizenshipIssuedPlace"><b>Issued Place</b></label>
                             <input id="citizenshipIssuedPlace" formControlName="citizenshipIssuedPlace"
                                    name="citizenshipIssuedPlace" type="text" class="form-control"
-                                   placeholder="Citizenship Issued Place" required>
+                                   placeholder="Citizenship Issued Date" [ngClass]="{ 'is-invalid': (submitted || basicInfoControls.citizenshipIssuedPlace.touched || basicInfoControls.citizenshipIssuedPlace.dirty )
+                                    && basicInfoControls.citizenshipIssuedPlace.errors }">
+                            <div *ngIf="(submitted || basicInfoControls.citizenshipIssuedPlace.touched || basicInfoControls.citizenshipIssuedPlace.dirty ) && basicInfoControls.citizenshipIssuedPlace.invalid" class="invalid-feedback">
+                                <div *ngIf="basicInfoControls.citizenshipIssuedPlace.errors.required">Issued Place is required</div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -124,7 +171,11 @@
                             <input id="customerCitizenshipIssuedDate" formControlName="citizenshipIssuedDate"
                                    name="customerCitizenshipIssuedDate" [nbDatepicker]="customerCitizenshipIssuedDate"
                                    class="form-control"
-                                   placeholder="Citizenship Issued Date" required>
+                                   placeholder="Citizenship Issued Date" [ngClass]="{ 'is-invalid': (submitted || basicInfoControls.citizenshipIssuedDate.touched || basicInfoControls.citizenshipIssuedDate.dirty )
+                                    && basicInfoControls.citizenshipIssuedDate.errors }">
+                            <div *ngIf="(submitted || basicInfoControls.citizenshipIssuedDate.touched || basicInfoControls.citizenshipIssuedDate.dirty ) && basicInfoControls.citizenshipIssuedDate.invalid" class="invalid-feedback">
+                                <div *ngIf="basicInfoControls.citizenshipIssuedDate.errors.required">Issued Date is required</div>
+                            </div>
                             <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
                         </div>
                     </div>

@@ -23,6 +23,10 @@
         <app-dms-loan [loanFile]="loanFile" *ngIf="selectedTab==='General' && loanFile" (dmsDisableButton)="submitButton($event)" #dmsLoanFile></app-dms-loan>
         <app-company-info [formValue]="loanDocument?.entityInfo" *ngIf="selectedTab==='Company Info'"
                           #entityInfo></app-company-info>
+        <app-proposal [formValue]="loanDocument?.proposal"
+                      *ngIf="selectedTab==='Proposal' && loanDocument"
+                      (dmsDisableButton)="submitButton($event)"
+                      #proposalInfo></app-proposal>
 
         <!-- /.tab-pane -->
     </div>

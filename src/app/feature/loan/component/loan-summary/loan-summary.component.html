@@ -75,9 +75,9 @@
                         <tr>
                             <td>1</td>
                             <td>{{loanDataHolder?.loan?.name}}</td>
-                            <td>{{dmsLoanFile?.proposedAmount}}</td>
-                            <td>{{dmsLoanFile?.interestRate}}</td>
-                            <td>{{dmsLoanFile?.tenure | date}}</td>
+                            <td>{{dmsLoanFile?.proposedAmount || loanDataHolder?.proposal?.proposedLimit}}</td>
+                            <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}}</td>
+                            <td>{{(dmsLoanFile?.tenure || loanDataHolder?.proposal?.tenureYear) | date}}</td>
                         </tr>
                         </tbody>
                     </table>
