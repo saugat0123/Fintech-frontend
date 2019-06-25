@@ -106,7 +106,7 @@
                                         <input id="cibCharge" formControlName="cibCharge" name="tenureYear" type="text"
                                                class="form-control" placeholder="CIB charge"
                                                [ngClass]="{ 'is-invalid': (submitted || formControls.cibCharge.touched || formControls.cibCharge.dirty) && formControls.cibCharge.errors }">
-                                        <div *ngIf="(submitted || formControls.cibCharge.touched || formControls.cibCharge.dirty) && proposalForm.get('cibCharge').invalid"
+                                        <div *ngIf="(submitted || formControls.cibCharge.touched || formControls.cibCharge.dirty) && formControls.cibCharge.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.cibCharge.errors.required">CIB Charge is required</span>
 
@@ -127,7 +127,7 @@
                                             <option value="QUARTERLY">Quarterly</option>
                                             <option value="YEARLY">Yearly</option>
                                         </select>
-                                        <div *ngIf="(submitted || formControls.repaymentMode.touched) && proposalForm.get('repaymentMode').invalid" class="invalid-feedback">
+                                        <div *ngIf="(submitted || formControls.repaymentMode.touched) && formControls.repaymentMode.invalid" class="invalid-feedback">
                                             <span *ngIf="formControls.repaymentMode.errors.required">Repayment mode is required</span>
                                         </div>
                                     </div>
@@ -139,7 +139,7 @@
                                                   formControlName="purposeOfSubmission" class="form-control" rows="3"
                                                   placeholder="Purpose of submission."
                                                   [ngClass]="{ 'is-invalid': (submitted || formControls.purposeOfSubmission.touched || formControls.purposeOfSubmission.dirty) && formControls.purposeOfSubmission.errors }">"></textarea>
-                                        <div *ngIf="(submitted || formControls.purposeOfSubmission.touched || formControls.purposeOfSubmission.dirty) && proposalForm.get('purposeOfSubmission').invalid"
+                                        <div *ngIf="(submitted || formControls.purposeOfSubmission.touched || formControls.purposeOfSubmission.dirty) && formControls.purposeOfSubmission.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.purposeOfSubmission.errors.required">Purpose of Submission is required.</span>
                                         </div>
@@ -154,7 +154,7 @@
                                                   formControlName="disbursementCriteria" class="form-control" rows="3"
                                                   placeholder="Disbursement Criteria"
                                                   [ngClass]="{ 'is-invalid': (submitted || formControls.disbursementCriteria.touched || formControls.disbursementCriteria.dirty) && formControls.disbursementCriteria.errors }">"></textarea>
-                                        <div *ngIf="(submitted || formControls.disbursementCriteria.touched || formControls.disbursementCriteria.dirty) && proposalForm.get('disbursementCriteria').invalid"
+                                        <div *ngIf="(submitted || formControls.disbursementCriteria.touched || formControls.disbursementCriteria.dirty) && formControls.disbursementCriteria.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.disbursementCriteria.errors.required">Disbursement Criteria is required.</span>
                                         </div>
@@ -168,7 +168,7 @@
                                                   formControlName="creditInformationReportStatus" class="form-control"
                                                   rows="3" placeholder="Credit Information Report Status"
                                                   [ngClass]="{ 'is-invalid': (submitted || formControls.creditInformationReportStatus.touched || formControls.creditInformationReportStatus.dirty) && formControls.creditInformationReportStatus.errors }">"></textarea>
-                                        <div *ngIf="(submitted || formControls.creditInformationReportStatus.touched || formControls.creditInformationReportStatus.dirty) && proposalForm.get('creditInformationReportStatus').invalid"
+                                        <div *ngIf="(submitted || formControls.creditInformationReportStatus.touched || formControls.creditInformationReportStatus.dirty) && formControls.creditInformationReportStatus.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.creditInformationReportStatus.errors.required">Credit Information Report Status is required.</span>
                                         </div>
@@ -183,7 +183,7 @@
                                                   formControlName="incomeFromTheAccount" class="form-control" rows="3"
                                                   placeholder="Income from the Account"
                                                   [ngClass]="{ 'is-invalid': (submitted || formControls.creditInformationReportStatus.touched || formControls.incomeFromTheAccount.dirty) && formControls.incomeFromTheAccount.errors }">"></textarea>
-                                        <div *ngIf="(submitted || formControls.incomeFromTheAccount.touched || formControls.incomeFromTheAccount.dirty) && proposalForm.get('incomeFromTheAccount').invalid"
+                                        <div *ngIf="(submitted || formControls.incomeFromTheAccount.touched || formControls.incomeFromTheAccount.dirty) && formControls.incomeFromTheAccount.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.incomeFromTheAccount.errors.required">Income from the Account is required.</span>
                                         </div>
@@ -198,7 +198,7 @@
                                                   formControlName="borrowerInformation" class="form-control" rows="3"
                                                   placeholder="Borrower Information"
                                                   [ngClass]="{ 'is-invalid': (submitted || formControls.borrowerInformation.touched || formControls.borrowerInformation.dirty) && formControls.borrowerInformation.errors }">"></textarea>
-                                        <div *ngIf="(submitted || formControls.borrowerInformation.touched || formControls.borrowerInformation.dirty) && proposalForm.get('borrowerInformation').invalid"
+                                        <div *ngIf="(submitted || formControls.borrowerInformation.touched || formControls.borrowerInformation.dirty) && formControls.borrowerInformation.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.borrowerInformation.errors.required">Borrower Information is required.</span>
                                         </div>

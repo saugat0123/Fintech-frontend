@@ -57,7 +57,7 @@
                                         [selected]="provinceVal.id === province?.id">
                                     {{provinceVal.name}}
                             </select>
-                            <div *ngIf="(submitted || basicInfoControls.province.touched ) && basicInfo.get('province').invalid" class="invalid-feedback">
+                            <div *ngIf="(submitted || basicInfoControls.province.touched ) && basicInfoControls.province.invalid" class="invalid-feedback">
                                 <span *ngIf="basicInfoControls.province.errors.required">Province is required</span>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                                     {{districtVal.name}}
                                 </option>
                             </select>
-                            <div *ngIf="(submitted || basicInfoControls.district.touched) && basicInfo.get('district').invalid" class="invalid-feedback">
+                            <div *ngIf="(submitted || basicInfoControls.district.touched) &&  basicInfoControls.district.invalid" class="invalid-feedback">
                                 <span *ngIf="basicInfoControls.district.errors.required">Municipality is required</span>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                                     {{municipalityVal.name}}
                                 </option>
                             </select>
-                            <div *ngIf="(submitted || basicInfoControls.municipalities.touched ) && basicInfo.get('municipalities').invalid" class="invalid-feedback">
+                            <div *ngIf="(submitted || basicInfoControls.municipalities.touched ) && basicInfoControls.municipalities.invalid" class="invalid-feedback">
                                 <span *ngIf="basicInfoControls.municipalities.errors.required">Province is required</span>
                             </div>
                         </div>
