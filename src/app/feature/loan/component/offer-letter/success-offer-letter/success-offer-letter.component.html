@@ -16,14 +16,12 @@
                             {{loanDataHolder?.customerInfo?.district?.name}},
                             {{loanDataHolder?.customerInfo?.municipalities?.name}}</td>
                     </tr>
-                    <tr>
-                        <th scope="row">Grand Parent</th>
-                        <td>{{loanDataHolder?.customerInfo?.customerRelatives[0]?.customerRelativeName}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Parent</th>
-                        <td>{{loanDataHolder?.customerInfo?.customerRelatives[1]?.customerRelativeName}}</td>
-                    </tr>
+                    <div *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
+                        <tr>
+                            <th scope="row">{{relative.customerRelation}}</th>
+                            <td>{{relative.customerRelativeName}}</td>
+                        </tr>
+                    </div>
                     </tbody>
                 </table>
             </section>
@@ -59,7 +57,7 @@
                                 स्थायी ठेगाना : <input class="form-field form-control-sm nepaliFont" type="text"
                                                        [(ngModel)]="applicant.permanentAddress" name="permanentAddress"
                                                        placeholder="खिचापोखरी, वडा नं . २२, काठमाण्डौं"
-                                                       style="width: 200px"/>
+                                                       style="width: 300px"/>
                             </div>
                         </div>
                     </div>
@@ -110,7 +108,7 @@
                                                                placeholder="सृष्टि मानन्धर"/>
                                 <input class="form-field form-control-sm nepaliFont" type="text"
                                        [(ngModel)]="applicant.permanentAddress"
-                                       name="permanentAddress"
+                                       name="permanentAddress" style="width: 300px"
                                        placeholder="खिचापोखरी, का.म.न.पा. वडा नं. २२"/>,
                                 <!--जिल्ला <input class="form-field form-control-sm" type="text" [(ngModel)]="district"
                                               placeholder="काठमाण्डौं"/>--> स्थायी ठेगाना भई
@@ -190,100 +188,6 @@
                             भएमा यो पत्रमा उल्लेख भएको मितिले ३० दिन भित्र आफ्नो सहमती
                             रहेको प्रमाण स्वरुप हस्ताक्षर गरी यस बैंकलाई दिनु/लिनु हुन अनुरोध छ ।
                         </div>
-                    </div>
-                    <b>१) कर्जा सम्बन्धी शर्त/विवरण :</b>
-                    <div class="table-responsive">
-                        <table class="table table-bordered" style="width:100%">
-                            <tbody>
-                            <tr>
-                                <td scope="col" style="width:5%">क</td>
-                                <td style="width:20%">कर्जाको किसिम</td>
-                                <td style="width:75%"><input class="form-field form-control-sm nepaliFont" type="text"
-                                                             name="loanType"
-                                                             [(ngModel)]="loanNepali.loanType"
-                                                             placeholder="शैक्षिक कर्जा"/>।
-                                </td>
-                            </tr>
-                            <tr>
-                                <td scope="col">ख</td>
-                                <td>कर्जा सिमा रकम</td>
-                                <td>अधिकतम रु. <input class="form-field form-control-sm nepaliFont" type="text"
-                                                      [(ngModel)]="loanNepali.amountLimit"
-                                                      name="amountLimit"
-                                                      placeholder="४२,००,०००"/>/–
-                                    (अक्षेरपी <input class="form-field form-control-sm nepaliFont" type="text"
-                                                     [(ngModel)]="loanNepali.amountLimitWord"
-                                                     name="amountLimitWord"
-                                                     placeholder="बयालिस लाख"/>
-                                    मात्र रुपैयाँ मात्र)।
-                                </td>
-                            </tr>
-                            <tr>
-                                <td scope="col">ग</td>
-                                <td>कर्जाको उद्देश्य</td>
-                                <td>उच्च शिक्षाको लागि आवश्यक ट्युशन फि, छात्रावास तथा खाना खर्च, शैक्षिक सामाग्री खरिद
-                                    गर्ने
-                                    आदी तोकिएको प्रयोजनार्थ ।
-                                </td>
-                            </tr>
-                            <tr>
-                                <td scope="col">घ</td>
-                                <td>व्याजदर</td>
-                                <td>वार्षिक <input class="form-field form-control-sm nepaliFont" type="text"
-                                                   name="interestRate"
-                                                   [(ngModel)]="loanNepali.interestRate" placeholder="१२.००"/>
-                                    प्रतिशत वा समय समयमा धनी बैंकले तोके बमोजिम नेपाली महिनाको मसान्त भित्रै व्याज
-                                    भुक्तानी भएको हुनुपर्ने ।
-                                </td>
-                            </tr>
-                            <tr>
-                                <td scope="col">ङ</td>
-                                <td>कर्जा भुक्तानी समयावधी</td>
-                                <td>कर्जा भुक्तानी लिएको मितिले २४ महिना भित्र तिरी सक्नुपर्ने ।</td>
-                            </tr>
-                            <tr>
-                                <td scope="col">च</td>
-                                <td>हर्जाना व्याजदर</td>
-                                <td>ऋणीले बैंकसंग गरेको यस स्वीकृतीपत्रका कुनैपनि शर्त सम्झौता उल्लंघन गरेमा हर्जाना
-                                    ब्याज
-                                    असुल
-                                    गर्ने अधिकार बैंकलाई हुनेछ । ऋणीले बैंकलाई तिर्नुपर्ने वक्यौता वाकी
-                                    रहेमा बैंकले समय समयमा प्रकाशित गर्ने व्याजदरको अधिकतम व्याजमा ३ प्रतिशत थपगरी यसै
-                                    शर्तको
-                                    आधारमा पूर्व सूचना नदिईकनै ऋणीको चल्ती खाताबाट हर्जाना
-                                    व्याज असुलउपर गर्न सकिनेछ ।
-                                </td>
-                            </tr>
-                            <tr>
-                                <td scope="col">छ</td>
-                                <td>बैंकले कर्जा प्रदान गर्ने तरिका</td>
-                                <td>स्विकृत कर्जा रकमलाई सम्वन्धित कलेजको शुल्क: भुक्तानी तालिका र अन्य आधारभूत आवश्यकता
-                                    लाई
-                                    आधार मानी आवश्यकतानुसार कर्जा रकम भुक्तानी गरिनेछ । तर कर्जा भुक्तानी हुनुपूर्व
-                                    बुँदा
-                                    नं.२
-                                    मा उल्लिखित सवै सुरक्षण लिखतहरु बैंकको पक्षमा गरिसकेको हुनुपर्नेछ ।
-                                </td>
-                            </tr>
-                            <tr>
-                                <td scope="col">ज</td>
-                                <td>कर्जा फिर्ता भुक्तानी तरिका</td>
-                                <td>कर्जा भुक्तानी लिएको महिनामा कजाको ब्याज मात्र तिर्नु पर्ने छ र अर्को महिना देखी रु.
-                                    <input class="form-field form-control-sm nepaliFont" type="text" name="interest"
-                                           [(ngModel)]="loanNepali.interest" placeholder="१,९७,७०९"/>/–
-                                    (अक्षेरेपी <input class="form-field form-control-sm nepaliFont" type="text"
-                                                      name="interestWord"
-                                                      [(ngModel)]="loanNepali.interestWord"
-                                                      placeholder="एक लाख सन्तानब्बे हजार सात सय नौ"/>
-                                    रुपैया मात्र)समान मासिक किस्ताको हिसावले २४ महिना भित्र सम्पूर्ण कर्जा भुक्तानी गरी
-                                    सक्नुपर्नेछ । मासिक
-                                    किस्ता रकम (साँवा र व्याज समेतको) र भुक्तानी तालिका सहितको विवरण कर्जा भुक्तानी
-                                    गर्दाको
-                                    अवस्थामा उपलब्ध गराईने छ ।
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
                     </div>
                     <b>२) सुरक्षण सम्बन्धी व्यवस्था :</b>
                     <ol class="ml-3">
@@ -899,57 +803,6 @@
                         वा केही अधिकारहरुको प्रयोग गरेमा वा नगरेमा पनि ती सम्पुर्ण अधिकारहरु पुन: प्रयोग गर्न सक्नेछ
                         ।</p>
                     <b> ११) सूचना</b>
-                    <p>कुनै पनि सूचना आदान प्रदान गर्नु परेमा देहाय वमोजिमको ठेगानामा पत्राचार गरी वा फ्याक्स मार्फत
-                        आदान
-                        प्रदान
-                        गर्न सकिने छ ।</p>
-                    <b>बैंकको तर्फबाट</b>
-                    <br>
-                    <p>
-                        कमर्ज एण्ड ट्रस्ट बैंक नेपाल लिमिटेड, कमलादी,
-                    </p>
-                    <p>
-                        जि. पि.ओ बक्स नं २३३९९,
-                    </p>
-                    <p>
-                        काठमाण्डौ नेपाल ।
-                    </p>
-                    <p>
-                        टेलिफोन: ९७७–०१–४४४६१५०,०१–४४४६१५१स
-                    </p>
-                    <p>
-                        फ्याक्स नं. ं ९७७–०१–४४४४७७०
-                    </p>
-                    <b>ऋणीको तर्फबाट</b>
-                    <br>
-                    <div *ngFor="let applicant of loanNepali?.applicants">
-                        <b>श्री / सुश्री / श्रीमती <input class="form-field form-control-sm nepaliFont" type="text"
-                                                          name="name"
-                                                          [(ngModel)]="applicant.name"
-                                                          placeholder="सृष्टि मानन्धर"/>,</b>
-                        <p>स्थायी ठेगाना : <input class="form-field form-control-sm nepaliFont" type="text"
-                                                  name="permanentAddress"
-                                                  [(ngModel)]="applicant.permanentAddress"
-                                                  placeholder="खिचापोखरी, वडा नं. २२, काठमाण्डौं"
-                                                  style="width: 200px"/></p>
-                        <p>मोबाइल नं : <input class="form-field form-control-sm nepaliFont" type="text" name="mobile"
-                                              [(ngModel)]="applicant.mobile" placeholder="९८४१५०९४५७"/></p>
-                    </div>
-                    <!--<b>श्री / सुश्री / श्रीमती <input class="form-field form-control-sm" type="text"
-                                                      placeholder="विमला मानन्धर"/></b>
-                    <p>स्थायी ठेगाना : <input class="form-field form-control-sm" type="text"
-                                              placeholder="वडा नं. २३, काठमाण्डौं"
-                                              style="width: 200px"/></p>
-                    <p>मोबाइल नं : <input class="form-field form-control-sm" type="text" placeholder="९८४९३५१६७२"/></p>
-                    <b>श्री / सुश्री / श्रीमती <input class="form-field form-control-sm" type="text"
-                                                      placeholder="संगिता मानन्धर"/></b>
-                    <p>स्थायी ठेगाना : <input class="form-field form-control-sm" type="text"
-                                              placeholder="वडा नं. २, काठमाण्डौं"
-                                              style="width: 200px"/></p>
-                    <p>सम्पर्क नं : <input class="form-field form-control-sm" type="text" placeholder="४२८०२६०"/></p>
-                    <p>हलको ठेगाना : <input class="form-field form-control-sm" type="text"
-                                            placeholder="कुलेश्वर, वडा नं. १४, काठमाण्डौं"
-                                            style="width: 200px"/></p>-->
                     <br>
                     <b>महाशय, </b>
                     <p>कृपया यस स्वीकृतीपत्रमा उल्लिखित कर्जा सुविधा र शर्तबन्देजहरु विनाशर्त स्विकार भएमा यस पत्रको
@@ -958,42 +811,6 @@
                         प्रति बुझिलिनु हुन अनुरोध गरिन्छ ।</p>
                     <b class="text-center">भवदीय,</b>
                     <p>कमर्ज एण्ड ट्रस्ट बैंक नेपाल लिमिटेड, तर्फबाट,</p>
-                    <br>
-                    <br>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="col-md-12">
-                                <p class="text-center">-----------------------------</p>
-                            </div>
-                            <div class="col-md-12">
-                                <p class="text-center">आधिकारिक दस्तखत</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6"></div>
-                        <div class="col-md-3">
-                            <div class="col-md-12">
-                                <p class="text-center">-----------------------------</p>
-                            </div>
-                            <div class="col-md-12">
-                                <p class="text-center">आधिकारिक दस्तखत</p>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <b>ऋणीको तर्फबाट</b>
-                    <p>
-                        उल्लेखित कर्जा स्वीकृतिपत्र नं. सीटीबीएन/सीडी–१३/०४९९, मिति २०७०/०१/२७ मा उल्लेखित कर्जा तथा
-                        बैकिंग
-                        सुविधा सिमा र यस ऋण स्वीकृति पत्रमा उल्लेखित शर्तबन्देजहरु विनाशर्त
-                        स्वीकार गर्दछु भनि सहिछाप गर्ने ऋणी सुश्री सृष्टि मानन्धर, ना.प्र.प.न: ३२४२८, जिल्ला:
-                        काठमाण्डौं,
-                        जारी
-                        मिति: २०६३/०२/१२),श्रीमति विमला मानन्धर ,ना.प्र.प.न: १८०३,
-                        जिल्ला: काठमाण्डौं, जारी मिति: २०४१/०४/२१) श्रीमती संगिता मानन्धर (ना.प्र.नं. १११५२, जिल्ला
-                        काठमाण्डौं,
-                        मिति २०२४/१०/२७ ।
-                    </p>
                 </form>
             </section>
         </div>
@@ -1002,4 +819,4 @@
         </button>
     </nb-card-body>
 </nb-card>
-<app-offer-letter-print hidden [loanNepali]="loanNepali"></app-offer-letter-print>
+<app-birth-mark-letter-print hidden [loanNepali]="loanNepali"></app-birth-mark-letter-print>

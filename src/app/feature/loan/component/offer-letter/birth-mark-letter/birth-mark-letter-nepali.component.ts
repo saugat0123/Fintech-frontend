@@ -2,16 +2,16 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {LoanFormService} from '../../loan-form/service/loan-form.service';
 import {LoanDataHolder} from '../../../model/loanData';
-import {Applicant} from './model/applicant';
-import {LoanNepali} from './model/loanNepali';
 import {Customer} from '../../../../admin/modal/customer';
+import {Applicant} from '../model/applicant';
+import {LoanNepali} from '../model/loanNepali';
 
 @Component({
-    selector: 'app-offer-letter-nepali',
-    templateUrl: './offer-letter-nepali.component.html',
-    styleUrls: ['./offer-letter-nepali.component.scss']
+    selector: 'app-birth-mark-letter-nepali',
+    templateUrl: './birth-mark-letter-nepali.component.html',
+    styleUrls: ['./birth-mark-letter-nepali.component.scss']
 })
-export class OfferLetterNepaliComponent implements OnInit {
+export class BirthMarkLetterNepaliComponent implements OnInit {
     id;
     show = false;
     applicant: Applicant;

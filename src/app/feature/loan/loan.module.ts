@@ -16,10 +16,13 @@ import {ThemeModule} from '../../@theme/theme.module';
 import {LoanActionComponent} from './loan-action/loan-action.component';
 import {LoanFormService} from './component/loan-form/service/loan-form.service';
 import {LoanSummaryComponent} from './component/loan-summary/loan-summary.component';
-import { OfferLetterNepaliComponent } from './component/loan-main-template/offer-letter-nepali/offer-letter-nepali.component';
 import {SummaryComponent} from './component/print-summary/summary.component';
+import {BirthMarkLetterNepaliComponent} from './component/offer-letter/birth-mark-letter/birth-mark-letter-nepali.component';
 // tslint:disable-next-line:max-line-length
-import { OfferLetterPrintComponent } from './component/loan-main-template/offer-letter-nepali/offer-letter-print/offer-letter-print.component';
+import {BirthMarkLetterPrintComponent} from './component/offer-letter/birth-mark-letter/birth-mark-letter-print/birth-mark-letter-print.component';
+import { SuccessOfferLetterComponent } from './component/offer-letter/success-offer-letter/success-offer-letter.component';
+// tslint:disable-next-line:max-line-length
+import { SuccessOfferLetterPrintComponent } from './component/offer-letter/success-offer-letter/success-offer-letter-print/success-offer-letter-print.component';
 
 
 
@@ -34,9 +37,11 @@ import { OfferLetterPrintComponent } from './component/loan-main-template/offer-
         SecurityComponent,
         LoanActionComponent,
         LoanSummaryComponent,
-        OfferLetterNepaliComponent,
+        BirthMarkLetterNepaliComponent,
         SummaryComponent,
-        OfferLetterPrintComponent,
+        BirthMarkLetterPrintComponent,
+        SuccessOfferLetterComponent,
+        SuccessOfferLetterPrintComponent,
 
     ],
     imports: [

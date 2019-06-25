@@ -5,8 +5,6 @@ import {Province} from './province';
 
 export class Customer {
     id: number;
-    created: Date;
-    lastModified: Date;
     title: string;
     customerName: string;
     customerId: string;
@@ -15,7 +13,7 @@ export class Customer {
     district: District;
     municipalities: MunicipalityVdc;
     street: string;
-    wardNo: string;
+    wardNumber: string;
     telephone: string;
     mobile: string;
     email: string;
@@ -23,5 +21,6 @@ export class Customer {
     citizenshipNumber: string;
     citizenshipIssuedDate: Date;
     citizenshipIssuedPlace: string;
+    status: string;
     customerRelatives: Array<CustomerRelative>;
 }
