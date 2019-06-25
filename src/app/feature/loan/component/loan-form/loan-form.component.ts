@@ -190,7 +190,6 @@ export class LoanFormComponent implements OnInit {
 
     nextTab() {
         if (this.basicInfo.basicInfo.invalid) {
-            console.log("i am here");
             this.basicInfo.submitted = true;
             return;
         }

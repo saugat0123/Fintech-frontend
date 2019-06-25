@@ -28,7 +28,7 @@
                                         <input id="interestRate" formControlName="interestRate" name="interestRate"
                                                type="text" class="form-control" placeholder="Interest Rate(%)"
                                                [ngClass]="{ 'is-invalid': (submitted || formControls.interestRate.touched || formControls.interestRate.dirty) && formControls.interestRate.errors }">
-                                        <div *ngIf="(submitted || formControls.interestRate.touched || formControls.interestRate.dirty || formControls.interestRate.submitted) && proposalForm.get('interestRate').invalid"
+                                        <div *ngIf="(submitted || formControls.interestRate.touched || formControls.interestRate.dirty || formControls.interestRate.submitted) && formControls.interestRate.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.interestRate.errors.required">Interest Rate is required</span>
 
@@ -42,7 +42,7 @@
                                         <input id="baseRate" formControlName="baseRate" name="baseRate" type="text"
                                                class="form-control" placeholder="Base Rate(%)"
                                                [ngClass]="{ 'is-invalid': (submitted || formControls.baseRate.touched || formControls.baseRate.dirty) && formControls.baseRate.errors }">
-                                        <div *ngIf="(submitted || formControls.interestRate.touched || formControls.interestRate.dirty || formControls.baseRate.submitted) && proposalForm.get('baseRate').invalid"
+                                        <div *ngIf="(submitted || formControls.interestRate.touched || formControls.interestRate.dirty || formControls.baseRate.submitted) && formControls.baseRate.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.baseRate.errors.required">Base Rate is required</span>
 
@@ -59,7 +59,7 @@
                                                class="form-control" placeholder="Premium Rate On Base Rate(%)"
                                                class="form-control" placeholder="Base Rate(%)"
                                                [ngClass]="{ 'is-invalid': (submitted || formControls.premiumRateOnBaseRate.touched || formControls.premiumRateOnBaseRate.dirty) && formControls.premiumRateOnBaseRate.errors }">
-                                        <div *ngIf="(submitted || formControls.premiumRateOnBaseRate.touched || formControls.premiumRateOnBaseRate.dirty || formControls.premiumRateOnBaseRate.submitted) && proposalForm.get('premiumRateOnBaseRate').invalid"
+                                        <div *ngIf="(submitted || formControls.premiumRateOnBaseRate.touched || formControls.premiumRateOnBaseRate.dirty || formControls.premiumRateOnBaseRate.submitted) && formControls.premiumRateOnBaseRate.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.premiumRateOnBaseRate.errors.required">Premium Rate On Base Rate is required</span>
 
