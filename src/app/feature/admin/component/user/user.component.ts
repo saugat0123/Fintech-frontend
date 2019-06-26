@@ -32,6 +32,7 @@ export class UserComponent implements OnInit {
     user: User;
     newValue: string;
     users: number;
+    dismissBranch = false;
 
     constructor(
         private service: UserService,
@@ -115,6 +116,23 @@ export class UserComponent implements OnInit {
         event.preventDefault();
         this.newValue = newValue;
         this.modalService.open(UpdateModalComponent);
+    }
+
+    dismiss(data, dismiss) {
+        this.modalService.open(dismiss);
+        this.user = data;
+    }
+
+    setDismissBranch(value) {
+        this.dismissBranch = value;
+        if (this.dismissBranch === true) {
+            this.service.postDismiss(this.user).subscribe((res: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Dismissed User'));
+                UserComponent.loadData(this);
+
+            });
+        }
+        this.modalService.dismissAll();
     }
 
 

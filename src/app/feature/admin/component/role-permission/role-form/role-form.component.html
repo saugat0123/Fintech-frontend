@@ -8,34 +8,48 @@
         </div>
         <div class="modal-body">
             <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
-                    <div class="row form-group">
-                        <div class="col-md-6">
-                            <label>Name</label>
-                            <input type="hidden" class="form-control" [(ngModel)]="role.id" name="id"
-                                   placeholder="id">
-                            <input type="text" class="form-control" required [(ngModel)]="role.roleName"
-                                   name="roleName" placeholder="Name" #roleVal="ngModel"
-                                   [ngClass]="{ 'is-invalid': f.submitted && roleVal.invalid }">
-                            <div *ngIf="f.submitted && roleVal.invalid" class="invalid-feedback">
-                                <div *ngIf="roleVal.errors.required">Role is required</div>
-                            </div>
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label>Name</label>
+                        <input type="hidden" class="form-control" [(ngModel)]="role.id" name="id"
+                               placeholder="id">
+                        <input type="text" class="form-control" required [(ngModel)]="role.roleName"
+                               name="roleName" placeholder="Name" #roleVal="ngModel"
+                               [ngClass]="{ 'is-invalid': f.submitted && roleVal.invalid }">
+                        <div *ngIf="f.submitted && roleVal.invalid" class="invalid-feedback">
+                            <div *ngIf="roleVal.errors.required">Role is required</div>
                         </div>
+                    </div>
 
-                        <div class="col-md-6" *ngIf="!hideRoleType">
-                            <label>Role Type</label>
-                           <select class="custom-select" [(ngModel)]="role.roleType" name="roleType">
-                               <option [ngValue]="undefined" hidden>Select the Role Type</option>
-                               <option *ngFor="let roleType of roleTypeList.values()"
-                                          [ngValue]="roleType">{{roleType}}</option>
-                           </select>
+                    <div class="col-md-6" *ngIf="!hideRoleType">
+                        <label>Role Type</label>
+                        <select class="custom-select" [(ngModel)]="role.roleType" name="roleType">
+                            <option [ngValue]="undefined" hidden>Select the Role Type</option>
+                            <option *ngFor="let roleType of roleTypeList.values()"
+                                    [ngValue]="roleType">{{roleType}}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>Branch Access</label>
+                        <select class="custom-select"  [(ngModel)]="role.roleAccess"
+                                #accessVal="ngModel" name="roleType"
+                                [ngClass]="{ 'is-invalid': f.submitted && accessVal.invalid }" required>
+                            <option [ngValue]="undefined" hidden>Select the Role Type</option>
+                            <option *ngFor="let roleAccess of roleAccessList.values()"
+                                    [ngValue]="roleAccess">{{roleAccess}}</option>
+                        </select>
+                        <div *ngIf="f.submitted && accessVal.invalid" class="invalid-feedback">
+                            <div *ngIf="accessVal.errors.required">Access is required</div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <div><sup>*</sup>New Role will added in Lowest Order</div>
-                        <button type="submit" class="btn btn-primary"><i
-                                class="fa fa-save"></i>
-                        </button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div><sup>*</sup>New Role will added in Lowest Order</div>
+                    <button type="submit" class="btn btn-primary"><i
+                            class="fa fa-save"></i>
+                    </button>
+                </div>
             </form>
         </div>
     </div>

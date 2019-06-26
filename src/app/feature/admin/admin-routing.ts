@@ -29,8 +29,10 @@ import {OpenOpeningComponentComponent} from './component/opening-account/open-op
 import {RejectedOpeningAccountComponent} from './component/opening-account/rejected-opening-account/rejected-opening-account.component';
 import {ApprovalOpeningAccountComponent} from './component/opening-account/approval-opening-account/approval-opening-account.component';
 import {CatalogueComponent} from './component/catalogue/catalogue.component';
+import {UserGuideComponent} from '../../@theme/components/user-guide/user-guide.component';
 
 
+// import {SecurityComponent} from './component/loan-config/loan-main-template/security/security.component';
 
 
 export const adminRoutes: Routes = [
@@ -49,6 +51,7 @@ export const adminRoutes: Routes = [
     {path: 'user', component: UserComponent},
     {path: 'approvalLimit', component: ApprovalLimitComponent},
     {path: 'company', component: CompanyComponent},
+    {path: 'user-guide', component: UserGuideComponent},
     {
         path: 'eligibility',
         children: [

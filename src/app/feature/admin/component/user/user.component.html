@@ -42,7 +42,8 @@
                     <!-- <h3 class="box-title">Hover Data Table</h3> -->
                     <div class="col-md-6">
                         <div class="float-right">
-                            <a class="pull-right btn btn-transparent-primary" style="cursor: pointer" (click)="getCsv()">
+                            <a class="pull-right btn btn-transparent-primary" style="cursor: pointer"
+                               (click)="getCsv()">
                                 <i class="fa fa-download" aria-hidden="true"></i> Download</a>
                             <button class="skin-blue pull-right" data-toggle="modal" (click)="add()">
                                 <i class="skin-blue fa fa-plus"></i>
@@ -76,10 +77,22 @@
                             <td>{{allList.name}}</td>
                             <td>{{allList.email}}</td>
                             <td>{{allList.username}}</td>
-                            <td>{{allList.role?.roleName}}</td>
-                            <td>{{allList.branch?.name}}</td>
+                            <td [className]="allList.role?.roleName!== null ? '' : 'alert-danger'">{{allList.role?.roleName || 'ROLE IS DISABLED'}}</td>
+                            <td *ngIf="allList.role?.roleAccess=='ALL';else branchList">
+                                <span style="color:green">ALL BRANCHES</span>
+                            </td>
+                            <ng-template #branchList>
+                                <td>
+                                    <div *ngIf="!allList.branch?.length > 0">
+                                        <p class="alert-danger">BRANCH IS DISABLED</p>
+                                    </div>
+                                    <div class="col-md-12 row" *ngFor="let branch of allList.branch;">
+                                        {{branch?.name}}
+                                    </div>
+                                </td>
+                            </ng-template>
                             <td>{{allList.accountNo}}</td>
-                            <td *ngIf="allList.role?.roleName !== 'admin'; else status">
+                            <td *ngIf="allList.role?.roleName !== 'admin' && allList.role !== null; else status">
                                 <select [(ngModel)]="allList.status" name="status"
                                         (change)="onChange($event.target.value,allList)">
                                     <option value="ACTIVE">ACTIVE</option>
@@ -91,11 +104,16 @@
                                     <p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>
                                 </td>
                             </ng-template>
-                            <td *ngIf="allList.role?.roleName !== 'admin';">
+                            <td *ngIf="allList.role?.roleName !== 'admin'">
                                 <a (click)="edit(allList)" class="cursor" data-toggle="tooltip"
                                    data-placement="top" title="EDIT">
                                     <i class="fa fa-edit" style="color:#3c8dbc;"></i>
                                 </a>
+                                <a (click)="dismiss(allList,dismissAll)" class="cursor" data-toggle="tooltip"
+                                   data-placement="top" title="Dismiss  Branch & role" *ngIf="allList.role !== null;">
+                                    <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                </a>
+
                             </td>
                         </tr>
                         </tbody>
@@ -111,3 +129,22 @@
         </nb-card>
     </div>
 </div>
+
+<ng-template #dismissAll>
+    <div>
+        <div class="modal-content">
+            <div class="modal-header" style="display:block">
+                <div>
+                    <h4 class="">Do You want to Dismiss Branch and Role ?</h4>
+                    <form>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary  btn-flat" (click)="setDismissBranch(true)">
+                                YES
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

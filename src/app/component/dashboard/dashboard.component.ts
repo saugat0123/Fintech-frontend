@@ -7,7 +7,6 @@ import {LoanDataService} from '../../feature/loan/service/loan-data.service';
 import {LoanConfigService} from '../../feature/admin/component/loan-config/loan-config.service';
 import {PermissionService} from '../../@core/service/permission.service';
 import {RoleType} from '../../feature/admin/modal/roleType';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {UserService} from '../../feature/admin/component/user/user.service';
 import {BranchService} from '../../feature/admin/component/branch/branch.service';
 
@@ -24,8 +23,6 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     loanList: any;
     spinner = false;
     customerId: number;
-    modalRef: BsModalRef | null;
-    modalRef2: BsModalRef;
     permission: Permission = new Permission();
     permissionName: string;
     loanCategory: FormGroup;
@@ -48,7 +45,6 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         private permissionService: PermissionService,
         private formBuilder: FormBuilder,
         private breadcrumbService: BreadcrumbService,
-        private modalService: BsModalService,
         private userService: UserService,
         private branchService: BranchService,
         private route: Router,
@@ -106,21 +102,20 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     }
 
     selectLoan(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(template, {class: 'modal-lg'});
+        this.newLoan();
     }
 
     newLoan() {
         this.router.navigate(['/home/loan/loanForm'], {queryParams: {loanId: this.loanType, customerId: null}});
-        this.modalRef.hide();
+
     }
 
     existingLoan(template: TemplateRef<any>) {
-        this.modalRef2 = this.modalService.show(template, {class: 'modal-lg'});
+
     }
 
     getLoanData() {
         this.route.navigate(['/home/loan/loanForm'], {queryParams: {loanId: this.loanType, customerId: this.customerId}});
-        this.modalRef2.hide();
-        this.modalRef.hide();
+
     }
 }
