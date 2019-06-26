@@ -23,12 +23,12 @@ import {NewRequestsComponent} from './component/eligibility/new-requests/new-req
 import {NonEligibleRequestsComponent} from './component/eligibility/non-eligible-requests/non-eligible-requests.component';
 import {EligibleRequestsComponent} from './component/eligibility/eligible-requests/eligible-requests.component';
 import {RoleHierarchyComponent} from './component/role-hierarchy/role-hierarchy.component';
-import {SecurityComponent} from '../loan/component/loan-main-template/security/security.component';
 import {GeneralQuestionComponent} from './component/eligibility/general-question/general-question.component';
 import {OpeningAccountComponent} from './component/opening-account/opening-account.component';
 import {OpenOpeningComponentComponent} from './component/opening-account/open-opening-component/open-opening-component.component';
 import {RejectedOpeningAccountComponent} from './component/opening-account/rejected-opening-account/rejected-opening-account.component';
 import {ApprovalOpeningAccountComponent} from './component/opening-account/approval-opening-account/approval-opening-account.component';
+import {UserGuideComponent} from '../../@theme/components/user-guide/user-guide.component';
 
 
 // import {SecurityComponent} from './component/loan-config/loan-main-template/security/security.component';
@@ -50,6 +50,7 @@ export const adminRoutes: Routes = [
     {path: 'user', component: UserComponent},
     {path: 'approvalLimit', component: ApprovalLimitComponent},
     {path: 'company', component: CompanyComponent},
+    {path: 'user-guide', component: UserGuideComponent},
     {
         path: 'eligibility',
         children: [
