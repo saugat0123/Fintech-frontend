@@ -23,14 +23,15 @@
 
                     <div class="col-md-6" *ngIf="!hideRoleType">
                         <label>Role Type</label>
-                        <select class="custom-select" [(ngModel)]="role.roleType" name="roleType">
+                        <select class="custom-select" [(ngModel)]="role.roleType" name="roleType"
+                            (change)="checkIfMaker()">
                             <option [ngValue]="undefined" hidden>Select the Role Type</option>
                             <option *ngFor="let roleType of roleTypeList.values()"
                                     [ngValue]="roleType">{{roleType}}</option>
                         </select>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-6" *ngIf="!hideBranchAccess">
                         <label>Branch Access</label>
                         <select class="custom-select"  [(ngModel)]="role.roleAccess"
                                 #accessVal="ngModel" name="roleType"

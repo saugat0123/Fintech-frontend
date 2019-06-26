@@ -52,8 +52,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     }
 
     ngAfterContentInit() {
-        if (localStorage.getItem('roleType') !== RoleType[1]) {
-            this.roleType = true;
+        if (localStorage.getItem('roleType') === RoleType.MAKER) {
             this.loanConfigService.getAll().subscribe((response: any) => {
                 this.loanList = response.detail;
                 this.loanService.setLoan(response.detail);
@@ -98,6 +97,11 @@ export class DashboardComponent implements OnInit, AfterContentInit {
 
             this.branchCount = response.detail.branches;
         });
+
+        console.log(localStorage.getItem('roleType'));
+        if (localStorage.getItem('roleType') === RoleType.MAKER) {
+            this.roleType = true;
+        }
 
     }
 

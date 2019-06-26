@@ -62,7 +62,7 @@ export class UserFormComponent implements OnInit {
         this.submitted = true;
         this.finalBranchList = [];
 
-        if (this.selectedRole.roleAccess === RoleAccess[0]) {
+        if (this.selectedRole.roleAccess === RoleAccess.SPECIFIC) {
             if (this.branchIdList.length > 0) {
                 for (let i = 0; i < this.branchIdList.length; i++) {
                     this.tempBranch = new Branch();
@@ -72,13 +72,13 @@ export class UserFormComponent implements OnInit {
                 }
             }
         }
-        if (this.selectedRole.roleAccess === RoleAccess[1]) {
+        if (this.selectedRole.roleAccess === RoleAccess.OWN) {
             const b = {
                 id: this.tempBranch
             };
             this.finalBranchList.push(b);
         }
-        if (this.selectedRole.roleAccess === RoleAccess[2]) {
+        if (this.selectedRole.roleAccess === RoleAccess.ALL) {
             this.finalBranchList = [];
         }
         this.model.branch = this.finalBranchList;
@@ -133,19 +133,19 @@ export class UserFormComponent implements OnInit {
         this.isAll = false;
         this.roleService.detail(id).subscribe((res: any) => {
             this.selectedRole = res.detail;
-            if (this.selectedRole.roleAccess === RoleAccess[2]) {
+            if (this.selectedRole.roleAccess === RoleAccess.ALL) {
                 this.isSpecific = false;
                 this.isAll = true;
             }
 
-            if (this.selectedRole.roleAccess === RoleAccess[1]) {
+            if (this.selectedRole.roleAccess === RoleAccess.OWN) {
                 this.isSpecific = false;
                 this.branchService.getBranchNoTAssignUser(id).subscribe((r: any) => {
                     this.branchList = r.detail;
                 });
             }
 
-            if (this.selectedRole.roleAccess === RoleAccess[0]) {
+            if (this.selectedRole.roleAccess === RoleAccess.SPECIFIC) {
                 this.isSpecific = true;
                 this.branchService.getBranchNoTAssignUser(id).subscribe((re: any) => {
                     this.branchList = re.detail;
@@ -180,20 +180,20 @@ export class UserFormComponent implements OnInit {
             this.selectedRole = this.model.role;
             const tempRoleAccess = this.model.role.roleAccess;
             this.branchIdList = [];
-            if (tempRoleAccess === RoleAccess[0]) {
+            if (tempRoleAccess === RoleAccess.SPECIFIC) {
                 this.isSpecific = true;
                 for (let i = 0; i < this.model.branch.length; i++) {
                     this.branchIdList.push(this.model.branch[i].id);
                 }
             }
-            if (tempRoleAccess === RoleAccess[1]) {
+            if (tempRoleAccess === RoleAccess.OWN) {
                 this.isSpecific = false;
                 for (let i = 0; i < this.model.branch.length; i++) {
                     this.tempBranch = this.model.branch[i].id;
                 }
             }
 
-            if (tempRoleAccess === RoleAccess[2]) {
+            if (tempRoleAccess === RoleAccess.ALL) {
                 this.isAll = true;
             }
 
