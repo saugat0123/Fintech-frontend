@@ -5,6 +5,7 @@ import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {RoleService} from '../role.service';
 import {RoleType} from '../../../modal/roleType';
+import {RoleAccess} from '../../../modal/role-access';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class RoleFormComponent implements OnInit {
 
     role: Role = new Role();
     roleTypeList;
+    roleAccessList = RoleAccess;
     hideRoleType = false;
 
     constructor(
@@ -27,6 +29,7 @@ export class RoleFormComponent implements OnInit {
 
     ngOnInit() {
         this.roleTypeList = RoleType;
+
         this.service.checkRoleContainMaker().subscribe((res: any) => {
             this.hideRoleType = res.detail;
         });

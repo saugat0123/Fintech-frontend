@@ -30,6 +30,8 @@
                     <tr>
                         <th>S.N</th>
                         <th>Name</th>
+                        <th>Role Access</th>
+                        <th>Role Type</th>
                         <th>Status</th>
                         <th>Created By</th>
                         <th>Last Modified By</th>
@@ -43,6 +45,8 @@
                         </div>
                         <td>{{i + 1}}</td>
                         <td>{{allList.roleName}}</td>
+                        <td>{{allList.roleAccess}}</td>
+                        <td>{{allList.roleType}}</td>
 
                         <td *ngIf="allList.roleName !== 'admin'; else status">
                             <select class="select-borderless" [(ngModel)]="allList.status" name="status"

@@ -15,6 +15,7 @@ export class DataVisualizationComponent implements OnInit {
     pieChart: PieChart = new PieChart();
     branches: Branch[] = [];
     branchId: number;
+    selectedBranch = 'All Branches';
     view: any[];
     colorScheme = {
         domain: ['#F45123', '#B523F4', '#10E9AE', '#2D23F4']
@@ -44,15 +45,22 @@ export class DataVisualizationComponent implements OnInit {
             this.loanFormService.getProposedAmount().subscribe(
                 (response: any) => {
                     this.pieChart = response.detail;
+                    this.selectedBranch = event.target.value;
                 }
             );
         } else {
-            this.branchId = event.target.value;
+            this.branchId = Number(event.target.value);
             this.loanFormService.getLoanAmountByBranch(this.branchId).subscribe(
                 (response: any) => {
                     this.pieChart = response.detail;
                 }
             );
+
+            this.branches.forEach( branch => {
+                if (branch.id === this.branchId) {
+                    this.selectedBranch = branch.name;
+                }
+            });
         }
     }
 }

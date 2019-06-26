@@ -12,12 +12,16 @@
                     <div class="col-md-12">
                         <div id="searchModel" class="collapse">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-3" *ngIf="branchFilter">
                                     <div class="form-group">
-                                        <label for="From">Date</label>
-                                        <input id="From" [nbDatepicker]="date" class="form-control"
-                                               [(ngModel)]="search.createdAt">
-                                        <nb-datepicker #date></nb-datepicker>
+                                        <label for="branch">Branch</label>
+                                        <select id="branch" class="custom-select"
+                                                (change)="branchSelect($event.target.value)">
+                                            <option [ngValue]="undefined" hidden>Select the Branch</option>
+                                            <option *ngFor="let branch of branchList"
+                                                    [value]="branch.id">{{branch.name}}</option>
+
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -90,7 +94,7 @@
                                 <p>No Content Found</p>
                             </div>
                             <td>{{i + 1}}</td>
-                            <td>{{user?.branch?.name}}</td>
+                            <td>{{loanDataHolder?.branch?.name}}</td>
                             <td>{{loanDataHolder?.dmsLoanFile?.customerName || loanDataHolder?.customerInfo?.customerName}}</td>
                             <td>{{loanDataHolder?.dmsLoanFile?.contactNumber || loanDataHolder?.customerInfo?.mobile}}</td>
                             <td>{{loanDataHolder?.loan?.name}}</td>
