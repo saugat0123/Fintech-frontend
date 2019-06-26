@@ -36,8 +36,8 @@ export class UIComponent implements OnInit {
     eligibilityDocumentList = [];
     finalEligibilityDocument = Array<Document>();
     id: number;
-    offerLetterList: Array<OfferLetter> = new Array<OfferLetter>();
-    selectedOfferLetterIdList: Array<string> = new Array<string>();
+    offerLetterList: Array<OfferLetter>;
+    selectedOfferLetterIdList: Array<number>;
     selectedOfferLetterList: Array<OfferLetter> = new Array<OfferLetter>();
 
     constructor(
@@ -49,35 +49,41 @@ export class UIComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute
     ) {
-        this.getTemplate();
+    }
+
+    static loadData(other: UIComponent) {
+        other.getTemplate();
+        other.offerLetterService.getAll().subscribe((responseList: any) => {
+            other.offerLetterList = responseList.detail;
+            other.offerLetterList.forEach(offerLetter => {
+                other.offerLetterList.push(offerLetter);
+            });
+            other.offerLetterList = responseList.detail;
+        }, error => {
+            console.log(error);
+            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Offer Letter'));
+        });
+        other.documentService.getAll().subscribe((response: any) => {
+            other.initialDocumentList = response.detail;
+        });
+        other.documentService.getAll().subscribe((response: any) => {
+            other.renewalDocumentList = response.detail;
+        });
+        other.documentService.getAll().subscribe((response: any) => {
+            other.eligibilityDocumentList = response.detail;
+        });
+
     }
 
     ngOnInit() {
+        UIComponent.loadData(this);
         this.id = Number(this.route.snapshot.queryParamMap.get('id'));
-        this.offerLetterService.getAll().subscribe((response: any) => {
-            this.offerLetterList = response.detail;
-        }, error => {
-            console.log(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Offer Letter'));
-        });
-        this.documentService.getAll().subscribe((response: any) => {
-            this.initialDocumentList = response.detail;
-        });
-        this.documentService.getAll().subscribe((response: any) => {
-            this.renewalDocumentList = response.detail;
-        });
-        this.documentService.getAll().subscribe((response: any) => {
-            this.eligibilityDocumentList = response.detail;
-        });
         if (this.id !== undefined && this.id !== 0) {
             this.service.detail(this.id).subscribe((response: any) => {
                 this.loanConfig = response.detail;
+                this.selectedOfferLetterIdList = new Array<number>();
                 this.loanConfig.offerLetters.forEach(selectedOfferLetter => {
-                    this.offerLetterList.forEach(offerLetter => {
-                        if (offerLetter.id === selectedOfferLetter.id) {
-                            this.selectedOfferLetterIdList.push(String(offerLetter.id));
-                        }
-                    });
+                    this.selectedOfferLetterIdList.push(selectedOfferLetter.id);
                 });
                 this.loanConfig.templateList.forEach(loanConfigTemplate => {
                     if (loanConfigTemplate.id === loanConfigTemplate.id) {
@@ -118,9 +124,7 @@ export class UIComponent implements OnInit {
         this.loanTemplateService.getAll().subscribe((response: any) => {
             this.loanTemplateList = response.detail;
             this.spinner = false;
-
         }, error => {
-
             console.log(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Templates'));
             this.spinner = false;
@@ -193,7 +197,6 @@ export class UIComponent implements OnInit {
         this.loanConfig.renew = this.finalRenewalDocument;
         this.loanConfig.eligibilityDocuments = this.finalEligibilityDocument;
         this.loanConfig.offerLetters = this.selectedOfferLetterList;
-        console.log(this.loanConfig);
         this.service.save(this.loanConfig).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Config!'));
                 this.loanConfig = new LoanConfig();

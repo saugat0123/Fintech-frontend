@@ -224,6 +224,7 @@ export class CompanyInfoComponent implements OnInit, DoCheck {
         this.swot.threats = this.companyInfo.get('threats').value;
         this.entityInfo.swot = this.swot;
         this.loanDataService.setEntityInfo(this.entityInfo);
+        console.log(this.entityInfo);
         // this.commonService.saveOrEdit(this.entityInfo, 'v1/companyInfo').subscribe();
 
     }
