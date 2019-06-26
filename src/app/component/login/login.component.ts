@@ -3,8 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 
 import {ApiConfig} from '../../@core/utils/api/ApiConfig';
-import {UserService} from "../../feature/admin/component/user/user.service";
-import {User} from "../../feature/admin/modal/user";
+import {UserService} from '../../feature/admin/component/user/user.service';
+import {User} from '../../feature/admin/modal/user';
 
 @Component({
     selector: 'app-login',
