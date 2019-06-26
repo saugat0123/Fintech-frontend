@@ -1,0 +1,264 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="financialForm" class="form-horizontal">
+            <nb-card>
+                <nb-card-header>
+                    <h3><b>Income of Borrower</b></h3>
+                </nb-card-header>
+                <nb-card-body>
+                    <div *ngFor="let incomeOfBorrower of financialForm.get('incomeOfBorrower')['controls']; let incomeIndex = index"
+                         class="border-bottom border-dark m-4"
+                         formArrayName="incomeOfBorrower">
+                        <div [formGroupName]="incomeIndex">
+
+                            <!-- START ROW -->
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title"><b>Income Source</b></label>
+                                        <input class="form-control"
+                                               formControlName="incomeSource" placeholder="Income source"
+                                               type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title"><b>Organization</b></label>
+                                        <input class="form-control"
+                                               formControlName="organization" placeholder="Organization"
+                                               type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title"><b>Amount</b></label>
+                                        <input class="form-control"
+                                               formControlName="amount" placeholder="Amount"
+                                               type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="title"><b>Remarks</b></label>
+                                        <input class="form-control"
+                                               formControlName="remarks" placeholder="Remarks"
+                                               type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1 ml-0 pl-0 mt-4">
+                                    <button (click)="removeIncomeIndex(incomeIndex)"
+                                            *ngIf="financialForm.get('incomeOfBorrower')['controls'].length > 1"
+                                            class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                        <i class="fa fa-trash" style="color:white;"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <input (click)="addIncomeOfBorrower()" class="btn btn-sm btn-flat btn-primary" type="button"
+                               value="Add Field"/>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+
+
+            <nb-card>
+                <nb-card-header>
+                    <h3><b>Expenses of Borrower</b></h3>
+                </nb-card-header>
+                <nb-card-body>
+                    <div *ngFor="let expensesOfBorrower of financialForm.get('expensesOfBorrower')['controls']; let expenseIndex = index"
+                         class="border-bottom border-dark m-4"
+                         formArrayName="expensesOfBorrower">
+                        <div [formGroupName]="expenseIndex">
+
+                            <!-- START ROW -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title"><b>Particulars</b></label>
+                                        <input class="form-control"
+                                               formControlName="particulars" placeholder="Particulars"
+                                               type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title"><b>Amount</b></label>
+                                        <input class="form-control"
+                                               formControlName="amount" placeholder="Amount"
+                                               type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title"><b>Remarks</b></label>
+                                        <input class="form-control"
+                                               formControlName="remarks" placeholder="Remarks"
+                                               type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1 ml-0 pl-0 mt-4">
+                                    <button (click)="removeExpensesIndex(expenseIndex)"
+                                            *ngIf="financialForm.get('expensesOfBorrower')['controls'].length > 1"
+                                            class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                        <i class="fa fa-trash" style="color:white;"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <input (click)="addExpensesOfBorrower()" class="btn btn-sm btn-flat btn-primary" type="button"
+                               value="Add Field"/>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+
+
+            <!--check box-->
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="title"><b>Select denomination</b></label>
+                        <nb-radio-group class="form-inline" formControlName="selectDenomination" name="Relation">
+                            <nb-radio value="actual">Actual</nb-radio>
+                            <nb-radio value="000">in 000</nb-radio>
+                            <nb-radio value="000000">in 000000</nb-radio>
+                        </nb-radio-group>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+        <nb-card>
+            <nb-card-header>
+                <h3>Income Statement</h3>
+            </nb-card-header>
+            <nb-card-body>
+
+                <div class="row float-right mr-3">
+                    <div class="input-group">
+                        <input #yearValue class="form-control" nbInput placeholder="Year" type="number">
+                        <div class="input-group-append">
+                            <button (click)="addFiscalYear(yearValue.value)" class="mb-2" nbButton size="small">Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <form [formGroup]="additionalFinancialForm">
+                    <table class="table table-bordered">
+                        <thead class="text-center">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Particulars</th>
+                            <th *ngFor="let year of fiscalYear; let j = index" scope="col">
+                                {{year}}
+                                <button (click)="removeFiscalYear(j)"
+                                        class="btn btn-sm btn-flat btn-danger ml-5" value="Delete">
+                                    <i class="fa fa-trash" style="color:white;"></i>
+                                </button>
+                            </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td><b>Total Sales Revenue</b></td>
+                            <td *ngFor="let year of fiscalYear; let j = index" scope="col">
+                                <input style="border: none; outline: none;" value="0">
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody *ngFor="let category of additionalFinancialForm.get('totalSalesSubCategory')['controls'];let i = index"
+                               formArrayName="totalSalesSubCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
+                            <td>{{category.get('name').value}}</td>
+                            <td *ngFor="let year of fiscalYear; let j = index" scope="col">
+                                <input style="border: none; outline: none;" value="0">
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><input nbInput fieldSize="small" #totalSalesCategoryName type="text" placeholder="Particular">
+                                <button nbButton size="small" (click)="addSubCategoryTotalSales(totalSalesCategoryName.value)">Add field</button>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td><b>Cost of Goods Sold</b></td>
+                            <td *ngFor="let year of fiscalYear; let j = index" scope="col">
+                                <input style="border: none; outline: none;" value="0">
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody *ngFor="let category of additionalFinancialForm.get('costOfGoodsSubCategory')['controls'];let i = index"
+                               formArrayName="costOfGoodsSubCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
+                            <td>{{category.get('name').value}}</td>
+                            <td *ngFor="let year of fiscalYear; let j = index" scope="col">
+                                <div
+                                <input style="border: none; outline: none;" value="0">
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><input nbInput fieldSize="small" #costOfGoodsCategoryName type="text" placeholder="Particular" required/>
+                                <button nbButton size="small" (click)="addSubCategoryCostOfGoods(costOfGoodsCategoryName.value)">Add field</button>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td><b>Gross Profit</b></td>
+                            <td *ngFor="let year of fiscalYear; let j = index" scope="col">
+                                <input style="border: none; outline: none;" value="0">
+                            </td>
+                        </tr>
+                        </tbody>
+
+                       <!-- <tbody *ngFor="let category of additionalFinancialForm.get('costOfGoodsSubCategory')['controls'];let i = index"
+                               formArrayName="costOfGoodsSubCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
+                            <td>{{category.get('name').value}}</td>
+                            <td *ngFor="let year of fiscalYear; let j = index" scope="col">
+                                0
+                            </td>
+                        </tr>
+                        </tbody>-->
+
+                    </table>
+                </form>
+
+            </nb-card-body>
+        </nb-card>
+    </nb-card-body>
+</nb-card>
+<!--<pre>{{incomeStatementForm.controls.totalSalesRevenue['controls'].amount.value | json}}</pre>-->

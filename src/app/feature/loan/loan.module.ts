@@ -17,6 +17,7 @@ import {LoanActionComponent} from './loan-action/loan-action.component';
 import {LoanFormService} from './component/loan-form/service/loan-form.service';
 import {LoanSummaryComponent} from './component/loan-summary/loan-summary.component';
 import {SummaryComponent} from './component/print-summary/summary.component';
+import { FinancialComponent } from './component/loan-main-template/financial/financial.component';
 
 
 
@@ -32,6 +33,7 @@ import {SummaryComponent} from './component/print-summary/summary.component';
         LoanActionComponent,
         LoanSummaryComponent,
         SummaryComponent,
+        FinancialComponent,
 
     ],
     imports: [
