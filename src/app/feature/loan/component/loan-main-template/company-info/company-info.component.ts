@@ -161,7 +161,7 @@ export class CompanyInfoComponent implements OnInit {
                 contactNo: proprietors.contactNo,
                 province: proprietors.province,
                 district: proprietors.district,
-                municipalityOrVdc: proprietors.municipalitiesOrVDC,
+                municipalityOrVdc: proprietors.municipalityVdc,
                 share: proprietors.share
             }));
         });

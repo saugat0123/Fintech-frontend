@@ -8,6 +8,6 @@ export class Proprietors {
     contactNo: string;
     province: Province;
     district: District;
-    municipalitiesOrVDC: MunicipalityVdc;
+    municipalityVdc: MunicipalityVdc;
     share: string;
 }
