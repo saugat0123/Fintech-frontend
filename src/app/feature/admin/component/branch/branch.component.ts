@@ -36,7 +36,6 @@ export class BranchComponent implements OnInit {
     activeCount: number;
     inactiveCount: number;
     branches: number;
-    newValue: string;
     branch: Branch = new Branch();
 
     permissions = [];
@@ -147,25 +146,22 @@ export class BranchComponent implements OnInit {
     }
 
 
-    onChange(newValue, data) {
-
-        if (document.activeElement instanceof HTMLElement) {
-            document.activeElement.blur();
-        }
+    onChange(data) {
 
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
 
         event.preventDefault();
-        this.newValue = newValue;
 
-        this.modalService.open(UpdateModalComponent);
+        const modalRef = this.modalService.open(UpdateModalComponent, {size: 'lg'});
+        modalRef.componentInstance.data = data;
+        modalRef.componentInstance.service = this.service;
     }
 
     delete(allList) {
         allList.status = 'DELETED';
-        this.onChange(allList.status, allList);
+        this.onChange(allList);
     }
 
 

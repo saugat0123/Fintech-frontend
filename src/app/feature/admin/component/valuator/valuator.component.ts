@@ -23,7 +23,6 @@ export class ValuatorComponent implements OnInit {
     page = 1;
 
     dataList: Array<Valuator>;
-    newValue: string;
     spinner = false;
     globalMsg: string;
     search: any = {};
@@ -118,14 +117,16 @@ export class ValuatorComponent implements OnInit {
     }
 
 
-    onChange(newValue, data) {
+    onChange(data) {
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
 
         event.preventDefault();
-        this.newValue = newValue;
-        this.modalService.open(UpdateModalComponent);
+
+        const modalRef = this.modalService.open(UpdateModalComponent, {size: 'lg'});
+        modalRef.componentInstance.data = data;
+        modalRef.componentInstance.service = this.service;
     }
 
     onSearchChange(searchValue: string) {
