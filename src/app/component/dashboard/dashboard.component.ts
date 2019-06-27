@@ -98,10 +98,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
             this.branchCount = response.detail.branches;
         });
 
-        console.log(localStorage.getItem('roleType'));
-        if (localStorage.getItem('roleType') === RoleType.MAKER) {
-            this.roleType = true;
-        }
+        this.roleType = localStorage.getItem('roleType') === RoleType.MAKER;
 
     }
 

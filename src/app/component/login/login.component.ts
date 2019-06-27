@@ -63,7 +63,6 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                         localStorage.setItem('branch', JSON.stringify(this.user.branch));
                         if (this.user.role.roleName !== 'admin') {
                             localStorage.setItem('roleType', this.user.role.roleType);
-
                         }
                     });
 
