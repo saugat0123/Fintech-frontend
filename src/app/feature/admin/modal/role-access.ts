@@ -1,7 +1,7 @@
 export enum RoleAccess {
-    SPECIFIC,
-    OWN,
-    ALL
+    SPECIFIC = 'SPECIFIC',
+    OWN = 'OWN',
+    ALL = 'ALL'
 
 }
 
