@@ -18,6 +18,7 @@ export class RoleFormComponent implements OnInit {
     roleTypeList;
     roleAccessList = RoleAccess;
     hideRoleType = false;
+    hideBranchAccess = false;
 
     constructor(
         private service: RoleService,
@@ -53,6 +54,11 @@ export class RoleFormComponent implements OnInit {
 
     onClose() {
         this.activeModal.dismiss(ModalResponse.CANCEL);
+    }
+
+    checkIfMaker() {
+        this.hideBranchAccess = this.role.roleType === RoleType.MAKER;
+        this.role.roleAccess = RoleAccess.OWN;
     }
 
 }

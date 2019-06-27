@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
     @Input() position = 'normal';
 
     user: User;
+    roleName ;
 
     userMenu = [{title: HeaderComponent.LOGOUT}];
 
@@ -35,6 +36,7 @@ export class HeaderComponent implements OnInit {
         this.userService.getLoggedInUser()
             .subscribe((res: any) => {
                 this.user = res.detail;
+                this.roleName = this.user.role.roleName;
                 localStorage.setItem('userId', (this.user.id).toString());
                 localStorage.setItem('username', (this.user.username));
                 localStorage.setItem('roleAccess', this.user.role.roleAccess);
@@ -69,5 +71,9 @@ export class HeaderComponent implements OnInit {
     logout() {
         localStorage.clear();
         this.router.navigate(['/login']);
+    }
+
+    userGuide() {
+        this.router.navigate(['/home/admin/user-guide']);
     }
 }
