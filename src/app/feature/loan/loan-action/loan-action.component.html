@@ -26,9 +26,13 @@
                 class="col-md-1 fa-close"></i></button>
         <button class="btn-sm btn-danger"
                 (click)=" closeReject(sendForwardBackward,$event.target.value)" [disabled]="!actionsList.rejected"
-                value="REJECTED" [ngStyle]="{ 'filter' : (actionsList.rejected === false)? 'grayscale(100%)': 'grayscale(0%)'}">REJECTED<i
+                value="REJECTED"
+                [ngStyle]="{ 'filter' : (actionsList.rejected === false)? 'grayscale(100%)': 'grayscale(0%)'}">
+            REJECTED<i
                 class="col-md-1 fa fa-ban"></i></button>
-        <select class="btn-sm btn-primary custom-select-sm cursor" value="Offer Letter"
+        <select class="btn-sm btn-primary custom-select-sm cursor" [disabled]="!actionsList.offerLetter"
+                value="Offer Letter"
+                [ngStyle]="{ 'filter' : (actionsList.offerLetter === false)? 'grayscale(100%)': 'grayscale(0%)'}"
                 (change)="generateOfferLetter($event.target.value)">
             <option [value]="null" selected hidden>
                 <span>Offer Letter<i class="col-md-1 fa fa-envelope-square"></i></span>

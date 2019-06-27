@@ -21,5 +21,4 @@ export class LoanDataHolder {
     distinctPreviousList: any;
     currentStage: LoanStage = new LoanStage();
     createdBy: number;
-
 }

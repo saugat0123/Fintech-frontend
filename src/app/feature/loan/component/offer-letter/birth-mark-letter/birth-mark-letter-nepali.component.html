@@ -38,15 +38,6 @@
                         <td>{{loanDataHolder?.customerInfo?.telephone
                             || loanDataHolder?.dmsLoanFile?.contactNumber}}</td>
                     </tr>
-                    <!--<tr>
-                        <th scope="row">Address</th>
-                        <td>{{loanDataHolder?.customerInfo?.province?.name}},
-                            {{loanDataHolder?.customerInfo?.district?.name}},
-                            {{loanDataHolder?.customerInfo?.municipalities?.name}},
-                            {{loanDataHolder?.customerInfo?.street}},
-                            {{loanDataHolder?.customerInfo?.wardNumber}}
-                        </td>
-                    </tr>-->
                     <div *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
                         <tr>
                             <th scope="row">{{relative.customerRelation}}</th>

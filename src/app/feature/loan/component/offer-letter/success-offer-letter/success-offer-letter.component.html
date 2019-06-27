@@ -8,13 +8,35 @@
                     <tbody>
                     <tr>
                         <th scope="row">Name</th>
-                        <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
+                        <td>{{loanDataHolder?.customerInfo?.customerName
+                        || loanDataHolder?.dmsLoanFile?.customerName}}</td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="loanDataHolder?.customerInfo?.province !== null">
                         <th scope="row">Address</th>
                         <td>{{loanDataHolder?.customerInfo?.province?.name}},
                             {{loanDataHolder?.customerInfo?.district?.name}},
-                            {{loanDataHolder?.customerInfo?.municipalities?.name}}</td>
+                            {{loanDataHolder?.customerInfo?.municipalities?.name}},
+                            {{loanDataHolder?.customerInfo?.street}},
+                            {{loanDataHolder?.customerInfo?.wardNumber}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Citizenship Number</th>
+                        <td>{{loanDataHolder?.customerInfo?.citizenshipNumber
+                        || loanDataHolder?.dmsLoanFile?.citizenshipNumber}}</td>
+                    </tr>
+                    <tr *ngIf="loanDataHolder?.customerInfo?.citizenshipIssuedDate !== null">
+                        <th scope="row">Citizenship Issued Date</th>
+                        <td>{{loanDataHolder?.customerInfo?.citizenshipIssuedDate}}</td>
+                    </tr>
+                    <tr *ngIf="loanDataHolder?.customerInfo?.citizenshipIssuedPlace !== null">
+                        <th scope="row">Citizenship Issued Place</th>
+                        <td>{{loanDataHolder?.customerInfo?.citizenshipIssuedPlace}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Contact Number</th>
+                        <td>{{loanDataHolder?.customerInfo?.telephone
+                        || loanDataHolder?.dmsLoanFile?.contactNumber}}</td>
                     </tr>
                     <div *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
                         <tr>

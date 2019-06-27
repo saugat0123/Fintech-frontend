@@ -60,6 +60,7 @@ import {BaseLayout} from './layouts';
 import {MainNavComponent} from './main-nav/main-nav.component';
 import {RouterModule} from '@angular/router';
 import {IconCardComponent} from './components/iconcard/icon-card.component';
+import {SearchResultComponent} from './components/header/header-form/searchResult.component';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -104,6 +105,7 @@ const NB_MODULES = [
 const COMPONENTS = [
     HeaderComponent,
     FooterComponent,
+    SearchResultComponent,
     BaseLayout,
     MainNavComponent,
     IconCardComponent,
@@ -118,7 +120,9 @@ const COMPONENTS = [
     ValidationErrorComponent
 ];
 
-const ENTRY_COMPONENTS = [];
+const ENTRY_COMPONENTS = [
+    SearchResultComponent
+];
 
 const PIPES = [
     CapitalizePipe,

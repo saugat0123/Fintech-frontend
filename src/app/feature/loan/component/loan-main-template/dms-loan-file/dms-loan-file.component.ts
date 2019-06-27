@@ -12,6 +12,7 @@ import {LoanDataService} from '../../../service/loan-data.service';
 import {Security} from '../../../../admin/modal/security';
 import {LoanFormService} from '../../loan-form/service/loan-form.service';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
+import {LoanDataHolder} from '../../../model/loanData';
 
 
 @Component({
@@ -48,6 +49,9 @@ export class DmsLoanFileComponent implements OnInit {
     imageUrl = [];
     action: string;
     loanConfigId: number;
+    hasPreviousLoan = false;
+    previousLoans: Array<LoanDataHolder>;
+    spinner = false;
 
     constructor(private formBuilder: FormBuilder,
                 private loanDataService: LoanDataService,
@@ -190,5 +194,27 @@ export class DmsLoanFileComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Error occurred while uploading the document'));
             }
         );
+    }
+
+    searchByCitizenship() {
+        const citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
+        this.loanFormService.getLoansByCitizenship(citizenshipNumber).subscribe((response: any) => {
+            this.previousLoans = response.detail;
+            this.hasPreviousLoan = this.previousLoans.length > 0;
+        }, error => console.error(error));
+    }
+
+    openLoan(loanConfigId: number, customerId: number) {
+        this.spinner = true;
+        this.router.navigate(['/home/loan/summary'], {
+            queryParams: {
+                loanConfigId: loanConfigId,
+                customerId: customerId
+            }
+        });
+    }
+
+    hidePreviousLoans() {
+        this.hasPreviousLoan = false;
     }
 }

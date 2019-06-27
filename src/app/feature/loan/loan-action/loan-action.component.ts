@@ -72,6 +72,7 @@ export class LoanActionComponent implements OnInit {
             this.loanConfig = response.detail;
             console.log(this.loanConfig.offerLetters[0].templateUrl);
         });
+        console.log(this.actionsList);
 
     }
 
