@@ -23,7 +23,6 @@ export class SubSectorComponent implements OnInit {
     title = 'SubSector';
     breadcrumb = 'SubSector > List';
     dataList: Array<SubSector>;
-    newValue: string;
     spinner = false;
     globalMsg: string;
     search: any = {};
@@ -103,15 +102,18 @@ export class SubSectorComponent implements OnInit {
         SubSectorComponent.loadData(this);
     }
 
-    onChange(newValue, data) {
+    onChange(data) {
 
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
 
         event.preventDefault();
-        this.newValue = newValue;
-        this.modalService.open(UpdateModalComponent);
+
+
+        const modalRef = this.modalService.open(UpdateModalComponent, {size: 'lg'});
+        modalRef.componentInstance.data = data;
+        modalRef.componentInstance.service = this.service;
     }
 
     add() {

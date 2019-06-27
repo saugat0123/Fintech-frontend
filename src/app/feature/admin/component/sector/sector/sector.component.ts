@@ -21,7 +21,6 @@ export class SectorComponent implements OnInit {
     title = 'Sector';
     breadcrumb = 'Sector > List';
     dataList: Array<Sector>;
-    newValue: string;
     spinner = false;
     search: any = {};
     pageable: Pageable = new Pageable();
@@ -111,15 +110,17 @@ export class SectorComponent implements OnInit {
     }
 
 
-    onChange(newValue, data) {
+    onChange(data) {
 
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
 
         event.preventDefault();
-        this.newValue = newValue;
-        this.modalService.open(UpdateModalComponent);
+
+        const modalRef = this.modalService.open(UpdateModalComponent, {size: 'lg'});
+        modalRef.componentInstance.data = data;
+        modalRef.componentInstance.service = this.service;
     }
 
 
