@@ -9,6 +9,7 @@ import {PermissionService} from '../../@core/service/permission.service';
 import {RoleType} from '../../feature/admin/modal/roleType';
 import {UserService} from '../../feature/admin/component/user/user.service';
 import {BranchService} from '../../feature/admin/component/branch/branch.service';
+import {User} from '../../feature/admin/modal/user';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     roleType = false;
     userCount;
     branchCount;
+    loggedUser: User;
 
     constructor(
         private loanConfigService: LoanConfigService,
@@ -52,14 +54,19 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     }
 
     ngAfterContentInit() {
-        if (localStorage.getItem('roleType') === RoleType.MAKER) {
-            this.loanConfigService.getAll().subscribe((response: any) => {
-                this.loanList = response.detail;
-                this.loanService.setLoan(response.detail);
+        this.userService.getLoggedInUser().subscribe((res: any) => {
+            this.loggedUser = res.detail;
+            if (this.loggedUser.role.roleName !== 'admin') {
+                this.roleType = this.loggedUser.role.roleType === RoleType.MAKER;
+            }
 
-            });
-        }
-
+            if (this.loggedUser.role.roleType === RoleType.MAKER) {
+                this.loanConfigService.getAll().subscribe((response: any) => {
+                    this.loanList = response.detail;
+                    this.loanService.setLoan(response.detail);
+                });
+            }
+        }, error => console.error(error));
     }
 
     ngOnInit() {
@@ -97,9 +104,6 @@ export class DashboardComponent implements OnInit, AfterContentInit {
 
             this.branchCount = response.detail.branches;
         });
-
-        this.roleType = localStorage.getItem('roleType') === RoleType.MAKER;
-
     }
 
     selectLoan(template: TemplateRef<any>) {

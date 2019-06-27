@@ -33,19 +33,18 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(localStorage.getItem('roleType'));
         this.userService.getLoggedInUser()
             .subscribe((res: any) => {
                 this.user = res.detail;
                 this.roleName = this.user.role.roleName;
-                /*localStorage.setItem('userId', (this.user.id).toString());
+                localStorage.setItem('userId', (this.user.id).toString());
                 localStorage.setItem('username', (this.user.username));
                 localStorage.setItem('roleAccess', this.user.role.roleAccess);
                 localStorage.setItem('branch', JSON.stringify(this.user.branch));
                 if (this.user.role.roleName !== 'admin') {
                     localStorage.setItem('roleType', JSON.stringify(this.user.role.roleType));
 
-                }*/
+                }
             });
 
 
