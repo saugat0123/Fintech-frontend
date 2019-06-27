@@ -13,8 +13,8 @@
                                         <input id="proposedLimit" formControlName="proposedLimit"
                                                name="proposedLimit" type="text"
                                                class="form-control" placeholder="Proposed limit"
-                                               [ngClass]="{ 'is-invalid': (submitted || formControls.proposedLimit.touched || formControls.proposedLimit.dirty )  && formControls.proposedLimit.errors }">
-                                        <div *ngIf=" (submitted || formControls.proposedLimit.touched || formControls.proposedLimit.dirty )  && formControls.proposedLimit.errors"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls.proposedLimit.errors }">
+                                        <div *ngIf=" (submitted)  && formControls.proposedLimit.errors"
                                              class="invalid-feedback">
                                             <span *ngIf="(formControls.proposedLimit.errors.required)">Proposed Limit is required</span>
 
@@ -27,8 +27,8 @@
                                         <label class="title" for="interestRate">Interest Rate(%)</label>
                                         <input id="interestRate" formControlName="interestRate" name="interestRate"
                                                type="text" class="form-control" placeholder="Interest Rate(%)"
-                                               [ngClass]="{ 'is-invalid': (submitted || formControls.interestRate.touched || formControls.interestRate.dirty) && formControls.interestRate.errors }">
-                                        <div *ngIf="(submitted || formControls.interestRate.touched || formControls.interestRate.dirty || formControls.interestRate.submitted) && formControls.interestRate.invalid"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls.interestRate.errors }">
+                                        <div *ngIf="(submitted) && formControls.interestRate.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.interestRate.errors.required">Interest Rate is required</span>
 
@@ -41,8 +41,8 @@
                                         <label class="title" for="baseRate">Base Rate(%)</label>
                                         <input id="baseRate" formControlName="baseRate" name="baseRate" type="text"
                                                class="form-control" placeholder="Base Rate(%)"
-                                               [ngClass]="{ 'is-invalid': (submitted || formControls.baseRate.touched || formControls.baseRate.dirty) && formControls.baseRate.errors }">
-                                        <div *ngIf="(submitted || formControls.interestRate.touched || formControls.interestRate.dirty || formControls.baseRate.submitted) && formControls.baseRate.invalid"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls.baseRate.errors }">
+                                        <div *ngIf="(submitted) && formControls.baseRate.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.baseRate.errors.required">Base Rate is required</span>
 
@@ -58,8 +58,8 @@
                                                name="premiumRate" type="text"
                                                class="form-control" placeholder="Premium Rate On Base Rate(%)"
                                                class="form-control" placeholder="Base Rate(%)"
-                                               [ngClass]="{ 'is-invalid': (submitted || formControls.premiumRateOnBaseRate.touched || formControls.premiumRateOnBaseRate.dirty) && formControls.premiumRateOnBaseRate.errors }">
-                                        <div *ngIf="(submitted || formControls.premiumRateOnBaseRate.touched || formControls.premiumRateOnBaseRate.dirty || formControls.premiumRateOnBaseRate.submitted) && formControls.premiumRateOnBaseRate.invalid"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls.premiumRateOnBaseRate.errors }">
+                                        <div *ngIf="(submitted) && formControls.premiumRateOnBaseRate.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.premiumRateOnBaseRate.errors.required">Premium Rate On Base Rate is required</span>
 
@@ -72,16 +72,16 @@
                                         <label class="title" for="serviceCharge">Service Charge
                                             <input type="radio" formControlName="serviceChargeMethod"
                                                    name="serviceChargeMethod" value="PERCENT"
-                                                   [ngClass]="{ 'is-untouched': (submitted || formControls.serviceChargeMethod.touched) && formControls.serviceChargeMethod.errors }">%
+                                                   [ngClass]="{ 'is-untouched': (submitted) && formControls.serviceChargeMethod.errors }">%
                                             <input type="radio" formControlName="serviceChargeMethod"
                                                    name="serviceChargeMethod" value="FLAT">Flat
-                                            <small style="color:#DC3545" *ngIf="(submitted || formControls.serviceChargeMethod.touched) && formControls.serviceChargeMethod.invalid && formControls.serviceChargeMethod.errors.required">Charge method is required</small>
+                                            <small style="color:#DC3545" *ngIf="(submitted) && formControls.serviceChargeMethod.invalid && formControls.serviceChargeMethod.errors.required">Charge method is required</small>
                                         </label>
                                         <input id="serviceCharge" formControlName="serviceCharge" name="serviceCharge"
                                                type="text"
                                                class="form-control" placeholder="Service charge"
-                                               [ngClass]="{ 'is-invalid': (submitted || formControls.serviceCharge.touched || formControls.serviceCharge.dirty) && formControls.serviceCharge.errors }">
-                                        <div *ngIf="(submitted || formControls.serviceCharge.touched || formControls.serviceCharge.dirty || formControls.serviceCharge.submitted) && formControls.serviceCharge.invalid"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls.serviceCharge.errors }">
+                                        <div *ngIf="(submitted) && formControls.serviceCharge.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.serviceCharge.errors.required">Service Charge is required</span>
 
@@ -93,8 +93,8 @@
                                     <div class="form-group">
                                         <label class="title" for="tenureYear">Tenure year</label>
                                         <input id="tenureYear" class="form-control" formControlName="tenureYear"
-                                               [nbDatepicker]="datepicker" [ngClass]="{ 'is-invalid': (submitted || formControls.tenureYear.touched || formControls.tenureYear.dirty) && formControls.tenureYear.errors }">
-                                        <div *ngIf="(submitted || formControls.tenureYear.touched || formControls.tenureYear.dirty) && formControls.tenureYear.invalid" class="invalid-feedback">
+                                               [nbDatepicker]="datepicker" [ngClass]="{ 'is-invalid': (submitted) && formControls.tenureYear.errors }">
+                                        <div *ngIf="(submitted) && formControls.tenureYear.invalid" class="invalid-feedback">
                                             <span *ngIf="formControls.tenureYear.errors.required ">Tenure Year is required or may be invalid.</span>
                                         </div>
                                         <nb-datepicker #datepicker></nb-datepicker>
@@ -105,8 +105,8 @@
                                         <label class="title" for="cibCharge">CIB Charge</label>
                                         <input id="cibCharge" formControlName="cibCharge" name="tenureYear" type="text"
                                                class="form-control" placeholder="CIB charge"
-                                               [ngClass]="{ 'is-invalid': (submitted || formControls.cibCharge.touched || formControls.cibCharge.dirty) && formControls.cibCharge.errors }">
-                                        <div *ngIf="(submitted || formControls.cibCharge.touched || formControls.cibCharge.dirty) && formControls.cibCharge.invalid"
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls.cibCharge.errors }">
+                                        <div *ngIf="(submitted) && formControls.cibCharge.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.cibCharge.errors.required">CIB Charge is required</span>
 
@@ -119,7 +119,7 @@
                                         <label class="title" for="repaymentMode">Repayment Mode</label>
                                         <select name="repaymentMode" id="repaymentMode" formControlName="repaymentMode"
                                                 class="custom-select"
-                                                [ngClass]="{ 'is-invalid': (submitted || formControls.repaymentMode.touched ) && formControls.repaymentMode.errors }">
+                                                [ngClass]="{ 'is-invalid': (submitted ) && formControls.repaymentMode.errors }">
                                             <option [ngValue]="null" selected hidden>select</option>
                                             <option value="EMI">EMI</option>
                                             <option value="EQI">EQI</option>
@@ -127,7 +127,7 @@
                                             <option value="QUARTERLY">Quarterly</option>
                                             <option value="YEARLY">Yearly</option>
                                         </select>
-                                        <div *ngIf="(submitted || formControls.repaymentMode.touched) && formControls.repaymentMode.invalid" class="invalid-feedback">
+                                        <div *ngIf="(submitted) && formControls.repaymentMode.invalid" class="invalid-feedback">
                                             <span *ngIf="formControls.repaymentMode.errors.required">Repayment mode is required</span>
                                         </div>
                                     </div>
@@ -138,8 +138,8 @@
                                         <textarea name="purposeOfSubmission" id="purposeOfSubmission"
                                                   formControlName="purposeOfSubmission" class="form-control" rows="3"
                                                   placeholder="Purpose of submission."
-                                                  [ngClass]="{ 'is-invalid': (submitted || formControls.purposeOfSubmission.touched || formControls.purposeOfSubmission.dirty) && formControls.purposeOfSubmission.errors }">"></textarea>
-                                        <div *ngIf="(submitted || formControls.purposeOfSubmission.touched || formControls.purposeOfSubmission.dirty) && formControls.purposeOfSubmission.invalid"
+                                                  [ngClass]="{ 'is-invalid': (submitted) && formControls.purposeOfSubmission.errors }">"></textarea>
+                                        <div *ngIf="(submitted) && formControls.purposeOfSubmission.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.purposeOfSubmission.errors.required">Purpose of Submission is required.</span>
                                         </div>
@@ -153,8 +153,8 @@
                                         <textarea name="disbursementCriteria" id="disbursementCriteria"
                                                   formControlName="disbursementCriteria" class="form-control" rows="3"
                                                   placeholder="Disbursement Criteria"
-                                                  [ngClass]="{ 'is-invalid': (submitted || formControls.disbursementCriteria.touched || formControls.disbursementCriteria.dirty) && formControls.disbursementCriteria.errors }">"></textarea>
-                                        <div *ngIf="(submitted || formControls.disbursementCriteria.touched || formControls.disbursementCriteria.dirty) && formControls.disbursementCriteria.invalid"
+                                                  [ngClass]="{ 'is-invalid': (submitted) && formControls.disbursementCriteria.errors }">"></textarea>
+                                        <div *ngIf="(submitted) && formControls.disbursementCriteria.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.disbursementCriteria.errors.required">Disbursement Criteria is required.</span>
                                         </div>
@@ -167,8 +167,8 @@
                                         <textarea name="creditInfo" id="creditInfo"
                                                   formControlName="creditInformationReportStatus" class="form-control"
                                                   rows="3" placeholder="Credit Information Report Status"
-                                                  [ngClass]="{ 'is-invalid': (submitted || formControls.creditInformationReportStatus.touched || formControls.creditInformationReportStatus.dirty) && formControls.creditInformationReportStatus.errors }">"></textarea>
-                                        <div *ngIf="(submitted || formControls.creditInformationReportStatus.touched || formControls.creditInformationReportStatus.dirty) && formControls.creditInformationReportStatus.invalid"
+                                                  [ngClass]="{ 'is-invalid': (submitted) && formControls.creditInformationReportStatus.errors }">"></textarea>
+                                        <div *ngIf="(submitted) && formControls.creditInformationReportStatus.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.creditInformationReportStatus.errors.required">Credit Information Report Status is required.</span>
                                         </div>
@@ -182,8 +182,8 @@
                                         <textarea name="accountIncome" id="accountIncome"
                                                   formControlName="incomeFromTheAccount" class="form-control" rows="3"
                                                   placeholder="Income from the Account"
-                                                  [ngClass]="{ 'is-invalid': (submitted || formControls.creditInformationReportStatus.touched || formControls.incomeFromTheAccount.dirty) && formControls.incomeFromTheAccount.errors }">"></textarea>
-                                        <div *ngIf="(submitted || formControls.incomeFromTheAccount.touched || formControls.incomeFromTheAccount.dirty) && formControls.incomeFromTheAccount.invalid"
+                                                  [ngClass]="{ 'is-invalid': (submitted) && formControls.incomeFromTheAccount.errors }">"></textarea>
+                                        <div *ngIf="(submitted) && formControls.incomeFromTheAccount.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.incomeFromTheAccount.errors.required">Income from the Account is required.</span>
                                         </div>
@@ -197,8 +197,8 @@
                                         <textarea name="borrowerInfo" id="borrowerInfo"
                                                   formControlName="borrowerInformation" class="form-control" rows="3"
                                                   placeholder="Borrower Information"
-                                                  [ngClass]="{ 'is-invalid': (submitted || formControls.borrowerInformation.touched || formControls.borrowerInformation.dirty) && formControls.borrowerInformation.errors }">"></textarea>
-                                        <div *ngIf="(submitted || formControls.borrowerInformation.touched || formControls.borrowerInformation.dirty) && formControls.borrowerInformation.invalid"
+                                                  [ngClass]="{ 'is-invalid': (submitted) && formControls.borrowerInformation.errors }">"></textarea>
+                                        <div *ngIf="(submitted) && formControls.borrowerInformation.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.borrowerInformation.errors.required">Borrower Information is required.</span>
                                         </div>
