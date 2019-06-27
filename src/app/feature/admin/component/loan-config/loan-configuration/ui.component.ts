@@ -55,10 +55,6 @@ export class UIComponent implements OnInit {
         other.getTemplate();
         other.offerLetterService.getAll().subscribe((responseList: any) => {
             other.offerLetterList = responseList.detail;
-            other.offerLetterList.forEach(offerLetter => {
-                other.offerLetterList.push(offerLetter);
-            });
-            other.offerLetterList = responseList.detail;
         }, error => {
             console.log(error);
             other.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Offer Letter'));

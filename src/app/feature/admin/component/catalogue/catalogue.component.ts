@@ -5,6 +5,7 @@ import {LoanConfig} from '../../modal/loan-config';
 import {LoanConfigService} from '../loan-config/loan-config.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
 
 @Component({
   selector: 'app-catalogue',
@@ -16,7 +17,8 @@ export class CatalogueComponent implements OnInit {
   loanTypeList: Array<LoanConfig> = new Array<LoanConfig>();
   constructor(private branchService: BranchService,
               private loanConfigService: LoanConfigService,
-              private toastService: ToastService) { }
+              private toastService: ToastService,
+              private loanFormService: LoanFormService) { }
 
   ngOnInit() {
     this.branchService.getAll().subscribe((response: any) => {

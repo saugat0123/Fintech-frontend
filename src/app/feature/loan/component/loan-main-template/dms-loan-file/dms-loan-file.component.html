@@ -88,8 +88,15 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="tenure"><b>Tenure</b></label>
-                                    <input id="tenure" [nbDatepicker]="date" class="form-control rounded"
+                                    <label for="tenureDuration"><b>Tenure Duration In Month</b></label>
+                                    <input type="text" formControlName="tenureDuration" class="form-control rounded"
+                                           id="tenureDuration"
+                                           [ngClass]="{ 'is-invalid':submitted && form.tenureDuration.errors}"
+                                           placeholder="Enter Tenure Duration"/>
+                                    <div *ngIf="submitted && form.tenureDuration.errors" class="invalid-feedback">
+                                        <div *ngIf="form.tenureDuration.errors.required">Tenure Duration is required</div>
+                                    </div>
+                                    <!--<input id="tenure" [nbDatepicker]="date" class="form-control rounded"
                                            formControlName="tenure"
                                            [ngClass]="{ 'is-invalid':submitted && form.tenure.errors}"
                                            placeholder="Enter the tenure">
@@ -99,7 +106,7 @@
                                             Invalid
                                             Tenure Date
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                 </div>
                             </div>
@@ -116,100 +123,90 @@
                                 </ng-select>
                             </div>
                         </div>
-                        <div class="row" [hidden]="proceed">
+                        <!--<div class="row" [hidden]="proceed">
                             <div class="col-md-3 pull-right">
                                 <button class="btn btn-sm btn-flat btn-primary" type="submit">Proceed</button>
+                            </div>
+                        </div>-->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><b>Document for initial phase</b></h3>
+                                <em><span
+                                        style="color:red;">(select the image in .png or .jpg format and smaller than 2Mb)</span></em>
+                            </div>
+                            <div *ngIf="errorMessage">
+                                <span class="color" style="color:red"> Maximum Size Exceeds!!!</span>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-striped table-bordered table-hover ">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Document Type</th>
+                                        <th>Upload</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let document of initialDocuments; let i=index">
+                                        <td>
+                                            {{i + 1}}
+                                        </td>
+                                        <td>{{document.name}}</td>
+                                        <td><input type="file" class="form-control-file" id="initial"
+                                                   formControlName="file"
+                                                   [ngClass]="{'is-invalid':proceeded && form.file.errors}"
+                                                   accept=".png, .jpg" multiple=""
+                                                   (change)="documentUploader($event,document.name)">
+                                            <div *ngIf="proceeded && form.file.errors"
+                                                 class="invalid-feedback">
+                                                <div *ngIf="form.file.errors.required">Please upload the
+                                                    required
+                                                    documents
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div *ngFor="let path of imageUrl">
+                                    <img width="100%" id="image" [src]="path"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="recommendation"><b>Recommendation/Conclusion</b></label>
+                                <textarea class="form-control rounded" formControlName="recommendation"
+                                          id="recommendation"
+                                          rows="3"
+                                          [ngClass]="{ 'is-invalid':proceeded && form.recommendation.errors}">
+                            </textarea>
+                                <div *ngIf="proceeded && form.recommendation.errors" class="invalid-feedback">
+                                    <div *ngIf="form.recommendation.errors.required">Recommendation is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="waiver"><b>Waiver</b></label>
+                                <textarea class="form-control rounded" formControlName="waiver" id="waiver"
+                                          rows="3" [ngClass]="{ 'is-invalid':proceeded && form.waiver.errors}">
+                                </textarea>
+                                <div *ngIf="proceeded && form.waiver.errors" class="invalid-feedback">
+                                    <div *ngIf="form.waiver.errors.required">Waiver is required</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
-
-            <hr>
-
-            <form role="form" (ngSubmit)="onProceed()" [formGroup]="documentForm">
-                <div class="box-body">
-                    <div [hidden]="!proceed">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title"><b>Document for initial phase</b></h3>
-                                    <em><span
-                                            style="color:red;">(select the image in .png or .jpg format and smaller than 2Mb)</span></em>
-                                </div>
-                                <div *ngIf="errorMessage">
-                                    <span class="color" style="color:red"> Maximum Size Exceeds!!!</span>
-                                </div>
-                                <div class="box-body">
-                                    <table class="table table-striped table-bordered table-hover ">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Document Type</th>
-                                            <th>Upload</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr *ngFor="let document of initialDocuments; let i=index">
-                                            <td>
-                                                {{i + 1}}
-                                            </td>
-                                            <td>{{document.name}}</td>
-                                            <td><input type="file" class="form-control-file" id="initial"
-                                                       formControlName="file"
-                                                       [ngClass]="{'is-invalid':proceeded && docForm.file.errors}"
-                                                       accept=".png, .jpg" multiple=""
-                                                       (change)="documentUploader($event,document.name)">
-                                                <div *ngIf="proceeded && docForm.file.errors"
-                                                     class="invalid-feedback">
-                                                    <div *ngIf="docForm.file.errors.required">Please upload the
-                                                        required
-                                                        documents
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <div *ngFor="let path of imageUrl">
-                                        <img width="100%" id="image" [src]="path"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="recommendation"><b>Recommendation/Conclusion</b></label>
-                                    <textarea class="form-control rounded" formControlName="recommendation"
-                                              id="recommendation"
-                                              rows="3"
-                                              [ngClass]="{ 'is-invalid':proceeded && docForm.recommendation.errors}">
-                            </textarea>
-                                    <div *ngIf="proceeded && docForm.recommendation.errors" class="invalid-feedback">
-                                        <div *ngIf="docForm.recommendation.errors.required">Recommendation is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="waiver"><b>Waiver</b></label>
-                                    <textarea class="form-control rounded" formControlName="waiver" id="waiver"
-                                              rows="3" [ngClass]="{ 'is-invalid':proceeded && docForm.waiver.errors}">
-                                </textarea>
-                                    <div *ngIf="proceeded && docForm.waiver.errors" class="invalid-feedback">
-                                        <div *ngIf="docForm.waiver.errors.required">Waiver is required</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </form>
         </nb-card-body>
     </nb-card>
 </section>

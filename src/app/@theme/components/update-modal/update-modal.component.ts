@@ -16,6 +16,9 @@ export class UpdateModalComponent implements OnInit, DoCheck {
     @Input()
     data: any = {};
 
+    @Input()
+    api: any = '';
+
     currentApi: any;
     globalMsg: any;
     currentUrl: any;

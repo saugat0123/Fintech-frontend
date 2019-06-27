@@ -137,7 +137,7 @@ export class LoanSummaryComponent implements OnInit {
 
                 this.id = this.loanDataHolder.id;
                 this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
-                if (this.dmsLoanFile != null) {
+                if (this.dmsLoanFile !== undefined) {
                     this.security = this.dmsLoanFile.security;
                     this.securities = this.security.split(',');
                     this.documents = JSON.parse(this.dmsLoanFile.documentPath);

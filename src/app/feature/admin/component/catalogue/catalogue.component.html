@@ -28,18 +28,12 @@
                         <div class="col-md-2">
                             <input id="startDate" [nbDatepicker]="startDate" class="form-control rounded"
                                    placeholder="Enter Start Date">
-                            <nb-datepicker #startDate></nb-datepicker>
-                            <!--<select class="custom-select">
-                                <option [value]="null" selected hidden>Select Start Date</option>
-                            </select>-->
+                            <nb-rangepicker #startDate></nb-rangepicker>
                         </div>
                         <div class="col-md-2">
                             <input id="endDate" [nbDatepicker]="endDate" class="form-control rounded"
                                    placeholder="Enter End Date">
                             <nb-datepicker #endDate></nb-datepicker>
-                            <!--<select class="custom-select">
-                                <option [value]="null" selected hidden>Select End Date</option>
-                            </select>-->
                         </div>
                         <div class="col-md-2">
                             <button class="btn-sm btn-primary">Search</button>
@@ -56,10 +50,7 @@
                 <th>Name</th>
                 <th>Loan Type</th>
                 <th>Status</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Possesion Under/Days</th>
-                <th>Age</th>
+                <th>possession Under/Days</th>
             </tr>
             </thead>
             <tbody>
