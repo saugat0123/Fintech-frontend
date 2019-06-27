@@ -23,7 +23,6 @@ export class LoanConfigComponent implements OnInit {
 
     dataList: Array<LoanConfig>;
 
-    newValue: any;
     spinner = false;
     globalMsg: string;
     search: any = {};
@@ -106,18 +105,16 @@ export class LoanConfigComponent implements OnInit {
     }
 
 
-    onChange(newValue, data) {
-        const dataSend = {
-            data: data,
-            api: this.service.getApi()
-        };
+    onChange(data) {
+
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
         event.preventDefault();
-        this.newValue = newValue;
-        const modalRef = this.modalService.open(UpdateModalComponent);
-        modalRef.componentInstance.data = dataSend;
+
+        const modalRef = this.modalService.open(UpdateModalComponent, {size: 'lg'});
+        modalRef.componentInstance.data = data;
+        modalRef.componentInstance.service = this.service;
 
 
     }

@@ -30,7 +30,6 @@ export class DocumentComponent implements OnInit {
     activeCount: number;
     inactiveCount: number;
     documents: number;
-    newValue: string;
 
 
     constructor(
@@ -110,13 +109,15 @@ export class DocumentComponent implements OnInit {
     }
 
 
-    onChange(newValue, data) {
+    onChange(data) {
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
         event.preventDefault();
-        this.newValue = newValue;
-        this.modalService.open(UpdateModalComponent);
+
+        const modalRef = this.modalService.open(UpdateModalComponent, {size: 'lg'});
+        modalRef.componentInstance.data = data;
+        modalRef.componentInstance.service = this.service;
     }
 }
 
