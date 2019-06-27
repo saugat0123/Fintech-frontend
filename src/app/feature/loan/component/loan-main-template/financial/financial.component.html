@@ -187,8 +187,11 @@
                         <tr [formGroupName]="i">
                             <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
                             <td>{{category.get('name').value}}</td>
-                            <td *ngFor="let year of fiscalYear; let j = index" scope="col">
-                                <input style="border: none; outline: none;" value="0">
+                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index" formArrayName="amount">
+                                <div [formGroupName]="o">
+                                    <input hidden formControlName="year">
+                                    <input style="border: none; outline: none;" value="0" formControlName="value">
+                                </div>
                             </td>
                         </tr>
                         </tbody>
@@ -202,57 +205,6 @@
                         </tr>
                         </tbody>
 
-                        <tbody>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td><b>Cost of Goods Sold</b></td>
-                            <td *ngFor="let year of fiscalYear; let j = index" scope="col">
-                                <input style="border: none; outline: none;" value="0">
-                            </td>
-                        </tr>
-                        </tbody>
-
-                        <tbody *ngFor="let category of additionalFinancialForm.get('costOfGoodsSubCategory')['controls'];let i = index"
-                               formArrayName="costOfGoodsSubCategory">
-                        <tr [formGroupName]="i">
-                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
-                            <td>{{category.get('name').value}}</td>
-                            <td *ngFor="let year of fiscalYear; let j = index" scope="col">
-                                <div
-                                <input style="border: none; outline: none;" value="0">
-                            </td>
-                        </tr>
-                        </tbody>
-
-                        <tbody>
-                        <tr>
-                            <th scope="row"></th>
-                            <td><input nbInput fieldSize="small" #costOfGoodsCategoryName type="text" placeholder="Particular" required/>
-                                <button nbButton size="small" (click)="addSubCategoryCostOfGoods(costOfGoodsCategoryName.value)">Add field</button>
-                            </td>
-                        </tr>
-                        </tbody>
-
-                        <tbody>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td><b>Gross Profit</b></td>
-                            <td *ngFor="let year of fiscalYear; let j = index" scope="col">
-                                <input style="border: none; outline: none;" value="0">
-                            </td>
-                        </tr>
-                        </tbody>
-
-                       <!-- <tbody *ngFor="let category of additionalFinancialForm.get('costOfGoodsSubCategory')['controls'];let i = index"
-                               formArrayName="costOfGoodsSubCategory">
-                        <tr [formGroupName]="i">
-                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
-                            <td>{{category.get('name').value}}</td>
-                            <td *ngFor="let year of fiscalYear; let j = index" scope="col">
-                                0
-                            </td>
-                        </tr>
-                        </tbody>-->
 
                     </table>
                 </form>
@@ -261,4 +213,7 @@
         </nb-card>
     </nb-card-body>
 </nb-card>
-<!--<pre>{{incomeStatementForm.controls.totalSalesRevenue['controls'].amount.value | json}}</pre>-->
+<pre>{{additionalFinancialForm.get('totalSalesSubCategory').value | json}}</pre>
+
+<input #value type="text" name="number" placeholder="Number OR Amount" (keyup)="convertNumberToWords(value.value)">
+<div>{{wordNumber}}</div>
