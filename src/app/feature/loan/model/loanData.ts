@@ -5,6 +5,7 @@ import {DocStatus} from './docStatus';
 import {Priority} from './priority';
 import {Customer} from '../../admin/modal/customer';
 import {LoanStage} from './loanStage';
+import {Branch} from '../../admin/modal/branch';
 
 export class LoanDataHolder {
     id: number;
@@ -19,5 +20,5 @@ export class LoanDataHolder {
     distinctPreviousList: any;
     currentStage: LoanStage = new LoanStage();
     createdBy: number;
-
+    branch: Branch;
 }

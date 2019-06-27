@@ -20,12 +20,18 @@
                             <div class="col-md-6">
                                 <div class="form-group rounded">
                                     <label for="citizenshipNumber"><b>Citizenship Number</b></label>
-                                    <input type="text" formControlName="citizenshipNumber" class="form-control rounded"
-                                           [ngClass]="{ 'is-invalid':submitted && form.citizenshipNumber.errors}"
-                                           id="citizenshipNumber" placeholder="Enter citizenship number"/>
-                                    <div *ngIf="submitted && form.citizenshipNumber.errors" class="invalid-feedback">
-                                        <div *ngIf="form.citizenshipNumber.errors.required">Citizenship number is
-                                            required
+
+                                    <div class="input-group mb-3">
+                                        <input type="text" formControlName="citizenshipNumber" class="form-control rounded"
+                                               [ngClass]="{ 'is-invalid':submitted && form.citizenshipNumber.errors}"
+                                               id="citizenshipNumber" placeholder="Enter citizenship number"/>
+                                        <div class="input-group-append">
+                                            <button nbButton outline status="primary" size="small" (click)="searchByCitizenship()">Search</button>
+                                        </div>
+                                        <div *ngIf="submitted && form.citizenshipNumber.errors" class="invalid-feedback">
+                                            <div *ngIf="form.citizenshipNumber.errors.required">Citizenship number is
+                                                required
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -210,6 +216,30 @@
                     </div>
                 </div>
             </form>
+            <div *ngIf="hasPreviousLoan">
+                <p><b>Previous Loans</b> <button class="float-right" nbButton outline size="small" (click)="hidePreviousLoans()">Hide</button></p>
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                    <tr>
+                        <th>S.N</th>
+                        <th>Loan</th>
+                        <th>Branch</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let loan of previousLoans; let i = index"
+                        (click)="openLoan(loan.loan.id,loan.id)"
+                        class="cursor">
+                        <td>{{i + 1}}</td>
+                        <td>{{loan?.loan?.name}}</td>
+                        <td>{{loan?.branch?.name}}</td>
+                        <td>{{loan?.documentStatus}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <hr />
+            </div>
         </nb-card-body>
     </nb-card>
 </section>
