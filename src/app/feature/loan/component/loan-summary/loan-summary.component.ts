@@ -141,10 +141,12 @@ export class LoanSummaryComponent implements OnInit {
                     this.security = this.dmsLoanFile.security;
                     this.securities = this.security.split(',');
                     this.documents = JSON.parse(this.dmsLoanFile.documentPath);
-                    for (this.document of this.documents) {
-                        this.documentNamesSplit = this.document.split(':');
-                        this.documentNames.push(this.documentNamesSplit[0]);
-                        this.documentUrls.push(this.documentNamesSplit[1]);
+                    if (this.documents !== null) {
+                        for (this.document of this.documents) {
+                            this.documentNamesSplit = this.document.split(':');
+                            this.documentNames.push(this.documentNamesSplit[0]);
+                            this.documentUrls.push(this.documentNamesSplit[1]);
+                        }
                     }
                 }
 

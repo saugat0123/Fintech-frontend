@@ -123,6 +123,36 @@
                                 </ng-select>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="serviceChargeType"><b>Service Charge Type</b></label>
+                                <div class="row ml-2">
+                                    <nb-radio-group class="col-md-4 d-contents form-control" id="serviceChargeType"
+                                                    name="serviceChargeType" formControlName="serviceChargeType"
+                                                    [ngClass]="{ 'is-invalid':submitted && form.serviceChargeType.errors}">
+                                        <nb-radio class="form-group" value="Percentage">Percentage</nb-radio>
+                                        <nb-radio class="form-group" value="Flat">Flat</nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                                <!--<input type="text" formControlName="serviceChargeType" class="form-control rounded"
+                                       id="serviceChargeType"
+                                       [ngClass]="{ 'is-invalid':submitted && form.serviceChargeType.errors}"
+                                       placeholder="Enter Tenure Duration"/>-->
+                                <div *ngIf="submitted && form.serviceChargeType.errors" class="invalid-feedback">
+                                    <div *ngIf="form.serviceChargeType.errors.required">Tenure Duration is required</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="serviceChargeAmount"><b>Service Charge Amount</b></label>
+                                <input type="text" formControlName="serviceChargeAmount" class="form-control rounded"
+                                       id="serviceChargeAmount"
+                                       [ngClass]="{ 'is-invalid':submitted && form.serviceChargeAmount.errors}"
+                                       placeholder="Enter Tenure Duration"/>
+                                <div *ngIf="submitted && form.serviceChargeAmount.errors" class="invalid-feedback">
+                                    <div *ngIf="form.serviceChargeAmount.errors.required">Tenure Duration is required</div>
+                                </div>
+                            </div>
+                        </div>
                         <!--<div class="row" [hidden]="proceed">
                             <div class="col-md-3 pull-right">
                                 <button class="btn btn-sm btn-flat btn-primary" type="submit">Proceed</button>
@@ -156,10 +186,10 @@
                                         <td>{{document.name}}</td>
                                         <td><input type="file" class="form-control-file" id="initial"
                                                    formControlName="file"
-                                                   [ngClass]="{'is-invalid':proceeded && form.file.errors}"
+                                                   [ngClass]="{'is-invalid':submitted && form.file.errors}"
                                                    accept=".png, .jpg" multiple=""
                                                    (change)="documentUploader($event,document.name)">
-                                            <div *ngIf="proceeded && form.file.errors"
+                                            <div *ngIf="submitted && form.file.errors"
                                                  class="invalid-feedback">
                                                 <div *ngIf="form.file.errors.required">Please upload the
                                                     required
@@ -183,9 +213,9 @@
                                 <textarea class="form-control rounded" formControlName="recommendation"
                                           id="recommendation"
                                           rows="3"
-                                          [ngClass]="{ 'is-invalid':proceeded && form.recommendation.errors}">
+                                          [ngClass]="{ 'is-invalid':submitted && form.recommendation.errors}">
                             </textarea>
-                                <div *ngIf="proceeded && form.recommendation.errors" class="invalid-feedback">
+                                <div *ngIf="submitted && form.recommendation.errors" class="invalid-feedback">
                                     <div *ngIf="form.recommendation.errors.required">Recommendation is required
                                     </div>
                                 </div>
@@ -197,9 +227,9 @@
                             <div class="form-group">
                                 <label for="waiver"><b>Waiver</b></label>
                                 <textarea class="form-control rounded" formControlName="waiver" id="waiver"
-                                          rows="3" [ngClass]="{ 'is-invalid':proceeded && form.waiver.errors}">
+                                          rows="3" [ngClass]="{ 'is-invalid':submitted && form.waiver.errors}">
                                 </textarea>
-                                <div *ngIf="proceeded && form.waiver.errors" class="invalid-feedback">
+                                <div *ngIf="submitted && form.waiver.errors" class="invalid-feedback">
                                     <div *ngIf="form.waiver.errors.required">Waiver is required</div>
                                 </div>
                             </div>

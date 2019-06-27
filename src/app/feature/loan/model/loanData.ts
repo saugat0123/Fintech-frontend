@@ -5,9 +5,11 @@ import {DocStatus} from './docStatus';
 import {Priority} from './priority';
 import {Customer} from '../../admin/modal/customer';
 import {LoanStage} from './loanStage';
+import {Branch} from '../../admin/modal/branch';
 
 export class LoanDataHolder {
     id: number;
+    branch: Branch;
     customerInfo: Customer;
     entityInfo: EntityInfo;
     dmsLoanFile: DmsLoanFile;

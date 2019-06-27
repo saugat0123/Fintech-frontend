@@ -28,7 +28,7 @@
                 </div>
                 <div class="offset-3">
                     <div class="text-right">
-                        <span><b>Brach: {{loanDataHolder?.branch?.name}}</b></span>
+                        <span><b>Branch: {{loanDataHolder?.branch?.name}}</b></span>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                     <span><b>Ref. No: {{dmsLoanFile?.id}}</b></span>
                 </div>
                 <div class="col-md-6">
-                    <p class="text-right"><b>Date:{{dmsLoanFile?.createdAt | date}}</b></p>
+                    <p class="text-right"><b>Date:{{loanDataHolder?.createdAt | date}}</b></p>
                 </div>
             </div>
             <div class="row">
@@ -109,6 +109,30 @@
                     </table>
                 </div>
             </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <p style="font-size: 15px"><b>Service Charge Type</b></p>
+                    <table class="table table-condensed table-bordered">
+                        <tbody>
+                        <tr>
+                            <td>{{dmsLoanFile?.serviceChargeType}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <p style="font-size: 15px"><b>Service Charge Amount</b></p>
+                    <table class="table table-condensed table-bordered">
+                        <tbody>
+                        <tr>
+                            <td>{{dmsLoanFile?.serviceChargeAmount}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <div class="row mt-3">
                 <div class="col-md-12">
                     <p style="font-size: 15px"><b>Recommendation and Conclusion</b></p>

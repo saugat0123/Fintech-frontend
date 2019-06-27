@@ -104,7 +104,7 @@ export class DmsLoanFileComponent implements OnInit {
             {id: 'LOW', name: 'Low'},
 
         ];
-
+        console.log(this.loanFile);
         this.loanForm = this.formBuilder.group({
             customerName: [this.loanFile.customerName === undefined ? '' : this.loanFile.customerName, Validators.required],
             citizenshipNumber: [this.loanFile.citizenshipNumber === undefined ? '' : this.loanFile.citizenshipNumber, Validators.required],
@@ -112,6 +112,9 @@ export class DmsLoanFileComponent implements OnInit {
             interestRate: [this.loanFile.interestRate === undefined ? '' : this.loanFile.interestRate, Validators.required],
             proposedAmount: [this.loanFile.proposedAmount === undefined ? '' : this.loanFile.proposedAmount, Validators.required],
             security: [this.loanFile.security === undefined ? '' : this.showSecurity(this.loanFile.security), Validators.required],
+            serviceChargeType: [this.loanFile.serviceChargeType === undefined ? '' : this.loanFile.serviceChargeType, Validators.required],
+            serviceChargeAmount: [this.loanFile.serviceChargeAmount === undefined ? '' : this.loanFile.serviceChargeAmount,
+                Validators.required],
             tenureDuration: [this.loanFile.tenureDuration === undefined ? '' : this.loanFile.tenureDuration, Validators.required],
             priority: [this.loanFile.priority === undefined ? '' : this.loanFile.priority, Validators.required],
             recommendation: [this.loanFile.recommendationConclusion === undefined ? '' : this.loanFile.recommendationConclusion,
@@ -128,8 +131,12 @@ export class DmsLoanFileComponent implements OnInit {
 
     showSecurity(security: string) {
         this.securities = security.split(',');
+        console.log('secties', this.securities);
         this.securities.forEach((securityLoop => {
-            this.securityEnum.push(Security[securityLoop]);
+            console.log(securityLoop);
+            console.log(this.dropdownList[Number(securityLoop)].id);
+            this.securityEnum.push(this.dropdownList[Number(securityLoop)].id);
+            console.log(this.securityEnum);
         }));
         return this.securityEnum;
     }
@@ -145,6 +152,8 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFile.proposedAmount = this.loanForm.get('proposedAmount').value;
         this.loanFile.securities = this.loanForm.get('security').value as string;
         this.loanFile.tenureDuration = this.loanForm.get('tenureDuration').value;
+        this.loanFile.serviceChargeType = this.loanForm.get('serviceChargeType').value;
+        this.loanFile.serviceChargeAmount = this.loanForm.get('serviceChargeAmount').value;
         this.loanFile.priority = this.loanForm.get('priority').value;
         this.loanFile.waiver = this.loanForm.get('waiver').value;
         this.loanFile.recommendationConclusion = this.loanForm.get('recommendation').value;

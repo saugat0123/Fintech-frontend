@@ -57,5 +57,8 @@
 
             </tbody>
         </table>
+        <!-- ===================table-pagination==================== -->
+        <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+        <!-- ===================table-pagination==================== -->
     </nb-card-body>
 </nb-card>

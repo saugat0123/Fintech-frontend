@@ -9,6 +9,8 @@ export class DmsLoanFile {
     interestRate: number;
     proposedAmount: number;
     security: string;
+    serviceChargeType: string;
+    serviceChargeAmount: number;
     documentPath: string;
     documentMap: Array<string>;
     documents = new Array<LoanDocument>();
