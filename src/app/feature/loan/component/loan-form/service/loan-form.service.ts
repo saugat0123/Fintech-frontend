@@ -41,6 +41,12 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.get(req.url, {headers: req.header});
     }
 
+    public getLoansByCitizenship(citizenshipNumber: string) {
+        const api = `${this.getApi()}/searchByCitizenship/${citizenshipNumber}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
     protected getApi(): string {
         return LoanFormService.API;
     }
