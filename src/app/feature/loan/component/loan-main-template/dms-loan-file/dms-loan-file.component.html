@@ -217,7 +217,7 @@
                 </div>
             </form>
             <div *ngIf="hasPreviousLoan">
-                <p><b>Previous Loans</b></p>
+                <p><b>Previous Loans</b> <button class="float-right" nbButton outline size="small" (click)="hidePreviousLoans()">Hide</button></p>
                 <table class="table table-condensed table-bordered">
                     <thead>
                     <tr>

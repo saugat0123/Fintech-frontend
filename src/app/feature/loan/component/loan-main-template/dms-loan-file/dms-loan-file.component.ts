@@ -242,7 +242,6 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFormService.getLoansByCitizenship(citizenshipNumber).subscribe((response: any) => {
             this.previousLoans = response.detail;
             this.hasPreviousLoan = this.previousLoans.length > 0;
-            console.log(this.previousLoans);
         }, error => console.error(error));
     }
 
@@ -254,5 +253,9 @@ export class DmsLoanFileComponent implements OnInit {
                 customerId: customerId
             }
         });
+    }
+
+    hidePreviousLoans() {
+        this.hasPreviousLoan = false;
     }
 }
