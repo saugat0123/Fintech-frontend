@@ -5,6 +5,7 @@ import {BranchService} from '../../../feature/admin/component/branch/branch.serv
 import {Branch} from '../../../feature/admin/modal/branch';
 import {UserService} from '../../../@core/service/user.service';
 import {User} from '../../../feature/admin/modal/user';
+import {RoleAccess} from '../../../feature/admin/modal/role-access';
 
 @Component({
     selector: 'app-pie-chart',
@@ -21,6 +22,9 @@ export class DataVisualizationComponent implements OnInit {
         domain: ['#F45123', '#B523F4', '#10E9AE', '#2D23F4']
     };
     user: User = new User();
+    roleAccess: string;
+    accessSpecific: boolean;
+    accessAll: boolean;
 
     constructor(private loanFormService: LoanFormService,
                 private userService: UserService,
@@ -28,9 +32,22 @@ export class DataVisualizationComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.branchService.getAll().subscribe(
+        this.roleAccess = localStorage.getItem('roleAccess');
+        console.log(this.roleAccess);
+        if (this.roleAccess === RoleAccess.SPECIFIC) {
+            this.accessSpecific = true;
+        } else if (this.roleAccess === RoleAccess.ALL) {
+            this.accessAll = true;
+        }
+        this.branchService.getBranchAccessByCurrentUser().subscribe(
             (response: any) => {
                 this.branches = response.detail;
+                console.log(this.branches);
+                if (this.roleAccess === RoleAccess.OWN) {
+                    this.branches.forEach((branch, index) => {
+                        this.selectedBranch = branch.name;
+                    });
+                }
             }
         );
         this.loanFormService.getProposedAmount().subscribe(
