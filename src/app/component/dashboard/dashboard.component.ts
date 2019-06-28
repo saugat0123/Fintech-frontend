@@ -54,19 +54,18 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     }
 
     ngAfterContentInit() {
-        this.userService.getLoggedInUser().subscribe((res: any) => {
-            this.loggedUser = res.detail;
-            if (this.loggedUser.role.roleName !== 'admin') {
-                this.roleType = this.loggedUser.role.roleType === RoleType.MAKER;
-            }
+        const roleName: string = localStorage.getItem('roleName');
+        const roleType: string = localStorage.getItem('roleType');
+        if (roleName !== 'admin') {
+            this.roleType = roleType === RoleType.MAKER;
+        }
 
-            if (this.loggedUser.role.roleType === RoleType.MAKER) {
-                this.loanConfigService.getAll().subscribe((response: any) => {
-                    this.loanList = response.detail;
-                    this.loanService.setLoan(response.detail);
-                });
-            }
-        }, error => console.error(error));
+        if (roleType === RoleType.MAKER) {
+            this.loanConfigService.getAll().subscribe((response: any) => {
+                this.loanList = response.detail;
+                this.loanService.setLoan(response.detail);
+            });
+        }
     }
 
     ngOnInit() {

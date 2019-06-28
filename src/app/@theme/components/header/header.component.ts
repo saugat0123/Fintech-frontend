@@ -21,7 +21,9 @@ export class HeaderComponent implements OnInit {
 
     @Input() position = 'normal';
 
-    user: User;
+    userFullName: string;
+    username: string;
+    userProfilePicture;
     roleName;
 
     userMenu = [{title: HeaderComponent.LOGOUT}];
@@ -60,19 +62,9 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.userService.getLoggedInUser()
-            .subscribe((res: any) => {
-                this.user = res.detail;
-                this.roleName = this.user.role.roleName;
-                localStorage.setItem('userId', (this.user.id).toString());
-                localStorage.setItem('username', (this.user.username));
-                localStorage.setItem('roleAccess', this.user.role.roleAccess);
-                localStorage.setItem('branch', JSON.stringify(this.user.branch));
-                if (this.user.role.roleName !== 'admin') {
-                    localStorage.setItem('roleType', JSON.stringify(this.user.role.roleType));
-
-                }
-            });
+        this.userFullName = localStorage.getItem('userFullName');
+        this.userProfilePicture = localStorage.getItem('userProfilePicture');
+        this.roleName = localStorage.getItem('roleName');
 
 
         this.menuService.onItemClick().pipe(
