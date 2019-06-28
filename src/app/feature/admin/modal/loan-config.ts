@@ -1,5 +1,6 @@
 import {LoanTemplate} from './loan-template';
 import {Document} from './document';
+import {OfferLetter} from './offerLetter';
 
 export class LoanConfig {
     id: number;
@@ -16,4 +17,5 @@ export class LoanConfig {
     initial: Array<Document>;
     renew: Array<Document>;
     eligibilityDocuments: Array<Document>;
+    offerLetters: Array<OfferLetter>;
 }

@@ -46,11 +46,11 @@ export class PendingLoanComponent implements OnInit {
 
             }
         );
-        this.loanFormService.getLoanByStatus(this.status).subscribe(
+        /*this.loanFormService.getLoanByStatus(this.status).subscribe(
             (response: any) => {
                 this.loanDataHolders = response.detail;
             }
-        );
+        );*/
 
         this.userService.getLoggedInUser().subscribe(
             (response: any) => {

@@ -31,7 +31,7 @@ export class DmsLoanService extends BaseService<DmsLoanFile> {
     }
 
     public getDocumentByStatus(status: any): Observable<any> {
-        const req = ApiUtils.getRequest(`v1/loan-customer/status`);
+        const req = ApiUtils.getRequest(`v1/Loan-customer/status`);
         return this.http.post(req.url, status, {headers: req.header});
     }
 

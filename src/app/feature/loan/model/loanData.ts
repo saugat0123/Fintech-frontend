@@ -9,6 +9,7 @@ import {Branch} from '../../admin/modal/branch';
 
 export class LoanDataHolder {
     id: number;
+    branch: Branch;
     customerInfo: Customer;
     entityInfo: EntityInfo;
     dmsLoanFile: DmsLoanFile;
@@ -20,5 +21,4 @@ export class LoanDataHolder {
     distinctPreviousList: any;
     currentStage: LoanStage = new LoanStage();
     createdBy: number;
-    branch: Branch;
 }

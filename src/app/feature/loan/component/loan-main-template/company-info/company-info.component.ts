@@ -1,4 +1,4 @@
-import {Component, DoCheck, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 import {Router} from '@angular/router';
 
@@ -22,7 +22,7 @@ import {AddressService} from '../../../../../@core/service/baseservice/address.s
     templateUrl: './company-info.component.html',
     styleUrls: ['./company-info.component.css']
 })
-export class CompanyInfoComponent implements OnInit, DoCheck {
+export class CompanyInfoComponent implements OnInit {
     @Input() formValue: EntityInfo;
     entityInfo: EntityInfo = new EntityInfo();
     legalStatus: LegalStatus = new LegalStatus();
@@ -111,13 +111,10 @@ export class CompanyInfoComponent implements OnInit, DoCheck {
         });
         this.managementTeamList = this.entityInfo.managementTeamList;
         this.proprietorsList = this.entityInfo.proprietorsList;
-/*        this.companyInfo.setControl('managementTeams', this.setManagementTeams(this.managementTeamList));
-        this.companyInfo.setControl('proprietors', this.setProprietors(this.proprietorsList));*/
+        this.companyInfo.setControl('managementTeams', this.setManagementTeams(this.managementTeamList));
+        this.companyInfo.setControl('proprietors', this.setProprietors(this.proprietorsList));
     }
 
-    ngDoCheck(): void {
-        this.onSubmit();
-    }
 
     setManagementTeams(managementTeamList: ManagementTeam[]): FormArray {
         const managementTeamFormArray = new FormArray([]);
@@ -164,7 +161,7 @@ export class CompanyInfoComponent implements OnInit, DoCheck {
                 contactNo: proprietors.contactNo,
                 province: proprietors.province,
                 district: proprietors.district,
-                municipalityOrVdc: proprietors.municipalitiesOrVDC,
+                municipalityOrVdc: proprietors.municipalityVdc,
                 share: proprietors.share
             }));
         });
@@ -224,7 +221,10 @@ export class CompanyInfoComponent implements OnInit, DoCheck {
         this.swot.threats = this.companyInfo.get('threats').value;
         this.entityInfo.swot = this.swot;
         this.loanDataService.setEntityInfo(this.entityInfo);
-        // this.commonService.saveOrEdit(this.entityInfo, 'v1/companyInfo').subscribe();
+        console.log(this.entityInfo);
+        // this.commonService.saveOrEdit(this.entityInfo, 'v1/companyInfo').subscribe((response: any) => {
+        //     console.log(response.detail);
+        // });
 
     }
 
