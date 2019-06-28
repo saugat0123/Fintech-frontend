@@ -126,7 +126,8 @@ export class LoanDataService {
     }
 
     getDmsLoanFile() {
-        return this.entityInfo;
+        console.log(this.dmsLoanFile);
+        return this.dmsLoanFile;
     }
 
 

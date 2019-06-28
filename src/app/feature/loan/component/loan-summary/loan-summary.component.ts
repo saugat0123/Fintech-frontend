@@ -14,6 +14,8 @@ import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {LoanActionService} from '../../loan-action/service/loan-action.service';
 import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
 import {LoanStage} from '../../model/loanStage';
+import {DocStatus} from '../../model/docStatus';
+import {stackOrderInsideOut} from 'd3-shape';
 
 @Component({
     selector: 'app-loan-summary',
@@ -99,6 +101,11 @@ export class LoanSummaryComponent implements OnInit {
                 this.actionsList.sendBackward = true;
                 this.actionsList.rejected = true;
                 this.actionsList.closed = true;
+                if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+                    this.actionsList.offerLetter = true;
+                } else {
+                    this.actionsList.offerLetter = false;
+                }
                 if (this.loanDataHolder.createdBy.toString() === localStorage.getItem('userId')) {
                     this.actionsList.sendBackward = false;
                     this.actionsList.edit = true;
@@ -134,17 +141,18 @@ export class LoanSummaryComponent implements OnInit {
                 //         }
                 //     }
                 // });
-
                 this.id = this.loanDataHolder.id;
                 this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
-                if (this.dmsLoanFile != null) {
+                if (this.dmsLoanFile !== undefined) {
                     this.security = this.dmsLoanFile.security;
                     this.securities = this.security.split(',');
                     this.documents = JSON.parse(this.dmsLoanFile.documentPath);
-                    for (this.document of this.documents) {
-                        this.documentNamesSplit = this.document.split(':');
-                        this.documentNames.push(this.documentNamesSplit[0]);
-                        this.documentUrls.push(this.documentNamesSplit[1]);
+                    if (this.documents !== null) {
+                        for (this.document of this.documents) {
+                            this.documentNamesSplit = this.document.split(':');
+                            this.documentNames.push(this.documentNamesSplit[0]);
+                            this.documentUrls.push(this.documentNamesSplit[1]);
+                        }
                     }
                 }
 
