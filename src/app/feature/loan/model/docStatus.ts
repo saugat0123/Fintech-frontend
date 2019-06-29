@@ -9,7 +9,7 @@ export namespace DocStatus {
 
     export function values() {
         return Object.keys(DocStatus).filter(
-            (type) => isNaN(<any>type) && type !== 'values'
+            (type) => isNaN(<any>type) && type !== 'values' && type !== 'value'
         );
     }
 
