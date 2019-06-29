@@ -32,7 +32,7 @@ export class CatalogueComponent implements OnInit {
     search = {
         branchIds: undefined,
         documentStatus: DocStatus.value(DocStatus.PENDING),
-        loanType: undefined,
+        loanConfigId: undefined,
         startDate: undefined,
         endDate: undefined
     };
@@ -45,29 +45,15 @@ export class CatalogueComponent implements OnInit {
     }
 
     static loadData(other: CatalogueComponent) {
-        other.loanFormService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
+        other.loanFormService.getCatalogues(other.search, other.page, 10).subscribe((response: any) => {
             other.loanDataHolderList = response.detail.content;
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
-
         }, error => {
             console.error(error);
             other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
             other.spinner = false;
         });
-        other.branchService.getAll().subscribe((response: any) => {
-            other.branchList = response.detail;
-        }, error => {
-            console.error(error);
-            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
-        });
-        other.loanConfigService.getAll().subscribe((response: any) => {
-            other.loanTypeList = response.detail;
-        }, error => {
-            console.error(error);
-            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
-        });
-
     }
 
     ngOnInit() {
@@ -77,6 +63,18 @@ export class CatalogueComponent implements OnInit {
             docStatus: [undefined],
             startDate: [undefined],
             endDate: [undefined]
+        });
+        this.branchService.getAll().subscribe((response: any) => {
+            this.branchList = response.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
+        });
+        this.loanConfigService.getAll().subscribe((response: any) => {
+            this.loanTypeList = response.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
         });
         CatalogueComponent.loadData(this);
     }
@@ -100,13 +98,17 @@ export class CatalogueComponent implements OnInit {
     }
 
     ok() {
-        this.search.branchIds = this.filterForm.get('branch').value;
-        this.search.documentStatus = this.filterForm.get('docStatus').value;
-        this.search.loanType = this.filterForm.get('loanType').value;
-        this.search.startDate = this.filterForm.get('startDate').value;
-        this.search.endDate = this.filterForm.get('endDate').value;
-        console.log(this.search);
-        console.log(this.filterForm);
+        this.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
+            this.filterForm.get('branch').value;
+        this.search.documentStatus = this.filterForm.get('docStatus').value === null ? DocStatus.value(DocStatus.PENDING) :
+            this.filterForm.get('docStatus').value;
+        this.search.loanConfigId = this.filterForm.get('loanType').value === null ? undefined :
+            this.filterForm.get('loanType').value;
+        this.search.startDate = this.filterForm.get('startDate').value === null ? undefined :
+            this.filterForm.get('startDate').value;
+        this.search.endDate = this.filterForm.get('endDate').value === null ? undefined :
+            this.filterForm.get('endDate').value;
+        CatalogueComponent.loadData(this);
     }
 
 }
