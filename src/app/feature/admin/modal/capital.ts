@@ -1,7 +1,5 @@
 export class Capital {
     id: number;
-    created: Date;
-    lastModified: Date;
     authorizedCapital: number;
     paidUpCapital: number;
     issuedCapital: number;

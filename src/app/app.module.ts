@@ -17,13 +17,15 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {NbDatepickerModule} from '@nebular/theme';
 import {NgxPrintModule} from 'ngx-print';
 import {ForgotPasswordComponent} from './component/forgot-password/forgot-password.component';
+import { ResentForgotPasswordComponent } from './component/resent-forgot-password/resent-forgot-password.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
-        ForgotPasswordComponent
+        ForgotPasswordComponent,
+        ResentForgotPasswordComponent
     ],
     imports: [
         BrowserModule,

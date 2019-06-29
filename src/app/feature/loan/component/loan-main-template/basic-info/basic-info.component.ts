@@ -70,6 +70,8 @@ export class BasicInfoComponent implements OnInit {
             province: [this.customer.province === null ? '' : this.customer.province, Validators.required],
             district: [this.customer.district === null ? '' : this.customer.district, Validators.required],
             municipalities: [this.customer.municipalities === null ? '' : this.customer.municipalities, Validators.required],
+            street: [this.customer.street === null ? '' : this.customer.street, Validators.required],
+            wardNumber: [this.customer.wardNumber === null ? '' : this.customer.wardNumber, Validators.required],
             telephone: [this.customer.telephone === undefined ? '' : this.customer.telephone, Validators.required],
             mobile: [this.customer.mobile === undefined ? '' : this.customer.mobile, Validators.required],
             email: [this.customer.email === undefined ? '' : this.customer.email, Validators.required],

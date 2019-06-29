@@ -68,9 +68,6 @@
 /*    font-weight: 700;*/
 /*}*/
 
-.cursor {
-    cursor: pointer;
-}
 
 /*html, body {*/
 /*    height: 100vh;*/
@@ -106,6 +103,23 @@
 /*    font-size: 18px;*/
 /*}*/
 
-/*.d-contents{*/
-/*    display: contents;*/
-/*}*/
+.d-contents{
+    display: contents;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+@font-face {
+    font-family: 'Preeti';
+    src: url(assets/font/PREETI.TTF) format("opentype");
+}
+
+.nepaliFont {
+    font-size: 22px;
+    font-family: Preeti;
+}
+.nb-menu{
+    color: #b8403a;
+}

@@ -17,6 +17,12 @@ import {LoanActionComponent} from './loan-action/loan-action.component';
 import {LoanFormService} from './component/loan-form/service/loan-form.service';
 import {LoanSummaryComponent} from './component/loan-summary/loan-summary.component';
 import {SummaryComponent} from './component/print-summary/summary.component';
+import {BirthMarkLetterNepaliComponent} from './component/offer-letter/birth-mark-letter/birth-mark-letter-nepali.component';
+// tslint:disable-next-line:max-line-length
+import {BirthMarkLetterPrintComponent} from './component/offer-letter/birth-mark-letter/birth-mark-letter-print/birth-mark-letter-print.component';
+import { SuccessOfferLetterComponent } from './component/offer-letter/success-offer-letter/success-offer-letter.component';
+// tslint:disable-next-line:max-line-length
+import { SuccessOfferLetterPrintComponent } from './component/offer-letter/success-offer-letter/success-offer-letter-print/success-offer-letter-print.component';
 
 
 
@@ -31,7 +37,11 @@ import {SummaryComponent} from './component/print-summary/summary.component';
         SecurityComponent,
         LoanActionComponent,
         LoanSummaryComponent,
+        BirthMarkLetterNepaliComponent,
         SummaryComponent,
+        BirthMarkLetterPrintComponent,
+        SuccessOfferLetterComponent,
+        SuccessOfferLetterPrintComponent,
 
     ],
     imports: [
