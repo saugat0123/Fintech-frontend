@@ -6,39 +6,43 @@
                     <p class="m-0 ml-2">Filter</p>
                 </nb-accordion-item-header>
                 <nb-accordion-item-body>
-                    <div class="row">
+                    <form (ngSubmit)="ok()" [formGroup]="filterForm">
+                        <div class="row">
                         <div class="col-md-2">
-                            <select class="custom-select">
+                            <select class="custom-select" formControlName="branch">
                                 <option [value]="null" selected hidden>Select Branch</option>
                                 <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}</option>
                             </select>
                         </div>
                         <div class="col-md-2">
-                            <select class="custom-select">
+                            <select class="custom-select" formControlName="loanType">
                                 <option [value]="null" selected hidden>Select Loan Type</option>
                                 <option *ngFor="let loanType of loanTypeList"
                                         [value]="loanType.id">{{loanType.name}}</option>
                             </select>
                         </div>
                         <div class="col-md-2">
-                            <select class="custom-select">
+                            <select class="custom-select" formControlName="docStatus">
                                 <option [value]="null" selected hidden>Select Document Status</option>
+                                <option *ngFor="let status of docStatus.values()"
+                                        [value]="status">{{status}}</option>
                             </select>
                         </div>
                         <div class="col-md-2">
                             <input id="startDate" [nbDatepicker]="startDate" class="form-control rounded"
-                                   placeholder="Enter Start Date">
+                                   placeholder="Enter Start Date" formControlName="startDate">
                             <nb-rangepicker #startDate></nb-rangepicker>
                         </div>
                         <div class="col-md-2">
                             <input id="endDate" [nbDatepicker]="endDate" class="form-control rounded"
-                                   placeholder="Enter End Date">
+                                   placeholder="Enter End Date" formControlName="endDate">
                             <nb-datepicker #endDate></nb-datepicker>
                         </div>
                         <div class="col-md-2">
-                            <button class="btn-sm btn-primary">Search</button>
+                            <button type="submit" class="btn-sm btn-primary">Search</button>
                         </div>
                     </div>
+                    </form>
                 </nb-accordion-item-body>
             </nb-accordion-item>
         </nb-accordion>

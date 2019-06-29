@@ -12,4 +12,16 @@ export namespace DocStatus {
             (type) => isNaN(<any>type) && type !== 'values'
         );
     }
+
+    export function value(docStatus: DocStatus) {
+        if (docStatus === DocStatus.PENDING) {
+            return 'PENDING';
+        } else if (docStatus === DocStatus.APPROVED) {
+            return 'APPROVED';
+        } else if (docStatus === DocStatus.REJECTED) {
+            return 'REJECTED';
+        } else if (docStatus === DocStatus.CLOSED) {
+            return 'CLOSED';
+        }
+    }
 }
