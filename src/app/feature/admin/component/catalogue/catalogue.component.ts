@@ -9,7 +9,8 @@ import {LoanFormService} from '../../../loan/component/loan-form/service/loan-fo
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
-import {DatePipe} from '@angular/common';
+import {DocStatus} from '../../../loan/model/docStatus';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-catalogue',
@@ -22,45 +23,58 @@ export class CatalogueComponent implements OnInit {
     loanDataHolderList: Array<LoanDataHolder> = new Array<LoanDataHolder>();
     page = 1;
     spinner = false;
-    search: any = {
-        documentStatus: 'PENDING'
-    };
     pageable: Pageable = new Pageable();
     age: number;
+    docStatus = DocStatus;
+    filterForm: FormGroup;
+    validStartDate = true;
+    validEndDate = true;
+    search = {
+        branchIds: undefined,
+        documentStatus: DocStatus.value(DocStatus.PENDING),
+        loanConfigId: undefined,
+        currentStageDate: undefined
+    };
 
     constructor(private branchService: BranchService,
                 private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
                 private loanFormService: LoanFormService,
-                private datePipe: DatePipe) {
+                private formBuilder: FormBuilder) {
     }
 
     static loadData(other: CatalogueComponent) {
-        other.loanFormService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
+        other.loanFormService.getCatalogues(other.search, other.page, 10).subscribe((response: any) => {
             other.loanDataHolderList = response.detail.content;
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
-
         }, error => {
-            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
+            console.error(error);
+            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
             other.spinner = false;
         });
-        other.branchService.getAll().subscribe((response: any) => {
-            other.branchList = response.detail;
-        }, error => {
-            console.log(error);
-            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
-        });
-        other.loanConfigService.getAll().subscribe((response: any) => {
-            other.loanTypeList = response.detail;
-        }, error => {
-            console.log(error);
-            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
-        });
-
     }
 
     ngOnInit() {
+        this.filterForm = this.formBuilder.group({
+            branch: [undefined],
+            loanType: [undefined],
+            docStatus: [undefined],
+            startDate: [undefined],
+            endDate: [undefined]
+        });
+        this.branchService.getAll().subscribe((response: any) => {
+            this.branchList = response.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
+        });
+        this.loanConfigService.getAll().subscribe((response: any) => {
+            this.loanTypeList = response.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
+        });
         CatalogueComponent.loadData(this);
     }
 
@@ -70,11 +84,32 @@ export class CatalogueComponent implements OnInit {
     }
 
     getDifferenceInDays(date: Date): number {
-        const date1 = new Date(date);
-        const date2 = new Date();
-        console.log('2', date2);
-        return Math.floor((Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate()) -
-            Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate())) / (1000 * 60 * 60 * 24));
+        const past = new Date(date);
+        const current = new Date();
+        return Math.floor((Date.UTC(current.getFullYear(), current.getMonth(), current.getDate()) -
+            Date.UTC(past.getFullYear(), past.getMonth(), past.getDate())) / (1000 * 60 * 60 * 24));
+    }
+
+    checkIfDateFiltration() {
+        this.validStartDate = this.filterForm.get('startDate').valid;
+        this.validEndDate = this.filterForm.get('endDate').valid;
+    }
+
+    ok() {
+        this.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
+            this.filterForm.get('branch').value;
+        this.search.documentStatus = this.filterForm.get('docStatus').value === null ? DocStatus.value(DocStatus.PENDING) :
+            this.filterForm.get('docStatus').value;
+        this.search.loanConfigId = this.filterForm.get('loanType').value === null ? undefined :
+            this.filterForm.get('loanType').value;
+        if (this.filterForm.get('startDate').value !== null && this.filterForm.get('endDate').value) {
+            this.search.currentStageDate = JSON.stringify({
+                // note: new Date().toString() is needed here to preserve timezone while JSON.stringify()
+                'startDate': new Date(this.filterForm.get('startDate').value).toLocaleDateString(),
+                'endDate': new Date(this.filterForm.get('endDate').value).toLocaleDateString()
+            });
+        }
+        CatalogueComponent.loadData(this);
     }
 
 }
