@@ -60,7 +60,7 @@
                 <th>Name</th>
                 <th>Loan Type</th>
                 <th>Status</th>
-                <th>possession Under/Days</th>
+                <th>Possession Under/Days</th>
             </tr>
             </thead>
             <tbody>
@@ -68,8 +68,8 @@
                 <td>{{model?.branch?.name}}</td>
                 <td>{{model?.customerInfo?.customerName || model?.dmsLoanFile?.customerName}}</td>
                 <td>{{model?.loan?.name}}</td>
-                <td>{{model?.priority}}</td>
-                <td>{{model?.currentStage?.toUser?.name}} /{{getDifferenceInDays(model?.currentStage?.createdAt)}}</td>
+                <td>{{model?.documentStatus}}</td>
+                <td>{{model?.currentStage?.toUser?.name}} / {{getDifferenceInDays(model?.currentStage?.createdAt)}}</td>
             </tr>
             </tbody>
         </table>

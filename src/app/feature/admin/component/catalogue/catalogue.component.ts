@@ -85,11 +85,10 @@ export class CatalogueComponent implements OnInit {
     }
 
     getDifferenceInDays(date: Date): number {
-        const date1 = new Date(date);
-        const date2 = new Date();
-        console.log('2', date2);
-        return Math.floor((Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate()) -
-            Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate())) / (1000 * 60 * 60 * 24));
+        const past = new Date(date);
+        const current = new Date();
+        return Math.floor((Date.UTC(current.getFullYear(), current.getMonth(), current.getDate()) -
+            Date.UTC(past.getFullYear(), past.getMonth(), past.getDate())) / (1000 * 60 * 60 * 24));
     }
 
     checkIfDateFiltration() {
