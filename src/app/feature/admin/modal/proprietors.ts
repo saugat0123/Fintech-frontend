@@ -4,12 +4,10 @@ import {MunicipalityVdc} from './municipality_VDC';
 
 export class Proprietors {
     id: number;
-    created: Date;
-    lastModified: Date;
     name: string;
     contactNo: string;
     province: Province;
     district: District;
-    municipalitiesOrVDC: MunicipalityVdc;
+    municipalityVdc: MunicipalityVdc;
     share: string;
 }

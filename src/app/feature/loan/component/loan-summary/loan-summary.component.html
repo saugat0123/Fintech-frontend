@@ -24,7 +24,12 @@
             </div>
             <div class="row">
                 <div class="col-md-5">
-                    <span><b>Pending Under: {{user?.role?.roleName}}</b></span>
+                    <span><b>Pending Under: {{loanDataHolder?.currentStage?.fromUser?.name}}</b></span>
+                </div>
+                <div class="offset-3">
+                    <div class="text-right">
+                        <span><b>Branch: {{loanDataHolder?.branch?.name}}</b></span>
+                    </div>
                 </div>
             </div>
             <hr>
@@ -33,7 +38,7 @@
                     <span><b>Ref. No: {{dmsLoanFile?.id}}</b></span>
                 </div>
                 <div class="col-md-6">
-                    <p class="text-right"><b>Date:{{dmsLoanFile?.createdAt | date}}</b></p>
+                    <p class="text-right"><b>Date:{{loanDataHolder?.createdAt | date}}</b></p>
                 </div>
             </div>
             <div class="row">
@@ -68,7 +73,7 @@
                             <th>Credit Facility</th>
                             <th>Proposed Limit</th>
                             <th>Interest Rate</th>
-                            <th>Tenure of Loan</th>
+                            <th>Tenure Duration In Month</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -77,7 +82,7 @@
                             <td>{{loanDataHolder?.loan?.name}}</td>
                             <td>{{dmsLoanFile?.proposedAmount}}</td>
                             <td>{{dmsLoanFile?.interestRate}}</td>
-                            <td>{{dmsLoanFile?.tenure | date}}</td>
+                            <td>{{dmsLoanFile?.tenureDuration}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -104,6 +109,30 @@
                     </table>
                 </div>
             </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <p style="font-size: 15px"><b>Service Charge Type</b></p>
+                    <table class="table table-condensed table-bordered">
+                        <tbody>
+                        <tr>
+                            <td>{{dmsLoanFile?.serviceChargeType}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <p style="font-size: 15px"><b>Service Charge Amount</b></p>
+                    <table class="table table-condensed table-bordered">
+                        <tbody>
+                        <tr>
+                            <td>{{dmsLoanFile?.serviceChargeAmount}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <div class="row mt-3">
                 <div class="col-md-12">
                     <p style="font-size: 15px"><b>Recommendation and Conclusion</b></p>
@@ -119,12 +148,24 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
+                    <p style="font-size: 15px"><b>Waiver</b></p>
+                    <table class="table table-condensed table-bordered">
+                        <tbody>
+                        <tr>
+                            <td>{{dmsLoanFile?.waiver}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-12">
                     <p style="font-size: 15px"><b>Authority Section</b></p>
                     <table class="table table-condensed table-bordered">
                         <thead>
                         <tr>
                             <th>S.N</th>
-                            <th>Waiver</th>
                             <th>Comment</th>
                             <th>User</th>
                             <th>Status</th>
@@ -134,7 +175,6 @@
                         <tbody>
                         <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
                             <td>{{i + 1}}</td>
-                            <td>{{dmsLoanFile?.waiver}}</td>
                             <td>{{previousList?.comment}}</td>
                             <td>{{previousList?.fromUser?.name}}</td>
                             <td>{{previousList?.docAction}}</td>
@@ -142,7 +182,6 @@
                         </tr>
                         <tr>
                             <td>{{currentIndex+1}}</td>
-                            <td>{{dmsLoanFile?.waiver}}</td>
                             <td>{{loanDataHolder?.currentStage?.comment}}</td>
                             <td>{{loanDataHolder?.currentStage?.fromUser?.name}}</td>
                             <td>{{loanDataHolder?.currentStage?.docAction}}</td>
@@ -178,9 +217,7 @@
                     <div class="row d-flex justify-content-center signature">
 
                         <img *ngIf="previous.toUser?.signatureImage !==null"
-                             src="{{RootUrl}}/{{previous.toUser?.signatureImage }}" height="100px" width="250px"/>
-                        <img *ngIf="previous.toUser?.signatureImage !==null"
-                             src="{{RootUrl}}{{previous.toUser?.signatureImage }}" height="100px" width="250px"/>
+                             src="{{RootUrl}}/{{previous.toUser?.signatureImage }}" height="70px" width="180px"/>
                     </div>
 
                     <div class="row d-flex justify-content-center">
@@ -191,7 +228,10 @@
                         <span>{{previous?.toUser?.role.roleName}}</span>
                     </div>
                     <div class="row d-flex justify-content-center">
-                        <span>  <span>{{previous?.toUser?.username}}</span></span>
+                        <span>  <span>{{previous?.toUser?.name}}</span></span>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <span>  <span>{{previous?.lastModifiedAt}}</span></span>
                     </div>
 
                 </div>

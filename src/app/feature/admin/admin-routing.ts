@@ -28,6 +28,7 @@ import {OpeningAccountComponent} from './component/opening-account/opening-accou
 import {OpenOpeningComponentComponent} from './component/opening-account/open-opening-component/open-opening-component.component';
 import {RejectedOpeningAccountComponent} from './component/opening-account/rejected-opening-account/rejected-opening-account.component';
 import {ApprovalOpeningAccountComponent} from './component/opening-account/approval-opening-account/approval-opening-account.component';
+import {CatalogueComponent} from './component/catalogue/catalogue.component';
 import {UserGuideComponent} from '../../@theme/components/user-guide/user-guide.component';
 
 
@@ -68,6 +69,7 @@ export const adminRoutes: Routes = [
     {path: 'rejectedOpeningAccount', component: RejectedOpeningAccountComponent},
     {path: 'approvalOpeningAccount', component: ApprovalOpeningAccountComponent},
     {path: 'openOpeningAccount', component: OpenOpeningComponentComponent},
+    {path: 'catalogue', component: CatalogueComponent}
 
 ];
 

@@ -34,7 +34,7 @@ export class LoanActionService extends BaseService<LoanConfig> {
     }
 
     public postLoanAction(object): Observable<any> {
-        const req = ApiUtils.getRequestWithFileSupport(`v1/loan-customer/action`);
+        const req = ApiUtils.getRequestWithFileSupport(`v1/Loan-customer/action`);
         return this.http.post(req.url, object, {headers: req.header});
     }
 

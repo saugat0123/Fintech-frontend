@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label for="renewable"><h4>Renewable</h4></label><br>
                         <div class="row ml-2">
                             <nb-radio-group class="col-md-12 d-contents form-control" id="renewable"
@@ -79,6 +79,18 @@
                                 <nb-radio class="form-group" [value]="false">Non-Renewable
                                 </nb-radio>
                             </nb-radio-group>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><b>Offer Letter</b></label>
+                            <ng-select [items]="offerLetterList"
+                                       bindLabel="name"
+                                       bindValue="id"
+                                       [multiple]="true" name="offerLetters"
+                                       [(ngModel)]="selectedOfferLetterIdList"
+                                       placeholder="Select Offer Letter">
+                            </ng-select>
                         </div>
                     </div>
                 </div>
