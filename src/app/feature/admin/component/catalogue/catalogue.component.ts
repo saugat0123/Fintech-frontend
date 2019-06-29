@@ -27,6 +27,8 @@ export class CatalogueComponent implements OnInit {
     age: number;
     docStatus = DocStatus;
     filterForm: FormGroup;
+    validStartDate = true;
+    validEndDate = true;
     search = {
         branchIds: undefined,
         documentStatus: DocStatus.value(DocStatus.PENDING),
@@ -92,6 +94,11 @@ export class CatalogueComponent implements OnInit {
             Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate())) / (1000 * 60 * 60 * 24));
     }
 
+    checkIfDateFiltration() {
+        this.validStartDate = this.filterForm.get('startDate').valid;
+        this.validEndDate = this.filterForm.get('endDate').valid;
+    }
+
     ok() {
         this.search.branchIds = this.filterForm.get('branch').value;
         this.search.documentStatus = this.filterForm.get('docStatus').value;
@@ -99,6 +106,7 @@ export class CatalogueComponent implements OnInit {
         this.search.startDate = this.filterForm.get('startDate').value;
         this.search.endDate = this.filterForm.get('endDate').value;
         console.log(this.search);
+        console.log(this.filterForm);
     }
 
 }
