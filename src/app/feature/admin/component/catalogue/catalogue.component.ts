@@ -33,8 +33,7 @@ export class CatalogueComponent implements OnInit {
         branchIds: undefined,
         documentStatus: DocStatus.value(DocStatus.PENDING),
         loanConfigId: undefined,
-        startDate: undefined,
-        endDate: undefined
+        currentStageDate: undefined
     };
 
     constructor(private branchService: BranchService,
@@ -103,10 +102,13 @@ export class CatalogueComponent implements OnInit {
             this.filterForm.get('docStatus').value;
         this.search.loanConfigId = this.filterForm.get('loanType').value === null ? undefined :
             this.filterForm.get('loanType').value;
-        this.search.startDate = this.filterForm.get('startDate').value === null ? undefined :
-            this.filterForm.get('startDate').value;
-        this.search.endDate = this.filterForm.get('endDate').value === null ? undefined :
-            this.filterForm.get('endDate').value;
+        if (this.filterForm.get('startDate').value !== null && this.filterForm.get('endDate').value) {
+            this.search.currentStageDate = JSON.stringify({
+                // note: new Date().toString() is needed here to preserve timezone while JSON.stringify()
+                'startDate': new Date(this.filterForm.get('startDate').value).toLocaleDateString(),
+                'endDate': new Date(this.filterForm.get('endDate').value).toLocaleDateString()
+            });
+        }
         CatalogueComponent.loadData(this);
     }
 
