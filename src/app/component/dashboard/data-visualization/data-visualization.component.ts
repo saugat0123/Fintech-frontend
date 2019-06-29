@@ -33,7 +33,6 @@ export class DataVisualizationComponent implements OnInit {
 
     ngOnInit() {
         this.roleAccess = localStorage.getItem('roleAccess');
-        console.log(this.roleAccess);
         if (this.roleAccess === RoleAccess.SPECIFIC) {
             this.accessSpecific = true;
         } else if (this.roleAccess === RoleAccess.ALL) {
@@ -42,7 +41,6 @@ export class DataVisualizationComponent implements OnInit {
         this.branchService.getBranchAccessByCurrentUser().subscribe(
             (response: any) => {
                 this.branches = response.detail;
-                console.log(this.branches);
                 if (this.roleAccess === RoleAccess.OWN) {
                     this.branches.forEach((branch, index) => {
                         this.selectedBranch = branch.name;
