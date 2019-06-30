@@ -14,8 +14,7 @@ import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {LoanActionService} from '../../loan-action/service/loan-action.service';
 import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
 import {LoanStage} from '../../model/loanStage';
-import {DocStatus} from '../../model/docStatus';
-import {stackOrderInsideOut} from 'd3-shape';
+import {AppConstant} from '../../../../@core/utils/appConstant';
 
 @Component({
     selector: 'app-loan-summary',
@@ -51,6 +50,7 @@ export class LoanSummaryComponent implements OnInit {
     signatureList = [];
     previousList: Array<LoanStage> = new Array<LoanStage>();
     loanStage: LoanStage = new LoanStage();
+    bankName = AppConstant.BANKNAME;
 
     @ViewChild('print') print;
 
