@@ -37,7 +37,7 @@
               "node_modules/@ng-select/ng-select/themes/default.theme.css",
               "node_modules/nebular-icons/scss/nebular-icons.scss",
               "src/app/@theme/styles/styles.scss",
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": [
               "node_modules/admin-lte/bower_components/jquery/dist/jquery.min.js",

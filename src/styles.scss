@@ -103,6 +103,24 @@
 /*    font-size: 18px;*/
 /*}*/
 
+$color-bank: #aa2e20;
+$color-bank-dark: #bb392bd1;
+
+.bank-hr {
+    height: 1px;
+    background-color: $color-bank;
+    border: none;
+}
+
+.bank-text-color {
+    color: $color-bank;
+}
+
+.bank-btn-color {
+    background-color: $color-bank-dark;
+    color: #ffffff;
+}
+
 .d-contents{
     display: contents;
 }
