@@ -8,7 +8,7 @@
                 <nb-accordion-item-body>
                     <form (ngSubmit)="ok()" [formGroup]="filterForm">
                         <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-2" *ngIf="accessSpecific || accessAll">
                             <select class="custom-select" formControlName="branch">
                                 <option [value]="null" selected hidden>Select Branch</option>
                                 <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}</option>

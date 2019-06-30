@@ -11,6 +11,7 @@ import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {DocStatus} from '../../../loan/model/docStatus';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {RoleAccess} from '../../modal/role-access';
 
 @Component({
     selector: 'app-catalogue',
@@ -35,6 +36,9 @@ export class CatalogueComponent implements OnInit {
         loanConfigId: undefined,
         currentStageDate: undefined
     };
+    roleAccess: string;
+    accessSpecific: boolean;
+    accessAll: boolean;
 
     constructor(private branchService: BranchService,
                 private loanConfigService: LoanConfigService,
@@ -63,7 +67,13 @@ export class CatalogueComponent implements OnInit {
             startDate: [undefined],
             endDate: [undefined]
         });
-        this.branchService.getAll().subscribe((response: any) => {
+        this.roleAccess = localStorage.getItem('roleAccess');
+        if (this.roleAccess === RoleAccess.SPECIFIC) {
+            this.accessSpecific = true;
+        } else if (this.roleAccess === RoleAccess.ALL) {
+            this.accessAll = true;
+        }
+        this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
             this.branchList = response.detail;
         }, error => {
             console.error(error);
