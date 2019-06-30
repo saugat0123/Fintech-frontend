@@ -18,6 +18,7 @@ import {NbDatepickerModule} from '@nebular/theme';
 import {NgxPrintModule} from 'ngx-print';
 import {ForgotPasswordComponent} from './component/forgot-password/forgot-password.component';
 import { ResentForgotPasswordComponent } from './component/resent-forgot-password/resent-forgot-password.component';
+import { LoginBaseComponent } from './component/login-base/login-base.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ResentForgotPasswordComponent } from './component/resent-forgot-passwor
         AppComponent,
         LoginComponent,
         ForgotPasswordComponent,
-        ResentForgotPasswordComponent
+        ResentForgotPasswordComponent,
+        LoginBaseComponent
     ],
     imports: [
         BrowserModule,
