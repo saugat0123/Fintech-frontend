@@ -189,11 +189,9 @@ export class LoanFormComponent implements OnInit {
     }
 
     nextTab() {
-        if (this.basicInfo.basicInfo.invalid) {
-            this.basicInfo.submitted = true;
+        if (this.selectChild(this.selectedTab, true)) {
             return;
         }
-        this.selectChild(this.selectedTab, true);
         this.nxtParameter = this.loanDataService.getNext();
         this.selectTab(this.nxtParameter.index, this.nxtParameter.name);
 
@@ -205,11 +203,9 @@ export class LoanFormComponent implements OnInit {
     }
 
     save() {
-        if (this.proposalDetail.proposalForm.invalid) {
-            this.proposalDetail.submitted = true;
+        if (this.selectChild(this.selectedTab, true)) {
             return;
         }
-        this.selectChild(this.selectedTab, true);
         this.loanDocument.loan = this.loan;
         console.log(this.loanDataService);
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
@@ -224,8 +220,11 @@ export class LoanFormComponent implements OnInit {
 
 
     selectChild(name, action) {
-
         if (name === 'Customer Info' && action) {
+            if (this.basicInfo.basicInfo.invalid) {
+                this.basicInfo.submitted = true;
+                return true;
+            }
             this.basicInfo.onSubmit();
             this.loanDocument.customerInfo = this.basicInfo.basicInfo.value;
         }
@@ -248,6 +247,10 @@ export class LoanFormComponent implements OnInit {
         }
 
         if (name === 'Proposal' && action) {
+            if (this.proposalDetail.proposalForm.invalid) {
+                this.proposalDetail.submitted = true;
+                return true;
+            }
             this.proposalDetail.onSubmit();
             this.loanDocument.proposal = this.proposalDetail.proposalForm.value;
         }

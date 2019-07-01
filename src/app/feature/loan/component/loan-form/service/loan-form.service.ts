@@ -11,7 +11,7 @@ import {Observable} from 'rxjs';
 })
 export class LoanFormService extends BaseService<LoanDataHolder> {
 
-    static API = 'v1/loan-customer';
+    static API = 'v1/Loan-customer';
 
 
     constructor(protected http: HttpClient) {
