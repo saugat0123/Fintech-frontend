@@ -12,6 +12,8 @@ import {ActionModel} from '../model/action';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {DocStatus} from '../model/docStatus';
+import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
+import {LoanConfig} from '../../admin/modal/loan-config';
 
 
 @Component({
@@ -31,6 +33,7 @@ export class LoanActionComponent implements OnInit {
     formAction: FormGroup;
     userList: Array<User> = new Array<User>();
     submitted = false;
+    loanConfig: LoanConfig = new LoanConfig();
     private securityUrl = ApiConfig.TOKEN;
     private headers = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -45,6 +48,7 @@ export class LoanActionComponent implements OnInit {
         private alertService: AlertService,
         private toastService: ToastService,
         private userService: UserService,
+        private loanConfigService: LoanConfigService,
         private activeModal: NgbActiveModal,
         private modalService: NgbModal,
         private http: HttpClient
@@ -63,6 +67,11 @@ export class LoanActionComponent implements OnInit {
                 documentStatus: [undefined]
             }
         );
+
+        this.loanConfigService.detail(this.loanConfigId).subscribe((response: any) => {
+            this.loanConfig = response.detail;
+            console.log(this.loanConfig.offerLetters[0].templateUrl);
+        });
         console.log(this.actionsList);
 
     }
@@ -202,6 +211,10 @@ export class LoanActionComponent implements OnInit {
         );
 
 
+    }
+
+    generateOfferLetter(templateUrl) {
+        this.route.navigate([templateUrl], {queryParams: {customerId: this.id}});
     }
 
 }

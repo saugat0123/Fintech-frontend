@@ -32,7 +32,7 @@
                         <th>Name</th>
                         <th>Role Access</th>
                         <th>Role Type</th>
-                        <th>Status</th>
+                        <!--<th>Status</th>-->
                         <th>Created By</th>
                         <th>Last Modified By</th>
                     </tr>
@@ -48,19 +48,19 @@
                         <td>{{allList.roleAccess}}</td>
                         <td>{{allList.roleType}}</td>
 
-                        <td *ngIf="allList.roleName !== 'admin'; else status">
-                            <select class="select-borderless" [(ngModel)]="allList.status" name="status"
-                                    (change)="onChange($event.target.value,allList)">
-                                <option value="ACTIVE">ACTIVE</option>
-                                <option value="INACTIVE">INACTIVE</option>
+                        <!--<td *ngIf="allList.roleName !== 'admin'; else status">-->
+                            <!--<select class="select-borderless" [(ngModel)]="allList.status" name="status"-->
+                                    <!--(change)="onChange($event.target.value,allList)">-->
+                                <!--<option value="ACTIVE">ACTIVE</option>-->
+                                <!--<option value="INACTIVE">INACTIVE</option>-->
 
-                            </select>
-                        </td>
-                        <ng-template #status>
-                            <td>
-                                <p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>
-                            </td>
-                        </ng-template>
+                            <!--</select>-->
+                        <!--</td>-->
+                        <!--<ng-template #status>-->
+                            <!--<td>-->
+                                <!--<p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>-->
+                            <!--</td>-->
+                        <!--</ng-template>-->
 
                         <td *ngIf="allList.createdByName==null || allList.createdByName=='' ; else createdBy">Not
                             Available

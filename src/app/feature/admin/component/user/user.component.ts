@@ -103,19 +103,21 @@ export class UserComponent implements OnInit {
     }
 
     add() {
-        const modalRef = this.modalService.open(UserFormComponent, {size: 'lg'});
+        const modalRef = this.modalService.open(UserFormComponent, {size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.model = new User();
 
         ModalUtils.resolve(modalRef.result, UserComponent.loadData, this);
     }
 
-    onChange(newValue, data) {
+    onChange(data) {
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
         event.preventDefault();
-        this.newValue = newValue;
-        this.modalService.open(UpdateModalComponent);
+        const modalRef = this.modalService.open(UpdateModalComponent, {size: 'lg'});
+        console.log(data);
+        modalRef.componentInstance.data = data;
+        modalRef.componentInstance.service = this.service;
     }
 
     dismiss(data, dismiss) {

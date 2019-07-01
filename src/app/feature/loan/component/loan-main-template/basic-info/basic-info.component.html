@@ -99,6 +99,24 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
+                            <label for="street"><b>Street</b></label>
+                            <input id="street" formControlName="street" name="street" type="text"
+                                   class="form-control" placeholder="Street Name" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="wardNumber"><b>Ward Number</b></label>
+                            <input id="wardNumber" formControlName="wardNumber" name="wardNumber" type="text"
+                                   class="form-control" placeholder="Ward Number" required>
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
                             <label for="mobile"><b>Mobile</b></label>
                             <input id="mobile" formControlName="mobile" name="mobile" type="text" class="form-control"
                                    placeholder="Mobile number" required [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.mobile.errors }">
@@ -171,6 +189,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- END ROW -->
             </form>
         </div>
     </nb-card-body>

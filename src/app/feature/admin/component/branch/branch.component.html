@@ -123,7 +123,7 @@
                                 <th>Municipality</th>
                                 <th>Street</th>
                                 <th>Ward</th>
-                                <th>Status</th>
+                                <!--<th>Status</th>-->
                                 <th *ngIf='editViewBranch === true'>Action</th>
                             </tr>
                             </thead>
@@ -140,19 +140,19 @@
                             <td>{{allList.municipalityVdc?.name}}</td>
                             <td>{{allList.streetName}}</td>
                             <td>{{allList.wardNumber}}</td>
-                            <td *ngIf='editViewBranch ==true; else status '>
-                                <select class="select-borderless" [(ngModel)]="allList.status" name="status"
-                                        (change)="onChange($event.target.value,allList)">
-                                    <option value="ACTIVE">ACTIVE</option>
-                                    <option value="INACTIVE">INACTIVE</option>
-                                </select>
-                            </td>
-                            <ng-template #status>
+                            <!--<td *ngIf='editViewBranch ==true; else status '>-->
+                                <!--<select class="select-borderless" [(ngModel)]="allList.status" name="status"-->
+                                        <!--(change)="onChange(allList)">-->
+                                    <!--<option value="ACTIVE">ACTIVE</option>-->
+                                    <!--<option value="INACTIVE">INACTIVE</option>-->
+                                <!--</select>-->
+                            <!--</td>-->
+                            <!--<ng-template #status>-->
 
-                                <td>
-                                    <p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>
-                                </td>
-                            </ng-template>
+                                <!--<td>-->
+                                    <!--<p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>-->
+                                <!--</td>-->
+                            <!--</ng-template>-->
                             <td>
                                 <a *ngIf='editViewBranch' (click)="edit(allList)"
                                    data-toggle="tooltip"

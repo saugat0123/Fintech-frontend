@@ -6,8 +6,6 @@ import {Proprietors} from './proprietors';
 
 export class EntityInfo {
     id: number;
-    created: Date;
-    lastModified: Date;
     legalStatus: LegalStatus;
     capital: Capital;
     swot: Swot;

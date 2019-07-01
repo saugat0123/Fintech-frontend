@@ -1,9 +1,7 @@
 export class ManagementTeam {
     id: number;
-    created: Date;
-    lastModified: Date;
     name: string;
+    description: string;
     designation: string;
-    entityInfoId: number;
 }
 

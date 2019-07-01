@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left" *ngIf="showSearchResult">Previous Loans of {{customerName}}</h4>
+  <h4 class="modal-title pull-left" *ngIf="!showSearchResult">No Previous Loans</h4>
+  <button (click)="close()" aria-label="Close" class="close pull-right" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div *ngIf="showSearchResult">
+    <table class="table table-condensed table-bordered">
+      <thead>
+      <tr>
+        <th>S.N</th>
+        <th>Loan</th>
+        <th>Branch</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let loan of searchResult; let i = index"
+          (click)="openLoan(loan.loan.id,loan.id)"
+          class="cursor">
+        <td>{{i + 1}}</td>
+        <td>{{loan?.loan?.name}}</td>
+        <td>{{loan?.branch?.name}}</td>
+        <td>{{loan?.documentStatus}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

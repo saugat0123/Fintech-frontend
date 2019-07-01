@@ -58,7 +58,7 @@
                         <th>S.N</th>
                         <th>Document Name</th>
                         <!--<th>URL</th>-->
-                        <th>Status</th>
+                        <!--<th>Status</th>-->
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -71,13 +71,13 @@
                         <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                         <td>{{allList.name}}</td>
                         <!--<td>{{allList.url}}</td>-->
-                        <td>
-                            <select [(ngModel)]="allList.status" name="status"
-                                    (change)="onChange($event.target.value,allList)">
-                                <option value="ACTIVE">ACTIVE</option>
-                                <option value="INACTIVE">INACTIVE</option>
-                            </select>
-                        </td>
+                        <!--<td>-->
+                            <!--<select [(ngModel)]="allList.status" name="status"-->
+                                    <!--(change)="onChange(allList)">-->
+                                <!--<option value="ACTIVE">ACTIVE</option>-->
+                                <!--<option value="INACTIVE">INACTIVE</option>-->
+                            <!--</select>-->
+                        <!--</td>-->
                         <td>
                             <a (click)="openEdit(allList)" data-toggle="tooltip"
                                data-placement="top" title="EDIT">

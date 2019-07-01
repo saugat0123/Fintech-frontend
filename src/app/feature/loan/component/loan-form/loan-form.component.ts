@@ -182,7 +182,7 @@ export class LoanFormComponent implements OnInit {
                 tabName: name
             };
             if (name === 'General' && this.customerId == null) {
-                this.submitDisable = true;
+                this.submitDisable = false;
             }
             this.last = true;
         }
@@ -230,8 +230,9 @@ export class LoanFormComponent implements OnInit {
         }
 
         if (name === 'General' && action) {
-            this.dmsLoanFile.onProceed();
-            this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanFile;
+            this.dmsLoanFile.onSubmit();
+            this.loanDocument.dmsLoanFile = this.loanDataService.getDmsLoanFile();
+            console.log(this.loanDocument);
             this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
 
         }
