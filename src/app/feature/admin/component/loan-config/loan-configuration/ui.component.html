@@ -105,13 +105,11 @@
                                     <div class="row">
                                         <div class="col-md-4"
                                              *ngFor="let initialDocument of initialDocumentList; let documentIndex = index">
-                                            <div>
                                                 <nb-checkbox id="{{'initialDocument'+documentIndex}}" status="primary"
                                                              (change)="updateInitialDocument($event,initialDocument)"
                                                              [value]="initialDocument.checked">
                                                     {{initialDocument.name}}
                                                 </nb-checkbox>
-                                            </div>
                                         </div>
                                     </div>
                                 </nb-accordion-item-body>

@@ -59,11 +59,52 @@ export class UIComponent implements OnInit {
             console.log(error);
             other.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Offer Letter'));
         });
+
+        other.id = Number(other.route.snapshot.queryParamMap.get('id'));
+
         other.documentService.getAll().subscribe((response: any) => {
             other.initialDocumentList = response.detail;
+
+            if (other.id !== undefined && other.id !== 0) {
+                other.service.detail(other.id).subscribe((res: any) => {
+                    other.loanConfig = res.detail;
+                    other.selectedOfferLetterIdList = new Array<number>();
+                    other.loanConfig.offerLetters.forEach(selectedOfferLetter => {
+                        other.selectedOfferLetterIdList.push(selectedOfferLetter.id);
+                    });
+                    other.loanConfig.templateList.forEach(loanConfigTemplate => {
+                        if (loanConfigTemplate.id === loanConfigTemplate.id) {
+                            other.confirmLoanTemplateList.push(loanConfigTemplate);
+                            other.loanTemplateList.splice(other.loanTemplateList.indexOf(loanConfigTemplate), 1);
+                        }
+                    });
+                    other.initialDocumentList.forEach(initialDocument => {
+                        other.loanConfig.initial.forEach(loanConfigInitialDocument => {
+                            if (initialDocument.id === loanConfigInitialDocument.id) {
+                                other.finalInitialDocument.push(initialDocument);
+                                initialDocument.checked = true;
+                            }
+                        });
+                    });
+                });
+            }
         });
         other.documentService.getAll().subscribe((response: any) => {
             other.renewalDocumentList = response.detail;
+
+            if (other.id !== undefined && other.id !== 0) {
+                other.service.detail(other.id).subscribe((res: any) => {
+                    other.loanConfig = res.detail;
+                    other.renewalDocumentList.forEach(renewalDocument => {
+                        other.loanConfig.renew.forEach(loanConfigRenewalDocument => {
+                            if (renewalDocument.id === loanConfigRenewalDocument.id) {
+                                other.finalRenewalDocument.push(renewalDocument);
+                                renewalDocument.checked = true;
+                            }
+                        });
+                    });
+                });
+            }
         });
         other.documentService.getAll().subscribe((response: any) => {
             other.eligibilityDocumentList = response.detail;
@@ -73,46 +114,6 @@ export class UIComponent implements OnInit {
 
     ngOnInit() {
         UIComponent.loadData(this);
-        this.id = Number(this.route.snapshot.queryParamMap.get('id'));
-        if (this.id !== undefined && this.id !== 0) {
-            this.service.detail(this.id).subscribe((response: any) => {
-                this.loanConfig = response.detail;
-                this.selectedOfferLetterIdList = new Array<number>();
-                this.loanConfig.offerLetters.forEach(selectedOfferLetter => {
-                    this.selectedOfferLetterIdList.push(selectedOfferLetter.id);
-                });
-                this.loanConfig.templateList.forEach(loanConfigTemplate => {
-                    if (loanConfigTemplate.id === loanConfigTemplate.id) {
-                        this.confirmLoanTemplateList.push(loanConfigTemplate);
-                        this.loanTemplateList.splice(this.loanTemplateList.indexOf(loanConfigTemplate), 1);
-                    }
-                });
-                this.initialDocumentList.forEach(initialDocument => {
-                    this.loanConfig.initial.forEach(loanConfigInitialDocument => {
-                        if (initialDocument.id === loanConfigInitialDocument.id) {
-                            this.finalInitialDocument.push(initialDocument);
-                            initialDocument.checked = true;
-                        }
-                    });
-                });
-                this.renewalDocumentList.forEach(renewalDocument => {
-                    this.loanConfig.renew.forEach(loanConfigRenewalDocument => {
-                        if (renewalDocument.id === loanConfigRenewalDocument.id) {
-                            this.finalRenewalDocument.push(renewalDocument);
-                            renewalDocument.checked = true;
-                        }
-                    });
-                });
-                this.eligibilityDocumentList.forEach(eligibilityDocument => {
-                    this.loanConfig.eligibilityDocuments.forEach(loanEligibilityDocument => {
-                        if (eligibilityDocument.id === loanEligibilityDocument.id) {
-                            this.finalEligibilityDocument.push(eligibilityDocument);
-                            eligibilityDocument.checked = true;
-                        }
-                    });
-                });
-            });
-        }
     }
 
     getTemplate() {
