@@ -11,7 +11,7 @@ import {Observable} from 'rxjs';
 })
 export class LoanFormService extends BaseService<LoanDataHolder> {
 
-    static API = 'v1/loan-customer';
+    static API = 'v1/Loan-customer';
 
 
     constructor(protected http: HttpClient) {
@@ -39,6 +39,19 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         const api = `${this.getApi()}/loan-amount/${id}`;
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
+    }
+
+    public getLoansByCitizenship(citizenshipNumber: string) {
+        const api = `${this.getApi()}/searchByCitizenship/${citizenshipNumber}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
+    public getCatalogues(searchObj: any, page: number = 1, size: number = 10): Observable<any> {
+        const api = `${this.getApi()}/catalogue?page=${page}&size=${size}`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.post(req.url, searchObj, {headers: req.header});
     }
 
     protected getApi(): string {

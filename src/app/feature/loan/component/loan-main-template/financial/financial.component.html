@@ -15,16 +15,19 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="title"><b>Income Source</b></label>
-                                        <input class="form-control"
-                                               formControlName="incomeSource" placeholder="Income source"
-                                               type="text">
+                                        <label class="title"><b>Income Source</b></label><b class="text-danger">**</b>
+                                        <input [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('incomeSource').invalid && (incomeOfBorrower.get('incomeSource').dirty || incomeOfBorrower.get('incomeSource').touched),
+                                'is-valid': !incomeOfBorrower.get('incomeSource').invalid && (incomeOfBorrower.get('incomeSource').dirty || incomeOfBorrower.get('incomeSource').touched)
+                                }"
+                                               class="form-control" formControlName="incomeSource"
+                                               placeholder="Income source" type="text">
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="title"><b>Organization</b></label>
+                                        <label class="title"><b>Organization</b></label><b class="text-danger">*</b>
                                         <input class="form-control"
                                                formControlName="organization" placeholder="Organization"
                                                type="text">
@@ -33,7 +36,7 @@
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="title"><b>Amount</b></label>
+                                        <label class="title"><b>Amount</b></label><b class="text-danger">*</b>
                                         <input class="form-control"
                                                formControlName="amount" placeholder="Amount"
                                                type="text">
@@ -42,7 +45,7 @@
 
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label class="title"><b>Remarks</b></label>
+                                        <label class="title"><b>Remarks</b></label><b class="text-danger">*</b>
                                         <input class="form-control"
                                                formControlName="remarks" placeholder="Remarks"
                                                type="text">
@@ -176,8 +179,11 @@
                         <tr>
                             <th scope="row">1</th>
                             <td><b>Total Sales Revenue</b></td>
-                            <td *ngFor="let year of fiscalYear; let j = index" scope="col">
-                                <input style="border: none; outline: none;" value="0">
+                            <td *ngFor="let amount of additionalFinancialForm.get('totalSalesRevenue')['controls']; let j = index"
+                                formArrayName="totalSalesRevenue" scope="col">
+                                <div [formGroupName]="j">
+                                    <input formControlName="value" style="border: none; outline: none;" value="0">
+                                </div>
                             </td>
                         </tr>
                         </tbody>
@@ -186,11 +192,15 @@
                                formArrayName="totalSalesSubCategory">
                         <tr [formGroupName]="i">
                             <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
-                            <td>{{category.get('name').value}}</td>
-                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index" formArrayName="amount">
+                            <td>{{category.get('name').value}}
+                                <button (click)="removeSubCategoryTotalSales(i)">remove</button>
+                            </td>
+                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
+                                formArrayName="amount">
                                 <div [formGroupName]="o">
-                                    <input hidden formControlName="year">
-                                    <input style="border: none; outline: none;" value="0" formControlName="value">
+                                    <!--<input formControlName="year" hidden>-->
+                                    <input (keyup)="onValueChange(o)" formControlName="value"
+                                           style="border: none; outline: none;" value="0">
                                 </div>
                             </td>
                         </tr>
@@ -199,21 +209,22 @@
                         <tbody>
                         <tr>
                             <th scope="row"></th>
-                            <td><input nbInput fieldSize="small" #totalSalesCategoryName type="text" placeholder="Particular">
-                                <button nbButton size="small" (click)="addSubCategoryTotalSales(totalSalesCategoryName.value)">Add field</button>
+                            <td><input #totalSalesCategoryName fieldSize="small" nbInput placeholder="Particular"
+                                       type="text">
+                                <button (click)="addSubCategoryTotalSales(totalSalesCategoryName.value)" nbButton
+                                        size="small">Add field
+                                </button>
                             </td>
                         </tr>
                         </tbody>
 
 
                     </table>
+                    <button (click)="onSubmit()">buttom</button>
                 </form>
 
             </nb-card-body>
         </nb-card>
     </nb-card-body>
 </nb-card>
-<pre>{{additionalFinancialForm.get('totalSalesSubCategory').value | json}}</pre>
-
-<input #value type="text" name="number" placeholder="Number OR Amount" (keyup)="convertNumberToWords(value.value)">
-<div>{{wordNumber}}</div>
+<pre>{{additionalFinancialForm.value | json}}</pre>

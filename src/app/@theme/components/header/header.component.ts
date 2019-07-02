@@ -1,11 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import {NbMenuService, NbSidebarService, NbThemeService} from '@nebular/theme';
-import {LayoutService} from '../../../@core/utils';
+import {NbMenuService, NbSearchService, NbSidebarService, NbThemeService} from '@nebular/theme';
+import {LayoutService, ModalResponse} from '../../../@core/utils';
 import {UserService} from '../../../@core/service/user.service';
 import {User} from '../../../feature/admin/modal/user';
 import {filter, map} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {SearchResultComponent} from './header-form/searchResult.component';
 
 @Component({
     selector: 'app-header',
@@ -19,7 +21,10 @@ export class HeaderComponent implements OnInit {
 
     @Input() position = 'normal';
 
-    user: User;
+    userFullName: string;
+    username: string;
+    userProfilePicture;
+    roleName;
 
     userMenu = [{title: HeaderComponent.LOGOUT}];
 
@@ -28,19 +33,38 @@ export class HeaderComponent implements OnInit {
                 private userService: UserService,
                 private layoutService: LayoutService,
                 private themeService: NbThemeService,
-                private router: Router) {
+                private router: Router,
+                private searchService: NbSearchService,
+                private modalService: NgbModal) {
+
+        this.searchService.onSearchSubmit()
+        .subscribe((searchData: any) => {
+            const modalRef = this.modalService.open(SearchResultComponent, {backdrop: 'static'});
+            modalRef.componentInstance.searchData = searchData.term;
+            modalRef.result.then(
+                close => {
+                    if (close) {
+                        console.log(close);
+                        this.router.navigate(['/home/loan/summary'], {
+                            queryParams: {
+                                loanConfigId: close.loanConfigId,
+                                customerId: close.customerId
+                            }
+                        });
+                    }
+                },
+                dismiss => {
+                    console.log(dismiss);
+                }
+
+            );
+        }, error => console.error(error));
     }
 
     ngOnInit() {
-        this.userService.getLoggedInUser()
-            .subscribe((res: any) => {
-                this.user = res.detail;
-                localStorage.setItem('userId', (this.user.id).toString());
-                localStorage.setItem('username', (this.user.username));
-                if (this.user.role.roleName !== 'admin') {
-                    localStorage.setItem('roleType', JSON.stringify(this.user.role.roleType));
-                }
-            });
+        this.userFullName = localStorage.getItem('userFullName');
+        this.userProfilePicture = localStorage.getItem('userProfilePicture');
+        this.roleName = localStorage.getItem('roleName');
 
 
         this.menuService.onItemClick().pipe(
@@ -67,4 +91,10 @@ export class HeaderComponent implements OnInit {
         localStorage.clear();
         this.router.navigate(['/login']);
     }
+
+    userGuide() {
+        this.router.navigate(['/home/admin/user-guide']);
+    }
+
+
 }

@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label for="renewable"><h4>Renewable</h4></label><br>
                         <div class="row ml-2">
                             <nb-radio-group class="col-md-12 d-contents form-control" id="renewable"
@@ -79,6 +79,18 @@
                                 <nb-radio class="form-group" [value]="false">Non-Renewable
                                 </nb-radio>
                             </nb-radio-group>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><b>Offer Letter</b></label>
+                            <ng-select [items]="offerLetterList"
+                                       bindLabel="name"
+                                       bindValue="id"
+                                       [multiple]="true" name="offerLetters"
+                                       [(ngModel)]="selectedOfferLetterIdList"
+                                       placeholder="Select Offer Letter">
+                            </ng-select>
                         </div>
                     </div>
                 </div>
@@ -127,27 +139,27 @@
                     </div>
                 </div>
                 <br>
-                <div class="row">
-                    <div class="box box-primary col-md-6">
-                        <nb-accordion>
-                            <nb-accordion-item>
-                                <nb-accordion-item-header>Eligibility</nb-accordion-item-header>
-                                <nb-accordion-item-body>
-                                    <div class="row">
-                                        <div class="col-md-4"
-                                             *ngFor="let eligibilityDocument of eligibilityDocumentList; let documentIndex = index">
-                                            <nb-checkbox id="{{'eligibility'+documentIndex}}" status="primary"
-                                                         (change)="updateEligibilityDocument($event,eligibilityDocument)"
-                                                         [value]="eligibilityDocument.checked">
-                                                <span>{{eligibilityDocument.name}}</span>
-                                            </nb-checkbox>
-                                        </div>
-                                    </div>
-                                </nb-accordion-item-body>
-                            </nb-accordion-item>
-                        </nb-accordion>
-                    </div>
-                </div>
+                <!--<div class="row">-->
+                    <!--<div class="box box-primary col-md-6">-->
+                        <!--<nb-accordion>-->
+                            <!--<nb-accordion-item>-->
+                                <!--<nb-accordion-item-header>Eligibility</nb-accordion-item-header>-->
+                                <!--<nb-accordion-item-body>-->
+                                    <!--<div class="row">-->
+                                        <!--<div class="col-md-4"-->
+                                             <!--*ngFor="let eligibilityDocument of eligibilityDocumentList; let documentIndex = index">-->
+                                            <!--<nb-checkbox id="{{'eligibility'+documentIndex}}" status="primary"-->
+                                                         <!--(change)="updateEligibilityDocument($event,eligibilityDocument)"-->
+                                                         <!--[value]="eligibilityDocument.checked">-->
+                                                <!--<span>{{eligibilityDocument.name}}</span>-->
+                                            <!--</nb-checkbox>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</nb-accordion-item-body>-->
+                            <!--</nb-accordion-item>-->
+                        <!--</nb-accordion>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
             <div class="box-footer text-right">
                 <button type="submit" class="btn btn-primary">Submit</button>

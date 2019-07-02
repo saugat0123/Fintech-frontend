@@ -7,7 +7,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {AlertService} from '../../../../@theme/components/alert/alert.service';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
-import {ToastService} from '../../../../@core/utils';
+import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {RolePermissionService} from './role-permission.service';
 import {RoleService} from './role.service';
 import {PermissionService} from '../../../../@core/service/permission.service';
@@ -53,22 +53,26 @@ export class RolePermissionComponent implements OnInit {
     ) {
     }
 
+    static loadData(other: RolePermissionComponent) {
+        other.roleService.getActiveRoles().subscribe((response: any) => {
+            other.roleList = response.detail;
+        });
+
+        other.roleService.getStatus().subscribe((response: any) => {
+            other.activeCount = response.detail.active;
+            other.inactiveCount = response.detail.inactive;
+            other.roleCount = response.detail.roles;
+
+        });
+    }
+
     ngOnInit() {
         this.breadcrumbService.notify(this.title);
 
-        this.roleService.getActiveRoles().subscribe((response: any) => {
-            this.roleList = response.detail;
-        });
+        RolePermissionComponent.loadData(this);
         this.service.getRights().subscribe((response: any) => {
             console.log(response.detail);
             this.rightList = response.detail;
-        });
-
-        this.roleService.getStatus().subscribe((response: any) => {
-            this.activeCount = response.detail.active;
-            this.inactiveCount = response.detail.inactive;
-            this.roleCount = response.detail.roles;
-
         });
     }
 
@@ -132,7 +136,9 @@ export class RolePermissionComponent implements OnInit {
 
 
     onOpen() {
-        this.modalService.open(RoleFormComponent);
+        const modalRef = this.modalService.open(RoleFormComponent, {backdrop: 'static'});
+
+        ModalUtils.resolve(modalRef.result, RolePermissionComponent.loadData, this);
     }
 
     updateCheckapiOptions(permId, apiId, events, index) {

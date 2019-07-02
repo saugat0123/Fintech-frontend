@@ -3,6 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 
 import {ApiConfig} from '../../@core/utils/api/ApiConfig';
+import {UserService} from '../../feature/admin/component/user/user.service';
+import {User} from '../../feature/admin/modal/user';
 
 @Component({
     selector: 'app-login',
@@ -18,6 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     constructor(
         private http: HttpClient,
         private router: Router,
+        private userService: UserService
     ) {
     }
 
@@ -49,7 +52,20 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                     localStorage.setItem('rt', data.refresh_token);
                     localStorage.setItem('ty', data.token_type);
                     localStorage.setItem('et', data.expires_in);
-                    this.router.navigate(['/home/dashboard']);
+
+                    this.userService.getLoggedInUser()
+                    .subscribe((res: any) => {
+                        const user: User = res.detail;
+                        localStorage.setItem('userId', (user.id).toString());
+                        localStorage.setItem('username', user.username);
+                        localStorage.setItem('userFullName', user.name);
+                        localStorage.setItem('userProfilePicture', user.profilePicture);
+                        localStorage.setItem('roleAccess', user.role.roleAccess);
+                        localStorage.setItem('roleName', user.role.roleName);
+                        localStorage.setItem('roleType', user.role.roleType);
+
+                        this.router.navigate(['/home/dashboard']);
+                    });
                 },
                 error => {
                     this.spinner = false;

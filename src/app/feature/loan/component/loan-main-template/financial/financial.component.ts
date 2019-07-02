@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FinancialService} from './financial.service';
+import {single} from 'rxjs/operators';
 
 @Component({
     selector: 'app-financial',
@@ -7,16 +9,23 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
     styleUrls: ['./financial.component.scss']
 })
 export class FinancialComponent implements OnInit {
-    financialForm: FormGroup;
     fiscalYear = [];
+    financialForm: FormGroup;
     additionalFinancialForm: FormGroup;
-    wordNumber: string;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder,
+                private service: FinancialService) {
     }
 
     ngOnInit() {
         this.buildForm();
+        this.service.detail(4).subscribe((res: any) => {
+            const data = res.detail.financial;
+            const formData = JSON.parse(data);
+            console.log(formData.totalSalesRevenue);
+            this.setTotalSalesRevenue(formData.totalSalesRevenue);
+            this.setTotalSalesSubCategory(formData.totalSalesSubCategory);
+        });
     }
 
     buildForm() {
@@ -28,56 +37,14 @@ export class FinancialComponent implements OnInit {
 
         this.additionalFinancialForm = this.formBuilder.group({
 
-            totalSalesRevenue: this.formBuilder.array([
-                this.formBuilder.group({
-                    value: [undefined],
-                    year: [undefined]
-                })
-            ]),
+            totalSalesRevenue: this.formBuilder.array([]),
 
             totalSalesSubCategory: this.formBuilder.array([
-                this.formBuilder.group({
+                /*this.formBuilder.group({
                     name: ['Direct Sales'],
                     amount: this.formBuilder.array([])
-                })
+                })*/
             ]),
-
-            costOfGoodsSold: this.formBuilder.array([
-                this.formBuilder.group({
-                    value: [undefined],
-                    year: [undefined]
-                })
-            ]),
-
-            costOfGoodsSubCategory: this.formBuilder.array([
-                this.formBuilder.group({
-                    name: ['Raw Material Consumed'],
-                    amount: this.formBuilder.array([
-                        this.formBuilder.group({
-                            value: [undefined],
-                            year: [undefined]
-                        })
-                    ])
-                }),
-                this.formBuilder.group({
-                    name: ['Labor'],
-                    amount: this.formBuilder.array([
-                        this.formBuilder.group({
-                            value: [undefined],
-                            year: [undefined]
-                        })
-                    ])
-                }),
-                this.formBuilder.group({
-                    name: ['Other Direct Costs'],
-                    amount: this.formBuilder.array([
-                        this.formBuilder.group({
-                            value: [undefined],
-                            year: [undefined]
-                        })
-                    ])
-                })
-            ])
         });
 
         // functions for adding fields
@@ -85,11 +52,65 @@ export class FinancialComponent implements OnInit {
         this.addExpensesOfBorrower();
     }
 
+    // Setting existing data--
+    setTotalSalesRevenue(totalSalesRevenue) {
+        this.fiscalYear = [];
+        const controls = this.additionalFinancialForm.get('totalSalesRevenue') as FormArray;
+        totalSalesRevenue.forEach(singleTotalSalesRevenue => {
+            this.fiscalYear.push(singleTotalSalesRevenue.year);
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleTotalSalesRevenue.value],
+                    year: [singleTotalSalesRevenue.year]
+                })
+            );
+        });
+    }
+
+    setTotalSalesSubCategory(totalSalesSubCategory) {
+        const control = this.additionalFinancialForm.get('totalSalesSubCategory') as FormArray;
+        totalSalesSubCategory.forEach(singleTotalSalesSubCategory => {
+            control.push(
+                this.formBuilder.group({
+                    name: [singleTotalSalesSubCategory.name],
+                    amount: this.setSubCategoryAmount(singleTotalSalesSubCategory)
+                })
+            );
+        });
+    }
+
+    setSubCategoryAmount(totalSalesSubCategory) {
+        const amountControl = this.formBuilder.array([]);
+        console.log(totalSalesSubCategory.amount);
+        totalSalesSubCategory.amount.forEach( singleAmount => {
+            amountControl.push(
+                this.formBuilder.group({
+                    value: [singleAmount.value],
+                    year: [singleAmount.year]
+                })
+            );
+        });
+        return amountControl;
+    }
+
     // Fiscal Year --
     addFiscalYear(yearValue) {
+
+        // push fiscal year
         this.fiscalYear.push(yearValue);
-        const control = this.additionalFinancialForm.get('totalSalesSubCategory') as FormArray;
-        control.controls.forEach((group, index) => {
+
+        // push Total Sales
+        const totalSalesControl = this.additionalFinancialForm.get('totalSalesRevenue') as FormArray;
+        totalSalesControl.push(
+            this.formBuilder.group({
+                value: [0],
+                year: [yearValue]
+            })
+        );
+
+        // push Total Sales Category
+        const totalSalesSubCategoryControl = this.additionalFinancialForm.get('totalSalesSubCategory') as FormArray;
+        totalSalesSubCategoryControl.controls.forEach((group, index) => {
             const amount = group.get('amount') as FormArray;
             amount.push(
                 this.formBuilder.group({
@@ -101,15 +122,23 @@ export class FinancialComponent implements OnInit {
     }
 
     removeFiscalYear(index) {
+
+        // splice fiscal year
         this.fiscalYear.splice(index, 1);
-        const control = this.additionalFinancialForm.get('totalSalesSubCategory') as FormArray;
-        control.controls.forEach((group, i) => {
+
+        // remove Total Sales
+        const totalSalesControl = this.additionalFinancialForm.get('totalSalesRevenue') as FormArray;
+        totalSalesControl.removeAt(index);
+
+        // remove Total Sales Category
+        const totalSalesSubCategoryControl = this.additionalFinancialForm.get('totalSalesSubCategory') as FormArray;
+        totalSalesSubCategoryControl.controls.forEach((group, i) => {
             const amount = group.get('amount') as FormArray;
             amount.removeAt(index);
         });
     }
 
-    // Total Sales Revenue--
+    // Adding Total Sales Revenue Sub Category--
     addSubCategoryTotalSales(name) {
         const amount = this.formBuilder.array([]);
         this.fiscalYear.forEach((year, index) => {
@@ -120,7 +149,6 @@ export class FinancialComponent implements OnInit {
                 })
             );
         });
-        console.log(amount);
 
         const control = this.additionalFinancialForm.get('totalSalesSubCategory') as FormArray;
         control.push(
@@ -132,23 +160,22 @@ export class FinancialComponent implements OnInit {
     }
 
     removeSubCategoryTotalSales(index) {
-        (this.financialForm.get('incomeOfBorrower') as FormArray).removeAt(index);
+        const control = this.additionalFinancialForm.get('totalSalesSubCategory') as FormArray;
+        control.removeAt(index);
     }
 
-    // Cost of Goods Sold
-    addSubCategoryCostOfGoods(name) {
-        const control = this.additionalFinancialForm.get('costOfGoodsSubCategory') as FormArray;
-        control.push(
-            this.formBuilder.group({
-                name: [name],
-                amount: this.formBuilder.array([
-                    this.formBuilder.group({
-                        value: [undefined],
-                        year: [undefined]
-                    })
-                ])
-            })
-        );
+    onValueChange(index) {
+        let totalSalesSum = 0;
+
+        const totalSalesSubCategory = this.additionalFinancialForm.get('totalSalesSubCategory') as FormArray;
+        totalSalesSubCategory.controls.forEach((categoryGroup, j) => {
+            const amount = categoryGroup.get('amount') as FormArray;
+            const yearCategoryValue = amount.controls[index].get('value').value as number;
+            totalSalesSum = Number(totalSalesSum) + Number(yearCategoryValue);
+        });
+        const totalSalesControl = this.additionalFinancialForm.get('totalSalesRevenue') as FormArray;
+        const formGroup = totalSalesControl.controls[index] as FormGroup;
+        formGroup.controls['value'].setValue(totalSalesSum);
     }
 
     // Header Part--
@@ -181,5 +208,16 @@ export class FinancialComponent implements OnInit {
 
     removeExpensesIndex(incomeIndex) {
         (this.financialForm.get('expensesOfBorrower') as FormArray).removeAt(incomeIndex);
+    }
+
+    onSubmit() {
+        const a = JSON.stringify(this.additionalFinancialForm.value);
+        const f = {
+            financial: a
+        };
+
+        this.service.save(f).subscribe((res: any) => {
+            console.log(res);
+        });
     }
 }

@@ -8,12 +8,11 @@ import {LoanDocument} from '../../../../admin/modal/loan-document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {DmsLoanService} from './dms-loan-service';
-import {AfterTodayValidator} from '../../../../../@core/validator/after-today-validator';
 import {LoanDataService} from '../../../service/loan-data.service';
 import {Security} from '../../../../admin/modal/security';
 import {LoanFormService} from '../../loan-form/service/loan-form.service';
-import {LoanDataHolder} from '../../../model/loanData';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
+import {LoanDataHolder} from '../../../model/loanData';
 
 
 @Component({
@@ -27,17 +26,13 @@ export class DmsLoanFileComponent implements OnInit {
     @Input()
     loanFile: DmsLoanFile;
 
-    @Output() dmsDisableButton: EventEmitter<any> = new EventEmitter<any>();
     initialDocuments: Document[] = [];
     renewDocuments: Document[] = [];
     document: LoanDocument = new LoanDocument();
-    renew = false;
+    renew = true;
     loanForm: FormGroup;
-    documentForm: FormGroup;
     loan: LoanConfig = new LoanConfig();
     permissions = [];
-    documentPaths: string[] = [];
-    documentPath: string;
     dropdownList = [];
     submitted = false;
     loanName: string;
@@ -45,20 +40,18 @@ export class DmsLoanFileComponent implements OnInit {
     customerId: number;
     errorMessage: string;
     dropdownPriorities = [];
-    count = 0;
-    proceed = false;
     documentMaps = [];
     documentMap: string;
-    proceeded = false;
     allId;
     securities: string[];
     securityEnum: Security[] = [];
     imagePaths: string[] = [];
     imageUrl = [];
-    imagePathMap: string[] = [];
     action: string;
-    loanDataHolder: LoanDataHolder = new LoanDataHolder();
     loanConfigId: number;
+    hasPreviousLoan = false;
+    previousLoans: Array<LoanDataHolder>;
+    spinner = false;
 
     constructor(private formBuilder: FormBuilder,
                 private loanDataService: LoanDataService,
@@ -74,9 +67,6 @@ export class DmsLoanFileComponent implements OnInit {
         return this.loanForm.controls;
     }
 
-    get docForm() {
-        return this.documentForm.controls;
-    }
 
     ngOnInit() {
         this.activatedRoute.queryParams.subscribe(
@@ -93,9 +83,7 @@ export class DmsLoanFileComponent implements OnInit {
 
         if (this.loanFile.id !== undefined) {
             this.action = 'EDIT';
-            this.proceed = true;
             this.imagePaths = JSON.parse(this.loanFile.documentPath);
-            this.dmsDisableButton.emit(false);
         }
         this.loanConfigService.detail(this.loanConfigId).subscribe(
             (response: any) => {
@@ -108,8 +96,9 @@ export class DmsLoanFileComponent implements OnInit {
 
         this.dropdownList = [
             {id: 'LAND_SECURITY', name: 'Land Security'},
-            {id: 'APARTMENT_SECURITY', name: 'Apartment Security'},
-            {id: 'BOTH_TYPE', name: 'Both'},
+            {id: 'BUILDING_SECURITY', name: 'Building Security'},
+            {id: 'VEHICLE_SECURITY', name: 'Vehicle Security'},
+            {id: 'PROPERTY_AND_MACHINERY_SECURITY', name: 'Property and Machinery Security'}
 
         ];
 
@@ -119,7 +108,7 @@ export class DmsLoanFileComponent implements OnInit {
             {id: 'LOW', name: 'Low'},
 
         ];
-
+        console.log(this.loanFile);
         this.loanForm = this.formBuilder.group({
             customerName: [this.loanFile.customerName === undefined ? '' : this.loanFile.customerName, Validators.required],
             citizenshipNumber: [this.loanFile.citizenshipNumber === undefined ? '' : this.loanFile.citizenshipNumber, Validators.required],
@@ -127,20 +116,18 @@ export class DmsLoanFileComponent implements OnInit {
             interestRate: [this.loanFile.interestRate === undefined ? '' : this.loanFile.interestRate, Validators.required],
             proposedAmount: [this.loanFile.proposedAmount === undefined ? '' : this.loanFile.proposedAmount, Validators.required],
             security: [this.loanFile.security === undefined ? '' : this.showSecurity(this.loanFile.security), Validators.required],
-            tenure: [this.loanFile.tenure === undefined ? '' : this.loanFile.tenure, [Validators.required, AfterTodayValidator.isValid]],
+            serviceChargeType: [this.loanFile.serviceChargeType === undefined ? '' : this.loanFile.serviceChargeType, Validators.required],
+            serviceChargeAmount: [this.loanFile.serviceChargeAmount === undefined ? '' : this.loanFile.serviceChargeAmount,
+                Validators.required],
+            tenureDuration: [this.loanFile.tenureDuration === undefined ? '' : this.loanFile.tenureDuration, Validators.required],
             priority: [this.loanFile.priority === undefined ? '' : this.loanFile.priority, Validators.required],
-        });
-        this.documentForm = this.formBuilder.group({
             recommendation: [this.loanFile.recommendationConclusion === undefined ? '' : this.loanFile.recommendationConclusion,
                 Validators.required],
             waiver: [this.loanFile.waiver === undefined ? '' : this.loanFile.waiver, Validators.required],
-            file: ['', Validators.required]
+            file: ['']
         });
         if (this.renewDocuments.length > 0) {
             this.renew = true;
-        }
-        if (this.action === 'EDIT') {
-            this.documentForm.controls['file'].setValidators([]);
         }
 
     }
@@ -148,62 +135,35 @@ export class DmsLoanFileComponent implements OnInit {
 
     showSecurity(security: string) {
         this.securities = security.split(',');
+        console.log('secties', this.securities);
         this.securities.forEach((securityLoop => {
-            this.securityEnum.push(Security[securityLoop]);
+            console.log(securityLoop);
+            console.log(this.dropdownList[Number(securityLoop)].id);
+            this.securityEnum.push(this.dropdownList[Number(securityLoop)].id);
+            console.log(this.securityEnum);
         }));
         return this.securityEnum;
     }
 
     onSubmit() {
-        this.submitted = true;
         if (this.loanForm.invalid) {
-            return;
-        } else {
-            this.proceed = true;
+            this.submitted = true;
         }
         this.loanFile.customerName = this.loanForm.get('customerName').value;
         this.loanFile.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
         this.loanFile.contactNumber = this.loanForm.get('contactNumber').value;
         this.loanFile.interestRate = this.loanForm.get('interestRate').value;
         this.loanFile.proposedAmount = this.loanForm.get('proposedAmount').value;
-        this.loanFile.securities = this.loanForm.get('security').value;
-        this.loanFile.tenure = this.loanForm.get('tenure').value;
+        this.loanFile.securities = this.loanForm.get('security').value as string;
+        this.loanFile.tenureDuration = this.loanForm.get('tenureDuration').value;
+        this.loanFile.serviceChargeType = this.loanForm.get('serviceChargeType').value;
+        this.loanFile.serviceChargeAmount = this.loanForm.get('serviceChargeAmount').value;
         this.loanFile.priority = this.loanForm.get('priority').value;
-
-        this.loanFile.waiver = this.documentForm.get('waiver').value;
-        this.loanFile.recommendationConclusion = this.documentForm.get('recommendation').value;
-        this.loanFile.documentMap = this.action === 'EDIT' ? this.imagePaths : this.documentMaps;
+        this.loanFile.waiver = this.loanForm.get('waiver').value;
+        this.loanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
         this.loanDataService.setDmsLoanFile(this.loanFile);
-        this.save();
-
     }
 
-    save() {
-        this.dmsDisableButton.emit(false);
-        this.dmsLoanService.save(this.loanFile).subscribe(
-            (response: any) => {
-                this.customerId = response.detail.id;
-                this.loanFile = response.detail;
-                this.loanDataService.setDmsLoanFile(this.loanFile);
-            },
-            error => {
-                console.log(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Error occurred while saving!'));
-            }
-        );
-    }
-
-    onProceed() {
-        this.proceeded = true;
-        if (this.action === 'EDIT') {
-            this.count++;
-        }
-        if (this.documentForm.invalid) {
-            return;
-        } else {
-            this.onSubmit();
-        }
-    }
 
     documentUploader(event, documentName: string) {
         const file = event.target.files[0];
@@ -213,7 +173,7 @@ export class DmsLoanFileComponent implements OnInit {
         const formdata: FormData = new FormData();
         formdata.append('file', file);
         formdata.append('type', this.loanName);
-        formdata.append('id', this.customerId + '');
+        formdata.append('citizenNumber', String(this.loanFile.citizenshipNumber));
         formdata.append('customerName', this.loanFile.customerName);
         formdata.append('documentName', documentName);
         this.dmsLoanService.uploadFile(formdata).subscribe(
@@ -225,6 +185,8 @@ export class DmsLoanFileComponent implements OnInit {
                 if (!this.documentMaps.includes(this.documentMap)) {
                     this.documentMaps.push(this.documentMap);
                 }
+                this.loanFile.documentMap = this.documentMaps;
+                console.log(this.documentMap);
                 this.document = new LoanDocument();
             },
             error => {
@@ -232,5 +194,27 @@ export class DmsLoanFileComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Error occurred while uploading the document'));
             }
         );
+    }
+
+    searchByCitizenship() {
+        const citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
+        this.loanFormService.getLoansByCitizenship(citizenshipNumber).subscribe((response: any) => {
+            this.previousLoans = response.detail;
+            this.hasPreviousLoan = this.previousLoans.length > 0;
+        }, error => console.error(error));
+    }
+
+    openLoan(loanConfigId: number, customerId: number) {
+        this.spinner = true;
+        this.router.navigate(['/home/loan/summary'], {
+            queryParams: {
+                loanConfigId: loanConfigId,
+                customerId: customerId
+            }
+        });
+    }
+
+    hidePreviousLoans() {
+        this.hasPreviousLoan = false;
     }
 }

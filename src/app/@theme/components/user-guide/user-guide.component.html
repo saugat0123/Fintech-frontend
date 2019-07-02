@@ -1,0 +1,161 @@
+<nb-card>
+    <nb-card accent="info" status="danger">
+        <nb-card-header class="text-white">User Documentation</nb-card-header>
+        <nb-card-body>
+            <nb-card>
+                <nb-card-body>
+                    <nb-stepper orientation="horizontal">
+                        <nb-step [label]="labelOne">
+                            <ng-template #labelOne>First step</ng-template>
+                            <h4>Step #1 : Create Branch</h4>
+
+                            <nb-accordion>
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>Click on Branch Menu</nb-accordion-item-header>
+                                    <nb-accordion-item-body class="d-flex justify-content-sm-center">
+                                        <img src="../../../../assets/documentation/branch-menu.JPG">
+                                    </nb-accordion-item-body>
+
+                                </nb-accordion-item>
+                            </nb-accordion>
+                            <nb-accordion style="margin-bottom: 20px;">
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>Click on
+                                        .
+                                        <button>
+                                            +
+                                        </button>
+                                        .
+                                        Branch Page
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body class="d-flex justify-content-center">
+
+                                        <img src="../../../../assets/documentation/branch-add-btn.JPG" width="100%">
+                                        <img src="../../../../assets/documentation/branch-add.JPG">
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+                            </nb-accordion>
+                            <nb-layout-column class="d-flex justify-content-end">
+                                <a routerLink="/home/admin/branch"
+                                   target="_blank"><u>Go to create Branch
+                                    page</u></a>
+                            </nb-layout-column>
+
+                            <nb-layout-column>
+                                <button nbButton disabled nbStepperNext>prev</button>
+                                <button nbButton nbStepperNext>next</button>
+                            </nb-layout-column>
+                        </nb-step>
+                        <nb-step [label]="labelTwo">
+                            <ng-template #labelTwo>Second step</ng-template>
+                            <h4>Step #2 : Create Role</h4>
+                            <nb-accordion>
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header><i class="fa fa-angle-right"></i>Click on Role And
+                                        Permission Menu
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body class="d-flex justify-content-center">
+
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+                            </nb-accordion>
+                            <nb-accordion style="margin-bottom: 20px;">
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header><i icon="nb-search"></i>Click on .
+                                        <button>
+                                            +
+                                        </button>
+                                        . Role And Permission Page
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body class="d-flex justify-content-center">
+
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+                            </nb-accordion>
+
+                            <b>Rules :</b>
+                            <ol type="1">
+                                <li class="lorem">Role Name is unique .</li>
+                                <li>Role Type :
+                                    <ol type="a">
+                                        <li>There will be only one MAKER type Role .</li>
+                                        <li>Until Maker is not selected in Role Type ,Role Type option is visible</li>
+                                        <li>After any role is assigned as MAKER then rest of the inserted role will be
+                                            of APPROVAL TYPE.
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>Role ACCESS
+                                    <ol type="a">
+                                        <li>Role ACCESS gives the authority for role to access data of BRANCH.
+                                            Branch is assign to user which will
+                                            be discuss in create User.
+                                        </li>
+                                        <ol type="I">
+                                            <li>SPECIFIC
+                                                <ul>
+                                                    <li>Role assign as SPECIFIC can access data from multiple branch
+                                                        (for eg . REGIONAL MANAGER).
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>OWN
+                                                <ul>
+                                                    <li>Role assign as OWN can access data from only assigned branch
+                                                        (for eg . RELATION MANAGER).
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>ALL
+                                                <ul>
+                                                    <li>Role assign as ALL can access data from all branch .
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ol>
+                                    </ol>
+                                </li>
+                            </ol>
+                            <nb-layout-column class="d-flex justify-content-end">
+                                <a routerLink="/home/admin/role"
+                                   target="_blank"><u>Go to create Role
+                                    page</u></a>
+                            </nb-layout-column>
+                            <button nbButton nbStepperPrevious>prev</button>
+                            <button nbButton nbStepperNext>next</button>
+                        </nb-step>
+                        <nb-step label="Third step">
+                            <h4>Step #3 : Assign Role Hierarchy</h4>
+
+                            <p class="lorem">
+
+                            </p>
+                            <button nbButton nbStepperPrevious>prev</button>
+                            <button nbButton nbStepperNext>next</button>
+                        </nb-step>
+                        <nb-step [label]="labelFour">
+                            <ng-template #labelFour>Fourth step</ng-template>
+                            <h4>Step content #4 :  Assign Role &amp; Permission</h4>
+
+                            <p class="lorem">
+
+                            </p>
+                            <button nbButton nbStepperPrevious>prev</button>
+                            <button nbButton nbStepperNext>next</button>
+                        </nb-step>
+                        <nb-step [label]="labelFive">
+                            <ng-template #labelFive>Fifth step</ng-template>
+                            <h4>Step #5 : Create User</h4>
+
+                            <p class="lorem">
+
+                            </p>
+                            <button nbButton nbStepperPrevious>prev</button>
+                            <button nbButton disabled nbStepperNext>next</button>
+                        </nb-step>
+                    </nb-stepper>
+                </nb-card-body>
+            </nb-card>
+        </nb-card-body>
+    </nb-card>
+</nb-card>

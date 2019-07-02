@@ -1,7 +1,5 @@
 export class LegalStatus {
     id: number;
-    created: Date;
-    lastModified: Date;
     companyName: string;
     corporateStructure: string;
     registeredOffice: string;

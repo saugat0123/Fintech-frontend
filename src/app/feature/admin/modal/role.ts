@@ -5,4 +5,5 @@ export class Role {
     roleName: string;
     status: string;
     roleType: RoleType;
+    roleAccess: string;
 }

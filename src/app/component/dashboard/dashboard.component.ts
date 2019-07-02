@@ -9,6 +9,7 @@ import {PermissionService} from '../../@core/service/permission.service';
 import {RoleType} from '../../feature/admin/modal/roleType';
 import {UserService} from '../../feature/admin/component/user/user.service';
 import {BranchService} from '../../feature/admin/component/branch/branch.service';
+import {User} from '../../feature/admin/modal/user';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     roleType = false;
     userCount;
     branchCount;
+    loggedUser: User;
 
     constructor(
         private loanConfigService: LoanConfigService,
@@ -52,15 +54,18 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     }
 
     ngAfterContentInit() {
-        if (localStorage.getItem('roleType') !== RoleType[1]) {
-            this.roleType = true;
+        const roleName: string = localStorage.getItem('roleName');
+        const roleType: string = localStorage.getItem('roleType');
+        if (roleName !== 'admin') {
+            this.roleType = roleType === RoleType.MAKER;
+        }
+
+        if (roleType === RoleType.MAKER) {
             this.loanConfigService.getAll().subscribe((response: any) => {
                 this.loanList = response.detail;
                 this.loanService.setLoan(response.detail);
-
             });
         }
-
     }
 
     ngOnInit() {
@@ -98,11 +103,10 @@ export class DashboardComponent implements OnInit, AfterContentInit {
 
             this.branchCount = response.detail.branches;
         });
-
     }
 
     selectLoan(template: TemplateRef<any>) {
-
+        this.newLoan();
     }
 
     newLoan() {

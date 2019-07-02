@@ -76,7 +76,7 @@
                             <td>{{allList.sectorCode}}</td>
                             <td *ngIf='editSector === true; else status '>
                                 <select class="select-borderless" [(ngModel)]="allList.status" name="status"
-                                        (change)="onChange($event.target.value,allList)">
+                                        (change)="onChange(allList)">
                                     <option value="ACTIVE">ACTIVE</option>
                                     <option value="INACTIVE">INACTIVE</option>
                                 </select>

@@ -65,7 +65,7 @@
                         <th>Loan Name</th>
                         <th>Templates</th>
 
-                        <th>Status</th>
+                        <!--<th>Status</th>-->
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -85,14 +85,14 @@
                             </div>
                         </td>
 
-                        <td>
-                            <select [(ngModel)]="allList.status" name="status"
-                                    (change)="onChange($event.target.value,allList)">
-                                <option value="ACTIVE">ACTIVE</option>
-                                <option value="INACTIVE">INACTIVE</option>
+                        <!--<td>-->
+                            <!--<select [(ngModel)]="allList.status" name="status"-->
+                                    <!--(change)="onChange(allList)">-->
+                                <!--<option value="ACTIVE">ACTIVE</option>-->
+                                <!--<option value="INACTIVE">INACTIVE</option>-->
 
-                            </select>
-                        </td>
+                            <!--</select>-->
+                        <!--</td>-->
                         <td>
                             <a (click)="edit(allList.id)" data-toggle="tooltip"
                                data-placement="top" title="EDIT">
