@@ -17,8 +17,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {NbDatepickerModule} from '@nebular/theme';
 import {NgxPrintModule} from 'ngx-print';
 import {ForgotPasswordComponent} from './component/forgot-password/forgot-password.component';
-import { ResentForgotPasswordComponent } from './component/resent-forgot-password/resent-forgot-password.component';
-import { LoginBaseComponent } from './component/login-base/login-base.component';
+import {ResentForgotPasswordComponent} from './component/resent-forgot-password/resent-forgot-password.component';
+import {LoginBaseComponent} from './component/login-base/login-base.component';
+import {NewPasswordComponent} from './component/new-password/new-password.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { LoginBaseComponent } from './component/login-base/login-base.component'
         LoginComponent,
         ForgotPasswordComponent,
         ResentForgotPasswordComponent,
-        LoginBaseComponent
+        LoginBaseComponent,
+        NewPasswordComponent
     ],
     imports: [
         BrowserModule,
@@ -40,7 +42,6 @@ import { LoginBaseComponent } from './component/login-base/login-base.component'
         RouterModule,
         AppRoutingModule,
         DragDropModule,
-        ThemeModule,
         NgxPrintModule,
         NbDatepickerModule.forRoot(),
     ],
