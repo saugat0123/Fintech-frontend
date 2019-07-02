@@ -70,7 +70,6 @@ export class LoanActionComponent implements OnInit {
 
         this.loanConfigService.detail(this.loanConfigId).subscribe((response: any) => {
             this.loanConfig = response.detail;
-            console.log(this.loanConfig.offerLetters[0].templateUrl);
         });
         console.log(this.actionsList);
 
@@ -95,6 +94,7 @@ export class LoanActionComponent implements OnInit {
         this.popUpTitle = 'Send Forward';
         this.loanActionService.getSendForwardList().subscribe(
             (response: any) => {
+                this.sendForwardBackwardList = [];
                 this.sendForwardBackwardList = response.detail;
             });
         this.formAction.patchValue({
@@ -125,7 +125,6 @@ export class LoanActionComponent implements OnInit {
     getUserList(roleId) {
         this.userService.getUserListByRoleId(roleId.id).subscribe((response: any) => {
             this.userList = response.detail;
-
             if (this.userList.length === 1) {
                 this.formAction.patchValue({
                         toUser: this.userList[0]
@@ -176,16 +175,17 @@ export class LoanActionComponent implements OnInit {
         });
     }
 
-    approved(templateLogin) {
+    approved(template) {
+        this.popUpTitle = 'APPROVED';
         this.formAction.patchValue({
-                loanConfigId: this.loanConfigId,
-                customerLoanId: this.id,
-                docAction: 'APPROVED',
-                comment: 'APPROVED',
-                documentStatus: DocStatus.APPROVED
+            loanConfigId: this.loanConfigId,
+            customerLoanId: this.id,
+            docAction: 'APPROVED',
+                documentStatus: DocStatus.APPROVED,
+                comment: null
             }
         );
-        this.modalService.open(templateLogin);
+        this.modalService.open(template);
 
 
     }

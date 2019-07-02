@@ -173,8 +173,8 @@ export class DmsLoanFileComponent implements OnInit {
         const formdata: FormData = new FormData();
         formdata.append('file', file);
         formdata.append('type', this.loanName);
-        formdata.append('citizenNumber', String(this.loanFile.citizenshipNumber));
-        formdata.append('customerName', this.loanFile.customerName);
+        formdata.append('citizenNumber', String(this.loanForm.get('citizenshipNumber').value));
+        formdata.append('customerName', this.loanForm.get('customerName').value);
         formdata.append('documentName', documentName);
         this.dmsLoanService.uploadFile(formdata).subscribe(
             (result: any) => {
