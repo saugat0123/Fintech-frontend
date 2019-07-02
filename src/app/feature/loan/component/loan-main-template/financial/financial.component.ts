@@ -19,13 +19,13 @@ export class FinancialComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.service.detail(4).subscribe((res: any) => {
+        /*this.service.detail(4).subscribe((res: any) => {
             const data = res.detail.financial;
             const formData = JSON.parse(data);
             console.log(formData.totalSalesRevenue);
             this.setTotalSalesRevenue(formData.totalSalesRevenue);
             this.setTotalSalesSubCategory(formData.totalSalesSubCategory);
-        });
+        });*/
     }
 
     buildForm() {
@@ -40,11 +40,100 @@ export class FinancialComponent implements OnInit {
             totalSalesRevenue: this.formBuilder.array([]),
 
             totalSalesSubCategory: this.formBuilder.array([
-                /*this.formBuilder.group({
+                this.formBuilder.group({
                     name: ['Direct Sales'],
                     amount: this.formBuilder.array([])
-                })*/
+                })
             ]),
+
+            costOfGoodsSold: this.formBuilder.array([]),
+
+            costOfGoodsSoldCategory: this.formBuilder.array([
+                this.formBuilder.group({
+                    name: ['Raw Material Consumed'],
+                    amount: this.formBuilder.array([])
+                }),
+                this.formBuilder.group({
+                    name: ['Labor'],
+                    amount: this.formBuilder.array([])
+                }),
+                this.formBuilder.group({
+                    name: ['Other Direct Costs'],
+                    amount: this.formBuilder.array([])
+                })
+            ]),
+
+            grossProfit: this.formBuilder.array([]),
+
+            operatingExpenses: this.formBuilder.array([]),
+
+            operatingExpensesCategory: this.formBuilder.array([
+                this.formBuilder.group({
+                    name: ['Depreciation'],
+                    amount: this.formBuilder.array([])
+                }),
+                this.formBuilder.group({
+                    name: ['Amortization/Other Non-Cash Expenses'],
+                    amount: this.formBuilder.array([])
+                }),
+                this.formBuilder.group({
+                    name: ['Office Expenses'],
+                    amount: this.formBuilder.array([])
+                }),
+                this.formBuilder.group({
+                    name: ['Selling Overhead'],
+                    amount: this.formBuilder.array([])
+                })
+            ]),
+
+            operatingProfit: this.formBuilder.array([]),
+
+            interestExpenses: this.formBuilder.array([
+                this.formBuilder.group({
+                    name: ['Interest on Term Loan'],
+                    amount: this.formBuilder.array([])
+                }),
+                this.formBuilder.group({
+                    name: ['Interest on Working Capital Loan'],
+                    amount: this.formBuilder.array([])
+                }),
+            ]),
+
+            nonOperatingIncomeOrExpenses: this.formBuilder.array([
+                this.formBuilder.group({
+                    name: ['Profit/(Loss) on Sale of Fixed Assets'],
+                    amount: this.formBuilder.array([])
+                })
+            ]),
+
+            profitBeforeTaxAndStaffBonus: this.formBuilder.array([]),
+
+            staffBonus: this.formBuilder.array([]),
+
+            profitBeforeTaxes: this.formBuilder.array([]),
+
+            taxes: this.formBuilder.array([]),
+
+            taxesCategory: this.formBuilder.array([
+                this.formBuilder.group({
+                    name: ['Tax'],
+                    amount: this.formBuilder.array([])
+                }),
+                this.formBuilder.group({
+                    name: ['Tax adjustment of prior year'],
+                    amount: this.formBuilder.array([])
+                })
+            ]),
+
+            profitAfterTax: this.formBuilder.array([]),
+
+            dividendOrDrawing: this.formBuilder.array([]),
+
+            otherAdjustment: this.formBuilder.array([]),
+
+            accumulatedProfitBOrD: this.formBuilder.array([]),
+
+            netProfitTransferredToBalanceSheet: this.formBuilder.array([])
         });
 
         // functions for adding fields
