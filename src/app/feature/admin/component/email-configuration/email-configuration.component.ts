@@ -27,6 +27,7 @@ export class EmailConfigurationComponent implements OnInit {
         this.emailConfig = this.formBuilder.group({
             username: [undefined, Validators.required],
             password: [undefined, Validators.required],
+            domain: [undefined, Validators.required],
             host: [undefined, Validators.required],
             port: [undefined, Validators.required],
             emailType: ['test']
@@ -35,7 +36,6 @@ export class EmailConfigurationComponent implements OnInit {
 
     onSubmit() {
 
-        console.log(this.emailConfig.value);
         this.emailConfigService.save(this.emailConfig.value).subscribe((res: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Configuration'));
             }
