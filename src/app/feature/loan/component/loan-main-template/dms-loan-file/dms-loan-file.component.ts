@@ -22,7 +22,7 @@ import {LoanDataHolder} from '../../../model/loanData';
 })
 
 export class DmsLoanFileComponent implements OnInit {
-    public static FILE_SIZE = 20000;
+    public static FILE_SIZE = 1000000;
     @Input()
     loanFile: DmsLoanFile;
 
