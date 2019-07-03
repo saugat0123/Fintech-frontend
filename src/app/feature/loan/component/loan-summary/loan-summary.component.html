@@ -20,7 +20,8 @@
                 </div>
                 <div class="col-md-5 col-xs-5 " style="text-align: center">
                     <!--<img src="../../../../../assets/img/logo.png">-->
-                    <h2>{{bankName}}</h2>
+                    <!--<h2>{{bankName}}</h2>-->
+                    <img src="../../../../../assets/img/logo.png">
                 </div>
             </div>
             <div class="row">
@@ -64,6 +65,7 @@
                     </table>
                 </div>
             </div>
+            <div class="form-group"><b>Propose Amount:</b> Rs. {{dmsLoanFile?.proposedAmountWord}} Only /-</div>
             <div class="row">
                 <div class="col-md-12">
                     <p style="font-size: 15px"><b>Detail of Present Proposal of the Facility</b></p>
@@ -74,6 +76,7 @@
                             <th>Credit Facility</th>
                             <th>Proposed Limit</th>
                             <th>Interest Rate</th>
+                            <th>Service Charge</th>
                             <th>Tenure Duration In Month</th>
                         </tr>
                         </thead>
@@ -83,6 +86,9 @@
                             <td>{{loanDataHolder?.loan?.name}}</td>
                             <td>{{dmsLoanFile?.proposedAmount}}</td>
                             <td>{{dmsLoanFile?.interestRate}}</td>
+                            <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}} 
+                                {{dmsLoanFile?.serviceChargeAmount}} 
+                                {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}</td>
                             <td>{{dmsLoanFile?.tenureDuration}}</td>
                         </tr>
                         </tbody>
@@ -111,7 +117,7 @@
                 </div>
             </div>
 
-            <div class="row mt-3">
+            <!--<div class="row mt-3">
                 <div class="col-md-6">
                     <p style="font-size: 15px"><b>Service Charge Type</b></p>
                     <table class="table table-condensed table-bordered">
@@ -132,7 +138,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div>-->
 
             <div class="row mt-3">
                 <div class="col-md-12">
@@ -166,11 +172,13 @@
                     <table class="table table-condensed table-bordered">
                         <thead>
                         <tr>
-                            <th>S.N</th>
-                            <th>Comment</th>
-                            <th>User</th>
-                            <th>Status</th>
-                            <th>Position</th>
+                            <th style="width: 5%">S.N</th>
+                            <th style="width: 30%">Comment</th>
+                            <th style="width: 15%">From User</th>
+                            <th style="width: 15%">From Position</th>
+                            <th style="width: 15%">To User</th>
+                            <th style="width: 10%">To Position</th>
+                            <th style="width: 10%">Status</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -178,21 +186,25 @@
                             <td>{{i + 1}}</td>
                             <td>{{previousList?.comment}}</td>
                             <td>{{previousList?.fromUser?.name}}</td>
-                            <td>{{previousList?.docAction}}</td>
                             <td>{{previousList?.fromRole?.roleName}}</td>
+                            <td>{{previousList?.toUser?.name}}</td>
+                            <td>{{previousList?.toRole?.roleName}}</td>
+                            <td>{{previousList?.docAction}}</td>
                         </tr>
                         <tr>
                             <td>{{currentIndex+1}}</td>
                             <td>{{loanDataHolder?.currentStage?.comment}}</td>
                             <td>{{loanDataHolder?.currentStage?.fromUser?.name}}</td>
-                            <td>{{loanDataHolder?.currentStage?.docAction}}</td>
                             <td>{{loanDataHolder?.currentStage?.fromRole?.roleName}}</td>
+                            <td>{{loanDataHolder?.currentStage?.toUser?.name}}</td>
+                            <td>{{loanDataHolder?.currentStage?.toRole?.roleName}}</td>
+                            <td>{{loanDataHolder?.currentStage?.docAction}}</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="documentNames.length>0">
                 <div class="col-md-12">
                     <p style="font-size: 15px"><b>Required Documents</b></p>
                     <table class="table table-condensed table-bordered">
@@ -215,14 +227,12 @@
                     </table>
                 </div>
                 <div *ngFor="let previous of signatureList;" class="col-md-6" style="padding-top: 50px">
-                    <div class="row d-flex justify-content-center signature">
-
-                        <img *ngIf="previous.toUser?.signatureImage !==null"
-                             src="{{RootUrl}}/{{previous.toUser?.signatureImage }}" height="70px" width="180px"/>
+                    <div class="row d-flex justify-content-center signature mx-auto" style ="height:70px; width:180px">
+                        <img *ngIf="previous.toUser?.signatureImage !==null" height="100%"
+                             src="{{RootUrl}}/{{previous.toUser?.signatureImage }}"/>
                     </div>
 
                     <div class="row d-flex justify-content-center">
-
                         <hr style="border-top: 2px dotted #8c8b8b;background-color: #fff;  height: 1px;clear:both; display:block;width:50%">
                     </div>
                     <div class="row d-flex justify-content-center">
