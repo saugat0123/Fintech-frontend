@@ -14,10 +14,10 @@
                             <label for="name">Name</label>
                             <input type="hidden" class="form-control" [(ngModel)]="model.id" name="id" placeholder="id">
                             <input type="text" class="form-control" [(ngModel)]="model.name" name="name"
-                                   id="name" placeholder="Name"
+                                   id="name" placeholder="Name" [pattern]="pattern"
                                    #name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required/>
                             <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
-                                Name is required
+                                Name is Invalid or should not contain special character.
                             </div>
                         </div>
 
