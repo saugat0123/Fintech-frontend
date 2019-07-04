@@ -6,4 +6,5 @@ export class ActionModel {
     rejected: boolean;
     closed: boolean;
     offerLetter: boolean;
+    roleTypeMaker: boolean;
 }
