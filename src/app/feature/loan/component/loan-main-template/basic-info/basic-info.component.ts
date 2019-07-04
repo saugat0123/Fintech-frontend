@@ -21,8 +21,6 @@ import {Customer} from '../../../../admin/modal/customer';
 export class BasicInfoComponent implements OnInit {
     @Input() formValue: Customer;
 
-    submitted = false;
-
     customer: Customer = new Customer();
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
     basicInfo: FormGroup;
@@ -65,20 +63,20 @@ export class BasicInfoComponent implements OnInit {
         );
         console.log(this.customer.citizenshipIssuedPlace);
         this.basicInfo = this.formBuilder.group({
-            title: [this.customer.title === undefined ? '' : this.customer.title],
+            title: [this.customer.title === undefined ? '' : this.customer.title, Validators.required],
             customerName: [this.customer.customerName === undefined ? '' : this.customer.customerName, Validators.required],
             customerId: [this.customer.customerId === undefined ? '' : this.customer.customerId, Validators.required],
             accountNo: [this.customer.accountNo === undefined ? '' : this.customer.accountNo, Validators.required],
             province: [this.customer.province === null ? '' : this.customer.province, Validators.required],
             district: [this.customer.district === null ? '' : this.customer.district, Validators.required],
             municipalities: [this.customer.municipalities === null ? '' : this.customer.municipalities, Validators.required],
-            telephone: [this.customer.telephone === undefined ? '' : this.customer.telephone,
-                [Validators.required, Validators.pattern('^[0-9]{9}$')]],
-            mobile: [this.customer.mobile === undefined ? '' : this.customer.mobile, [Validators.required,
-                Validators.pattern('^[+]?[0-9]{10,13}$')]],
-            email: [this.customer.email === undefined ? '' : this.customer.email, [Validators.required, Validators.email]],
+            street: [this.customer.street === null ? '' : this.customer.street, Validators.required],
+            wardNumber: [this.customer.wardNumber === null ? '' : this.customer.wardNumber, Validators.required],
+            telephone: [this.customer.telephone === undefined ? '' : this.customer.telephone, Validators.required],
+            mobile: [this.customer.mobile === undefined ? '' : this.customer.mobile, Validators.required],
+            email: [this.customer.email === undefined ? '' : this.customer.email, Validators.required],
             initialRelationDate: [this.customer.initialRelationDate === undefined ? '' :
-                this.customer.initialRelationDate],
+                this.customer.initialRelationDate, Validators.required],
             citizenshipNumber: [this.customer.citizenshipNumber === undefined ? '' : this.customer.citizenshipNumber, Validators.required],
             citizenshipIssuedPlace: [this.customer.citizenshipIssuedPlace === undefined ? '' : this.customer.citizenshipIssuedPlace,
                 Validators.required],
@@ -136,10 +134,6 @@ export class BasicInfoComponent implements OnInit {
         this.loanDataService.setCustomer(this.customer);
 
         console.log('running state');
-    }
-
-    get basicInfoControls() {
-        return this.basicInfo.controls;
     }
 
 }

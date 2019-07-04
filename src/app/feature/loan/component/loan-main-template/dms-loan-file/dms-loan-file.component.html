@@ -53,7 +53,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="interest"><b>Interest Rate</b></label>
-                                    <input type="text" formControlName="interestRate" class="form-control rounded"
+                                    <input type="number" formControlName="interestRate" class="form-control rounded"
                                            id="interest"
                                            [ngClass]="{ 'is-invalid':submitted && form.interestRate.errors}"
                                            placeholder="Enter interest rate"/>
@@ -67,7 +67,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="amount"><b>Proposed Amount</b></label>
-                                    <input type="text" formControlName="proposedAmount" class="form-control rounded"
+                                    <input type="number" formControlName="proposedAmount" class="form-control rounded"
                                            id="amount"
                                            [ngClass]="{ 'is-invalid':submitted && form.proposedAmount.errors}"
                                            placeholder="Enter proposed amount"/>
@@ -95,7 +95,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="tenureDuration"><b>Tenure Duration In Month</b></label>
-                                    <input type="text" formControlName="tenureDuration" class="form-control rounded"
+                                    <input type="number" formControlName="tenureDuration" class="form-control rounded"
                                            id="tenureDuration"
                                            [ngClass]="{ 'is-invalid':submitted && form.tenureDuration.errors}"
                                            placeholder="Enter Tenure Duration"/>
@@ -130,7 +130,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <label for="serviceChargeType"><b>Service Charge Type</b></label>
                                 <div class="row ml-2">
                                     <nb-radio-group class="col-md-4 d-contents form-control" id="serviceChargeType"
@@ -140,22 +140,18 @@
                                         <nb-radio class="form-group" value="Flat">Flat</nb-radio>
                                     </nb-radio-group>
                                 </div>
-                                <!--<input type="text" formControlName="serviceChargeType" class="form-control rounded"
-                                       id="serviceChargeType"
-                                       [ngClass]="{ 'is-invalid':submitted && form.serviceChargeType.errors}"
-                                       placeholder="Enter Tenure Duration"/>-->
                                 <div *ngIf="submitted && form.serviceChargeType.errors" class="invalid-feedback">
                                     <div *ngIf="form.serviceChargeType.errors.required">Tenure Duration is required</div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="serviceChargeAmount"><b>Service Charge Amount</b></label>
-                                <input type="text" formControlName="serviceChargeAmount" class="form-control rounded"
+                            <div class="col-md-3">
+                                <label for="serviceChargeAmount"><b>Service Charge In {{loanForm.get('serviceChargeType').value}}</b></label>
+                                <input type="number" formControlName="serviceChargeAmount" class="form-control rounded"
                                        id="serviceChargeAmount"
                                        [ngClass]="{ 'is-invalid':submitted && form.serviceChargeAmount.errors}"
                                        placeholder="Enter Tenure Duration"/>
                                 <div *ngIf="submitted && form.serviceChargeAmount.errors" class="invalid-feedback">
-                                    <div *ngIf="form.serviceChargeAmount.errors.required">Tenure Duration is required</div>
+                                    <div *ngIf="form.serviceChargeAmount.errors.required">Service Charge is required</div>
                                 </div>
                             </div>
                         </div>
@@ -165,7 +161,7 @@
                             </div>
                         </div>-->
                     </div>
-                    <div class="row">
+                    <div class="row" *ngIf="initialDocuments.length > 0">
                         <div class="col-md-6">
                             <div class="box-header with-border">
                                 <h3 class="box-title"><b>Document for initial phase</b></h3>

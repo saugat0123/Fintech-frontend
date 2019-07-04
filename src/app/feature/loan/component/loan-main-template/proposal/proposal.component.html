@@ -11,14 +11,14 @@
                                     <div class="form-group">
                                         <label class="title" for="proposedLimit">Proposed Limit</label>
                                         <input id="proposedLimit" formControlName="proposedLimit"
-                                               name="proposedLimit" type="text"
+                                               name="proposedLimit" type="number"
                                                class="form-control" placeholder="Proposed limit"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.proposedLimit.errors }">
                                         <div *ngIf=" (submitted)  && formControls.proposedLimit.errors"
                                              class="invalid-feedback">
                                             <span *ngIf="(formControls.proposedLimit.errors.required)">Proposed Limit is required</span>
 
-                                            <span *ngIf="(formControls.proposedLimit.errors.pattern)">Proposed Limit must be numerical value.</span>
+                                            <span *ngIf="(formControls.proposedLimit.errors.min)">Proposed Limit must be positive numerical value.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -26,27 +26,27 @@
                                     <div class="form-group">
                                         <label class="title" for="interestRate">Interest Rate(%)</label>
                                         <input id="interestRate" formControlName="interestRate" name="interestRate"
-                                               type="text" class="form-control" placeholder="Interest Rate(%)"
+                                               type="number" class="form-control" placeholder="Interest Rate(%)"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.interestRate.errors }">
                                         <div *ngIf="(submitted) && formControls.interestRate.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.interestRate.errors.required">Interest Rate is required</span>
 
-                                            <span *ngIf="formControls.interestRate.errors.pattern">Interest Rate must be numerical value.</span>
+                                            <span *ngIf="formControls.interestRate.errors.min">Interest Rate must be positive numerical value.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="baseRate">Base Rate(%)</label>
-                                        <input id="baseRate" formControlName="baseRate" name="baseRate" type="text"
+                                        <input id="baseRate" formControlName="baseRate" name="baseRate" type="number"
                                                class="form-control" placeholder="Base Rate(%)"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.baseRate.errors }">
                                         <div *ngIf="(submitted) && formControls.baseRate.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.baseRate.errors.required">Base Rate is required</span>
 
-                                            <span *ngIf="formControls.baseRate.errors.pattern">Base Rate must be numerical value.</span>
+                                            <span *ngIf="formControls.baseRate.errors.min">Base Rate must be positive numerical value.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                                         <label class="title" for="premiumRateOnBaseRate">Premium Rate On Base
                                             Rate(%)</label>
                                         <input id="premiumRateOnBaseRate" formControlName="premiumRateOnBaseRate"
-                                               name="premiumRate" type="text"
+                                               name="premiumRate" type="number"
                                                class="form-control" placeholder="Premium Rate On Base Rate(%)"
                                                class="form-control" placeholder="Base Rate(%)"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.premiumRateOnBaseRate.errors }">
@@ -63,7 +63,7 @@
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.premiumRateOnBaseRate.errors.required">Premium Rate On Base Rate is required</span>
 
-                                            <span *ngIf="formControls.premiumRateOnBaseRate.errors.pattern">Premium Rate On Base Rate must be numerical value.</span>
+                                            <span *ngIf="formControls.premiumRateOnBaseRate.errors.min">Premium Rate On Base Rate must be positive numerical value.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -78,39 +78,40 @@
                                             <small style="color:#DC3545" *ngIf="(submitted) && formControls.serviceChargeMethod.invalid && formControls.serviceChargeMethod.errors.required">Charge method is required</small>
                                         </label>
                                         <input id="serviceCharge" formControlName="serviceCharge" name="serviceCharge"
-                                               type="text"
+                                               type="number"
                                                class="form-control" placeholder="Service charge"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.serviceCharge.errors }">
                                         <div *ngIf="(submitted) && formControls.serviceCharge.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.serviceCharge.errors.required">Service Charge is required</span>
 
-                                            <span *ngIf="formControls.serviceCharge.errors.pattern">Service Charge must be numerical value.</span>
+                                            <span *ngIf="formControls.serviceCharge.errors.min">Service Charge must be positive numerical value.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="tenureYear">Tenure year</label>
-                                        <input id="tenureYear" class="form-control" formControlName="tenureYear"
-                                               [nbDatepicker]="datepicker" [ngClass]="{ 'is-invalid': (submitted) && formControls.tenureYear.errors }">
-                                        <div *ngIf="(submitted) && formControls.tenureYear.invalid" class="invalid-feedback">
-                                            <span *ngIf="formControls.tenureYear.errors.required ">Tenure Year is required or may be invalid.</span>
+                                        <label class="title" for="tenureDurationInMonths">Tenure Duration in Month.</label>
+                                        <input id="tenureDurationInMonths" class="form-control" formControlName="tenureDurationInMonths" type="number"
+                                               placeholder="In months."
+                                               [ngClass]="{ 'is-invalid': (submitted) && formControls.tenureDurationInMonths.errors }">
+                                        <div *ngIf="(submitted) && formControls.tenureDurationInMonths.invalid" class="invalid-feedback">
+                                            <span *ngIf="formControls.tenureDurationInMonths.errors.required ">Tenure duration is required.</span>
+                                            <span *ngIf="formControls.tenureDurationInMonths.errors.min ">Tenure duration must be positive numerical value.</span>
                                         </div>
-                                        <nb-datepicker #datepicker></nb-datepicker>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="cibCharge">CIB Charge</label>
-                                        <input id="cibCharge" formControlName="cibCharge" name="tenureYear" type="text"
+                                        <input id="cibCharge" formControlName="cibCharge" name="tenureYear" type="number"
                                                class="form-control" placeholder="CIB charge"
                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.cibCharge.errors }">
                                         <div *ngIf="(submitted) && formControls.cibCharge.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.cibCharge.errors.required">CIB Charge is required</span>
 
-                                            <span *ngIf="formControls.cibCharge.errors.pattern">CIB Charge must be numerical value.</span>
+                                            <span *ngIf="formControls.cibCharge.errors.min">CIB Charge must be positive enumerical value.</span>
                                         </div>
                                     </div>
                                 </div>

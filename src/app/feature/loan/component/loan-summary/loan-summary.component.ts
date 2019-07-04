@@ -86,6 +86,11 @@ export class LoanSummaryComponent implements OnInit {
         this.userService.getLoggedInUser().subscribe(
             (response: any) => {
                 this.user = response.detail;
+                if (this.user.role.roleType === 'MAKER') {
+                    this.actionsList.rejected = true;
+                } else {
+                    this.actionsList.rejected = false;
+                }
             }
         );
         this.loanFormService.detail(this.customerId).subscribe(
@@ -99,7 +104,6 @@ export class LoanSummaryComponent implements OnInit {
                 this.actionsList.sendForward = true;
                 this.actionsList.edit = true;
                 this.actionsList.sendBackward = true;
-                this.actionsList.rejected = true;
                 this.actionsList.closed = true;
                 if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
                     this.actionsList.offerLetter = true;
@@ -127,7 +131,6 @@ export class LoanSummaryComponent implements OnInit {
                     this.actionsList.sendForward = false;
                     this.actionsList.edit = false;
                     this.actionsList.sendBackward = false;
-                    this.actionsList.rejected = false;
                     this.actionsList.closed = false;
                 }
                 // commented code is for approval limit
@@ -143,7 +146,7 @@ export class LoanSummaryComponent implements OnInit {
                 // });
                 this.id = this.loanDataHolder.id;
                 this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
-                if (this.dmsLoanFile !== undefined) {
+                if (this.dmsLoanFile !== undefined && this.dmsLoanFile !== null) {
                     this.security = this.dmsLoanFile.security;
                     this.securities = this.security.split(',');
                     this.documents = JSON.parse(this.dmsLoanFile.documentPath);
@@ -158,6 +161,9 @@ export class LoanSummaryComponent implements OnInit {
 
             }
         );
+        // var adbs = require("ad-bs-converter");
+        // console.log(adbs.ad2bs("1990/8/10"));
+        // console.log(adbs.bs2ad("2047/4/26"));
 
     }
 

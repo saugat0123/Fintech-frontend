@@ -4,16 +4,21 @@ import {LoginComponent} from './component/login/login.component';
 import {ForgotPasswordComponent} from './component/forgot-password/forgot-password.component';
 import {ResentForgotPasswordComponent} from './component/resent-forgot-password/resent-forgot-password.component';
 import {LoginBaseComponent} from './component/login-base/login-base.component';
+import {NewPasswordComponent} from './component/new-password/new-password.component';
+import {AuthGuard} from './shared-service/authentication/auth.guard';
 
 
 const routes: Routes = [
     {path: '', redirectTo: '/login', pathMatch: 'full'},
-    {path: '', component: LoginBaseComponent, children: [
-        {path: 'login', component: LoginComponent},
-        {path: 'forgotPassword', component: ForgotPasswordComponent},
-        {path: 'resentForgotPassword', component: ResentForgotPasswordComponent},
-    ]},
-    {path: 'home', loadChildren: './feature/feature.module#FeatureModule'},
+    {
+        path: '', component: LoginBaseComponent, children: [
+            {path: 'login', component: LoginComponent},
+            {path: 'forgotPassword', component: ForgotPasswordComponent},
+            {path: 'resentForgotPassword', component: ResentForgotPasswordComponent},
+            {path: 'newPassword', component: NewPasswordComponent}
+        ]
+    },
+    {path: 'home', loadChildren: './feature/feature.module#FeatureModule', canActivate: [AuthGuard]},
     {path: '**', redirectTo: '/login', pathMatch: 'full'},
 ];
 

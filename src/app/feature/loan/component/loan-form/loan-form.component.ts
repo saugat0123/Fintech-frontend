@@ -221,10 +221,10 @@ export class LoanFormComponent implements OnInit {
 
     selectChild(name, action) {
         if (name === 'Customer Info' && action) {
-            if (this.basicInfo.basicInfo.invalid) {
-                this.basicInfo.submitted = true;
-                return true;
-            }
+            // if (this.basicInfo.basicInfo.invalid) {
+            //     this.basicInfo.submitted = true;
+            //     return true;
+            // }
             this.basicInfo.onSubmit();
             this.loanDocument.customerInfo = this.basicInfo.basicInfo.value;
         }
