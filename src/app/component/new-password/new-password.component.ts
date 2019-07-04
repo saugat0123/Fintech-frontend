@@ -4,8 +4,9 @@ import {User} from '../../feature/admin/modal/user';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ApiConfig} from '../../@core/utils/api/ApiConfig';
-import {Alert, AlertType} from '../../@theme/model/Alert';
-import {ToastService} from '../../@core/utils';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CommonMsgModalComponent} from '../common-msg-modal/common-msg-modal.component';
+import {ModalResponse} from '../../@core/utils';
 
 @Component({
   selector: 'app-new-password',
@@ -22,8 +23,8 @@ export class NewPasswordComponent implements OnInit {
       private formBuilder: FormBuilder,
       private activatedRoute: ActivatedRoute,
       private httpClient: HttpClient,
-      private toastService: ToastService,
-      private router: Router
+      private router: Router,
+      private ngbModal: NgbModal
   ) {
   }
 
@@ -50,11 +51,36 @@ export class NewPasswordComponent implements OnInit {
   ok() {
     this.user.password = this.newPassword.value;
     this.httpClient.post(this.api, this.user).subscribe((response: any) => {
-      // this.toastService.show(new Alert(AlertType.SUCCESS, 'Password Updated Successfully'));
-      this.router.navigate(['/login']);
+      const modalRef = this.ngbModal.open(CommonMsgModalComponent, {backdrop: 'static'});
+      modalRef.componentInstance.modalHeader = 'Password Changed Successfully';
+      modalRef.componentInstance.modalMessage = 'Your password has been changed successfully!';
+
+      modalRef.result.then(
+          close => {
+            if (close === ModalResponse.SUCCESS) {
+              this.router.navigate(['/login']);
+            }
+          },
+          dismiss => {
+            console.log(dismiss);
+          }
+      );
     }, error => {
       console.error(error);
-      // this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+      const modalRef = this.ngbModal.open(CommonMsgModalComponent, {backdrop: 'static'});
+      modalRef.componentInstance.modalHeader = 'Error';
+      modalRef.componentInstance.modalMessage = error.error.message;
+
+      modalRef.result.then(
+          close => {
+            if (close === ModalResponse.SUCCESS) {
+              this.router.navigate(['/login']);
+            }
+          },
+          dismiss => {
+            console.log(dismiss);
+          }
+      );
     });
   }
 

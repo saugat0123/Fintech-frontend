@@ -20,6 +20,7 @@ import {ForgotPasswordComponent} from './component/forgot-password/forgot-passwo
 import {ResentForgotPasswordComponent} from './component/resent-forgot-password/resent-forgot-password.component';
 import {LoginBaseComponent} from './component/login-base/login-base.component';
 import {NewPasswordComponent} from './component/new-password/new-password.component';
+import { CommonMsgModalComponent } from './component/common-msg-modal/common-msg-modal.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {NewPasswordComponent} from './component/new-password/new-password.compon
         ForgotPasswordComponent,
         ResentForgotPasswordComponent,
         LoginBaseComponent,
-        NewPasswordComponent
+        NewPasswordComponent,
+        CommonMsgModalComponent
     ],
     imports: [
         BrowserModule,
@@ -50,7 +52,8 @@ import {NewPasswordComponent} from './component/new-password/new-password.compon
         useClass: HashLocationStrategy
     }, DatePipe],
     bootstrap: [AppComponent],
-    exports: []
+    exports: [],
+    entryComponents: [CommonMsgModalComponent]
 })
 export class AppModule {
 }
