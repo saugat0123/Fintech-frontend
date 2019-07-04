@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {Document} from '../../../../admin/modal/document';
@@ -116,7 +116,8 @@ export class DmsLoanFileComponent implements OnInit {
             interestRate: [this.loanFile.interestRate === undefined ? '' : this.loanFile.interestRate, Validators.required],
             proposedAmount: [this.loanFile.proposedAmount === undefined ? '' : this.loanFile.proposedAmount, Validators.required],
             security: [this.loanFile.security === undefined ? '' : this.showSecurity(this.loanFile.security), Validators.required],
-            serviceChargeType: [this.loanFile.serviceChargeType === undefined ? '' : this.loanFile.serviceChargeType, Validators.required],
+            serviceChargeType: [this.loanFile.serviceChargeType === undefined ? 'Percentage' : this.loanFile.serviceChargeType,
+                Validators.required],
             serviceChargeAmount: [this.loanFile.serviceChargeAmount === undefined ? '' : this.loanFile.serviceChargeAmount,
                 Validators.required],
             tenureDuration: [this.loanFile.tenureDuration === undefined ? '' : this.loanFile.tenureDuration, Validators.required],
