@@ -12,7 +12,7 @@ import {EmailConfig} from '../../modal/emailConfig';
     templateUrl: './email-configuration.component.html'
 })
 export class EmailConfigurationComponent implements OnInit {
-
+    loading = false;
     emailConfig: FormGroup;
     emailConfigData: EmailConfig = new EmailConfig();
     notice = false;
@@ -26,13 +26,15 @@ export class EmailConfigurationComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.buildForm();
         this.emailConfigService.getAll().subscribe((res: any) => {
-            this.emailConfigData = res.detail;
+            this.emailConfigData = res.detail[0];
             if (res.detail !== []) {
                 this.notice = true;
+                this.buildForm();
             }
         });
-        this.buildForm();
+
     }
 
     buildForm() {
@@ -51,12 +53,15 @@ export class EmailConfigurationComponent implements OnInit {
 
         this.emailConfigService.save(this.emailConfig.value).subscribe((res: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Configuration'));
+                this.loading = true;
                 this.emailConfigService.refreshConfiguration().subscribe((re2: any) => {
                     this.emailConfigService.checkConfiguration(this.emailConfig.value).subscribe((rea1: any) => {
                         this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Send Email'));
+                        this.loading = false;
 
                     }, err => {
                         this.toastService.show(new Alert(AlertType.ERROR, err.error.message));
+                        this.loading = false;
                     });
                 });
 

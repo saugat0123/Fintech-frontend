@@ -1,4 +1,7 @@
-<nb-card>
+<nb-card [nbSpinner]="loading"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="large"
+         nbSpinnerMessage="Testing email configuration...">
     <nb-alert *ngIf="notice">Configuration has been Setup already . </nb-alert>
     <nb-card-header class="text-white" style="background-color: #c35d58"><h4 class="text-white">Email Configuration</h4>
     </nb-card-header>
