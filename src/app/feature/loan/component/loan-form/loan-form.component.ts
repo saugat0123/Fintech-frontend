@@ -19,6 +19,7 @@ import {LoanConfigService} from '../../../admin/component/loan-config/loan-confi
 import {DateService} from '../../../../@core/service/baseservice/date.service';
 import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.component';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
+import {ProposalComponent} from '../loan-main-template/proposal/proposal.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -77,6 +78,9 @@ export class LoanFormComponent implements OnInit {
     entityInfo: CompanyInfoComponent;
     @ViewChild('kycInfo')
     kycInfo: KycInfoComponent;
+
+    @ViewChild('proposalInfo')
+    proposalDetail: ProposalComponent;
 
     constructor(
         private dataService: CommonDataService,
@@ -185,7 +189,9 @@ export class LoanFormComponent implements OnInit {
     }
 
     nextTab() {
-        this.selectChild(this.selectedTab, true);
+        if (this.selectChild(this.selectedTab, true)) {
+            return;
+        }
         this.nxtParameter = this.loanDataService.getNext();
         this.selectTab(this.nxtParameter.index, this.nxtParameter.name);
 
@@ -197,7 +203,9 @@ export class LoanFormComponent implements OnInit {
     }
 
     save() {
-        this.selectChild(this.selectedTab, true);
+        if (this.selectChild(this.selectedTab, true)) {
+            return;
+        }
         this.loanDocument.loan = this.loan;
         console.log(this.loanDataService);
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
@@ -212,7 +220,6 @@ export class LoanFormComponent implements OnInit {
 
 
     selectChild(name, action) {
-
         if (name === 'Customer Info' && action) {
             this.basicInfo.onSubmit();
             this.loanDocument.customerInfo = this.basicInfo.basicInfo.value;
@@ -234,6 +241,15 @@ export class LoanFormComponent implements OnInit {
             this.kycInfo.onSubmit();
             const customerRelatives = this.kycInfo.kycInfo.value.otherRelatives as Array<CustomerRelative>;
             this.loanDocument.customerInfo.customerRelatives = customerRelatives;
+        }
+
+        if (name === 'Proposal' && action) {
+            if (this.proposalDetail.proposalForm.invalid) {
+                this.proposalDetail.submitted = true;
+                return true;
+            }
+            this.proposalDetail.onSubmit();
+            this.loanDocument.proposal = this.proposalDetail.proposalForm.value;
         }
     }
 
