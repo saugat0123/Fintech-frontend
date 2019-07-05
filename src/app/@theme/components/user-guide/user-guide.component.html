@@ -1,11 +1,11 @@
 <nb-card>
     <nb-card accent="info" status="danger">
-        <nb-card-header class="text-white">User Documentation</nb-card-header>
+        <nb-card-header class="text-white" style="background-color: #c35d58">User Documentation</nb-card-header>
         <nb-card-body>
             <nb-card>
                 <nb-card-body>
                     <nb-stepper orientation="horizontal">
-                        <nb-step [label]="labelOne">
+                        <nb-step [label]="labelOne" >
                             <ng-template #labelOne>First step</ng-template>
                             <h4>Step #1 : Create Branch</h4>
 
@@ -29,9 +29,8 @@
                                         Branch Page
                                     </nb-accordion-item-header>
                                     <nb-accordion-item-body class="d-flex justify-content-center">
-
-                                        <img src="../../../../assets/documentation/branch-add-btn.JPG" width="100%">
-                                        <img src="../../../../assets/documentation/branch-add.JPG">
+                                        <img src="../../../../assets/documentation/branch-add-btn.JPG" class="col-md-12">
+                                        <img src="../../../../assets/documentation/branch-add.JPG" class="col-md-12">
                                     </nb-accordion-item-body>
                                 </nb-accordion-item>
                             </nb-accordion>
@@ -48,27 +47,28 @@
                         </nb-step>
                         <nb-step [label]="labelTwo">
                             <ng-template #labelTwo>Second step</ng-template>
-                            <h4>Step #2 : Create Role</h4>
+                            <h4>Step #2 : Create Role and assign permissions to roles</h4>
                             <nb-accordion>
                                 <nb-accordion-item>
-                                    <nb-accordion-item-header><i class="fa fa-angle-right"></i>Click on Role And
+                                    <nb-accordion-item-header>Click on Role And
                                         Permission Menu
                                     </nb-accordion-item-header>
                                     <nb-accordion-item-body class="d-flex justify-content-center">
-
+                                        <img src="../../../../assets/documentation/role-and-permission-menu.JPG">
                                     </nb-accordion-item-body>
                                 </nb-accordion-item>
                             </nb-accordion>
-                            <nb-accordion style="margin-bottom: 20px;">
+                            <nb-accordion>
                                 <nb-accordion-item>
-                                    <nb-accordion-item-header><i icon="nb-search"></i>Click on .
-                                        <button>
+                                    <nb-accordion-item-header>Click on
+                                        <button class="mx-1">
                                             +
                                         </button>
-                                        . Role And Permission Page
+                                        Role And Permission Page
                                     </nb-accordion-item-header>
                                     <nb-accordion-item-body class="d-flex justify-content-center">
-
+                                        <img src="../../../../assets/documentation/role-add-btn.jpg" class="col-md-12">
+                                        <img src="../../../../assets/documentation/role-add.jpg" class="col-md-12">
                                     </nb-accordion-item-body>
                                 </nb-accordion-item>
                             </nb-accordion>
@@ -126,30 +126,112 @@
                         </nb-step>
                         <nb-step label="Third step">
                             <h4>Step #3 : Assign Role Hierarchy</h4>
+                            <nb-accordion>
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>
+                                        Click on Role Hierarchy Menu
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body class="d-flex justify-content-center">
+                                        <img src="../../../../assets/documentation/role-hierarchy-menu.jpg">
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+                            </nb-accordion>
+                            <nb-accordion class="mb-2">
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>
+                                        Double click and drag up/down to change the role hierarchy.
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body class="d-flex justify-content-center">
+                                        <img src="../../../../assets/documentation/role-hierarchy-change.jpg">
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+                            </nb-accordion>
+                            <b>Rule</b>
+                            <ol type="1">
+                                <li>Role hierarchy defines the authority level of the role.</li>
+                                <li>Newly added role will appear in the last in the hierarchy. So it is very important to set role hierarchy.</li>
+                            </ol>
+                            <nb-layout-column class="d-flex justify-content-end">
+                                <a routerLink="/home/admin/roleHierarchy"
+                                   target="_blank"><u>Go to Role Hierarchy
+                                    page</u></a>
+                            </nb-layout-column>
 
-                            <p class="lorem">
-
-                            </p>
                             <button nbButton nbStepperPrevious>prev</button>
                             <button nbButton nbStepperNext>next</button>
                         </nb-step>
                         <nb-step [label]="labelFour">
                             <ng-template #labelFour>Fourth step</ng-template>
                             <h4>Step content #4 :  Assign Role &amp; Permission</h4>
-
-                            <p class="lorem">
-
-                            </p>
+                            <nb-accordion>
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>Click on Role And
+                                        Permission Menu
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body class="d-flex justify-content-center">
+                                        <img src="../../../../assets/documentation/role-and-permission-menu.JPG">
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+                            </nb-accordion>
+                            <nb-accordion class="mb-2">
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>
+                                        click on <button class="mx-1">--Select Role--</button> and then a role you want to assign permissions.
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body class="d-flex justify-content-center">
+                                        <img src="../../../../assets/documentation/assign-permission.jpg">
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+                            </nb-accordion>
+                            <nb-layout-column class="d-flex justify-content-end">
+                                <a routerLink="/home/admin/role"
+                                   target="_blank"><u>Go to Role and Permission
+                                    page</u></a>
+                            </nb-layout-column>
                             <button nbButton nbStepperPrevious>prev</button>
                             <button nbButton nbStepperNext>next</button>
                         </nb-step>
                         <nb-step [label]="labelFive">
                             <ng-template #labelFive>Fifth step</ng-template>
                             <h4>Step #5 : Create User</h4>
-
-                            <p class="lorem">
-
-                            </p>
+                            <nb-accordion>
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>
+                                        Click on Users Menu
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body class="d-flex justify-content-center">
+                                        <img src="../../../../assets/documentation/user-menu.jpg">
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+                            </nb-accordion>
+                            <nb-accordion class="mb-2">
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>
+                                        Click on <button class="mx-1">+</button> to add user
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body class="d-flex justify-content-center">
+                                        <img src="../../../../assets/documentation/user-add.jpg" class="col-md-12">
+                                        <img src="../../../../assets/documentation/user-add-form.jpg" class="col-md-12">
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+                            </nb-accordion>
+                            <b>Rules:</b>
+                            <ol type="1">
+                                <li>A role can be assigned to only one user on a branch.
+                                    For example if role type of manager is already assigned on branch "abc" to a user,
+                                    it can not be assigned to new user on same branch.
+                                </li>
+                                <li>A role of type specific can be assigned to multiple branches.For example "Regional manager"</li>
+                                <li>A role of type All is assigned to all branches so select branches option is not needed. For example "CEO".</li>
+                                <li>A role of type own can be assigned to a single branch. For example "Branch Manager"</li>
+                                <li>user can be dismissed by clicking on <i class="fa fa-ban mx-1" style="color: red;"></i>.</li>
+                                <li>By dismissing a user a branch and role is also dismissed.</li>
+                            </ol>
+                            <nb-layout-column class="d-flex justify-content-end">
+                                <a routerLink="/home/admin/user"
+                                   target="_blank"><u>Go to Create User
+                                    page</u></a>
+                            </nb-layout-column>
                             <button nbButton nbStepperPrevious>prev</button>
                             <button nbButton disabled nbStepperNext>next</button>
                         </nb-step>

@@ -184,11 +184,13 @@ export class UIComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-        this.selectedOfferLetterIdList.forEach(offerLetterId => {
-            const offerLetter = new OfferLetter();
-            offerLetter.id = Number(offerLetterId);
-            this.selectedOfferLetterList.push(offerLetter);
-        });
+        if (this.selectedOfferLetterIdList !== undefined) {
+            this.selectedOfferLetterIdList.forEach(offerLetterId => {
+                const offerLetter = new OfferLetter();
+                offerLetter.id = Number(offerLetterId);
+                this.selectedOfferLetterList.push(offerLetter);
+            });
+        }
         this.loanConfig.templateList = this.confirmLoanTemplateList;
         this.loanConfig.initial = this.finalInitialDocument;
         this.loanConfig.renew = this.finalRenewalDocument;
