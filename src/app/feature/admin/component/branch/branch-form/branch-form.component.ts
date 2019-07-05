@@ -110,6 +110,7 @@ export class BranchFormComponent implements OnInit, DoCheck {
     }
 
     onSubmit() {
+        if (this.model.wardNumber <= 0) { return; }
         this.submitted = true;
         this.service.save(this.model).subscribe(() => {
 
