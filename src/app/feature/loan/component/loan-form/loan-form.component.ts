@@ -19,6 +19,7 @@ import {LoanConfigService} from '../../../admin/component/loan-config/loan-confi
 import {DateService} from '../../../../@core/service/baseservice/date.service';
 import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.component';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
+import {EntityInfo} from '../../../admin/modal/entity-info';
 
 @Component({
     selector: 'app-loan-form',
@@ -66,6 +67,7 @@ export class LoanFormComponent implements OnInit {
     currentNepDate;
     submitDisable = false;
     loanDocument: LoanDataHolder;
+    companyInfo: EntityInfo;
 
     @ViewChild('basicInfo')
     basicInfo: BasicInfoComponent;
@@ -75,6 +77,7 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('entityInfo')
     entityInfo: CompanyInfoComponent;
+
     @ViewChild('kycInfo')
     kycInfo: KycInfoComponent;
 
@@ -109,14 +112,17 @@ export class LoanFormComponent implements OnInit {
                     this.loanFormService.detail(this.customerId).subscribe(
                         (response: any) => {
                             this.loanFile = response.detail.dmsLoanFile;
+                            this.companyInfo = response.detail.entityInfo;
                             this.loanDocument = response.detail;
                             this.loanDocument.id = response.detail.id;
                             this.submitDisable = false;
+                            console.log('on edit', this.loanDocument);
                         }
                     );
                 } else {
                     this.loanDocument = new LoanDataHolder();
                     this.loanFile = new DmsLoanFile();
+                    this.companyInfo = new EntityInfo();
                 }
             });
 
@@ -228,7 +234,8 @@ export class LoanFormComponent implements OnInit {
 
         if (name === 'Company Info' && action) {
             this.entityInfo.onSubmit();
-            this.loanDocument.entityInfo = this.entityInfo.companyInfo.value;
+            console.log('customer loan', this.entityInfo.entityInfo);
+            this.loanDocument.entityInfo = this.entityInfo.entityInfo;
         }
         if (name === 'Kyc Info' && action) {
             this.kycInfo.onSubmit();

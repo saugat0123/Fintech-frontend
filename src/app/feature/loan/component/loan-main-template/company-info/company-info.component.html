@@ -244,9 +244,10 @@
                                     <label for="province"><b>Province</b></label>
                                     <select name="province" formControlName="province" id="province"
                                             class="custom-select"
-                                            (change)="getDistricts(proprietor.get('province').value)">
+                                            (change)="getDistricts(proprietor.get('province').value, proprietorIndex)">
                                         <option [ngValue]="null" hidden>Province</option>
-                                        <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal">
+                                        <option *ngFor="let provinceVal of provinceList"
+                                                [ngValue]="provinceVal.id">
                                             {{provinceVal.name}}
                                         </option>
                                     </select>
@@ -257,9 +258,10 @@
                                     <label for="district"><b>District</b></label>
                                     <select name="district" formControlName="district" id="district"
                                             class="custom-select"
-                                            (change)="getMunicipalities(proprietor.get('district').value)">
+                                            (change)="getMunicipalities(proprietor.get('district').value, proprietorIndex)">
                                         <option [ngValue]="null" hidden>District</option>
-                                        <option *ngFor="let districtVal of districtList" [ngValue]="districtVal">
+                                        <option *ngFor="let districtVal of addressList[proprietorIndex].districtList"
+                                                [ngValue]="districtVal.id">
                                             {{districtVal.name}}
                                         </option>
                                     </select>
@@ -268,10 +270,11 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="municipality"><b>Municipalities or VDC</b></label>
-                                    <select name="municipality" id="municipality" formControlName="municipalityOrVdc"
+                                    <select name="municipality" id="municipality" formControlName="municipalityVdc"
                                             class="custom-select">
                                         <option [ngValue]="null" hidden>Municipality</option>
-                                        <option *ngFor="let municipalityVal of municipalitiesList" [ngValue]="municipalityVal">
+                                        <option *ngFor="let municipalityVal of addressList[proprietorIndex].municipalityVdcList"
+                                                [ngValue]="municipalityVal.id">
                                             {{municipalityVal.name}}
                                         </option>
                                     </select>

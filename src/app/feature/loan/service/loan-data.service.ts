@@ -90,6 +90,7 @@ export class LoanDataService {
     }
 
     getEntityInfo() {
+        console.log(this.entityInfo);
         return this.entityInfo;
     }
 
@@ -126,7 +127,6 @@ export class LoanDataService {
     }
 
     getDmsLoanFile() {
-        console.log(this.dmsLoanFile);
         return this.dmsLoanFile;
     }
 
