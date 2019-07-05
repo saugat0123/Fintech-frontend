@@ -1,4 +1,7 @@
-<nb-card>
+<nb-card [nbSpinner]="loading"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="large"
+         nbSpinnerMessage="Testing email configuration...">
     <nb-alert *ngIf="notice">Configuration has been Setup already . </nb-alert>
     <nb-card-header class="text-white" style="background-color: #c35d58"><h4 class="text-white">Email Configuration</h4>
     </nb-card-header>
@@ -37,7 +40,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" for="port"><b>Port:</b></label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" formControlName="port" id="port"
+                    <input type="number" class="form-control" formControlName="port" id="port"
                            placeholder="Enter Port eg 457" required>
                 </div>
             </div>
@@ -45,7 +48,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" for="port"><b>Check Mail Config:</b></label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" formControlName="testMail" id="testEmail"
+                    <input type="email" class="form-control" formControlName="testMail" id="testEmail"
                            placeholder="Enter your email eg abc@gmail.com" required>
                     <div class="text-danger" style="font-size: 12px">test your email configuration</div>
                 </div>
