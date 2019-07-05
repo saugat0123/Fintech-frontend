@@ -109,15 +109,16 @@
                     <div class="col-md-6">
                         <label for="ward_number">Ward</label>
                         <input nbInput fieldSize="medium" type="number" class="form-control"
+                               pattern="[1-9]+"
                                [(ngModel)]="model.wardNumber" name="ward"
                                id="ward_number"
                                placeholder="Ward" required
                                #wardVal="ngModel"
                                [ngClass]="{ 'is-invalid': branchForm.submitted && wardVal.invalid }"/>
-                        <div *ngIf="branchForm.submitted && wardVal.invalid" class="invalid-feedback">
+                        <div *ngIf="branchForm.submitted && wardVal.errors.required" class="invalid-feedback">
                             Ward is required
                         </div>
-                        <span *ngIf="model.wardNumber <= 0 && model.wardNumber != null" class="small text-danger">Invalid Ward number</span>
+                        <span *ngIf="wardVal.invalid && model.wardNumber != '' && model.wardNumber !=null" class="invalid-feedback">Invalid Ward number</span>
                     </div>
                 </div>
                 <div class="modal-footer">
