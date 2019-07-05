@@ -1,11 +1,11 @@
 export class EmailConfig {
-    domain: string;
-    emailType: string;
-    host: string;
     id: number;
+    username: string;
     password: string;
+    host: string;
+    domain: string;
     port: string;
     testMail: string;
-    username: string;
+    emailType: string;
     version: number;
 }

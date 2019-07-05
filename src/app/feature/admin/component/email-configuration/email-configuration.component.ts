@@ -44,7 +44,7 @@ export class EmailConfigurationComponent implements OnInit {
             domain: [this.emailConfigData.domain === undefined ? '' : this.emailConfigData.domain, Validators.required],
             host: [this.emailConfigData.host === undefined ? '' : this.emailConfigData.host, Validators.required],
             port: [this.emailConfigData.port === undefined ? '' : this.emailConfigData.port, Validators.required],
-            testMail: [this.emailConfigData.testMail === undefined ? '' : this.emailConfigData.testMail, Validators.required],
+            testMail: [this.emailConfigData.testMail === undefined ? '' : this.emailConfigData.testMail, Validators.email],
             emailType: ['test']
         });
     }
