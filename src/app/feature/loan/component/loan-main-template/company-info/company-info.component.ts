@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EntityInfo} from '../../../../admin/modal/entity-info';
@@ -299,9 +299,6 @@ export class CompanyInfoComponent implements OnInit {
         }
         this.loanDataService.setEntityInfo(this.entityInfo);
         console.log(this.entityInfo);
-        // this.commonService.saveOrEdit(this.entityInfo, 'v1/companyInfo').subscribe((response: any) => {
-        //     console.log('result', response.detail);
-        // });
 
     }
 
