@@ -554,6 +554,9 @@
                         </tr>
                         </tbody>
                     </table>
+                    <h4>Justification</h4>
+                    <textarea nbInput fullWidth placeholder="Jusification..."></textarea>
+                    <br>
 
                     <h3>Balance Sheet</h3>
                     <table class="table table-bordered">
@@ -955,6 +958,9 @@
                         </tr>
                         </tbody>
                     </table>
+                    <h4>Justification</h4>
+                    <textarea nbInput fullWidth placeholder="Jusification..."></textarea>
+                    <br>
 
                     <h3>Cash Flow Statement</h3>
                     <table class="table table-bordered">
@@ -990,7 +996,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">a</th>
-                            <td><b>Net Profit for the Period</b></td>
+                            <td>Net Profit for the Period</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('netProfitForThePeriod')['controls']; let j = index"
                                 formArrayName="netProfitForThePeriod" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1009,7 +1015,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">b</th>
-                            <td><b>Depreciation</b></td>
+                            <td>Depreciation</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('depreciation')['controls']; let j = index"
                                 formArrayName="depreciation" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1022,7 +1028,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">c</th>
-                            <td><b>Other Amortization and Non Cash Expenses</b></td>
+                            <td>Other Amortization and Non Cash Expenses</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('otherAmortizationAndNonCashExpenses')['controls']; let j = index"
                                 formArrayName="otherAmortizationAndNonCashExpenses" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1041,7 +1047,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">d</th>
-                            <td><b>(Increase)/Decrease in Inventory</b></td>
+                            <td>(Increase)/Decrease in Inventory</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('increaseDecreaseInInventory')['controls']; let j = index"
                                 formArrayName="increaseDecreaseInInventory" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1054,7 +1060,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">e</th>
-                            <td><b>(Increase)/Decrease in Accounts Receivable</b></td>
+                            <td>(Increase)/Decrease in Accounts Receivable</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('increaseDecreaseInAccountsReceivable')['controls']; let j = index"
                                 formArrayName="increaseDecreaseInAccountsReceivable" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1067,7 +1073,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">f</th>
-                            <td><b>(Increase)/Decrease in Short Term Investment</b></td>
+                            <td>(Increase)/Decrease in Short Term Investment</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('increaseDecreaseInShortTermInvestment')['controls']; let j = index"
                                 formArrayName="increaseDecreaseInShortTermInvestment" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1080,7 +1086,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">g</th>
-                            <td><b>(Increase)/Decrease in Advance and Deposit</b></td>
+                            <td>(Increase)/Decrease in Advance and Deposit</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('increaseDecreaseInAdvanceAndDeposit')['controls']; let j = index"
                                 formArrayName="increaseDecreaseInAdvanceAndDeposit" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1093,7 +1099,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">h</th>
-                            <td><b>	(Increase)/Decrease in Other Current Assets</b></td>
+                            <td>(Increase)/Decrease in Other Current Assets</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('increaseDecreaseInOtherCurrentAssets')['controls']; let j = index"
                                 formArrayName="increaseDecreaseInOtherCurrentAssets" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1132,7 +1138,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">k</th>
-                            <td><b>Adjustment For Non Operating Income</b></td>
+                            <td>Adjustment For Non Operating Income</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('adjustmentForNonOperatingIncome')['controls']; let j = index"
                                 formArrayName="adjustmentForNonOperatingIncome" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1377,6 +1383,9 @@
                         </tbody>
 
                     </table>
+                    <h4>Justification</h4>
+                    <textarea nbInput fullWidth placeholder="Jusification..."></textarea>
+                    <br>
 
                     <h3>Key Indicators</h3>
                     <table class="table table-bordered">
@@ -1412,7 +1421,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">a</th>
-                            <td><b>	Sales</b></td>
+                            <td>Sales</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('sales')['controls']; let j = index"
                                 formArrayName="sales" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1425,7 +1434,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">b</th>
-                            <td><b>Gross Profit</b></td>
+                            <td>Gross Profit</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('grossProfitKI')['controls']; let j = index"
                                 formArrayName="grossProfitKI" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1438,7 +1447,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">c</th>
-                            <td><b>Operating Profit(EBIT)</b></td>
+                            <td>Operating Profit(EBIT)</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('operatingProfitKI')['controls']; let j = index"
                                 formArrayName="operatingProfitKI" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1451,7 +1460,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">d</th>
-                            <td><b>PAT</b></td>
+                            <td>PAT</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('pAT')['controls']; let j = index"
                                 formArrayName="pAT" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1477,7 +1486,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">a</th>
-                            <td><b>Gross Profit Margin</b></td>
+                            <td>Gross Profit Margin</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('grossProfitMargin')['controls']; let j = index"
                                 formArrayName="grossProfitMargin" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1490,7 +1499,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">b</th>
-                            <td><b>	Net Profit Margin</b></td>
+                            <td>Net Profit Margin</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('netProfitMargin')['controls']; let j = index"
                                 formArrayName="netProfitMargin" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1503,7 +1512,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">c</th>
-                            <td><b>EBIT to Sales</b></td>
+                            <td>EBIT to Sales</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('eBITtoSales')['controls']; let j = index"
                                 formArrayName="eBITtoSales" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1516,7 +1525,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">d</th>
-                            <td><b>Return On Equity</b></td>
+                            <td>Return On Equity</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('returnOnEquity')['controls']; let j = index"
                                 formArrayName="returnOnEquity" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1542,7 +1551,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">a</th>
-                            <td><b>Quick Ratio (times)</b></td>
+                            <td>Quick Ratio (times)</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('quickRatio')['controls']; let j = index"
                                 formArrayName="quickRatio" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1555,7 +1564,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">b</th>
-                            <td><b>Current Ratio (times)</b></td>
+                            <td>Current Ratio (times)</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('currentRatio')['controls']; let j = index"
                                 formArrayName="currentRatio" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1568,7 +1577,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">c</th>
-                            <td><b>Debt Service Coverage Ratio (times)</b></td>
+                            <td>Debt Service Coverage Ratio (times)</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('debtServiceCoverageRatio')['controls']; let j = index"
                                 formArrayName="debtServiceCoverageRatio" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1581,7 +1590,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">d</th>
-                            <td><b>Interest Coverage Ratio (times)</b></td>
+                            <td>Interest Coverage Ratio (times)</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('interestCoverageRatio')['controls']; let j = index"
                                 formArrayName="interestCoverageRatio" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1594,7 +1603,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">e</th>
-                            <td><b>Debt-Equity Ratio (Overall)</b></td>
+                            <td>Debt-Equity Ratio (Overall)</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('debtEquityRatioOverall')['controls']; let j = index"
                                 formArrayName="debtEquityRatioOverall" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1607,7 +1616,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">f</th>
-                            <td><b>Debt-Equity Ratio - Long Term (times)</b></td>
+                            <td>Debt-Equity Ratio - Long Term (times)</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('debtEquityRatioLongTerm')['controls']; let j = index"
                                 formArrayName="debtEquityRatioLongTerm" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1620,7 +1629,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">g</th>
-                            <td><b>Debt-Equity Ratio - Working Capital (times)</b></td>
+                            <td>Debt-Equity Ratio - Working Capital (times)</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('debtEquityRatioWorkingCapital')['controls']; let j = index"
                                 formArrayName="debtEquityRatioWorkingCapital" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1633,7 +1642,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">h</th>
-                            <td><b>Debt-Equity Ratio - General</b></td>
+                            <td>Debt-Equity Ratio - General</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('debtEquityRatioGeneral')['controls']; let j = index"
                                 formArrayName="debtEquityRatioGeneral" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1659,7 +1668,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">a</th>
-                            <td><b>Inventory Turnover Ratio (times)</b></td>
+                            <td>Inventory Turnover Ratio (times)</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('inventoryTurnoverRatio')['controls']; let j = index"
                                 formArrayName="inventoryTurnoverRatio" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1672,7 +1681,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">b</th>
-                            <td><b>Stock in Hand - Days</b></td>
+                            <td>Stock in Hand - Days</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('stockInHandDays')['controls']; let j = index"
                                 formArrayName="stockInHandDays" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1685,7 +1694,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">c</th>
-                            <td><b>Debtor Turnover Ratio (times)</b></td>
+                            <td>Debtor Turnover Ratio (times)</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('debtorTurnOverRatio')['controls']; let j = index"
                                 formArrayName="debtorTurnOverRatio" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1698,7 +1707,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">d</th>
-                            <td><b>Average Collection Period - Days</b></td>
+                            <td>Average Collection Period - Days</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('averageCollectionPeriod')['controls']; let j = index"
                                 formArrayName="averageCollectionPeriod" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1711,7 +1720,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">e</th>
-                            <td><b>Average Payment Period - Days</b></td>
+                            <td>Average Payment Period - Days</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('averagePaymentPeriod')['controls']; let j = index"
                                 formArrayName="averagePaymentPeriod" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1724,7 +1733,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">f</th>
-                            <td><b>Net Operating Cycle - Days</b></td>
+                            <td>Net Operating Cycle - Days</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('netOperatingCycle')['controls']; let j = index"
                                 formArrayName="netOperatingCycle" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1737,7 +1746,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">g</th>
-                            <td><b>	Net WC before Bank(Rs. in 000)</b></td>
+                            <td>Net WC before Bank(Rs. in 000)</td>
                             <td *ngFor="let amount of additionalFinancialForm.get('netWCBeforeBank')['controls']; let j = index"
                                 formArrayName="netWCBeforeBank" scope="col">
                                 <div [formGroupName]="j" class="text-center">
@@ -1747,6 +1756,11 @@
                         </tr>
                         </tbody>
                     </table>
+                    <h4>Justification</h4>
+                    <textarea nbInput fullWidth placeholder="Jusification..."></textarea>
+                    <br>
+
+
                     <button (click)="onSubmit()">submit</button>
                 </form>
             </nb-card-body>
