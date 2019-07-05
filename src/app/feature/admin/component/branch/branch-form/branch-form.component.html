@@ -108,7 +108,7 @@
                 <div class="row form-group">
                     <div class="col-md-6">
                         <label for="ward_number">Ward</label>
-                        <input nbInput fieldSize="medium" type="text" class="form-control"
+                        <input nbInput fieldSize="medium" type="number" class="form-control"
                                [(ngModel)]="model.wardNumber" name="ward"
                                id="ward_number"
                                placeholder="Ward" required
@@ -117,6 +117,7 @@
                         <div *ngIf="branchForm.submitted && wardVal.invalid" class="invalid-feedback">
                             Ward is required
                         </div>
+                        <span *ngIf="model.wardNumber <= 0 && model.wardNumber != null" class="small text-danger">Invalid Ward number</span>
                     </div>
                 </div>
                 <div class="modal-footer">
