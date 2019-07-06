@@ -19,7 +19,7 @@ import {AppConstant} from '../../../../@core/utils/appConstant';
 @Component({
     selector: 'app-loan-summary',
     templateUrl: './loan-summary.component.html',
-    styleUrls: ['./loan-summary.component.css']
+    styleUrls: ['./loan-summary.component.scss']
 })
 export class LoanSummaryComponent implements OnInit {
     dmsLoanFile: DmsLoanFile = new DmsLoanFile();

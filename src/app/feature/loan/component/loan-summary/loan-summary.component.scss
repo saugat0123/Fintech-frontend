@@ -1,0 +1,48 @@
+@import '../../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  .print-only {
+    display: none;
+  }
+
+  @media print {
+    nb-card {
+      background: none;
+      border: none;
+      box-shadow: none;
+    }
+
+    div {
+      font-size: 10px;
+      color: black;
+      line-height: 1.5;
+
+      .mt-3 {
+        margin-top: 5px;
+      }
+
+      p {
+        font-size: 10px;
+        margin-bottom: 5px;
+      }
+    }
+
+    span.badge {
+      border: none;
+    }
+
+    .print-only {
+      display: block;
+    }
+
+    .table th, .table td {
+      padding: 0.5rem;
+    }
+
+    #print-block {
+      margin-top: -7rem;
+      margin-left: -2rem;
+      margin-right: -2rem;
+    }
+  }
+}

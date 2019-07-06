@@ -1,10 +1,10 @@
-<section>
+<section class="enable-print">
     <nb-card>
-        <nb-card-header>
+        <nb-card-header class="disable-print">
             <app-loan-action [loanConfigId]="loanConfigId" [id]="customerId" [actionsList]="actionsList"
                              *ngIf="showAction"></app-loan-action>
         </nb-card-header>
-        <nb-card-body id="print-summary">
+        <nb-card-body id="print-block">
             <div class="row ">
                 <div class="col-md-3">
                     Priority: <span class="badge badge-danger"
@@ -45,8 +45,8 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <p style="font-size: 15px"><b>Details of Borrower</b></p>
-                    <table class="table table-condensed table-bordered border-3">
+                    <p><b>Details of Borrower</b></p>
+                    <table class="table table-condensed table-bordered border-3 disable-print">
                         <thead>
                         <tr>
                             <th>Name</th>
@@ -63,11 +63,20 @@
                         </tr>
                         </tbody>
                     </table>
+                    <table class="print-only table table-condensed table-bordered border-3">
+                        <thead>
+                        <th>Name: {{dmsLoanFile?.customerName || loanDataHolder?.customerInfo?.customerName}}</th>
+                        <th>Citizenship
+                            Number: {{dmsLoanFile?.citizenshipNumber || loanDataHolder?.customerInfo?.citizenshipNumber}}
+                        </th>
+                        <th>Contact Number: {{dmsLoanFile?.contactNumber || loanDataHolder?.customerInfo?.mobile}}</th>
+                        </thead>
+                    </table>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <p style="font-size: 15px"><b>Detail of Present Proposal of the Facility</b></p>
+                    <p><b>Detail of Present Proposal of the Facility</b></p>
                     <table class="table table-condensed table-bordered">
                         <thead>
                         <tr>
@@ -85,8 +94,8 @@
                             <td>{{loanDataHolder?.loan?.name}}</td>
                             <td>{{dmsLoanFile?.proposedAmount}}</td>
                             <td>{{dmsLoanFile?.interestRate}}</td>
-                            <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}} 
-                                {{dmsLoanFile?.serviceChargeAmount}} 
+                            <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
+                                {{dmsLoanFile?.serviceChargeAmount}}
                                 {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}</td>
                             <td>{{dmsLoanFile?.tenureDuration}}</td>
                         </tr>
@@ -97,7 +106,7 @@
             <div class="form-group"><b>Propose Amount:</b> Rs. {{dmsLoanFile?.proposedAmountWord}} Only /-</div>
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <p style="font-size: 15px"><b>Security Offered</b></p>
+                    <p><b>Security Offered</b></p>
                     <table class="table table-condensed table-bordered">
                         <thead>
                         <tr>
@@ -140,7 +149,7 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <p style="font-size: 15px"><b>Recommendation and Conclusion</b></p>
+                    <p><b>Recommendation and Conclusion</b></p>
                     <table class="table table-condensed table-bordered">
                         <tbody>
                         <tr>
@@ -153,7 +162,7 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <p style="font-size: 15px"><b>Waiver</b></p>
+                    <p><b>Waiver</b></p>
                     <table class="table table-condensed table-bordered">
                         <tbody>
                         <tr>
@@ -166,7 +175,7 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <p style="font-size: 15px"><b>Authority Section</b></p>
+                    <p><b>Authority Section</b></p>
                     <table class="table table-condensed table-bordered">
                         <thead>
                         <tr>
@@ -190,7 +199,7 @@
                             <td>{{previousList?.docAction}}</td>
                         </tr>
                         <tr>
-                            <td>{{currentIndex+1}}</td>
+                            <td>{{currentIndex + 1}}</td>
                             <td>{{loanDataHolder?.currentStage?.comment}}</td>
                             <td>{{loanDataHolder?.currentStage?.fromUser?.name}}</td>
                             <td>{{loanDataHolder?.currentStage?.fromRole?.roleName}}</td>
@@ -204,7 +213,7 @@
             </div>
             <div class="row" *ngIf="documentNames.length>0">
                 <div class="col-md-12">
-                    <p style="font-size: 15px"><b>Required Documents</b></p>
+                    <p><b>Required Documents</b></p>
                     <table class="table table-condensed table-bordered">
                         <thead>
                         <tr>
@@ -227,7 +236,7 @@
             </div>
             <div class="row">
                 <div *ngFor="let previous of signatureList;" class="col-md-6" style="padding-top: 50px">
-                    <div class="row d-flex justify-content-center signature mx-auto" style ="height:70px; width:180px">
+                    <div class="row d-flex justify-content-center signature mx-auto" style="height:70px; width:180px">
                         <img height="100%"
                              src="{{previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage}}"/>
                     </div>
