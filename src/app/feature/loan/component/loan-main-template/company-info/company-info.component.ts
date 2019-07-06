@@ -18,6 +18,7 @@ import {AddressService} from '../../../../../@core/service/baseservice/address.s
 import {Address} from '../../../model/address';
 import {LoanDataHolder} from '../../../model/loanData';
 import {LoanFormService} from '../../loan-form/service/loan-form.service';
+import {DateValidator} from '../../../../../@core/validator/date-validator';
 
 
 @Component({
@@ -44,6 +45,7 @@ export class CompanyInfoComponent implements OnInit {
     addressList: Array<Address> = new Array<Address>();
     customerId;
     loanDocument: LoanDataHolder;
+    submitted = false;
 
     constructor(
         private commonService: CommonService,
@@ -64,10 +66,10 @@ export class CompanyInfoComponent implements OnInit {
             registeredOffice: [undefined, Validators.required],
             registeredUnderAct: [undefined, Validators.required],
             registrationNo: [undefined, Validators.required],
-            registrationDate: [undefined, Validators.required],
+            registrationDate: [undefined, [Validators.required, DateValidator.isValid]],
             panRegistrationOffice: [undefined, Validators.required],
             panNumber: [undefined, Validators.required],
-            panRegistrationDate: [undefined, Validators.required],
+            panRegistrationDate: [undefined, [Validators.required, DateValidator.isValid]],
             authorizedCapital: [undefined, Validators.required],
             paidUpCapital: [undefined, Validators.required],
             issuedCapital: [undefined, Validators.required],
@@ -84,7 +86,7 @@ export class CompanyInfoComponent implements OnInit {
             strength: [undefined, Validators.required],
             weakness: [undefined, Validators.required],
             opportunity: [undefined, Validators.required],
-            threats: [undefined, Validators.required],
+            threats: [undefined, Validators.required]
         });
 
         this.commonLocation.getProvince().subscribe(
@@ -109,6 +111,10 @@ export class CompanyInfoComponent implements OnInit {
         );
     }
 
+    get form() {
+        return this.companyInfo.controls;
+    }
+
     setCompanyInfo(entityInfo: EntityInfo) {
         this.companyInfo = this.formBuilder.group({
             companyName: [entityInfo.legalStatus.companyName === undefined ? '' :
@@ -122,13 +128,13 @@ export class CompanyInfoComponent implements OnInit {
             registrationNo: [entityInfo.legalStatus.registrationNo === undefined ? '' :
                 entityInfo.legalStatus.registrationNo, Validators.required],
             registrationDate: [entityInfo.legalStatus.registrationDate === undefined ? '' :
-                entityInfo.legalStatus.registrationDate, Validators.required],
+                entityInfo.legalStatus.registrationDate, [Validators.required, DateValidator.isValid]],
             panRegistrationOffice: [entityInfo.legalStatus.panRegistrationOffice === undefined ? '' :
                 entityInfo.legalStatus.panRegistrationOffice, Validators.required],
             panNumber: [entityInfo.legalStatus.panNumber === undefined ? '' :
                 entityInfo.legalStatus.panNumber, Validators.required],
             panRegistrationDate: [entityInfo.legalStatus.panRegistrationDate === undefined ? '' :
-                entityInfo.legalStatus.panRegistrationDate, Validators.required],
+                entityInfo.legalStatus.panRegistrationDate, [Validators.required, DateValidator.isValid]],
             authorizedCapital: [entityInfo.capital.authorizedCapital === undefined ? '' :
                 entityInfo.capital.authorizedCapital, Validators.required],
             paidUpCapital: [entityInfo.capital.paidUpCapital === undefined ? '' :
@@ -162,8 +168,8 @@ export class CompanyInfoComponent implements OnInit {
         const managementTeamFormArray = new FormArray([]);
         managementTeamList.forEach(managementTeam => {
             managementTeamFormArray.push(this.formBuilder.group({
-                name: managementTeam.name,
-                designation: managementTeam.designation
+                name: [managementTeam.name === undefined ? '' : managementTeam.name, Validators.required],
+                designation: [managementTeam.designation === undefined ? '' : managementTeam.designation, Validators.required],
             }));
         });
         return managementTeamFormArray;
@@ -171,8 +177,8 @@ export class CompanyInfoComponent implements OnInit {
 
     managementTeamFormGroup(): FormGroup {
         return this.formBuilder.group({
-            name: [undefined],
-            designation: [undefined]
+            name: [undefined, Validators.required],
+            designation: [undefined, Validators.required]
         });
     }
 
@@ -187,12 +193,12 @@ export class CompanyInfoComponent implements OnInit {
     proprietorsFormGroup(): FormGroup {
         this.addressList.push(new Address());
         return this.formBuilder.group({
-            name: [undefined],
-            contactNo: [undefined],
-            share: [undefined],
-            province: [null],
-            district: [null],
-            municipalityVdc: [null]
+            name: [undefined, Validators.required],
+            contactNo: [undefined, Validators.required],
+            share: [undefined, Validators.required],
+            province: [null, Validators.required],
+            district: [null, Validators.required],
+            municipalityVdc: [null, Validators.required]
         });
     }
 
@@ -206,12 +212,14 @@ export class CompanyInfoComponent implements OnInit {
             this.getMunicipalities(proprietors.district.id, proprietorIndex);
             proprietorIndex++;
             managementTeamFormArray.push(this.formBuilder.group({
-                name: proprietors.name,
-                contactNo: proprietors.contactNo,
-                province: proprietors.province.id,
-                district: proprietors.district.id,
-                municipalityVdc: proprietors.municipalityVdc.id,
-                share: proprietors.share
+                name: [proprietors.name === undefined ? '' : proprietors.name, Validators.required],
+                contactNo: [proprietors.contactNo === undefined ? '' : proprietors.contactNo, Validators.required],
+                share: [proprietors.share === undefined ? '' : proprietors.share, Validators.required],
+                province: [proprietors.province.id === undefined ? '' : proprietors.province.id, Validators.required],
+                district: [proprietors.district.id === undefined ? '' : proprietors.district.id,
+                    Validators.required],
+                municipalityVdc: [proprietors.municipalityVdc.id === undefined ? '' : proprietors.municipalityVdc.id,
+                    Validators.required]
             }));
         });
         return managementTeamFormArray;
@@ -299,7 +307,6 @@ export class CompanyInfoComponent implements OnInit {
         }
         this.loanDataService.setEntityInfo(this.entityInfo);
         console.log(this.entityInfo);
-
     }
 
 }

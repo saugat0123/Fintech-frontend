@@ -191,10 +191,12 @@ export class LoanFormComponent implements OnInit {
     }
 
     nextTab() {
+        if (this.selectChild(this.selectedTab, true)) {
+            return;
+        }
         this.selectChild(this.selectedTab, true);
         this.nxtParameter = this.loanDataService.getNext();
         this.selectTab(this.nxtParameter.index, this.nxtParameter.name);
-
     }
 
     prevTab() {
@@ -203,6 +205,9 @@ export class LoanFormComponent implements OnInit {
     }
 
     save() {
+        if (this.selectChild(this.selectedTab, true)) {
+            return;
+        }
         this.selectChild(this.selectedTab, true);
         this.loanDocument.loan = this.loan;
         console.log(this.loanDataService);
@@ -211,28 +216,36 @@ export class LoanFormComponent implements OnInit {
             this.customerLoanId = this.loanDocument.id;
             this.loanDocument = new LoanDataHolder();
             this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}});
-
         });
-
     }
 
 
     selectChild(name, action) {
 
         if (name === 'Customer Info' && action) {
+            if (this.basicInfo.basicInfo.invalid) {
+                this.basicInfo.submitted = true;
+                return true;
+            }
             this.basicInfo.onSubmit();
             this.loanDocument.customerInfo = this.basicInfo.basicInfo.value;
         }
 
         if (name === 'General' && action) {
+            if (this.dmsLoanFile.loanForm.invalid) {
+                this.dmsLoanFile.submitted = true;
+            }
             this.dmsLoanFile.onSubmit();
             this.loanDocument.dmsLoanFile = this.loanDataService.getDmsLoanFile();
-            console.log(this.loanDocument);
             this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
 
         }
 
         if (name === 'Company Info' && action) {
+            if (this.entityInfo.companyInfo.invalid) {
+                this.entityInfo.submitted = true;
+                return true;
+            }
             this.entityInfo.onSubmit();
             console.log('customer loan', this.entityInfo.entityInfo);
             this.loanDocument.entityInfo = this.entityInfo.entityInfo;

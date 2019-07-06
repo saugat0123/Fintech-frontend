@@ -32,6 +32,8 @@ export class BasicInfoComponent implements OnInit {
     district: District = new District();
     municipality: MunicipalityVdc = new MunicipalityVdc();
 
+    submitted = false;
+
 
     constructor(
         private commonService: CommonService,
@@ -85,6 +87,10 @@ export class BasicInfoComponent implements OnInit {
         });
     }
 
+    get basicInfoControls() {
+        return this.basicInfo.controls;
+    }
+
     getDistricts(province: Province) {
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
@@ -132,8 +138,6 @@ export class BasicInfoComponent implements OnInit {
         this.customer.citizenshipIssuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
         this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
         this.loanDataService.setCustomer(this.customer);
-
-        console.log('running state');
     }
 
 }

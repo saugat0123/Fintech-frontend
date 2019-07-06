@@ -147,9 +147,6 @@ export class DmsLoanFileComponent implements OnInit {
     }
 
     onSubmit() {
-        if (this.loanForm.invalid) {
-            this.submitted = true;
-        }
         this.loanFile.customerName = this.loanForm.get('customerName').value;
         this.loanFile.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
         this.loanFile.contactNumber = this.loanForm.get('contactNumber').value;
