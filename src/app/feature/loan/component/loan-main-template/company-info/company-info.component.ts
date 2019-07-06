@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EntityInfo} from '../../../../admin/modal/entity-info';
@@ -13,10 +13,8 @@ import {District} from '../../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {LoanDataService} from '../../../service/loan-data.service';
 import {ManagementTeam} from '../../../../admin/modal/management-team';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {Address} from '../../../model/address';
-import {LoanDataHolder} from '../../../model/loanData';
 import {LoanFormService} from '../../loan-form/service/loan-form.service';
 import {DateValidator} from '../../../../../@core/validator/date-validator';
 
@@ -28,6 +26,11 @@ import {DateValidator} from '../../../../../@core/validator/date-validator';
 })
 export class CompanyInfoComponent implements OnInit {
     @Input() formValue: EntityInfo;
+
+    companyInfo: FormGroup;
+    customerId;
+    submitted = false;
+
     entityInfo: EntityInfo = new EntityInfo();
     legalStatus: LegalStatus = new LegalStatus();
     capital: Capital = new Capital();
@@ -35,21 +38,12 @@ export class CompanyInfoComponent implements OnInit {
     managementTeamList: Array<ManagementTeam> = new Array<ManagementTeam>();
     proprietors: Proprietors = new Proprietors();
     proprietorsList: Array<Proprietors> = new Array<Proprietors>();
-    companyInfo: FormGroup;
     provinceList: Array<Province> = new Array<Province>();
     districtList: Array<District> = new Array<District>();
     municipalityVdcList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
-    province: Province = new Province();
-    district: District = new District();
-    municipality: MunicipalityVdc = new MunicipalityVdc();
     addressList: Array<Address> = new Array<Address>();
-    customerId;
-    loanDocument: LoanDataHolder;
-    submitted = false;
 
     constructor(
-        private commonService: CommonService,
-        private router: Router,
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
         private loanDataService: LoanDataService,
@@ -61,6 +55,7 @@ export class CompanyInfoComponent implements OnInit {
 
     ngOnInit() {
         this.companyInfo = this.formBuilder.group({
+            // legalStatus
             companyName: [undefined, Validators.required],
             corporateStructure: [undefined, Validators.required],
             registeredOffice: [undefined, Validators.required],
@@ -70,6 +65,7 @@ export class CompanyInfoComponent implements OnInit {
             panRegistrationOffice: [undefined, Validators.required],
             panNumber: [undefined, Validators.required],
             panRegistrationDate: [undefined, [Validators.required, DateValidator.isValid]],
+            // capital
             authorizedCapital: [undefined, Validators.required],
             paidUpCapital: [undefined, Validators.required],
             issuedCapital: [undefined, Validators.required],
@@ -77,12 +73,15 @@ export class CompanyInfoComponent implements OnInit {
             fixedCapital: [undefined, Validators.required],
             workingCapital: [undefined, Validators.required],
             numberOfShareholder: [undefined, Validators.required],
+            // managementTeams
             managementTeams: this.formBuilder.array([
                 this.managementTeamFormGroup()
             ]),
+            // proprietors
             proprietors: this.formBuilder.array([
                 this.proprietorsFormGroup()
             ]),
+            // swot
             strength: [undefined, Validators.required],
             weakness: [undefined, Validators.required],
             opportunity: [undefined, Validators.required],
@@ -95,28 +94,37 @@ export class CompanyInfoComponent implements OnInit {
                 this.provinceList = response.detail;
             }
         );
-        this.customerId = Number(this.activatedRoute.snapshot.queryParamMap.get('customerId'));
-        this.loanFormService.detail(this.customerId).subscribe(
-            (response: any) => {
-                this.commonLocation.getProvince().subscribe(
-                    (responseProvince: any) => {
-                        this.provinceList = responseProvince.detail;
+        // on edit
+        if (this.formValue !== undefined || this.formValue !== null) {
+            this.customerId = Number(this.activatedRoute.snapshot.queryParamMap.get('customerId'));
+            if (this.customerId !== undefined || this.customerId !== null || this.customerId !== 0) {
+                console.log('through api');
+                this.loanFormService.detail(this.customerId).subscribe(
+                    (response: any) => {
+                        this.commonLocation.getProvince().subscribe(
+                            (responseProvince: any) => {
+                                this.provinceList = responseProvince.detail;
+                            }
+                        );
+                        this.entityInfo = response.detail.entityInfo;
+                        this.setCompanyInfo(this.entityInfo);
                     }
                 );
-                this.loanDocument = response.detail;
-                this.loanDocument.id = response.detail.id;
-                this.entityInfo = response.detail.entityInfo;
-                this.setCompanyInfo(this.entityInfo);
             }
-        );
+        } else {
+            this.entityInfo = this.formValue;
+            this.setCompanyInfo(this.entityInfo);
+        }
     }
 
     get form() {
         return this.companyInfo.controls;
     }
 
+    // set data on edit
     setCompanyInfo(entityInfo: EntityInfo) {
         this.companyInfo = this.formBuilder.group({
+            // legalStatus
             companyName: [entityInfo.legalStatus.companyName === undefined ? '' :
                 entityInfo.legalStatus.companyName, Validators.required],
             corporateStructure: [entityInfo.legalStatus.corporateStructure === undefined ? '' :
@@ -135,6 +143,7 @@ export class CompanyInfoComponent implements OnInit {
                 entityInfo.legalStatus.panNumber, Validators.required],
             panRegistrationDate: [entityInfo.legalStatus.panRegistrationDate === undefined ? '' :
                 entityInfo.legalStatus.panRegistrationDate, [Validators.required, DateValidator.isValid]],
+            // capital
             authorizedCapital: [entityInfo.capital.authorizedCapital === undefined ? '' :
                 entityInfo.capital.authorizedCapital, Validators.required],
             paidUpCapital: [entityInfo.capital.paidUpCapital === undefined ? '' :
@@ -149,21 +158,34 @@ export class CompanyInfoComponent implements OnInit {
                 entityInfo.capital.workingCapital, Validators.required],
             numberOfShareholder: [entityInfo.capital.numberOfShareholder === undefined ? '' :
                 entityInfo.capital.numberOfShareholder, Validators.required],
+            // managementTeams
             managementTeams: this.formBuilder.array([
                 this.managementTeamFormGroup()
             ]),
+            // proprietors
             proprietors: this.formBuilder.array([
                 this.proprietorsFormGroup()
             ]),
+            // swot
             strength: [entityInfo.swot.strength === undefined ? '' : entityInfo.swot.strength, Validators.required],
             weakness: [entityInfo.swot.weakness === undefined ? '' : entityInfo.swot.weakness, Validators.required],
             opportunity: [entityInfo.swot.opportunity === undefined ? '' : entityInfo.swot.opportunity, Validators.required],
             threats: [entityInfo.swot.threats === undefined ? '' : entityInfo.swot.threats, Validators.required],
         });
+        // set managementTeams data
         this.companyInfo.setControl('managementTeams', this.setManagementTeams(entityInfo.managementTeamList));
+        // proprietors data
         this.companyInfo.setControl('proprietors', this.setProprietors(entityInfo.proprietorsList));
     }
 
+    managementTeamFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            name: [undefined, Validators.required],
+            designation: [undefined, Validators.required]
+        });
+    }
+
+    // set managementTeams data
     setManagementTeams(managementTeamList: ManagementTeam[]): FormArray {
         const managementTeamFormArray = new FormArray([]);
         managementTeamList.forEach(managementTeam => {
@@ -173,13 +195,6 @@ export class CompanyInfoComponent implements OnInit {
             }));
         });
         return managementTeamFormArray;
-    }
-
-    managementTeamFormGroup(): FormGroup {
-        return this.formBuilder.group({
-            name: [undefined, Validators.required],
-            designation: [undefined, Validators.required]
-        });
     }
 
     removeManagementTeam(index: number) {
@@ -225,6 +240,7 @@ export class CompanyInfoComponent implements OnInit {
         return managementTeamFormArray;
     }
 
+    // return proprietors formArray
     getProprietor() {
         return (this.companyInfo.value.proprietors as FormArray);
     }
@@ -239,6 +255,7 @@ export class CompanyInfoComponent implements OnInit {
         (<FormArray>this.companyInfo.get('proprietors')).push(this.proprietorsFormGroup());
     }
 
+    // get district list based on province
     getDistricts(provinceId: number, proprietorIndex: number) {
         const province = new Province();
         province.id = provinceId;
@@ -250,6 +267,7 @@ export class CompanyInfoComponent implements OnInit {
         );
     }
 
+    // get municipalityVdc list based on district
     getMunicipalities(districtId: number, proprietorIndex: number) {
         const district = new District();
         district.id = districtId;
@@ -262,6 +280,7 @@ export class CompanyInfoComponent implements OnInit {
     }
 
     onSubmit() {
+        // legalStatus
         this.legalStatus.companyName = this.companyInfo.get('companyName').value;
         this.legalStatus.corporateStructure = this.companyInfo.get('corporateStructure').value;
         this.legalStatus.registeredOffice = this.companyInfo.get('registeredOffice').value;
@@ -272,6 +291,7 @@ export class CompanyInfoComponent implements OnInit {
         this.legalStatus.panNumber = this.companyInfo.get('panNumber').value;
         this.legalStatus.panRegistrationDate = this.companyInfo.get('panRegistrationDate').value;
         this.entityInfo.legalStatus = this.legalStatus;
+        // capital
         this.capital.authorizedCapital = this.companyInfo.get('authorizedCapital').value;
         this.capital.paidUpCapital = this.companyInfo.get('paidUpCapital').value;
         this.capital.issuedCapital = this.companyInfo.get('issuedCapital').value;
@@ -280,12 +300,15 @@ export class CompanyInfoComponent implements OnInit {
         this.capital.workingCapital = this.companyInfo.get('workingCapital').value;
         this.capital.numberOfShareholder = this.companyInfo.get('numberOfShareholder').value;
         this.entityInfo.capital = this.capital;
-        this.entityInfo.managementTeamList = this.companyInfo.get('managementTeams').value;
+        // swot
         this.swot.strength = this.companyInfo.get('strength').value;
         this.swot.weakness = this.companyInfo.get('weakness').value;
         this.swot.opportunity = this.companyInfo.get('opportunity').value;
         this.swot.threats = this.companyInfo.get('threats').value;
         this.entityInfo.swot = this.swot;
+        // management team list
+        this.entityInfo.managementTeamList = this.companyInfo.get('managementTeams').value;
+        // proprietorsList
         this.entityInfo.proprietorsList = new Array<Proprietors>();
         let proprietorsIndex = 0;
         while (proprietorsIndex < this.getProprietor().length) {
@@ -306,7 +329,6 @@ export class CompanyInfoComponent implements OnInit {
             this.entityInfo.proprietorsList.push(proprietors);
         }
         this.loanDataService.setEntityInfo(this.entityInfo);
-        console.log(this.entityInfo);
     }
 
 }

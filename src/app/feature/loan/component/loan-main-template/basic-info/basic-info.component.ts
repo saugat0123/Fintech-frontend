@@ -1,14 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
-import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 import {Province} from '../../../../admin/modal/province';
 import {District} from '../../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {LoanDataService} from '../../../service/loan-data.service';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {Customer} from '../../../../admin/modal/customer';
 
@@ -21,24 +18,19 @@ import {Customer} from '../../../../admin/modal/customer';
 export class BasicInfoComponent implements OnInit {
     @Input() formValue: Customer;
 
-    customer: Customer = new Customer();
-    customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
     basicInfo: FormGroup;
-
-    provinceList: Province[] = [];
-    districtList: District[] = [];
-    municipalitiesList: MunicipalityVdc[] = [];
-    province: Province = new Province();
-    district: District = new District();
-    municipality: MunicipalityVdc = new MunicipalityVdc();
-
     submitted = false;
 
+    customer: Customer = new Customer();
+    customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
+    province: Province = new Province();
+    provinceList: Array<Province> = Array<Province>();
+    district: District = new District();
+    districtList: Array<District> = Array<District>();
+    municipality: MunicipalityVdc = new MunicipalityVdc();
+    municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
 
     constructor(
-        private commonService: CommonService,
-        private commonDataService: CommonDataService,
-        private router: Router,
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
         private loanDataService: LoanDataService
@@ -79,7 +71,8 @@ export class BasicInfoComponent implements OnInit {
             email: [this.customer.email === undefined ? '' : this.customer.email, Validators.required],
             initialRelationDate: [this.customer.initialRelationDate === undefined ? '' :
                 this.customer.initialRelationDate, Validators.required],
-            citizenshipNumber: [this.customer.citizenshipNumber === undefined ? '' : this.customer.citizenshipNumber, Validators.required],
+            citizenshipNumber: [this.customer.citizenshipNumber === undefined ? '' : this.customer.citizenshipNumber
+                , Validators.required],
             citizenshipIssuedPlace: [this.customer.citizenshipIssuedPlace === undefined ? '' : this.customer.citizenshipIssuedPlace,
                 Validators.required],
             citizenshipIssuedDate: [this.customer.citizenshipIssuedDate === undefined ? '' :
@@ -120,11 +113,8 @@ export class BasicInfoComponent implements OnInit {
     }
 
     onSubmit() {
-
         this.customer.title = this.basicInfo.get('title').value;
         this.customer.customerName = this.basicInfo.get('customerName').value;
-        console.log(this.basicInfo.get('customerId').value);
-        console.log(this.basicInfo.get('citizenshipIssuedPlace').value);
         this.customer.customerId = this.basicInfo.get('customerId').value;
         this.customer.accountNo = this.basicInfo.get('accountNo').value;
         this.customer.province = this.basicInfo.get('province').value;
