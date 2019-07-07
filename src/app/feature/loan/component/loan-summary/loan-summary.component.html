@@ -92,18 +92,18 @@
                         <tr>
                             <td>1</td>
                             <td>{{loanDataHolder?.loan?.name}}</td>
-                            <td>{{dmsLoanFile?.proposedAmount}}</td>
-                            <td>{{dmsLoanFile?.interestRate}}</td>
+                            <td>{{dmsLoanFile?.proposedAmount || loanDataHolder?.proposal?.proposedLimit}}</td>
+                            <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}}</td>
                             <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
-                                {{dmsLoanFile?.serviceChargeAmount}}
+                                {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
                                 {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}</td>
-                            <td>{{dmsLoanFile?.tenureDuration}}</td>
+                            <td>{{(dmsLoanFile?.tenureDuration || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="form-group"><b>Propose Amount:</b> Rs. {{dmsLoanFile?.proposedAmountWord}} Only /-</div>
+            <div class="form-group"><b>Propose Amount:</b> Rs. {{dmsLoanFile?.proposedAmountWord || loanDataHolder?.proposal?.proposedAmountInWords}} Only /-</div>
             <div class="row mt-3">
                 <div class="col-md-12">
                     <p><b>Security Offered</b></p>
