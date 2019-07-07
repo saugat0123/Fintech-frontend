@@ -19,6 +19,7 @@ import {LoanConfigService} from '../../../admin/component/loan-config/loan-confi
 import {DateService} from '../../../../@core/service/baseservice/date.service';
 import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.component';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
+import {CiclComponent} from '../loan-main-template/cicl/cicl.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -77,6 +78,9 @@ export class LoanFormComponent implements OnInit {
     entityInfo: CompanyInfoComponent;
     @ViewChild('kycInfo')
     kycInfo: KycInfoComponent;
+
+    @ViewChild('cicl')
+    cicl: CiclComponent;
 
     constructor(
         private dataService: CommonDataService,
@@ -234,6 +238,12 @@ export class LoanFormComponent implements OnInit {
             this.kycInfo.onSubmit();
             const customerRelatives = this.kycInfo.kycInfo.value.otherRelatives as Array<CustomerRelative>;
             this.loanDocument.customerInfo.customerRelatives = customerRelatives;
+        }
+        if (name === 'CICL' && action) {
+            this.cicl.onSubmit();
+            this.loanDocument.ciclList = this.cicl.ciclList;
+            this.loanDocument.ciclRemarks = this.cicl.ciclRemark;
+            this.loanDocument.insurance = this.cicl.insurance;
         }
     }
 

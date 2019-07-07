@@ -23,6 +23,7 @@ import {BirthMarkLetterPrintComponent} from './component/offer-letter/birth-mark
 import { SuccessOfferLetterComponent } from './component/offer-letter/success-offer-letter/success-offer-letter.component';
 // tslint:disable-next-line:max-line-length
 import { SuccessOfferLetterPrintComponent } from './component/offer-letter/success-offer-letter/success-offer-letter-print/success-offer-letter-print.component';
+import {CiclComponent} from './component/loan-main-template/cicl/cicl.component';
 
 
 
@@ -42,6 +43,7 @@ import { SuccessOfferLetterPrintComponent } from './component/offer-letter/succe
         BirthMarkLetterPrintComponent,
         SuccessOfferLetterComponent,
         SuccessOfferLetterPrintComponent,
+        CiclComponent,
 
     ],
     imports: [

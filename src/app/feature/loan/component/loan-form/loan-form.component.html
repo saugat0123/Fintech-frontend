@@ -23,6 +23,10 @@
         <app-dms-loan [loanFile]="loanFile" *ngIf="selectedTab==='General' && loanFile" #dmsLoanFile></app-dms-loan>
         <app-company-info [formValue]="loanDocument?.entityInfo" *ngIf="selectedTab==='Company Info'"
                           #entityInfo></app-company-info>
+        <app-cicl #cicl *ngIf="selectedTab === 'CICL' && loanDocument"
+                  [ciclRemark]="loanDocument?.ciclRemarks"
+                  [ciclValue]="loanDocument?.ciclList"
+                  [insuranceValue]="loanDocument?.insurance"></app-cicl>
 
         <!-- /.tab-pane -->
     </div>
