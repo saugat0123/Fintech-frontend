@@ -149,7 +149,7 @@ export class LoanSummaryComponent implements OnInit {
                 console.log('sign', this.signatureList);
                 this.id = this.loanDataHolder.id;
                 this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
-                if (this.dmsLoanFile !== undefined) {
+                if (this.dmsLoanFile !== undefined && this.dmsLoanFile !== null) {
                     this.security = this.dmsLoanFile.security;
                     this.securities = this.security.split(',');
                     this.documents = JSON.parse(this.dmsLoanFile.documentPath);
