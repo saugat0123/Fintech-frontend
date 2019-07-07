@@ -8,7 +8,7 @@ import {
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[appWardNumberValidator][ngModel]',
+  selector: '[app-valid-number][ngModel]',
   providers: [
     {
       provide: NG_VALIDATORS,
@@ -20,13 +20,13 @@ import { Directive } from '@angular/core';
 export class WardNumberValidatorDirective implements Validator {
   validator: ValidatorFn;
   constructor() {
-    this.validator = this.wardNumberValidator();
+    this.validator = this.validNumber();
   }
   validate(c: FormControl) {
     return this.validator(c);
   }
 
-  wardNumberValidator(): ValidatorFn {
+  validNumber(): ValidatorFn {
     return (c: FormControl) => {
       const isValid = /^[1-9][0-9]*$/.test(c.value);
       if (isValid) {

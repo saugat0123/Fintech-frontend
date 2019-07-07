@@ -111,11 +111,11 @@
                         <input nbInput fieldSize="medium" type="number" class="form-control"
                                [(ngModel)]="model.wardNumber" name="ward"
                                id="ward_number"
-                               placeholder="Ward" required appWardNumberValidator
+                               placeholder="Ward" required app-valid-number
                                #wardVal="ngModel"
                                [ngClass]="{ 'is-invalid': branchForm.submitted && wardVal.invalid }"/>
                         <div class="invalid-feedback" *ngIf="branchForm.submitted && wardVal.invalid">
-                            <div *ngIf="wardVal.errors.required">Ward is required</div>
+                            <div *ngIf="wardVal.errors.required">Ward No. is required</div>
                             <span *ngIf="wardVal.invalid && model.wardNumber !== undefined && model.wardNumber !== null">Invalid Ward number</span>
                         </div>
                     </div>

@@ -8,7 +8,7 @@ import {
 import { Directive } from '@angular/core';
 
 @Directive({
-    selector: '[appEmailValidator][ngModel]',
+    selector: '[app-valid-email][ngModel]',
     providers: [
         {
             provide: NG_VALIDATORS,
@@ -20,13 +20,13 @@ import { Directive } from '@angular/core';
 export class EmailValidatorDirective implements Validator {
     validator: ValidatorFn;
     constructor() {
-        this.validator = this.emailValidator();
+        this.validator = this.validEmail();
     }
     validate(c: FormControl) {
         return this.validator(c);
     }
 
-    emailValidator(): ValidatorFn {
+    validEmail(): ValidatorFn {
         return (c: FormControl) => {
             const isValid = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/.test(c.value);
             if (isValid) {
