@@ -115,15 +115,14 @@
                             </div>
                             <div class="col-md-6">
                                 <label><b>Priority</b></label>
-                                <ng-select
-                                        [items]="dropdownPriorities"
-                                        bindLabel="name"
-                                        bindValue="id"
-                                        [multiple]="false"
-                                        placeholder="Select the priority level"
-                                        formControlName="priority"
-                                        required
-                                        [ngClass]="{'is-invalid':submitted &&  form.priority.errors}">
+                                <ng-select [items]="dropdownPriorities"
+                                           class="form-control"
+                                           bindLabel="name"
+                                           bindValue="id"
+                                           [multiple]="false"
+                                           placeholder="Select the priority level"
+                                           formControlName="priority"
+                                           [ngClass]="{'is-invalid':submitted &&  form.priority.errors}">
                                 </ng-select>
                                 <div *ngIf="submitted && form.priority.errors" class="invalid-feedback">
                                     <div *ngIf="form.priority.errors.required">

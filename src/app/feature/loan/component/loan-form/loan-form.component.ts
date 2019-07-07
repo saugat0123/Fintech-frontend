@@ -19,6 +19,8 @@ import {LoanConfigService} from '../../../admin/component/loan-config/loan-confi
 import {DateService} from '../../../../@core/service/baseservice/date.service';
 import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.component';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
+import {ProposalComponent} from '../loan-main-template/proposal/proposal.component';
+import {Proposal} from '../../../admin/modal/proposal';
 import {EntityInfo} from '../../../admin/modal/entity-info';
 
 @Component({
@@ -67,7 +69,6 @@ export class LoanFormComponent implements OnInit {
     currentNepDate;
     submitDisable = false;
     loanDocument: LoanDataHolder;
-    companyInfo: EntityInfo;
 
     @ViewChild('basicInfo')
     basicInfo: BasicInfoComponent;
@@ -80,6 +81,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('kycInfo')
     kycInfo: KycInfoComponent;
+
+    @ViewChild('proposalInfo')
+    proposalDetail: ProposalComponent;
 
     constructor(
         private dataService: CommonDataService,
@@ -112,7 +116,6 @@ export class LoanFormComponent implements OnInit {
                     this.loanFormService.detail(this.customerId).subscribe(
                         (response: any) => {
                             this.loanFile = response.detail.dmsLoanFile;
-                            this.companyInfo = response.detail.entityInfo;
                             this.loanDocument = response.detail;
                             this.loanDocument.id = response.detail.id;
                             this.submitDisable = false;
@@ -121,7 +124,6 @@ export class LoanFormComponent implements OnInit {
                 } else {
                     this.loanDocument = new LoanDataHolder();
                     this.loanFile = new DmsLoanFile();
-                    this.companyInfo = new EntityInfo();
                 }
             });
 
@@ -190,7 +192,6 @@ export class LoanFormComponent implements OnInit {
         if (this.selectChild(this.selectedTab, true)) {
             return;
         }
-        this.selectChild(this.selectedTab, true);
         this.nxtParameter = this.loanDataService.getNext();
         this.selectTab(this.nxtParameter.index, this.nxtParameter.name);
     }
@@ -204,7 +205,6 @@ export class LoanFormComponent implements OnInit {
         if (this.selectChild(this.selectedTab, true)) {
             return;
         }
-        this.selectChild(this.selectedTab, true);
         this.loanDocument.loan = this.loan;
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
             this.loanDocument = response.detail;
@@ -216,7 +216,6 @@ export class LoanFormComponent implements OnInit {
 
 
     selectChild(name, action) {
-
         if (name === 'Customer Info' && action) {
             if (this.basicInfo.basicInfo.invalid) {
                 this.basicInfo.submitted = true;
@@ -250,10 +249,27 @@ export class LoanFormComponent implements OnInit {
             const customerRelatives = this.kycInfo.kycInfo.value.otherRelatives as Array<CustomerRelative>;
             this.loanDocument.customerInfo.customerRelatives = customerRelatives;
         }
+
+        if (name === 'Proposal' && action) {
+            if (this.proposalDetail.proposalForm.invalid) {
+                this.proposalDetail.submitted = true;
+                return true;
+            }
+            this.proposalDetail.onSubmit();
+            this.loanDocument.proposal = this.proposalDetail.proposalForm.value;
+        }
     }
 
 
     submitButton(event) {
         this.submitDisable = event;
+    }
+
+    loadProposal() {
+        if (this.loanDocument.proposal === undefined) {
+            return new Proposal();
+        } else {
+            return this.loanDocument.proposal;
+        }
     }
 }
