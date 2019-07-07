@@ -1,18 +1,19 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ToastService} from '../../../../../@core/utils';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {Document} from '../../../../admin/modal/document';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DmsLoanFile} from '../../../../admin/modal/dms-loan-file';
 import {LoanDocument} from '../../../../admin/modal/loan-document';
-import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {ToastService} from '../../../../../@core/utils';
-import {DmsLoanService} from './dms-loan-service';
-import {LoanDataService} from '../../../service/loan-data.service';
 import {Security} from '../../../../admin/modal/security';
-import {LoanFormService} from '../../loan-form/service/loan-form.service';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
+import {DmsLoanService} from './dms-loan-service';
+import {LoanFormService} from '../../loan-form/service/loan-form.service';
 import {LoanDataHolder} from '../../../model/loanData';
+import {LoanDataService} from '../../../service/loan-data.service';
 
 
 @Component({

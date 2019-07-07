@@ -21,7 +21,6 @@ import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.componen
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {ProposalComponent} from '../loan-main-template/proposal/proposal.component';
 import {Proposal} from '../../../admin/modal/proposal';
-import {EntityInfo} from '../../../admin/modal/entity-info';
 
 @Component({
     selector: 'app-loan-form',
