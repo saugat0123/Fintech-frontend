@@ -20,6 +20,7 @@ import {DateService} from '../../../../@core/service/baseservice/date.service';
 import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.component';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {ProposalComponent} from '../loan-main-template/proposal/proposal.component';
+import {Proposal} from '../../../admin/modal/proposal';
 
 @Component({
     selector: 'app-loan-form',
@@ -245,6 +246,7 @@ export class LoanFormComponent implements OnInit {
 
         if (name === 'Proposal' && action) {
             if (this.proposalDetail.proposalForm.invalid) {
+                console.log('yo' + this.proposalDetail.proposalForm);
                 this.proposalDetail.submitted = true;
                 return true;
             }
@@ -256,5 +258,13 @@ export class LoanFormComponent implements OnInit {
 
     submitButton(event) {
         this.submitDisable = event;
+    }
+
+    loadProposal() {
+        if (this.loanDocument.proposal === undefined) {
+            return new Proposal();
+        } else {
+            return this.loanDocument.proposal;
+        }
     }
 }

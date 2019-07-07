@@ -13,63 +13,59 @@ export class ProposalComponent implements OnInit {
 
     @Input() formValue: Proposal;
     proposalForm: FormGroup;
-    proposalDetail: Proposal = new Proposal();
 
     constructor(private fb: FormBuilder) {
     }
 
     ngOnInit() {
-        if (this.formValue !== undefined) {
-            this.proposalDetail = this.formValue;
-        }
         this.proposalForm = this.fb.group({
-            proposedLimit: [this.proposalDetail.proposedLimit === undefined ? '' :
-                this.proposalDetail.proposedLimit, [Validators.required, Validators.min(0)]],
-            interestRate: [this.proposalDetail.interestRate === undefined ? '' :
-                this.proposalDetail.interestRate, [Validators.required, Validators.min(0)]],
-            baseRate: [this.proposalDetail.baseRate === undefined ? '' :
-                this.proposalDetail.baseRate, [Validators.required, Validators.min(0)]],
-            premiumRateOnBaseRate: [this.proposalDetail.premiumRateOnBaseRate === undefined ? '' :
-                this.proposalDetail.premiumRateOnBaseRate, [Validators.required, Validators.min(0)]],
-            serviceChargeMethod: [this.proposalDetail.serviceChargeMethod === undefined ? '' :
-                this.proposalDetail.serviceChargeMethod, [Validators.required]],
-            serviceCharge: [this.proposalDetail.serviceCharge === undefined ? '' :
-                this.proposalDetail.serviceCharge, [Validators.required, Validators.min(0)]],
-            tenureDurationInMonths: [this.proposalDetail.tenureDurationInMonths === undefined ? '' :
-                this.proposalDetail.tenureDurationInMonths, [Validators.required, Validators.min(0)]],
-            cibCharge: [this.proposalDetail.cibCharge === undefined ? '' :
-                this.proposalDetail.cibCharge, [Validators.required, Validators.min(0)]],
-            repaymentMode: [this.proposalDetail.repaymentMode === undefined ? null :
-                this.proposalDetail.repaymentMode, [Validators.required]],
-            purposeOfSubmission: [this.proposalDetail.purposeOfSubmission === undefined ? '' :
-                this.proposalDetail.purposeOfSubmission, [Validators.required]],
-            disbursementCriteria: [this.proposalDetail.disbursementCriteria === undefined ? '' :
-                this.proposalDetail.disbursementCriteria, [Validators.required]],
-            creditInformationReportStatus: [this.proposalDetail.creditInformationReportStatus === undefined ? '' :
-                this.proposalDetail.creditInformationReportStatus, [Validators.required]],
-            incomeFromTheAccount: [this.proposalDetail.incomeFromTheAccount === undefined ? '' :
-                this.proposalDetail.incomeFromTheAccount, [Validators.required]],
-            borrowerInformation: [this.proposalDetail.borrowerInformation === undefined ? '' :
-                this.proposalDetail.borrowerInformation, [Validators.required]]
+            proposedLimit: [this.formValue.proposedLimit === undefined ? '' :
+                this.formValue.proposedLimit, [Validators.required, Validators.min(0)]],
+            interestRate: [this.formValue.interestRate === undefined ? '' :
+                this.formValue.interestRate, [Validators.required, Validators.min(0)]],
+            baseRate: [this.formValue.baseRate === undefined ? '' :
+                this.formValue.baseRate, [Validators.required, Validators.min(0)]],
+            premiumRateOnBaseRate: [this.formValue.premiumRateOnBaseRate === undefined ? '' :
+                this.formValue.premiumRateOnBaseRate, [Validators.required, Validators.min(0)]],
+            serviceChargeMethod: [this.formValue.serviceChargeMethod === undefined ? '' :
+                this.formValue.serviceChargeMethod, [Validators.required]],
+            serviceCharge: [this.formValue.serviceCharge === undefined ? '' :
+                this.formValue.serviceCharge, [Validators.required, Validators.min(0)]],
+            tenureDurationInMonths: [this.formValue.tenureDurationInMonths === undefined ? '' :
+                this.formValue.tenureDurationInMonths, [Validators.required, Validators.min(0)]],
+            cibCharge: [this.formValue.cibCharge === undefined ? '' :
+                this.formValue.cibCharge, [Validators.required, Validators.min(0)]],
+            repaymentMode: [this.formValue.repaymentMode === undefined ? null :
+                this.formValue.repaymentMode, [Validators.required]],
+            purposeOfSubmission: [this.formValue.purposeOfSubmission === undefined ? '' :
+                this.formValue.purposeOfSubmission, [Validators.required]],
+            disbursementCriteria: [this.formValue.disbursementCriteria === undefined ? '' :
+                this.formValue.disbursementCriteria, [Validators.required]],
+            creditInformationReportStatus: [this.formValue.creditInformationReportStatus === undefined ? '' :
+                this.formValue.creditInformationReportStatus, [Validators.required]],
+            incomeFromTheAccount: [this.formValue.incomeFromTheAccount === undefined ? '' :
+                this.formValue.incomeFromTheAccount, [Validators.required]],
+            borrowerInformation: [this.formValue.borrowerInformation === undefined ? '' :
+                this.formValue.borrowerInformation, [Validators.required]]
         });
     }
 
     onSubmit() {
         console.log(this.proposalForm);
-        this.proposalDetail.proposedLimit = (<number>this.proposalForm.get('proposedLimit').value);
-        this.proposalDetail.interestRate = (<number>this.proposalForm.get('interestRate').value);
-        this.proposalDetail.baseRate = <number>this.proposalForm.get('baseRate').value;
-        this.proposalDetail.premiumRateOnBaseRate = <number>this.proposalForm.get('premiumRateOnBaseRate').value;
-        this.proposalDetail.serviceChargeMethod = this.proposalForm.get('serviceChargeMethod').value;
-        this.proposalDetail.serviceCharge = <number>this.proposalForm.get('serviceCharge').value;
-        this.proposalDetail.tenureDurationInMonths = <number>this.proposalForm.get('tenureDurationInMonths').value;
-        this.proposalDetail.cibCharge = <number>this.proposalForm.get('cibCharge').value;
-        this.proposalDetail.repaymentMode = this.proposalForm.get('repaymentMode').value;
-        this.proposalDetail.purposeOfSubmission = this.proposalForm.get('purposeOfSubmission').value;
-        this.proposalDetail.disbursementCriteria = this.proposalForm.get('disbursementCriteria').value;
-        this.proposalDetail.creditInformationReportStatus = this.proposalForm.get('creditInformationReportStatus').value;
-        this.proposalDetail.incomeFromTheAccount = this.proposalForm.get('incomeFromTheAccount').value;
-        this.proposalDetail.borrowerInformation = this.proposalForm.get('borrowerInformation').value;
+        this.formValue.proposedLimit = (<number>this.proposalForm.get('proposedLimit').value);
+        this.formValue.interestRate = (<number>this.proposalForm.get('interestRate').value);
+        this.formValue.baseRate = <number>this.proposalForm.get('baseRate').value;
+        this.formValue.premiumRateOnBaseRate = <number>this.proposalForm.get('premiumRateOnBaseRate').value;
+        this.formValue.serviceChargeMethod = this.proposalForm.get('serviceChargeMethod').value;
+        this.formValue.serviceCharge = <number>this.proposalForm.get('serviceCharge').value;
+        this.formValue.tenureDurationInMonths = <number>this.proposalForm.get('tenureDurationInMonths').value;
+        this.formValue.cibCharge = <number>this.proposalForm.get('cibCharge').value;
+        this.formValue.repaymentMode = this.proposalForm.get('repaymentMode').value;
+        this.formValue.purposeOfSubmission = this.proposalForm.get('purposeOfSubmission').value;
+        this.formValue.disbursementCriteria = this.proposalForm.get('disbursementCriteria').value;
+        this.formValue.creditInformationReportStatus = this.proposalForm.get('creditInformationReportStatus').value;
+        this.formValue.incomeFromTheAccount = this.proposalForm.get('incomeFromTheAccount').value;
+        this.formValue.borrowerInformation = this.proposalForm.get('borrowerInformation').value;
     }
 
     get formControls() {
