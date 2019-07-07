@@ -233,7 +233,6 @@ export class LoanFormComponent implements OnInit {
             this.dmsLoanFile.onSubmit();
             this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanFile;
             this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
-
         }
 
         if (name === 'Company Info' && action) {
