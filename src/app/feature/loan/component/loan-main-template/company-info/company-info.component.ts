@@ -61,10 +61,10 @@ export class CompanyInfoComponent implements OnInit {
             registeredOffice: [undefined, Validators.required],
             registeredUnderAct: [undefined, Validators.required],
             registrationNo: [undefined, Validators.required],
-            registrationDate: [undefined, [Validators.required, DateValidator.isValid]],
+            registrationDate: [undefined, [Validators.required, DateValidator.isValidBefore]],
             panRegistrationOffice: [undefined, Validators.required],
             panNumber: [undefined, Validators.required],
-            panRegistrationDate: [undefined, [Validators.required, DateValidator.isValid]],
+            panRegistrationDate: [undefined, [Validators.required, DateValidator.isValidBefore]],
             // capital
             authorizedCapital: [undefined, Validators.required],
             paidUpCapital: [undefined, Validators.required],
@@ -87,18 +87,15 @@ export class CompanyInfoComponent implements OnInit {
             opportunity: [undefined, Validators.required],
             threats: [undefined, Validators.required]
         });
-
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
-                console.log(response.detail);
                 this.provinceList = response.detail;
             }
         );
         // on edit
-        if (this.formValue !== undefined || this.formValue !== null) {
+        if (this.formValue === undefined || this.formValue === null) {
             this.customerId = Number(this.activatedRoute.snapshot.queryParamMap.get('customerId'));
-            if (this.customerId !== undefined || this.customerId !== null || this.customerId !== 0) {
-                console.log('through api');
+            if (this.customerId !== 0) {
                 this.loanFormService.detail(this.customerId).subscribe(
                     (response: any) => {
                         this.commonLocation.getProvince().subscribe(
@@ -136,13 +133,13 @@ export class CompanyInfoComponent implements OnInit {
             registrationNo: [entityInfo.legalStatus.registrationNo === undefined ? '' :
                 entityInfo.legalStatus.registrationNo, Validators.required],
             registrationDate: [entityInfo.legalStatus.registrationDate === undefined ? '' :
-                entityInfo.legalStatus.registrationDate, [Validators.required, DateValidator.isValid]],
+                entityInfo.legalStatus.registrationDate, [Validators.required, DateValidator.isValidBefore]],
             panRegistrationOffice: [entityInfo.legalStatus.panRegistrationOffice === undefined ? '' :
                 entityInfo.legalStatus.panRegistrationOffice, Validators.required],
             panNumber: [entityInfo.legalStatus.panNumber === undefined ? '' :
                 entityInfo.legalStatus.panNumber, Validators.required],
             panRegistrationDate: [entityInfo.legalStatus.panRegistrationDate === undefined ? '' :
-                entityInfo.legalStatus.panRegistrationDate, [Validators.required, DateValidator.isValid]],
+                entityInfo.legalStatus.panRegistrationDate, [Validators.required, DateValidator.isValidBefore]],
             // capital
             authorizedCapital: [entityInfo.capital.authorizedCapital === undefined ? '' :
                 entityInfo.capital.authorizedCapital, Validators.required],
@@ -328,7 +325,6 @@ export class CompanyInfoComponent implements OnInit {
             proprietorsIndex++;
             this.entityInfo.proprietorsList.push(proprietors);
         }
-        this.loanDataService.setEntityInfo(this.entityInfo);
     }
 
 }

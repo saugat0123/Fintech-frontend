@@ -5,9 +5,9 @@ import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 import {Province} from '../../../../admin/modal/province';
 import {District} from '../../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
-import {LoanDataService} from '../../../service/loan-data.service';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {Customer} from '../../../../admin/modal/customer';
+import {DateValidator} from '../../../../../@core/validator/date-validator';
 
 
 @Component({
@@ -32,8 +32,7 @@ export class BasicInfoComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private commonLocation: AddressService,
-        private loanDataService: LoanDataService
+        private commonLocation: AddressService
     ) {
     }
 
@@ -55,9 +54,9 @@ export class BasicInfoComponent implements OnInit {
                 });
             }
         );
-        console.log(this.customer.citizenshipIssuedPlace);
         this.basicInfo = this.formBuilder.group({
-            title: [this.customer.title === undefined ? '' : this.customer.title, Validators.required],
+            // title not used in ui
+            title: [this.customer.title === undefined ? '' : this.customer.title],
             customerName: [this.customer.customerName === undefined ? '' : this.customer.customerName, Validators.required],
             customerId: [this.customer.customerId === undefined ? '' : this.customer.customerId, Validators.required],
             accountNo: [this.customer.accountNo === undefined ? '' : this.customer.accountNo, Validators.required],
@@ -69,14 +68,15 @@ export class BasicInfoComponent implements OnInit {
             telephone: [this.customer.telephone === undefined ? '' : this.customer.telephone, Validators.required],
             mobile: [this.customer.mobile === undefined ? '' : this.customer.mobile, Validators.required],
             email: [this.customer.email === undefined ? '' : this.customer.email, Validators.required],
+            // initial Relation Date not used in ui
             initialRelationDate: [this.customer.initialRelationDate === undefined ? '' :
-                this.customer.initialRelationDate, Validators.required],
+                this.customer.initialRelationDate],
             citizenshipNumber: [this.customer.citizenshipNumber === undefined ? '' : this.customer.citizenshipNumber
                 , Validators.required],
             citizenshipIssuedPlace: [this.customer.citizenshipIssuedPlace === undefined ? '' : this.customer.citizenshipIssuedPlace,
                 Validators.required],
             citizenshipIssuedDate: [this.customer.citizenshipIssuedDate === undefined ? '' :
-                this.customer.citizenshipIssuedDate, Validators.required],
+                this.customer.citizenshipIssuedDate, [Validators.required, DateValidator.isValidBefore]],
         });
     }
 
@@ -127,7 +127,6 @@ export class BasicInfoComponent implements OnInit {
         this.customer.citizenshipNumber = this.basicInfo.get('citizenshipNumber').value;
         this.customer.citizenshipIssuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
         this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
-        this.loanDataService.setCustomer(this.customer);
     }
 
 }

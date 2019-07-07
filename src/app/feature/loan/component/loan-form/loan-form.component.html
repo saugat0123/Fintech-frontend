@@ -21,7 +21,7 @@
                       *ngIf="selectedTab==='Kyc Info' && loanDocument"
                       #kycInfo></app-kyc-info>
         <app-dms-loan [loanFile]="loanFile" *ngIf="selectedTab==='General' && loanFile" #dmsLoanFile></app-dms-loan>
-        <app-company-info [formValue]="companyInfo" *ngIf="selectedTab==='Company Info'"
+        <app-company-info [formValue]="loanDocument?.entityInfo" *ngIf="selectedTab==='Company Info'"
                           #entityInfo></app-company-info>
 
         <!-- /.tab-pane -->

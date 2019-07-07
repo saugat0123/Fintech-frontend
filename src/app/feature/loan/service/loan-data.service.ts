@@ -90,7 +90,6 @@ export class LoanDataService {
     }
 
     getEntityInfo() {
-        console.log(this.entityInfo);
         return this.entityInfo;
     }
 

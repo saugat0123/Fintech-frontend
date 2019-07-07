@@ -25,16 +25,16 @@ export class DmsLoanFileComponent implements OnInit {
     public static FILE_SIZE = 1000000;
     @Input()
     loanFile: DmsLoanFile;
+    loanForm: FormGroup;
+    submitted = false;
 
     initialDocuments: Document[] = [];
     renewDocuments: Document[] = [];
     document: LoanDocument = new LoanDocument();
     renew = true;
-    loanForm: FormGroup;
     loan: LoanConfig = new LoanConfig();
     permissions = [];
     dropdownList = [];
-    submitted = false;
     loanName: string;
     loanConfig: LoanConfig = new LoanConfig();
     customerId: number;
@@ -136,7 +136,6 @@ export class DmsLoanFileComponent implements OnInit {
 
     showSecurity(security: string) {
         this.securities = security.split(',');
-        console.log('secties', this.securities);
         this.securities.forEach((securityLoop => {
             console.log(securityLoop);
             console.log(this.dropdownList[Number(securityLoop)].id);
@@ -159,7 +158,6 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFile.priority = this.loanForm.get('priority').value;
         this.loanFile.waiver = this.loanForm.get('waiver').value;
         this.loanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
-        this.loanDataService.setDmsLoanFile(this.loanFile);
     }
 
 
@@ -184,7 +182,6 @@ export class DmsLoanFileComponent implements OnInit {
                     this.documentMaps.push(this.documentMap);
                 }
                 this.loanFile.documentMap = this.documentMaps;
-                console.log(this.documentMap);
                 this.document = new LoanDocument();
             },
             error => {

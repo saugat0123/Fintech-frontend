@@ -116,7 +116,6 @@ export class LoanFormComponent implements OnInit {
                             this.loanDocument = response.detail;
                             this.loanDocument.id = response.detail.id;
                             this.submitDisable = false;
-                            console.log('on edit', this.loanDocument);
                         }
                     );
                 } else {
@@ -183,9 +182,6 @@ export class LoanFormComponent implements OnInit {
                 tabIndex: index,
                 tabName: name
             };
-            if (name === 'General' && this.customerId == null) {
-                this.submitDisable = false;
-            }
             this.last = true;
         }
     }
@@ -210,7 +206,6 @@ export class LoanFormComponent implements OnInit {
         }
         this.selectChild(this.selectedTab, true);
         this.loanDocument.loan = this.loan;
-        console.log(this.loanDataService);
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
             this.loanDocument = response.detail;
             this.customerLoanId = this.loanDocument.id;
@@ -234,9 +229,10 @@ export class LoanFormComponent implements OnInit {
         if (name === 'General' && action) {
             if (this.dmsLoanFile.loanForm.invalid) {
                 this.dmsLoanFile.submitted = true;
+                return true;
             }
             this.dmsLoanFile.onSubmit();
-            this.loanDocument.dmsLoanFile = this.loanDataService.getDmsLoanFile();
+            this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanFile;
             this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
 
         }
@@ -247,7 +243,6 @@ export class LoanFormComponent implements OnInit {
                 return true;
             }
             this.entityInfo.onSubmit();
-            console.log('customer loan', this.entityInfo.entityInfo);
             this.loanDocument.entityInfo = this.entityInfo.entityInfo;
         }
         if (name === 'Kyc Info' && action) {
