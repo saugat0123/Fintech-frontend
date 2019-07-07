@@ -5,44 +5,78 @@
     display: none;
   }
 
+  .signature-block {
+    padding: 3rem 1rem 0;
+
+    .signature-detail {
+      border-top: 1px dashed;
+      padding-top: 0.5rem;
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
+
   @media print {
     nb-card {
       background: none;
       border: none;
       box-shadow: none;
-    }
 
-    div {
-      font-size: 10px;
-      color: black;
-      line-height: 1.5;
-
-      .mt-3 {
-        margin-top: 5px;
+      span.badge {
+        border: none;
+        color: black;
+        font-weight: normal;
       }
 
-      p {
+      hr.print-line {
+        border-top: 2px solid black;
+        margin-top: .5rem;
+        margin-bottom: .5rem;
+      }
+
+      div {
         font-size: 10px;
-        margin-bottom: 5px;
+        color: black;
+        line-height: 1.5;
+
+        p {
+          font-size: 10px;
+          margin-bottom: 5px;
+        }
       }
-    }
 
-    span.badge {
-      border: none;
-    }
+      .print-only {
+        display: block;
+      }
 
-    .print-only {
-      display: block;
-    }
+      .table th, .table td {
+        padding: 0.2rem;
+      }
 
-    .table th, .table td {
-      padding: 0.5rem;
-    }
+      #print-block {
+        margin-top: -7rem;
+        margin-left: -2rem;
+        margin-right: -2rem;
 
-    #print-block {
-      margin-top: -7rem;
-      margin-left: -2rem;
-      margin-right: -2rem;
+        .signature-block {
+          border: 1px solid #8c8b8b;
+          margin-top: 0.2rem;
+        }
+
+        .mt-3 {
+          margin-top: 0 !important;
+        }
+
+        table {
+          margin-bottom: .2rem;
+        }
+
+        p {
+          margin-bottom: 0.2rem;
+        }
+      }
     }
   }
 }
