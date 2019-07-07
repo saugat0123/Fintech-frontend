@@ -33,7 +33,7 @@ export class EmailValidatorDirective implements Validator {
                 return null;
             } else {
                 return {
-                    emailValidator: {
+                    validEmail: {
                         valid: false
                     }
                 };

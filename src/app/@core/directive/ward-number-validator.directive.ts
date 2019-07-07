@@ -33,7 +33,7 @@ export class WardNumberValidatorDirective implements Validator {
         return null;
       } else {
         return {
-          wardNumberValidator: {
+          validNumber: {
             valid: false
           }
         };
