@@ -41,14 +41,14 @@
                         <label for="email"><b>Email</b></label>
                         <input #email="ngModel" [(ngModel)]="model.email" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" class="form-control"
                                email
-                               id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                               placeholder="Email" required type="email">
+                               id="email" name="email" type="email"
+                               placeholder="Email" required appEmailValidator/>
                         <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
                             <div *ngIf="email.errors.required">Email is required</div>
+                            <div *ngIf="email.invalid && model.email !== '' && model.email !== undefined">Email is invalid</div>
                         </div>
-                        <div *ngIf="email.invalid && model.email != '' && model.email != null" class="invalid-feedback">
-                            Email is invalid
-                        </div>
+
+
                     </div>
                     <div class="col-md-6">
                         <label for="userName"><b>Username</b></label>
