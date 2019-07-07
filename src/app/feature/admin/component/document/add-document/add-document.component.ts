@@ -15,6 +15,8 @@ export class AddDocumentComponent implements OnInit, DoCheck {
     @Input()
     model: Document;
 
+    pattern = '[a-zA-Z-_0-9]*';
+
     task: string;
     submitted = false;
     spinner = false;
