@@ -95,7 +95,6 @@ export class LoanSummaryComponent implements OnInit {
         );
         this.loanFormService.detail(this.customerId).subscribe(
             (response: any) => {
-                console.log('response:', response.detail);
                 this.loanDataHolder = response.detail;
                 this.currentIndex = this.loanDataHolder.previousList.length;
                 this.signatureList = this.loanDataHolder.distinctPreviousList;
@@ -146,7 +145,6 @@ export class LoanSummaryComponent implements OnInit {
                 //         }
                 //     }
                 // });
-                console.log('sign', this.signatureList);
                 this.id = this.loanDataHolder.id;
                 this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
                 if (this.dmsLoanFile !== undefined && this.dmsLoanFile !== null) {

@@ -71,7 +71,6 @@ export class LoanActionComponent implements OnInit {
         this.loanConfigService.detail(this.loanConfigId).subscribe((response: any) => {
             this.loanConfig = response.detail;
         });
-        console.log(this.actionsList);
 
     }
 
