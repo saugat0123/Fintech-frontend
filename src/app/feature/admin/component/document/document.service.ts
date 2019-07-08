@@ -23,15 +23,21 @@ export class DocumentService extends BaseService<Document> {
         return this.http.get(req.url, {headers: req.header});
     }
 
-    public getByLoanCycle(loanCycle: any): Observable<any> {
-        const req = ApiUtils.getRequest(`${DocumentService.API}/byCycle`);
+    public getByLoanCycleAndStatus(loanCycle: any, status: string): Observable<any> {
+        const req = ApiUtils.getRequest(`${DocumentService.API}/byCycleAndStatus?status=${status}`);
 
         return this.http.post(req.url, loanCycle, {headers: req.header});
     }
 
     public updateDocumentByLoanCycle(id: number, model: any): Observable<any> {
-        const req = ApiUtils.getRequest(`${DocumentService.API}/saveList?loanCycleId='${id}'`);
+        const req = ApiUtils.getRequest(`${DocumentService.API}/saveList?loanCycleId=${id}`);
 
         return this.http.post(req.url, model, {headers: req.header});
+    }
+
+    public getAllByStatus(status: String): Observable<any> {
+        const req = ApiUtils.getRequest(`${DocumentService.API}/byStatus?status=${status}`);
+
+        return this.http.get(req.url, {headers: req.header});
     }
 }

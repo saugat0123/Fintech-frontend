@@ -7,9 +7,10 @@
             </nb-accordion-item-header>
             <nb-accordion-item-body>
                 <div class="row">
-                    <div class="col-md-6" *ngFor="let document of documentList; let documentIndex = index">
+                    <div class="col-md-6" *ngFor="let document of allList; let documentIndex = index">
                         <nb-checkbox checked="true" id="{{'document'+documentIndex}}" status="primary"
-                                     (change)="updateCheckedOptions($event,document.id)">
+                                     (change)="updateCheckedOptions($event,document)"
+                                     [value]="document.checked">
                             <span>{{document.name}}</span>
                         </nb-checkbox>
                     </div>
