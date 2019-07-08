@@ -161,30 +161,13 @@ export class SiteVisitComponent implements OnInit {
 
     checkboxSelected(label: String, isChecked: boolean) {
         if (label === 'currentResident') {
-            if (isChecked) {
-                this.currentResidentForm = true;
-            } else {
-                this.currentResidentForm = false;
-            }
+            this.currentResidentForm = isChecked;
         } else if (label === 'businessSiteVisit') {
-            if (isChecked) {
-                this.businessSiteVisitForm = true;
-            } else {
-                this.businessSiteVisitForm = false;
-            }
+            this.businessSiteVisitForm = isChecked;
         } else if (label === 'fixedAssetCollateral') {
-            if (isChecked) {
-                this.fixedAssetCollateralForm = true;
-            } else {
-                this.fixedAssetCollateralForm = false;
-            }
+            this.fixedAssetCollateralForm = isChecked;
         } else if (label === 'currentAssetsInspection') {
-            if (isChecked) {
-                this.currentAssetsInspectionForm = true;
-
-            } else {
-                this.currentAssetsInspectionForm = false;
-            }
+            this.currentAssetsInspectionForm = isChecked;
         }
     }
 

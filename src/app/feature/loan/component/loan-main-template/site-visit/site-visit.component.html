@@ -1,788 +1,823 @@
 <nb-card>
-    <nb-card-header>
-        <div class="wizard-title text-center"><h1>Site Visit</h1></div>
-    </nb-card-header>
-    <nb-card-body>
-        <form class="form-horizontal" [formGroup]="siteVisitFormGroup">
-            <div class="row justify-content-around">
-                <div class="col-md-3">
-                    <nb-checkbox (change)="checkboxSelected('currentResident',$event.target.checked)">Current
-                        Resident
-                    </nb-checkbox>
-                </div>
-                <div class="col-md-3">
-                    <nb-checkbox (change)="checkboxSelected('businessSiteVisit',$event.target.checked)">Business
-                        Site Visit
-                    </nb-checkbox>
-                </div>
-                <div class="col-md-3">
-                    <nb-checkbox (change)="checkboxSelected('fixedAssetCollateral',$event.target.checked)">Fixed
-                        Asset Collateral
-                    </nb-checkbox>
-                </div>
-                <div class="col-md-3">
-                    <nb-checkbox (change)="checkboxSelected('currentAssetsInspection',$event.target.checked)">
-                        Current Assets Inspection
-                    </nb-checkbox>
-                </div>
+  <nb-card-header>
+    <div class="wizard-title text-center"><h1>Site Visit</h1></div>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="siteVisitFormGroup" class="form-horizontal">
+      <div class="row justify-content-around">
+        <div class="col-md-3">
+          <nb-checkbox (change)="checkboxSelected('currentResident',$event.target.checked)">Current
+            Resident
+          </nb-checkbox>
+        </div>
+        <div class="col-md-3">
+          <nb-checkbox (change)="checkboxSelected('businessSiteVisit',$event.target.checked)">
+            Business
+            Site Visit
+          </nb-checkbox>
+        </div>
+        <div class="col-md-3">
+          <nb-checkbox (change)="checkboxSelected('fixedAssetCollateral',$event.target.checked)">
+            Fixed
+            Asset Collateral
+          </nb-checkbox>
+        </div>
+        <div class="col-md-3">
+          <nb-checkbox (change)="checkboxSelected('currentAssetsInspection',$event.target.checked)">
+            Current Assets Inspection
+          </nb-checkbox>
+        </div>
+      </div>
+      <div [hidden]="!currentResidentForm" class="row mt-3" formGroupName="currentResidentDetails">
+        <h4 class="col-md-12">Current Resident</h4>
+        <div class="col-md-4 form-group">
+          <label class="title" for="houseNumber">House Number</label>
+          <input class="form-control" formControlName="houseNumber" id="houseNumber"
+                 name="houseNumber"
+                 placeholder="house number" type="text">
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="title" for="streetName">Street Name</label>
+          <input class="form-control" formControlName="streetName" id="streetName" name="streetName"
+                 placeholder="street name" type="text">
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="title" for="address">Address</label>
+          <input class="form-control" formControlName="address" id="address" name="address"
+                 placeholder="address" type="text">
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="title" for="nearBy">Near By</label>
+          <input class="form-control" formControlName="nearBy" id="nearBy" name="nearBy"
+                 placeholder="near by" type="text">
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="ownerName" for="address">Owner Name</label>
+          <input class="form-control" formControlName="ownerName" id="ownerName" name="ownerName"
+                 placeholder="owner name" type="text">
+        </div>
+      </div>
+      <div [hidden]="!businessSiteVisitForm" class="row mt-3"
+           formGroupName="businessSiteVisitDetails">
+        <h4 class="col-md-12">Business Site Visit</h4>
+        <div class="col-md-4 form-group">
+          <label class="title" for="officeAddress">Office Address</label>
+          <input class="form-control" formControlName="officeAddress" id="officeAddress"
+                 name="officeAddress"
+                 type="text">
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="title" for="nameOfThePersonContacted">Name Of The Person Contacted</label>
+          <input class="form-control" formControlName="nameOfThePersonContacted"
+                 id="nameOfThePersonContacted" name="nameOfThePersonContacted" type="text">
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="title" for="dateOfVisit">Date Of Visit</label>
+          <input [nbDatepicker]="datepicker3" class="form-control" formControlName="dateOfVisit"
+                 id="dateOfVisit">
+          <nb-datepicker #datepicker3></nb-datepicker>
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="title" for="objectiveOfVisit">Objective Of Visit</label>
+          <input class="form-control" formControlName="objectiveOfVisit" id="objectiveOfVisit"
+                 name="objectiveOfVisit" type="text">
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="title" for="observation">Observation</label>
+          <input class="form-control" formControlName="observation" id="observation"
+                 name="observation"
+                 type="text">
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="title" for="visitedBy">Visited By</label>
+          <input class="form-control" formControlName="visitedBy" id="visitedBy" name="visitedBy"
+                 type="text">
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="title" for="conclusion">Conclusion</label>
+          <input class="form-control" formControlName="conclusion" id="conclusion" name="conclusion"
+                 type="text">
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="title" for="uploadOrEmbedLocation">Upload Or Embed Location</label>
+          <textarea class="form-control" formControlName="uploadOrEmbedLocation"
+                    id="uploadOrEmbedLocation" name="uploadOrEmbedLocation" row="3"
+                    type="text"></textarea>
+        </div>
+        <div class="form-group col-md-4">
+          <label class="title" for="mapAddress">Address</label>
+          <input class="form-control col-md-12" formControlName="mapAddress" id="mapAddress"
+                 name="mapAddress"
+                 type="text">
+        </div>
+        <div class="col-md-8 form-group">
+          <label class="title" for="findingsAndComments">Finding And Comments</label>
+          <textarea class="form-control" formControlName="findingsAndComments"
+                    id="findingsAndComments" name="findingsAndComments" row="3"></textarea>
+        </div>
+        <div class="col-md-4 pr-0 form-group row">
+          <div class="form-group col-md-8 pr-0">
+            <label class="title" for="locationPreview">Location Preview</label>
+            <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview"
+                   name="locationPreview"
+                   type="text">
+          </div>
+          <div class="col-md-4 pr-0 pt-4">
+            <button (click)="findLocation()" class="btn-primary">Find Location</button>
+          </div>
+          <div class="ml-3">
+            <agm-map (mapClick)="placeMaker($event.coords.lat,$event.coords.lng)"
+                     [clickableIcons]='false'
+                     [fullscreenControl]='true'
+                     [latitude]="latitude"
+                     [longitude]="longitude"
+                     [mapTypeControl]='true'
+                     [zoom]="zoom"
+                     style="height: 300px; width: 300px;">
+              <agm-marker [latitude]="markerLatitude"
+                          [longitude]="markerLongitude">
+                <agm-info-window [isOpen]="infoWindowOpen.value">
+                  {{addressLabel.value}}
+                </agm-info-window>
+              </agm-marker>
+            </agm-map>
+          </div>
+        </div>
+      </div>
+      <div [hidden]="!fixedAssetCollateralForm" class="row mt-3"
+           formGroupName="fixedAssetCollateralDetails">
+        <h4 class="col-md-12">Fixed Assets Collateral</h4>
+        <div class="col-md-3 form-group">
+          <label class="title" for="date">Date</label>
+          <input [nbDatepicker]="datepicker4" class="form-control" formControlName="date" id="date">
+          <nb-datepicker #datepicker4></nb-datepicker>
+        </div>
+        <div class="col-md-3 form-group">
+          <label class="title" for="fixedAssetCollateralAddress">Address</label>
+          <input class="form-control" formControlName="address"
+                 id="fixedAssetCollateralAddress" name="fixedAssetCollateralAddress" type="text">
+        </div>
+        <div class="col-md-3 form-group">
+          <label class="title" for="personContacted">Person Contacted</label>
+          <input class="form-control" formControlName="personContacted" id="personContacted"
+                 name="personContacted"
+                 type="text">
+        </div>
+        <div class="col-md-3 form-group">
+          <label class="title" for="phoneNoOfContact">Phone No. Of Contact</label>
+          <input class="form-control" formControlName="phoneNoOfContact" id="phoneNoOfContact"
+                 name="phoneNoOfContact" type="text">
+        </div>
+        <h4 class="col-md-12 mt-3">Facilities</h4>
+        <div class="row col-md-12 pr-0" formGroupName="facilities">
+          <div class="col-md-3 form-group">
+            <label class="title" for="roadApproach">Road Approach</label>
+            <select class="custom-select" formControlName="roadApproach" id="roadApproach"
+                    name="roadApproach">
+              <option hidden value=undefined>Select</option>
+              <option value="BLACK_TOPPED_ROAD">Black Topped Road</option>
+              <option value="GRAVELLED_ROAD">Gravelled Road</option>
+              <option value="EARTHEN_ROAD">Earthen Road</option>
+              <option value="OTHERS">Others</option>
+            </select>
+          </div>
+          <div class="col-md-3 form-group">
+            <label class="title" for="roadWidth">Road Width</label>
+            <input class="form-control" formControlName="roadWidth" id="roadWidth" name="roadWidth"
+                   type="text">
+          </div>
+          <div class="col-md-3 form-group">
+            <label class="title" for="prominentPlace">Prominent Place</label>
+            <input class="form-control" formControlName="prominentPlace" id="prominentPlace"
+                   name="prominentPlace" type="text">
+          </div>
+          <div class="col-md-3 form-group">
+            <label class="title" for="approachDistance">Approach Distance</label>
+            <input class="form-control" formControlName="approachDistance" id="approachDistance"
+                   name="approachDistance" type="text">
+          </div>
+        </div>
+        <h4 class="col-md-12 mt-3">Other Facilities</h4>
+        <div class="row col-md-12" formGroupName="otherFacilities">
+          <table class="table col-md-4">
+            <tr>
+              <th>SN</th>
+              <th>Particulars</th>
+              <th>Yes or No</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>Water Supply</td>
+              <td><input formControlName="waterSupply" type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Electricity</td>
+              <td><input formControlName="electricity" type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Boundary Wall Construction</td>
+              <td><input formControlName="boundaryWallConstruction" type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Boundary Fencing</td>
+              <td><input formControlName="boundaryFencing" type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Drainage</td>
+              <td><input formControlName="drainage" type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Open</td>
+              <td><input formControlName="open" type="checkbox"></td>
+            </tr>
+          </table>
+          <div class="col-md-4">
+            <div class="col-md-12 form-group">
+              <label class="title" for="building">Building</label>
+              <select class="custom-select" formControlName="building" id="building"
+                      name="building">
+                <option value="YES">Yes</option>
+                <option value="NO">No</option>
+              </select>
             </div>
-            <div class="row mt-3" [hidden]="!currentResidentForm" formGroupName="currentResidentDetails">
-                <h4 class="col-md-12">Current Resident</h4>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="houseNumber">House Number</label>
-                    <input id="houseNumber" formControlName="houseNumber" name="houseNumber" type="text"
-                           class="form-control">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="streetName">Street Name</label>
-                    <input id="streetName" formControlName="streetName" name="streetName" type="text"
-                           class="form-control">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="address">Address</label>
-                    <input id="address" formControlName="address" name="address" type="text" class="form-control">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="nearBy">Near By</label>
-                    <input id="nearBy" formControlName="nearBy" name="nearBy" type="text" class="form-control">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="ownerName" for="address">Owner Name</label>
-                    <input id="ownerName" formControlName="ownerName" name="ownerName" type="text"
-                           class="form-control">
-                </div>
+            <div class="col-md-12 form-group">
+              <label class="title" for="buildingArea">Building Area</label>
+              <input class="form-control" formControlName="buildingArea" id="buildingArea"
+                     name="buildingArea">
             </div>
-            <div class="row mt-3" [hidden]="!businessSiteVisitForm" formGroupName="businessSiteVisitDetails">
-                <h4 class="col-md-12">Business Site Visit</h4>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="officeAddress">Office Address</label>
-                    <input id="officeAddress" formControlName="officeAddress" name="officeAddress" type="text"
-                           class="form-control">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="nameOfThePersonContacted">Name Of The Person Contacted</label>
-                    <input id="nameOfThePersonContacted" formControlName="nameOfThePersonContacted"
-                           name="nameOfThePersonContacted" type="text" class="form-control">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="dateOfVisit">Date Of Visit</label>
-                    <input id="dateOfVisit" class="form-control" formControlName="dateOfVisit"
-                           [nbDatepicker]="datepicker3">
-                    <nb-datepicker #datepicker3></nb-datepicker>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="objectiveOfVisit">Objective Of Visit</label>
-                    <input id="objectiveOfVisit" formControlName="objectiveOfVisit" name="objectiveOfVisit"
-                           type="text" class="form-control">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="observation">Observation</label>
-                    <input id="observation" formControlName="observation" name="observation" type="text"
-                           class="form-control">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="visitedBy">Visited By</label>
-                    <input id="visitedBy" formControlName="visitedBy" name="visitedBy" type="text"
-                           class="form-control">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="conclusion">Conclusion</label>
-                    <input id="conclusion" formControlName="conclusion" name="conclusion" type="text"
-                           class="form-control">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="uploadOrEmbedLocation">Upload Or Embed Location</label>
-                    <textarea id="uploadOrEmbedLocation" formControlName="uploadOrEmbedLocation"
-                              name="uploadOrEmbedLocation" type="text" class="form-control" row="3"></textarea>
-                </div>
-                <div class="form-group col-md-4">
-                    <label class="title" for="mapAddress">Map Address</label>
-                    <input id="mapAddress" formControlName="mapAddress" name="mapAddress" type="text"
-                           class="form-control col-md-12">
-                </div>
-                <div class="col-md-8 form-group">
-                    <label class="title" for="findingsAndComments">Finding And Comments</label>
-                    <textarea id="findingsAndComments" formControlName="findingsAndComments"
-                              name="findingsAndComments" class="form-control" row="3"></textarea>
-                </div>
-                <div class="col-md-4 pr-0 form-group row">
-                    <div class="form-group col-md-8 pr-0">
-                        <label class="title" for="locationPreview">Location Preview</label>
-                        <input id="locationPreview" formControlName="locationPreview" name="locationPreview" type="text"
-                               class="form-control pr-0">
-                    </div>
-                    <div class="col-md-4 pr-0 pt-4">
-                        <button class="btn-primary" (click)="findLocation()">Find Location</button>
-                    </div>
-                    <div class="ml-3">
-                        <agm-map style="height: 300px; width: 300px;"
-                                 [latitude]="latitude"
-                                 [longitude]="longitude"
-                                 (mapClick)="placeMaker($event.coords.lat,$event.coords.lng)"
-                                 [fullscreenControl]='true'
-                                 [mapTypeControl]='true'
-                                 [zoom]="zoom"
-                                 [clickableIcons]='false'>
-                            <agm-marker [latitude]="markerLatitude"
-                                        [longitude]="markerLongitude">
-                                <agm-info-window [isOpen]="infoWindowOpen.value">
-                                    {{addressLabel.value}}
-                                </agm-info-window>
-                            </agm-marker>
-                        </agm-map>
-                    </div>
-                </div>
+            <div class="col-md-12 form-group">
+              <label class="title" for="constructionYear">Construction Year</label>
+              <input [nbDatepicker]="datepicker5" class="form-control"
+                     formControlName="constructionYear"
+                     id="constructionYear" name="constructionYear">
+              <nb-datepicker #datepicker5></nb-datepicker>
             </div>
-            <div class="row mt-3" [hidden]="!fixedAssetCollateralForm" formGroupName="fixedAssetCollateralDetails">
-                <h4 class="col-md-12">Fixed Assets Collateral</h4>
-                <div class="col-md-3 form-group">
-                    <label class="title" for="date">Date</label>
-                    <input id="date" class="form-control" formControlName="date" [nbDatepicker]="datepicker4">
-                    <nb-datepicker #datepicker4></nb-datepicker>
+          </div>
+          <table class="table col-md-4">
+            <tr>
+              <th>SN</th>
+              <th>Particulars</th>
+              <th>Yes or No</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>Load Bearing Wall</td>
+              <td><input formControlName="loadBearingWall" type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Mortar Cement</td>
+              <td><input formControlName="mortarCement" type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Other Roofing</td>
+              <td><input formControlName="otherRoofing" type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Inside Furniture</td>
+              <td><input formControlName="insideFurniture" type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Frame Structure</td>
+              <td><input formControlName="frameStructure" type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>RCC Roofing</td>
+              <td><input formControlName="rccRoofing" type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Bathroom And Toilet</td>
+              <td><input formControlName="bathroomAndToilet" type="checkbox"></td>
+            </tr>
+          </table>
+          <div class="col-md-4 form-group">
+            <label class="title" for="remarksForNoOption">Remarks For 'No' Option</label>
+            <textarea class="form-control" formControlName="remarksForNoOption"
+                      id="remarksForNoOption" name="remarksForNoOption" row="3"
+                      type="text"></textarea>
+          </div>
+        </div>
+        <h4 class="col-md-12 mt-3">Vicinity to the Basic Amenities</h4>
+        <div class="row col-md-12 mt-3" formGroupName="vicinityToTheBasicAmenities">
+          <div class="col-md-6">
+            <table class="table">
+              <tr>
+                <th>SN</th>
+                <th>Particulars</th>
+                <th>Yes or No</th>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Major Market Places</td>
+                <td><input formControlName="majorMarketPlaces" type="text"></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>School/Colleges</td>
+                <td><input formControlName="schoolOrCollege" type="text"></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Hospital/Nursing Home</td>
+                <td><input formControlName="hospitalOrNursingHome" type="text"></td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Electricity Line</td>
+                <td><input formControlName="electricityLine" type="text"></td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Telephone Line</td>
+                <td><input formControlName="telephoneLine" type="text"></td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>Water Pipeline</td>
+                <td><input formControlName="waterPipeline" type="text"></td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <div *ngFor="let staff of staffsForm; let i = index;"
+                 formArrayName="staffs">
+              <div [formGroupName]="i" class="row">
+                <div class="col-md-5 form-group">
+                  <label class="title" for="inspectingStaff">Inspecting Staff</label>
+                  <input class="form-control" formControlName="inspectingStaff"
+                         id="inspectingStaff" name="inspectingStaff">
                 </div>
-                <div class="col-md-3 form-group">
-                    <label class="title" for="fixedAssetCollateralAddress">Address</label>
-                    <input id="fixedAssetCollateralAddress" formControlName="address"
-                           name="fixedAssetCollateralAddress" type="text" class="form-control">
+                <div class="col-md-5 form-group">
+                  <label class="title" for="position">Position</label>
+                  <input class="form-control" formControlName="position" id="position"
+                         name="position">
                 </div>
-                <div class="col-md-3 form-group">
-                    <label class="title" for="personContacted">Person Contacted</label>
-                    <input id="personContacted" formControlName="personContacted" name="personContacted" type="text"
-                           class="form-control">
+                <div *ngIf="staffLength()>1" class="col-md-1 pt-4">
+                  <input (click)="deleteStaff(i)"
+                         class="align-self-end btn btn-sm btn-danger btn-primary"
+                         type="button" value="Delete"/>
                 </div>
-                <div class="col-md-3 form-group">
-                    <label class="title" for="phoneNoOfContact">Phone No. Of Contact</label>
-                    <input id="phoneNoOfContact" formControlName="phoneNoOfContact" name="phoneNoOfContact"
-                           type="text" class="form-control">
-                </div>
-                <h4 class="col-md-12 mt-3">Facilities</h4>
-                <div class="row col-md-12 pr-0" formGroupName="facilities">
-                    <div class="col-md-3 form-group">
-                        <label class="title" for="roadApproach">Road Approach</label>
-                        <select name="roadApproach" id="roadApproach" formControlName="roadApproach"
-                                class="custom-select">
-                            <option value=undefined hidden>Select</option>
-                            <option value="BLACK_TOPPED_ROAD">Black Topped Road</option>
-                            <option value="GRAVELLED_ROAD">Gravelled Road</option>
-                            <option value="EARTHEN_ROAD">Earthen Road</option>
-                            <option value="OTHERS">Others</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 form-group">
-                        <label class="title" for="roadWidth">Road Width</label>
-                        <input id="roadWidth" formControlName="roadWidth" name="roadWidth" type="text"
-                               class="form-control">
-                    </div>
-                    <div class="col-md-3 form-group">
-                        <label class="title" for="prominentPlace">Prominent Place</label>
-                        <input id="prominentPlace" formControlName="prominentPlace" name="prominentPlace"
-                               type="text" class="form-control">
-                    </div>
-                    <div class="col-md-3 form-group">
-                        <label class="title" for="approachDistance">Approach Distance</label>
-                        <input id="approachDistance" formControlName="approachDistance" name="approachDistance"
-                               type="text" class="form-control">
-                    </div>
-                </div>
-                <h4 class="col-md-12 mt-3">Other Facilities</h4>
-                <div class="row col-md-12" formGroupName="otherFacilities">
-                    <table class="table col-md-4">
-                        <tr>
-                            <th>SN</th>
-                            <th>Particulars</th>
-                            <th>Yes or No</th>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Water Supply</td>
-                            <td><input type="checkbox" formControlName="waterSupply"></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Electricity</td>
-                            <td><input type="checkbox" formControlName="electricity"></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Boundary Wall Construction</td>
-                            <td><input type="checkbox" formControlName="boundaryWallConstruction"></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Boundary Fencing</td>
-                            <td><input type="checkbox" formControlName="boundaryFencing"></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Drainage</td>
-                            <td><input type="checkbox" formControlName="drainage"></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Open</td>
-                            <td><input type="checkbox" formControlName="open"></td>
-                        </tr>
-                    </table>
-                    <div class="col-md-4">
-                        <div class="col-md-12 form-group">
-                            <label class="title" for="building">Building</label>
-                            <select name="building" id="building" formControlName="building" class="custom-select">
-                                <option selected disabled>Yestamg</option>
-                                <option value="YES">Yes</option>
-                                <option value="NO">No</option>
-                            </select>
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <label class="title" for="buildingArea">Building Area</label>
-                            <input name="buildingArea" id="buildingArea" formControlName="buildingArea"
-                                   class="form-control">
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <label class="title" for="constructionYear">Construction Year</label>
-                            <input class="form-control" name="constructionYear" id="constructionYear"
-                                   formControlName="constructionYear" [nbDatepicker]="datepicker5">
-                            <nb-datepicker #datepicker5></nb-datepicker>
-                        </div>
-                    </div>
-                    <table class="table col-md-4">
-                        <tr>
-                            <th>SN</th>
-                            <th>Particulars</th>
-                            <th>Yes or No</th>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Load Bearing Wall</td>
-                            <td><input type="checkbox" formControlName="loadBearingWall"></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Mortar Cement</td>
-                            <td><input type="checkbox" formControlName="mortarCement"></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Other Roofing</td>
-                            <td><input type="checkbox" formControlName="otherRoofing"></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Inside Furniture</td>
-                            <td><input type="checkbox" formControlName="insideFurniture"></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Frame Structure</td>
-                            <td><input type="checkbox" formControlName="frameStructure"></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>RCC Roofing</td>
-                            <td><input type="checkbox" formControlName="rccRoofing"></td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>Bathroom And Toilet</td>
-                            <td><input type="checkbox" formControlName="bathroomAndToilet"></td>
-                        </tr>
-                    </table>
-                    <div class="col-md-4 form-group">
-                        <label class="title" for="remarksForNoOption">Remarks For 'No' Option</label>
-                        <textarea id="remarksForNoOption" formControlName="remarksForNoOption"
-                                  name="remarksForNoOption" type="text" class="form-control" row="3"></textarea>
-                    </div>
-                </div>
-                <h4 class="col-md-12 mt-3">Vicinity to the Basic Amenities</h4>
-                <div class="row col-md-12 mt-3" formGroupName="vicinityToTheBasicAmenities">
-                    <div class="col-md-6">
-                        <table class="table">
-                            <tr>
-                                <th>SN</th>
-                                <th>Particulars</th>
-                                <th>Yes or No</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Major Market Places</td>
-                                <td><input type="checkbox" formControlName="majorMarketPlaces"></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>School/Colleges</td>
-                                <td><input type="checkbox" formControlName="schoolOrCollege"></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Hospital/Nursing Home</td>
-                                <td><input type="checkbox" formControlName="hospitalOrNursingHome"></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Electricity Line</td>
-                                <td><input type="checkbox" formControlName="electricityLine"></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Telephone Line</td>
-                                <td><input type="checkbox" formControlName="telephoneLine"></td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Water Pipeline</td>
-                                <td><input type="checkbox" formControlName="waterPipeline"></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <div formArrayName="staffs"
-                             *ngFor="let staff of staffsForm; let i = index;">
-                            <div class="row" [formGroupName]="i">
-                                <div class="col-md-5 form-group">
-                                    <label class="title" for="inspectingStaff">Inspecting Staff</label>
-                                    <input name="inspectingStaff" id="inspectingStaff"
-                                           formControlName="inspectingStaff" class="form-control">
-                                </div>
-                                <div class="col-md-5 form-group">
-                                    <label class="title" for="position">Position</label>
-                                    <input name="position" id="position" formControlName="position"
-                                           class="form-control">
-                                </div>
-                                <div class="col-md-1 pt-4" *ngIf="staffLength()>1">
-                                    <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
-                                           (click)="deleteStaff(i)" value="Delete"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addStaffs()"
-                                   value="Add Staff"/>
-                        </div>
-                        <div class="form-group">
-                            <label class="title" for="commentAboutFAC">Comments About FAC</label>
-                            <textarea id="commentAboutFAC" formControlName="commentAboutFAC" name="commentsAboutFAC"
-                                      type="text" class="form-control" row="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label class="title" for="branchInchargeComment">Branch Incharge Comment</label>
-                            <textarea id="branchInchargeComment" formControlName="branchInchargeComment"
-                                      name="branchInchargeComment" type="text" class="form-control"
-                                      row="3"></textarea>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
-            <div class="row mt-3" [hidden]="!currentAssetsInspectionForm"
-                 formGroupName="currentAssetsInspectionDetails">
-                <h4 class="col-md-12">Current Assets Inspection</h4>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="dateOfInspection">Date Of Inspection</label>
-                    <input id="dateOfInspection" class="form-control" formControlName="dateOfInspection"
-                           [nbDatepicker]="datepicker1">
-                    <nb-datepicker #datepicker1></nb-datepicker>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="particularsOfGoodInspected">Particulars Of Good Inspected</label>
-                    <input name="particularsOfGoodInspected" id="particularsOfGoodInspected"
-                           formControlName="particularsOfGoodInspected"
-                           class="form-control">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="stockValueReported">Stock Value Reported</label>
-                    <input name="stockValueReported" id="stockValueReported" formControlName="stockValueReported"
-                           class="form-control">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="rents">Rents</label>
-                    <select name="rents" id="rents" formControlName="rents" class="custom-select">
-                        <option value="OWNED" selected="selected">Owned</option>
-                        <option value="RENTED">Rented</option>
-                    </select>
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="isRentPmtUpToDate">IS Rent Pmt. Up to Date?</label>
-                    <input name="isRentPmtUpToDate" id="isRentPmtUpToDate" formControlName="isRentPmtUpToDate"
-                           class="form-control">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label class="title" for="isRentReceiptShown">IS Rent Pmt. Up to Date?</label>
-                    <input name="isRentReceiptShown" id="isRentReceiptShown" formControlName="isRentReceiptShown"
-                           class="form-control">
-                </div>
+            <div class="text-right">
+              <input (click)="addStaffs()" class="btn btn-sm btn-flat btn-primary" type="button"
+                     value="Add Staff"/>
+            </div>
+            <div class="form-group">
+              <label class="title" for="commentAboutFAC">Comments About FAC</label>
+              <textarea class="form-control" formControlName="commentAboutFAC"
+                        id="commentAboutFAC"
+                        name="commentsAboutFAC" row="3" type="text"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="title" for="branchInchargeComment">Branch Incharge Comment</label>
+              <textarea class="form-control" formControlName="branchInchargeComment"
+                        id="branchInchargeComment" name="branchInchargeComment" row="3"
+                        type="text"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div [hidden]="!currentAssetsInspectionForm" class="row mt-3"
+           formGroupName="currentAssetsInspectionDetails">
+        <h4 class="col-md-12">Current Assets Inspection</h4>
+        <div class="col-md-4 form-group">
+          <label class="title" for="dateOfInspection">Date Of Inspection</label>
+          <input [nbDatepicker]="datepicker1" class="form-control"
+                 formControlName="dateOfInspection"
+                 id="dateOfInspection">
+          <nb-datepicker #datepicker1></nb-datepicker>
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="title" for="particularsOfGoodInspected">Particulars Of Good
+            Inspected</label>
+          <input class="form-control" formControlName="particularsOfGoodInspected"
+                 id="particularsOfGoodInspected"
+                 name="particularsOfGoodInspected">
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="title" for="stockValueReported">Stock Value Reported</label>
+          <input class="form-control" formControlName="stockValueReported"
+                 id="stockValueReported"
+                 name="stockValueReported">
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="title" for="rents">Rents</label>
+          <select class="custom-select" formControlName="rents" id="rents" name="rents">
+            <option selected="selected" value="OWNED">Owned</option>
+            <option value="RENTED">Rented</option>
+          </select>
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="title" for="isRentPmtUpToDate">IS Rent Pmt. Up to Date?</label>
+          <input class="form-control" formControlName="isRentPmtUpToDate" id="isRentPmtUpToDate"
+                 name="isRentPmtUpToDate">
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="title" for="isRentReceiptShown">IS Rent Pmt. Up to Date?</label>
+          <input class="form-control" formControlName="isRentReceiptShown"
+                 id="isRentReceiptShown"
+                 name="isRentReceiptShown">
+        </div>
 
-                <h4 class="col-md-12 mt-3">Vicinity to the Basic Amenities</h4>
-                <div class="row col-md-12 mt-3" formGroupName="insuranceVerification">
-                    <div class="row col-md-6">
-                        <div class="col-md-6 form-group">
-                            <label class="title" for="assetsMortgaged">Assets Mortgaged</label>
-                            <input name="assetsMortgaged" id="assetsMortgaged" formControlName="assetsMortgaged"
-                                   class="form-control">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="title" for="insuredAmount">Insured Amount</label>
-                            <input name="insuredAmount" id="insuredAmount" formControlName="insuredAmount"
-                                   class="form-control">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="title" for="insuranceCompany">Insurance Company</label>
-                            <input name="insuranceCompany" id="insuranceCompany" formControlName="insuranceCompany"
-                                   class="form-control">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="title" for="expireDate">Expire Date</label>
-                            <input id="expireDate" class="form-control" formControlName="expireDate"
-                                   [nbDatepicker]="datepicker2">
-                            <nb-datepicker #datepicker2></nb-datepicker>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="title" for="clientsOverallRating">clients Overall Rating</label>
-                            <select name="rents" id="clientsOverallRating" formControlName="clientsOverallRating"
-                                    class="custom-select">
-                                <option value="POOR">Poor</option>
-                                <option value="GOOD">Good</option>
-                                <option value="AVERAGE">Average</option>
-                                <option value="EXCELLENT">Excellent</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="title" for="comments">Comments</label>
-                            <input name="comments" id="comments" formControlName="comments"
-                                   class="form-control">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="title" for="stockValueConfirmed">Stock Value Confirmed</label>
-                            <input name="stockValueConfirmed" id="stockValueConfirmed"
-                                   formControlName="stockValueConfirmed"
-                                   class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div formArrayName="inspectingStaffsDetails"
-                             *ngFor="let inspectingStaff of inspectingStaffsDetailsForm; let i = index;">
-                            <div class="row" [formGroupName]="i">
-                                <div class="col-md-5 form-group">
-                                    <label class="title" for="inspectingStaff">Inspecting Staff</label>
-                                    <input name="inspectingStaff" id="inspectingStaff"
-                                           formControlName="inspectingStaff" class="form-control">
-                                </div>
-                                <div class="col-md-5 form-group">
-                                    <label class="title" for="position">Position</label>
-                                    <input name="position" id="position" formControlName="position"
-                                           class="form-control">
-                                </div>
-                                <div class="col-md-1 pt-4" *ngIf="inspectingStaffsDetailsLength()>1">
-                                    <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
-                                           (click)="deleteInspectingStaffsDetails(i)" value="Delete"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <input class="btn btn-sm btn-flat btn-primary" type="button"
-                                   (click)="addInspectingStaffsDetails()"
-                                   value="Add Staff"/>
-                        </div>
-                    </div>
-                </div>
-                <h4 class="col-md-12 mt-3">Current Assets Inpsection - Stock Checklist Questionaire</h4>
-                <div class="row col-md-12 mt-3" formGroupName="stockCheckListQuestionaire">
-                    <table class="table">
-                        <tr>
-                            <th>SN</th>
-                            <th>Particulars</th>
-                            <th>Yes Or No</th>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Is the customer upto date with other charges,chargeable to the other premises ?</td>
-                            <td><input type="checkbox"
-                                       formControlName="isTheCustomerUptoDateWithOtherChargerChargeableToTheOtherPremises">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>All goods belongs to the borrowers and non are hold on account of third parties</td>
-                            <td><input type="checkbox"
-                                       formControlName="allGoodsBelongsToTheBorrowersAndNonAreHoldOnAccountOfThirdParties">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Confirm that valuation of stocks does not include and goods under TR</td>
-                            <td><input type="checkbox"
-                                       formControlName="confirmThatValuationOfStocksDoesNotIncludeAndGoodsUnderTr">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>There is no evidence of any other bank interested in the goods</td>
-                            <td><input type="checkbox"
-                                       formControlName="thereIsNoEvidenceOfAnyOtherBankInterestedInTheGoods"></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Was the security in order ?</td>
-                            <td><input type="checkbox" formControlName="wasTheSecurityInOrder"></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Are the goods saleable ?</td>
-                            <td><input type="checkbox" formControlName="areTheGoodsSaleable"></td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>Are the stocks registered upto date ?</td>
-                            <td><input type="checkbox" formControlName="areTheStocksRegisteredUptoDate"></td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>Does the stocks registered match with the stock list ?</td>
-                            <td><input type="checkbox"
-                                       formControlName="doesTheStocksRegisteredMatchWithTheStockList"></td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td> Is the storage condition satisfactory ?</td>
-                            <td><input type="checkbox" formControlName="isTheStorageConditionSatisfactory"></td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>Is fire fighting evidence through arrangement ?</td>
-                            <td><input type="checkbox" formControlName="isTheFightingEvidenceThroughArrangement">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>Are the building/store in the good condition?</td>
-                            <td><input type="checkbox" formControlName="areTheBuildingsOrStoreInTheGoodCondition">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>Are the special warranties in the insurance policy upto date ?</td>
-                            <td><input type="checkbox"
-                                       formControlName="areTheSpecialWarrantiesInTheInsurancePolicyUptoDate"></td>
-                        </tr>
-                        <tr>
-                            <td>13</td>
-                            <td>There is no evidence of goods hazardous nature in the premises</td>
-                            <td><input type="checkbox"
-                                       formControlName="thereIsNoEvidenceOfGoodsHazardousNatureInThePremises"></td>
-                        </tr>
-                        <tr>
-                            <td>14</td>
-                            <td>Were our name board properly displayed ?</td>
-                            <td><input type="checkbox" formControlName="wereOurNameBoardProperlyDisplayed"></td>
-                        </tr>
-                        <tr>
-                            <td>15</td>
-                            <td> Were our padlocks in use ?</td>
-                            <td><input type="checkbox" formControlName="wereOurPadlocksInUse"></td>
-                        </tr>
-                    </table>
-                    <div class="col-md-6 form-group">
-                        <label class="title" for="findingsAndComments">Finding & Comments</label>
-                        <textarea id="findingsAndComments" formControlName="findingsAndComments"
-                                  name="findingsAndComments" type="text" class="form-control"
-                                  row="3"></textarea>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label class="title" for="remarksForNoOption">Remarks for 'NO' Option</label>
-                        <textarea id="remarksForNoOption" formControlName="remarksForNoOption"
-                                  name="remarksForNoOption" type="text" class="form-control"
-                                  row="3"></textarea>
-                    </div>
-                </div>
-                <h4 class="col-md-12 mt-3">Current Assets Inspection - Receivables & Payables</h4>
-                <div class="row col-md-12 mt-3" formGroupName="receivablesAndPayables">
-                    <div formArrayName="parties"
-                         *ngFor="let party of partyForm; let i = index;">
-                        <div class="row" [formGroupName]="i">
-                            <div class="col-md-2 form-group ml-3">
-                                <label class="title" for="party">Party</label>
-                                <input name="party" id="party" formControlName="party"
-                                       class="form-control">
-                            </div>
-                            <div class="col-md-2 form-group">
-                                <label class="title" for="withinThreeMonths">Within 3 Months</label>
-                                <input name="party" id="withinThreeMonths" formControlName="withinThreeMonths"
-                                       class="form-control">
-                            </div>
-                            <div class="col-md-2 form-group">
-                                <label class="title" for="sixMonth">6 Month</label>
-                                <input name="sixMonth" id="sixMonth" formControlName="sixMonth"
-                                       class="form-control">
-                            </div>
-                            <div class="col-md-2 form-group">
-                                <label class="title" for="oneYear">One year</label>
-                                <input name="oneYear" id="oneYear" formControlName="oneYear"
-                                       class="form-control">
-                            </div>
-                            <div class="col-md-2 form-group">
-                                <label class="title" for="oneYearPlus">1+ year</label>
-                                <input name="oneYeaPlus" id="oneYearPlus" formControlName="oneYearPlus"
-                                       class="form-control">
-                            </div>
-                            <div class="col-md-1 pt-4" *ngIf="partyLength()>1">
-                                <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
-                                       (click)="deletePartyForm(i)" value="Delete"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row col-md-12 justify-content-end">
-                        <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addPartyForm()"
-                               value="Add Staff"/>
-                    </div>
-                    <div class="col-md-12 pl-4">
-                        <div class="row">
-                            <div class="col-md-2 form-group"><label class="title">Total:</label></div>
-                            <div class="col-md-2 form-group"><input class="form-control" type="text"></div>
-                            <div class="col-md-2 form-group"><input class="form-control" type="text"></div>
-                            <div class="col-md-2 form-group"><input class="form-control" type="text"></div>
-                            <div class="col-md-2 form-group"><input class="form-control" type="text"></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label class="title" for="findingsAndComments">Findings & Comments</label>
-                        <textarea id="findingsAndComments" formControlName="findingsAndComments"
-                                  name="findingsAndComments" type="text" class="form-control"
-                                  row="3"></textarea>
-                    </div>
-                </div>
-                <h4 class="col-md-12 mt-3">Other Current Assets</h4>
-                <div class="row col-md-12" formGroupName="otherCurrentAssets">
-                    <div class="col-md-6 border-right">
-                        <h5 class="col-md-12 mt-3">Receivable Assets</h5>
-                        <div formArrayName="receivableAssets"
-                             *ngFor="let asset of receivableAssetsForm; let i = index;">
-                            <div class="row col-md-12" [formGroupName]="i">
-                                <div class="col-md-5 form-group">
-                                    <label class="title" for="particulars">Particulars</label>
-                                    <input name="party" id="particulars" formControlName="particulars"
-                                           class="form-control">
-                                </div>
-                                <div class="col-md-4 form-group ml-3">
-                                    <label class="title" for="amount">Amount</label>
-                                    <input name="amount" id="amount" formControlName="amount"
-                                           class="form-control">
-                                </div>
-                                <div class="col-md-2 form-group pt-4" *ngIf="receivableAssetsLength()>1">
-                                    <input class="btn btn-sm btn-danger btn-primary" type="button"
-                                           (click)="deleteReceivableAssets(i)" value="Delete"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row col-md-12">
-                            <div class="col-md-5 justify-content-end">
-                                <input class="col-md-12 btn-sm btn-primary mt-4" type="button"
-                                       (click)="addReceivableAssets()"
-                                       value="+Add Receivable Assets"/>
-                            </div>
-                            <div class="col-md-4 justify-content-end ml-3">
-                                <label class="title" for="total">Total</label>
-                                <input name="amount" id="total" type="text" class="form-control">
-                            </div>
-                        </div>
-                        <h5 class="col-md-12 mt-3">Inspecting Staffs</h5>
-                        <div formArrayName="inspectingStaffs"
-                             *ngFor="let asset of inspectingStaffsForm; let i = index;">
-                            <div class="row col-md-12" [formGroupName]="i">
-                                <div class="col-md-5 form-group">
-                                    <label class="title" for="inspectingStaff">Name</label>
-                                    <input name="inspectingStaff" id="inspectingStaff" formControlName="inspectingStaff"
-                                           class="form-control">
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label class="title" for="position">Position</label>
-                                    <input name="position" id="position" formControlName="position"
-                                           class="form-control">
-                                </div>
-                                <div class="col-md-2 form-group pt-4" *ngIf="inspectingStaffsLength()>1">
-                                    <input class="btn btn-sm btn-danger btn-primary" type="button"
-                                           (click)="deleteInspectingStaffs(i)" value="Delete"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 justify-content-start">
-                            <input class="col-md-9 btn btn-sm btn-flat btn-primary" type="button"
-                                   (click)="addInspectingStaffs()"
-                                   value="+Add Inspecting Staffs"/>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <h5 class="col-md-12 mt-3">Payable Assets</h5>
-                        <div formArrayName="payableAssets"
-                             *ngFor="let asset of payableAssetsForm; let i = index;">
-                            <div class="row col-md-12" [formGroupName]="i">
-                                <div class="col-md-5 form-group">
-                                    <label class="title" for="particulars">Particulars</label>
-                                    <input name="party" id="particulars" formControlName="particulars"
-                                           class="form-control">
-                                </div>
-                                <div class="col-md-4 form-group ml-3">
-                                    <label class="title" for="amount">Amount</label>
-                                    <input name="amount" id="amount" formControlName="amount"
-                                           class="form-control">
-                                </div>
-                                <div class="col-md-2 form-group pt-4" *ngIf="payableAssetsLength()>1">
-                                    <input class="btn btn-sm btn-danger btn-primary" type="button"
-                                           (click)="deletePayableAssets(i)" value="Delete"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row col-md-12">
-                            <div class="col-md-5 justify-content-end">
-                                <input class="col-md-12 btn-sm btn-primary mt-4" type="button"
-                                       (click)="addPayableAssets()"
-                                       value="+Add Payable Assets"/>
-                            </div>
-                            <div class="col-md-4 justify-content-end ml-3">
-                                <label class="title" for="total">Total</label>
-                                <input name="amount" id="total" type="text" class="form-control">
-                            </div>
-                        </div>
-                        <h5 class="col-md-12 mt-3">Bank Exposure</h5>
-                        <div formArrayName="bankExposures"
-                             *ngFor="let asset of bankExposureForm; let i = index;">
-                            <div class="row col-md-12" [formGroupName]="i">
-                                <div class="col-md-5 form-group">
-                                    <label class="title" for="bankName">Bank Name</label>
-                                    <input name="bankName" id="bankName" formControlName="bankName"
-                                           class="form-control">
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label class="title" for="amount">Amount</label>
-                                    <input name="amount" id="amount" formControlName="amount"
-                                           class="form-control">
-                                </div>
-                                <div class="col-md-2 form-group pt-4" *ngIf="bankExposureLength()>1">
-                                    <input class="btn btn-sm btn-danger btn-primary" type="button"
-                                           (click)="deleteBankExposure(i)" value="Delete"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 justify-content-start">
-                            <input class="col-md-9 btn btn-sm btn-flat btn-primary" type="button"
-                                   (click)="addBankExposure()"
-                                   value="+Add Inspecting Staffs"/>
-                        </div>
-                    </div>
-                    <div class="col-md-12 mt-4">
-                        <div class="form-group">
-                            <label class="title" for="overallFindings">Overall Findings / Comment of CAI</label>
-                            <textarea id="overAllFindings" formControlName="overAllFindings"
-                                      name="overAllFindings" type="text" class="form-control"
-                                      row="3"></textarea>
-                        </div>
-                    </div>
-                </div>
+        <h4 class="col-md-12 mt-3">Insurance Verification</h4>
+        <div class="row col-md-12 mt-3" formGroupName="insuranceVerification">
+          <div class="row col-md-6">
+            <div class="col-md-6 form-group">
+              <label class="title" for="assetsMortgaged">Assets Mortgaged</label>
+              <input class="form-control" formControlName="assetsMortgaged" id="assetsMortgaged"
+                     name="assetsMortgaged">
             </div>
-            <div class="row col-md-12 mt-4 mb-4">
-                <div class="row col-md-6 justify-content-end">
-                    <input class="col-md-3 btn btn-sm btn-flat btn-primary" type="button" value="Previous"/>
-                </div>
-                <div class="row col-md-6 justify-content-start ml-0">
-                    <input class="col-md-3 btn btn-sm btn-flat btn-primary" type="button" value="Next"/>
-                </div>
+            <div class="col-md-6 form-group">
+              <label class="title" for="insuredAmount">Insured Amount</label>
+              <input class="form-control" formControlName="insuredAmount" id="insuredAmount"
+                     name="insuredAmount">
             </div>
-        </form>
-    </nb-card-body>
+            <div class="col-md-6 form-group">
+              <label class="title" for="insuranceCompany">Insurance Company</label>
+              <input class="form-control" formControlName="insuranceCompany"
+                     id="insuranceCompany"
+                     name="insuranceCompany">
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="title" for="expireDate">Expire Date</label>
+              <input [nbDatepicker]="datepicker2" class="form-control" formControlName="expireDate"
+                     id="expireDate">
+              <nb-datepicker #datepicker2></nb-datepicker>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="title" for="clientsOverallRating">clients Overall Rating</label>
+              <select class="custom-select" formControlName="clientsOverallRating"
+                      id="clientsOverallRating"
+                      name="rents">
+                <option value="POOR">Poor</option>
+                <option value="GOOD">Good</option>
+                <option value="AVERAGE">Average</option>
+                <option value="EXCELLENT">Excellent</option>
+              </select>
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="title" for="comments">Comments</label>
+              <input class="form-control" formControlName="comments" id="comments"
+                     name="comments">
+            </div>
+            <div class="col-md-6 form-group">
+              <label class="title" for="stockValueConfirmed">Stock Value Confirmed</label>
+              <input class="form-control" formControlName="stockValueConfirmed"
+                     id="stockValueConfirmed"
+                     name="stockValueConfirmed">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div *ngFor="let inspectingStaff of inspectingStaffsDetailsForm; let i = index;"
+                 formArrayName="inspectingStaffsDetails">
+              <div [formGroupName]="i" class="row">
+                <div class="col-md-5 form-group">
+                  <label class="title" for="inspectingStaff">Inspecting Staff</label>
+                  <input class="form-control" formControlName="inspectingStaff"
+                         id="inspectingStaff" name="inspectingStaff">
+                </div>
+                <div class="col-md-5 form-group">
+                  <label class="title" for="position">Position</label>
+                  <input class="form-control" formControlName="position" id="position"
+                         name="position">
+                </div>
+                <div *ngIf="inspectingStaffsDetailsLength()>1" class="col-md-1 pt-4">
+                  <input (click)="deleteInspectingStaffsDetails(i)"
+                         class="align-self-end btn btn-sm btn-danger btn-primary"
+                         type="button" value="Delete"/>
+                </div>
+              </div>
+            </div>
+            <div class="text-right">
+              <input (click)="addInspectingStaffsDetails()" class="btn btn-sm btn-flat btn-primary"
+                     type="button"
+                     value="Add Staff"/>
+            </div>
+          </div>
+        </div>
+        <h4 class="col-md-12 mt-3">Current Assets Inpsection - Stock Checklist Questionaire</h4>
+        <div class="row col-md-12 mt-3" formGroupName="stockCheckListQuestionaire">
+          <table class="table">
+            <tr>
+              <th>SN</th>
+              <th>Particulars</th>
+              <th>Yes Or No</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>Is the customer upto date with other charges,chargeable to the other premises ?
+              </td>
+              <td><input
+                  formControlName="isTheCustomerUptoDateWithOtherChargerChargeableToTheOtherPremises"
+                  type="checkbox">
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>All goods belongs to the borrowers and non are hold on account of third parties
+              </td>
+              <td><input
+                  formControlName="allGoodsBelongsToTheBorrowersAndNonAreHoldOnAccountOfThirdParties"
+                  type="checkbox">
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Confirm that valuation of stocks does not include and goods under TR</td>
+              <td><input formControlName="confirmThatValuationOfStocksDoesNotIncludeAndGoodsUnderTr"
+                         type="checkbox">
+              </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>There is no evidence of any other bank interested in the goods</td>
+              <td><input formControlName="thereIsNoEvidenceOfAnyOtherBankInterestedInTheGoods"
+                         type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Was the security in order ?</td>
+              <td><input formControlName="wasTheSecurityInOrder" type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Are the goods saleable ?</td>
+              <td><input formControlName="areTheGoodsSaleable" type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Are the stocks registered upto date ?</td>
+              <td><input formControlName="areTheStocksRegisteredUptoDate" type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>Does the stocks registered match with the stock list ?</td>
+              <td><input formControlName="doesTheStocksRegisteredMatchWithTheStockList"
+                         type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td> Is the storage condition satisfactory ?</td>
+              <td><input formControlName="isTheStorageConditionSatisfactory" type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>Is fire fighting evidence through arrangement ?</td>
+              <td><input formControlName="isTheFightingEvidenceThroughArrangement" type="checkbox">
+              </td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td>Are the building/store in the good condition?</td>
+              <td><input formControlName="areTheBuildingsOrStoreInTheGoodCondition" type="checkbox">
+              </td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>Are the special warranties in the insurance policy upto date ?</td>
+              <td><input formControlName="areTheSpecialWarrantiesInTheInsurancePolicyUptoDate"
+                         type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>13</td>
+              <td>There is no evidence of goods hazardous nature in the premises</td>
+              <td><input formControlName="thereIsNoEvidenceOfGoodsHazardousNatureInThePremises"
+                         type="checkbox">
+              </td>
+            </tr>
+            <tr>
+              <td>14</td>
+              <td>Were our name board properly displayed ?</td>
+              <td><input formControlName="wereOurNameBoardProperlyDisplayed" type="checkbox"></td>
+            </tr>
+            <tr>
+              <td>15</td>
+              <td> Were our padlocks in use ?</td>
+              <td><input formControlName="wereOurPadlocksInUse" type="checkbox"></td>
+            </tr>
+          </table>
+          <div class="col-md-6 form-group">
+            <label class="title" for="findingsAndComments">Finding & Comments</label>
+            <textarea class="form-control" formControlName="findingsAndComments"
+                      id="findingsAndComments" name="findingsAndComments" row="3"
+                      type="text"></textarea>
+          </div>
+          <div class="col-md-6 form-group">
+            <label class="title" for="remarksForNoOption">Remarks for 'NO' Option</label>
+            <textarea class="form-control" formControlName="remarksForNoOption"
+                      id="remarksForNoOption" name="remarksForNoOption" row="3"
+                      type="text"></textarea>
+          </div>
+        </div>
+        <h4 class="col-md-12 mt-3">Current Assets Inspection - Receivables & Payables</h4>
+        <div class="row col-md-12 mt-3" formGroupName="receivablesAndPayables">
+          <div *ngFor="let party of partyForm; let i = index;"
+               formArrayName="parties">
+            <div [formGroupName]="i" class="row">
+              <div class="col-md-2 form-group ml-3">
+                <label class="title" for="party">Party</label>
+                <input class="form-control" formControlName="party" id="party"
+                       name="party">
+              </div>
+              <div class="col-md-2 form-group">
+                <label class="title" for="withinThreeMonths">Within 3 Months</label>
+                <input class="form-control" formControlName="withinThreeMonths"
+                       id="withinThreeMonths"
+                       name="party">
+              </div>
+              <div class="col-md-2 form-group">
+                <label class="title" for="sixMonth">6 Month</label>
+                <input class="form-control" formControlName="sixMonth" id="sixMonth"
+                       name="sixMonth">
+              </div>
+              <div class="col-md-2 form-group">
+                <label class="title" for="oneYear">One year</label>
+                <input class="form-control" formControlName="oneYear" id="oneYear"
+                       name="oneYear">
+              </div>
+              <div class="col-md-2 form-group">
+                <label class="title" for="oneYearPlus">1+ year</label>
+                <input class="form-control" formControlName="oneYearPlus" id="oneYearPlus"
+                       name="oneYeaPlus">
+              </div>
+              <div *ngIf="partyLength()>1" class="col-md-1 pt-4">
+                <input (click)="deletePartyForm(i)"
+                       class="align-self-end btn btn-sm btn-danger btn-primary"
+                       type="button" value="Delete"/>
+              </div>
+            </div>
+          </div>
+          <div class="row col-md-12 justify-content-end">
+            <input (click)="addPartyForm()" class="btn btn-sm btn-flat btn-primary" type="button"
+                   value="Add Staff"/>
+          </div>
+          <div class="col-md-12 pl-4">
+            <div class="row">
+              <div class="col-md-2 form-group"><label class="title">Total:</label></div>
+              <div class="col-md-2 form-group"><input class="form-control" type="text"></div>
+              <div class="col-md-2 form-group"><input class="form-control" type="text"></div>
+              <div class="col-md-2 form-group"><input class="form-control" type="text"></div>
+              <div class="col-md-2 form-group"><input class="form-control" type="text"></div>
+            </div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label class="title" for="findingsAndComments">Findings & Comments</label>
+            <textarea class="form-control" formControlName="findingsAndComments"
+                      id="findingsAndComments" name="findingsAndComments" row="3"
+                      type="text"></textarea>
+          </div>
+        </div>
+        <h4 class="col-md-12 mt-3">Other Current Assets</h4>
+        <div class="row col-md-12" formGroupName="otherCurrentAssets">
+          <div class="col-md-6 border-right">
+            <h5 class="col-md-12 mt-3">Receivable Assets</h5>
+            <div *ngFor="let asset of receivableAssetsForm; let i = index;"
+                 formArrayName="receivableAssets">
+              <div [formGroupName]="i" class="row col-md-12">
+                <div class="col-md-5 form-group">
+                  <label class="title" for="particulars">Particulars</label>
+                  <input class="form-control" formControlName="particulars" id="particulars"
+                         name="party">
+                </div>
+                <div class="col-md-4 form-group ml-3">
+                  <label class="title" for="amount">Amount</label>
+                  <input class="form-control" formControlName="amount" id="amount"
+                         name="amount">
+                </div>
+                <div *ngIf="receivableAssetsLength()>1" class="col-md-2 form-group pt-4">
+                  <input (click)="deleteReceivableAssets(i)"
+                         class="btn btn-sm btn-danger btn-primary"
+                         type="button" value="Delete"/>
+                </div>
+              </div>
+            </div>
+            <div class="row col-md-12">
+              <div class="col-md-5 justify-content-end">
+                <input (click)="addReceivableAssets()" class="col-md-12 btn-sm btn-primary mt-4"
+                       type="button"
+                       value="+Add Receivable Assets"/>
+              </div>
+              <div class="col-md-4 justify-content-end ml-3">
+                <label class="title" for="total">Total</label>
+                <input class="form-control" id="total" name="amount" type="text">
+              </div>
+            </div>
+            <h5 class="col-md-12 mt-3">Inspecting Staffs</h5>
+            <div *ngFor="let asset of inspectingStaffsForm; let i = index;"
+                 formArrayName="inspectingStaffs">
+              <div [formGroupName]="i" class="row col-md-12">
+                <div class="col-md-5 form-group">
+                  <label class="title" for="inspectingStaff">Name</label>
+                  <input class="form-control" formControlName="inspectingStaff"
+                         id="inspectingStaff"
+                         name="inspectingStaff">
+                </div>
+                <div class="col-md-4 form-group">
+                  <label class="title" for="position">Position</label>
+                  <input class="form-control" formControlName="position" id="position"
+                         name="position">
+                </div>
+                <div *ngIf="inspectingStaffsLength()>1" class="col-md-2 form-group pt-4">
+                  <input (click)="deleteInspectingStaffs(i)"
+                         class="btn btn-sm btn-danger btn-primary"
+                         type="button" value="Delete"/>
+                </div>
+              </div>
+            </div>
+            <div class="row col-md-12 justify-content-start">
+              <input (click)="addInspectingStaffs()"
+                     class="col-md-9 btn btn-sm btn-flat btn-primary"
+                     type="button"
+                     value="+Add Inspecting Staffs"/>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h5 class="col-md-12 mt-3">Payable Assets</h5>
+            <div *ngFor="let asset of payableAssetsForm; let i = index;"
+                 formArrayName="payableAssets">
+              <div [formGroupName]="i" class="row col-md-12">
+                <div class="col-md-5 form-group">
+                  <label class="title" for="particulars">Particulars</label>
+                  <input class="form-control" formControlName="particulars" id="particulars"
+                         name="party">
+                </div>
+                <div class="col-md-4 form-group ml-3">
+                  <label class="title" for="amount">Amount</label>
+                  <input class="form-control" formControlName="amount" id="amount"
+                         name="amount">
+                </div>
+                <div *ngIf="payableAssetsLength()>1" class="col-md-2 form-group pt-4">
+                  <input (click)="deletePayableAssets(i)" class="btn btn-sm btn-danger btn-primary"
+                         type="button" value="Delete"/>
+                </div>
+              </div>
+            </div>
+            <div class="row col-md-12">
+              <div class="col-md-5 justify-content-end">
+                <input (click)="addPayableAssets()" class="col-md-12 btn-sm btn-primary mt-4"
+                       type="button"
+                       value="+Add Payable Assets"/>
+              </div>
+              <div class="col-md-4 justify-content-end ml-3">
+                <label class="title" for="total">Total</label>
+                <input class="form-control" id="total" name="amount" type="text">
+              </div>
+            </div>
+            <h5 class="col-md-12 mt-3">Bank Exposure</h5>
+            <div *ngFor="let asset of bankExposureForm; let i = index;"
+                 formArrayName="bankExposures">
+              <div [formGroupName]="i" class="row col-md-12">
+                <div class="col-md-5 form-group">
+                  <label class="title" for="bankName">Bank Name</label>
+                  <input class="form-control" formControlName="bankName" id="bankName"
+                         name="bankName">
+                </div>
+                <div class="col-md-4 form-group">
+                  <label class="title" for="amount">Amount</label>
+                  <input class="form-control" formControlName="amount" id="amount"
+                         name="amount">
+                </div>
+                <div *ngIf="bankExposureLength()>1" class="col-md-2 form-group pt-4">
+                  <input (click)="deleteBankExposure(i)" class="btn btn-sm btn-danger btn-primary"
+                         type="button" value="Delete"/>
+                </div>
+              </div>
+            </div>
+            <div class="row col-md-12 justify-content-start">
+              <input (click)="addBankExposure()" class="col-md-9 btn btn-sm btn-flat btn-primary"
+                     type="button"
+                     value="+Add Inspecting Staffs"/>
+            </div>
+          </div>
+          <div class="col-md-12 mt-4">
+            <div class="form-group">
+              <label class="title" for="overallFindings">Overall Findings / Comment of CAI</label>
+              <textarea class="form-control" formControlName="overAllFindings"
+                        id="overAllFindings" name="overAllFindings" row="3"
+                        type="text"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row col-md-12 mt-4 mb-4">
+        <div class="row col-md-6 justify-content-end">
+          <input class="col-md-3 btn btn-sm btn-flat btn-primary" type="button" value="Previous"/>
+        </div>
+        <div class="row col-md-6 justify-content-start ml-0">
+          <input class="col-md-3 btn btn-sm btn-flat btn-primary" type="button" value="Next"/>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
 </nb-card>
