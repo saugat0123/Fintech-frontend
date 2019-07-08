@@ -15,13 +15,17 @@ import {LoanActionService} from '../../loan-action/service/loan-action.service';
 import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
 import {LoanStage} from '../../model/loanStage';
 import {AppConstant} from '../../../../@core/utils/appConstant';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-loan-summary',
     templateUrl: './loan-summary.component.html',
-    styleUrls: ['./loan-summary.component.css']
+    styleUrls: ['./loan-summary.component.scss']
 })
 export class LoanSummaryComponent implements OnInit {
+
+    client: String;
+
     dmsLoanFile: DmsLoanFile = new DmsLoanFile();
     loanConfig: LoanConfig = new LoanConfig();
     loan: string;
@@ -63,6 +67,8 @@ export class LoanSummaryComponent implements OnInit {
                 private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService,
                 private approvalLimitService: ApprovalLimitService) {
+
+        this.client = environment.client;
 
     }
 

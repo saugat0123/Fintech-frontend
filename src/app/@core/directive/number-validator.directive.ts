@@ -12,12 +12,12 @@ import { Directive } from '@angular/core';
   providers: [
     {
       provide: NG_VALIDATORS,
-      useExisting: WardNumberValidatorDirective,
+      useExisting: NumberValidatorDirective,
       multi: true
     }
   ]
 })
-export class WardNumberValidatorDirective implements Validator {
+export class NumberValidatorDirective implements Validator {
   validator: ValidatorFn;
   constructor() {
     this.validator = this.validNumber();
