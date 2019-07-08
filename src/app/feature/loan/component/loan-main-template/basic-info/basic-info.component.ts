@@ -1,16 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
-import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 import {Province} from '../../../../admin/modal/province';
 import {District} from '../../../../admin/modal/district';
 import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
-import {LoanDataService} from '../../../service/loan-data.service';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
-import {CommonDataService} from '../../../../../@core/service/baseservice/common-dataService';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {Customer} from '../../../../admin/modal/customer';
+import {DateValidator} from '../../../../../@core/validator/date-validator';
 
 
 @Component({
@@ -21,25 +18,21 @@ import {Customer} from '../../../../admin/modal/customer';
 export class BasicInfoComponent implements OnInit {
     @Input() formValue: Customer;
 
+    basicInfo: FormGroup;
+    submitted = false;
+
     customer: Customer = new Customer();
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
-    basicInfo: FormGroup;
-
-    provinceList: Province[] = [];
-    districtList: District[] = [];
-    municipalitiesList: MunicipalityVdc[] = [];
     province: Province = new Province();
+    provinceList: Array<Province> = Array<Province>();
     district: District = new District();
+    districtList: Array<District> = Array<District>();
     municipality: MunicipalityVdc = new MunicipalityVdc();
-
+    municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
 
     constructor(
-        private commonService: CommonService,
-        private commonDataService: CommonDataService,
-        private router: Router,
         private formBuilder: FormBuilder,
-        private commonLocation: AddressService,
-        private loanDataService: LoanDataService
+        private commonLocation: AddressService
     ) {
     }
 
@@ -61,9 +54,9 @@ export class BasicInfoComponent implements OnInit {
                 });
             }
         );
-        console.log(this.customer.citizenshipIssuedPlace);
         this.basicInfo = this.formBuilder.group({
-            title: [this.customer.title === undefined ? '' : this.customer.title, Validators.required],
+            // title not used in ui
+            title: [this.customer.title === undefined ? '' : this.customer.title],
             customerName: [this.customer.customerName === undefined ? '' : this.customer.customerName, Validators.required],
             customerId: [this.customer.customerId === undefined ? '' : this.customer.customerId, Validators.required],
             accountNo: [this.customer.accountNo === undefined ? '' : this.customer.accountNo, Validators.required],
@@ -75,14 +68,20 @@ export class BasicInfoComponent implements OnInit {
             telephone: [this.customer.telephone === undefined ? '' : this.customer.telephone, Validators.required],
             mobile: [this.customer.mobile === undefined ? '' : this.customer.mobile, Validators.required],
             email: [this.customer.email === undefined ? '' : this.customer.email, Validators.required],
+            // initial Relation Date not used in ui
             initialRelationDate: [this.customer.initialRelationDate === undefined ? '' :
-                this.customer.initialRelationDate, Validators.required],
-            citizenshipNumber: [this.customer.citizenshipNumber === undefined ? '' : this.customer.citizenshipNumber, Validators.required],
+                this.customer.initialRelationDate],
+            citizenshipNumber: [this.customer.citizenshipNumber === undefined ? '' : this.customer.citizenshipNumber
+                , Validators.required],
             citizenshipIssuedPlace: [this.customer.citizenshipIssuedPlace === undefined ? '' : this.customer.citizenshipIssuedPlace,
                 Validators.required],
             citizenshipIssuedDate: [this.customer.citizenshipIssuedDate === undefined ? '' :
-                this.customer.citizenshipIssuedDate, Validators.required],
+                this.customer.citizenshipIssuedDate, [Validators.required, DateValidator.isValidBefore]],
         });
+    }
+
+    get basicInfoControls() {
+        return this.basicInfo.controls;
     }
 
     getDistricts(province: Province) {
@@ -114,11 +113,8 @@ export class BasicInfoComponent implements OnInit {
     }
 
     onSubmit() {
-
         this.customer.title = this.basicInfo.get('title').value;
         this.customer.customerName = this.basicInfo.get('customerName').value;
-        console.log(this.basicInfo.get('customerId').value);
-        console.log(this.basicInfo.get('citizenshipIssuedPlace').value);
         this.customer.customerId = this.basicInfo.get('customerId').value;
         this.customer.accountNo = this.basicInfo.get('accountNo').value;
         this.customer.province = this.basicInfo.get('province').value;
@@ -131,9 +127,6 @@ export class BasicInfoComponent implements OnInit {
         this.customer.citizenshipNumber = this.basicInfo.get('citizenshipNumber').value;
         this.customer.citizenshipIssuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
         this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
-        this.loanDataService.setCustomer(this.customer);
-
-        console.log('running state');
     }
 
 }
