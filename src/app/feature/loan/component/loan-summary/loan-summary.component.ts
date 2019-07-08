@@ -70,8 +70,6 @@ export class LoanSummaryComponent implements OnInit {
 
         this.client = environment.client;
 
-        console.log(this.client);
-
     }
 
     ngOnInit() {
