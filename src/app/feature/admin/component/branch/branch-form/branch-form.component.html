@@ -108,14 +108,15 @@
                 <div class="row form-group">
                     <div class="col-md-6">
                         <label for="ward_number">Ward</label>
-                        <input nbInput fieldSize="medium" type="text" class="form-control"
+                        <input nbInput fieldSize="medium" type="number" class="form-control"
                                [(ngModel)]="model.wardNumber" name="ward"
                                id="ward_number"
-                               placeholder="Ward" required
+                               placeholder="Ward" required app-valid-number
                                #wardVal="ngModel"
                                [ngClass]="{ 'is-invalid': branchForm.submitted && wardVal.invalid }"/>
-                        <div *ngIf="branchForm.submitted && wardVal.invalid" class="invalid-feedback">
-                            Ward is required
+                        <div class="invalid-feedback" *ngIf="branchForm.submitted && wardVal.invalid">
+                            <div *ngIf="wardVal.errors.required">Ward No. is required</div>
+                            <span *ngIf="wardVal.invalid && model.wardNumber !== undefined && model.wardNumber !== null">Invalid Ward number</span>
                         </div>
                     </div>
                 </div>
