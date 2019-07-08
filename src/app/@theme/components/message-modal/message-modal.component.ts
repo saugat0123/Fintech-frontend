@@ -1,20 +1,22 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {ModalResponse} from '../../@core/utils';
+import {ModalResponse} from '../../../@core/utils';
 
 
 
 @Component({
   selector: 'app-common-msg-modal',
-  templateUrl: './common-msg-modal.component.html',
-  styleUrls: ['./common-msg-modal.component.scss']
+  templateUrl: './message-modal.component.html',
+  styleUrls: ['./message-modal.component.scss']
 })
-export class CommonMsgModalComponent implements OnInit {
+export class MessageModalComponent implements OnInit {
 
   @Input()
-  modalHeader: string;
+  header: string;
   @Input()
-  modalMessage: string;
+  body: string;
+  @Input()
+  footer: string;
 
   constructor(
       private modalRef: NgbActiveModal
