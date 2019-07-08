@@ -1,6 +1,23 @@
 @import '../../../../@theme/styles/themes';
 
 @include nb-install-component() {
+  .report-header {
+    text-align: center;
+
+    .report-header-heading {
+      font-size: 1.75rem;
+      font-weight: bold;
+    }
+
+    .report-header-sub-heading {
+      font-size: 1.5rem;
+    }
+  }
+
+  .report-logo {
+    width: 100px;
+  }
+
   .print-only {
     display: none;
   }
@@ -53,6 +70,14 @@
 
       .table th, .table td {
         padding: 0.2rem;
+      }
+
+      .report-header {
+        line-height: 1;
+
+        .report-header-heading, .report-header-sub-heading {
+          font-size: 1rem;
+        }
       }
 
       #print-block {
