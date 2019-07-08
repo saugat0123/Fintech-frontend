@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {Document} from '../../modal/document';
 import {LoanCycle} from '../../modal/loan-cycle';

@@ -3,7 +3,6 @@ import {LoanCycle} from '../../../modal/loan-cycle';
 import {Document} from '../../../modal/document';
 import {Router} from '@angular/router';
 import {DocumentService} from '../document.service';
-import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 
