@@ -10,11 +10,11 @@ import {StateService} from '../../../@core/utils';
     styleUrls: ['./base.layout.scss'],
     template: `
         <nb-layout [center]="layout.id === 'center-column'" windowMode>
-            <nb-layout-header fixed>
+            <nb-layout-header fixed class="disable-print">
                 <app-header [position]="sidebar.id === 'start' ? 'normal': 'inverse'"></app-header>
             </nb-layout-header>
 
-            <nb-sidebar class="menu-sidebar"
+            <nb-sidebar class="menu-sidebar disable-print"
                         tag="menu-sidebar"
                         responsive
                         [end]="sidebar.id === 'end'">

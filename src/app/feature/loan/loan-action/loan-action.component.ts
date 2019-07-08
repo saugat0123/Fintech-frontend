@@ -177,9 +177,9 @@ export class LoanActionComponent implements OnInit {
     approved(template) {
         this.popUpTitle = 'APPROVED';
         this.formAction.patchValue({
-            loanConfigId: this.loanConfigId,
-            customerLoanId: this.id,
-            docAction: 'APPROVED',
+                loanConfigId: this.loanConfigId,
+                customerLoanId: this.id,
+                docAction: 'APPROVED',
                 documentStatus: DocStatus.APPROVED,
                 comment: null
             }
@@ -210,6 +210,10 @@ export class LoanActionComponent implements OnInit {
         );
 
 
+    }
+
+    print() {
+        window.print();
     }
 
     generateOfferLetter(templateUrl) {
