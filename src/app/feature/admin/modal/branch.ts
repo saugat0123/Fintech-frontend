@@ -13,7 +13,7 @@ export class Branch {
     district: District;
     province: Province;
     streetName: string;
-    wardNumber: string;
+    wardNumber: number;
     municipalityVdc: MunicipalityVdc;
     status: string;
 }

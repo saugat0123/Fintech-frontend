@@ -64,6 +64,8 @@ import {EligibilityDocumentViewComponent} from './component/eligibility/eligibil
 import {UserGuideComponent} from '../../@theme/components/user-guide/user-guide.component';
 import {CatalogueComponent} from './component/catalogue/catalogue.component';
 import {EmailConfigurationComponent} from './component/email-configuration/email-configuration.component';
+import {EmailValidatorDirective} from '../../@core/directive/email-validator.directive';
+import {WardNumberValidatorDirective} from '../../@core/directive/ward-number-validator.directive';
 
 @NgModule({
     declarations: [
@@ -118,7 +120,9 @@ import {EmailConfigurationComponent} from './component/email-configuration/email
         GeneralQuestionComponent,
         EligibilityDocumentViewComponent,
         CatalogueComponent,
-        EmailConfigurationComponent
+        EmailConfigurationComponent,
+        EmailValidatorDirective,
+        WardNumberValidatorDirective
 
         // SecurityComponent
     ],
