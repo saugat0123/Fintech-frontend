@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormControlName, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {SiteVist} from '../../../../admin/modal/siteVist';
 
 declare let google: any;
 
@@ -10,6 +11,7 @@ declare let google: any;
 })
 export class SiteVisitComponent implements OnInit {
 
+    @Input() formValue: SiteVist;
     siteVisitFormGroup: FormGroup;
     currentResidentForm = false;
     businessSiteVisitForm = false;
@@ -434,6 +436,10 @@ export class SiteVisitComponent implements OnInit {
             .get('locationPreview').value;
         this.latLng = coordinate.split(',', 2);
         this.placeMaker(+this.latLng[0], +this.latLng[1]);
+
+    }
+
+    onSubmit() {
 
     }
 }
