@@ -17,6 +17,7 @@ export class LoanDataHolder {
     proposal: Proposal;
     loan: LoanConfig;
     documentStatus: DocStatus;
+    financial: Object;
     priority: Priority;
     createdAt: any;
     previousList: LoanStage[] = [];

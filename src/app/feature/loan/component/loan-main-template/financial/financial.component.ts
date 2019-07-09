@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {FinancialService} from './financial.service';
+import {BorrowerRiskRatingComponent} from './borrower-risk-rating/borrower-risk-rating.component';
 
 @Component({
     selector: 'app-financial',
@@ -8,10 +9,12 @@ import {FinancialService} from './financial.service';
     styleUrls: ['./financial.component.scss']
 })
 export class FinancialComponent implements OnInit {
+    @ViewChild('brr') brr: BorrowerRiskRatingComponent;
     addYear = false;
     fiscalYear = [];
     financialForm: FormGroup;
     additionalFinancialForm: FormGroup;
+        financialData: Object;
 
     constructor(private formBuilder: FormBuilder,
                 private service: FinancialService) {
@@ -19,13 +22,13 @@ export class FinancialComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.service.detail(4).subscribe((res: any) => {
+        /*this.service.detail(4).subscribe((res: any) => {
             const data = res.detail.financial;
             const formData = JSON.parse(data);
             console.log(formData.totalSalesRevenue);
             this.setTotalSalesRevenue(formData.totalSalesRevenue);
             this.setTotalSalesSubCategory(formData.totalSalesSubCategory);
-        });
+        });*/
     }
 
     buildForm() {
@@ -1845,10 +1848,14 @@ export class FinancialComponent implements OnInit {
 
     // Mock Submit
     onSubmit() {
-        const a = JSON.stringify(this.additionalFinancialForm.value);
-        const f = {financial: {data: a}};
-        this.service.save(f).subscribe((res: any) => {
+        const additionalForm = this.additionalFinancialForm.value;
+        const initialForm = this.financialForm.value;
+        console.log(this.brr.riskRating);
+        const financialData = { initialForm: initialForm, financialForm: additionalForm, brr: this.brr.borrowerRiskRating.value};
+        this.financialData = {data: JSON.stringify(financialData)};
+        console.log(this.financialData);
+        /*this.service.save(f).subscribe((res: any) => {
             console.log(res);
-        });
+        });*/
     }
 }

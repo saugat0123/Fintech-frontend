@@ -21,6 +21,7 @@ import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.componen
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {ProposalComponent} from '../loan-main-template/proposal/proposal.component';
 import {Proposal} from '../../../admin/modal/proposal';
+import {FinancialComponent} from '../loan-main-template/financial/financial.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -83,6 +84,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('proposalInfo')
     proposalDetail: ProposalComponent;
+
+    @ViewChild('financial')
+    financial: FinancialComponent;
 
     constructor(
         private dataService: CommonDataService,
@@ -255,6 +259,12 @@ export class LoanFormComponent implements OnInit {
             }
             this.proposalDetail.onSubmit();
             this.loanDocument.proposal = this.proposalDetail.proposalForm.value;
+        }
+
+        if (name === 'Financial' && action) {
+            this.financial.onSubmit();
+            const financialData = this.financial.financialData;
+            this.loanDocument.financial = financialData;
         }
     }
 

@@ -1781,12 +1781,11 @@
                     <h4>Justification</h4>
                     <textarea nbInput rows="5" class="mb-5" fullWidth placeholder="Jusification..."></textarea>
 
-                    <button (click)="onSubmit()">submit</button>
                 </form>
             </nb-card-body>
         </nb-card>
-        <nb-card>
-            <app-borrower-risk-rating></app-borrower-risk-rating>
+        <nb-card class="p-3">
+            <app-borrower-risk-rating #brr></app-borrower-risk-rating>
         </nb-card>
     </nb-card-body>
 </nb-card>

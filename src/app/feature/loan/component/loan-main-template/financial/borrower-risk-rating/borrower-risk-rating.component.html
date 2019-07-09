@@ -1,5 +1,5 @@
 <form [formGroup]="borrowerRiskRating">
-    <h3>Income Statement</h3>
+    <h3><b>Income Statement</b></h3>
     <table class="table table-bordered">
         <thead>
         <tr class="text-center">
@@ -9,6 +9,9 @@
             <th><b>BBR3</b></th>
             <th><b>BBR4</b></th>
             <th><b>BBR5</b></th>
+            <th><b>BBR6</b></th>
+            <th><b>Total</b></th>
+            <th><b>Risk Rank</b></th>
         </tr>
         </thead>
 
@@ -16,105 +19,148 @@
         <tr>
             <td class="text-left"><b>Management</b></td>
 
-            <td><input formControlName="management" type="radio" value="1"></td>
-            <td><input formControlName="management" type="radio" value="2"></td>
-            <td><input formControlName="management" type="radio" value="3"></td>
-            <td><input formControlName="management" type="radio" value="4"></td>
-            <td><input formControlName="management" type="radio" value="5"></td>
+            <td><input formControlName="management" type="radio" value="6" (change)="checkRating('management', 6)"></td>
+            <td><input formControlName="management" type="radio" value="5" (change)="checkRating('management', 5)"></td>
+            <td><input formControlName="management" type="radio" value="4" (change)="checkRating('management', 4)"></td>
+            <td><input formControlName="management" type="radio" value="3" (change)="checkRating('management', 3)"></td>
+            <td><input formControlName="management" type="radio" value="2" (change)="checkRating('management', 2)"></td>
+            <td><input formControlName="management" type="radio" value="1" (change)="checkRating('management', 1)"></td>
+            <td>{{borrowerRiskRating.get('management').value === undefined ? '' : borrowerRiskRating.get('management').value}}</td>
+            <td>{{riskRating[borrowerRiskRating.get('management').value - 1]}}</td>
         </tr>
         <tr>
             <td class="text-left"><b>Financial Statement Quality</b></td>
 
-            <td><input formControlName="financialStatementQuality" type="radio" value="1"></td>
-            <td><input formControlName="financialStatementQuality" type="radio" value="2"></td>
-            <td><input formControlName="financialStatementQuality" type="radio" value="3"></td>
-            <td><input formControlName="financialStatementQuality" type="radio" value="4"></td>
-            <td><input formControlName="financialStatementQuality" type="radio" value="5"></td>
+            <td><input formControlName="financialStatementQuality" type="radio" value="6" (change)="checkRating('financialStatementQuality', 6)"></td>
+            <td><input formControlName="financialStatementQuality" type="radio" value="5" (change)="checkRating('financialStatementQuality', 5)"></td>
+            <td><input formControlName="financialStatementQuality" type="radio" value="4" (change)="checkRating('financialStatementQuality', 4)"></td>
+            <td><input formControlName="financialStatementQuality" type="radio" value="3" (change)="checkRating('financialStatementQuality', 3)"></td>
+            <td><input formControlName="financialStatementQuality" type="radio" value="2" (change)="checkRating('financialStatementQuality', 2)"></td>
+            <td><input formControlName="financialStatementQuality" type="radio" value="1" (change)="checkRating('financialStatementQuality', 1)"></td>
+            <td>{{borrowerRiskRating.get('financialStatementQuality').value === undefined ? '' : borrowerRiskRating.get('financialStatementQuality').value}}</td>
+            <td>{{riskRating[borrowerRiskRating.get('financialStatementQuality').value - 1]}}</td>
         </tr>
         <tr>
             <td class="text-left"><b>Financial Statement Source</b></td>
 
-            <td><input formControlName="financialStatementSource" type="radio" value="1"></td>
-            <td><input formControlName="financialStatementSource" type="radio" value="2"></td>
-            <td><input formControlName="financialStatementSource" type="radio" value="3"></td>
-            <td><input formControlName="financialStatementSource" type="radio" value="4"></td>
-            <td><input formControlName="financialStatementSource" type="radio" value="5"></td>
+            <td><input formControlName="financialStatementSource" type="radio" value="6" (change)="checkRating('financialStatementSource', 6)"></td>
+            <td><input formControlName="financialStatementSource" type="radio" value="5" (change)="checkRating('financialStatementSource', 5)"></td>
+            <td><input formControlName="financialStatementSource" type="radio" value="4" (change)="checkRating('financialStatementSource', 4)"></td>
+            <td><input formControlName="financialStatementSource" type="radio" value="3" (change)="checkRating('financialStatementSource', 3)"></td>
+            <td><input formControlName="financialStatementSource" type="radio" value="2" (change)="checkRating('financialStatementSource', 2)"></td>
+            <td><input formControlName="financialStatementSource" type="radio" value="1" (change)="checkRating('financialStatementSource', 1)"></td>
+            <td>{{borrowerRiskRating.get('financialStatementSource').value === undefined ? '' : borrowerRiskRating.get('financialStatementSource').value}}</td>
+            <td>{{riskRating[borrowerRiskRating.get('financialStatementSource').value - 1]}}</td>
         </tr>
         <tr>
             <td class="text-left"><b>Industry Trend</b></td>
 
-            <td><input formControlName="industryTrend" type="radio" value="1"></td>
-            <td><input formControlName="industryTrend" type="radio" value="2"></td>
-            <td><input formControlName="industryTrend" type="radio" value="3"></td>
-            <td><input formControlName="industryTrend" type="radio" value="4"></td>
-            <td><input formControlName="industryTrend" type="radio" value="5"></td>
+            <td><input formControlName="industryTrend" type="radio" value="6" (change)="checkRating('industryTrend', 6)"></td>
+            <td><input formControlName="industryTrend" type="radio" value="5" (change)="checkRating('industryTrend', 5)"></td>
+            <td><input formControlName="industryTrend" type="radio" value="4" (change)="checkRating('industryTrend', 4)"></td>
+            <td><input formControlName="industryTrend" type="radio" value="3" (change)="checkRating('industryTrend', 3)"></td>
+            <td><input formControlName="industryTrend" type="radio" value="2" (change)="checkRating('industryTrend', 2)"></td>
+            <td><input formControlName="industryTrend" type="radio" value="1" (change)="checkRating('industryTrend', 1)"></td>
+            <td>{{borrowerRiskRating.get('industryTrend').value === undefined ? '' : borrowerRiskRating.get('industryTrend').value}}</td>
+            <td>{{riskRating[borrowerRiskRating.get('industryTrend').value - 1]}}</td>
         </tr>
         <tr>
             <td class="text-left"><b>Time in Business</b></td>
 
-            <td><input formControlName="timeInBusiness" type="radio" value="1"></td>
-            <td><input formControlName="timeInBusiness" type="radio" value="2"></td>
-            <td><input formControlName="timeInBusiness" type="radio" value="3"></td>
-            <td><input formControlName="timeInBusiness" type="radio" value="4"></td>
-            <td><input formControlName="timeInBusiness" type="radio" value="5"></td>
+            <td><input formControlName="timeInBusiness" type="radio" value="6" (change)="checkRating('timeInBusiness', 6)"></td>
+            <td><input formControlName="timeInBusiness" type="radio" value="5" (change)="checkRating('timeInBusiness', 5)"></td>
+            <td><input formControlName="timeInBusiness" type="radio" value="4" (change)="checkRating('timeInBusiness', 4)"></td>
+            <td><input formControlName="timeInBusiness" type="radio" value="3" (change)="checkRating('timeInBusiness', 3)"></td>
+            <td><input formControlName="timeInBusiness" type="radio" value="2" (change)="checkRating('timeInBusiness', 2)"></td>
+            <td><input formControlName="timeInBusiness" type="radio" value="1" (change)="checkRating('timeInBusiness', 1)"></td>
+            <td>{{borrowerRiskRating.get('timeInBusiness').value === undefined ? '' : borrowerRiskRating.get('timeInBusiness').value}}</td>
+            <td>{{riskRating[borrowerRiskRating.get('timeInBusiness').value - 1]}}</td>
         </tr>
         <tr>
             <td class="text-left"><b>Collateral</b></td>
 
-            <td><input formControlName="collateral" type="radio" value="1"></td>
-            <td><input formControlName="collateral" type="radio" value="2"></td>
-            <td><input formControlName="collateral" type="radio" value="3"></td>
-            <td><input formControlName="collateral" type="radio" value="4"></td>
-            <td><input formControlName="collateral" type="radio" value="5"></td>
+            <td><input formControlName="collateral" type="radio" value="6" (change)="checkRating('collateral', 6)"></td>
+            <td><input formControlName="collateral" type="radio" value="5" (change)="checkRating('collateral', 5)"></td>
+            <td><input formControlName="collateral" type="radio" value="4" (change)="checkRating('collateral', 4)"></td>
+            <td><input formControlName="collateral" type="radio" value="3" (change)="checkRating('collateral', 3)"></td>
+            <td><input formControlName="collateral" type="radio" value="2" (change)="checkRating('collateral', 2)"></td>
+            <td><input formControlName="collateral" type="radio" value="1" (change)="checkRating('collateral', 1)"></td>
+            <td>{{borrowerRiskRating.get('collateral').value === undefined ? '' : borrowerRiskRating.get('collateral').value}}</td>
+            <td>{{riskRating[borrowerRiskRating.get('collateral').value - 1]}}</td>
         </tr>
         <tr>
             <td class="text-left"><b>Balance Sheet Ratios</b></td>
 
-            <td><input formControlName="balanceSheetRatios" type="radio" value="1"></td>
-            <td><input formControlName="balanceSheetRatios" type="radio" value="2"></td>
-            <td><input formControlName="balanceSheetRatios" type="radio" value="3"></td>
-            <td><input formControlName="balanceSheetRatios" type="radio" value="4"></td>
-            <td><input formControlName="balanceSheetRatios" type="radio" value="5"></td>
+            <td><input formControlName="balanceSheetRatios" type="radio" value="6" (change)="checkRating('balanceSheetRatios', 6)"></td>
+            <td><input formControlName="balanceSheetRatios" type="radio" value="5" (change)="checkRating('balanceSheetRatios', 5)"></td>
+            <td><input formControlName="balanceSheetRatios" type="radio" value="4" (change)="checkRating('balanceSheetRatios', 4)"></td>
+            <td><input formControlName="balanceSheetRatios" type="radio" value="3" (change)="checkRating('balanceSheetRatios', 3)"></td>
+            <td><input formControlName="balanceSheetRatios" type="radio" value="2" (change)="checkRating('balanceSheetRatios', 2)"></td>
+            <td><input formControlName="balanceSheetRatios" type="radio" value="1" (change)="checkRating('balanceSheetRatios', 1)"></td>
+            <td>{{borrowerRiskRating.get('balanceSheetRatios').value === undefined ? '' : borrowerRiskRating.get('balanceSheetRatios').value}}</td>
+            <td>{{riskRating[borrowerRiskRating.get('balanceSheetRatios').value - 1]}}</td>
         </tr>
         <tr>
             <td class="text-left"><b>P and L History</b></td>
 
-            <td><input formControlName="pAndLHistory" type="radio" value="1"></td>
-            <td><input formControlName="pAndLHistory" type="radio" value="2"></td>
-            <td><input formControlName="pAndLHistory" type="radio" value="3"></td>
-            <td><input formControlName="pAndLHistory" type="radio" value="4"></td>
-            <td><input formControlName="pAndLHistory" type="radio" value="5"></td>
+            <td><input formControlName="pAndLHistory" type="radio" value="6" (change)="checkRating('pAndLHistory', 6)"></td>
+            <td><input formControlName="pAndLHistory" type="radio" value="5" (change)="checkRating('pAndLHistory', 5)"></td>
+            <td><input formControlName="pAndLHistory" type="radio" value="4" (change)="checkRating('pAndLHistory', 4)"></td>
+            <td><input formControlName="pAndLHistory" type="radio" value="3" (change)="checkRating('pAndLHistory', 3)"></td>
+            <td><input formControlName="pAndLHistory" type="radio" value="2" (change)="checkRating('pAndLHistory', 2)"></td>
+            <td><input formControlName="pAndLHistory" type="radio" value="1" (change)="checkRating('pAndLHistory', 1)"></td>
+            <td>{{borrowerRiskRating.get('pAndLHistory').value === undefined ? '' : borrowerRiskRating.get('pAndLHistory').value}}</td>
+            <td>{{riskRating[borrowerRiskRating.get('pAndLHistory').value - 1]}}</td>
         </tr>
         <tr>
             <td class="text-left"><b>Debt Service Capacity</b></td>
 
-            <td><input formControlName="debtServiceCapacity" type="radio" value="1"></td>
-            <td><input formControlName="debtServiceCapacity" type="radio" value="2"></td>
-            <td><input formControlName="debtServiceCapacity" type="radio" value="3"></td>
-            <td><input formControlName="debtServiceCapacity" type="radio" value="4"></td>
-            <td><input formControlName="debtServiceCapacity" type="radio" value="5"></td>
+            <td><input formControlName="debtServiceCapacity" type="radio" value="6" (change)="checkRating('debtServiceCapacity', 6)"></td>
+            <td><input formControlName="debtServiceCapacity" type="radio" value="5" (change)="checkRating('debtServiceCapacity', 5)"></td>
+            <td><input formControlName="debtServiceCapacity" type="radio" value="4" (change)="checkRating('debtServiceCapacity', 4)"></td>
+            <td><input formControlName="debtServiceCapacity" type="radio" value="3" (change)="checkRating('debtServiceCapacity', 3)"></td>
+            <td><input formControlName="debtServiceCapacity" type="radio" value="2" (change)="checkRating('debtServiceCapacity', 2)"></td>
+            <td><input formControlName="debtServiceCapacity" type="radio" value="1" (change)="checkRating('debtServiceCapacity', 1)"></td>
+            <td>{{borrowerRiskRating.get('debtServiceCapacity').value === undefined ? '' : borrowerRiskRating.get('debtServiceCapacity').value}}</td>
+            <td>{{riskRating[borrowerRiskRating.get('debtServiceCapacity').value - 1]}}</td>
         </tr>
         <tr>
             <td class="text-left"><b>Sales Trade</b></td>
 
-            <td><input formControlName="salesTrade" type="radio" value="1"></td>
-            <td><input formControlName="salesTrade" type="radio" value="2"></td>
-            <td><input formControlName="salesTrade" type="radio" value="3"></td>
-            <td><input formControlName="salesTrade" type="radio" value="4"></td>
-            <td><input formControlName="salesTrade" type="radio" value="5"></td>
+            <td><input formControlName="salesTrade" type="radio" value="6" (change)="checkRating('salesTrade', 6)"></td>
+            <td><input formControlName="salesTrade" type="radio" value="5" (change)="checkRating('salesTrade', 5)"></td>
+            <td><input formControlName="salesTrade" type="radio" value="4" (change)="checkRating('salesTrade', 4)"></td>
+            <td><input formControlName="salesTrade" type="radio" value="3" (change)="checkRating('salesTrade', 3)"></td>
+            <td><input formControlName="salesTrade" type="radio" value="2" (change)="checkRating('salesTrade', 2)"></td>
+            <td><input formControlName="salesTrade" type="radio" value="1" (change)="checkRating('salesTrade', 1)"></td>
+            <td>{{borrowerRiskRating.get('salesTrade').value === undefined ? '' : borrowerRiskRating.get('salesTrade').value}}</td>
+            <td>{{riskRating[borrowerRiskRating.get('salesTrade').value - 1]}}</td>
         </tr>
         <tr>
             <td class="text-left"><b>Repayment Source</b></td>
 
-            <td><input formControlName="repaymentSource" type="radio" value="1"></td>
-            <td><input formControlName="repaymentSource" type="radio" value="2"></td>
-            <td><input formControlName="repaymentSource" type="radio" value="3"></td>
-            <td><input formControlName="repaymentSource" type="radio" value="4"></td>
-            <td><input formControlName="repaymentSource" type="radio" value="5"></td>
+            <td><input formControlName="repaymentSource" type="radio" value="6" (change)="checkRating('repaymentSource', 6)"></td>
+            <td><input formControlName="repaymentSource" type="radio" value="5" (change)="checkRating('repaymentSource', 5)"></td>
+            <td><input formControlName="repaymentSource" type="radio" value="4" (change)="checkRating('repaymentSource', 4)"></td>
+            <td><input formControlName="repaymentSource" type="radio" value="3" (change)="checkRating('repaymentSource', 3)"></td>
+            <td><input formControlName="repaymentSource" type="radio" value="2" (change)="checkRating('repaymentSource', 2)"></td>
+            <td><input formControlName="repaymentSource" type="radio" value="1" (change)="checkRating('repaymentSource', 1)"></td>
+            <td>{{borrowerRiskRating.get('repaymentSource').value === undefined ? '' : borrowerRiskRating.get('repaymentSource').value}}</td>
+            <td>{{riskRating[borrowerRiskRating.get('repaymentSource').value - 1]}}</td>
         </tr>
         </tbody>
     </table>
-    <h4>Justification</h4>
-    <textarea class="mb-5" fullWidth nbInput placeholder="Jusification..." rows="5"></textarea>
-    <pre>{{borrowerRiskRating.value | json}}</pre>
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Justification</h4>
+            <textarea class="mb-5" fullWidth nbInput placeholder="Jusification..." rows="5"></textarea>
+            <pre>{{borrowerRiskRating.value | json}}</pre>
+        </div>
+        <div class="col-md-4 text-center mt-5">
+            <b>Total BRR</b><br/>
+            <input readonly class="mb-3 mt-2 text-center" style="border: none; outline: none;" type="text" [value]="riskAverage"><br/>
+            <b>BRR Risk Grade</b><br/>
+            <input readonly class="mt-2 text-center" style="border: none; outline: none;">
+        </div>
+    </div>
 </form>
