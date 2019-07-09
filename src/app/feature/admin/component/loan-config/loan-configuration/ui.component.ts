@@ -73,10 +73,12 @@ export class UIComponent implements OnInit {
                         other.selectedOfferLetterIdList.push(selectedOfferLetter.id);
                     });
                     other.loanConfig.templateList.forEach(loanConfigTemplate => {
-                        if (loanConfigTemplate.id === loanConfigTemplate.id) {
-                            other.confirmLoanTemplateList.push(loanConfigTemplate);
-                            other.loanTemplateList.splice(other.loanTemplateList.indexOf(loanConfigTemplate), 1);
-                        }
+                        other.loanTemplateList.forEach(loanTemplate => {
+                            if (loanConfigTemplate.id === loanTemplate.id) {
+                                other.confirmLoanTemplateList.push(loanConfigTemplate);
+                                other.loanTemplateList.splice(other.loanTemplateList.indexOf(loanTemplate), 1);
+                            }
+                        });
                     });
                     other.initialDocumentList.forEach(initialDocument => {
                         other.loanConfig.initial.forEach(loanConfigInitialDocument => {

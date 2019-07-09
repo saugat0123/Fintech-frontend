@@ -126,7 +126,6 @@ export class LoanDataService {
     }
 
     getDmsLoanFile() {
-        console.log(this.dmsLoanFile);
         return this.dmsLoanFile;
     }
 
