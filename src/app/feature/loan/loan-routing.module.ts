@@ -6,7 +6,6 @@ import {LoanSummaryComponent} from './component/loan-summary/loan-summary.compon
 import {KycInfoComponent} from './component/loan-main-template/kyc-info/kyc-info.component';
 import {BirthMarkLetterNepaliComponent} from './component/offer-letter/birth-mark-letter/birth-mark-letter-nepali.component';
 import {SuccessOfferLetterComponent} from './component/offer-letter/success-offer-letter/success-offer-letter.component';
-import {SiteVisitComponent} from './component/loan-main-template/site-visit/site-visit.component';
 
 export const routes: Routes = [
     {path: 'loanForm', component: LoanFormComponent},
@@ -14,8 +13,7 @@ export const routes: Routes = [
     {path: 'summary', component: LoanSummaryComponent},
     {path: 'kyc', component: KycInfoComponent},
     {path: 'birth-mark-letter', component: BirthMarkLetterNepaliComponent},
-    {path: 'success-offer-letter', component: SuccessOfferLetterComponent},
-    {path: 'site-visit', component: SiteVisitComponent},
+    {path: 'success-offer-letter', component: SuccessOfferLetterComponent}
 ];
 
 @NgModule({
