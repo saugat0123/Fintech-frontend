@@ -46,6 +46,11 @@
                 class="col-md-1 fa fa-print"></i></button>
 
 
+        <button class="btn-sm btn-danger d-flex justify-content-end" (click)="deleteCustomerLoan()"
+                *ngIf="currentUserRoleType">delete<i
+                class="col-md-1 fa fa-ban"></i></button>
+
+
     </div>
 </div>
 
@@ -69,7 +74,8 @@
                             <option [value]="null" hidden>Select To</option>
                             <option *ngFor="let forwardBackward of sendForwardBackwardList"
                                     [ngValue]="forwardBackward">
-                                {{forwardBackward.roleName}}</option>
+                                {{forwardBackward.roleName}}
+                            </option>
                         </select>
                     </div>
 
