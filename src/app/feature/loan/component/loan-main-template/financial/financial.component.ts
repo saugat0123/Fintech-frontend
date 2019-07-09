@@ -8,6 +8,7 @@ import {FinancialService} from './financial.service';
     styleUrls: ['./financial.component.scss']
 })
 export class FinancialComponent implements OnInit {
+    addYear = false;
     fiscalYear = [];
     financialForm: FormGroup;
     additionalFinancialForm: FormGroup;
@@ -18,13 +19,13 @@ export class FinancialComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        /*this.service.detail(4).subscribe((res: any) => {
+        this.service.detail(4).subscribe((res: any) => {
             const data = res.detail.financial;
             const formData = JSON.parse(data);
             console.log(formData.totalSalesRevenue);
             this.setTotalSalesRevenue(formData.totalSalesRevenue);
             this.setTotalSalesSubCategory(formData.totalSalesSubCategory);
-        });*/
+        });
     }
 
     buildForm() {
@@ -315,6 +316,8 @@ export class FinancialComponent implements OnInit {
 
     // Fiscal Year --
     addFiscalYear(yearValue) {
+        this.addYear = true;
+        if (yearValue === '' || yearValue === undefined) { return; }
         // push fiscal year
         this.fiscalYear.push(yearValue);
         // push Total Sales
@@ -937,6 +940,14 @@ export class FinancialComponent implements OnInit {
                 year: [yearValue]
             })
         );
+        // Push Difference CFS
+        const differenceCFSControl = this.additionalFinancialForm.get('differenceCFS') as FormArray;
+        differenceCFSControl.push(
+            this.formBuilder.group({
+                value: [0],
+                year: [yearValue]
+            })
+        );
         // Push growth
         const growthControl = this.additionalFinancialForm.get('growth') as FormArray;
         growthControl.push(
@@ -1153,6 +1164,7 @@ export class FinancialComponent implements OnInit {
                 year: [yearValue]
             })
         );
+        this.addYear = false;
     }
 
     removeFiscalYear(index) {
@@ -1834,7 +1846,7 @@ export class FinancialComponent implements OnInit {
     // Mock Submit
     onSubmit() {
         const a = JSON.stringify(this.additionalFinancialForm.value);
-        const f = {financial: a};
+        const f = {financial: {data: a}};
         this.service.save(f).subscribe((res: any) => {
             console.log(res);
         });

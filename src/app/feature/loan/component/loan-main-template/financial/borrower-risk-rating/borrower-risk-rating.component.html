@@ -1,0 +1,31 @@
+
+<form [formGroup]="borrowerRiskRating">
+  <h3>Income Statement</h3>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th><b>Risk Factors</b></th>
+      <th><b>BBR1</b></th>
+      <th><b>BBR2</b></th>
+      <th><b>BBR3</b></th>
+      <th><b>BBR4</b></th>
+      <th><b>BBR5</b></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td><b>Management</b></td>
+
+        <td><input type="radio" formControlName="management" name="management" value="1">BBR1</td>
+        <td><input type="radio" formControlName="management" name="management" value="2">BBR2</td>
+        <td><input type="radio" formControlName="management" name="management" value="3">BBR3</td>
+        <td><input type="radio" formControlName="management" name="management" value="4">BBR4</td>
+        <td><input type="radio" formControlName="management"  value="5">BBR5</td>
+    </tr>
+    </tbody>
+  </table>
+  <h4>Justification</h4>
+  <textarea nbInput rows="5" class="mb-5" fullWidth placeholder="Jusification..."></textarea>
+  <pre>{{borrowerRiskRating.value | json}}</pre>
+</form>

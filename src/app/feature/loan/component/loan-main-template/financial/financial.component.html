@@ -10,7 +10,6 @@
                          class="border-bottom border-dark m-4"
                          formArrayName="incomeOfBorrower">
                         <div [formGroupName]="incomeIndex">
-
                             <!-- START ROW -->
                             <div class="row">
                                 <div class="col-md-3">
@@ -22,33 +21,46 @@
                                 }"
                                                class="form-control" formControlName="incomeSource"
                                                placeholder="Income source" type="text">
+                                        <span *ngIf="incomeOfBorrower.get('incomeSource').invalid" class="invalid-feedback">Income source required</span>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="title"><b>Organization</b></label><b class="text-danger">*</b>
-                                        <input class="form-control"
+                                        <input class="form-control" [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('organization').invalid && (incomeOfBorrower.get('organization').dirty || incomeOfBorrower.get('organization').touched),
+                                'is-valid': !incomeOfBorrower.get('organization').invalid && (incomeOfBorrower.get('organization').dirty || incomeOfBorrower.get('organization').touched)
+                                }"
                                                formControlName="organization" placeholder="Organization"
                                                type="text">
+                                        <span *ngIf="incomeOfBorrower.get('organization').invalid" class="invalid-feedback">Organization required</span>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="title"><b>Amount</b></label><b class="text-danger">*</b>
-                                        <input class="form-control"
+                                        <input class="form-control" [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('amount').invalid && (incomeOfBorrower.get('amount').dirty || incomeOfBorrower.get('amount').touched),
+                                'is-valid': !incomeOfBorrower.get('amount').invalid && (incomeOfBorrower.get('amount').dirty || incomeOfBorrower.get('amount').touched)
+                                }"
                                                formControlName="amount" placeholder="Amount"
                                                type="text">
+                                        <span *ngIf="incomeOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
                                     </div>
                                 </div>
 
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label class="title"><b>Remarks</b></label><b class="text-danger">*</b>
-                                        <input class="form-control"
+                                        <input class="form-control" [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('remarks').invalid && (incomeOfBorrower.get('remarks').dirty || incomeOfBorrower.get('remarks').touched),
+                                'is-valid': !incomeOfBorrower.get('remarks').invalid && (incomeOfBorrower.get('remarks').dirty || incomeOfBorrower.get('remarks').touched)
+                                }"
                                                formControlName="remarks" placeholder="Remarks"
                                                type="text">
+                                        <span *ngIf="incomeOfBorrower.get('remarks').invalid" class="invalid-feedback">Remarks required</span>
                                     </div>
                                 </div>
 
@@ -85,28 +97,40 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title"><b>Particulars</b></label>
-                                        <input class="form-control"
+                                        <label class="title"><b>Particulars</b><b class="text-danger">*</b></label>
+                                        <input class="form-control" [ngClass]="{
+                               'is-invalid': expensesOfBorrower.get('particulars').invalid && (expensesOfBorrower.get('particulars').dirty || expensesOfBorrower.get('particulars').touched),
+                                'is-valid': !expensesOfBorrower.get('particulars').invalid && (expensesOfBorrower.get('particulars').dirty || expensesOfBorrower.get('particulars').touched)
+                                }"
                                                formControlName="particulars" placeholder="Particulars"
                                                type="text">
+                                        <span *ngIf="expensesOfBorrower.get('particulars').invalid" class="invalid-feedback">Particulars required</span>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title"><b>Amount</b></label>
-                                        <input class="form-control"
+                                        <label class="title"><b>Amount</b><b class="text-danger">*</b></label>
+                                        <input class="form-control" [ngClass]="{
+                               'is-invalid': expensesOfBorrower.get('amount').invalid && (expensesOfBorrower.get('amount').dirty || expensesOfBorrower.get('amount').touched),
+                                'is-valid': !expensesOfBorrower.get('amount').invalid && (expensesOfBorrower.get('amount').dirty || expensesOfBorrower.get('amount').touched)
+                                }"
                                                formControlName="amount" placeholder="Amount"
                                                type="text">
+                                        <span *ngIf="expensesOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="title"><b>Remarks</b></label>
-                                        <input class="form-control"
+                                        <label class="title"><b>Remarks</b><b class="text-danger">*</b></label>
+                                        <input class="form-control" [ngClass]="{
+                               'is-invalid': expensesOfBorrower.get('remarks').invalid && (expensesOfBorrower.get('remarks').dirty || expensesOfBorrower.get('remarks').touched),
+                                'is-valid': !expensesOfBorrower.get('remarks').invalid && (expensesOfBorrower.get('remarks').dirty || expensesOfBorrower.get('remarks').touched)
+                                }"
                                                formControlName="remarks" placeholder="Remarks"
                                                type="text">
+                                        <span *ngIf="expensesOfBorrower.get('remarks').invalid" class="invalid-feedback">Remarks required</span>
                                     </div>
                                 </div>
 
@@ -148,12 +172,13 @@
             <nb-card-header>
                 <div class="row float-right mr-3">
                     <div class="input-group">
-                        <input #yearValue class="form-control" nbInput placeholder="Year" type="number">
+                        <input #yearValue class="form-control" nbInput placeholder="Year" type="number" required>
                         <div class="input-group-append">
                             <button (click)="addFiscalYear(yearValue.value)" class="mb-2" nbButton size="small">Add
                             </button>
                         </div>
                     </div>
+                    <div *ngIf="yearValue.value === '' && addYear" class="small text-danger">Please enter a year!</div>
                 </div>
             </nb-card-header>
             <nb-card-body>
@@ -195,7 +220,7 @@
                         <tr [formGroupName]="i">
                             <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
                             <td>{{category.get('name').value}}
-                                <a (click)="removeSubCategoryTotalSales(i, category.get('amount')['controls'])" data-toggle="tooltip"
+                                <a *ngIf="i > 0" (click)="removeSubCategoryTotalSales(i, category.get('amount')['controls'])" data-toggle="tooltip"
                                    data-placement="top">
                                     <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
                                 </a>
@@ -239,7 +264,7 @@
                         <tr [formGroupName]="i">
                             <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
                             <td>{{category.get('name').value}}
-                                    <a (click)="removeCostOfGoodsSoldCategory(i)" data-toggle="tooltip"
+                                    <a *ngIf="i > 2" (click)="removeCostOfGoodsSoldCategory(i)" data-toggle="tooltip"
                                        data-placement="top">
                                         <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
                                     </a>
@@ -296,7 +321,7 @@
                         <tr [formGroupName]="i">
                             <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
                             <td>{{category.get('name').value}}
-                                <a (click)="removeOperatingExpensesCategory(i)" data-toggle="tooltip"
+                                <a *ngIf="i > 3" (click)="removeOperatingExpensesCategory(i)" data-toggle="tooltip"
                                    data-placement="top">
                                     <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
                                 </a>
@@ -353,7 +378,7 @@
                         <tr [formGroupName]="i">
                             <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
                             <td>{{category.get('name').value}}
-                                <a (click)="removeInterestExpensesCategory(i)" data-toggle="tooltip"
+                                <a *ngIf="i > 1" (click)="removeInterestExpensesCategory(i)" data-toggle="tooltip"
                                    data-placement="top">
                                     <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
                                 </a>
@@ -397,7 +422,7 @@
                         <tr [formGroupName]="i">
                             <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
                             <td>{{category.get('name').value}}
-                                <a (click)="removeNonOperatingIncomeOrExpensesCategory(i)" data-toggle="tooltip"
+                                <a *ngIf="i > 0" (click)="removeNonOperatingIncomeOrExpensesCategory(i)" data-toggle="tooltip"
                                    data-placement="top">
                                     <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
                                 </a>
@@ -555,8 +580,7 @@
                         </tbody>
                     </table>
                     <h4>Justification</h4>
-                    <textarea nbInput fullWidth placeholder="Jusification..."></textarea>
-                    <br>
+                    <textarea nbInput rows="5" class="mb-5" fullWidth placeholder="Jusification..."></textarea>
 
                     <h3>Balance Sheet</h3>
                     <table class="table table-bordered">
@@ -959,8 +983,7 @@
                         </tbody>
                     </table>
                     <h4>Justification</h4>
-                    <textarea nbInput fullWidth placeholder="Jusification..."></textarea>
-                    <br>
+                    <textarea nbInput rows="5" class="mb-5" fullWidth placeholder="Jusification..."></textarea>
 
                     <h3>Cash Flow Statement</h3>
                     <table class="table table-bordered">
@@ -1384,8 +1407,7 @@
 
                     </table>
                     <h4>Justification</h4>
-                    <textarea nbInput fullWidth placeholder="Jusification..."></textarea>
-                    <br>
+                    <textarea nbInput rows="5" class="mb-5" fullWidth placeholder="Jusification..."></textarea>
 
                     <h3>Key Indicators</h3>
                     <table class="table table-bordered">
@@ -1757,13 +1779,14 @@
                         </tbody>
                     </table>
                     <h4>Justification</h4>
-                    <textarea nbInput fullWidth placeholder="Jusification..."></textarea>
-                    <br>
-
+                    <textarea nbInput rows="5" class="mb-5" fullWidth placeholder="Jusification..."></textarea>
 
                     <button (click)="onSubmit()">submit</button>
                 </form>
             </nb-card-body>
+        </nb-card>
+        <nb-card>
+            <app-borrower-risk-rating></app-borrower-risk-rating>
         </nb-card>
     </nb-card-body>
 </nb-card>

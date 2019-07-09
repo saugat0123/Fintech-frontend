@@ -25,6 +25,7 @@ import { SuccessOfferLetterComponent } from './component/offer-letter/success-of
 // tslint:disable-next-line:max-line-length
 import { SuccessOfferLetterPrintComponent } from './component/offer-letter/success-offer-letter/success-offer-letter-print/success-offer-letter-print.component';
 import {ProposalComponent} from './component/loan-main-template/proposal/proposal.component';
+import { BorrowerRiskRatingComponent } from './component/loan-main-template/financial/borrower-risk-rating/borrower-risk-rating.component';
 
 
 
@@ -46,6 +47,7 @@ import {ProposalComponent} from './component/loan-main-template/proposal/proposa
         SuccessOfferLetterComponent,
         SuccessOfferLetterPrintComponent,
         FinancialComponent,
+        BorrowerRiskRatingComponent,
 
     ],
     imports: [
