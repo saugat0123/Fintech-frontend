@@ -59,3 +59,10 @@ $nb-themes: nb-register-theme((
         stepper-accent-color: #c35d58
 
 ), corporate, corporate);
+
+
+@media print {
+  @page  {
+    margin: 0;
+  }
+}
