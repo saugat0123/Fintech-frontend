@@ -8,46 +8,49 @@
                 <nb-accordion-item-body>
                     <form (ngSubmit)="ok()" [formGroup]="filterForm">
                         <div class="row">
-                        <div class="col-md-2" *ngIf="accessSpecific || accessAll">
-                            <select class="custom-select" formControlName="branch">
-                                <option [value]="null" selected hidden>Select Branch</option>
-                                <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}</option>
-                            </select>
+                            <div class="col-md-2" *ngIf="accessSpecific || accessAll">
+                                <select class="custom-select" formControlName="branch">
+                                    <option [value]="null" selected hidden>Select Branch</option>
+                                    <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="custom-select" formControlName="loanType">
+                                    <option [value]="null" selected hidden>Select Loan Type</option>
+                                    <option *ngFor="let loanType of loanTypeList"
+                                            [value]="loanType.id">{{loanType.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="custom-select" formControlName="docStatus">
+                                    <option [value]="null" selected hidden>Select Document Status</option>
+                                    <option *ngFor="let status of docStatus.values()"
+                                            [value]="status">{{status}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <input id="startDate" [nbDatepicker]="startDate" class="form-control rounded"
+                                       (change)="checkIfDateFiltration()" formControlName="startDate"
+                                       placeholder="Enter Start Date" [ngClass]="{ 'is-invalid': !validStartDate }">
+                                <nb-datepicker #startDate></nb-datepicker>
+                                <div *ngIf="!validStartDate" class="invalid-feedback">Invalid start date</div>
+                            </div>
+                            <div class="col-md-2">
+                                <input id="endDate" [nbDatepicker]="endDate" class="form-control rounded"
+                                       (change)="checkIfDateFiltration()" formControlName="endDate"
+                                       placeholder="Enter End Date" [ngClass]="{ 'is-invalid': !validEndDate }">
+                                <nb-datepicker #endDate></nb-datepicker>
+                                <div *ngIf="!validEndDate" class="invalid-feedback">Invalid end date</div>
+                            </div>
+                            <div class="col-md-2">
+                                <button [disabled]="!filterForm.valid" class="btn-sm btn-primary"
+                                        type="submit">Search
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-md-2">
-                            <select class="custom-select" formControlName="loanType">
-                                <option [value]="null" selected hidden>Select Loan Type</option>
-                                <option *ngFor="let loanType of loanTypeList"
-                                        [value]="loanType.id">{{loanType.name}}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <select class="custom-select" formControlName="docStatus">
-                                <option [value]="null" selected hidden>Select Document Status</option>
-                                <option *ngFor="let status of docStatus.values()"
-                                        [value]="status">{{status}}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <input id="startDate" [nbDatepicker]="startDate" class="form-control rounded"
-                                   (change)="checkIfDateFiltration()" formControlName="startDate"
-                                   placeholder="Enter Start Date" [ngClass]="{ 'is-invalid': !validStartDate }">
-                            <nb-datepicker #startDate></nb-datepicker>
-                            <div *ngIf="!validStartDate" class="invalid-feedback">Invalid start date</div>
-                        </div>
-                        <div class="col-md-2">
-                            <input id="endDate" [nbDatepicker]="endDate" class="form-control rounded"
-                                   (change)="checkIfDateFiltration()" formControlName="endDate"
-                                   placeholder="Enter End Date" [ngClass]="{ 'is-invalid': !validEndDate }">
-                            <nb-datepicker #endDate></nb-datepicker>
-                            <div *ngIf="!validEndDate" class="invalid-feedback">Invalid end date</div>
-                        </div>
-                        <div class="col-md-2">
-                            <button [disabled]="!filterForm.valid" class="btn-sm btn-primary"
-                                    type="submit">Search
-                            </button>
-                        </div>
-                    </div>
                     </form>
                 </nb-accordion-item-body>
             </nb-accordion-item>
@@ -64,7 +67,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let model of loanDataHolderList;let i=index">
+            <tr *ngFor="let model of loanDataHolderList;let i=index"
+                (click)="onClick(model.loan.id,model.id)"
+                class="cursor">
                 <td>{{model?.branch?.name}}</td>
                 <td>{{model?.customerInfo?.customerName || model?.dmsLoanFile?.customerName}}</td>
                 <td>{{model?.loan?.name}}</td>
