@@ -12,6 +12,7 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {DocStatus} from '../../../loan/model/docStatus';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {RoleAccess} from '../../modal/role-access';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-catalogue',
@@ -43,6 +44,7 @@ export class CatalogueComponent implements OnInit {
     constructor(private branchService: BranchService,
                 private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
+                private router: Router,
                 private loanFormService: LoanFormService,
                 private formBuilder: FormBuilder) {
     }
@@ -120,6 +122,13 @@ export class CatalogueComponent implements OnInit {
             });
         }
         CatalogueComponent.loadData(this);
+    }
+
+    onClick(loanConfigId: number, customerId: number) {
+        this.spinner = true;
+        this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: loanConfigId, customerId: customerId, catalogue: true}});
+
+
     }
 
 }
