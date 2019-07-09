@@ -61,6 +61,7 @@ import {MainNavComponent} from './main-nav/main-nav.component';
 import {RouterModule} from '@angular/router';
 import {IconCardComponent} from './components/iconcard/icon-card.component';
 import {SearchResultComponent} from './components/header/header-form/searchResult.component';
+import {MessageModalComponent} from './components/message-modal/message-modal.component';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -117,11 +118,13 @@ const COMPONENTS = [
     SpinnerComponent,
     UpdateModalComponent,
     PagingComponent,
-    ValidationErrorComponent
+    ValidationErrorComponent,
+    MessageModalComponent
 ];
 
 const ENTRY_COMPONENTS = [
-    SearchResultComponent
+    SearchResultComponent,
+    MessageModalComponent
 ];
 
 const PIPES = [

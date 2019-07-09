@@ -14,7 +14,7 @@ import {BranchService} from '../../branch/branch.service';
 import {Branch} from '../../../modal/branch';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AccountType} from '../../../modal/accountType';
 import {AccountPurpose} from '../../../modal/accountPurpose';
 import {AccountPurposeService} from '../account-purpose.service';

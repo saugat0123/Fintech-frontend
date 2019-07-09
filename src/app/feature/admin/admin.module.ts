@@ -65,7 +65,7 @@ import {UserGuideComponent} from '../../@theme/components/user-guide/user-guide.
 import {CatalogueComponent} from './component/catalogue/catalogue.component';
 import {EmailConfigurationComponent} from './component/email-configuration/email-configuration.component';
 import {EmailValidatorDirective} from '../../@core/directive/email-validator.directive';
-import {WardNumberValidatorDirective} from '../../@core/directive/ward-number-validator.directive';
+import {NumberValidatorDirective} from '../../@core/directive/number-validator.directive';
 
 @NgModule({
     declarations: [
@@ -122,7 +122,7 @@ import {WardNumberValidatorDirective} from '../../@core/directive/ward-number-va
         CatalogueComponent,
         EmailConfigurationComponent,
         EmailValidatorDirective,
-        WardNumberValidatorDirective
+        NumberValidatorDirective
 
         // SecurityComponent
     ],

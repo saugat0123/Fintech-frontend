@@ -77,6 +77,7 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('entityInfo')
     entityInfo: CompanyInfoComponent;
+
     @ViewChild('kycInfo')
     kycInfo: KycInfoComponent;
 
@@ -182,9 +183,6 @@ export class LoanFormComponent implements OnInit {
                 tabIndex: index,
                 tabName: name
             };
-            if (name === 'General' && this.customerId == null) {
-                this.submitDisable = false;
-            }
             this.last = true;
         }
     }
@@ -195,7 +193,6 @@ export class LoanFormComponent implements OnInit {
         }
         this.nxtParameter = this.loanDataService.getNext();
         this.selectTab(this.nxtParameter.index, this.nxtParameter.name);
-
     }
 
     prevTab() {
@@ -208,35 +205,42 @@ export class LoanFormComponent implements OnInit {
             return;
         }
         this.loanDocument.loan = this.loan;
-        console.log(this.loanDataService);
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
             this.loanDocument = response.detail;
             this.customerLoanId = this.loanDocument.id;
             this.loanDocument = new LoanDataHolder();
             this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}});
-
         });
-
     }
 
 
     selectChild(name, action) {
         if (name === 'Customer Info' && action) {
+            if (this.basicInfo.basicInfo.invalid) {
+                this.basicInfo.submitted = true;
+                return true;
+            }
             this.basicInfo.onSubmit();
             this.loanDocument.customerInfo = this.basicInfo.basicInfo.value;
         }
 
         if (name === 'General' && action) {
+            if (this.dmsLoanFile.loanForm.invalid) {
+                this.dmsLoanFile.submitted = true;
+                return true;
+            }
             this.dmsLoanFile.onSubmit();
-            this.loanDocument.dmsLoanFile = this.loanDataService.getDmsLoanFile();
-            console.log(this.loanDocument);
+            this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanFile;
             this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
-
         }
 
         if (name === 'Company Info' && action) {
+            if (this.entityInfo.companyInfo.invalid) {
+                this.entityInfo.submitted = true;
+                return true;
+            }
             this.entityInfo.onSubmit();
-            this.loanDocument.entityInfo = this.entityInfo.companyInfo.value;
+            this.loanDocument.entityInfo = this.entityInfo.entityInfo;
         }
         if (name === 'Kyc Info' && action) {
             this.kycInfo.onSubmit();
@@ -246,7 +250,6 @@ export class LoanFormComponent implements OnInit {
 
         if (name === 'Proposal' && action) {
             if (this.proposalDetail.proposalForm.invalid) {
-                console.log('yo' + this.proposalDetail.proposalForm);
                 this.proposalDetail.submitted = true;
                 return true;
             }

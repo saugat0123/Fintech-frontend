@@ -1,18 +1,19 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ToastService} from '../../../../../@core/utils';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {Document} from '../../../../admin/modal/document';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DmsLoanFile} from '../../../../admin/modal/dms-loan-file';
 import {LoanDocument} from '../../../../admin/modal/loan-document';
-import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {ToastService} from '../../../../../@core/utils';
-import {DmsLoanService} from './dms-loan-service';
-import {LoanDataService} from '../../../service/loan-data.service';
 import {Security} from '../../../../admin/modal/security';
-import {LoanFormService} from '../../loan-form/service/loan-form.service';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
+import {DmsLoanService} from './dms-loan-service';
+import {LoanFormService} from '../../loan-form/service/loan-form.service';
 import {LoanDataHolder} from '../../../model/loanData';
+import {LoanDataService} from '../../../service/loan-data.service';
 
 
 @Component({
@@ -25,16 +26,16 @@ export class DmsLoanFileComponent implements OnInit {
     public static FILE_SIZE = 1000000;
     @Input()
     loanFile: DmsLoanFile;
+    loanForm: FormGroup;
+    submitted = false;
 
     initialDocuments: Document[] = [];
     renewDocuments: Document[] = [];
     document: LoanDocument = new LoanDocument();
     renew = true;
-    loanForm: FormGroup;
     loan: LoanConfig = new LoanConfig();
     permissions = [];
     dropdownList = [];
-    submitted = false;
     loanName: string;
     loanConfig: LoanConfig = new LoanConfig();
     customerId: number;
@@ -108,7 +109,6 @@ export class DmsLoanFileComponent implements OnInit {
             {id: 'LOW', name: 'Low'},
 
         ];
-        console.log(this.loanFile);
         this.loanForm = this.formBuilder.group({
             customerName: [this.loanFile.customerName === undefined ? '' : this.loanFile.customerName, Validators.required],
             citizenshipNumber: [this.loanFile.citizenshipNumber === undefined ? '' : this.loanFile.citizenshipNumber, Validators.required],
@@ -136,20 +136,13 @@ export class DmsLoanFileComponent implements OnInit {
 
     showSecurity(security: string) {
         this.securities = security.split(',');
-        console.log('secties', this.securities);
         this.securities.forEach((securityLoop => {
-            console.log(securityLoop);
-            console.log(this.dropdownList[Number(securityLoop)].id);
             this.securityEnum.push(this.dropdownList[Number(securityLoop)].id);
-            console.log(this.securityEnum);
         }));
         return this.securityEnum;
     }
 
     onSubmit() {
-        if (this.loanForm.invalid) {
-            this.submitted = true;
-        }
         this.loanFile.customerName = this.loanForm.get('customerName').value;
         this.loanFile.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
         this.loanFile.contactNumber = this.loanForm.get('contactNumber').value;
@@ -162,7 +155,6 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFile.priority = this.loanForm.get('priority').value;
         this.loanFile.waiver = this.loanForm.get('waiver').value;
         this.loanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
-        this.loanDataService.setDmsLoanFile(this.loanFile);
     }
 
 
@@ -187,7 +179,6 @@ export class DmsLoanFileComponent implements OnInit {
                     this.documentMaps.push(this.documentMap);
                 }
                 this.loanFile.documentMap = this.documentMaps;
-                console.log(this.documentMap);
                 this.document = new LoanDocument();
             },
             error => {

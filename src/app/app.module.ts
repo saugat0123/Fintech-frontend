@@ -50,7 +50,8 @@ import {NewPasswordComponent} from './component/new-password/new-password.compon
         useClass: HashLocationStrategy
     }, DatePipe],
     bootstrap: [AppComponent],
-    exports: []
+    exports: [],
+    entryComponents: []
 })
 export class AppModule {
 }

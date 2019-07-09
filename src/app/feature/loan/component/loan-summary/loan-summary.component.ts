@@ -15,13 +15,17 @@ import {LoanActionService} from '../../loan-action/service/loan-action.service';
 import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
 import {LoanStage} from '../../model/loanStage';
 import {AppConstant} from '../../../../@core/utils/appConstant';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-loan-summary',
     templateUrl: './loan-summary.component.html',
-    styleUrls: ['./loan-summary.component.css']
+    styleUrls: ['./loan-summary.component.scss']
 })
 export class LoanSummaryComponent implements OnInit {
+
+    client: String;
+
     dmsLoanFile: DmsLoanFile = new DmsLoanFile();
     loanConfig: LoanConfig = new LoanConfig();
     loan: string;
@@ -64,6 +68,8 @@ export class LoanSummaryComponent implements OnInit {
                 private loanConfigService: LoanConfigService,
                 private approvalLimitService: ApprovalLimitService) {
 
+        this.client = environment.client;
+
     }
 
     ngOnInit() {
@@ -95,7 +101,6 @@ export class LoanSummaryComponent implements OnInit {
         );
         this.loanFormService.detail(this.customerId).subscribe(
             (response: any) => {
-                console.log('response:', response.detail);
                 this.loanDataHolder = response.detail;
                 this.currentIndex = this.loanDataHolder.previousList.length;
                 this.signatureList = this.loanDataHolder.distinctPreviousList;
@@ -146,7 +151,6 @@ export class LoanSummaryComponent implements OnInit {
                 //         }
                 //     }
                 // });
-                console.log('sign', this.signatureList);
                 this.id = this.loanDataHolder.id;
                 this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
                 if (this.dmsLoanFile !== undefined && this.dmsLoanFile !== null) {

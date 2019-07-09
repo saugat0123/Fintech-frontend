@@ -107,37 +107,38 @@ $color-bank: #aa2e20;
 $color-bank-dark: #bb392bd1;
 
 .bank-hr {
-    height: 1px;
-    background-color: $color-bank;
-    border: none;
+  height: 1px;
+  background-color: $color-bank;
+  border: none;
 }
 
 .bank-text-color {
-    color: $color-bank;
+  color: $color-bank;
 }
 
 .bank-btn-color {
-    background-color: $color-bank-dark;
-    color: #ffffff;
+  background-color: $color-bank-dark;
+  color: #ffffff;
 }
 
-.d-contents{
-    display: contents;
+.d-contents {
+  display: contents;
 }
 
 .cursor {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 @font-face {
-    font-family: 'Preeti';
-    src: url(assets/font/PREETI.TTF) format("opentype");
+  font-family: 'Preeti';
+  src: url(assets/font/PREETI.TTF) format("opentype");
 }
 
 .nepaliFont {
-    font-size: 22px;
-    font-family: Preeti;
+  font-size: 22px;
+  font-family: Preeti;
 }
-.nb-menu{
-    color: #b8403a;
+
+.nb-menu {
+  color: #b8403a;
 }
