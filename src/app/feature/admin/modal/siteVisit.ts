@@ -5,14 +5,14 @@ import {FixedAssetsCollateral} from './fixedAssetsCollateral';
 import {CurrentResident} from './currentResident';
 import {CurrentAssetsInspection} from './currentAssetsInspection';
 
-export class SiteVist {
+export class SiteVisit {
   hasCurrentResident: boolean;
   hasBusinessSiteVisit: boolean;
   hasFixedAssetsCollateral: boolean;
   hasCurrentAssetsInspection: boolean;
   businessSiteVisit: BusinessSiteVisit;
   assetsInspection: AssetsInspection;
-  receivalblePayableAssetsInspection: ReceivablePayableAssetsInspection;
+  receivablePayableAssetsInspection: ReceivablePayableAssetsInspection;
   fixedAssetsCollateral: FixedAssetsCollateral;
   currentResident: CurrentResident;
   currentAssetsInspection: CurrentAssetsInspection;

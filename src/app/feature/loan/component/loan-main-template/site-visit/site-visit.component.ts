@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {SiteVist} from '../../../../admin/modal/siteVist';
+import {SiteVisit} from '../../../../admin/modal/siteVisit';
 
 declare let google: any;
 
@@ -11,7 +11,7 @@ declare let google: any;
 })
 export class SiteVisitComponent implements OnInit {
 
-    @Input() formValue: SiteVist;
+    @Input() formValue: SiteVisit;
     siteVisitFormGroup: FormGroup;
     currentResidentForm = false;
     businessSiteVisitForm = false;

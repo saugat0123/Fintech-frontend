@@ -7,7 +7,7 @@ import {Customer} from '../../admin/modal/customer';
 import {LoanStage} from './loanStage';
 import {Proposal} from '../../admin/modal/proposal';
 import {Branch} from '../../admin/modal/branch';
-import {SiteVist} from '../../admin/modal/siteVist';
+import {SiteVisit} from '../../admin/modal/siteVisit';
 
 export class LoanDataHolder {
     id: number;
@@ -18,7 +18,7 @@ export class LoanDataHolder {
     proposal: Proposal;
     loan: LoanConfig;
     documentStatus: DocStatus;
-    siteVisit: SiteVist;
+    siteVisit: SiteVisit;
     priority: Priority;
     createdAt: any;
     previousList: LoanStage[] = [];
