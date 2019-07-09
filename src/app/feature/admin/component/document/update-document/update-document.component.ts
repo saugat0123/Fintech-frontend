@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {DocumentService} from '../document.service';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-update-document',
@@ -25,6 +26,7 @@ export class UpdateDocumentComponent implements OnInit {
     constructor(
         private router: Router,
         private service: DocumentService,
+        private modalService: NgbModal,
         private toastService: ToastService
     ) {
     }
@@ -34,7 +36,7 @@ export class UpdateDocumentComponent implements OnInit {
         other.service.getAllByStatus('ACTIVE').subscribe((response: any) => {
             other.allList = response.detail;
             other.spinner = false;
-            other.documentsContaining(other.loanCycle);
+            other.documentsContaining(other.loanCycle.id);
         }, error => {
             console.log(error);
             other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Documents'));
@@ -48,8 +50,8 @@ export class UpdateDocumentComponent implements OnInit {
         UpdateDocumentComponent.loadData(this);
     }
 
-    documentsContaining(loanCycle: LoanCycle) {
-        this.service.getByLoanCycleAndStatus(loanCycle, 'ACTIVE').subscribe((response: any) => {
+    documentsContaining(loanCycleId: number) {
+        this.service.getByLoanCycleAndStatus(loanCycleId, 'ACTIVE').subscribe((response: any) => {
             this.documentList = response.detail;
             this.documentList.forEach(selectedDocument => {
                 this.allList.forEach(document => {
@@ -72,13 +74,15 @@ export class UpdateDocumentComponent implements OnInit {
             });
     }
 
-    updateCheckedOptions(events, document) {
+    updateCheckedOptions(events, documentId: number) {
         if (events.target.checked === true) {
-            this.selectedDocumentList.push(document.id);
+            this.selectedDocumentList.push(documentId);
+            console.log(this.selectedDocumentList);
         } else {
-            const index = this.selectedDocumentList.indexOf(document.id);
+            const index = this.selectedDocumentList.indexOf(documentId);
             if (index !== -1) {
                 this.selectedDocumentList.splice(index, 1);
+                console.log(this.selectedDocumentList);
             }
         }
     }

@@ -11,7 +11,6 @@ import {LoanConfigService} from '../loan-config.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {OfferLetter} from '../../../modal/offerLetter';
 import {OfferLetterService} from '../offer-letter.service';
-import {LoanCycle} from '../../../modal/loan-cycle';
 
 
 @Component({
@@ -62,10 +61,8 @@ export class UIComponent implements OnInit {
         });
 
         other.id = Number(other.route.snapshot.queryParamMap.get('id'));
-        const loanCycleNew = new LoanCycle();
         // Id of New Loan cycle is set 1 in patch backend
-        loanCycleNew.id = 1;
-        other.documentService.getByLoanCycleAndStatus(loanCycleNew, 'ACTIVE').subscribe((response: any) => {
+        other.documentService.getByLoanCycleAndStatus(1, 'ACTIVE').subscribe((response: any) => {
             other.initialDocumentList = response.detail;
 
             if (other.id !== undefined && other.id !== 0) {
@@ -95,10 +92,8 @@ export class UIComponent implements OnInit {
             }
         });
 
-        const loanCycleRenew = new LoanCycle();
         // Id of Renew Loan cycle is set 2 in patch backend
-        loanCycleRenew.id = 2;
-        other.documentService.getByLoanCycleAndStatus(loanCycleRenew, 'ACTIVE').subscribe((response: any) => {
+        other.documentService.getByLoanCycleAndStatus(2, 'ACTIVE').subscribe((response: any) => {
             other.renewalDocumentList = response.detail;
 
             if (other.id !== undefined && other.id !== 0) {

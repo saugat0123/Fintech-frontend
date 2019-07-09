@@ -23,10 +23,10 @@ export class DocumentService extends BaseService<Document> {
         return this.http.get(req.url, {headers: req.header});
     }
 
-    public getByLoanCycleAndStatus(loanCycle: any, status: string): Observable<any> {
-        const req = ApiUtils.getRequest(`${DocumentService.API}/byCycleAndStatus?status=${status}`);
+    public getByLoanCycleAndStatus(loanCycleId: number, status: string): Observable<any> {
+        const req = ApiUtils.getRequest(`${DocumentService.API}/byCycle/${loanCycleId}/status/${status}`);
 
-        return this.http.post(req.url, loanCycle, {headers: req.header});
+        return this.http.get(req.url, {headers: req.header});
     }
 
     public updateDocumentByLoanCycle(id: number, model: any): Observable<any> {
@@ -36,7 +36,7 @@ export class DocumentService extends BaseService<Document> {
     }
 
     public getAllByStatus(status: String): Observable<any> {
-        const req = ApiUtils.getRequest(`${DocumentService.API}/byStatus?status=${status}`);
+        const req = ApiUtils.getRequest(`${DocumentService.API}/byStatus/${status}`);
 
         return this.http.get(req.url, {headers: req.header});
     }
