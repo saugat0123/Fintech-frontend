@@ -194,5 +194,17 @@ export class LoanSummaryComponent implements OnInit {
         );
     }
 
+    signatureWidth(contentLength: number) {
+      if (contentLength >= 4) {
+        return 3;
+      } else if (contentLength === 3) {
+        return 4;
+      } else if (contentLength === 2) {
+        return 6;
+      } else if (contentLength <= 1) {
+        return 12;
+      }
+    }
+
 }
 
