@@ -11,7 +11,7 @@ import { BarChart } from './bar-chart.model';
   styleUrls: ['./bar-chart.component.scss']
 })
 export class BarChartComponent implements OnInit {
-  private data: Array<BarChart>;
+  data: Array<BarChart>;
   view: any[] = [800, 500];
 
   // options
