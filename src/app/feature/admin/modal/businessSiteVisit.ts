@@ -6,9 +6,7 @@ export class BusinessSiteVisit {
   objectiveOfVisit: string;
   observation: string;
   location: string;
-  latitude: string;
-  longitude: string;
-  visitedBy: Array<string>;
+  visitedBy: string;
   conclusion: string;
   comments: string;
   embedLocationLink: string;

@@ -10,10 +10,11 @@ export class SiteVisit {
   hasBusinessSiteVisit: boolean;
   hasFixedAssetsCollateral: boolean;
   hasCurrentAssetsInspection: boolean;
+  currentResident: CurrentResident;
   businessSiteVisit: BusinessSiteVisit;
+  fixedAssetsCollateral: FixedAssetsCollateral;
+  currentAssetsInspection: CurrentAssetsInspection;
   assetsInspection: AssetsInspection;
   receivablePayableAssetsInspection: ReceivablePayableAssetsInspection;
-  fixedAssetsCollateral: FixedAssetsCollateral;
-  currentResident: CurrentResident;
-  currentAssetsInspection: CurrentAssetsInspection;
+
 }
