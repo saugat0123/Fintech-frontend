@@ -1,6 +1,5 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {FinancialService} from './financial.service';
 import {BorrowerRiskRatingComponent} from './borrower-risk-rating/borrower-risk-rating.component';
 
 @Component({
@@ -10,25 +9,48 @@ import {BorrowerRiskRatingComponent} from './borrower-risk-rating/borrower-risk-
 })
 export class FinancialComponent implements OnInit {
     @ViewChild('brr') brr: BorrowerRiskRatingComponent;
+    @Input() formData: Object;
+
     addYear = false;
     fiscalYear = [];
     financialForm: FormGroup;
     additionalFinancialForm: FormGroup;
-        financialData: Object;
+    financialData: Object;
 
-    constructor(private formBuilder: FormBuilder,
-                private service: FinancialService) {
+    constructor(private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
         this.buildForm();
-        /*this.service.detail(4).subscribe((res: any) => {
-            const data = res.detail.financial;
-            const formData = JSON.parse(data);
-            console.log(formData.totalSalesRevenue);
-            this.setTotalSalesRevenue(formData.totalSalesRevenue);
-            this.setTotalSalesSubCategory(formData.totalSalesSubCategory);
-        });*/
+        console.log(this.formData);
+        const formDataString = JSON.stringify(this.formData);
+        const formDataParsed = JSON.parse(formDataString);
+        const formData = formDataParsed.data.financialForm;
+
+        this.setTotalSalesRevenue(formData.totalSalesRevenue);
+        this.setTotalSalesSubCategory(formData.totalSalesSubCategory);
+        this.setCostOfGoodsSold(formData.costOfGoodsSold);
+        this.setCostOfGoodsSoldCategory(formData.costOfGoodsSoldCategory);
+        this.setGrossProfit(formData.grossProfit);
+        this.setOperatingExpenses(formData.operatingExpenses);
+        this.setOperatingExpensesCategory(formData.operatingExpensesCategory);
+        this.setOperatingProfit(formData.operatingProfit);
+        this.setInterestExpenses(formData.interestExpenses);
+        this.setInterestExpensesCategory(formData.interestExpensesCategory);
+        this.setNonOperatingIncomeOrExpenses(formData.nonOperatingIncomeOrExpenses);
+        this.setNonOperatingIncomeOrExpensesCategory(formData.nonOperatingIncomeOrExpensesCategory);
+        this.setProfitBeforeTaxAndStaffBonus(formData.profitBeforeTaxAndStaffBonus);
+        this.setStaffBonus(formData.staffBonus);
+        this.setProfitBeforeTaxes(formData.profitBeforeTaxes);
+        this.setTaxes(formData.taxes);
+        this.setTaxesCategory(formData.taxesCategory);
+        this.setProfitAfterTax(formData.profitAfterTax);
+        this.setDividendOrDrawing(formData.dividendOrDrawing);
+        this.setOtherAdjustment(formData.otherAdjustment);
+        this.setAccumulatedProfitBOrD(formData.accumulatedProfitBOrD);
+        this.setNetProfitTransferredToBalanceSheet(formData.netProfitTransferredToBalanceSheet);
+        /*this.setTaxes(formData.taxes);
+        this.setTaxes(formData.taxes);*/
     }
 
     buildForm() {
@@ -277,36 +299,37 @@ export class FinancialComponent implements OnInit {
     }
 
     // Setting existing data--
-    setTotalSalesRevenue(totalSalesRevenue) {
+    setTotalSalesRevenue(currentData) {
         this.fiscalYear = [];
         const controls = this.additionalFinancialForm.get('totalSalesRevenue') as FormArray;
-        totalSalesRevenue.forEach(singleTotalSalesRevenue => {
-            this.fiscalYear.push(singleTotalSalesRevenue.year);
+        currentData.forEach(singleData => {
+            this.fiscalYear.push(singleData.year);
             controls.push(
                 this.formBuilder.group({
-                    value: [singleTotalSalesRevenue.value],
-                    year: [singleTotalSalesRevenue.year]
+                    value: [singleData.value],
+                    year: [singleData.year]
                 })
             );
         });
     }
 
-    setTotalSalesSubCategory(totalSalesSubCategory) {
+    setTotalSalesSubCategory(currentData) {
         const control = this.additionalFinancialForm.get('totalSalesSubCategory') as FormArray;
-        totalSalesSubCategory.forEach(singleTotalSalesSubCategory => {
+        control.controls.length = 0;
+        currentData.forEach(singleData => {
             control.push(
                 this.formBuilder.group({
-                    name: [singleTotalSalesSubCategory.name],
-                    amount: this.setSubCategoryAmount(singleTotalSalesSubCategory)
+                    name: [singleData.name],
+                    amount: this.setSubCategoryAmount(singleData)
                 })
             );
         });
     }
 
-    setSubCategoryAmount(totalSalesSubCategory) {
+    setSubCategoryAmount(singleData) {
         const amountControl = this.formBuilder.array([]);
-        console.log(totalSalesSubCategory.amount);
-        totalSalesSubCategory.amount.forEach(singleAmount => {
+        console.log(singleData.amount);
+        singleData.amount.forEach(singleAmount => {
             amountControl.push(
                 this.formBuilder.group({
                     value: [singleAmount.value],
@@ -317,10 +340,344 @@ export class FinancialComponent implements OnInit {
         return amountControl;
     }
 
+    // costOfGoodsSold
+    setCostOfGoodsSold(currentData) {
+        const controls = this.additionalFinancialForm.get('costOfGoodsSold') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    setCostOfGoodsSoldCategory(currentData) {
+        const control = this.additionalFinancialForm.get('costOfGoodsSoldCategory') as FormArray;
+        control.controls.length = 0;
+        currentData.forEach(singleData => {
+            control.push(
+                this.formBuilder.group({
+                    name: [singleData.name],
+                    amount: this.setCostOfGoodsSoldCategoryAmount(singleData)
+                })
+            );
+        });
+    }
+
+    setCostOfGoodsSoldCategoryAmount(singleData) {
+        const amountControl = this.formBuilder.array([]);
+        console.log(singleData.amount);
+        singleData.amount.forEach(singleAmount => {
+            amountControl.push(
+                this.formBuilder.group({
+                    value: [singleAmount.value],
+                    year: [singleAmount.year]
+                })
+            );
+        });
+        return amountControl;
+    }
+
+    // grossProfit
+    setGrossProfit(currentData) {
+        const controls = this.additionalFinancialForm.get('grossProfit') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    // operatingExpenses
+    setOperatingExpenses(currentData) {
+        const controls = this.additionalFinancialForm.get('operatingExpenses') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    setOperatingExpensesCategory(currentData) {
+        const control = this.additionalFinancialForm.get('operatingExpensesCategory') as FormArray;
+        control.controls.length = 0;
+        currentData.forEach(singleData => {
+            control.push(
+                this.formBuilder.group({
+                    name: [singleData.name],
+                    amount: this.setOperatingExpensesCategoryAmount(singleData)
+                })
+            );
+        });
+    }
+
+    setOperatingExpensesCategoryAmount(singleData) {
+        const amountControl = this.formBuilder.array([]);
+        console.log(singleData.amount);
+        singleData.amount.forEach(singleAmount => {
+            amountControl.push(
+                this.formBuilder.group({
+                    value: [singleAmount.value],
+                    year: [singleAmount.year]
+                })
+            );
+        });
+        return amountControl;
+    }
+
+    // operatingProfit
+    setOperatingProfit(currentData) {
+        const controls = this.additionalFinancialForm.get('operatingProfit') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    // interestExpenses
+    setInterestExpenses(currentData) {
+        const controls = this.additionalFinancialForm.get('interestExpenses') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    setInterestExpensesCategory(currentData) {
+        const control = this.additionalFinancialForm.get('interestExpensesCategory') as FormArray;
+        control.controls.length = 0;
+        currentData.forEach(singleData => {
+            control.push(
+                this.formBuilder.group({
+                    name: [singleData.name],
+                    amount: this.setInterestExpensesCategoryAmount(singleData)
+                })
+            );
+        });
+    }
+
+    setInterestExpensesCategoryAmount(singleData) {
+        const amountControl = this.formBuilder.array([]);
+        console.log(singleData.amount);
+        singleData.amount.forEach(singleAmount => {
+            amountControl.push(
+                this.formBuilder.group({
+                    value: [singleAmount.value],
+                    year: [singleAmount.year]
+                })
+            );
+        });
+        return amountControl;
+    }
+
+    // nonOperatingIncomeOrExpenses
+    setNonOperatingIncomeOrExpenses(currentData) {
+        const controls = this.additionalFinancialForm.get('nonOperatingIncomeOrExpenses') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    setNonOperatingIncomeOrExpensesCategory(currentData) {
+        const control = this.additionalFinancialForm.get('nonOperatingIncomeOrExpensesCategory') as FormArray;
+        control.controls.length = 0;
+        currentData.forEach(singleData => {
+            control.push(
+                this.formBuilder.group({
+                    name: [singleData.name],
+                    amount: this.setNonOperatingIncomeOrExpensesCategoryAmount(singleData)
+                })
+            );
+        });
+    }
+
+    setNonOperatingIncomeOrExpensesCategoryAmount(singleData) {
+        const amountControl = this.formBuilder.array([]);
+        console.log(singleData.amount);
+        singleData.amount.forEach(singleAmount => {
+            amountControl.push(
+                this.formBuilder.group({
+                    value: [singleAmount.value],
+                    year: [singleAmount.year]
+                })
+            );
+        });
+        return amountControl;
+    }
+
+    // profitBeforeTaxAndStaffBonus
+    setProfitBeforeTaxAndStaffBonus(currentData) {
+        const controls = this.additionalFinancialForm.get('profitBeforeTaxAndStaffBonus') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    // staffBonus
+    setStaffBonus(currentData) {
+        const controls = this.additionalFinancialForm.get('staffBonus') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    // profitBeforeTaxes
+    setProfitBeforeTaxes(currentData) {
+        const controls = this.additionalFinancialForm.get('profitBeforeTaxes') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    // taxes
+    setTaxes(currentData) {
+        const controls = this.additionalFinancialForm.get('taxes') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    setTaxesCategory(currentData) {
+        const control = this.additionalFinancialForm.get('taxesCategory') as FormArray;
+        control.controls.length = 0;
+        currentData.forEach(singleData => {
+            control.push(
+                this.formBuilder.group({
+                    name: [singleData.name],
+                    amount: this.setTaxesCategoryAmount(singleData)
+                })
+            );
+        });
+    }
+
+    setTaxesCategoryAmount(singleData) {
+        const amountControl = this.formBuilder.array([]);
+        console.log(singleData.amount);
+        singleData.amount.forEach(singleAmount => {
+            amountControl.push(
+                this.formBuilder.group({
+                    value: [singleAmount.value],
+                    year: [singleAmount.year]
+                })
+            );
+        });
+        return amountControl;
+    }
+
+    // profitAfterTax
+    setProfitAfterTax(currentData) {
+        const controls = this.additionalFinancialForm.get('profitAfterTax') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    // dividendOrDrawing
+    setDividendOrDrawing(currentData) {
+        const controls = this.additionalFinancialForm.get('dividendOrDrawing') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    // otherAdjustment
+    setOtherAdjustment(currentData) {
+        const controls = this.additionalFinancialForm.get('otherAdjustment') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    // accumulatedProfitBOrD
+    setAccumulatedProfitBOrD(currentData) {
+        const controls = this.additionalFinancialForm.get('accumulatedProfitBOrD') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    // netProfitTransferredToBalanceSheet
+    setNetProfitTransferredToBalanceSheet(currentData) {
+        const controls = this.additionalFinancialForm.get('netProfitTransferredToBalanceSheet') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    //
+    //
     // Fiscal Year --
     addFiscalYear(yearValue) {
         this.addYear = true;
-        if (yearValue === '' || yearValue === undefined) { return; }
+        if (yearValue === '' || yearValue === undefined) {
+            return;
+        }
         // push fiscal year
         this.fiscalYear.push(yearValue);
         // push Total Sales
@@ -1846,16 +2203,10 @@ export class FinancialComponent implements OnInit {
         (this.financialForm.get('expensesOfBorrower') as FormArray).removeAt(incomeIndex);
     }
 
-    // Mock Submit
     onSubmit() {
         const additionalForm = this.additionalFinancialForm.value;
         const initialForm = this.financialForm.value;
-        console.log(this.brr.riskRating);
-        const financialData = { initialForm: initialForm, financialForm: additionalForm, brr: this.brr.borrowerRiskRating.value};
-        this.financialData = {data: JSON.stringify(financialData)};
-        console.log(this.financialData);
-        /*this.service.save(f).subscribe((res: any) => {
-            console.log(res);
-        });*/
+        const financialData = {initialForm: initialForm, financialForm: additionalForm, brr: this.brr.borrowerRiskRating.value};
+        this.financialData = {data: financialData};
     }
 }

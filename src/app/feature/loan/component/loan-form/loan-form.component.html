@@ -27,7 +27,7 @@
                       *ngIf="selectedTab==='Proposal' && loanDocument"
                       (dmsDisableButton)="submitButton($event)"
                       #proposalInfo></app-proposal>
-        <app-financial *ngIf="selectedTab === 'Financial'" #financial></app-financial>
+        <app-financial [formData]="loanDocument?.financial" *ngIf="selectedTab === 'Financial' && loanDocument" #financial></app-financial>
 
 
         <!-- /.tab-pane -->
