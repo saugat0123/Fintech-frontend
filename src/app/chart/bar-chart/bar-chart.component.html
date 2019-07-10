@@ -1,0 +1,24 @@
+<div *ngIf="accessSpecific || accessAll" class="col-md-3 mb-5 offset-sm-9">
+    <select (change)="onChange($event)" class="custom-select">
+        <option [value]="null" selected hidden>Select Branch</option>
+        <option selected>All Branches</option>
+        <option *ngFor="let branch of branches" [value]="branch.id">{{branch.name}}
+        </option>
+    </select>
+</div>
+<ngx-charts-bar-vertical-2d
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="data"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [animations]="animations"
+      [legendTitle]="legendTitle"
+      (select)="onSelect($event)">
+    </ngx-charts-bar-vertical-2d>
