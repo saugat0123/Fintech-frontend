@@ -44,10 +44,10 @@
                 <div class="col-md-6 text-left">
                     <span><b>Pending Under: </b>{{loanDataHolder?.currentStage?.toUser?.name}} ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
                 </div>
-                <div class="col-md-6 text-right" *ngIf="loanDataHolder?.currentStage?.docAction.toString() === 'FORWARD'">
+                <div class="col-md-6 text-right" *ngIf="currentDocAction === 'FORWARD'">
                     <span><b>Forwarded By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}} ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
                 </div>
-                <div class="col-md-6 text-right" *ngIf="loanDataHolder?.currentStage?.docAction.toString() === 'BACKWARD'">
+                <div class="col-md-6 text-right" *ngIf="currentDocAction === 'BACKWARD'">
                     <span><b>Backward By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}} ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
                 </div>
                 <!--<div class="col-md-6">
