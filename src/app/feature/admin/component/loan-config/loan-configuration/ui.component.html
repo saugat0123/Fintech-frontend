@@ -116,7 +116,7 @@
                             </nb-accordion-item>
                         </nb-accordion>
                     </div>
-                    <div class="box box-primary col-md-6">
+                    <div class="box box-primary col-md-6" [hidden]="loanConfig.isRenewable === false">
                         <nb-accordion>
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Renew</nb-accordion-item-header>

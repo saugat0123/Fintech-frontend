@@ -23,6 +23,10 @@
         <app-dms-loan [loanFile]="loanFile" *ngIf="selectedTab==='General' && loanFile" #dmsLoanFile></app-dms-loan>
         <app-company-info [formValue]="loanDocument?.entityInfo" *ngIf="selectedTab==='Company Info'"
                           #entityInfo></app-company-info>
+        <app-proposal [formValue]="loadProposal()"
+                      *ngIf="selectedTab==='Proposal' && loanDocument"
+                      (dmsDisableButton)="submitButton($event)"
+                      #proposalInfo></app-proposal>
         <app-cicl #cicl *ngIf="selectedTab === 'CICL' && loanDocument"
                   [ciclRemark]="loanDocument?.ciclRemarks"
                   [ciclValue]="loanDocument?.ciclList"
@@ -34,12 +38,13 @@
     <div class="justify-content-center" style="padding-bottom: 20px">
         <div class="col-md-12">
             <div class="row text-center">
-                <div class="col-md-6">
-                    <a class="btn btn-sm btn-flat btn-primary  pull-left" data-toggle="tab"
+                <div class="col-md-6 d-flex justify-content-start">
+                    <a class="btn btn-sm btn-flat btn-primary" data-toggle="tab"
                        aria-expanded="false"
-                       href="{{previousTab}}" *ngIf="!first" (click)="prevTab()">PREVIOUS</a></div>
-                <div class="col-md-6">
-                    <a class="btn btn-sm btn-flat btn-primary  pull-right" data-toggle="tab"
+                       href="{{previousTab}}" *ngIf="!first" (click)="prevTab()">PREVIOUS</a>
+                </div>
+                <div class="col-md-6 d-flex justify-content-end">
+                    <a class="btn btn-sm btn-flat btn-primary" data-toggle="tab"
                        aria-expanded="false"
                        href="{{nxtTab}}" (click)="nextTab()" *ngIf="!last">NEXT</a>
 

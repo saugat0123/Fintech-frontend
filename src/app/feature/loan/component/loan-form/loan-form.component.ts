@@ -19,6 +19,8 @@ import {LoanConfigService} from '../../../admin/component/loan-config/loan-confi
 import {DateService} from '../../../../@core/service/baseservice/date.service';
 import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.component';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
+import {ProposalComponent} from '../loan-main-template/proposal/proposal.component';
+import {Proposal} from '../../../admin/modal/proposal';
 import {CiclComponent} from '../loan-main-template/cicl/cicl.component';
 
 @Component({
@@ -76,8 +78,12 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('entityInfo')
     entityInfo: CompanyInfoComponent;
+
     @ViewChild('kycInfo')
     kycInfo: KycInfoComponent;
+
+    @ViewChild('proposalInfo')
+    proposalDetail: ProposalComponent;
 
     @ViewChild('cicl')
     cicl: CiclComponent;
@@ -181,18 +187,16 @@ export class LoanFormComponent implements OnInit {
                 tabIndex: index,
                 tabName: name
             };
-            if (name === 'General' && this.customerId == null) {
-                this.submitDisable = false;
-            }
             this.last = true;
         }
     }
 
     nextTab() {
-        this.selectChild(this.selectedTab, true);
+        if (this.selectChild(this.selectedTab, true)) {
+            return;
+        }
         this.nxtParameter = this.loanDataService.getNext();
         this.selectTab(this.nxtParameter.index, this.nxtParameter.name);
-
     }
 
     prevTab() {
@@ -201,43 +205,60 @@ export class LoanFormComponent implements OnInit {
     }
 
     save() {
-        this.selectChild(this.selectedTab, true);
+        if (this.selectChild(this.selectedTab, true)) {
+            return;
+        }
         this.loanDocument.loan = this.loan;
-        console.log(this.loanDataService);
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
             this.loanDocument = response.detail;
             this.customerLoanId = this.loanDocument.id;
             this.loanDocument = new LoanDataHolder();
             this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}});
-
         });
-
     }
 
 
     selectChild(name, action) {
-
         if (name === 'Customer Info' && action) {
+            if (this.basicInfo.basicInfo.invalid) {
+                this.basicInfo.submitted = true;
+                return true;
+            }
             this.basicInfo.onSubmit();
             this.loanDocument.customerInfo = this.basicInfo.basicInfo.value;
         }
 
         if (name === 'General' && action) {
+            if (this.dmsLoanFile.loanForm.invalid) {
+                this.dmsLoanFile.submitted = true;
+                return true;
+            }
             this.dmsLoanFile.onSubmit();
-            this.loanDocument.dmsLoanFile = this.loanDataService.getDmsLoanFile();
-            console.log(this.loanDocument);
+            this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanFile;
             this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
-
         }
 
         if (name === 'Company Info' && action) {
+            if (this.entityInfo.companyInfo.invalid) {
+                this.entityInfo.submitted = true;
+                return true;
+            }
             this.entityInfo.onSubmit();
-            this.loanDocument.entityInfo = this.entityInfo.companyInfo.value;
+            this.loanDocument.entityInfo = this.entityInfo.entityInfo;
         }
         if (name === 'Kyc Info' && action) {
             this.kycInfo.onSubmit();
             const customerRelatives = this.kycInfo.kycInfo.value.otherRelatives as Array<CustomerRelative>;
             this.loanDocument.customerInfo.customerRelatives = customerRelatives;
+        }
+
+        if (name === 'Proposal' && action) {
+            if (this.proposalDetail.proposalForm.invalid) {
+                this.proposalDetail.submitted = true;
+                return true;
+            }
+            this.proposalDetail.onSubmit();
+            this.loanDocument.proposal = this.proposalDetail.proposalForm.value;
         }
         if (name === 'CICL' && action) {
             this.cicl.onSubmit();
@@ -250,5 +271,13 @@ export class LoanFormComponent implements OnInit {
 
     submitButton(event) {
         this.submitDisable = event;
+    }
+
+    loadProposal() {
+        if (this.loanDocument.proposal === undefined) {
+            return new Proposal();
+        } else {
+            return this.loanDocument.proposal;
+        }
     }
 }

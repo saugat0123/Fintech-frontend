@@ -5,8 +5,8 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ApiConfig} from '../../@core/utils/api/ApiConfig';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {CommonMsgModalComponent} from '../common-msg-modal/common-msg-modal.component';
 import {ModalResponse} from '../../@core/utils';
+import {MessageModalComponent} from '../../@theme/components/message-modal/message-modal.component';
 
 @Component({
   selector: 'app-new-password',
@@ -51,9 +51,9 @@ export class NewPasswordComponent implements OnInit {
   ok() {
     this.user.password = this.newPassword.value;
     this.httpClient.post(this.api, this.user).subscribe((response: any) => {
-      const modalRef = this.ngbModal.open(CommonMsgModalComponent, {backdrop: 'static'});
-      modalRef.componentInstance.modalHeader = 'Password Changed Successfully';
-      modalRef.componentInstance.modalMessage = 'Your password has been changed successfully!';
+      const modalRef = this.ngbModal.open(MessageModalComponent, {backdrop: 'static'});
+      modalRef.componentInstance.header = 'Password Changed Successfully';
+      modalRef.componentInstance.body = 'Your password has been changed successfully!';
 
       modalRef.result.then(
           close => {
@@ -67,9 +67,9 @@ export class NewPasswordComponent implements OnInit {
       );
     }, error => {
       console.error(error);
-      const modalRef = this.ngbModal.open(CommonMsgModalComponent, {backdrop: 'static'});
-      modalRef.componentInstance.modalHeader = 'Error';
-      modalRef.componentInstance.modalMessage = error.error.message;
+      const modalRef = this.ngbModal.open(MessageModalComponent, {backdrop: 'static'});
+      modalRef.componentInstance.header = 'Error';
+      modalRef.componentInstance.body = error.error.message;
 
       modalRef.result.then(
           close => {

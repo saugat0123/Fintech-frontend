@@ -14,6 +14,7 @@ import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {DocStatus} from '../model/docStatus';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {LoanConfig} from '../../admin/modal/loan-config';
+import {RoleType} from '../../admin/modal/roleType';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class LoanActionComponent implements OnInit {
 
     @Input() actionsList: ActionModel;
     popUpTitle: string;
+    currentUserRoleType = false;
     sendForwardBackwardList = [];
     formAction: FormGroup;
     userList: Array<User> = new Array<User>();
@@ -71,7 +73,16 @@ export class LoanActionComponent implements OnInit {
         this.loanConfigService.detail(this.loanConfigId).subscribe((response: any) => {
             this.loanConfig = response.detail;
         });
-        console.log(this.actionsList);
+
+        const roleName: string = localStorage.getItem('roleName');
+        const roleType: string = localStorage.getItem('roleType');
+        if (roleName !== 'admin') {
+            this.currentUserRoleType = roleType === RoleType.MAKER;
+        }
+
+        if (roleType === RoleType.MAKER) {
+          this.currentUserRoleType = true;
+        }
 
     }
 
@@ -178,9 +189,9 @@ export class LoanActionComponent implements OnInit {
     approved(template) {
         this.popUpTitle = 'APPROVED';
         this.formAction.patchValue({
-            loanConfigId: this.loanConfigId,
-            customerLoanId: this.id,
-            docAction: 'APPROVED',
+                loanConfigId: this.loanConfigId,
+                customerLoanId: this.id,
+                docAction: 'APPROVED',
                 documentStatus: DocStatus.APPROVED,
                 comment: null
             }
@@ -213,8 +224,22 @@ export class LoanActionComponent implements OnInit {
 
     }
 
+    print() {
+        window.print();
+    }
+
     generateOfferLetter(templateUrl) {
         this.route.navigate([templateUrl], {queryParams: {customerId: this.id}});
+    }
+
+    deleteCustomerLoan() {
+        this.loanActionService.deleteLoanCustomer(this.id).subscribe((res: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully Deleted'));
+                this.route.navigate(['/home/pending']);
+            },
+            error => {
+                this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+            });
     }
 
 }

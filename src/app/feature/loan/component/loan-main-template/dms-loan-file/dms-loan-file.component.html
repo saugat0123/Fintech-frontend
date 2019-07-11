@@ -20,15 +20,18 @@
                             <div class="col-md-6">
                                 <div class="form-group rounded">
                                     <label for="citizenshipNumber"><b>Citizenship Number</b></label>
-
                                     <div class="input-group mb-3">
-                                        <input type="text" formControlName="citizenshipNumber" class="form-control rounded"
+                                        <input type="text" formControlName="citizenshipNumber"
+                                               class="form-control rounded"
                                                [ngClass]="{ 'is-invalid':submitted && form.citizenshipNumber.errors}"
                                                id="citizenshipNumber" placeholder="Enter citizenship number"/>
                                         <div class="input-group-append">
-                                            <button nbButton outline status="primary" size="small" (click)="searchByCitizenship()">Search</button>
+                                            <button nbButton outline status="primary" size="small"
+                                                    (click)="searchByCitizenship()">Search
+                                            </button>
                                         </div>
-                                        <div *ngIf="submitted && form.citizenshipNumber.errors" class="invalid-feedback">
+                                        <div *ngIf="submitted && form.citizenshipNumber.errors"
+                                             class="invalid-feedback">
                                             <div *ngIf="form.citizenshipNumber.errors.required">Citizenship number is
                                                 required
                                             </div>
@@ -80,14 +83,19 @@
                                 <div class="form-group">
                                     <label><b>Security</b></label>
                                     <ng-select [items]="dropdownList"
+                                               class="form-control"
                                                bindLabel="name"
                                                bindValue="id"
                                                [multiple]="true"
                                                placeholder="Select Security"
                                                formControlName="security"
-                                               [ngClass]="{ 'is-invalid':submitted && form.security.errors}"
-                                    >
+                                               [ngClass]="{'is-invalid':submitted &&  form.security.errors}">
                                     </ng-select>
+                                    <div *ngIf="submitted && form.security.errors" class="invalid-feedback">
+                                        <div *ngIf="form.security.errors.required">
+                                            Security is required
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -100,33 +108,27 @@
                                            [ngClass]="{ 'is-invalid':submitted && form.tenureDuration.errors}"
                                            placeholder="Enter Tenure Duration"/>
                                     <div *ngIf="submitted && form.tenureDuration.errors" class="invalid-feedback">
-                                        <div *ngIf="form.tenureDuration.errors.required">Tenure Duration is required</div>
-                                    </div>
-                                    <!--<input id="tenure" [nbDatepicker]="date" class="form-control rounded"
-                                           formControlName="tenure"
-                                           [ngClass]="{ 'is-invalid':submitted && form.tenure.errors}"
-                                           placeholder="Enter the tenure">
-                                    <nb-datepicker #date></nb-datepicker>
-                                    <div *ngIf="submitted && form.tenure.errors" class="invalid-feedback">
-                                        <div *ngIf="form.tenure.errors.required || form.tenure.errors.afterToday">
-                                            Invalid
-                                            Tenure Date
+                                        <div *ngIf="form.tenureDuration.errors.required">Tenure Duration is required
                                         </div>
-                                    </div>-->
-
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label><b>Priority</b></label>
-                                <ng-select
-                                        [items]="dropdownPriorities"
-                                        bindLabel="name"
-                                        bindValue="id"
-                                        [multiple]="false"
-                                        placeholder="Select the priority level"
-                                        formControlName="priority"
-                                >
+                                <ng-select [items]="dropdownPriorities"
+                                           class="form-control"
+                                           bindLabel="name"
+                                           bindValue="id"
+                                           [multiple]="false"
+                                           placeholder="Select the priority level"
+                                           formControlName="priority"
+                                           [ngClass]="{'is-invalid':submitted &&  form.priority.errors}">
                                 </ng-select>
+                                <div *ngIf="submitted && form.priority.errors" class="invalid-feedback">
+                                    <div *ngIf="form.priority.errors.required">
+                                        Priority is required
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -141,25 +143,23 @@
                                     </nb-radio-group>
                                 </div>
                                 <div *ngIf="submitted && form.serviceChargeType.errors" class="invalid-feedback">
-                                    <div *ngIf="form.serviceChargeType.errors.required">Tenure Duration is required</div>
+                                    <div *ngIf="form.serviceChargeType.errors.required">Tenure Duration is required
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <label for="serviceChargeAmount"><b>Service Charge In {{loanForm.get('serviceChargeType').value}}</b></label>
+                                <label for="serviceChargeAmount"><b>Service Charge
+                                    In {{loanForm.get('serviceChargeType').value}}</b></label>
                                 <input type="number" formControlName="serviceChargeAmount" class="form-control rounded"
                                        id="serviceChargeAmount"
                                        [ngClass]="{ 'is-invalid':submitted && form.serviceChargeAmount.errors}"
                                        placeholder="Enter Tenure Duration"/>
                                 <div *ngIf="submitted && form.serviceChargeAmount.errors" class="invalid-feedback">
-                                    <div *ngIf="form.serviceChargeAmount.errors.required">Service Charge is required</div>
+                                    <div *ngIf="form.serviceChargeAmount.errors.required">Service Charge is required
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="row" [hidden]="proceed">
-                            <div class="col-md-3 pull-right">
-                                <button class="btn btn-sm btn-flat btn-primary" type="submit">Proceed</button>
-                            </div>
-                        </div>-->
                     </div>
                     <div class="row" *ngIf="initialDocuments.length > 0">
                         <div class="col-md-6">
@@ -240,7 +240,10 @@
                 </form>
             </div>
             <div *ngIf="hasPreviousLoan">
-                <p><b>Previous Loans</b> <button class="float-right" nbButton outline size="small" (click)="hidePreviousLoans()">Hide</button></p>
+                <p><b>Previous Loans</b>
+                    <button class="float-right" nbButton outline size="small" (click)="hidePreviousLoans()">Hide
+                    </button>
+                </p>
                 <table class="table table-condensed table-bordered">
                     <thead>
                     <tr>
@@ -261,9 +264,8 @@
                     </tr>
                     </tbody>
                 </table>
-                <hr />
+                <hr/>
             </div>
         </nb-card-body>
     </nb-card>
 </section>
-

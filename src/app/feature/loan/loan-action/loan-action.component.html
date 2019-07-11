@@ -12,8 +12,9 @@
 
         <button class="btn-sm" style="color:lightseagreen;"
                 (click)="sendBackwardList(sendForwardBackward)" [disabled]="!actionsList.sendBackward"
-                [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}">RETURN
-                <i class="col-md-1 fa fa-arrow-circle-left"></i></button>
+                [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}">
+            RETURN
+            <i class="col-md-1 fa fa-arrow-circle-left"></i></button>
         <button class="btn-flat btn-sm btn-primary" (click)="onEdit()" [disabled]="!actionsList.edit"
                 [ngStyle]="{ 'filter' : (actionsList.edit === false)? 'grayscale(100%)': 'grayscale(0%)'}">EDIT<i
                 class="col-md-1 fa fa-edit"></i></button>
@@ -24,7 +25,7 @@
             CLOSE/SETTLEMENT<i
                 class="col-md-1 fa-close"></i></button>
         <button class="btn-sm btn-danger"
-                (click)=" closeReject(sendForwardBackward,$event.target.value)" 
+                (click)=" closeReject(sendForwardBackward,$event.target.value)"
                 [disabled]="!actionsList.rejected || actionsList.roleTypeMaker" value="REJECTED"
                 [ngStyle]="{ 'filter' : (!actionsList.rejected || actionsList.roleTypeMaker)? 'grayscale(100%)': 'grayscale(0%)'}">
             REJECTED<i
@@ -41,9 +42,13 @@
             </option>
         </select>
 
-        <button class="btn-sm btn-warning d-flex justify-content-end" printSectionId="print-summary"
+        <button class="btn-sm btn-warning d-flex justify-content-end" (click)="print()">PRINT<i
+                class="col-md-1 fa fa-print"></i></button>
 
-                [useExistingCss]="true" #print ngxPrint>PRINT<i class="col-md-1 fa fa-print"></i></button>
+
+        <button class="btn-sm btn-danger d-flex justify-content-end" (click)="deleteCustomerLoan()"
+                *ngIf="currentUserRoleType">delete<i
+                class="col-md-1 fa fa-ban"></i></button>
 
 
     </div>
@@ -69,7 +74,8 @@
                             <option [value]="null" hidden>Select To</option>
                             <option *ngFor="let forwardBackward of sendForwardBackwardList"
                                     [ngValue]="forwardBackward">
-                                {{forwardBackward.roleName}}</option>
+                                {{forwardBackward.roleName}}
+                            </option>
                         </select>
                     </div>
 

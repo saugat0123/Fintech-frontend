@@ -6,3 +6,8 @@
 .renewDocument {
     font-size: 20px;
 }
+
+.form-control.ng-select {
+    border: none;
+    padding: 0;
+}

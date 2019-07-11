@@ -62,7 +62,10 @@ import {OpeningAccountPrintComponent} from './component/opening-account/opening-
 import {GeneralQuestionComponent} from './component/eligibility/general-question/general-question.component';
 import {EligibilityDocumentViewComponent} from './component/eligibility/eligibility-document-view/eligibility-document-view.component';
 import {UserGuideComponent} from '../../@theme/components/user-guide/user-guide.component';
-import { CatalogueComponent } from './component/catalogue/catalogue.component';
+import {CatalogueComponent} from './component/catalogue/catalogue.component';
+import {EmailConfigurationComponent} from './component/email-configuration/email-configuration.component';
+import {EmailValidatorDirective} from '../../@core/directive/email-validator.directive';
+import {NumberValidatorDirective} from '../../@core/directive/number-validator.directive';
 
 @NgModule({
     declarations: [
@@ -116,7 +119,10 @@ import { CatalogueComponent } from './component/catalogue/catalogue.component';
         OpeningAccountPrintComponent,
         GeneralQuestionComponent,
         EligibilityDocumentViewComponent,
-        CatalogueComponent
+        CatalogueComponent,
+        EmailConfigurationComponent,
+        EmailValidatorDirective,
+        NumberValidatorDirective
 
         // SecurityComponent
     ],
