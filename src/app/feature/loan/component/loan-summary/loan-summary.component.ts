@@ -15,13 +15,17 @@ import {LoanActionService} from '../../loan-action/service/loan-action.service';
 import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
 import {LoanStage} from '../../model/loanStage';
 import {AppConstant} from '../../../../@core/utils/appConstant';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-loan-summary',
     templateUrl: './loan-summary.component.html',
-    styleUrls: ['./loan-summary.component.css']
+    styleUrls: ['./loan-summary.component.scss']
 })
 export class LoanSummaryComponent implements OnInit {
+
+    client: String;
+
     dmsLoanFile: DmsLoanFile = new DmsLoanFile();
     loanConfig: LoanConfig = new LoanConfig();
     loan: string;
@@ -64,6 +68,8 @@ export class LoanSummaryComponent implements OnInit {
                 private loanConfigService: LoanConfigService,
                 private approvalLimitService: ApprovalLimitService) {
 
+        this.client = environment.client;
+
     }
 
     ngOnInit() {
@@ -71,11 +77,15 @@ export class LoanSummaryComponent implements OnInit {
             (paramsValue: Params) => {
                 this.allId = {
                     loanConfigId: null,
-                    customerId: null
+                    customerId: null,
+                    catalogue: null
                 };
                 this.allId = paramsValue;
                 this.customerId = this.allId.customerId;
                 this.loanConfigId = this.allId.loanConfigId;
+                if (this.allId.catalogue) {
+                    this.showAction = false;
+                }
             });
         this.id = this.router.snapshot.params['id'];
         this.loanConfigService.detail(this.loanConfigId).subscribe(
