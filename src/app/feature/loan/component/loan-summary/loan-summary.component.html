@@ -252,15 +252,18 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
-                        <div *ngFor="let previous of signatureList;" class="col-md-{{signatureWidth(signatureList.length)}} signature-block">
-                            <div class="row justify-content-center signature mx-auto">
-                                <img class="img-thumbnail border-0 signature-height"
-                                     src="{{previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage}}"/>
-                            </div>
-                            <div class="text-center signature-detail">
-                                <p>{{previous?.toUser?.role.roleName}}</p>
-                                <p>{{previous?.toUser?.name}}</p>
-                                <p>{{previous?.lastModifiedAt}}</p>
+                        <div *ngFor="let previous of signatureList;"
+                             class="col-md-{{signatureWidth(signatureList.length)}} padding-0-125">
+                            <div class="signature-block">
+                                <div class="row justify-content-center signature mx-auto">
+                                    <img class="img-thumbnail border-0 signature-height"
+                                         src="{{previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage}}"/>
+                                </div>
+                                <div class="text-center signature-detail">
+                                    <p>{{previous?.toUser?.role.roleName}}</p>
+                                    <p>{{previous?.toUser?.name}}</p>
+                                    <p>{{previous?.lastModifiedAt}}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
