@@ -61,8 +61,8 @@ export class UIComponent implements OnInit {
         });
 
         other.id = Number(other.route.snapshot.queryParamMap.get('id'));
-
-        other.documentService.getAll().subscribe((response: any) => {
+        // Id of New Loan cycle is set 1 in patch backend
+        other.documentService.getByLoanCycleAndStatus(1, 'ACTIVE').subscribe((response: any) => {
             other.initialDocumentList = response.detail;
 
             if (other.id !== undefined && other.id !== 0) {
@@ -91,7 +91,9 @@ export class UIComponent implements OnInit {
                 });
             }
         });
-        other.documentService.getAll().subscribe((response: any) => {
+
+        // Id of Renew Loan cycle is set 2 in patch backend
+        other.documentService.getByLoanCycleAndStatus(2, 'ACTIVE').subscribe((response: any) => {
             other.renewalDocumentList = response.detail;
 
             if (other.id !== undefined && other.id !== 0) {
@@ -149,11 +151,10 @@ export class UIComponent implements OnInit {
     }
 
     updateInitialDocument(events, document: Document) {
-        const d: Document = document;
         if (events.target.checked === true) {
-            this.finalInitialDocument.push(d);
+            this.finalInitialDocument.push(document);
         } else {
-            const index: number = this.finalInitialDocument.indexOf(d);
+            const index: number = this.finalInitialDocument.indexOf(document);
             if (index !== -1) {
                 this.finalInitialDocument.splice(index, 1);
             }
@@ -161,11 +162,10 @@ export class UIComponent implements OnInit {
     }
 
     updateRenewalDocument(events, document: Document) {
-        const d: Document = document;
         if (events.target.checked === true) {
-            this.finalRenewalDocument.push(d);
+            this.finalRenewalDocument.push(document);
         } else {
-            const index: number = this.finalRenewalDocument.indexOf(d);
+            const index: number = this.finalRenewalDocument.indexOf(document);
             if (index !== -1) {
                 this.finalRenewalDocument.splice(index, 1);
             }
@@ -173,11 +173,10 @@ export class UIComponent implements OnInit {
     }
 
     updateEligibilityDocument(events, document: Document) {
-        const d: Document = document;
         if (events.target.checked === true) {
-            this.finalEligibilityDocument.push(d);
+            this.finalEligibilityDocument.push(document);
         } else {
-            const index: number = this.finalEligibilityDocument.indexOf(d);
+            const index: number = this.finalEligibilityDocument.indexOf(document);
             if (index !== -1) {
                 this.finalEligibilityDocument.splice(index, 1);
             }
@@ -198,6 +197,7 @@ export class UIComponent implements OnInit {
         this.loanConfig.renew = this.finalRenewalDocument;
         this.loanConfig.eligibilityDocuments = this.finalEligibilityDocument;
         this.loanConfig.offerLetters = this.selectedOfferLetterList;
+        console.log(this.loanConfig);
         this.service.save(this.loanConfig).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Config!'));
                 this.loanConfig = new LoanConfig();
