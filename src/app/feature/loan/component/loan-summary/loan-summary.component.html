@@ -24,22 +24,31 @@
                         <div class="col-md-6">
                             <div class="report-header">
                                 <div class="report-header-heading">{{client}}</div>
-                                <div class="report-header-sub-heading">Credit Appraisal Form</div>
-                                <div class="report-header-sub-heading">for</div>
+                                <div class="report-header-sub-heading">
+                                    Credit Appraisal Form of {{loanConfig?.name}}
+                                    <br/>
+                                    for
+                                </div>
                                 <div class="report-header-sub-heading">{{dmsLoanFile?.customerName || loanDataHolder?.customerInfo?.customerName}}</div>
                                 <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
                             </div>
                         </div>
                         <div class="col-md-3 text-right">
-                            <img style="width: 100px" class="report-log img-thumbnail"
-                                 src="../../../../../assets/img/logo-icon.jpg">
+                            <img class="report-log img-thumbnail border-0"
+                                 src="../../../../../assets/img/logo.png">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row mt-1">
-                <div class="col-md-5">
-                    <span><b>Pending Under: </b>{{loanDataHolder?.currentStage?.toUser?.name}}</span>
+                <div class="col-md-6 text-left">
+                    <span><b>Pending Under: </b>{{loanDataHolder?.currentStage?.toUser?.name}} ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                </div>
+                <div class="col-md-6 text-right" *ngIf="currentDocAction === 'FORWARD'">
+                    <span><b>Forwarded By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}} ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
+                </div>
+                <div class="col-md-6 text-right" *ngIf="currentDocAction === 'BACKWARD'">
+                    <span><b>Backward By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}} ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
                 </div>
                 <!--<div class="col-md-6">
                     <div class="text-right">
@@ -134,20 +143,7 @@
             <div class="row mt-3">
                 <div class="col-md-12">
                     <p><b>Security Offered</b></p>
-                    <table class="table table-condensed table-bordered table-responsive-md">
-                        <thead>
-                        <tr>
-                            <th>S.N</th>
-                            <th>Securities</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let security of securities; let i = index">
-                            <td>{{i + 1}}</td>
-                            <td>{{Security[security]}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <p><label *ngFor="let security of securities; let i = index">{{i + 1}}. {{Security[security]}}&nbsp;&nbsp;</label></p>
                 </div>
             </div>
 
@@ -256,10 +252,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
-                        <div *ngFor="let previous of signatureList;" class="col-md-3">
-                            <div class=" signature-block">
-                                <div class="row d-flex justify-content-center signature mx-auto">
-                                    <img height="100%"
+                        <div *ngFor="let previous of signatureList;"
+                             class="col-md-{{signatureWidth(signatureList.length)}} padding-0-125">
+                            <div class="signature-block">
+                                <div class="row justify-content-center signature mx-auto">
+                                    <img class="img-thumbnail border-0 signature-height"
                                          src="{{previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage}}"/>
                                 </div>
                                 <div class="text-center signature-detail">

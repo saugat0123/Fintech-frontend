@@ -55,6 +55,7 @@ export class LoanSummaryComponent implements OnInit {
     previousList: Array<LoanStage> = new Array<LoanStage>();
     loanStage: LoanStage = new LoanStage();
     bankName = AppConstant.BANKNAME;
+    currentDocAction = '';
 
     @ViewChild('print') print;
 
@@ -115,6 +116,7 @@ export class LoanSummaryComponent implements OnInit {
                 this.actionsList.sendBackward = true;
                 this.actionsList.rejected = true;
                 this.actionsList.closed = true;
+                this.currentDocAction = this.loanDataHolder.currentStage.docAction.toString();
                 if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
                     this.actionsList.offerLetter = true;
                 } else {
@@ -192,6 +194,18 @@ export class LoanSummaryComponent implements OnInit {
                 console.log('Error downloading the file');
             }
         );
+    }
+
+    signatureWidth(contentLength: number) {
+      if (contentLength >= 4) {
+        return 3;
+      } else if (contentLength === 3) {
+        return 4;
+      } else if (contentLength === 2) {
+        return 6;
+      } else if (contentLength <= 1) {
+        return 12;
+      }
     }
 
 }
