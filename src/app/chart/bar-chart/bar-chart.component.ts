@@ -12,28 +12,30 @@ import { BarChart } from './bar-chart.model';
 })
 export class BarChartComponent implements OnInit {
   data: Array<BarChart>;
-  view: any[] = [800, 500];
+  view: any[] = [1000, 450];
 
   // options
   showXAxis = true;
   showYAxis = true;
   gradient = false;
   showLegend = true;
+  legendPosition = 'below';
   legendTitle = 'Status';
   showXAxisLabel = true;
+  showDataLabel = true;
   animations = true;
   xAxisLabel = 'Loan Types';
   showYAxisLabel = true;
-  yAxisLabel = 'Loan counts';
+  yAxisLabel = 'Loan Amount';
 
   roleAccess: string;
   accessSpecific: boolean;
   accessAll: boolean;
   branches: Branch[] = [];
-  selectedBranch = 'All Branches';
+  selectedBranch = null;
 
   colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#C7B42C', '#5AA454', '#A10A28', '#AAAAAA']
   };
 
   constructor(private branchService: BranchService, private barChartService: BarChartService) {
@@ -59,17 +61,18 @@ export class BarChartComponent implements OnInit {
   }
 
   onChange(event) {
-    if (event.target.value === 'All Branches') {
+    if (event.target.value === 'Select Branch') {
+      this.selectedBranch = null;
     } else {
-        const branchId = Number(event.target.value);
-        this.branches.forEach( branch => {
-            if (branch.id === branchId) {
-                this.selectedBranch = branch.name;
-            }
-        });
-        this.barChartService.getBarData(branchId).subscribe((response: any) => {
-            this.data = response.detail;
-        });
+      const branchId = Number(event.target.value);
+      this.branches.forEach(branch => {
+        if (branch.id === branchId) {
+          this.selectedBranch = branch.name;
+        }
+      });
+      this.barChartService.getBarData(branchId).subscribe((response: any) => {
+        this.data = response.detail;
+      });
     }
-}
+  }
 }
