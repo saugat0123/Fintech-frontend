@@ -18,6 +18,8 @@ export class CiclComponent implements OnInit {
   ciclList: Array<Cicl> = new Array<Cicl>();
   insurance: Insurance = new Insurance();
 
+  submitted = false;
+
   constructor(
       private formBuilder: FormBuilder
   ) {
@@ -53,6 +55,14 @@ export class CiclComponent implements OnInit {
 
   get ciclArray() {
     return this.ciclForm.get('ciclArray');
+  }
+
+  get ciclFormControls() {
+    return this.ciclForm.controls;
+  }
+
+  get insuranceFormControls() {
+    return this.insuranceForm.controls;
   }
 
   ngOnInit() {

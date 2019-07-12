@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 form-group">
               <label for="overdueAmount"><b>Overdue Amount</b></label>
               <input class="form-control" formControlName="overdueAmount" id="overdueAmount"
                      nbInput placeholder="Overdue Amount">
@@ -53,10 +53,14 @@
       <div class="clearfix"></div>
       <br/>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 form-group">
           <label for="ciclRemarks"><b>Remarks</b></label>
           <textarea class="form-control" id="ciclRemarks" name="ciclRemarks" nbInput
-                    placeholder="remarks" rows="5"></textarea>
+                    placeholder="remarks" rows="5"
+                    [ngClass]="{ 'is-invalid': (submitted) && ciclFormControls.ciclRemarks.errors }"></textarea>
+          <div *ngIf="(submitted) && ciclFormControls.ciclRemarks.errors" class="invalid-feedback">
+            <span *ngIf="(ciclFormControls.ciclRemarks.errors.required)">Remarks is required</span>
+          </div>
         </div>
       </div>
     </form>
@@ -73,37 +77,60 @@
         <div class="col-md-12 form-group">
           <label for="insuranceCompany"><b>Insurance Company</b></label>
           <input class="form-control" formControlName="insuranceCompany" id="insuranceCompany"
-                 nbInput
-                 placeholder="Insurance Company">
+                 nbInput placeholder="Insurance Company"
+                 [ngClass]="{ 'is-invalid': (submitted) && insuranceFormControls.insuranceCompany.errors }">
+          <div *ngIf="(submitted) && insuranceFormControls.insuranceCompany.errors" class="invalid-feedback">
+            <span *ngIf="(insuranceFormControls.insuranceCompany.errors.required)">Insurance Company is required</span>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-3 form-group">
           <label for="insuredAmount"><b>Insured Amount</b></label>
           <input class="form-control" formControlName="insuredAmount" id="insuredAmount" nbInput
-                 placeholder="Insured Amount">
+                 placeholder="Insured Amount"
+                 [ngClass]="{ 'is-invalid': (submitted) && insuranceFormControls.insuredAmount.errors }">
+          <div *ngIf="(submitted) && insuranceFormControls.insuredAmount.errors" class="invalid-feedback">
+            <span *ngIf="(insuranceFormControls.insuredAmount.errors.required)">Insured amount is required</span>
+          </div>
         </div>
         <div class="col-md-3 form-group">
           <label for="premiumAmount"><b>Premium Amount</b></label>
           <input class="form-control" formControlName="premiumAmount" id="premiumAmount" nbInput
-                 placeholder="Premium Amount">
+                 placeholder="Premium Amount"
+                 [ngClass]="{ 'is-invalid': (submitted) && insuranceFormControls.premiumAmount.errors }">
+          <div *ngIf="(submitted) && insuranceFormControls.premiumAmount.errors" class="invalid-feedback">
+            <span *ngIf="(insuranceFormControls.premiumAmount.errors.required)">Premium amount is required</span>
+          </div>
         </div>
         <div class="col-md-3 form-group">
           <label for="issuedDate"><b>Issued Date</b></label>
           <input class="form-control" formControlName="issuedDate" id="issuedDate" nbInput
-                 type="date">
+                 type="date"
+                 [ngClass]="{ 'is-invalid': (submitted) && insuranceFormControls.issuedDate.errors }">
+          <div *ngIf="(submitted) && insuranceFormControls.issuedDate.errors" class="invalid-feedback">
+            <span *ngIf="(insuranceFormControls.issuedDate.errors.required)">Issued date is required</span>
+          </div>
         </div>
         <div class="col-md-3 form-group">
           <label for="expiryDate"><b>Expiry date</b></label>
           <input class="form-control" formControlName="expiryDate" id="expiryDate" nbInput
-                 type="date">
+                 type="date"
+                 [ngClass]="{ 'is-invalid': (submitted) && insuranceFormControls.expiryDate.errors }">
+          <div *ngIf="(submitted) && insuranceFormControls.expiryDate.errors" class="invalid-feedback">
+            <span *ngIf="(insuranceFormControls.expiryDate.errors.required)">Expiry date is required</span>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12 form-group">
           <label for="policyType"><b>Insurance Policy Type</b></label>
           <textarea class="form-control" formControlName="policyType" id="policyType" nbInput
-                    placeholder="Insurance Policy Type" rows="5"></textarea>
+                    placeholder="Insurance Policy Type" rows="5"
+                    [ngClass]="{ 'is-invalid': (submitted) && insuranceFormControls.policyType.errors }"></textarea>
+          <div *ngIf="(submitted) && insuranceFormControls.policyType.errors" class="invalid-feedback">
+            <span *ngIf="(insuranceFormControls.policyType.errors.required)">Insurance Policy is required</span>
+          </div>
         </div>
       </div>
     </form>
