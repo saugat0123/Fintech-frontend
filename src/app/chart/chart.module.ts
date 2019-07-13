@@ -11,6 +11,7 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
     CommonModule,
     NgxChartsModule,
     ChartRoutingModule
-  ]
+  ],
+  exports: [BarChartComponent]
 })
 export class ChartModule { }
