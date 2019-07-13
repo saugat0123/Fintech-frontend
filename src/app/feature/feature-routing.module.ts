@@ -13,7 +13,6 @@ const routes: Routes = [
             { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
             { path: 'memo', loadChildren: './memo/memo.module#MemoModule' },
             { path: 'loan', loadChildren: './loan/loan.module#LoanModule' },
-            { path: 'charts', loadChildren: '../chart/chart.module#ChartModule' },
             { path: '', redirectTo: 'dashboard' },
             { path: '**', redirectTo: 'dashboard' }
         ],
