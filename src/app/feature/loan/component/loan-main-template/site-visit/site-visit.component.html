@@ -3,20 +3,18 @@
     <form [formGroup]="siteVisitFormGroup" class="form-horizontal">
       <div class="row justify-content-around">
         <div class="col-md-3">
-          <nb-checkbox (change)="checkboxSelected('currentResident',$event.target.checked)">Current
-            Resident
+          <nb-checkbox (change)="checkboxSelected('currentResident',$event.target.checked)">
+            Current Resident
           </nb-checkbox>
         </div>
         <div class="col-md-3">
           <nb-checkbox (change)="checkboxSelected('businessSiteVisit',$event.target.checked)">
-            Business
-            Site Visit
+            Business Site Visit
           </nb-checkbox>
         </div>
         <div class="col-md-3">
           <nb-checkbox (change)="checkboxSelected('fixedAssetCollateral',$event.target.checked)">
-            Fixed
-            Asset Collateral
+            Fixed Asset Collateral
           </nb-checkbox>
         </div>
         <div class="col-md-3">
@@ -54,8 +52,7 @@
                  placeholder="owner name" type="text">
         </div>
       </div>
-      <div [hidden]="!businessSiteVisitForm" class="row mt-3"
-           formGroupName="businessSiteVisitDetails">
+      <div [hidden]="!businessSiteVisitForm" class="row mt-3" formGroupName="businessSiteVisitDetails">
         <h4 class="col-md-12">Business Site Visit</h4>
         <div class="col-md-4 form-group">
           <label class="title" for="officeAddress">Office Address</label>
@@ -67,7 +64,8 @@
           <label class="title" for="nameOfThePersonContacted">Name Of The Person Contacted</label>
           <input class="form-control" formControlName="nameOfThePersonContacted"
                  id="nameOfThePersonContacted"
-                 name="nameOfThePersonContacted" placeholder="name of the person contacted" type="text">
+                 name="nameOfThePersonContacted" placeholder="name of the person contacted"
+                 type="text">
         </div>
         <div class="col-md-4 form-group">
           <label class="title" for="dateOfVisit">Date Of Visit</label>
@@ -105,7 +103,8 @@
         <div class="col-md-8 form-group">
           <label class="title" for="findingsAndComments">Finding And Comments</label>
           <textarea class="form-control" formControlName="findingsAndComments"
-                    id="findingsAndComments" name="findingsAndComments" placeholder="findings and comments"
+                    id="findingsAndComments" name="findingsAndComments"
+                    placeholder="findings and comments"
                     row="3"></textarea>
         </div>
         <div class="col-md-4 pr-0 form-group row">
@@ -127,10 +126,9 @@
                      [mapTypeControl]='true'
                      [zoom]="zoom"
                      style="height: 300px; width: 300px;">
-              <agm-marker [latitude]="markerLatitude"
-                          [longitude]="markerLongitude">
+              <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">
                 <agm-info-window [isOpen]="infoWindowOpen.value">
-                  {{addressLabel.value}}
+                    {{addressLabel.value}}
                 </agm-info-window>
               </agm-marker>
             </agm-map>
@@ -312,7 +310,8 @@
               <tr>
                 <td>1</td>
                 <td>Major Market Places</td>
-                <td><input class="form-control" formControlName="majorMarketPlaces" type="text" placeholder="eg: 4.2 km">
+                <td><input class="form-control" formControlName="majorMarketPlaces" placeholder="eg: 4.2 km"
+                           type="text">
                 </td>
               </tr>
               <tr>
@@ -350,7 +349,8 @@
                 <div class="col-md-5 form-group">
                   <label class="title" for="inspectingStaff">Inspecting Staff</label>
                   <input class="form-control" formControlName="inspectingStaff"
-                         id="inspectingStaff" name="inspectingStaff" placeholder="full name of staff">
+                         id="inspectingStaff" name="inspectingStaff"
+                         placeholder="full name of staff">
                 </div>
                 <div class="col-md-5 form-group">
                   <label class="title" for="position">Position</label>
@@ -377,7 +377,8 @@
             <div class="form-group">
               <label class="title" for="branchInchargeComment">Branch Incharge Comment</label>
               <textarea class="form-control" formControlName="branchInchargeComment"
-                        id="branchInchargeComment" name="branchInchargeComment" placeholder="branch incharge comment"
+                        id="branchInchargeComment" name="branchInchargeComment"
+                        placeholder="branch incharge comment"
                         row="3"
                         type="text"></textarea>
             </div>
@@ -607,7 +608,8 @@
           <div class="col-md-6 form-group">
             <label class="title" for="findingsAndComments">Finding & Comments</label>
             <textarea class="form-control" formControlName="findingsAndComments"
-                      id="findingsAndComments" name="findingsAndComments" placeholder="findings and comments"
+                      id="findingsAndComments" name="findingsAndComments"
+                      placeholder="findings and comments"
                       row="3" type="text"></textarea>
           </div>
           <div class="col-md-6 form-group">
@@ -662,17 +664,21 @@
           <div class="col-md-12 pl-4">
             <div class="row">
               <div class="col-md-2 form-group"><label class="title">Total:</label></div>
-              <div class="col-md-2 form-group"><input class="form-control" type="text" placeholder="0.0"></div>
-              <div class="col-md-2 form-group"><input class="form-control" type="text" placeholder="0.0"></div>
-              <div class="col-md-2 form-group"><input class="form-control" type="text" placeholder="0.0"></div>
-              <div class="col-md-2 form-group"><input class="form-control" type="text" placeholder="0.0"></div>
+              <div class="col-md-2 form-group"><input class="form-control" placeholder="0.0"
+                                                      type="text"></div>
+              <div class="col-md-2 form-group"><input class="form-control" placeholder="0.0"
+                                                      type="text"></div>
+              <div class="col-md-2 form-group"><input class="form-control" placeholder="0.0"
+                                                      type="text"></div>
+              <div class="col-md-2 form-group"><input class="form-control" placeholder="0.0"
+                                                      type="text"></div>
             </div>
           </div>
           <div class="col-md-6 form-group">
             <label class="title" for="findingsAndComments">Findings & Comments</label>
             <textarea class="form-control" formControlName="findingsAndComments"
-                      id="findingsAndComments" name="findingsAndComments" row="3"
-                      type="text" placeholder="findings and comments"></textarea>
+                      id="findingsAndComments" name="findingsAndComments" placeholder="findings and comments"
+                      row="3" type="text"></textarea>
           </div>
         </div>
         <h4 class="col-md-12 mt-3">Other Current Assets</h4>
@@ -707,7 +713,7 @@
               </div>
               <div class="col-md-4 justify-content-end ml-3">
                 <label class="title" for="total">Total</label>
-                <input class="form-control" id="total" name="amount" type="text" placeholder="0.0">
+                <input class="form-control" id="total" name="amount" placeholder="0.0" type="text">
               </div>
             </div>
             <h5 class="col-md-12 mt-3">Inspecting Staffs</h5>
@@ -768,7 +774,7 @@
               </div>
               <div class="col-md-4 justify-content-end ml-3">
                 <label class="title" for="total">Total</label>
-                <input class="form-control" id="total" name="amount" type="text" placeholder="0.0">
+                <input class="form-control" id="total" name="amount" placeholder="0.0" type="text">
               </div>
             </div>
             <h5 class="col-md-12 mt-3">Bank Exposure</h5>
@@ -801,8 +807,8 @@
             <div class="form-group">
               <label class="title" for="overallFindings">Overall Findings / Comment of CAI</label>
               <textarea class="form-control" formControlName="overAllFindings"
-                        id="overAllFindings" name="overAllFindings" row="3"
-                        type="text" placeholder="overall findings / comments of CAI"></textarea>
+                        id="overAllFindings" name="overAllFindings" placeholder="overall findings / comments of CAI"
+                        row="3" type="text"></textarea>
             </div>
           </div>
         </div>

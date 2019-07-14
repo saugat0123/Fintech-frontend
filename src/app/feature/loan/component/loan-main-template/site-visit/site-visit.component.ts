@@ -22,7 +22,7 @@ export class SiteVisitComponent implements OnInit {
   longitude = 85.291543;
   markerLatitude = null;
   markerLongitude = null;
-  infoWindowOpen = new FormControl('false');
+  infoWindowOpen = new FormControl(false);
   addressLabel = new FormControl('');
   zoom = 8;
   latLng: string[];
