@@ -1054,8 +1054,8 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // otherAmortizationAndNonCashExpenses
-    setOtherAmortizationAndNonCashExpenses(currentData) {
+    // depreciation
+    setDepreciation(currentData) {
         const controls = this.additionalFinancialForm.get('depreciation') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
@@ -1066,9 +1066,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // otherAmortizationAndNonCashExpenses
+    setOtherAmortizationAndNonCashExpenses(currentData) {
+        const controls = this.additionalFinancialForm.get('otherAmortizationAndNonCashExpenses') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1078,9 +1078,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // increaseDecreaseInInventory
+    setIncreaseDecreaseInInventory(currentData) {
+        const controls = this.additionalFinancialForm.get('increaseDecreaseInInventory') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1090,9 +1090,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // increaseDecreaseInAccountsReceivable
+    setIncreaseDecreaseInAccountsReceivable(currentData) {
+        const controls = this.additionalFinancialForm.get('increaseDecreaseInAccountsReceivable') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1102,9 +1102,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // increaseDecreaseInShortTermInvestment
+    setIncreaseDecreaseInShortTermInvestment(currentData) {
+        const controls = this.additionalFinancialForm.get('increaseDecreaseInShortTermInvestment') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1114,9 +1114,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // increaseDecreaseInAdvanceAndDeposit
+    setIncreaseDecreaseInAdvanceAndDeposit(currentData) {
+        const controls = this.additionalFinancialForm.get('increaseDecreaseInAdvanceAndDeposit') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1126,9 +1126,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // increaseDecreaseInOtherCurrentAssets
+    setIncreaseDecreaseInOtherCurrentAssets(currentData) {
+        const controls = this.additionalFinancialForm.get('increaseDecreaseInOtherCurrentAssets') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1138,9 +1138,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // increaseDecreaseInCreditors
+    setIncreaseDecreaseInCreditors(currentData) {
+        const controls = this.additionalFinancialForm.get('increaseDecreaseInCreditors') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1150,9 +1150,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // increaseDecreaseInOtherCurrentLiabilities
+    setIncreaseDecreaseInOtherCurrentLiabilities(currentData) {
+        const controls = this.additionalFinancialForm.get('increaseDecreaseInOtherCurrentLiabilities') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1162,9 +1162,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // adjustmentForNonOperatingIncome
+    setAdjustmentForNonOperatingIncome(currentData) {
+        const controls = this.additionalFinancialForm.get('adjustmentForNonOperatingIncome') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1174,9 +1174,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // interestExpensesCFSa
+    setInterestExpensesCFSa(currentData) {
+        const controls = this.additionalFinancialForm.get('interestExpensesCFSa') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1186,9 +1186,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // cashFromInvestingActivities
+    setCashFromInvestingActivities(currentData) {
+        const controls = this.additionalFinancialForm.get('cashFromInvestingActivities') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1198,9 +1198,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // changedInFixedAsset
+    setChangedInFixedAsset(currentData) {
+        const controls = this.additionalFinancialForm.get('changedInFixedAsset') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1210,9 +1210,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // nonOperatingIncomeExpenses
+    setNonOperatingIncomeExpenses(currentData) {
+        const controls = this.additionalFinancialForm.get('nonOperatingIncomeExpenses') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1222,9 +1222,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // changeInOtherAssets
+    setChangeInOtherAssets(currentData) {
+        const controls = this.additionalFinancialForm.get('changeInOtherAssets') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1234,9 +1234,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // changeInOtherLongTermLiabilities
+    setChangeInOtherLongTermLiabilities(currentData) {
+        const controls = this.additionalFinancialForm.get('changeInOtherLongTermLiabilities') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1246,9 +1246,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // cashFromFinancingActivities
+    setCashFromFinancingActivities(currentData) {
+        const controls = this.additionalFinancialForm.get('cashFromFinancingActivities') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1258,9 +1258,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // paidUpCapitalEquity
+    setPaidUpCapitalEquity(currentData) {
+        const controls = this.additionalFinancialForm.get('paidUpCapitalEquity') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1270,9 +1270,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // shortTermLoan
+    setShortTermLoan(currentData) {
+        const controls = this.additionalFinancialForm.get('shortTermLoan') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1282,9 +1282,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // longTermLoanReceived
+    setLongTermLoanReceived(currentData) {
+        const controls = this.additionalFinancialForm.get('longTermLoanReceived') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1294,9 +1294,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // dividendDrawing
+    setDividendDrawing(currentData) {
+        const controls = this.additionalFinancialForm.get('dividendDrawing') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1306,9 +1306,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // interestExpensesCFSb
+    setInterestExpensesCFSb(currentData) {
+        const controls = this.additionalFinancialForm.get('interestExpensesCFSb') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1318,9 +1318,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // otherAdjustments
+    setOtherAdjustments(currentData) {
+        const controls = this.additionalFinancialForm.get('otherAdjustments') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1330,9 +1330,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // netCashFlow
+    setNetCashFlow(currentData) {
+        const controls = this.additionalFinancialForm.get('netCashFlow') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1342,9 +1342,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // addOpeningBalance
+    setAddOpeningBalance(currentData) {
+        const controls = this.additionalFinancialForm.get('addOpeningBalance') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1354,9 +1354,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // closingCash
+    setClosingCash(currentData) {
+        const controls = this.additionalFinancialForm.get('closingCash') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1366,9 +1366,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // closingBalance
+    setClosingBalance(currentData) {
+        const controls = this.additionalFinancialForm.get('closingBalance') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
@@ -1378,9 +1378,9 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
-    // differenceBS
-    setDifferenceBS(currentData) {
-        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+    // differenceCFS
+    setDifferenceCFS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceCFS') as FormArray;
         currentData.forEach(singleData => {
             controls.push(
                 this.formBuilder.group({
