@@ -670,6 +670,727 @@ export class FinancialComponent implements OnInit {
         });
     }
 
+    // currentAssets
+    setCurrentAssets(currentData) {
+        const controls = this.additionalFinancialForm.get('currentAssets') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    setCurrentAssetsCategory(currentData) {
+        const control = this.additionalFinancialForm.get('currentAssetsCategory') as FormArray;
+        control.controls.length = 0;
+        currentData.forEach(singleData => {
+            control.push(
+                this.formBuilder.group({
+                    name: [singleData.name],
+                    amount: this.setTaxesCategoryAmount(singleData)
+                })
+            );
+        });
+    }
+
+    setCurrentAssetsCategoryAmount(singleData) {
+        const amountControl = this.formBuilder.array([]);
+        console.log(singleData.amount);
+        singleData.amount.forEach(singleAmount => {
+            amountControl.push(
+                this.formBuilder.group({
+                    value: [singleAmount.value],
+                    year: [singleAmount.year]
+                })
+            );
+        });
+        return amountControl;
+    }
+    // inventories
+    setInventories(currentData) {
+        const controls = this.additionalFinancialForm.get('inventories') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    setInventoriesCategory(currentData) {
+        const control = this.additionalFinancialForm.get('inventoriesCategory') as FormArray;
+        control.controls.length = 0;
+        currentData.forEach(singleData => {
+            control.push(
+                this.formBuilder.group({
+                    name: [singleData.name],
+                    amount: this.setTaxesCategoryAmount(singleData)
+                })
+            );
+        });
+    }
+
+    setInventoriesCategoryAmount(singleData) {
+        const amountControl = this.formBuilder.array([]);
+        console.log(singleData.amount);
+        singleData.amount.forEach(singleAmount => {
+            amountControl.push(
+                this.formBuilder.group({
+                    value: [singleAmount.value],
+                    year: [singleAmount.year]
+                })
+            );
+        });
+        return amountControl;
+    }
+    // fixedAssets
+    setFixedAssets(currentData) {
+        const controls = this.additionalFinancialForm.get('fixedAssets') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    setFixedAssetsCategory(currentData) {
+        const control = this.additionalFinancialForm.get('fixedAssetsCategory') as FormArray;
+        control.controls.length = 0;
+        currentData.forEach(singleData => {
+            control.push(
+                this.formBuilder.group({
+                    name: [singleData.name],
+                    amount: this.setTaxesCategoryAmount(singleData)
+                })
+            );
+        });
+    }
+
+    setFixedAssetsCategoryAmount(singleData) {
+        const amountControl = this.formBuilder.array([]);
+        console.log(singleData.amount);
+        singleData.amount.forEach(singleAmount => {
+            amountControl.push(
+                this.formBuilder.group({
+                    value: [singleAmount.value],
+                    year: [singleAmount.year]
+                })
+            );
+        });
+        return amountControl;
+    }
+    // otherAssets
+    setOtherAssets(currentData) {
+        const controls = this.additionalFinancialForm.get('otherAssets') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    setOtherAssetsCategory(currentData) {
+        const control = this.additionalFinancialForm.get('otherAssetsCategory') as FormArray;
+        control.controls.length = 0;
+        currentData.forEach(singleData => {
+            control.push(
+                this.formBuilder.group({
+                    name: [singleData.name],
+                    amount: this.setTaxesCategoryAmount(singleData)
+                })
+            );
+        });
+    }
+
+    setOtherAssetsCategoryAmount(singleData) {
+        const amountControl = this.formBuilder.array([]);
+        console.log(singleData.amount);
+        singleData.amount.forEach(singleAmount => {
+            amountControl.push(
+                this.formBuilder.group({
+                    value: [singleAmount.value],
+                    year: [singleAmount.year]
+                })
+            );
+        });
+        return amountControl;
+    }
+    // totalAssets
+    setTotalAssets(currentData) {
+        const controls = this.additionalFinancialForm.get('totalAssets') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // currentLiabilities
+    setCurrentLiabilities(currentData) {
+        const controls = this.additionalFinancialForm.get('currentLiabilities') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    setCurrentLiabilitiesCategory(currentData) {
+        const control = this.additionalFinancialForm.get('currentLiabilitiesCategory') as FormArray;
+        control.controls.length = 0;
+        currentData.forEach(singleData => {
+            control.push(
+                this.formBuilder.group({
+                    name: [singleData.name],
+                    amount: this.setTaxesCategoryAmount(singleData)
+                })
+            );
+        });
+    }
+
+    setCurrentLiabilitiesCategoryAmount(singleData) {
+        const amountControl = this.formBuilder.array([]);
+        console.log(singleData.amount);
+        singleData.amount.forEach(singleAmount => {
+            amountControl.push(
+                this.formBuilder.group({
+                    value: [singleAmount.value],
+                    year: [singleAmount.year]
+                })
+            );
+        });
+        return amountControl;
+    }
+    // longTermLoan
+    setLongTermLoan(currentData) {
+        const controls = this.additionalFinancialForm.get('longTermLoan') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    setLongTermLoanCategory(currentData) {
+        const control = this.additionalFinancialForm.get('longTermLoanCategory') as FormArray;
+        control.controls.length = 0;
+        currentData.forEach(singleData => {
+            control.push(
+                this.formBuilder.group({
+                    name: [singleData.name],
+                    amount: this.setTaxesCategoryAmount(singleData)
+                })
+            );
+        });
+    }
+
+    setLongTermLoanCategoryAmount(singleData) {
+        const amountControl = this.formBuilder.array([]);
+        console.log(singleData.amount);
+        singleData.amount.forEach(singleAmount => {
+            amountControl.push(
+                this.formBuilder.group({
+                    value: [singleAmount.value],
+                    year: [singleAmount.year]
+                })
+            );
+        });
+        return amountControl;
+    }
+    // otherLongTermLiabilities
+    setOtherLongTermLiabilities(currentData) {
+        const controls = this.additionalFinancialForm.get('otherLongTermLiabilities') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    setOtherLongTermLiabilitiesCategory(currentData) {
+        const control = this.additionalFinancialForm.get('otherLongTermLiabilitiesCategory') as FormArray;
+        control.controls.length = 0;
+        currentData.forEach(singleData => {
+            control.push(
+                this.formBuilder.group({
+                    name: [singleData.name],
+                    amount: this.setTaxesCategoryAmount(singleData)
+                })
+            );
+        });
+    }
+
+    setOtherLongTermLiabilitiesCategoryAmount(singleData) {
+        const amountControl = this.formBuilder.array([]);
+        console.log(singleData.amount);
+        singleData.amount.forEach(singleAmount => {
+            amountControl.push(
+                this.formBuilder.group({
+                    value: [singleAmount.value],
+                    year: [singleAmount.year]
+                })
+            );
+        });
+        return amountControl;
+    }
+    // otherProvisions
+    setOtherProvisions(currentData) {
+        const controls = this.additionalFinancialForm.get('otherProvisions') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // netWorth
+    setNetWorth(currentData) {
+        const controls = this.additionalFinancialForm.get('netWorth') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
+    setNetWorthCategory(currentData) {
+        const control = this.additionalFinancialForm.get('netWorthCategory') as FormArray;
+        control.controls.length = 0;
+        currentData.forEach(singleData => {
+            control.push(
+                this.formBuilder.group({
+                    name: [singleData.name],
+                    amount: this.setTaxesCategoryAmount(singleData)
+                })
+            );
+        });
+    }
+
+    setNetWorthCategoryAmount(singleData) {
+        const amountControl = this.formBuilder.array([]);
+        console.log(singleData.amount);
+        singleData.amount.forEach(singleAmount => {
+            amountControl.push(
+                this.formBuilder.group({
+                    value: [singleAmount.value],
+                    year: [singleAmount.year]
+                })
+            );
+        });
+        return amountControl;
+    }
+    // totalLiabilitiesAndEquity
+    setTotalLiabilitiesAndEquity(currentData) {
+        const controls = this.additionalFinancialForm.get('totalLiabilitiesAndEquity') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // cashFromOperatingActivities
+    setCashFromOperatingActivities(currentData) {
+        const controls = this.additionalFinancialForm.get('cashFromOperatingActivities') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // netProfitForThePeriod
+    setNetProfitForThePeriod(currentData) {
+        const controls = this.additionalFinancialForm.get('netProfitForThePeriod') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // otherAmortizationAndNonCashExpenses
+    setOtherAmortizationAndNonCashExpenses(currentData) {
+        const controls = this.additionalFinancialForm.get('depreciation') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // differenceBS
+    setDifferenceBS(currentData) {
+        const controls = this.additionalFinancialForm.get('differenceBS') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+
     //
     //
     // Fiscal Year --
