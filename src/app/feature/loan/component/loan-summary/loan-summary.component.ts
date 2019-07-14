@@ -16,6 +16,7 @@ import {ApprovalLimitService} from '../../../admin/component/approvallimit/appro
 import {LoanStage} from '../../model/loanStage';
 import {AppConstant} from '../../../../@core/utils/appConstant';
 import {environment} from '../../../../../environments/environment';
+import {DocStatus} from '../../model/docStatus';
 
 @Component({
     selector: 'app-loan-summary',
@@ -196,17 +197,23 @@ export class LoanSummaryComponent implements OnInit {
         );
     }
 
-    signatureWidth(contentLength: number) {
-      if (contentLength >= 4) {
-        return 3;
-      } else if (contentLength === 3) {
-        return 4;
-      } else if (contentLength === 2) {
-        return 6;
-      } else if (contentLength <= 1) {
-        return 12;
-      }
-    }
+    loanHandler(index: number, length: number) {
+        if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+            if (index === 0) {
+                return 'CREATED BY:';
+            } else if (index === length - 1) {
+                return 'APPROVED BY:';
+            } else {
+                return 'PROCESSED BY:';
+            }
+        } else {
+            if (index === 0) {
+                return 'CREATED BY:';
+            } else {
+                return 'PROCESSED BY:';
+            }
+        }
 
+    }
 }
 
