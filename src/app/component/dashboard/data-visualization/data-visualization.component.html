@@ -1,7 +1,9 @@
 <div class="row mt-3">
     <div class="col-md-11">
         <nb-card>
-            <nb-card-header class="text-center"><h1>Loan By Category For {{selectedBranch}}</h1></nb-card-header>
+            <nb-card-header class="text-center">
+                <h3>Loan By Category For {{selectedBranch}}</h3>
+            </nb-card-header>
             <nb-card-body>
                 <div class="col-md-12 ">
                     <div *ngIf="accessSpecific || accessAll" class="col-md-3 mb-5 offset-sm-9">
@@ -16,11 +18,22 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div id="pie">
-                            <ngx-charts-advanced-pie-chart
-                                    [view]="view"
-                                    [scheme]="colorScheme"
-                                    [results]="pieChart">
+                            <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorScheme" [results]="pieChart">
                             </ngx-charts-advanced-pie-chart>
+                        </div>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+        <nb-card>
+            <nb-card-header class="text-center">
+                <h3>Loan Statistics for {{selectedBranch}}</h3>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="pie">
+                            <app-bar-chart branchId="{{branchId}}"></app-bar-chart>
                         </div>
                     </div>
                 </div>
