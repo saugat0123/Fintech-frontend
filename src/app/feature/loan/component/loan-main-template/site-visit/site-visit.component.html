@@ -60,51 +60,53 @@
         <div class="col-md-4 form-group">
           <label class="title" for="officeAddress">Office Address</label>
           <input class="form-control" formControlName="officeAddress" id="officeAddress"
-                 name="officeAddress"
+                 name="officeAddress" placeholder="office address"
                  type="text">
         </div>
         <div class="col-md-4 form-group">
           <label class="title" for="nameOfThePersonContacted">Name Of The Person Contacted</label>
           <input class="form-control" formControlName="nameOfThePersonContacted"
-                 id="nameOfThePersonContacted" name="nameOfThePersonContacted" type="text">
+                 id="nameOfThePersonContacted"
+                 name="nameOfThePersonContacted" placeholder="name of the person contacted" type="text">
         </div>
         <div class="col-md-4 form-group">
           <label class="title" for="dateOfVisit">Date Of Visit</label>
           <input [nbDatepicker]="datepicker3" class="form-control" formControlName="dateOfVisit"
-                 id="dateOfVisit">
+                 id="dateOfVisit" placeholder="date of visit">
           <nb-datepicker #datepicker3></nb-datepicker>
         </div>
         <div class="col-md-4 form-group">
           <label class="title" for="objectiveOfVisit">Objective Of Visit</label>
           <input class="form-control" formControlName="objectiveOfVisit" id="objectiveOfVisit"
-                 name="objectiveOfVisit" type="text">
+                 name="objectiveOfVisit" placeholder="objective of visit" type="text">
         </div>
         <div class="col-md-4 form-group">
           <label class="title" for="observation">Observation</label>
           <input class="form-control" formControlName="observation" id="observation"
-                 name="observation"
+                 name="observation" placeholder="observation"
                  type="text">
         </div>
         <div class="col-md-4 form-group">
           <label class="title" for="visitedBy">Visited By</label>
           <input class="form-control" formControlName="visitedBy" id="visitedBy" name="visitedBy"
-                 type="text">
+                 placeholder="visited by" type="text">
         </div>
         <div class="col-md-4 form-group">
           <label class="title" for="conclusion">Conclusion</label>
           <input class="form-control" formControlName="conclusion" id="conclusion" name="conclusion"
-                 type="text">
+                 placeholder="conclusion" type="text">
         </div>
         <div class="form-group col-md-4">
           <label class="title" for="mapAddress">Address</label>
           <input class="form-control col-md-12" formControlName="mapAddress" id="mapAddress"
-                 name="mapAddress"
+                 name="mapAddress" placeholder="address"
                  type="text">
         </div>
         <div class="col-md-8 form-group">
           <label class="title" for="findingsAndComments">Finding And Comments</label>
           <textarea class="form-control" formControlName="findingsAndComments"
-                    id="findingsAndComments" name="findingsAndComments" row="3"></textarea>
+                    id="findingsAndComments" name="findingsAndComments" placeholder="findings and comments"
+                    row="3"></textarea>
         </div>
         <div class="col-md-4 pr-0 form-group row">
           <div class="form-group col-md-8 pr-0">
@@ -145,19 +147,19 @@
         </div>
         <div class="col-md-3 form-group">
           <label class="title" for="fixedAssetCollateralAddress">Address</label>
-          <input class="form-control" formControlName="address"
-                 id="fixedAssetCollateralAddress" name="fixedAssetCollateralAddress" type="text">
+          <input class="form-control" formControlName="address" id="fixedAssetCollateralAddress"
+                 name="fixedAssetCollateralAddress" placeholder="address" type="text">
         </div>
         <div class="col-md-3 form-group">
           <label class="title" for="personContacted">Person Contacted</label>
           <input class="form-control" formControlName="personContacted" id="personContacted"
-                 name="personContacted"
+                 name="personContacted" placeholder="person contacted"
                  type="text">
         </div>
         <div class="col-md-3 form-group">
           <label class="title" for="phoneNoOfContact">Phone No. Of Contact</label>
           <input class="form-control" formControlName="phoneNoOfContact" id="phoneNoOfContact"
-                 name="phoneNoOfContact" type="text">
+                 name="phoneNoOfContact" placeholder="phone no. of contact" type="text">
         </div>
         <h4 class="col-md-12 mt-3">Facilities</h4>
         <div class="row col-md-12 pr-0" formGroupName="facilities">
@@ -165,7 +167,7 @@
             <label class="title" for="roadApproach">Road Approach</label>
             <select class="custom-select" formControlName="roadApproach" id="roadApproach"
                     name="roadApproach">
-              <option hidden value=undefined>Select</option>
+              <option [ngValue]="undefined" hidden>Select Road Approach</option>
               <option value="BLACK_TOPPED_ROAD">Black Topped Road</option>
               <option value="GRAVELLED_ROAD">Gravelled Road</option>
               <option value="EARTHEN_ROAD">Earthen Road</option>
@@ -175,17 +177,17 @@
           <div class="col-md-3 form-group">
             <label class="title" for="roadWidth">Road Width</label>
             <input class="form-control" formControlName="roadWidth" id="roadWidth" name="roadWidth"
-                   type="text">
+                   placeholder="road width" type="text">
           </div>
           <div class="col-md-3 form-group">
             <label class="title" for="prominentPlace">Prominent Place</label>
             <input class="form-control" formControlName="prominentPlace" id="prominentPlace"
-                   name="prominentPlace" type="text">
+                   name="prominentPlace" placeholder="prominent place" type="text">
           </div>
           <div class="col-md-3 form-group">
             <label class="title" for="approachDistance">Approach Distance</label>
             <input class="form-control" formControlName="approachDistance" id="approachDistance"
-                   name="approachDistance" type="text">
+                   name="approachDistance" placeholder="approach distance" type="text">
           </div>
         </div>
         <h4 class="col-md-12 mt-3">Other Facilities</h4>
@@ -239,13 +241,13 @@
             <div class="col-md-12 form-group">
               <label class="title" for="buildingArea">Building Area</label>
               <input class="form-control" formControlName="buildingArea" id="buildingArea"
-                     name="buildingArea">
+                     name="buildingArea" placeholder="building area">
             </div>
             <div class="col-md-12 form-group">
               <label class="title" for="constructionYear">Construction Year</label>
               <input [nbDatepicker]="datepicker5" class="form-control"
-                     formControlName="constructionYear"
-                     id="constructionYear" name="constructionYear">
+                     formControlName="constructionYear" id="constructionYear"
+                     name="constructionYear" placeholder="construction year">
               <nb-datepicker #datepicker5></nb-datepicker>
             </div>
           </div>
@@ -291,11 +293,11 @@
               <td><input formControlName="bathroomAndToilet" type="checkbox"></td>
             </tr>
           </table>
-          <div class="col-md-4 form-group">
+          <div class="col-md-12 form-group">
             <label class="title" for="remarksForNoOption">Remarks For 'No' Option</label>
             <textarea class="form-control" formControlName="remarksForNoOption"
-                      id="remarksForNoOption" name="remarksForNoOption" row="3"
-                      type="text"></textarea>
+                      id="remarksForNoOption" name="remarksForNoOption" placeholder="remarks"
+                      row="3" type="text"></textarea>
           </div>
         </div>
         <h4 class="col-md-12 mt-3">Vicinity to the Basic Amenities</h4>
@@ -310,32 +312,34 @@
               <tr>
                 <td>1</td>
                 <td>Major Market Places</td>
-                <td><input formControlName="majorMarketPlaces" type="text"></td>
+                <td><input class="form-control" formControlName="majorMarketPlaces" type="text" placeholder="eg: 4.2 km">
+                </td>
               </tr>
               <tr>
                 <td>2</td>
                 <td>School/Colleges</td>
-                <td><input formControlName="schoolOrCollege" type="text"></td>
+                <td><input class="form-control" formControlName="schoolOrCollege" type="text"></td>
               </tr>
               <tr>
                 <td>3</td>
                 <td>Hospital/Nursing Home</td>
-                <td><input formControlName="hospitalOrNursingHome" type="text"></td>
+                <td><input class="form-control" formControlName="hospitalOrNursingHome" type="text">
+                </td>
               </tr>
               <tr>
                 <td>4</td>
                 <td>Electricity Line</td>
-                <td><input formControlName="electricityLine" type="text"></td>
+                <td><input class="form-control" formControlName="electricityLine" type="text"></td>
               </tr>
               <tr>
                 <td>5</td>
                 <td>Telephone Line</td>
-                <td><input formControlName="telephoneLine" type="text"></td>
+                <td><input class="form-control" formControlName="telephoneLine" type="text"></td>
               </tr>
               <tr>
                 <td>6</td>
                 <td>Water Pipeline</td>
-                <td><input formControlName="waterPipeline" type="text"></td>
+                <td><input class="form-control" formControlName="waterPipeline" type="text"></td>
               </tr>
             </table>
           </div>
@@ -346,12 +350,12 @@
                 <div class="col-md-5 form-group">
                   <label class="title" for="inspectingStaff">Inspecting Staff</label>
                   <input class="form-control" formControlName="inspectingStaff"
-                         id="inspectingStaff" name="inspectingStaff">
+                         id="inspectingStaff" name="inspectingStaff" placeholder="full name of staff">
                 </div>
                 <div class="col-md-5 form-group">
                   <label class="title" for="position">Position</label>
                   <input class="form-control" formControlName="position" id="position"
-                         name="position">
+                         name="position" placeholder="position">
                 </div>
                 <div *ngIf="staffLength()>1" class="col-md-1 pt-4">
                   <input (click)="deleteStaff(i)"
@@ -367,13 +371,14 @@
             <div class="form-group">
               <label class="title" for="commentAboutFAC">Comments About FAC</label>
               <textarea class="form-control" formControlName="commentAboutFAC"
-                        id="commentAboutFAC"
-                        name="commentsAboutFAC" row="3" type="text"></textarea>
+                        id="commentAboutFAC" name="commentsAboutFAC"
+                        placeholder="comments" row="3" type="text"></textarea>
             </div>
             <div class="form-group">
               <label class="title" for="branchInchargeComment">Branch Incharge Comment</label>
               <textarea class="form-control" formControlName="branchInchargeComment"
-                        id="branchInchargeComment" name="branchInchargeComment" row="3"
+                        id="branchInchargeComment" name="branchInchargeComment" placeholder="branch incharge comment"
+                        row="3"
                         type="text"></textarea>
             </div>
           </div>
@@ -386,21 +391,21 @@
           <label class="title" for="dateOfInspection">Date Of Inspection</label>
           <input [nbDatepicker]="datepicker1" class="form-control"
                  formControlName="dateOfInspection"
-                 id="dateOfInspection">
+                 id="dateOfInspection" placeholder="date of inspection">
           <nb-datepicker #datepicker1></nb-datepicker>
         </div>
         <div class="col-md-4 form-group">
           <label class="title" for="particularsOfGoodInspected">Particulars Of Good
             Inspected</label>
           <input class="form-control" formControlName="particularsOfGoodInspected"
-                 id="particularsOfGoodInspected"
-                 name="particularsOfGoodInspected">
+                 id="particularsOfGoodInspected" name="particularsOfGoodInspected"
+                 placeholder="particulars of good inspected">
         </div>
         <div class="col-md-4 form-group">
           <label class="title" for="stockValueReported">Stock Value Reported</label>
           <input class="form-control" formControlName="stockValueReported"
-                 id="stockValueReported"
-                 name="stockValueReported">
+                 id="stockValueReported" name="stockValueReported"
+                 placeholder="0.0">
         </div>
         <div class="col-md-4 form-group">
           <label class="title" for="rents">Rents</label>
@@ -412,13 +417,13 @@
         <div class="col-md-4 form-group">
           <label class="title" for="isRentPmtUpToDate">IS Rent Pmt. Up to Date?</label>
           <input class="form-control" formControlName="isRentPmtUpToDate" id="isRentPmtUpToDate"
-                 name="isRentPmtUpToDate">
+                 name="isRentPmtUpToDate" placeholder="Is rent payment up to date?">
         </div>
         <div class="col-md-4 form-group">
-          <label class="title" for="isRentReceiptShown">IS Rent Pmt. Up to Date?</label>
+          <label class="title" for="isRentReceiptShown">IS Rent Receipt Up to Date?</label>
           <input class="form-control" formControlName="isRentReceiptShown"
-                 id="isRentReceiptShown"
-                 name="isRentReceiptShown">
+                 id="isRentReceiptShown" name="isRentReceiptShown"
+                 placeholder="Is Rent Receipt Shown?">
         </div>
 
         <h4 class="col-md-12 mt-3">Insurance Verification</h4>
@@ -427,23 +432,23 @@
             <div class="col-md-6 form-group">
               <label class="title" for="assetsMortgaged">Assets Mortgaged</label>
               <input class="form-control" formControlName="assetsMortgaged" id="assetsMortgaged"
-                     name="assetsMortgaged">
+                     name="assetsMortgaged" placeholder="assets mortgaged">
             </div>
             <div class="col-md-6 form-group">
               <label class="title" for="insuredAmount">Insured Amount</label>
               <input class="form-control" formControlName="insuredAmount" id="insuredAmount"
-                     name="insuredAmount">
+                     name="insuredAmount" placeholder="insured amount">
             </div>
             <div class="col-md-6 form-group">
               <label class="title" for="insuranceCompany">Insurance Company</label>
               <input class="form-control" formControlName="insuranceCompany"
-                     id="insuranceCompany"
-                     name="insuranceCompany">
+                     id="insuranceCompany" name="insuranceCompany"
+                     placeholder="insurance company">
             </div>
             <div class="col-md-6 form-group">
-              <label class="title" for="expireDate">Expire Date</label>
+              <label class="title" for="expireDate">Expiry Date</label>
               <input [nbDatepicker]="datepicker2" class="form-control" formControlName="expireDate"
-                     id="expireDate">
+                     id="expireDate" placeholder="expiry date">
               <nb-datepicker #datepicker2></nb-datepicker>
             </div>
             <div class="col-md-6 form-group">
@@ -460,13 +465,13 @@
             <div class="col-md-6 form-group">
               <label class="title" for="comments">Comments</label>
               <input class="form-control" formControlName="comments" id="comments"
-                     name="comments">
+                     name="comments" placeholder="comments">
             </div>
             <div class="col-md-6 form-group">
               <label class="title" for="stockValueConfirmed">Stock Value Confirmed</label>
               <input class="form-control" formControlName="stockValueConfirmed"
-                     id="stockValueConfirmed"
-                     name="stockValueConfirmed">
+                     id="stockValueConfirmed" name="stockValueConfirmed"
+                     placeholder="0.0">
             </div>
           </div>
           <div class="col-md-6">
@@ -476,12 +481,13 @@
                 <div class="col-md-5 form-group">
                   <label class="title" for="inspectingStaff">Inspecting Staff</label>
                   <input class="form-control" formControlName="inspectingStaff"
-                         id="inspectingStaff" name="inspectingStaff">
+                         id="inspectingStaff"
+                         name="inspectingStaff" placeholder="inspecting staff">
                 </div>
                 <div class="col-md-5 form-group">
                   <label class="title" for="position">Position</label>
                   <input class="form-control" formControlName="position" id="position"
-                         name="position">
+                         name="position" placeholder="position">
                 </div>
                 <div *ngIf="inspectingStaffsDetailsLength()>1" class="col-md-1 pt-4">
                   <input (click)="deleteInspectingStaffsDetails(i)"
@@ -601,14 +607,14 @@
           <div class="col-md-6 form-group">
             <label class="title" for="findingsAndComments">Finding & Comments</label>
             <textarea class="form-control" formControlName="findingsAndComments"
-                      id="findingsAndComments" name="findingsAndComments" row="3"
-                      type="text"></textarea>
+                      id="findingsAndComments" name="findingsAndComments" placeholder="findings and comments"
+                      row="3" type="text"></textarea>
           </div>
           <div class="col-md-6 form-group">
             <label class="title" for="remarksForNoOption">Remarks for 'NO' Option</label>
             <textarea class="form-control" formControlName="remarksForNoOption"
-                      id="remarksForNoOption" name="remarksForNoOption" row="3"
-                      type="text"></textarea>
+                      id="remarksForNoOption" name="remarksForNoOption" placeholder="remarks"
+                      row="3" type="text"></textarea>
           </div>
         </div>
         <h4 class="col-md-12 mt-3">Current Assets Inspection - Receivables & Payables</h4>
@@ -619,28 +625,28 @@
               <div class="col-md-2 form-group ml-3">
                 <label class="title" for="party">Party</label>
                 <input class="form-control" formControlName="party" id="party"
-                       name="party">
+                       name="party" placeholder="party">
               </div>
               <div class="col-md-2 form-group">
                 <label class="title" for="withinThreeMonths">Within 3 Months</label>
                 <input class="form-control" formControlName="withinThreeMonths"
-                       id="withinThreeMonths"
-                       name="party">
+                       id="withinThreeMonths" name="party"
+                       placeholder="0.0">
               </div>
               <div class="col-md-2 form-group">
                 <label class="title" for="sixMonth">6 Month</label>
                 <input class="form-control" formControlName="sixMonth" id="sixMonth"
-                       name="sixMonth">
+                       name="sixMonth" placeholder="0.0">
               </div>
               <div class="col-md-2 form-group">
                 <label class="title" for="oneYear">One year</label>
                 <input class="form-control" formControlName="oneYear" id="oneYear"
-                       name="oneYear">
+                       name="oneYear" placeholder="0.0">
               </div>
               <div class="col-md-2 form-group">
                 <label class="title" for="oneYearPlus">1+ year</label>
                 <input class="form-control" formControlName="oneYearPlus" id="oneYearPlus"
-                       name="oneYeaPlus">
+                       name="oneYeaPlus" placeholder="0.0">
               </div>
               <div *ngIf="partyLength()>1" class="col-md-1 pt-4">
                 <input (click)="deletePartyForm(i)"
@@ -656,17 +662,17 @@
           <div class="col-md-12 pl-4">
             <div class="row">
               <div class="col-md-2 form-group"><label class="title">Total:</label></div>
-              <div class="col-md-2 form-group"><input class="form-control" type="text"></div>
-              <div class="col-md-2 form-group"><input class="form-control" type="text"></div>
-              <div class="col-md-2 form-group"><input class="form-control" type="text"></div>
-              <div class="col-md-2 form-group"><input class="form-control" type="text"></div>
+              <div class="col-md-2 form-group"><input class="form-control" type="text" placeholder="0.0"></div>
+              <div class="col-md-2 form-group"><input class="form-control" type="text" placeholder="0.0"></div>
+              <div class="col-md-2 form-group"><input class="form-control" type="text" placeholder="0.0"></div>
+              <div class="col-md-2 form-group"><input class="form-control" type="text" placeholder="0.0"></div>
             </div>
           </div>
           <div class="col-md-6 form-group">
             <label class="title" for="findingsAndComments">Findings & Comments</label>
             <textarea class="form-control" formControlName="findingsAndComments"
                       id="findingsAndComments" name="findingsAndComments" row="3"
-                      type="text"></textarea>
+                      type="text" placeholder="findings and comments"></textarea>
           </div>
         </div>
         <h4 class="col-md-12 mt-3">Other Current Assets</h4>
@@ -684,7 +690,7 @@
                 <div class="col-md-4 form-group ml-3">
                   <label class="title" for="amount">Amount</label>
                   <input class="form-control" formControlName="amount" id="amount"
-                         name="amount">
+                         name="amount" placeholder="0.0">
                 </div>
                 <div *ngIf="receivableAssetsLength()>1" class="col-md-2 form-group pt-4">
                   <input (click)="deleteReceivableAssets(i)"
@@ -701,7 +707,7 @@
               </div>
               <div class="col-md-4 justify-content-end ml-3">
                 <label class="title" for="total">Total</label>
-                <input class="form-control" id="total" name="amount" type="text">
+                <input class="form-control" id="total" name="amount" type="text" placeholder="0.0">
               </div>
             </div>
             <h5 class="col-md-12 mt-3">Inspecting Staffs</h5>
@@ -746,7 +752,7 @@
                 <div class="col-md-4 form-group ml-3">
                   <label class="title" for="amount">Amount</label>
                   <input class="form-control" formControlName="amount" id="amount"
-                         name="amount">
+                         name="amount" placeholder="0.0">
                 </div>
                 <div *ngIf="payableAssetsLength()>1" class="col-md-2 form-group pt-4">
                   <input (click)="deletePayableAssets(i)" class="btn btn-sm btn-danger btn-primary"
@@ -762,7 +768,7 @@
               </div>
               <div class="col-md-4 justify-content-end ml-3">
                 <label class="title" for="total">Total</label>
-                <input class="form-control" id="total" name="amount" type="text">
+                <input class="form-control" id="total" name="amount" type="text" placeholder="0.0">
               </div>
             </div>
             <h5 class="col-md-12 mt-3">Bank Exposure</h5>
@@ -777,7 +783,7 @@
                 <div class="col-md-4 form-group">
                   <label class="title" for="amount">Amount</label>
                   <input class="form-control" formControlName="amount" id="amount"
-                         name="amount">
+                         name="amount" placeholder="0.0">
                 </div>
                 <div *ngIf="bankExposureLength()>1" class="col-md-2 form-group pt-4">
                   <input (click)="deleteBankExposure(i)" class="btn btn-sm btn-danger btn-primary"
@@ -796,7 +802,7 @@
               <label class="title" for="overallFindings">Overall Findings / Comment of CAI</label>
               <textarea class="form-control" formControlName="overAllFindings"
                         id="overAllFindings" name="overAllFindings" row="3"
-                        type="text"></textarea>
+                        type="text" placeholder="overall findings / comments of CAI"></textarea>
             </div>
           </div>
         </div>
