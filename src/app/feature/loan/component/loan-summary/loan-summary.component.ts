@@ -16,7 +16,7 @@ import {ApprovalLimitService} from '../../../admin/component/approvallimit/appro
 import {LoanStage} from '../../model/loanStage';
 import {AppConstant} from '../../../../@core/utils/appConstant';
 import {environment} from '../../../../../environments/environment';
-import {DocStatus} from '../../model/docStatus';
+import {DateService} from '../../../../@core/service/baseservice/date.service';
 
 @Component({
     selector: 'app-loan-summary',
@@ -57,6 +57,7 @@ export class LoanSummaryComponent implements OnInit {
     loanStage: LoanStage = new LoanStage();
     bankName = AppConstant.BANKNAME;
     currentDocAction = '';
+    currentNepDate;
 
     @ViewChild('print') print;
 
@@ -68,7 +69,8 @@ export class LoanSummaryComponent implements OnInit {
                 private dmsLoanService: DmsLoanService,
                 private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService,
-                private approvalLimitService: ApprovalLimitService) {
+                private approvalLimitService: ApprovalLimitService,
+                private dateService: DateService,) {
 
         this.client = environment.client;
 
@@ -175,6 +177,9 @@ export class LoanSummaryComponent implements OnInit {
 
             }
         );
+        this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
+            this.currentNepDate = response.detail.nepDateFormat;
+        });
 
     }
 
@@ -198,22 +203,23 @@ export class LoanSummaryComponent implements OnInit {
     }
 
     loanHandler(index: number, length: number) {
-        if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-            if (index === 0) {
-                return 'CREATED BY:';
-            } else if (index === length - 1) {
+        if (index === 0) {
+            return 'CREATED BY:';
+        } else if (index === length - 1) {
+            if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
                 return 'APPROVED BY:';
+            } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
+                return 'REJECTED BY:';
+            } else if (this.loanDataHolder.documentStatus.toString() === 'CLOSED') {
+                return 'CLOSED BY:';
             } else {
-                return 'PROCESSED BY:';
+                return 'SUPPORTED BY:';
             }
         } else {
-            if (index === 0) {
-                return 'CREATED BY:';
-            } else {
-                return 'PROCESSED BY:';
-            }
+            return 'SUPPORTED BY:';
         }
-
     }
+
+
 }
 
