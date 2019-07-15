@@ -27,6 +27,10 @@
                       *ngIf="selectedTab==='Proposal' && loanDocument"
                       (dmsDisableButton)="submitButton($event)"
                       #proposalInfo></app-proposal>
+        <app-cicl #cicl *ngIf="selectedTab === 'CICL' && loanDocument"
+                  [ciclRemark]="loanDocument?.ciclRemarks"
+                  [ciclValue]="loanDocument?.ciclList"
+                  [insuranceValue]="loanDocument?.insurance"></app-cicl>
         <app-site-visit #siteVisit
                         [formValue] = "loanDocument?.siteVisit"
                         *ngIf="selectedTab === 'Site Visit' && loanDocument"></app-site-visit>

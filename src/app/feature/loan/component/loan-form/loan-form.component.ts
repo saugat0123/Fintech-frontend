@@ -21,6 +21,7 @@ import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.componen
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {ProposalComponent} from '../loan-main-template/proposal/proposal.component';
 import {Proposal} from '../../../admin/modal/proposal';
+import {CiclComponent} from '../loan-main-template/cicl/cicl.component';
 import {SiteVisitComponent} from '../loan-main-template/site-visit/site-visit.component';
 
 @Component({
@@ -84,6 +85,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('proposalInfo')
     proposalDetail: ProposalComponent;
+
+    @ViewChild('cicl')
+    cicl: CiclComponent;
 
     @ViewChild('siteVisit')
     siteVisit: SiteVisitComponent;
@@ -259,6 +263,16 @@ export class LoanFormComponent implements OnInit {
             }
             this.proposalDetail.onSubmit();
             this.loanDocument.proposal = this.proposalDetail.proposalForm.value;
+        }
+        if (name === 'CICL' && action) {
+            if (this.cicl.ciclForm.invalid || this.cicl.insuranceForm.invalid) {
+                this.cicl.submitted = true;
+                return true;
+            }
+            this.cicl.onSubmit();
+            this.loanDocument.ciclList = this.cicl.ciclList;
+            this.loanDocument.ciclRemarks = this.cicl.ciclRemark;
+            this.loanDocument.insurance = this.cicl.insurance;
         }
 
         if (name === 'Site Visit' && action) {
