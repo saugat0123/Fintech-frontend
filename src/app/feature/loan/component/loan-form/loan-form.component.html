@@ -1,63 +1,62 @@
-<div [nbSpinner]="loading"
-     nbSpinnerStatus="primary"
-     nbSpinnerSize="large"
-     nbSpinnerMessage="Loading...">
-    <nb-card-header>
-        <h2 class="d-flex justify-content-center" style="margin-top: -3%">{{loanTitle}}</h2>
-        <span class="d-flex justify-content-end">{{currentNepDate}}</span></nb-card-header>
+<nb-card-header>
+    <h2 class="d-flex justify-content-center" style="margin-top: -3%">{{loanTitle}}</h2>
+    <span class="d-flex justify-content-end">{{currentNepDate}}</span></nb-card-header>
 
-    <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-            <li *ngFor="let allList of templateList;let i=index ;"
-                [ngClass]="allList.active === true ?'nav-item active ': 'nav-item'"
-                (click)="selectTab(i,allList.name)">
-                <a href="{{allList.templateUrl}}" data-toggle="tab" aria-expanded="false"
-                   class="nav-link">{{allList.name}}</a>
-            </li>
+<div class="nav-tabs-custom">
+    <ul class="nav nav-tabs">
+        <li *ngFor="let allList of templateList;let i=index ;"
+            [ngClass]="allList.active === true ?'nav-item active ': 'nav-item'"
+            (click)="selectTab(i,allList.name)">
+            <a href="{{allList.templateUrl}}" data-toggle="tab" aria-expanded="false"
+               class="nav-link">{{allList.name}}</a>
+        </li>
 
-        </ul>
-        <div class="tab-content">
+    </ul>
+    <div class="tab-content">
 
-            <app-basic-info [formValue]="loanDocument?.customerInfo"
-                            *ngIf="selectedTab==='Customer Info' && loanDocument"
-                            #basicInfo></app-basic-info>
-            <app-kyc-info [formValue]="loanDocument?.customerInfo"
-                          *ngIf="selectedTab==='Kyc Info' && loanDocument"
-                          #kycInfo></app-kyc-info>
-            <app-dms-loan [loanFile]="loanFile" *ngIf="selectedTab==='General' && loanFile" #dmsLoanFile></app-dms-loan>
-            <app-company-info [formValue]="loanDocument?.entityInfo" *ngIf="selectedTab==='Company Info'"
-                              #entityInfo></app-company-info>
-            <app-proposal [formValue]="loadProposal()"
-                          *ngIf="selectedTab==='Proposal' && loanDocument"
-                          (dmsDisableButton)="submitButton($event)"
-                          #proposalInfo></app-proposal>
+        <app-basic-info [formValue]="loanDocument?.customerInfo"
+                        *ngIf="selectedTab==='Customer Info' && loanDocument"
+                        #basicInfo></app-basic-info>
+        <app-kyc-info [formValue]="loanDocument?.customerInfo"
+                      *ngIf="selectedTab==='Kyc Info' && loanDocument"
+                      #kycInfo></app-kyc-info>
+        <app-dms-loan [loanFile]="loanFile" *ngIf="selectedTab==='General' && loanFile" #dmsLoanFile></app-dms-loan>
+        <app-company-info [formValue]="loanDocument?.entityInfo" *ngIf="selectedTab==='Company Info'"
+                          #entityInfo></app-company-info>
+        <app-proposal [formValue]="loadProposal()"
+                      *ngIf="selectedTab==='Proposal' && loanDocument"
+                      (dmsDisableButton)="submitButton($event)"
+                      #proposalInfo></app-proposal>
+        <app-cicl #cicl *ngIf="selectedTab === 'CICL' && loanDocument"
+                  [ciclRemark]="loanDocument?.ciclRemarks"
+                  [ciclValue]="loanDocument?.ciclList"
+                  [insuranceValue]="loanDocument?.insurance"></app-cicl>
 
-            <!-- /.tab-pane -->
-        </div>
+        <!-- /.tab-pane -->
+    </div>
 
-        <div class="justify-content-center" style="padding-bottom: 20px">
-            <div class="col-md-12">
-                <div class="row text-center">
-                    <div class="col-md-6 d-flex justify-content-start">
-                        <a class="btn btn-sm btn-flat btn-primary" data-toggle="tab"
-                           aria-expanded="false"
-                           href="{{previousTab}}" *ngIf="!first" (click)="prevTab()">PREVIOUS</a>
-                    </div>
-                    <div class="col-md-6 d-flex justify-content-end">
-                        <a class="btn btn-sm btn-flat btn-primary" data-toggle="tab"
-                           aria-expanded="false"
-                           href="{{nxtTab}}" (click)="nextTab()" *ngIf="!last">NEXT</a>
+    <div class="justify-content-center" style="padding-bottom: 20px">
+        <div class="col-md-12">
+            <div class="row text-center">
+                <div class="col-md-6 d-flex justify-content-start">
+                    <a class="btn btn-sm btn-flat btn-primary" data-toggle="tab"
+                       aria-expanded="false"
+                       href="{{previousTab}}" *ngIf="!first" (click)="prevTab()">PREVIOUS</a>
+                </div>
+                <div class="col-md-6 d-flex justify-content-end">
+                    <a class="btn btn-sm btn-flat btn-primary" data-toggle="tab"
+                       aria-expanded="false"
+                       href="{{nxtTab}}" (click)="nextTab()" *ngIf="!last">NEXT</a>
 
-                        <button class="btn btn-sm btn-flat btn-primary" style="float:right;" data-toggle="tab"
-                                aria-expanded="false"
-                                (click)="save()" *ngIf="last" [disabled]="submitDisable">SAVE
-                        </button>
-                    </div>
+                    <button class="btn btn-sm btn-flat btn-primary" style="float:right;" data-toggle="tab"
+                            aria-expanded="false"
+                            (click)="save()" *ngIf="last" [disabled]="submitDisable">SAVE
+                    </button>
                 </div>
             </div>
-
         </div>
 
-        <!-- /.tab-content -->
     </div>
+
+    <!-- /.tab-content -->
 </div>

@@ -15,7 +15,7 @@ import {RoleAccess} from '../../../feature/admin/modal/role-access';
 export class DataVisualizationComponent implements OnInit {
     pieChart: PieChart = new PieChart();
     branches: Branch[] = [];
-    branchId: number;
+    branchId = 0;
     selectedBranch = 'All Branches';
     view: any[];
     colorScheme = {
@@ -61,6 +61,7 @@ export class DataVisualizationComponent implements OnInit {
                 (response: any) => {
                     this.pieChart = response.detail;
                     this.selectedBranch = event.target.value;
+                    this.branchId = 0;
                 }
             );
         } else {
