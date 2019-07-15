@@ -2,20 +2,20 @@
 
     <div class="col-md-4 col-sm-6 col-xs-12">
         <a routerLink="/home/admin/roleList">
-            <app-icon-card title="Roles" type="info" detail="{{roleCount}}">
+            <app-icon-card detail="{{roleCount}}" title="Roles" type="info">
                 <i class="fas fa-user-alt"></i>
             </app-icon-card>
         </a>
     </div>
 
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <app-icon-card title="Active" type="success" detail="{{activeCount}}">
+        <app-icon-card detail="{{activeCount}}" title="Active" type="success">
             <i class="fas fa-user-circle"></i>
         </app-icon-card>
     </div>
 
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <app-icon-card title="Inactive" type="warning" detail="{{inactiveCount}}">
+        <app-icon-card detail="{{inactiveCount}}" title="Inactive" type="warning">
             <i class="far fa-user-circle"></i>
         </app-icon-card>
     </div>
@@ -35,6 +35,7 @@
                         <!--<th>Status</th>-->
                         <th>Created By</th>
                         <th>Last Modified By</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
 
@@ -49,17 +50,17 @@
                         <td>{{allList.roleType}}</td>
 
                         <!--<td *ngIf="allList.roleName !== 'admin'; else status">-->
-                            <!--<select class="select-borderless" [(ngModel)]="allList.status" name="status"-->
-                                    <!--(change)="onChange($event.target.value,allList)">-->
-                                <!--<option value="ACTIVE">ACTIVE</option>-->
-                                <!--<option value="INACTIVE">INACTIVE</option>-->
+                        <!--<select class="select-borderless" [(ngModel)]="allList.status" name="status"-->
+                        <!--(change)="onChange($event.target.value,allList)">-->
+                        <!--<option value="ACTIVE">ACTIVE</option>-->
+                        <!--<option value="INACTIVE">INACTIVE</option>-->
 
-                            <!--</select>-->
+                        <!--</select>-->
                         <!--</td>-->
                         <!--<ng-template #status>-->
-                            <!--<td>-->
-                                <!--<p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>-->
-                            <!--</td>-->
+                        <!--<td>-->
+                        <!--<p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>-->
+                        <!--</td>-->
                         <!--</ng-template>-->
 
                         <td *ngIf="allList.createdByName==null || allList.createdByName=='' ; else createdBy">Not
@@ -75,6 +76,16 @@
                         <ng-template #lastModifiedBy>
                             <td>{{allList.modifiedByName}}</td>
                         </ng-template>
+                        <td>
+                            <a (click)="openEditRole(allList, roleEdit)"
+                               data-toggle="tooltip"
+                               data-placement="top" title="Edit Role name" class="cursor">
+                                <i class="fa fa-edit" style="color:#3c8dbc;"></i>
+                            </a>
+                            <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip"  data-placement="top" (click)="delete(allList)"  title="DELETE" style="margin-left:10px">
+                              <i class="fa fa-trash" style="color:white;"></i>
+                            </a> -->
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -82,3 +93,37 @@
         </nb-card>
     </div>
 </div>
+
+<ng-template #roleEdit let-modal>
+    <div class="modal-document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Edit Role</h4>
+                <button (click)="modal.dismiss()" aria-label="Close" class="close pull-right" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+                <div class="modal-body">
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label>Role Name</label>
+                            <input type="hidden" class="form-control" [(ngModel)]="role.id" name="id"
+                                   placeholder="id">
+                            <input type="text" class="form-control" required [(ngModel)]="role.roleName"
+                                   name="roleName" placeholder="Name" #roleVal="ngModel"
+                                   [ngClass]="{ 'is-invalid': f.submitted && roleVal.invalid }">
+                            <div *ngIf="f.submitted && roleVal.invalid" class="invalid-feedback">
+                                <div *ngIf="roleVal.errors.required">Role name is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" style="cursor: pointer"><i class="fa fa-save"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>

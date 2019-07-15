@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {Role} from '../../../modal/role';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
 import {UpdateModalComponent} from '../../../../../@theme/components';
 import {RoleService} from '../role.service';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {ToastService} from '../../../../../@core/utils';
 
 
 @Component({
@@ -13,15 +15,19 @@ import {RoleService} from '../role.service';
 })
 export class ListRoleComponent implements OnInit {
     title = 'Role';
+    role: Role = new Role();
     activeCount: any;
     inactiveCount: any;
     roleCount: any;
-    roleList: any;
+    roleList: Array<Role>;
+
+    private modalRef: NgbModalRef;
 
     constructor(
         private service: RoleService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService
     ) {
     }
 
@@ -48,5 +54,26 @@ export class ListRoleComponent implements OnInit {
         event.preventDefault();
         this.modalService.open(UpdateModalComponent);
 
+    }
+
+    openEditRole(role: Role, template: TemplateRef<any>) {
+        this.role = new Role();
+        this.role = role;
+        this.modalRef = this.modalService.open(template);
+        console.log(this.role);
+    }
+
+    onSubmit() {
+        this.service.save(this.role).subscribe(() => {
+
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Role name!'));
+
+                this.modalService.dismissAll('Close modal');
+            },
+            (error) => {
+                console.log(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Role name!'));
+                this.modalService.dismissAll('Close modal');
+            });
     }
 }
