@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {SiteVisit} from '../../../../admin/modal/siteVisit';
+import {InspectingStaff} from '../../../../admin/modal/inspectingStaff';
 
 declare let google: any;
 
@@ -223,7 +224,7 @@ export class SiteVisitComponent implements OnInit {
 
   staffsFormGroup(): FormGroup {
     return this.formBuilder.group({
-      inspectingStaff: [undefined],
+      name: [undefined],
       position: [undefined]
     });
   }
@@ -476,7 +477,81 @@ export class SiteVisitComponent implements OnInit {
     }
     // fixedAssetCollateral
     if (this.fixedAssetCollateralForm) {
-
+      this.formValue.fixedAssetsCollateral.date = this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('date').value;
+      this.formValue.fixedAssetsCollateral.address = this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('address').value;
+      this.formValue.fixedAssetsCollateral.nameOfPersonContacted =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('personContacted').value;
+      this.formValue.fixedAssetsCollateral.personContactedPhone =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('phoneNoOfContact').value;
+      this.formValue.fixedAssetsCollateral.roadApproach =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('facilities').get('roadApproach').value;
+      this.formValue.fixedAssetsCollateral.roadWidth =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('facilities').get('roadWidth').value;
+      this.formValue.fixedAssetsCollateral.prominentPlace =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('facilities').get('prominentPlace').value;
+      this.formValue.fixedAssetsCollateral.approachDistance =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('facilities').get('approachDistance').value;
+      this.formValue.fixedAssetsCollateral.waterSupply =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('waterSupply').value;
+      this.formValue.fixedAssetsCollateral.electricity =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('electricity').value;
+      this.formValue.fixedAssetsCollateral.boundryWallConstruction =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('boundaryWallConstruction').value;
+      this.formValue.fixedAssetsCollateral.boundryFencing =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('boundaryFencing').value;
+      this.formValue.fixedAssetsCollateral.drainage =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('drainage').value;
+      this.formValue.fixedAssetsCollateral.open =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('open').value;
+      this.formValue.fixedAssetsCollateral.remarksForOtherFacility =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('remarksForOtherFacility').value;
+      this.formValue.fixedAssetsCollateral.building =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('building').value;
+      this.formValue.fixedAssetsCollateral.buildingArea =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('buildingArea').value;
+      this.formValue.fixedAssetsCollateral.dateOfBuildingConstruction =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('constructionYear').value;
+      this.formValue.fixedAssetsCollateral.qualityOfConstructionRemarks =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('qualityOfConstructionRemarks').value;
+      this.formValue.fixedAssetsCollateral.loadBearingWall =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('loadBearingWall').value;
+      this.formValue.fixedAssetsCollateral.mortarCement =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('mortarCement').value;
+      this.formValue.fixedAssetsCollateral.otherRoofing =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('otherRoofing').value;
+      this.formValue.fixedAssetsCollateral.insideFurniture =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('insideFurniture').value;
+      this.formValue.fixedAssetsCollateral.frameStructure =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('frameStructure').value;
+      this.formValue.fixedAssetsCollateral.rccRoofing =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('rccRoofing').value;
+      this.formValue.fixedAssetsCollateral.bathroomToilet =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('otherFacilities').get('bathroomAndToilet').value;
+      this.formValue.fixedAssetsCollateral.majorMarketplacesDistance =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('vicinityToTheBasicAmenities').get('majorMarketPlaces').value;
+      this.formValue.fixedAssetsCollateral.schoolCollegeDistance =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('vicinityToTheBasicAmenities').get('schoolOrCollege').value;
+      this.formValue.fixedAssetsCollateral.hospitalNursingHomeDistance =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('vicinityToTheBasicAmenities').get('hospitalOrNursingHome').value;
+      this.formValue.fixedAssetsCollateral.electricityLineDistance =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('vicinityToTheBasicAmenities').get('electricityLine').value;
+      this.formValue.fixedAssetsCollateral.telephoneLineDistance =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('vicinityToTheBasicAmenities').get('telephoneLine').value;
+      this.formValue.fixedAssetsCollateral.waterPipelineDistance =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('vicinityToTheBasicAmenities').get('waterPipeline').value;
+      let staffIndex = 0;
+      const staffArray = (this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('staffs') as FormArray);
+      while (staffIndex < staffArray.length) {
+        const inspectingStaff: InspectingStaff = new InspectingStaff();
+        inspectingStaff.name = staffArray[staffIndex].name;
+        inspectingStaff.position = staffArray[staffIndex].position;
+        this.formValue.fixedAssetsCollateral.inspectingStaffList.push(inspectingStaff);
+        staffIndex++;
+      }
+      this.formValue.fixedAssetsCollateral.commentsAboutFAC =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('vicinityToTheBasicAmenities').get('commentAboutFAC').value;
+      this.formValue.fixedAssetsCollateral.branchInchargeComment =
+          this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('vicinityToTheBasicAmenities').get('branchInchargeComment').value;
     }
     // currentAssetsInspection
     if (this.currentAssetsInspectionForm) {

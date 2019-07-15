@@ -4,7 +4,6 @@ export class FixedAssetsCollateral {
   date: Date;
   address: string;
   nameOfPersonContacted: string;
-  categoryName: string;
   personContactedPhone: string;
   roadApproach: string;
   roadWidth: number;
