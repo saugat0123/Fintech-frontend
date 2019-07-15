@@ -67,7 +67,7 @@ export class ListRoleComponent implements OnInit {
     }
 
     onSubmit() {
-        this.service.save(this.role).subscribe(() => {
+        this.service.update(this.role).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Role name!'));
                 this.modalService.dismissAll('Close modal');
