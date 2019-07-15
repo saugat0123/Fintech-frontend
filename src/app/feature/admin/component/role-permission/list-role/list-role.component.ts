@@ -31,20 +31,24 @@ export class ListRoleComponent implements OnInit {
     ) {
     }
 
+    static loadData(other: ListRoleComponent) {
+
+        other.breadcrumbService.notify(other.title);
+
+        other.service.getStatus().subscribe((response: any) => {
+            other.activeCount = response.detail.active;
+            other.inactiveCount = response.detail.inactive;
+            other.roleCount = response.detail.roles;
+
+        });
+
+        other.service.getAll().subscribe((response: any) => {
+            other.roleList = response.detail;
+        });
+    }
+
     ngOnInit() {
-        this.breadcrumbService.notify(this.title);
-
-        this.service.getStatus().subscribe((response: any) => {
-            this.activeCount = response.detail.active;
-            this.inactiveCount = response.detail.inactive;
-            this.roleCount = response.detail.roles;
-
-        });
-
-        this.service.getAll().subscribe((response: any) => {
-            this.roleList = response.detail;
-            console.log(response);
-        });
+        ListRoleComponent.loadData(this);
     }
 
     onChange(newValue, data) {
@@ -53,7 +57,6 @@ export class ListRoleComponent implements OnInit {
         }
         event.preventDefault();
         this.modalService.open(UpdateModalComponent);
-
     }
 
     openEditRole(role: Role, template: TemplateRef<any>) {
@@ -67,8 +70,8 @@ export class ListRoleComponent implements OnInit {
         this.service.save(this.role).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Role name!'));
-
                 this.modalService.dismissAll('Close modal');
+                ListRoleComponent.loadData(this);
             },
             (error) => {
                 console.log(error);
