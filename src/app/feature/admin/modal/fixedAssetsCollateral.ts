@@ -1,21 +1,15 @@
 import {InspectingStaff} from './inspectingStaff';
 
 export class FixedAssetsCollateral {
-  categoryName: string;
   date: Date;
   address: string;
   nameOfPersonContacted: string;
+  categoryName: string;
   personContactedPhone: string;
   roadApproach: string;
   roadWidth: number;
   prominentPlace: string;
   approachDistance: number;
-  tentativeValuePerArea: number;
-  totalMarketValueOfLand: number;
-  tentativeMarketValuePerSquareFeetOfBid: number;
-  totalMarketValueOfBuilding: number;
-  possibleDeduction: number;
-  approximateMarketValue: number;
   waterSupply: boolean;
   electricity: boolean;
   boundryWallConstruction: boolean;
@@ -23,15 +17,10 @@ export class FixedAssetsCollateral {
   drainage: boolean;
   open: boolean;
   remarksForOtherFacility: string;
-  majorMarketplacesDistance: number;
-  schoolCollegeDistance: number;
-  hospitalNursingHomeDistance: number;
-  electricityLineDistance: number;
-  telephoneLineDistance: number;
-  waterPipelineDistance: number;
   building: boolean;
   buildingArea: number;
   dateOfBuildingConstruction: Date;
+  qualityOfConstructionRemarks: string;
   loadBearingWall: boolean;
   mortarCement: boolean;
   otherRoofing: boolean;
@@ -39,8 +28,13 @@ export class FixedAssetsCollateral {
   frameStructure: boolean;
   rccRoofing: boolean;
   bathroomToilet: boolean;
-  qualityOfConstructionRemarks: string;
-  commentsAboutFAC: string;
+  majorMarketplacesDistance: number;
+  schoolCollegeDistance: number;
+  hospitalNursingHomeDistance: number;
+  electricityLineDistance: number;
+  telephoneLineDistance: number;
+  waterPipelineDistance: number;
   inspectingStaffList: Array<InspectingStaff>;
+  commentsAboutFAC: string;
   branchInchargeComment: string;
 }

@@ -112,9 +112,11 @@ export class SiteVisitComponent implements OnInit {
           boundaryFencing: [undefined],
           drainage: [undefined],
           open: [undefined],
+          remarksForOtherFacility: [undefined],
           building: [undefined],
           buildingArea: [undefined],
           constructionYear: [undefined],
+          qualityOfConstructionRemarks: [undefined],
           loadBearingWall: [undefined],
           mortarCement: [undefined],
           otherRoofing: [undefined],
@@ -122,7 +124,6 @@ export class SiteVisitComponent implements OnInit {
           frameStructure: [undefined],
           rccRoofing: [undefined],
           bathroomAndToilet: [undefined],
-          remarksForNoOption: [undefined]
         }),
         vicinityToTheBasicAmenities: this.formBuilder.group({
           majorMarketPlaces: [undefined],
@@ -158,37 +159,43 @@ export class SiteVisitComponent implements OnInit {
           ])
         }),
         stockCheckListQuestionaire: this.formBuilder.group({
-          isTheCustomerUptoDateWithOtherChargerChargeableToTheOtherPremises: [undefined],
-          allGoodsBelongsToTheBorrowersAndNonAreHoldOnAccountOfThirdParties: [undefined],
-          confirmThatValuationOfStocksDoesNotIncludeAndGoodsUnderTr: [undefined],
-          thereIsNoEvidenceOfAnyOtherBankInterestedInTheGoods: [undefined],
-          wasTheSecurityInOrder: [undefined],
-          areTheGoodsSaleable: [undefined],
-          areTheStocksRegisteredUptoDate: [undefined],
-          doesTheStocksRegisteredMatchWithTheStockList: [undefined],
-          isTheStorageConditionSatisfactory: [undefined],
-          isTheFightingEvidenceThroughArrangement: [undefined],
-          areTheBuildingsOrStoreInTheGoodCondition: [undefined],
-          areTheSpecialWarrantiesInTheInsurancePolicyUptoDate: [undefined],
-          thereIsNoEvidenceOfGoodsHazardousNatureInThePremises: [undefined],
-          wereOurNameBoardProperlyDisplayed: [undefined],
-          wereOurPadlocksInUse: [undefined],
-          findingsAndComments: [undefined],
+          uptoDateWithCharges: [undefined],
+          borrowersPossession: [undefined],
+          notUnderTR: [undefined],
+          otherBankNotInterested: [undefined],
+          securityOrder: [undefined],
+          goodsSaleable: [undefined],
+          stocksUptoDate: [undefined],
+          matchWithTheStockList: [undefined],
+          storageConditionSatisfactory: [undefined],
+          fireFightingEvidence: [undefined],
+          buildingStoreCondition: [undefined],
+          warrantiesUptoDate: [undefined],
+          noHazardousNature: [undefined],
+          nameBoardProperlyDisplayed: [undefined],
+          padlocksUse: [undefined],
+          findingAndComments: [undefined],
           remarksForNoOption: [undefined]
         }),
         receivablesAndPayables: this.formBuilder.group({
           parties: this.formBuilder.array([
             this.partyFormGroup()
           ]),
-          findingsAndComments: [undefined]
+          threeMonthTotal: [undefined],
+          sixMonthTotal: [undefined],
+          oneYearTotal: [undefined],
+          moreThanOneYearTotal: [undefined],
+          findingsAndCommentsForCurrentAssetsInspection: [undefined]
         }),
         otherCurrentAssets: this.formBuilder.group({
           receivableAssets: this.formBuilder.array([
             this.assetsFormGroup()
           ]),
+          receivableCurrentAssetsTotal: [undefined],
           payableAssets: this.formBuilder.array([
             this.assetsFormGroup()
           ]),
+          payableCurrentAssetsTotal: [undefined],
           inspectingStaffs: this.formBuilder.array([
             this.staffsFormGroup()
           ]),

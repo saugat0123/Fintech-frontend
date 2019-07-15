@@ -13,8 +13,8 @@ export class SiteVisit {
   currentResident: CurrentResident;
   businessSiteVisit: BusinessSiteVisit;
   fixedAssetsCollateral: FixedAssetsCollateral;
-  currentAssetsInspection: CurrentAssetsInspection;
   assetsInspection: AssetsInspection;
+  currentAssetsInspection: CurrentAssetsInspection;
   receivablePayableAssetsInspection: ReceivablePayableAssetsInspection;
 
 }

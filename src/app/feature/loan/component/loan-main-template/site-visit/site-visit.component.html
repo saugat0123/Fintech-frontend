@@ -52,7 +52,8 @@
                  placeholder="owner name" type="text">
         </div>
       </div>
-      <div [hidden]="!businessSiteVisitForm" class="row mt-3" formGroupName="businessSiteVisitDetails">
+      <div [hidden]="!businessSiteVisitForm" class="row mt-3"
+           formGroupName="businessSiteVisitDetails">
         <h4 class="col-md-12">Business Site Visit</h4>
         <div class="col-md-4 form-group">
           <label class="title" for="officeAddress">Office Address</label>
@@ -128,7 +129,7 @@
                      style="height: 300px; width: 300px;">
               <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">
                 <agm-info-window [isOpen]="infoWindowOpen.value">
-                    {{addressLabel.value}}
+                  {{addressLabel.value}}
                 </agm-info-window>
               </agm-marker>
             </agm-map>
@@ -190,43 +191,51 @@
         </div>
         <h4 class="col-md-12 mt-3">Other Facilities</h4>
         <div class="row col-md-12" formGroupName="otherFacilities">
-          <table class="table col-md-4">
-            <tr>
-              <th>SN</th>
-              <th>Particulars</th>
-              <th>Yes or No</th>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Water Supply</td>
-              <td><input formControlName="waterSupply" type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Electricity</td>
-              <td><input formControlName="electricity" type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Boundary Wall Construction</td>
-              <td><input formControlName="boundaryWallConstruction" type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Boundary Fencing</td>
-              <td><input formControlName="boundaryFencing" type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Drainage</td>
-              <td><input formControlName="drainage" type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>Open</td>
-              <td><input formControlName="open" type="checkbox"></td>
-            </tr>
-          </table>
+          <div class="col-md-4 form-group">
+            <table class="table">
+              <tr>
+                <th>SN</th>
+                <th>Particulars</th>
+                <th>Yes or No</th>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Water Supply</td>
+                <td><input formControlName="waterSupply" type="checkbox"></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Electricity</td>
+                <td><input formControlName="electricity" type="checkbox"></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Boundary Wall Construction</td>
+                <td><input formControlName="boundaryWallConstruction" type="checkbox"></td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Boundary Fencing</td>
+                <td><input formControlName="boundaryFencing" type="checkbox"></td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Drainage</td>
+                <td><input formControlName="drainage" type="checkbox"></td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>Open</td>
+                <td><input formControlName="open" type="checkbox"></td>
+              </tr>
+            </table>
+
+            <label class="title" for="remarksForOtherFacility">Remarks For 'No' Option</label>
+            <textarea class="form-control" formControlName="remarksForOtherFacility"
+                      id="remarksForOtherFacility" name="remarksForOtherFacility"
+                      placeholder="remarks"
+                      row="3" type="text"></textarea>
+          </div>
           <div class="col-md-4">
             <div class="col-md-12 form-group">
               <label class="title" for="building">Building</label>
@@ -247,6 +256,13 @@
                      formControlName="constructionYear" id="constructionYear"
                      name="constructionYear" placeholder="construction year">
               <nb-datepicker #datepicker5></nb-datepicker>
+            </div>
+            <div class="col-md-12 form-group">
+              <label class="title" for="qualityOfConstructionRemarks">Remarks For 'No' Option</label>
+              <textarea class="form-control" formControlName="qualityOfConstructionRemarks"
+                        id="qualityOfConstructionRemarks" name="qualityOfConstructionRemarks"
+                        placeholder="remarks"
+                        row="3" type="text"></textarea>
             </div>
           </div>
           <table class="table col-md-4">
@@ -291,12 +307,6 @@
               <td><input formControlName="bathroomAndToilet" type="checkbox"></td>
             </tr>
           </table>
-          <div class="col-md-12 form-group">
-            <label class="title" for="remarksForNoOption">Remarks For 'No' Option</label>
-            <textarea class="form-control" formControlName="remarksForNoOption"
-                      id="remarksForNoOption" name="remarksForNoOption" placeholder="remarks"
-                      row="3" type="text"></textarea>
-          </div>
         </div>
         <h4 class="col-md-12 mt-3">Vicinity to the Basic Amenities</h4>
         <div class="row col-md-12 mt-3" formGroupName="vicinityToTheBasicAmenities">
@@ -310,7 +320,8 @@
               <tr>
                 <td>1</td>
                 <td>Major Market Places</td>
-                <td><input class="form-control" formControlName="majorMarketPlaces" placeholder="eg: 4.2 km"
+                <td><input class="form-control" formControlName="majorMarketPlaces"
+                           placeholder="eg: 4.2 km"
                            type="text">
                 </td>
               </tr>
@@ -387,7 +398,7 @@
       </div>
       <div [hidden]="!currentAssetsInspectionForm" class="row mt-3"
            formGroupName="currentAssetsInspectionDetails">
-        <h4 class="col-md-12">Current Assets Inspection</h4>
+        <h4 class="col-md-12">Current Assets Inspection - Stock</h4>
         <div class="col-md-4 form-group">
           <label class="title" for="dateOfInspection">Date Of Inspection</label>
           <input [nbDatepicker]="datepicker1" class="form-control"
@@ -517,7 +528,7 @@
               <td>Is the customer upto date with other charges,chargeable to the other premises ?
               </td>
               <td><input
-                  formControlName="isTheCustomerUptoDateWithOtherChargerChargeableToTheOtherPremises"
+                  formControlName="uptoDateWithCharges"
                   type="checkbox">
               </td>
             </tr>
@@ -526,89 +537,89 @@
               <td>All goods belongs to the borrowers and non are hold on account of third parties
               </td>
               <td><input
-                  formControlName="allGoodsBelongsToTheBorrowersAndNonAreHoldOnAccountOfThirdParties"
+                  formControlName="borrowersPossession"
                   type="checkbox">
               </td>
             </tr>
             <tr>
               <td>3</td>
               <td>Confirm that valuation of stocks does not include and goods under TR</td>
-              <td><input formControlName="confirmThatValuationOfStocksDoesNotIncludeAndGoodsUnderTr"
+              <td><input formControlName="notUnderTR"
                          type="checkbox">
               </td>
             </tr>
             <tr>
               <td>4</td>
               <td>There is no evidence of any other bank interested in the goods</td>
-              <td><input formControlName="thereIsNoEvidenceOfAnyOtherBankInterestedInTheGoods"
+              <td><input formControlName="otherBankNotInterested"
                          type="checkbox"></td>
             </tr>
             <tr>
               <td>5</td>
               <td>Was the security in order ?</td>
-              <td><input formControlName="wasTheSecurityInOrder" type="checkbox"></td>
+              <td><input formControlName="securityOrder" type="checkbox"></td>
             </tr>
             <tr>
               <td>6</td>
               <td>Are the goods saleable ?</td>
-              <td><input formControlName="areTheGoodsSaleable" type="checkbox"></td>
+              <td><input formControlName="goodsSaleable" type="checkbox"></td>
             </tr>
             <tr>
               <td>7</td>
               <td>Are the stocks registered upto date ?</td>
-              <td><input formControlName="areTheStocksRegisteredUptoDate" type="checkbox"></td>
+              <td><input formControlName="stocksUptoDate" type="checkbox"></td>
             </tr>
             <tr>
               <td>8</td>
               <td>Does the stocks registered match with the stock list ?</td>
-              <td><input formControlName="doesTheStocksRegisteredMatchWithTheStockList"
+              <td><input formControlName="matchWithTheStockList"
                          type="checkbox"></td>
             </tr>
             <tr>
               <td>9</td>
               <td> Is the storage condition satisfactory ?</td>
-              <td><input formControlName="isTheStorageConditionSatisfactory" type="checkbox"></td>
+              <td><input formControlName="storageConditionSatisfactory" type="checkbox"></td>
             </tr>
             <tr>
               <td>10</td>
               <td>Is fire fighting evidence through arrangement ?</td>
-              <td><input formControlName="isTheFightingEvidenceThroughArrangement" type="checkbox">
+              <td><input formControlName="fireFightingEvidence" type="checkbox">
               </td>
             </tr>
             <tr>
               <td>11</td>
               <td>Are the building/store in the good condition?</td>
-              <td><input formControlName="areTheBuildingsOrStoreInTheGoodCondition" type="checkbox">
+              <td><input formControlName="buildingStoreCondition" type="checkbox">
               </td>
             </tr>
             <tr>
               <td>12</td>
               <td>Are the special warranties in the insurance policy upto date ?</td>
-              <td><input formControlName="areTheSpecialWarrantiesInTheInsurancePolicyUptoDate"
+              <td><input formControlName="warrantiesUptoDate"
                          type="checkbox"></td>
             </tr>
             <tr>
               <td>13</td>
               <td>There is no evidence of goods hazardous nature in the premises</td>
-              <td><input formControlName="thereIsNoEvidenceOfGoodsHazardousNatureInThePremises"
+              <td><input formControlName="noHazardousNature"
                          type="checkbox">
               </td>
             </tr>
             <tr>
               <td>14</td>
               <td>Were our name board properly displayed ?</td>
-              <td><input formControlName="wereOurNameBoardProperlyDisplayed" type="checkbox"></td>
+              <td><input formControlName="nameBoardProperlyDisplayed" type="checkbox"></td>
             </tr>
             <tr>
               <td>15</td>
               <td> Were our padlocks in use ?</td>
-              <td><input formControlName="wereOurPadlocksInUse" type="checkbox"></td>
+              <td><input formControlName="padlocksUse" type="checkbox"></td>
             </tr>
           </table>
           <div class="col-md-6 form-group">
-            <label class="title" for="findingsAndComments">Finding & Comments</label>
-            <textarea class="form-control" formControlName="findingsAndComments"
-                      id="findingsAndComments" name="findingsAndComments"
+            <label class="title" for="findingAndComments">Finding & Comments</label>
+            <textarea class="form-control" formControlName="findingAndComments"
+                      id="findingAndComments" name="findingAndComments"
                       placeholder="findings and comments"
                       row="3" type="text"></textarea>
           </div>
@@ -664,20 +675,25 @@
           <div class="col-md-12 pl-4">
             <div class="row">
               <div class="col-md-2 form-group"><label class="title">Total:</label></div>
-              <div class="col-md-2 form-group"><input class="form-control" placeholder="0.0"
-                                                      type="text"></div>
-              <div class="col-md-2 form-group"><input class="form-control" placeholder="0.0"
-                                                      type="text"></div>
-              <div class="col-md-2 form-group"><input class="form-control" placeholder="0.0"
-                                                      type="text"></div>
-              <div class="col-md-2 form-group"><input class="form-control" placeholder="0.0"
-                                                      type="text"></div>
+              <div class="col-md-2 form-group">
+                <input class="form-control" placeholder="0.0" type="text" formControlName="threeMonthTotal">
+              </div>
+              <div class="col-md-2 form-group">
+                <input class="form-control" placeholder="0.0" type="text" formControlName="sixMonthTotal">
+              </div>
+              <div class="col-md-2 form-group">
+                <input class="form-control" placeholder="0.0" type="text" formControlName="oneYearTotal">
+              </div>
+              <div class="col-md-2 form-group">
+                <input class="form-control" placeholder="0.0" type="text" formControlName="moreThanOneYearTotal">
+              </div>
             </div>
           </div>
           <div class="col-md-6 form-group">
-            <label class="title" for="findingsAndComments">Findings & Comments</label>
-            <textarea class="form-control" formControlName="findingsAndComments"
-                      id="findingsAndComments" name="findingsAndComments" placeholder="findings and comments"
+            <label class="title" for="findingsAndCommentsForCurrentAssetsInspection">Findings & Comments</label>
+            <textarea class="form-control" formControlName="findingsAndCommentsForCurrentAssetsInspection"
+                      id="findingsAndCommentsForCurrentAssetsInspection" name="findingsAndCommentsForCurrentAssetsInspection"
+                      placeholder="findings and comments"
                       row="3" type="text"></textarea>
           </div>
         </div>
@@ -713,7 +729,7 @@
               </div>
               <div class="col-md-4 justify-content-end ml-3">
                 <label class="title" for="total">Total</label>
-                <input class="form-control" id="total" name="amount" placeholder="0.0" type="text">
+                <input class="form-control" id="total" name="amount" placeholder="0.0" type="text" formControlName="receivableCurrentAssetsTotal">
               </div>
             </div>
             <h5 class="col-md-12 mt-3">Inspecting Staffs</h5>
@@ -774,7 +790,7 @@
               </div>
               <div class="col-md-4 justify-content-end ml-3">
                 <label class="title" for="total">Total</label>
-                <input class="form-control" id="total" name="amount" placeholder="0.0" type="text">
+                <input class="form-control" id="total" name="amount" placeholder="0.0" type="text" formControlName="payableCurrentAssetsTotal">
               </div>
             </div>
             <h5 class="col-md-12 mt-3">Bank Exposure</h5>
@@ -807,7 +823,8 @@
             <div class="form-group">
               <label class="title" for="overallFindings">Overall Findings / Comment of CAI</label>
               <textarea class="form-control" formControlName="overAllFindings"
-                        id="overAllFindings" name="overAllFindings" placeholder="overall findings / comments of CAI"
+                        id="overAllFindings" name="overAllFindings"
+                        placeholder="overall findings / comments of CAI"
                         row="3" type="text"></textarea>
             </div>
           </div>

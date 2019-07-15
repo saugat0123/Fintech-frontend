@@ -10,11 +10,12 @@ export class ReceivablePayableAssetsInspection {
   sixMonthTotal: number;
   oneYearTotal: number;
   moreThanOneYearTotal: number;
-  findingAndComments: string;
-  receivableCurrentAssetsList: Array<ReceivableCurrentAssets>;
-  payableCurrentAssetsList: Array<PayableCurrentAssets>;
-  bankExposureAssetsList: Array<BankExposureAssets>;
-  inspectingStaffList: Array<InspectingStaff>;
-  overallFindingAndCommentsOfCAI: string;
   findingsAndCommentsForCurrentAssetsInspection: string;
+  receivableCurrentAssetsList: Array<ReceivableCurrentAssets>;
+  receivableCurrentAssetsTotal: number;
+  payableCurrentAssetsList: Array<PayableCurrentAssets>;
+  payableCurrentAssetsTotal: number;
+  inspectingStaffList: Array<InspectingStaff>;
+  bankExposureAssetsList: Array<BankExposureAssets>;
+  overallFindingAndCommentsOfCAI: string;
 }

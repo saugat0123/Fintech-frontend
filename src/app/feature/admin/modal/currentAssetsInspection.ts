@@ -8,7 +8,7 @@ export class CurrentAssetsInspection {
   stocksUptoDate: boolean;
   matchWithTheStockList: boolean;
   storageConditionSatisfactory: boolean;
-  firreFightingEvidence: boolean;
+  fireFightingEvidence: boolean;
   buildingStoreCondition: boolean;
   warrantiesUptoDate: boolean;
   noHazardousNature: boolean;
