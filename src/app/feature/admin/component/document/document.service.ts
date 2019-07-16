@@ -36,7 +36,7 @@ export class DocumentService extends BaseService<Document> {
     }
 
     public getAllByStatus(status: String): Observable<any> {
-        const req = ApiUtils.getRequest(`${DocumentService.API}/byStatus/${status}`);
+        const req = ApiUtils.getRequest(`${DocumentService.API}/status/${status}`);
 
         return this.http.get(req.url, {headers: req.header});
     }

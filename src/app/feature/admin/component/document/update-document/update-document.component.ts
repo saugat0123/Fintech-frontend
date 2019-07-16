@@ -6,6 +6,7 @@ import {DocumentService} from '../document.service';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Status} from '../../../../../@core/Status';
 
 @Component({
     selector: 'app-update-document',
@@ -33,7 +34,7 @@ export class UpdateDocumentComponent implements OnInit {
 
     static loadData(other: UpdateDocumentComponent) {
         other.spinner = true;
-        other.service.getAllByStatus('ACTIVE').subscribe((response: any) => {
+        other.service.getAllByStatus(Status.ACTIVE).subscribe((response: any) => {
             other.allList = response.detail;
             other.spinner = false;
             other.documentsContaining(other.loanCycle.id);
