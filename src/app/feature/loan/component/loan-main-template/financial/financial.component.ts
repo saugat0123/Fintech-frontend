@@ -26,6 +26,11 @@ export class FinancialComponent implements OnInit {
         const formDataString = JSON.stringify(this.formData);
         const formDataParsed = JSON.parse(formDataString);
         const formData = formDataParsed.data.financialForm;
+        const initialFormData = formDataParsed.data.initialFinancialForm;
+        const brr = formDataParsed.data.burrowerRiskRating;
+
+        // this.setIncomeOfBorrower(formData.);
+        // this.setExpensesOfBorrower(formData.);
 
         this.setTotalSalesRevenue(formData.totalSalesRevenue);
         this.setTotalSalesSubCategory(formData.totalSalesSubCategory);
@@ -49,8 +54,85 @@ export class FinancialComponent implements OnInit {
         this.setOtherAdjustment(formData.otherAdjustment);
         this.setAccumulatedProfitBOrD(formData.accumulatedProfitBOrD);
         this.setNetProfitTransferredToBalanceSheet(formData.netProfitTransferredToBalanceSheet);
-        /*this.setTaxes(formData.taxes);
-        this.setTaxes(formData.taxes);*/
+
+        this.setCurrentAssets(formData.currentAssets);
+        this.setCurrentAssetsCategory(formData.currentAssetsCategory);
+        this.setInventories(formData.inventories);
+        this.setInventoriesCategory(formData.inventoriesCategory);
+        this.setFixedAssets(formData.fixedAssets);
+        this.setFixedAssetsCategory(formData.fixedAssetsCategory);
+        this.setOtherAssets(formData.otherAssets);
+        this.setOtherAssetsCategory(formData.otherAssetsCategory);
+        this.setTotalAssets(formData.totalAssets);
+        this.setCurrentLiabilities(formData.currentLiabilities);
+        this.setCurrentLiabilitiesCategory(formData.currentLiabilitiesCategory);
+        this.setLongTermLoan(formData.longTermLoan);
+        this.setLongTermLoanCategory(formData.longTermLoanCategory);
+        this.setOtherLongTermLiabilities(formData.otherLongTermLiabilities);
+        this.setOtherLongTermLiabilitiesCategory(formData.otherLongTermLiabilitiesCategory);
+        this.setOtherProvisions(formData.otherProvisions);
+        this.setNetWorth(formData.netWorth);
+        this.setNetWorthCategory(formData.netWorthCategory);
+        this.setTotalLiabilitiesAndEquity(formData.totalLiabilitiesAndEquity);
+        this.setDifferenceBS(formData.differenceBS);
+
+        this.setCashFromOperatingActivities(formData.cashFromOperatingActivities);
+        this.setNetProfitForThePeriod(formData.netProfitForThePeriod);
+        this.setDepreciation(formData.depreciation);
+        this.setOtherAmortizationAndNonCashExpenses(formData.otherAmortizationAndNonCashExpenses);
+        this.setIncreaseDecreaseInInventory(formData.increaseDecreaseInInventory);
+        this.setIncreaseDecreaseInAccountsReceivable(formData.increaseDecreaseInAccountsReceivable);
+        this.setIncreaseDecreaseInShortTermInvestment(formData.increaseDecreaseInShortTermInvestment);
+        this.setIncreaseDecreaseInAdvanceAndDeposit(formData.increaseDecreaseInAdvanceAndDeposit);
+        this.setIncreaseDecreaseInOtherCurrentAssets(formData.increaseDecreaseInOtherCurrentAssets);
+        this.setIncreaseDecreaseInCreditors(formData.increaseDecreaseInCreditors);
+        this.setIncreaseDecreaseInOtherCurrentLiabilities(formData.increaseDecreaseInOtherCurrentLiabilities);
+        this.setAdjustmentForNonOperatingIncome(formData.adjustmentForNonOperatingIncome);
+        this.setInterestExpensesCFSa(formData.interestExpensesCFSa);
+        this.setCashFromInvestingActivities(formData.cashFromInvestingActivities);
+        this.setChangedInFixedAsset(formData.changedInFixedAsset);
+        this.setNonOperatingIncomeExpenses(formData.nonOperatingIncomeExpenses);
+        this.setChangeInOtherAssets(formData.changeInOtherAssets);
+        this.setChangeInOtherLongTermLiabilities(formData.changeInOtherLongTermLiabilities);
+        this.setCashFromFinancingActivities(formData.cashFromFinancingActivities);
+        this.setPaidUpCapitalEquity(formData.paidUpCapitalEquity);
+        this.setShortTermLoan(formData.shortTermLoan);
+        this.setLongTermLoanReceived(formData.longTermLoanReceived);
+        this.setDividendDrawing(formData.dividendDrawing);
+        this.setInterestExpensesCFSb(formData.interestExpensesCFSb);
+        this.setOtherAdjustments(formData.otherAdjustments);
+        this.setNetCashFlow(formData.netCashFlow);
+        this.setAddOpeningBalance(formData.addOpeningBalance);
+        this.setClosingCash(formData.closingCash);
+        this.setClosingBalance(formData.closingBalance);
+        this.setDifferenceCFS(formData.differenceCFS);
+
+        this.setGrowth(formData.growth);
+        this.setSales(formData.sales);
+        this.setGrossProfitKI(formData.grossProfitKI);
+        this.setOperatingProfitKI(formData.operatingProfitKI);
+        this.setPAT(formData.pAT);
+        this.setProfitability(formData.profitability);
+        this.setGrossProfitMargin(formData.grossProfitMargin);
+        this.setNetProfitMargin(formData.netProfitMargin);
+        this.setEBITtoSales(formData.eBITtoSales);
+        this.setReturnOnEquity(formData.returnOnEquity);
+        this.setSolvency(formData.solvency);
+        this.setQuickRatio(formData.quickRatio);
+        this.setCurrentRatio(formData.currentRatio);
+        this.setDebtServiceCoverageRatio(formData.debtServiceCoverageRatio);
+        this.setInterestCoverageRatio(formData.interestCoverageRatio);
+        this.setDebtEquityRatioOverall(formData.debtEquityRatioOverall);
+        this.setDebtEquityRatioLongTerm(formData.debtEquityRatioLongTerm);
+        this.setDebtEquityRatioWorkingCapital(formData.debtEquityRatioWorkingCapital);
+        this.setDebtEquityRatioGeneral(formData.debtEquityRatioGeneral);
+        this.setOperatingCycle(formData.operatingCycle);
+        this.setInventoryTurnoverRatio(formData.inventoryTurnoverRatio);
+        this.setDebtorTurnOverRatio(formData.debtorTurnOverRatio);
+        this.setAverageCollectionPeriod(formData.averageCollectionPeriod);
+        this.setAveragePaymentPeriod(formData.averagePaymentPeriod);
+        this.setNetOperatingCycle(formData.netOperatingCycle);
+        this.setNetWCBeforeBank(formData.netWCBeforeBank);
     }
 
     buildForm() {
@@ -299,6 +381,33 @@ export class FinancialComponent implements OnInit {
     }
 
     // Setting existing data--
+    // Set Initial Financial form--
+    setIncomeOfBorrower(currentData) {
+        const controls = this.financialForm.get('incomeOfBorrower') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    incomeSource: [singleData.incomeSource, Validators.required],
+                    organization: [singleData.organization, Validators.required],
+                    amount: [singleData.amount, Validators.required],
+                    remarks: [singleData.remarks, Validators.required]
+                })
+            );
+        });
+    }
+    setExpensesOfBorrower(currentData) {
+        const controls = this.financialForm.get('expensesOfBorrower') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    particulars: [singleData.particulars, Validators.required],
+                    amount: [singleData.amount, Validators.required],
+                    remarks: [singleData.remarks, Validators.required]
+                })
+            );
+        });
+    }
+    // Set Additional Financial form--
     setTotalSalesRevenue(currentData) {
         this.fiscalYear = [];
         const controls = this.additionalFinancialForm.get('totalSalesRevenue') as FormArray;
