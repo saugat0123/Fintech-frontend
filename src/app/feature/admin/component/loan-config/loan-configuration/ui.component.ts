@@ -11,6 +11,7 @@ import {LoanConfigService} from '../loan-config.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {OfferLetter} from '../../../modal/offerLetter';
 import {OfferLetterService} from '../offer-letter.service';
+import {Status} from '../../../../../@core/Status';
 
 
 @Component({
@@ -62,7 +63,7 @@ export class UIComponent implements OnInit {
 
         other.id = Number(other.route.snapshot.queryParamMap.get('id'));
         // Id of New Loan cycle is set 1 in patch backend
-        other.documentService.getByLoanCycleAndStatus(1, 'ACTIVE').subscribe((response: any) => {
+        other.documentService.getByLoanCycleAndStatus(1, Status.ACTIVE).subscribe((response: any) => {
             other.initialDocumentList = response.detail;
 
             if (other.id !== undefined && other.id !== 0) {
