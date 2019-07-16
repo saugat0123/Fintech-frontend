@@ -24,7 +24,7 @@ export class DocumentService extends BaseService<Document> {
     }
 
     public getByLoanCycleAndStatus(loanCycleId: number, status: string): Observable<any> {
-        const req = ApiUtils.getRequest(`${DocumentService.API}/byCycle/${loanCycleId}/status/${status}`);
+        const req = ApiUtils.getRequest(`${DocumentService.API}/cycle/${loanCycleId}/status/${status}`);
 
         return this.http.get(req.url, {headers: req.header});
     }
