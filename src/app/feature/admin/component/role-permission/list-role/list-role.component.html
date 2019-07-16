@@ -76,7 +76,7 @@
                         <ng-template #lastModifiedBy>
                             <td>{{allList.modifiedByName}}</td>
                         </ng-template>
-                        <td>
+                        <td *ngIf="allList.roleName !== 'admin'">
                             <a (click)="openEditRole(allList, roleEdit)"
                                data-toggle="tooltip"
                                data-placement="top" title="Edit Role name" class="cursor">
