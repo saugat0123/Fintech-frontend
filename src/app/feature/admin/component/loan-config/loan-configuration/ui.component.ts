@@ -34,6 +34,8 @@ export class UIComponent implements OnInit {
     finalInitialDocument = Array<Document>();
     renewalDocumentList = [];
     finalRenewalDocument = Array<Document>();
+    closureDocumentList = [];
+    finalClosureDocument = Array<Document>();
     eligibilityDocumentList = [];
     finalEligibilityDocument = Array<Document>();
     id: number;
@@ -94,7 +96,7 @@ export class UIComponent implements OnInit {
         });
 
         // Id of Renew Loan cycle is set 2 in patch backend
-        other.documentService.getByLoanCycleAndStatus(2, 'ACTIVE').subscribe((response: any) => {
+        other.documentService.getByLoanCycleAndStatus(2, Status.ACTIVE).subscribe((response: any) => {
             other.renewalDocumentList = response.detail;
 
             if (other.id !== undefined && other.id !== 0) {
@@ -111,6 +113,26 @@ export class UIComponent implements OnInit {
                 });
             }
         });
+
+        // Id of Closure Loan cycle is set 3 in patch backend
+        other.documentService.getByLoanCycleAndStatus(3, Status.ACTIVE).subscribe((response: any) => {
+            other.closureDocumentList = response.detail;
+
+            if (other.id !== undefined && other.id !== 0) {
+                other.service.detail(other.id).subscribe((res: any) => {
+                    other.loanConfig = res.detail;
+                    other.closureDocumentList.forEach(closureDocument => {
+                        other.loanConfig.closure.forEach(loanConfigClosureDocument => {
+                            if (closureDocument.id === loanConfigClosureDocument.id) {
+                                other.finalClosureDocument.push(closureDocument);
+                                closureDocument.checked = true;
+                            }
+                        });
+                    });
+                });
+            }
+        });
+
         other.documentService.getAll().subscribe((response: any) => {
             other.eligibilityDocumentList = response.detail;
         });
@@ -173,6 +195,17 @@ export class UIComponent implements OnInit {
         }
     }
 
+    updateClosureDocument(events, document: Document) {
+        if (events.target.checked === true) {
+            this.finalClosureDocument.push(document);
+        } else {
+            const index: number = this.finalClosureDocument.indexOf(document);
+            if (index !== -1) {
+                this.finalClosureDocument.splice(index, 1);
+            }
+        }
+    }
+
     updateEligibilityDocument(events, document: Document) {
         if (events.target.checked === true) {
             this.finalEligibilityDocument.push(document);
@@ -196,6 +229,7 @@ export class UIComponent implements OnInit {
         this.loanConfig.templateList = this.confirmLoanTemplateList;
         this.loanConfig.initial = this.finalInitialDocument;
         this.loanConfig.renew = this.finalRenewalDocument;
+        this.loanConfig.closure = this.finalClosureDocument;
         this.loanConfig.eligibilityDocuments = this.finalEligibilityDocument;
         this.loanConfig.offerLetters = this.selectedOfferLetterList;
         console.log(this.loanConfig);
