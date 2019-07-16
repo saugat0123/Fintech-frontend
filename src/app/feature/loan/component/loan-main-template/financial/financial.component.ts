@@ -1390,6 +1390,330 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
+    // growth
+    setGrowth(currentData) {
+        const controls = this.additionalFinancialForm.get('growth') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // sales
+    setSales(currentData) {
+        const controls = this.additionalFinancialForm.get('sales') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // grossProfitKI
+    setGrossProfitKI(currentData) {
+        const controls = this.additionalFinancialForm.get('grossProfitKI') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // operatingProfitKI
+    setOperatingProfitKI(currentData) {
+        const controls = this.additionalFinancialForm.get('operatingProfitKI') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // pAT
+    setPAT(currentData) {
+        const controls = this.additionalFinancialForm.get('pAT') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // profitability
+    setProfitability(currentData) {
+        const controls = this.additionalFinancialForm.get('profitability') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // grossProfitMargin
+    setGrossProfitMargin(currentData) {
+        const controls = this.additionalFinancialForm.get('grossProfitMargin') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // netProfitMargin
+    setNetProfitMargin(currentData) {
+        const controls = this.additionalFinancialForm.get('netProfitMargin') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // eBITtoSales
+    setEBITtoSales(currentData) {
+        const controls = this.additionalFinancialForm.get('eBITtoSales') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // returnOnEquity
+    setReturnOnEquity(currentData) {
+        const controls = this.additionalFinancialForm.get('returnOnEquity') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // solvency
+    setSolvency(currentData) {
+        const controls = this.additionalFinancialForm.get('solvency') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // quickRatio
+    setQuickRatio(currentData) {
+        const controls = this.additionalFinancialForm.get('quickRatio') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // currentRatio
+    setCurrentRatio(currentData) {
+        const controls = this.additionalFinancialForm.get('currentRatio') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // debtServiceCoverageRatio
+    setDebtServiceCoverageRatio(currentData) {
+        const controls = this.additionalFinancialForm.get('debtServiceCoverageRatio') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // interestCoverageRatio
+    setInterestCoverageRatio(currentData) {
+        const controls = this.additionalFinancialForm.get('interestCoverageRatio') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // debtEquityRatioOverall
+    setDebtEquityRatioOverall(currentData) {
+        const controls = this.additionalFinancialForm.get('debtEquityRatioOverall') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // debtEquityRatioLongTerm
+    setDebtEquityRatioLongTerm(currentData) {
+        const controls = this.additionalFinancialForm.get('debtEquityRatioLongTerm') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // debtEquityRatioWorkingCapital
+    setDebtEquityRatioWorkingCapital(currentData) {
+        const controls = this.additionalFinancialForm.get('debtEquityRatioWorkingCapital') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // debtEquityRatioGeneral
+    setDebtEquityRatioGeneral(currentData) {
+        const controls = this.additionalFinancialForm.get('debtEquityRatioGeneral') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // operatingCycle
+    setOperatingCycle(currentData) {
+        const controls = this.additionalFinancialForm.get('operatingCycle') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // inventoryTurnoverRatio
+    setInventoryTurnoverRatio(currentData) {
+        const controls = this.additionalFinancialForm.get('inventoryTurnoverRatio') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // stockInHandDays
+    setStockInHandDays(currentData) {
+        const controls = this.additionalFinancialForm.get('stockInHandDays') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // debtorTurnOverRatio
+    setDebtorTurnOverRatio(currentData) {
+        const controls = this.additionalFinancialForm.get('debtorTurnOverRatio') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // averageCollectionPeriod
+    setAverageCollectionPeriod(currentData) {
+        const controls = this.additionalFinancialForm.get('averageCollectionPeriod') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // averagePaymentPeriod
+    setAveragePaymentPeriod(currentData) {
+        const controls = this.additionalFinancialForm.get('averagePaymentPeriod') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // netOperatingCycle
+    setNetOperatingCycle(currentData) {
+        const controls = this.additionalFinancialForm.get('netOperatingCycle') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
+    // netWCBeforeBank
+    setNetWCBeforeBank(currentData) {
+        const controls = this.additionalFinancialForm.get('netWCBeforeBank') as FormArray;
+        currentData.forEach(singleData => {
+            controls.push(
+                this.formBuilder.group({
+                    value: [singleData.value],
+                    year: [singleData.year]
+                })
+            );
+        });
+    }
 
     //
     //
