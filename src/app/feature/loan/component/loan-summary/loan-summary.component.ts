@@ -70,7 +70,7 @@ export class LoanSummaryComponent implements OnInit {
                 private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService,
                 private approvalLimitService: ApprovalLimitService,
-                private dateService: DateService,) {
+                private dateService: DateService) {
 
         this.client = environment.client;
 
