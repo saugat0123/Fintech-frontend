@@ -52,6 +52,7 @@ export class CatalogueComponent implements OnInit {
     static loadData(other: CatalogueComponent) {
         other.loanFormService.getCatalogues(other.search, other.page, 10).subscribe((response: any) => {
             other.loanDataHolderList = response.detail.content;
+            console.log(other.loanDataHolderList);
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
         }, error => {
@@ -95,11 +96,19 @@ export class CatalogueComponent implements OnInit {
         CatalogueComponent.loadData(this);
     }
 
-    getDifferenceInDays(date: Date): number {
-        const past = new Date(date);
+    getDifferenceInDays(createdDate: Date): number {
+        const createdAt = new Date(createdDate);
         const current = new Date();
         return Math.floor((Date.UTC(current.getFullYear(), current.getMonth(), current.getDate()) -
-            Date.UTC(past.getFullYear(), past.getMonth(), past.getDate())) / (1000 * 60 * 60 * 24));
+            Date.UTC(createdAt.getFullYear(), createdAt.getMonth(), createdAt.getDate())) / (1000 * 60 * 60 * 24));
+    }
+
+    getLoanLifespanInDays(createdDate: Date, lastModifiedDate: Date): number {
+        const createdAt = new Date(createdDate);
+        const lastModifiedAt = new Date(lastModifiedDate);
+        return Math.floor((Date.UTC(lastModifiedAt.getFullYear(), lastModifiedAt.getMonth(), lastModifiedAt.getDate()) -
+            Date.UTC(createdAt.getFullYear(), createdAt.getMonth(), createdAt.getDate())) / (1000 * 60 * 60 * 24));
+
     }
 
     checkIfDateFiltration() {

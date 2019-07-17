@@ -64,6 +64,7 @@
                 <th>Loan Type</th>
                 <th>Status</th>
                 <th>Possession Under/Days</th>
+                <th>Loan lifespan</th>
             </tr>
             </thead>
             <tbody>
@@ -74,7 +75,20 @@
                 <td>{{model?.customerInfo?.customerName || model?.dmsLoanFile?.customerName}}</td>
                 <td>{{model?.loan?.name}}</td>
                 <td>{{model?.documentStatus}}</td>
-                <td>{{model?.currentStage?.toUser?.name}} / {{getDifferenceInDays(model?.currentStage?.createdAt)}}</td>
+                <td>
+                    <div>
+                        {{model?.currentStage?.toUser?.name}}
+                    / {{getDifferenceInDays(model?.currentStage?.lastModifiedAt)}}
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf='model?.documentStatus.toString()==="PENDING"'>{{getDifferenceInDays(model?.currentStage?.createdAt)}}</div>
+                    <div *ngIf='(model?.documentStatus.toString()==="CLOSED" ||
+                        model?.documentStatus.toString()==="REJECTED" ||
+                        model?.documentStatus.toString()==="APPROVED")'>
+                        {{getLoanLifespanInDays(model?.currentStage?.createdAt,model?.currentStage?.lastModifiedAt)}}
+                    </div>
+                </td>
             </tr>
             </tbody>
         </table>
