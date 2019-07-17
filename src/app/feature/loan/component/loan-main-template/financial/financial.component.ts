@@ -16,6 +16,7 @@ export class FinancialComponent implements OnInit {
     financialForm: FormGroup;
     additionalFinancialForm: FormGroup;
     financialData: Object;
+    formDataForEdit;
 
     constructor(private formBuilder: FormBuilder) {
     }
@@ -24,13 +25,12 @@ export class FinancialComponent implements OnInit {
         this.buildForm();
         console.log(this.formData);
         const formDataString = JSON.stringify(this.formData);
-        const formDataParsed = JSON.parse(formDataString);
-        const formData = formDataParsed.data.financialForm;
-        const initialFormData = formDataParsed.data.initialFinancialForm;
-        const brr = formDataParsed.data.burrowerRiskRating;
+        this.formDataForEdit = JSON.parse(formDataString);
+        const formData = this.formDataForEdit.data.financialForm;
+        const initialFormData = this.formDataForEdit.data.initialForm;
 
-        // this.setIncomeOfBorrower(formData.);
-        // this.setExpensesOfBorrower(formData.);
+        this.setIncomeOfBorrower(initialFormData.incomeOfBorrower);
+        this.setExpensesOfBorrower(initialFormData.expensesOfBorrower);
 
         this.setTotalSalesRevenue(formData.totalSalesRevenue);
         this.setTotalSalesSubCategory(formData.totalSalesSubCategory);
