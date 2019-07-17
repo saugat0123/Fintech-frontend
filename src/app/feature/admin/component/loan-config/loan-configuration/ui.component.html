@@ -137,6 +137,27 @@
                     </div>
                 </div>
                 <br>
+                <div class="row">
+                    <div class="box box-primary col-md-6">
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>Closure</nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <div class="row">
+                                        <div class="col-md-4"
+                                             *ngFor="let closureDocument of closureDocumentList; let documentIndex = index">
+                                            <nb-checkbox id="{{'closureDocument'+documentIndex}}" status="primary"
+                                                         (change)="updateClosureDocument($event,closureDocument)"
+                                                         [value]="closureDocument.checked">
+                                                {{closureDocument.name}}
+                                            </nb-checkbox>
+                                        </div>
+                                    </div>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
+                    </div>
+                </div>
                 <!--<div class="row">-->
                     <!--<div class="box box-primary col-md-6">-->
                         <!--<nb-accordion>-->
