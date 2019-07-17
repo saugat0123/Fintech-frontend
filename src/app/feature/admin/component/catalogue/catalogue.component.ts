@@ -31,7 +31,7 @@ export class CatalogueComponent implements OnInit {
     filterForm: FormGroup;
     validStartDate = true;
     validEndDate = true;
-    search = {
+    search: any = {
         branchIds: undefined,
         documentStatus: DocStatus.value(DocStatus.PENDING),
         loanConfigId: undefined,
@@ -136,8 +136,10 @@ export class CatalogueComponent implements OnInit {
     onClick(loanConfigId: number, customerId: number) {
         this.spinner = true;
         this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: loanConfigId, customerId: customerId, catalogue: true}});
+    }
 
-
+    clearSearch() {
+        this.search = {};
     }
 
 }
