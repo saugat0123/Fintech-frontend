@@ -18,7 +18,6 @@ import {DocumentService} from './document.service';
 export class DocumentComponent implements OnInit {
 
     page = 1;
-
     title = 'Document';
     breadcrumb = 'Document > List';
     dataList: Array<Document>;
@@ -42,43 +41,31 @@ export class DocumentComponent implements OnInit {
 
     static loadData(other: DocumentComponent) {
         other.spinner = true;
+        other.service.getStatus().subscribe((response: any) => {
+            other.activeCount = response.detail.active;
+            other.inactiveCount = response.detail.inactive;
+            other.documents = response.detail.documents;
+        });
         other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
             other.dataList = response.detail.content;
-
             other.pageable = PaginationUtils.getPageable(response.detail);
-
             other.spinner = false;
-
         }, error => {
-
             console.log(error);
-
             other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Documents'));
         });
-
+        other.service.getAllLoanCycle().subscribe((response: any) => {
+            other.loanCycleList = response.detail;
+        });
     }
 
     ngOnInit() {
-
         this.breadcrumbService.notify(this.title);
         DocumentComponent.loadData(this);
-
-        this.service.getStatus().subscribe((response: any) => {
-
-            this.activeCount = response.detail.active;
-            this.inactiveCount = response.detail.inactive;
-            this.documents = response.detail.documents;
-        });
-
-        this.service.getAllLoanCycle().subscribe((response: any) => {
-
-            this.loanCycleList = response.detail;
-        });
     }
 
     changePage(page: number) {
         this.page = page;
-
         DocumentComponent.loadData(this);
     }
 
@@ -90,21 +77,18 @@ export class DocumentComponent implements OnInit {
         this.search = {
             'name': searchValue
         };
-
         DocumentComponent.loadData(this);
     }
 
     openEdit(document: Document) {
         const modalRef = this.modalService.open(AddDocumentComponent);
         modalRef.componentInstance.model = document;
-
         ModalUtils.resolve(modalRef.result, DocumentComponent.loadData, this);
     }
 
     addDocument() {
         const modalRef = this.modalService.open(AddDocumentComponent);
         modalRef.componentInstance.model = new Document();
-
         ModalUtils.resolve(modalRef.result, DocumentComponent.loadData, this);
     }
 
@@ -114,7 +98,6 @@ export class DocumentComponent implements OnInit {
             document.activeElement.blur();
         }
         event.preventDefault();
-
         const modalRef = this.modalService.open(UpdateModalComponent, {size: 'lg'});
         modalRef.componentInstance.data = data;
         modalRef.componentInstance.service = this.service;

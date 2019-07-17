@@ -1,9 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 import {NbMenuService, NbSearchService, NbSidebarService, NbThemeService} from '@nebular/theme';
-import {LayoutService, ModalResponse} from '../../../@core/utils';
+import {LayoutService} from '../../../@core/utils';
 import {UserService} from '../../../@core/service/user.service';
-import {User} from '../../../feature/admin/modal/user';
 import {filter, map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -38,27 +37,26 @@ export class HeaderComponent implements OnInit {
                 private modalService: NgbModal) {
 
         this.searchService.onSearchSubmit()
-        .subscribe((searchData: any) => {
-            const modalRef = this.modalService.open(SearchResultComponent, {backdrop: 'static'});
-            modalRef.componentInstance.searchData = searchData.term;
-            modalRef.result.then(
-                close => {
-                    if (close) {
-                        console.log(close);
-                        this.router.navigate(['/home/loan/summary'], {
-                            queryParams: {
-                                loanConfigId: close.loanConfigId,
-                                customerId: close.customerId
-                            }
-                        });
+            .subscribe((searchData: any) => {
+                const modalRef = this.modalService.open(SearchResultComponent, {backdrop: 'static'});
+                modalRef.componentInstance.searchData = searchData.term;
+                modalRef.result.then(
+                    close => {
+                        if (close) {
+                            console.log(close);
+                            this.router.navigate(['/home/loan/summary'], {
+                                queryParams: {
+                                    loanConfigId: close.loanConfigId,
+                                    customerId: close.customerId
+                                }
+                            });
+                        }
+                    },
+                    dismiss => {
+                        console.log(dismiss);
                     }
-                },
-                dismiss => {
-                    console.log(dismiss);
-                }
-
-            );
-        }, error => console.error(error));
+                );
+            }, error => console.error(error));
     }
 
     ngOnInit() {
@@ -95,6 +93,4 @@ export class HeaderComponent implements OnInit {
     userGuide() {
         this.router.navigate(['/home/admin/user-guide']);
     }
-
-
 }

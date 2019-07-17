@@ -16,6 +16,7 @@ import {ApprovalLimitService} from '../../../admin/component/approvallimit/appro
 import {LoanStage} from '../../model/loanStage';
 import {AppConstant} from '../../../../@core/utils/appConstant';
 import {environment} from '../../../../../environments/environment';
+import {DateService} from '../../../../@core/service/baseservice/date.service';
 
 @Component({
     selector: 'app-loan-summary',
@@ -55,6 +56,8 @@ export class LoanSummaryComponent implements OnInit {
     previousList: Array<LoanStage> = new Array<LoanStage>();
     loanStage: LoanStage = new LoanStage();
     bankName = AppConstant.BANKNAME;
+    currentDocAction = '';
+    currentNepDate;
 
     @ViewChild('print') print;
 
@@ -66,7 +69,8 @@ export class LoanSummaryComponent implements OnInit {
                 private dmsLoanService: DmsLoanService,
                 private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService,
-                private approvalLimitService: ApprovalLimitService) {
+                private approvalLimitService: ApprovalLimitService,
+                private dateService: DateService) {
 
         this.client = environment.client;
 
@@ -77,11 +81,15 @@ export class LoanSummaryComponent implements OnInit {
             (paramsValue: Params) => {
                 this.allId = {
                     loanConfigId: null,
-                    customerId: null
+                    customerId: null,
+                    catalogue: null
                 };
                 this.allId = paramsValue;
                 this.customerId = this.allId.customerId;
                 this.loanConfigId = this.allId.loanConfigId;
+                if (this.allId.catalogue) {
+                    this.showAction = false;
+                }
             });
         this.id = this.router.snapshot.params['id'];
         this.loanConfigService.detail(this.loanConfigId).subscribe(
@@ -111,6 +119,7 @@ export class LoanSummaryComponent implements OnInit {
                 this.actionsList.sendBackward = true;
                 this.actionsList.rejected = true;
                 this.actionsList.closed = true;
+                this.currentDocAction = this.loanDataHolder.currentStage.docAction.toString();
                 if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
                     this.actionsList.offerLetter = true;
                 } else {
@@ -168,6 +177,9 @@ export class LoanSummaryComponent implements OnInit {
 
             }
         );
+        this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
+            this.currentNepDate = response.detail.nepDateFormat;
+        });
 
     }
 
@@ -189,6 +201,25 @@ export class LoanSummaryComponent implements OnInit {
             }
         );
     }
+
+    loanHandler(index: number, length: number) {
+        if (index === 0) {
+            return 'CREATED BY:';
+        } else if (index === length - 1) {
+            if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+                return 'APPROVED BY:';
+            } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
+                return 'REJECTED BY:';
+            } else if (this.loanDataHolder.documentStatus.toString() === 'CLOSED') {
+                return 'CLOSED BY:';
+            } else {
+                return 'SUPPORTED BY:';
+            }
+        } else {
+            return 'SUPPORTED BY:';
+        }
+    }
+
 
 }
 
