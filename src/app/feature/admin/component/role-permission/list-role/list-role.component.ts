@@ -1,11 +1,11 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Role} from '../../../modal/role';
-import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
 import {UpdateModalComponent} from '../../../../../@theme/components';
 import {RoleService} from '../role.service';
-import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {ToastService} from '../../../../../@core/utils';
+import {ModalUtils, ToastService} from '../../../../../@core/utils';
+import {RoleEditComponent} from './role-edit/role-edit.component';
 
 
 @Component({
@@ -21,13 +21,10 @@ export class ListRoleComponent implements OnInit {
     roleCount: any;
     roleList: Array<Role>;
 
-    private modalRef: NgbModalRef;
-
     constructor(
         private service: RoleService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService,
-        private toastService: ToastService
+        private breadcrumbService: BreadcrumbService
     ) {
     }
 
@@ -59,24 +56,9 @@ export class ListRoleComponent implements OnInit {
         this.modalService.open(UpdateModalComponent);
     }
 
-    openEditRole(role: Role, template: TemplateRef<any>) {
-        this.role = new Role();
-        this.role = role;
-        this.modalRef = this.modalService.open(template);
-        console.log(this.role);
-    }
-
-    onSubmit() {
-        this.service.update(this.role).subscribe(() => {
-
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Role name!'));
-                this.modalService.dismissAll('Close modal');
-                ListRoleComponent.loadData(this);
-            },
-            (error) => {
-                console.log(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Role name!'));
-                this.modalService.dismissAll('Close modal');
-            });
+    openEditRole(role: Role) {
+        const modalRef = this.modalService.open(RoleEditComponent, {backdrop: 'static'});
+        modalRef.componentInstance.model = role;
+        ModalUtils.resolve(modalRef.result, ListRoleComponent.loadData, this);
     }
 }
