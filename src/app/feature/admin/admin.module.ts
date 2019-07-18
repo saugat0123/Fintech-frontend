@@ -66,6 +66,7 @@ import {CatalogueComponent} from './component/catalogue/catalogue.component';
 import {EmailConfigurationComponent} from './component/email-configuration/email-configuration.component';
 import {EmailValidatorDirective} from '../../@core/directive/email-validator.directive';
 import {NumberValidatorDirective} from '../../@core/directive/number-validator.directive';
+import { RoleEditComponent } from './component/role-permission/list-role/role-edit/role-edit.component';
 
 @NgModule({
     declarations: [
@@ -122,7 +123,8 @@ import {NumberValidatorDirective} from '../../@core/directive/number-validator.d
         CatalogueComponent,
         EmailConfigurationComponent,
         EmailValidatorDirective,
-        NumberValidatorDirective
+        NumberValidatorDirective,
+        RoleEditComponent
 
         // SecurityComponent
     ],
@@ -157,7 +159,8 @@ import {NumberValidatorDirective} from '../../@core/directive/number-validator.d
         MsgModalComponent,
         TemplateAddModelComponent,
         RoleFormComponent,
-        EligibilityDocumentViewComponent
+        EligibilityDocumentViewComponent,
+        RoleEditComponent
     ]
 
 })
