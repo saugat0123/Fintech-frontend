@@ -64,7 +64,7 @@
                         <th>S.N</th>
                         <th>Loan Name</th>
                         <th>Templates</th>
-
+                        <th>Eligibility Status</th>
                         <!--<th>Status</th>-->
                         <th>Action</th>
                     </tr>
@@ -85,14 +85,21 @@
                             </div>
                         </td>
 
-                        <!--<td>-->
-                            <!--<select [(ngModel)]="allList.status" name="status"-->
-                                    <!--(change)="onChange(allList)">-->
-                                <!--<option value="ACTIVE">ACTIVE</option>-->
-                                <!--<option value="INACTIVE">INACTIVE</option>-->
+                        <!--<td>
+                            <select [(ngModel)]="allList.status" name="status"
+                                    (change)="onChange(allList)">
+                                <option value="ACTIVE">ACTIVE</option>
+                                <option value="INACTIVE">INACTIVE</option>
+                            </select>
+                        </td>-->
+                        <td>
+                            <select [(ngModel)]="allList.enableEligibility"
+                                    (change)="onChange(allList)">
+                                <option [value]=true>ENABLE</option>
+                                <option [value]=false>DISABLE</option>
+                            </select>
+                        </td>
 
-                            <!--</select>-->
-                        <!--</td>-->
                         <td>
                             <a (click)="edit(allList.id)" data-toggle="tooltip"
                                data-placement="top" title="EDIT">
@@ -121,7 +128,6 @@
                             <div class="modal-body">
                                 <div id="tempView">
                                     {{modalTemplate}}
-
                                 </div>
                                 <div class="modal-footer">
                                 </div>
