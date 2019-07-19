@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     title = 'Dashboard';
     loanType: any;
     loanList: any;
+    loading: boolean;
     spinner = false;
     customerId: number;
     permission: Permission = new Permission();
@@ -69,6 +70,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     }
 
     ngOnInit() {
+        this.loading = false;
         this.breadcrumbService.notify(this.title);
 
         this.permissionService.getPermissionOf('DASHBOARD').subscribe(
@@ -106,6 +108,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     }
 
     selectLoan(template: TemplateRef<any>) {
+        this.loading = true;
         this.newLoan();
     }
 

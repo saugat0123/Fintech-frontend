@@ -1,16 +1,15 @@
 <div class="row">
-    <div class="col-md-4 col-sm-6 col-xs-12" *ngIf="userCountView">
-        <app-icon-card title="Users" type="primary" detail="{{userCount}}">
+    <div *ngIf="userCountView" class="col-md-4 col-sm-6 col-xs-12">
+        <app-icon-card detail="{{userCount}}" title="Users" type="primary">
             <i class="fa fa-users"></i>
         </app-icon-card>
     </div>
 
-    <div class="col-md-4 col-sm-6 col-xs-12" *ngIf="branchCountView">
-        <app-icon-card title="Branches" type="success" detail="{{branchCount}}">
+    <div *ngIf="branchCountView" class="col-md-4 col-sm-6 col-xs-12">
+        <app-icon-card detail="{{branchCount}}" title="Branches" type="success">
             <i class="fas fa-building"></i>
         </app-icon-card>
     </div>
-
 
 </div>
 
@@ -25,7 +24,8 @@
             </div>
             <div class="col-md-1">
                 <button class="btn btn-md btn-primary btn-flat" (click)="selectLoan(template)">
-                    <i class="fa fa-arrow-right"></i>
+                    <i *ngIf="!loading" class="fa fa-arrow-right"></i>
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
                 </button>
             </div>
         </div>
@@ -40,7 +40,8 @@
     </div>
     <div class="modal-body">
         <button type="button" class="btn btn-primary" (click)="newLoan()">New Loan</button>
-        <button type="button" class="btn btn-success float-right" (click)="existingLoan(loanTemplate)">Existing Loan</button>
+        <button type="button" class="btn btn-success float-right" (click)="existingLoan(loanTemplate)">Existing Loan
+        </button>
     </div>
 </ng-template>
 <ng-template #loanTemplate>
@@ -65,3 +66,4 @@
 <app-pie-chart></app-pie-chart>
 
 <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
+

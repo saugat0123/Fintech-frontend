@@ -4,6 +4,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {BreadcrumbService} from '../../../../../@theme/components/breadcrum/breadcrumb.service';
 import {UpdateModalComponent} from '../../../../../@theme/components';
 import {RoleService} from '../role.service';
+import {ModalUtils, ToastService} from '../../../../../@core/utils';
+import {RoleEditComponent} from './role-edit/role-edit.component';
 
 
 @Component({
@@ -13,10 +15,11 @@ import {RoleService} from '../role.service';
 })
 export class ListRoleComponent implements OnInit {
     title = 'Role';
+    role: Role = new Role();
     activeCount: any;
     inactiveCount: any;
     roleCount: any;
-    roleList: any;
+    roleList: Array<Role>;
 
     constructor(
         private service: RoleService,
@@ -25,20 +28,24 @@ export class ListRoleComponent implements OnInit {
     ) {
     }
 
+    static loadData(other: ListRoleComponent) {
+
+        other.breadcrumbService.notify(other.title);
+
+        other.service.getStatus().subscribe((response: any) => {
+            other.activeCount = response.detail.active;
+            other.inactiveCount = response.detail.inactive;
+            other.roleCount = response.detail.roles;
+
+        });
+
+        other.service.getAll().subscribe((response: any) => {
+            other.roleList = response.detail;
+        });
+    }
+
     ngOnInit() {
-        this.breadcrumbService.notify(this.title);
-
-        this.service.getStatus().subscribe((response: any) => {
-            this.activeCount = response.detail.active;
-            this.inactiveCount = response.detail.inactive;
-            this.roleCount = response.detail.roles;
-
-        });
-
-        this.service.getAll().subscribe((response: any) => {
-            this.roleList = response.detail;
-            console.log(response);
-        });
+        ListRoleComponent.loadData(this);
     }
 
     onChange(newValue, data) {
@@ -47,6 +54,11 @@ export class ListRoleComponent implements OnInit {
         }
         event.preventDefault();
         this.modalService.open(UpdateModalComponent);
+    }
 
+    openEditRole(role: Role) {
+        const modalRef = this.modalService.open(RoleEditComponent, {backdrop: 'static'});
+        modalRef.componentInstance.model = role;
+        ModalUtils.resolve(modalRef.result, ListRoleComponent.loadData, this);
     }
 }
