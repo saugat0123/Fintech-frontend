@@ -108,7 +108,6 @@ export class CatalogueComponent implements OnInit {
         const lastModifiedAt = new Date(lastModifiedDate);
         return Math.floor((Date.UTC(lastModifiedAt.getFullYear(), lastModifiedAt.getMonth(), lastModifiedAt.getDate()) -
             Date.UTC(createdAt.getFullYear(), createdAt.getMonth(), createdAt.getDate())) / (1000 * 60 * 60 * 24));
-
     }
 
     checkIfDateFiltration() {
