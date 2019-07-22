@@ -13,6 +13,7 @@ import {DocStatus} from '../../../loan/model/docStatus';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {RoleAccess} from '../../modal/role-access';
 import {Router} from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-catalogue',
@@ -31,7 +32,7 @@ export class CatalogueComponent implements OnInit {
     filterForm: FormGroup;
     validStartDate = true;
     validEndDate = true;
-    search = {
+    search: any = {
         branchIds: undefined,
         documentStatus: DocStatus.value(DocStatus.PENDING),
         loanConfigId: undefined,
@@ -40,13 +41,15 @@ export class CatalogueComponent implements OnInit {
     roleAccess: string;
     accessSpecific: boolean;
     accessAll: boolean;
+    statusApproved = false;
 
     constructor(private branchService: BranchService,
                 private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
                 private router: Router,
                 private loanFormService: LoanFormService,
-                private formBuilder: FormBuilder) {
+                private formBuilder: FormBuilder,
+                private modalService: NgbModal) {
     }
 
     static loadData(other: CatalogueComponent) {
@@ -108,6 +111,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     ok() {
+        this.statusApproved = this.filterForm.get('docStatus').value === 'APPROVED';
         this.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
             this.filterForm.get('branch').value;
         this.search.documentStatus = this.filterForm.get('docStatus').value === null ? DocStatus.value(DocStatus.PENDING) :
@@ -130,5 +134,23 @@ export class CatalogueComponent implements OnInit {
 
 
     }
+
+    clearSearch() {
+        this.search = {};
+    }
+
+    onChange(data, onActionChange) {
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
+        event.preventDefault();
+        const modalRef = this.modalService.open(onActionChange);
+    }
+
+    changeAction() {
+        return;
+
+    }
+
 
 }
