@@ -23,7 +23,6 @@ export class OpeningAccountComponent implements OnInit {
     pageable: Pageable = new Pageable();
     branch: Branch = new Branch();
     spinner = false;
-    globalMsg: string;
     total: number;
     pending: number;
     approval: number;
