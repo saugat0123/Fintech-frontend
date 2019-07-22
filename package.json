@@ -45,6 +45,8 @@
     "popper.js": "^1.14.7",
     "quill": "^1.3.6",
     "rxjs": "~6.4.0",
+    "sockjs-client": "^1.3.0",
+    "stompjs": "^2.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },
