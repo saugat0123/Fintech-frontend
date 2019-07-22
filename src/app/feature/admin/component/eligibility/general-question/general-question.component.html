@@ -84,7 +84,7 @@
         <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
         <app-paging (changePage)="changePage($event)" *ngIf="!spinner" [pageable]="pageable"></app-paging>
     </nb-card-body>
-    <form (mouseenter)="setValuesInOption()" *ngIf="!showCriteriaList && addOrEditCriteria"
+    <form *ngIf="!showCriteriaList && addOrEditCriteria"
           [formGroup]="generalQuestionForm">
         <nb-card-header>
             <div class="container" formArrayName="questions">
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label>Operand Character:</label>
-                                    <input class="form-control" formControlName="operandCharacter" maxlength="1"
+                                    <input (keyup)="setFormulaPattern()" class="form-control" formControlName="operandCharacter" maxlength="1"
                                            oninput="this.value = this.value.toUpperCase()" placeholder="variable(x,y,z etc.)"
                                            type="text">
                                     <span *ngIf="submitted && qsn.get('operandCharacter').invalid"
@@ -145,7 +145,7 @@
             </div>
         </nb-card-header>
         <nb-card-body>
-            <div (mouseenter)="changeOption()" class="col-md-12">
+            <div class="col-md-12">
                 <div class="col-xs-6">
                     <p class="lead">Rules</p>
                     <div class="table-responsive">
@@ -155,13 +155,13 @@
                                 <th style="width:50%">Formula :</th>
                                 <td>
                                     <div class="m-2">
-                                        {{formula}}
+                                        {{generalQuestionForm.get('formula').value}}
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Set Formula :</th>
-                                <td id="formulaParent">
+                                <!--<td id="formulaParent">
                                     <div *ngFor="let field of generalQuestionForm.get('questions')['controls']; let i = index"
                                          class="d-inline">
                                         <select (click)="changeOption()" class="m-2">
@@ -175,6 +175,14 @@
                                             <option>-</option>
                                         </select>
                                     </div>
+                                </td>-->
+                                <td>
+                                    <div class="input-group m-2">
+                                        <input formControlName="formula" nbInput (keyup)="setFormulaPattern()"
+                                               placeholder="Formula" [pattern]="formulaPattern">
+                                    </div>
+                                    <span *ngIf="generalQuestionForm.get('formula').touched && generalQuestionForm.get('formula').invalid"
+                                          class="small text-danger">Please compose a formula</span>
                                 </td>
                             </tr>
                             <tr>
