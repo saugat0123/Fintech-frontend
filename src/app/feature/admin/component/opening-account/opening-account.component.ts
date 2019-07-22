@@ -55,7 +55,7 @@ export class OpeningAccountComponent implements OnInit {
 
     ngOnInit() {
         this.userService.getLoggedInUser().subscribe((response: any) => {
-                this.branch = response.detail.branch;
+                this.branch = (response.detail.branch)[0];
                 this.service.getStatusByBranch(this.branch.id).subscribe((res: any) => {
                     this.total = res.detail.total;
                     this.pending = res.detail.newed;
