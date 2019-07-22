@@ -13,6 +13,8 @@ import {DocStatus} from '../../../loan/model/docStatus';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {RoleAccess} from '../../modal/role-access';
 import {Router} from '@angular/router';
+import {Role} from '../../modal/role';
+import {RoleService} from '../role-permission/role.service';
 
 @Component({
     selector: 'app-catalogue',
@@ -23,6 +25,7 @@ export class CatalogueComponent implements OnInit {
     branchList: Array<Branch> = new Array<Branch>();
     loanTypeList: Array<LoanConfig> = new Array<LoanConfig>();
     loanDataHolderList: Array<LoanDataHolder> = new Array<LoanDataHolder>();
+    roleList: Array<Role> = new Array<Role>();
     page = 1;
     spinner = false;
     pageable: Pageable = new Pageable();
@@ -35,7 +38,8 @@ export class CatalogueComponent implements OnInit {
         branchIds: undefined,
         documentStatus: DocStatus.value(DocStatus.PENDING),
         loanConfigId: undefined,
-        currentStageDate: undefined
+        currentStageDate: undefined,
+        currentUserRole: undefined
     };
     roleAccess: string;
     accessSpecific: boolean;
@@ -46,7 +50,8 @@ export class CatalogueComponent implements OnInit {
                 private toastService: ToastService,
                 private router: Router,
                 private loanFormService: LoanFormService,
-                private formBuilder: FormBuilder) {
+                private formBuilder: FormBuilder,
+                private roleService: RoleService) {
     }
 
     static loadData(other: CatalogueComponent) {
@@ -67,7 +72,8 @@ export class CatalogueComponent implements OnInit {
             loanType: [undefined],
             docStatus: [undefined],
             startDate: [undefined],
-            endDate: [undefined]
+            endDate: [undefined],
+            role: [undefined]
         });
         this.roleAccess = localStorage.getItem('roleAccess');
         if (this.roleAccess === RoleAccess.SPECIFIC) {
@@ -75,12 +81,26 @@ export class CatalogueComponent implements OnInit {
         } else if (this.roleAccess === RoleAccess.ALL) {
             this.accessAll = true;
         }
-        this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
-            this.branchList = response.detail;
-        }, error => {
-            console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
-        });
+
+        if (this.accessSpecific || this.accessAll) {
+            this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
+                this.branchList = response.detail;
+            }, error => {
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
+            });
+        }
+        if (this.accessAll) {
+            this.roleService.getAll().subscribe(
+                (response: any) => {
+                    this.roleList = response.detail;
+                    this.roleList.splice(0, 1); // removes ADMIN
+                }, error => {
+                    console.log(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Roles'));
+                }
+            );
+        }
         this.loanConfigService.getAll().subscribe((response: any) => {
             this.loanTypeList = response.detail;
         }, error => {
@@ -121,6 +141,8 @@ export class CatalogueComponent implements OnInit {
                 'endDate': new Date(this.filterForm.get('endDate').value).toLocaleDateString()
             });
         }
+        this.search.currentUserRole = this.filterForm.get('role').value === null ? undefined :
+            this.filterForm.get('role').value;
         CatalogueComponent.loadData(this);
     }
 
