@@ -55,8 +55,6 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {MsgModalComponent, UpdateModalComponent} from '../../@theme/components';
 import {OpeningAccountComponent} from './component/opening-account/opening-account.component';
 import {OpenOpeningComponentComponent} from './component/opening-account/open-opening-component/open-opening-component.component';
-import {ApprovalOpeningAccountComponent} from './component/opening-account/approval-opening-account/approval-opening-account.component';
-import {RejectedOpeningAccountComponent} from './component/opening-account/rejected-opening-account/rejected-opening-account.component';
 import {NgxPrintModule} from 'ngx-print';
 import {OpeningAccountPrintComponent} from './component/opening-account/opening-account-print/opening-account-print.component';
 import {GeneralQuestionComponent} from './component/eligibility/general-question/general-question.component';
@@ -115,8 +113,6 @@ import { RoleEditComponent } from './component/role-permission/list-role/role-ed
         NewRequestsComponent,
         OpeningAccountComponent,
         OpenOpeningComponentComponent,
-        ApprovalOpeningAccountComponent,
-        RejectedOpeningAccountComponent,
         OpeningAccountPrintComponent,
         GeneralQuestionComponent,
         EligibilityDocumentViewComponent,
