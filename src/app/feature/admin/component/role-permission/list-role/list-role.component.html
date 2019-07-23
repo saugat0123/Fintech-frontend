@@ -2,20 +2,20 @@
 
     <div class="col-md-4 col-sm-6 col-xs-12">
         <a routerLink="/home/admin/roleList">
-            <app-icon-card title="Roles" type="info" detail="{{roleCount}}">
+            <app-icon-card detail="{{roleCount}}" title="Roles" type="info">
                 <i class="fas fa-user-alt"></i>
             </app-icon-card>
         </a>
     </div>
 
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <app-icon-card title="Active" type="success" detail="{{activeCount}}">
+        <app-icon-card detail="{{activeCount}}" title="Active" type="success">
             <i class="fas fa-user-circle"></i>
         </app-icon-card>
     </div>
 
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <app-icon-card title="Inactive" type="warning" detail="{{inactiveCount}}">
+        <app-icon-card detail="{{inactiveCount}}" title="Inactive" type="warning">
             <i class="far fa-user-circle"></i>
         </app-icon-card>
     </div>
@@ -32,9 +32,9 @@
                         <th>Name</th>
                         <th>Role Access</th>
                         <th>Role Type</th>
-                        <!--<th>Status</th>-->
                         <th>Created By</th>
                         <th>Last Modified By</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
 
@@ -47,20 +47,6 @@
                         <td>{{allList.roleName}}</td>
                         <td>{{allList.roleAccess}}</td>
                         <td>{{allList.roleType}}</td>
-
-                        <!--<td *ngIf="allList.roleName !== 'admin'; else status">-->
-                            <!--<select class="select-borderless" [(ngModel)]="allList.status" name="status"-->
-                                    <!--(change)="onChange($event.target.value,allList)">-->
-                                <!--<option value="ACTIVE">ACTIVE</option>-->
-                                <!--<option value="INACTIVE">INACTIVE</option>-->
-
-                            <!--</select>-->
-                        <!--</td>-->
-                        <!--<ng-template #status>-->
-                            <!--<td>-->
-                                <!--<p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>-->
-                            <!--</td>-->
-                        <!--</ng-template>-->
 
                         <td *ngIf="allList.createdByName==null || allList.createdByName=='' ; else createdBy">Not
                             Available
@@ -75,6 +61,13 @@
                         <ng-template #lastModifiedBy>
                             <td>{{allList.modifiedByName}}</td>
                         </ng-template>
+                        <td *ngIf="allList.roleName !== 'admin'">
+                            <a (click)="openEditRole(allList)"
+                               data-toggle="tooltip"
+                               data-placement="top" title="Edit Role name" class="cursor">
+                                <i class="fa fa-edit" style="color:#3c8dbc;"></i>
+                            </a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
