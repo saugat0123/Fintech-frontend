@@ -10,6 +10,7 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {OpeningAccountService} from './opening-account.service';
 import {UserService} from '../user/user.service';
+import {AccountStatus} from '../../modal/accountStatus';
 
 @Component({
     selector: 'app-opening-account',
@@ -23,11 +24,15 @@ export class OpeningAccountComponent implements OnInit {
     pageable: Pageable = new Pageable();
     branch: Branch = new Branch();
     spinner = false;
-    globalMsg: string;
-    total: number;
-    pending: number;
-    approval: number;
-    rejected: number;
+    totalCount: number;
+    pendingCount: number;
+    approvalCount: number;
+    rejectedCount: number;
+    showApprove = true;
+    showReject = true;
+    showPending = false;
+    accountStatus: AccountStatus = AccountStatus.NEW_REQUEST;
+    accountStatusType = AccountStatus;
 
     constructor(
         private service: OpeningAccountService,
@@ -41,7 +46,14 @@ export class OpeningAccountComponent implements OnInit {
 
     static loadData(other: OpeningAccountComponent) {
         other.spinner = true;
-        other.service.getByPostOpeningAccount(other.branch, other.page, 10, 'NEW_REQUEST').subscribe((response: any) => {
+        other.service.getStatusByBranch(other.branch.id).subscribe((res: any) => {
+            other.totalCount = res.detail.total;
+            other.pendingCount = res.detail.newed;
+            other.approvalCount = res.detail.approval;
+            other.rejectedCount = res.detail.rejected;
+        });
+        other.service.getByPostOpeningAccount(other.branch, other.page, 10, AccountStatus.name(other.accountStatus))
+        .subscribe((response: any) => {
                 other.openingForms = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
@@ -55,13 +67,7 @@ export class OpeningAccountComponent implements OnInit {
 
     ngOnInit() {
         this.userService.getLoggedInUser().subscribe((response: any) => {
-                this.branch = response.detail.branch;
-                this.service.getStatusByBranch(this.branch.id).subscribe((res: any) => {
-                    this.total = res.detail.total;
-                    this.pending = res.detail.newed;
-                    this.approval = res.detail.approval;
-                    this.rejected = res.detail.rejected;
-                });
+                this.branch = (response.detail.branch)[0];
                 OpeningAccountComponent.loadData(this);
             }, error => {
                 console.log(error);
@@ -81,12 +87,35 @@ export class OpeningAccountComponent implements OnInit {
         this.router.navigate(['home/admin/openOpeningAccount'], {queryParams: {openingFormId: openingForm.id}});
     }
 
-    updateStatus(id, status) {
-        this.service.update(id, status).subscribe((response: any) => {
-                OpeningAccountComponent.loadData(this);
-            }, error => {
-                console.log(error);
-            }
-        );
+    updateStatus(openingForm: OpeningForm, accountStatus: AccountStatus) {
+        this.service.detail(openingForm.id).subscribe((response: any) => {
+            openingForm = response.detail;
+            openingForm.status = AccountStatus.name(accountStatus);
+            this.service.update(openingForm.id, openingForm).subscribe((response1: any) => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Account Request Status Changed!!!'));
+                    OpeningAccountComponent.loadData(this);
+                }, error => {
+                    console.log(error);
+                }
+            );
+        });
+    }
+
+    changeRequest(accountStatus: AccountStatus) {
+        if (accountStatus === AccountStatus.NEW_REQUEST) {
+            this.showPending = false;
+            this.showApprove = true;
+            this.showReject = true;
+        } else if (accountStatus === AccountStatus.APPROVAL) {
+            this.showPending = true;
+            this.showApprove = false;
+            this.showReject = true;
+        } else if (accountStatus === AccountStatus.REJECTED) {
+            this.showPending = true;
+            this.showApprove = true;
+            this.showReject = false;
+        }
+        this.accountStatus = accountStatus;
+        OpeningAccountComponent.loadData(this);
     }
 }
