@@ -1,12 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import {NbMenuService, NbSearchService, NbSidebarService, NbThemeService} from '@nebular/theme';
+import {NbDialogService, NbMenuService, NbSearchService, NbSidebarService, NbThemeService} from '@nebular/theme';
 import {LayoutService} from '../../../@core/utils';
 import {UserService} from '../../../@core/service/user.service';
 import {filter, map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SearchResultComponent} from './header-form/searchResult.component';
+import {ProfileComponent} from '../profile/profile.component';
 
 @Component({
     selector: 'app-header',
@@ -16,6 +17,7 @@ import {SearchResultComponent} from './header-form/searchResult.component';
 export class HeaderComponent implements OnInit {
 
     static LOGOUT = 'Log out';
+    static PROFILE = 'Profile';
     contextMenuTag = 'user-context-menu';
 
     @Input() position = 'normal';
@@ -25,8 +27,7 @@ export class HeaderComponent implements OnInit {
     userProfilePicture;
     roleName;
 
-    userMenu = [{title: HeaderComponent.LOGOUT}];
-
+    userMenu = [{title: HeaderComponent.PROFILE}, {title: HeaderComponent.LOGOUT}];
     constructor(private sidebarService: NbSidebarService,
                 private menuService: NbMenuService,
                 private userService: UserService,
@@ -34,6 +35,7 @@ export class HeaderComponent implements OnInit {
                 private themeService: NbThemeService,
                 private router: Router,
                 private searchService: NbSearchService,
+                private dialogService: NbDialogService,
                 private modalService: NgbModal) {
 
         this.searchService.onSearchSubmit()
@@ -72,6 +74,16 @@ export class HeaderComponent implements OnInit {
         ).subscribe(() => {
             this.logout();
         });
+
+        this.menuService.onItemClick().pipe(
+            filter(({tag}) => tag === this.contextMenuTag),
+            map(({item: {title}}) => title),
+            filter((title) => title === HeaderComponent.PROFILE)
+        ).subscribe(() => {
+            this.open();
+        });
+
+        this.menuService.onItemClick().pipe();
     }
 
     toggleSidebar(): boolean {
@@ -93,4 +105,10 @@ export class HeaderComponent implements OnInit {
     userGuide() {
         this.router.navigate(['/home/admin/user-guide']);
     }
+
+    open() {
+        this.modalService.open(ProfileComponent, {size: 'lg'});
+    }
+
+
 }
