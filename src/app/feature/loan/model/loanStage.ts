@@ -4,6 +4,7 @@ import {DocAction} from './docAction';
 
 export class LoanStage {
     createdAt: Date;
+    lastModifiedAt: Date;
     fromUser: User;
     toUser: User;
     fromRole: Role;
