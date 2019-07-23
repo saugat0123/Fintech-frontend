@@ -89,7 +89,7 @@
                         model?.documentStatus.toString()==="REJECTED" ||
                         model?.documentStatus.toString()==="APPROVED")'>
                         {{model?.currentStage?.toUser?.name}}
-                        /{{getLoanLifespanInDays(model?.previousList[0].createdAt, model?.currentStage.lastModifiedAt)}}
+                        /{{getDaysDifference(model?.currentStage.lastModifiedAt, model?.previousList[model?.previousList.length-1].lastModifiedAt)}}
                     </div>
                 </td>
                 <td>
@@ -97,7 +97,7 @@
                     <div *ngIf='(model?.documentStatus.toString()==="CLOSED" ||
                         model?.documentStatus.toString()==="REJECTED" ||
                         model?.documentStatus.toString()==="APPROVED")'>
-                        {{getLoanLifespanInDays(model?.currentStage?.createdAt, model?.currentStage?.lastModifiedAt)}}
+                        {{getDaysDifference( model?.currentStage?.lastModifiedAt,model?.currentStage?.createdAt)}}
                     </div>
                 </td>
             </tr>
