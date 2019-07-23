@@ -57,7 +57,7 @@ export class OpenOpeningComponentComponent implements OnInit {
 
     getAccountType(accountPurpose) {
         this.accountPurpose = accountPurpose;
-        this.accountTypeService.getAllByAccountTypeWithoutToken(this.accountPurpose).subscribe((response: any) => {
+        this.accountTypeService.getAllByAccountTypeWithoutToken(this.accountPurpose.id).subscribe((response: any) => {
             this.accountTypeList = response.detail;
         }, error => {
             console.log(error);
