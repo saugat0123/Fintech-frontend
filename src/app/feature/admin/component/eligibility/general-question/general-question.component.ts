@@ -17,7 +17,6 @@ export class GeneralQuestionComponent implements OnInit {
     page = 1;
     size = 10;
     task: string;
-    formula: string;
     formulaPattern = '';
 
     generalQuestionForm: FormGroup;
@@ -56,7 +55,6 @@ export class GeneralQuestionComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.formula = '';
         GeneralQuestionComponent.loadData(this);
     }
 
@@ -129,36 +127,7 @@ export class GeneralQuestionComponent implements OnInit {
     deleteQuestionField(index) {
         const control = this.generalQuestionForm.controls.questions as FormArray;
         control.removeAt(index);
-        // this.changeOption();
     }
-
-    // changeOption() {
-    //     this.formula = '';
-    //     const formulaParent = document.getElementById('formulaParent').children;
-    //     for (let i = 0; i < formulaParent.length; i++) {
-    //         const childParent = formulaParent[i].children;
-    //         for (let j = 0; j < childParent.length; j++) {
-    //             this.formula = this.formula + (childParent[j] as HTMLInputElement).value;
-    //         }
-    //     }
-    //     this.formula = this.formula.split('').join(' ');
-    // }
-    //
-    // setValuesInOption() {
-    //     let f = 0;
-    //     this.formula = this.formula.replace(/\s/g, '');
-    //     const formulaArray = this.formula.split('', this.formula.length);
-    //     const formulaParent = document.getElementById('formulaParent').children;
-    //     for (let i = 0; i < formulaParent.length; i++) {
-    //         const childParent = formulaParent[i].children;
-    //         for (let j = 0; j < childParent.length; j++) {
-    //             (childParent[j] as HTMLInputElement).value = formulaArray[f];
-    //             // console.log('value at index', formulaArray[f]);
-    //             f++;
-    //         }
-    //     }
-    //     this.formula = this.formula.split('').join(' ');
-    // }
 
     addCriteria() {
         this.task = 'Add';
@@ -172,7 +141,6 @@ export class GeneralQuestionComponent implements OnInit {
     editCriteria(criteria: EligibilityCriteria) {
         this.task = 'Update';
         this.eligibilityCriteria = criteria;
-        // this.formula = criteria.formula;
         this.buildForm();
         this.showCriteriaList = false;
         this.addOrEditCriteria = true;
@@ -183,9 +151,7 @@ export class GeneralQuestionComponent implements OnInit {
         if (this.generalQuestionForm.invalid) {
             return;
         }
-
         this.eligibilityCriteria = this.generalQuestionForm.value;
-        // this.eligibilityCriteria.formula = this.formula;
         this.generalQuestionService.saveEligibilityCriteria(this.eligibilityCriteria).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Criteria !'));
             this.eligibilityCriteria = new EligibilityCriteria();
@@ -203,16 +169,7 @@ export class GeneralQuestionComponent implements OnInit {
         if (this.generalQuestionForm.invalid) {
             return;
         }
-        const formulaArray = (this.generalQuestionForm.get('formula').value).split('');
-        formulaArray.forEach( (ch, index) => {
-            if (ch >= 'A' && ch <= 'Z') {
-                formulaArray[index] = '2';
-            }
-        });
         this.eligibilityCriteria = this.generalQuestionForm.value;
-        this.eligibilityCriteria.formula = formulaArray.join('');
-        console.log(this.eligibilityCriteria.formula);
-        // this.eligibilityCriteria.formula = this.formula;
         this.generalQuestionService.updateEligibilityCriteria(this.eligibilityCriteria, this.eligibilityCriteria.id).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Criteria !'));
             GeneralQuestionComponent.loadData(this);
