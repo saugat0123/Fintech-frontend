@@ -152,34 +152,12 @@
                         <table class="table">
                             <tbody>
                             <tr>
-                                <th style="width:50%">Formula :</th>
-                                <td>
-                                    <div class="m-2">
-                                        {{generalQuestionForm.get('formula').value}}
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
                                 <th>Set Formula :</th>
-                                <!--<td id="formulaParent">
-                                    <div *ngFor="let field of generalQuestionForm.get('questions')['controls']; let i = index"
-                                         class="d-inline">
-                                        <select (click)="changeOption()" class="m-2">
-                                            <option [ngValue]="undefined" hidden></option>
-                                            <option *ngFor="let qsnIdfr of generalQuestionForm.get('questions')['controls']; let j = index"
-                                                    [ngValue]="qsnIdfr.value.operandCharacter">{{qsnIdfr.value.operandCharacter}}</option>
-                                        </select>
-                                        <select (click)="changeOption()"
-                                                *ngIf="(i+1) !== generalQuestionForm.get('questions')['controls'].length">
-                                            <option>+</option>
-                                            <option>-</option>
-                                        </select>
-                                    </div>
-                                </td>-->
                                 <td>
-                                    <div class="input-group m-2">
+                                    <div class="input-group my-2">
                                         <input formControlName="formula" nbInput (keyup)="setFormulaPattern()"
-                                               placeholder="Formula" [pattern]="formulaPattern">
+                                               oninput="this.value = this.value.toUpperCase()" placeholder="Formula"
+                                               [pattern]="formulaPattern">
                                     </div>
                                     <span *ngIf="(generalQuestionForm.get('formula').dirty || generalQuestionForm.get('formula').touched) && generalQuestionForm.get('formula').invalid"
                                           class="small text-danger">Please compose a formula</span>
@@ -188,7 +166,7 @@
                             <tr>
                                 <th>Percentage of Amount :</th>
                                 <td>
-                                    <div class="input-group m-2">
+                                    <div class="input-group my-2">
                                         <input formControlName="percentageOfAmount" nbInput
                                                placeholder="% of Amount (For eligibility)" type="number">
                                     </div>
@@ -199,7 +177,7 @@
                             <tr>
                                 <th>Threshold Amount :</th>
                                 <td>
-                                    <div class="input-group m-2">
+                                    <div class="input-group my-2">
                                         <input formControlName="thresholdAmount" nbInput
                                                placeholder="Threshold amount" type="number">
                                     </div>
