@@ -7,6 +7,8 @@ import {Customer} from '../../admin/modal/customer';
 import {LoanStage} from './loanStage';
 import {Proposal} from '../../admin/modal/proposal';
 import {Branch} from '../../admin/modal/branch';
+import {Cicl} from '../../admin/modal/cicl';
+import {Insurance} from '../../admin/modal/insurance';
 
 export class LoanDataHolder {
     id: number;
@@ -16,6 +18,9 @@ export class LoanDataHolder {
     dmsLoanFile: DmsLoanFile;
     proposal: Proposal;
     loan: LoanConfig;
+    ciclList: Array<Cicl>;
+    ciclRemarks: string;
+    insurance: Insurance;
     documentStatus: DocStatus;
     priority: Priority;
     createdAt: any;

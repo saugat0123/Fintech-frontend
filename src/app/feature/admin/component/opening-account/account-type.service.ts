@@ -19,9 +19,9 @@ export class AccountTypeService extends BaseService<AccountType> {
         return AccountTypeService.API;
     }
 
-    getAllByAccountTypeWithoutToken(model): Observable<Object> {
-        const api = `${this.getApi()}/byAccountPurpose`;
-        const req = ApiUtils.getRequest(api);
-        return this.http.post(req.url, model);
+    getAllByAccountTypeWithoutToken(accountPurposeId: number): Observable<Object> {
+        const url = `${this.getApi()}/accountPurpose/${accountPurposeId}`;
+        const req = ApiUtils.getRequest(url);
+        return this.http.get(req.url);
     }
 }

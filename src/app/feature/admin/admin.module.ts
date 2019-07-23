@@ -55,8 +55,6 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {MsgModalComponent, UpdateModalComponent} from '../../@theme/components';
 import {OpeningAccountComponent} from './component/opening-account/opening-account.component';
 import {OpenOpeningComponentComponent} from './component/opening-account/open-opening-component/open-opening-component.component';
-import {ApprovalOpeningAccountComponent} from './component/opening-account/approval-opening-account/approval-opening-account.component';
-import {RejectedOpeningAccountComponent} from './component/opening-account/rejected-opening-account/rejected-opening-account.component';
 import {NgxPrintModule} from 'ngx-print';
 import {OpeningAccountPrintComponent} from './component/opening-account/opening-account-print/opening-account-print.component';
 import {GeneralQuestionComponent} from './component/eligibility/general-question/general-question.component';
@@ -66,6 +64,7 @@ import {CatalogueComponent} from './component/catalogue/catalogue.component';
 import {EmailConfigurationComponent} from './component/email-configuration/email-configuration.component';
 import {EmailValidatorDirective} from '../../@core/directive/email-validator.directive';
 import {NumberValidatorDirective} from '../../@core/directive/number-validator.directive';
+import { RoleEditComponent } from './component/role-permission/list-role/role-edit/role-edit.component';
 
 @NgModule({
     declarations: [
@@ -114,15 +113,14 @@ import {NumberValidatorDirective} from '../../@core/directive/number-validator.d
         NewRequestsComponent,
         OpeningAccountComponent,
         OpenOpeningComponentComponent,
-        ApprovalOpeningAccountComponent,
-        RejectedOpeningAccountComponent,
         OpeningAccountPrintComponent,
         GeneralQuestionComponent,
         EligibilityDocumentViewComponent,
         CatalogueComponent,
         EmailConfigurationComponent,
         EmailValidatorDirective,
-        NumberValidatorDirective
+        NumberValidatorDirective,
+        RoleEditComponent
 
         // SecurityComponent
     ],
@@ -157,7 +155,8 @@ import {NumberValidatorDirective} from '../../@core/directive/number-validator.d
         MsgModalComponent,
         TemplateAddModelComponent,
         RoleFormComponent,
-        EligibilityDocumentViewComponent
+        EligibilityDocumentViewComponent,
+        RoleEditComponent
     ]
 
 })

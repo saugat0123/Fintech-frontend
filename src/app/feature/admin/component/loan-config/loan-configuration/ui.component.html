@@ -97,7 +97,7 @@
                 <br>
                 <span><h4>Documents</h4></span>
                 <div class="row">
-                    <div class="box box-primary col-md-6">
+                    <div class="box box-primary col-md-6 mb-2">
                         <nb-accordion>
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Initial</nb-accordion-item-header>
@@ -116,7 +116,7 @@
                             </nb-accordion-item>
                         </nb-accordion>
                     </div>
-                    <div class="box box-primary col-md-6" [hidden]="loanConfig.isRenewable === false">
+                    <div class="box box-primary col-md-6 mb-2" [hidden]="loanConfig.isRenewable === false">
                         <nb-accordion>
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Renew</nb-accordion-item-header>
@@ -135,30 +135,51 @@
                             </nb-accordion-item>
                         </nb-accordion>
                     </div>
+
+                    <div class="box box-primary col-md-6 mb-2">
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>Closure</nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <div class="row">
+                                        <div class="col-md-4"
+                                             *ngFor="let closureDocument of closureDocumentList; let documentIndex = index">
+                                            <nb-checkbox id="{{'closureDocument'+documentIndex}}" status="primary"
+                                                         (change)="updateClosureDocument($event,closureDocument)"
+                                                         [value]="closureDocument.checked">
+                                                {{closureDocument.name}}
+                                            </nb-checkbox>
+                                        </div>
+                                    </div>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
+                    </div>
+
+                    <!--<div class="box box-primary col-md-6 mb-2">
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>Eligibility</nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <div class="row">
+                                        <div
+                                            *ngFor="let eligibilityDocument of eligibilityDocumentList; let documentIndex = index"
+                                            class="col-md-4">
+                                            <nb-checkbox
+                                                (change)="updateEligibilityDocument($event,eligibilityDocument)"
+                                                [value]="eligibilityDocument.checked"
+                                                id="{{'eligibility'+documentIndex}}"
+                                                status="primary">
+                                                <span>{{eligibilityDocument.name}}</span>
+                                            </nb-checkbox>
+                                        </div>
+                                    </div>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
+                    </div>-->
                 </div>
-                <br>
-                <!--<div class="row">-->
-                    <!--<div class="box box-primary col-md-6">-->
-                        <!--<nb-accordion>-->
-                            <!--<nb-accordion-item>-->
-                                <!--<nb-accordion-item-header>Eligibility</nb-accordion-item-header>-->
-                                <!--<nb-accordion-item-body>-->
-                                    <!--<div class="row">-->
-                                        <!--<div class="col-md-4"-->
-                                             <!--*ngFor="let eligibilityDocument of eligibilityDocumentList; let documentIndex = index">-->
-                                            <!--<nb-checkbox id="{{'eligibility'+documentIndex}}" status="primary"-->
-                                                         <!--(change)="updateEligibilityDocument($event,eligibilityDocument)"-->
-                                                         <!--[value]="eligibilityDocument.checked">-->
-                                                <!--<span>{{eligibilityDocument.name}}</span>-->
-                                            <!--</nb-checkbox>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</nb-accordion-item-body>-->
-                            <!--</nb-accordion-item>-->
-                        <!--</nb-accordion>-->
-                    <!--</div>-->
-                <!--</div>-->
-            </div>
+                </div>
             <div class="box-footer text-right">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
