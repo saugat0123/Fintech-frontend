@@ -181,7 +181,7 @@
                                         <input formControlName="formula" nbInput (keyup)="setFormulaPattern()"
                                                placeholder="Formula" [pattern]="formulaPattern">
                                     </div>
-                                    <span *ngIf="generalQuestionForm.get('formula').touched && generalQuestionForm.get('formula').invalid"
+                                    <span *ngIf="(generalQuestionForm.get('formula').dirty || generalQuestionForm.get('formula').touched) && generalQuestionForm.get('formula').invalid"
                                           class="small text-danger">Please compose a formula</span>
                                 </td>
                             </tr>

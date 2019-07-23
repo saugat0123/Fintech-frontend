@@ -123,7 +123,7 @@ export class GeneralQuestionComponent implements OnInit {
         });
         const operands = operandsArray.join('');
         this.formulaPattern = `[${operands}\\(\\)\\+\\-\\/\\*\\.\\ \\d]+`;
-        console.log(this.formulaPattern);
+        // In case you want to implement an operand character at least once :: ^(?=.*a)(?=.*b)(?=.*c)[\(\)\+\-\/\*\.\ \d]*
     }
 
     deleteQuestionField(index) {
@@ -183,15 +183,16 @@ export class GeneralQuestionComponent implements OnInit {
         if (this.generalQuestionForm.invalid) {
             return;
         }
+
         this.eligibilityCriteria = this.generalQuestionForm.value;
         // this.eligibilityCriteria.formula = this.formula;
         this.generalQuestionService.saveEligibilityCriteria(this.eligibilityCriteria).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Criteria !'));
             this.eligibilityCriteria = new EligibilityCriteria();
             GeneralQuestionComponent.loadData(this);
-        }, error => {
-            console.log(error);
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Saved Criteria !'));
+        }, errorResponse => {
+            console.log(errorResponse.error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Saved Criteria !'));
             this.eligibilityCriteria = new EligibilityCriteria();
         });
         this.submitted = false;
@@ -202,14 +203,22 @@ export class GeneralQuestionComponent implements OnInit {
         if (this.generalQuestionForm.invalid) {
             return;
         }
+        const formulaArray = (this.generalQuestionForm.get('formula').value).split('');
+        formulaArray.forEach( (ch, index) => {
+            if (ch >= 'A' && ch <= 'Z') {
+                formulaArray[index] = '2';
+            }
+        });
         this.eligibilityCriteria = this.generalQuestionForm.value;
+        this.eligibilityCriteria.formula = formulaArray.join('');
+        console.log(this.eligibilityCriteria.formula);
         // this.eligibilityCriteria.formula = this.formula;
         this.generalQuestionService.updateEligibilityCriteria(this.eligibilityCriteria, this.eligibilityCriteria.id).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Criteria !'));
             GeneralQuestionComponent.loadData(this);
-        }, error => {
-            console.log(error);
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Update Criteria !'));
+        }, errorResponse => {
+            console.log(errorResponse.error.message);
+            this.toastService.show(new Alert(AlertType.ERROR, errorResponse.error.message));
         });
         this.submitted = false;
     }
@@ -221,7 +230,7 @@ export class GeneralQuestionComponent implements OnInit {
                 GeneralQuestionComponent.loadData(this);
             }, error => {
                 console.log(error);
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Delete Criteria !'));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Delete Criteria !'));
             });
         }
     }
