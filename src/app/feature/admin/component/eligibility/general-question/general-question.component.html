@@ -108,8 +108,10 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label>Operand Character:</label>
-                                    <input (keyup)="setFormulaPattern()" class="form-control" formControlName="operandCharacter" maxlength="1"
-                                           oninput="this.value = this.value.toUpperCase()" placeholder="variable(x,y,z etc.)"
+                                    <input (keyup)="setFormulaPattern()" class="form-control"
+                                           formControlName="operandCharacter" maxlength="1"
+                                           oninput="this.value = this.value.toUpperCase()"
+                                           placeholder="variable(x,y,z etc.)"
                                            type="text">
                                     <span *ngIf="submitted && qsn.get('operandCharacter').invalid"
                                           class="small text-danger">Please enter operand character</span>
@@ -155,12 +157,13 @@
                                 <th>Set Formula :</th>
                                 <td>
                                     <div class="input-group my-2">
-                                        <input formControlName="formula" nbInput (keyup)="setFormulaPattern()"
-                                               oninput="this.value = this.value.toUpperCase()" placeholder="Formula"
-                                               [pattern]="formulaPattern">
+                                        <input (keyup)="setFormulaPattern()" [pattern]="formulaPattern" formControlName="formula"
+                                               nbInput oninput="this.value = this.value.toUpperCase()"
+                                               placeholder="Formula">
                                     </div>
                                     <span *ngIf="(generalQuestionForm.get('formula').dirty || generalQuestionForm.get('formula').touched) && generalQuestionForm.get('formula').invalid"
-                                          class="small text-danger">Please compose a formula</span>
+                                          class="small text-danger">Please compose a valid formula</span>
+                                    <span *ngIf="invalidFormula" class="small text-danger">Invalid formula</span>
                                 </td>
                             </tr>
                             <tr>

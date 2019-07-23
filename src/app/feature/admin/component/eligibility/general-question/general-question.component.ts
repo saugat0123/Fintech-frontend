@@ -23,6 +23,7 @@ export class GeneralQuestionComponent implements OnInit {
     submitted = false;
     showCriteriaList = false;
     addOrEditCriteria = false;
+    invalidFormula = false;
 
     pageable: Pageable = new Pageable();
     eligibilityCriteria: EligibilityCriteria = new EligibilityCriteria();
@@ -121,6 +122,7 @@ export class GeneralQuestionComponent implements OnInit {
         });
         const operands = operandsArray.join('');
         this.formulaPattern = `[${operands}\\(\\)\\+\\-\\/\\*\\.\\ \\d]+`;
+        this.invalidFormula = false;
         // In case you want to implement an operand character at least once :: ^(?=.*a)(?=.*b)(?=.*c)[\(\)\+\-\/\*\.\ \d]*
     }
 
@@ -157,8 +159,9 @@ export class GeneralQuestionComponent implements OnInit {
             GeneralQuestionComponent.loadData(this);
         }, errorResponse => {
             console.log(errorResponse.error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Saved Criteria !'));
-            this.eligibilityCriteria = new EligibilityCriteria();
+            console.log(errorResponse.error.message);
+            this.toastService.show(new Alert(AlertType.ERROR, errorResponse.error.message));
+            this.invalidFormula = true;
         });
         this.submitted = false;
     }
@@ -175,6 +178,7 @@ export class GeneralQuestionComponent implements OnInit {
         }, errorResponse => {
             console.log(errorResponse.error.message);
             this.toastService.show(new Alert(AlertType.ERROR, errorResponse.error.message));
+            this.invalidFormula = true;
         });
         this.submitted = false;
     }
