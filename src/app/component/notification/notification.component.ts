@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
+
 import {Message} from './Model/message';
 import {environment} from '../../../environments/environment.prod';
+import {CommonDataService} from '../../@core/service/baseservice/common-dataService';
 
 @Component({
     selector: 'app-notification',
@@ -23,10 +25,13 @@ export class NotificationComponent implements OnInit {
     private serverUrl = environment.url + 'socket';
     private stompClient;
 
+
     constructor(private http: HttpClient,
-                private formBuilder: FormBuilder) {
+                private formBuilder: FormBuilder,
+                private dataService: CommonDataService) {
     }
 
+    @Output() messageEvent = new EventEmitter<string>();
     ngOnInit() {
         this.buildForm();
         this.initializeWebSocketConnection();
@@ -47,6 +52,7 @@ export class NotificationComponent implements OnInit {
     sendMessageUsingSocket() {
         this.message = this.mainForm.value;
         this.stompClient.send('/socket-subscriber/send/message', {}, JSON.stringify(this.message));
+        console.log(this.message);
 
     }
 
@@ -78,7 +84,15 @@ export class NotificationComponent implements OnInit {
             //   'timeOut': 3000
             // });
             this.notifications += 1;
-
+            this.newNotification();
         }
     }
+    newNotification() {
+        this.dataService.changeNotification(this.notifications);
+
+    }
+    // sendNotificationMessage() {
+    //     this.dataService.setNotifiationMessage(this.messages)
+    // }
+
 }

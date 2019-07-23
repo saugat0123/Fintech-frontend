@@ -7,6 +7,8 @@ import {filter, map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SearchResultComponent} from './header-form/searchResult.component';
+import {NotificationComponent} from '../../../component/notification/notification.component';
+import {CommonDataService} from '../../../@core/service/baseservice/common-dataService';
 
 @Component({
     selector: 'app-header',
@@ -27,6 +29,8 @@ export class HeaderComponent implements OnInit {
 
     userMenu = [{title: HeaderComponent.LOGOUT}];
 
+    notificationCount: any;
+
     constructor(private sidebarService: NbSidebarService,
                 private menuService: NbMenuService,
                 private userService: UserService,
@@ -34,7 +38,9 @@ export class HeaderComponent implements OnInit {
                 private themeService: NbThemeService,
                 private router: Router,
                 private searchService: NbSearchService,
-                private modalService: NgbModal) {
+                private notificationComponent: NotificationComponent,
+                private modalService: NgbModal,
+                private dataService: CommonDataService) {
 
         this.searchService.onSearchSubmit()
             .subscribe((searchData: any) => {
@@ -72,6 +78,10 @@ export class HeaderComponent implements OnInit {
         ).subscribe(() => {
             this.logout();
         });
+        this.notificationComponent.initializeWebSocketConnection();
+        this.notificationComponent.openSocket();
+
+        this.dataService.currentNotification.subscribe(message => this.notificationCount = message);
     }
 
     toggleSidebar(): boolean {
@@ -92,5 +102,9 @@ export class HeaderComponent implements OnInit {
 
     userGuide() {
         this.router.navigate(['/home/admin/user-guide']);
+    }
+
+    newNotification() {
+        this.dataService.changeNotification(this.notificationCount);
     }
 }

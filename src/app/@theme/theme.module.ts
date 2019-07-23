@@ -6,7 +6,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {
     NbAccordionModule,
     NbActionsModule,
-    NbAlertModule, NbBadgeModule,
+    NbAlertModule,
     NbButtonModule,
     NbCalendarKitModule,
     NbCalendarModule,
@@ -100,7 +100,7 @@ const NB_MODULES = [
     NbSelectModule,
     NbChatModule,
     NbTooltipModule,
-    NbCalendarKitModule,
+    NbCalendarKitModule
 ];
 
 const COMPONENTS = [

@@ -10,24 +10,26 @@ import {DashboardComponent} from '../component/dashboard/dashboard.component';
 import {PendingLoanComponent} from '../component/dashboard/pending/pending-loan/pending-loan.component';
 import {PendingsLoanComponent} from '../component/dashboard/pending/pendings/pendings-loan.component';
 import {DataVisualizationComponent} from '../component/dashboard/data-visualization/data-visualization.component';
+import {NotificationComponent} from '../component/notification/notification.component';
 
 @NgModule({
-        imports: [
-            FeatureRoutingModule,
-            ThemeModule,
-            NbAccordionModule,
-            NgxChartsModule,
-            NbSelectModule,
-            ChartModule
-        ],
+    imports: [
+        FeatureRoutingModule,
+        ThemeModule,
+        NbAccordionModule,
+        NgxChartsModule,
+        NbSelectModule,
+        ChartModule
+    ],
         declarations: [
             FeatureComponent,
             DashboardComponent,
             PendingLoanComponent,
             PendingsLoanComponent,
-            DataVisualizationComponent
+            DataVisualizationComponent,
+            NotificationComponent
         ],
-        providers: []
+        providers: [NotificationComponent]
     }
 )
 export class FeatureModule {
