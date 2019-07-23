@@ -31,6 +31,7 @@ import {CiclComponent} from '../loan-main-template/cicl/cicl.component';
 export class LoanFormComponent implements OnInit {
     loanFile: DmsLoanFile;
     loanTitle: string;
+    loading = true;
 
     customerLoanId: number;
     templateList = [
@@ -135,8 +136,7 @@ export class LoanFormComponent implements OnInit {
         });
 
         this.populateTemplate();
-
-
+        this.loading = false;
     }
 
 

@@ -9,14 +9,14 @@
         <div id="searchModel" class="collapse col-md-12">
             <form (ngSubmit)="ok()" [formGroup]="filterForm">
                 <div class="row py-3">
-                    <div class="col-md-2" *ngIf="accessSpecific || accessAll">
+                    <div class="col-md-3" *ngIf="accessSpecific || accessAll">
                         <select class="custom-select" formControlName="branch">
                             <option [value]="null" selected hidden>Select Branch</option>
                             <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}
                             </option>
                         </select>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <select class="custom-select" formControlName="loanType">
                             <option [value]="null" selected hidden>Select Loan Type</option>
                             <option *ngFor="let loanType of loanTypeList"
@@ -24,11 +24,18 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <select class="custom-select" formControlName="docStatus">
+                    <div class="col-md-3">
+                        <select class="custom-select" formControlName="docStatus" >
                             <option [value]="null" selected hidden>Select Document Status</option>
                             <option *ngFor="let status of docStatus.values()"
                                     [value]="status">{{status}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3" *ngIf="accessAll">
+                        <select class="custom-select" formControlName="role">
+                            <option [value]="null" selected hidden>Select Role</option>
+                            <option *ngFor="let role of roleList" [value]="role.id">{{role.roleName}}
                             </option>
                         </select>
                     </div>

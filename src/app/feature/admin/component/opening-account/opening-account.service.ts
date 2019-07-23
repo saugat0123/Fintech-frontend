@@ -22,7 +22,7 @@ export class OpeningAccountService extends BaseService<OpeningForm> {
     public getStatusByBranch(branchId: number): Observable<any> {
         const api = `${this.getApi()}/statusCount?branchId=${branchId}`;
         const req = ApiUtils.getRequest(api);
-        return this.http.get(req.url);
+        return this.http.get(req.url, {headers: req.header});
     }
 
     public saveWithoutToken(obj): Observable<any> {
@@ -34,8 +34,8 @@ export class OpeningAccountService extends BaseService<OpeningForm> {
 
     getByPostOpeningAccount(model, page, size, accountStatus) {
         const url: string = this.getApi() + '/list' + '?accountStatus=' + accountStatus + '&page=' + page + '&size=' + size;
-        const getUrl = ApiUtils.getRequest(url);
-        return this.http.post(getUrl.url, model);
+        const req = ApiUtils.getRequest(url);
+        return this.http.post(req.url, model, {headers: req.header});
     }
 
 }

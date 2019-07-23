@@ -19,4 +19,5 @@ export class LoanConfig {
     closure: Array<Document>;
     eligibilityDocuments: Array<Document>;
     offerLetters: Array<OfferLetter>;
+    enableEligibility: boolean;
 }
