@@ -132,7 +132,6 @@ export class GeneralQuestionComponent implements OnInit {
     addCriteria() {
         this.task = 'Add';
         this.eligibilityCriteria = new EligibilityCriteria();
-        // this.formula = '';
         this.buildForm();
         this.showCriteriaList = false;
         this.addOrEditCriteria = true;
