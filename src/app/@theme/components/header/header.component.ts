@@ -78,9 +78,6 @@ export class HeaderComponent implements OnInit {
         ).subscribe(() => {
             this.logout();
         });
-        this.notificationComponent.initializeWebSocketConnection();
-        this.notificationComponent.openSocket();
-
         this.dataService.currentNotification.subscribe(message => this.notificationCount = message);
     }
 
