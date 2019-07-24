@@ -25,7 +25,7 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <select class="custom-select" formControlName="docStatus" >
+                        <select class="custom-select" formControlName="docStatus">
                             <option [value]="null" selected hidden>Select Document Status</option>
                             <option *ngFor="let status of docStatus.values()"
                                     [value]="status">{{status}}
@@ -75,7 +75,7 @@
                 <th>Name</th>
                 <th>Loan Type</th>
                 <th>Status</th>
-                <th >Possession Under/Days</th>
+                <th>Possession Under/Days</th>
                 <th *ngIf='statusApproved === true'>Action</th>
             </tr>
             </thead>
@@ -86,12 +86,13 @@
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.customerInfo?.customerName || model?.dmsLoanFile?.customerName}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.documentStatus}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">{{model?.currentStage?.toUser?.name}} / {{getDifferenceInDays(model?.currentStage?.createdAt)}}</td>
-                <td class ="p-1" *ngIf='statusApproved === true'>
-                    <select class="custom-select py-0" (change)="onChange(model,onActionChange)">
-                        <option disabled>loan action</option>
-                        <option value="CLOSURE_LOAN">Closure Loan</option>
-                        <option value="RENEW_LOAN">Renew Loan</option>
+                <td (click)="onClick(model.loan.id,model.id)">{{model?.currentStage?.toUser?.name}}
+                    / {{getDifferenceInDays(model?.currentStage?.createdAt)}}</td>
+                <td class="p-1" *ngIf='statusApproved === true'>
+                    <select [(ngModel)]="model.loanType" class="custom-select py-0"
+                            (ngModelChange)="onChange(model,onActionChange)">
+                        <option disabled selected>loan action</option>
+                        <option value="RENEWED_LOAN">Renew Loan</option>
                     </select>
                 </td>
             </tr>
@@ -107,7 +108,8 @@
         <div class="modal-content">
             <div class="modal-header" style="display:block">
                 <div>
-                    <h4 class="">Do You want to change the loan action?</h4>
+                    <h4 class="">Do You want to change the loan type to {{loanDataHolder.loanType}}
+                        ?</h4>
                     <form>
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-primary  btn-flat" (click)="changeAction()">

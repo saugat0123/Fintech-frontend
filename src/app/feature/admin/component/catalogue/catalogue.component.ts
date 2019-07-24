@@ -46,6 +46,7 @@ export class CatalogueComponent implements OnInit {
     accessSpecific: boolean;
     accessAll: boolean;
     statusApproved = false;
+    loanDataHolder: LoanDataHolder;
 
     constructor(private branchService: BranchService,
                 private loanConfigService: LoanConfigService,
@@ -136,8 +137,8 @@ export class CatalogueComponent implements OnInit {
             this.filterForm.get('branch').value;
         this.search.documentStatus = this.filterForm.get('docStatus').value === null ? DocStatus.value(DocStatus.PENDING) :
             this.filterForm.get('docStatus').value;
-        this.search.loanConfigId = this.filterForm.get('loanType').value === null ? undefined :
-            this.filterForm.get('loanType').value;
+        this.search.loanConfigId = this.filterForm.get('loanDataHolder').value === null ? undefined :
+            this.filterForm.get('loanDataHolder').value;
         if (this.filterForm.get('startDate').value !== null && this.filterForm.get('endDate').value) {
             this.search.currentStageDate = JSON.stringify({
                 // note: new Date().toString() is needed here to preserve timezone while JSON.stringify()
@@ -162,15 +163,23 @@ export class CatalogueComponent implements OnInit {
     }
 
     onChange(data, onActionChange) {
-        if (document.activeElement instanceof HTMLElement) {
-            document.activeElement.blur();
-        }
-        event.preventDefault();
+        this.loanDataHolder = data;
         const modalRef = this.modalService.open(onActionChange);
+
     }
 
     changeAction() {
-        return;
+        this.loanFormService.renewLoan(this.loanDataHolder).subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated loan type.'));
+                this.modalService.dismissAll('Close modal');
+            }, error => {
+
+                console.log(error);
+
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan type.'));
+                this.modalService.dismissAll('Close modal');
+            }
+        );
 
     }
 

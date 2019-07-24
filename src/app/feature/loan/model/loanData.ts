@@ -9,6 +9,8 @@ import {Proposal} from '../../admin/modal/proposal';
 import {Branch} from '../../admin/modal/branch';
 import {Cicl} from '../../admin/modal/cicl';
 import {Insurance} from '../../admin/modal/insurance';
+// @ts-ignore
+import {LoanType} from './loanType';
 
 export class LoanDataHolder {
     id: number;
@@ -27,5 +29,6 @@ export class LoanDataHolder {
     previousList: LoanStage[] = [];
     distinctPreviousList: any;
     currentStage: LoanStage = new LoanStage();
+    loanType: LoanType;
     createdBy: number;
 }
