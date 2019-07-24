@@ -129,12 +129,8 @@ export class DmsLoanFileComponent implements OnInit {
             recommendation: [this.loanFile.recommendationConclusion === undefined ? '' : this.loanFile.recommendationConclusion,
                 Validators.required],
             waiver: [this.loanFile.waiver === undefined ? '' : this.loanFile.waiver, Validators.required],
-            fmvLand: [this.loanFile.fmvLand === undefined ? '' : this.loanFile.fmvLand,
-                [Validators.required, Validators.min(0)]],
-            fmvBuilding: [this.loanFile.fmvBuilding === undefined ? '' : this.loanFile.fmvBuilding,
-                [Validators.required, Validators.min(0)]],
             fmvTotal: [this.loanFile.fmvTotal === undefined ? '' : this.loanFile.fmvTotal, [Validators.required, Validators.min(0)]],
-            totalLoanLimit: [this.loanFile.totalLoanLimit === undefined ? '' : this.loanFile.totalLoanLimit,
+             totalLoanLimit: [this.loanFile.totalLoanLimit === undefined ? '' : this.loanFile.totalLoanLimit,
                 [Validators.required, Validators.min(0)]],
             groupExpo: [this.loanFile.groupExpo === undefined ? '' : this.loanFile.groupExpo, Validators.required],
             fmvFundingPercent: [this.loanFile.fmvFundingPercent === undefined ? '' : this.loanFile.fmvFundingPercent,
@@ -169,8 +165,6 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFile.priority = this.loanForm.get('priority').value;
         this.loanFile.waiver = this.loanForm.get('waiver').value;
         this.loanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
-        this.loanFile.fmvLand = this.loanForm.get('fmvLand').value;
-        this.loanFile.fmvBuilding = this.loanForm.get('fmvBuilding').value;
         this.loanFile.fmvTotal = this.loanForm.get('fmvTotal').value;
         this.loanFile.fmvFundingPercent = this.loanForm.get('fmvFundingPercent').value;
         this.loanFile.groupExpo = this.loanForm.get('groupExpo').value;

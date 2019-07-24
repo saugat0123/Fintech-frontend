@@ -152,44 +152,6 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="fmvLand"><b>Fair Market Value(FMV) Of Land</b></label>
-                                    <input type="number" formControlName="fmvLand" class="form-control rounded"
-                                           id="fmvLand"
-                                           [ngClass]="{ 'is-invalid':submitted && form.fmvLand.errors}"
-                                           placeholder="Enter Fair Market Value(FMV) Of Land"
-                                           min="0"/>
-                                    <div *ngIf="submitted && form.fmvLand.errors" class="invalid-feedback">
-                                        <div *ngIf="form.fmvLand.errors.required">
-                                            Fair Market Value(FMV) Of Land is required
-                                        </div>
-                                        <div *ngIf="form.fmvLand.errors.min">
-                                            Fair Market Value(FMV) can not be negative value.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="fmvBuilding"><b>Fair Market Value(FMV) Of Building</b></label>
-                                    <input type="number" formControlName="fmvBuilding" class="form-control rounded"
-                                           id="fmvBuilding"
-                                           [ngClass]="{ 'is-invalid':submitted && form.fmvBuilding.errors}"
-                                           placeholder="Enter Fair Market Value(FMV) Of Building"
-                                           min="0"/>
-                                    <div *ngIf="submitted && form.fmvBuilding.errors" class="invalid-feedback">
-                                        <div *ngIf="form.fmvBuilding.errors.required">
-                                            Fair Market Value(FMV) Of Building is required.
-                                        </div>
-                                        <div *ngIf="form.fmvBuilding.errors.min">
-                                            Fair Market Value(FMV) Of Building can no tbe negative value.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
                                     <label for="fmvTotal"><b>Total FMV</b></label>
                                     <input type="number" formControlName="fmvTotal" class="form-control rounded"
                                            id="fmvTotal"

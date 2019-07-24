@@ -21,8 +21,6 @@ export class DmsLoanFile {
     recommendationConclusion: string;
     waiver: string;
     documentPathMaps: any;
-    fmvLand: number;
-    fmvBuilding: number;
     fmvTotal: number;
     totalLoanLimit: number;
     groupExpo: String;
