@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import {NbMenuService, NbSearchService, NbSidebarService, NbThemeService} from '@nebular/theme';
+import {NbDialogService, NbMenuService, NbSearchService, NbSidebarService, NbThemeService} from '@nebular/theme';
 import {LayoutService} from '../../../@core/utils';
 import {UserService} from '../../../@core/service/user.service';
 import {filter, map} from 'rxjs/operators';
@@ -9,6 +9,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SearchResultComponent} from './header-form/searchResult.component';
 import {NotificationComponent} from '../../../component/notification/notification.component';
 import {CommonDataService} from '../../../@core/service/baseservice/common-dataService';
+import {ProfileComponent} from '../profile/profile.component';
 
 @Component({
     selector: 'app-header',
@@ -18,6 +19,7 @@ import {CommonDataService} from '../../../@core/service/baseservice/common-dataS
 export class HeaderComponent implements OnInit {
 
     static LOGOUT = 'Log out';
+    static PROFILE = 'Profile';
     contextMenuTag = 'user-context-menu';
 
     @Input() position = 'normal';
@@ -27,7 +29,7 @@ export class HeaderComponent implements OnInit {
     userProfilePicture;
     roleName;
 
-    userMenu = [{title: HeaderComponent.LOGOUT}];
+    userMenu = [{title: HeaderComponent.PROFILE}, {title: HeaderComponent.LOGOUT}];
 
     notificationCount: any;
 
@@ -40,6 +42,7 @@ export class HeaderComponent implements OnInit {
                 private searchService: NbSearchService,
                 private notificationComponent: NotificationComponent,
                 private modalService: NgbModal,
+                private dialogService: NbDialogService,
                 private dataService: CommonDataService) {
 
         this.searchService.onSearchSubmit()
@@ -78,6 +81,15 @@ export class HeaderComponent implements OnInit {
         ).subscribe(() => {
             this.logout();
         });
+        this.menuService.onItemClick().pipe(
+            filter(({tag}) => tag === this.contextMenuTag),
+            map(({item: {title}}) => title),
+            filter((title) => title === HeaderComponent.PROFILE)
+        ).subscribe(() => {
+            this.open();
+        });
+
+        this.menuService.onItemClick().pipe();
         this.dataService.currentNotification.subscribe(message => this.notificationCount = message);
     }
 
@@ -99,6 +111,10 @@ export class HeaderComponent implements OnInit {
 
     userGuide() {
         this.router.navigate(['/home/admin/user-guide']);
+    }
+
+    open() {
+        this.modalService.open(ProfileComponent, {size: 'lg'});
     }
 
     newNotification() {
