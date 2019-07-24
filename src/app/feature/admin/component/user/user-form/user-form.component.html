@@ -102,18 +102,6 @@
                             </ng-select>
                         </div>
                     </div>
-
-
-                    <div class="col-md-6">
-                        <label for="accountNo"><b>Account No</b></label>
-                        <input #accountNoVal="ngModel" [(ngModel)]="model.accountNo" [ngClass]="{ 'is-invalid': f.submitted && accountNoVal.invalid }"
-                               class="form-control" id="accountNo" name="accountNo"
-                               placeholder="Account No" required
-                               type="text">
-                        <div *ngIf="f.submitted && accountNoVal.invalid" class="invalid-feedback">
-                            <div *ngIf="accountNoVal.errors.required">Account number is required</div>
-                        </div>
-                    </div>
                 </div>
                 <div class="row form-group">
                     <div *ngIf="model.id==null" class="col-md-6">
