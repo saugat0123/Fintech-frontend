@@ -63,7 +63,6 @@
                             <th>UserName</th>
                             <th>Role</th>
                             <th>Branch</th>
-                            <th>Account No</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -91,7 +90,6 @@
                                     </div>
                                 </td>
                             </ng-template>
-                            <td>{{allList.accountNo}}</td>
                             <td *ngIf="allList.role?.roleName !== 'admin' && allList.role !== null; else status">
                                 <select [(ngModel)]="allList.status" name="status"
                                         (change)="onChange(allList)">

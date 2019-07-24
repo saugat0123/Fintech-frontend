@@ -5,7 +5,6 @@ export class User {
     id: number;
     createdAt: Date;
     lastModifiedAt: Date;
-    accountNo: string;
     branch: Array<Branch>;
     email: string;
     name: string;
