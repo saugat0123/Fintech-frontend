@@ -25,6 +25,7 @@ import { SuccessOfferLetterComponent } from './component/offer-letter/success-of
 import { SuccessOfferLetterPrintComponent } from './component/offer-letter/success-offer-letter/success-offer-letter-print/success-offer-letter-print.component';
 import {ProposalComponent} from './component/loan-main-template/proposal/proposal.component';
 import {CiclComponent} from './component/loan-main-template/cicl/cicl.component';
+import { ReadmoreModelComponent } from './component/readmore-model/readmore-model.component';
 
 
 
@@ -46,6 +47,7 @@ import {CiclComponent} from './component/loan-main-template/cicl/cicl.component'
         SuccessOfferLetterComponent,
         SuccessOfferLetterPrintComponent,
         CiclComponent,
+        ReadmoreModelComponent,
 
     ],
     imports: [
