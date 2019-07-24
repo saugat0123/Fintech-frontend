@@ -25,7 +25,7 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <select class="custom-select" formControlName="docStatus">
+                        <select class="custom-select" formControlName="docStatus" >
                             <option [value]="null" selected hidden>Select Document Status</option>
                             <option *ngFor="let status of docStatus.values()"
                                     [value]="status">{{status}}
@@ -76,6 +76,7 @@
                 <th>Loan Type</th>
                 <th>Status</th>
                 <th>Possession Under/Days</th>
+                <th>Loan lifespan</th>
                 <th *ngIf='statusApproved === true'>Action</th>
             </tr>
             </thead>
@@ -86,8 +87,26 @@
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.customerInfo?.customerName || model?.dmsLoanFile?.customerName}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.documentStatus}}</td>
-                <td (click)="onClick(model.loan.id,model.id)">{{model?.currentStage?.toUser?.name}}
-                    / {{getDifferenceInDays(model?.currentStage?.createdAt)}}</td>
+                <td (click)="onClick(model.loan.id,model.id)">
+                    <div *ngIf='model?.documentStatus.toString()==="PENDING"'>
+                        {{model?.currentStage?.toUser?.name}}
+                        / {{getDifferenceInDays(model?.currentStage?.lastModifiedAt)}}
+                    </div>
+                    <div *ngIf='(model?.documentStatus.toString()==="CLOSED" ||
+                        model?.documentStatus.toString()==="REJECTED" ||
+                        model?.documentStatus.toString()==="APPROVED")'>
+                        {{model?.currentStage?.toUser?.name}}
+                        /{{getDaysDifference(model?.currentStage.lastModifiedAt, model?.previousList[model?.previousList.length-1].lastModifiedAt)}}
+                    </div>
+                </td>
+                <td (click)="onClick(model.loan.id,model.id)">
+                    <div *ngIf='model?.documentStatus.toString()==="PENDING"'>{{getDifferenceInDays(model?.currentStage?.createdAt)}}</div>
+                    <div *ngIf='(model?.documentStatus.toString()==="CLOSED" ||
+                        model?.documentStatus.toString()==="REJECTED" ||
+                        model?.documentStatus.toString()==="APPROVED")'>
+                        {{getDaysDifference( model?.currentStage?.lastModifiedAt,model?.currentStage?.createdAt)}}
+                    </div>
+                </td>
                 <td class="p-1" *ngIf='statusApproved === true'>
                     <select [(ngModel)]="model.loanType" class="custom-select py-0"
                             (ngModelChange)="onChange(model,onActionChange)">
