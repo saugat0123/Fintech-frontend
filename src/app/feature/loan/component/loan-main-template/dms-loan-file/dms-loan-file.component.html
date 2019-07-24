@@ -24,7 +24,8 @@
                                         <input type="text" formControlName="citizenshipNumber"
                                                class="form-control rounded"
                                                [ngClass]="{ 'is-invalid':submitted && form.citizenshipNumber.errors}"
-                                               id="citizenshipNumber" placeholder="Enter citizenship number"/>
+                                               id="citizenshipNumber" placeholder="Enter citizenship number"
+                                               min="0"/>
                                         <div class="input-group-append">
                                             <button nbButton outline status="primary" size="small"
                                                     (click)="searchByCitizenship()">Search
@@ -32,8 +33,8 @@
                                         </div>
                                         <div *ngIf="submitted && form.citizenshipNumber.errors"
                                              class="invalid-feedback">
-                                            <div *ngIf="form.citizenshipNumber.errors.required">Citizenship number is
-                                                required
+                                            <div *ngIf="form.citizenshipNumber.errors.required">
+                                                Citizenship number is required.
                                             </div>
                                         </div>
                                     </div>
@@ -59,9 +60,15 @@
                                     <input type="number" formControlName="interestRate" class="form-control rounded"
                                            id="interest"
                                            [ngClass]="{ 'is-invalid':submitted && form.interestRate.errors}"
-                                           placeholder="Enter interest rate"/>
+                                           placeholder="Enter interest rate"
+                                           min="0"/>
                                     <div *ngIf="submitted && form.interestRate.errors" class="invalid-feedback">
-                                        <div *ngIf="form.interestRate.errors.required">Interest is required</div>
+                                        <div *ngIf="form.interestRate.errors.required">
+                                            Interest is required.
+                                        </div>
+                                        <div *ngIf="form.interestRate.errors.min">
+                                            Interest Rate can not be negative value.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -73,9 +80,15 @@
                                     <input type="number" formControlName="proposedAmount" class="form-control rounded"
                                            id="amount"
                                            [ngClass]="{ 'is-invalid':submitted && form.proposedAmount.errors}"
-                                           placeholder="Enter proposed amount"/>
+                                           placeholder="Enter proposed amount"
+                                           min="0"/>
                                     <div *ngIf="submitted && form.proposedAmount.errors" class="invalid-feedback">
-                                        <div *ngIf="form.proposedAmount.errors.required">Amount is required</div>
+                                        <div *ngIf="form.proposedAmount.errors.required">
+                                            Amount is required
+                                        </div>
+                                        <div *ngIf="form.proposedAmount.errors.min">
+                                            Amount Can not be negative value.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -106,9 +119,14 @@
                                     <input type="number" formControlName="tenureDuration" class="form-control rounded"
                                            id="tenureDuration"
                                            [ngClass]="{ 'is-invalid':submitted && form.tenureDuration.errors}"
-                                           placeholder="Enter Tenure Duration"/>
+                                           placeholder="Enter Tenure Duration"
+                                           min="0"/>
                                     <div *ngIf="submitted && form.tenureDuration.errors" class="invalid-feedback">
-                                        <div *ngIf="form.tenureDuration.errors.required">Tenure Duration is required
+                                        <div *ngIf="form.tenureDuration.errors.required">
+                                            Tenure Duration is required
+                                        </div>
+                                        <div *ngIf="form.tenureDuration.errors.min">
+                                            Tenure Duration can not be negative value.
                                         </div>
                                     </div>
                                 </div>
@@ -127,6 +145,117 @@
                                 <div *ngIf="submitted && form.priority.errors" class="invalid-feedback">
                                     <div *ngIf="form.priority.errors.required">
                                         Priority is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fmvLand"><b>Fair Market Value(FMV) Of Land</b></label>
+                                    <input type="number" formControlName="fmvLand" class="form-control rounded"
+                                           id="fmvLand"
+                                           [ngClass]="{ 'is-invalid':submitted && form.fmvLand.errors}"
+                                           placeholder="Enter Fair Market Value(FMV) Of Land"
+                                           min="0"/>
+                                    <div *ngIf="submitted && form.fmvLand.errors" class="invalid-feedback">
+                                        <div *ngIf="form.fmvLand.errors.required">
+                                            Fair Market Value(FMV) Of Land is required
+                                        </div>
+                                        <div *ngIf="form.fmvLand.errors.min">
+                                            Fair Market Value(FMV) can not be negative value.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fmvBuilding"><b>Fair Market Value(FMV) Of Building</b></label>
+                                    <input type="number" formControlName="fmvBuilding" class="form-control rounded"
+                                           id="fmvBuilding"
+                                           [ngClass]="{ 'is-invalid':submitted && form.fmvBuilding.errors}"
+                                           placeholder="Enter Fair Market Value(FMV) Of Building"
+                                           min="0"/>
+                                    <div *ngIf="submitted && form.fmvBuilding.errors" class="invalid-feedback">
+                                        <div *ngIf="form.fmvBuilding.errors.required">
+                                            Fair Market Value(FMV) Of Building is required.
+                                        </div>
+                                        <div *ngIf="form.fmvBuilding.errors.min">
+                                            Fair Market Value(FMV) Of Building can no tbe negative value.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fmvTotal"><b>Total FMV</b></label>
+                                    <input type="number" formControlName="fmvTotal" class="form-control rounded"
+                                           id="fmvTotal"
+                                           [ngClass]="{ 'is-invalid':submitted && form.fmvTotal.errors}"
+                                           placeholder="Enter Total FMV"
+                                           min="0"/>
+                                    <div *ngIf="submitted && form.fmvTotal.errors" class="invalid-feedback">
+                                        <div *ngIf="form.fmvTotal.errors.required">
+                                            Total FMV is required
+                                        </div>
+                                        <div *ngIf="form.fmvTotal.errors.min">
+                                            Total FMV can not be negative value.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="totalLoanLimit"><b>Total Loan Limit</b></label>
+                                    <input type="number" formControlName="totalLoanLimit" class="form-control rounded"
+                                           id="totalLoanLimit"
+                                           [ngClass]="{ 'is-invalid':submitted && form.totalLoanLimit.errors}"
+                                           placeholder="Enter Total Loan Limit"
+                                           min="0"/>
+                                    <div *ngIf="submitted && form.totalLoanLimit.errors" class="invalid-feedback">
+                                        <div *ngIf="form.totalLoanLimit.errors.required">
+                                            Total Loan Limit is required.
+                                        </div>
+                                        <div *ngIf="form.totalLoanLimit.errors.min">
+                                            Total Loan Limit can not be negative value.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="groupExpo"><b>Group Exposure</b></label>
+                                    <input type="text" formControlName="groupExpo" class="form-control rounded"
+                                           id="groupExpo"
+                                           [ngClass]="{ 'is-invalid':submitted && form.groupExpo.errors}"
+                                           placeholder="Enter Group Exposure"/>
+                                    <div *ngIf="submitted && form.groupExpo.errors" class="invalid-feedback">
+                                        <div *ngIf="form.groupExpo.errors.required">
+                                            Group Exposure is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fmvFundingPercent"><b>Fair Market Value(FMV) Funding % </b></label>
+                                    <input type="number" formControlName="fmvFundingPercent"
+                                           class="form-control rounded"
+                                           id="fmvFundingPercent"
+                                           [ngClass]="{ 'is-invalid':submitted && form.fmvFundingPercent.errors}"
+                                           placeholder="Enter Fair Market Value(FMV) Funding %"
+                                           min="0"/>
+                                    <div *ngIf="submitted && form.fmvFundingPercent.errors" class="invalid-feedback">
+                                        <div *ngIf="form.fmvFundingPercent.errors.required">
+                                            Fair Market Value(FMV) Funding % is required.
+                                        </div>
+                                        <div *ngIf="form.fmvFundingPercent.errors.min">
+                                            Fair Market Value(FMV) Funding % Can not be negative value.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -153,9 +282,14 @@
                                 <input type="number" formControlName="serviceChargeAmount" class="form-control rounded"
                                        id="serviceChargeAmount"
                                        [ngClass]="{ 'is-invalid':submitted && form.serviceChargeAmount.errors}"
-                                       placeholder="Enter Tenure Duration"/>
+                                       placeholder="Enter Tenure Duration"
+                                       min="0"/>
                                 <div *ngIf="submitted && form.serviceChargeAmount.errors" class="invalid-feedback">
-                                    <div *ngIf="form.serviceChargeAmount.errors.required">Service Charge is required
+                                    <div *ngIf="form.serviceChargeAmount.errors.required">
+                                        Service Charge is required.
+                                    </div>
+                                    <div *ngIf="form.serviceChargeAmount.errors.min">
+                                        Service Charge Can not be negative value.
                                     </div>
                                 </div>
                             </div>
