@@ -10,7 +10,8 @@ import {DashboardComponent} from '../component/dashboard/dashboard.component';
 import {PendingLoanComponent} from '../component/dashboard/pending/pending-loan/pending-loan.component';
 import {PendingsLoanComponent} from '../component/dashboard/pending/pendings/pendings-loan.component';
 import {DataVisualizationComponent} from '../component/dashboard/data-visualization/data-visualization.component';
-import {NotificationComponent} from '../component/notification/notification.component';
+import {NotificationComponent} from './loan/component/notification/notification.component';
+
 
 @NgModule({
     imports: [
@@ -27,9 +28,9 @@ import {NotificationComponent} from '../component/notification/notification.comp
             PendingLoanComponent,
             PendingsLoanComponent,
             DataVisualizationComponent,
-            NotificationComponent
+            NotificationComponent,
         ],
-        providers: [NotificationComponent]
+        providers: []
     }
 )
 export class FeatureModule {
