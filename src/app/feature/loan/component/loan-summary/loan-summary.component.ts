@@ -60,7 +60,6 @@ export class LoanSummaryComponent implements OnInit {
     bankName = AppConstant.BANKNAME;
     currentDocAction = '';
     currentNepDate;
-
     @ViewChild('print') print;
 
 
@@ -183,7 +182,6 @@ export class LoanSummaryComponent implements OnInit {
         this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
             this.currentNepDate = response.detail.nepDateFormat;
         });
-
     }
 
     download(i) {
@@ -224,9 +222,8 @@ export class LoanSummaryComponent implements OnInit {
     }
 
     open(comments) {
-
         const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
-        modalRef.componentInstance.model = comments;
+
     }
 
 
