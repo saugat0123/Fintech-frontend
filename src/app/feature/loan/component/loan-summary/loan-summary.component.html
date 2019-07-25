@@ -137,10 +137,10 @@
                                 {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
                                 {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}</td>
                             <td>{{(dmsLoanFile?.tenureDuration || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{dmsLoanFile?.fmvTotal}}</td>
+                            <td>{{dmsLoanFile?.fmvFundingPercent}}</td>
+                            <td>{{dmsLoanFile?.totalLoanLimit}}</td>
+                            <td>{{dmsLoanFile?.groupExpo}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -182,7 +182,7 @@
                 </div>
             </div>-->
 
-            <div class="row mt-3" [hidden]="dmsLoanFile.recommendationConclusion == null">
+            <div class="row mt-3" [hidden]="dmsLoanFile.recommendationConclusion == ''">
                 <div class="col-md-12">
                     <p><b>Recommendation and Conclusion</b></p>
                     <p class="border text-justify p-1">
@@ -191,7 +191,7 @@
                 </div>
             </div>
 
-            <div class="row mt-3" [hidden]="dmsLoanFile.waiver == null">
+            <div class="row mt-3" [hidden]="dmsLoanFile.waiver == ''">
                 <div class="col-md-12">
                     <p><b>Waiver</b></p>
                     <p class="border text-justify p-1">
@@ -230,7 +230,10 @@
                         </tr>
                         <tr>
                             <td>{{currentIndex + 1}}</td>
-                            <td>{{loanDataHolder?.currentStage?.comment}}</td>
+                            <td>
+                                {{loanDataHolder?.currentStage?.comment}}
+                                <a class="d-flex justify-content-end read-margin" (click)="open(loanDataHolder.currentStage.comment)">read more ....</a>
+                            </td>
                             <td>{{loanDataHolder?.currentStage?.fromUser?.name}}</td>
                             <td>{{loanDataHolder?.currentStage?.fromRole?.roleName}}</td>
                             <td>{{loanDataHolder?.currentStage?.toUser?.name}}</td>

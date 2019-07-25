@@ -223,7 +223,7 @@ export class LoanSummaryComponent implements OnInit {
 
     open(comments) {
         const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
-
+        modalRef.componentInstance.comments = comments;
     }
 
 
