@@ -63,8 +63,8 @@
                             <th>UserName</th>
                             <th>Role</th>
                             <th>Branch</th>
-                            <th>Account No</th>
                             <th>Status</th>
+                            <th>Signature</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -91,9 +91,8 @@
                                     </div>
                                 </td>
                             </ng-template>
-                            <td>{{allList.accountNo}}</td>
                             <td *ngIf="allList.role?.roleName !== 'admin' && allList.role !== null; else status">
-                                <select [(ngModel)]="allList.status" name="status"
+                                <select [(ngModel)]="allList.status" name="status" class="cursor"
                                         (change)="onChange(allList)">
                                     <option value="ACTIVE">ACTIVE</option>
                                     <option value="INACTIVE">INACTIVE</option>
@@ -104,6 +103,10 @@
                                     <p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>
                                 </td>
                             </ng-template>
+                            <td>
+                                <div class="zoom cursor"><img height="50px" *ngIf="allList.signatureImage !=null"
+                                                              src="{{ RootUrl + '/' + allList?.signatureImage}}"/></div>
+                            </td>
                             <td *ngIf="allList.role?.roleName !== 'admin'">
                                 <a (click)="edit(allList)" class="cursor" data-toggle="tooltip"
                                    data-placement="top" title="EDIT">

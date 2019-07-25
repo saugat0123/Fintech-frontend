@@ -1,5 +1,4 @@
 import {LoanDocument} from './loan-document';
-import {LoanConfig} from './loan-config';
 
 export class DmsLoanFile {
     id: number;
@@ -22,4 +21,8 @@ export class DmsLoanFile {
     recommendationConclusion: string;
     waiver: string;
     documentPathMaps: any;
+    fmvTotal: number;
+    totalLoanLimit: number;
+    groupExpo: String;
+    fmvFundingPercent: number;
 }

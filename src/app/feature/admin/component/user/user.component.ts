@@ -9,6 +9,7 @@ import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {UserService} from './user.service';
+import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 
 @Component({
     selector: 'app-user',
@@ -33,6 +34,7 @@ export class UserComponent implements OnInit {
     newValue: string;
     users: number;
     dismissBranch = false;
+    RootUrl = ApiConfig.URL;
 
     constructor(
         private service: UserService,

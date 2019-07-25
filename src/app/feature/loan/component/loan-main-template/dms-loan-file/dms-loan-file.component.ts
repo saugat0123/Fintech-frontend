@@ -113,18 +113,28 @@ export class DmsLoanFileComponent implements OnInit {
             customerName: [this.loanFile.customerName === undefined ? '' : this.loanFile.customerName, Validators.required],
             citizenshipNumber: [this.loanFile.citizenshipNumber === undefined ? '' : this.loanFile.citizenshipNumber, Validators.required],
             contactNumber: [this.loanFile.contactNumber === undefined ? '' : this.loanFile.contactNumber, Validators.required],
-            interestRate: [this.loanFile.interestRate === undefined ? '' : this.loanFile.interestRate, Validators.required],
-            proposedAmount: [this.loanFile.proposedAmount === undefined ? '' : this.loanFile.proposedAmount, Validators.required],
+            interestRate: [this.loanFile.interestRate === undefined ? '' : this.loanFile.interestRate,
+                [Validators.required, Validators.min(0)]],
+            proposedAmount: [this.loanFile.proposedAmount === undefined ? '' : this.loanFile.proposedAmount,
+                [Validators.required, Validators.min(0)]],
             security: [this.loanFile.security === undefined ? '' : this.showSecurity(this.loanFile.security), Validators.required],
             serviceChargeType: [this.loanFile.serviceChargeType === undefined ? 'Percentage' : this.loanFile.serviceChargeType,
                 Validators.required],
             serviceChargeAmount: [this.loanFile.serviceChargeAmount === undefined ? '' : this.loanFile.serviceChargeAmount,
-                Validators.required],
-            tenureDuration: [this.loanFile.tenureDuration === undefined ? '' : this.loanFile.tenureDuration, Validators.required],
-            priority: [this.loanFile.priority === undefined ? '' : this.loanFile.priority, Validators.required],
+                [Validators.required, Validators.min(0)]],
+            tenureDuration: [this.loanFile.tenureDuration === undefined ? '' : this.loanFile.tenureDuration,
+                [Validators.required, Validators.min(0)]],
+            priority: [this.loanFile.priority === undefined ? '' : this.loanFile.priority,
+                [Validators.required, Validators.min(0)]],
             recommendation: [this.loanFile.recommendationConclusion === undefined ? '' : this.loanFile.recommendationConclusion,
                 Validators.required],
             waiver: [this.loanFile.waiver === undefined ? '' : this.loanFile.waiver, Validators.required],
+            fmvTotal: [this.loanFile.fmvTotal === undefined ? '' : this.loanFile.fmvTotal, [Validators.required, Validators.min(0)]],
+             totalLoanLimit: [this.loanFile.totalLoanLimit === undefined ? '' : this.loanFile.totalLoanLimit,
+                [Validators.required, Validators.min(0)]],
+            groupExpo: [this.loanFile.groupExpo === undefined ? '' : this.loanFile.groupExpo, Validators.required],
+            fmvFundingPercent: [this.loanFile.fmvFundingPercent === undefined ? '' : this.loanFile.fmvFundingPercent,
+                [Validators.required, Validators.min(0)]],
             file: ['']
         });
         if (this.renewDocuments.length > 0) {
@@ -155,6 +165,11 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFile.priority = this.loanForm.get('priority').value;
         this.loanFile.waiver = this.loanForm.get('waiver').value;
         this.loanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
+        this.loanFile.fmvTotal = this.loanForm.get('fmvTotal').value;
+        this.loanFile.fmvFundingPercent = this.loanForm.get('fmvFundingPercent').value;
+        this.loanFile.groupExpo = this.loanForm.get('groupExpo').value;
+        this.loanFile.totalLoanLimit = this.loanForm.get('totalLoanLimit').value;
+        console.log(this.loanFile);
     }
 
 
