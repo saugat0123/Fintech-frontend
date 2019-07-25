@@ -31,9 +31,9 @@ export class RoleFormComponent implements OnInit {
     ngOnInit() {
         this.roleTypeList = RoleType;
 
-        this.service.checkRoleContainMaker().subscribe((res: any) => {
-            this.hideRoleType = res.detail;
-        });
+        // this.service.checkRoleContainMaker().subscribe((res: any) => {
+        //     this.hideRoleType = res.detail;
+        // });
     }
 
     onSubmit() {
