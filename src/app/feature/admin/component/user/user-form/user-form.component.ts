@@ -32,6 +32,7 @@ export class UserFormComponent implements OnInit {
     tempBranch;
     finalBranchList = [];
     branchIdList;
+    disableRoleBranch = false;
 
     constructor(
         private commonService: CommonService,
@@ -169,6 +170,7 @@ export class UserFormComponent implements OnInit {
             }
             this.task = 'Edit';
             this.isAll = false;
+            this.disableRoleBranch = true;
 
             this.branchService.getBranchNoTAssignUser(this.model.role.id).subscribe((re: any) => {
                 const temp = re.detail;
