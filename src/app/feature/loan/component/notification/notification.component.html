@@ -1,10 +1,10 @@
 <form (ngSubmit)="sendMessageUsingSocket()" [formGroup]="mainForm">
   <div style="margin-bottom: 20px;">
-    <label>From Id: </label>
-    <input formControlName="fromId" placeholder="Your id" type="text">
+<!--    <label>From Id: </label>-->
+<!--    <input formControlName="fromId" placeholder="Your id" type="text">-->
   </div>
   <label>To Id: </label>
-  <input (input)="openSocket()" formControlName="toId" placeholder="User id to send the message to" type="text">
+  <input (input)="openSocket()" formControlName="toId" value="{{this.user.role.roleName}}" placeholder="User id to send the message to" type="text">
 
   <br>
 

@@ -30,7 +30,7 @@ import {NotificationComponent} from './loan/component/notification/notification.
             DataVisualizationComponent,
             NotificationComponent,
         ],
-        providers: []
+        providers: [NotificationComponent]
     }
 )
 export class FeatureModule {

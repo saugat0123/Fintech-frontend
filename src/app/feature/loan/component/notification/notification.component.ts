@@ -8,6 +8,8 @@ import {Message} from './model/message';
 
 import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
 import {environment} from '../../../../../environments/environment.prod';
+import {User} from '../../../admin/modal/user';
+import {UserService} from '../../../../@core/service/user.service';
 
 @Component({
   selector: 'app-notification',
@@ -15,8 +17,8 @@ import {environment} from '../../../../../environments/environment.prod';
   styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent implements OnInit {
-
-  fromId: number;
+  user: User = new User();
+  // fromId: string = this.user.name;
   isLoaded = false;
   isCustomSocketOpened = false;
   messages: Message[] = [];
@@ -29,11 +31,16 @@ export class NotificationComponent implements OnInit {
 
   constructor(private http: HttpClient,
               private formBuilder: FormBuilder,
-              private dataService: CommonDataService) {
+              private dataService: CommonDataService,
+              private userService: UserService) {
   }
 
-  @Output() messageEvent = new EventEmitter<string>();
   ngOnInit() {
+    this.userService.getLoggedInUser().subscribe(
+        (response: any) => {
+          this.user = response.detail;
+        }
+    );
     this.buildForm();
     this.initializeWebSocketConnection();
   }
@@ -41,7 +48,6 @@ export class NotificationComponent implements OnInit {
   buildForm() {
     this.mainForm = this.formBuilder.group({
       toId: [undefined, Validators.required],
-      fromId: [undefined, Validators.required],
       message: [undefined, Validators.required]
     });
   }
@@ -69,8 +75,7 @@ export class NotificationComponent implements OnInit {
   openSocket() {
     if (this.isLoaded) {
       this.isCustomSocketOpened = true;
-      this.fromId = this.mainForm.get('fromId').value;
-      this.stompClient.subscribe('/socket-publisher/' + this.fromId, (message) => {
+      this.stompClient.subscribe('/socket-publisher/' + this.user.id, (message) => {
         console.log(message);
         this.handleResult(message);
       });
@@ -95,5 +100,7 @@ export class NotificationComponent implements OnInit {
   // sendNotificationMessage() {
   //     this.dataService.setNotifiationMessage(this.messages)
   // }
+
+
 
 }
