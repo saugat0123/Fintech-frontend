@@ -11,7 +11,7 @@ export class BarChartComponent implements OnChanges {
   @Input()
   private branchId: number;
   data: Array<BarChart>;
-  view: any[] = [950, 450];
+  view = [950, 450];
 
   // options
   showXAxis = true;
