@@ -10,6 +10,7 @@ import {SearchResultComponent} from './header-form/searchResult.component';
 import {CommonDataService} from '../../../@core/service/baseservice/common-dataService';
 import {ProfileComponent} from '../profile/profile.component';
 import {NotificationComponent} from '../../../feature/loan/component/notification/notification.component';
+import {WebNotificationService} from '../../../feature/loan/service/web-notification.service';
 
 @Component({
     selector: 'app-header',
@@ -32,6 +33,7 @@ export class HeaderComponent implements OnInit {
     userMenu = [{title: HeaderComponent.PROFILE}, {title: HeaderComponent.LOGOUT}];
 
     notificationCount: any;
+    notificationMessage: any;
 
     constructor(private sidebarService: NbSidebarService,
                 private menuService: NbMenuService,
@@ -43,7 +45,7 @@ export class HeaderComponent implements OnInit {
                 private notificationComponent: NotificationComponent,
                 private modalService: NgbModal,
                 private dialogService: NbDialogService,
-                private dataService: CommonDataService) {
+                private dataService: WebNotificationService) {
 
         this.searchService.onSearchSubmit()
             .subscribe((searchData: any) => {
@@ -91,6 +93,7 @@ export class HeaderComponent implements OnInit {
 
         this.menuService.onItemClick().pipe();
         this.dataService.currentNotification.subscribe(message => this.notificationCount = message);
+        this.dataService.currentNotification.subscribe( message => this.notificationMessage = message);
     }
 
     toggleSidebar(): boolean {
@@ -119,5 +122,9 @@ export class HeaderComponent implements OnInit {
 
     newNotification() {
         this.dataService.changeNotification(this.notificationCount);
+        this.newMessage();
+    }
+    newMessage() {
+        this.dataService.setNotificationMessage(this.notificationMessage);
     }
 }

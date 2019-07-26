@@ -6,10 +6,10 @@ import * as SockJS from 'sockjs-client';
 
 import {Message} from './model/message';
 
-import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
 import {environment} from '../../../../../environments/environment.prod';
 import {User} from '../../../admin/modal/user';
 import {UserService} from '../../../../@core/service/user.service';
+import {WebNotificationService} from '../../service/web-notification.service';
 
 @Component({
   selector: 'app-notification',
@@ -27,11 +27,11 @@ export class NotificationComponent implements OnInit {
   mainForm: FormGroup;
   private serverUrl = environment.url + 'socket';
   private stompClient;
-
+  notificationMessage = 'hello';
 
   constructor(private http: HttpClient,
               private formBuilder: FormBuilder,
-              private dataService: CommonDataService,
+              private dataService: WebNotificationService,
               private userService: UserService) {
   }
 
