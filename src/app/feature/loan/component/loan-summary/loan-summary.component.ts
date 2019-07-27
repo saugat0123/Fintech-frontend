@@ -17,6 +17,8 @@ import {LoanStage} from '../../model/loanStage';
 import {AppConstant} from '../../../../@core/utils/appConstant';
 import {environment} from '../../../../../environments/environment';
 import {DateService} from '../../../../@core/service/baseservice/date.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component';
 
 @Component({
     selector: 'app-loan-summary',
@@ -58,7 +60,6 @@ export class LoanSummaryComponent implements OnInit {
     bankName = AppConstant.BANKNAME;
     currentDocAction = '';
     currentNepDate;
-
     @ViewChild('print') print;
 
 
@@ -70,7 +71,8 @@ export class LoanSummaryComponent implements OnInit {
                 private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService,
                 private approvalLimitService: ApprovalLimitService,
-                private dateService: DateService) {
+                private dateService: DateService,
+                private modalService: NgbModal) {
 
         this.client = environment.client;
 
@@ -180,7 +182,6 @@ export class LoanSummaryComponent implements OnInit {
         this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
             this.currentNepDate = response.detail.nepDateFormat;
         });
-
     }
 
     download(i) {
@@ -218,6 +219,11 @@ export class LoanSummaryComponent implements OnInit {
         } else {
             return 'SUPPORTED BY:';
         }
+    }
+
+    open(comments) {
+        const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
+        modalRef.componentInstance.comments = comments;
     }
 
 
