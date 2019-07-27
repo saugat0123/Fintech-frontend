@@ -1,4 +1,4 @@
-<form (ngSubmit)="sendMessageUsingSocket()" [formGroup]="mainForm">
+<form (ngSubmit)="sendMessageUsingSocket()">
   <div style="margin-bottom: 20px;">
 <!--    <label>From Id: </label>-->
 <!--    <input formControlName="fromId" placeholder="Your id" type="text">-->
@@ -11,7 +11,7 @@
   <label>Message: </label>
   <input formControlName="message" placeholder="Message" type="text">
 
-  <button [disabled]="mainForm.invalid" type="submit">Send using socket subscription</button>
+  <button type="submit">Send using socket subscription</button>
 
   <ul>
     <li *ngFor="let message of messages">From: {{message.fromId}}, To: {{message.toId}},

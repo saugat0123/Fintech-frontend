@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 
-import {Message} from './model/message';
+import {Sender} from './model/message';
 
 import {environment} from '../../../../../environments/environment.prod';
 import {User} from '../../../admin/modal/user';
@@ -18,19 +18,17 @@ import {WebNotificationService} from '../../service/web-notification.service';
 })
 export class NotificationComponent implements OnInit {
   user: User = new User();
-  // fromId: string = this.user.name;
   isLoaded = false;
   isCustomSocketOpened = false;
-  messages: Message[] = [];
+  messages: Sender[] = [];
   public notifications = 0;
-  message: Message = new Message();
-  mainForm: FormGroup;
+  message: Sender = new Sender();
+  // mainForm: FormGroup;
   private serverUrl = environment.url + 'socket';
   private stompClient;
   notificationMessage = 'hello';
 
   constructor(private http: HttpClient,
-              private formBuilder: FormBuilder,
               private dataService: WebNotificationService,
               private userService: UserService) {
   }
@@ -41,23 +39,17 @@ export class NotificationComponent implements OnInit {
           this.user = response.detail;
         }
     );
-    this.buildForm();
+    // this.buildForm();
     this.initializeWebSocketConnection();
   }
 
-  buildForm() {
-    this.mainForm = this.formBuilder.group({
-      toId: [undefined, Validators.required],
-      message: [undefined, Validators.required]
-    });
-  }
+
 
   clearCount() {
     this.notifications = 0;
   }
 
   sendMessageUsingSocket() {
-    this.message = this.mainForm.value;
     this.stompClient.send('/socket-subscriber/send/message', {}, JSON.stringify(this.message));
     console.log(this.message);
 
@@ -84,7 +76,7 @@ export class NotificationComponent implements OnInit {
 
   handleResult(message) {
     if (message.body) {
-      const messageResult: Message = JSON.parse(message.body);
+      const messageResult: Sender = JSON.parse(message.body);
       this.messages.push(messageResult);
       // this.toastr.success('new message recieved', null, {
       //   'timeOut': 3000

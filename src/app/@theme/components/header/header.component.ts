@@ -7,7 +7,6 @@ import {filter, map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SearchResultComponent} from './header-form/searchResult.component';
-import {CommonDataService} from '../../../@core/service/baseservice/common-dataService';
 import {ProfileComponent} from '../profile/profile.component';
 import {NotificationComponent} from '../../../feature/loan/component/notification/notification.component';
 import {WebNotificationService} from '../../../feature/loan/service/web-notification.service';
