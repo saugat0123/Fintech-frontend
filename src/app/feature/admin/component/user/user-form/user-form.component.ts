@@ -58,8 +58,11 @@ export class UserFormComponent implements OnInit {
         this.roleService.getActiveRoles().subscribe((response: any) => {
             this.roleList = response.detail;
         });
+
         this.getEdit();
+
     }
+
 
     onSubmit() {
         this.submitted = true;

@@ -63,5 +63,4 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
     protected getApi(): string {
         return LoanFormService.API;
     }
-
 }
