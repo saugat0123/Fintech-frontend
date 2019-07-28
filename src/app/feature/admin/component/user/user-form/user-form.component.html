@@ -85,8 +85,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="position-absolute w-100 d-flex justify-content-end pr-5 ml-3 pb-2-1">
-                            <label> <input class="m-2" type="checkbox">
-                                <b>Edit Checkbox</b></label>
+                            <label> <input #chk class="m-2" type="checkbox" (change)="editRole(role.id, chk.checked)">
+                                <b>Edit Role</b></label>
                         </div>
                         <div *ngIf="!isAll" class="form-group">
                             <label><b>Branch</b></label>
@@ -129,6 +129,10 @@
                                name="signatureImage" name="photo"
                                type="file"/>
                     </div>
+                    <div class="col-md-6" [hidden]="hideCustomerCount">
+                     <p>This User has {{customerCount}} number of customers loan please transfer loan to proceed.</p>
+                        <p><a routerLink="home/admin/catalogue" routerLinkActive="active" class="pr-2" (click)="onClose()">Click</a>here to transfer the loan</p>
+                    </div>
                     <!--<div class="col-md-6">-->
                     <!--<label for="profilePicture" class="d-block">Profile</label>-->
                     <!--<input id="profilePicture" name="profilePicture" type="file" name="photo" accept="image/*"-->
@@ -136,7 +140,7 @@
                     <!--</div>-->
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" style="cursor: pointer"><i class="fa fa-save"></i></button>
+                    <button [hidden]="hideSaveButton" class="btn btn-primary" style="cursor: pointer"><i class="fa fa-save"></i></button>
                 </div>
             </form>
         </div>
