@@ -6,14 +6,17 @@ import {Branch} from '../../../feature/admin/modal/branch';
 import {UserService} from '../../../@core/service/user.service';
 import {User} from '../../../feature/admin/modal/user';
 import {RoleAccess} from '../../../feature/admin/modal/role-access';
+import { StatisticsService } from '../../../chart/shared/service/statistics.service';
 
 @Component({
-    selector: 'app-pie-chart',
+    selector: 'app-charts',
     templateUrl: './data-visualization.component.html',
     styleUrls: ['./data-visualization.css']
 })
 export class DataVisualizationComponent implements OnInit {
-    pieChart: PieChart = new PieChart();
+    roleVsUsersPieChart: Array<PieChart>;
+    branchVsUserPieChart: Array<PieChart>;
+    pieChart: Array<PieChart> = new Array<PieChart>();
     branches: Branch[] = [];
     branchId = 0;
     selectedBranch = 'All Branches';
@@ -28,10 +31,17 @@ export class DataVisualizationComponent implements OnInit {
 
     constructor(private loanFormService: LoanFormService,
                 private userService: UserService,
+                private statisticsService: StatisticsService,
                 private branchService: BranchService) {
     }
 
     ngOnInit() {
+        this.statisticsService.getStatisticsForUsersPerBranch()
+        .subscribe((response: any) => this.branchVsUserPieChart = response.detail,
+        (error) => console.log(error));
+        this.statisticsService.getStatisticsForUsersPerRole()
+        .subscribe((response: any) => this.roleVsUsersPieChart = response.detail,
+        (error) => console.log(error));
         this.roleAccess = localStorage.getItem('roleAccess');
         if (this.roleAccess === RoleAccess.SPECIFIC) {
             this.accessSpecific = true;

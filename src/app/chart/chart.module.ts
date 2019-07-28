@@ -4,14 +4,18 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { ChartRoutingModule } from './chart-routing.module';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { PieChartComponent } from './pie-chart/pie-chart.component';
 
 @NgModule({
-  declarations: [BarChartComponent],
+  declarations: [BarChartComponent, PieChartComponent],
   imports: [
     CommonModule,
     NgxChartsModule,
     ChartRoutingModule
   ],
-  exports: [BarChartComponent]
+  exports: [
+    BarChartComponent,
+    PieChartComponent
+  ]
 })
 export class ChartModule { }
