@@ -102,7 +102,11 @@ export class UserFormComponent implements OnInit {
 
                 console.log(error);
 
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save User'));
+                if (error.error.message === 'udx_user_username') {
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Username already exist.'));
+                } else if (error.error.message === 'udx_user_email') {
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Email address already exist.'));
+                }
                 this.activeModal.dismiss(error);
             }
         );
