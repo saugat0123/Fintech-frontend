@@ -66,7 +66,7 @@
                         <label for="authorities"><b>Role</b></label>
                         <select #roleVal="ngModel" (change)="getBranchByRole(role.id)" [(ngModel)]="role.id"
                                 [ngClass]="{ 'is-invalid': f.submitted && roleVal.invalid }"
-                                class="custom-select" id="authorities"
+                                class="custom-select" id="authorities" [disabled]="disableRoleBranch"
                                 name="authorities" required>
 
                             <option [ngValue]="undefined" hidden>Role</option>
