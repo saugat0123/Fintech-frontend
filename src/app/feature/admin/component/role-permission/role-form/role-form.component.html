@@ -21,21 +21,23 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6" *ngIf="!hideRoleType">
-                        <label>Role Type</label>
-                        <select class="custom-select" [(ngModel)]="role.roleType" name="roleType"
-                            (change)="checkIfMaker()">
-                            <option [ngValue]="undefined" hidden>Select the Role Type</option>
-                            <option *ngFor="let roleType of roleTypeList.values()"
-                                    [ngValue]="roleType">{{roleType}}</option>
-                        </select>
+                    <div *ngIf="!hideRoleType" class="col-md-6">
+                        <label>Role Type</label><br>
+                        <!-- <select class="custom-select" [(ngModel)]="role.roleType" name="roleType"
+                             (change)="checkIfMaker()">
+                             <option [ngValue]="undefined" hidden>Select the Role Type-&#45;&#45;</option>
+                             <option *ngFor="let roleType of roleTypeList.values()"
+                                     [ngValue]="roleType">{{roleType}}</option>
+                         </select>-->
+                        <input #chk (click)="checkIfMaker(chk.checked)" [(ngModel)]="roleType" name="roleType" type="checkbox"
+                               value="{{role.roleType}}"><b class="ml-2">Is Role a Maker?</b>
                     </div>
 
-                    <div class="col-md-6" *ngIf="!hideBranchAccess">
+                    <div *ngIf="!hideBranchAccess" class="col-md-6">
                         <label>Branch Access</label>
-                        <select class="custom-select"  [(ngModel)]="role.roleAccess"
-                                #accessVal="ngModel" name="roleType"
-                                [ngClass]="{ 'is-invalid': f.submitted && accessVal.invalid }" required>
+                        <select #accessVal="ngModel" [(ngModel)]="role.roleAccess"
+                                [ngClass]="{ 'is-invalid': f.submitted && accessVal.invalid }" class="custom-select"
+                                name="roleType" required>
                             <option [ngValue]="undefined" hidden>Select the Role Type</option>
                             <option *ngFor="let roleAccess of roleAccessList.values()"
                                     [ngValue]="roleAccess">{{roleAccess}}</option>
