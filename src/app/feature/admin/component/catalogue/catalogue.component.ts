@@ -12,7 +12,7 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {DocStatus} from '../../../loan/model/docStatus';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {RoleAccess} from '../../modal/role-access';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Role} from '../../modal/role';
 import {RoleService} from '../role-permission/role.service';
 
@@ -39,16 +39,19 @@ export class CatalogueComponent implements OnInit {
         documentStatus: DocStatus.value(DocStatus.PENDING),
         loanConfigId: undefined,
         currentStageDate: undefined,
-        currentUserRole: undefined
+        currentUserRole: undefined,
+        toUser: undefined
     };
     roleAccess: string;
     accessSpecific: boolean;
     accessAll: boolean;
+    id;
 
     constructor(private branchService: BranchService,
                 private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
                 private router: Router,
+                private activatedRoute: ActivatedRoute,
                 private loanFormService: LoanFormService,
                 private formBuilder: FormBuilder,
                 private roleService: RoleService) {
@@ -108,6 +111,15 @@ export class CatalogueComponent implements OnInit {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
         });
+        this.activatedRoute.queryParams.subscribe(
+            (paramsValue: Params) => {
+                this.id = {
+                    userId: null
+                };
+                this.id = paramsValue;
+            });
+        alert(this.id.userId);
+        this.search.toUser = this.id.userId;
         CatalogueComponent.loadData(this);
     }
 
@@ -123,7 +135,7 @@ export class CatalogueComponent implements OnInit {
             Date.UTC(createdAt.getFullYear(), createdAt.getMonth(), createdAt.getDate())) / (1000 * 60 * 60 * 24));
     }
 
-    getDaysDifference(lastModifiedDate: Date, createdDate: Date ): number {
+    getDaysDifference(lastModifiedDate: Date, createdDate: Date): number {
         const createdAt = new Date(createdDate);
         const lastModifiedAt = new Date(lastModifiedDate);
         return Math.floor((Date.UTC(lastModifiedAt.getFullYear(), lastModifiedAt.getMonth(), lastModifiedAt.getDate()) -
