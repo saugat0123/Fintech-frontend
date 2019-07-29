@@ -66,7 +66,7 @@
                         <label for="authorities"><b>Role</b></label>
                         <select #roleVal="ngModel" (change)="getBranchByRole(role.id)" [(ngModel)]="role.id"
                                 [ngClass]="{ 'is-invalid': f.submitted && roleVal.invalid }"
-                                class="custom-select" id="authorities"
+                                class="custom-select" id="authorities" [disabled]="disableRoleBranch"
                                 name="authorities" required>
 
                             <option [ngValue]="undefined" hidden>Role</option>
@@ -80,6 +80,10 @@
                     </div>
 
                     <div class="col-md-6">
+                        <div class="position-absolute w-100 d-flex justify-content-end pr-5 ml-3 pb-2-1">
+                            <label> <input #chk class="m-2" type="checkbox" (change)="editRole(role.id, chk.checked)">
+                                <b>Edit Role</b></label>
+                        </div>
                         <div *ngIf="!isAll" class="form-group">
                             <label><b>Branch</b></label>
                             <ng-select *ngIf="isSpecific" [(ngModel)]="branchIdList" [items]="branchList"
@@ -87,18 +91,16 @@
                                        bindLabel="name"
                                        bindValue="id"
                                        name="branch"
-                                       placeholder="Select Branches">
-
-
+                                       placeholder="Select Branches"
+                                       [disabled]="disableRoleBranch">
                             </ng-select>
                             <ng-select *ngIf="!isSpecific" [(ngModel)]="tempBranch" [items]="branchList"
                                        [multiple]=false
                                        bindLabel="name"
                                        bindValue="id"
                                        name="branch"
-                                       placeholder="Select Branches">
-
-
+                                       placeholder="Select Branches"
+                                       [disabled]="disableRoleBranch">
                             </ng-select>
                         </div>
                     </div>
@@ -122,6 +124,10 @@
                                name="signatureImage" name="photo"
                                type="file"/>
                     </div>
+                    <div class="col-md-6" [hidden]="hideCustomerCount">
+                     <p>This User has {{customerCount}} number of customers loan please transfer loan to proceed.</p>
+                        <p><a routerLink="home/admin/catalogue" routerLinkActive="active" class="pr-2" (click)="onClose()">Click</a>here to transfer the loan</p>
+                    </div>
                     <!--<div class="col-md-6">-->
                     <!--<label for="profilePicture" class="d-block">Profile</label>-->
                     <!--<input id="profilePicture" name="profilePicture" type="file" name="photo" accept="image/*"-->
@@ -129,7 +135,7 @@
                     <!--</div>-->
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" style="cursor: pointer"><i class="fa fa-save"></i></button>
+                    <button [hidden]="hideSaveButton" class="btn btn-primary" style="cursor: pointer"><i class="fa fa-save"></i></button>
                 </div>
             </form>
         </div>
