@@ -10,6 +10,7 @@ import {RoleService} from '../../role-permission/role.service';
 import {BranchService} from '../../branch/branch.service';
 import {RoleAccess} from '../../../modal/role-access';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
 
 @Component({
     selector: 'app-user-form',
@@ -32,6 +33,10 @@ export class UserFormComponent implements OnInit {
     tempBranch;
     finalBranchList = [];
     branchIdList;
+    disableRoleBranch = false;
+    hideCustomerCount = true;
+    customerCount: String;
+    hideSaveButton = false;
 
     constructor(
         private commonService: CommonService,
@@ -39,7 +44,8 @@ export class UserFormComponent implements OnInit {
         private roleService: RoleService,
         private branchService: BranchService,
         private activeModal: NgbActiveModal,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private loanService: LoanFormService
     ) {
     }
 
@@ -169,6 +175,7 @@ export class UserFormComponent implements OnInit {
             }
             this.task = 'Edit';
             this.isAll = false;
+            this.disableRoleBranch = true;
 
             this.branchService.getBranchNoTAssignUser(this.model.role.id).subscribe((re: any) => {
                 const temp = re.detail;
@@ -200,5 +207,25 @@ export class UserFormComponent implements OnInit {
         }
     }
 
+    editRole(id, chkStatus) {
+        if (chkStatus) {
+            this.loanService.getLoanStatusApi(id).subscribe((responsee: any) => {
+                console.log(responsee.detail.status);
+                if (responsee.detail.status === 'false') {
+                    this.disableRoleBranch = false;
+                } else {
+                    this.customerCount = responsee.detail.count;
+                    this.hideCustomerCount = false;
+                    this.hideSaveButton = true;
+                }
+            });
+        } else {
+            this.disableRoleBranch = true;
+            this.hideCustomerCount = true;
+            this.hideSaveButton = false;
+        }
+
+
+    }
 }
 
