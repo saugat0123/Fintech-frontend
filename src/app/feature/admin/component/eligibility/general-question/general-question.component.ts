@@ -83,8 +83,6 @@ export class GeneralQuestionComponent implements OnInit {
             status: [this.eligibilityCriteria.status === undefined ? 'ACTIVE' : this.eligibilityCriteria.status, Validators.required],
             percentageOfAmount: [this.eligibilityCriteria.percentageOfAmount === undefined ?
                 undefined : this.eligibilityCriteria.percentageOfAmount, Validators.required],
-            thresholdAmount: [this.eligibilityCriteria.thresholdAmount === undefined ?
-                undefined : this.eligibilityCriteria.thresholdAmount, Validators.required],
             formula: [this.eligibilityCriteria.formula === undefined ? '' : this.eligibilityCriteria.formula,
                 [Validators.required]],
             version: [this.eligibilityCriteria.version === undefined ? undefined : this.eligibilityCriteria.version],
