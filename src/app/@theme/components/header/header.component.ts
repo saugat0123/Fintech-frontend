@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 
 import {NbDialogService, NbMenuService, NbSearchService, NbSidebarService, NbThemeService} from '@nebular/theme';
 import {LayoutService} from '../../../@core/utils';
@@ -92,7 +92,7 @@ export class HeaderComponent implements OnInit {
 
         this.menuService.onItemClick().pipe();
         this.dataService.currentNotification.subscribe(message => this.notificationCount = message);
-        this.dataService.currentNotification.subscribe( message => this.notificationMessage = message);
+        this.dataService.currentNotificationMessage.subscribe( message => this.notificationMessage = message);
     }
 
     toggleSidebar(): boolean {
@@ -119,11 +119,19 @@ export class HeaderComponent implements OnInit {
         this.modalService.open(ProfileComponent, {size: 'lg'});
     }
 
-    newNotification() {
-        this.dataService.changeNotification(this.notificationCount);
-        this.newMessage();
+    onClick() {
+        console.log('check');
+        for ( const notificationMsg of this.notificationMessage ) {
+            this.router.navigate(['/home/loan/summary'],
+                {queryParams: {loanConfigId: notificationMsg.loanConfigId, customerId: notificationMsg.customerId}});
+        }
     }
-    newMessage() {
-        this.dataService.setNotificationMessage(this.notificationMessage);
-    }
+
+    // newNotification() {
+    //     this.dataService.changeNotification(this.notificationCount);
+    // }
+    // newMessage() {
+    //     this.dataService.setNotificationMessage(this.notificationMessage);
+    //     console.log(this.notificationMessage)
+    // }
 }

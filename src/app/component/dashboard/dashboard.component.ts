@@ -10,6 +10,7 @@ import {RoleType} from '../../feature/admin/modal/roleType';
 import {UserService} from '../../feature/admin/component/user/user.service';
 import {BranchService} from '../../feature/admin/component/branch/branch.service';
 import {User} from '../../feature/admin/modal/user';
+import {NotificationComponent} from '../../feature/loan/component/notification/notification.component';
 
 
 @Component({
@@ -51,6 +52,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         private userService: UserService,
         private branchService: BranchService,
         private route: Router,
+        private notificationComponent: NotificationComponent
     ) {
     }
 

@@ -14,14 +14,14 @@ import {NotificationComponent} from './loan/component/notification/notification.
 
 
 @NgModule({
-    imports: [
-        FeatureRoutingModule,
-        ThemeModule,
-        NbAccordionModule,
-        NgxChartsModule,
-        NbSelectModule,
-        ChartModule
-    ],
+        imports: [
+            FeatureRoutingModule,
+            ThemeModule,
+            NbAccordionModule,
+            NgxChartsModule,
+            NbSelectModule,
+            ChartModule
+        ],
         declarations: [
             FeatureComponent,
             DashboardComponent,
@@ -29,6 +29,9 @@ import {NotificationComponent} from './loan/component/notification/notification.
             PendingsLoanComponent,
             DataVisualizationComponent,
             NotificationComponent,
+        ],
+        exports: [
+            NotificationComponent
         ],
         providers: [NotificationComponent]
     }

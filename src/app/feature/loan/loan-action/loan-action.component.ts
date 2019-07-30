@@ -15,6 +15,7 @@ import {DocStatus} from '../model/docStatus';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {LoanConfig} from '../../admin/modal/loan-config';
 import {RoleType} from '../../admin/modal/roleType';
+import {NotificationComponent} from '../component/notification/notification.component';
 
 
 @Component({
@@ -53,7 +54,8 @@ export class LoanActionComponent implements OnInit {
         private loanConfigService: LoanConfigService,
         private activeModal: NgbActiveModal,
         private modalService: NgbModal,
-        private http: HttpClient
+        private http: HttpClient,
+        private notificationComponent: NotificationComponent,
     ) {
     }
 
@@ -115,6 +117,7 @@ export class LoanActionComponent implements OnInit {
             }
         );
         this.modalService.open(template);
+        this.notificationComponent.ngOnInit();
     }
 
     onSubmit(templateLogin) {
@@ -141,6 +144,7 @@ export class LoanActionComponent implements OnInit {
                         toUser: this.userList[0]
                     }
                 );
+                this.notificationComponent.toId = this.userList[0].id;
             }
         });
     }
@@ -162,7 +166,7 @@ export class LoanActionComponent implements OnInit {
             .subscribe(
                 (res: any) => {
                     this.postAction();
-
+                    this.notificationComponent.sendMessageUsingSocket();
                 },
                 error => {
 

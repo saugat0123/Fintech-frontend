@@ -1,15 +1,17 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 
-import {Sender} from './model/message';
+import {Message} from './model/message';
 
 import {environment} from '../../../../../environments/environment.prod';
 import {User} from '../../../admin/modal/user';
 import {UserService} from '../../../../@core/service/user.service';
 import {WebNotificationService} from '../../service/web-notification.service';
+import {ToastService} from '../../../../@core/utils';
+
 
 @Component({
   selector: 'app-notification',
@@ -20,37 +22,45 @@ export class NotificationComponent implements OnInit {
   user: User = new User();
   isLoaded = false;
   isCustomSocketOpened = false;
-  messages: Sender[] = [];
+  messages: Message[] = [];
   public notifications = 0;
-  message: Sender = new Sender();
-  // mainForm: FormGroup;
+  message: Message = new Message();
   private serverUrl = environment.url + 'socket';
   private stompClient;
-  notificationMessage = 'hello';
-
+  toId: any;
+  customerId: number;
+  loanConfId: number;
   constructor(private http: HttpClient,
               private dataService: WebNotificationService,
-              private userService: UserService) {
+              private userService: UserService,
+              private toastService: ToastService,
+              private router: Router) {
   }
 
   ngOnInit() {
     this.userService.getLoggedInUser().subscribe(
         (response: any) => {
           this.user = response.detail;
+          this.message.fromId = this.user.id;
+          this.message.senderName = this.user.name;
+
         }
     );
-    // this.buildForm();
     this.initializeWebSocketConnection();
   }
-
-
-
-  clearCount() {
-    this.notifications = 0;
+  build() {
+    this.message.toId = this.toId;
+    this.message.message = 'has sent you a loan document';
+    this.message.customerId = this.customerId;
+    this.message.loanConfigId = this.loanConfId;
   }
 
   sendMessageUsingSocket() {
-    this.stompClient.send('/socket-subscriber/send/message', {}, JSON.stringify(this.message));
+    this.build();
+    this.stompClient.send('/socket-subscriber/send/message', {header: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('at'),
+        'Content-Type': 'application/json'
+      })}, JSON.stringify(this.message));
     console.log(this.message);
 
   }
@@ -61,6 +71,7 @@ export class NotificationComponent implements OnInit {
     const that = this;
     this.stompClient.connect({}, function (frame) {
       that.isLoaded = true;
+      that.openSocket();
     });
   }
 
@@ -76,23 +87,20 @@ export class NotificationComponent implements OnInit {
 
   handleResult(message) {
     if (message.body) {
-      const messageResult: Sender = JSON.parse(message.body);
+      const messageResult: Message = JSON.parse(message.body);
       this.messages.push(messageResult);
-      // this.toastr.success('new message recieved', null, {
-      //   'timeOut': 3000
-      // });
-      this.notifications += 1;
+      // this.toastService.show();
+      this.notifications ++;
       this.newNotification();
+      this.newNotificationMessage();
     }
   }
   newNotification() {
     this.dataService.changeNotification(this.notifications);
 
   }
-  // sendNotificationMessage() {
-  //     this.dataService.setNotifiationMessage(this.messages)
-  // }
-
-
+  newNotificationMessage() {
+    this.dataService.setNotificationMessage(this.messages);
+  }
 
 }
