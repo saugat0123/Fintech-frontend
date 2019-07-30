@@ -24,7 +24,7 @@ export class RoleEditComponent implements OnInit {
 
     ngOnInit() {
         this.roleType = this.model.roleType;
-        if (this.model.roleType === 'MAKER') {
+        if (this.model.roleType === RoleType.MAKER) {
             this.checkRoleEdit = true;
         }
     }

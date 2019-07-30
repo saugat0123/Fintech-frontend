@@ -25,11 +25,6 @@
 
                     <div class="col-md-6">
                         <label>Role Type</label><br>
-                        <!-- <select class="custom-select" [(ngModel)]="model.roleType" name="roleType">
-                             <option [ngValue]="undefined" hidden>Select the Role Type</option>
-                             <option *ngFor="let roleType of roleTypeList.values()"
-                                     [ngValue]="roleType">{{roleType}}</option>
-                         </select>-->
                         <input #chk (click)="checkIfMaker(chk.checked)" [checked]="checkRoleEdit" name="roleType"
                                type="checkbox"
                                value="{{roleType}}"><b>Is Role a Maker?</b>
