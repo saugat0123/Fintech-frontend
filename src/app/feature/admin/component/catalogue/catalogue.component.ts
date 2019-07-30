@@ -15,6 +15,9 @@ import {RoleAccess} from '../../modal/role-access';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Role} from '../../modal/role';
 import {RoleService} from '../role-permission/role.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {UserService} from '../user/user.service';
+
 
 @Component({
     selector: 'app-catalogue',
@@ -34,6 +37,7 @@ export class CatalogueComponent implements OnInit {
     filterForm: FormGroup;
     validStartDate = true;
     validEndDate = true;
+    transferDoc = false;
     search: any = {
         branchIds: undefined,
         documentStatus: DocStatus.value(DocStatus.PENDING),
@@ -46,6 +50,219 @@ export class CatalogueComponent implements OnInit {
     accessSpecific: boolean;
     accessAll: boolean;
     id;
+    transferUserList = [
+        {
+            id: 1,
+            name: 'test',
+            branchList: [
+                {
+                    id: 1,
+                    name: 'pokhara',
+                    userList: [{
+                        id: 1,
+                        name: 'rujan'
+                    },
+                        {
+                            id: 2,
+                            name: 'app'
+                        }, {
+                            id: 3,
+                            name: 'maha'
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    name: 'ktm',
+                    userList: [{
+                        id: 1,
+                        name: 'rujan'
+                    },
+                        {
+                            id: 2,
+                            name: 'app'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: 2,
+            name: 'RELATION MANAGER',
+            branchList: [
+                {
+                    id: 1,
+                    name: 'pokhara',
+                    userList: [{
+                        id: 1,
+                        name: 'rujan'
+                    },
+                        {
+                            id: 2,
+                            name: 'app'
+                        }, {
+                            id: 3,
+                            name: 'maha'
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    name: 'ktm',
+                    userList: [{
+                        id: 1,
+                        name: 'rujan'
+                    },
+                        {
+                            id: 2,
+                            name: 'app'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: 1,
+            name: 'BRANCH MANAGER',
+            branchList: [
+                {
+                    id: 1,
+                    name: 'chitwan',
+                    userList: [{
+                        id: 1,
+                        name: 'rujan'
+                    },
+                        {
+                            id: 2,
+                            name: 'app'
+                        }, {
+                            id: 3,
+                            name: 'maha'
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    name: 'ktm',
+                    userList: [{
+                        id: 1,
+                        name: 'rujan'
+                    },
+                        {
+                            id: 2,
+                            name: 'app'
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            id: 1,
+            name: 'test',
+            branchList: [
+                {
+                    id: 1,
+                    name: 'pokhara',
+                    userList: [{
+                        id: 1,
+                        name: 'rujan'
+                    },
+                        {
+                            id: 2,
+                            name: 'app'
+                        }, {
+                            id: 3,
+                            name: 'maha'
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    name: 'ktm',
+                    userList: [{
+                        id: 1,
+                        name: 'rujan'
+                    },
+                        {
+                            id: 2,
+                            name: 'app'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: 2,
+            name: 'RM',
+            branchList: [
+                {
+                    id: 1,
+                    name: 'pokhara',
+                    userList: [{
+                        id: 1,
+                        name: 'rujan'
+                    },
+                        {
+                            id: 2,
+                            name: 'app'
+                        }, {
+                            id: 3,
+                            name: 'maha'
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    name: 'ktm',
+                    userList: [{
+                        id: 1,
+                        name: 'rujan'
+                    },
+                        {
+                            id: 2,
+                            name: 'app'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: 1,
+            name: 'bm',
+            branchList: [
+                {
+                    id: 1,
+                    name: 'chitwan',
+                    userList: [{
+                        id: 1,
+                        name: 'rujan'
+                    },
+                        {
+                            id: 2,
+                            name: 'app'
+                        }, {
+                            id: 3,
+                            name: 'maha'
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    name: 'ktm',
+                    userList: [{
+                        id: 1,
+                        name: 'rujan'
+                    },
+                        {
+                            id: 2,
+                            name: 'app'
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
 
     constructor(private branchService: BranchService,
                 private loanConfigService: LoanConfigService,
@@ -54,6 +271,8 @@ export class CatalogueComponent implements OnInit {
                 private activatedRoute: ActivatedRoute,
                 private loanFormService: LoanFormService,
                 private formBuilder: FormBuilder,
+                private modalService: NgbModal,
+                private userService: UserService,
                 private roleService: RoleService) {
     }
 
@@ -118,7 +337,9 @@ export class CatalogueComponent implements OnInit {
                 };
                 this.id = paramsValue;
             });
-        alert(this.id.userId);
+        if (this.id.userId !== undefined) {
+            this.transferDoc = true;
+        }
         this.search.toUser = this.id.userId;
         CatalogueComponent.loadData(this);
     }
@@ -174,5 +395,22 @@ export class CatalogueComponent implements OnInit {
     clearSearch() {
         this.search = {};
     }
+
+    onTransferClick(template) {
+        this.userService.getUserListForTransfer().subscribe((res: any) => {
+
+            console.log(res);
+        });
+        this.modalService.open(template);
+    }
+
+    onClose() {
+        this.modalService.dismissAll();
+    }
+
+    docTransfer(userId, roleId) {
+
+    }
+
 
 }
