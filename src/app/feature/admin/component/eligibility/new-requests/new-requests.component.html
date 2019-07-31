@@ -10,6 +10,44 @@
     <nb-card>
       <nb-card-header>
 
+        <div class="col-md-6">
+          <button data-toggle="collapse" data-target="#searchModel"
+                  nbButton outline status="primary">
+            <i class="fa fa-filter"> Filter</i>
+          </button>
+        </div>
+        <div id="searchModel" class="collapse col-md-12">
+          <form (ngSubmit)="filterSearch()" [formGroup]="filterForm">
+            <div class="row py-3">
+
+                <select class="custom-select" formControlName="branch">
+                  <option [value]="null" selected hidden>Select Branch</option>
+                  <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}
+                  </option>
+                </select>
+            </div>
+
+              <div class="col-md-3">
+                <select class="custom-select" formControlName="loanType">
+                  <option [value]="null" selected hidden>Select Loan Type</option>
+                  <option *ngFor="let loanType of loanTypeList"
+                          [value]="loanType.id">{{loanType.name}}
+                  </option>
+                </select>
+              </div>
+
+            <div class="col-md-12 p-0">
+              <button (click)="clearSearch()" data-toggle="collapse" data-target="#searchModel"
+                      class="btn btn-sm btn-flat btn-outline-secondary mr-1">Cancel
+              </button>
+              <button [disabled]="!filterForm.valid" class="btn btn-primary btn-sm btn-flat pull-right"
+                      type="submit">
+                Advance Search
+              </button>
+            </div>
+          </form>
+        </div>
+
       </nb-card-header>
       <nb-card-body>
           <table id="add-branch-table" class="table table-striped table-bordered table-hover ">
