@@ -2,9 +2,11 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import {AppConstant} from '../app/@core/utils/appConstant';
+
 export const environment = {
   production: false,
-  client: 'Mahalaxmi Bikas Bank Ltd.'
+  client: AppConstant.BANKNAME
 };
 
 /*
