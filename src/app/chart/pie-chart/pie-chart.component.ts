@@ -14,13 +14,13 @@ export class PieChartComponent implements OnInit {
   dataLength: number;
   @Input()
   legendTitle: string;
-  view = [950, 350];
+  view = [350, 350];
   scheme = {
     domain: []
   };
   animations = true;
   labels = false;
-  legend = true;
+  legend = false;
   legendPosition = 'right';
   trimLabels = false;
 
