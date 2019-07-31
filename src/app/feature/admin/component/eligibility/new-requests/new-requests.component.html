@@ -16,12 +16,13 @@
             <thead>
             <tr>
               <th>S.N</th>
-              <th>Applicant name</th>
+              <th>Applicant Name</th>
               <th>Age</th>
               <th>Branch</th>
               <th>Scheme</th>
-              <th>Phone number</th>
-              <th>Requested amount</th>
+              <th>Phone Number</th>
+              <th>Requested Amount</th>
+              <th>Eligible Amount</th>
               <th>Status</th>
               <th>Documents</th>
               <th>Answers</th>
@@ -84,6 +85,7 @@
               <td>{{allList.loanConfig?.name}}</td>
               <td>{{allList.phoneNumber}}</td>
               <td>{{allList.requestAmount}}</td>
+              <td>{{allList.eligibleAmount}}</td>
               <td>{{allList.eligibilityStatus}}</td>
               <td>
                 <button [attr.data-target]="'#doc'+i" class="btn btn-primary btn-sm" data-toggle="collapse">View</button>
