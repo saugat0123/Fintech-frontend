@@ -23,10 +23,20 @@
             <nb-card-header>
                 <div class=row>
                     <div class="col-md-6">
-                        <button data-toggle="collapse" data-target="#searchModel"
-                                nbButton outline status="primary">
-                            <i class="fa fa-filter"> Filter</i>
-                        </button>
+                        <div class="row">
+                            <div [formGroup]="filterForm" class="col-md-5 mr-1">
+                                <input fieldSize="medium" formControlName="name" name="name"
+                                       nbInput
+                                       placeholder="name..."
+                                       type="text">
+                            </div>
+                            <div class="col-md-4">
+                                <button data-target="#searchModel" data-toggle="collapse"
+                                        nbButton outline status="primary">
+                                    <i class="fa fa-filter"> Filter</i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <!-- <h3 class="box-title">Hover Data Table</h3> -->
                     <div class="col-md-6">
