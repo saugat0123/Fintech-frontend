@@ -84,11 +84,11 @@
             <tr *ngFor="let model of loanDataHolderList;let i=index"
 
                 class="cursor">
-                <td   (click)="onClick(model.loan.id,model.id)">{{model?.branch?.name}}</td>
-                <td   (click)="onClick(model.loan.id,model.id)">{{model?.customerInfo?.customerName || model?.dmsLoanFile?.customerName}}</td>
-                <td   (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
-                <td   (click)="onClick(model.loan.id,model.id)">{{model?.documentStatus}}</td>
-                <td   (click)="onClick(model.loan.id,model.id)">
+                <td (click)="onClick(model.loan.id,model.id)">{{model?.branch?.name}}</td>
+                <td (click)="onClick(model.loan.id,model.id)">{{model?.customerInfo?.customerName || model?.dmsLoanFile?.customerName}}</td>
+                <td (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
+                <td (click)="onClick(model.loan.id,model.id)">{{model?.documentStatus}}</td>
+                <td (click)="onClick(model.loan.id,model.id)">
                     <div *ngIf='model?.documentStatus.toString()==="PENDING"'>
                         {{model?.currentStage?.toUser?.name}}
                         / {{getDifferenceInDays(model?.currentStage?.lastModifiedAt)}}
@@ -100,7 +100,7 @@
                         /{{getDaysDifference(model?.currentStage.lastModifiedAt, model?.previousList[model?.previousList.length - 1].lastModifiedAt)}}
                     </div>
                 </td>
-                <td   (click)="onClick(model.loan.id,model.id)">
+                <td (click)="onClick(model.loan.id,model.id)">
                     <div *ngIf='model?.documentStatus.toString()==="PENDING"'>{{getDifferenceInDays(model?.currentStage?.createdAt)}}</div>
                     <div *ngIf='(model?.documentStatus.toString()==="CLOSED" ||
                         model?.documentStatus.toString()==="REJECTED" ||
@@ -108,7 +108,7 @@
                         {{getDaysDifference(model?.currentStage?.lastModifiedAt, model?.currentStage?.createdAt)}}
                     </div>
                 </td>
-                <td *ngIf="transferDoc"><a (click)="onTransferClick(transferDocument)">Transfer <i
+                <td *ngIf="transferDoc"><a (click)="onTransferClick(transferDocument,model.id)">Transfer <i
                         class="fa fa-arrow-circle-right"></i></a></td>
             </tr>
             </tbody>
@@ -129,38 +129,65 @@
 
 
             <div style="height: 200px;max-height: 200px;overflow-y: auto;">
-            <nb-accordion>
-                <nb-accordion-item *ngFor="let roles of transferUserList;let i=index">
-                    <nb-accordion-item-header>
-                        {{roles.name}}
-                    </nb-accordion-item-header>
-                    <nb-accordion-item-body>
-                        <nb-accordion>
-                            <nb-accordion-item *ngFor="let branches of roles.branchList;let i=index">
-                                <nb-accordion-item-header>
-                                    {{branches.name}}
-                                </nb-accordion-item-header>
-                                <nb-accordion-item-body>
-                                    <div *ngFor="let users of branches.userList;let i=index">
-                                        <a  class="cursor">
-                                            <div class="radio">
-                                                <label><input type="radio" name="optradio" (click)="docTransfer(users.id,roles.id)">{{users.name}}</label>
-                                            </div>
+                <nb-accordion>
+                    <nb-accordion-item *ngFor="let roles of transferUserList;let i=index">
+                        <nb-accordion-item-header>
+                            {{roles.name}}
+                        </nb-accordion-item-header>
+                        <nb-accordion-item-body>
 
-                                        </a>
+                            <div *ngFor="let users of roles.userDtoList;let i=index">
+                                <div class="col-md-12 row">
+                                    <div class="col-md-6">
+                                <a class="cursor">
+                                    <div class="radio">
+                                        <label><input type="radio" name="optradio"
+                                                      (click)="docTransfer(users.id,roles.id)">{{users.username}}</label>
                                     </div>
-                                </nb-accordion-item-body>
-                            </nb-accordion-item>
-                        </nb-accordion>
-                    </nb-accordion-item-body>
-                </nb-accordion-item>
-            </nb-accordion>
+
+                                </a>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <span *ngFor="let branch of users.branchDtoList;">
+                                            {{branch?.name}}
+                                        </span>
+                                    </div>
+                            </div>
+                            </div>
+
+                        </nb-accordion-item-body>
+                    </nb-accordion-item>
+                </nb-accordion>
             </div>
             <div class="col-md-12">
-                <button type="submit" class="btn btn-success float-right">Next</button>
+                <button type="submit" class="btn btn-success float-right" (click)="action(confirmation)">Next</button>
             </div>
 
 
         </div>
+    </ng-template>
+
+    <ng-template #confirmation>
+        <div>
+            <div class="modal-content">
+                <div class="modal-header" style="display:block">
+                    <div>
+                        <h4 class="">Do You want to transfer this document ?</h4>
+                        <form>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
+                                    NO
+                                </button>
+                                <button type="submit" class="btn btn-primary  btn-flat" (click)="confirm()">
+                                    YES
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </ng-template>
 </nb-card>
