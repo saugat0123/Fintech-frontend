@@ -33,6 +33,7 @@ export class UserComponent implements OnInit {
     spinner = false;
     globalMsg: string;
     search: any = {
+        name: undefined,
         branchIds: undefined,
         userId: undefined,
         status: undefined
@@ -84,6 +85,7 @@ export class UserComponent implements OnInit {
 
     ngOnInit() {
         this.filterForm = this.formBuilder.group({
+            name: [undefined],
             branch: [undefined],
             role: [undefined],
             activeStatus: [undefined]
@@ -126,6 +128,8 @@ export class UserComponent implements OnInit {
     }
 
     onSearch() {
+        this.search.name = this.filterForm.get('name').value === null ? undefined :
+            this.filterForm.get('name').value;
         this.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
             this.filterForm.get('branch').value;
         this.search.roleId = this.filterForm.get('role').value === null ? undefined : this.filterForm.get('role').value;
@@ -135,14 +139,6 @@ export class UserComponent implements OnInit {
 
     clearSearch() {
         this.search = {};
-    }
-
-    onSearchChange(searchValue: string) {
-        this.search = {
-            'name': searchValue
-        };
-
-        UserComponent.loadData(this);
     }
 
     edit(user: User) {
