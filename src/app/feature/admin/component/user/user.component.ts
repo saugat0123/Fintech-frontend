@@ -10,6 +10,13 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {UserService} from './user.service';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {RoleAccess} from '../../modal/role-access';
+import {BranchService} from '../branch/branch.service';
+import {RoleService} from '../role-permission/role.service';
+import {Branch} from '../../modal/branch';
+import {Role} from '../../modal/role';
+import {Status} from '../../../../@core/Status';
 
 @Component({
     selector: 'app-user',
@@ -25,7 +32,11 @@ export class UserComponent implements OnInit {
 
     spinner = false;
     globalMsg: string;
-    search: any = {};
+    search: any = {
+        branchIds: undefined,
+        userId: undefined,
+        status: undefined
+    };
     pageable: Pageable = new Pageable();
     currentApi: string;
     activeCount: number;
@@ -35,12 +46,21 @@ export class UserComponent implements OnInit {
     users: number;
     dismissBranch = false;
     RootUrl = ApiConfig.URL;
+    filterForm: FormGroup;
+    branchList: Array<Branch> = new Array<Branch>();
+    roleList: Array<Role> = new Array<Role>();
+    active = Status.ACTIVE;
+    inactive = Status.INACTIVE;
+    allBranches = RoleAccess.ALL;
 
     constructor(
         private service: UserService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private formBuilder: FormBuilder,
+        private branchService: BranchService,
+        private roleService: RoleService
     ) {
     }
 
@@ -63,6 +83,26 @@ export class UserComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.filterForm = this.formBuilder.group({
+            branch: [undefined],
+            role: [undefined],
+            activeStatus: [undefined]
+        });
+        this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
+            this.branchList = response.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
+        });
+        this.roleService.getAll().subscribe(
+            (response: any) => {
+                this.roleList = response.detail;
+                this.roleList.splice(0, 1); // removes ADMIN
+            }, error => {
+                console.log(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Roles'));
+            }
+        );
         this.breadcrumbService.notify(this.title);
 
         UserComponent.loadData(this);
@@ -86,7 +126,15 @@ export class UserComponent implements OnInit {
     }
 
     onSearch() {
+        this.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
+            this.filterForm.get('branch').value;
+        this.search.roleId = this.filterForm.get('role').value === null ? undefined : this.filterForm.get('role').value;
+        this.search.status = this.filterForm.get('activeStatus').value === null ? undefined : this.filterForm.get('activeStatus').value;
         UserComponent.loadData(this);
+    }
+
+    clearSearch() {
+        this.search = {};
     }
 
     onSearchChange(searchValue: string) {
