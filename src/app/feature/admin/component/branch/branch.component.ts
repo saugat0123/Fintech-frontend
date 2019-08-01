@@ -202,9 +202,6 @@ export class BranchComponent implements OnInit {
 
 
     getMunicipalities(districtId) {
-        delete this.search['districtId'];
-        delete this.search['municipalityId'];
-        this.search.districtId = districtId.toString();
         this.district.id = districtId;
         this.location.getMunicipalityVDCByDistrict(this.district).subscribe(
             (response: any) => {
@@ -215,9 +212,6 @@ export class BranchComponent implements OnInit {
 
     getDistricts(provinceId) {
         this.province.id = provinceId;
-        delete this.search['districtId'];
-        delete this.search['provinceId'];
-        delete this.search['municipalityId'];
 
         if (provinceId !== 'All') {
             this.search.provinceId = provinceId.toString();

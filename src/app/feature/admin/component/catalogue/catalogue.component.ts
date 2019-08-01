@@ -140,7 +140,6 @@ export class CatalogueComponent implements OnInit {
     }
 
     onSearch() {
-        debugger;
         this.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
             this.filterForm.get('branch').value;
         this.search.documentStatus = this.filterForm.get('docStatus').value === null ? DocStatus.value(DocStatus.PENDING) :
