@@ -1,4 +1,4 @@
-import {Component, DoCheck, OnInit, TemplateRef} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {Memo} from '../../model/memo';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MemoService} from '../../service/memo.service';
@@ -11,6 +11,9 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ToastService} from '../../../../@core/utils';
 import {MemoBaseComponent} from '../memo-base/memo-base.component';
 import {UserService} from '../../../admin/component/user/user.service';
+import {ForwardComponent} from '../actions/forward.component';
+import {ApproveComponent} from '../actions/approve.component';
+import {BackwardComponent} from '../actions/backward.component';
 
 @Component({
     selector: 'app-memo-read',
@@ -47,6 +50,7 @@ export class MemoReadComponent implements OnInit, DoCheck {
         const memoId = +this.activatedRoute.snapshot.paramMap.get('id');
         this.memoService.detail(memoId).subscribe((response: any) => {
             this.memo = response.detail;
+            console.log(this.memo);
         });
 
         this.roles$ = ['CEO', 'BDO', 'PDO'];
@@ -97,31 +101,55 @@ export class MemoReadComponent implements OnInit, DoCheck {
     }
 
     reloadPage() {
-        this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(e => {
-            if (e) {
-                this.router.navigate([this.currentUrl]);
-                this.modalRef.dismiss();
-            }
-        });
+        this.router.navigate(['home/memo/underReview']);
     }
 
+    backward() {
+        const modalRef = this.modalService.open(BackwardComponent);
+        modalRef.componentInstance.memo = this.memo;
+        modalRef.componentInstance.users$ = this.users$;
+        modalRef.componentInstance.roles$ = this.roles$;
 
-    showDeleteMemo(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.open(template);
+        modalRef.result.then(() => {
+                console.log('success');
+
+                this.reloadPage();
+            },
+            () => {
+                console.log('failure');
+            });
     }
 
-    showForwardMemo(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.open(template);
+    forward() {
+        const modalRef = this.modalService.open(ForwardComponent);
+        modalRef.componentInstance.memo = this.memo;
+        modalRef.componentInstance.users$ = this.users$;
+        modalRef.componentInstance.roles$ = this.roles$;
+
+        modalRef.result.then(() => {
+                console.log('success');
+
+                this.reloadPage();
+            },
+            () => {
+                console.log('failure');
+            });
     }
 
-    showBackwardMemo(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.open(template);
-    }
+    approve() {
+        const modalRef = this.modalService.open(ApproveComponent);
+        modalRef.componentInstance.memo = this.memo;
+        modalRef.componentInstance.users$ = this.users$;
+        modalRef.componentInstance.roles$ = this.roles$;
 
-    backwardMemo() {
-    }
+        modalRef.result.then(() => {
+                console.log('success');
 
-    forwardMemo() {
+                this.reloadPage();
+            },
+            () => {
+                console.log('failure');
+            });
     }
 
 }

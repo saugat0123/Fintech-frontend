@@ -17,6 +17,9 @@ import {CoreModule} from '../../@core/core.module';
 import {MemoTypeService} from './service/memo-type.service';
 import {MemoTypeFormComponent} from './component/memo-type/memo-type-form/memo-type-form.component';
 import {MemoTypeDeleteComponent} from './component/memo-type/memo-type-form/memo-type-delete.component';
+import {ForwardComponent} from './component/actions/forward.component';
+import {BackwardComponent} from './component/actions/backward.component';
+import {ApproveComponent} from './component/actions/approve.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +30,9 @@ import {MemoTypeDeleteComponent} from './component/memo-type/memo-type-form/memo
         MemoComposeComponent,
         MemoUnderReviewComponent,
         MemoReadComponent,
+        ForwardComponent,
+        BackwardComponent,
+        ApproveComponent,
         SafePipe
     ],
 
@@ -42,7 +48,10 @@ import {MemoTypeDeleteComponent} from './component/memo-type/memo-type-form/memo
     ],
     providers: [MemoService, MemoTypeService],
     entryComponents: [
-        MemoTypeFormComponent
+        MemoTypeFormComponent,
+        ForwardComponent,
+        BackwardComponent,
+        ApproveComponent
     ]
 })
 export class MemoModule {

@@ -1,121 +1,49 @@
-<div class="box-header with-border">
-    <h3 class="box-title">Read Memo</h3>
-</div>
-<!-- /.box-header -->
-<div class="box-body no-padding">
-    <div class="mailbox-read-info">
-        <div class="row">
-            <div class="col-md-8">
-                <h2>{{memo?.subject}}</h2>
-            </div>
+<nb-card>
+    <nb-card-header>
+        <div class="col-md-12">
+            <h6>{{memo?.refNumber}}</h6>
+            <h2>{{memo?.subject}}</h2>
+            <h6>{{memo?.type.name}}</h6>
+            <h6>{{memo?.sentTo?.name}}</h6>
+            <h6>{{memo?.sentBy?.name}}</h6>
+            <h6>{{memo?.stage}}</h6>
+            <h6 *ngFor="let ccUser of memo?.cc">{{ccUser.name}}</h6>
+            <h6 *ngFor="let bccUser of memo?.bcc">{{bccUser.name}}</h6>
             <div class="col-md-4">
                 <span class="mailbox-read-time pull-right">{{memo?.createdAt | date:'medium'}}</span>
             </div>
-        </div><!-- /.row -->
-        <div class="row">
-            <div class="col-md-3">
-                <h6>Status:</h6>
-            </div>
-            <div class="col-md-9">
-                <h6>{{memo?.status}}</h6>
-            </div>
-        </div><!-- /.row -->
-        <div class="row">
-            <div class="col-md-3">
-                <h6>Type:</h6>
-            </div>
-            <div class="col-md-9">
-                <h6>{{memo?.type.name}}</h6>
-            </div>
-        </div><!-- /.row -->
-        <div class="row">
-            <div class="col-md-3">
-                <h6>Reference No:</h6>
-            </div>
-            <div class="col-md-9">
-                <h6>{{memo?.refNumber}}</h6>
-            </div>
-        </div><!-- /.row -->
-        <div class="row">
-            <div class="col-md-3">
-                <h6>From:</h6>
-            </div>
-            <div class="col-md-9">
-                <h6>{{memo?.sentBy?.name}}</h6>
-            </div>
-        </div><!-- /.row -->
-        <div class="row">
-            <div class="col-md-3">
-                <h6>To:</h6>
-            </div>
-            <div class="col-md-9">
-                <h6>{{memo?.sentTo?.name}}</h6>
-            </div>
-        </div><!-- /.row -->
-        <div class="row">
-            <div class="col-md-3">
-                <h6>CC:</h6>
-            </div>
-            <div class="col-md-9">
-                <h6 *ngFor="let ccUser of memo?.cc">{{ccUser.name}}</h6>
-            </div>
-        </div><!-- /.row -->
-        <div class="row">
-            <div class="col-md-3">
-                <h6>BCC:</h6>
-            </div>
-            <div class="col-md-9">
-                <h6 *ngFor="let bccUser of memo?.bcc">{{bccUser.name}}</h6>
-            </div>
-        </div><!-- /.row -->
-    </div>
-    <div class="blank-div"></div>
-    <!-- /.mailbox-read-info -->
-    <div class="mailbox-controls with-border text-center">
-        <div class="btn-group">
-            <button (click)="editMemo(memo?.id)" class="btn btn-primary" data-container="body"
-                    data-toggle="tooltip" title="Edit" type="button"><i class="fa fa-edit"></i></button>
-            <button (click)="showDeleteMemo(deleteMemoModal)" class="btn btn-primary" data-container="body"
-                    data-toggle="tooltip" title="Delete" type="button"><i class="fa fa-trash"></i></button>
-            <button (click)="showBackwardMemo(backwardMemoModal)" class="btn btn-primary" data-container="body"
-                    data-toggle="tooltip" title="Send Backward" type="button"><i class="fa fa-reply"></i></button>
-            <button (click)="showForwardMemo(forwardMemoModal)" class="btn btn-primary" data-container="body"
-                    data-toggle="tooltip" title="Send Forward" type="button"><i class="fa fa-share"></i></button>
-            <button class="btn btn-primary" data-toggle="tooltip" title="Print" type="button">
-                <i class="fa fa-print"></i></button>
         </div>
-        <!-- /.btn-group -->
-    </div>
-    <!-- /.mailbox-controls -->
-    <div class="blank-div"></div>
-    <div [innerHtml]="memo?.content | safeHtml" class="text-black-50 text-justify"></div>
-    <!-- /.mailbox-read-message -->
-    <div class="blank-div"></div>
-</div>
-<!-- /.box-body -->
-<div class="box-footer">
-    <div class="btn-group float-left">
-        <button (click)="editMemo(memo?.id)" class="btn btn-primary" type="button"><i class="fa fa-edit"></i> Edit
-        </button>
-        <button (click)="showDeleteMemo(deleteMemoModal)" class="btn btn-primary" type="button"><i
-                class="fa fa-trash"></i> Delete
-        </button>
-        <button class="btn btn-primary" type="button"><i class="fa fa-print"></i> Print</button>
-    </div>
-    <!-- /.btn-group -->
-    <div class="btn-group float-right">
-        <button (click)="showBackwardMemo(backwardMemoModal)" class="btn btn-primary" type="button"><i
-                class="fa fa-reply"></i> Send Backward
-        </button>
-        <button (click)="showForwardMemo(forwardMemoModal)" class="btn btn-primary" type="button"><i
-                class="fa fa-share"></i> Send Forward
-        </button>
-    </div>
-    <!-- /.btn-group -->
-</div>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="col-md-12">
+            <div [innerHtml]="memo?.content | safeHtml" class="text-justify"></div>
+        </div>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="text-center">
+            <div class="btn-group">
+                <!--<button (click)="editMemo(memo?.id)" class="btn btn-primary" data-container="body"
+                        data-toggle="tooltip" title="Edit" type="button"><i class="fa fa-edit"></i></button>-->
+                <!--<button (click)="showDeleteMemo(deleteMemoModal)" class="btn btn-primary" data-container="body"
+                        data-toggle="tooltip" title="Delete" type="button"><i class="fa fa-trash"></i></button>-->
+                <button (click)="backward()" class="btn btn-primary" data-container="body"
+                        data-toggle="tooltip" title="Send Backward" type="button">
+                    <i class="fa fa-reply"></i>
+                </button>
+                <button (click)="forward()" class="btn btn-primary" data-container="body"
+                        data-toggle="tooltip" title="Send Forward" type="button"><i class="fa fa-share"></i></button>
+                <button (click)="approve()" class="btn btn-primary" data-container="body"
+                        data-toggle="tooltip" title="Approve" type="button"><i class="fa fa-check"></i></button>
+                <button class="btn btn-primary" data-toggle="tooltip" title="Print" type="button">
+                    <i class="fa fa-print"></i>
+                </button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>
 <!-- /.box-footer -->
 
-<ng-template #deleteMemoModal>
+<!--<ng-template #deleteMemoModal>
     <div class="modal-header">
         <h4 class="modal-title pull-left">Delete Memo: {{memo?.subject}}</h4>
         <button (click)="modalRef.hide()" aria-label="Close" class="close pull-right" type="button">
@@ -129,72 +57,4 @@
         <button (click)="modalRef.hide()" class="btn btn-default" data-dismiss="modal" type="button">No</button>
         <button (click)="deleteMemo()" class="btn btn-success" data-dismiss="modal">Yes</button>
     </div>
-</ng-template>
-
-<ng-template #forwardMemoModal>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Forward Memo: {{memo?.subject}}</h4>
-        <button (click)="modalRef.hide()" aria-label="Close" class="close pull-right" type="button">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <form (ngSubmit)="forwardMemo()" [formGroup]="memoForwardForm">
-        <div class="modal-body">
-            <p>Are you sure you want to forward this memo?</p>
-            <hr/>
-            <div class="form-group">
-                <ng-select
-                        [closeOnSelect]="true"
-                        [hideSelected]="true"
-                        [items]="roles$"
-                        [multiple]="false"
-                        bindLabel="name"
-                        formControlName="forwardRole"
-                        placeholder="Select Role">
-                    >
-                </ng-select>
-            </div>
-            <div class="form-group">
-                <ng-select
-                        [closeOnSelect]="true"
-                        [hideSelected]="true"
-                        [items]="users$"
-                        [multiple]="false"
-                        bindLabel="name"
-                        formControlName="forwardUser"
-                        placeholder="Select User">
-                    >
-                </ng-select>
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" placeholder="Your comment here..." rows="5"
-                          formControlName="comment"></textarea>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button (click)="modalRef.hide()" class="btn btn-default" data-dismiss="modal" type="button">No</button>
-            <button (click)="forwardMemo()" class="btn btn-success" data-dismiss="modal">Yes</button>
-        </div>
-    </form>
-</ng-template>
-
-<ng-template #backwardMemoModal>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Backward Memo: {{memo?.subject}}</h4>
-        <button (click)="modalRef.hide()" aria-label="Close" class="close pull-right" type="button">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <form (ngSubmit)="backwardMemo()" [formGroup]="memoBackwardForm">
-        <div class="modal-body">
-            Are you sure you want to send this memo back?
-            <hr/>
-            <textarea class="form-control" placeholder="Your comment here..." rows="5"
-                      formControlName="comment"></textarea>
-        </div>
-        <div class="modal-footer">
-            <button (click)="modalRef.hide()" class="btn btn-default" data-dismiss="modal" type="button">No</button>
-            <button class="btn btn-success" data-dismiss="modal" type="submit">Yes</button>
-        </div>
-    </form>
-</ng-template>
+</ng-template>-->
