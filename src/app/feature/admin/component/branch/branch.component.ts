@@ -214,19 +214,16 @@ export class BranchComponent implements OnInit {
 
     getDistricts(provinceId) {
         this.province.id = provinceId;
+        this.districts = [];
+        this.municipalities = [];
+        this.filterForm.controls['districtId'].setValue(null);
+        this.filterForm.controls['municipalityId'].setValue(null);
 
-        if (provinceId !== 'All') {
-            this.search.provinceId = provinceId.toString();
-            this.location.getDistrictByProvince(this.province).subscribe(
-                (response: any) => {
-                    this.districts = response.detail;
-                }
-            );
-        } else {
-            this.districts = [];
-            this.municipalities = [];
-
-        }
+        this.location.getDistrictByProvince(this.province).subscribe(
+            (response: any) => {
+                this.districts = response.detail;
+            }
+        );
     }
 
 }
