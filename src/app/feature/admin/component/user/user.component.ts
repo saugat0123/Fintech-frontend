@@ -27,7 +27,7 @@ export class UserComponent implements OnInit {
     title = 'User';
     breadcrumb = 'User > List';
     dataList: Array<User>;
-
+    restApi = ApiConfig.URL;
     page = 1;
 
     spinner = false;
@@ -189,8 +189,8 @@ export class UserComponent implements OnInit {
         this.service.download(this.search).subscribe((response: any) => {
             const link = document.createElement('a');
             link.target = '_blank';
-            link.href = response.detail;
-            link.download = response.detail;
+            link.href = this.restApi + '/' + response.detail;
+            link.download = this.restApi + '/' + response.detail;
             link.setAttribute('visibility', 'hidden');
             link.click();
 
