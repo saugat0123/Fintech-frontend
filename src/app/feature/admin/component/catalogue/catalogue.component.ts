@@ -127,7 +127,7 @@ export class CatalogueComponent implements OnInit {
             Date.UTC(createdAt.getFullYear(), createdAt.getMonth(), createdAt.getDate())) / (1000 * 60 * 60 * 24));
     }
 
-    getDaysDifference(lastModifiedDate: Date, createdDate: Date): number {
+    getDaysDifference(lastModifiedDate: Date, createdDate: Date ): number {
         const createdAt = new Date(createdDate);
         const lastModifiedAt = new Date(lastModifiedDate);
         return Math.floor((Date.UTC(lastModifiedAt.getFullYear(), lastModifiedAt.getMonth(), lastModifiedAt.getDate()) -

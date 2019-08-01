@@ -189,6 +189,7 @@ export class UserComponent implements OnInit {
 
 
     getCsv() {
+
         this.service.download(this.search).subscribe((response: any) => {
             const link = document.createElement('a');
             link.target = '_blank';
