@@ -12,10 +12,10 @@
     </div>
 
 
-    <div *ngIf="branchCountView" class="col-md-4 col-sm-6 col-xs-12">
+    <div *ngIf="roleName" class="col-md-4 col-sm-6 col-xs-12">
         <a routerLink="/home/admin/catalogue">
-            <app-icon-card detail="{{branchCount}}" title="Transfer" type="success">
-                <i class="fas fa-building"></i>
+            <app-icon-card detail="{{branchCount}}" title="Transfer" type="danger">
+                <i class="fas fa-exchange-alt"></i>
             </app-icon-card>
         </a>
     </div>

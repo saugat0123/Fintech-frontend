@@ -106,7 +106,7 @@ export class DmsLoanFileComponent implements OnInit {
             {id: 'BUILDING_SECURITY', name: 'Building Security'},
             {id: 'VEHICLE_SECURITY', name: 'Vehicle Security'},
             {id: 'PROPERTY_AND_MACHINERY_SECURITY', name: 'Property and Machinery Security'},
-            {id: 'FIXED_DEPOSIT_RECEIPT', name: 'FIXED DEPOSIT_RECEIPT'},
+            {id: 'FIXED_DEPOSIT_RECEIPT', name: 'FIXED DEPOSIT RECEIPT'},
             {id: 'SHARE_STOCK', name: 'SHARE STOCK'},
             {id: 'EDUCATION_CERTIFICATE', name: 'EDUCATION CERTIFICATE'}
 
