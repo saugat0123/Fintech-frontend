@@ -13,7 +13,7 @@ export class PieChartComponent implements OnInit {
   dataLength: number;
   @Input()
   legendTitle: string;
-  view = [350, 350];
+  view = [400, 400];
   scheme = {
     domain: []
   };
