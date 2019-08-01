@@ -11,6 +11,7 @@ import {User} from '../../../admin/modal/user';
 import {UserService} from '../../../../@core/service/user.service';
 import {WebNotificationService} from '../../service/web-notification.service';
 import {ToastService} from '../../../../@core/utils';
+import {Status} from '../../../../@core/Status';
 
 
 @Component({
@@ -43,7 +44,6 @@ export class NotificationComponent implements OnInit {
           this.user = response.detail;
           this.message.fromId = this.user.id;
           this.message.senderName = this.user.name;
-
         }
     );
     this.initializeWebSocketConnection();
@@ -53,14 +53,12 @@ export class NotificationComponent implements OnInit {
     this.message.message = 'has sent you a loan document';
     this.message.customerId = this.customerId;
     this.message.loanConfigId = this.loanConfId;
+    this.message.status = Status.ACTIVE;
   }
 
   sendMessageUsingSocket() {
     this.build();
-    this.stompClient.send('/socket-subscriber/send/message', {header: new HttpHeaders({
-        'Authorization': 'Bearer ' + localStorage.getItem('at'),
-        'Content-Type': 'application/json'
-      })}, JSON.stringify(this.message));
+    this.stompClient.send('/socket-subscriber/send/message', {}, JSON.stringify(this.message));
     console.log(this.message);
 
   }

@@ -5,5 +5,6 @@ export class Message {
     senderName: string;
     customerId: number;
     loanConfigId: number;
+    status: any;
 
 }

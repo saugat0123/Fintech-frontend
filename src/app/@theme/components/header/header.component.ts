@@ -4,7 +4,7 @@ import {NbDialogService, NbMenuService, NbSearchService, NbSidebarService, NbThe
 import {LayoutService} from '../../../@core/utils';
 import {UserService} from '../../../@core/service/user.service';
 import {filter, map} from 'rxjs/operators';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SearchResultComponent} from './header-form/searchResult.component';
 import {ProfileComponent} from '../profile/profile.component';
@@ -44,7 +44,8 @@ export class HeaderComponent implements OnInit {
                 private notificationComponent: NotificationComponent,
                 private modalService: NgbModal,
                 private dialogService: NbDialogService,
-                private dataService: WebNotificationService) {
+                private dataService: WebNotificationService,
+                private activeRoute: ActivatedRoute) {
 
         this.searchService.onSearchSubmit()
             .subscribe((searchData: any) => {
@@ -73,7 +74,6 @@ export class HeaderComponent implements OnInit {
         this.userFullName = localStorage.getItem('userFullName');
         this.userProfilePicture = localStorage.getItem('userProfilePicture');
         this.roleName = localStorage.getItem('roleName');
-
 
         this.menuService.onItemClick().pipe(
             filter(({tag}) => tag === this.contextMenuTag),
@@ -126,12 +126,4 @@ export class HeaderComponent implements OnInit {
                 {queryParams: {loanConfigId: notificationMsg.loanConfigId, customerId: notificationMsg.customerId}});
         }
     }
-
-    // newNotification() {
-    //     this.dataService.changeNotification(this.notificationCount);
-    // }
-    // newMessage() {
-    //     this.dataService.setNotificationMessage(this.notificationMessage);
-    //     console.log(this.notificationMessage)
-    // }
 }
