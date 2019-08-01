@@ -204,8 +204,8 @@ export class CatalogueComponent implements OnInit {
         this.search = {};
     }
 
-    onTransferClick(template, customerLoanId) {
-        this.userService.getUserListForTransfer().subscribe((res: any) => {
+    onTransferClick(template, customerLoanId, userId) {
+        this.userService.getUserListForTransfer(userId).subscribe((res: any) => {
             this.transferUserList = res.detail;
         });
         this.formAction.patchValue({

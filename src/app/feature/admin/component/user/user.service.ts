@@ -52,8 +52,8 @@ export class UserService extends BaseService<User> {
         return this.http.post(req.url, user, {headers: req.header});
     }
 
-    public getUserListForTransfer(): Observable<any> {
-        const req = ApiUtils.getRequest(`${UserService.API}/get-all-doc-transfer`);
+    public getUserListForTransfer(id): Observable<any> {
+        const req = ApiUtils.getRequest(`${UserService.API}/get-all-doc-transfer/${id}`);
 
         return this.http.get(req.url, {headers: req.header});
     }

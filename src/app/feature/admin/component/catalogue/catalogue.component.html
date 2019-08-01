@@ -108,7 +108,7 @@
                         {{getDaysDifference(model?.currentStage?.lastModifiedAt, model?.currentStage?.createdAt)}}
                     </div>
                 </td>
-                <td *ngIf="transferDoc"><a (click)="onTransferClick(transferDocument,model.id)">Transfer <i
+                <td *ngIf="transferDoc"><a (click)="onTransferClick(transferDocument,model.id,model?.currentStage?.toUser?.id)">Transfer <i
                         class="fa fa-arrow-circle-right"></i></a></td>
             </tr>
             </tbody>
