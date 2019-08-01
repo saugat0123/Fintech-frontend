@@ -17,13 +17,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6" *ngIf="personal">
+                            <div class="col-md-6">
                                 <div class="form-group rounded">
                                     <label for="citizenshipNumber"><b>Citizenship Number</b></label>
                                     <div class="input-group mb-3">
                                         <input type="text" formControlName="citizenshipNumber"
                                                class="form-control rounded"
-                                               [ngClass]="{ 'is-invalid':submitted && form.citizenshipNumber.errors && personal}"
+                                               [ngClass]="{ 'is-invalid':submitted && form.citizenshipNumber.errors}"
                                                id="citizenshipNumber" placeholder="Enter citizenship number"
                                                min="0"/>
                                         <div class="input-group-append">
@@ -31,7 +31,7 @@
                                                     (click)="searchByCitizenship()">Search
                                             </button>
                                         </div>
-                                        <div *ngIf="submitted && form.citizenshipNumber.errors && personal"
+                                        <div *ngIf="submitted && form.citizenshipNumber.errors"
                                              class="invalid-feedback">
                                             <div *ngIf="form.citizenshipNumber.errors.required">
                                                 Citizenship number is required.
@@ -46,10 +46,10 @@
                         <div class="row" *ngIf="!personal">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="name"><b>Company Name</b></label>
+                                    <label for="companyName"><b>Company Name</b></label>
                                     <input type="text" formControlName="companyName"
                                            [ngClass]="{ 'is-invalid':submitted && form.companyName.errors && !personal}"
-                                           class="form-control rounded" id="name"
+                                           class="form-control rounded" id="companyName"
                                            placeholder="Enter company name"/>
                                     <div *ngIf="submitted && form.companyName.errors && !personal"
                                          class="invalid-feedback">
