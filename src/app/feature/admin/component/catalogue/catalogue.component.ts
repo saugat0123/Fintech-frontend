@@ -144,6 +144,10 @@ export class CatalogueComponent implements OnInit {
         if (this.id.userId !== undefined) {
             this.transferDoc = true;
         }
+
+        if (localStorage.getItem('username') === 'SPADMIN') {
+            this.transferDoc = true;
+        }
         this.search.toUser = this.id.userId;
         CatalogueComponent.loadData(this);
     }

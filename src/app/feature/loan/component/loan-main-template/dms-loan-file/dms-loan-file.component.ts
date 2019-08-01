@@ -105,7 +105,10 @@ export class DmsLoanFileComponent implements OnInit {
             {id: 'LAND_SECURITY', name: 'Land Security'},
             {id: 'BUILDING_SECURITY', name: 'Building Security'},
             {id: 'VEHICLE_SECURITY', name: 'Vehicle Security'},
-            {id: 'PROPERTY_AND_MACHINERY_SECURITY', name: 'Property and Machinery Security'}
+            {id: 'PROPERTY_AND_MACHINERY_SECURITY', name: 'Property and Machinery Security'},
+            {id: 'FIXED_DEPOSIT_RECEIPT', name: 'FIXED DEPOSIT RECEIPT'},
+            {id: 'SHARE_STOCK', name: 'SHARE STOCK'},
+            {id: 'EDUCATION_CERTIFICATE', name: 'EDUCATION CERTIFICATE'}
 
         ];
 
@@ -253,7 +256,7 @@ export class DmsLoanFileComponent implements OnInit {
             companyControl.setValidators(null);
             regdControl.setValidators(null);
         } else {
-            citizenControl.setValidators(null);
+            citizenControl.setValidators([Validators.required]);
             companyControl.setValidators([Validators.required]);
             regdControl.setValidators([Validators.required]);
         }

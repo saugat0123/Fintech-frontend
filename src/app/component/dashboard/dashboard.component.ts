@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     branchCount;
     businessOrPersonal;
     loggedUser: User;
+    roleName;
 
     constructor(
         private loanConfigService: LoanConfigService,
@@ -62,6 +63,8 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         const roleType: string = localStorage.getItem('roleType');
         if (roleName !== 'admin') {
             this.roleType = roleType === RoleType.MAKER;
+        } else {
+            this.roleName = true;
         }
 
         if (roleType === RoleType.MAKER) {

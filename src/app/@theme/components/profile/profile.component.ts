@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BranchService} from '../../../feature/admin/component/branch/branch.service';
 import {Branch} from '../../../feature/admin/modal/branch';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-profile',
@@ -13,7 +14,8 @@ export class ProfileComponent implements OnInit {
     roleType;
     branches: Branch[] = [];
 
-    constructor(private branchService: BranchService) {
+    constructor(private branchService: BranchService,
+                private modalService: NgbModal) {
     }
 
     ngOnInit() {
@@ -25,6 +27,10 @@ export class ProfileComponent implements OnInit {
                 this.branches = response.detail;
 
             });
+    }
+
+    onClose() {
+        this.modalService.dismissAll();
     }
 
 
