@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PieChart } from '../../feature/admin/modal/pie-chart';
-import { StatisticsService } from '../shared/service/statistics.service';
 
 @Component({
   selector: 'app-pie-chart',
@@ -20,8 +19,8 @@ export class PieChartComponent implements OnInit {
   };
   animations = true;
   labels = false;
-  legend = false;
-  legendPosition = 'right';
+  legend = true;
+  legendPosition = 'below';
   trimLabels = false;
 
   constructor() { }
