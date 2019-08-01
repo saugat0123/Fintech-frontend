@@ -3,8 +3,10 @@ import {LoanDocument} from './loan-document';
 export class DmsLoanFile {
     id: number;
     customerName: string;
-    citizenshipNumber: number;
-    contactNumber: number;
+    companyName: string;
+    registrationNumber: string;
+    citizenshipNumber: string;
+    contactNumber: string;
     interestRate: number;
     proposedAmount: number;
     proposedAmountWord: string;

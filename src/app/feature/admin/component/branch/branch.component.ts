@@ -17,6 +17,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {BranchService} from './branch.service';
 import {PermissionService} from '../../../../@core/service/permission.service';
+import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
@@ -43,6 +44,7 @@ export class BranchComponent implements OnInit {
     addViewBranch = false;
     downloadCsv = false;
     editViewBranch = false;
+    restApi = ApiConfig.URL;
 
     provinces: Province[];
     districts: District[];
@@ -193,8 +195,8 @@ export class BranchComponent implements OnInit {
         this.service.download(this.search).subscribe((response: any) => {
             const link = document.createElement('a');
             link.target = '_blank';
-            link.href = response.detail;
-            link.download = response.detail;
+            link.href = this.restApi + '/' + response.detail;
+            link.download = this.restApi + '/' + response.detail;
             link.setAttribute('visibility', 'hidden');
             link.click();
         });
