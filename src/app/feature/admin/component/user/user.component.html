@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <select class="custom-select" formControlName="activeStatus">
-                                        <option [value]="null" selected hidden>Active Status</option>
+                                        <option [value]="null" selected hidden>Status</option>
                                         <option [value]="active">Active</option>
                                         <option [value]="inactive">Inactive</option>
                                     </select>
@@ -80,9 +80,9 @@
                             </div>
                             <div class="col-md-12 p-0">
                                 <button (click)="clearSearch()" data-toggle="collapse" data-target="#searchModel"
-                                        class="btn btn-sm btn-flat btn-outline-secondary mr-1">Cancel
+                                        class="btn btn-sm btn-flat btn-outline-danger mr-1">Clear Search
                                 </button>
-                                <button class="btn btn-primary btn-sm btn-flat pull-right"
+                                <button class="btn btn-primary btn-sm btn-flat pull-right mr-1"
                                         type="submit">
                                     Advance Search
                                 </button>

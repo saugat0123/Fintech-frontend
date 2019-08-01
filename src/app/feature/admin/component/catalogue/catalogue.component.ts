@@ -92,16 +92,7 @@ export class CatalogueComponent implements OnInit {
                 documentStatus: [undefined]
             }
         );
-
-
-        this.filterForm = this.formBuilder.group({
-            branch: [undefined],
-            loanType: [undefined],
-            docStatus: [undefined],
-            startDate: [undefined],
-            endDate: [undefined],
-            role: [undefined]
-        });
+        this.buildFilterForm();
         this.roleAccess = localStorage.getItem('roleAccess');
         if (this.roleAccess === RoleAccess.SPECIFIC) {
             this.accessSpecific = true;
@@ -152,6 +143,17 @@ export class CatalogueComponent implements OnInit {
         CatalogueComponent.loadData(this);
     }
 
+    buildFilterForm() {
+        this.filterForm = this.formBuilder.group({
+            branch: [undefined],
+            loanType: [undefined],
+            docStatus: [undefined],
+            startDate: [undefined],
+            endDate: [undefined],
+            role: [undefined]
+        });
+    }
+
     changePage(page: number) {
         this.page = page;
         CatalogueComponent.loadData(this);
@@ -176,7 +178,7 @@ export class CatalogueComponent implements OnInit {
         this.validEndDate = this.filterForm.get('endDate').valid;
     }
 
-    ok() {
+    onSearch() {
         this.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
             this.filterForm.get('branch').value;
         this.search.documentStatus = this.filterForm.get('docStatus').value === null ? DocStatus.value(DocStatus.PENDING) :
@@ -201,7 +203,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     clearSearch() {
-        this.search = {};
+        this.buildFilterForm();
     }
 
     onTransferClick(template, customerLoanId, userId) {
