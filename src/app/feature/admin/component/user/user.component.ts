@@ -84,12 +84,7 @@ export class UserComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.filterForm = this.formBuilder.group({
-            name: [undefined],
-            branch: [undefined],
-            role: [undefined],
-            activeStatus: [undefined]
-        });
+        this.buildFilterForm();
         this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
             this.branchList = response.detail;
         }, error => {
@@ -121,6 +116,15 @@ export class UserComponent implements OnInit {
         });
     }
 
+    buildFilterForm() {
+        this.filterForm = this.formBuilder.group({
+            name: [undefined],
+            branch: [undefined],
+            role: [undefined],
+            activeStatus: [undefined]
+        });
+    }
+
     changePage(page: number) {
         this.page = page;
 
@@ -138,7 +142,7 @@ export class UserComponent implements OnInit {
     }
 
     clearSearch() {
-        this.search = {};
+        this.buildFilterForm();
     }
 
     edit(user: User) {
@@ -185,7 +189,6 @@ export class UserComponent implements OnInit {
 
 
     getCsv() {
-
         this.service.download(this.search).subscribe((response: any) => {
             const link = document.createElement('a');
             link.target = '_blank';

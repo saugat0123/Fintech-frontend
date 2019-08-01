@@ -17,6 +17,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {BranchService} from './branch.service';
 import {PermissionService} from '../../../../@core/service/permission.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-branch',
@@ -30,7 +31,6 @@ export class BranchComponent implements OnInit {
 
     page = 1;
 
-    search: any = {};
     pageable: Pageable = new Pageable();
 
     activeCount: number;
@@ -51,13 +51,22 @@ export class BranchComponent implements OnInit {
     province: Province = new Province();
     municipality: MunicipalityVdc = new MunicipalityVdc();
 
+    filterForm: FormGroup;
+    search: any = {
+        name: undefined,
+        provinceId: undefined,
+        districtId: undefined,
+        municipalityId: undefined
+    };
+
     constructor(
         private service: BranchService,
         private permissionService: PermissionService,
         private location: AddressService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private formBuilder: FormBuilder
     ) {
     }
 
@@ -80,6 +89,7 @@ export class BranchComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.buildFilterForm();
         this.breadcrumbService.notify(this.title);
         this.service.getStatus().subscribe((response: any) => {
             this.activeCount = response.detail.active;
@@ -111,22 +121,39 @@ export class BranchComponent implements OnInit {
         });
     }
 
+    buildFilterForm() {
+        this.filterForm = this.formBuilder.group({
+            name: undefined,
+            provinceId: undefined,
+            districtId: undefined,
+            municipalityId: undefined
+        });
+    }
+
     changePage(page: number) {
         this.page = page;
-
         BranchComponent.loadData(this);
     }
 
     onSearch() {
+        this.search.name = this.filterForm.get('name').value === null ? undefined :
+            this.filterForm.get('name').value;
+        this.search.branchIds = this.filterForm.get('provinceId').value === null ? undefined :
+            this.filterForm.get('provinceId').value;
+        this.search.roleId = this.filterForm.get('districtId').value === null ? undefined :
+            this.filterForm.get('districtId').value;
+        this.search.status = this.filterForm.get('municipalityId').value === null ? undefined :
+            this.filterForm.get('municipalityId').value;
+
         console.log(this.search);
         BranchComponent.loadData(this);
     }
 
-    onSearchChange(searchValue: string) {
-        this.search = {
-            'name': searchValue
-        };
-        BranchComponent.loadData(this);
+    clearSearch() {
+        this.districts = [];
+        this.municipalities = [];
+        this.search = {};
+        this.buildFilterForm();
     }
 
     edit(branch: Branch) {
@@ -144,7 +171,6 @@ export class BranchComponent implements OnInit {
 
         ModalUtils.resolve(modalRef.result, BranchComponent.loadData, this);
     }
-
 
     onChange(data) {
 
@@ -164,11 +190,6 @@ export class BranchComponent implements OnInit {
         this.onChange(allList);
     }
 
-
-    clearSearch() {
-        this.search = {};
-    }
-
     getCsv() {
         this.service.download(this.search).subscribe((response: any) => {
             const link = document.createElement('a');
@@ -179,7 +200,6 @@ export class BranchComponent implements OnInit {
             link.click();
         });
     }
-
 
     getMunicipalities(districtId) {
         delete this.search['districtId'];
@@ -211,10 +231,6 @@ export class BranchComponent implements OnInit {
             this.municipalities = [];
 
         }
-    }
-
-    getMunicipality(municipalityId) {
-        this.search.municipalityId = municipalityId.toString();
     }
 
 }

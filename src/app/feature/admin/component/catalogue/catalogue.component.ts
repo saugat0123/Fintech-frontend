@@ -68,14 +68,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.filterForm = this.formBuilder.group({
-            branch: [undefined],
-            loanType: [undefined],
-            docStatus: [undefined],
-            startDate: [undefined],
-            endDate: [undefined],
-            role: [undefined]
-        });
+        this.buildFilterForm();
         this.roleAccess = localStorage.getItem('roleAccess');
         if (this.roleAccess === RoleAccess.SPECIFIC) {
             this.accessSpecific = true;
@@ -111,6 +104,17 @@ export class CatalogueComponent implements OnInit {
         CatalogueComponent.loadData(this);
     }
 
+    buildFilterForm() {
+        this.filterForm = this.formBuilder.group({
+            branch: [undefined],
+            loanType: [undefined],
+            docStatus: [undefined],
+            startDate: [undefined],
+            endDate: [undefined],
+            role: [undefined]
+        });
+    }
+
     changePage(page: number) {
         this.page = page;
         CatalogueComponent.loadData(this);
@@ -123,7 +127,7 @@ export class CatalogueComponent implements OnInit {
             Date.UTC(createdAt.getFullYear(), createdAt.getMonth(), createdAt.getDate())) / (1000 * 60 * 60 * 24));
     }
 
-    getDaysDifference(lastModifiedDate: Date, createdDate: Date ): number {
+    getDaysDifference(lastModifiedDate: Date, createdDate: Date): number {
         const createdAt = new Date(createdDate);
         const lastModifiedAt = new Date(lastModifiedDate);
         return Math.floor((Date.UTC(lastModifiedAt.getFullYear(), lastModifiedAt.getMonth(), lastModifiedAt.getDate()) -
@@ -160,7 +164,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     clearSearch() {
-        this.search = {};
+        this.buildFilterForm();
     }
 
 }
