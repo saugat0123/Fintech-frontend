@@ -13,6 +13,7 @@ import {Insurance} from '../../admin/modal/insurance';
 export class LoanDataHolder {
     id: number;
     branch: Branch;
+    loanCategory: any;
     customerInfo: Customer;
     entityInfo: EntityInfo;
     dmsLoanFile: DmsLoanFile;

@@ -10,6 +10,7 @@ import {RoleType} from '../../feature/admin/modal/roleType';
 import {UserService} from '../../feature/admin/component/user/user.service';
 import {BranchService} from '../../feature/admin/component/branch/branch.service';
 import {User} from '../../feature/admin/modal/user';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     roleType = false;
     userCount;
     branchCount;
+    businessOrPersonal;
     loggedUser: User;
 
     constructor(
@@ -50,6 +52,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         private breadcrumbService: BreadcrumbService,
         private userService: UserService,
         private branchService: BranchService,
+        private modalService: NgbModal,
         private route: Router,
     ) {
     }
@@ -109,12 +112,25 @@ export class DashboardComponent implements OnInit, AfterContentInit {
 
     selectLoan(template: TemplateRef<any>) {
         this.loading = true;
-        this.newLoan();
+        this.modalService.open(template);
     }
 
     newLoan() {
-        this.router.navigate(['/home/loan/loanForm'], {queryParams: {loanId: this.loanType, customerId: null}});
+        this.onClose();
+        this.loading = true;
+        this.router.navigate(['/home/loan/loanForm'], {
+            queryParams: {
+                loanId: this.loanType,
+                customerId: null,
+                loanCategory: this.businessOrPersonal
+            }
+        });
 
+    }
+
+    onClose() {
+        this.modalService.dismissAll();
+        this.loading = false;
     }
 
     existingLoan(template: TemplateRef<any>) {

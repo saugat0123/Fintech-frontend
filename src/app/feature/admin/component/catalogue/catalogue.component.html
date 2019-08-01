@@ -25,7 +25,7 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <select class="custom-select" formControlName="docStatus" >
+                        <select class="custom-select" formControlName="docStatus">
                             <option [value]="null" selected hidden>Select Document Status</option>
                             <option *ngFor="let status of docStatus.values()"
                                     [value]="status">{{status}}
@@ -73,21 +73,22 @@
             <tr>
                 <th>Branch</th>
                 <th>Name</th>
-                <th>Loan Type</th>
+                <th>Facility</th>
                 <th>Status</th>
                 <th>Possession Under/Days</th>
                 <th>Loan lifespan</th>
+                <th *ngIf="transferDoc">Transfer</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let model of loanDataHolderList;let i=index"
-                (click)="onClick(model.loan.id,model.id)"
+
                 class="cursor">
-                <td>{{model?.branch?.name}}</td>
-                <td>{{model?.customerInfo?.customerName || model?.dmsLoanFile?.customerName}}</td>
-                <td>{{model?.loan?.name}}</td>
-                <td>{{model?.documentStatus}}</td>
-                <td>
+                <td (click)="onClick(model.loan.id,model.id)">{{model?.branch?.name}}</td>
+                <td (click)="onClick(model.loan.id,model.id)">{{model?.customerInfo?.customerName || model?.dmsLoanFile?.customerName}}</td>
+                <td (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
+                <td (click)="onClick(model.loan.id,model.id)">{{model?.documentStatus}}</td>
+                <td (click)="onClick(model.loan.id,model.id)">
                     <div *ngIf='model?.documentStatus.toString()==="PENDING"'>
                         {{model?.currentStage?.toUser?.name}}
                         / {{getDifferenceInDays(model?.currentStage?.lastModifiedAt)}}
@@ -96,17 +97,19 @@
                         model?.documentStatus.toString()==="REJECTED" ||
                         model?.documentStatus.toString()==="APPROVED")'>
                         {{model?.currentStage?.toUser?.name}}
-                        /{{getDaysDifference(model?.currentStage.lastModifiedAt, model?.previousList[model?.previousList.length-1].lastModifiedAt)}}
+                        /{{getDaysDifference(model?.currentStage.lastModifiedAt, model?.previousList[model?.previousList.length - 1].lastModifiedAt)}}
                     </div>
                 </td>
-                <td>
+                <td (click)="onClick(model.loan.id,model.id)">
                     <div *ngIf='model?.documentStatus.toString()==="PENDING"'>{{getDifferenceInDays(model?.currentStage?.createdAt)}}</div>
                     <div *ngIf='(model?.documentStatus.toString()==="CLOSED" ||
                         model?.documentStatus.toString()==="REJECTED" ||
                         model?.documentStatus.toString()==="APPROVED")'>
-                        {{getDaysDifference( model?.currentStage?.lastModifiedAt,model?.currentStage?.createdAt)}}
+                        {{getDaysDifference(model?.currentStage?.lastModifiedAt, model?.currentStage?.createdAt)}}
                     </div>
                 </td>
+                <td *ngIf="transferDoc"><a (click)="onTransferClick(transferDocument,model.id)">Transfer <i
+                        class="fa fa-arrow-circle-right"></i></a></td>
             </tr>
             </tbody>
         </table>
@@ -114,4 +117,77 @@
         <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
         <!-- ===================table-pagination==================== -->
     </nb-card-body>
+
+    <ng-template #transferDocument>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Transfer Loan Document</h4>
+            <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
+                <span aria-hidden="true">&times;</span>
+            </a>
+        </div>
+        <div class="modal-body">
+
+
+            <div style="height: 200px;max-height: 200px;overflow-y: auto;">
+                <nb-accordion>
+                    <nb-accordion-item *ngFor="let roles of transferUserList;let i=index">
+                        <nb-accordion-item-header>
+                            {{roles.name}}
+                        </nb-accordion-item-header>
+                        <nb-accordion-item-body>
+
+                            <div *ngFor="let users of roles.userDtoList;let i=index">
+                                <div class="col-md-12 row">
+                                    <div class="col-md-6">
+                                <a class="cursor">
+                                    <div class="radio">
+                                        <label><input type="radio" name="optradio"
+                                                      (click)="docTransfer(users.id,roles.id)">{{users.username}}</label>
+                                    </div>
+
+                                </a>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <span *ngFor="let branch of users.branchDtoList;">
+                                            {{branch?.name}}
+                                        </span>
+                                    </div>
+                            </div>
+                            </div>
+
+                        </nb-accordion-item-body>
+                    </nb-accordion-item>
+                </nb-accordion>
+            </div>
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-success float-right" (click)="action(confirmation)">Next</button>
+            </div>
+
+
+        </div>
+    </ng-template>
+
+    <ng-template #confirmation>
+        <div>
+            <div class="modal-content">
+                <div class="modal-header" style="display:block">
+                    <div>
+                        <h4 class="">Do You want to transfer this document ?</h4>
+                        <form>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
+                                    NO
+                                </button>
+                                <button type="submit" class="btn btn-primary  btn-flat" (click)="confirm()">
+                                    YES
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </ng-template>
 </nb-card>
