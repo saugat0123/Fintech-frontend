@@ -163,6 +163,8 @@ export class DmsLoanFileComponent implements OnInit {
 
     onSubmit() {
         this.loanFile.customerName = this.loanForm.get('customerName').value;
+        this.loanFile.companyName = this.loanForm.get('companyName').value;
+        this.loanFile.registrationNumber = this.loanForm.get('registrationNumber').value;
         this.loanFile.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
         this.loanFile.contactNumber = this.loanForm.get('contactNumber').value;
         this.loanFile.interestRate = this.loanForm.get('interestRate').value;
@@ -178,7 +180,7 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFile.fmvFundingPercent = this.loanForm.get('fmvFundingPercent').value;
         this.loanFile.groupExpo = this.loanForm.get('groupExpo').value;
         this.loanFile.totalLoanLimit = this.loanForm.get('totalLoanLimit').value;
-        console.log(this.loanFile);
+
     }
 
 
