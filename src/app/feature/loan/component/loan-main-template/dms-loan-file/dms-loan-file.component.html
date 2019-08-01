@@ -17,13 +17,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" *ngIf="personal">
                                 <div class="form-group rounded">
                                     <label for="citizenshipNumber"><b>Citizenship Number</b></label>
                                     <div class="input-group mb-3">
                                         <input type="text" formControlName="citizenshipNumber"
                                                class="form-control rounded"
-                                               [ngClass]="{ 'is-invalid':submitted && form.citizenshipNumber.errors}"
+                                               [ngClass]="{ 'is-invalid':submitted && form.citizenshipNumber.errors && personal}"
                                                id="citizenshipNumber" placeholder="Enter citizenship number"
                                                min="0"/>
                                         <div class="input-group-append">
@@ -31,7 +31,7 @@
                                                     (click)="searchByCitizenship()">Search
                                             </button>
                                         </div>
-                                        <div *ngIf="submitted && form.citizenshipNumber.errors"
+                                        <div *ngIf="submitted && form.citizenshipNumber.errors && personal"
                                              class="invalid-feedback">
                                             <div *ngIf="form.citizenshipNumber.errors.required">
                                                 Citizenship number is required.
@@ -40,7 +40,49 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
+
+                        <div class="row" *ngIf="!personal">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name"><b>Company Name</b></label>
+                                    <input type="text" formControlName="companyName"
+                                           [ngClass]="{ 'is-invalid':submitted && form.companyName.errors && !personal}"
+                                           class="form-control rounded" id="name"
+                                           placeholder="Enter company name"/>
+                                    <div *ngIf="submitted && form.companyName.errors && !personal"
+                                         class="invalid-feedback">
+                                        <div *ngIf="form.companyName.errors.required">Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group rounded">
+                                    <label for="registrationNumber"><b>Registration Number</b></label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" formControlName="registrationNumber"
+                                               class="form-control rounded"
+                                               [ngClass]="{ 'is-invalid':submitted && form.registrationNumber.errors && !personal}"
+                                               id="registrationNumber" placeholder="Enter registration number"
+                                               min="0"/>
+                                        <div class="input-group-append">
+                                            <button nbButton outline status="primary" size="small"
+                                                    (click)="searchByRegNO()">Search
+                                            </button>
+                                        </div>
+                                        <div *ngIf="submitted && form.registrationNumber.errors && !personal"
+                                             class="invalid-feedback">
+                                            <div *ngIf="form.registrationNumber.errors.required">
+                                                registration number is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -49,6 +91,7 @@
                                            id="contact"
                                            [ngClass]="{ 'is-invalid':submitted && form.contactNumber.errors}"
                                            placeholder="Enter Contact Number"/>
+                                    <span><sup>*</sup> Multiple number can be input with commas.</span>
                                     <div *ngIf="submitted && form.contactNumber.errors" class="invalid-feedback">
                                         <div *ngIf="form.contactNumber.errors.required">Contact number is required</div>
                                     </div>

@@ -27,6 +27,7 @@ export class LoanActionComponent implements OnInit {
 
     @Input() loanConfigId: number;
     @Input() id: number;
+    @Input() loanCategory: string;
 
     @Input() actionsList: ActionModel;
     popUpTitle: string;
@@ -81,7 +82,7 @@ export class LoanActionComponent implements OnInit {
         }
 
         if (roleType === RoleType.MAKER) {
-          this.currentUserRoleType = true;
+            this.currentUserRoleType = true;
         }
 
     }
@@ -150,7 +151,13 @@ export class LoanActionComponent implements OnInit {
     }
 
     onEdit() {
-        this.route.navigate(['/home/loan/loanForm'], {queryParams: {loanId: this.loanConfigId, customerId: this.id}});
+        this.route.navigate(['/home/loan/loanForm'], {
+            queryParams: {
+                loanId: this.loanConfigId,
+                customerId: this.id,
+                loanCategory: this.loanCategory
+            }
+        });
     }
 
     onLogin(datavalue) {

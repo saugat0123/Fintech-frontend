@@ -38,6 +38,7 @@ export class UserFormComponent implements OnInit {
     hideCustomerCount = true;
     customerCount: String;
     hideSaveButton = false;
+    editedId;
 
     constructor(
         private commonService: CommonService,
@@ -214,6 +215,7 @@ export class UserFormComponent implements OnInit {
     }
 
     editRole(id, chkStatus) {
+        this.editedId = id;
         if (chkStatus) {
             this.loanService.getLoanStatusApi(id).subscribe((responsee: any) => {
                 console.log(responsee.detail.status);
@@ -236,7 +238,7 @@ export class UserFormComponent implements OnInit {
 
     goToCatalouge() {
         this.onClose();
-        this.router.navigate(['home/admin/catalogue'], {queryParams: {userId: this.model.id}});
+        this.router.navigate(['home/admin/catalogue'], {queryParams: {userId: this.editedId}});
 
     }
 }
