@@ -56,14 +56,11 @@
                 </div>
                 <div class="col-md-12 p-0">
                     <button (click)="clearSearch()" data-toggle="collapse" data-target="#searchModel"
-                            class="btn btn-sm btn-flat btn-outline-secondary mr-1">Cancel
+                            class="btn btn-sm btn-flat btn-outline-danger mr-1">Clear Search
                     </button>
                     <button [disabled]="!filterForm.valid" class="btn btn-primary btn-sm btn-flat pull-right mr-1"
                             type="submit">
                         Advance Search
-                    </button>
-                    <button (click)="clearSearch()"
-                            class="btn btn-sm btn-flat btn-outline-danger">Clear Search
                     </button>
                 </div>
             </form>
