@@ -2,7 +2,7 @@
     <nb-card-header>
         <h3>{{memoTask}} Memo</h3>
     </nb-card-header>
-    <form (ngSubmit)="onSubmit()" [formGroup]="memoComposeForm">
+    <form (ngSubmit)="send()" [formGroup]="memoComposeForm">
         <nb-card-body>
             <div class="col-md-12">
                 <div class="form-group">
@@ -106,15 +106,15 @@
         </nb-card-body>
         <nb-card-footer>
             <div class="col-md-12">
-                <div class="float-left">
+                <!--<div class="float-left">
                     <button nbButton status="warning" size="small" type="reset"><i class="fa fa-times"></i>
                         Discard
                     </button>
-                </div>
+                </div>-->
 
                 <div class="float-right">
                     <button nbButton status="primary" size="small" type="button">
-                        <i class="fa fa-pencil"></i> Draft
+                        <i class="fa fa-pencil"></i>Save as Draft
                     </button>
                     <span class="m-1"></span>
                     <button nbButton status="success" size="small" type="submit" [disabled]="!memoComposeForm.valid">

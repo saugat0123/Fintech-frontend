@@ -19,42 +19,29 @@
             <div [innerHtml]="memo?.content | safeHtml" class="text-justify"></div>
         </div>
     </nb-card-body>
-    <nb-card-footer>
+    <nb-card-footer *ngIf="memo?.stage === 'FORWARD'">
         <div class="text-center">
             <div class="btn-group">
-                <!--<button (click)="editMemo(memo?.id)" class="btn btn-primary" data-container="body"
-                        data-toggle="tooltip" title="Edit" type="button"><i class="fa fa-edit"></i></button>-->
-                <!--<button (click)="showDeleteMemo(deleteMemoModal)" class="btn btn-primary" data-container="body"
-                        data-toggle="tooltip" title="Delete" type="button"><i class="fa fa-trash"></i></button>-->
                 <button (click)="backward()" class="btn btn-primary" data-container="body"
-                        data-toggle="tooltip" title="Send Backward" type="button">
+                        data-toggle="tooltip" title="Reject" type="button">
                     <i class="fa fa-reply"></i>
                 </button>
                 <button (click)="forward()" class="btn btn-primary" data-container="body"
                         data-toggle="tooltip" title="Send Forward" type="button"><i class="fa fa-share"></i></button>
                 <button (click)="approve()" class="btn btn-primary" data-container="body"
                         data-toggle="tooltip" title="Approve" type="button"><i class="fa fa-check"></i></button>
-                <button class="btn btn-primary" data-toggle="tooltip" title="Print" type="button">
-                    <i class="fa fa-print"></i>
+            </div>
+        </div>
+    </nb-card-footer>
+    <nb-card-footer *ngIf="memo?.stage === 'DRAFT' || memo?.stage === 'BACKWARD'">
+        <div class="text-center">
+            <div class="btn-group">
+                <button (click)="editMemo(memo.id)" class="btn btn-primary" data-container="body"
+                        data-toggle="tooltip" title="Edit Memo" type="button">
+                    <i class="fa fa-pencil-alt"></i>
                 </button>
             </div>
         </div>
     </nb-card-footer>
 </nb-card>
 <!-- /.box-footer -->
-
-<!--<ng-template #deleteMemoModal>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Delete Memo: {{memo?.subject}}</h4>
-        <button (click)="modalRef.hide()" aria-label="Close" class="close pull-right" type="button">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        Are you sure you want to delete this memo?
-    </div>
-    <div class="modal-footer">
-        <button (click)="modalRef.hide()" class="btn btn-default" data-dismiss="modal" type="button">No</button>
-        <button (click)="deleteMemo()" class="btn btn-success" data-dismiss="modal">Yes</button>
-    </div>
-</ng-template>-->

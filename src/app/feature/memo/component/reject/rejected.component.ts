@@ -8,15 +8,15 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {Router} from '@angular/router';
 import {MemoBaseComponent} from '../memo-base/memo-base.component';
+import {MemoFullRoute} from '../../memo-full-routes';
 
 @Component({
     selector: 'app-memo-under-review',
-    templateUrl: './memo-underReview.component.html',
-    styleUrls: ['./memo-underReview.component.css']
+    templateUrl: './rejected.component.html',
 })
-export class MemoUnderReviewComponent implements OnInit {
+export class RejectedComponent implements OnInit {
 
-    static TITLE = `${MemoBaseComponent.TITLE} - Under Review`;
+    static TITLE = `${MemoBaseComponent.TITLE} - Rejected`;
 
     page = 1;
     spinner = false;
@@ -30,10 +30,14 @@ export class MemoUnderReviewComponent implements OnInit {
         private memoService: MemoService,
         private toastService: ToastService,
         private router: Router
-    ) {}
+    ) {
+    }
 
-    static loadData(other: MemoUnderReviewComponent) {
+    static loadData(other: RejectedComponent) {
         other.spinner = true;
+        if (other.search === null || other.search === undefined) {
+            other.search = `stage=BACKWARD&stages.sentTo.id=${localStorage.getItem('userId')}`;
+        }
         other.memoService.getPaginationWithSearch(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.content;
                 other.pageable = PaginationUtils.getPageable(response);
@@ -47,18 +51,18 @@ export class MemoUnderReviewComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.breadcrumbService.notify(MemoUnderReviewComponent.TITLE);
-        MemoUnderReviewComponent.loadData(this);
+        this.breadcrumbService.notify(RejectedComponent.TITLE);
+        RejectedComponent.loadData(this);
     }
 
     changePage(page: number) {
         this.page = page;
 
-        MemoUnderReviewComponent.loadData(this);
+        RejectedComponent.loadData(this);
     }
 
     viewMemo(id: number) {
-        this.router.navigate([`home/memo/read/${id}`]);
+        this.router.navigate([`${MemoFullRoute.READ}${id}`]);
     }
 
 }

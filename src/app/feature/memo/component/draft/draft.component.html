@@ -1,7 +1,7 @@
 <nb-card>
     <nb-card-header>
         <div class="col-md-12">
-            <h3>Under Review</h3>
+            <h3>Draft</h3>
         </div>
     </nb-card-header>
     <nb-card-body>
@@ -30,7 +30,7 @@
                                 <td>{{memo.subject}}</td>
                                 <td>{{memo.status}}</td>
                                 <td>
-                                    <a (click)="viewMemo(memo.id)" class="btn btn-primary btn-sm"
+                                    <a (click)="edit(memo.id)" class="btn btn-primary btn-sm"
                                        data-placement="top" data-toggle="tooltip" style="margin-left:10px" title="View">
                                         <i class="fa fa-eye-slash" style="color:white;"></i>
                                     </a>

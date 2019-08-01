@@ -11,16 +11,17 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ToastService} from '../../../../@core/utils';
 import {MemoBaseComponent} from '../memo-base/memo-base.component';
 import {UserService} from '../../../admin/component/user/user.service';
-import {ForwardComponent} from '../actions/forward.component';
-import {ApproveComponent} from '../actions/approve.component';
-import {BackwardComponent} from '../actions/backward.component';
+import {ForwardActionComponent} from '../actions/forward-action.component';
+import {ApproveActionComponent} from '../actions/approve-action.component';
+import {RejectActionComponent} from '../actions/reject-action.component';
+import {MemoFullRoute} from '../../memo-full-routes';
 
 @Component({
     selector: 'app-memo-read',
-    templateUrl: './memo-read.component.html',
-    styleUrls: ['./memo-read.component.css']
+    templateUrl: './read.component.html',
+    styleUrls: ['./read.component.css']
 })
-export class MemoReadComponent implements OnInit, DoCheck {
+export class ReadComponent implements OnInit, DoCheck {
 
     static TITLE = `${MemoBaseComponent.TITLE} - Read`;
     memo: Memo;
@@ -46,7 +47,7 @@ export class MemoReadComponent implements OnInit, DoCheck {
     }
 
     ngOnInit() {
-        this.breadcrumbService.notify(MemoReadComponent.TITLE);
+        this.breadcrumbService.notify(ReadComponent.TITLE);
         const memoId = +this.activatedRoute.snapshot.paramMap.get('id');
         this.memoService.detail(memoId).subscribe((response: any) => {
             this.memo = response.detail;
@@ -85,7 +86,7 @@ export class MemoReadComponent implements OnInit, DoCheck {
     }
 
     editMemo(id: number) {
-        this.router.navigate([`home/memo/compose/${id}`]);
+        this.router.navigate([`${MemoFullRoute.COMPOSE}/${id}`]);
     }
 
     deleteMemo() {
@@ -101,11 +102,11 @@ export class MemoReadComponent implements OnInit, DoCheck {
     }
 
     reloadPage() {
-        this.router.navigate(['home/memo/underReview']);
+        this.router.navigate([MemoFullRoute.REVIEW]);
     }
 
     backward() {
-        const modalRef = this.modalService.open(BackwardComponent);
+        const modalRef = this.modalService.open(RejectActionComponent);
         modalRef.componentInstance.memo = this.memo;
         modalRef.componentInstance.users$ = this.users$;
         modalRef.componentInstance.roles$ = this.roles$;
@@ -121,7 +122,7 @@ export class MemoReadComponent implements OnInit, DoCheck {
     }
 
     forward() {
-        const modalRef = this.modalService.open(ForwardComponent);
+        const modalRef = this.modalService.open(ForwardActionComponent);
         modalRef.componentInstance.memo = this.memo;
         modalRef.componentInstance.users$ = this.users$;
         modalRef.componentInstance.roles$ = this.roles$;
@@ -137,7 +138,7 @@ export class MemoReadComponent implements OnInit, DoCheck {
     }
 
     approve() {
-        const modalRef = this.modalService.open(ApproveComponent);
+        const modalRef = this.modalService.open(ApproveActionComponent);
         modalRef.componentInstance.memo = this.memo;
         modalRef.componentInstance.users$ = this.users$;
         modalRef.componentInstance.roles$ = this.roles$;

@@ -8,17 +8,17 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {User} from '../../../admin/modal/user';
 
 @Component({
-    selector: 'app-memo-backward',
+    selector: 'app-memo-forward',
     template: `
         <div class="modal-header">
-            <h4 class="modal-title pull-left">Backward Memo: {{memo?.subject}}</h4>
+            <h4 class="modal-title pull-left">Forward Memo: {{memo?.subject}}</h4>
             <button (click)="cancel()" aria-label="Close" class="close pull-right" type="button">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <form (ngSubmit)="ok()" [formGroup]="stageForm">
             <div class="modal-body">
-                <p>Are you sure you want to Reject this memo?</p>
+                <p>Are you sure you want to forward this memo?</p>
                 <hr/>
                 <!--<div class="form-group">
                     <ng-select
@@ -57,7 +57,7 @@ import {User} from '../../../admin/modal/user';
     `,
     styles: []
 })
-export class BackwardComponent implements OnInit {
+export class ForwardActionComponent implements OnInit {
 
     @Input()
     memo: Memo;
@@ -91,7 +91,7 @@ export class BackwardComponent implements OnInit {
     ok(): void {
 
         const stage: MemoStage = this.stageForm.getRawValue();
-        stage.stage = 'BACKWARD';
+        stage.stage = 'FORWARD';
 
         const sentBy = new User();
         sentBy.id = parseInt(localStorage.getItem('userId'), 10);

@@ -11,39 +11,15 @@ import {User} from '../../../admin/modal/user';
     selector: 'app-memo-forward',
     template: `
         <div class="modal-header">
-            <h4 class="modal-title pull-left">Forward Memo: {{memo?.subject}}</h4>
+            <h4 class="modal-title pull-left">Approve Memo: {{memo?.subject}}</h4>
             <button (click)="cancel()" aria-label="Close" class="close pull-right" type="button">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <form (ngSubmit)="ok()" [formGroup]="stageForm">
             <div class="modal-body">
-                <p>Are you sure you want to forward this memo?</p>
+                <p>Are you sure you want to Approve this memo?</p>
                 <hr/>
-                <!--<div class="form-group">
-                    <ng-select
-                            [closeOnSelect]="true"
-                            [hideSelected]="true"
-                            [items]="roles$"
-                            [multiple]="false"
-                            bindLabel="name"
-                            formControlName="forwardRole"
-                            placeholder="Select Role">
-                        >
-                    </ng-select>
-                </div>-->
-                <div class="form-group">
-                    <ng-select
-                            [closeOnSelect]="true"
-                            [hideSelected]="true"
-                            [items]="users$"
-                            [multiple]="false"
-                            bindLabel="name"
-                            formControlName="sentTo"
-                            placeholder="Select User">
-                        >
-                    </ng-select>
-                </div>
                 <div class="form-group">
                 <textarea class="form-control" placeholder="Note" rows="5"
                           formControlName="note"></textarea>
@@ -57,7 +33,7 @@ import {User} from '../../../admin/modal/user';
     `,
     styles: []
 })
-export class ForwardComponent implements OnInit {
+export class ApproveActionComponent implements OnInit {
 
     @Input()
     memo: Memo;
@@ -76,9 +52,7 @@ export class ForwardComponent implements OnInit {
     ngOnInit(): void {
         this.stageForm = this.formBuilder.group(
             {
-                sentTo: [undefined],
-                note: [undefined],
-                stage: [undefined],
+                note: [undefined]
             }
         );
     }
@@ -91,11 +65,12 @@ export class ForwardComponent implements OnInit {
     ok(): void {
 
         const stage: MemoStage = this.stageForm.getRawValue();
-        stage.stage = 'FORWARD';
+        stage.stage = 'APPROVED';
 
         const sentBy = new User();
         sentBy.id = parseInt(localStorage.getItem('userId'), 10);
         stage.sentBy = sentBy;
+        stage.sentTo = this.memo.sentBy;
 
         this.memo.stages.push(stage);
         this.memo.stage = stage.stage;
@@ -104,6 +79,4 @@ export class ForwardComponent implements OnInit {
             this.modalRef.close(ModalResponse.SUCCESS);
         });
     }
-
-
 }

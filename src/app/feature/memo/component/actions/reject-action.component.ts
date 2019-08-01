@@ -8,18 +8,42 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {User} from '../../../admin/modal/user';
 
 @Component({
-    selector: 'app-memo-forward',
+    selector: 'app-memo-backward',
     template: `
         <div class="modal-header">
-            <h4 class="modal-title pull-left">Approve Memo: {{memo?.subject}}</h4>
+            <h4 class="modal-title pull-left">Backward Memo: {{memo?.subject}}</h4>
             <button (click)="cancel()" aria-label="Close" class="close pull-right" type="button">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <form (ngSubmit)="ok()" [formGroup]="stageForm">
             <div class="modal-body">
-                <p>Are you sure you want to Approve this memo?</p>
+                <p>Are you sure you want to Reject this memo?</p>
                 <hr/>
+                <!--<div class="form-group">
+                    <ng-select
+                            [closeOnSelect]="true"
+                            [hideSelected]="true"
+                            [items]="roles$"
+                            [multiple]="false"
+                            bindLabel="name"
+                            formControlName="forwardRole"
+                            placeholder="Select Role">
+                        >
+                    </ng-select>
+                </div>-->
+                <div class="form-group">
+                    <ng-select
+                            [closeOnSelect]="true"
+                            [hideSelected]="true"
+                            [items]="users$"
+                            [multiple]="false"
+                            bindLabel="name"
+                            formControlName="sentTo"
+                            placeholder="Select User">
+                        >
+                    </ng-select>
+                </div>
                 <div class="form-group">
                 <textarea class="form-control" placeholder="Note" rows="5"
                           formControlName="note"></textarea>
@@ -33,7 +57,7 @@ import {User} from '../../../admin/modal/user';
     `,
     styles: []
 })
-export class ApproveComponent implements OnInit {
+export class RejectActionComponent implements OnInit {
 
     @Input()
     memo: Memo;
@@ -52,7 +76,9 @@ export class ApproveComponent implements OnInit {
     ngOnInit(): void {
         this.stageForm = this.formBuilder.group(
             {
-                note: [undefined]
+                sentTo: [undefined],
+                note: [undefined],
+                stage: [undefined],
             }
         );
     }
@@ -65,12 +91,11 @@ export class ApproveComponent implements OnInit {
     ok(): void {
 
         const stage: MemoStage = this.stageForm.getRawValue();
-        stage.stage = 'APPROVED';
+        stage.stage = 'BACKWARD';
 
         const sentBy = new User();
         sentBy.id = parseInt(localStorage.getItem('userId'), 10);
         stage.sentBy = sentBy;
-        stage.sentTo = this.memo.sentBy;
 
         this.memo.stages.push(stage);
         this.memo.stage = stage.stage;
