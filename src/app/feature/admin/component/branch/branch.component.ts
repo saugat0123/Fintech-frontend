@@ -138,22 +138,14 @@ export class BranchComponent implements OnInit {
     onSearch() {
         this.search.name = this.filterForm.get('name').value === null ? undefined :
             this.filterForm.get('name').value;
-        this.search.branchIds = this.filterForm.get('provinceId').value === null ? undefined :
+        this.search.provinceId = this.filterForm.get('provinceId').value === null ? undefined :
             this.filterForm.get('provinceId').value;
-        this.search.roleId = this.filterForm.get('districtId').value === null ? undefined :
+        this.search.districtId = this.filterForm.get('districtId').value === null ? undefined :
             this.filterForm.get('districtId').value;
-        this.search.status = this.filterForm.get('municipalityId').value === null ? undefined :
+        this.search.municipalityId = this.filterForm.get('municipalityId').value === null ? undefined :
             this.filterForm.get('municipalityId').value;
-
         console.log(this.search);
         BranchComponent.loadData(this);
-    }
-
-    clearSearch() {
-        this.districts = [];
-        this.municipalities = [];
-        this.search = {};
-        this.buildFilterForm();
     }
 
     edit(branch: Branch) {
@@ -190,6 +182,13 @@ export class BranchComponent implements OnInit {
         this.onChange(allList);
     }
 
+
+    clearSearch() {
+        this.districts = [];
+        this.municipalities = [];
+        this.buildFilterForm();
+    }
+
     getCsv() {
         this.service.download(this.search).subscribe((response: any) => {
             const link = document.createElement('a');
@@ -200,6 +199,7 @@ export class BranchComponent implements OnInit {
             link.click();
         });
     }
+
 
     getMunicipalities(districtId) {
         delete this.search['districtId'];
