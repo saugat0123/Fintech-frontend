@@ -53,6 +53,7 @@ export class DmsLoanFileComponent implements OnInit {
     hasPreviousLoan = false;
     previousLoans: Array<LoanDataHolder>;
     spinner = false;
+    personal = true;
 
     constructor(private formBuilder: FormBuilder,
                 private loanDataService: LoanDataService,
@@ -74,13 +75,18 @@ export class DmsLoanFileComponent implements OnInit {
             (paramsValue: Params) => {
                 this.allId = {
                     loanId: null,
-                    customerId: null
+                    customerId: null,
+                    loanCategory: null
                 };
                 this.allId = paramsValue;
                 this.customerId = this.allId.customerId;
                 this.loanConfigId = this.allId.loanId;
+                if (this.allId.loanCategory !== 'PERSONAL_TYPE') {
+                    this.personal = false;
+                }
 
             });
+
 
         if (this.loanFile.id !== undefined) {
             this.action = 'EDIT';
@@ -99,7 +105,10 @@ export class DmsLoanFileComponent implements OnInit {
             {id: 'LAND_SECURITY', name: 'Land Security'},
             {id: 'BUILDING_SECURITY', name: 'Building Security'},
             {id: 'VEHICLE_SECURITY', name: 'Vehicle Security'},
-            {id: 'PROPERTY_AND_MACHINERY_SECURITY', name: 'Property and Machinery Security'}
+            {id: 'PROPERTY_AND_MACHINERY_SECURITY', name: 'Property and Machinery Security'},
+            {id: 'FIXED_DEPOSIT_RECEIPT', name: 'Fixed Deposit Receipt'},
+            {id: 'SHARE_STOCK', name: 'Share/Stock'},
+            {id: 'EDUCATION_CERTIFICATE', name: 'Education Certificate'}
 
         ];
 
@@ -111,7 +120,9 @@ export class DmsLoanFileComponent implements OnInit {
         ];
         this.loanForm = this.formBuilder.group({
             customerName: [this.loanFile.customerName === undefined ? '' : this.loanFile.customerName, Validators.required],
-            citizenshipNumber: [this.loanFile.citizenshipNumber === undefined ? '' : this.loanFile.citizenshipNumber, Validators.required],
+            companyName: [this.loanFile.companyName === undefined ? '' : this.loanFile.companyName],
+            registrationNumber: [this.loanFile.registrationNumber === undefined ? '' : this.loanFile.registrationNumber],
+            citizenshipNumber: [this.loanFile.citizenshipNumber === undefined ? '' : this.loanFile.citizenshipNumber],
             contactNumber: [this.loanFile.contactNumber === undefined ? '' : this.loanFile.contactNumber, Validators.required],
             interestRate: [this.loanFile.interestRate === undefined ? '' : this.loanFile.interestRate,
                 [Validators.required, Validators.min(0)]],
@@ -130,13 +141,14 @@ export class DmsLoanFileComponent implements OnInit {
                 Validators.required],
             waiver: [this.loanFile.waiver === undefined ? '' : this.loanFile.waiver, Validators.required],
             fmvTotal: [this.loanFile.fmvTotal === undefined ? '' : this.loanFile.fmvTotal, [Validators.required, Validators.min(0)]],
-             totalLoanLimit: [this.loanFile.totalLoanLimit === undefined ? '' : this.loanFile.totalLoanLimit,
+            totalLoanLimit: [this.loanFile.totalLoanLimit === undefined ? '' : this.loanFile.totalLoanLimit,
                 [Validators.required, Validators.min(0)]],
             groupExpo: [this.loanFile.groupExpo === undefined ? '' : this.loanFile.groupExpo, Validators.required],
             fmvFundingPercent: [this.loanFile.fmvFundingPercent === undefined ? '' : this.loanFile.fmvFundingPercent,
                 [Validators.required, Validators.min(0)]],
             file: ['']
         });
+        this.reqPersonalOrBusiness();
         if (this.renewDocuments.length > 0) {
             this.renew = true;
         }
@@ -154,6 +166,8 @@ export class DmsLoanFileComponent implements OnInit {
 
     onSubmit() {
         this.loanFile.customerName = this.loanForm.get('customerName').value;
+        this.loanFile.companyName = this.loanForm.get('companyName').value;
+        this.loanFile.registrationNumber = this.loanForm.get('registrationNumber').value;
         this.loanFile.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
         this.loanFile.contactNumber = this.loanForm.get('contactNumber').value;
         this.loanFile.interestRate = this.loanForm.get('interestRate').value;
@@ -169,7 +183,7 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFile.fmvFundingPercent = this.loanForm.get('fmvFundingPercent').value;
         this.loanFile.groupExpo = this.loanForm.get('groupExpo').value;
         this.loanFile.totalLoanLimit = this.loanForm.get('totalLoanLimit').value;
-        console.log(this.loanFile);
+
     }
 
 
@@ -223,5 +237,28 @@ export class DmsLoanFileComponent implements OnInit {
 
     hidePreviousLoans() {
         this.hasPreviousLoan = false;
+    }
+
+    searchByRegNO() {
+        const regNO = this.loanForm.get('registrationNumber').value;
+        this.loanFormService.getLoansByRegistrationNumber(regNO).subscribe((response: any) => {
+            this.previousLoans = response.detail;
+            this.hasPreviousLoan = this.previousLoans.length > 0;
+        }, error => console.error(error));
+    }
+
+    reqPersonalOrBusiness() {
+        const citizenControl = this.loanForm.get('citizenshipNumber');
+        const companyControl = this.loanForm.get('companyName');
+        const regdControl = this.loanForm.get('registrationNumber');
+        if (this.personal) {
+            citizenControl.setValidators([Validators.required]);
+            companyControl.setValidators(null);
+            regdControl.setValidators(null);
+        } else {
+            citizenControl.setValidators([Validators.required]);
+            companyControl.setValidators([Validators.required]);
+            regdControl.setValidators([Validators.required]);
+        }
     }
 }

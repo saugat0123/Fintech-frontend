@@ -16,4 +16,5 @@ export class Applicant {
     requestAmount: number;
     version: number;
     obtainedMarks: number;
+    eligibleAmount: number;
 }
