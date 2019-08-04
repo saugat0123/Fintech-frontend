@@ -1,7 +1,8 @@
 <section class="enable-print">
     <nb-card>
         <nb-card-header class="disable-print">
-            <app-loan-action [loanConfigId]="loanConfigId" [id]="customerId" [loanCategory]="loanCategory" [actionsList]="actionsList"
+            <app-loan-action [loanConfigId]="loanConfigId" [id]="customerId" [loanCategory]="loanCategory"
+                             [actionsList]="actionsList"
                              *ngIf="showAction"></app-loan-action>
         </nb-card-header>
         <nb-card-body id="print-block">
@@ -42,13 +43,16 @@
             </div>
             <div class="row mt-1">
                 <div class="col-md-6 text-left">
-                    <span><b>Pending Under: </b>{{loanDataHolder?.currentStage?.toUser?.name}} ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                    <span><b>Pending Under: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
+                        ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
                 </div>
                 <div class="col-md-6 text-right" *ngIf="currentDocAction === 'FORWARD'">
-                    <span><b>Forwarded By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}} ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
+                    <span><b>Forwarded By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
+                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
                 </div>
                 <div class="col-md-6 text-right" *ngIf="currentDocAction === 'BACKWARD'">
-                    <span><b>Backward By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}} ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
+                    <span><b>Backward By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
+                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
                 </div>
                 <!--<div class="col-md-6">
                     <div class="text-right">
@@ -155,7 +159,8 @@
             <div class="row mt-3">
                 <div class="col-md-12">
                     <p><b>Security Offered</b></p>
-                    <p><label *ngFor="let security of securities; let i = index">{{i + 1}}. {{Security[security]}}&nbsp;&nbsp;</label></p>
+                    <p><label *ngFor="let security of securities; let i = index">{{i + 1}}. {{Security[security]}}&nbsp;&nbsp;</label>
+                    </p>
                 </div>
             </div>
 
@@ -208,10 +213,10 @@
                         <tr>
                             <th>S.N</th>
                             <th class="cmt-width">Comment</th>
-                            <th>From User</th>
-                            <th>From Position</th>
-                            <th>To User</th>
-                            <th>To Position</th>
+                            <th class="text-center">From User</th>
+                            <th class="disable-print">From Position</th>
+                            <th class="text-center">To User</th>
+                            <th class="disable-print">To Position</th>
                             <th>Status</th>
                         </tr>
                         </thead>
@@ -219,32 +224,56 @@
                         <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
                             <td>{{i + 1}}</td>
                             <td>
-                                <div class="cmt-width">{{previousList?.comment}}</div>
-                                <a class="d-flex justify-content-end read-margin" (click)="open(previousList.comment)">read more ....</a>
+                                <div>{{previousList?.comment}}</div>
+                                <a class="d-flex justify-content-end read-margin disable-print"
+                                   (click)="open(previousList.comment)">read
+                                    more ....</a>
                             </td>
-                            <td>{{previousList?.fromUser?.name}}</td>
-                            <td>{{previousList?.fromRole?.roleName}}</td>
-                            <td>{{previousList?.toUser?.name}}</td>
-                            <td>{{previousList?.toRole?.roleName}}</td>
+                            <td class="text-center">
+                                {{previousList?.fromUser?.name}}
+                                <span class="print-only">
+                                    <br/>
+                                    ( {{previousList?.fromRole?.roleName}} )
+                                </span>
+                            </td>
+                            <td class="disable-print">{{previousList?.fromRole?.roleName}}</td>
+                            <td class="text-center">{{previousList?.toUser?.name}}
+                                <span class="print-only">
+                                    <br/>
+                                    ( {{previousList?.toRole?.roleName}} )
+                                </span>
+                            </td>
+                            <td class="disable-print">{{previousList?.toRole?.roleName}}</td>
                             <td>{{previousList?.docAction}}</td>
                         </tr>
                         <tr>
                             <td>{{currentIndex + 1}}</td>
                             <td>
                                 {{loanDataHolder?.currentStage?.comment}}
-                                <a class="d-flex justify-content-end read-margin" (click)="open(loanDataHolder.currentStage.comment)">read more ....</a>
+                                <a class="d-flex justify-content-end read-margin disable-print"
+                                   (click)="open(loanDataHolder.currentStage.comment)">read more ....</a>
                             </td>
-                            <td>{{loanDataHolder?.currentStage?.fromUser?.name}}</td>
-                            <td>{{loanDataHolder?.currentStage?.fromRole?.roleName}}</td>
-                            <td>{{loanDataHolder?.currentStage?.toUser?.name}}</td>
-                            <td>{{loanDataHolder?.currentStage?.toRole?.roleName}}</td>
+                            <td class="text-center">
+                                {{loanDataHolder?.currentStage?.fromUser?.name}}
+                                <span class="print-only">
+                                    ({{loanDataHolder?.currentStage?.fromRole?.roleName}})
+                                </span>
+                            </td>
+                            <td class="disable-print">{{loanDataHolder?.currentStage?.fromRole?.roleName}}</td>
+                            <td class="text-center">
+                                {{loanDataHolder?.currentStage?.toUser?.name}}
+                                <span class="print-only">
+                                    ({{loanDataHolder?.currentStage?.toRole?.roleName}})
+                                </span>
+                            </td>
+                            <td class="disable-print">{{loanDataHolder?.currentStage?.toRole?.roleName}}</td>
                             <td>{{loanDataHolder?.currentStage?.docAction}}</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="row" *ngIf="documentNames.length>0">
+            <div class="row disable-print" *ngIf="documentNames.length>0">
                 <div class="col-md-12">
                     <p><b>Required Documents</b></p>
                     <table class="table table-condensed table-bordered table-responsive-md">
@@ -281,8 +310,8 @@
                                  align="middle"/>
                         </div>
                         <div class="text-center signature-detail">
-                            <p class="m-0">{{previous?.toUser?.role.roleName}}</p>
                             <p class="m-0">{{previous?.toUser?.name}}</p>
+                            <p class="m-0">({{previous?.toUser?.role.roleName}})</p>
                             <p class="m-0">{{previous?.lastModifiedAt}}</p>
                         </div>
                     </div>
