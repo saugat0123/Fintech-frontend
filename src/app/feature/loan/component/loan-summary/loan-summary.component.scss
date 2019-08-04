@@ -45,12 +45,9 @@
     padding-right: 0.125rem!important;
   }
 
-  .cmt-width {
-    width: 500px;
-    min-height: 10px;
-    max-height: 50px;
-    overflow: hidden;
-  }
+  /*.cmt-width {
+    width: 70%;
+  }*/
 
   .read-margin {
     margin-top: 5px;
@@ -75,12 +72,12 @@
       }
 
       div {
-        font-size: 10px;
+        font-size: 12px;
         color: black;
-        line-height: 1.5;
+        //line-height: 1.5;
 
         p {
-          font-size: 10px;
+          font-size: 12px;
           margin-bottom: 5px;
         }
       }
@@ -99,6 +96,10 @@
         .report-header-heading, .report-header-sub-heading {
           font-size: 1rem;
         }
+      }
+
+      .cmt-width {
+        width: 70%;
       }
 
       #print-block {
