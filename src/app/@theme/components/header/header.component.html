@@ -29,8 +29,12 @@
                     Notification
                 </nb-card-header>
                 <nb-card-body>
-                    <nb-list>
-                        <nb-list-item *ngFor="let message of notificationMessage" (click)="onClick()">{{message.senderName}} {{message.message}}</nb-list-item>
+                    <nb-list *ngIf="notifications">
+                        <nb-list-item class="cursor" (click)="summaryClick(message)"
+                                      *ngFor="let message of notifications">{{message?.senderName}} {{message?.message}}</nb-list-item>
+                    </nb-list>
+                    <nb-list *ngIf="!notifications && notifications.length <= 0">
+                        <nb-list-item>No notifications</nb-list-item>
                     </nb-list>
                 </nb-card-body>
             </nb-card>
@@ -41,4 +45,4 @@
         </nb-action>
     </nb-actions>
 </div>
-
+<app-notification></app-notification>

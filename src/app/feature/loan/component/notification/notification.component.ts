@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 
@@ -9,9 +9,10 @@ import {Message} from './model/message';
 import {environment} from '../../../../../environments/environment.prod';
 import {User} from '../../../admin/modal/user';
 import {UserService} from '../../../../@core/service/user.service';
-import {WebNotificationService} from '../../service/web-notification.service';
+import {WebNotificationService} from './service/web-notification.service';
 import {ToastService} from '../../../../@core/utils';
 import {Status} from '../../../../@core/Status';
+import {NotificationService} from './service/notification.service';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class NotificationComponent implements OnInit {
   isLoaded = false;
   isCustomSocketOpened = false;
   messages: Message[] = [];
-  public notifications = 0;
+  public notificationCount = 0;
   message: Message = new Message();
   private serverUrl = environment.url + 'socket';
   private stompClient;
@@ -35,7 +36,8 @@ export class NotificationComponent implements OnInit {
               private dataService: WebNotificationService,
               private userService: UserService,
               private toastService: ToastService,
-              private router: Router) {
+              private router: Router,
+              private notificationService: NotificationService) {
   }
 
   ngOnInit() {
@@ -44,6 +46,7 @@ export class NotificationComponent implements OnInit {
           this.user = response.detail;
           this.message.fromId = this.user.id;
           this.message.senderName = this.user.name;
+          console.log(this.notificationCount);
         }
     );
     this.initializeWebSocketConnection();
@@ -78,24 +81,24 @@ export class NotificationComponent implements OnInit {
       this.isCustomSocketOpened = true;
       this.stompClient.subscribe('/socket-publisher/' + this.user.id, (message) => {
         console.log(message);
-        this.handleResult(message);
+        this.handleRealTimeResult(message);
       });
     }
   }
 
-  handleResult(message) {
+  handleRealTimeResult(message) {
     if (message.body) {
       const messageResult: Message = JSON.parse(message.body);
       this.messages.push(messageResult);
       // this.toastService.show();
-      this.notifications ++;
+      this.notificationCount++;
       this.newNotification();
       this.newNotificationMessage();
     }
   }
-  newNotification() {
-    this.dataService.changeNotification(this.notifications);
 
+  newNotification() {
+    this.dataService.changeNotification(this.notificationCount);
   }
   newNotificationMessage() {
     this.dataService.setNotificationMessage(this.messages);

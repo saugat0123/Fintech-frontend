@@ -1,15 +1,19 @@
-import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 import {NbDialogService, NbMenuService, NbSearchService, NbSidebarService, NbThemeService} from '@nebular/theme';
-import {LayoutService} from '../../../@core/utils';
+import {LayoutService, ToastService} from '../../../@core/utils';
 import {UserService} from '../../../@core/service/user.service';
 import {filter, map} from 'rxjs/operators';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SearchResultComponent} from './header-form/searchResult.component';
 import {ProfileComponent} from '../profile/profile.component';
 import {NotificationComponent} from '../../../feature/loan/component/notification/notification.component';
-import {WebNotificationService} from '../../../feature/loan/service/web-notification.service';
+import {WebNotificationService} from '../../../feature/loan/component/notification/service/web-notification.service';
+import {NotificationService} from '../../../feature/loan/component/notification/service/notification.service';
+import {Status} from '../../../@core/Status';
+import {Message} from '../../../feature/loan/component/notification/model/message';
+import {Alert, AlertType} from '../../model/Alert';
 
 @Component({
     selector: 'app-header',
@@ -31,8 +35,12 @@ export class HeaderComponent implements OnInit {
 
     userMenu = [{title: HeaderComponent.PROFILE}, {title: HeaderComponent.LOGOUT}];
 
-    notificationCount: any;
-    notificationMessage: any;
+    notificationCount: number;
+    notifications: Array<Message> = new Array<Message>();
+    notificationSearchObject = {
+        toId: localStorage.getItem('userId'),
+        status: Status.ACTIVE
+    };
 
     constructor(private sidebarService: NbSidebarService,
                 private menuService: NbMenuService,
@@ -45,7 +53,8 @@ export class HeaderComponent implements OnInit {
                 private modalService: NgbModal,
                 private dialogService: NbDialogService,
                 private dataService: WebNotificationService,
-                private activeRoute: ActivatedRoute) {
+                private notificationService: NotificationService,
+                private toastService: ToastService) {
 
         this.searchService.onSearchSubmit()
             .subscribe((searchData: any) => {
@@ -92,7 +101,13 @@ export class HeaderComponent implements OnInit {
 
         this.menuService.onItemClick().pipe();
         this.dataService.currentNotification.subscribe(message => this.notificationCount = message);
-        this.dataService.currentNotificationMessage.subscribe( message => this.notificationMessage = message);
+        this.dataService.currentNotificationMessage.subscribe(message => {
+            if (message) {
+                this.notifications = message;
+            }
+        });
+
+        this.getSavedNotifications();
     }
 
     toggleSidebar(): boolean {
@@ -119,11 +134,40 @@ export class HeaderComponent implements OnInit {
         this.modalService.open(ProfileComponent, {size: 'lg'});
     }
 
-    onClick() {
-        console.log('check');
-        for ( const notificationMsg of this.notificationMessage ) {
-            this.router.navigate(['/home/loan/summary'],
-                {queryParams: {loanConfigId: notificationMsg.loanConfigId, customerId: notificationMsg.customerId}});
-        }
+    clearRealtimeCount() {
+        this.notificationCount = 0;
+        console.log(this.notifications);
     }
+
+    summaryClick(message: Message
+    ) {
+        message.status = Status.INACTIVE;
+        this.notificationService.save(message).subscribe((response: any) => {
+            this.router.navigateByUrl('/home/dashboard/', {skipLocationChange: true}).then(e => {
+                if (e) {
+                    this.router.navigate(['/home/loan/summary'], {
+                        queryParams: {
+                            loanConfigId: message.loanConfigId,
+                            customerId: message.customerId
+                        }
+                    });
+                }
+            });
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error updating notification status'));
+        });
+    }
+
+    getSavedNotifications() {
+        this.notificationService.getPaginationWithSearchObject(this.notificationSearchObject, 1, 10).subscribe((response: any) => {
+            const mes: Array<Message> = response.detail.content;
+            console.log(response);
+            this.notifications.push(...mes);
+
+        }, error => {
+            console.error(error);
+        });
+    }
+
 }
