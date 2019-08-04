@@ -15,7 +15,7 @@ import {DocStatus} from '../model/docStatus';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {LoanConfig} from '../../admin/modal/loan-config';
 import {RoleType} from '../../admin/modal/roleType';
-import {NotificationComponent} from '../component/notification/notification.component';
+import {SocketService} from '../../../@core/service/socket.service';
 
 
 @Component({
@@ -55,7 +55,7 @@ export class LoanActionComponent implements OnInit {
         private activeModal: NgbActiveModal,
         private modalService: NgbModal,
         private http: HttpClient,
-        private notificationComponent: NotificationComponent,
+        private socketService: SocketService
     ) {
     }
 
@@ -117,7 +117,6 @@ export class LoanActionComponent implements OnInit {
             }
         );
         this.modalService.open(template);
-        this.notificationComponent.ngOnInit();
     }
 
     onSubmit(templateLogin) {
@@ -144,7 +143,6 @@ export class LoanActionComponent implements OnInit {
                         toUser: this.userList[0]
                     }
                 );
-                this.notificationComponent.toId = this.userList[0].id;
             }
         });
     }
@@ -166,7 +164,6 @@ export class LoanActionComponent implements OnInit {
             .subscribe(
                 (res: any) => {
                     this.postAction();
-                    this.notificationComponent.sendMessageUsingSocket();
                 },
                 error => {
 
@@ -181,6 +178,10 @@ export class LoanActionComponent implements OnInit {
         this.loanActionService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
+            this.socketService.message.toId = this.formAction.value.toUser;
+            this.socketService.message.loanConfigId = this.formAction.value.loanConfigId;
+            this.socketService.message.customerId = this.formAction.value.customerLoanId;
+            this.socketService.sendMessageUsingSocket();
             this.route.navigate(['/home/pending']);
         }, error => {
 

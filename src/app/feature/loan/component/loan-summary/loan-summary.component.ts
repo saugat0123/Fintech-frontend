@@ -19,7 +19,6 @@ import {environment} from '../../../../../environments/environment';
 import {DateService} from '../../../../@core/service/baseservice/date.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component';
-import {NotificationComponent} from '../notification/notification.component';
 
 @Component({
     selector: 'app-loan-summary',
@@ -73,8 +72,7 @@ export class LoanSummaryComponent implements OnInit {
                 private loanConfigService: LoanConfigService,
                 private approvalLimitService: ApprovalLimitService,
                 private dateService: DateService,
-                private modalService: NgbModal,
-                private notificationComponent: NotificationComponent) {
+                private modalService: NgbModal) {
 
         this.client = environment.client;
 
@@ -178,8 +176,6 @@ export class LoanSummaryComponent implements OnInit {
                         }
                     }
                 }
-                this.notificationComponent.customerId = this.customerId;
-                this.notificationComponent.loanConfId = this.loanConfigId;
             }
         );
         this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
