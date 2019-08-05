@@ -16,6 +16,7 @@ import {LoanConfigService} from '../../admin/component/loan-config/loan-config.s
 import {LoanConfig} from '../../admin/modal/loan-config';
 import {RoleType} from '../../admin/modal/roleType';
 import {SocketService} from '../../../@core/service/socket.service';
+import {DocAction} from '../model/docAction';
 
 
 @Component({
@@ -185,14 +186,17 @@ export class LoanActionComponent implements OnInit {
         this.loanActionService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
-            this.socketService.message.fromRole = response.detail.fromRole.id;
-            this.socketService.message.toRole = response.detail.toRole.id;
-            this.socketService.message.fromId = response.detail.fromUser.id;
-            this.socketService.message.toId = response.detail.toUser.id;
-            this.socketService.message.loanConfigId = response.detail.loanConfigId;
-            this.socketService.message.customerId = response.detail.customerLoanId;
-            this.socketService.message.docAction = response.detail.docAction;
-            this.socketService.sendMessageUsingSocket();
+            if (response.detail.docAction === DocAction.value(DocAction.FORWARD) ||
+                response.detail.docAction === DocAction.value(DocAction.BACKWARD)) {
+                this.socketService.message.fromRole = response.detail.fromRole.id;
+                this.socketService.message.toRole = response.detail.toRole.id;
+                this.socketService.message.fromId = response.detail.fromUser.id;
+                this.socketService.message.toId = response.detail.toUser.id;
+                this.socketService.message.loanConfigId = response.detail.loanConfigId;
+                this.socketService.message.customerId = response.detail.customerLoanId;
+                this.socketService.message.docAction = response.detail.docAction;
+                this.socketService.sendMessageUsingSocket();
+            }
             this.route.navigate(['/home/pending']);
         }, error => {
 
