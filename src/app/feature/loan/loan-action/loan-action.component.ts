@@ -194,6 +194,7 @@ export class LoanActionComponent implements OnInit {
                 this.socketService.message.toId = response.detail.toUser.id;
                 this.socketService.message.loanConfigId = response.detail.loanConfigId;
                 this.socketService.message.customerId = response.detail.customerLoanId;
+                this.socketService.message.date = new Date();
                 this.socketService.message.docAction = response.detail.docAction;
                 this.socketService.sendMessageUsingSocket();
             }

@@ -10,6 +10,7 @@ export class Message {
     loanConfigId: number;
     message: string;
     status: any;
+    date: Date;
     docAction: DocAction;
 
 }
