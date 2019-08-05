@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import {NbDialogService, NbMenuService, NbSearchService, NbSidebarService, NbThemeService} from '@nebular/theme';
+import {NbMenuService, NbSearchService, NbSidebarService, NbThemeService} from '@nebular/theme';
 import {LayoutService} from '../../../@core/utils';
 import {UserService} from '../../../@core/service/user.service';
 import {filter, map} from 'rxjs/operators';
@@ -8,6 +8,10 @@ import {Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SearchResultComponent} from './header-form/searchResult.component';
 import {ProfileComponent} from '../profile/profile.component';
+import {SocketService} from '../../../@core/service/socket.service';
+import {NotificationService} from '../notification/service/notification.service';
+import {Message} from '../notification/model/message';
+import {Status} from '../../../@core/Status';
 
 @Component({
     selector: 'app-header',
@@ -22,12 +26,16 @@ export class HeaderComponent implements OnInit {
 
     @Input() position = 'normal';
 
+    userId: number;
     userFullName: string;
     username: string;
     userProfilePicture;
     roleName;
 
     userMenu = [{title: HeaderComponent.PROFILE}, {title: HeaderComponent.LOGOUT}];
+
+    notificationCount;
+
     constructor(private sidebarService: NbSidebarService,
                 private menuService: NbMenuService,
                 private userService: UserService,
@@ -35,8 +43,9 @@ export class HeaderComponent implements OnInit {
                 private themeService: NbThemeService,
                 private router: Router,
                 private searchService: NbSearchService,
-                private dialogService: NbDialogService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                private socketService: SocketService,
+                private notificationService: NotificationService) {
 
         this.searchService.onSearchSubmit()
             .subscribe((searchData: any) => {
@@ -62,10 +71,10 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.userId = Number(localStorage.getItem('userId'));
         this.userFullName = localStorage.getItem('userFullName');
         this.userProfilePicture = localStorage.getItem('userProfilePicture');
         this.roleName = localStorage.getItem('roleName');
-
 
         this.menuService.onItemClick().pipe(
             filter(({tag}) => tag === this.contextMenuTag),
@@ -74,7 +83,6 @@ export class HeaderComponent implements OnInit {
         ).subscribe(() => {
             this.logout();
         });
-
         this.menuService.onItemClick().pipe(
             filter(({tag}) => tag === this.contextMenuTag),
             map(({item: {title}}) => title),
@@ -84,6 +92,7 @@ export class HeaderComponent implements OnInit {
         });
 
         this.menuService.onItemClick().pipe();
+        this.setupNotification();
     }
 
     toggleSidebar(): boolean {
@@ -110,5 +119,10 @@ export class HeaderComponent implements OnInit {
         this.modalService.open(ProfileComponent, {size: 'lg'});
     }
 
+    setupNotification(): void {
+        this.socketService.initializeWebSocketConnection();
+        this.notificationService.fetchNotifications();
+        this.notificationService.notificationCount.subscribe((value => this.notificationCount = value));
+    }
 
 }
