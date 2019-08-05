@@ -20,4 +20,5 @@ export class LoanConfig {
     eligibilityDocuments: Array<Document>;
     offerLetters: Array<OfferLetter>;
     enableEligibility: boolean;
+    minimumProposedAmount: number;
 }

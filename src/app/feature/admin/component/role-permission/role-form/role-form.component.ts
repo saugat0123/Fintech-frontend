@@ -15,7 +15,7 @@ import {RoleAccess} from '../../../modal/role-access';
 export class RoleFormComponent implements OnInit {
 
     role: Role = new Role();
-    roleTypeList;
+    roleType;
     roleAccessList = RoleAccess;
     hideRoleType = false;
     hideBranchAccess = false;
@@ -29,11 +29,11 @@ export class RoleFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.roleTypeList = RoleType;
+        this.roleType = RoleType.APPROVAL;
 
-        this.service.checkRoleContainMaker().subscribe((res: any) => {
-            this.hideRoleType = res.detail;
-        });
+        // this.service.checkRoleContainMaker().subscribe((res: any) => {
+        //     this.hideRoleType = res.detail;
+        // });
     }
 
     onSubmit() {
@@ -56,9 +56,15 @@ export class RoleFormComponent implements OnInit {
         this.activeModal.dismiss(ModalResponse.CANCEL);
     }
 
-    checkIfMaker() {
-        this.hideBranchAccess = this.role.roleType === RoleType.MAKER;
-        this.role.roleAccess = RoleAccess.OWN;
+    checkIfMaker(chkStatus) {
+        if (chkStatus) {
+            this.hideBranchAccess = true;
+            this.role.roleType = RoleType.MAKER;
+            this.role.roleAccess = RoleAccess.OWN;
+        } else {
+            this.hideBranchAccess = false;
+            this.role.roleType = RoleType.APPROVAL;
+        }
     }
 
 }

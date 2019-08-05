@@ -45,6 +45,17 @@
     padding-right: 0.125rem !important;
   }
 
+  .cmt-width {
+    width: 500px;
+    min-height: 10px;
+    max-height: 50px;
+    overflow: hidden;
+  }
+
+  .read-margin {
+    margin-top: 5px;
+  }
+
   @media print {
     nb-card {
       background: none;

@@ -15,6 +15,7 @@ import {LoanType} from './loanType';
 export class LoanDataHolder {
     id: number;
     branch: Branch;
+    loanCategory: any;
     customerInfo: Customer;
     entityInfo: EntityInfo;
     dmsLoanFile: DmsLoanFile;

@@ -1,11 +1,12 @@
 import {LoanDocument} from './loan-document';
-import {LoanConfig} from './loan-config';
 
 export class DmsLoanFile {
     id: number;
     customerName: string;
-    citizenshipNumber: number;
-    contactNumber: number;
+    companyName: string;
+    registrationNumber: string;
+    citizenshipNumber: string;
+    contactNumber: string;
     interestRate: number;
     proposedAmount: number;
     proposedAmountWord: string;
@@ -22,4 +23,8 @@ export class DmsLoanFile {
     recommendationConclusion: string;
     waiver: string;
     documentPathMaps: any;
+    fmvTotal: number;
+    totalLoanLimit: number;
+    groupExpo: String;
+    fmvFundingPercent: number;
 }

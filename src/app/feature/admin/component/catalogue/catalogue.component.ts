@@ -10,12 +10,15 @@ import {LoanDataHolder} from '../../../loan/model/loanData';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {DocStatus} from '../../../loan/model/docStatus';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RoleAccess} from '../../modal/role-access';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Role} from '../../modal/role';
 import {RoleService} from '../role-permission/role.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {UserService} from '../user/user.service';
+import {LoanActionService} from '../../../loan/loan-action/service/loan-action.service';
+
 
 @Component({
     selector: 'app-catalogue',
@@ -35,33 +38,40 @@ export class CatalogueComponent implements OnInit {
     filterForm: FormGroup;
     validStartDate = true;
     validEndDate = true;
+    transferDoc = false;
     search: any = {
         branchIds: undefined,
         documentStatus: DocStatus.value(DocStatus.PENDING),
         loanConfigId: undefined,
         currentStageDate: undefined,
-        currentUserRole: undefined
+        currentUserRole: undefined,
+        toUser: undefined
     };
     roleAccess: string;
     accessSpecific: boolean;
     accessAll: boolean;
     statusApproved = false;
     loanDataHolder: LoanDataHolder;
+    id;
+    transferUserList;
+    formAction: FormGroup;
 
     constructor(private branchService: BranchService,
                 private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
                 private router: Router,
+                private activatedRoute: ActivatedRoute,
                 private loanFormService: LoanFormService,
                 private formBuilder: FormBuilder,
-                private roleService: RoleService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                private loanActionService: LoanActionService,
+                private userService: UserService,
+                private roleService: RoleService) {
     }
 
     static loadData(other: CatalogueComponent) {
         other.loanFormService.getCatalogues(other.search, other.page, 10).subscribe((response: any) => {
             other.loanDataHolderList = response.detail.content;
-            console.log(other.loanDataHolderList);
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
         }, error => {
@@ -72,14 +82,18 @@ export class CatalogueComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.filterForm = this.formBuilder.group({
-            branch: [undefined],
-            loanType: [undefined],
-            docStatus: [undefined],
-            startDate: [undefined],
-            endDate: [undefined],
-            role: [undefined]
-        });
+        this.formAction = this.formBuilder.group(
+            {
+                loanConfigId: [undefined],
+                customerLoanId: [undefined],
+                toUser: [undefined],
+                toRole: [undefined],
+                docAction: [undefined],
+                comment: [undefined, Validators.required],
+                documentStatus: [undefined]
+            }
+        );
+        this.buildFilterForm();
         this.roleAccess = localStorage.getItem('roleAccess');
         if (this.roleAccess === RoleAccess.SPECIFIC) {
             this.accessSpecific = true;
@@ -112,7 +126,33 @@ export class CatalogueComponent implements OnInit {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
         });
+        this.activatedRoute.queryParams.subscribe(
+            (paramsValue: Params) => {
+                this.id = {
+                    userId: null
+                };
+                this.id = paramsValue;
+            });
+        if (this.id.userId !== undefined) {
+            this.transferDoc = true;
+        }
+
+        if (localStorage.getItem('username') === 'SPADMIN') {
+            this.transferDoc = true;
+        }
+        this.search.toUser = this.id.userId;
         CatalogueComponent.loadData(this);
+    }
+
+    buildFilterForm() {
+        this.filterForm = this.formBuilder.group({
+            branch: [undefined],
+            loanType: [undefined],
+            docStatus: [undefined],
+            startDate: [undefined],
+            endDate: [undefined],
+            role: [undefined]
+        });
     }
 
     changePage(page: number) {
@@ -127,7 +167,7 @@ export class CatalogueComponent implements OnInit {
             Date.UTC(createdAt.getFullYear(), createdAt.getMonth(), createdAt.getDate())) / (1000 * 60 * 60 * 24));
     }
 
-    getDaysDifference(lastModifiedDate: Date, createdDate: Date ): number {
+    getDaysDifference(lastModifiedDate: Date, createdDate: Date): number {
         const createdAt = new Date(createdDate);
         const lastModifiedAt = new Date(lastModifiedDate);
         return Math.floor((Date.UTC(lastModifiedAt.getFullYear(), lastModifiedAt.getMonth(), lastModifiedAt.getDate()) -
@@ -165,13 +205,25 @@ export class CatalogueComponent implements OnInit {
     }
 
     clearSearch() {
-        this.search = {};
+        this.buildFilterForm();
     }
 
-    onChange(data, onActionChange) {
-        this.loanDataHolder = data;
-        const modalRef = this.modalService.open(onActionChange);
+    onTransferClick(template, customerLoanId, userId) {
+        this.userService.getUserListForTransfer(userId).subscribe((res: any) => {
+            this.transferUserList = res.detail;
+        });
+        this.formAction.patchValue({
+                customerLoanId: customerLoanId,
+                docAction: 'TRANSFER',
+                documentStatus: DocStatus.PENDING,
+                comment: 'TRANSFER'
+            }
+        );
+        this.modalService.open(template);
+    }
 
+    onClose() {
+        this.modalService.dismissAll();
     }
 
     changeAction() {
@@ -179,6 +231,7 @@ export class CatalogueComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated loan type.'));
                 this.modalService.dismissAll('Close modal');
             }, error => {
+
 
                 console.log(error);
 
@@ -188,6 +241,34 @@ export class CatalogueComponent implements OnInit {
         );
 
     }
+
+    docTransfer(userId, roleId) {
+        const users = {id: userId};
+        const role = {id: roleId};
+        this.formAction.patchValue({
+                toUser: users,
+                toRole: role
+            }
+        );
+    }
+
+    action(templates) {
+        this.onClose();
+        this.modalService.open(templates);
+    }
+
+    confirm() {
+        this.onClose();
+        this.loanActionService.postLoanAction(this.formAction.value).subscribe((response: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
+                this.formAction.get('docAction').value));
+            CatalogueComponent.loadData(this);
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+
+        });
+    }
+
 
 
 }

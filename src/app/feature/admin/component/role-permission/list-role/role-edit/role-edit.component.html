@@ -2,9 +2,9 @@
     <div class="modal-content">
         <div class="modal-header">
             <h4 class="modal-title pull-left">Edit Role</h4>
-            <button (click)="onClose()" aria-label="Close" class="close pull-right" type="button">
+            <a (click)="onClose()" aria-label="Close" class="close cursor">
                 <span aria-hidden="true">&times;</span>
-            </button>
+            </a>
         </div>
         <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
             <div class="modal-body">
@@ -13,14 +13,24 @@
                         <label>Role Name</label>
                         <input [(ngModel)]="model.id" class="form-control" name="id" placeholder="id"
                                type="hidden">
-                        <input #roleVal="ngModel" [(ngModel)]="model.roleName" [ngClass]="{ 'is-invalid': f.submitted && roleVal.invalid }" class="form-control"
+                        <input #roleVal="ngModel" [(ngModel)]="model.roleName"
+                               [ngClass]="{ 'is-invalid': f.submitted && roleVal.invalid }" class="form-control"
                                name="roleName" placeholder="Name" required
                                type="text">
                         <div *ngIf="f.submitted && roleVal.invalid" class="invalid-feedback">
                             <div *ngIf="roleVal.errors.required">Role name is required</div>
                         </div>
                     </div>
+
+
+                    <div class="col-md-6">
+                        <label>Role Type</label><br>
+                        <input #chk (click)="checkIfMaker(chk.checked)" [checked]="checkRoleEdit" name="roleType"
+                               type="checkbox"
+                               value="{{roleType}}"><b>Is Role a Maker?</b>
+                    </div>
                 </div>
+
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" style="cursor: pointer" type="submit"><i class="fa fa-save"></i>
