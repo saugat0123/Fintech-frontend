@@ -94,7 +94,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <table class="print-only table table-bordered">
+                    <table class="print-only table table-bordered" id="print-borrower-table">
                         <tbody>
                         <tr>
                             <td>
@@ -105,7 +105,7 @@
                                 <b>Citizenship Number: </b>
                                 {{dmsLoanFile?.citizenshipNumber || loanDataHolder?.customerInfo?.citizenshipNumber}}
                             </td>
-                            <td>
+                            <td class="column-size-50">
                                 <b>Contact Number: </b>
                                 {{dmsLoanFile?.contactNumber || loanDataHolder?.customerInfo?.mobile}}
                             </td>
@@ -223,11 +223,13 @@
                         <tbody>
                         <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
                             <td>{{i + 1}}</td>
-                            <td>
+                            <td class="disable-print">
                                 <div>{{previousList?.comment}}</div>
                                 <a class="d-flex justify-content-end read-margin disable-print"
-                                   (click)="open(previousList.comment)">read
-                                    more ....</a>
+                                   (click)="open(previousList.comment)">read more ....</a>
+                            </td>
+                            <td class="print-only">
+                                <div>{{previousList?.comment}}</div>
                             </td>
                             <td class="text-center">
                                 {{previousList?.fromUser?.name}}
@@ -248,10 +250,13 @@
                         </tr>
                         <tr>
                             <td>{{currentIndex + 1}}</td>
-                            <td>
+                            <td class="disable-print">
                                 {{loanDataHolder?.currentStage?.comment}}
                                 <a class="d-flex justify-content-end read-margin disable-print"
                                    (click)="open(loanDataHolder.currentStage.comment)">read more ....</a>
+                            </td>
+                            <td class="print-only">
+                                {{loanDataHolder?.currentStage?.comment}}
                             </td>
                             <td class="text-center">
                                 {{loanDataHolder?.currentStage?.fromUser?.name}}
