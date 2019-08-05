@@ -178,7 +178,6 @@ export class LoanSummaryComponent implements OnInit {
                         }
                     }
                 }
-
             }
         );
         this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
