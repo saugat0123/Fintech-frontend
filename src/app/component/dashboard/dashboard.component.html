@@ -11,6 +11,15 @@
         </app-icon-card>
     </div>
 
+
+    <div *ngIf="roleName" class="col-md-4 col-sm-6 col-xs-12">
+        <a routerLink="/home/admin/catalogue">
+            <app-icon-card detail="click to transfer" title="Transfer" type="danger">
+                <i class="fas fa-exchange-alt"></i>
+            </app-icon-card>
+        </a>
+    </div>
+
 </div>
 
 <div class="row center mb-3" *ngIf="addViewLoanCategory && roleType">
@@ -23,7 +32,7 @@
                 </select>
             </div>
             <div class="col-md-1">
-                <button class="btn btn-md btn-primary btn-flat" (click)="selectLoan(template)">
+                <button class="btn btn-md btn-primary btn-flat" (click)="selectLoan(loanCategory)">
                     <i *ngIf="!loading" class="fa fa-arrow-right"></i>
                     <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
                 </button>
@@ -31,19 +40,7 @@
         </div>
     </div>
 </div>
-<ng-template #template>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Choose</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <button type="button" class="btn btn-primary" (click)="newLoan()">New Loan</button>
-        <button type="button" class="btn btn-success float-right" (click)="existingLoan(loanTemplate)">Existing Loan
-        </button>
-    </div>
-</ng-template>
+
 <ng-template #loanTemplate>
     <div class="modal-header">
         <h4 class="modal-title pull-left">Existing Loan</h4>
@@ -56,6 +53,30 @@
             Enter the customer id:
             <input type="text" class="form-control" [(ngModel)]="customerId"></div>
         <button type="button" class="btn btn-success float-right" (click)="getLoanData()">Next</button>
+    </div>
+</ng-template>
+
+<ng-template #loanCategory>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Loan Category</h4>
+        <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
+            <span aria-hidden="true">&times;</span>
+        </a>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="f.form.valid && newLoan()" #f="ngForm">
+            <div class="form-group">
+                <select class="custom-select" [(ngModel)]="businessOrPersonal" name="businessOrPersonal"
+                        #type="ngModel" [ngClass]="{ 'is-invalid': f.submitted && type.invalid }" required>
+                    <option [ngValue]="undefined" hidden>Loan Category</option>
+                    <option value="PERSONAL_TYPE">PERSONAL</option>
+                    <option value="BUSINESS_TYPE">BUSINESS</option>
+                </select>
+            </div>
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-success float-right">Next</button>
+            </div>
+        </form>
     </div>
 </ng-template>
 <div class="row" *ngIf="pendingView">

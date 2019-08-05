@@ -1,5 +1,6 @@
+import {AppConstant} from '../app/@core/utils/appConstant';
+
 export const environment = {
   production: true,
-  client: 'Mahalaxmi Bikas Bank Ltd.',
-  url: 'http://localhost:8086/'
+  client: AppConstant.BANKNAME
 };

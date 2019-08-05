@@ -60,6 +60,7 @@ export class LoanSummaryComponent implements OnInit {
     bankName = AppConstant.BANKNAME;
     currentDocAction = '';
     currentNepDate;
+    loanCategory;
     @ViewChild('print') print;
 
 
@@ -112,6 +113,7 @@ export class LoanSummaryComponent implements OnInit {
         this.loanFormService.detail(this.customerId).subscribe(
             (response: any) => {
                 this.loanDataHolder = response.detail;
+                this.loanCategory = this.loanDataHolder.loanCategory;
                 this.currentIndex = this.loanDataHolder.previousList.length;
                 this.signatureList = this.loanDataHolder.distinctPreviousList;
                 this.previousList = this.loanDataHolder.previousList;

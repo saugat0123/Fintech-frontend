@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import {Message} from '../../@theme/components/notification/model/message';
-import {environment} from '../../../environments/environment.prod';
+import {ApiConfig} from '../utils/api/ApiConfig';
 import {ToastService} from '../utils';
 import {Alert, AlertType} from '../../@theme/model/Alert';
 import {NotificationService} from '../../@theme/components/notification/service/notification.service';
@@ -13,7 +13,7 @@ import {NotificationService} from '../../@theme/components/notification/service/
 export class SocketService {
 
   isCustomSocketOpened = false;
-  private serverUrl = environment.url + 'socket';
+  private serverUrl = `${ApiConfig.URL}/socket`;
   private stompClient;
 
   message: Message = new Message();
