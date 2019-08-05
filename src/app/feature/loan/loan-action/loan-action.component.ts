@@ -178,9 +178,13 @@ export class LoanActionComponent implements OnInit {
         this.loanActionService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
-            this.socketService.message.toId = this.formAction.value.toUser;
-            this.socketService.message.loanConfigId = this.formAction.value.loanConfigId;
-            this.socketService.message.customerId = this.formAction.value.customerLoanId;
+            this.socketService.message.fromRole = response.detail.fromRole.id;
+            this.socketService.message.toRole = response.detail.toRole.id;
+            this.socketService.message.fromId = response.detail.fromUser.id;
+            this.socketService.message.toId = response.detail.toUser.id;
+            this.socketService.message.loanConfigId = response.detail.loanConfigId;
+            this.socketService.message.customerId = response.detail.customerLoanId;
+            this.socketService.message.docAction = response.detail.docAction;
             this.socketService.sendMessageUsingSocket();
             this.route.navigate(['/home/pending']);
         }, error => {

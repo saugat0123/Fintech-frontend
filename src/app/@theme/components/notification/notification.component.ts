@@ -5,7 +5,6 @@ import {HttpClient} from '@angular/common/http';
 import {Message} from './model/message';
 import {User} from '../../../feature/admin/modal/user';
 import {UserService} from '../../../@core/service/user.service';
-import {WebNotificationService} from './service/web-notification.service';
 import {ToastService} from '../../../@core/utils';
 import {NotificationService} from './service/notification.service';
 import {Status} from '../../../@core/Status';
@@ -20,18 +19,12 @@ import {Alert, AlertType} from '../../model/Alert';
 export class NotificationComponent implements OnInit {
 
   user: User = new User();
-  public notificationCount = 0;
   customerId: number;
   loanConfigId: number;
 
   notifications: Array<Message> = new Array<Message>();
-  notificationSearchObject = {
-    toId: localStorage.getItem('userId'),
-    status: Status.ACTIVE
-  };
 
   constructor(private http: HttpClient,
-              private dataService: WebNotificationService,
               private userService: UserService,
               private toastService: ToastService,
               private router: Router,
@@ -42,26 +35,16 @@ export class NotificationComponent implements OnInit {
     this.userService.getLoggedInUser().subscribe(
         (response: any) => {
           this.user = response.detail;
-          console.log(this.notificationCount);
         }
     );
-    this.getSavedNotifications();
-  }
-
-  getSavedNotifications() {
-    this.notificationService.getPaginationWithSearchObject(this.notificationSearchObject, 1, 10).subscribe((response: any) => {
-      const mes: Array<Message> = response.detail.content;
-      console.log(response);
-      this.notifications.push(...mes);
-    }, error => {
-      console.error(error);
-    });
+    this.notificationService.notificationMessage.subscribe(value => this.notifications = value);
   }
 
   summaryClick(message: Message
   ) {
     message.status = Status.INACTIVE;
-    this.notificationService.save(message).subscribe((response: any) => {
+    this.notificationService.save(message).subscribe((updateNotification: any) => {
+      this.notificationService.fetchNotifications();
       this.router.navigateByUrl('/home/dashboard/', {skipLocationChange: true}).then(e => {
         if (e) {
           this.router.navigate(['/home/loan/summary'], {

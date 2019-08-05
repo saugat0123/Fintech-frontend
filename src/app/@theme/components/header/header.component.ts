@@ -8,6 +8,10 @@ import {Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SearchResultComponent} from './header-form/searchResult.component';
 import {ProfileComponent} from '../profile/profile.component';
+import {SocketService} from '../../../@core/service/socket.service';
+import {NotificationService} from '../notification/service/notification.service';
+import {Message} from '../notification/model/message';
+import {Status} from '../../../@core/Status';
 
 @Component({
     selector: 'app-header',
@@ -30,6 +34,8 @@ export class HeaderComponent implements OnInit {
 
     userMenu = [{title: HeaderComponent.PROFILE}, {title: HeaderComponent.LOGOUT}];
 
+    notificationCount;
+
     constructor(private sidebarService: NbSidebarService,
                 private menuService: NbMenuService,
                 private userService: UserService,
@@ -37,7 +43,9 @@ export class HeaderComponent implements OnInit {
                 private themeService: NbThemeService,
                 private router: Router,
                 private searchService: NbSearchService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                private socketService: SocketService,
+                private notificationService: NotificationService) {
 
         this.searchService.onSearchSubmit()
             .subscribe((searchData: any) => {
@@ -84,6 +92,7 @@ export class HeaderComponent implements OnInit {
         });
 
         this.menuService.onItemClick().pipe();
+        this.setupNotification();
     }
 
     toggleSidebar(): boolean {
@@ -108,6 +117,12 @@ export class HeaderComponent implements OnInit {
 
     open() {
         this.modalService.open(ProfileComponent, {size: 'lg'});
+    }
+
+    setupNotification(): void {
+        this.socketService.initializeWebSocketConnection();
+        this.notificationService.fetchNotifications();
+        this.notificationService.notificationCount.subscribe((value => this.notificationCount = value));
     }
 
 }

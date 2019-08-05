@@ -20,7 +20,7 @@
                      [picture]="'../../../../assets/img/logo-icon.jpg'" class="text-dark"></nb-user>
         </nb-action>
 
-        <nb-action [nbPopover]="notification" badgeStatus="danger" badgeText="200" class="control-item"
+        <nb-action [nbPopover]="notification" badgeStatus="danger" badgeText="{{notificationCount}}" class="control-item"
                    icon="nb-notifications" nbPopoverPlacement="bottom"></nb-action>
         <!--        <nb-action class="control-item" icon="nb-email"></nb-action>-->
         <ng-template #notification>
