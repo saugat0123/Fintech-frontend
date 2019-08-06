@@ -21,6 +21,9 @@ export class CommonDataService {
 
     // private customer = new BehaviorSubject<Customer>(new Customer);
 
+    private notificationSource = new BehaviorSubject<any>(0);
+    currentNotification = this.notificationSource.asObservable();
+
     constructor() {
     }
 
@@ -47,5 +50,10 @@ export class CommonDataService {
         return this.dataObj;
     }
 
-
+    changeNotification(notification: Object) {
+        this.notificationSource.next(notification);
+    }
+    setNotifiationMessage(message: string) {
+        this.notificationSource.next(message);
+    }
 }

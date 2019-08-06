@@ -195,7 +195,6 @@ export class LoanSummaryComponent implements OnInit {
                         }
                     }
                 }
-
             }
         );
     }

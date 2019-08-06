@@ -38,6 +38,7 @@
     "install-peers": "^1.0.3",
     "ionicons": "^4.5.8",
     "nebular-icons": "^1.1.0",
+    "net": "^1.0.2",
     "ng-multiselect-dropdown": "^0.2.3",
     "ng2-file-upload": "^1.3.0",
     "ngx-print": "^1.2.0-beta.2",
@@ -45,6 +46,8 @@
     "popper.js": "^1.14.7",
     "quill": "^1.3.6",
     "rxjs": "~6.4.0",
+    "sockjs-client": "^1.3.0",
+    "stompjs": "^2.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },

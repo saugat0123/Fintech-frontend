@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         private userService: UserService,
         private branchService: BranchService,
         private modalService: NgbModal,
-        private route: Router,
+        private route: Router
     ) {
     }
 

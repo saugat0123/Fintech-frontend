@@ -19,9 +19,14 @@
                      [name]="userFullName"
                      [picture]="'../../../../assets/img/logo-icon.jpg'" class="text-dark"></nb-user>
         </nb-action>
-        <!--        <nb-action class="control-item" icon="nb-notifications" (click)="clearCount()"></nb-action>-->
-        <!--        <nb-action class="control-item" icon="nb-email"></nb-action>-->
 
+        <nb-action [nbPopover]="notification" badgeStatus="danger" badgeText="{{notificationCount === 0 ? '' : notificationCount.toString()}}" class="control-item"
+                   icon="nb-notifications" nbPopoverPlacement="bottom"></nb-action>
+        <!--        <nb-action class="control-item" icon="nb-email"></nb-action>-->
+        <ng-template #notification>
+            <app-notification></app-notification>
+        </ng-template>
+        <!--<nb-action class="control-item" icon="nb-email"></nb-action>-->
         <nb-action class="control-item">
             <nb-search type="rotate-layout" placeholder="citizenship no."></nb-search>
         </nb-action>
