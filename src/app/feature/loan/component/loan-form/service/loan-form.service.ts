@@ -60,7 +60,7 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
     }
 
     public renewLoan(searchObj: any) {
-        const api = `${this.getApi()}/renew-loan`;
+        const api = `${this.getApi()}/close-renew-customer-loan`;
         const req = ApiUtils.getRequest(api);
 
         return this.http.post(req.url, searchObj, {headers: req.header});

@@ -1,10 +1,19 @@
 <section class="enable-print">
     <nb-card>
         <nb-card-header class="disable-print">
-            <app-loan-action [loanConfigId]="loanConfigId" [id]="customerId" [loanCategory]="loanCategory" [actionsList]="actionsList"
+            <app-loan-action [loanConfigId]="loanConfigId" [id]="customerId" [loanCategory]="loanCategory"
+                             [actionsList]="actionsList"
                              *ngIf="showAction"></app-loan-action>
         </nb-card-header>
         <nb-card-body id="print-block">
+            <div class="col-md-12  text-success cursor disable-print"
+            >
+                <a class="d-flex justify-content-start" *ngIf="loanDataHolder?.childId !=null"
+                   (click)="renewedOrCloseFrom(loanDataHolder?.childId)">{{loanType[loanDataHolder.loanType]}} to <i
+                        class="p-1 fa fa-edit"></i></a>
+                <a class="d-flex justify-content-end" *ngIf="loanDataHolder?.parentId !=null"
+                   (click)="renewedOrCloseFrom(loanDataHolder?.parentId)">{{loanType[loanDataHolder.loanType]}} From <i
+                        class="p-1 fa fa-edit"></i></a></div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
@@ -42,13 +51,16 @@
             </div>
             <div class="row mt-1">
                 <div class="col-md-6 text-left">
-                    <span><b>Pending Under: </b>{{loanDataHolder?.currentStage?.toUser?.name}} ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                    <span><b>Pending Under: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
+                        ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
                 </div>
                 <div class="col-md-6 text-right" *ngIf="currentDocAction === 'FORWARD'">
-                    <span><b>Forwarded By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}} ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
+                    <span><b>Forwarded By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
+                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
                 </div>
                 <div class="col-md-6 text-right" *ngIf="currentDocAction === 'BACKWARD'">
-                    <span><b>Backward By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}} ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
+                    <span><b>Backward By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
+                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
                 </div>
                 <!--<div class="col-md-6">
                     <div class="text-right">
@@ -155,7 +167,8 @@
             <div class="row mt-3">
                 <div class="col-md-12">
                     <p><b>Security Offered</b></p>
-                    <p><label *ngFor="let security of securities; let i = index">{{i + 1}}. {{Security[security]}}&nbsp;&nbsp;</label></p>
+                    <p><label *ngFor="let security of securities; let i = index">{{i + 1}}. {{Security[security]}}&nbsp;&nbsp;</label>
+                    </p>
                 </div>
             </div>
 
@@ -220,7 +233,8 @@
                             <td>{{i + 1}}</td>
                             <td>
                                 <div class="cmt-width">{{previousList?.comment}}</div>
-                                <a class="d-flex justify-content-end read-margin" (click)="open(previousList.comment)">read more ....</a>
+                                <a class="d-flex justify-content-end read-margin" (click)="open(previousList.comment)">read
+                                    more ....</a>
                             </td>
                             <td>{{previousList?.fromUser?.name}}</td>
                             <td>{{previousList?.fromRole?.roleName}}</td>
@@ -232,7 +246,8 @@
                             <td>{{currentIndex + 1}}</td>
                             <td>
                                 {{loanDataHolder?.currentStage?.comment}}
-                                <a class="d-flex justify-content-end read-margin" (click)="open(loanDataHolder.currentStage.comment)">read more ....</a>
+                                <a class="d-flex justify-content-end read-margin"
+                                   (click)="open(loanDataHolder.currentStage.comment)">read more ....</a>
                             </td>
                             <td>{{loanDataHolder?.currentStage?.fromUser?.name}}</td>
                             <td>{{loanDataHolder?.currentStage?.fromRole?.roleName}}</td>

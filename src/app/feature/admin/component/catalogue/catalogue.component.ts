@@ -18,6 +18,8 @@ import {RoleService} from '../role-permission/role.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {UserService} from '../user/user.service';
 import {LoanActionService} from '../../../loan/loan-action/service/loan-action.service';
+import {LoanType} from '../../../loan/model/loanType';
+import {RoleType} from '../../modal/roleType';
 
 
 @Component({
@@ -35,10 +37,12 @@ export class CatalogueComponent implements OnInit {
     pageable: Pageable = new Pageable();
     age: number;
     docStatus = DocStatus;
+    loanType = LoanType;
     filterForm: FormGroup;
     validStartDate = true;
     validEndDate = true;
     transferDoc = false;
+    roleType = false;
     search: any = {
         branchIds: undefined,
         documentStatus: DocStatus.value(DocStatus.PENDING),
@@ -95,6 +99,10 @@ export class CatalogueComponent implements OnInit {
         );
         this.buildFilterForm();
         this.roleAccess = localStorage.getItem('roleAccess');
+
+        if (localStorage.getItem('roleType') === RoleType.MAKER) {
+            this.roleType = true;
+        }
         if (this.roleAccess === RoleAccess.SPECIFIC) {
             this.accessSpecific = true;
         } else if (this.roleAccess === RoleAccess.ALL) {
@@ -148,6 +156,7 @@ export class CatalogueComponent implements OnInit {
         this.filterForm = this.formBuilder.group({
             branch: [undefined],
             loanType: [undefined],
+            loanNewRenew: [undefined],
             docStatus: [undefined],
             startDate: [undefined],
             endDate: [undefined],
@@ -179,7 +188,7 @@ export class CatalogueComponent implements OnInit {
         this.validEndDate = this.filterForm.get('endDate').valid;
     }
 
-    ok() {
+    onSearch() {
         this.statusApproved = this.filterForm.get('docStatus').value === 'APPROVED';
         this.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
             this.filterForm.get('branch').value;
@@ -187,6 +196,8 @@ export class CatalogueComponent implements OnInit {
             this.filterForm.get('docStatus').value;
         this.search.loanConfigId = this.filterForm.get('loanType').value === null ? undefined :
             this.filterForm.get('loanType').value;
+        this.search.loanNewRenew = this.filterForm.get('loanNewRenew').value === null ? undefined :
+            this.filterForm.get('loanNewRenew').value;
         if (this.filterForm.get('startDate').value !== null && this.filterForm.get('endDate').value) {
             this.search.currentStageDate = JSON.stringify({
                 // note: new Date().toString() is needed here to preserve timezone while JSON.stringify()
@@ -269,6 +280,23 @@ export class CatalogueComponent implements OnInit {
         });
     }
 
+    onChange(data, onActionChange) {
+        this.loanDataHolder = data;
+        this.modalService.open(onActionChange);
 
+    }
+
+    renewedOrCloseFrom(loanConfigId, childId) {
+        this.router.navigate(['/home/loan/summary'], {
+            queryParams: {
+                loanConfigId: loanConfigId,
+                customerId: childId,
+                catalogue: true
+            }
+
+        });
+
+
+    }
 
 }

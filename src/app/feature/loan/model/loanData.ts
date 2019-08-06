@@ -32,4 +32,7 @@ export class LoanDataHolder {
     currentStage: LoanStage = new LoanStage();
     loanType: LoanType;
     createdBy: number;
+    parentId: number;
+    childId: number;
+    isCloseRenew: boolean;
 }
