@@ -56,8 +56,15 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
     public getCatalogues(searchObj: any, page: number = 1, size: number = 10): Observable<any> {
         const api = `${this.getApi()}/catalogue?page=${page}&size=${size}`;
         const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, searchObj, {headers: req.header});
+    }
+
+    public renewLoan(searchObj: any) {
+        const api = `${this.getApi()}/close-renew-customer-loan`;
+        const req = ApiUtils.getRequest(api);
 
         return this.http.post(req.url, searchObj, {headers: req.header});
+
     }
 
     public getLoanStatusApi(loanNo: string): Observable<any> {
