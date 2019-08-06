@@ -28,7 +28,7 @@ import {CiclComponent} from './component/loan-main-template/cicl/cicl.component'
 import { ReadmoreModelComponent } from './component/readmore-model/readmore-model.component';
 
 
-
+const ENTRY_COMPONENTS = [ReadmoreModelComponent];
 
 @NgModule({
     declarations: [
@@ -67,7 +67,9 @@ import { ReadmoreModelComponent } from './component/readmore-model/readmore-mode
         DatePipe,
         LoanFormService,
         NgbActiveModal
-    ]
+    ],
+
+    entryComponents: [...ENTRY_COMPONENTS],
 
 })
 export class LoanModule {

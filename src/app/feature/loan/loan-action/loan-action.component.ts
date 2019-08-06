@@ -15,6 +15,8 @@ import {DocStatus} from '../model/docStatus';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {LoanConfig} from '../../admin/modal/loan-config';
 import {RoleType} from '../../admin/modal/roleType';
+import {SocketService} from '../../../@core/service/socket.service';
+import {DocAction} from '../model/docAction';
 
 
 @Component({
@@ -27,6 +29,7 @@ export class LoanActionComponent implements OnInit {
 
     @Input() loanConfigId: number;
     @Input() id: number;
+    @Input() loanCategory: string;
 
     @Input() actionsList: ActionModel;
     popUpTitle: string;
@@ -53,7 +56,8 @@ export class LoanActionComponent implements OnInit {
         private loanConfigService: LoanConfigService,
         private activeModal: NgbActiveModal,
         private modalService: NgbModal,
-        private http: HttpClient
+        private http: HttpClient,
+        private socketService: SocketService
     ) {
     }
 
@@ -81,7 +85,7 @@ export class LoanActionComponent implements OnInit {
         }
 
         if (roleType === RoleType.MAKER) {
-          this.currentUserRoleType = true;
+            this.currentUserRoleType = true;
         }
 
     }
@@ -150,7 +154,13 @@ export class LoanActionComponent implements OnInit {
     }
 
     onEdit() {
-        this.route.navigate(['/home/loan/loanForm'], {queryParams: {loanId: this.loanConfigId, customerId: this.id}});
+        this.route.navigate(['/home/loan/loanForm'], {
+            queryParams: {
+                loanId: this.loanConfigId,
+                customerId: this.id,
+                loanCategory: this.loanCategory
+            }
+        });
     }
 
     onLogin(datavalue) {
@@ -162,7 +172,6 @@ export class LoanActionComponent implements OnInit {
             .subscribe(
                 (res: any) => {
                     this.postAction();
-
                 },
                 error => {
 
@@ -177,6 +186,18 @@ export class LoanActionComponent implements OnInit {
         this.loanActionService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
+            if (response.detail.docAction === DocAction.value(DocAction.FORWARD) ||
+                response.detail.docAction === DocAction.value(DocAction.BACKWARD)) {
+                this.socketService.message.fromRole = response.detail.fromRole.id;
+                this.socketService.message.toRole = response.detail.toRole.id;
+                this.socketService.message.fromId = response.detail.fromUser.id;
+                this.socketService.message.toId = response.detail.toUser.id;
+                this.socketService.message.loanConfigId = response.detail.loanConfigId;
+                this.socketService.message.customerId = response.detail.customerLoanId;
+                this.socketService.message.date = new Date();
+                this.socketService.message.docAction = response.detail.docAction;
+                this.socketService.sendMessageUsingSocket();
+            }
             this.route.navigate(['/home/pending']);
         }, error => {
 

@@ -133,6 +133,25 @@ export class UIComponent implements OnInit {
             }
         });
 
+        // Id for Eligibility is set 4 in patch backend
+        other.documentService.getByLoanCycleAndStatus(4, Status.ACTIVE).subscribe((response: any) => {
+            other.eligibilityDocumentList = response.detail;
+
+            if (other.id !== undefined && other.id !== 0) {
+                other.service.detail(other.id).subscribe((res: any) => {
+                    other.loanConfig = res.detail;
+                    other.eligibilityDocumentList.forEach(eligibilityDocument => {
+                        other.loanConfig.eligibilityDocuments.forEach(eligibilityDocuments => {
+                            if (eligibilityDocument.id === eligibilityDocuments.id) {
+                                other.finalEligibilityDocument.push(eligibilityDocument);
+                                eligibilityDocument.checked = true;
+                            }
+                        });
+                    });
+                });
+            }
+        });
+
         other.documentService.getAll().subscribe((response: any) => {
             other.eligibilityDocumentList = response.detail;
         });
@@ -230,6 +249,7 @@ export class UIComponent implements OnInit {
         this.loanConfig.initial = this.finalInitialDocument;
         this.loanConfig.renew = this.finalRenewalDocument;
         this.loanConfig.closure = this.finalClosureDocument;
+        this.loanConfig.enableEligibility = true;
         this.loanConfig.eligibilityDocuments = this.finalEligibilityDocument;
         this.loanConfig.offerLetters = this.selectedOfferLetterList;
         console.log(this.loanConfig);

@@ -71,6 +71,7 @@ export class LoanFormComponent implements OnInit {
     submitDisable = false;
     loanDocument: LoanDataHolder;
 
+
     @ViewChild('basicInfo')
     basicInfo: BasicInfoComponent;
 
@@ -99,7 +100,7 @@ export class LoanFormComponent implements OnInit {
         private loanConfigService: LoanConfigService,
         private modalService: NgbModal,
         private router: Router,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
     ) {
 
     }
@@ -109,7 +110,8 @@ export class LoanFormComponent implements OnInit {
             (paramsValue: Params) => {
                 this.allId = {
                     loanId: null,
-                    customerId: null
+                    customerId: null,
+                    loanCategory: null
                 };
 
                 this.allId = paramsValue;
@@ -209,6 +211,7 @@ export class LoanFormComponent implements OnInit {
             return;
         }
         this.loanDocument.loan = this.loan;
+        this.loanDocument.loanCategory = this.allId.loanCategory;
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
             this.loanDocument = response.detail;
             this.customerLoanId = this.loanDocument.id;

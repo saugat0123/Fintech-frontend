@@ -1,13 +1,13 @@
 <nb-card>
     <nb-card-header><h2>Loan Configuration</h2></nb-card-header>
     <nb-card-body>
-        <form (ngSubmit)="onSubmit()">
+        <form #loanConfigForm="ngForm" (ngSubmit)="loanConfigForm.valid && onSubmit()" name="form">
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label><h4>Loan Schema</h4></label>
-                            <input type="hidden" class="form-control" required [(ngModel)]="loanConfig.id" name="id"
+                            <input type="hidden" class="form-control" [(ngModel)]="loanConfig.id" name="id"
                                    placeholder="id">
                             <input type="text" class="form-control" name="name" required placeholder="Loan Schema"
                                    [(ngModel)]="loanConfig.name">
@@ -94,6 +94,23 @@
                         </div>
                     </div>
                 </div>
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label><b>Minimum Proposal Amount</b></label>
+                        <input type="number" class="form-control" name="minimumProposedAmount" required
+                               pattern="^\d*[.]?\d*$" min="0"
+                               placeholder="Minimum Proposal Amount"
+                               [(ngModel)]="loanConfig.minimumProposedAmount"
+                               #minimumProposalAmount="ngModel"
+                               [ngClass]="{ 'is-invalid': loanConfigForm.submitted && minimumProposalAmount.invalid }">
+                        <div class="invalid-feedback" *ngIf="loanConfigForm.submitted && minimumProposalAmount.invalid">
+                            <div *ngIf="minimumProposalAmount.errors.required">Minimum Proposed Amount is required</div>
+                            <div *ngIf="minimumProposalAmount.invalid && loanConfig.minimumProposedAmount !== undefined &&loanConfig.minimumProposedAmount !== null">
+                                Minimum Proposal Amount is Invalid.
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <br>
                 <span><h4>Documents</h4></span>
                 <div class="row">
@@ -156,7 +173,7 @@
                         </nb-accordion>
                     </div>
 
-                    <!--<div class="box box-primary col-md-6 mb-2">
+                    <div class="box box-primary col-md-6 mb-2">
                         <nb-accordion>
                             <nb-accordion-item>
                                 <nb-accordion-item-header>Eligibility</nb-accordion-item-header>
@@ -177,7 +194,7 @@
                                 </nb-accordion-item-body>
                             </nb-accordion-item>
                         </nb-accordion>
-                    </div>-->
+                    </div>
                 </div>
                 </div>
             <div class="box-footer text-right">

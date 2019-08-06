@@ -4,7 +4,7 @@ import {User} from '../../../admin/modal/user';
 import {Security} from '../../../admin/modal/security';
 import {LoanDataHolder} from '../../model/loanData';
 import {UserService} from '../../../../@core/service/user.service';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {LoanFormService} from '../loan-form/service/loan-form.service';
 import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-service';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
@@ -19,6 +19,7 @@ import {environment} from '../../../../../environments/environment';
 import {DateService} from '../../../../@core/service/baseservice/date.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component';
+import {LoanType} from '../../model/loanType';
 
 @Component({
     selector: 'app-loan-summary',
@@ -48,6 +49,7 @@ export class LoanSummaryComponent implements OnInit {
     id: number;
     customerInfo: any;
     loanDataHolder: LoanDataHolder = new LoanDataHolder();
+    loanType = LoanType;
     allId;
     customerId;
     loanConfigId;
@@ -60,7 +62,7 @@ export class LoanSummaryComponent implements OnInit {
     bankName = AppConstant.BANKNAME;
     currentDocAction = '';
     currentNepDate;
-
+    loanCategory;
     @ViewChild('print') print;
 
 
@@ -70,6 +72,7 @@ export class LoanSummaryComponent implements OnInit {
                 private loanActionService: LoanActionService,
                 private dmsLoanService: DmsLoanService,
                 private activatedRoute: ActivatedRoute,
+                private rout: Router,
                 private loanConfigService: LoanConfigService,
                 private approvalLimitService: ApprovalLimitService,
                 private dateService: DateService,
@@ -110,9 +113,17 @@ export class LoanSummaryComponent implements OnInit {
                 }
             }
         );
+        this.getLoanDataHolder();
+        this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
+            this.currentNepDate = response.detail.nepDateFormat;
+        });
+    }
+
+    getLoanDataHolder() {
         this.loanFormService.detail(this.customerId).subscribe(
             (response: any) => {
                 this.loanDataHolder = response.detail;
+                this.loanCategory = this.loanDataHolder.loanCategory;
                 this.currentIndex = this.loanDataHolder.previousList.length;
                 this.signatureList = this.loanDataHolder.distinctPreviousList;
                 this.previousList = this.loanDataHolder.previousList;
@@ -132,8 +143,15 @@ export class LoanSummaryComponent implements OnInit {
                     this.actionsList.sendBackward = false;
                     this.actionsList.edit = true;
                     this.actionsList.approved = false;
+                    this.actionsList.closed = false;
                 } else {
                     this.actionsList.edit = false;
+                }
+
+                if (this.loanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
+                    this.actionsList.approved = false;
+                } else {
+                    this.actionsList.closed = false;
                 }
 
                 this.loanActionService.getSendForwardList().subscribe((res: any) => {
@@ -177,13 +195,8 @@ export class LoanSummaryComponent implements OnInit {
                         }
                     }
                 }
-
             }
         );
-        this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
-            this.currentNepDate = response.detail.nepDateFormat;
-        });
-
     }
 
     download(i) {
@@ -224,11 +237,23 @@ export class LoanSummaryComponent implements OnInit {
     }
 
     open(comments) {
-
         const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
-        modalRef.componentInstance.model = comments;
+        modalRef.componentInstance.comments = comments;
     }
 
+    renewedOrCloseFrom(id) {
+        this.rout.navigate(['/home/loan/summary'], {
+            queryParams: {
+                loanConfigId: this.loanConfigId,
+                customerId: id
 
+            }
+
+        });
+
+        this.customerId = id;
+        this.getLoanDataHolder();
+
+    }
 }
 

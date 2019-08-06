@@ -63,6 +63,7 @@ import {IconCardComponent} from './components/iconcard/icon-card.component';
 import {SearchResultComponent} from './components/header/header-form/searchResult.component';
 import {MessageModalComponent} from './components/message-modal/message-modal.component';
 import {ProfileComponent} from './components/profile/profile.component';
+import {NotificationComponent} from './components/notification/notification.component';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -120,7 +121,8 @@ const COMPONENTS = [
     UpdateModalComponent,
     PagingComponent,
     ValidationErrorComponent,
-    MessageModalComponent
+    MessageModalComponent,
+    NotificationComponent
 ];
 
 const ENTRY_COMPONENTS = [

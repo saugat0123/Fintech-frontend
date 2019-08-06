@@ -10,10 +10,10 @@ export class ReadmoreModelComponent implements OnInit {
   @Input()
   comments: any;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
-    this.comments = 'test';
   }
 
 }
