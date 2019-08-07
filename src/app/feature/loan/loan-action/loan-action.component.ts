@@ -16,8 +16,10 @@ import {LoanConfigService} from '../../admin/component/loan-config/loan-config.s
 import {LoanConfig} from '../../admin/modal/loan-config';
 import {RoleType} from '../../admin/modal/roleType';
 import {SocketService} from '../../../@core/service/socket.service';
-import {DocAction} from '../model/docAction';
 import {LoanFormService} from '../component/loan-form/service/loan-form.service';
+import {LoanDataHolder} from '../model/loanData';
+import {LoanStage} from '../model/loanStage';
+import {DocAction} from '../model/docAction';
 
 
 @Component({
@@ -188,18 +190,7 @@ export class LoanActionComponent implements OnInit {
         this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
-            if (response.detail.docAction === DocAction.value(DocAction.FORWARD) ||
-                response.detail.docAction === DocAction.value(DocAction.BACKWARD)) {
-                this.socketService.message.fromRole = response.detail.fromRole.id;
-                this.socketService.message.toRole = response.detail.toRole.id;
-                this.socketService.message.fromId = response.detail.fromUser.id;
-                this.socketService.message.toId = response.detail.toUser.id;
-                this.socketService.message.loanConfigId = response.detail.loanConfigId;
-                this.socketService.message.customerId = response.detail.customerLoanId;
-                this.socketService.message.date = new Date();
-                this.socketService.message.docAction = response.detail.docAction;
-                this.socketService.sendMessageUsingSocket();
-            }
+            this.sendLoanNotification(response.detail.customerLoanId);
             this.route.navigate(['/home/pending']);
         }, error => {
 
@@ -263,6 +254,45 @@ export class LoanActionComponent implements OnInit {
             error => {
                 this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
             });
+    }
+
+    sendLoanNotification(customerLoanId: number): void {
+        this.loanFormService.detail(customerLoanId).subscribe((loanResponse: any) => {
+            const customerLoan: LoanDataHolder = loanResponse.detail;
+            console.log(customerLoan);
+            // set loan stage information
+            this.socketService.message.loanConfigId = customerLoan.loan.id;
+            this.socketService.message.customerId = customerLoan.id;
+            this.socketService.message.toUserId = customerLoan.currentStage.toUser.id;
+            this.socketService.message.toRoleId = customerLoan.currentStage.toRole.id;
+            this.socketService.message.fromId = customerLoan.currentStage.fromUser.id;
+            this.socketService.message.fromRole = customerLoan.currentStage.fromRole.id;
+            this.socketService.message.date = new Date();
+            this.socketService.message.docAction = customerLoan.currentStage.docAction;
+
+            const docAction = customerLoan.currentStage.docAction.toString();
+            if (docAction === DocAction.value(DocAction.FORWARD) ||
+                docAction === DocAction.value(DocAction.BACKWARD)) {
+                // send notification to current stage user
+                this.socketService.message.toId = customerLoan.currentStage.toUser.id;
+                this.socketService.message.toRole = customerLoan.currentStage.toRole.id;
+                this.socketService.sendMessageUsingSocket();
+            }
+            // send notifications to unique previous stage users
+            for (const distinct of customerLoan.distinctPreviousList) {
+                const distinctStage: LoanStage = distinct;
+
+                if (customerLoan.currentStage.toUser.id !== distinctStage.toUser.id
+                    && customerLoan.currentStage.fromUser.id !== distinctStage.toUser.id) {
+                    this.socketService.message.toId = distinctStage.toUser.id;
+                    this.socketService.message.toRole = distinctStage.toRole.id;
+                    this.socketService.sendMessageUsingSocket();
+                }
+            }
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+        });
     }
 
 }
