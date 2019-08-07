@@ -1,10 +1,20 @@
 <nb-card>
     <nb-card-header>
-        <div class="col-md-6">
-            <button data-toggle="collapse" data-target="#searchModel"
-                    nbButton outline status="primary">
-                <i class="fa fa-filter"> Filter</i>
-            </button>
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <button data-toggle="collapse" data-target="#searchModel"
+                        nbButton outline status="primary">
+                    <i class="fa fa-filter"> Filter</i>
+                </button>
+            </div>
+
+        </div>
+        <div class="col-md-12 d-flex justify-content-end">
+
+            <a class="pull-right btn btn-transparent-primary" style="cursor: pointer"
+               (click)="getCsv()">
+                <i class="fa fa-download" aria-hidden="true"></i> Download</a>
+
         </div>
         <div id="searchModel" class="collapse col-md-12">
             <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
@@ -78,6 +88,7 @@
                 </div>
             </form>
         </div>
+
     </nb-card-header>
     <nb-card-body>
         <br>
@@ -87,6 +98,7 @@
                 <th>Branch</th>
                 <th>Customer Name</th>
                 <th>Loan Facility</th>
+                <th>Proposed Amount</th>
                 <th>Type</th>
                 <th>Status</th>
                 <th>Possession Under/Days</th>
@@ -102,6 +114,10 @@
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.branch?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.customerInfo?.customerName || model?.dmsLoanFile?.customerName}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
+                <td (click)="onClick(model.loan.id,model.id)">
+                    <span
+                            class="d-flex justify-content-end">{{model?.dmsLoanFile?.proposedAmount | number}}</span>
+                </td>
                 <td (click)="onClick(model.loan.id,model.id)">{{loanType[model?.loanType]}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.documentStatus}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">
@@ -142,7 +158,8 @@
                 </td>
                 <ng-template #linkin>
                     <td *ngIf="model.parentId">
-                        <a (click)="renewedOrCloseFrom(model.loan.id,model.parentId)" class="text-success cursor">{{loanType[model.loanType]}} From <i
+                        <a (click)="renewedOrCloseFrom(model.loan.id,model.parentId)"
+                           class="text-success cursor">{{loanType[model.loanType]}} From <i
                                 class="p-1 fa fa-edit"></i></a>
                     </td>
 
