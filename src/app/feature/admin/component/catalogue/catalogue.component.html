@@ -129,11 +129,14 @@
                         class="fa fa-arrow-circle-right"></i></a>
                 </td>
                 <td class="p-1" *ngIf='statusApproved === true && roleType && !model.isCloseRenew;else linkin'>
-                    <select [(ngModel)]="model.loanType" class="custom-select py-0"
+                    <select [(ngModel)]="tempLoanType" class="custom-select py-0"
                             (ngModelChange)="onChange(model,onActionChange)">
                         <option [value]="null" selected hidden>Select Type</option>
-                        <option *ngFor="let status of loanType.values()"
-                                [value]="status">{{loanType[status]}}
+                        <option
+                                value="RENEWED_LOAN">Renew Loan
+                        </option>
+                        <option
+                                value="CLOSURE_LOAN">Close Loan
                         </option>
                     </select>
                 </td>
@@ -235,7 +238,7 @@
             <div class="modal-content">
                 <div class="modal-header" style="display:block">
                     <div>
-                        <h4 class="">Do You want to change the loan type to {{loanDataHolder.loanType}}
+                        <h4 class="">Do You want to change the loan type to {{tempLoanType}}
                             ?</h4>
                         <form>
                             <div class="d-flex justify-content-end">
