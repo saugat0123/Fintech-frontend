@@ -259,7 +259,6 @@ export class LoanActionComponent implements OnInit {
     sendLoanNotification(customerLoanId: number): void {
         this.loanFormService.detail(customerLoanId).subscribe((loanResponse: any) => {
             const customerLoan: LoanDataHolder = loanResponse.detail;
-            console.log(customerLoan);
             // set loan stage information
             this.socketService.message.loanConfigId = customerLoan.loan.id;
             this.socketService.message.customerId = customerLoan.id;
