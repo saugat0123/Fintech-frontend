@@ -17,6 +17,7 @@ import {LoanConfig} from '../../admin/modal/loan-config';
 import {RoleType} from '../../admin/modal/roleType';
 import {SocketService} from '../../../@core/service/socket.service';
 import {DocAction} from '../model/docAction';
+import {LoanFormService} from '../component/loan-form/service/loan-form.service';
 
 
 @Component({
@@ -57,7 +58,8 @@ export class LoanActionComponent implements OnInit {
         private activeModal: NgbActiveModal,
         private modalService: NgbModal,
         private http: HttpClient,
-        private socketService: SocketService
+        private socketService: SocketService,
+        private loanFormService: LoanFormService
     ) {
     }
 
@@ -183,7 +185,7 @@ export class LoanActionComponent implements OnInit {
     }
 
     postAction() {
-        this.loanActionService.postLoanAction(this.formAction.value).subscribe((response: any) => {
+        this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
             if (response.detail.docAction === DocAction.value(DocAction.FORWARD) ||
@@ -254,7 +256,7 @@ export class LoanActionComponent implements OnInit {
     }
 
     deleteCustomerLoan() {
-        this.loanActionService.deleteLoanCustomer(this.id).subscribe((res: any) => {
+        this.loanFormService.deleteLoanCustomer(this.id).subscribe((res: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully Deleted'));
                 this.route.navigate(['/home/pending']);
             },

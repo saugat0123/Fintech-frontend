@@ -270,7 +270,7 @@ export class CatalogueComponent implements OnInit {
 
     confirm() {
         this.onClose();
-        this.loanActionService.postLoanAction(this.formAction.value).subscribe((response: any) => {
+        this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
             CatalogueComponent.loadData(this);
