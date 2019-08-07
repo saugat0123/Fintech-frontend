@@ -21,6 +21,7 @@ import {LoanActionService} from '../../../loan/loan-action/service/loan-action.s
 import {LoanType} from '../../../loan/model/loanType';
 import {RoleType} from '../../modal/roleType';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
+import {DocAction} from '../../../loan/model/docAction';
 
 
 @Component({
@@ -228,7 +229,7 @@ export class CatalogueComponent implements OnInit {
         });
         this.formAction.patchValue({
                 customerLoanId: customerLoanId,
-                docAction: 'TRANSFER',
+                docAction: DocAction.value(DocAction.TRANSFER),
                 documentStatus: DocStatus.PENDING,
                 comment: 'TRANSFER'
             }
