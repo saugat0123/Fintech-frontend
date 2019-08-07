@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Applicant} from '../../../modal/applicant';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {NewRequestService} from '../new-requests/new-request.service';
@@ -21,7 +21,7 @@ export class NonEligibleRequestsComponent implements OnInit {
   applicantList: Array<Applicant> = new Array<Applicant>();
 
   page = 1;
-  search: any = {};
+  searchString: string = NewRequestService.resolveSearchString(Status.NOT_ELIGIBLE, null, null);
   pageable: Pageable = new Pageable();
 
   constructor(private newRequestService: NewRequestService,
@@ -31,7 +31,7 @@ export class NonEligibleRequestsComponent implements OnInit {
   static loadData(other: NonEligibleRequestsComponent) {
 
     other.spinner = true;
-    other.newRequestService.getAllWithSearchObject(other.page, 10, Status.NOT_ELIGIBLE).subscribe((response: any) => {
+    other.newRequestService.getAllWithSearchObject(other.page, 10, other.searchString).subscribe((response: any) => {
           other.applicantList = response.detail.content;
           other.pageable = PaginationUtils.getPageable(response.detail);
 

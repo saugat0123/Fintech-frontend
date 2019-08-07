@@ -8,13 +8,13 @@
                         <i class="fa fa-filter"> Filter</i>
                     </button>
                 </div>
-                <div class="row">
+                <div class="row py-3">
                     <div class="col-md-12">
                         <div id="searchModel" class="collapse">
                             <div class="row">
                                 <div class="col-md-3" *ngIf="branchFilter">
                                     <div class="form-group">
-                                        <label for="branch">Branch</label>
+
                                         <select id="branch" class="custom-select"
                                                 (change)="branchSelect($event.target.value)">
                                             <option [ngValue]="undefined" hidden>Select the Branch</option>
@@ -26,14 +26,14 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input type="text" id="name" class="form-control"
+
+                                        <input type="text" id="name" class="form-control" placeholder="Customer Name"
                                                [(ngModel)]="search.customerName">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="facility">Facility</label>
+
                                         <select id="facility" class="custom-select"
                                                 (change)="onChoose($event.target.value)">
                                             <option [ngValue]="undefined" hidden>Select the facility</option>
@@ -46,7 +46,7 @@
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="docStatus">Stage</label>
+
                                         <select id="docStatus" class="custom-select"
                                                 (change)="statusSelect($event.target.value)">
                                             <option [ngValue]="undefined" hidden>Select the Stage</option>
@@ -55,6 +55,16 @@
 
                                         </select>
                                     </div>
+
+                                </div>
+
+                                <div class="col-md-3">
+                                    <select class="custom-select" (change)="typeSelect($event.target.value)">
+                                        <option [ngValue]="undefined" hidden>Select Type</option>
+                                        <option *ngFor="let status of loanType.values()"
+                                                [value]="status">{{loanType[status]}}
+                                        </option>
+                                    </select>
                                 </div>
 
                             </div>
@@ -81,6 +91,7 @@
                             <th>Name</th>
                             <th>Contact Number</th>
                             <th>Facility</th>
+                            <th>Type</th>
                             <th>Priority</th>
                             <th>File Possession</th>
                             <th>Stage</th>
@@ -98,6 +109,7 @@
                             <td>{{loanDataHolder?.dmsLoanFile?.customerName || loanDataHolder?.customerInfo?.customerName}}</td>
                             <td>{{loanDataHolder?.dmsLoanFile?.contactNumber || loanDataHolder?.customerInfo?.mobile}}</td>
                             <td>{{loanDataHolder?.loan?.name}}</td>
+                            <td>{{loanDataHolder.loanType}}</td>
                             <td>{{loanDataHolder?.priority}}</td>
                             <td>{{user?.role?.roleName}}</td>
                             <td>{{loanDataHolder.documentStatus}}</td>
