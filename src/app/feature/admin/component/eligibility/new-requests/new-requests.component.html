@@ -36,12 +36,11 @@
                 </select>
               </div>
 
-              <div class="col-md-3">
-                <button (click)="clearSearch()" data-target="#searchModel" data-toggle="collapse"
-                        nbButton outline status="primary">Cancel
+              <div class="col-md-12 mt-3">
+                <button (click)="clearSearch()" data-toggle="collapse" data-target="#searchModel"
+                        class="btn btn-sm btn-flat btn-outline-danger mr-1">Clear Search
                 </button>
-                <button [disabled]="!filterForm.valid" nbButton
-                        status="primary"
+                <button [disabled]="!filterForm.valid" class="btn btn-primary btn-sm btn-flat pull-right mr-1"
                         type="submit">
                   Advance Search
                 </button>
