@@ -22,6 +22,8 @@ import {LoanType} from '../../../loan/model/loanType';
 import {RoleType} from '../../modal/roleType';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {DocAction} from '../../../loan/model/docAction';
+import {LoanStage} from '../../../loan/model/loanStage';
+import {SocketService} from '../../../../@core/service/socket.service';
 
 
 @Component({
@@ -73,7 +75,8 @@ export class CatalogueComponent implements OnInit {
                 private modalService: NgbModal,
                 private loanActionService: LoanActionService,
                 private userService: UserService,
-                private roleService: RoleService) {
+                private roleService: RoleService,
+                private socketService: SocketService) {
     }
 
     static loadData(other: CatalogueComponent) {
@@ -278,6 +281,7 @@ export class CatalogueComponent implements OnInit {
         this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
+            this.sendLoanNotification(response.detail.customerLoanId);
             CatalogueComponent.loadData(this);
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
@@ -313,6 +317,43 @@ export class CatalogueComponent implements OnInit {
             link.setAttribute('visibility', 'hidden');
             link.click();
 
+        });
+    }
+
+    sendLoanNotification(customerLoanId: number): void {
+        this.loanFormService.detail(customerLoanId).subscribe((loanResponse: any) => {
+            const customerLoan: LoanDataHolder = loanResponse.detail;
+            // set loan stage information
+            this.socketService.message.loanConfigId = customerLoan.loan.id;
+            this.socketService.message.customerId = customerLoan.id;
+            this.socketService.message.toUserId = customerLoan.currentStage.toUser.id;
+            this.socketService.message.toRoleId = customerLoan.currentStage.toRole.id;
+            this.socketService.message.fromId = customerLoan.currentStage.fromUser.id;
+            this.socketService.message.fromRole = customerLoan.currentStage.fromRole.id;
+            this.socketService.message.date = new Date();
+            this.socketService.message.docAction = customerLoan.currentStage.docAction;
+
+            const docAction = customerLoan.currentStage.docAction.toString();
+            if (docAction === DocAction.value(DocAction.TRANSFER)) {
+                // send notification to current stage user
+                this.socketService.message.toId = customerLoan.currentStage.toUser.id;
+                this.socketService.message.toRole = customerLoan.currentStage.toRole.id;
+                this.socketService.sendMessageUsingSocket();
+            }
+            // send notifications to unique previous stage users
+            for (const distinct of customerLoan.distinctPreviousList) {
+                const distinctStage: LoanStage = distinct;
+
+                if (customerLoan.currentStage.toUser.id !== distinctStage.toUser.id
+                    && customerLoan.currentStage.fromUser.id !== distinctStage.toUser.id) {
+                    this.socketService.message.toId = distinctStage.toUser.id;
+                    this.socketService.message.toRole = distinctStage.toRole.id;
+                    this.socketService.sendMessageUsingSocket();
+                }
+            }
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
         });
     }
 
