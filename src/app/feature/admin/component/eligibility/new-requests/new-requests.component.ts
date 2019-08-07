@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NewRequestService} from './new-request.service';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
@@ -13,7 +13,6 @@ import {Branch} from '../../../modal/branch';
 import {LoanConfig} from '../../../modal/loan-config';
 import {BranchService} from '../../branch/branch.service';
 import {LoanConfigService} from '../../loan-config/loan-config.service';
-import {DocStatus} from '../../../../loan/model/docStatus';
 
 @Component({
   selector: 'app-new-requests',
@@ -28,10 +27,7 @@ export class NewRequestsComponent implements OnInit {
   filterForm: FormGroup;
 
   page = 1;
-  search: any = {
-    branchIds: undefined,
-    loanConfigId: undefined
-  };
+  searchString: string = NewRequestService.resolveSearchString(null, null, null);
   pageable: Pageable = new Pageable();
 
   constructor(private newRequestService: NewRequestService,
@@ -44,7 +40,7 @@ export class NewRequestsComponent implements OnInit {
   static loadData(other: NewRequestsComponent) {
 
     other.spinner = true;
-    other.newRequestService.getAllWithSearchObject(other.page, 10, '').subscribe((response: any) => {
+    other.newRequestService.getAllWithSearchObject(other.page, 10, other.searchString).subscribe((response: any) => {
           other.applicantList = response.detail.content;
           other.pageable = PaginationUtils.getPageable(response.detail);
 
@@ -83,15 +79,16 @@ export class NewRequestsComponent implements OnInit {
   }
 
   filterSearch() {
-    this.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
+    const branchId: number = this.filterForm.get('branch').value === null ? undefined :
         this.filterForm.get('branch').value;
-    this.search.loanConfigId = this.filterForm.get('loanType').value === null ? undefined :
+    const loanConfigId: number = this.filterForm.get('loanType').value === null ? undefined :
         this.filterForm.get('loanType').value;
+    this.searchString = NewRequestService.resolveSearchString(null, branchId, loanConfigId);
     NewRequestsComponent.loadData(this);
   }
 
   clearSearch() {
-    this.search = {};
+    this.searchString = '';
   }
 
   changePage(page: number) {
