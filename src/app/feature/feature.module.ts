@@ -11,6 +11,7 @@ import {PendingLoanComponent} from '../component/dashboard/pending/pending-loan/
 import {PendingsLoanComponent} from '../component/dashboard/pending/pendings/pendings-loan.component';
 import {DataVisualizationComponent} from '../component/dashboard/data-visualization/data-visualization.component';
 
+
 @NgModule({
         imports: [
             FeatureRoutingModule,
@@ -27,6 +28,7 @@ import {DataVisualizationComponent} from '../component/dashboard/data-visualizat
             PendingsLoanComponent,
             DataVisualizationComponent
         ],
+        exports: [],
         providers: []
     }
 )

@@ -16,10 +16,12 @@ export class UserService extends BaseService<User> {
     protected getApi(): string {
         return UserService.API;
     }
+
     public getUserListByRoleId(id): Observable<any> {
         const req = ApiUtils.getRequestWithFileSupport(`${UserService.API}/${id}/users`);
         return this.http.get(req.url, {headers: req.header});
     }
+
     public getUsersByRole(roles: any): Observable<any> {
         const req = ApiUtils.getRequest(`${UserService.API}/listByRole`);
 
@@ -48,5 +50,11 @@ export class UserService extends BaseService<User> {
         const req = ApiUtils.getRequest(`${UserService.API}/dismiss`);
 
         return this.http.post(req.url, user, {headers: req.header});
+    }
+
+    public getUserListForTransfer(id): Observable<any> {
+        const req = ApiUtils.getRequest(`${UserService.API}/get-all-doc-transfer/${id}`);
+
+        return this.http.get(req.url, {headers: req.header});
     }
 }

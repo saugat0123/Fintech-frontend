@@ -1,0 +1,17 @@
+<nb-card size="small">
+  <nb-card-header>
+    Notification
+  </nb-card-header>
+  <nb-card-body>
+    <nb-list *ngIf="notifications">
+      <nb-list-item (click)="summaryClick(message)" *ngFor="let message of notifications"
+                    class="cursor">
+        {{message?.message}}<br/>
+        <span class="font-weight-bolder small float-right">{{message?.date | date:'medium'}}</span>
+      </nb-list-item>
+    </nb-list>
+    <nb-list *ngIf="notifications.length <= 0">
+      <nb-list-item>No notifications</nb-list-item>
+    </nb-list>
+  </nb-card-body>
+</nb-card>

@@ -12,3 +12,6 @@ build:
   artifacts:
     paths:
       - dist/
+  only:
+    - master
+    - merge_requests

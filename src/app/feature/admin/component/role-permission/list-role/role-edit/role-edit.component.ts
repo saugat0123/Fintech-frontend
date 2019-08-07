@@ -14,7 +14,8 @@ import {RoleType} from '../../../../modal/roleType';
 export class RoleEditComponent implements OnInit {
     @Input()
     model: Role;
-    roleTypeList = RoleType;
+    roleType;
+    checkRoleEdit: boolean;
 
     constructor(private activeModal: NgbActiveModal,
                 private service: RoleService,
@@ -22,6 +23,10 @@ export class RoleEditComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.roleType = this.model.roleType;
+        if (this.model.roleType === RoleType.MAKER) {
+            this.checkRoleEdit = true;
+        }
     }
 
     onSubmit() {
@@ -39,6 +44,17 @@ export class RoleEditComponent implements OnInit {
 
     onClose() {
         this.activeModal.dismiss(ModalResponse.CANCEL);
+    }
+
+
+    checkIfMaker(chkStatus) {
+        if (chkStatus) {
+            this.roleType = RoleType.MAKER;
+            this.model.roleType = RoleType.MAKER;
+        } else {
+            this.roleType = RoleType.APPROVAL;
+            this.model.roleType = RoleType.APPROVAL;
+        }
     }
 
 }
