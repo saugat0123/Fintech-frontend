@@ -23,6 +23,7 @@ export class EligibleRequestsComponent implements OnInit {
     page = 1;
     search: any = {};
     pageable: Pageable = new Pageable();
+    searchString: string = NewRequestService.resolveSearchString(Status.ELIGIBLE, null, null);
 
     constructor(private newRequestService: NewRequestService,
                 private toastService: ToastService,
@@ -33,7 +34,7 @@ export class EligibleRequestsComponent implements OnInit {
 
         other.spinner = true;
         other.applicantList = [];
-        other.newRequestService.getAllWithSearchObject(other.page, 10, Status.ELIGIBLE).subscribe((response: any) => {
+        other.newRequestService.getAllWithSearchObject(other.page, 10, other.searchString).subscribe((response: any) => {
                 other.applicantList = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
 
