@@ -20,6 +20,7 @@ import {UserService} from '../user/user.service';
 import {LoanActionService} from '../../../loan/loan-action/service/loan-action.service';
 import {LoanType} from '../../../loan/model/loanType';
 import {RoleType} from '../../modal/roleType';
+import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class CatalogueComponent implements OnInit {
     docStatus = DocStatus;
     loanType = LoanType;
     filterForm: FormGroup;
+    tempLoanType = null;
     validStartDate = true;
     validEndDate = true;
     transferDoc = false;
@@ -189,6 +191,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     onSearch() {
+        this.tempLoanType = null;
         this.statusApproved = this.filterForm.get('docStatus').value === 'APPROVED';
         this.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
             this.filterForm.get('branch').value;
@@ -238,14 +241,15 @@ export class CatalogueComponent implements OnInit {
     }
 
     changeAction() {
+        this.loanDataHolder.loanType = this.tempLoanType;
         this.loanFormService.renewLoan(this.loanDataHolder).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated loan type.'));
                 this.modalService.dismissAll('Close modal');
+                this.tempLoanType = null;
+                this.clearSearch();
+                this.search.documentStatus = DocStatus.APPROVED;
+                this.onSearch();
             }, error => {
-
-
-                console.log(error);
-
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan type.'));
                 this.modalService.dismissAll('Close modal');
             }
@@ -297,6 +301,18 @@ export class CatalogueComponent implements OnInit {
         });
 
 
+    }
+
+    getCsv() {
+        this.loanFormService.download(this.search).subscribe((response: any) => {
+            const link = document.createElement('a');
+            link.target = '_blank';
+            link.href = ApiConfig.URL + '/' + response.detail;
+            link.download = ApiConfig.URL + '/' + response.detail;
+            link.setAttribute('visibility', 'hidden');
+            link.click();
+
+        });
     }
 
 }
