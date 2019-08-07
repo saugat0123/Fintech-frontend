@@ -48,6 +48,7 @@ export class ChangePasswordComponent implements OnInit, AfterViewInit {
             this.userService.updateUserPassword(this.changePasswordObject).subscribe((response: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, response.detail));
               this.modalService.dismissAll();
+              localStorage.clear();
               this.router.navigate(['/login']);
             }, error => {
                 console.log(error);
