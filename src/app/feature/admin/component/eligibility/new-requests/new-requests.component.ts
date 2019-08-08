@@ -13,6 +13,7 @@ import {Branch} from '../../../modal/branch';
 import {LoanConfig} from '../../../modal/loan-config';
 import {BranchService} from '../../branch/branch.service';
 import {LoanConfigService} from '../../loan-config/loan-config.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-new-requests',
@@ -34,6 +35,7 @@ export class NewRequestsComponent implements OnInit {
                 private toastService: ToastService,
                 private formBuilder: FormBuilder,
                 private modalService: NgbModal,
+                private router: Router,
                 private branchService: BranchService,
                 private loanConfigService: LoanConfigService) {
     }
@@ -106,6 +108,11 @@ export class NewRequestsComponent implements OnInit {
         const modalRef = this.modalService.open(EligibilityDocumentViewComponent, {size: 'lg'});
         modalRef.componentInstance.model = document;
         ModalUtils.resolve(modalRef.result, NewRequestsComponent.loadData, this);
+    }
+
+    onApplicantClick(applicantId) {
+        this.spinner = true;
+        this.router.navigate(['/home/admin/eligibility/eligibility-summary'], {queryParams: {applicantId: applicantId}});
     }
 
 }
