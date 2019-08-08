@@ -9,6 +9,8 @@ export class Message {
     customerId: number;
     loanConfigId: number;
     message: string;
+    toUserId: number;
+    toRoleId: number;
     status: any;
     date: Date;
     docAction: DocAction;
