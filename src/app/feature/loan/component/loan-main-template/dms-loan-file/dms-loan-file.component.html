@@ -63,12 +63,13 @@
                         <div *ngIf="!personal" class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="companyName"><b>Occupation</b></label>
-                                    <ng-select [items]="occupations.values()"
+                                    <label for="occupation"><b>Occupation</b></label>
+                                    <ng-select [items]="occupations"
                                                [multiple]="false"
                                                [ngClass]="{'is-invalid':submitted &&  form.occupation.errors}"
                                                bindLabel="value"
                                                bindValue="title"
+                                               id="occupation"
                                                class="form-control"
                                                formControlName="occupation"
                                                placeholder="Select Occuaption">
