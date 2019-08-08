@@ -3,7 +3,7 @@ import {MunicipalityVdc} from './municipality_VDC';
 import {District} from './district';
 import {Province} from './province';
 import {Occupation} from './occupation';
-import {IncomeSource} from './IncomeSource';
+import {IncomeSource} from './incomeSource';
 
 export class Customer {
     id: number;
