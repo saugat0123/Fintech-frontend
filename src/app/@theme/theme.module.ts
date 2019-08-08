@@ -63,6 +63,8 @@ import {IconCardComponent} from './components/iconcard/icon-card.component';
 import {SearchResultComponent} from './components/header/header-form/searchResult.component';
 import {MessageModalComponent} from './components/message-modal/message-modal.component';
 import {ProfileComponent} from './components/profile/profile.component';
+import {NotificationComponent} from './components/notification/notification.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -120,13 +122,15 @@ const COMPONENTS = [
     UpdateModalComponent,
     PagingComponent,
     ValidationErrorComponent,
-    MessageModalComponent
+    MessageModalComponent,
+    NotificationComponent
 ];
 
 const ENTRY_COMPONENTS = [
     SearchResultComponent,
     MessageModalComponent,
-    ProfileComponent
+    ProfileComponent,
+    ChangePasswordComponent
 ];
 
 const PIPES = [
@@ -159,7 +163,7 @@ const NB_THEME_PROVIDERS = [
 @NgModule({
     imports: [...BASE_MODULES, ...NB_MODULES, RouterModule],
     exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
-    declarations: [...COMPONENTS, ...PIPES, ProfileComponent],
+    declarations: [...COMPONENTS, ...PIPES, ProfileComponent, ChangePasswordComponent],
     entryComponents: [...ENTRY_COMPONENTS],
 })
 export class ThemeModule {

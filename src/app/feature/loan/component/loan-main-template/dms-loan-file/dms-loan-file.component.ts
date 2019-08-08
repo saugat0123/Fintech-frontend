@@ -23,7 +23,7 @@ import {LoanDataService} from '../../../service/loan-data.service';
 })
 
 export class DmsLoanFileComponent implements OnInit {
-    public static FILE_SIZE = 1000000;
+    public static FILE_SIZE = 500000;
     @Input()
     loanFile: DmsLoanFile;
     loanForm: FormGroup;
@@ -140,12 +140,11 @@ export class DmsLoanFileComponent implements OnInit {
             recommendation: [this.loanFile.recommendationConclusion === undefined ? '' : this.loanFile.recommendationConclusion,
                 Validators.required],
             waiver: [this.loanFile.waiver === undefined ? '' : this.loanFile.waiver, Validators.required],
-            fmvTotal: [this.loanFile.fmvTotal === undefined ? '' : this.loanFile.fmvTotal, [Validators.required, Validators.min(0)]],
+            fmvTotal: [this.loanFile.fmvTotal === undefined ? '' : this.loanFile.fmvTotal, Validators.min(0)],
             totalLoanLimit: [this.loanFile.totalLoanLimit === undefined ? '' : this.loanFile.totalLoanLimit,
                 [Validators.required, Validators.min(0)]],
-            groupExpo: [this.loanFile.groupExpo === undefined ? '' : this.loanFile.groupExpo, Validators.required],
-            fmvFundingPercent: [this.loanFile.fmvFundingPercent === undefined ? '' : this.loanFile.fmvFundingPercent,
-                [Validators.required, Validators.min(0)]],
+            groupExpo: [this.loanFile.groupExpo === undefined ? '' : this.loanFile.groupExpo],
+            fmvFundingPercent: [this.loanFile.fmvFundingPercent === undefined ? '' : this.loanFile.fmvFundingPercent, Validators.min(0)],
             file: ['']
         });
         this.reqPersonalOrBusiness();

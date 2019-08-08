@@ -71,6 +71,7 @@ export class LoanFormComponent implements OnInit {
     submitDisable = false;
     loanDocument: LoanDataHolder;
 
+
     @ViewChild('basicInfo')
     basicInfo: BasicInfoComponent;
 
@@ -99,7 +100,7 @@ export class LoanFormComponent implements OnInit {
         private loanConfigService: LoanConfigService,
         private modalService: NgbModal,
         private router: Router,
-        private breadcrumbService: BreadcrumbService
+        private breadcrumbService: BreadcrumbService,
     ) {
 
     }

@@ -18,6 +18,12 @@ import {RoleService} from '../role-permission/role.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {UserService} from '../user/user.service';
 import {LoanActionService} from '../../../loan/loan-action/service/loan-action.service';
+import {LoanType} from '../../../loan/model/loanType';
+import {RoleType} from '../../modal/roleType';
+import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
+import {DocAction} from '../../../loan/model/docAction';
+import {LoanStage} from '../../../loan/model/loanStage';
+import {SocketService} from '../../../../@core/service/socket.service';
 
 
 @Component({
@@ -35,10 +41,13 @@ export class CatalogueComponent implements OnInit {
     pageable: Pageable = new Pageable();
     age: number;
     docStatus = DocStatus;
+    loanType = LoanType;
     filterForm: FormGroup;
+    tempLoanType = null;
     validStartDate = true;
     validEndDate = true;
     transferDoc = false;
+    roleType = false;
     search: any = {
         branchIds: undefined,
         documentStatus: DocStatus.value(DocStatus.PENDING),
@@ -50,6 +59,8 @@ export class CatalogueComponent implements OnInit {
     roleAccess: string;
     accessSpecific: boolean;
     accessAll: boolean;
+    statusApproved = false;
+    loanDataHolder: LoanDataHolder;
     id;
     transferUserList;
     formAction: FormGroup;
@@ -64,13 +75,13 @@ export class CatalogueComponent implements OnInit {
                 private modalService: NgbModal,
                 private loanActionService: LoanActionService,
                 private userService: UserService,
-                private roleService: RoleService) {
+                private roleService: RoleService,
+                private socketService: SocketService) {
     }
 
     static loadData(other: CatalogueComponent) {
         other.loanFormService.getCatalogues(other.search, other.page, 10).subscribe((response: any) => {
             other.loanDataHolderList = response.detail.content;
-            console.log(other.loanDataHolderList);
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
         }, error => {
@@ -94,6 +105,10 @@ export class CatalogueComponent implements OnInit {
         );
         this.buildFilterForm();
         this.roleAccess = localStorage.getItem('roleAccess');
+
+        if (localStorage.getItem('roleType') === RoleType.MAKER) {
+            this.roleType = true;
+        }
         if (this.roleAccess === RoleAccess.SPECIFIC) {
             this.accessSpecific = true;
         } else if (this.roleAccess === RoleAccess.ALL) {
@@ -147,6 +162,7 @@ export class CatalogueComponent implements OnInit {
         this.filterForm = this.formBuilder.group({
             branch: [undefined],
             loanType: [undefined],
+            loanNewRenew: [undefined],
             docStatus: [undefined],
             startDate: [undefined],
             endDate: [undefined],
@@ -179,12 +195,16 @@ export class CatalogueComponent implements OnInit {
     }
 
     onSearch() {
+        this.tempLoanType = null;
+        this.statusApproved = this.filterForm.get('docStatus').value === 'APPROVED';
         this.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
             this.filterForm.get('branch').value;
         this.search.documentStatus = this.filterForm.get('docStatus').value === null ? DocStatus.value(DocStatus.PENDING) :
             this.filterForm.get('docStatus').value;
         this.search.loanConfigId = this.filterForm.get('loanType').value === null ? undefined :
             this.filterForm.get('loanType').value;
+        this.search.loanNewRenew = this.filterForm.get('loanNewRenew').value === null ? undefined :
+            this.filterForm.get('loanNewRenew').value;
         if (this.filterForm.get('startDate').value !== null && this.filterForm.get('endDate').value) {
             this.search.currentStageDate = JSON.stringify({
                 // note: new Date().toString() is needed here to preserve timezone while JSON.stringify()
@@ -212,7 +232,7 @@ export class CatalogueComponent implements OnInit {
         });
         this.formAction.patchValue({
                 customerLoanId: customerLoanId,
-                docAction: 'TRANSFER',
+                docAction: DocAction.value(DocAction.TRANSFER),
                 documentStatus: DocStatus.PENDING,
                 comment: 'TRANSFER'
             }
@@ -222,6 +242,23 @@ export class CatalogueComponent implements OnInit {
 
     onClose() {
         this.modalService.dismissAll();
+    }
+
+    changeAction() {
+        this.loanDataHolder.loanType = this.tempLoanType;
+        this.loanFormService.renewLoan(this.loanDataHolder).subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated loan type.'));
+                this.modalService.dismissAll('Close modal');
+                this.tempLoanType = null;
+                this.clearSearch();
+                this.search.documentStatus = DocStatus.APPROVED;
+                this.onSearch();
+            }, error => {
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan type.'));
+                this.modalService.dismissAll('Close modal');
+            }
+        );
+
     }
 
     docTransfer(userId, roleId) {
@@ -241,9 +278,10 @@ export class CatalogueComponent implements OnInit {
 
     confirm() {
         this.onClose();
-        this.loanActionService.postLoanAction(this.formAction.value).subscribe((response: any) => {
+        this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
+            this.sendLoanNotification(response.detail.customerLoanId);
             CatalogueComponent.loadData(this);
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
@@ -251,5 +289,72 @@ export class CatalogueComponent implements OnInit {
         });
     }
 
+    onChange(data, onActionChange) {
+        this.loanDataHolder = data;
+        this.modalService.open(onActionChange);
+
+    }
+
+    renewedOrCloseFrom(loanConfigId, childId) {
+        this.router.navigate(['/home/loan/summary'], {
+            queryParams: {
+                loanConfigId: loanConfigId,
+                customerId: childId,
+                catalogue: true
+            }
+
+        });
+
+
+    }
+
+    getCsv() {
+        this.loanFormService.download(this.search).subscribe((response: any) => {
+            const link = document.createElement('a');
+            link.target = '_blank';
+            link.href = ApiConfig.URL + '/' + response.detail;
+            link.download = ApiConfig.URL + '/' + response.detail;
+            link.setAttribute('visibility', 'hidden');
+            link.click();
+
+        });
+    }
+
+    sendLoanNotification(customerLoanId: number): void {
+        this.loanFormService.detail(customerLoanId).subscribe((loanResponse: any) => {
+            const customerLoan: LoanDataHolder = loanResponse.detail;
+            // set loan stage information
+            this.socketService.message.loanConfigId = customerLoan.loan.id;
+            this.socketService.message.customerId = customerLoan.id;
+            this.socketService.message.toUserId = customerLoan.currentStage.toUser.id;
+            this.socketService.message.toRoleId = customerLoan.currentStage.toRole.id;
+            this.socketService.message.fromId = customerLoan.currentStage.fromUser.id;
+            this.socketService.message.fromRole = customerLoan.currentStage.fromRole.id;
+            this.socketService.message.date = new Date();
+            this.socketService.message.docAction = customerLoan.currentStage.docAction;
+
+            const docAction = customerLoan.currentStage.docAction.toString();
+            if (docAction === DocAction.value(DocAction.TRANSFER)) {
+                // send notification to current stage user
+                this.socketService.message.toId = customerLoan.currentStage.toUser.id;
+                this.socketService.message.toRole = customerLoan.currentStage.toRole.id;
+                this.socketService.sendMessageUsingSocket();
+            }
+            // send notifications to unique previous stage users
+            for (const distinct of customerLoan.distinctPreviousList) {
+                const distinctStage: LoanStage = distinct;
+
+                if (customerLoan.currentStage.toUser.id !== distinctStage.toUser.id
+                    && customerLoan.currentStage.fromUser.id !== distinctStage.toUser.id) {
+                    this.socketService.message.toId = distinctStage.toUser.id;
+                    this.socketService.message.toRole = distinctStage.toRole.id;
+                    this.socketService.sendMessageUsingSocket();
+                }
+            }
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+        });
+    }
 
 }

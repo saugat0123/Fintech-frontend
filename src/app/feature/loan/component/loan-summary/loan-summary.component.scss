@@ -41,22 +41,24 @@
   }
 
   .padding-0-125 {
-    padding-left: 0.125rem!important;
-    padding-right: 0.125rem!important;
+    padding-left: 0.125rem !important;
+    padding-right: 0.125rem !important;
   }
 
-  .cmt-width {
-    width: 500px;
-    min-height: 10px;
-    max-height: 50px;
-    overflow: hidden;
-  }
+  /*.cmt-width {
+    width: 70%;
+  }*/
 
   .read-margin {
     margin-top: 5px;
   }
 
   @media print {
+
+    .disable-print {
+      display: none;
+    }
+
     nb-card {
       background: none;
       border: none;
@@ -75,18 +77,22 @@
       }
 
       div {
-        font-size: 10px;
+        font-size: 14px;
         color: black;
-        line-height: 1.5;
+        //line-height: 1.5;
 
         p {
-          font-size: 10px;
+          font-size: 14px;
           margin-bottom: 5px;
         }
       }
 
       .print-only {
         display: block;
+      }
+
+      #print-document {
+        display: none;
       }
 
       .table th, .table td {
@@ -101,10 +107,20 @@
         }
       }
 
+      .cmt-width {
+        width: 70%;
+      }
+
+      #print-borrower-table tbody td {
+        width: 400px;
+      }
+
       #print-block {
         margin-top: -6rem;
         margin-left: -1rem;
         margin-right: -1rem;
+
+        padding-top: 3rem;
 
         .signature-block {
           border: 1px solid #8c8b8b;
