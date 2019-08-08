@@ -55,7 +55,7 @@ export class DmsLoanFileComponent implements OnInit {
     previousLoans: Array<LoanDataHolder>;
     spinner = false;
     personal = true;
-    occupations = Occupation;
+    occupations = Occupation.enumObject();
 
     constructor(private formBuilder: FormBuilder,
                 private loanDataService: LoanDataService,
@@ -121,18 +121,28 @@ export class DmsLoanFileComponent implements OnInit {
 
         ];
         this.loanForm = this.formBuilder.group({
-            customerName: [this.loanFile.customer.customerName === undefined ? '' :
+            customerName:
+                [(this.loanFile.customer === undefined
+                    || this.loanFile.customer.customerName === undefined) ? '' :
                 this.loanFile.customer.customerName, Validators.required],
-            dob: [this.loanFile.customer.dob === undefined ? '' :
+            dob:
+                [(this.loanFile.customer === undefined
+                    || this.loanFile.customer.dob === undefined) ? '' :
                 this.loanFile.customer.dob, Validators.required],
             companyName: [this.loanFile.companyName === undefined ? '' : this.loanFile.companyName],
             registrationNumber: [this.loanFile.registrationNumber === undefined ? '' : this.loanFile.registrationNumber],
-            citizenshipNumber: [this.loanFile.customer.citizenshipNumber === undefined ? '' : this.loanFile.customer.citizenshipNumber],
-            contactNumber: [this.loanFile.customer.contactNumber === undefined ? '' :
+            citizenshipNumber:
+                [(this.loanFile.customer === undefined)
+                || (this.loanFile.customer.citizenshipNumber === undefined) ? '' :
+                    this.loanFile.customer.citizenshipNumber],
+            contactNumber: [(this.loanFile.customer === undefined
+                || this.loanFile.customer.contactNumber === undefined) ? '' :
                 this.loanFile.customer.contactNumber, Validators.required],
-            occupation: [this.loanFile.customer.occupation === undefined ? '' :
+            occupation: [(this.loanFile.customer === undefined
+                || this.loanFile.customer.occupation === undefined) ? '' :
                 this.loanFile.customer.occupation, Validators.required],
-            incomeSource: [this.loanFile.customer.incomeSource === undefined ? '' :
+            incomeSource: [(this.loanFile.customer === undefined
+                || this.loanFile.customer.incomeSource === undefined) ? '' :
                 this.loanFile.customer.incomeSource, Validators.required],
             interestRate: [this.loanFile.interestRate === undefined ? '' : this.loanFile.interestRate,
                 [Validators.required, Validators.min(0)]],
