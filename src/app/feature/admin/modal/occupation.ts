@@ -13,7 +13,18 @@ export namespace Occupation {
 
     export function values() {
         return Object.keys(Occupation).filter(
-            (type) => isNaN(<any>type)
+            (type) => isNaN(<any>type) && type !== 'values' && type !== 'enumObject'
         );
+    }
+
+    export function enumObject() {
+        const enums = [];
+        values().forEach(value => {
+            enums.push({
+                key: value,
+                value: Occupation[value]
+            });
+        });
+        return enums;
     }
 }

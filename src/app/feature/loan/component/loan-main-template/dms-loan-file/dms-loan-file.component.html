@@ -28,7 +28,8 @@
                                            id="dob" placeholder="Enter Date Of Birth"
                                            type="text"/>
                                     <nb-datepicker #dobPicker></nb-datepicker>
-                                    <div *ngIf="submitted && form.customerName.errors" class="invalid-feedback">
+                                    <div *ngIf="submitted && form.dob.errors"
+                                         class="invalid-feedback">
                                         <div *ngIf="form.dob.errors.required">Date Of Birth is required</div>
                                     </div>
                                 </div>
@@ -59,8 +60,7 @@
                             </div>
 
                         </div>
-
-                        <div *ngIf="!personal" class="row">
+                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="occupation"><b>Occupation</b></label>
@@ -68,14 +68,17 @@
                                                [multiple]="false"
                                                [ngClass]="{'is-invalid':submitted &&  form.occupation.errors}"
                                                bindLabel="value"
-                                               bindValue="title"
+                                               bindValue="key"
                                                id="occupation"
                                                class="form-control"
                                                formControlName="occupation"
-                                               placeholder="Select Occuaption">
+                                               placeholder="Select Occupation">
                                     </ng-select>
                                 </div>
                             </div>
+                        </div>
+
+                        <div *ngIf="!personal" class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="companyName"><b>Company Name</b></label>
