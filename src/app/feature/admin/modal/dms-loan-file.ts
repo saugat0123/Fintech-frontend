@@ -3,7 +3,7 @@ import {Customer} from './customer';
 
 export class DmsLoanFile {
     id: number;
-    customer: Customer;
+    customer: Customer = new Customer();
     companyName: string;
     registrationNumber: string;
     interestRate: number;
