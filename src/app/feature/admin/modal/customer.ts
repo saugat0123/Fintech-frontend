@@ -9,6 +9,7 @@ export class Customer {
     id: number;
     title: string;
     customerName: string;
+    dob: Date;
     customerId: string;
     accountNo: string;
     province: Province;
