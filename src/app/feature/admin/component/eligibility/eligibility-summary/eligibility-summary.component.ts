@@ -44,4 +44,8 @@ export class EligibilitySummaryComponent implements OnInit {
         });
     }
 
+    print() {
+        window.print();
+    }
+
 }

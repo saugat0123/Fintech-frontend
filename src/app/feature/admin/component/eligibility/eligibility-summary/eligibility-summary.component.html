@@ -1,6 +1,11 @@
 <section class="enable-print">
   <nb-card>
-    <nb-card-header></nb-card-header>
+    <nb-card-header>
+        <div class="float-right">
+            <button id="printButton" class="btn-sm btn-warning d-flex justify-content-end" (click)="print()">PRINT<i
+                    class="col-md-1 fa fa-print"></i></button>
+        </div>
+    </nb-card-header>
     <nb-card-body id="print-block">
       <div class="row">
         <div class="col-md-3"></div>
@@ -34,7 +39,7 @@
       <p><b>Details of Applicant</b></p>
       <div class="row">
         <div class="col-md-12">
-          <table class="table table-condensed table-bordered table-responsive-md disable-print">
+            <table class="print-only table table-bordered" id="print-borrower-table">
             <thead>
             <tr>
               <th>Applicant Name</th>
@@ -58,7 +63,7 @@
       <p><b>Eligibility Result for General Questions</b></p>
       <div class="row">
         <div class="col-md-12">
-          <table class="table table-condensed table-bordered table-responsive-md disable-print">
+            <table class="print-only table table-bordered" id="print-borrower-table">
             <thead>
             <tr>
               <th>S.N</th>
@@ -82,7 +87,7 @@
       <p><b>Eligibility Result for Security Questions</b></p>
       <div class="row">
         <div class="col-md-12">
-          <table class="table table-condensed table-bordered table-responsive-md disable-print">
+          <table class="print-only table table-bordered" id="print-borrower-table">
             <thead>
             <tr>
               <th>S.N</th>

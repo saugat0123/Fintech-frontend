@@ -10,3 +10,9 @@
     font-size: 1.5rem;
   }
 }
+
+@media print {
+  nb-card-header {
+    display: none;
+  }
+}
