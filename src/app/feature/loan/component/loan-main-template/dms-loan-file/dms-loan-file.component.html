@@ -72,7 +72,24 @@
                                                id="occupation"
                                                class="form-control"
                                                formControlName="occupation"
+                                               id="occupation"
                                                placeholder="Select Occupation">
+                                    </ng-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="incomeSource"><b>Income Source</b></label>
+                                    <ng-select [items]="incomeSources"
+                                               [multiple]="false"
+                                               [ngClass]="{'is-invalid':submitted &&  form.incomeSource.errors}"
+                                               bindLabel="value"
+                                               bindValue="key"
+                                               class="form-control"
+                                               formControlName="incomeSource"
+                                               id="incomeSource"
+                                               placeholder="Select Income Source">
                                     </ng-select>
                                 </div>
                             </div>

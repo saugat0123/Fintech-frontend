@@ -15,6 +15,7 @@ import {LoanFormService} from '../../loan-form/service/loan-form.service';
 import {LoanDataHolder} from '../../../model/loanData';
 import {LoanDataService} from '../../../service/loan-data.service';
 import {Occupation} from '../../../../admin/modal/occupation';
+import {IncomeSource} from '../../../../admin/modal/incomeSource';
 
 
 @Component({
@@ -56,6 +57,7 @@ export class DmsLoanFileComponent implements OnInit {
     spinner = false;
     personal = true;
     occupations = Occupation.enumObject();
+    incomeSources = IncomeSource.enumObject();
 
     constructor(private formBuilder: FormBuilder,
                 private loanDataService: LoanDataService,
