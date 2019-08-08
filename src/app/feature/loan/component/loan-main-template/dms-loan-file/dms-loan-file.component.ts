@@ -23,7 +23,7 @@ import {LoanDataService} from '../../../service/loan-data.service';
 })
 
 export class DmsLoanFileComponent implements OnInit {
-    public static FILE_SIZE = 1000000;
+    public static FILE_SIZE = 500000;
     @Input()
     loanFile: DmsLoanFile;
     loanForm: FormGroup;
