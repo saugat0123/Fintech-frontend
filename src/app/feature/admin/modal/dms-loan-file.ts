@@ -1,12 +1,11 @@
 import {LoanDocument} from './loan-document';
+import {Customer} from './customer';
 
 export class DmsLoanFile {
     id: number;
-    customerName: string;
+    customer: Customer;
     companyName: string;
     registrationNumber: string;
-    citizenshipNumber: string;
-    contactNumber: string;
     interestRate: number;
     proposedAmount: number;
     proposedAmountWord: string;

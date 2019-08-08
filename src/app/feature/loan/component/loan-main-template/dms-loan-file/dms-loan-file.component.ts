@@ -119,11 +119,13 @@ export class DmsLoanFileComponent implements OnInit {
 
         ];
         this.loanForm = this.formBuilder.group({
-            customerName: [this.loanFile.customerName === undefined ? '' : this.loanFile.customerName, Validators.required],
+            customerName: [this.loanFile.customer.customerName === undefined ? '' :
+                this.loanFile.customer.customerName, Validators.required],
             companyName: [this.loanFile.companyName === undefined ? '' : this.loanFile.companyName],
             registrationNumber: [this.loanFile.registrationNumber === undefined ? '' : this.loanFile.registrationNumber],
-            citizenshipNumber: [this.loanFile.citizenshipNumber === undefined ? '' : this.loanFile.citizenshipNumber],
-            contactNumber: [this.loanFile.contactNumber === undefined ? '' : this.loanFile.contactNumber, Validators.required],
+            citizenshipNumber: [this.loanFile.customer.citizenshipNumber === undefined ? '' : this.loanFile.customer.citizenshipNumber],
+            contactNumber: [this.loanFile.customer.contactNumber === undefined ? '' :
+                this.loanFile.customer.contactNumber, Validators.required],
             interestRate: [this.loanFile.interestRate === undefined ? '' : this.loanFile.interestRate,
                 [Validators.required, Validators.min(0)]],
             proposedAmount: [this.loanFile.proposedAmount === undefined ? '' : this.loanFile.proposedAmount,
@@ -164,11 +166,11 @@ export class DmsLoanFileComponent implements OnInit {
     }
 
     onSubmit() {
-        this.loanFile.customerName = this.loanForm.get('customerName').value;
+        this.loanFile.customer.customerName = this.loanForm.get('customerName').value;
         this.loanFile.companyName = this.loanForm.get('companyName').value;
         this.loanFile.registrationNumber = this.loanForm.get('registrationNumber').value;
-        this.loanFile.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
-        this.loanFile.contactNumber = this.loanForm.get('contactNumber').value;
+        this.loanFile.customer.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
+        this.loanFile.customer.contactNumber = this.loanForm.get('contactNumber').value;
         this.loanFile.interestRate = this.loanForm.get('interestRate').value;
         this.loanFile.proposedAmount = this.loanForm.get('proposedAmount').value;
         this.loanFile.securities = this.loanForm.get('security').value as string;
