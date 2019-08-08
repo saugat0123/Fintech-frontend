@@ -64,14 +64,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="companyName"><b>Occupation</b></label>
-                                    <ng-select [items]="occupations.values()"
+                                    <ng-select [items]="occupations.enumObject()"
                                                [multiple]="false"
                                                [ngClass]="{'is-invalid':submitted &&  form.occupation.errors}"
                                                bindLabel="value"
-                                               bindValue="title"
+                                               bindValue="key"
                                                class="form-control"
                                                formControlName="occupation"
-                                               placeholder="Select Occuaption">
+                                               placeholder="Select Occupation">
                                     </ng-select>
                                 </div>
                             </div>
