@@ -16,6 +16,7 @@ import {LoanFormService} from '../../../../feature/loan/component/loan-form/serv
 import {LoanDataHolder} from '../../../../feature/loan/model/loanData';
 import {DocStatus} from '../../../../feature/loan/model/docStatus';
 import {BranchService} from '../../../../feature/admin/component/branch/branch.service';
+import {LoanType} from '../../../../feature/loan/model/loanType';
 
 @Component({
     selector: 'app-pendings',
@@ -25,9 +26,10 @@ import {BranchService} from '../../../../feature/admin/component/branch/branch.s
 export class PendingsLoanComponent implements OnInit {
     dmsLoanFiles: Array<DmsLoanFile>;
     loanDataHolders: Array<LoanDataHolder>;
+    loanType = LoanType;
     user: User = new User();
     search: any = {
-        documentStatus: 'PENDING'
+        documentStatus: DocStatus.value(DocStatus.PENDING)
     };
 
     loanList: Array<LoanConfig> = new Array<LoanConfig>();
@@ -102,7 +104,6 @@ export class PendingsLoanComponent implements OnInit {
             });
 
 
-
         }
     }
 
@@ -129,6 +130,10 @@ export class PendingsLoanComponent implements OnInit {
 
     branchSelect(id) {
         this.search.branchIds = id;
+    }
+
+    typeSelect(loanType) {
+        this.search.loanNewRenew = loanType;
     }
 
     onClick(loanConfigId: number, customerId: number) {

@@ -233,7 +233,7 @@
                             <td>{{i + 1}}</td>
                             <td class="disable-print">
                                 <div>{{previousList?.comment}}</div>
-                                <a class="d-flex justify-content-end read-margin disable-print"
+                                <a class="d-flex justify-content-end read-margin disable-print"  *ngIf="previousList?.comment.length > 50"
                                    (click)="open(previousList.comment)">read more ....</a>
                             </td>
                             <td class="print-only">
@@ -260,7 +260,7 @@
                             <td>{{currentIndex + 1}}</td>
                             <td class="disable-print">
                                 {{loanDataHolder?.currentStage?.comment}}
-                                <a class="d-flex justify-content-end read-margin disable-print"
+                                <a class="d-flex justify-content-end read-margin disable-print" *ngIf="loanDataHolder?.currentStage?.comment.length > 50"
                                    (click)="open(loanDataHolder.currentStage.comment)">read more ....</a>
                             </td>
                             <td class="print-only">

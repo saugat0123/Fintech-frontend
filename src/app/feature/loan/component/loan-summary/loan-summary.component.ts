@@ -208,7 +208,9 @@ export class LoanSummaryComponent implements OnInit {
                 const downloadUrl = window.URL.createObjectURL(response);
                 const link = document.createElement('a');
                 link.href = downloadUrl;
-                link.download = this.documentName + '.jpg';
+                const toArray = this.documentUrl.split('.');
+                const extension = toArray[toArray.length - 1];
+                link.download = this.documentName + '.' + extension;
                 link.click();
             },
             error1 => {
