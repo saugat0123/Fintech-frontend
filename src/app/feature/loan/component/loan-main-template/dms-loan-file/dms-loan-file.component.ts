@@ -130,9 +130,14 @@ export class DmsLoanFileComponent implements OnInit {
             dob:
                 [(this.loanFile.customer === undefined
                     || this.loanFile.customer.dob === undefined) ? '' :
-                this.loanFile.customer.dob, Validators.required],
-            companyName: [this.loanFile.companyName === undefined ? '' : this.loanFile.companyName],
-            registrationNumber: [this.loanFile.registrationNumber === undefined ? '' : this.loanFile.registrationNumber],
+                    this.loanFile.customer.dob, Validators.required],
+            companyName:
+                [(this.loanFile.entityInfo === undefined
+                    || this.loanFile.entityInfo.companyName === undefined) ? '' :
+                    this.loanFile.entityInfo.companyName],
+            registrationNumber: [(this.loanFile.entityInfo === undefined
+                || this.loanFile.entityInfo.registrationNumber === undefined) ? '' :
+                this.loanFile.entityInfo.registrationNumber],
             citizenshipNumber:
                 [(this.loanFile.customer === undefined)
                 || (this.loanFile.customer.citizenshipNumber === undefined) ? '' :
@@ -187,8 +192,8 @@ export class DmsLoanFileComponent implements OnInit {
 
     onSubmit() {
         this.loanFile.customer.customerName = this.loanForm.get('customerName').value;
-        this.loanFile.companyName = this.loanForm.get('companyName').value;
-        this.loanFile.registrationNumber = this.loanForm.get('registrationNumber').value;
+        this.loanFile.entityInfo.companyName = this.loanForm.get('companyName').value;
+        this.loanFile.entityInfo.registrationNumber = this.loanForm.get('registrationNumber').value;
         this.loanFile.customer.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
         this.loanFile.customer.contactNumber = this.loanForm.get('contactNumber').value;
         this.loanFile.customer.dob = this.loanForm.get('dob').value;

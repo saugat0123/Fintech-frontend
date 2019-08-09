@@ -1,11 +1,11 @@
 import {LoanDocument} from './loan-document';
 import {Customer} from './customer';
+import {EntityInfo} from './entity-info';
 
 export class DmsLoanFile {
     id: number;
     customer: Customer = new Customer();
-    companyName: string;
-    registrationNumber: string;
+    entityInfo: EntityInfo = new EntityInfo();
     interestRate: number;
     proposedAmount: number;
     proposedAmountWord: string;

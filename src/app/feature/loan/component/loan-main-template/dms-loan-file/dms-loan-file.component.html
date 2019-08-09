@@ -75,6 +75,10 @@
                                                id="occupation"
                                                placeholder="Select Occupation">
                                     </ng-select>
+                                    <div *ngIf="submitted && form.occupation.errors && !personal"
+                                         class="invalid-feedback">
+                                        <div *ngIf="form.occupation.errors.required">Occupation is required</div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -91,6 +95,10 @@
                                                id="incomeSource"
                                                placeholder="Select Income Source">
                                     </ng-select>
+                                    <div *ngIf="submitted && form.incomeSource.errors && !personal"
+                                         class="invalid-feedback">
+                                        <div *ngIf="form.incomeSource.errors.required">Income Source is required</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -163,7 +171,7 @@
                                            type="number"/>
                                     <div *ngIf="submitted && form.interestRate.errors" class="invalid-feedback">
                                         <div *ngIf="form.interestRate.errors.required">
-                                            Interest is required.
+                                            Interest Rate is required.
                                         </div>
                                         <div *ngIf="form.interestRate.errors.min">
                                             Interest Rate can not be negative value.
