@@ -220,25 +220,19 @@
                         <thead>
                         <tr>
                             <th>S.N</th>
-                            <th class="cmt-width">Comment</th>
+                            <th class="print-only">Date</th>
                             <th class="text-center">From User</th>
                             <th class="disable-print">From Position</th>
-                            <th class="text-center">To User</th>
+                            <th class="disable-print text-center">To User</th>
                             <th class="disable-print">To Position</th>
                             <th>Status</th>
+                            <th class="cmt-width">Comment</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
                             <td>{{i + 1}}</td>
-                            <td class="disable-print">
-                                <div>{{previousList?.comment}}</div>
-                                <a class="d-flex justify-content-end read-margin disable-print"  *ngIf="previousList?.comment.length > 50"
-                                   (click)="open(previousList.comment)">read more ....</a>
-                            </td>
-                            <td class="print-only">
-                                <div>{{previousList?.comment}}</div>
-                            </td>
+                            <p class="print-only m-0">{{previousList?.lastModifiedAt}}</p>
                             <td class="text-center">
                                 {{previousList?.fromUser?.name}}
                                 <span class="print-only">
@@ -247,25 +241,27 @@
                                 </span>
                             </td>
                             <td class="disable-print">{{previousList?.fromRole?.roleName}}</td>
-                            <td class="text-center">{{previousList?.toUser?.name}}
-                                <span class="print-only">
+                            <td class="disable-print text-center">{{previousList?.toUser?.name}}
+                                <span class="disable-print">
                                     <br/>
-                                    ( {{previousList?.toRole?.roleName}} )
+<!--                                    ( {{previousList?.toRole?.roleName}} )-->
                                 </span>
                             </td>
                             <td class="disable-print">{{previousList?.toRole?.roleName}}</td>
                             <td>{{previousList?.docAction}}</td>
+                            <td class="disable-print">
+                                <div class="cmt-height">{{previousList?.comment}}</div>
+                                <a class="d-flex justify-content-end read-margin disable-print"  *ngIf="previousList?.comment?.length > 50"
+                                   (click)="open(previousList.comment)">read more ....</a>
+                            </td>
+                            <td class="print-only">
+                                <div>{{previousList?.comment}}</div>
+                            </td>
                         </tr>
                         <tr>
                             <td>{{currentIndex + 1}}</td>
-                            <td class="disable-print">
-                                {{loanDataHolder?.currentStage?.comment}}
-                                <a class="d-flex justify-content-end read-margin disable-print" *ngIf="loanDataHolder?.currentStage?.comment.length > 50"
-                                   (click)="open(loanDataHolder.currentStage.comment)">read more ....</a>
-                            </td>
-                            <td class="print-only">
-                                {{loanDataHolder?.currentStage?.comment}}
-                            </td>
+                            <p class="print-only m-0">{{loanDataHolder?.currentStage?.lastModifiedAt}}</p>
+
                             <td class="text-center">
                                 {{loanDataHolder?.currentStage?.fromUser?.name}}
                                 <span class="print-only">
@@ -273,14 +269,22 @@
                                 </span>
                             </td>
                             <td class="disable-print">{{loanDataHolder?.currentStage?.fromRole?.roleName}}</td>
-                            <td class="text-center">
+                            <td class="disable-print text-center">
                                 {{loanDataHolder?.currentStage?.toUser?.name}}
-                                <span class="print-only">
-                                    ({{loanDataHolder?.currentStage?.toRole?.roleName}})
-                                </span>
+<!--                                <span class="print-only">-->
+<!--                                    ({{loanDataHolder?.currentStage?.toRole?.roleName}})-->
+<!--                                </span>-->
                             </td>
                             <td class="disable-print">{{loanDataHolder?.currentStage?.toRole?.roleName}}</td>
                             <td>{{loanDataHolder?.currentStage?.docAction}}</td>
+                            <td class="disable-print">
+                                <div class="cmt-height">{{loanDataHolder?.currentStage?.comment}}</div>
+                                <a class="d-flex justify-content-end read-margin disable-print" *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
+                                   (click)="open(loanDataHolder.currentStage.comment)">read more ....</a>
+                            </td>
+                            <td class="print-only">
+                                {{loanDataHolder?.currentStage?.comment}}
+                            </td>
                         </tr>
                         </tbody>
                     </table>
