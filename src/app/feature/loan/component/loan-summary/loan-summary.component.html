@@ -102,7 +102,7 @@
                             <td>{{dmsLoanFile?.customer?.dob || loanDataHolder?.customerInfo?.dob}}</td>
                             <td>{{dmsLoanFile?.customer?.citizenshipNumber || loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
                             <td>{{dmsLoanFile?.customer?.contactNumber || loanDataHolder?.customerInfo?.contactNumber}}</td>
-                            <td>{{dmsLoanFile?.customer?.occupation || loanDataHolder?.customerInfo?.occupation}}</td>
+                            <td>{{occupation[dmsLoanFile?.customer?.occupation || loanDataHolder?.customerInfo?.occupation]}}</td>
                             <td>{{dmsLoanFile?.customer?.incomeSource || loanDataHolder?.customerInfo?.incomeSource}}</td>
                         </tr>
                         </tbody>
