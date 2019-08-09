@@ -16,6 +16,8 @@ import {LoanDataHolder} from '../../../model/loanData';
 import {LoanDataService} from '../../../service/loan-data.service';
 import {Occupation} from '../../../../admin/modal/occupation';
 import {IncomeSource} from '../../../../admin/modal/incomeSource';
+import {CustomerService} from '../../../../admin/service/customer.service';
+import {Customer} from '../../../../admin/modal/customer';
 
 
 @Component({
@@ -58,6 +60,9 @@ export class DmsLoanFileComponent implements OnInit {
     personal = true;
     occupations = Occupation.enumObject();
     incomeSources = IncomeSource.enumObject();
+    customerSearch = {
+        citizenshipNumber: undefined
+    };
 
     constructor(private formBuilder: FormBuilder,
                 private loanDataService: LoanDataService,
@@ -66,7 +71,8 @@ export class DmsLoanFileComponent implements OnInit {
                 private dmsLoanService: DmsLoanService,
                 private loanFormService: LoanFormService,
                 private loanConfigService: LoanConfigService,
-                private toastService: ToastService) {
+                private toastService: ToastService,
+                private customerService: CustomerService) {
     }
 
     get form() {
@@ -123,6 +129,10 @@ export class DmsLoanFileComponent implements OnInit {
 
         ];
         this.loanForm = this.formBuilder.group({
+            customerEntityId:
+                [(this.loanFile.customer === undefined
+                    || this.loanFile.customer.id === undefined) ? '' :
+                    this.loanFile.customer.id],
             customerName:
                 [(this.loanFile.customer === undefined
                     || this.loanFile.customer.customerName === undefined) ? '' :
@@ -191,6 +201,7 @@ export class DmsLoanFileComponent implements OnInit {
     }
 
     onSubmit() {
+        this.loanFile.customer.id = this.loanForm.get('customerEntityId').value;
         this.loanFile.customer.customerName = this.loanForm.get('customerName').value;
         this.loanFile.entityInfo.companyName = this.loanForm.get('companyName').value;
         this.loanFile.entityInfo.registrationNumber = this.loanForm.get('registrationNumber').value;
@@ -246,11 +257,35 @@ export class DmsLoanFileComponent implements OnInit {
     }
 
     searchByCitizenship() {
-        const citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
-        this.loanFormService.getLoansByCitizenship(citizenshipNumber).subscribe((response: any) => {
-            this.previousLoans = response.detail;
-            this.hasPreviousLoan = this.previousLoans.length > 0;
-        }, error => console.error(error));
+        this.customerSearch.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
+        this.customerService.getPaginationWithSearchObject(this.customerSearch).subscribe((customerResponse: any) => {
+            if (customerResponse.detail.content.length <= 0) {
+                this.toastService.show(new Alert(AlertType.INFO, 'No Customer'));
+                this.loanForm.patchValue({
+                    customerEntityId: '',
+                    customerName: '',
+                    dob: '',
+                    contactNumber: '',
+                    occupation: '',
+                    incomeSource: ''
+                });
+            } else {
+                const customer: Customer = customerResponse.detail.content[0];
+                this.loanForm.patchValue({
+                    customerEntityId: customer.id,
+                    customerName: customer.customerName,
+                    dob: customer.dob,
+                    contactNumber: customer.contactNumber,
+                    occupation: customer.occupation,
+                    incomeSource: customer.incomeSource
+                });
+                this.loanFormService.getLoansByCitizenship(customer.citizenshipNumber).subscribe((response: any) => {
+                    this.previousLoans = response.detail;
+                    this.hasPreviousLoan = this.previousLoans.length > 0;
+                }, error => console.error(error));
+            }
+        });
+
     }
 
     openLoan(loanConfigId: number, customerId: number) {

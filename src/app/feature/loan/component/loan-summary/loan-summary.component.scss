@@ -5,12 +5,12 @@
     text-align: center;
 
     .report-header-heading {
-      font-size: 16pt;
+      font-size: 1.75rem;
       font-weight: bold;
     }
 
     .report-header-sub-heading {
-      font-size: 14pt;
+      font-size: 1.5rem;
     }
   }
 
@@ -77,12 +77,12 @@
       }
 
       div {
-        font-size: 12pt;
+        font-size: 14px;
         color: black;
         //line-height: 1.5;
 
         p {
-          font-size: 12pt;
+          font-size: 14px;
           margin-bottom: 5px;
         }
       }
@@ -103,7 +103,7 @@
         line-height: 1;
 
         .report-header-heading, .report-header-sub-heading {
-          font-size: 16pt;
+          font-size: 1rem;
         }
       }
 
@@ -117,8 +117,9 @@
 
       #print-block {
         margin-top: -6rem;
-        margin-left: 2rem;
+        margin-left: -1rem;
         margin-right: -1rem;
+
         padding-top: 3rem;
 
         .signature-block {
