@@ -129,6 +129,10 @@ export class DmsLoanFileComponent implements OnInit {
 
         ];
         this.loanForm = this.formBuilder.group({
+            customerEntityId:
+                [(this.loanFile.customer === undefined
+                    || this.loanFile.customer.id === undefined) ? '' :
+                    this.loanFile.customer.id],
             customerName:
                 [(this.loanFile.customer === undefined
                     || this.loanFile.customer.customerName === undefined) ? '' :
@@ -192,6 +196,7 @@ export class DmsLoanFileComponent implements OnInit {
     }
 
     onSubmit() {
+        this.loanFile.customer.id = this.loanForm.get('customerEntityId').value;
         this.loanFile.customer.customerName = this.loanForm.get('customerName').value;
         this.loanFile.companyName = this.loanForm.get('companyName').value;
         this.loanFile.registrationNumber = this.loanForm.get('registrationNumber').value;
@@ -252,6 +257,7 @@ export class DmsLoanFileComponent implements OnInit {
             if (customerResponse.detail.content.length <= 0) {
                 this.toastService.show(new Alert(AlertType.INFO, 'No Customer'));
                 this.loanForm.patchValue({
+                    customerEntityId: '',
                     customerName: '',
                     dob: '',
                     contactNumber: '',
@@ -261,6 +267,7 @@ export class DmsLoanFileComponent implements OnInit {
             } else {
                 const customer: Customer = customerResponse.detail.content[0];
                 this.loanForm.patchValue({
+                    customerEntityId: customer.id,
                     customerName: customer.customerName,
                     dob: customer.dob,
                     contactNumber: customer.contactNumber,
