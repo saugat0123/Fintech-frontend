@@ -47,7 +47,7 @@
             <tr>
               <th>Applicant Name</th>
               <th>Age</th>
-              <th>Phone Number</th>
+              <th width="40%">Phone Number</th>
             </tr>
             </thead>
             <tbody>
@@ -78,7 +78,7 @@
             <tr *ngFor="let eligibilityAnswer of applicant.eligibilityAnswers; let i = index;">
               <td width="5%">{{i+1}}</td>
               <td>{{eligibilityAnswer?.eligibilityQuestion?.description}}</td>
-              <td>{{eligibilityAnswer?.value}}</td>
+              <td width="40%">{{eligibilityAnswer?.value}}</td>
             </tr>
             </tbody>
           </table>

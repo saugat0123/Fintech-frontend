@@ -161,7 +161,9 @@
                                                nbInput fullWidth oninput="this.value = this.value.toUpperCase()"
                                                placeholder="Formula">
                                     </div>
-                                    <span *ngIf="(generalQuestionForm.get('formula').dirty || generalQuestionForm.get('formula').touched) && generalQuestionForm.get('formula').invalid"
+                                    <span *ngIf="((generalQuestionForm.get('formula').dirty || generalQuestionForm.get('formula').touched) &&
+                                    generalQuestionForm.get('formula').invalid) ||
+                                    (generalQuestionForm.get('formula').invalid && submitted)"
                                           class="small text-danger">Please compose a valid formula</span>
                                     <span *ngIf="invalidFormula" class="small text-danger">Invalid formula</span>
                                 </td>
