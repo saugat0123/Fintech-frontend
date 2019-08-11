@@ -39,7 +39,6 @@ export class DmsLoanFileComponent implements OnInit {
     renew = true;
     loan: LoanConfig = new LoanConfig();
     permissions = [];
-    dropdownList = [];
     loanName: string;
     loanConfig: LoanConfig = new LoanConfig();
     customerId: number;
@@ -48,8 +47,6 @@ export class DmsLoanFileComponent implements OnInit {
     documentMaps = [];
     documentMap: string;
     allId;
-    securities: string[];
-    securityEnum: Security[] = [];
     imagePaths: string[] = [];
     imageUrl = [];
     action: string;
@@ -60,6 +57,7 @@ export class DmsLoanFileComponent implements OnInit {
     personal = true;
     occupations = Occupation.enumObject();
     incomeSources = IncomeSource.enumObject();
+    security = Security.enumObject();
     customerSearch = {
         citizenshipNumber: undefined
     };
@@ -111,17 +109,6 @@ export class DmsLoanFileComponent implements OnInit {
             }
         );
 
-        this.dropdownList = [
-            {id: 'LAND_SECURITY', name: 'Land Security'},
-            {id: 'BUILDING_SECURITY', name: 'Building Security'},
-            {id: 'VEHICLE_SECURITY', name: 'Vehicle Security'},
-            {id: 'PROPERTY_AND_MACHINERY_SECURITY', name: 'Property and Machinery Security'},
-            {id: 'FIXED_DEPOSIT_RECEIPT', name: 'Fixed Deposit Receipt'},
-            {id: 'SHARE_STOCK', name: 'Share/Stock'},
-            {id: 'EDUCATION_CERTIFICATE', name: 'Education Certificate'}
-
-        ];
-
         this.dropdownPriorities = [
             {id: 'HIGH', name: 'High'},
             {id: 'MEDIUM', name: 'Medium'},
@@ -136,7 +123,7 @@ export class DmsLoanFileComponent implements OnInit {
             customerName:
                 [(this.loanFile.customer === undefined
                     || this.loanFile.customer.customerName === undefined) ? '' :
-                this.loanFile.customer.customerName, Validators.required],
+                    this.loanFile.customer.customerName, Validators.required],
             dob:
                 [(this.loanFile.customer === undefined
                     || this.loanFile.customer.dob === undefined) ? '' :
@@ -165,7 +152,7 @@ export class DmsLoanFileComponent implements OnInit {
                 [Validators.required, Validators.min(0)]],
             proposedAmount: [this.loanFile.proposedAmount === undefined ? '' : this.loanFile.proposedAmount,
                 [Validators.required, Validators.min(0)]],
-            security: [this.loanFile.security === undefined ? '' : this.showSecurity(this.loanFile.security), Validators.required],
+            security: [this.loanFile.securities === undefined ? '' : this.loanFile.securities, Validators.required],
             serviceChargeType: [this.loanFile.serviceChargeType === undefined ? 'Percentage' : this.loanFile.serviceChargeType,
                 Validators.required],
             serviceChargeAmount: [this.loanFile.serviceChargeAmount === undefined ? '' : this.loanFile.serviceChargeAmount,
@@ -191,15 +178,6 @@ export class DmsLoanFileComponent implements OnInit {
 
     }
 
-
-    showSecurity(security: string) {
-        this.securities = security.split(',');
-        this.securities.forEach((securityLoop => {
-            this.securityEnum.push(this.dropdownList[Number(securityLoop)].id);
-        }));
-        return this.securityEnum;
-    }
-
     onSubmit() {
         this.loanFile.customer.id = this.loanForm.get('customerEntityId').value;
         this.loanFile.customer.customerName = this.loanForm.get('customerName').value;
@@ -212,7 +190,7 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanFile.customer.incomeSource = this.loanForm.get('incomeSource').value;
         this.loanFile.interestRate = this.loanForm.get('interestRate').value;
         this.loanFile.proposedAmount = this.loanForm.get('proposedAmount').value;
-        this.loanFile.securities = this.loanForm.get('security').value as string;
+        this.loanFile.securities = this.loanForm.get('security').value;
         this.loanFile.tenureDuration = this.loanForm.get('tenureDuration').value;
         this.loanFile.serviceChargeType = this.loanForm.get('serviceChargeType').value;
         this.loanFile.serviceChargeAmount = this.loanForm.get('serviceChargeAmount').value;

@@ -9,7 +9,6 @@ export class DmsLoanFile {
     interestRate: number;
     proposedAmount: number;
     proposedAmountWord: string;
-    security: string;
     serviceChargeType: string;
     serviceChargeAmount: number;
     documentPath: string;

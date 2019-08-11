@@ -203,11 +203,11 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><b>Security</b></label>
-                                    <ng-select [items]="dropdownList"
+                                    <ng-select [items]="security"
                                                [multiple]="true"
                                                [ngClass]="{'is-invalid':submitted &&  form.security.errors}"
-                                               bindLabel="name"
-                                               bindValue="id"
+                                               bindLabel="value"
+                                               bindValue="key"
                                                class="form-control"
                                                formControlName="security"
                                                placeholder="Select Security">

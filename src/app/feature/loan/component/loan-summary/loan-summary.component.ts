@@ -36,7 +36,6 @@ export class LoanSummaryComponent implements OnInit {
     index = 0;
     currentIndex: number;
     user: User = new User();
-    security: string;
     securities: any = [];
     Security: typeof Security = Security;
     documents: [] = [];
@@ -183,8 +182,7 @@ export class LoanSummaryComponent implements OnInit {
                 this.id = this.loanDataHolder.id;
                 this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
                 if (this.dmsLoanFile !== undefined && this.dmsLoanFile !== null) {
-                    this.security = this.dmsLoanFile.security;
-                    this.securities = this.security.split(',');
+                    this.securities = this.dmsLoanFile.securities;
                     this.documents = JSON.parse(this.dmsLoanFile.documentPath);
                     if (this.documents !== null) {
                         for (this.document of this.documents) {
