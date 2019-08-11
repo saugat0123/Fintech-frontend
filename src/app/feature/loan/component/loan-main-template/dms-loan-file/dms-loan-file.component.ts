@@ -18,6 +18,7 @@ import {Occupation} from '../../../../admin/modal/occupation';
 import {IncomeSource} from '../../../../admin/modal/incomeSource';
 import {CustomerService} from '../../../../admin/service/customer.service';
 import {Customer} from '../../../../admin/modal/customer';
+import {EntityInfo} from '../../../../admin/modal/entity-info';
 
 
 @Component({
@@ -128,6 +129,9 @@ export class DmsLoanFileComponent implements OnInit {
                 [(this.loanFile.customer === undefined
                     || this.loanFile.customer.dob === undefined) ? '' :
                     this.loanFile.customer.dob, Validators.required],
+            companyId:
+                [(this.loanFile.entityInfo === undefined || this.loanFile.entityInfo.id === undefined) ? '' :
+                    this.loanFile.entityInfo.id],
             companyName:
                 [(this.loanFile.entityInfo === undefined
                     || this.loanFile.entityInfo.companyName === undefined) ? '' :
@@ -181,6 +185,7 @@ export class DmsLoanFileComponent implements OnInit {
     onSubmit() {
         this.loanFile.customer.id = this.loanForm.get('customerEntityId').value;
         this.loanFile.customer.customerName = this.loanForm.get('customerName').value;
+        this.loanFile.entityInfo.id = this.loanForm.get('companyId').value;
         this.loanFile.entityInfo.companyName = this.loanForm.get('companyName').value;
         this.loanFile.entityInfo.registrationNumber = this.loanForm.get('registrationNumber').value;
         this.loanFile.customer.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
@@ -283,8 +288,20 @@ export class DmsLoanFileComponent implements OnInit {
     searchByRegNO() {
         const regNO = this.loanForm.get('registrationNumber').value;
         this.loanFormService.getLoansByRegistrationNumber(regNO).subscribe((response: any) => {
-            this.previousLoans = response.detail;
-            this.hasPreviousLoan = this.previousLoans.length > 0;
+            if (response.detail.length <= 0) {
+                this.toastService.show(new Alert(AlertType.INFO, 'No company  under given registration number.'));
+                this.loanForm.patchValue({
+                    companyId: '',
+                    companyName: ''
+                });
+            } else {
+                console.log(response.detail[0]);
+                const entityInfo: EntityInfo = response.detail[0].dmsLoanFile.entityInfo;
+                this.loanForm.patchValue({
+                    companyId: entityInfo.id,
+                    companyName: entityInfo.companyName
+                });
+            }
         }, error => console.error(error));
     }
 
