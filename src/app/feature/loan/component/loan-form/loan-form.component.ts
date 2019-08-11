@@ -237,7 +237,9 @@ export class LoanFormComponent implements OnInit {
                 return true;
             }
             this.dmsLoanFile.onSubmit();
-            this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanFile;
+            this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanDataHolder.dmsLoanFile;
+            this.loanDocument.customerInfo = this.dmsLoanFile.loanDataHolder.customerInfo;
+            this.loanDocument.entityInfo = this.dmsLoanFile.loanDataHolder.entityInfo;
             this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
         }
 

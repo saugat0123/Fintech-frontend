@@ -4,8 +4,6 @@ import {EntityInfo} from './entity-info';
 
 export class DmsLoanFile {
     id: number;
-    customer: Customer = new Customer();
-    entityInfo: EntityInfo = new EntityInfo();
     interestRate: number;
     proposedAmount: number;
     proposedAmountWord: string;
