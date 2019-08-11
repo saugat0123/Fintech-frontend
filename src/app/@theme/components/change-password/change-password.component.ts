@@ -17,6 +17,7 @@ export class ChangePasswordComponent implements OnInit, AfterViewInit {
     error: string;
     passwordForm: FormGroup;
     changePasswordObject = {
+        username: undefined,
         oldPassword: undefined,
         newPassword: undefined
     };
@@ -42,6 +43,8 @@ export class ChangePasswordComponent implements OnInit, AfterViewInit {
     }
 
   onChangePassword() {
+        this.changePasswordObject.username = localStorage.getItem('username');
+        console.log(this.changePasswordObject.username);
         this.changePasswordObject.oldPassword = this.passwordForm.get('oldPassword').value;
         this.changePasswordObject.newPassword = this.passwordForm.get('newPassword').value;
         if (this.passwordForm.get('newPassword').value as string === this.passwordForm.get('confirmPassword').value as string) {
