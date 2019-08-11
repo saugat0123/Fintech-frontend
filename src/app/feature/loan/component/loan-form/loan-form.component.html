@@ -31,7 +31,7 @@
                   [ciclRemark]="loanDocument?.ciclRemarks"
                   [ciclValue]="loanDocument?.ciclList"
                   [insuranceValue]="loanDocument?.insurance"></app-cicl>
-
+        <app-credit-grading #creditGrading *ngIf="selectedTab === 'Credit' && loanDocument"></app-credit-grading>
         <!-- /.tab-pane -->
     </div>
 

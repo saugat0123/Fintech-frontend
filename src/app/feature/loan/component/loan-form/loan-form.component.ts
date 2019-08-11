@@ -22,6 +22,7 @@ import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {ProposalComponent} from '../loan-main-template/proposal/proposal.component';
 import {Proposal} from '../../../admin/modal/proposal';
 import {CiclComponent} from '../loan-main-template/cicl/cicl.component';
+import {CreditGradingComponent} from '../loan-main-template/credit-grading/credit-grading.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -89,6 +90,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('cicl')
     cicl: CiclComponent;
+
+    @ViewChild('creditGrading')
+    creditGrading: CreditGradingComponent;
 
     constructor(
         private dataService: CommonDataService,
