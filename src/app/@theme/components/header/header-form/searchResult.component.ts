@@ -35,7 +35,7 @@ export class SearchResultComponent implements OnInit {
         if (customerLoan.customerInfo !== null && customerLoan.customerInfo !== undefined) {
           this.customerName = customerLoan.customerInfo.customerName;
         } else if (customerLoan.dmsLoanFile !== null && customerLoan.dmsLoanFile !== undefined) {
-          this.customerName = customerLoan.dmsLoanFile.customer.customerName;
+          this.customerName = customerLoan.customerInfo.customerName;
         }
       }
     }, error => console.error(error));

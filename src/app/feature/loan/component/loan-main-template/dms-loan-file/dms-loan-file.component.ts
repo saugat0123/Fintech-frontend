@@ -217,9 +217,9 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanDataHolder.dmsLoanFile.fmvFundingPercent = this.loanForm.get('fmvFundingPercent').value;
         this.loanDataHolder.dmsLoanFile.groupExpo = this.loanForm.get('groupExpo').value;
         this.loanDataHolder.dmsLoanFile.totalLoanLimit = this.loanForm.get('totalLoanLimit').value;
-        console.log(this.loanDataHolder.dmsLoanFile);
-        console.log(this.loanDataHolder.customerInfo);
-        console.log(this.loanDataHolder.entityInfo);
+        // console.log(this.loanDataHolder.dmsLoanFile);
+        // console.log(this.loanDataHolder.customerInfo);
+        // console.log(this.loanDataHolder.entityInfo);
     }
 
 
@@ -256,6 +256,7 @@ export class DmsLoanFileComponent implements OnInit {
     searchByCitizenship() {
         this.customerSearch.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
         this.customerService.getPaginationWithSearchObject(this.customerSearch).subscribe((customerResponse: any) => {
+            console.log(customerResponse);
             if (customerResponse.detail.content.length <= 0) {
                 this.toastService.show(new Alert(AlertType.INFO, 'No Customer'));
                 this.loanForm.patchValue({
@@ -301,7 +302,9 @@ export class DmsLoanFileComponent implements OnInit {
 
     searchByRegNO() {
         const regNO = this.loanForm.get('registrationNumber').value;
+        console.log(regNO);
         this.loanFormService.getLoansByRegistrationNumber(regNO).subscribe((response: any) => {
+            console.log(response);
             if (response.detail.length <= 0) {
                 this.toastService.show(new Alert(AlertType.INFO, 'No company  under given registration number.'));
                 this.loanForm.patchValue({

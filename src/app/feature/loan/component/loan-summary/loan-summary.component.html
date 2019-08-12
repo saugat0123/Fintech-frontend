@@ -38,7 +38,7 @@
                                     <br/>
                                     for
                                 </div>
-                                <div class="report-header-sub-heading">{{dmsLoanFile?.customer.customerName || loanDataHolder?.customerInfo?.customerName}}</div>
+                                <div class="report-header-sub-heading">{{loanDataHolder?.customerInfo?.customerName}}</div>
                                 <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
                             </div>
                         </div>
@@ -98,12 +98,12 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>{{dmsLoanFile?.customer?.customerName || loanDataHolder?.customerInfo?.customerName}}</td>
-                            <td>{{dmsLoanFile?.customer?.dob || loanDataHolder?.customerInfo?.dob}}</td>
-                            <td>{{dmsLoanFile?.customer?.citizenshipNumber || loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
-                            <td>{{dmsLoanFile?.customer?.contactNumber || loanDataHolder?.customerInfo?.contactNumber}}</td>
-                            <td>{{occupation[dmsLoanFile?.customer?.occupation || loanDataHolder?.customerInfo?.occupation]}}</td>
-                            <td>{{dmsLoanFile?.customer?.incomeSource || loanDataHolder?.customerInfo?.incomeSource}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.dob}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.occupation}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -112,15 +112,15 @@
                         <tr>
                             <td>
                                 <b>Name: </b>
-                                {{dmsLoanFile?.customer.customerName || loanDataHolder?.customerInfo?.customerName}}
+                                {{loanDataHolder?.customerInfo?.customerName}}
                             </td>
                             <td>
                                 <b>Citizenship Number: </b>
-                                {{dmsLoanFile?.customer.citizenshipNumber || loanDataHolder?.customerInfo?.citizenshipNumber}}
+                                {{loanDataHolder?.customerInfo?.citizenshipNumber}}
                             </td>
                             <td class="column-size-50">
                                 <b>Contact Number: </b>
-                                {{dmsLoanFile?.customer.contactNumber || loanDataHolder?.customerInfo?.contactNumber}}
+                                {{loanDataHolder?.customerInfo?.contactNumber}}
                             </td>
                         </tr>
                         </tbody>
