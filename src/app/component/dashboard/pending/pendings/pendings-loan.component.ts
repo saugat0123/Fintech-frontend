@@ -17,6 +17,7 @@ import {LoanDataHolder} from '../../../../feature/loan/model/loanData';
 import {DocStatus} from '../../../../feature/loan/model/docStatus';
 import {BranchService} from '../../../../feature/admin/component/branch/branch.service';
 import {LoanType} from '../../../../feature/loan/model/loanType';
+import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 
 @Component({
     selector: 'app-pendings',
@@ -147,5 +148,17 @@ export class PendingsLoanComponent implements OnInit {
 
         this.page = page;
         PendingsLoanComponent.loadData(this);
+    }
+
+    getCsv() {
+        this.loanFormService.download(this.search).subscribe((response: any) => {
+            const link = document.createElement('a');
+            link.target = '_blank';
+            link.href = ApiConfig.URL + '/' + response.detail;
+            link.download = ApiConfig.URL + '/' + response.detail;
+            link.setAttribute('visibility', 'hidden');
+            link.click();
+
+        });
     }
 }
