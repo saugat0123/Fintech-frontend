@@ -13,6 +13,5 @@ export class EntityInfo {
     proprietorsList: Array<Proprietors>;
     companyName: string;
     registrationNumber: string;
-
-
+    version: number;
 }

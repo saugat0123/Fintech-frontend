@@ -157,6 +157,10 @@ export class DmsLoanFileComponent implements OnInit {
             registrationNumber: [(this.loanDataHolder.entityInfo === undefined
                 || this.loanDataHolder.entityInfo.registrationNumber === undefined) ? '' :
                 this.loanDataHolder.entityInfo.registrationNumber],
+            companyInfoVersion:
+                [(this.loanDataHolder.entityInfo === undefined
+                    || this.loanDataHolder.entityInfo.version === undefined) ? '' :
+                    this.loanDataHolder.entityInfo.version],
             citizenshipNumber:
                 [(this.loanDataHolder.customerInfo === undefined)
                 || (this.loanDataHolder.customerInfo.citizenshipNumber === undefined) ? '' :
@@ -217,6 +221,7 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanDataHolder.entityInfo.id = this.loanForm.get('companyId').value;
         this.loanDataHolder.entityInfo.companyName = this.loanForm.get('companyName').value;
         this.loanDataHolder.entityInfo.registrationNumber = this.loanForm.get('registrationNumber').value;
+        this.loanDataHolder.entityInfo.version = this.loanForm.get('companyInfoVersion').value;
         this.loanDataHolder.customerInfo.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
         this.loanDataHolder.customerInfo.contactNumber = this.loanForm.get('contactNumber').value;
         this.loanDataHolder.customerInfo.dob = this.loanForm.get('dob').value;
@@ -330,14 +335,16 @@ export class DmsLoanFileComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.INFO, 'No company  under given registration number.'));
                 this.loanForm.patchValue({
                     companyId: '',
-                    companyName: ''
+                    companyName: '',
+                    companyInfoVersion: ''
                 });
             } else {
                 this.companyFormField.isOldCustomer = true;
                 const entityInfo: EntityInfo = response.detail.content[0];
                 this.loanForm.patchValue({
                     companyId: entityInfo.id,
-                    companyName: entityInfo.companyName
+                    companyName: entityInfo.companyName,
+                    companyInfoVersion: entityInfo.version
                 });
             }
         }, error => console.error(error));
