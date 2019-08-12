@@ -127,6 +127,10 @@ export class DmsLoanFileComponent implements OnInit {
                 [(this.loanDataHolder.customerInfo === undefined
                     || this.loanDataHolder.customerInfo.id === undefined) ? '' :
                     this.loanDataHolder.customerInfo.id],
+            customerVersion:
+                [(this.loanDataHolder.customerInfo === undefined
+                    || this.loanDataHolder.customerInfo.version === undefined) ? '' :
+                    this.loanDataHolder.customerInfo.version],
             customerName:
                 [(this.loanDataHolder.customerInfo === undefined
                     || this.loanDataHolder.customerInfo.customerName === undefined) ? '' :
@@ -200,6 +204,7 @@ export class DmsLoanFileComponent implements OnInit {
 
     onSubmit() {
         this.loanDataHolder.customerInfo.id = this.loanForm.get('customerEntityId').value;
+        this.loanDataHolder.customerInfo.version = this.loanForm.get('customerVersion').value;
         this.loanDataHolder.customerInfo.customerName = this.loanForm.get('customerName').value;
         this.loanDataHolder.entityInfo.id = this.loanForm.get('companyId').value;
         this.loanDataHolder.entityInfo.companyName = this.loanForm.get('companyName').value;
@@ -263,6 +268,7 @@ export class DmsLoanFileComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.INFO, 'No Customer'));
                 this.loanForm.patchValue({
                     customerEntityId: '',
+                    customerVersion: '',
                     customerName: '',
                     dob: '',
                     contactNumber: '',
@@ -273,6 +279,7 @@ export class DmsLoanFileComponent implements OnInit {
                 const customer: Customer = customerResponse.detail.content[0];
                 this.loanForm.patchValue({
                     customerEntityId: customer.id,
+                    customerVersion: customer.version,
                     customerName: customer.customerName,
                     dob: customer.dob,
                     contactNumber: customer.contactNumber,
