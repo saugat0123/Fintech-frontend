@@ -5,7 +5,7 @@
                 <form (ngSubmit)="onSubmit()" [formGroup]="loanForm" role="form">
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4" *ngIf="customerFormField.showFormField">
                                 <div class="form-group">
                                     <label for="name"><b>Customer Name</b></label>
                                     <input [ngClass]="{ 'is-invalid':submitted && form.customerName.errors}"
@@ -18,7 +18,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4" *ngIf="customerFormField.showFormField">
                                 <div class="form-group">
                                     <label for="dob"><b>Date Of Birth</b></label>
                                     <input [nbDatepicker]="dobPicker"
@@ -61,7 +61,7 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4" *ngIf="customerFormField.showFormField">
                                 <div class="form-group">
                                     <label for="occupation"><b>Occupation</b></label>
                                     <ng-select [items]="occupations"
@@ -82,7 +82,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-4" *ngIf="customerFormField.showFormField">
                                 <div class="form-group">
                                     <label for="incomeSource"><b>Income Source</b></label>
                                     <ng-select [items]="incomeSources"
@@ -101,6 +101,12 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row" *ngIf="customerFormField.isOldCustomer">
+                            <div class="col-md-12">
+                                <span style="color:red;">Note: Any change in old customer information will be over-written.</span>
+                            </div>
+                            <br/>
                         </div>
 
                         <div *ngIf="!personal" class="row">

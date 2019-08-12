@@ -63,6 +63,10 @@ export class DmsLoanFileComponent implements OnInit {
     customerSearch = {
         citizenshipNumber: undefined
     };
+    customerFormField = {
+        showFormField: false,
+        isOldCustomer: false
+    };
 
     constructor(private formBuilder: FormBuilder,
                 private loanDataService: LoanDataService,
@@ -263,6 +267,7 @@ export class DmsLoanFileComponent implements OnInit {
         this.customerService.getPaginationWithSearchObject(this.customerSearch).subscribe((customerResponse: any) => {
             console.log(customerResponse);
             if (customerResponse.detail.content.length <= 0) {
+                this.customerFormField.isOldCustomer = false;
                 this.toastService.show(new Alert(AlertType.INFO, 'No Customer'));
                 this.loanForm.patchValue({
                     customerEntityId: '',
@@ -274,6 +279,7 @@ export class DmsLoanFileComponent implements OnInit {
                     incomeSource: ''
                 });
             } else {
+                this.customerFormField.isOldCustomer = true;
                 const customer: Customer = customerResponse.detail.content[0];
                 this.loanForm.patchValue({
                     customerEntityId: customer.id,
@@ -290,7 +296,7 @@ export class DmsLoanFileComponent implements OnInit {
                 }, error => console.error(error));
             }
         });
-
+        this.customerFormField.showFormField = true;
     }
 
     openLoan(loanConfigId: number, customerId: number) {
