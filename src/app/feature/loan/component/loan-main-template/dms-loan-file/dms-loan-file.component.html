@@ -162,7 +162,12 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="row" *ngIf="companyFormField.isOldCustomer">
+                                <div class="col-md-12">
+                                    <span style="color:red;">Note: Any change in old customer information will be over-written.</span>
+                                </div>
+                                <br/>
+                            </div>
                         </div>
 
                         <div class="row">

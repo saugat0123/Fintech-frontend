@@ -235,6 +235,7 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanDataHolder.dmsLoanFile.fmvFundingPercent = this.loanForm.get('fmvFundingPercent').value;
         this.loanDataHolder.dmsLoanFile.groupExpo = this.loanForm.get('groupExpo').value;
         this.loanDataHolder.dmsLoanFile.totalLoanLimit = this.loanForm.get('totalLoanLimit').value;
+        console.log(this.loanDataHolder);
     }
 
 
@@ -324,6 +325,7 @@ export class DmsLoanFileComponent implements OnInit {
         console.log(this.companySearch.registrationNumber);
         this.companyInfoService.getPaginationWithSearchObject(this.companySearch).subscribe((response: any) => {
             if (response.detail.content <= 0) {
+                console.log(response);
                 this.companyFormField.isOldCustomer = false;
                 this.toastService.show(new Alert(AlertType.INFO, 'No company  under given registration number.'));
                 this.loanForm.patchValue({
