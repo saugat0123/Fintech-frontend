@@ -18,6 +18,7 @@ import {IncomeSource} from '../../../../admin/modal/incomeSource';
 import {CustomerService} from '../../../../admin/service/customer.service';
 import {Customer} from '../../../../admin/modal/customer';
 import {EntityInfo} from '../../../../admin/modal/entity-info';
+import {EntityInfoService} from '../../../../admin/service/entity-info.service';
 
 
 @Component({
@@ -63,6 +64,9 @@ export class DmsLoanFileComponent implements OnInit {
     customerSearch = {
         citizenshipNumber: undefined
     };
+    companySearch = {
+        registrationNumber: undefined
+    };
     customerFormField = {
         showFormField: false,
         isOldCustomer: false
@@ -76,7 +80,8 @@ export class DmsLoanFileComponent implements OnInit {
                 private loanFormService: LoanFormService,
                 private loanConfigService: LoanConfigService,
                 private toastService: ToastService,
-                private customerService: CustomerService) {
+                private customerService: CustomerService,
+                private companyInfoService: EntityInfoService) {
     }
 
     get form() {
@@ -226,9 +231,6 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanDataHolder.dmsLoanFile.fmvFundingPercent = this.loanForm.get('fmvFundingPercent').value;
         this.loanDataHolder.dmsLoanFile.groupExpo = this.loanForm.get('groupExpo').value;
         this.loanDataHolder.dmsLoanFile.totalLoanLimit = this.loanForm.get('totalLoanLimit').value;
-        // console.log(this.loanDataHolder.dmsLoanFile);
-        // console.log(this.loanDataHolder.customerInfo);
-        // console.log(this.loanDataHolder.entityInfo);
     }
 
 
@@ -314,19 +316,17 @@ export class DmsLoanFileComponent implements OnInit {
     }
 
     searchByRegNO() {
-        const regNO = this.loanForm.get('registrationNumber').value;
-        console.log(regNO);
-        this.loanFormService.getLoansByRegistrationNumber(regNO).subscribe((response: any) => {
-            console.log(response);
-            if (response.detail.length <= 0) {
+        this.companySearch.registrationNumber = this.loanForm.get('registrationNumber').value;
+        console.log(this.companySearch.registrationNumber);
+        this.companyInfoService.getPaginationWithSearchObject(this.companySearch).subscribe((response: any) => {
+            if (response.detail.content <= 0) {
                 this.toastService.show(new Alert(AlertType.INFO, 'No company  under given registration number.'));
                 this.loanForm.patchValue({
                     companyId: '',
                     companyName: ''
                 });
             } else {
-                console.log(response.detail[0]);
-                const entityInfo: EntityInfo = response.detail[0].dmsLoanFile.entityInfo;
+                const entityInfo: EntityInfo = response.detail.content[0];
                 this.loanForm.patchValue({
                     companyId: entityInfo.id,
                     companyName: entityInfo.companyName

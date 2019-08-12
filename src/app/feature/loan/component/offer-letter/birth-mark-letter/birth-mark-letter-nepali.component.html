@@ -8,8 +8,7 @@
                     <tbody>
                     <tr>
                         <th scope="row">Name</th>
-                        <td>{{loanDataHolder?.customerInfo?.customerName
-                            || loanDataHolder?.dmsLoanFile?.customerName}}</td>
+                        <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
                     </tr>
                     <tr *ngIf="loanDataHolder?.customerInfo?.province !== null">
                         <th scope="row">Address</th>
@@ -22,8 +21,7 @@
                     </tr>
                     <tr>
                         <th scope="row">Citizenship Number</th>
-                        <td>{{loanDataHolder?.customerInfo?.citizenshipNumber
-                            || loanDataHolder?.dmsLoanFile?.citizenshipNumber}}</td>
+                        <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
                     </tr>
                     <tr *ngIf="loanDataHolder?.customerInfo?.citizenshipIssuedDate !== null">
                         <th scope="row">Citizenship Issued Date</th>
@@ -35,8 +33,7 @@
                     </tr>
                     <tr>
                         <th scope="row">Contact Number</th>
-                        <td>{{loanDataHolder?.customerInfo?.contactNumber
-                            || loanDataHolder?.dmsLoanFile?.contactNumber}}</td>
+                        <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
                     </tr>
                     <div *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
                         <tr>
