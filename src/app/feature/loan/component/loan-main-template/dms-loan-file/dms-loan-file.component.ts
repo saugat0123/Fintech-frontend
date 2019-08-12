@@ -71,6 +71,10 @@ export class DmsLoanFileComponent implements OnInit {
         showFormField: false,
         isOldCustomer: false
     };
+    companyFormField = {
+        showFormField: false,
+        isOldCustomer: false
+    };
 
     constructor(private formBuilder: FormBuilder,
                 private loanDataService: LoanDataService,
@@ -320,12 +324,14 @@ export class DmsLoanFileComponent implements OnInit {
         console.log(this.companySearch.registrationNumber);
         this.companyInfoService.getPaginationWithSearchObject(this.companySearch).subscribe((response: any) => {
             if (response.detail.content <= 0) {
+                this.companyFormField.isOldCustomer = false;
                 this.toastService.show(new Alert(AlertType.INFO, 'No company  under given registration number.'));
                 this.loanForm.patchValue({
                     companyId: '',
                     companyName: ''
                 });
             } else {
+                this.companyFormField.isOldCustomer = true;
                 const entityInfo: EntityInfo = response.detail.content[0];
                 this.loanForm.patchValue({
                     companyId: entityInfo.id,
@@ -333,6 +339,7 @@ export class DmsLoanFileComponent implements OnInit {
                 });
             }
         }, error => console.error(error));
+        this.companyFormField.showFormField = true;
     }
 
     reqPersonalOrBusiness() {

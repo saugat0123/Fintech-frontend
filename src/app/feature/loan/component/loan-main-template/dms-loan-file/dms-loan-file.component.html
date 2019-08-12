@@ -110,8 +110,8 @@
                         </div>
 
                         <div *ngIf="!personal" class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
+                            <div class="col-md-4" *ngIf="companyFormField.showFormField">
+                                <div class="form-group" *ngIf="companyFormField.showFormField">
                                     <label for="companyName"><b>Company Name</b></label>
                                     <input [ngClass]="{ 'is-invalid':submitted && form.companyName.errors && !personal}"
                                            class="form-control rounded"
