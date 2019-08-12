@@ -127,6 +127,7 @@ export class GeneralQuestionComponent implements OnInit {
     deleteQuestionField(index) {
         const control = this.generalQuestionForm.controls.questions as FormArray;
         control.removeAt(index);
+        this.setFormulaPattern();
     }
 
     addCriteria() {
