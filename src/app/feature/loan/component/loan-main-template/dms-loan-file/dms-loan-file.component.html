@@ -63,6 +63,20 @@
                         <div class="row">
                             <div class="col-md-4" *ngIf="customerFormField.showFormField">
                                 <div class="form-group">
+                                    <label for="contact"><b>Contact Number</b></label>
+                                    <input [ngClass]="{ 'is-invalid':submitted && form.contactNumber.errors}"
+                                           class="form-control rounded" formControlName="contactNumber"
+                                           id="contact"
+                                           placeholder="Enter Contact Number"
+                                           type="text"/>
+                                    <span><sup>*</sup> Multiple number can be input with commas.</span>
+                                    <div *ngIf="submitted && form.contactNumber.errors" class="invalid-feedback">
+                                        <div *ngIf="form.contactNumber.errors.required">Contact number is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" *ngIf="customerFormField.showFormField">
+                                <div class="form-group">
                                     <label for="occupation"><b>Occupation</b></label>
                                     <ng-select [items]="occupations"
                                                [multiple]="false"
@@ -152,20 +166,6 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="contact"><b>Contact Number</b></label>
-                                    <input [ngClass]="{ 'is-invalid':submitted && form.contactNumber.errors}"
-                                           class="form-control rounded" formControlName="contactNumber"
-                                           id="contact"
-                                           placeholder="Enter Contact Number"
-                                           type="text"/>
-                                    <span><sup>*</sup> Multiple number can be input with commas.</span>
-                                    <div *ngIf="submitted && form.contactNumber.errors" class="invalid-feedback">
-                                        <div *ngIf="form.contactNumber.errors.required">Contact number is required</div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="interest"><b>Interest Rate</b></label>
