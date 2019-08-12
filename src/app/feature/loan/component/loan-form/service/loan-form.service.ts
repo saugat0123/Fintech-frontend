@@ -47,12 +47,6 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.get(req.url, {headers: req.header});
     }
 
-    public getLoansByRegistrationNumber(registrationNumber: string) {
-        const api = `${this.getApi()}/searchByRegistrationNumber/${registrationNumber}`;
-        const req = ApiUtils.getRequest(api);
-        return this.http.get(req.url, {headers: req.header});
-    }
-
     public getCatalogues(searchObj: any, page: number = 1, size: number = 10): Observable<any> {
         const api = `${this.getApi()}/catalogue?page=${page}&size=${size}`;
         const req = ApiUtils.getRequest(api);
