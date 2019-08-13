@@ -32,8 +32,6 @@ export class DmsLoanFileComponent implements OnInit {
     @Input()
     loanDataHolder: LoanDataHolder;
     loanForm: FormGroup;
-    // customerInfo: Customer = new Customer();
-    // entityInfo: EntityInfo = new EntityInfo();
     submitted = false;
 
     initialDocuments: Document[] = [];
@@ -207,6 +205,18 @@ export class DmsLoanFileComponent implements OnInit {
                 this.loanDataHolder.dmsLoanFile.fmvFundingPercent, Validators.min(0)],
             file: ['']
         });
+        this.customerFormField = {
+            showFormField: (this.loanDataHolder.customerInfo !== undefined
+                && this.loanDataHolder.customerInfo.id !== undefined),
+            isOldCustomer: (this.loanDataHolder.customerInfo !== undefined
+                && this.loanDataHolder.customerInfo.id !== undefined)
+        };
+        this.companyFormField = {
+            showFormField: (this.loanDataHolder.customerInfo !== undefined
+                && this.loanDataHolder.entityInfo.id !== undefined),
+            isOldCustomer: (this.loanDataHolder.customerInfo !== undefined
+                && this.loanDataHolder.entityInfo.id !== undefined && !this.personal)
+        };
         this.reqPersonalOrBusiness();
         if (this.renewDocuments.length > 0) {
             this.renew = true;
