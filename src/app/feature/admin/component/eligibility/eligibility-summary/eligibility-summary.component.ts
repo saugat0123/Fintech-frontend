@@ -6,6 +6,10 @@ import {environment} from '../../../../../../environments/environment';
 import {DateService} from '../../../../../@core/service/baseservice/date.service';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
+import {ApplicantService} from './applicant.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Status} from '../../../modal/eligibility';
+import {UpdateModalComponent} from '../../../../../@theme/components';
 
 @Component({
     selector: 'app-eligibility-summary',
@@ -23,8 +27,10 @@ export class EligibilitySummaryComponent implements OnInit {
 
     constructor(
         private activatedRoute: ActivatedRoute,
-        private applicantService: NewRequestService,
+        private requestService: NewRequestService,
+        private applicantService: ApplicantService,
         private dateService: DateService,
+        private modalService: NgbModal,
         private toastService: ToastService
     ) {
         this.client = environment.client;
@@ -43,7 +49,7 @@ export class EligibilitySummaryComponent implements OnInit {
                 this.loading = false;
             });
 
-        this.applicantService.detail(this.applicantId).subscribe((response: any) => {
+        this.requestService.detail(this.applicantId).subscribe((response: any) => {
             this.applicant = response.detail;
             this.loading = false;
         });
@@ -57,4 +63,15 @@ export class EligibilitySummaryComponent implements OnInit {
         window.print();
     }
 
+    onApproveOrReject(status) {
+        if (status === Status.APPROVED) {
+            this.applicant.eligibilityStatus = Status.APPROVED;
+        } else {
+            this.applicant.eligibilityStatus = Status.REJECTED;
+        }
+        console.log(this.applicant);
+        const modalRef = this.modalService.open(UpdateModalComponent, {size: 'lg'});
+        modalRef.componentInstance.data = this.applicant;
+        modalRef.componentInstance.service = this.applicantService;
+    }
 }
