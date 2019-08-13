@@ -5,6 +5,7 @@ import {AnalyticsService, LayoutService, StateService, ToastService} from './uti
 import {CommonDataService} from './service/baseservice/common-dataService';
 import {CommonService} from './service/baseservice/common-baseservice';
 import {PermissionService} from './service/permission.service';
+import {SafePipe} from '../feature/memo/pipe/safe.pipe';
 // import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 // import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 
@@ -87,9 +88,10 @@ export const NB_CORE_PROVIDERS = [
         CommonModule,
     ],
     exports: [
+        SafePipe,
         // NbAuthModule,
     ],
-    declarations: [],
+    declarations: [SafePipe],
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

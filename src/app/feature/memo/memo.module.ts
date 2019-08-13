@@ -11,7 +11,6 @@ import {MemoRoutes} from './memo-routes';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {QuillModule} from 'ngx-quill';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {SafePipe} from './pipe/safe.pipe';
 import {ThemeModule} from '../../@theme/theme.module';
 import {CoreModule} from '../../@core/core.module';
 import {MemoTypeService} from './service/memo-type.service';
@@ -26,8 +25,7 @@ import {MemoTypeDeleteComponent} from './component/memo-type/memo-type-form/memo
         MemoTypeDeleteComponent,
         MemoComposeComponent,
         MemoUnderReviewComponent,
-        MemoReadComponent,
-        SafePipe
+        MemoReadComponent
     ],
 
     imports: [

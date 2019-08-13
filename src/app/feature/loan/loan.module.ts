@@ -27,6 +27,7 @@ import {ProposalComponent} from './component/loan-main-template/proposal/proposa
 import {CiclComponent} from './component/loan-main-template/cicl/cicl.component';
 import { ReadmoreModelComponent } from './component/readmore-model/readmore-model.component';
 import { CreditGradingComponent } from './component/loan-main-template/credit-grading/credit-grading.component';
+import {CoreModule} from '../../@core/core.module';
 
 
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
@@ -63,6 +64,7 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         NgSelectModule,
         NbDatepickerModule,
         NgxPrintModule,
+        CoreModule,
     ],
 
     providers: [
