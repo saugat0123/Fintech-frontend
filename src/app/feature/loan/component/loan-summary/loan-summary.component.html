@@ -22,12 +22,12 @@
                             <div>
                                 Priority:
                                 <span class="badge badge-danger"
-                                      style="font-size: 11px">{{loanDataHolder?.dmsLoanFile?.priority || loanDataHolder?.priority | lowercase}}</span>
+                                      style="font-size: 11px">{{loanDataHolder?.dmsLoanFile?.priority?.toString() || loanDataHolder?.priority?.toString() | lowercase}}</span>
                             </div>
                             <div>
                                 Loan Status:
                                 <span class="badge badge-info"
-                                      style="font-size: 11px">{{loanDataHolder.documentStatus | lowercase}}</span>
+                                      style="font-size: 11px">{{loanDataHolder.documentStatus?.toString() | lowercase}}</span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -38,7 +38,7 @@
                                     <br/>
                                     for
                                 </div>
-                                <div class="report-header-sub-heading">{{dmsLoanFile?.customerName || loanDataHolder?.customerInfo?.customerName}}</div>
+                                <div class="report-header-sub-heading">{{loanDataHolder?.customerInfo?.customerName}}</div>
                                 <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
                             </div>
                         </div>
@@ -89,16 +89,21 @@
                         <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Date Of Birth</th>
                             <th>Citizenship Number</th>
                             <th>Contact Number</th>
+                            <th>Occupation</th>
+                            <th>Income Source</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>{{dmsLoanFile?.customerName || loanDataHolder?.customerInfo?.customerName}}</td>
-                            <td>{{dmsLoanFile?.citizenshipNumber || loanDataHolder?.customerInfo?.citizenshipNumber}}
-                            </td>
-                            <td>{{dmsLoanFile?.contactNumber || loanDataHolder?.customerInfo?.mobile}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.dob}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.occupation}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -107,15 +112,62 @@
                         <tr>
                             <td>
                                 <b>Name: </b>
-                                {{dmsLoanFile?.customerName || loanDataHolder?.customerInfo?.customerName}}
+                                {{loanDataHolder?.customerInfo?.customerName}}
+                            </td>
+                            <td>
+                                <b>Date of Birth: </b>
+                                {{loanDataHolder?.customerInfo?.dob}}
                             </td>
                             <td>
                                 <b>Citizenship Number: </b>
-                                {{dmsLoanFile?.citizenshipNumber || loanDataHolder?.customerInfo?.citizenshipNumber}}
+                                {{loanDataHolder?.customerInfo?.citizenshipNumber}}
                             </td>
-                            <td class="column-size-50">
+                            <td>
                                 <b>Contact Number: </b>
-                                {{dmsLoanFile?.contactNumber || loanDataHolder?.customerInfo?.mobile}}
+                                {{loanDataHolder?.customerInfo?.contactNumber}}
+                            </td>
+                            <td>
+                                <b>Occupation: </b>
+                                {{loanDataHolder?.customerInfo?.occupation}}
+                            </td>
+                            <td>
+                                <b>Income Source: </b>
+                                {{loanDataHolder?.customerInfo?.incomeSource}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" *ngIf="loanCategory === 'BUSINESS_TYPE'">
+                <div class="col-md-12">
+                    <p><b>Details of Company</b></p>
+                </div>
+                <div class="col-md-12">
+                    <table class="table table-condensed table-bordered table-responsive-md disable-print">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Registration Number</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{loanDataHolder?.entityInfo?.companyName}}</td>
+                            <td>{{loanDataHolder?.entityInfo?.registrationNumber}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="print-only table table-bordered" id="print-company-table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <b>Name: </b>
+                                {{loanDataHolder?.entityInfo?.companyName}}
+                            </td>
+                            <td>
+                                <b>Registration Number: </b>
+                                {{loanDataHolder?.entityInfo?.registrationNumber}}
                             </td>
                         </tr>
                         </tbody>

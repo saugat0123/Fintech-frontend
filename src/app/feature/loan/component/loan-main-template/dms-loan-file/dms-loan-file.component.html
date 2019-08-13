@@ -5,10 +5,11 @@
                 <form (ngSubmit)="onSubmit()" [formGroup]="loanForm" role="form">
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4" *ngIf="customerFormField.showFormField">
                                 <div class="form-group">
                                     <label for="name"><b>Customer Name</b></label>
-                                    <input [ngClass]="{ 'is-invalid':submitted && form.customerName.errors}" class="form-control rounded"
+                                    <input [ngClass]="{ 'is-invalid':submitted && form.customerName.errors}"
+                                           class="form-control rounded"
                                            formControlName="customerName"
                                            id="name" placeholder="Enter name"
                                            type="text"/>
@@ -17,11 +18,28 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4" *ngIf="customerFormField.showFormField">
+                                <div class="form-group">
+                                    <label for="dob"><b>Date Of Birth</b></label>
+                                    <input [nbDatepicker]="dobPicker"
+                                           [ngClass]="{ 'is-invalid':submitted && form.dob.errors}"
+                                           class="form-control rounded"
+                                           formControlName="dob"
+                                           id="dob" placeholder="Enter Date Of Birth"
+                                           type="text"/>
+                                    <nb-datepicker #dobPicker></nb-datepicker>
+                                    <div *ngIf="submitted && form.dob.errors"
+                                         class="invalid-feedback">
+                                        <div *ngIf="form.dob.errors.required">Date Of Birth is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group rounded">
                                     <label for="citizenshipNumber"><b>Citizenship Number</b></label>
                                     <div class="input-group mb-3">
-                                        <input [ngClass]="{ 'is-invalid':submitted && form.citizenshipNumber.errors}" class="form-control rounded"
+                                        <input [ngClass]="{ 'is-invalid':submitted && form.citizenshipNumber.errors}"
+                                               class="form-control rounded"
                                                formControlName="citizenshipNumber"
                                                id="citizenshipNumber"
                                                min="0" placeholder="Enter citizenship number"
@@ -42,12 +60,75 @@
                             </div>
 
                         </div>
+                        <div class="row">
+                            <div class="col-md-4" *ngIf="customerFormField.showFormField">
+                                <div class="form-group">
+                                    <label for="contact"><b>Contact Number</b></label>
+                                    <input [ngClass]="{ 'is-invalid':submitted && form.contactNumber.errors}"
+                                           class="form-control rounded" formControlName="contactNumber"
+                                           id="contact"
+                                           placeholder="Enter Contact Number"
+                                           type="text"/>
+                                    <span><sup>*</sup> Multiple number can be input with commas.</span>
+                                    <div *ngIf="submitted && form.contactNumber.errors" class="invalid-feedback">
+                                        <div *ngIf="form.contactNumber.errors.required">Contact number is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" *ngIf="customerFormField.showFormField">
+                                <div class="form-group">
+                                    <label for="occupation"><b>Occupation</b></label>
+                                    <ng-select [items]="occupations"
+                                               [multiple]="false"
+                                               [ngClass]="{'is-invalid':submitted &&  form.occupation.errors}"
+                                               bindLabel="value"
+                                               bindValue="key"
+                                               id="occupation"
+                                               class="form-control"
+                                               formControlName="occupation"
+                                               id="occupation"
+                                               placeholder="Select Occupation">
+                                    </ng-select>
+                                    <div *ngIf="submitted && form.occupation.errors && !personal"
+                                         class="invalid-feedback">
+                                        <div *ngIf="form.occupation.errors.required">Occupation is required</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4" *ngIf="customerFormField.showFormField">
+                                <div class="form-group">
+                                    <label for="incomeSource"><b>Income Source</b></label>
+                                    <ng-select [items]="incomeSources"
+                                               [multiple]="false"
+                                               [ngClass]="{'is-invalid':submitted &&  form.incomeSource.errors}"
+                                               bindLabel="value"
+                                               bindValue="key"
+                                               class="form-control"
+                                               formControlName="incomeSource"
+                                               id="incomeSource"
+                                               placeholder="Select Income Source">
+                                    </ng-select>
+                                    <div *ngIf="submitted && form.incomeSource.errors && !personal"
+                                         class="invalid-feedback">
+                                        <div *ngIf="form.incomeSource.errors.required">Income Source is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-1" *ngIf="customerFormField.isOldCustomer">
+                            <div class="col-md-12">
+                                <span style="color:red;">Note: Any change in old customer information will be over-written.</span>
+                            </div>
+                            <br/>
+                        </div>
 
                         <div *ngIf="!personal" class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
+                            <div class="col-md-4" *ngIf="companyFormField.showFormField">
+                                <div class="form-group" *ngIf="companyFormField.showFormField">
                                     <label for="companyName"><b>Company Name</b></label>
-                                    <input [ngClass]="{ 'is-invalid':submitted && form.companyName.errors && !personal}" class="form-control rounded"
+                                    <input [ngClass]="{ 'is-invalid':submitted && form.companyName.errors && !personal}"
+                                           class="form-control rounded"
                                            formControlName="companyName"
                                            id="companyName" placeholder="Enter company name"
                                            type="text"/>
@@ -57,11 +138,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group rounded">
                                     <label for="registrationNumber"><b>Registration Number</b></label>
                                     <div class="input-group mb-3">
-                                        <input [ngClass]="{ 'is-invalid':submitted && form.registrationNumber.errors && !personal}" class="form-control rounded"
+                                        <input [ngClass]="{ 'is-invalid':submitted && form.registrationNumber.errors && !personal}"
+                                               class="form-control rounded"
                                                formControlName="registrationNumber"
                                                id="registrationNumber"
                                                min="0" placeholder="Enter registration number"
@@ -80,34 +162,27 @@
                                     </div>
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="row mb-1" *ngIf="companyFormField.isOldCustomer">
+                            <div class="col-md-12">
+                                <span style="color:red;">Note: Any change in old company information will be over-written.</span>
+                            </div>
+                            <br/>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="contact"><b>Contact Number</b></label>
-                                    <input [ngClass]="{ 'is-invalid':submitted && form.contactNumber.errors}" class="form-control rounded" formControlName="contactNumber"
-                                           id="contact"
-                                           placeholder="Enter Contact Number"
-                                           type="text"/>
-                                    <span><sup>*</sup> Multiple number can be input with commas.</span>
-                                    <div *ngIf="submitted && form.contactNumber.errors" class="invalid-feedback">
-                                        <div *ngIf="form.contactNumber.errors.required">Contact number is required</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
                                     <label for="interest"><b>Interest Rate</b></label>
-                                    <input [ngClass]="{ 'is-invalid':submitted && form.interestRate.errors}" class="form-control rounded" formControlName="interestRate"
+                                    <input [ngClass]="{ 'is-invalid':submitted && form.interestRate.errors}"
+                                           class="form-control rounded" formControlName="interestRate"
                                            id="interest"
                                            min="0"
                                            placeholder="Enter interest rate"
                                            type="number"/>
                                     <div *ngIf="submitted && form.interestRate.errors" class="invalid-feedback">
                                         <div *ngIf="form.interestRate.errors.required">
-                                            Interest is required.
+                                            Interest Rate is required.
                                         </div>
                                         <div *ngIf="form.interestRate.errors.min">
                                             Interest Rate can not be negative value.
@@ -120,7 +195,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="amount"><b>Proposed Amount</b></label>
-                                    <input [ngClass]="{ 'is-invalid':submitted && form.proposedAmount.errors}" class="form-control rounded" formControlName="proposedAmount"
+                                    <input [ngClass]="{ 'is-invalid':submitted && form.proposedAmount.errors}"
+                                           class="form-control rounded" formControlName="proposedAmount"
                                            id="amount"
                                            min="0"
                                            placeholder="Enter proposed amount"
@@ -138,11 +214,11 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><b>Security</b></label>
-                                    <ng-select [items]="dropdownList"
+                                    <ng-select [items]="security"
                                                [multiple]="true"
                                                [ngClass]="{'is-invalid':submitted &&  form.security.errors}"
-                                               bindLabel="name"
-                                               bindValue="id"
+                                               bindLabel="value"
+                                               bindValue="key"
                                                class="form-control"
                                                formControlName="security"
                                                placeholder="Select Security">
@@ -159,7 +235,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="tenureDuration"><b>Tenure Duration In Month</b></label>
-                                    <input [ngClass]="{ 'is-invalid':submitted && form.tenureDuration.errors}" class="form-control rounded" formControlName="tenureDuration"
+                                    <input [ngClass]="{ 'is-invalid':submitted && form.tenureDuration.errors}"
+                                           class="form-control rounded" formControlName="tenureDuration"
                                            id="tenureDuration"
                                            min="0"
                                            placeholder="Enter Tenure Duration"
@@ -196,7 +273,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="fmvTotal"><b>Total FMV</b></label>
-                                    <input [ngClass]="{ 'is-invalid':submitted && form.fmvTotal.errors}" class="form-control rounded" formControlName="fmvTotal"
+                                    <input [ngClass]="{ 'is-invalid':submitted && form.fmvTotal.errors}"
+                                           class="form-control rounded" formControlName="fmvTotal"
                                            id="fmvTotal"
                                            min="0"
                                            placeholder="Enter Total FMV"
@@ -211,7 +289,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="totalLoanLimit"><b>Total Loan Limit</b></label>
-                                    <input [ngClass]="{ 'is-invalid':submitted && form.totalLoanLimit.errors}" class="form-control rounded" formControlName="totalLoanLimit"
+                                    <input [ngClass]="{ 'is-invalid':submitted && form.totalLoanLimit.errors}"
+                                           class="form-control rounded" formControlName="totalLoanLimit"
                                            id="totalLoanLimit"
                                            min="0"
                                            placeholder="Enter Total Loan Limit"
@@ -231,7 +310,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="groupExpo"><b>Group Exposure</b></label>
-                                    <input [ngClass]="{ 'is-invalid':submitted && form.groupExpo.errors}" class="form-control rounded" formControlName="groupExpo"
+                                    <input [ngClass]="{ 'is-invalid':submitted && form.groupExpo.errors}"
+                                           class="form-control rounded" formControlName="groupExpo"
                                            id="groupExpo"
                                            placeholder="Enter Group Exposure"
                                            type="text"/>
@@ -245,7 +325,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="fmvFundingPercent"><b>Fair Market Value(FMV) Funding % </b></label>
-                                    <input [ngClass]="{ 'is-invalid':submitted && form.fmvFundingPercent.errors}" class="form-control rounded"
+                                    <input [ngClass]="{ 'is-invalid':submitted && form.fmvFundingPercent.errors}"
+                                           class="form-control rounded"
                                            formControlName="fmvFundingPercent"
                                            id="fmvFundingPercent"
                                            min="0"
@@ -266,9 +347,11 @@
                             <div class="col-md-3">
                                 <label for="serviceChargeType"><b>Service Charge Type</b></label>
                                 <div class="row ml-2">
-                                    <nb-radio-group [ngClass]="{ 'is-invalid':submitted && form.serviceChargeType.errors}" class="col-md-4 d-contents form-control"
-                                                    formControlName="serviceChargeType" id="serviceChargeType"
-                                                    name="serviceChargeType">
+                                    <nb-radio-group
+                                            [ngClass]="{ 'is-invalid':submitted && form.serviceChargeType.errors}"
+                                            class="col-md-4 d-contents form-control"
+                                            formControlName="serviceChargeType" id="serviceChargeType"
+                                            name="serviceChargeType">
                                         <nb-radio class="form-group" value="Percentage">Percentage</nb-radio>
                                         <nb-radio class="form-group" value="Flat">Flat</nb-radio>
                                     </nb-radio-group>
@@ -281,7 +364,8 @@
                             <div class="col-md-3">
                                 <label for="serviceChargeAmount"><b>Service Charge
                                     In {{loanForm.get('serviceChargeType').value}}</b></label>
-                                <input [ngClass]="{ 'is-invalid':submitted && form.serviceChargeAmount.errors}" class="form-control rounded" formControlName="serviceChargeAmount"
+                                <input [ngClass]="{ 'is-invalid':submitted && form.serviceChargeAmount.errors}"
+                                       class="form-control rounded" formControlName="serviceChargeAmount"
                                        id="serviceChargeAmount"
                                        min="0"
                                        placeholder="Enter Tenure Duration"
@@ -322,7 +406,9 @@
                                             {{i + 1}}
                                         </td>
                                         <td>{{document.name}}</td>
-                                        <td><input (change)="documentUploader($event,document.name)" [ngClass]="{'is-invalid':submitted && form.file.errors}" accept=".png, .jpg"
+                                        <td><input (change)="documentUploader($event,document.name)"
+                                                   [ngClass]="{'is-invalid':submitted && form.file.errors}"
+                                                   accept=".png, .jpg"
                                                    class="form-control-file"
                                                    formControlName="file"
                                                    id="initial" multiple=""
@@ -348,7 +434,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="recommendation"><b>Recommendation/Conclusion</b></label>
-                                <textarea [ngClass]="{ 'is-invalid':submitted && form.recommendation.errors}" class="form-control rounded"
+                                <textarea [ngClass]="{ 'is-invalid':submitted && form.recommendation.errors}"
+                                          class="form-control rounded"
                                           formControlName="recommendation"
                                           id="recommendation"
                                           rows="3">
@@ -364,7 +451,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="waiver"><b>Waiver</b></label>
-                                <textarea [ngClass]="{ 'is-invalid':submitted && form.waiver.errors}" class="form-control rounded" formControlName="waiver"
+                                <textarea [ngClass]="{ 'is-invalid':submitted && form.waiver.errors}"
+                                          class="form-control rounded" formControlName="waiver"
                                           id="waiver" rows="3">
                                 </textarea>
                                 <div *ngIf="submitted && form.waiver.errors" class="invalid-feedback">
