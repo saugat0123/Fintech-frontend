@@ -14,8 +14,8 @@ export class ApplicantService {
     constructor(private http: HttpClient) {
     }
 
-    save(model: Applicant, loanConfigId): Observable<any> {
-        const url = `${ApplicantService.API}/${loanConfigId}/applicants`;
+    save(model: Applicant): Observable<any> {
+        const url = `${ApplicantService.API}/${model.loanConfig.id}/applicants`;
         const getUrl = ApiUtils.getRequest(url);
         return this.http.post(getUrl.url, model, {headers: getUrl.header});
     }

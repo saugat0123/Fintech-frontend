@@ -23,7 +23,7 @@ export class EligibleRequestsComponent implements OnInit {
     page = 1;
     search: any = {};
     pageable: Pageable = new Pageable();
-    searchString: string = NewRequestService.resolveSearchString(Status.ELIGIBLE, null, null);
+    searchString: string = NewRequestService.resolveSearchString(Status.APPROVED, null, null);
 
     constructor(private newRequestService: NewRequestService,
                 private toastService: ToastService,

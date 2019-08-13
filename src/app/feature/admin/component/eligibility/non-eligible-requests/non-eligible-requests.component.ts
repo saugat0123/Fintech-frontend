@@ -21,7 +21,7 @@ export class NonEligibleRequestsComponent implements OnInit {
   applicantList: Array<Applicant> = new Array<Applicant>();
 
   page = 1;
-  searchString: string = NewRequestService.resolveSearchString(Status.NOT_ELIGIBLE, null, null);
+  searchString: string = NewRequestService.resolveSearchString(Status.REJECTED, null, null);
   pageable: Pageable = new Pageable();
 
   constructor(private newRequestService: NewRequestService,
