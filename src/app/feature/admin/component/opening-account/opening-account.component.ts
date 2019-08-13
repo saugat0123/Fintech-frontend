@@ -48,12 +48,16 @@ export class OpeningAccountComponent implements OnInit {
 
     static loadData(other: OpeningAccountComponent) {
         other.spinner = true;
-        /*other.service.getStatusByBranch(other.branch.id).subscribe((res: any) => {
+        other.service.getStatus().subscribe((res: any) => {
             other.totalCount = res.detail.total;
             other.pendingCount = res.detail.newed;
             other.approvalCount = res.detail.approval;
             other.rejectedCount = res.detail.rejected;
-        });*/
+        }, error => {
+            console.error(error);
+            other.toastService.show(new Alert(AlertType.ERROR, 'Error loading Account Status Count'));
+            other.spinner = false;
+        });
         other.service.getPaginationWithSearchObject(other.searchObject, 1, 10)
         .subscribe((response: any) => {
                 other.openingForms = response.detail.content;

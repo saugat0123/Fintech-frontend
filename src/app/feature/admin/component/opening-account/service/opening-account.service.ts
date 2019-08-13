@@ -19,8 +19,8 @@ export class OpeningAccountService extends BaseService<OpeningForm> {
         return OpeningAccountService.API;
     }
 
-    public getStatusByBranch(branchId: number): Observable<any> {
-        const api = `${this.getApi()}/statusCount?branchId=${branchId}`;
+    public getStatus(): Observable<any> {
+        const api = `${this.getApi()}/statusCount`;
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }
