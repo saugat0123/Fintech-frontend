@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {Router} from '@angular/router';
-import {Branch} from '../../modal/branch';
 import {OpeningForm} from '../../modal/openingForm';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastService} from '../../../../@core/utils';
@@ -22,7 +21,6 @@ export class OpeningAccountComponent implements OnInit {
     search: any = {};
     openingForms: Array<OpeningForm> = new Array<OpeningForm>();
     pageable: Pageable = new Pageable();
-    branch: Branch = new Branch();
     spinner = false;
     totalCount: number;
     pendingCount: number;
@@ -72,15 +70,7 @@ export class OpeningAccountComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.userService.getLoggedInUser().subscribe((response: any) => {
-                this.branch = (response.detail.branch)[0];
-                OpeningAccountComponent.loadData(this);
-            }, error => {
-                console.log(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
-                this.spinner = false;
-            }
-        );
+        OpeningAccountComponent.loadData(this);
         this.breadcrumbService.notify(this.title);
     }
 
