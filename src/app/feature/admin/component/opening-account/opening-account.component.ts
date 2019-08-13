@@ -8,7 +8,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastService} from '../../../../@core/utils';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
-import {OpeningAccountService} from './opening-account.service';
+import {OpeningAccountService} from './service/opening-account.service';
 import {UserService} from '../user/user.service';
 import {AccountStatus} from '../../modal/accountStatus';
 

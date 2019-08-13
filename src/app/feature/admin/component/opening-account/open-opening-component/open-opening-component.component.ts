@@ -4,7 +4,7 @@ import {OpeningForm} from '../../../modal/openingForm';
 import {OpeningCustomerRelative} from '../../../modal/openingCustomerRelative';
 import {OpeningOccupationalDetails} from '../../../modal/openingOccupationalDetails';
 import {OpeningCustomer} from '../../../modal/openingCustomer';
-import {OpeningAccountService} from '../opening-account.service';
+import {OpeningAccountService} from '../service/opening-account.service';
 import {DatePipe} from '@angular/common';
 import {OpeningAccount} from '../../../modal/openingAccount';
 import {OpeningKyc} from '../../../modal/openingKyc';
@@ -17,8 +17,8 @@ import {ToastService} from '../../../../../@core/utils';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AccountType} from '../../../modal/accountType';
 import {AccountPurpose} from '../../../modal/accountPurpose';
-import {AccountPurposeService} from '../account-purpose.service';
-import {AccountTypeService} from '../account-type.service';
+import {AccountPurposeService} from '../service/account-purpose.service';
+import {AccountTypeService} from '../service/account-type.service';
 
 @Component({
     selector: 'app-open-opening-component',
