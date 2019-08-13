@@ -31,10 +31,12 @@ export class SearchResultComponent implements OnInit {
       this.searchResult = response.detail;
       this.showSearchResult = this.searchResult.length > 0;
       const customerLoan: LoanDataHolder = this.searchResult[0];
-      if (customerLoan.customerInfo !== null && customerLoan.customerInfo !== undefined) {
-        this.customerName = customerLoan.customerInfo.customerName;
-      } else if (customerLoan.dmsLoanFile !== null && customerLoan.dmsLoanFile !== undefined) {
-        this.customerName = customerLoan.dmsLoanFile.customerName;
+      if (customerLoan !== undefined) {
+        if (customerLoan.customerInfo !== null && customerLoan.customerInfo !== undefined) {
+          this.customerName = customerLoan.customerInfo.customerName;
+        } else if (customerLoan.dmsLoanFile !== null && customerLoan.dmsLoanFile !== undefined) {
+          this.customerName = customerLoan.customerInfo.customerName;
+        }
       }
     }, error => console.error(error));
   }

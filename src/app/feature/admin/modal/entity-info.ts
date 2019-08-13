@@ -11,6 +11,7 @@ export class EntityInfo {
     swot: Swot;
     managementTeamList: Array<ManagementTeam>;
     proprietorsList: Array<Proprietors>;
-
-
+    companyName: string;
+    registrationNumber: string;
+    version: number;
 }

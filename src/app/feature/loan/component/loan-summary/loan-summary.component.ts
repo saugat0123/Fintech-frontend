@@ -14,12 +14,12 @@ import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {LoanActionService} from '../../loan-action/service/loan-action.service';
 import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
 import {LoanStage} from '../../model/loanStage';
-import {AppConstant} from '../../../../@core/utils/appConstant';
 import {environment} from '../../../../../environments/environment';
 import {DateService} from '../../../../@core/service/baseservice/date.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component';
 import {LoanType} from '../../model/loanType';
+import {Occupation} from '../../../admin/modal/occupation';
 
 @Component({
     selector: 'app-loan-summary',
@@ -36,7 +36,6 @@ export class LoanSummaryComponent implements OnInit {
     index = 0;
     currentIndex: number;
     user: User = new User();
-    security: string;
     securities: any = [];
     Security: typeof Security = Security;
     documents: [] = [];
@@ -58,12 +57,11 @@ export class LoanSummaryComponent implements OnInit {
     RootUrl = ApiConfig.URL;
     signatureList = [];
     previousList: Array<LoanStage> = new Array<LoanStage>();
-    loanStage: LoanStage = new LoanStage();
-    bankName = AppConstant.BANKNAME;
     currentDocAction = '';
     currentNepDate;
     loanCategory;
     @ViewChild('print') print;
+    occupation = Occupation;
 
 
     constructor(private userService: UserService,
@@ -184,8 +182,7 @@ export class LoanSummaryComponent implements OnInit {
                 this.id = this.loanDataHolder.id;
                 this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
                 if (this.dmsLoanFile !== undefined && this.dmsLoanFile !== null) {
-                    this.security = this.dmsLoanFile.security;
-                    this.securities = this.security.split(',');
+                    this.securities = this.dmsLoanFile.securities;
                     this.documents = JSON.parse(this.dmsLoanFile.documentPath);
                     if (this.documents !== null) {
                         for (this.document of this.documents) {
