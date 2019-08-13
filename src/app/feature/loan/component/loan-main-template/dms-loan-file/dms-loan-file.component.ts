@@ -146,18 +146,18 @@ export class DmsLoanFileComponent implements OnInit {
                     || this.loanDataHolder.customerInfo.dob === undefined) ? '' :
                     this.loanDataHolder.customerInfo.dob, Validators.required],
             companyId:
-                [(this.loanDataHolder.entityInfo === undefined || this.loanDataHolder.entityInfo.id === undefined) ? '' :
+                [(this.loanDataHolder.entityInfo === undefined || this.loanDataHolder.entityInfo.id === undefined) ? undefined :
                     this.loanDataHolder.entityInfo.id],
             companyName:
                 [(this.loanDataHolder.entityInfo === undefined
-                    || this.loanDataHolder.entityInfo.companyName === undefined) ? '' :
+                    || this.loanDataHolder.entityInfo.companyName === undefined) ? undefined :
                     this.loanDataHolder.entityInfo.companyName],
             registrationNumber: [(this.loanDataHolder.entityInfo === undefined
-                || this.loanDataHolder.entityInfo.registrationNumber === undefined) ? '' :
+                || this.loanDataHolder.entityInfo.registrationNumber === undefined) ? undefined :
                 this.loanDataHolder.entityInfo.registrationNumber],
             companyInfoVersion:
                 [(this.loanDataHolder.entityInfo === undefined
-                    || this.loanDataHolder.entityInfo.version === undefined) ? '' :
+                    || this.loanDataHolder.entityInfo.version === undefined) ? undefined :
                     this.loanDataHolder.entityInfo.version],
             citizenshipNumber:
                 [(this.loanDataHolder.customerInfo === undefined)
