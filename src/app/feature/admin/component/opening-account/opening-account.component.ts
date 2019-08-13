@@ -8,8 +8,8 @@ import {ToastService} from '../../../../@core/utils';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {OpeningAccountService} from './service/opening-account.service';
-import {UserService} from '../user/user.service';
 import {AccountStatus} from '../../modal/accountStatus';
+import {RoleType} from '../../modal/roleType';
 
 @Component({
     selector: 'app-opening-account',
@@ -26,9 +26,8 @@ export class OpeningAccountComponent implements OnInit {
     pendingCount: number;
     approvalCount: number;
     rejectedCount: number;
-    showApprove = true;
-    showReject = true;
-    showPending = false;
+    isApproval = false;
+    showAction = false;
     searchObject = {
         status: AccountStatus.name(AccountStatus.NEW_REQUEST)
     };
@@ -39,8 +38,7 @@ export class OpeningAccountComponent implements OnInit {
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService,
-        private router: Router,
-        private userService: UserService
+        private router: Router
     ) {
     }
 
@@ -70,6 +68,9 @@ export class OpeningAccountComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.isApproval = localStorage.getItem('roleType') === RoleType.APPROVAL &&
+            localStorage.getItem('roleName') !== 'admin';
+        this.showAction = this.isApproval;
         OpeningAccountComponent.loadData(this);
         this.breadcrumbService.notify(this.title);
     }
@@ -98,19 +99,7 @@ export class OpeningAccountComponent implements OnInit {
     }
 
     changeRequest(accountStatus: AccountStatus) {
-        if (accountStatus === AccountStatus.NEW_REQUEST) {
-            this.showPending = false;
-            this.showApprove = true;
-            this.showReject = true;
-        } else if (accountStatus === AccountStatus.APPROVAL) {
-            this.showPending = true;
-            this.showApprove = false;
-            this.showReject = true;
-        } else if (accountStatus === AccountStatus.REJECTED) {
-            this.showPending = true;
-            this.showApprove = true;
-            this.showReject = false;
-        }
+        this.showAction = this.isApproval && (accountStatus === AccountStatus.NEW_REQUEST);
         this.searchObject.status = AccountStatus.name(accountStatus);
         OpeningAccountComponent.loadData(this);
     }
