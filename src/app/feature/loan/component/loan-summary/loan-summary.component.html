@@ -115,12 +115,59 @@
                                 {{loanDataHolder?.customerInfo?.customerName}}
                             </td>
                             <td>
+                                <b>Date of Birth: </b>
+                                {{loanDataHolder?.customerInfo?.dob}}
+                            </td>
+                            <td>
                                 <b>Citizenship Number: </b>
                                 {{loanDataHolder?.customerInfo?.citizenshipNumber}}
                             </td>
-                            <td class="column-size-50">
+                            <td>
                                 <b>Contact Number: </b>
                                 {{loanDataHolder?.customerInfo?.contactNumber}}
+                            </td>
+                            <td>
+                                <b>Occupation: </b>
+                                {{loanDataHolder?.customerInfo?.occupation}}
+                            </td>
+                            <td>
+                                <b>Income Source: </b>
+                                {{loanDataHolder?.customerInfo?.incomeSource}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" *ngIf="loanCategory === 'BUSINESS_TYPE'">
+                <div class="col-md-12">
+                    <p><b>Details of Company</b></p>
+                </div>
+                <div class="col-md-12">
+                    <table class="table table-condensed table-bordered table-responsive-md disable-print">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Registration Number</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{loanDataHolder?.entityInfo?.companyName}}</td>
+                            <td>{{loanDataHolder?.entityInfo?.registrationNumber}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="print-only table table-bordered" id="print-company-table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <b>Name: </b>
+                                {{loanDataHolder?.entityInfo?.companyName}}
+                            </td>
+                            <td>
+                                <b>Registration Number: </b>
+                                {{loanDataHolder?.entityInfo?.registrationNumber}}
                             </td>
                         </tr>
                         </tbody>
