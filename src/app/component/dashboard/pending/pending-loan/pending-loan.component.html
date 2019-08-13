@@ -1,27 +1,39 @@
 <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-12">
         <a routerLink="/home/status/PENDING">
-            <app-icon-card title="Pendings" type="info" detail="{{pendingCount}}">
+            <app-icon-card title="Pending" type="info" detail="{{pendingCount}}">
                 <i class="fas fa-hourglass"></i>
             </app-icon-card>
         </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <a routerLink="/home/status/APPROVED">
+        <app-icon-card title="Approved" type="success" detail="{{approvedCount}}"
+                       *ngIf="roleType === roleTypes.MAKER">
+            <i class="fas fa-thumbs-up"></i>
+        </app-icon-card>
+        <a routerLink="/home/status/APPROVED" *ngIf="roleType === roleTypes.APPROVAL">
             <app-icon-card title="Approved" type="success" detail="{{approvedCount}}">
                 <i class="fas fa-thumbs-up"></i>
             </app-icon-card>
         </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <a routerLink="/home/status/REJECTED">
+        <app-icon-card title="Rejected" type="info" detail="{{rejectedCount}}"
+                       *ngIf="roleType === roleTypes.MAKER">
+            <i class="fa fa-ban"></i>
+        </app-icon-card>
+        <a routerLink="/home/status/REJECTED" *ngIf="roleType === roleTypes.APPROVAL">
             <app-icon-card title="Rejected" type="info" detail="{{rejectedCount}}">
                 <i class="fa fa-ban"></i>
             </app-icon-card>
         </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <a routerLink="/home/status/CLOSED">
+        <app-icon-card title="Closed" type="success" detail="{{closedCount}}"
+                       *ngIf="roleType === roleTypes.MAKER">
+            <i class="fa fa-times"></i>
+        </app-icon-card>
+        <a routerLink="/home/status/CLOSED" *ngIf="roleType === roleTypes.APPROVAL">
             <app-icon-card title="Closed" type="success" detail="{{closedCount}}">
                 <i class="fa fa-times"></i>
             </app-icon-card>

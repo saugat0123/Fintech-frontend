@@ -11,4 +11,8 @@ export namespace RoleType {
             (type) => isNaN(<any>type) && type !== 'values'
         );
     }
+
+    export function value(enumValue: string): RoleType {
+        return RoleType[enumValue];
+    }
 }
