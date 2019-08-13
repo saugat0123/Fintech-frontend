@@ -31,7 +31,9 @@ export class OpeningAccountComponent implements OnInit {
     showApprove = true;
     showReject = true;
     showPending = false;
-    accountStatus: AccountStatus = AccountStatus.NEW_REQUEST;
+    searchObject = {
+        status: AccountStatus.name(AccountStatus.NEW_REQUEST)
+    };
     accountStatusType = AccountStatus;
 
     constructor(
@@ -46,13 +48,13 @@ export class OpeningAccountComponent implements OnInit {
 
     static loadData(other: OpeningAccountComponent) {
         other.spinner = true;
-        other.service.getStatusByBranch(other.branch.id).subscribe((res: any) => {
+        /*other.service.getStatusByBranch(other.branch.id).subscribe((res: any) => {
             other.totalCount = res.detail.total;
             other.pendingCount = res.detail.newed;
             other.approvalCount = res.detail.approval;
             other.rejectedCount = res.detail.rejected;
-        });
-        other.service.getByPostOpeningAccount(other.branch, other.page, 10, AccountStatus.name(other.accountStatus))
+        });*/
+        other.service.getPaginationWithSearchObject(other.searchObject, 1, 10)
         .subscribe((response: any) => {
                 other.openingForms = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
@@ -115,7 +117,7 @@ export class OpeningAccountComponent implements OnInit {
             this.showApprove = true;
             this.showReject = false;
         }
-        this.accountStatus = accountStatus;
+        this.searchObject.status = AccountStatus.name(accountStatus);
         OpeningAccountComponent.loadData(this);
     }
 }
