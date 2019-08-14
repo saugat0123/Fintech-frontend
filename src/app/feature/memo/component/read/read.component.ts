@@ -15,15 +15,17 @@ import {ForwardActionComponent} from '../actions/forward-action.component';
 import {ApproveActionComponent} from '../actions/approve-action.component';
 import {RejectActionComponent} from '../actions/reject-action.component';
 import {MemoFullRoute} from '../../memo-full-routes';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-memo-read',
     templateUrl: './read.component.html',
-    styleUrls: ['./read.component.css']
+    styleUrls: ['./read.component.scss']
 })
 export class ReadComponent implements OnInit, DoCheck {
 
     static TITLE = `${MemoBaseComponent.TITLE} - Read`;
+    vendor: String;
     memo: Memo;
     modalRef: NgbModalRef;
     currentUrl: string;
@@ -44,6 +46,7 @@ export class ReadComponent implements OnInit, DoCheck {
         private formBuilder: FormBuilder,
         private toastService: ToastService
     ) {
+        this.vendor = environment.client;
     }
 
     ngOnInit() {

@@ -15,8 +15,45 @@
         </div>
     </nb-card-header>
     <nb-card-body>
-        <div class="col-md-12">
-            <div [innerHtml]="memo?.content | safeHtml" class="text-justify"></div>
+        <div class="row">
+            <div class="col-md-3">
+                Status: {{memo?.stage}}
+            </div>
+            <div class="col-md-12">
+                <div class="report-header">
+                    <div class="report-header-heading">
+                        {{vendor}}
+                    </div>
+                    <div class="report-header-sub-heading">
+                        Memo Form of {{memo?.type?.name}} <br> for
+                    </div>
+                    <div class="report-header-sub-heading">
+                        {{memo?.subject}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <img class="report-log img-thumbnail border-0"
+                     src="../../../../../assets/img/logo.png">
+            </div>
+        </div>
+
+        <hr class="print-line">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">Ref No: {{memo?.refNumber}}</div>
+                    <div class="col-md-6">
+                        <p class="text-right"><b>Date: </b>{{memo?.createdAt | date}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div [innerHtml]="memo?.content | safeHtml" class="text-justify"></div>
+            </div>
+            <div class="col-md-12">
+                <p><b>Authority Section</b></p>
+            </div>
         </div>
     </nb-card-body>
     <nb-card-footer *ngIf="memo?.stage === 'FORWARD'">
