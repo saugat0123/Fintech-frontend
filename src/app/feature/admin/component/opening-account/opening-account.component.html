@@ -36,8 +36,9 @@
                                 <th>S.N</th>
                                 <th>Account Holder Name</th>
                                 <th>Requested Date</th>
+                                <th>Branch</th>
                                 <th>Account Type</th>
-                                <th>Action</th>
+                                <th *ngIf="showAction">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -48,22 +49,15 @@
                                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.fullName}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.requestedDate | date}}</td>
+                                <td (click)="onEdit(openingForm)">{{openingForm?.branch.name}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.accountType?.name}}</td>
-                                <td>
-                                    <button
-                                        (click)="updateStatus(openingForm, accountStatusType.NEW_REQUEST)"
-                                        *ngIf="showPending" nbButton
-                                        size="xsmall" status="primary">
-                                        Pending
-                                    </button>
+                                <td *ngIf="showAction">
                                     <button nbButton status="success" size="xsmall"
-                                            (click)="updateStatus(openingForm, accountStatusType.APPROVAL)"
-                                            *ngIf="showApprove">
+                                            (click)="updateStatus(openingForm, accountStatusType.APPROVAL)">
                                         Approve
                                     </button>
                                     <button nbButton status="danger" size="xsmall"
-                                            (click)="updateStatus(openingForm, accountStatusType.REJECTED)"
-                                            *ngIf="showReject">
+                                            (click)="updateStatus(openingForm, accountStatusType.REJECTED)">
                                         Reject
                                     </button>
                                 </td>
