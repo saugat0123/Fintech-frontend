@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {BaseService} from '../../../../@core/BaseService';
+import {BaseService} from '../../../../../@core/BaseService';
 import {HttpClient} from '@angular/common/http';
-import {OpeningForm} from '../../modal/openingForm';
-import {ApiUtils} from '../../../../@core/utils/api/ApiUtils';
+import {OpeningForm} from '../../../modal/openingForm';
+import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -19,8 +19,8 @@ export class OpeningAccountService extends BaseService<OpeningForm> {
         return OpeningAccountService.API;
     }
 
-    public getStatusByBranch(branchId: number): Observable<any> {
-        const api = `${this.getApi()}/statusCount?branchId=${branchId}`;
+    public getStatus(): Observable<any> {
+        const api = `${this.getApi()}/statusCount`;
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }
