@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {BaseService} from '../../../../@core/BaseService';
+import {BaseService} from '../../../../../@core/BaseService';
 import {HttpClient} from '@angular/common/http';
-import {AccountType} from '../../modal/accountType';
-import {ApiUtils} from '../../../../@core/utils/api/ApiUtils';
+import {AccountType} from '../../../modal/accountType';
+import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
 import {Observable} from 'rxjs';
 
 @Injectable({
