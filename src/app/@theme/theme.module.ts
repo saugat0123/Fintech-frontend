@@ -65,10 +65,11 @@ import {MessageModalComponent} from './components/message-modal/message-modal.co
 import {ProfileComponent} from './components/profile/profile.component';
 import {NotificationComponent} from './components/notification/notification.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import {CKEditorModule} from 'ng2-ckeditor';
 
 // import {NbSecurityModule} from '@nebular/security';
 
-const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
+const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule, CKEditorModule];
 
 const NB_MODULES = [
     NbCardModule,
