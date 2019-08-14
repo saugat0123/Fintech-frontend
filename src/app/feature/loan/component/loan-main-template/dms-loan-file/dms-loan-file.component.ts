@@ -6,7 +6,6 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {Document} from '../../../../admin/modal/document';
-import {DmsLoanFile} from '../../../../admin/modal/dms-loan-file';
 import {LoanDocument} from '../../../../admin/modal/loan-document';
 import {Security} from '../../../../admin/modal/security';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
@@ -14,6 +13,12 @@ import {DmsLoanService} from './dms-loan-service';
 import {LoanFormService} from '../../loan-form/service/loan-form.service';
 import {LoanDataHolder} from '../../../model/loanData';
 import {LoanDataService} from '../../../service/loan-data.service';
+import {Occupation} from '../../../../admin/modal/occupation';
+import {IncomeSource} from '../../../../admin/modal/incomeSource';
+import {CustomerService} from '../../../../admin/service/customer.service';
+import {Customer} from '../../../../admin/modal/customer';
+import {EntityInfo} from '../../../../admin/modal/entity-info';
+import {EntityInfoService} from '../../../../admin/service/entity-info.service';
 
 
 @Component({
@@ -23,9 +28,9 @@ import {LoanDataService} from '../../../service/loan-data.service';
 })
 
 export class DmsLoanFileComponent implements OnInit {
-    public static FILE_SIZE = 1000000;
+    public static FILE_SIZE = 500000;
     @Input()
-    loanFile: DmsLoanFile;
+    loanDataHolder: LoanDataHolder;
     loanForm: FormGroup;
     submitted = false;
 
@@ -35,7 +40,6 @@ export class DmsLoanFileComponent implements OnInit {
     renew = true;
     loan: LoanConfig = new LoanConfig();
     permissions = [];
-    dropdownList = [];
     loanName: string;
     loanConfig: LoanConfig = new LoanConfig();
     customerId: number;
@@ -44,8 +48,6 @@ export class DmsLoanFileComponent implements OnInit {
     documentMaps = [];
     documentMap: string;
     allId;
-    securities: string[];
-    securityEnum: Security[] = [];
     imagePaths: string[] = [];
     imageUrl = [];
     action: string;
@@ -53,6 +55,24 @@ export class DmsLoanFileComponent implements OnInit {
     hasPreviousLoan = false;
     previousLoans: Array<LoanDataHolder>;
     spinner = false;
+    personal = true;
+    occupations = Occupation.enumObject();
+    incomeSources = IncomeSource.enumObject();
+    security = Security.enumObject();
+    customerSearch = {
+        citizenshipNumber: undefined
+    };
+    companySearch = {
+        registrationNumber: undefined
+    };
+    customerFormField = {
+        showFormField: false,
+        isOldCustomer: false
+    };
+    companyFormField = {
+        showFormField: false,
+        isOldCustomer: false
+    };
 
     constructor(private formBuilder: FormBuilder,
                 private loanDataService: LoanDataService,
@@ -61,7 +81,9 @@ export class DmsLoanFileComponent implements OnInit {
                 private dmsLoanService: DmsLoanService,
                 private loanFormService: LoanFormService,
                 private loanConfigService: LoanConfigService,
-                private toastService: ToastService) {
+                private toastService: ToastService,
+                private customerService: CustomerService,
+                private companyInfoService: EntityInfoService) {
     }
 
     get form() {
@@ -74,17 +96,22 @@ export class DmsLoanFileComponent implements OnInit {
             (paramsValue: Params) => {
                 this.allId = {
                     loanId: null,
-                    customerId: null
+                    customerId: null,
+                    loanCategory: null
                 };
                 this.allId = paramsValue;
                 this.customerId = this.allId.customerId;
                 this.loanConfigId = this.allId.loanId;
+                if (this.allId.loanCategory !== 'PERSONAL_TYPE') {
+                    this.personal = false;
+                }
 
             });
 
-        if (this.loanFile.id !== undefined) {
+
+        if (this.loanDataHolder.dmsLoanFile.id !== undefined) {
             this.action = 'EDIT';
-            this.imagePaths = JSON.parse(this.loanFile.documentPath);
+            this.imagePaths = JSON.parse(this.loanDataHolder.dmsLoanFile.documentPath);
         }
         this.loanConfigService.detail(this.loanConfigId).subscribe(
             (response: any) => {
@@ -95,14 +122,6 @@ export class DmsLoanFileComponent implements OnInit {
             }
         );
 
-        this.dropdownList = [
-            {id: 'LAND_SECURITY', name: 'Land Security'},
-            {id: 'BUILDING_SECURITY', name: 'Building Security'},
-            {id: 'VEHICLE_SECURITY', name: 'Vehicle Security'},
-            {id: 'PROPERTY_AND_MACHINERY_SECURITY', name: 'Property and Machinery Security'}
-
-        ];
-
         this.dropdownPriorities = [
             {id: 'HIGH', name: 'High'},
             {id: 'MEDIUM', name: 'Medium'},
@@ -110,51 +129,128 @@ export class DmsLoanFileComponent implements OnInit {
 
         ];
         this.loanForm = this.formBuilder.group({
-            customerName: [this.loanFile.customerName === undefined ? '' : this.loanFile.customerName, Validators.required],
-            citizenshipNumber: [this.loanFile.citizenshipNumber === undefined ? '' : this.loanFile.citizenshipNumber, Validators.required],
-            contactNumber: [this.loanFile.contactNumber === undefined ? '' : this.loanFile.contactNumber, Validators.required],
-            interestRate: [this.loanFile.interestRate === undefined ? '' : this.loanFile.interestRate, Validators.required],
-            proposedAmount: [this.loanFile.proposedAmount === undefined ? '' : this.loanFile.proposedAmount, Validators.required],
-            security: [this.loanFile.security === undefined ? '' : this.showSecurity(this.loanFile.security), Validators.required],
-            serviceChargeType: [this.loanFile.serviceChargeType === undefined ? 'Percentage' : this.loanFile.serviceChargeType,
+            customerEntityId:
+                [(this.loanDataHolder.customerInfo === undefined
+                    || this.loanDataHolder.customerInfo.id === undefined) ? '' :
+                    this.loanDataHolder.customerInfo.id],
+            customerVersion:
+                [(this.loanDataHolder.customerInfo === undefined
+                    || this.loanDataHolder.customerInfo.version === undefined) ? '' :
+                    this.loanDataHolder.customerInfo.version],
+            customerName:
+                [(this.loanDataHolder.customerInfo === undefined
+                    || this.loanDataHolder.customerInfo.customerName === undefined) ? '' :
+                    this.loanDataHolder.customerInfo.customerName, Validators.required],
+            dob:
+                [(this.loanDataHolder.customerInfo === undefined
+                    || this.loanDataHolder.customerInfo.dob === undefined) ? '' :
+                    this.loanDataHolder.customerInfo.dob, Validators.required],
+            companyId:
+                [(this.loanDataHolder.entityInfo === undefined || this.loanDataHolder.entityInfo.id === undefined) ? undefined :
+                    this.loanDataHolder.entityInfo.id],
+            companyName:
+                [(this.loanDataHolder.entityInfo === undefined
+                    || this.loanDataHolder.entityInfo.companyName === undefined) ? undefined :
+                    this.loanDataHolder.entityInfo.companyName],
+            registrationNumber: [(this.loanDataHolder.entityInfo === undefined
+                || this.loanDataHolder.entityInfo.registrationNumber === undefined) ? undefined :
+                this.loanDataHolder.entityInfo.registrationNumber],
+            companyInfoVersion:
+                [(this.loanDataHolder.entityInfo === undefined
+                    || this.loanDataHolder.entityInfo.version === undefined) ? undefined :
+                    this.loanDataHolder.entityInfo.version],
+            citizenshipNumber:
+                [(this.loanDataHolder.customerInfo === undefined)
+                || (this.loanDataHolder.customerInfo.citizenshipNumber === undefined) ? '' :
+                    this.loanDataHolder.customerInfo.citizenshipNumber],
+            contactNumber: [(this.loanDataHolder.customerInfo === undefined
+                || this.loanDataHolder.customerInfo.contactNumber === undefined) ? '' :
+                this.loanDataHolder.customerInfo.contactNumber, Validators.required],
+            occupation: [(this.loanDataHolder.customerInfo === undefined
+                || this.loanDataHolder.customerInfo.occupation === undefined) ? '' :
+                this.loanDataHolder.customerInfo.occupation, Validators.required],
+            incomeSource: [(this.loanDataHolder.customerInfo === undefined
+                || this.loanDataHolder.customerInfo.incomeSource === undefined) ? '' :
+                this.loanDataHolder.customerInfo.incomeSource, Validators.required],
+            interestRate: [this.loanDataHolder.dmsLoanFile.interestRate === undefined ? '' : this.loanDataHolder.dmsLoanFile.interestRate,
+                [Validators.required, Validators.min(0)]],
+            proposedAmount: [this.loanDataHolder.dmsLoanFile.proposedAmount === undefined ? '' :
+                this.loanDataHolder.dmsLoanFile.proposedAmount,
+                [Validators.required, Validators.min(0)]],
+            security: [this.loanDataHolder.dmsLoanFile.securities === undefined ? '' :
+                this.loanDataHolder.dmsLoanFile.securities, Validators.required],
+            serviceChargeType: [this.loanDataHolder.dmsLoanFile.serviceChargeType === undefined ? 'Percentage' :
+                this.loanDataHolder.dmsLoanFile.serviceChargeType,
                 Validators.required],
-            serviceChargeAmount: [this.loanFile.serviceChargeAmount === undefined ? '' : this.loanFile.serviceChargeAmount,
+            serviceChargeAmount: [this.loanDataHolder.dmsLoanFile.serviceChargeAmount === undefined ? '' :
+                this.loanDataHolder.dmsLoanFile.serviceChargeAmount,
+                [Validators.required, Validators.min(0)]],
+            tenureDuration: [this.loanDataHolder.dmsLoanFile.tenureDuration === undefined ? '' :
+                this.loanDataHolder.dmsLoanFile.tenureDuration,
+                [Validators.required, Validators.min(0)]],
+            priority: [this.loanDataHolder.dmsLoanFile.priority === undefined ? '' : this.loanDataHolder.dmsLoanFile.priority,
+                [Validators.required, Validators.min(0)]],
+            recommendation: [this.loanDataHolder.dmsLoanFile.recommendationConclusion === undefined ? '' :
+                this.loanDataHolder.dmsLoanFile.recommendationConclusion,
                 Validators.required],
-            tenureDuration: [this.loanFile.tenureDuration === undefined ? '' : this.loanFile.tenureDuration, Validators.required],
-            priority: [this.loanFile.priority === undefined ? '' : this.loanFile.priority, Validators.required],
-            recommendation: [this.loanFile.recommendationConclusion === undefined ? '' : this.loanFile.recommendationConclusion,
-                Validators.required],
-            waiver: [this.loanFile.waiver === undefined ? '' : this.loanFile.waiver, Validators.required],
+            waiver: [this.loanDataHolder.dmsLoanFile.waiver === undefined ? '' :
+                this.loanDataHolder.dmsLoanFile.waiver, Validators.required],
+            fmvTotal: [this.loanDataHolder.dmsLoanFile.fmvTotal === undefined ? '' :
+                this.loanDataHolder.dmsLoanFile.fmvTotal, Validators.min(0)],
+            totalLoanLimit: [this.loanDataHolder.dmsLoanFile.totalLoanLimit === undefined ? '' :
+                this.loanDataHolder.dmsLoanFile.totalLoanLimit,
+                [Validators.required, Validators.min(0)]],
+            groupExpo: [this.loanDataHolder.dmsLoanFile.groupExpo === undefined ? '' : this.loanDataHolder.dmsLoanFile.groupExpo],
+            fmvFundingPercent: [this.loanDataHolder.dmsLoanFile.fmvFundingPercent === undefined ? '' :
+                this.loanDataHolder.dmsLoanFile.fmvFundingPercent, Validators.min(0)],
             file: ['']
         });
+        this.customerFormField = {
+            showFormField: (this.loanDataHolder.customerInfo !== undefined
+                && this.loanDataHolder.customerInfo.id !== undefined),
+            isOldCustomer: (this.loanDataHolder.customerInfo !== undefined
+                && this.loanDataHolder.customerInfo.id !== undefined)
+        };
+        this.companyFormField = {
+            showFormField: (this.loanDataHolder.customerInfo !== undefined
+                && this.loanDataHolder.entityInfo.id !== undefined),
+            isOldCustomer: (this.loanDataHolder.customerInfo !== undefined
+                && this.loanDataHolder.entityInfo.id !== undefined && !this.personal)
+        };
+        this.reqPersonalOrBusiness();
         if (this.renewDocuments.length > 0) {
             this.renew = true;
         }
 
     }
 
-
-    showSecurity(security: string) {
-        this.securities = security.split(',');
-        this.securities.forEach((securityLoop => {
-            this.securityEnum.push(this.dropdownList[Number(securityLoop)].id);
-        }));
-        return this.securityEnum;
-    }
-
     onSubmit() {
-        this.loanFile.customerName = this.loanForm.get('customerName').value;
-        this.loanFile.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
-        this.loanFile.contactNumber = this.loanForm.get('contactNumber').value;
-        this.loanFile.interestRate = this.loanForm.get('interestRate').value;
-        this.loanFile.proposedAmount = this.loanForm.get('proposedAmount').value;
-        this.loanFile.securities = this.loanForm.get('security').value as string;
-        this.loanFile.tenureDuration = this.loanForm.get('tenureDuration').value;
-        this.loanFile.serviceChargeType = this.loanForm.get('serviceChargeType').value;
-        this.loanFile.serviceChargeAmount = this.loanForm.get('serviceChargeAmount').value;
-        this.loanFile.priority = this.loanForm.get('priority').value;
-        this.loanFile.waiver = this.loanForm.get('waiver').value;
-        this.loanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
+        this.loanDataHolder.customerInfo.id = this.loanForm.get('customerEntityId').value;
+        this.loanDataHolder.customerInfo.version = this.loanForm.get('customerVersion').value;
+        this.loanDataHolder.customerInfo.customerName = this.loanForm.get('customerName').value;
+        this.loanDataHolder.entityInfo.id = this.loanForm.get('companyId').value;
+        this.loanDataHolder.entityInfo.companyName = this.loanForm.get('companyName').value;
+        this.loanDataHolder.entityInfo.registrationNumber = this.loanForm.get('registrationNumber').value;
+        this.loanDataHolder.entityInfo.version = this.loanForm.get('companyInfoVersion').value;
+        this.loanDataHolder.customerInfo.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
+        this.loanDataHolder.customerInfo.contactNumber = this.loanForm.get('contactNumber').value;
+        this.loanDataHolder.customerInfo.dob = this.loanForm.get('dob').value;
+        this.loanDataHolder.customerInfo.occupation = this.loanForm.get('occupation').value;
+        this.loanDataHolder.customerInfo.incomeSource = this.loanForm.get('incomeSource').value;
+        this.loanDataHolder.dmsLoanFile.interestRate = this.loanForm.get('interestRate').value;
+        this.loanDataHolder.dmsLoanFile.proposedAmount = this.loanForm.get('proposedAmount').value;
+        this.loanDataHolder.dmsLoanFile.securities = this.loanForm.get('security').value;
+        this.loanDataHolder.dmsLoanFile.tenureDuration = this.loanForm.get('tenureDuration').value;
+        this.loanDataHolder.dmsLoanFile.serviceChargeType = this.loanForm.get('serviceChargeType').value;
+        this.loanDataHolder.dmsLoanFile.serviceChargeAmount = this.loanForm.get('serviceChargeAmount').value;
+        this.loanDataHolder.dmsLoanFile.priority = this.loanForm.get('priority').value;
+        this.loanDataHolder.dmsLoanFile.waiver = this.loanForm.get('waiver').value;
+        this.loanDataHolder.dmsLoanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
+        this.loanDataHolder.dmsLoanFile.fmvTotal = this.loanForm.get('fmvTotal').value;
+        this.loanDataHolder.dmsLoanFile.fmvFundingPercent = this.loanForm.get('fmvFundingPercent').value;
+        this.loanDataHolder.dmsLoanFile.groupExpo = this.loanForm.get('groupExpo').value;
+        this.loanDataHolder.dmsLoanFile.totalLoanLimit = this.loanForm.get('totalLoanLimit').value;
+        console.log(this.loanDataHolder);
     }
 
 
@@ -173,12 +269,12 @@ export class DmsLoanFileComponent implements OnInit {
             (result: any) => {
                 this.errorMessage = undefined;
                 this.document.name = documentName;
-                this.loanFile.documents.push(this.document);
+                this.loanDataHolder.dmsLoanFile.documents.push(this.document);
                 this.documentMap = documentName + ':' + result.detail;
                 if (!this.documentMaps.includes(this.documentMap)) {
                     this.documentMaps.push(this.documentMap);
                 }
-                this.loanFile.documentMap = this.documentMaps;
+                this.loanDataHolder.dmsLoanFile.documentMap = this.documentMaps;
                 this.document = new LoanDocument();
             },
             error => {
@@ -189,11 +285,40 @@ export class DmsLoanFileComponent implements OnInit {
     }
 
     searchByCitizenship() {
-        const citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
-        this.loanFormService.getLoansByCitizenship(citizenshipNumber).subscribe((response: any) => {
-            this.previousLoans = response.detail;
-            this.hasPreviousLoan = this.previousLoans.length > 0;
-        }, error => console.error(error));
+        this.customerSearch.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
+        this.customerService.getPaginationWithSearchObject(this.customerSearch).subscribe((customerResponse: any) => {
+            console.log(customerResponse);
+            if (customerResponse.detail.content.length <= 0) {
+                this.customerFormField.isOldCustomer = false;
+                this.toastService.show(new Alert(AlertType.INFO, 'No Customer'));
+                this.loanForm.patchValue({
+                    customerEntityId: '',
+                    customerVersion: '',
+                    customerName: '',
+                    dob: '',
+                    contactNumber: '',
+                    occupation: '',
+                    incomeSource: ''
+                });
+            } else {
+                this.customerFormField.isOldCustomer = true;
+                const customer: Customer = customerResponse.detail.content[0];
+                this.loanForm.patchValue({
+                    customerEntityId: customer.id,
+                    customerVersion: customer.version,
+                    customerName: customer.customerName,
+                    dob: customer.dob,
+                    contactNumber: customer.contactNumber,
+                    occupation: customer.occupation,
+                    incomeSource: customer.incomeSource
+                });
+                this.loanFormService.getLoansByCitizenship(customer.citizenshipNumber).subscribe((response: any) => {
+                    this.previousLoans = response.detail;
+                    this.hasPreviousLoan = this.previousLoans.length > 0;
+                }, error => console.error(error));
+            }
+        });
+        this.customerFormField.showFormField = true;
     }
 
     openLoan(loanConfigId: number, customerId: number) {
@@ -208,5 +333,46 @@ export class DmsLoanFileComponent implements OnInit {
 
     hidePreviousLoans() {
         this.hasPreviousLoan = false;
+    }
+
+    searchByRegNO() {
+        this.companySearch.registrationNumber = this.loanForm.get('registrationNumber').value;
+        console.log(this.companySearch.registrationNumber);
+        this.companyInfoService.getPaginationWithSearchObject(this.companySearch).subscribe((response: any) => {
+            if (response.detail.content <= 0) {
+                console.log(response);
+                this.companyFormField.isOldCustomer = false;
+                this.toastService.show(new Alert(AlertType.INFO, 'No company  under given registration number.'));
+                this.loanForm.patchValue({
+                    companyId: '',
+                    companyName: '',
+                    companyInfoVersion: ''
+                });
+            } else {
+                this.companyFormField.isOldCustomer = true;
+                const entityInfo: EntityInfo = response.detail.content[0];
+                this.loanForm.patchValue({
+                    companyId: entityInfo.id,
+                    companyName: entityInfo.companyName,
+                    companyInfoVersion: entityInfo.version
+                });
+            }
+        }, error => console.error(error));
+        this.companyFormField.showFormField = true;
+    }
+
+    reqPersonalOrBusiness() {
+        const citizenControl = this.loanForm.get('citizenshipNumber');
+        const companyControl = this.loanForm.get('companyName');
+        const regdControl = this.loanForm.get('registrationNumber');
+        if (this.personal) {
+            citizenControl.setValidators([Validators.required]);
+            companyControl.setValidators(null);
+            regdControl.setValidators(null);
+        } else {
+            citizenControl.setValidators([Validators.required]);
+            companyControl.setValidators([Validators.required]);
+            regdControl.setValidators([Validators.required]);
+        }
     }
 }

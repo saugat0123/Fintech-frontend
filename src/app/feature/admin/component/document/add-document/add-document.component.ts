@@ -43,19 +43,12 @@ export class AddDocumentComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
-
         this.service.save(this.model).subscribe(() => {
-
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Document!'));
-
                 this.model = new Document();
-
                 this.activeModal.close(ModalResponse.SUCCESS);
-
             }, error => {
-
                 console.log(error);
-
                 this.activeModal.dismiss(error);
             }
         );

@@ -17,12 +17,13 @@ export class GeneralQuestionComponent implements OnInit {
     page = 1;
     size = 10;
     task: string;
-    formula: string;
+    formulaPattern = '';
 
     generalQuestionForm: FormGroup;
     submitted = false;
     showCriteriaList = false;
     addOrEditCriteria = false;
+    invalidFormula = false;
 
     pageable: Pageable = new Pageable();
     eligibilityCriteria: EligibilityCriteria = new EligibilityCriteria();
@@ -55,7 +56,6 @@ export class GeneralQuestionComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.formula = '';
         GeneralQuestionComponent.loadData(this);
     }
 
@@ -64,19 +64,6 @@ export class GeneralQuestionComponent implements OnInit {
 
         GeneralQuestionComponent.loadData(this);
     }
-
-    /*getCriteriaList() {
-        this.generalQuestionService.getAllEligibilityCriteria(this.page, this.size).subscribe((response: any) => {
-            this.criteriaList = response.detail.content;
-            if (this.criteriaList.length !== 0) {
-                this.showCriteriaList = true;
-            } else {
-                this.buildForm();
-                this.task = 'Add';
-                this.addOrEditCriteria = true;
-            }
-        });
-    }*/
 
     addQuestionField() {
         const control = this.generalQuestionForm.controls.questions as FormArray;
@@ -96,8 +83,8 @@ export class GeneralQuestionComponent implements OnInit {
             status: [this.eligibilityCriteria.status === undefined ? 'ACTIVE' : this.eligibilityCriteria.status, Validators.required],
             percentageOfAmount: [this.eligibilityCriteria.percentageOfAmount === undefined ?
                 undefined : this.eligibilityCriteria.percentageOfAmount, Validators.required],
-            thresholdAmount: [this.eligibilityCriteria.thresholdAmount === undefined ?
-                undefined : this.eligibilityCriteria.thresholdAmount, Validators.required],
+            formula: [this.eligibilityCriteria.formula === undefined ? '' : this.eligibilityCriteria.formula,
+                [Validators.required]],
             version: [this.eligibilityCriteria.version === undefined ? undefined : this.eligibilityCriteria.version],
             questions: this.formBuilder.array([])
         });
@@ -123,46 +110,29 @@ export class GeneralQuestionComponent implements OnInit {
                 );
             }
         });
+        this.setFormulaPattern();
+    }
+
+    setFormulaPattern() {
+        const operandsArray = [];
+        (this.generalQuestionForm.get('questions') as FormArray).controls.forEach(operand => {
+            operandsArray.push(operand.value.operandCharacter);
+        });
+        const operands = operandsArray.join('');
+        this.formulaPattern = `[${operands}\\(\\)\\+\\-\\/\\*\\.\\ \\d]+`;
+        this.invalidFormula = false;
+        // In case you want to implement an operand character at least once :: ^(?=.*a)(?=.*b)(?=.*c)[\(\)\+\-\/\*\.\ \d]*
     }
 
     deleteQuestionField(index) {
         const control = this.generalQuestionForm.controls.questions as FormArray;
         control.removeAt(index);
-        this.changeOption();
-    }
-
-    changeOption() {
-        this.formula = '';
-        const formulaParent = document.getElementById('formulaParent').children;
-        for (let i = 0; i < formulaParent.length; i++) {
-            const childParent = formulaParent[i].children;
-            for (let j = 0; j < childParent.length; j++) {
-                this.formula = this.formula + (childParent[j] as HTMLInputElement).value;
-            }
-        }
-        this.formula = this.formula.split('').join(' ');
-    }
-
-    setValuesInOption() {
-        let f = 0;
-        this.formula = this.formula.replace(/\s/g, '');
-        const formulaArray = this.formula.split('', this.formula.length);
-        const formulaParent = document.getElementById('formulaParent').children;
-        for (let i = 0; i < formulaParent.length; i++) {
-            const childParent = formulaParent[i].children;
-            for (let j = 0; j < childParent.length; j++) {
-                (childParent[j] as HTMLInputElement).value = formulaArray[f];
-                // console.log('value at index', formulaArray[f]);
-                f++;
-            }
-        }
-        this.formula = this.formula.split('').join(' ');
+        this.setFormulaPattern();
     }
 
     addCriteria() {
         this.task = 'Add';
         this.eligibilityCriteria = new EligibilityCriteria();
-        this.formula = '';
         this.buildForm();
         this.showCriteriaList = false;
         this.addOrEditCriteria = true;
@@ -171,7 +141,6 @@ export class GeneralQuestionComponent implements OnInit {
     editCriteria(criteria: EligibilityCriteria) {
         this.task = 'Update';
         this.eligibilityCriteria = criteria;
-        this.formula = criteria.formula;
         this.buildForm();
         this.showCriteriaList = false;
         this.addOrEditCriteria = true;
@@ -183,15 +152,15 @@ export class GeneralQuestionComponent implements OnInit {
             return;
         }
         this.eligibilityCriteria = this.generalQuestionForm.value;
-        this.eligibilityCriteria.formula = this.formula;
         this.generalQuestionService.saveEligibilityCriteria(this.eligibilityCriteria).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Criteria !'));
             this.eligibilityCriteria = new EligibilityCriteria();
             GeneralQuestionComponent.loadData(this);
-        }, error => {
-            console.log(error);
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Saved Criteria !'));
-            this.eligibilityCriteria = new EligibilityCriteria();
+        }, errorResponse => {
+            console.log(errorResponse.error);
+            console.log(errorResponse.error.message);
+            this.toastService.show(new Alert(AlertType.ERROR, errorResponse.error.message));
+            this.invalidFormula = true;
         });
         this.submitted = false;
     }
@@ -202,13 +171,13 @@ export class GeneralQuestionComponent implements OnInit {
             return;
         }
         this.eligibilityCriteria = this.generalQuestionForm.value;
-        this.eligibilityCriteria.formula = this.formula;
         this.generalQuestionService.updateEligibilityCriteria(this.eligibilityCriteria, this.eligibilityCriteria.id).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Criteria !'));
             GeneralQuestionComponent.loadData(this);
-        }, error => {
-            console.log(error);
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Update Criteria !'));
+        }, errorResponse => {
+            console.log(errorResponse.error.message);
+            this.toastService.show(new Alert(AlertType.ERROR, errorResponse.error.message));
+            this.invalidFormula = true;
         });
         this.submitted = false;
     }
@@ -220,7 +189,7 @@ export class GeneralQuestionComponent implements OnInit {
                 GeneralQuestionComponent.loadData(this);
             }, error => {
                 console.log(error);
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Delete Criteria !'));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Delete Criteria !'));
             });
         }
     }
