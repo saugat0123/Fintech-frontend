@@ -66,6 +66,7 @@ $nb-themes: nb-register-theme((
 @media print {
   @page  {
     margin: 0 30px;
+    width: 100%;
   }
 
   body{
