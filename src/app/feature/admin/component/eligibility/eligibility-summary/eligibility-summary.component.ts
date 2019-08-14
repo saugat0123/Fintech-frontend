@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {NewRequestService} from '../new-requests/new-request.service';
 import {Applicant} from '../../../modal/applicant';
 import {environment} from '../../../../../../environments/environment';
@@ -9,7 +9,6 @@ import {ToastService} from '../../../../../@core/utils';
 import {ApplicantService} from './applicant.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Status} from '../../../modal/eligibility';
-import {UpdateModalComponent} from '../../../../../@theme/components';
 
 @Component({
     selector: 'app-eligibility-summary',
@@ -31,7 +30,8 @@ export class EligibilitySummaryComponent implements OnInit {
         private applicantService: ApplicantService,
         private dateService: DateService,
         private modalService: NgbModal,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private router: Router
     ) {
         this.client = environment.client;
     }
@@ -70,8 +70,15 @@ export class EligibilitySummaryComponent implements OnInit {
             this.applicant.eligibilityStatus = Status.REJECTED;
         }
         console.log(this.applicant);
-        const modalRef = this.modalService.open(UpdateModalComponent, {size: 'lg'});
-        modalRef.componentInstance.data = this.applicant;
-        modalRef.componentInstance.service = this.applicantService;
+        // const modalRef = this.modalService.open(UpdateModalComponent, {size: 'lg'});
+        // modalRef.componentInstance.data = this.applicant;
+        // modalRef.componentInstance.service = this.applicantService;
+        this.applicantService.update(this.applicant).subscribe( () => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated Eligibility Status !'));
+            this.router.navigate(['/home/admin/eligibility/new-requests']);
+        }, errorResponse => {
+            console.log(errorResponse.error.message);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to update Eligibility Status !'));
+        });
     }
 }
