@@ -1,9 +1,11 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Input} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BaseService} from '../../../../@core/BaseService';
 import {Message} from '../model/message';
 import {BehaviorSubject} from 'rxjs';
 import {Status} from '../../../../@core/Status';
+import {UserService} from '../../../../feature/admin/component/user/user.service';
+import {User} from '../../../../feature/admin/modal/user';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +17,7 @@ export class NotificationService extends BaseService<Message> {
     }
 
     static API = 'v1/notification';
-
+    userRoleId: number;
     private notificationCountSource = new BehaviorSubject<any>(0);
     notificationCount = this.notificationCountSource.asObservable();
 
@@ -37,7 +39,7 @@ export class NotificationService extends BaseService<Message> {
     fetchNotifications(): void {
         const notificationSearchObject = {
             toId: localStorage.getItem('userId'),
-
+            toRole: localStorage.getItem('roleId'),
             status: Status.ACTIVE
         };
         this.getPaginationWithSearchObject(notificationSearchObject, 1, 5).subscribe((response: any) => {
