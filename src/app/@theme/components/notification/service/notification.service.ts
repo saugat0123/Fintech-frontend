@@ -37,6 +37,7 @@ export class NotificationService extends BaseService<Message> {
     fetchNotifications(): void {
         const notificationSearchObject = {
             toId: localStorage.getItem('userId'),
+
             status: Status.ACTIVE
         };
         this.getPaginationWithSearchObject(notificationSearchObject, 1, 5).subscribe((response: any) => {

@@ -124,5 +124,4 @@ export class HeaderComponent implements OnInit {
         this.notificationService.fetchNotifications();
         this.notificationService.notificationCount.subscribe((value => this.notificationCount = value));
     }
-
 }
