@@ -14,13 +14,15 @@ import {MemoTypeService} from '../../service/memo-type.service';
 import {UserService} from '../../../admin/component/user/user.service';
 import {MemoBaseComponent} from '../memo-base/memo-base.component';
 import {CustomValidator} from '../../../../@core/validator/custom-validator';
+import {MemoStage} from '../../model/MemoStage';
+import {MemoFullRoute} from '../../memo-full-routes';
 
 @Component({
     selector: 'app-memo-compose',
-    templateUrl: './memo-compose.component.html',
-    styleUrls: ['./memo-compose.component.css']
+    templateUrl: './compose.component.html',
+    styleUrls: ['./compose.component.css']
 })
-export class MemoComposeComponent implements OnInit {
+export class ComposeComponent implements OnInit {
 
     static TITLE = `${MemoBaseComponent.TITLE} - Compose`;
 
@@ -48,7 +50,7 @@ export class MemoComposeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.breadcrumbService.notify(MemoComposeComponent.TITLE);
+        this.breadcrumbService.notify(ComposeComponent.TITLE);
         this.memoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
         if (this.memoId === null || this.memoId === 0 || this.memoId === undefined) {
             this.isNewMemo = true;
@@ -89,7 +91,7 @@ export class MemoComposeComponent implements OnInit {
         );
     }
 
-    onSubmit() {
+    send() {
         this.memo.id = this.memoComposeForm.get('id').value;
         this.memo.subject = this.memoComposeForm.get('subject').value;
         this.memo.refNumber = this.memoComposeForm.get('refNumber').value;
@@ -101,19 +103,37 @@ export class MemoComposeComponent implements OnInit {
         this.memo.content = this.memoComposeForm.get('content').value;
 
         if (this.isNewMemo) {
+
+            const stage = new MemoStage();
+            stage.sentTo = this.memo.sentTo;
+            stage.sentBy = this.memo.sentBy;
+            stage.stage = 'FORWARD';
+            stage.note = 'Memo Forwarded';
+
+            this.memo.stage = 'FORWARD';
+
+            this.memo.stages = new Array<MemoStage>();
+            this.memo.stages.push(stage);
+
             this.memoService.save(this.memo).subscribe((response: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Created Memo'));
 
-                this.router.navigate(['home/memo/underReview']);
+                this.router.navigate(['home/memo/review']);
 
             }, error => {
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Create Memo'));
             });
         } else {
+
+            if ((this.memo.stages) && this.memo.stages.length === 1) {
+                const stage = this.memo.stages[0];
+                stage.stage = 'FORWARD';
+            }
+
             this.memoService.update(this.memo.id, this.memo).subscribe((response: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Memo'));
-                this.router.navigate(['home/memo/underReview']);
+                this.router.navigate([MemoFullRoute.DRAFT]);
             }, error => {
                 console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Memo'));
@@ -132,6 +152,7 @@ export class MemoComposeComponent implements OnInit {
     get memoType() {
         return this.memoComposeForm.get('memoType');
     }
+
     get sentBy() {
         return this.memoComposeForm.get('sentBy');
     }

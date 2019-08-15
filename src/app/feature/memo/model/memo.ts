@@ -1,5 +1,6 @@
 import {MemoType} from './memoType';
 import {User} from '../../admin/modal/user';
+import {MemoStage} from './MemoStage';
 
 export class Memo {
     id: number;
@@ -13,9 +14,9 @@ export class Memo {
     status: string;
     // stage: Stage
     stage: any;
+    stages: Array<MemoStage>;
     type: MemoType;
     // stages: Set<MemoStage>;
-    stages: any;
     createdAt: string;
     lastModifiedAt: string;
     version: number;
