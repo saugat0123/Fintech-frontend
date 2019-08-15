@@ -2,7 +2,7 @@
     <nb-card-header>
         <h3>{{memoTask}} Memo</h3>
     </nb-card-header>
-    <form (ngSubmit)="onSubmit()" [formGroup]="memoComposeForm">
+    <form (ngSubmit)="send()" [formGroup]="memoComposeForm">
         <nb-card-body>
             <div class="col-md-12">
                 <div class="form-group">
@@ -89,9 +89,11 @@
                                   placeholder="Insert memo content..." [ngClass]="{
                                'is-invalid': content.invalid && (content.dirty || content.touched),
                                 'is-valid': !content.invalid && (content.dirty || content.touched)
-                                }"></quill-editor>
+                                }"
+                                  [style]="{height: '200px'}"
+                    ></quill-editor>
                 </div>
-                <div class="form-group">
+                <!--<div class="form-group">
                     <nb-card>
                         <nb-card-header>
                             Attachments <small>Max. 32MB</small>
@@ -100,21 +102,21 @@
                             <input type="file" multiple="multiple" class="form-control-file">
                         </nb-card-body>
                     </nb-card>
-                </div>
+                </div>-->
             </div>
 
         </nb-card-body>
         <nb-card-footer>
             <div class="col-md-12">
-                <div class="float-left">
+                <!--<div class="float-left">
                     <button nbButton status="warning" size="small" type="reset"><i class="fa fa-times"></i>
                         Discard
                     </button>
-                </div>
+                </div>-->
 
                 <div class="float-right">
                     <button nbButton status="primary" size="small" type="button">
-                        <i class="fa fa-pencil"></i> Draft
+                        <i class="fa fa-pencil"></i>Save as Draft
                     </button>
                     <span class="m-1"></span>
                     <button nbButton status="success" size="small" type="submit" [disabled]="!memoComposeForm.valid">

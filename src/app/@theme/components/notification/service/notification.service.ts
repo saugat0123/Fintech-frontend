@@ -43,7 +43,6 @@ export class NotificationService extends BaseService<Message> {
         this.getPaginationWithSearchObject(notificationSearchObject, 1, 5).subscribe((response: any) => {
             const mes: Array<Message> = response.detail.content;
             this.setNotificationCount(response.detail.totalElements);
-            console.log(response);
             this.setNotificationMessage(mes);
         }, error => {
             console.error(error);

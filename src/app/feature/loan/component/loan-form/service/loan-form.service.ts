@@ -47,22 +47,33 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.get(req.url, {headers: req.header});
     }
 
-    public getLoansByRegistrationNumber(registrationNumber: string) {
-        const api = `${this.getApi()}/searchByRegistrationNumber/${registrationNumber}`;
-        const req = ApiUtils.getRequest(api);
-        return this.http.get(req.url, {headers: req.header});
-    }
-
     public getCatalogues(searchObj: any, page: number = 1, size: number = 10): Observable<any> {
         const api = `${this.getApi()}/catalogue?page=${page}&size=${size}`;
         const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, searchObj, {headers: req.header});
+    }
+
+    public renewLoan(searchObj: any) {
+        const api = `${this.getApi()}/close-renew-customer-loan`;
+        const req = ApiUtils.getRequest(api);
 
         return this.http.post(req.url, searchObj, {headers: req.header});
+
     }
 
     public getLoanStatusApi(loanNo: string): Observable<any> {
         const api = `${this.getApi()}/check-user-customer-loan/${loanNo}`;
         const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
+    public postLoanAction(object): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${LoanFormService.API}/action`);
+        return this.http.post(req.url, object, {headers: req.header});
+    }
+
+    public deleteLoanCustomer(id): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${LoanFormService.API}/${id}/delete`);
         return this.http.get(req.url, {headers: req.header});
     }
 

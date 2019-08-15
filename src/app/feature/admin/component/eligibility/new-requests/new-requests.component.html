@@ -10,6 +10,45 @@
     <nb-card>
       <nb-card-header>
 
+        <div class="col-md-6">
+          <button data-toggle="collapse" data-target="#searchModel"
+                  nbButton outline status="primary">
+            <i class="fa fa-filter"> Filter</i>
+          </button>
+        </div>
+        <div id="searchModel" class="collapse col-md-12">
+          <form (ngSubmit)="filterSearch()" [formGroup]="filterForm">
+            <div class="row py-3">
+              <div class="col-md-3">
+                <select class="custom-select" formControlName="branch">
+                  <option [value]="null" selected hidden>Select Branch</option>
+                  <option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-md-3">
+                <select class="custom-select" formControlName="loanType">
+                  <option [value]="null" hidden selected>Select Loan Type</option>
+                  <option *ngFor="let loanType of loanTypeList"
+                          [value]="loanType.id">{{loanType.name}}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-md-12 mt-3">
+                <button (click)="clearSearch()" data-toggle="collapse" data-target="#searchModel"
+                        class="btn btn-sm btn-flat btn-outline-danger mr-1">Clear Search
+                </button>
+                <button [disabled]="!filterForm.valid" class="btn btn-primary btn-sm btn-flat pull-right mr-1"
+                        type="submit">
+                  Advance Search
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
       </nb-card-header>
       <nb-card-body>
           <table id="add-branch-table" class="table table-striped table-bordered table-hover ">
@@ -33,8 +72,8 @@
               <div *ngIf="applicantList?.length == 0">
                 <p>No Content Found</p>
               </div>
-              <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-              <td>{{allList.fullName}}
+              <td (click)="onApplicantClick(allList.id)">{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+              <td (click)="onApplicantClick(allList.id)">{{allList.fullName}}
                 <div class="collapse" id="ans{{i}}">
                   <div class="card-body">
                     <table class="table table-striped table-bordered table-hover">
@@ -80,13 +119,13 @@
                   </div>
                 </div>
               </td>
-              <td>{{allList.age}}</td>
-              <td>{{allList.branch?.name}}</td>
-              <td>{{allList.loanConfig?.name}}</td>
-              <td>{{allList.phoneNumber}}</td>
-              <td>{{allList.requestAmount}}</td>
-              <td>{{allList.eligibleAmount}}</td>
-              <td>{{allList.eligibilityStatus}}</td>
+              <td (click)="onApplicantClick(allList.id)">{{allList.age}}</td>
+              <td (click)="onApplicantClick(allList.id)">{{allList.branch?.name}}</td>
+              <td (click)="onApplicantClick(allList.id)">{{allList.loanConfig?.name}}</td>
+              <td (click)="onApplicantClick(allList.id)">{{allList.phoneNumber}}</td>
+              <td (click)="onApplicantClick(allList.id)">{{allList.requestAmount}}</td>
+              <td (click)="onApplicantClick(allList.id)">{{allList.eligibleAmount}}</td>
+              <td (click)="onApplicantClick(allList.id)">{{allList.eligibilityStatus}}</td>
               <td>
                 <button [attr.data-target]="'#doc'+i" class="btn btn-primary btn-sm" data-toggle="collapse">View</button>
               </td>

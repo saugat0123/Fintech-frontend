@@ -2,6 +2,7 @@
 @import '~@nebular/theme/styles/theming';
 // @nebular out of the box themes
 @import '~@nebular/theme/styles/themes';
+@import '~src/styles';
 
 // which themes you what to enable (empty to enable all)
 $nb-enabled-themes: (default, cosmic, corporate);
@@ -56,13 +57,24 @@ $nb-themes: nb-register-theme((
         menu-icon-margin: 0.75rem,
         menu-submenu-item-padding: 0 0.5rem,
         header-bg: #ffffff,
-        stepper-accent-color: #c35d58
+        stepper-accent-color: #c35d58,
+        card-header-primary-bg: $color-bank
 
 ), corporate, corporate);
 
 
 @media print {
   @page  {
-    margin: 0;
+    margin: 0 30px;
+    width: 100%;
+  }
+
+  body{
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 14px;
+  }
+
+  .disable-print {
+    display: none;
   }
 }

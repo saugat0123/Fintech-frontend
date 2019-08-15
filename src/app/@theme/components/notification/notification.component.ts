@@ -40,8 +40,7 @@ export class NotificationComponent implements OnInit {
     this.notificationService.notificationMessage.subscribe(value => this.notifications = value);
   }
 
-  summaryClick(message: Message
-  ) {
+  summaryClick(message: Message) {
     message.status = Status.INACTIVE;
     this.notificationService.save(message).subscribe((updateNotification: any) => {
       this.notificationService.fetchNotifications();

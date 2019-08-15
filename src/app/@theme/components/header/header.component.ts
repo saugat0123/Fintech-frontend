@@ -10,8 +10,7 @@ import {SearchResultComponent} from './header-form/searchResult.component';
 import {ProfileComponent} from '../profile/profile.component';
 import {SocketService} from '../../../@core/service/socket.service';
 import {NotificationService} from '../notification/service/notification.service';
-import {Message} from '../notification/model/message';
-import {Status} from '../../../@core/Status';
+import {ChangePasswordComponent} from '../change-password/change-password.component';
 
 @Component({
     selector: 'app-header',
@@ -22,6 +21,7 @@ export class HeaderComponent implements OnInit {
 
     static LOGOUT = 'Log out';
     static PROFILE = 'Profile';
+    static CHANGE_PASSWORD = 'Change Password';
     contextMenuTag = 'user-context-menu';
 
     @Input() position = 'normal';
@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
     userProfilePicture;
     roleName;
 
-    userMenu = [{title: HeaderComponent.PROFILE}, {title: HeaderComponent.LOGOUT}];
+    userMenu = [{title: HeaderComponent.PROFILE}, {title: HeaderComponent.CHANGE_PASSWORD}, {title: HeaderComponent.LOGOUT}, ];
 
     notificationCount;
 
@@ -90,6 +90,13 @@ export class HeaderComponent implements OnInit {
         ).subscribe(() => {
             this.open();
         });
+        this.menuService.onItemClick().pipe(
+            filter(({tag}) => tag === this.contextMenuTag),
+            map(({item: {title}}) => title),
+            filter((title) => title === HeaderComponent.CHANGE_PASSWORD)
+        ).subscribe(() => {
+            this.changePasswordDialog();
+        });
 
         this.menuService.onItemClick().pipe();
         this.setupNotification();
@@ -116,7 +123,12 @@ export class HeaderComponent implements OnInit {
     }
 
     open() {
-        this.modalService.open(ProfileComponent, {size: 'lg'});
+        this.modalService.dismissAll();
+        this.modalService.open(ProfileComponent, {size: 'lg', backdrop: 'static'});
+    }
+    changePasswordDialog() {
+        this.modalService.dismissAll();
+        this.modalService.open(ChangePasswordComponent, {size: 'lg', backdrop: 'static'});
     }
 
     setupNotification(): void {

@@ -9,14 +9,16 @@ import {Proposal} from '../../admin/modal/proposal';
 import {Branch} from '../../admin/modal/branch';
 import {Cicl} from '../../admin/modal/cicl';
 import {Insurance} from '../../admin/modal/insurance';
+import {LoanType} from './loanType';
+import {newId} from '@ng-select/ng-select/ng-select/id';
 
 export class LoanDataHolder {
     id: number;
     branch: Branch;
     loanCategory: any;
-    customerInfo: Customer;
-    entityInfo: EntityInfo;
-    dmsLoanFile: DmsLoanFile;
+    customerInfo: Customer = new Customer();
+    entityInfo: EntityInfo = new EntityInfo();
+    dmsLoanFile: DmsLoanFile = new DmsLoanFile();
     proposal: Proposal;
     loan: LoanConfig;
     ciclList: Array<Cicl>;
@@ -28,5 +30,9 @@ export class LoanDataHolder {
     previousList: LoanStage[] = [];
     distinctPreviousList: any;
     currentStage: LoanStage = new LoanStage();
+    loanType: LoanType;
     createdBy: number;
+    parentId: number;
+    childId: number;
+    isCloseRenew: boolean;
 }
