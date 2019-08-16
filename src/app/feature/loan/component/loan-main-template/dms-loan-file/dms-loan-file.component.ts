@@ -208,6 +208,8 @@ export class DmsLoanFileComponent implements OnInit {
                 this.loanDataHolder.dmsLoanFile.fmvTotal, Validators.min(0)],
             dvTotal: [this.loanDataHolder.dmsLoanFile.distressValue === undefined ? '' :
                 this.loanDataHolder.dmsLoanFile.distressValue, Validators.min(0)],
+            fmvFundingPercent: [this.loanDataHolder.dmsLoanFile.fmvFundingPercent === undefined ? '' :
+                this.loanDataHolder.dmsLoanFile.fmvFundingPercent, Validators.min(0)],
             totalLoanLimit: [this.loanDataHolder.dmsLoanFile.totalLoanLimit === undefined ? '' :
                 this.loanDataHolder.dmsLoanFile.totalLoanLimit,
                 [Validators.required, Validators.min(0)]],
@@ -220,8 +222,10 @@ export class DmsLoanFileComponent implements OnInit {
             groupExpo:
                 [this.loanDataHolder.dmsLoanFile.groupExpo === undefined ? '' :
                     this.loanDataHolder.dmsLoanFile.groupExpo],
-            fmvFundingPercent: [this.loanDataHolder.dmsLoanFile.fmvFundingPercent === undefined ? '' :
-                this.loanDataHolder.dmsLoanFile.fmvFundingPercent, Validators.min(0)],
+            incomeCoverageRatio: [this.loanDataHolder.dmsLoanFile.incomeCoverageRatio === undefined ? '' :
+                this.loanDataHolder.dmsLoanFile.incomeCoverageRatio, Validators.min(0)],
+            debtServiceCoverageRatio: [this.loanDataHolder.dmsLoanFile.debtServiceCoverageRatio === undefined ? '' :
+                this.loanDataHolder.dmsLoanFile.debtServiceCoverageRatio, Validators.min(0)],
             file: ['']
         });
         this.customerFormField = {
@@ -274,6 +278,8 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanDataHolder.dmsLoanFile.institutionExposure = this.loanForm.get('institutionExposure').value;
         this.loanDataHolder.dmsLoanFile.groupExpo = this.loanForm.get('groupExpo').value;
         this.loanDataHolder.dmsLoanFile.totalLoanLimit = this.loanForm.get('totalLoanLimit').value;
+        this.loanDataHolder.dmsLoanFile.incomeCoverageRatio = this.loanForm.get('incomeCoverageRatio').value;
+        this.loanDataHolder.dmsLoanFile.debtServiceCoverageRatio = this.loanForm.get('debtServiceCoverageRatio').value;
         console.log(this.loanDataHolder);
     }
 
