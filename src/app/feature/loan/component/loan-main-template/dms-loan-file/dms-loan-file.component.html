@@ -358,7 +358,20 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <!-- distressValue -->
+                                <div class="form-group">
+                                    <label for="dvTotal"><b>Total Distress Value</b></label>
+                                    <input [ngClass]="{ 'is-invalid':submitted && form.dvTotal.errors}"
+                                           class="form-control rounded" formControlName="dvTotal"
+                                           id="dvTotal"
+                                           min="0"
+                                           placeholder="Enter Total DV"
+                                           type="number"/>
+                                    <div *ngIf="submitted && form.dvTotal.errors" class="invalid-feedback">
+                                        <div *ngIf="form.dvTotal.errors.min">
+                                            Total DV can not be negative value.
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">

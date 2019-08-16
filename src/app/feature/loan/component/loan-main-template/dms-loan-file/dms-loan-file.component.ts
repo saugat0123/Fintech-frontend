@@ -206,6 +206,8 @@ export class DmsLoanFileComponent implements OnInit {
                 this.loanDataHolder.dmsLoanFile.waiver, Validators.required],
             fmvTotal: [this.loanDataHolder.dmsLoanFile.fmvTotal === undefined ? '' :
                 this.loanDataHolder.dmsLoanFile.fmvTotal, Validators.min(0)],
+            dvTotal: [this.loanDataHolder.dmsLoanFile.distressValue === undefined ? '' :
+                this.loanDataHolder.dmsLoanFile.distressValue, Validators.min(0)],
             totalLoanLimit: [this.loanDataHolder.dmsLoanFile.totalLoanLimit === undefined ? '' :
                 this.loanDataHolder.dmsLoanFile.totalLoanLimit,
                 [Validators.required, Validators.min(0)]],
@@ -258,6 +260,7 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanDataHolder.dmsLoanFile.waiver = this.loanForm.get('waiver').value;
         this.loanDataHolder.dmsLoanFile.recommendationConclusion = this.loanForm.get('recommendation').value;
         this.loanDataHolder.dmsLoanFile.fmvTotal = this.loanForm.get('fmvTotal').value;
+        this.loanDataHolder.dmsLoanFile.distressValue = this.loanForm.get('dvTotal').value;
         this.loanDataHolder.dmsLoanFile.fmvFundingPercent = this.loanForm.get('fmvFundingPercent').value;
         this.loanDataHolder.dmsLoanFile.groupExpo = this.loanForm.get('groupExpo').value;
         this.loanDataHolder.dmsLoanFile.totalLoanLimit = this.loanForm.get('totalLoanLimit').value;
