@@ -8,18 +8,14 @@
                 <div class="row" *ngIf="branchVsUserPieChart && roleVsUsersPieChart">
                     <div class="col-md-6">
                         <div id="pie" class="col-md-12">
-                            <app-pie-chart
-                            [data]="branchVsUserPieChart"
-                            [dataLength]="branchVsUserPieChart.length"
-                            [legendTitle]="'Branch'"></app-pie-chart>
+                            <app-pie-chart [data]="branchVsUserPieChart" [dataLength]="branchVsUserPieChart.length"
+                                [legendTitle]="'Branch'"></app-pie-chart>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div id="pie" class="col-md-12">
-                            <app-pie-chart
-                            [data]="roleVsUsersPieChart"
-                            [dataLength]="roleVsUsersPieChart.length"
-                            [legendTitle]="'Role'"></app-pie-chart>
+                            <app-pie-chart [data]="roleVsUsersPieChart" [dataLength]="roleVsUsersPieChart.length"
+                                [legendTitle]="'Role'"></app-pie-chart>
                         </div>
                     </div>
                 </div>
@@ -30,30 +26,49 @@
                 <h2>Loan By Category For {{selectedBranch}}</h2>
             </nb-card-header>
             <nb-card-body>
-                <div class="row">
-                    <div class="col-md-12 ">
-                        <div *ngIf="accessSpecific || accessAll" class="col-md-3 mb-5 offset-sm-9">
-                            <select (change)="onChange($event)" class="custom-select">
-                                <option [value]="null" selected hidden>Select Branch</option>
-                                <option selected>All Branches</option>
+                <form [formGroup]="filterForm">
+                    <div class="row sb-row-custom">
+                        <div *ngIf="accessSpecific || accessAll" class="col-md-3">
+                            <select formControlName="branch" class="custom-select">
+                                <option selected [value]="0">All Branches</option>
                                 <option *ngFor="let branch of branches" [value]="branch.id">{{branch.name}}
                                 </option>
                             </select>
                         </div>
+                        <div class="col-md-2">
+                            <input [nbDatepicker]="startDatePicker" nbInput placeholder="Start Date"
+                                formControlName="startDate">
+                            <nb-datepicker #startDatePicker></nb-datepicker>
+                        </div>
+                        <div class="col-md-2">
+                            <input [nbDatepicker]="endDatePicker" nbInput placeholder="End Date"
+                                formControlName="endDate">
+                            <nb-datepicker #endDatePicker></nb-datepicker>
+                        </div>
+                        <div class="col-md-4 sb-filter-button-container">
+                            <button nbButton shape="rectangle" status="none" (click)="filter()">Apply Filter</button>
+                            <button nbButton shape="rectangle" status="none" (click)="reset()">Reset Filter</button>
+                        </div>
                     </div>
-                </div>
+                </form>
                 <div class="row">
                     <div class="col-md-12">
-                        <div id="pie">
+                        <div *ngIf="!pieChart || pieChart.length <= 0" class="sb-no-data-info">
+                                <nb-alert status="info">No data available for pie chart.</nb-alert>
+                        </div>
+                        <div id="pie" *ngIf="pieChart && pieChart.length > 0">
                             <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorScheme" [results]="pieChart">
                             </ngx-charts-advanced-pie-chart>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <div id="pie">
-                            <app-bar-chart branchId="{{branchId}}"></app-bar-chart>
+                    <div class="col-md-12 sb-bar-chart-container">
+                            <div *ngIf="!barChartData || barChartData.length <= 0" class="sb-no-data-info">
+                                    <nb-alert status="info">No data available for bar chart.</nb-alert>
+                            </div>
+                        <div id="pie" *ngIf="barChartData && barChartData.length > 0">
+                            <app-bar-chart [data]="barChartData" [width]="workingWidth"></app-bar-chart>
                         </div>
                     </div>
                 </div>
