@@ -15,7 +15,6 @@ export class NotificationService extends BaseService<Message> {
     }
 
     static API = 'v1/notification';
-
     private notificationCountSource = new BehaviorSubject<any>(0);
     notificationCount = this.notificationCountSource.asObservable();
 
@@ -37,6 +36,7 @@ export class NotificationService extends BaseService<Message> {
     fetchNotifications(): void {
         const notificationSearchObject = {
             toId: localStorage.getItem('userId'),
+            toRole: localStorage.getItem('roleId'),
             status: Status.ACTIVE
         };
         this.getPaginationWithSearchObject(notificationSearchObject, 1, 5).subscribe((response: any) => {
