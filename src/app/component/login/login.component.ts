@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                         localStorage.setItem('roleAccess', user.role.roleAccess);
                         localStorage.setItem('roleName', user.role.roleName);
                         localStorage.setItem('roleType', user.role.roleType);
-
+                        localStorage.setItem('roleId', (user.role.id).toString());
                         this.router.navigate(['/home/dashboard']);
                     });
                 },
