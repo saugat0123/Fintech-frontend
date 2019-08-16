@@ -1,4 +1,4 @@
-import {Component, DoCheck, OnInit, TemplateRef} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {Memo} from '../../model/memo';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MemoService} from '../../service/memo.service';
@@ -11,15 +11,21 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ToastService} from '../../../../@core/utils';
 import {MemoBaseComponent} from '../memo-base/memo-base.component';
 import {UserService} from '../../../admin/component/user/user.service';
+import {ForwardActionComponent} from '../actions/forward-action.component';
+import {ApproveActionComponent} from '../actions/approve-action.component';
+import {RejectActionComponent} from '../actions/reject-action.component';
+import {MemoFullRoute} from '../../memo-full-routes';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-memo-read',
-    templateUrl: './memo-read.component.html',
-    styleUrls: ['./memo-read.component.css']
+    templateUrl: './read.component.html',
+    styleUrls: ['./read.component.scss']
 })
-export class MemoReadComponent implements OnInit, DoCheck {
+export class ReadComponent implements OnInit, DoCheck {
 
     static TITLE = `${MemoBaseComponent.TITLE} - Read`;
+    vendor: String;
     memo: Memo;
     modalRef: NgbModalRef;
     currentUrl: string;
@@ -40,13 +46,15 @@ export class MemoReadComponent implements OnInit, DoCheck {
         private formBuilder: FormBuilder,
         private toastService: ToastService
     ) {
+        this.vendor = environment.client;
     }
 
     ngOnInit() {
-        this.breadcrumbService.notify(MemoReadComponent.TITLE);
+        this.breadcrumbService.notify(ReadComponent.TITLE);
         const memoId = +this.activatedRoute.snapshot.paramMap.get('id');
         this.memoService.detail(memoId).subscribe((response: any) => {
             this.memo = response.detail;
+            console.log(this.memo);
         });
 
         this.roles$ = ['CEO', 'BDO', 'PDO'];
@@ -81,7 +89,7 @@ export class MemoReadComponent implements OnInit, DoCheck {
     }
 
     editMemo(id: number) {
-        this.router.navigate([`home/memo/compose/${id}`]);
+        this.router.navigate([`${MemoFullRoute.COMPOSE}/${id}`]);
     }
 
     deleteMemo() {
@@ -97,31 +105,55 @@ export class MemoReadComponent implements OnInit, DoCheck {
     }
 
     reloadPage() {
-        this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(e => {
-            if (e) {
-                this.router.navigate([this.currentUrl]);
-                this.modalRef.dismiss();
-            }
-        });
+        this.router.navigate([MemoFullRoute.REVIEW]);
     }
 
+    backward() {
+        const modalRef = this.modalService.open(RejectActionComponent);
+        modalRef.componentInstance.memo = this.memo;
+        modalRef.componentInstance.users$ = this.users$;
+        modalRef.componentInstance.roles$ = this.roles$;
 
-    showDeleteMemo(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.open(template);
+        modalRef.result.then(() => {
+                console.log('success');
+
+                this.reloadPage();
+            },
+            () => {
+                console.log('failure');
+            });
     }
 
-    showForwardMemo(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.open(template);
+    forward() {
+        const modalRef = this.modalService.open(ForwardActionComponent);
+        modalRef.componentInstance.memo = this.memo;
+        modalRef.componentInstance.users$ = this.users$;
+        modalRef.componentInstance.roles$ = this.roles$;
+
+        modalRef.result.then(() => {
+                console.log('success');
+
+                this.reloadPage();
+            },
+            () => {
+                console.log('failure');
+            });
     }
 
-    showBackwardMemo(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.open(template);
-    }
+    approve() {
+        const modalRef = this.modalService.open(ApproveActionComponent);
+        modalRef.componentInstance.memo = this.memo;
+        modalRef.componentInstance.users$ = this.users$;
+        modalRef.componentInstance.roles$ = this.roles$;
 
-    backwardMemo() {
-    }
+        modalRef.result.then(() => {
+                console.log('success');
 
-    forwardMemo() {
+                this.reloadPage();
+            },
+            () => {
+                console.log('failure');
+            });
     }
 
 }

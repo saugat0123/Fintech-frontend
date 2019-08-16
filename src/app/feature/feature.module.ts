@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {NbAccordionModule, NbSelectModule} from '@nebular/theme';
+import {NbAccordionModule, NbSelectModule, NbDatepickerModule} from '@nebular/theme';
 import {ThemeModule} from '../@theme/theme.module';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 
@@ -19,6 +19,7 @@ import {DataVisualizationComponent} from '../component/dashboard/data-visualizat
             NbAccordionModule,
             NgxChartsModule,
             NbSelectModule,
+            NbDatepickerModule.forRoot(),
             ChartModule
         ],
         declarations: [
