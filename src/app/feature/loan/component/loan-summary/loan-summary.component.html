@@ -99,7 +99,7 @@
                         <tbody>
                         <tr>
                             <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
-                            <td>{{loanDataHolder?.customerInfo?.dob}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
                             <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
                             <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
                             <td>{{occupation[loanDataHolder?.customerInfo?.occupation]}}</td>
@@ -116,7 +116,7 @@
                             </td>
                             <td>
                                 <b>Date of Birth: </b>
-                                {{loanDataHolder?.customerInfo?.dob}}
+                                {{loanDataHolder?.customerInfo?.dob | date}}
                             </td>
                             <td>
                                 <b>Citizenship Number: </b>
@@ -156,7 +156,7 @@
                         <tbody>
                         <tr>
                             <td>{{loanDataHolder?.entityInfo?.companyName}}</td>
-                            <td>{{loanDataHolder?.entityInfo?.establishmentDate}}</td>
+                            <td>{{loanDataHolder?.entityInfo?.establishmentDate | date}}</td>
                             <td>{{loanDataHolder?.entityInfo?.registrationNumber}}</td>
                             <td>{{businessType[loanDataHolder?.entityInfo?.businessType]}}</td>
                         </tr>
