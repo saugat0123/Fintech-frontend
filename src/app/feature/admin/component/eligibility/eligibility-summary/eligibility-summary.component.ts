@@ -22,6 +22,7 @@ export class EligibilitySummaryComponent implements OnInit {
     applicant: Applicant = new Applicant();
     currentNepDate: string;
     currentDate = new Date();
+    showApproveAndRejectButton = true;
     loading = false;
 
     constructor(
@@ -51,6 +52,9 @@ export class EligibilitySummaryComponent implements OnInit {
 
         this.requestService.detail(this.applicantId).subscribe((response: any) => {
             this.applicant = response.detail;
+            if (this.applicant.eligibilityStatus === Status.APPROVED || Status.REJECTED) {
+                this.showApproveAndRejectButton = false;
+            }
             this.loading = false;
         });
 
@@ -69,10 +73,6 @@ export class EligibilitySummaryComponent implements OnInit {
         } else {
             this.applicant.eligibilityStatus = Status.REJECTED;
         }
-        console.log(this.applicant);
-        // const modalRef = this.modalService.open(UpdateModalComponent, {size: 'lg'});
-        // modalRef.componentInstance.data = this.applicant;
-        // modalRef.componentInstance.service = this.applicantService;
         this.applicantService.update(this.applicant).subscribe( () => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated Eligibility Status !'));
             this.router.navigate(['/home/admin/eligibility/new-requests']);
