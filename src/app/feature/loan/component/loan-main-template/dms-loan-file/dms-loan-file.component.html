@@ -517,6 +517,38 @@
                                 </div>
                             </div>
                         </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="keyPersonName"><b>Key Person Name</b></label>
+                            <input
+                                [ngClass]="{ 'is-invalid':submitted && form.keyPersonName.errors}"
+                                class="form-control rounded"
+                                formControlName="keyPersonName"
+                                id="keyPersonName" placeholder="Enter key person name"
+                                type="text"/>
+                            <div *ngIf="submitted && form.keyPersonName.errors"
+                                 class="invalid-feedback">
+                              <div *ngIf="form.keyPersonName.errors.required">Key Person Name is required</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="dealingProductName"><b>Dealing Product Name</b></label>
+                            <input
+                                [ngClass]="{ 'is-invalid':submitted && form.dealingProductName.errors}"
+                                class="form-control rounded"
+                                formControlName="dealingProductName"
+                                id="dealingProductName" placeholder="Enter dealing product name"
+                                type="text"/>
+                            <div *ngIf="submitted && form.dealingProductName.errors"
+                                 class="invalid-feedback">
+                              <div *ngIf="form.dealingProductName.errors.required">Dealing Product Name is required</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                         <!-- Loan Information Ends -->
                     </div>
                     <div *ngIf="initialDocuments.length > 0" class="row">

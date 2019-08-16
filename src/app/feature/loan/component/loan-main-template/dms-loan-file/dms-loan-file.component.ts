@@ -226,6 +226,12 @@ export class DmsLoanFileComponent implements OnInit {
                 this.loanDataHolder.dmsLoanFile.incomeCoverageRatio, Validators.min(0)],
             debtServiceCoverageRatio: [this.loanDataHolder.dmsLoanFile.debtServiceCoverageRatio === undefined ? '' :
                 this.loanDataHolder.dmsLoanFile.debtServiceCoverageRatio, Validators.min(0)],
+            keyPersonName:
+                [(this.loanDataHolder.dmsLoanFile.keyPersonName === undefined) ? '' :
+                    this.loanDataHolder.dmsLoanFile.keyPersonName],
+            dealingProductName:
+                  [(this.loanDataHolder.dmsLoanFile.dealingProductName === undefined) ? '' :
+                      this.loanDataHolder.dmsLoanFile.dealingProductName],
             file: ['']
         });
         this.customerFormField = {
@@ -280,6 +286,8 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanDataHolder.dmsLoanFile.totalLoanLimit = this.loanForm.get('totalLoanLimit').value;
         this.loanDataHolder.dmsLoanFile.incomeCoverageRatio = this.loanForm.get('incomeCoverageRatio').value;
         this.loanDataHolder.dmsLoanFile.debtServiceCoverageRatio = this.loanForm.get('debtServiceCoverageRatio').value;
+        this.loanDataHolder.dmsLoanFile.keyPersonName = this.loanForm.get('keyPersonName').value;
+        this.loanDataHolder.dmsLoanFile.dealingProductName = this.loanForm.get('dealingProductName').value;
         console.log(this.loanDataHolder);
     }
 
