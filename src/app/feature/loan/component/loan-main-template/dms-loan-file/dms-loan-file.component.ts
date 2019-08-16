@@ -211,7 +211,15 @@ export class DmsLoanFileComponent implements OnInit {
             totalLoanLimit: [this.loanDataHolder.dmsLoanFile.totalLoanLimit === undefined ? '' :
                 this.loanDataHolder.dmsLoanFile.totalLoanLimit,
                 [Validators.required, Validators.min(0)]],
-            groupExpo: [this.loanDataHolder.dmsLoanFile.groupExpo === undefined ? '' : this.loanDataHolder.dmsLoanFile.groupExpo],
+            individualExposure:
+                [this.loanDataHolder.dmsLoanFile.individualExposure === undefined ? '' :
+                    this.loanDataHolder.dmsLoanFile.individualExposure],
+            institutionExposure:
+                [this.loanDataHolder.dmsLoanFile.institutionExposure === undefined ? '' :
+                    this.loanDataHolder.dmsLoanFile.institutionExposure],
+            groupExpo:
+                [this.loanDataHolder.dmsLoanFile.groupExpo === undefined ? '' :
+                    this.loanDataHolder.dmsLoanFile.groupExpo],
             fmvFundingPercent: [this.loanDataHolder.dmsLoanFile.fmvFundingPercent === undefined ? '' :
                 this.loanDataHolder.dmsLoanFile.fmvFundingPercent, Validators.min(0)],
             file: ['']
@@ -262,6 +270,8 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanDataHolder.dmsLoanFile.fmvTotal = this.loanForm.get('fmvTotal').value;
         this.loanDataHolder.dmsLoanFile.distressValue = this.loanForm.get('dvTotal').value;
         this.loanDataHolder.dmsLoanFile.fmvFundingPercent = this.loanForm.get('fmvFundingPercent').value;
+        this.loanDataHolder.dmsLoanFile.individualExposure = this.loanForm.get('individualExposure').value;
+        this.loanDataHolder.dmsLoanFile.institutionExposure = this.loanForm.get('institutionExposure').value;
         this.loanDataHolder.dmsLoanFile.groupExpo = this.loanForm.get('groupExpo').value;
         this.loanDataHolder.dmsLoanFile.totalLoanLimit = this.loanForm.get('totalLoanLimit').value;
         console.log(this.loanDataHolder);

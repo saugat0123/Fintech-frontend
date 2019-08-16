@@ -376,10 +376,34 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                <!-- individualExposure -->
+                              <div class="form-group">
+                                <label for="individualExposure"><b>Individual Exposure</b></label>
+                                <input [ngClass]="{ 'is-invalid':submitted && form.individualExposure.errors}"
+                                       class="form-control rounded" formControlName="individualExposure"
+                                       id="individualExposure"
+                                       placeholder="Enter Individual Exposure"
+                                       type="text"/>
+                                <div *ngIf="submitted && form.individualExposure.errors" class="invalid-feedback">
+                                  <div *ngIf="form.individualExposure.errors.required">
+                                    Individual Exposure is required
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                             <div class="col-md-4">
-                                <!-- institutionExposure -->
+                              <div class="form-group">
+                                <label for="institutionExposure"><b>Institution Exposure</b></label>
+                                <input [ngClass]="{ 'is-invalid':submitted && form.institutionExposure.errors}"
+                                       class="form-control rounded" formControlName="institutionExposure"
+                                       id="institutionExposure"
+                                       placeholder="Enter Institution Exposure"
+                                       type="text"/>
+                                <div *ngIf="submitted && form.institutionExposure.errors" class="invalid-feedback">
+                                  <div *ngIf="form.institutionExposure.errors.required">
+                                    Institution Exposure is required
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
