@@ -9,6 +9,7 @@ import {Status} from '../../../modal/eligibility';
 import {SubmissionDocument} from '../../../modal/submission-document';
 import {EligibilityDocumentViewComponent} from '../eligibility-document-view/eligibility-document-view.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-non-eligible-requests',
@@ -26,7 +27,9 @@ export class NonEligibleRequestsComponent implements OnInit {
 
   constructor(private newRequestService: NewRequestService,
               private toastService: ToastService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private router: Router) {
+  }
 
   static loadData(other: NonEligibleRequestsComponent) {
 
@@ -61,5 +64,10 @@ export class NonEligibleRequestsComponent implements OnInit {
     const modalRef = this.modalService.open(EligibilityDocumentViewComponent, {size: 'lg'});
     modalRef.componentInstance.model = document;
     ModalUtils.resolve(modalRef.result, NonEligibleRequestsComponent.loadData, this);
+  }
+
+  onApplicantClick(applicantId) {
+    this.spinner = true;
+    this.router.navigate(['/home/admin/eligibility/eligibility-summary'], {queryParams: {applicantId: applicantId}});
   }
 }
