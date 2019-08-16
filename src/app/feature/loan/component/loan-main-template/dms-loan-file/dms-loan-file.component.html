@@ -125,7 +125,7 @@
 
                         <div *ngIf="!personal" class="row">
                             <div class="col-md-4" *ngIf="companyFormField.showFormField">
-                                <div class="form-group" *ngIf="companyFormField.showFormField">
+                                <div class="form-group">
                                     <label for="companyName"><b>Company Name</b></label>
                                     <input [ngClass]="{ 'is-invalid':submitted && form.companyName.errors && !personal}"
                                            class="form-control rounded"
@@ -135,6 +135,22 @@
                                     <div *ngIf="submitted && form.companyName.errors && !personal"
                                          class="invalid-feedback">
                                         <div *ngIf="form.companyName.errors.required">Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" *ngIf="companyFormField.showFormField">
+                                <div class="form-group">
+                                    <label for="companyEstablishmentDate"><b>Establishment Date</b></label>
+                                    <input [nbDatepicker]="establishmentPicker"
+                                           [ngClass]="{ 'is-invalid':submitted && form.companyEstablishmentDate.errors}"
+                                           class="form-control rounded"
+                                           formControlName="companyEstablishmentDate"
+                                           id="companyEstablishmentDate" placeholder="Enter Establishment Date"
+                                           type="text"/>
+                                    <nb-datepicker #establishmentPicker></nb-datepicker>
+                                    <div *ngIf="submitted && form.companyEstablishmentDate.errors"
+                                         class="invalid-feedback">
+                                        <div *ngIf="form.companyEstablishmentDate.errors.required">Establishment Date is required</div>
                                     </div>
                                 </div>
                             </div>
@@ -159,6 +175,25 @@
                                                 registration number is required.
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" *ngIf="companyFormField.showFormField">
+                                <div class="form-group">
+                                    <label for="businessType"><b>Business Type</b></label>
+                                    <ng-select [items]="businessTypes"
+                                               [multiple]="false"
+                                               [ngClass]="{'is-invalid':submitted &&  form.businessType.errors}"
+                                               bindLabel="value"
+                                               bindValue="key"
+                                               class="form-control"
+                                               formControlName="businessType"
+                                               id="businessType"
+                                               placeholder="Select Business Type">
+                                    </ng-select>
+                                    <div *ngIf="submitted && form.businessType.errors && !personal"
+                                         class="invalid-feedback">
+                                        <div *ngIf="form.businessType.errors.required">Business Type is required</div>
                                     </div>
                                 </div>
                             </div>

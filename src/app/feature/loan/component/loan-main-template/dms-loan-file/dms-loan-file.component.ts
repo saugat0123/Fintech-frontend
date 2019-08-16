@@ -19,6 +19,7 @@ import {CustomerService} from '../../../../admin/service/customer.service';
 import {Customer} from '../../../../admin/modal/customer';
 import {EntityInfo} from '../../../../admin/modal/entity-info';
 import {EntityInfoService} from '../../../../admin/service/entity-info.service';
+import {BusinessType} from '../../../../admin/modal/businessType';
 
 
 @Component({
@@ -59,6 +60,7 @@ export class DmsLoanFileComponent implements OnInit {
     occupations = Occupation.enumObject();
     incomeSources = IncomeSource.enumObject();
     security = Security.enumObject();
+    businessTypes = BusinessType.enumObject();
     customerSearch = {
         citizenshipNumber: undefined
     };
@@ -155,6 +157,13 @@ export class DmsLoanFileComponent implements OnInit {
             registrationNumber: [(this.loanDataHolder.entityInfo === undefined
                 || this.loanDataHolder.entityInfo.registrationNumber === undefined) ? undefined :
                 this.loanDataHolder.entityInfo.registrationNumber],
+            companyEstablishmentDate:
+                [(this.loanDataHolder.entityInfo === undefined
+                    || this.loanDataHolder.entityInfo.establishmentDate === undefined) ? '' :
+                    this.loanDataHolder.entityInfo.establishmentDate, Validators.required],
+            businessType: [(this.loanDataHolder.entityInfo === undefined
+                || this.loanDataHolder.entityInfo.businessType === undefined) ? '' :
+                this.loanDataHolder.entityInfo.businessType, Validators.required],
             companyInfoVersion:
                 [(this.loanDataHolder.entityInfo === undefined
                     || this.loanDataHolder.entityInfo.version === undefined) ? undefined :
@@ -231,6 +240,8 @@ export class DmsLoanFileComponent implements OnInit {
         this.loanDataHolder.entityInfo.id = this.loanForm.get('companyId').value;
         this.loanDataHolder.entityInfo.companyName = this.loanForm.get('companyName').value;
         this.loanDataHolder.entityInfo.registrationNumber = this.loanForm.get('registrationNumber').value;
+        this.loanDataHolder.entityInfo.establishmentDate = this.loanForm.get('companyEstablishmentDate').value;
+        this.loanDataHolder.entityInfo.businessType = this.loanForm.get('businessType').value;
         this.loanDataHolder.entityInfo.version = this.loanForm.get('companyInfoVersion').value;
         this.loanDataHolder.customerInfo.citizenshipNumber = this.loanForm.get('citizenshipNumber').value;
         this.loanDataHolder.customerInfo.contactNumber = this.loanForm.get('contactNumber').value;
@@ -346,6 +357,8 @@ export class DmsLoanFileComponent implements OnInit {
                 this.loanForm.patchValue({
                     companyId: '',
                     companyName: '',
+                    companyEstablishmentDate: '',
+                    businessType: '',
                     companyInfoVersion: ''
                 });
             } else {
@@ -354,6 +367,8 @@ export class DmsLoanFileComponent implements OnInit {
                 this.loanForm.patchValue({
                     companyId: entityInfo.id,
                     companyName: entityInfo.companyName,
+                    companyEstablishmentDate: entityInfo.establishmentDate,
+                    businessType: entityInfo.businessType,
                     companyInfoVersion: entityInfo.version
                 });
             }
