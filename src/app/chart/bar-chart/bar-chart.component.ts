@@ -7,13 +7,14 @@ import { BarChart } from './bar-chart.model';
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss']
 })
-export class BarChartComponent implements OnChanges {
+export class BarChartComponent implements OnInit {
   @Input()
-  private branchId: number;
   data: Array<BarChart>;
+  @Input()
+  width: number;
+  height = 450;
   view = [950, 450];
 
-  // options
   showXAxis = true;
   showYAxis = true;
   gradient = false;
@@ -31,12 +32,12 @@ export class BarChartComponent implements OnChanges {
     domain: ['#C7B42C', '#5AA454', '#A10A28', '#AAAAAA']
   };
 
-  constructor(private barChartService: BarChartService) { }
+  constructor() { }
 
-  ngOnChanges(): void {
-    this.barChartService.getBarData(this.branchId)
-      .subscribe((response: any) => {
-        this.data = response.detail;
-      });
+  ngOnInit(): void {
+    if (this.width > 950) {
+      this.view = [this.width - 25, this.height];
+    }
   }
+
 }
