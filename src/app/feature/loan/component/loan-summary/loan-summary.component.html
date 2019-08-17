@@ -151,6 +151,7 @@
                             <th>Establishment Date</th>
                             <th>Registration Number</th>
                             <th>Business Type</th>
+                            <th>Key Person</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -159,6 +160,7 @@
                             <td>{{loanDataHolder?.entityInfo?.establishmentDate | date}}</td>
                             <td>{{loanDataHolder?.entityInfo?.registrationNumber}}</td>
                             <td>{{businessType[loanDataHolder?.entityInfo?.businessType]}}</td>
+                            <td>{{loanDataHolder?.dmsLoanFile?.keyPersonName}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -181,6 +183,10 @@
                                 <b>Business Type: </b>
                                 {{businessType[loanDataHolder?.entityInfo?.businessType]}}
                             </td>
+                            <td>
+                                <b>Key Person: </b>
+                                {{loanDataHolder?.dmsLoanFile?.keyPersonName}}
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -195,13 +201,18 @@
                             <th>Credit Facility</th>
                             <th>Proposed Limit</th>
                             <th>Interest Rate</th>
-                            <th>Service Charge</th>
                             <th>Tenure Duration In Month</th>
+                            <th>Service Charge</th>
+                            <th>FMV Funding Percentage</th>
                             <th>Total FMV</th>
-                            <th>Funding Percentage</th>
+                            <th>Total DV</th>
                             <th>Total Loan Limit</th>
+                            <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Individual Exposure</th>
+                            <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Institution Exposure</th>
                             <th>Group Exposure</th>
-
+                            <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Income Coverage Ratio</th>
+                            <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Debt Service Coverage Ratio</th>
+                            <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Dealing Product Name</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -209,14 +220,21 @@
                             <td>{{loanDataHolder?.loan?.name}}</td>
                             <td>{{dmsLoanFile?.proposedAmount || loanDataHolder?.proposal?.proposedLimit}}</td>
                             <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}}</td>
+                            <td>{{(dmsLoanFile?.tenureDuration || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
                             <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
                                 {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
-                                {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}</td>
-                            <td>{{(dmsLoanFile?.tenureDuration || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
-                            <td>{{dmsLoanFile?.fmvTotal}}</td>
+                                {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}
+                            </td>
                             <td>{{dmsLoanFile?.fmvFundingPercent}}</td>
+                            <td>{{dmsLoanFile?.fmvTotal}}</td>
+                            <td>{{dmsLoanFile?.distressValue}}</td>
                             <td>{{dmsLoanFile?.totalLoanLimit}}</td>
+                            <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.individualExposure}}</td>
+                            <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.institutionExposure}}</td>
                             <td>{{dmsLoanFile?.groupExpo}}</td>
+                            <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.incomeCoverageRatio}}</td>
+                            <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
+                            <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.dealingProductName}}</td>
                         </tr>
                         </tbody>
                     </table>
