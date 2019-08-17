@@ -375,7 +375,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4" *ngIf="personal">
                               <div class="form-group">
                                 <label for="individualExposure"><b>Individual Exposure</b></label>
                                 <input [ngClass]="{ 'is-invalid':submitted && form.individualExposure.errors}"
@@ -390,7 +390,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4" *ngIf="!personal">
                               <div class="form-group">
                                 <label for="institutionExposure"><b>Institution Exposure</b></label>
                                 <input [ngClass]="{ 'is-invalid':submitted && form.institutionExposure.errors}"
@@ -419,6 +419,44 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-4" *ngIf="personal">
+                              <div class="form-group">
+                                <label for="incomeCoverageRatio"><b>Income Coverage Ratio</b></label>
+                                <input [ngClass]="{ 'is-invalid':submitted && form.incomeCoverageRatio.errors}"
+                                       class="form-control rounded" formControlName="incomeCoverageRatio"
+                                       id="incomeCoverageRatio"
+                                       min="0"
+                                       placeholder="Enter Income Coverage Ratio"
+                                       type="number"/>
+                                <div *ngIf="submitted && form.incomeCoverageRatio.errors" class="invalid-feedback">
+                                  <div *ngIf="form.incomeCoverageRatio.errors.required">
+                                    Income Coverage Ratio is required.
+                                  </div>
+                                  <div *ngIf="form.incomeCoverageRatio.errors.min">
+                                    Income Coverage Ratio can not be negative value.
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4" *ngIf="!personal">
+                              <div class="form-group">
+                                <label for="debtServiceCoverageRatio"><b>Debt Service Coverage Ratio</b></label>
+                                <input [ngClass]="{ 'is-invalid':submitted && form.debtServiceCoverageRatio.errors}"
+                                       class="form-control rounded" formControlName="debtServiceCoverageRatio"
+                                       id="debtServiceCoverageRatio"
+                                       min="0"
+                                       placeholder="Enter Debt Service Coverage Ratio"
+                                       type="number"/>
+                                <div *ngIf="submitted && form.debtServiceCoverageRatio.errors" class="invalid-feedback">
+                                  <div *ngIf="form.debtServiceCoverageRatio.errors.required">
+                                    Debt Service Coverage Ratio is required.
+                                  </div>
+                                  <div *ngIf="form.debtServiceCoverageRatio.errors.min">
+                                    Debt Service Coverage Ratio can not be negative value.
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                         </div>
                         <div class="row">
@@ -477,47 +515,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="incomeCoverageRatio"><b>Income Coverage Ratio</b></label>
-                                    <input [ngClass]="{ 'is-invalid':submitted && form.incomeCoverageRatio.errors}"
-                                           class="form-control rounded" formControlName="incomeCoverageRatio"
-                                           id="incomeCoverageRatio"
-                                           min="0"
-                                           placeholder="Enter Income Coverage Ratio"
-                                           type="number"/>
-                                    <div *ngIf="submitted && form.incomeCoverageRatio.errors" class="invalid-feedback">
-                                        <div *ngIf="form.incomeCoverageRatio.errors.required">
-                                            Income Coverage Ratio is required.
-                                        </div>
-                                        <div *ngIf="form.incomeCoverageRatio.errors.min">
-                                            Income Coverage Ratio can not be negative value.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="debtServiceCoverageRatio"><b>Debt Service Coverage Ratio</b></label>
-                                    <input [ngClass]="{ 'is-invalid':submitted && form.debtServiceCoverageRatio.errors}"
-                                           class="form-control rounded" formControlName="debtServiceCoverageRatio"
-                                           id="debtServiceCoverageRatio"
-                                           min="0"
-                                           placeholder="Enter Debt Service Coverage Ratio"
-                                           type="number"/>
-                                    <div *ngIf="submitted && form.debtServiceCoverageRatio.errors" class="invalid-feedback">
-                                        <div *ngIf="form.debtServiceCoverageRatio.errors.required">
-                                            Debt Service Coverage Ratio is required.
-                                        </div>
-                                        <div *ngIf="form.debtServiceCoverageRatio.errors.min">
-                                            Debt Service Coverage Ratio can not be negative value.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      <div class="row">
+                      <div class="row" *ngIf="!personal">
                         <div class="col-md-6">
                           <div class="form-group">
                             <label for="keyPersonName"><b>Key Person Name</b></label>
