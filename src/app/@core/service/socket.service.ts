@@ -19,6 +19,7 @@ export class SocketService {
   message: Message = new Message();
 
   userId = Number(localStorage.getItem('userId'));
+  userRoleId = Number(localStorage.getItem('roleId'));
 
   constructor(
       private toastService: ToastService,
@@ -38,7 +39,7 @@ export class SocketService {
 
   openSocket() {
     this.isCustomSocketOpened = true;
-    this.stompClient.subscribe('/socket-publisher/' + this.userId, (message) => {
+    this.stompClient.subscribe('/socket-publisher/' + this.userId + '/' + this.userRoleId , (message) => {
       console.log(message);
       this.toastService.show(new Alert(AlertType.SUCCESS, 'New notification received!!!'));
       this.notificationService.fetchNotifications();

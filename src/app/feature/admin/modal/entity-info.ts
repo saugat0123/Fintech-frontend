@@ -3,6 +3,7 @@ import {Capital} from './capital';
 import {Swot} from './swot';
 import {ManagementTeam} from './management-team';
 import {Proprietors} from './proprietors';
+import {BusinessType} from './businessType';
 
 export class EntityInfo {
     id: number;
@@ -14,4 +15,6 @@ export class EntityInfo {
     companyName: string;
     registrationNumber: string;
     version: number;
+    establishmentDate: Date;
+    businessType: BusinessType;
 }

@@ -99,11 +99,11 @@
                         <tbody>
                         <tr>
                             <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
-                            <td>{{loanDataHolder?.customerInfo?.dob}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
                             <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
                             <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-                            <td>{{loanDataHolder?.customerInfo?.occupation}}</td>
-                            <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>
+                            <td>{{occupation[loanDataHolder?.customerInfo?.occupation]}}</td>
+                            <td>{{incomeSource[loanDataHolder?.customerInfo?.incomeSource]}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -116,7 +116,7 @@
                             </td>
                             <td>
                                 <b>Date of Birth: </b>
-                                {{loanDataHolder?.customerInfo?.dob}}
+                                {{loanDataHolder?.customerInfo?.dob | date}}
                             </td>
                             <td>
                                 <b>Citizenship Number: </b>
@@ -128,11 +128,11 @@
                             </td>
                             <td>
                                 <b>Occupation: </b>
-                                {{loanDataHolder?.customerInfo?.occupation}}
+                                {{occupation[loanDataHolder?.customerInfo?.occupation]}}
                             </td>
                             <td>
                                 <b>Income Source: </b>
-                                {{loanDataHolder?.customerInfo?.incomeSource}}
+                                {{incomeSource[loanDataHolder?.customerInfo?.incomeSource]}}
                             </td>
                         </tr>
                         </tbody>
@@ -148,13 +148,19 @@
                         <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Establishment Date</th>
                             <th>Registration Number</th>
+                            <th>Business Type</th>
+                            <th>Key Person</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td>{{loanDataHolder?.entityInfo?.companyName}}</td>
+                            <td>{{loanDataHolder?.entityInfo?.establishmentDate | date}}</td>
                             <td>{{loanDataHolder?.entityInfo?.registrationNumber}}</td>
+                            <td>{{businessType[loanDataHolder?.entityInfo?.businessType]}}</td>
+                            <td>{{loanDataHolder?.dmsLoanFile?.keyPersonName}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -166,8 +172,20 @@
                                 {{loanDataHolder?.entityInfo?.companyName}}
                             </td>
                             <td>
+                                <b>Establishment Date: </b>
+                                {{loanDataHolder?.entityInfo?.establishmentDate | date}}
+                            </td>
+                            <td>
                                 <b>Registration Number: </b>
                                 {{loanDataHolder?.entityInfo?.registrationNumber}}
+                            </td>
+                            <td>
+                                <b>Business Type: </b>
+                                {{businessType[loanDataHolder?.entityInfo?.businessType]}}
+                            </td>
+                            <td>
+                                <b>Key Person: </b>
+                                {{loanDataHolder?.dmsLoanFile?.keyPersonName}}
                             </td>
                         </tr>
                         </tbody>
@@ -183,13 +201,18 @@
                             <th>Credit Facility</th>
                             <th>Proposed Limit</th>
                             <th>Interest Rate</th>
-                            <th>Service Charge</th>
                             <th>Tenure Duration In Month</th>
+                            <th>Service Charge</th>
+                            <th>FMV Funding Percentage</th>
                             <th>Total FMV</th>
-                            <th>Funding Percentage</th>
+                            <th>Total DV</th>
                             <th>Total Loan Limit</th>
+                            <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Individual Exposure</th>
+                            <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Institution Exposure</th>
                             <th>Group Exposure</th>
-
+                            <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Income Coverage Ratio</th>
+                            <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Debt Service Coverage Ratio</th>
+                            <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Dealing Product Name</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -197,14 +220,21 @@
                             <td>{{loanDataHolder?.loan?.name}}</td>
                             <td>{{dmsLoanFile?.proposedAmount || loanDataHolder?.proposal?.proposedLimit}}</td>
                             <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}}</td>
+                            <td>{{(dmsLoanFile?.tenureDuration || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
                             <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
                                 {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
-                                {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}</td>
-                            <td>{{(dmsLoanFile?.tenureDuration || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
-                            <td>{{dmsLoanFile?.fmvTotal}}</td>
+                                {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}
+                            </td>
                             <td>{{dmsLoanFile?.fmvFundingPercent}}</td>
+                            <td>{{dmsLoanFile?.fmvTotal}}</td>
+                            <td>{{dmsLoanFile?.distressValue}}</td>
                             <td>{{dmsLoanFile?.totalLoanLimit}}</td>
+                            <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.individualExposure}}</td>
+                            <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.institutionExposure}}</td>
                             <td>{{dmsLoanFile?.groupExpo}}</td>
+                            <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.incomeCoverageRatio}}</td>
+                            <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
+                            <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.dealingProductName}}</td>
                         </tr>
                         </tbody>
                     </table>

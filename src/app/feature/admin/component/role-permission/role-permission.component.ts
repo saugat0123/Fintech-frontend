@@ -177,7 +177,7 @@ export class RolePermissionComponent implements OnInit {
                 this.isDisabled = false;
                 this.router.navigateByUrl('/home').then(e => {
                     if (e) {
-                        this.router.navigate(['/home/role']);
+                        this.router.navigate(['/home/admin/role']);
                     }
                 });
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Role & Permission!'));
