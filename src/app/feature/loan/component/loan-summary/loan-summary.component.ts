@@ -20,6 +20,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component';
 import {LoanType} from '../../model/loanType';
 import {Occupation} from '../../../admin/modal/occupation';
+import {IncomeSource} from '../../../admin/modal/incomeSource';
+import {BusinessType} from '../../../admin/modal/businessType';
 
 @Component({
     selector: 'app-loan-summary',
@@ -62,7 +64,8 @@ export class LoanSummaryComponent implements OnInit {
     loanCategory;
     @ViewChild('print') print;
     occupation = Occupation;
-
+    incomeSource = IncomeSource;
+    businessType = BusinessType;
 
     constructor(private userService: UserService,
                 private router: ActivatedRoute,
