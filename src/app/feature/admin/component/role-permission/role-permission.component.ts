@@ -175,7 +175,7 @@ export class RolePermissionComponent implements OnInit {
                 this.spinner = false;
                 // this.roleChanged(this.roleId);
                 this.isDisabled = false;
-                this.router.navigateByUrl('/home').then(e => {
+                this.router.navigateByUrl('').then(e => {
                     if (e) {
                         this.router.navigate(['/home/admin/role']);
                     }
