@@ -1,4 +1,3 @@
-import {CommonService} from '../../../../../../@core/service/baseservice/common-baseservice';
 import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {LoanTemplate} from '../../../../modal/loan-template';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
