@@ -52,7 +52,7 @@ import {ThemeModule} from '../../@theme/theme.module';
 // import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {MsgModalComponent, UpdateModalComponent} from '../../@theme/components';
+import {UpdateModalComponent} from '../../@theme/components';
 import {OpeningAccountComponent} from './component/opening-account/opening-account.component';
 import {OpenOpeningComponentComponent} from './component/opening-account/open-opening-component/open-opening-component.component';
 import {NgxPrintModule} from 'ngx-print';
@@ -154,7 +154,6 @@ import { EligibilitySummaryComponent } from './component/eligibility/eligibility
         UpdateModalComponent,
         UserFormComponent,
         CompanyFormComponent,
-        MsgModalComponent,
         TemplateAddModelComponent,
         RoleFormComponent,
         EligibilityDocumentViewComponent,

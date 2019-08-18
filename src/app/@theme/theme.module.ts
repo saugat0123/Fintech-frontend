@@ -43,8 +43,6 @@ import {
     BreadcrumbComponent,
     FooterComponent,
     HeaderComponent,
-    MsgAlertComponent,
-    MsgModalComponent,
     PagingComponent,
     SpinnerComponent,
     UpdateModalComponent,
@@ -56,7 +54,6 @@ import {DEFAULT_THEME} from './styles/theme.default';
 import {COSMIC_THEME} from './styles/theme.cosmic';
 import {CORPORATE_THEME} from './styles/theme.corporate';
 import {BaseLayout} from './layouts';
-import {MainNavComponent} from './main-nav/main-nav.component';
 import {RouterModule} from '@angular/router';
 import {IconCardComponent} from './components/iconcard/icon-card.component';
 import {SearchResultComponent} from './components/header/header-form/searchResult.component';
@@ -111,12 +108,9 @@ const COMPONENTS = [
     FooterComponent,
     SearchResultComponent,
     BaseLayout,
-    MainNavComponent,
     IconCardComponent,
     AlertComponent,
     BreadcrumbComponent,
-    MsgAlertComponent,
-    MsgModalComponent,
     SpinnerComponent,
     UpdateModalComponent,
     PagingComponent,

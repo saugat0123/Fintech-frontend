@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonService} from '../../../../@core/service/baseservice/common-baseservice';
 import {Router} from '@angular/router';
 import {Role} from '../../modal/role';
 import {RoleFormComponent} from './role-form/role-form.component';
@@ -40,7 +39,6 @@ export class RolePermissionComponent implements OnInit {
     isDisabled = false;
 
     constructor(
-        private commonService: CommonService,
         private service: RolePermissionService,
         private roleService: RoleService,
         private permissionService: PermissionService,
