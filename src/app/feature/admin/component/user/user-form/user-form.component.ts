@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../../modal/user';
 import {Branch} from '../../../modal/branch';
 import {Role} from '../../../modal/role';
-import {CommonService} from '../../../../../@core/service/baseservice/common-baseservice';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {UserService} from '../user.service';
@@ -41,7 +40,6 @@ export class UserFormComponent implements OnInit {
     editedId;
 
     constructor(
-        private commonService: CommonService,
         private service: UserService,
         private router: Router,
         private roleService: RoleService,
