@@ -22,9 +22,12 @@ export class EligibleRequestsComponent implements OnInit {
     applicantList: Array<Applicant> = new Array<Applicant>();
 
     page = 1;
-    search: any = {};
+    search: any = {
+        branchIds: undefined,
+        loanConfigId: undefined,
+        eligibilityStatus: Status.APPROVED
+    };
     pageable: Pageable = new Pageable();
-    searchString: string = NewRequestService.resolveSearchString(Status.APPROVED, null, null);
 
     constructor(private newRequestService: NewRequestService,
                 private toastService: ToastService,
@@ -36,7 +39,7 @@ export class EligibleRequestsComponent implements OnInit {
 
         other.spinner = true;
         other.applicantList = [];
-        other.newRequestService.getAllWithSearchObject(other.page, 10, other.searchString).subscribe((response: any) => {
+        other.newRequestService.getAllWithSearchObject(other.page, 10, other.search).subscribe((response: any) => {
                 other.applicantList = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
 

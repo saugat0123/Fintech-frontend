@@ -5,14 +5,12 @@
            nbSpinnerMessage="">
     <nb-card-header>
       <div class="row float-right">
-        <div *ngIf="showApproveAndRejectButton">
-          <button id="approveButton" class="btn-sm btn-success d-flex justify-content-end"
+          <button *ngIf="showApproveAndRejectButton" id="approveButton" class="btn-sm btn-success d-flex justify-content-end"
                   (click)="onApproveOrReject('APPROVED')">APPROVE<i
                   class="col-md-1 fa fa-check"></i></button>
-          <button id="rejectButton" class="btn-sm btn-danger d-flex justify-content-end"
+          <button *ngIf="showApproveAndRejectButton" id="rejectButton" class="btn-sm btn-danger d-flex justify-content-end"
                   (click)="onApproveOrReject('REJECTED')">REJECT<i
                   class="col-md-1 fa fa-ban"></i></button>
-        </div>
 
           <button id="printButton" class="btn-sm btn-warning d-flex justify-content-end"
                   (click)="print()">PRINT<i

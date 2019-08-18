@@ -22,7 +22,11 @@ export class NonEligibleRequestsComponent implements OnInit {
   applicantList: Array<Applicant> = new Array<Applicant>();
 
   page = 1;
-  searchString: string = NewRequestService.resolveSearchString(Status.REJECTED, null, null);
+  search: any = {
+    branchIds: undefined,
+    loanConfigId: undefined,
+    eligibilityStatus: Status.REJECTED
+  };
   pageable: Pageable = new Pageable();
 
   constructor(private newRequestService: NewRequestService,
@@ -34,7 +38,7 @@ export class NonEligibleRequestsComponent implements OnInit {
   static loadData(other: NonEligibleRequestsComponent) {
 
     other.spinner = true;
-    other.newRequestService.getAllWithSearchObject(other.page, 10, other.searchString).subscribe((response: any) => {
+    other.newRequestService.getAllWithSearchObject(other.page, 10, other.search).subscribe((response: any) => {
           other.applicantList = response.detail.content;
           other.pageable = PaginationUtils.getPageable(response.detail);
 

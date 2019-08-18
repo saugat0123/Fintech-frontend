@@ -52,9 +52,8 @@ export class EligibilitySummaryComponent implements OnInit {
 
         this.requestService.detail(this.applicantId).subscribe((response: any) => {
             this.applicant = response.detail;
-            if (this.applicant.eligibilityStatus === Status.APPROVED || Status.REJECTED) {
-                this.showApproveAndRejectButton = false;
-            }
+            this.applicant.eligibilityStatus === 'ELIGIBLE' || this.applicant.eligibilityStatus === 'NOT_ELIGIBLE'
+                ? this.showApproveAndRejectButton = true : this.showApproveAndRejectButton = false;
             this.loading = false;
         });
 
