@@ -34,7 +34,6 @@ export class RolePermissionComponent implements OnInit {
     apiList: any = [];
     spinner = false;
     tempRightList = [];
-    permRight = [];
     activeCount: number;
     inactiveCount: number;
     roleCount: number;

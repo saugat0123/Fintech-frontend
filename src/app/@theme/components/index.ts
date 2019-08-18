@@ -4,7 +4,6 @@ export * from './alert/alert.component';
 export * from './breadcrum/breadcrumb.component';
 export * from './msg-alert/msg-alert.component';
 export * from './msg-modal/msg-modal.component';
-export * from './pagination/pagination.component';
 export * from './spinner/spinner.component';
 export * from './update-modal/update-modal.component';
 export * from './paging/paging.component';
