@@ -4,8 +4,6 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LoanDataHolder} from '../../model/loanData';
-import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
-import {MsgModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
 import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-service';
@@ -93,7 +91,6 @@ export class LoanFormComponent implements OnInit {
     cicl: CiclComponent;
 
     constructor(
-        private dataService: CommonDataService,
         private loanDataService: LoanDataService,
         private dmsLoanService: DmsLoanService,
         private dateService: DateService,
@@ -161,10 +158,8 @@ export class LoanFormComponent implements OnInit {
                 this.first = true;
             }
             if (this.templateList.length === 0) {
+                this.toastService.show(new Alert(AlertType.INFO, 'NO FORM ARE AVAILABLE'));
                 this.router.navigate(['/home/dashboard']);
-                this.dataService.getGlobalMsg('NO FORM ARE AVAILABLE');
-                this.modalService.open(MsgModalComponent);
-
             }
         });
     }
