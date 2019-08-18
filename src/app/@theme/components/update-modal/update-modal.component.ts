@@ -1,7 +1,6 @@
 import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {CommonService} from '../../../@core/service/baseservice/common-baseservice';
 import {CommonPageService} from '../../../@core/service/baseservice/common-pagination-service';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../model/Alert';
@@ -23,11 +22,11 @@ export class UpdateModalComponent implements OnInit, DoCheck {
     globalMsg: any;
     currentUrl: any;
 
-    constructor(private commonService: CommonService,
-                private router: Router,
-                private commonPageService: CommonPageService,
-                private modalService: NgbModal,
-                private toastService: ToastService
+    constructor(
+        private router: Router,
+        private commonPageService: CommonPageService,
+        private modalService: NgbModal,
+        private toastService: ToastService
     ) {
     }
 
