@@ -10,6 +10,8 @@ import {RoleService} from '../../role-permission/role.service';
 import {BranchService} from '../../branch/branch.service';
 import {RoleAccess} from '../../../modal/role-access';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-user-form',
@@ -32,14 +34,21 @@ export class UserFormComponent implements OnInit {
     tempBranch;
     finalBranchList = [];
     branchIdList;
+    disableRoleBranch = false;
+    hideCustomerCount = true;
+    customerCount: String;
+    hideSaveButton = false;
+    editedId;
 
     constructor(
         private commonService: CommonService,
         private service: UserService,
+        private router: Router,
         private roleService: RoleService,
         private branchService: BranchService,
         private activeModal: NgbActiveModal,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private loanService: LoanFormService
     ) {
     }
 
@@ -96,7 +105,11 @@ export class UserFormComponent implements OnInit {
 
                 console.log(error);
 
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save User'));
+                if (error.error.message === 'udx_user_username') {
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Username already exist.'));
+                } else if (error.error.message === 'udx_user_email') {
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Email address already exist.'));
+                }
                 this.activeModal.dismiss(error);
             }
         );
@@ -169,6 +182,7 @@ export class UserFormComponent implements OnInit {
             }
             this.task = 'Edit';
             this.isAll = false;
+            this.disableRoleBranch = true;
 
             this.branchService.getBranchNoTAssignUser(this.model.role.id).subscribe((re: any) => {
                 const temp = re.detail;
@@ -200,5 +214,32 @@ export class UserFormComponent implements OnInit {
         }
     }
 
+    editRole(id, chkStatus) {
+        this.editedId = id;
+        if (chkStatus) {
+            this.loanService.getLoanStatusApi(id).subscribe((responsee: any) => {
+                console.log(responsee.detail.status);
+                if (responsee.detail.status === 'false') {
+                    this.disableRoleBranch = false;
+                } else {
+                    this.customerCount = responsee.detail.count;
+                    this.hideCustomerCount = false;
+                    this.hideSaveButton = true;
+                }
+            });
+        } else {
+            this.disableRoleBranch = true;
+            this.hideCustomerCount = true;
+            this.hideSaveButton = false;
+        }
+
+
+    }
+
+    goToCatalouge() {
+        this.onClose();
+        this.router.navigate(['home/admin/catalogue'], {queryParams: {userId: this.editedId}});
+
+    }
 }
 

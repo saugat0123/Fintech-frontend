@@ -33,15 +33,7 @@ export class LoanActionService extends BaseService<LoanConfig> {
         return this.http.get(req.url, {headers: req.header});
     }
 
-    public postLoanAction(object): Observable<any> {
-        const req = ApiUtils.getRequestWithFileSupport(`v1/Loan-customer/action`);
-        return this.http.post(req.url, object, {headers: req.header});
-    }
 
-    public deleteLoanCustomer(id): Observable<any> {
-        const req = ApiUtils.getRequestWithFileSupport(`v1/Loan-customer/${id}/delete`);
-        return this.http.get(req.url, {headers: req.header});
-    }
 
     protected getApi(): string {
         return LoanActionService.API;

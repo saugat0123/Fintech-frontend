@@ -25,12 +25,13 @@ import { SuccessOfferLetterComponent } from './component/offer-letter/success-of
 import { SuccessOfferLetterPrintComponent } from './component/offer-letter/success-offer-letter/success-offer-letter-print/success-offer-letter-print.component';
 import {ProposalComponent} from './component/loan-main-template/proposal/proposal.component';
 import {CiclComponent} from './component/loan-main-template/cicl/cicl.component';
+import { ReadmoreModelComponent } from './component/readmore-model/readmore-model.component';
 import {environment} from '../../../environments/environment';
 import {SiteVisitComponent} from './component/loan-main-template/site-visit/site-visit.component';
 import {AgmCoreModule} from '@agm/core';
 
 
-
+const ENTRY_COMPONENTS = [ReadmoreModelComponent];
 
 @NgModule({
     declarations: [
@@ -49,6 +50,8 @@ import {AgmCoreModule} from '@agm/core';
         SuccessOfferLetterComponent,
         SuccessOfferLetterPrintComponent,
         CiclComponent,
+        ReadmoreModelComponent,
+
         SiteVisitComponent,
     ],
     imports: [
@@ -71,7 +74,9 @@ import {AgmCoreModule} from '@agm/core';
         DatePipe,
         LoanFormService,
         NgbActiveModal
-    ]
+    ],
+
+    entryComponents: [...ENTRY_COMPONENTS],
 
 })
 export class LoanModule {

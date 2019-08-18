@@ -1,27 +1,27 @@
 <div class="row">
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <app-icon-card title="Total" type="info" detail="{{total}}">
-            <i class="fa fa-money-check"></i>
+    <div class="col-md-3 col-sm-6 col-xs-12 cursor">
+        <app-icon-card detail="{{totalCount}}" title="Total" type="info">
+            <i class="fa fa-list"></i>
         </app-icon-card>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <app-icon-card title="Pending" type="primary" detail="{{pending}}">
-            <i class="fa fa-money-check"></i>
+    <div class="col-md-3 col-sm-6 col-xs-12 cursor">
+        <app-icon-card (click)="changeRequest(accountStatusType.NEW_REQUEST)"
+                       detail="{{pendingCount}}" title="Pending"
+                       type="primary">
+            <i class="fa fa-envelope"></i>
         </app-icon-card>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <a routerLink="/home/admin/approvalOpeningAccount">
-            <app-icon-card title="Approved" type="success" detail="{{approval}}">
-                <i class="fa fa-money-check"></i>
-            </app-icon-card>
-        </a>
+    <div class="col-md-3 col-sm-6 col-xs-12 cursor">
+        <app-icon-card (click)="changeRequest(accountStatusType.APPROVAL)"
+                       detail="{{approvalCount}}" title="Approved" type="success">
+            <i class="fa fa-check"></i>
+        </app-icon-card>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <a routerLink="/home/admin/rejectedOpeningAccount">
-            <app-icon-card title="Rejected" type="danger" detail="{{rejected}}">
-                <i class="fa fa-money-check"></i>
-            </app-icon-card>
-        </a>
+    <div class="col-md-3 col-sm-6 col-xs-12 cursor">
+        <app-icon-card (click)="changeRequest(accountStatusType.REJECTED)"
+                       detail="{{rejectedCount}}" title="Rejected" type="danger">
+            <i class="fa fa-times"></i>
+        </app-icon-card>
     </div>
 </div>
 <div class="row">
@@ -36,8 +36,9 @@
                                 <th>S.N</th>
                                 <th>Account Holder Name</th>
                                 <th>Requested Date</th>
+                                <th>Branch</th>
                                 <th>Account Type</th>
-                                <th>Action</th>
+                                <th *ngIf="showAction">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -48,13 +49,16 @@
                                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.fullName}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.requestedDate | date}}</td>
+                                <td (click)="onEdit(openingForm)">{{openingForm?.branch.name}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.accountType?.name}}</td>
-                                <td>
+                                <td *ngIf="showAction">
                                     <button nbButton status="success" size="xsmall"
-                                            (click)="updateStatus(openingForm.id,'APPROVAL')">Approve
+                                            (click)="updateStatus(openingForm, accountStatusType.APPROVAL)">
+                                        Approve
                                     </button>
                                     <button nbButton status="danger" size="xsmall"
-                                            (click)="updateStatus(openingForm.id,'REJECTED')">Reject
+                                            (click)="updateStatus(openingForm, accountStatusType.REJECTED)">
+                                        Reject
                                     </button>
                                 </td>
                             </tr>

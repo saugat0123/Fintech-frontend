@@ -6,4 +6,5 @@ export class Role {
     status: string;
     roleType: RoleType;
     roleAccess: string;
+    version: number;
 }

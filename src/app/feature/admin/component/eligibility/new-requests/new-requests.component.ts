@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NewRequestService} from './new-request.service';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
@@ -8,57 +8,111 @@ import {Pageable} from '../../../../../@core/service/baseservice/common-pageable
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EligibilityDocumentViewComponent} from '../eligibility-document-view/eligibility-document-view.component';
 import {SubmissionDocument} from '../../../modal/submission-document';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Branch} from '../../../modal/branch';
+import {LoanConfig} from '../../../modal/loan-config';
+import {BranchService} from '../../branch/branch.service';
+import {LoanConfigService} from '../../loan-config/loan-config.service';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-new-requests',
-  templateUrl: './new-requests.component.html',
-  styleUrls: ['./new-requests.component.css']
+    selector: 'app-new-requests',
+    templateUrl: './new-requests.component.html',
+    styleUrls: ['./new-requests.component.css']
 })
 export class NewRequestsComponent implements OnInit {
-  spinner = false;
-  applicantList: Array<Applicant> = new Array<Applicant>();
+    spinner = false;
+    branchList: Array<Branch> = new Array<Branch>();
+    loanTypeList: Array<LoanConfig> = new Array<LoanConfig>();
+    applicantList: Array<Applicant> = new Array<Applicant>();
+    filterForm: FormGroup;
 
-  page = 1;
-  search: any = {};
-  pageable: Pageable = new Pageable();
+    page = 1;
+    searchString: string = NewRequestService.resolveSearchString(null, null, null);
+    pageable: Pageable = new Pageable();
 
-  constructor(private newRequestService: NewRequestService,
-              private toastService: ToastService,
-              private modalService: NgbModal) { }
+    constructor(private newRequestService: NewRequestService,
+                private toastService: ToastService,
+                private formBuilder: FormBuilder,
+                private modalService: NgbModal,
+                private router: Router,
+                private branchService: BranchService,
+                private loanConfigService: LoanConfigService) {
+    }
 
-  static loadData(other: NewRequestsComponent) {
+    static loadData(other: NewRequestsComponent) {
 
-    other.spinner = true;
-    other.newRequestService.getAllWithSearchObject(other.page, 10, '').subscribe((response: any) => {
-          other.applicantList = response.detail.content;
-          other.pageable = PaginationUtils.getPageable(response.detail);
+        other.spinner = true;
+        other.newRequestService.getAllWithSearchObject(other.page, 10, other.searchString).subscribe((response: any) => {
+                other.applicantList = response.detail.content;
+                other.pageable = PaginationUtils.getPageable(response.detail);
 
-          other.spinner = false;
+                other.spinner = false;
+            }, error => {
+
+                console.log(error);
+
+                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
+                other.spinner = false;
+            }
+        );
+    }
+
+    ngOnInit() {
+        this.buildSearchForm();
+        this.branchService.getAll().subscribe((response: any) => {
+            this.branchList = response.detail;
         }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
+        });
 
-          console.log(error);
+        this.loanConfigService.getAll().subscribe((response: any) => {
+            this.loanTypeList = response.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
+        });
 
-          other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
-          other.spinner = false;
-        }
-    );
-  }
+        NewRequestsComponent.loadData(this);
+    }
 
-  ngOnInit() {
-    NewRequestsComponent.loadData(this);
-  }
+    buildSearchForm() {
+        this.filterForm = this.formBuilder.group({
+            branch: [undefined],
+            loanType: [undefined],
+        });
+    }
 
-  changePage(page: number) {
-    this.page = page;
+    filterSearch() {
+        const branchId: number = this.filterForm.get('branch').value === null ? undefined :
+            this.filterForm.get('branch').value;
+        const loanConfigId: number = this.filterForm.get('loanType').value === null ? undefined :
+            this.filterForm.get('loanType').value;
+        this.searchString = NewRequestService.resolveSearchString(null, branchId, loanConfigId);
+        NewRequestsComponent.loadData(this);
+    }
 
-    NewRequestsComponent.loadData(this);
-  }
+    clearSearch() {
+        this.buildSearchForm();
+    }
 
-  viewDocument(document: SubmissionDocument) {
+    changePage(page: number) {
+        this.page = page;
 
-    const modalRef = this.modalService.open(EligibilityDocumentViewComponent, {size: 'lg'});
-    modalRef.componentInstance.model = document;
-    ModalUtils.resolve(modalRef.result, NewRequestsComponent.loadData, this);
-  }
+        NewRequestsComponent.loadData(this);
+    }
+
+    viewDocument(document: SubmissionDocument) {
+
+        const modalRef = this.modalService.open(EligibilityDocumentViewComponent, {size: 'lg'});
+        modalRef.componentInstance.model = document;
+        ModalUtils.resolve(modalRef.result, NewRequestsComponent.loadData, this);
+    }
+
+    onApplicantClick(applicantId) {
+        this.spinner = true;
+        this.router.navigate(['/home/admin/eligibility/eligibility-summary'], {queryParams: {applicantId: applicantId}});
+    }
 
 }

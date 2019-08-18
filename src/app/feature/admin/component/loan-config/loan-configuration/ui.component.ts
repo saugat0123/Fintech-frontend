@@ -11,6 +11,7 @@ import {LoanConfigService} from '../loan-config.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {OfferLetter} from '../../../modal/offerLetter';
 import {OfferLetterService} from '../offer-letter.service';
+import {Status} from '../../../../../@core/Status';
 
 
 @Component({
@@ -33,6 +34,8 @@ export class UIComponent implements OnInit {
     finalInitialDocument = Array<Document>();
     renewalDocumentList = [];
     finalRenewalDocument = Array<Document>();
+    closureDocumentList = [];
+    finalClosureDocument = Array<Document>();
     eligibilityDocumentList = [];
     finalEligibilityDocument = Array<Document>();
     id: number;
@@ -61,8 +64,8 @@ export class UIComponent implements OnInit {
         });
 
         other.id = Number(other.route.snapshot.queryParamMap.get('id'));
-
-        other.documentService.getAll().subscribe((response: any) => {
+        // Id of New Loan cycle is set 1 in patch backend
+        other.documentService.getByLoanCycleAndStatus(1, Status.ACTIVE).subscribe((response: any) => {
             other.initialDocumentList = response.detail;
 
             if (other.id !== undefined && other.id !== 0) {
@@ -91,7 +94,9 @@ export class UIComponent implements OnInit {
                 });
             }
         });
-        other.documentService.getAll().subscribe((response: any) => {
+
+        // Id of Renew Loan cycle is set 2 in patch backend
+        other.documentService.getByLoanCycleAndStatus(2, Status.ACTIVE).subscribe((response: any) => {
             other.renewalDocumentList = response.detail;
 
             if (other.id !== undefined && other.id !== 0) {
@@ -108,6 +113,45 @@ export class UIComponent implements OnInit {
                 });
             }
         });
+
+        // Id of Closure Loan cycle is set 3 in patch backend
+        other.documentService.getByLoanCycleAndStatus(3, Status.ACTIVE).subscribe((response: any) => {
+            other.closureDocumentList = response.detail;
+
+            if (other.id !== undefined && other.id !== 0) {
+                other.service.detail(other.id).subscribe((res: any) => {
+                    other.loanConfig = res.detail;
+                    other.closureDocumentList.forEach(closureDocument => {
+                        other.loanConfig.closure.forEach(loanConfigClosureDocument => {
+                            if (closureDocument.id === loanConfigClosureDocument.id) {
+                                other.finalClosureDocument.push(closureDocument);
+                                closureDocument.checked = true;
+                            }
+                        });
+                    });
+                });
+            }
+        });
+
+        // Id for Eligibility is set 4 in patch backend
+        other.documentService.getByLoanCycleAndStatus(4, Status.ACTIVE).subscribe((response: any) => {
+            other.eligibilityDocumentList = response.detail;
+
+            if (other.id !== undefined && other.id !== 0) {
+                other.service.detail(other.id).subscribe((res: any) => {
+                    other.loanConfig = res.detail;
+                    other.eligibilityDocumentList.forEach(eligibilityDocument => {
+                        other.loanConfig.eligibilityDocuments.forEach(eligibilityDocuments => {
+                            if (eligibilityDocument.id === eligibilityDocuments.id) {
+                                other.finalEligibilityDocument.push(eligibilityDocument);
+                                eligibilityDocument.checked = true;
+                            }
+                        });
+                    });
+                });
+            }
+        });
+
         other.documentService.getAll().subscribe((response: any) => {
             other.eligibilityDocumentList = response.detail;
         });
@@ -149,11 +193,10 @@ export class UIComponent implements OnInit {
     }
 
     updateInitialDocument(events, document: Document) {
-        const d: Document = document;
         if (events.target.checked === true) {
-            this.finalInitialDocument.push(d);
+            this.finalInitialDocument.push(document);
         } else {
-            const index: number = this.finalInitialDocument.indexOf(d);
+            const index: number = this.finalInitialDocument.indexOf(document);
             if (index !== -1) {
                 this.finalInitialDocument.splice(index, 1);
             }
@@ -161,23 +204,32 @@ export class UIComponent implements OnInit {
     }
 
     updateRenewalDocument(events, document: Document) {
-        const d: Document = document;
         if (events.target.checked === true) {
-            this.finalRenewalDocument.push(d);
+            this.finalRenewalDocument.push(document);
         } else {
-            const index: number = this.finalRenewalDocument.indexOf(d);
+            const index: number = this.finalRenewalDocument.indexOf(document);
             if (index !== -1) {
                 this.finalRenewalDocument.splice(index, 1);
             }
         }
     }
 
-    updateEligibilityDocument(events, document: Document) {
-        const d: Document = document;
+    updateClosureDocument(events, document: Document) {
         if (events.target.checked === true) {
-            this.finalEligibilityDocument.push(d);
+            this.finalClosureDocument.push(document);
         } else {
-            const index: number = this.finalEligibilityDocument.indexOf(d);
+            const index: number = this.finalClosureDocument.indexOf(document);
+            if (index !== -1) {
+                this.finalClosureDocument.splice(index, 1);
+            }
+        }
+    }
+
+    updateEligibilityDocument(events, document: Document) {
+        if (events.target.checked === true) {
+            this.finalEligibilityDocument.push(document);
+        } else {
+            const index: number = this.finalEligibilityDocument.indexOf(document);
             if (index !== -1) {
                 this.finalEligibilityDocument.splice(index, 1);
             }
@@ -196,8 +248,11 @@ export class UIComponent implements OnInit {
         this.loanConfig.templateList = this.confirmLoanTemplateList;
         this.loanConfig.initial = this.finalInitialDocument;
         this.loanConfig.renew = this.finalRenewalDocument;
+        this.loanConfig.closure = this.finalClosureDocument;
+        this.loanConfig.enableEligibility = true;
         this.loanConfig.eligibilityDocuments = this.finalEligibilityDocument;
         this.loanConfig.offerLetters = this.selectedOfferLetterList;
+        console.log(this.loanConfig);
         this.service.save(this.loanConfig).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Config!'));
                 this.loanConfig = new LoanConfig();

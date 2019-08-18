@@ -4,7 +4,7 @@ import {User} from '../../../admin/modal/user';
 import {Security} from '../../../admin/modal/security';
 import {LoanDataHolder} from '../../model/loanData';
 import {UserService} from '../../../../@core/service/user.service';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {LoanFormService} from '../loan-form/service/loan-form.service';
 import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-service';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
@@ -14,8 +14,14 @@ import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {LoanActionService} from '../../loan-action/service/loan-action.service';
 import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
 import {LoanStage} from '../../model/loanStage';
-import {AppConstant} from '../../../../@core/utils/appConstant';
 import {environment} from '../../../../../environments/environment';
+import {DateService} from '../../../../@core/service/baseservice/date.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component';
+import {LoanType} from '../../model/loanType';
+import {Occupation} from '../../../admin/modal/occupation';
+import {IncomeSource} from '../../../admin/modal/incomeSource';
+import {BusinessType} from '../../../admin/modal/businessType';
 
 @Component({
     selector: 'app-loan-summary',
@@ -32,7 +38,6 @@ export class LoanSummaryComponent implements OnInit {
     index = 0;
     currentIndex: number;
     user: User = new User();
-    security: string;
     securities: any = [];
     Security: typeof Security = Security;
     documents: [] = [];
@@ -45,6 +50,7 @@ export class LoanSummaryComponent implements OnInit {
     id: number;
     customerInfo: any;
     loanDataHolder: LoanDataHolder = new LoanDataHolder();
+    loanType = LoanType;
     allId;
     customerId;
     loanConfigId;
@@ -53,12 +59,13 @@ export class LoanSummaryComponent implements OnInit {
     RootUrl = ApiConfig.URL;
     signatureList = [];
     previousList: Array<LoanStage> = new Array<LoanStage>();
-    loanStage: LoanStage = new LoanStage();
-    bankName = AppConstant.BANKNAME;
     currentDocAction = '';
-
+    currentNepDate;
+    loanCategory;
     @ViewChild('print') print;
-
+    occupation = Occupation;
+    incomeSource = IncomeSource;
+    businessType = BusinessType;
 
     constructor(private userService: UserService,
                 private router: ActivatedRoute,
@@ -66,8 +73,11 @@ export class LoanSummaryComponent implements OnInit {
                 private loanActionService: LoanActionService,
                 private dmsLoanService: DmsLoanService,
                 private activatedRoute: ActivatedRoute,
+                private rout: Router,
                 private loanConfigService: LoanConfigService,
-                private approvalLimitService: ApprovalLimitService) {
+                private approvalLimitService: ApprovalLimitService,
+                private dateService: DateService,
+                private modalService: NgbModal) {
 
         this.client = environment.client;
 
@@ -104,9 +114,17 @@ export class LoanSummaryComponent implements OnInit {
                 }
             }
         );
+        this.getLoanDataHolder();
+        this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
+            this.currentNepDate = response.detail.nepDateFormat;
+        });
+    }
+
+    getLoanDataHolder() {
         this.loanFormService.detail(this.customerId).subscribe(
             (response: any) => {
                 this.loanDataHolder = response.detail;
+                this.loanCategory = this.loanDataHolder.loanCategory;
                 this.currentIndex = this.loanDataHolder.previousList.length;
                 this.signatureList = this.loanDataHolder.distinctPreviousList;
                 this.previousList = this.loanDataHolder.previousList;
@@ -126,8 +144,15 @@ export class LoanSummaryComponent implements OnInit {
                     this.actionsList.sendBackward = false;
                     this.actionsList.edit = true;
                     this.actionsList.approved = false;
+                    this.actionsList.closed = false;
                 } else {
                     this.actionsList.edit = false;
+                }
+
+                if (this.loanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
+                    this.actionsList.approved = false;
+                } else {
+                    this.actionsList.closed = false;
                 }
 
                 this.loanActionService.getSendForwardList().subscribe((res: any) => {
@@ -160,8 +185,7 @@ export class LoanSummaryComponent implements OnInit {
                 this.id = this.loanDataHolder.id;
                 this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
                 if (this.dmsLoanFile !== undefined && this.dmsLoanFile !== null) {
-                    this.security = this.dmsLoanFile.security;
-                    this.securities = this.security.split(',');
+                    this.securities = this.dmsLoanFile.securities;
                     this.documents = JSON.parse(this.dmsLoanFile.documentPath);
                     if (this.documents !== null) {
                         for (this.document of this.documents) {
@@ -171,10 +195,8 @@ export class LoanSummaryComponent implements OnInit {
                         }
                     }
                 }
-
             }
         );
-
     }
 
     download(i) {
@@ -186,7 +208,9 @@ export class LoanSummaryComponent implements OnInit {
                 const downloadUrl = window.URL.createObjectURL(response);
                 const link = document.createElement('a');
                 link.href = downloadUrl;
-                link.download = this.documentName + '.jpg';
+                const toArray = this.documentUrl.split('.');
+                const extension = toArray[toArray.length - 1];
+                link.download = this.documentName + '.' + extension;
                 link.click();
             },
             error1 => {
@@ -196,17 +220,42 @@ export class LoanSummaryComponent implements OnInit {
         );
     }
 
-    signatureWidth(contentLength: number) {
-      if (contentLength >= 4) {
-        return 3;
-      } else if (contentLength === 3) {
-        return 4;
-      } else if (contentLength === 2) {
-        return 6;
-      } else if (contentLength <= 1) {
-        return 12;
-      }
+    loanHandler(index: number, length: number) {
+        if (index === 0) {
+            return 'CREATED BY:';
+        } else if (index === length - 1) {
+            if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+                return 'APPROVED BY:';
+            } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
+                return 'REJECTED BY:';
+            } else if (this.loanDataHolder.documentStatus.toString() === 'CLOSED') {
+                return 'CLOSED BY:';
+            } else {
+                return 'SUPPORTED BY:';
+            }
+        } else {
+            return 'SUPPORTED BY:';
+        }
     }
 
+    open(comments) {
+        const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
+        modalRef.componentInstance.comments = comments;
+    }
+
+    renewedOrCloseFrom(id) {
+        this.rout.navigate(['/home/loan/summary'], {
+            queryParams: {
+                loanConfigId: this.loanConfigId,
+                customerId: id
+
+            }
+
+        });
+
+        this.customerId = id;
+        this.getLoanDataHolder();
+
+    }
 }
 
