@@ -4,7 +4,7 @@ import {User} from '../../../admin/modal/user';
 import {Security} from '../../../admin/modal/security';
 import {LoanDataHolder} from '../../model/loanData';
 import {UserService} from '../../../../@core/service/user.service';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
 import {LoanFormService} from '../loan-form/service/loan-form.service';
 import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-service';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
@@ -67,58 +67,62 @@ export class LoanSummaryComponent implements OnInit {
     incomeSource = IncomeSource;
     businessType = BusinessType;
 
-    constructor(private userService: UserService,
-                private router: ActivatedRoute,
-                private loanFormService: LoanFormService,
-                private loanActionService: LoanActionService,
-                private dmsLoanService: DmsLoanService,
-                private activatedRoute: ActivatedRoute,
-                private rout: Router,
-                private loanConfigService: LoanConfigService,
-                private approvalLimitService: ApprovalLimitService,
-                private dateService: DateService,
-                private modalService: NgbModal) {
-
-        this.client = environment.client;
-
+  constructor(
+      private userService: UserService,
+      private loanFormService: LoanFormService,
+      private loanActionService: LoanActionService,
+      private dmsLoanService: DmsLoanService,
+      private activatedRoute: ActivatedRoute,
+      private router: Router,
+      private loanConfigService: LoanConfigService,
+      private approvalLimitService: ApprovalLimitService,
+      private dateService: DateService,
+      private modalService: NgbModal
+  ) {
+    this.client = environment.client;
+    this.router.events.subscribe((e: any) => {
+      if (e instanceof NavigationEnd) {
+        this.loadSummary();
+      }
+    });
     }
 
-    ngOnInit() {
-        this.activatedRoute.queryParams.subscribe(
-            (paramsValue: Params) => {
-                this.allId = {
-                    loanConfigId: null,
-                    customerId: null,
-                    catalogue: null
-                };
-                this.allId = paramsValue;
-                this.customerId = this.allId.customerId;
-                this.loanConfigId = this.allId.loanConfigId;
-                if (this.allId.catalogue) {
-                    this.showAction = false;
-                }
-            });
-        this.id = this.router.snapshot.params['id'];
-        this.loanConfigService.detail(this.loanConfigId).subscribe(
-            (response: any) => {
-                this.loanConfig = response.detail;
-            }
-        );
-        this.userService.getLoggedInUser().subscribe(
-            (response: any) => {
-                this.user = response.detail;
-                if (this.user.role.roleType === 'MAKER') {
-                    this.actionsList.roleTypeMaker = true;
-                } else {
-                    this.actionsList.roleTypeMaker = false;
-                }
-            }
-        );
-        this.getLoanDataHolder();
-        this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
-            this.currentNepDate = response.detail.nepDateFormat;
+  ngOnInit() {
+    this.loadSummary();
+  }
+
+  loadSummary() {
+    this.activatedRoute.queryParams.subscribe(
+        (paramsValue: Params) => {
+          this.allId = {
+            loanConfigId: null,
+            customerId: null,
+            catalogue: null
+          };
+          this.allId = paramsValue;
+          this.customerId = this.allId.customerId;
+          this.loanConfigId = this.allId.loanConfigId;
+          if (this.allId.catalogue) {
+            this.showAction = false;
+          }
         });
-    }
+    this.id = this.activatedRoute.snapshot.params['id'];
+    this.loanConfigService.detail(this.loanConfigId).subscribe(
+        (response: any) => {
+          this.loanConfig = response.detail;
+        }
+    );
+    this.userService.getLoggedInUser().subscribe(
+        (response: any) => {
+          this.user = response.detail;
+          this.actionsList.roleTypeMaker = this.user.role.roleType === 'MAKER';
+        }
+    );
+    this.getLoanDataHolder();
+    this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
+      this.currentNepDate = response.detail.nepDateFormat;
+    });
+  }
 
     getLoanDataHolder() {
         this.loanFormService.detail(this.customerId).subscribe(
@@ -244,13 +248,11 @@ export class LoanSummaryComponent implements OnInit {
     }
 
     renewedOrCloseFrom(id) {
-        this.rout.navigate(['/home/loan/summary'], {
+      this.router.navigate(['/home/loan/summary'], {
             queryParams: {
                 loanConfigId: this.loanConfigId,
                 customerId: id
-
             }
-
         });
 
         this.customerId = id;
