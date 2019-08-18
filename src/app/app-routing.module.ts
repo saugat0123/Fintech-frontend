@@ -6,16 +6,33 @@ import {ResentForgotPasswordComponent} from './component/resent-forgot-password/
 import {LoginBaseComponent} from './component/login-base/login-base.component';
 import {NewPasswordComponent} from './component/new-password/new-password.component';
 import {AuthGuard} from './shared-service/authentication/auth.guard';
+import {LoginGuard} from './shared-service/authentication/login.guard';
 
 
 const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     {
         path: '', component: LoginBaseComponent, children: [
-            { path: 'login', component: LoginComponent },
-            { path: 'forgotPassword', component: ForgotPasswordComponent },
-            { path: 'resentForgotPassword', component: ResentForgotPasswordComponent },
-            { path: 'newPassword', component: NewPasswordComponent }
+            {
+                path: 'login',
+                component: LoginComponent,
+                canActivate: [LoginGuard]
+            },
+            {
+                path: 'forgotPassword',
+                component: ForgotPasswordComponent,
+                canActivate: [LoginGuard]
+            },
+            {
+                path: 'resentForgotPassword',
+                component: ResentForgotPasswordComponent,
+                canActivate: [LoginGuard]
+            },
+            {
+                path: 'newPassword',
+                component: NewPasswordComponent,
+                canActivate: [LoginGuard]
+            }
         ]
     },
     {
