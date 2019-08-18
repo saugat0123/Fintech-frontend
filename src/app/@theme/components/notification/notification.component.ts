@@ -44,7 +44,7 @@ export class NotificationComponent implements OnInit {
     message.status = Status.INACTIVE;
     this.notificationService.save(message).subscribe((updateNotification: any) => {
       this.notificationService.fetchNotifications();
-      this.router.navigateByUrl('/home/dashboard/', {skipLocationChange: true}).then(e => {
+      this.router.navigateByUrl('', {skipLocationChange: true}).then(e => {
         if (e) {
           this.router.navigate(['/home/loan/summary'], {
             queryParams: {
