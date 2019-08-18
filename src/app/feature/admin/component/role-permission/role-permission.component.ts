@@ -27,7 +27,7 @@ export class RolePermissionComponent implements OnInit {
     rolePermissionList: any = [];
     compareCheckedPermission: any = [];
     permissions: any = {};
-    roleperm: any = [];
+    rolePerm: any = [];
     roleId;
     globalMsg: string;
     apiList: any = [];
@@ -76,14 +76,13 @@ export class RolePermissionComponent implements OnInit {
 
     roleChanged(id) {
         this.roleId = id;
-        this.roleperm = [];
+        this.rolePerm = [];
 
         this.service.detail(id).subscribe((response: any) => {
 
             this.rolePermissionList = response.detail;
-            // tslint:disable-next-line:no-shadowed-variable
-            this.permissionService.getAll().subscribe((response: any) => {
-                this.allPermission = response.detail;
+            this.permissionService.getAll().subscribe((permissionResponse: any) => {
+                this.allPermission = permissionResponse.detail;
                 this.checkPermission();
             });
 
@@ -108,22 +107,22 @@ export class RolePermissionComponent implements OnInit {
 
 
         if (events) {
-            this.roleperm.push(this.permissions);
+            this.rolePerm.push(this.permissions);
             $('#' + permId).collapse('show');
         } else {
 
             const element = document.getElementById(permId);
             element.className = 'row collapse';
             $('#' + permId).collapse('hide');
-            for (let i = 0; i < this.roleperm.length; i++) {
+            for (let i = 0; i < this.rolePerm.length; i++) {
 
-                if (this.roleperm[i].permission.id.toString() === (permId)) {
+                if (this.rolePerm[i].permission.id.toString() === (permId)) {
 
-                    if (this.roleperm[i].id !== null) {
-                        this.roleperm[i].del = true;
-                        this.permissions.id = this.roleperm[i].id;
+                    if (this.rolePerm[i].id !== null) {
+                        this.rolePerm[i].del = true;
+                        this.permissions.id = this.rolePerm[i].id;
                     } else {
-                        this.roleperm.splice(i, 1);
+                        this.rolePerm.splice(i, 1);
                     }
                 }
             }
@@ -140,20 +139,20 @@ export class RolePermissionComponent implements OnInit {
 
     updateCheckapiOptions(permId, apiId, events, index) {
 
-        for (let i = 0; i < this.roleperm.length; i++) {
-            if (this.roleperm[i].permission.id.toString() === permId.toString()) {
-                if (this.roleperm[i].id === null) {
+        for (let i = 0; i < this.rolePerm.length; i++) {
+            if (this.rolePerm[i].permission.id.toString() === permId.toString()) {
+                if (this.rolePerm[i].id === null) {
                     const apiUrl = {
                         id: apiId,
                         checked: events
                     };
-                    this.roleperm[i].apiRights.push(apiUrl);
+                    this.rolePerm[i].apiRights.push(apiUrl);
                 }
 
 
-                for (let j = 0; j < this.roleperm[i].apiRights.length; j++) {
-                    if (this.roleperm[i].apiRights[j].id.toString() === apiId) {
-                        this.roleperm[i].apiRights[j].checked = events;
+                for (let j = 0; j < this.rolePerm[i].apiRights.length; j++) {
+                    if (this.rolePerm[i].apiRights[j].id.toString() === apiId) {
+                        this.rolePerm[i].apiRights[j].checked = events;
 
                     }
 
@@ -166,9 +165,9 @@ export class RolePermissionComponent implements OnInit {
         this.isDisabled = true;
         this.spinner = true;
 
-        this.service.save(this.roleperm).subscribe(result => {
+        this.service.save(this.rolePerm).subscribe(result => {
 
-                this.roleperm = [];
+                this.rolePerm = [];
                 this.spinner = false;
                 // this.roleChanged(this.roleId);
                 this.isDisabled = false;
@@ -187,7 +186,7 @@ export class RolePermissionComponent implements OnInit {
     }
 
     checkPermission() {
-        this.roleperm = [];
+        this.rolePerm = [];
         this.compareCheckedPermission = [];
 
         for (let i = 0; i < this.allPermission.length; i++) {
@@ -218,7 +217,7 @@ export class RolePermissionComponent implements OnInit {
                         version: this.rolePermissionList[j].version
                     };
 
-                    this.roleperm.push(this.permissions);
+                    this.rolePerm.push(this.permissions);
 
                     break;
                 }
