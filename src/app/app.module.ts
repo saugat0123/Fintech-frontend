@@ -4,8 +4,6 @@ import {FormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './component/login/login.component';
 import {HttpClientModule} from '@angular/common/http';
-import {CommonService} from './@core/service/baseservice/common-baseservice';
-import {CommonDataService} from './@core/service/baseservice/common-dataService';
 import {AddressService} from './@core/service/baseservice/address.service';
 import {QuillModule} from 'ngx-quill';
 import {DatePipe, HashLocationStrategy, LocationStrategy} from '@angular/common';
@@ -45,7 +43,7 @@ import {NewPasswordComponent} from './component/new-password/new-password.compon
         NgxPrintModule,
         NbDatepickerModule.forRoot(),
     ],
-    providers: [CommonService, CommonDataService, AddressService, {
+    providers: [AddressService, {
         provide: LocationStrategy,
         useClass: HashLocationStrategy
     }, DatePipe],
