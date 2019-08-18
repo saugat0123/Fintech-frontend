@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {User} from '../../../admin/modal/user';
 import {Security} from '../../../admin/modal/security';
@@ -28,7 +28,7 @@ import {BusinessType} from '../../../admin/modal/businessType';
     templateUrl: './loan-summary.component.html',
     styleUrls: ['./loan-summary.component.scss']
 })
-export class LoanSummaryComponent implements OnInit {
+export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     client: String;
 
@@ -66,6 +66,7 @@ export class LoanSummaryComponent implements OnInit {
     occupation = Occupation;
     incomeSource = IncomeSource;
     businessType = BusinessType;
+    navigationSubscription;
 
   constructor(
       private userService: UserService,
@@ -80,7 +81,7 @@ export class LoanSummaryComponent implements OnInit {
       private modalService: NgbModal
   ) {
     this.client = environment.client;
-    this.router.events.subscribe((e: any) => {
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
         this.loadSummary();
       }
@@ -89,6 +90,10 @@ export class LoanSummaryComponent implements OnInit {
 
   ngOnInit() {
     this.loadSummary();
+  }
+
+  ngOnDestroy(): void {
+    this.navigationSubscription.unsubscribe();
   }
 
   loadSummary() {
