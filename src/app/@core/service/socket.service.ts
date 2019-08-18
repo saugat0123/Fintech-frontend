@@ -35,6 +35,7 @@ export class SocketService {
     this.stompClient.connect({}, function (frame) {
       that.openSocket();
     });
+    this.stompClient.debug = null;
   }
 
   openSocket() {
@@ -47,7 +48,6 @@ export class SocketService {
 
   sendMessageUsingSocket() {
     this.stompClient.send('/socket-subscriber/send/message', {}, JSON.stringify(this.message));
-    console.log(this.message);
   }
 
 }
