@@ -119,7 +119,7 @@ export class GeneralQuestionComponent implements OnInit {
             operandsArray.push(operand.value.operandCharacter);
         });
         const operands = operandsArray.join('');
-        this.formulaPattern = `[${operands}\\(\\)\\+\\-\\/\\*\\.\\ \\d]+`;
+        this.formulaPattern = `[${operands}\\(\\)\\+\\-\\/\\*\\.\\^\\ \\d]+`;
         this.invalidFormula = false;
         // In case you want to implement an operand character at least once :: ^(?=.*a)(?=.*b)(?=.*c)[\(\)\+\-\/\*\.\ \d]*
     }
