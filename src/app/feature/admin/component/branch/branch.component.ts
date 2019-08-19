@@ -204,6 +204,7 @@ export class BranchComponent implements OnInit {
 
 
     getMunicipalities(districtId) {
+        this.filterForm.controls['municipalityId'].setValue(null);
         this.district.id = districtId;
         this.location.getMunicipalityVDCByDistrict(this.district).subscribe(
             (response: any) => {
@@ -214,7 +215,6 @@ export class BranchComponent implements OnInit {
 
     getDistricts(provinceId) {
         this.province.id = provinceId;
-        this.districts = [];
         this.municipalities = [];
         this.filterForm.controls['districtId'].setValue(null);
         this.filterForm.controls['municipalityId'].setValue(null);
