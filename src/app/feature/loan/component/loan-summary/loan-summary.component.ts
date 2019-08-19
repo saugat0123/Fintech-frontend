@@ -124,7 +124,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
     );
     this.getLoanDataHolder();
-    this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
+    this.dateService.getDateInNepali(new Date().toLocaleString()).subscribe((response: any) => {
       this.currentNepDate = response.detail.nepDateFormat;
     });
   }
