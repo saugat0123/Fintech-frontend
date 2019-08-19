@@ -86,7 +86,7 @@
             <tr *ngFor="let eligibilityAnswer of applicant.eligibilityAnswers; let i = index;">
               <td width="5%">{{i+1}}</td>
               <td>{{eligibilityAnswer?.eligibilityQuestion?.description}}</td>
-              <td width="40%">{{eligibilityAnswer?.value}}</td>
+              <td width="40%">{{eligibilityAnswer?.value | currencyFormatter}}</td>
             </tr>
             </tbody>
           </table>
@@ -130,8 +130,8 @@
       <br>
 
       <div class="ml-3">
-        <p><b>Proposed Amount : </b>Rs. {{applicant?.requestAmount}}</p>
-        <p><b>Eligible Amount : </b>Rs. {{applicant?.eligibleAmount}}</p>
+        <p><b>Proposed Amount : </b>Rs.{{applicant?.requestAmount | currencyFormatter}}</p>
+        <p><b>Eligible Amount : </b>Rs.{{applicant?.eligibleAmount | currencyFormatter}}</p>
         <p><b>Eligibility Status : </b>{{applicant?.eligibilityStatus}}</p>
       </div>
 
