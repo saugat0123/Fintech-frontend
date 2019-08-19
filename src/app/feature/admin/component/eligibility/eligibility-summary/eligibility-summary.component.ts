@@ -67,6 +67,7 @@ export class EligibilitySummaryComponent implements OnInit {
     }
 
     onApproveOrReject(status) {
+        this.loading = true;
         if (status === Status.APPROVED) {
             this.applicant.eligibilityStatus = Status.APPROVED;
         } else {
@@ -78,6 +79,7 @@ export class EligibilitySummaryComponent implements OnInit {
         }, errorResponse => {
             console.log(errorResponse.error.message);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to update Eligibility Status !'));
+            this.loading = false;
         });
     }
 }
