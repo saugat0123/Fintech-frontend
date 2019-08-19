@@ -1,11 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {NewRequestService} from '../new-requests/new-request.service';
 import {Applicant} from '../../../modal/applicant';
 import {environment} from '../../../../../../environments/environment';
 import {DateService} from '../../../../../@core/service/baseservice/date.service';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
+import {ApplicantService} from './applicant.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Status} from '../../../modal/eligibility';
 
 @Component({
     selector: 'app-eligibility-summary',
@@ -19,13 +22,17 @@ export class EligibilitySummaryComponent implements OnInit {
     applicant: Applicant = new Applicant();
     currentNepDate: string;
     currentDate = new Date();
+    showApproveAndRejectButton = true;
     loading = false;
 
     constructor(
         private activatedRoute: ActivatedRoute,
-        private applicantService: NewRequestService,
+        private requestService: NewRequestService,
+        private applicantService: ApplicantService,
         private dateService: DateService,
-        private toastService: ToastService
+        private modalService: NgbModal,
+        private toastService: ToastService,
+        private router: Router
     ) {
         this.client = environment.client;
     }
@@ -43,8 +50,10 @@ export class EligibilitySummaryComponent implements OnInit {
                 this.loading = false;
             });
 
-        this.applicantService.detail(this.applicantId).subscribe((response: any) => {
+        this.requestService.detail(this.applicantId).subscribe((response: any) => {
             this.applicant = response.detail;
+            this.applicant.eligibilityStatus === 'ELIGIBLE' || this.applicant.eligibilityStatus === 'NOT_ELIGIBLE'
+                ? this.showApproveAndRejectButton = true : this.showApproveAndRejectButton = false;
             this.loading = false;
         });
 
@@ -57,4 +66,18 @@ export class EligibilitySummaryComponent implements OnInit {
         window.print();
     }
 
+    onApproveOrReject(status) {
+        if (status === Status.APPROVED) {
+            this.applicant.eligibilityStatus = Status.APPROVED;
+        } else {
+            this.applicant.eligibilityStatus = Status.REJECTED;
+        }
+        this.applicantService.update(this.applicant).subscribe( () => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated Eligibility Status !'));
+            this.router.navigate(['/home/admin/eligibility/new-requests']);
+        }, errorResponse => {
+            console.log(errorResponse.error.message);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to update Eligibility Status !'));
+        });
+    }
 }
