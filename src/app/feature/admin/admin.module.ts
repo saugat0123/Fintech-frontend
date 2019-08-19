@@ -66,6 +66,7 @@ import {EmailValidatorDirective} from '../../@core/directive/email-validator.dir
 import {NumberValidatorDirective} from '../../@core/directive/number-validator.directive';
 import { RoleEditComponent } from './component/role-permission/list-role/role-edit/role-edit.component';
 import { EligibilitySummaryComponent } from './component/eligibility/eligibility-summary/eligibility-summary.component';
+import {CurrencyFormatterPipe} from '../../@core/pipe/currency-formatter.pipe';
 
 @NgModule({
     declarations: [
@@ -122,7 +123,8 @@ import { EligibilitySummaryComponent } from './component/eligibility/eligibility
         EmailValidatorDirective,
         NumberValidatorDirective,
         RoleEditComponent,
-        EligibilitySummaryComponent
+        EligibilitySummaryComponent,
+        CurrencyFormatterPipe
 
         // SecurityComponent
     ],
