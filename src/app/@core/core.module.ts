@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {throwIfAlreadyLoaded} from './module-import-guard';
 import {AnalyticsService, LayoutService, StateService, ToastService} from './utils';
 import {PermissionService} from './service/permission.service';
+import { CurrencyFormatterPipe } from './pipe/currency-formatter.pipe';
 // import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 // import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 
@@ -84,8 +85,9 @@ export const NB_CORE_PROVIDERS = [
     ],
     exports: [
         // NbAuthModule,
+        CurrencyFormatterPipe
     ],
-    declarations: [],
+    declarations: [CurrencyFormatterPipe],
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
