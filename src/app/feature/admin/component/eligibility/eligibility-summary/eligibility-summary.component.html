@@ -55,14 +55,16 @@
             <tr>
               <th>Applicant Name</th>
               <th>Age</th>
+              <th>Email Address</th>
               <th width="40%">Phone Number</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-              <td>{{applicant.fullName}}</td>
-              <td>{{applicant.age}}</td>
-              <td>{{applicant.phoneNumber}}</td>
+              <td>{{applicant?.fullName}}</td>
+              <td>{{applicant?.age}}</td>
+              <td>{{applicant?.email}}</td>
+              <td>{{applicant?.phoneNumber}}</td>
             </tr>
             </tbody>
           </table>
