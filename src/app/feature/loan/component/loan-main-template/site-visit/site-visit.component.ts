@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {SiteVisit} from '../../../../admin/modal/siteVisit';
 import {InspectingStaff} from '../../../../admin/modal/inspectingStaff';
+import {PartyInfo} from '../../../../admin/modal/partyInfo';
 
 declare let google: any;
 
@@ -155,6 +156,7 @@ export class SiteVisitComponent implements OnInit {
           clientsOverallRating: [undefined],
           comments: [undefined],
           stockValueConfirmed: [undefined],
+          insuranceVerificationPosition: [undefined],
           inspectingStaffsDetails: this.formBuilder.array([
             this.staffsFormGroup()
           ])
@@ -555,7 +557,137 @@ export class SiteVisitComponent implements OnInit {
     }
     // currentAssetsInspection
     if (this.currentAssetsInspectionForm) {
+      this.formValue.currentAssetsInspection.dateOfInspection =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('dateOfInspection').value;
+      this.formValue.currentAssetsInspection.particularsOfGoodInspected =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('particularsOfGoodInspected').value;
+      this.formValue.currentAssetsInspection.stockValueReported =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('stockValueReported').value;
+      this.formValue.currentAssetsInspection.rents =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('rents').value;
+      this.formValue.currentAssetsInspection.rentPmtUpToDate =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('isRentPmtUpToDate').value;
+      this.formValue.currentAssetsInspection.rentReceiptUpToDate =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('isRentReceiptShown').value;
+      this.formValue.currentAssetsInspection.assetsMortgaged =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('assetsMortgaged').value;
+      this.formValue.currentAssetsInspection.insuredAmount =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('insuredAmount').value;
+      let i = 0;
+      const staffArray = (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('inspectingStaffsDetails') as FormArray);
+      while (i < staffArray.length) {
+        const inspectingStaff: InspectingStaff = new InspectingStaff();
+        inspectingStaff.name = staffArray[i].name;
+        inspectingStaff.position = staffArray[i].position;
+        this.formValue.currentAssetsInspection.inspectingStaff.push(inspectingStaff);
+        i++;
+      }
+      this.formValue.currentAssetsInspection.insuranceVerificationPosition =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('insuranceVerification')
+          .get('insuranceVerificationPosition').value;
+      this.formValue.currentAssetsInspection.insuranceCompany =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('insuranceCompany').value;
+      this.formValue.currentAssetsInspection.expiryDate =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('expiryDate').value;
+      this.formValue.currentAssetsInspection.clientsOverAllRating =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('clientsOverallRating').value;
+      this.formValue.currentAssetsInspection.insuranceVerificationComments =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('comments').value;
+      this.formValue.currentAssetsInspection.stockValueConfirmed =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('stockValueConfirmed').value;
+      this.formValue.currentAssetsInspection.uptoDateWithCharges =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('stockCheckListQuestionaire').get('uptoDateWithCharges').value;
+      this.formValue.currentAssetsInspection.borrowersPossession =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('stockCheckListQuestionaire').get('borrowersPossession').value;
+      this.formValue.currentAssetsInspection.notUnderTR =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('stockCheckListQuestionaire').get('notUnderTR').value;
+      this.formValue.currentAssetsInspection.otherBankNotInterested =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('stockCheckListQuestionaire')
+          .get('otherBankNotInterested').value;
+      this.formValue.currentAssetsInspection.securityOrder =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('stockCheckListQuestionaire').get('securityOrder').value;
+      this.formValue.currentAssetsInspection.goodsSaleable =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('stockCheckListQuestionaire').get('goodsSaleable').value;
+      this.formValue.currentAssetsInspection.stocksUptoDate =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('stockCheckListQuestionaire').get('stocksUptoDate').value;
+      this.formValue.currentAssetsInspection.matchWithTheStockList =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('stockCheckListQuestionaire')
+          .get('matchWithTheStockList').value;
+      this.formValue.currentAssetsInspection.storageConditionSatisfactory =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('stockCheckListQuestionaire')
+          .get('storageConditionSatisfactory').value;
+      this.formValue.currentAssetsInspection.fireFightingEvidence =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('stockCheckListQuestionaire')
+          .get('fireFightingEvidence').value;
+      this.formValue.currentAssetsInspection.buildingStoreCondition =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('stockCheckListQuestionaire')
+          .get('buildingStoreCondition').value;
+      this.formValue.currentAssetsInspection.warrantiesUptoDate =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('stockCheckListQuestionaire')
+          .get('warrantiesUptoDate').value;
+      this.formValue.currentAssetsInspection.noHazardousNature =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('stockCheckListQuestionaire')
+          .get('noHazardousNature').value;
+      this.formValue.currentAssetsInspection.nameBoardProperlyDisplayed =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('stockCheckListQuestionaire')
+          .get('nameBoardProperlyDisplayed').value;
+      this.formValue.currentAssetsInspection.padlocksUse =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('stockCheckListQuestionaire').get('padlocksUse').value;
+      this.formValue.currentAssetsInspection.findingAndComments =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('stockCheckListQuestionaire').get('findingAndComments').value;
+      this.formValue.currentAssetsInspection.remarksForNoOption =
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('stockCheckListQuestionaire').get('remarksForNoOption').value;
+      const parties = 0;
+      const partiesArray = (this.siteVisitFormGroup.get('currentAssetsInspection').get('parties') as FormArray);
+      while (parties < partiesArray.length) {
+        const partyInfo: PartyInfo = new PartyInfo();
+        partyInfo.party = partiesArray[parties].party;
+        partyInfo.threeMonth = partiesArray[parties].threeMonth;
+        partyInfo.sixMonth = partiesArray[parties].sixMonth;
+        partyInfo.oneYear = partiesArray[parties].oneYear;
+        partyInfo.moreThanOneYear = partiesArray[parties].moreThanOneYear;
+        this.formValue.currentAssetsInspection.party.push(partyInfo);
+      }
+
+      this.formValue.currentAssetsInspection.receivableAndPayableComments =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('receivablesAndPayables')
+          .get('findingsAndCommentsForCurrentAssetsInspection').value;
+      // this.formValue.currentAssetsInspection.receivableAsset
 
     }
   }
+
+  onChangeValue(childFormControlName: string, totalFormControlName: string) {
+    let total = 0;
+    const controls = (((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
+    .get('receivablesAndPayables') as FormGroup)
+    .get('parties') as FormArray).controls;
+    controls.forEach(party => {
+      total = total + Number(party.get(`${childFormControlName}`).value);
+    });
+    ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup).get('receivablesAndPayables') as FormGroup)
+    .get(`${totalFormControlName}`).patchValue(total);
+  }
 }
+
+

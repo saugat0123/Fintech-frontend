@@ -643,23 +643,23 @@
               <div class="col-md-2 form-group">
                 <label class="title" for="withinThreeMonths">Within 3 Months</label>
                 <input class="form-control" formControlName="withinThreeMonths"
-                       id="withinThreeMonths" name="party"
+                       id="withinThreeMonths" name="party" (keyup)="onChangeValue('withinThreeMonths','threeMonthTotal')"
                        placeholder="0.0">
               </div>
               <div class="col-md-2 form-group">
                 <label class="title" for="sixMonth">6 Month</label>
                 <input class="form-control" formControlName="sixMonth" id="sixMonth"
-                       name="sixMonth" placeholder="0.0">
+                       name="sixMonth" placeholder="0.0" (keyup)="onChangeValue('sixMonth', 'sixMonthTotal')">
               </div>
               <div class="col-md-2 form-group">
                 <label class="title" for="oneYear">One year</label>
                 <input class="form-control" formControlName="oneYear" id="oneYear"
-                       name="oneYear" placeholder="0.0">
+                       name="oneYear" placeholder="0.0" (keyup)="onChangeValue('oneYear', 'oneYearTotal')">
               </div>
               <div class="col-md-2 form-group">
                 <label class="title" for="oneYearPlus">1+ year</label>
                 <input class="form-control" formControlName="oneYearPlus" id="oneYearPlus"
-                       name="oneYeaPlus" placeholder="0.0">
+                       name="oneYeaPlus" placeholder="0.0" (keyup)="onChangeValue('oneYearPlus', 'moreThanOneYearTotal')">
               </div>
               <div *ngIf="partyLength()>1" class="col-md-1 pt-4">
                 <input (click)="deletePartyForm(i)"
@@ -676,16 +676,16 @@
             <div class="row">
               <div class="col-md-2 form-group"><label class="title">Total:</label></div>
               <div class="col-md-2 form-group">
-                <input class="form-control" placeholder="0.0" type="text" formControlName="threeMonthTotal">
+                <input class="form-control" placeholder="0.0" disabled type="text" formControlName="threeMonthTotal">
               </div>
               <div class="col-md-2 form-group">
-                <input class="form-control" placeholder="0.0" type="text" formControlName="sixMonthTotal">
+                <input class="form-control" placeholder="0.0" disabled type="text" formControlName="sixMonthTotal">
               </div>
               <div class="col-md-2 form-group">
-                <input class="form-control" placeholder="0.0" type="text" formControlName="oneYearTotal">
+                <input class="form-control" placeholder="0.0" disabled type="text" formControlName="oneYearTotal">
               </div>
               <div class="col-md-2 form-group">
-                <input class="form-control" placeholder="0.0" type="text" formControlName="moreThanOneYearTotal">
+                <input class="form-control" placeholder="0.0" disabled type="text" formControlName="moreThanOneYearTotal">
               </div>
             </div>
           </div>
@@ -729,7 +729,7 @@
               </div>
               <div class="col-md-4 justify-content-end ml-3">
                 <label class="title" for="total">Total</label>
-                <input class="form-control" id="total" name="amount" placeholder="0.0" type="text" formControlName="receivableCurrentAssetsTotal">
+                <input class="form-control" id="total" disabled name="amount" placeholder="0.0" type="text" formControlName="receivableCurrentAssetsTotal">
               </div>
             </div>
             <h5 class="col-md-12 mt-3">Inspecting Staffs</h5>

@@ -1,4 +1,22 @@
+import {InspectingStaff} from './inspectingStaff';
+import {PartyInfo} from './partyInfo';
+
 export class CurrentAssetsInspection {
+  dateOfInspection: Date;
+  particularsOfGoodInspected: string;
+  stockValueReported: number;
+  rents: string;
+  rentPmtUpToDate: string;
+  rentReceiptUpToDate: string;
+  assetsMortgaged: string;
+  insuredAmount: number;
+  insuranceCompany: string;
+  expiryDate: Date;
+  clientsOverAllRating: string;
+  insuranceVerificationComments: string;
+  stockValueConfirmed: number;
+  inspectingStaff: Array<InspectingStaff>;
+  insuranceVerificationPosition: string;
   uptoDateWithCharges: boolean;
   borrowersPossession: boolean;
   notUnderTR: boolean;
@@ -16,4 +34,22 @@ export class CurrentAssetsInspection {
   padlocksUse: boolean;
   findingAndComments: string;
   remarksForNoOption: string;
+  party: Array<PartyInfo>;
+  threeMonthTotal: number;
+  sixMonthTotal: number;
+  oneYearTotal: number;
+  moreThanAYearTotal: number;
+  receivableAndPayableTotal: number;
+  receivableAndPayableComments: string;
+  receivableAssetParticulars: string;
+  receivableAssetAmount: number;
+  receivableAssetTotal: number;
+  inspectingStaffName: string;
+  inspectingStaffPosition: string;
+  payableAssetParticulars: string;
+  payableAssetAmount: number;
+  payableAssetTotal: number;
+  bankExposureName: string;
+  bankExposureAmount: string;
+  overAllFindingsAndCmtOfCAI: string;
 }
