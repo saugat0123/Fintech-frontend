@@ -2,16 +2,16 @@ import {FormControl, NG_VALIDATORS, Validator, ValidatorFn} from '@angular/forms
 import {Directive} from '@angular/core';
 
 @Directive({
-    selector: '[app-whole-number][ngModel]',
+    selector: '[app-positive-decimal-number][ngModel]',
     providers: [
         {
             provide: NG_VALIDATORS,
-            useExisting: WholeNumberValidatorDirective,
+            useExisting: PositiveDecimalNumberValidatorDirective,
             multi: true
         }
     ]
 })
-export class WholeNumberValidatorDirective implements Validator {
+export class PositiveDecimalNumberValidatorDirective implements Validator {
     validator: ValidatorFn;
 
     constructor() {
@@ -24,7 +24,7 @@ export class WholeNumberValidatorDirective implements Validator {
 
     validNumber(): ValidatorFn {
         return (c: FormControl) => {
-            const isValid = /^[0-9]*$/.test(c.value);
+            const isValid = /^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/.test(c.value);
             if (isValid) {
                 return null;
             } else {
