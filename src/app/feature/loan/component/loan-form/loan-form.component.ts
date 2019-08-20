@@ -22,6 +22,7 @@ import {Proposal} from '../../../admin/modal/proposal';
 import {CiclComponent} from '../loan-main-template/cicl/cicl.component';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-loan-form',
@@ -100,7 +101,8 @@ export class LoanFormComponent implements OnInit {
         private modalService: NgbModal,
         private router: Router,
         private breadcrumbService: BreadcrumbService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private datePipe: DatePipe
     ) {
 
     }
@@ -132,7 +134,7 @@ export class LoanFormComponent implements OnInit {
                     this.loanFile = new DmsLoanFile();
                 }
             });
-        this.dateService.getDateInNepali(new Date().toLocaleString()).subscribe((response: any) => {
+        this.dateService.getDateInNepali(this.datePipe.transform(new Date(), 'yyyy-MM-dd')).subscribe((response: any) => {
             this.currentNepDate = response.detail;
         });
 
