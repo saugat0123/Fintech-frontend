@@ -664,29 +664,67 @@ export class SiteVisitComponent implements OnInit {
         partyInfo.sixMonth = partiesArray[parties].sixMonth;
         partyInfo.oneYear = partiesArray[parties].oneYear;
         partyInfo.moreThanOneYear = partiesArray[parties].moreThanOneYear;
-        this.formValue.currentAssetsInspection.party.push(partyInfo);
+        this.formValue.receivablePayableAssetsInspection.partyInfoList.push(partyInfo);
       }
+      this.formValue.receivablePayableAssetsInspection.threeMonthTotal =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('receivablesAndPayables')
+          .get('threeMonthTotal').value;
+      this.formValue.receivablePayableAssetsInspection.sixMonthTotal =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('receivablesAndPayables')
+          .get('sixMonthTotal').value;
+      this.formValue.receivablePayableAssetsInspection.oneYearTotal =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('receivablesAndPayables')
+          .get('oneYearTotal').value;
+      this.formValue.receivablePayableAssetsInspection.moreThanOneYearTotal =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('receivablesAndPayables')
+          .get('moreThanOneYearTotal').value;
 
-      this.formValue.currentAssetsInspection.receivableAndPayableComments =
+      this.formValue.receivablePayableAssetsInspection.findingsAndCommentsForCurrentAssetsInspection =
           this.siteVisitFormGroup
           .get('currentAssetsInspectionDetails')
           .get('receivablesAndPayables')
           .get('findingsAndCommentsForCurrentAssetsInspection').value;
-      // this.formValue.currentAssetsInspection.receivableAsset
+
+
 
     }
   }
 
   onChangeValue(childFormControlName: string, totalFormControlName: string) {
     let total = 0;
-    const controls = (((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
-    .get('receivablesAndPayables') as FormGroup)
-    .get('parties') as FormArray).controls;
-    controls.forEach(party => {
-      total = total + Number(party.get(`${childFormControlName}`).value);
+    this.partyForm.forEach(party => {
+      total += Number(party.get(`${childFormControlName}`).value);
     });
     ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup).get('receivablesAndPayables') as FormGroup)
     .get(`${totalFormControlName}`).patchValue(total);
+  }
+
+  onReceivableAssetValueChange(childFormControlName: string, totalFormControlName: string) {
+    let total = 0;
+    this.receivableAssetsForm.forEach(receivableAssets => {
+      total += Number(receivableAssets.get(`${childFormControlName}`).value);
+    });
+    ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup).get('otherCurrentAssets') as FormGroup)
+    .get(`${totalFormControlName}`).patchValue(total);
+
+  }
+
+  onPayableAssetsValueChange(childFormControlName: string, totalFormControlName: string) {
+    let total = 0;
+    this.payableAssetsForm.forEach(payableAssets => {
+      total += Number(payableAssets.get(`${childFormControlName}`).value);
+    });
+    ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup).get('otherCurrentAssets') as FormGroup)
+    .get(`${totalFormControlName}`).patchValue(total);
+
   }
 }
 

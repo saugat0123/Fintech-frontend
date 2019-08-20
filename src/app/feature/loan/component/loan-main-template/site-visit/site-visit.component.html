@@ -712,7 +712,7 @@
                 <div class="col-md-4 form-group ml-3">
                   <label class="title" for="amount">Amount</label>
                   <input class="form-control" formControlName="amount" id="amount"
-                         name="amount" placeholder="0.0">
+                         name="amount" placeholder="0.0" (keyup)="onReceivableAssetValueChange('amount', 'receivableCurrentAssetsTotal')">
                 </div>
                 <div *ngIf="receivableAssetsLength()>1" class="col-md-2 form-group pt-4">
                   <input (click)="deleteReceivableAssets(i)"
@@ -774,7 +774,7 @@
                 <div class="col-md-4 form-group ml-3">
                   <label class="title" for="amount">Amount</label>
                   <input class="form-control" formControlName="amount" id="amount"
-                         name="amount" placeholder="0.0">
+                         name="amount" placeholder="0.0" (keyup)="onPayableAssetsValueChange('amount', 'payableCurrentAssetsTotal')">
                 </div>
                 <div *ngIf="payableAssetsLength()>1" class="col-md-2 form-group pt-4">
                   <input (click)="deletePayableAssets(i)" class="btn btn-sm btn-danger btn-primary"
@@ -790,7 +790,7 @@
               </div>
               <div class="col-md-4 justify-content-end ml-3">
                 <label class="title" for="total">Total</label>
-                <input class="form-control" id="total" name="amount" placeholder="0.0" type="text" formControlName="payableCurrentAssetsTotal">
+                <input class="form-control" id="total" name="amount" disabled placeholder="0.0" type="text" formControlName="payableCurrentAssetsTotal">
               </div>
             </div>
             <h5 class="col-md-12 mt-3">Bank Exposure</h5>

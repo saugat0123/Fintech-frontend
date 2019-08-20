@@ -34,22 +34,4 @@ export class CurrentAssetsInspection {
   padlocksUse: boolean;
   findingAndComments: string;
   remarksForNoOption: string;
-  party: Array<PartyInfo>;
-  threeMonthTotal: number;
-  sixMonthTotal: number;
-  oneYearTotal: number;
-  moreThanAYearTotal: number;
-  receivableAndPayableTotal: number;
-  receivableAndPayableComments: string;
-  receivableAssetParticulars: string;
-  receivableAssetAmount: number;
-  receivableAssetTotal: number;
-  inspectingStaffName: string;
-  inspectingStaffPosition: string;
-  payableAssetParticulars: string;
-  payableAssetAmount: number;
-  payableAssetTotal: number;
-  bankExposureName: string;
-  bankExposureAmount: string;
-  overAllFindingsAndCmtOfCAI: string;
 }
