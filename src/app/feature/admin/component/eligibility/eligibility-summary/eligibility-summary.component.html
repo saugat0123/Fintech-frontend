@@ -41,11 +41,15 @@
       <hr class="print-line">
 
       <div class="row">
-        <div class="col-md-12 text-right">
-          <p class="text-right"><b>Date: </b>{{currentDate | date}}</p>
-          <p class="text-right">{{currentNepDate}}</p>
+        <div class="col-md-6 text-left">
+          <p><b>Applied Date (In Nepali): </b>{{appliedNepDate}}</p>
+        </div>
+        <div class="col-md-6 text-right">
+          <p><b>Applied Date (In English): </b>{{applicant.createdAt | date}}</p>
         </div>
       </div>
+
+      <hr class="print-line">
 
       <p><b>Details of Applicant</b></p>
       <div class="row">

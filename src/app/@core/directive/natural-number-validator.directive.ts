@@ -8,16 +8,16 @@ import {
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[app-valid-number][ngModel]',
+  selector: '[app-natural-number][ngModel]',
   providers: [
     {
       provide: NG_VALIDATORS,
-      useExisting: NumberValidatorDirective,
+      useExisting: NaturalNumberValidatorDirective,
       multi: true
     }
   ]
 })
-export class NumberValidatorDirective implements Validator {
+export class NaturalNumberValidatorDirective implements Validator {
   validator: ValidatorFn;
   constructor() {
     this.validator = this.validNumber();
