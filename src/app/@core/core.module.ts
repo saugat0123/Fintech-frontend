@@ -2,9 +2,8 @@ import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {throwIfAlreadyLoaded} from './module-import-guard';
 import {AnalyticsService, LayoutService, StateService, ToastService} from './utils';
-import {CommonDataService} from './service/baseservice/common-dataService';
-import {CommonService} from './service/baseservice/common-baseservice';
 import {PermissionService} from './service/permission.service';
+import { CurrencyFormatterPipe } from './pipe/currency-formatter.pipe';
 // import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 // import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 
@@ -75,8 +74,6 @@ export const NB_CORE_PROVIDERS = [
     AnalyticsService,
     LayoutService,
     StateService,
-    CommonService,
-    CommonDataService,
     ToastService,
     PermissionService
 
@@ -88,8 +85,9 @@ export const NB_CORE_PROVIDERS = [
     ],
     exports: [
         // NbAuthModule,
+        CurrencyFormatterPipe
     ],
-    declarations: [],
+    declarations: [CurrencyFormatterPipe],
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

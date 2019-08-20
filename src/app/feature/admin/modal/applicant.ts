@@ -13,6 +13,7 @@ export class Applicant {
     eligibilityStatus: string;
     fullName: string;
     loanConfig = new LoanConfig();
+    email: string;
     phoneNumber: number;
     requestAmount: number;
     version: number;

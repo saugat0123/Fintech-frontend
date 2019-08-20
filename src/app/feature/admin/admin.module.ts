@@ -52,7 +52,7 @@ import {ThemeModule} from '../../@theme/theme.module';
 // import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {MsgModalComponent, UpdateModalComponent} from '../../@theme/components';
+import {UpdateModalComponent} from '../../@theme/components';
 import {OpeningAccountComponent} from './component/opening-account/opening-account.component';
 import {OpenOpeningComponentComponent} from './component/opening-account/open-opening-component/open-opening-component.component';
 import {NgxPrintModule} from 'ngx-print';
@@ -66,6 +66,7 @@ import {EmailValidatorDirective} from '../../@core/directive/email-validator.dir
 import {NumberValidatorDirective} from '../../@core/directive/number-validator.directive';
 import { RoleEditComponent } from './component/role-permission/list-role/role-edit/role-edit.component';
 import { EligibilitySummaryComponent } from './component/eligibility/eligibility-summary/eligibility-summary.component';
+import {CoreModule} from '../../@core/core.module';
 
 @NgModule({
     declarations: [
@@ -137,7 +138,8 @@ import { EligibilitySummaryComponent } from './component/eligibility/eligibility
         ThemeModule,
         DragDropModule,
         NgSelectModule,
-        NgxPrintModule
+        NgxPrintModule,
+        CoreModule
     ],
 
     entryComponents: [
@@ -154,7 +156,6 @@ import { EligibilitySummaryComponent } from './component/eligibility/eligibility
         UpdateModalComponent,
         UserFormComponent,
         CompanyFormComponent,
-        MsgModalComponent,
         TemplateAddModelComponent,
         RoleFormComponent,
         EligibilityDocumentViewComponent,
