@@ -11,8 +11,8 @@ export class DateService {
     constructor(private http: HttpClient) {
     }
 
-    getCurrentDateInNepali() {
-        const getUrl = ApiUtils.getRequest(`${DateService.API}/nepali-date`);
+    getDateInNepali(englishDate: string) {
+        const getUrl = ApiUtils.getRequest(`${DateService.API}/nepali-date?date=${englishDate}`);
         return this.http.get(getUrl.url, {headers: getUrl.header});
     }
 

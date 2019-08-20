@@ -20,8 +20,7 @@ export class EligibilitySummaryComponent implements OnInit {
     applicantParam;
     applicantId: number;
     applicant: Applicant = new Applicant();
-    currentNepDate: string;
-    currentDate = new Date();
+    appliedNepDate: string;
     showApproveAndRejectButton = true;
     loading = false;
 
@@ -54,11 +53,10 @@ export class EligibilitySummaryComponent implements OnInit {
             this.applicant = response.detail;
             this.applicant.eligibilityStatus === 'ELIGIBLE' || this.applicant.eligibilityStatus === 'NOT_ELIGIBLE'
                 ? this.showApproveAndRejectButton = true : this.showApproveAndRejectButton = false;
+            this.dateService.getDateInNepali(this.applicant.createdAt).subscribe((nepDate: any) => {
+                this.appliedNepDate = nepDate.detail;
+            });
             this.loading = false;
-        });
-
-        this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
-            this.currentNepDate = response.detail.nepDateFormat;
         });
     }
 
