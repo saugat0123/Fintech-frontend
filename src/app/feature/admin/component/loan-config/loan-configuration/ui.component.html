@@ -33,10 +33,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label><h4>Interest Rate</h4></label>
-<!--                            <input type="hidden" class="form-control" [(ngModel)]="loanConfig.id" name="id"-->
-<!--                                   placeholder="id">-->
-                            <input type="number" class="form-control" name="name" required placeholder="Interest"
-                                   [(ngModel)]="loanConfig.interestRate">
+                            <input type="number" class="form-control" name="interestRate" required placeholder="Interest rate"
+                                   [(ngModel)]="loanConfig.interestRate" app-positive-decimal-number
+                            #interestRate="ngModel"
+                            [ngClass]=" { 'is-invalid': loanConfigForm.submitted && interestRate.invalid }"/>
+                            <div *ngIf="loanConfigForm.submitted && interestRate.invalid" class="invalid-feedback">
+                                Invalid input
+                            </div>
                         </div>
                     </div>
                 </div>
