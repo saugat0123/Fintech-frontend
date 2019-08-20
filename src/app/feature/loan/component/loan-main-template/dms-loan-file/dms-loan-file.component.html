@@ -48,12 +48,14 @@
                                 <div class="form-group rounded">
                                     <label for="citizenshipNumber"><b>Citizenship Number</b></label>
                                     <div class="input-group mb-3">
-                                        <input [ngClass]="{ 'is-invalid':submitted && form.citizenshipNumber.errors}"
-                                               class="form-control rounded"
-                                               formControlName="citizenshipNumber"
-                                               id="citizenshipNumber"
-                                               min="0" placeholder="Enter citizenship number"
-                                               type="text"/>
+                                      <input
+                                          (change)="searchByCitizenship()"
+                                          [ngClass]="{ 'is-invalid':submitted && form.citizenshipNumber.errors}"
+                                          class="form-control rounded"
+                                          formControlName="citizenshipNumber"
+                                          id="citizenshipNumber"
+                                          min="0" placeholder="Enter citizenship number"
+                                          type="text"/>
                                         <div class="input-group-append">
                                             <button (click)="searchByCitizenship()" nbButton outline size="small"
                                                     status="primary">Search
@@ -78,7 +80,7 @@
                                            id="contact"
                                            placeholder="Enter Contact Number"
                                            type="text"/>
-                                    <span><sup>*</sup> Multiple number can be input with commas.</span>
+                                  <span><small><sup>*</sup> Multiple number can be comma separated.</small></span>
                                     <div *ngIf="submitted && form.contactNumber.errors" class="invalid-feedback">
                                         <div *ngIf="form.contactNumber.errors.required">Contact number is required</div>
                                     </div>
@@ -171,12 +173,14 @@
                                     <div class="form-group rounded">
                                         <label for="registrationNumber"><b>Registration Number</b></label>
                                         <div class="input-group mb-3">
-                                            <input [ngClass]="{ 'is-invalid':submitted && form.registrationNumber.errors && !personal}"
-                                                   class="form-control rounded"
-                                                   formControlName="registrationNumber"
-                                                   id="registrationNumber"
-                                                   min="0" placeholder="Enter registration number"
-                                                   type="text"/>
+                                          <input
+                                              (change)="searchByRegNO()"
+                                              [ngClass]="{ 'is-invalid':submitted && form.registrationNumber.errors && !personal}"
+                                              class="form-control rounded"
+                                              formControlName="registrationNumber"
+                                              id="registrationNumber"
+                                              min="0" placeholder="Enter registration number"
+                                              type="text"/>
                                             <div class="input-group-append">
                                                 <button (click)="searchByRegNO()" nbButton outline size="small"
                                                         status="primary">Search
