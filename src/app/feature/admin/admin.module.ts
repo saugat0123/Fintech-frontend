@@ -63,7 +63,6 @@ import {UserGuideComponent} from '../../@theme/components/user-guide/user-guide.
 import {CatalogueComponent} from './component/catalogue/catalogue.component';
 import {EmailConfigurationComponent} from './component/email-configuration/email-configuration.component';
 import {EmailValidatorDirective} from '../../@core/directive/email-validator.directive';
-import {NumberValidatorDirective} from '../../@core/directive/number-validator.directive';
 import { RoleEditComponent } from './component/role-permission/list-role/role-edit/role-edit.component';
 import { EligibilitySummaryComponent } from './component/eligibility/eligibility-summary/eligibility-summary.component';
 import {CoreModule} from '../../@core/core.module';
@@ -121,7 +120,6 @@ import {CoreModule} from '../../@core/core.module';
         CatalogueComponent,
         EmailConfigurationComponent,
         EmailValidatorDirective,
-        NumberValidatorDirective,
         RoleEditComponent,
         EligibilitySummaryComponent
 
