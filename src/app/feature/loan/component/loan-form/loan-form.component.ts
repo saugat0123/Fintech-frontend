@@ -133,7 +133,7 @@ export class LoanFormComponent implements OnInit {
                 }
             });
         this.dateService.getDateInNepali(new Date().toLocaleString()).subscribe((response: any) => {
-            this.currentNepDate = response.detail.nepDateFormat;
+            this.currentNepDate = response.detail;
         });
 
         this.populateTemplate();

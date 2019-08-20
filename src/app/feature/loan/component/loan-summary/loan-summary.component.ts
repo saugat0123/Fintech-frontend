@@ -124,9 +124,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
     );
     this.getLoanDataHolder();
-    this.dateService.getDateInNepali(new Date().toLocaleString()).subscribe((response: any) => {
-      this.currentNepDate = response.detail.nepDateFormat;
-    });
   }
 
     getLoanDataHolder() {
@@ -204,6 +201,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                         }
                     }
                 }
+                this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
+                    this.currentNepDate = nepDate.detail;
+                });
             }
         );
     }
