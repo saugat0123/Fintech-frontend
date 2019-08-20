@@ -54,9 +54,8 @@ export class EligibilitySummaryComponent implements OnInit {
             this.applicant.eligibilityStatus === 'ELIGIBLE' || this.applicant.eligibilityStatus === 'NOT_ELIGIBLE'
                 ? this.showApproveAndRejectButton = true : this.showApproveAndRejectButton = false;
             this.dateService.getDateInNepali(this.applicant.createdAt).subscribe((nepDate: any) => {
-                this.appliedNepDate = nepDate.detail.nepDateFormat;
+                this.appliedNepDate = nepDate.detail;
             });
-            console.log(this.applicant.createdAt);
             this.loading = false;
         });
     }
