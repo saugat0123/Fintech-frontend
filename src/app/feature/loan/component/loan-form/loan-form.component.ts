@@ -234,6 +234,8 @@ export class LoanFormComponent implements OnInit {
 
         if (name === 'General' && action) {
             if (this.dmsLoanFile.loanForm.invalid) {
+                this.dmsLoanFile.customerFormField.showFormField = true;
+                this.dmsLoanFile.companyFormField.showFormField = true;
                 this.dmsLoanFile.submitted = true;
                 return true;
             }
