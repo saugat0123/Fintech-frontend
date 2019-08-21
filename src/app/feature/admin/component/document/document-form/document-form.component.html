@@ -21,7 +21,7 @@
                        formControlName="name" class="form-control"
                        id="name" placeholder="Name"/>
                 <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback">
-                  Name is Invalid or should not contain special character.
+                  Name is invalid or should be separated by whitespace only.
                 </div>
               </div>
             </div>
@@ -29,8 +29,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <label class="text-danger text-left">* Words must be strictly separated with hyphen symbol
-            (-)</label>
+          <label class="text-danger text-left">* Words must be strictly separated with whitespace
+            only.</label>
           <br/>
           <button [disabled]="modelForm.invalid" class="btn btn-primary" type="submit"><i
               class="fa fa-save"></i></button>

@@ -42,14 +42,14 @@ export class DocumentFormComponent implements OnInit {
     this.modelForm = this.formBuilder.group(
         {
           id: [this.model.id === undefined ? '' : this.model.id],
-          name: [this.model.name === undefined ? '' : this.model.name,
-            [Validators.required, Validators.pattern('[a-zA-Z0-9-]*')]]
+          name: [this.model.displayName === undefined ? '' : this.model.displayName,
+            [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]]
         }
     );
   }
 
   onSubmit() {
-    this.model.name = this.modelForm.value.name;
+    this.model.displayName = this.modelForm.value.name;
     this.service.save(this.model).subscribe((response) => {
           this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Document!'));
           this.model = new Document();
