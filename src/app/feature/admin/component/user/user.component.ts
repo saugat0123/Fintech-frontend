@@ -168,6 +168,13 @@ export class UserComponent implements OnInit {
         console.log(data);
         modalRef.componentInstance.data = data;
         modalRef.componentInstance.service = this.service;
+        modalRef.result.then(
+            close => {
+                UserComponent.loadData(this);
+            }, dismiss => {
+                UserComponent.loadData(this);
+            }
+        );
     }
 
     dismiss(data, dismiss) {
