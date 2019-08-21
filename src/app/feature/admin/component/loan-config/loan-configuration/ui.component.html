@@ -139,7 +139,7 @@
                                                 <nb-checkbox id="{{'initialDocument'+documentIndex}}" status="primary"
                                                              (change)="updateInitialDocument($event,initialDocument)"
                                                              [value]="initialDocument.checked">
-                                                    {{initialDocument.name}}
+                                                    {{initialDocument.displayName}}
                                                 </nb-checkbox>
                                         </div>
                                     </div>
@@ -158,7 +158,7 @@
                                             <nb-checkbox id="{{'renewDocument'+documentIndex}}" status="primary"
                                                          (change)="updateRenewalDocument($event,renewalDocument)"
                                                          [value]="renewalDocument.checked">
-                                                <span>{{renewalDocument.name}}</span>
+                                                <span>{{renewalDocument.displayName}}</span>
                                             </nb-checkbox>
                                         </div>
                                     </div>
@@ -178,7 +178,7 @@
                                             <nb-checkbox id="{{'closureDocument'+documentIndex}}" status="primary"
                                                          (change)="updateClosureDocument($event,closureDocument)"
                                                          [value]="closureDocument.checked">
-                                                {{closureDocument.name}}
+                                                {{closureDocument.displayName}}
                                             </nb-checkbox>
                                         </div>
                                     </div>
@@ -201,7 +201,7 @@
                                                 [value]="eligibilityDocument.checked"
                                                 id="{{'eligibility'+documentIndex}}"
                                                 status="primary">
-                                                <span>{{eligibilityDocument.name}}</span>
+                                                <span>{{eligibilityDocument.displayName}}</span>
                                             </nb-checkbox>
                                         </div>
                                     </div>
