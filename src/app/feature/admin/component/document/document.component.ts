@@ -101,6 +101,13 @@ export class DocumentComponent implements OnInit {
         const modalRef = this.modalService.open(UpdateModalComponent, {size: 'lg'});
         modalRef.componentInstance.data = data;
         modalRef.componentInstance.service = this.service;
+        modalRef.result.then(
+            close => {
+                DocumentComponent.loadData(this);
+            }, dismiss => {
+                DocumentComponent.loadData(this);
+            }
+        );
     }
 }
 
