@@ -5,11 +5,15 @@
            nbSpinnerMessage="">
     <nb-card-header>
       <div class="row float-right">
-          <!--<button id="approveButton" class="btn-sm btn-success d-flex justify-content-end" (click)="print()">APPROVE<i
+          <button *ngIf="showApproveAndRejectButton" id="approveButton" class="btn-sm btn-success d-flex justify-content-end"
+                  (click)="onApproveOrReject('APPROVED')">APPROVE<i
                   class="col-md-1 fa fa-check"></i></button>
-          <button id="rejectButton" class="btn-sm btn-danger d-flex justify-content-end" (click)="print()">REJECT<i
-                  class="col-md-1 fa fa-ban"></i></button>-->
-          <button id="printButton" class="btn-sm btn-warning d-flex justify-content-end" (click)="print()">PRINT<i
+          <button *ngIf="showApproveAndRejectButton" id="rejectButton" class="btn-sm btn-danger d-flex justify-content-end"
+                  (click)="onApproveOrReject('REJECTED')">REJECT<i
+                  class="col-md-1 fa fa-ban"></i></button>
+
+          <button id="printButton" class="btn-sm btn-warning d-flex justify-content-end"
+                  (click)="print()">PRINT<i
                   class="col-md-1 fa fa-print"></i></button>
       </div>
     </nb-card-header>
@@ -37,11 +41,15 @@
       <hr class="print-line">
 
       <div class="row">
-        <div class="col-md-12 text-right">
-          <p class="text-right"><b>Date: </b>{{currentDate | date}}</p>
-          <p class="text-right">{{currentNepDate}}</p>
+        <div class="col-md-6 text-left">
+          <p><b>Applied Date (In Nepali): </b>{{appliedNepDate}}</p>
+        </div>
+        <div class="col-md-6 text-right">
+          <p><b>Applied Date (In English): </b>{{applicant.createdAt | date}}</p>
         </div>
       </div>
+
+      <hr class="print-line">
 
       <p><b>Details of Applicant</b></p>
       <div class="row">
@@ -51,14 +59,16 @@
             <tr>
               <th>Applicant Name</th>
               <th>Age</th>
+              <th>Email Address</th>
               <th width="40%">Phone Number</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-              <td>{{applicant.fullName}}</td>
-              <td>{{applicant.age}}</td>
-              <td>{{applicant.phoneNumber}}</td>
+              <td>{{applicant?.fullName}}</td>
+              <td>{{applicant?.age}}</td>
+              <td>{{applicant?.email}}</td>
+              <td>{{applicant?.phoneNumber}}</td>
             </tr>
             </tbody>
           </table>
@@ -82,7 +92,7 @@
             <tr *ngFor="let eligibilityAnswer of applicant.eligibilityAnswers; let i = index;">
               <td width="5%">{{i+1}}</td>
               <td>{{eligibilityAnswer?.eligibilityQuestion?.description}}</td>
-              <td width="40%">{{eligibilityAnswer?.value}}</td>
+              <td width="40%">{{eligibilityAnswer?.value | currencyFormatter}}</td>
             </tr>
             </tbody>
           </table>
@@ -126,8 +136,8 @@
       <br>
 
       <div class="ml-3">
-        <p><b>Proposed Amount : </b>Rs. {{applicant?.requestAmount}}</p>
-        <p><b>Eligible Amount : </b>Rs. {{applicant?.eligibleAmount}}</p>
+        <p><b>Proposed Amount : </b>Rs.{{applicant?.requestAmount | currencyFormatter}}</p>
+        <p><b>Eligible Amount : </b>Rs.{{applicant?.eligibleAmount | currencyFormatter}}</p>
         <p><b>Eligibility Status : </b>{{applicant?.eligibilityStatus}}</p>
       </div>
 

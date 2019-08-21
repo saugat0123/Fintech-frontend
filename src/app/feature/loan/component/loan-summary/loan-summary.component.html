@@ -51,22 +51,39 @@
             </div>
             <div class="row mt-1">
                 <div class="col-md-6 text-left">
-                    <span><b>Pending Under: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
+                    <div *ngIf="currentDocAction === 'FORWARD' || currentDocAction === 'BACKWARD'
+                          || currentDocAction === 'PENDING'">
+                        <span><b>Pending Under: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
                         ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                    </div>
+                    <div *ngIf="currentDocAction === 'APPROVED'">
+                        <span><b>Approved By: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
+                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                    </div>
+                    <div *ngIf="currentDocAction === 'REJECT'">
+                        <span><b>Rejected By: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
+                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                    </div>
+                    <div *ngIf="currentDocAction === 'CLOSED'">
+                        <span><b>Closed By: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
+                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                    </div>
                 </div>
-                <div class="col-md-6 text-right" *ngIf="currentDocAction === 'FORWARD'">
+                <div class="col-md-6 text-right">
+                    <div *ngIf="currentDocAction === 'FORWARD'">
                     <span><b>Forwarded By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                </div>
-                <div class="col-md-6 text-right" *ngIf="currentDocAction === 'BACKWARD'">
+                    </div>
+                    <div *ngIf="currentDocAction === 'BACKWARD'">
                     <span><b>Backward By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                </div>
-                <!--<div class="col-md-6">
-                    <div class="text-right">
-                        <span><b>Branch: </b>{{loanDataHolder?.branch?.name}}</span>
                     </div>
-                </div>-->
+                    <!--<div class="col-md-6">
+                        <div class="text-right">
+                            <span><b>Branch: </b>{{loanDataHolder?.branch?.name}}</span>
+                        </div>
+                    </div>-->
+                </div>
             </div>
             <hr class="print-line">
             <div class="row">

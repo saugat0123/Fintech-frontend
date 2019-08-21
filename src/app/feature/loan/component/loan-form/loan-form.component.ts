@@ -22,6 +22,7 @@ import {Proposal} from '../../../admin/modal/proposal';
 import {CiclComponent} from '../loan-main-template/cicl/cicl.component';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {DatePipe} from '@angular/common';
 import {SiteVisitComponent} from '../loan-main-template/site-visit/site-visit.component';
 
 @Component({
@@ -104,7 +105,8 @@ export class LoanFormComponent implements OnInit {
         private modalService: NgbModal,
         private router: Router,
         private breadcrumbService: BreadcrumbService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private datePipe: DatePipe
     ) {
 
     }
@@ -136,9 +138,8 @@ export class LoanFormComponent implements OnInit {
                     this.loanFile = new DmsLoanFile();
                 }
             });
-
-        this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
-            this.currentNepDate = response.detail.nepDateFormat;
+        this.dateService.getDateInNepali(this.datePipe.transform(new Date(), 'yyyy-MM-dd')).subscribe((response: any) => {
+            this.currentNepDate = response.detail;
         });
 
         this.populateTemplate();
@@ -238,6 +239,8 @@ export class LoanFormComponent implements OnInit {
 
         if (name === 'General' && action) {
             if (this.dmsLoanFile.loanForm.invalid) {
+                this.dmsLoanFile.customerFormField.showFormField = true;
+                this.dmsLoanFile.companyFormField.showFormField = true;
                 this.dmsLoanFile.submitted = true;
                 return true;
             }

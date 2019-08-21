@@ -17,10 +17,4 @@ export class RolePermissionService extends BaseService<RolePermissionRight> {
         return RolePermissionService.API;
     }
 
-    public getRights(): Observable<any> {
-        const req = ApiUtils.getRequest(`${this.getApi()}/rights`);
-
-        return this.http.get(req.url, {headers: req.header});
-    }
-
 }

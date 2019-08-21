@@ -2,9 +2,10 @@ import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {throwIfAlreadyLoaded} from './module-import-guard';
 import {AnalyticsService, LayoutService, StateService, ToastService} from './utils';
-import {CommonDataService} from './service/baseservice/common-dataService';
-import {CommonService} from './service/baseservice/common-baseservice';
 import {PermissionService} from './service/permission.service';
+import {CurrencyFormatterPipe} from './pipe/currency-formatter.pipe';
+import {NaturalNumberValidatorDirective} from './directive/natural-number-validator.directive';
+import { PositiveDecimalNumberValidatorDirective } from './directive/positive-decimal-number-validator.directive';
 // import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 // import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 
@@ -75,8 +76,6 @@ export const NB_CORE_PROVIDERS = [
     AnalyticsService,
     LayoutService,
     StateService,
-    CommonService,
-    CommonDataService,
     ToastService,
     PermissionService
 
@@ -86,10 +85,15 @@ export const NB_CORE_PROVIDERS = [
     imports: [
         CommonModule,
     ],
-    exports: [
-        // NbAuthModule,
-    ],
-    declarations: [],
+  exports: [
+    // NbAuthModule,
+    CurrencyFormatterPipe,
+    PositiveDecimalNumberValidatorDirective,
+      NaturalNumberValidatorDirective
+  ],
+    declarations: [CurrencyFormatterPipe,
+        NaturalNumberValidatorDirective,
+        PositiveDecimalNumberValidatorDirective],
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
