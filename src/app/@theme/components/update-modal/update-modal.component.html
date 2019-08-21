@@ -1,15 +1,14 @@
- <div class="modal-document">
-        <div class="modal-content">
-            <div class="modal-header col-md-12 pull-right">
-                <a  class="close cursor" data-dismiss="modal" aria-hidden="true" (click)="reloadPage()">&times;</a>
-            </div>
-            <div class="modal-body text-center">
-              Are You Sure to change the Status  to {{data.status}}?
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-flat btn-sm" data-dismiss="modal" (click)="reloadPage()">No</button>
-                <button class="btn btn-success btn-flat btn-sm" (click)="updateStatus()" data-dismiss="modal">Yes</button>
-              </div>
-        </div>
-    </div>
+<nb-card class="text-center m-0">
+    <nb-card-header>
+        <a (click)="closeModal()" aria-hidden="true" class="close cursor">&times;</a>
+    </nb-card-header>
+    <nb-card-body>
+        Are You Sure to change the Status to <b>{{data.enableEligibility !== undefined ?
+        (data.enableEligibility === 'true' ? 'ENABLE' : 'DISABLE') : data.status}}</b>?
+    </nb-card-body>
+    <nb-card-footer class="text-right">
+            <button (click)="closeModal()" class="btn btn-danger btn-flat btn-sm" type="button">No
+            </button>
+            <button class="btn btn-success btn-flat btn-sm cursor" type="button" (click)="updateStatus()">Yes</button>
+    </nb-card-footer>
+</nb-card>
