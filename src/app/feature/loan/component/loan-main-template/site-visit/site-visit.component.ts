@@ -3,6 +3,9 @@ import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {SiteVisit} from '../../../../admin/modal/siteVisit';
 import {InspectingStaff} from '../../../../admin/modal/inspectingStaff';
 import {PartyInfo} from '../../../../admin/modal/partyInfo';
+import {ReceivableCurrentAssets} from '../../../../admin/modal/receivableCurrentAssets';
+import {PayableCurrentAssets} from '../../../../admin/modal/payableCurrentAssets';
+import {BankExposureAssets} from '../../../../admin/modal/bankExposureAssets';
 
 declare let google: any;
 
@@ -209,7 +212,7 @@ export class SiteVisitComponent implements OnInit {
         })
       })
     });
-    this.siteVisitFormGroup.valueChanges.subscribe(console.log);
+    this.siteVisitFormGroup.valueChanges.subscribe(console.log); // logged here
   }
 
   checkboxSelected(label: String, isChecked: boolean) {
@@ -453,13 +456,15 @@ export class SiteVisitComponent implements OnInit {
     this.formValue.hasBusinessSiteVisit = this.businessSiteVisitForm;
     this.formValue.hasFixedAssetsCollateral = this.fixedAssetCollateralForm;
     this.formValue.hasCurrentAssetsInspection = this.currentAssetsInspectionForm;
+
     // currentResident
     if (this.currentResidentForm) {
+      console.log('inside');
       this.formValue.currentResident.residentHouseNo = this.siteVisitFormGroup.get('currentResidentDetails').get('houseNumber').value;
-      this.formValue.currentResident.residentHouseNo = this.siteVisitFormGroup.get('currentResidentDetails').get('streetName').value;
-      this.formValue.currentResident.residentHouseNo = this.siteVisitFormGroup.get('currentResidentDetails').get('address').value;
-      this.formValue.currentResident.residentHouseNo = this.siteVisitFormGroup.get('currentResidentDetails').get('nearBy').value;
-      this.formValue.currentResident.residentHouseNo = this.siteVisitFormGroup.get('currentResidentDetails').get('ownerName').value;
+      this.formValue.currentResident.residentStreetName = this.siteVisitFormGroup.get('currentResidentDetails').get('streetName').value;
+      this.formValue.currentResident.residentAddress = this.siteVisitFormGroup.get('currentResidentDetails').get('address').value;
+      this.formValue.currentResident.residentNearby = this.siteVisitFormGroup.get('currentResidentDetails').get('nearBy').value;
+      this.formValue.currentResident.residentOwnerName = this.siteVisitFormGroup.get('currentResidentDetails').get('ownerName').value;
     }
     // businessSiteVisit
     if (this.businessSiteVisitForm) {
@@ -543,6 +548,7 @@ export class SiteVisitComponent implements OnInit {
           this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('vicinityToTheBasicAmenities').get('waterPipeline').value;
       let staffIndex = 0;
       const staffArray = (this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('staffs') as FormArray);
+      console.log(staffArray);
       while (staffIndex < staffArray.length) {
         const inspectingStaff: InspectingStaff = new InspectingStaff();
         inspectingStaff.name = staffArray[staffIndex].name;
@@ -557,21 +563,21 @@ export class SiteVisitComponent implements OnInit {
     }
     // currentAssetsInspection
     if (this.currentAssetsInspectionForm) {
-      this.formValue.currentAssetsInspection.dateOfInspection =
+      this.formValue.assetsInspection.dateOfInspection =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('dateOfInspection').value;
-      this.formValue.currentAssetsInspection.particularsOfGoodInspected =
+      this.formValue.assetsInspection.goodsParticular =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('particularsOfGoodInspected').value;
-      this.formValue.currentAssetsInspection.stockValueReported =
+      this.formValue.assetsInspection.stockValueReported =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('stockValueReported').value;
-      this.formValue.currentAssetsInspection.rents =
+      this.formValue.assetsInspection.premisesOwnedRented =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('rents').value;
-      this.formValue.currentAssetsInspection.rentPmtUpToDate =
+      this.formValue.assetsInspection.rentPmtUptoDate =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('isRentPmtUpToDate').value;
-      this.formValue.currentAssetsInspection.rentReceiptUpToDate =
+      this.formValue.assetsInspection.rentReceiptShown =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('isRentReceiptShown').value;
-      this.formValue.currentAssetsInspection.assetsMortgaged =
+      this.formValue.assetsInspection.insuranceVerification.assetsMortgaged =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('assetsMortgaged').value;
-      this.formValue.currentAssetsInspection.insuredAmount =
+      this.formValue.assetsInspection.insuranceVerification.insuredAmount =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('insuredAmount').value;
       let i = 0;
       const staffArray = (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('inspectingStaffsDetails') as FormArray);
@@ -579,23 +585,18 @@ export class SiteVisitComponent implements OnInit {
         const inspectingStaff: InspectingStaff = new InspectingStaff();
         inspectingStaff.name = staffArray[i].name;
         inspectingStaff.position = staffArray[i].position;
-        this.formValue.currentAssetsInspection.inspectingStaff.push(inspectingStaff);
+        this.formValue.assetsInspection.insuranceVerification.inspectingStaffList.push(inspectingStaff);
         i++;
       }
-      this.formValue.currentAssetsInspection.insuranceVerificationPosition =
-          this.siteVisitFormGroup
-          .get('currentAssetsInspectionDetails')
-          .get('insuranceVerification')
-          .get('insuranceVerificationPosition').value;
-      this.formValue.currentAssetsInspection.insuranceCompany =
+      this.formValue.assetsInspection.insuranceVerification.insuranceCompany =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('insuranceCompany').value;
-      this.formValue.currentAssetsInspection.expiryDate =
+      this.formValue.assetsInspection.insuranceVerification.expiryDate =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('expiryDate').value;
-      this.formValue.currentAssetsInspection.clientsOverAllRating =
+      this.formValue.assetsInspection.insuranceVerification.clientRating =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('clientsOverallRating').value;
-      this.formValue.currentAssetsInspection.insuranceVerificationComments =
+      this.formValue.assetsInspection.insuranceVerification.comments =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('comments').value;
-      this.formValue.currentAssetsInspection.stockValueConfirmed =
+      this.formValue.assetsInspection.insuranceVerification.stockValueConfirmed =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('stockValueConfirmed').value;
       this.formValue.currentAssetsInspection.uptoDateWithCharges =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('stockCheckListQuestionaire').get('uptoDateWithCharges').value;
@@ -655,8 +656,8 @@ export class SiteVisitComponent implements OnInit {
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('stockCheckListQuestionaire').get('findingAndComments').value;
       this.formValue.currentAssetsInspection.remarksForNoOption =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('stockCheckListQuestionaire').get('remarksForNoOption').value;
-      const parties = 0;
-      const partiesArray = (this.siteVisitFormGroup.get('currentAssetsInspection').get('parties') as FormArray);
+      let parties = 0;
+      const partiesArray = (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('parties') as FormArray);
       while (parties < partiesArray.length) {
         const partyInfo: PartyInfo = new PartyInfo();
         partyInfo.party = partiesArray[parties].party;
@@ -665,6 +666,7 @@ export class SiteVisitComponent implements OnInit {
         partyInfo.oneYear = partiesArray[parties].oneYear;
         partyInfo.moreThanOneYear = partiesArray[parties].moreThanOneYear;
         this.formValue.receivablePayableAssetsInspection.partyInfoList.push(partyInfo);
+        parties++;
       }
       this.formValue.receivablePayableAssetsInspection.threeMonthTotal =
           this.siteVisitFormGroup
@@ -692,9 +694,61 @@ export class SiteVisitComponent implements OnInit {
           .get('currentAssetsInspectionDetails')
           .get('receivablesAndPayables')
           .get('findingsAndCommentsForCurrentAssetsInspection').value;
+     let receivableIndex = 0;
+     const receivableAssetsArray = (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('receivableAssets') as FormArray);
+     while (receivableIndex <  receivableAssetsArray.length) {
+       const receivableCurrentAssets: ReceivableCurrentAssets = new ReceivableCurrentAssets();
+       receivableCurrentAssets.particular = receivableAssetsArray[receivableIndex].particular;
+       receivableCurrentAssets.amount = receivableAssetsArray[receivableIndex].amount;
+       this.formValue.receivablePayableAssetsInspection.receivableCurrentAssetsList.push(receivableCurrentAssets);
+       receivableIndex++;
+     }
+     this.formValue.receivablePayableAssetsInspection.receivableCurrentAssetsTotal =
+         this.siteVisitFormGroup
+         .get('currentAssetsInspectionDetails')
+        .get('otherCurrentAssets')
+        .get('receivableCurrentAssetsTotal').value;
 
+     let payableIndex = 0;
+     const payableAssetArray = (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('payableAssets') as FormArray);
+     while (payableIndex < payableAssetArray.length) {
+       const payableCurrentAssets: PayableCurrentAssets = new PayableCurrentAssets();
+       payableCurrentAssets.particular = payableAssetArray[payableIndex].particular;
+       payableCurrentAssets.amount = payableAssetArray[payableIndex].amount;
+       this.formValue.receivablePayableAssetsInspection.payableCurrentAssetsList.push(payableCurrentAssets);
+       payableIndex++;
+     }
+      this.formValue.receivablePayableAssetsInspection.payableCurrentAssetsTotal =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('otherCurrentAssets')
+          .get('payableCurrentAssetsTotal').value;
 
+      let staffIndex = 0;
+      const staffsArray = (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('inspectingStaffs') as FormArray);
+      while (staffIndex < staffsArray.length) {
+        const inspectingStaffs: InspectingStaff = new InspectingStaff();
+        inspectingStaffs.name = staffsArray[staffIndex].name;
+        inspectingStaffs.position = staffsArray[staffIndex].position;
+        this.formValue.receivablePayableAssetsInspection.inspectingStaffList.push(inspectingStaffs);
+        staffIndex++;
+      }
 
+      let bankExposureIndex = 0;
+      const bankExposureArray = (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('bankExposures') as FormArray);
+      while (bankExposureIndex < bankExposureArray.length) {
+        const bankExposure: BankExposureAssets = new BankExposureAssets();
+        bankExposure.bankName = bankExposureArray[bankExposureIndex].bankName;
+        bankExposure.amount = bankExposureArray[bankExposureIndex].amount;
+        this.formValue.receivablePayableAssetsInspection.bankExposureAssetsList.push(bankExposure);
+        bankExposureIndex++;
+      }
+
+      this.formValue.receivablePayableAssetsInspection.overallFindingAndCommentsOfCAI =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('otherCurrentAssets')
+          .get('overAllFindings').value;
     }
   }
 
