@@ -33,7 +33,7 @@ export class FixedAssetsCollateral {
   electricityLineDistance: number;
   telephoneLineDistance: number;
   waterPipelineDistance: number;
-  inspectingStaffList: Array<InspectingStaff>;
+  inspectingStaffList: Array<InspectingStaff> = new Array<InspectingStaff>();
   commentsAboutFAC: string;
   branchInchargeComment: string;
 }

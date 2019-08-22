@@ -459,7 +459,6 @@ export class SiteVisitComponent implements OnInit {
 
     // currentResident
     if (this.currentResidentForm) {
-      console.log('inside');
       this.formValue.currentResident.residentHouseNo = this.siteVisitFormGroup.get('currentResidentDetails').get('houseNumber').value;
       this.formValue.currentResident.residentStreetName = this.siteVisitFormGroup.get('currentResidentDetails').get('streetName').value;
       this.formValue.currentResident.residentAddress = this.siteVisitFormGroup.get('currentResidentDetails').get('address').value;
@@ -547,12 +546,15 @@ export class SiteVisitComponent implements OnInit {
       this.formValue.fixedAssetsCollateral.waterPipelineDistance =
           this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('vicinityToTheBasicAmenities').get('waterPipeline').value;
       let staffIndex = 0;
-      const staffArray = (this.siteVisitFormGroup.get('fixedAssetCollateralDetails').get('staffs') as FormArray);
+      const staffArray = (this.siteVisitFormGroup
+      .get('fixedAssetCollateralDetails')
+      .get('vicinityToTheBasicAmenities')
+      .get('staffs') as FormArray);
       console.log(staffArray);
       while (staffIndex < staffArray.length) {
         const inspectingStaff: InspectingStaff = new InspectingStaff();
-        inspectingStaff.name = staffArray[staffIndex].name;
-        inspectingStaff.position = staffArray[staffIndex].position;
+        inspectingStaff.name = staffArray.controls[staffIndex].value.name;
+        inspectingStaff.position = staffArray.controls[staffIndex].value.position;
         this.formValue.fixedAssetsCollateral.inspectingStaffList.push(inspectingStaff);
         staffIndex++;
       }
@@ -580,18 +582,21 @@ export class SiteVisitComponent implements OnInit {
       this.formValue.assetsInspection.insuranceVerification.insuredAmount =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('insuredAmount').value;
       let i = 0;
-      const staffArray = (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('inspectingStaffsDetails') as FormArray);
+      const staffArray = (this.siteVisitFormGroup
+      .get('currentAssetsInspectionDetails')
+      .get('insuranceVerification')
+      .get('inspectingStaffsDetails') as FormArray);
       while (i < staffArray.length) {
         const inspectingStaff: InspectingStaff = new InspectingStaff();
-        inspectingStaff.name = staffArray[i].name;
-        inspectingStaff.position = staffArray[i].position;
+        inspectingStaff.name = staffArray.controls[i].value.name;
+        inspectingStaff.position = staffArray.controls[i].value.position;
         this.formValue.assetsInspection.insuranceVerification.inspectingStaffList.push(inspectingStaff);
         i++;
       }
       this.formValue.assetsInspection.insuranceVerification.insuranceCompany =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('insuranceCompany').value;
       this.formValue.assetsInspection.insuranceVerification.expiryDate =
-          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('expiryDate').value;
+          this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('expireDate').value;
       this.formValue.assetsInspection.insuranceVerification.clientRating =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('insuranceVerification').get('clientsOverallRating').value;
       this.formValue.assetsInspection.insuranceVerification.comments =
@@ -657,14 +662,17 @@ export class SiteVisitComponent implements OnInit {
       this.formValue.currentAssetsInspection.remarksForNoOption =
           this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('stockCheckListQuestionaire').get('remarksForNoOption').value;
       let parties = 0;
-      const partiesArray = (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('parties') as FormArray);
+      const partiesArray = (this.siteVisitFormGroup
+      .get('currentAssetsInspectionDetails')
+      .get('receivablesAndPayables')
+      .get('parties') as FormArray);
       while (parties < partiesArray.length) {
         const partyInfo: PartyInfo = new PartyInfo();
-        partyInfo.party = partiesArray[parties].party;
-        partyInfo.threeMonth = partiesArray[parties].threeMonth;
-        partyInfo.sixMonth = partiesArray[parties].sixMonth;
-        partyInfo.oneYear = partiesArray[parties].oneYear;
-        partyInfo.moreThanOneYear = partiesArray[parties].moreThanOneYear;
+        partyInfo.party = partiesArray.controls[parties].value.party;
+        partyInfo.threeMonth = partiesArray.controls[parties].value.threeMonth;
+        partyInfo.sixMonth = partiesArray.controls[parties].value.sixMonth;
+        partyInfo.oneYear = partiesArray.controls[parties].value.oneYear;
+        partyInfo.moreThanOneYear = partiesArray.controls[parties].value.moreThanOneYear;
         this.formValue.receivablePayableAssetsInspection.partyInfoList.push(partyInfo);
         parties++;
       }
@@ -694,30 +702,36 @@ export class SiteVisitComponent implements OnInit {
           .get('currentAssetsInspectionDetails')
           .get('receivablesAndPayables')
           .get('findingsAndCommentsForCurrentAssetsInspection').value;
-     let receivableIndex = 0;
-     const receivableAssetsArray = (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('receivableAssets') as FormArray);
-     while (receivableIndex <  receivableAssetsArray.length) {
-       const receivableCurrentAssets: ReceivableCurrentAssets = new ReceivableCurrentAssets();
-       receivableCurrentAssets.particular = receivableAssetsArray[receivableIndex].particular;
-       receivableCurrentAssets.amount = receivableAssetsArray[receivableIndex].amount;
-       this.formValue.receivablePayableAssetsInspection.receivableCurrentAssetsList.push(receivableCurrentAssets);
-       receivableIndex++;
-     }
-     this.formValue.receivablePayableAssetsInspection.receivableCurrentAssetsTotal =
-         this.siteVisitFormGroup
-         .get('currentAssetsInspectionDetails')
-        .get('otherCurrentAssets')
-        .get('receivableCurrentAssetsTotal').value;
+      let receivableIndex = 0;
+      const receivableAssetsArray = (this.siteVisitFormGroup
+      .get('currentAssetsInspectionDetails')
+      .get('otherCurrentAssets')
+      .get('receivableAssets') as FormArray);
+      while (receivableIndex < receivableAssetsArray.length) {
+        const receivableCurrentAssets: ReceivableCurrentAssets = new ReceivableCurrentAssets();
+        receivableCurrentAssets.particular = receivableAssetsArray.controls[receivableIndex].value.particular;
+        receivableCurrentAssets.amount = receivableAssetsArray.controls[receivableIndex].value.amount;
+        this.formValue.receivablePayableAssetsInspection.receivableCurrentAssetsList.push(receivableCurrentAssets);
+        receivableIndex++;
+      }
+      this.formValue.receivablePayableAssetsInspection.receivableCurrentAssetsTotal =
+          this.siteVisitFormGroup
+          .get('currentAssetsInspectionDetails')
+          .get('otherCurrentAssets')
+          .get('receivableCurrentAssetsTotal').value;
 
-     let payableIndex = 0;
-     const payableAssetArray = (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('payableAssets') as FormArray);
-     while (payableIndex < payableAssetArray.length) {
-       const payableCurrentAssets: PayableCurrentAssets = new PayableCurrentAssets();
-       payableCurrentAssets.particular = payableAssetArray[payableIndex].particular;
-       payableCurrentAssets.amount = payableAssetArray[payableIndex].amount;
-       this.formValue.receivablePayableAssetsInspection.payableCurrentAssetsList.push(payableCurrentAssets);
-       payableIndex++;
-     }
+      let payableIndex = 0;
+      const payableAssetArray = (this.siteVisitFormGroup
+      .get('currentAssetsInspectionDetails')
+      .get('otherCurrentAssets')
+      .get('payableAssets') as FormArray);
+      while (payableIndex < payableAssetArray.length) {
+        const payableCurrentAssets: PayableCurrentAssets = new PayableCurrentAssets();
+        payableCurrentAssets.particular = payableAssetArray.controls[payableIndex].value.particular;
+        payableCurrentAssets.amount = payableAssetArray.controls[payableIndex].value.amount;
+        this.formValue.receivablePayableAssetsInspection.payableCurrentAssetsList.push(payableCurrentAssets);
+        payableIndex++;
+      }
       this.formValue.receivablePayableAssetsInspection.payableCurrentAssetsTotal =
           this.siteVisitFormGroup
           .get('currentAssetsInspectionDetails')
@@ -725,21 +739,27 @@ export class SiteVisitComponent implements OnInit {
           .get('payableCurrentAssetsTotal').value;
 
       let staffIndex = 0;
-      const staffsArray = (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('inspectingStaffs') as FormArray);
+      const staffsArray = (this.siteVisitFormGroup
+      .get('currentAssetsInspectionDetails')
+      .get('otherCurrentAssets')
+      .get('inspectingStaffs') as FormArray);
       while (staffIndex < staffsArray.length) {
         const inspectingStaffs: InspectingStaff = new InspectingStaff();
-        inspectingStaffs.name = staffsArray[staffIndex].name;
-        inspectingStaffs.position = staffsArray[staffIndex].position;
+        inspectingStaffs.name = staffsArray.controls[staffIndex].value.name;
+        inspectingStaffs.position = staffsArray.controls[staffIndex].value.position;
         this.formValue.receivablePayableAssetsInspection.inspectingStaffList.push(inspectingStaffs);
         staffIndex++;
       }
 
       let bankExposureIndex = 0;
-      const bankExposureArray = (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').get('bankExposures') as FormArray);
+      const bankExposureArray = (this.siteVisitFormGroup
+      .get('currentAssetsInspectionDetails')
+      .get('otherCurrentAssets')
+      .get('bankExposures') as FormArray);
       while (bankExposureIndex < bankExposureArray.length) {
         const bankExposure: BankExposureAssets = new BankExposureAssets();
-        bankExposure.bankName = bankExposureArray[bankExposureIndex].bankName;
-        bankExposure.amount = bankExposureArray[bankExposureIndex].amount;
+        bankExposure.bankName = bankExposureArray.controls[bankExposureIndex].value.bankName;
+        bankExposure.amount = bankExposureArray.controls[bankExposureIndex].value.amount;
         this.formValue.receivablePayableAssetsInspection.bankExposureAssetsList.push(bankExposure);
         bankExposureIndex++;
       }

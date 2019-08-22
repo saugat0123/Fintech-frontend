@@ -7,5 +7,5 @@ export class AssetsInspection {
   premisesOwnedRented: string;
   rentPmtUptoDate: string;
   rentReceiptShown: string;
-  insuranceVerification: InsuranceVerification;
+  insuranceVerification: InsuranceVerification = new InsuranceVerification();
 }

@@ -26,7 +26,7 @@ export class LoanDataHolder {
     ciclRemarks: string;
     insurance: Insurance;
     documentStatus: DocStatus;
-    siteVisit: SiteVisit;
+    siteVisit: SiteVisit = new SiteVisit();
     priority: Priority;
     createdAt: any;
     previousList: LoanStage[] = [];

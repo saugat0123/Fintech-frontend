@@ -8,5 +8,5 @@ export class InsuranceVerification {
   clientRating: string;
   comments: string;
   stockValueConfirmed: number;
-  inspectingStaffList: Array<InspectingStaff>;
+  inspectingStaffList: Array<InspectingStaff> = new Array<InspectingStaff>();
 }
