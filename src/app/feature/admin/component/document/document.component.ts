@@ -3,13 +3,14 @@ import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {Document} from '../../modal/document';
 import {LoanCycle} from '../../modal/loan-cycle';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {AddDocumentComponent} from './add-document/add-document.component';
+import {DocumentFormComponent} from './document-form/document-form.component';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {UpdateModalComponent} from '../../../../@theme/components';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {DocumentService} from './document.service';
+import {Action} from '../../../../@core/Action';
 
 @Component({
     selector: 'app-document',
@@ -81,13 +82,15 @@ export class DocumentComponent implements OnInit {
     }
 
     openEdit(document: Document) {
-        const modalRef = this.modalService.open(AddDocumentComponent);
+        const modalRef = this.modalService.open(DocumentFormComponent);
+        modalRef.componentInstance.action = Action.UPDATE;
         modalRef.componentInstance.model = document;
         ModalUtils.resolve(modalRef.result, DocumentComponent.loadData, this);
     }
 
     addDocument() {
-        const modalRef = this.modalService.open(AddDocumentComponent);
+        const modalRef = this.modalService.open(DocumentFormComponent);
+        modalRef.componentInstance.action = Action.ADD;
         modalRef.componentInstance.model = new Document();
         ModalUtils.resolve(modalRef.result, DocumentComponent.loadData, this);
     }
