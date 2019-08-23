@@ -131,7 +131,6 @@ export class LoanFormComponent implements OnInit {
                             this.loanDocument = response.detail;
                             this.loanDocument.id = response.detail.id;
                             this.submitDisable = false;
-                            console.log(this.loanDocument.financial);
                         }
                     );
                 } else {

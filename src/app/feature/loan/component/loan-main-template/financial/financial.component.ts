@@ -801,7 +801,7 @@ export class FinancialComponent implements OnInit {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setTaxesCategoryAmount(singleData)
+                    amount: this.setCurrentAssetsCategoryAmount(singleData)
                 })
             );
         });
@@ -840,7 +840,7 @@ export class FinancialComponent implements OnInit {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setTaxesCategoryAmount(singleData)
+                    amount: this.setInventoriesCategoryAmount(singleData)
                 })
             );
         });
@@ -879,7 +879,7 @@ export class FinancialComponent implements OnInit {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setTaxesCategoryAmount(singleData)
+                    amount: this.setFixedAssetsCategoryAmount(singleData)
                 })
             );
         });
@@ -918,7 +918,7 @@ export class FinancialComponent implements OnInit {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setTaxesCategoryAmount(singleData)
+                    amount: this.setOtherAssetsCategoryAmount(singleData)
                 })
             );
         });
@@ -969,7 +969,7 @@ export class FinancialComponent implements OnInit {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setTaxesCategoryAmount(singleData)
+                    amount: this.setCurrentLiabilitiesCategoryAmount(singleData)
                 })
             );
         });
@@ -1008,7 +1008,7 @@ export class FinancialComponent implements OnInit {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setTaxesCategoryAmount(singleData)
+                    amount: this.setLongTermLoanCategoryAmount(singleData)
                 })
             );
         });
@@ -1047,7 +1047,7 @@ export class FinancialComponent implements OnInit {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setTaxesCategoryAmount(singleData)
+                    amount: this.setOtherLongTermLiabilitiesCategoryAmount(singleData)
                 })
             );
         });
@@ -1098,7 +1098,7 @@ export class FinancialComponent implements OnInit {
             control.push(
                 this.formBuilder.group({
                     name: [singleData.name],
-                    amount: this.setTaxesCategoryAmount(singleData)
+                    amount: this.setNetWorthCategoryAmount(singleData)
                 })
             );
         });
