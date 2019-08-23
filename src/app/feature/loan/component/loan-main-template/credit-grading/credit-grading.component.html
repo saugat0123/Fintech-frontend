@@ -1,0 +1,132 @@
+<section>
+  <nb-card>
+    <nb-card-body>
+      <div class="box box-primary">
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <span class="float-right clickable" data-toggle="collapse" data-target="#tableCollapse"><i class="fas fa-chevron-down"></i></span>
+              <table class="table col-md-11 table-condensed table-bordered table-responsive-md text-center" id="tableCollapse">
+                <tr>
+                  <th>Number</th>
+                  <th>Grading</th>
+                  <th>Short</th>
+                  <th>Score</th>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Superior</td>
+                  <td>SUP</td>
+                  <td>
+                    Fully cash secured, secured by
+                    Government/International Bank
+                    Guarantee
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Good</td>
+                  <td>GD</td>
+                  <td>85+</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Acceptable</td>
+                  <td>ACCPT</td>
+                  <td>75-84</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Marginal/Watchlist</td>
+                  <td>MG/WL</td>
+                  <td>65-74</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Special Mention</td>
+                  <td>SM</td>
+                  <td>55-64</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>Substandard</td>
+                  <td>SS</td>
+                  <td>45-54</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>Doubtful</td>
+                  <td>DF</td>
+                  <td>35-44</td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td>Bad & Loss</td>
+                  <td>BL</td>
+                  <td><35</td>
+                </tr>
+              </table>
+              <form [formGroup]="questionAnswerForm">
+                <table class="table table-condensed table-bordered table-responsive-md"
+                       formArrayName="questionForm">
+                  <thead>
+                  <tr>
+                    <th>SN.</th>
+                    <th>Criteria</th>
+                    <th>Weight</th>
+                    <th>Parameter</th>
+                    <th>Score Obtained</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                  <tr *ngFor="let qsn of questionAnswerForm.get('questionForm')['controls']; let i = index"
+                      [formGroupName]="i">
+                    <td>{{i+1}}</td>
+                    <td width="40%" colspan="2">
+
+                      <div [innerHtml]="qsn.get('description').value | safeHtml"></div>
+
+                    </td>
+                    <td>
+                                            <span *ngFor="let ans of qsn.get('answers')['controls']; let j = index"
+                                                  formArrayName="answers">
+                                                <div [formGroupName]="j">
+                                                    <input #selectedAnswer
+                                                           (click)="onChangeOption(qsn,qsn.get('id').value,selectedAnswer.value)"
+                                                           [name]="qsn.get('id').value" [value]="ans.controls.points.value"
+                                                           type="radio">
+                                                <input #description formControlName="description" hidden>
+                                                  {{description.value}}<br>
+                                            </div>
+                                            </span>
+                    </td>
+                    <!--                                        <td>-->
+                    <!--                                                <span *ngFor="let ans of qsn.get('answers')['controls']; let k = index" formArrayName="answers">-->
+                    <!--                                                    <div [formGroupName]="k">-->
+                    <!--                                                        <input #points formControlName="points" hidden>-->
+                    <!--                                                        {{points.value}}-->
+                    <!--                                                    </div>-->
+
+                    <!--                                                </span>-->
+                    <!--                                        </td>-->
+                    <td>{{qsn.get('selectedAnswer').value}}</td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="2"><b>Grading:</b> {{grading}}</td>
+                    <th colspan="2" class="text-center">Total Score: </th>
+                    <td>{{totalPoints}}</td>
+                  </tr>
+
+                  </tbody>
+                </table>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</section>
+
