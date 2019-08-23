@@ -26,13 +26,13 @@
             <nb-card-header>
                 <div class=row>
                     <div class="col-md-3">
-                        <label>Configure Role</label>
-                        <select class="form-control" (change)="roleChanged($event.target.value)">
+                        <label for="configureRole">Configure Role</label>
+                        <select (change)="roleChanged($event.target.value)" class="form-control"
+                                id="configureRole">
                             <option>---Select Role---</option>
                             <option *ngFor="let role of roleList" value="{{role.id}}">{{role.roleName}}</option>
                         </select>
                     </div>
-                    <!-- <h3 class="box-title">Hover Data Table</h3> -->
                     <div class="col-md-9">
                         <div class="float-right">
                             <button class="pull-right" data-toggle="modal" (click)="onOpen()">

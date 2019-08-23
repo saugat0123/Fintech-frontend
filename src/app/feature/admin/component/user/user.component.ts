@@ -9,6 +9,14 @@ import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {UserService} from './user.service';
+import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {RoleAccess} from '../../modal/role-access';
+import {BranchService} from '../branch/branch.service';
+import {RoleService} from '../role-permission/role.service';
+import {Branch} from '../../modal/branch';
+import {Role} from '../../modal/role';
+import {Status} from '../../../../@core/Status';
 
 @Component({
     selector: 'app-user',
@@ -19,12 +27,17 @@ export class UserComponent implements OnInit {
     title = 'User';
     breadcrumb = 'User > List';
     dataList: Array<User>;
-
+    restApi = ApiConfig.URL;
     page = 1;
 
     spinner = false;
     globalMsg: string;
-    search: any = {};
+    search: any = {
+        name: undefined,
+        branchIds: undefined,
+        userId: undefined,
+        status: undefined
+    };
     pageable: Pageable = new Pageable();
     currentApi: string;
     activeCount: number;
@@ -33,12 +46,22 @@ export class UserComponent implements OnInit {
     newValue: string;
     users: number;
     dismissBranch = false;
+    RootUrl = ApiConfig.URL;
+    filterForm: FormGroup;
+    branchList: Array<Branch> = new Array<Branch>();
+    roleList: Array<Role> = new Array<Role>();
+    active = Status.ACTIVE;
+    inactive = Status.INACTIVE;
+    allBranches = RoleAccess.ALL;
 
     constructor(
         private service: UserService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private formBuilder: FormBuilder,
+        private branchService: BranchService,
+        private roleService: RoleService
     ) {
     }
 
@@ -61,6 +84,22 @@ export class UserComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.buildFilterForm();
+        this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
+            this.branchList = response.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
+        });
+        this.roleService.getAll().subscribe(
+            (response: any) => {
+                this.roleList = response.detail;
+                this.roleList.splice(0, 1); // removes ADMIN
+            }, error => {
+                console.log(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Roles'));
+            }
+        );
         this.breadcrumbService.notify(this.title);
 
         UserComponent.loadData(this);
@@ -77,6 +116,15 @@ export class UserComponent implements OnInit {
         });
     }
 
+    buildFilterForm() {
+        this.filterForm = this.formBuilder.group({
+            name: [undefined],
+            branch: [undefined],
+            role: [undefined],
+            activeStatus: [undefined]
+        });
+    }
+
     changePage(page: number) {
         this.page = page;
 
@@ -84,15 +132,17 @@ export class UserComponent implements OnInit {
     }
 
     onSearch() {
+        this.search.name = this.filterForm.get('name').value === null ? undefined :
+            this.filterForm.get('name').value;
+        this.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
+            this.filterForm.get('branch').value;
+        this.search.roleId = this.filterForm.get('role').value === null ? undefined : this.filterForm.get('role').value;
+        this.search.status = this.filterForm.get('activeStatus').value === null ? undefined : this.filterForm.get('activeStatus').value;
         UserComponent.loadData(this);
     }
 
-    onSearchChange(searchValue: string) {
-        this.search = {
-            'name': searchValue
-        };
-
-        UserComponent.loadData(this);
+    clearSearch() {
+        this.buildFilterForm();
     }
 
     edit(user: User) {
@@ -118,6 +168,13 @@ export class UserComponent implements OnInit {
         console.log(data);
         modalRef.componentInstance.data = data;
         modalRef.componentInstance.service = this.service;
+        modalRef.result.then(
+            close => {
+                UserComponent.loadData(this);
+            }, dismiss => {
+                UserComponent.loadData(this);
+            }
+        );
     }
 
     dismiss(data, dismiss) {
@@ -143,8 +200,8 @@ export class UserComponent implements OnInit {
         this.service.download(this.search).subscribe((response: any) => {
             const link = document.createElement('a');
             link.target = '_blank';
-            link.href = response.detail;
-            link.download = response.detail;
+            link.href = this.restApi + '/' + response.detail;
+            link.download = this.restApi + '/' + response.detail;
             link.setAttribute('visibility', 'hidden');
             link.click();
 

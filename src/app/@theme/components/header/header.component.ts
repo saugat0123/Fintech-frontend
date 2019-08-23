@@ -7,6 +7,10 @@ import {filter, map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SearchResultComponent} from './header-form/searchResult.component';
+import {ProfileComponent} from '../profile/profile.component';
+import {SocketService} from '../../../@core/service/socket.service';
+import {NotificationService} from '../notification/service/notification.service';
+import {ChangePasswordComponent} from '../change-password/change-password.component';
 
 @Component({
     selector: 'app-header',
@@ -16,16 +20,21 @@ import {SearchResultComponent} from './header-form/searchResult.component';
 export class HeaderComponent implements OnInit {
 
     static LOGOUT = 'Log out';
+    static PROFILE = 'Profile';
+    static CHANGE_PASSWORD = 'Change Password';
     contextMenuTag = 'user-context-menu';
 
     @Input() position = 'normal';
 
+    userId: number;
     userFullName: string;
     username: string;
     userProfilePicture;
     roleName;
 
-    userMenu = [{title: HeaderComponent.LOGOUT}];
+    userMenu = [{title: HeaderComponent.PROFILE}, {title: HeaderComponent.CHANGE_PASSWORD}, {title: HeaderComponent.LOGOUT}, ];
+
+    notificationCount;
 
     constructor(private sidebarService: NbSidebarService,
                 private menuService: NbMenuService,
@@ -34,7 +43,9 @@ export class HeaderComponent implements OnInit {
                 private themeService: NbThemeService,
                 private router: Router,
                 private searchService: NbSearchService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                private socketService: SocketService,
+                private notificationService: NotificationService) {
 
         this.searchService.onSearchSubmit()
             .subscribe((searchData: any) => {
@@ -60,10 +71,10 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.userId = Number(localStorage.getItem('userId'));
         this.userFullName = localStorage.getItem('userFullName');
         this.userProfilePicture = localStorage.getItem('userProfilePicture');
         this.roleName = localStorage.getItem('roleName');
-
 
         this.menuService.onItemClick().pipe(
             filter(({tag}) => tag === this.contextMenuTag),
@@ -72,6 +83,23 @@ export class HeaderComponent implements OnInit {
         ).subscribe(() => {
             this.logout();
         });
+        this.menuService.onItemClick().pipe(
+            filter(({tag}) => tag === this.contextMenuTag),
+            map(({item: {title}}) => title),
+            filter((title) => title === HeaderComponent.PROFILE)
+        ).subscribe(() => {
+            this.open();
+        });
+        this.menuService.onItemClick().pipe(
+            filter(({tag}) => tag === this.contextMenuTag),
+            map(({item: {title}}) => title),
+            filter((title) => title === HeaderComponent.CHANGE_PASSWORD)
+        ).subscribe(() => {
+            this.changePasswordDialog();
+        });
+
+        this.menuService.onItemClick().pipe();
+        this.setupNotification();
     }
 
     toggleSidebar(): boolean {
@@ -92,5 +120,20 @@ export class HeaderComponent implements OnInit {
 
     userGuide() {
         this.router.navigate(['/home/admin/user-guide']);
+    }
+
+    open() {
+        this.modalService.dismissAll();
+        this.modalService.open(ProfileComponent, {size: 'lg', backdrop: 'static'});
+    }
+    changePasswordDialog() {
+        this.modalService.dismissAll();
+        this.modalService.open(ChangePasswordComponent, {size: 'lg', backdrop: 'static'});
+    }
+
+    setupNotification(): void {
+        this.socketService.initializeWebSocketConnection();
+        this.notificationService.fetchNotifications();
+        this.notificationService.notificationCount.subscribe((value => this.notificationCount = value));
     }
 }

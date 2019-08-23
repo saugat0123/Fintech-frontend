@@ -10,7 +10,7 @@ import {SuccessOfferLetterComponent} from './component/offer-letter/success-offe
 import {FinancialComponent} from './component/loan-main-template/financial/financial.component';
 export const routes: Routes = [
     {path: 'loanForm', component: LoanFormComponent},
-    {path: 'loanType', component: DmsLoanFileComponent},
+    {path: 'loanDataHolder', component: DmsLoanFileComponent},
     {path: 'summary', component: LoanSummaryComponent},
     {path: 'kyc', component: KycInfoComponent},
     {path: 'birth-mark-letter', component: BirthMarkLetterNepaliComponent},

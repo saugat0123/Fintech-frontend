@@ -3,9 +3,9 @@ import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MemoBaseComponent} from './component/memo-base/memo-base.component';
 import {MemoTypeComponent} from './component/memo-type/memo-type.component';
-import {MemoComposeComponent} from './component/memo-compose/memo-compose.component';
-import {MemoUnderReviewComponent} from './component/memo-underReview/memo-underReview.component';
-import {MemoReadComponent} from './component/memo-read/memo-read.component';
+import {ComposeComponent} from './component/compose/compose.component';
+import {ReviewComponent} from './component/review/review.component';
+import {ReadComponent} from './component/read/read.component';
 import {MemoService} from './service/memo.service';
 import {MemoRoutes} from './memo-routes';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -17,6 +17,12 @@ import {CoreModule} from '../../@core/core.module';
 import {MemoTypeService} from './service/memo-type.service';
 import {MemoTypeFormComponent} from './component/memo-type/memo-type-form/memo-type-form.component';
 import {MemoTypeDeleteComponent} from './component/memo-type/memo-type-form/memo-type-delete.component';
+import {ForwardActionComponent} from './component/actions/forward-action.component';
+import {RejectActionComponent} from './component/actions/reject-action.component';
+import {ApproveActionComponent} from './component/actions/approve-action.component';
+import {RejectedComponent} from './component/reject/rejected.component';
+import {DraftComponent} from './component/draft/draft.component';
+import {ApprovedComponent} from './component/approved/approved.component';
 
 @NgModule({
     declarations: [
@@ -24,9 +30,16 @@ import {MemoTypeDeleteComponent} from './component/memo-type/memo-type-form/memo
         MemoTypeComponent,
         MemoTypeFormComponent,
         MemoTypeDeleteComponent,
-        MemoComposeComponent,
-        MemoUnderReviewComponent,
-        MemoReadComponent,
+        ComposeComponent,
+        ReviewComponent,
+        DraftComponent,
+        ReadComponent,
+        ReviewComponent,
+        RejectedComponent,
+        ApprovedComponent,
+        ForwardActionComponent,
+        RejectActionComponent,
+        ApproveActionComponent,
         SafePipe
     ],
 
@@ -42,7 +55,10 @@ import {MemoTypeDeleteComponent} from './component/memo-type/memo-type-form/memo
     ],
     providers: [MemoService, MemoTypeService],
     entryComponents: [
-        MemoTypeFormComponent
+        MemoTypeFormComponent,
+        ApproveActionComponent,
+        ForwardActionComponent,
+        RejectActionComponent
     ]
 })
 export class MemoModule {

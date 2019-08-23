@@ -3,5 +3,26 @@
     bottom: 15px;
     margin-top: 10px;
     min-height: 45vh;
-    width: 70vw;
+}
+.sb-row-custom {
+    display: flex;
+    justify-content: space-between;
+}
+
+.custom-select {
+    font-size: 1rem;
+    line-height: 1.15;
+    height: auto;
+    padding: 0.75rem 1.125rem;
+    background-color: #ffffff;
+    border: 2px solid #dadfe6;
+    color: #181818;
+}
+.sb-no-data-info {
+    margin-top: 10px;
+    padding: 5px;
+}
+.sb-filter-button-container {
+    display: flex;
+    justify-content: space-evenly;
 }

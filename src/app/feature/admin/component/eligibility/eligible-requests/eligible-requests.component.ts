@@ -9,6 +9,7 @@ import {Status} from '../../../modal/eligibility';
 import {SubmissionDocument} from '../../../modal/submission-document';
 import {EligibilityDocumentViewComponent} from '../eligibility-document-view/eligibility-document-view.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-eligible-requests',
@@ -21,19 +22,24 @@ export class EligibleRequestsComponent implements OnInit {
     applicantList: Array<Applicant> = new Array<Applicant>();
 
     page = 1;
-    search: any = {};
+    search: any = {
+        branchIds: undefined,
+        loanConfigId: undefined,
+        eligibilityStatus: Status.APPROVED
+    };
     pageable: Pageable = new Pageable();
 
     constructor(private newRequestService: NewRequestService,
                 private toastService: ToastService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                private router: Router) {
     }
 
     static loadData(other: EligibleRequestsComponent) {
 
         other.spinner = true;
         other.applicantList = [];
-        other.newRequestService.getAllWithSearchObject(other.page, 10, Status.ELIGIBLE).subscribe((response: any) => {
+        other.newRequestService.getAllWithSearchObject(other.page, 10, other.search).subscribe((response: any) => {
                 other.applicantList = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
 
@@ -63,6 +69,11 @@ export class EligibleRequestsComponent implements OnInit {
         const modalRef = this.modalService.open(EligibilityDocumentViewComponent, {size: 'lg'});
         modalRef.componentInstance.model = document;
         ModalUtils.resolve(modalRef.result, EligibleRequestsComponent.loadData, this);
+    }
+
+    onApplicantClick(applicantId) {
+        this.spinner = true;
+        this.router.navigate(['/home/admin/eligibility/eligibility-summary'], {queryParams: {applicantId: applicantId}});
     }
 
 }

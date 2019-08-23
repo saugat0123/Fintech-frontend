@@ -23,21 +23,20 @@
             <nb-card-header>
                 <div class=row>
                     <div class="col-md-6">
-                        <form (ngSubmit)="onSearch()">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <input type="text" [(ngModel)]="search.name" class="cursor"
-                                           (input)="onSearchChange($event.target.value)" name="name"
-                                           placeholder="search...."
-                                           nbInput fullWidth>
-                                </div>
-                                <div class="col-md-4">
-                                    <button type="submit" style="cursor: pointer" nbButton outline status="primary">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </div>
+                        <div class="row">
+                            <div [formGroup]="filterForm" class="col-md-5 mr-1">
+                                <input fieldSize="medium" formControlName="name" name="name"
+                                       nbInput
+                                       placeholder="name..."
+                                       type="text">
                             </div>
-                        </form>
+                            <div class="col-md-4">
+                                <button data-target="#searchModel" data-toggle="collapse"
+                                        nbButton outline status="primary">
+                                    <i class="fa fa-filter"> Filter</i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <!-- <h3 class="box-title">Hover Data Table</h3> -->
                     <div class="col-md-6">
@@ -49,6 +48,46 @@
                                 <i class="skin-blue fa fa-plus"></i>
                             </button>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="searchModel" class="collapse col-md-12">
+                        <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
+                            <div class="row py-3">
+                                <div class="col-md-3">
+                                    <select class="custom-select" formControlName="branch">
+                                        <option [value]="null" selected hidden>Select Branch</option>
+                                        <option [value]="allBranches">All Branches</option>
+                                        <option *ngFor="let branch of branchList"
+                                                [value]="branch.id">{{branch.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <select class="custom-select" formControlName="role">
+                                        <option [value]="null" selected hidden>Select Role</option>
+                                        <option *ngFor="let role of roleList" [value]="role.id">{{role.roleName}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <select class="custom-select" formControlName="activeStatus">
+                                        <option [value]="null" selected hidden>Status</option>
+                                        <option [value]="active">Active</option>
+                                        <option [value]="inactive">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 p-0">
+                                <button (click)="clearSearch()" data-toggle="collapse" data-target="#searchModel"
+                                        class="btn btn-sm btn-flat btn-outline-danger mr-1">Clear Search
+                                </button>
+                                <button class="btn btn-primary btn-sm btn-flat pull-right mr-1"
+                                        type="submit">
+                                    Advance Search
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </nb-card-header>
@@ -63,8 +102,8 @@
                             <th>UserName</th>
                             <th>Role</th>
                             <th>Branch</th>
-                            <th>Account No</th>
                             <th>Status</th>
+                            <th>Signature</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -91,9 +130,8 @@
                                     </div>
                                 </td>
                             </ng-template>
-                            <td>{{allList.accountNo}}</td>
                             <td *ngIf="allList.role?.roleName !== 'admin' && allList.role !== null; else status">
-                                <select [(ngModel)]="allList.status" name="status"
+                                <select [(ngModel)]="allList.status" name="status" class="cursor"
                                         (change)="onChange(allList)">
                                     <option value="ACTIVE">ACTIVE</option>
                                     <option value="INACTIVE">INACTIVE</option>
@@ -104,6 +142,10 @@
                                     <p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>
                                 </td>
                             </ng-template>
+                            <td>
+                                <div class="zoom cursor"><img height="50px" *ngIf="allList.signatureImage !=null"
+                                                              src="{{ RootUrl + '/' + allList?.signatureImage}}"/></div>
+                            </td>
                             <td *ngIf="allList.role?.roleName !== 'admin'">
                                 <a (click)="edit(allList)" class="cursor" data-toggle="tooltip"
                                    data-placement="top" title="EDIT">

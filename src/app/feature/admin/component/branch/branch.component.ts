@@ -17,6 +17,8 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {BranchService} from './branch.service';
 import {PermissionService} from '../../../../@core/service/permission.service';
+import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-branch',
@@ -30,7 +32,6 @@ export class BranchComponent implements OnInit {
 
     page = 1;
 
-    search: any = {};
     pageable: Pageable = new Pageable();
 
     activeCount: number;
@@ -43,6 +44,7 @@ export class BranchComponent implements OnInit {
     addViewBranch = false;
     downloadCsv = false;
     editViewBranch = false;
+    restApi = ApiConfig.URL;
 
     provinces: Province[];
     districts: District[];
@@ -51,13 +53,22 @@ export class BranchComponent implements OnInit {
     province: Province = new Province();
     municipality: MunicipalityVdc = new MunicipalityVdc();
 
+    filterForm: FormGroup;
+    search: any = {
+        name: undefined,
+        provinceId: undefined,
+        districtId: undefined,
+        municipalityId: undefined
+    };
+
     constructor(
         private service: BranchService,
         private permissionService: PermissionService,
         private location: AddressService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private formBuilder: FormBuilder
     ) {
     }
 
@@ -80,6 +91,7 @@ export class BranchComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.buildFilterForm();
         this.breadcrumbService.notify(this.title);
         this.service.getStatus().subscribe((response: any) => {
             this.activeCount = response.detail.active;
@@ -111,21 +123,30 @@ export class BranchComponent implements OnInit {
         });
     }
 
+    buildFilterForm() {
+        this.filterForm = this.formBuilder.group({
+            name: undefined,
+            provinceId: undefined,
+            districtId: undefined,
+            municipalityId: undefined
+        });
+    }
+
     changePage(page: number) {
         this.page = page;
-
         BranchComponent.loadData(this);
     }
 
     onSearch() {
+        this.search.name = this.filterForm.get('name').value === null ? undefined :
+            this.filterForm.get('name').value;
+        this.search.provinceId = this.filterForm.get('provinceId').value === null ? undefined :
+            this.filterForm.get('provinceId').value;
+        this.search.districtId = this.filterForm.get('districtId').value === null ? undefined :
+            this.filterForm.get('districtId').value;
+        this.search.municipalityId = this.filterForm.get('municipalityId').value === null ? undefined :
+            this.filterForm.get('municipalityId').value;
         console.log(this.search);
-        BranchComponent.loadData(this);
-    }
-
-    onSearchChange(searchValue: string) {
-        this.search = {
-            'name': searchValue
-        };
         BranchComponent.loadData(this);
     }
 
@@ -144,7 +165,6 @@ export class BranchComponent implements OnInit {
 
         ModalUtils.resolve(modalRef.result, BranchComponent.loadData, this);
     }
-
 
     onChange(data) {
 
@@ -166,15 +186,17 @@ export class BranchComponent implements OnInit {
 
 
     clearSearch() {
-        this.search = {};
+        this.districts = [];
+        this.municipalities = [];
+        this.buildFilterForm();
     }
 
     getCsv() {
         this.service.download(this.search).subscribe((response: any) => {
             const link = document.createElement('a');
             link.target = '_blank';
-            link.href = response.detail;
-            link.download = response.detail;
+            link.href = this.restApi + '/' + response.detail;
+            link.download = this.restApi + '/' + response.detail;
             link.setAttribute('visibility', 'hidden');
             link.click();
         });
@@ -182,9 +204,7 @@ export class BranchComponent implements OnInit {
 
 
     getMunicipalities(districtId) {
-        delete this.search['districtId'];
-        delete this.search['municipalityId'];
-        this.search.districtId = districtId.toString();
+        this.filterForm.controls['municipalityId'].setValue(null);
         this.district.id = districtId;
         this.location.getMunicipalityVDCByDistrict(this.district).subscribe(
             (response: any) => {
@@ -195,26 +215,15 @@ export class BranchComponent implements OnInit {
 
     getDistricts(provinceId) {
         this.province.id = provinceId;
-        delete this.search['districtId'];
-        delete this.search['provinceId'];
-        delete this.search['municipalityId'];
+        this.municipalities = [];
+        this.filterForm.controls['districtId'].setValue(null);
+        this.filterForm.controls['municipalityId'].setValue(null);
 
-        if (provinceId !== 'All') {
-            this.search.provinceId = provinceId.toString();
-            this.location.getDistrictByProvince(this.province).subscribe(
-                (response: any) => {
-                    this.districts = response.detail;
-                }
-            );
-        } else {
-            this.districts = [];
-            this.municipalities = [];
-
-        }
-    }
-
-    getMunicipality(municipalityId) {
-        this.search.municipalityId = municipalityId.toString();
+        this.location.getDistrictByProvince(this.province).subscribe(
+            (response: any) => {
+                this.districts = response.detail;
+            }
+        );
     }
 
 }

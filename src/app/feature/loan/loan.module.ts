@@ -27,9 +27,10 @@ import { SuccessOfferLetterPrintComponent } from './component/offer-letter/succe
 import {ProposalComponent} from './component/loan-main-template/proposal/proposal.component';
 import {CiclComponent} from './component/loan-main-template/cicl/cicl.component';
 import { BorrowerRiskRatingComponent } from './component/loan-main-template/financial/borrower-risk-rating/borrower-risk-rating.component';
+import { ReadmoreModelComponent } from './component/readmore-model/readmore-model.component';
 
 
-
+const ENTRY_COMPONENTS = [ReadmoreModelComponent];
 
 @NgModule({
     declarations: [
@@ -50,6 +51,7 @@ import { BorrowerRiskRatingComponent } from './component/loan-main-template/fina
         FinancialComponent,
         BorrowerRiskRatingComponent,
         CiclComponent,
+        ReadmoreModelComponent,
 
     ],
     imports: [
@@ -69,7 +71,9 @@ import { BorrowerRiskRatingComponent } from './component/loan-main-template/fina
         DatePipe,
         LoanFormService,
         NgbActiveModal
-    ]
+    ],
+
+    entryComponents: [...ENTRY_COMPONENTS],
 
 })
 export class LoanModule {

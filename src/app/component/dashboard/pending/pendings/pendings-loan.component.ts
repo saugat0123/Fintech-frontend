@@ -16,6 +16,8 @@ import {LoanFormService} from '../../../../feature/loan/component/loan-form/serv
 import {LoanDataHolder} from '../../../../feature/loan/model/loanData';
 import {DocStatus} from '../../../../feature/loan/model/docStatus';
 import {BranchService} from '../../../../feature/admin/component/branch/branch.service';
+import {LoanType} from '../../../../feature/loan/model/loanType';
+import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 
 @Component({
     selector: 'app-pendings',
@@ -25,9 +27,10 @@ import {BranchService} from '../../../../feature/admin/component/branch/branch.s
 export class PendingsLoanComponent implements OnInit {
     dmsLoanFiles: Array<DmsLoanFile>;
     loanDataHolders: Array<LoanDataHolder>;
+    loanType = LoanType;
     user: User = new User();
     search: any = {
-        documentStatus: 'PENDING'
+        documentStatus: DocStatus.value(DocStatus.PENDING)
     };
 
     loanList: Array<LoanConfig> = new Array<LoanConfig>();
@@ -102,7 +105,6 @@ export class PendingsLoanComponent implements OnInit {
             });
 
 
-
         }
     }
 
@@ -131,6 +133,10 @@ export class PendingsLoanComponent implements OnInit {
         this.search.branchIds = id;
     }
 
+    typeSelect(loanType) {
+        this.search.loanNewRenew = loanType;
+    }
+
     onClick(loanConfigId: number, customerId: number) {
         this.spinner = true;
         this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: loanConfigId, customerId: customerId}});
@@ -142,5 +148,17 @@ export class PendingsLoanComponent implements OnInit {
 
         this.page = page;
         PendingsLoanComponent.loadData(this);
+    }
+
+    getCsv() {
+        this.loanFormService.download(this.search).subscribe((response: any) => {
+            const link = document.createElement('a');
+            link.target = '_blank';
+            link.href = ApiConfig.URL + '/' + response.detail;
+            link.download = ApiConfig.URL + '/' + response.detail;
+            link.setAttribute('visibility', 'hidden');
+            link.click();
+
+        });
     }
 }
