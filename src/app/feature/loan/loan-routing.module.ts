@@ -7,15 +7,13 @@ import {KycInfoComponent} from './component/loan-main-template/kyc-info/kyc-info
 import {BirthMarkLetterNepaliComponent} from './component/offer-letter/birth-mark-letter/birth-mark-letter-nepali.component';
 import {SuccessOfferLetterComponent} from './component/offer-letter/success-offer-letter/success-offer-letter.component';
 
-import {FinancialComponent} from './component/loan-main-template/financial/financial.component';
 export const routes: Routes = [
     {path: 'loanForm', component: LoanFormComponent},
     {path: 'loanDataHolder', component: DmsLoanFileComponent},
     {path: 'summary', component: LoanSummaryComponent},
     {path: 'kyc', component: KycInfoComponent},
     {path: 'birth-mark-letter', component: BirthMarkLetterNepaliComponent},
-    {path: 'success-offer-letter', component: SuccessOfferLetterComponent},
-    {path: 'financial', component: FinancialComponent}
+    {path: 'success-offer-letter', component: SuccessOfferLetterComponent}
 ];
 
 @NgModule({
