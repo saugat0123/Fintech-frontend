@@ -194,6 +194,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     this.securities = this.dmsLoanFile.securities;
                     this.documents = JSON.parse(this.dmsLoanFile.documentPath);
                     if (this.documents !== null) {
+                        this.documentNames = [];
+                        this.documentUrls = [];
                         for (this.document of this.documents) {
                             this.documentNamesSplit = this.document.split(':');
                             this.documentNames.push(this.documentNamesSplit[0]);
