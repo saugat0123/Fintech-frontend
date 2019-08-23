@@ -21,31 +21,46 @@ export class BorrowerRiskRatingComponent implements OnInit {
         this.ratingData = new Map<string, number>();
 
         this.borrowerRiskRating = this.formBuilder.group({
-            management: [undefined, Validators.required],
-            financialStatementQuality: [undefined, Validators.required],
-            financialStatementSource: [undefined, Validators.required],
-            industryTrend: [undefined, Validators.required],
-            timeInBusiness: [undefined, Validators.required],
-            collateral: [undefined, Validators.required],
-            balanceSheetRatios: [undefined, Validators.required],
-            pAndLHistory: [undefined, Validators.required],
-            debtServiceCapacity: [undefined, Validators.required],
-            salesTrade: [undefined, Validators.required],
-            repaymentSource: [undefined, Validators.required],
-            totalBrr: [undefined]
+            management: [this.formDataForBrrEdit === null ? undefined :
+                this.formDataForBrrEdit.management, Validators.required],
+            financialStatementQuality: [this.formDataForBrrEdit === null ? undefined :
+                this.formDataForBrrEdit.financialStatementQuality, Validators.required],
+            financialStatementSource: [this.formDataForBrrEdit === null ? undefined :
+                this.formDataForBrrEdit.financialStatementSource, Validators.required],
+            industryTrend: [this.formDataForBrrEdit === null ? undefined :
+                this.formDataForBrrEdit.industryTrend, Validators.required],
+            timeInBusiness: [this.formDataForBrrEdit === null ? undefined :
+                this.formDataForBrrEdit.timeInBusiness, Validators.required],
+            collateral: [this.formDataForBrrEdit === null ? undefined :
+                this.formDataForBrrEdit.collateral, Validators.required],
+            balanceSheetRatios: [this.formDataForBrrEdit === null ? undefined :
+                this.formDataForBrrEdit.balanceSheetRatios, Validators.required],
+            pAndLHistory: [this.formDataForBrrEdit === null ? undefined :
+                this.formDataForBrrEdit.pAndLHistory, Validators.required],
+            debtServiceCapacity: [this.formDataForBrrEdit === null ? undefined :
+                this.formDataForBrrEdit.debtServiceCapacity, Validators.required],
+            salesTrade: [this.formDataForBrrEdit === null ? undefined :
+                this.formDataForBrrEdit.salesTrade, Validators.required],
+            repaymentSource: [this.formDataForBrrEdit === null ? undefined :
+                this.formDataForBrrEdit.repaymentSource, Validators.required],
+            totalBrr: [this.formDataForBrrEdit === null ? undefined :
+                this.formDataForBrrEdit.totalBrr]
         });
 
-        /*this.ratingData.set('management', this.formDataForBrrEdit.management);
-        this.ratingData.set('financialStatementQuality', this.formDataForBrrEdit.financialStatementQuality);
-        this.ratingData.set('financialStatementSource', this.formDataForBrrEdit.financialStatementSource);
-        this.ratingData.set('industryTrend', this.formDataForBrrEdit.industryTrend);
-        this.ratingData.set('timeInBusiness', this.formDataForBrrEdit.timeInBusiness);
-        this.ratingData.set('collateral', this.formDataForBrrEdit.collateral);
-        this.ratingData.set('balanceSheetRatios', this.formDataForBrrEdit.balanceSheetRatios);
-        this.ratingData.set('pAndLHistory', this.formDataForBrrEdit.pAndLHistory);
-        this.ratingData.set('debtServiceCapacity', this.formDataForBrrEdit.debtServiceCapacity);
-        this.ratingData.set('salesTrade', this.formDataForBrrEdit.salesTrade);
-        this.ratingData.set('repaymentSource', this.formDataForBrrEdit.repaymentSource);*/
+        if (this.formDataForBrrEdit !== null) {
+            this.riskAverage = this.formDataForBrrEdit.totalBrr;
+            this.ratingData.set('management', this.formDataForBrrEdit.management);
+            this.ratingData.set('financialStatementQuality', this.formDataForBrrEdit.financialStatementQuality);
+            this.ratingData.set('financialStatementSource', this.formDataForBrrEdit.financialStatementSource);
+            this.ratingData.set('industryTrend', this.formDataForBrrEdit.industryTrend);
+            this.ratingData.set('timeInBusiness', this.formDataForBrrEdit.timeInBusiness);
+            this.ratingData.set('collateral', this.formDataForBrrEdit.collateral);
+            this.ratingData.set('balanceSheetRatios', this.formDataForBrrEdit.balanceSheetRatios);
+            this.ratingData.set('pAndLHistory', this.formDataForBrrEdit.pAndLHistory);
+            this.ratingData.set('debtServiceCapacity', this.formDataForBrrEdit.debtServiceCapacity);
+            this.ratingData.set('salesTrade', this.formDataForBrrEdit.salesTrade);
+            this.ratingData.set('repaymentSource', this.formDataForBrrEdit.repaymentSource);
+        }
     }
 
     checkRating(field, rating) {
@@ -57,8 +72,7 @@ export class BorrowerRiskRatingComponent implements OnInit {
             });
             const avg = sum / 11;
             this.riskAverage = avg.toFixed(2);
-            this.borrowerRiskRating.get('totalBrr').setValue(this.riskAverage);
-            console.log(this.ratingData);
+            this.borrowerRiskRating.get('totalBrr').patchValue(this.riskAverage);
         }
     }
 
