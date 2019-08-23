@@ -15,8 +15,8 @@ declare let google: any;
   styleUrls: ['./site-visit.component.css']
 })
 export class SiteVisitComponent implements OnInit {
-
   @Input() formValue: SiteVisit;
+  siteVisitData: Object;
   siteVisitFormGroup: FormGroup;
   currentResidentForm = false;
   businessSiteVisitForm = false;
@@ -452,7 +452,9 @@ export class SiteVisitComponent implements OnInit {
   }
 
   onSubmit() {
-    this.formValue.hasCurrentResident = this.currentResidentForm;
+    console.log(this.siteVisitFormGroup.value);
+    JSON.stringify(this.siteVisitFormGroup.value);
+    /*this.formValue.hasCurrentResident = this.currentResidentForm;
     this.formValue.hasBusinessSiteVisit = this.businessSiteVisitForm;
     this.formValue.hasFixedAssetsCollateral = this.fixedAssetCollateralForm;
     this.formValue.hasCurrentAssetsInspection = this.currentAssetsInspectionForm;
@@ -769,7 +771,7 @@ export class SiteVisitComponent implements OnInit {
           .get('currentAssetsInspectionDetails')
           .get('otherCurrentAssets')
           .get('overAllFindings').value;
-    }
+    }*/
   }
 
   onChangeValue(childFormControlName: string, totalFormControlName: string) {

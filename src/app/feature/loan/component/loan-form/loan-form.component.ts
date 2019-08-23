@@ -286,7 +286,8 @@ export class LoanFormComponent implements OnInit {
 
         if (name === 'Site Visit' && action) {
             this.siteVisit.onSubmit();
-            this.loanDocument.siteVisit = this.siteVisit.formValue;
+            const siteVisitData = this.siteVisit;
+            this.loanDocument.siteVisit = siteVisitData;
         }
     }
 
