@@ -11,12 +11,12 @@ export class BarChartService {
 
     constructor(private http: HttpClient) { }
 
-    public getBarData(id: number) {
+    public getBarData(id: number, startDate: string, endDate: string) {
         const api = `${this.API}/stats`;
         const request = ApiUtils.getRequest(api);
         const httpOptions = {
             headers: request.header,
-            params: new HttpParams().set('branchId', `${id}`)
+            params: new HttpParams().set('branchId', `${id}`).set('startDate', startDate).set('endDate', endDate)
         };
         return this.http.get(request.url, httpOptions);
     }

@@ -27,6 +27,7 @@ export class LoanDataHolder {
     priority: Priority;
     createdAt: any;
     previousList: LoanStage[] = [];
+    previousStageList: string;
     distinctPreviousList: any;
     currentStage: LoanStage = new LoanStage();
     loanType: LoanType;

@@ -11,12 +11,7 @@ import {Observable} from 'rxjs';
 export class FeatureMenuService {
     static API = 'v1/menu';
 
-    private menus: Observable<any>;
-
     constructor(private http: HttpClient) {
-        const req = ApiUtils.getRequest(FeatureMenuService.API);
-
-
     }
 
     public getMenus(): Observable<any> {

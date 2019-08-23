@@ -24,7 +24,14 @@ export class DmsLoanFile {
     waiver: string;
     documentPathMaps: any;
     fmvTotal: number;
+    distressValue: number;
     totalLoanLimit: number;
+    individualExposure: string;
+    institutionExposure: string;
     groupExpo: String;
     fmvFundingPercent: number;
+    incomeCoverageRatio: number;
+    debtServiceCoverageRatio: number;
+    keyPersonName: string;
+    dealingProductName: string;
 }

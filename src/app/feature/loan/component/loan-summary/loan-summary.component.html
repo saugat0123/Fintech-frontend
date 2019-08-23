@@ -22,12 +22,12 @@
                             <div>
                                 Priority:
                                 <span class="badge badge-danger"
-                                      style="font-size: 11px">{{loanDataHolder?.dmsLoanFile?.priority || loanDataHolder?.priority | lowercase}}</span>
+                                      style="font-size: 11px">{{loanDataHolder?.dmsLoanFile?.priority?.toString() || loanDataHolder?.priority?.toString() | lowercase}}</span>
                             </div>
                             <div>
                                 Loan Status:
                                 <span class="badge badge-info"
-                                      style="font-size: 11px">{{loanDataHolder.documentStatus | lowercase}}</span>
+                                      style="font-size: 11px">{{loanDataHolder.documentStatus?.toString() | lowercase}}</span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -38,7 +38,7 @@
                                     <br/>
                                     for
                                 </div>
-                                <div class="report-header-sub-heading">{{dmsLoanFile?.customerName || loanDataHolder?.customerInfo?.customerName}}</div>
+                                <div class="report-header-sub-heading">{{loanDataHolder?.customerInfo?.customerName}}</div>
                                 <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
                             </div>
                         </div>
@@ -51,22 +51,39 @@
             </div>
             <div class="row mt-1">
                 <div class="col-md-6 text-left">
-                    <span><b>Pending Under: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
+                    <div *ngIf="currentDocAction === 'FORWARD' || currentDocAction === 'BACKWARD'
+                          || currentDocAction === 'PENDING'">
+                        <span><b>Pending Under: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
                         ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                    </div>
+                    <div *ngIf="currentDocAction === 'APPROVED'">
+                        <span><b>Approved By: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
+                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                    </div>
+                    <div *ngIf="currentDocAction === 'REJECT'">
+                        <span><b>Rejected By: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
+                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                    </div>
+                    <div *ngIf="currentDocAction === 'CLOSED'">
+                        <span><b>Closed By: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
+                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                    </div>
                 </div>
-                <div class="col-md-6 text-right" *ngIf="currentDocAction === 'FORWARD'">
+                <div class="col-md-6 text-right">
+                    <div *ngIf="currentDocAction === 'FORWARD'">
                     <span><b>Forwarded By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                </div>
-                <div class="col-md-6 text-right" *ngIf="currentDocAction === 'BACKWARD'">
+                    </div>
+                    <div *ngIf="currentDocAction === 'BACKWARD'">
                     <span><b>Backward By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
                         ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                </div>
-                <!--<div class="col-md-6">
-                    <div class="text-right">
-                        <span><b>Branch: </b>{{loanDataHolder?.branch?.name}}</span>
                     </div>
-                </div>-->
+                    <!--<div class="col-md-6">
+                        <div class="text-right">
+                            <span><b>Branch: </b>{{loanDataHolder?.branch?.name}}</span>
+                        </div>
+                    </div>-->
+                </div>
             </div>
             <hr class="print-line">
             <div class="row">
@@ -89,16 +106,21 @@
                         <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Date Of Birth</th>
                             <th>Citizenship Number</th>
                             <th>Contact Number</th>
+                            <th>Occupation</th>
+                            <th>Income Source</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>{{dmsLoanFile?.customerName || loanDataHolder?.customerInfo?.customerName}}</td>
-                            <td>{{dmsLoanFile?.citizenshipNumber || loanDataHolder?.customerInfo?.citizenshipNumber}}
-                            </td>
-                            <td>{{dmsLoanFile?.contactNumber || loanDataHolder?.customerInfo?.mobile}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+                            <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                            <td>{{occupation[loanDataHolder?.customerInfo?.occupation]}}</td>
+                            <td>{{incomeSource[loanDataHolder?.customerInfo?.incomeSource]}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -107,15 +129,80 @@
                         <tr>
                             <td>
                                 <b>Name: </b>
-                                {{dmsLoanFile?.customerName || loanDataHolder?.customerInfo?.customerName}}
+                                {{loanDataHolder?.customerInfo?.customerName}}
+                            </td>
+                            <td>
+                                <b>Date of Birth: </b>
+                                {{loanDataHolder?.customerInfo?.dob | date}}
                             </td>
                             <td>
                                 <b>Citizenship Number: </b>
-                                {{dmsLoanFile?.citizenshipNumber || loanDataHolder?.customerInfo?.citizenshipNumber}}
+                                {{loanDataHolder?.customerInfo?.citizenshipNumber}}
                             </td>
-                            <td class="column-size-50">
+                            <td>
                                 <b>Contact Number: </b>
-                                {{dmsLoanFile?.contactNumber || loanDataHolder?.customerInfo?.mobile}}
+                                {{loanDataHolder?.customerInfo?.contactNumber}}
+                            </td>
+                            <td>
+                                <b>Occupation: </b>
+                                {{occupation[loanDataHolder?.customerInfo?.occupation]}}
+                            </td>
+                            <td>
+                                <b>Income Source: </b>
+                                {{incomeSource[loanDataHolder?.customerInfo?.incomeSource]}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" *ngIf="loanCategory === 'BUSINESS_TYPE'">
+                <div class="col-md-12">
+                    <p><b>Details of Company</b></p>
+                </div>
+                <div class="col-md-12">
+                    <table class="table table-condensed table-bordered table-responsive-md disable-print">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Establishment Date</th>
+                            <th>Registration Number</th>
+                            <th>Business Type</th>
+                            <th>Key Person</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{loanDataHolder?.entityInfo?.companyName}}</td>
+                            <td>{{loanDataHolder?.entityInfo?.establishmentDate | date}}</td>
+                            <td>{{loanDataHolder?.entityInfo?.registrationNumber}}</td>
+                            <td>{{businessType[loanDataHolder?.entityInfo?.businessType]}}</td>
+                            <td>{{loanDataHolder?.dmsLoanFile?.keyPersonName}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="print-only table table-bordered" id="print-company-table">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <b>Name: </b>
+                                {{loanDataHolder?.entityInfo?.companyName}}
+                            </td>
+                            <td>
+                                <b>Establishment Date: </b>
+                                {{loanDataHolder?.entityInfo?.establishmentDate | date}}
+                            </td>
+                            <td>
+                                <b>Registration Number: </b>
+                                {{loanDataHolder?.entityInfo?.registrationNumber}}
+                            </td>
+                            <td>
+                                <b>Business Type: </b>
+                                {{businessType[loanDataHolder?.entityInfo?.businessType]}}
+                            </td>
+                            <td>
+                                <b>Key Person: </b>
+                                {{loanDataHolder?.dmsLoanFile?.keyPersonName}}
                             </td>
                         </tr>
                         </tbody>
@@ -131,13 +218,18 @@
                             <th>Credit Facility</th>
                             <th>Proposed Limit</th>
                             <th>Interest Rate</th>
-                            <th>Service Charge</th>
                             <th>Tenure Duration In Month</th>
+                            <th>Service Charge</th>
+                            <th>FMV Funding Percentage</th>
                             <th>Total FMV</th>
-                            <th>Funding Percentage</th>
+                            <th>Total DV</th>
                             <th>Total Loan Limit</th>
+                            <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Individual Exposure</th>
+                            <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Institution Exposure</th>
                             <th>Group Exposure</th>
-
+                            <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Income Coverage Ratio</th>
+                            <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Debt Service Coverage Ratio</th>
+                            <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Dealing Product Name</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -145,14 +237,21 @@
                             <td>{{loanDataHolder?.loan?.name}}</td>
                             <td>{{dmsLoanFile?.proposedAmount || loanDataHolder?.proposal?.proposedLimit}}</td>
                             <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}}</td>
+                            <td>{{(dmsLoanFile?.tenureDuration || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
                             <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
                                 {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
-                                {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}</td>
-                            <td>{{(dmsLoanFile?.tenureDuration || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
-                            <td>{{dmsLoanFile?.fmvTotal}}</td>
+                                {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}
+                            </td>
                             <td>{{dmsLoanFile?.fmvFundingPercent}}</td>
+                            <td>{{dmsLoanFile?.fmvTotal}}</td>
+                            <td>{{dmsLoanFile?.distressValue}}</td>
                             <td>{{dmsLoanFile?.totalLoanLimit}}</td>
+                            <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.individualExposure}}</td>
+                            <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.institutionExposure}}</td>
                             <td>{{dmsLoanFile?.groupExpo}}</td>
+                            <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.incomeCoverageRatio}}</td>
+                            <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
+                            <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.dealingProductName}}</td>
                         </tr>
                         </tbody>
                     </table>

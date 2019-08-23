@@ -29,6 +29,7 @@ import {RoleType} from '../../../modal/roleType';
 })
 export class OpenOpeningComponentComponent implements OnInit {
     title: string;
+    requestedDate: string;
     openingAccount: FormGroup;
     account: OpeningAccount = new OpeningAccount();
     openingForm: OpeningForm = new OpeningForm();
@@ -135,6 +136,7 @@ export class OpenOpeningComponentComponent implements OnInit {
 
     setOpeningForm(openingForm: OpeningForm) {
         this.title = openingForm.accountType.name;
+        this.requestedDate = this.formatDate(openingForm.requestedDate);
         this.openingAccount = this.formBuilder.group({
             // OpeningForm
             id: openingForm.id,
@@ -454,7 +456,7 @@ export class OpenOpeningComponentComponent implements OnInit {
         );
     }
 
-    formatDate(sentDate): String {
+    formatDate(sentDate): string {
         if (sentDate === null) {
             return null;
         }

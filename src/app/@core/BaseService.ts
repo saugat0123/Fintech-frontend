@@ -88,7 +88,7 @@ export abstract class BaseService<T> {
         if (search === null || search === undefined) {
             api = `${this.getApi()}?page=${page}&size=${size}`;
         } else {
-            api = `${this.getApi()}?page=${page}&&size=${size}&searchParams=${search}`;
+            api = `${this.getApi()}?page=${page}&&size=${size}&${search}`;
         }
 
         const req = ApiUtils.getRequest(api);
