@@ -26,6 +26,8 @@ import { SuccessOfferLetterPrintComponent } from './component/offer-letter/succe
 import {ProposalComponent} from './component/loan-main-template/proposal/proposal.component';
 import {CiclComponent} from './component/loan-main-template/cicl/cicl.component';
 import { ReadmoreModelComponent } from './component/readmore-model/readmore-model.component';
+import {CreditGradingComponent} from './component/loan-main-template/credit-grading/credit-grading.component';
+import {CoreModule} from '../../@core/core.module';
 import {environment} from '../../../environments/environment';
 import {SiteVisitComponent} from './component/loan-main-template/site-visit/site-visit.component';
 import {AgmCoreModule} from '@agm/core';
@@ -51,6 +53,7 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         SuccessOfferLetterPrintComponent,
         CiclComponent,
         ReadmoreModelComponent,
+        CreditGradingComponent,
 
         SiteVisitComponent,
     ],
@@ -65,6 +68,7 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         NgSelectModule,
         NbDatepickerModule,
         NgxPrintModule,
+        CoreModule,
         AgmCoreModule.forRoot({
             apiKey: environment.GOOGLE_MAP_API_KEY
         })

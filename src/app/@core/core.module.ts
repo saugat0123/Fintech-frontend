@@ -6,6 +6,7 @@ import {PermissionService} from './service/permission.service';
 import {CurrencyFormatterPipe} from './pipe/currency-formatter.pipe';
 import {NaturalNumberValidatorDirective} from './directive/natural-number-validator.directive';
 import { PositiveDecimalNumberValidatorDirective } from './directive/positive-decimal-number-validator.directive';
+import {SafePipe} from '../feature/memo/pipe/safe.pipe';
 // import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 // import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 
@@ -89,11 +90,13 @@ export const NB_CORE_PROVIDERS = [
     // NbAuthModule,
     CurrencyFormatterPipe,
     PositiveDecimalNumberValidatorDirective,
-      NaturalNumberValidatorDirective
+      NaturalNumberValidatorDirective,
+      SafePipe
   ],
     declarations: [CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
-        PositiveDecimalNumberValidatorDirective],
+        PositiveDecimalNumberValidatorDirective,
+        SafePipe],
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

@@ -23,6 +23,7 @@ import {CiclComponent} from '../loan-main-template/cicl/cicl.component';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DatePipe} from '@angular/common';
+import {CreditGradingComponent} from '../loan-main-template/credit-grading/credit-grading.component';
 import {SiteVisitComponent} from '../loan-main-template/site-visit/site-visit.component';
 
 @Component({
@@ -91,6 +92,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('cicl')
     cicl: CiclComponent;
+
+    @ViewChild('creditGrading')
+    creditGrading: CreditGradingComponent;
 
     @ViewChild('siteVisit')
     siteVisit: SiteVisitComponent;
@@ -215,6 +219,7 @@ export class LoanFormComponent implements OnInit {
         }
         this.loanDocument.loan = this.loan;
         this.loanDocument.loanCategory = this.allId.loanCategory;
+        this.loanDocument.previousStageList = JSON.stringify(this.loanDocument.previousList);
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
             this.loanDocument = response.detail;
             this.customerLoanId = this.loanDocument.id;

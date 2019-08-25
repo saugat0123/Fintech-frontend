@@ -9,6 +9,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {ApplicantService} from './applicant.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Status} from '../../../modal/eligibility';
+import {RoleType} from '../../../modal/roleType';
 
 @Component({
     selector: 'app-eligibility-summary',
@@ -23,6 +24,7 @@ export class EligibilitySummaryComponent implements OnInit {
     appliedNepDate: string;
     showApproveAndRejectButton = true;
     loading = false;
+    roleType = '';
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -38,6 +40,7 @@ export class EligibilitySummaryComponent implements OnInit {
 
     ngOnInit() {
         this.loading = true;
+        this.roleType = localStorage.getItem('roleType');
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.applicantParam = {applicantId: null};
@@ -51,7 +54,8 @@ export class EligibilitySummaryComponent implements OnInit {
 
         this.requestService.detail(this.applicantId).subscribe((response: any) => {
             this.applicant = response.detail;
-            this.applicant.eligibilityStatus === 'ELIGIBLE' || this.applicant.eligibilityStatus === 'NOT_ELIGIBLE'
+            this.roleType === RoleType.APPROVAL &&
+            (this.applicant.eligibilityStatus === 'ELIGIBLE' || this.applicant.eligibilityStatus === 'NOT_ELIGIBLE')
                 ? this.showApproveAndRejectButton = true : this.showApproveAndRejectButton = false;
             this.dateService.getDateInNepali(this.applicant.createdAt).subscribe((nepDate: any) => {
                 this.appliedNepDate = nepDate.detail;
