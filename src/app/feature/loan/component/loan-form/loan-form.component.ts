@@ -23,6 +23,7 @@ import {CiclComponent} from '../loan-main-template/cicl/cicl.component';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DatePipe} from '@angular/common';
+import {CreditGradingComponent} from '../loan-main-template/credit-grading/credit-grading.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -90,6 +91,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('cicl')
     cicl: CiclComponent;
+
+    @ViewChild('creditGrading')
+    creditGrading: CreditGradingComponent;
 
     constructor(
         private loanDataService: LoanDataService,
