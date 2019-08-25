@@ -21,6 +21,8 @@ import {AccountPurposeService} from '../service/account-purpose.service';
 import {AccountTypeService} from '../service/account-type.service';
 import {AccountStatus} from '../../../modal/accountStatus';
 import {RoleType} from '../../../modal/roleType';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 
 @Component({
     selector: 'app-open-opening-component',
@@ -46,6 +48,10 @@ export class OpenOpeningComponentComponent implements OnInit {
     id = 0;
     isApproval = false;
     showAction = false;
+    documents: {
+        name: string,
+        url: string
+    }[] = [];
 
     constructor(
         private service: OpeningAccountService,
@@ -185,7 +191,54 @@ export class OpenOpeningComponentComponent implements OnInit {
         this.getAccountType(openingForm.openingAccount.purposeOfAccount);
         this.openingAccount.setControl('applicantDetail', this.setApplicantDetailFormGroup
         (this.openingForm.openingAccount.openingCustomers));
-    }
+        // documents array
+        if (!ObjectUtil.isEmpty(openingForm.openingAccount.beneficiary) &&
+            !ObjectUtil.isEmpty(openingForm.openingAccount.beneficiary.imagePath)) {
+            this.documents.push(
+                {
+                    name: 'Beneficiary Photo',
+                    url: openingForm.openingAccount.beneficiary.imagePath
+                }
+            );
+        }
+        if (!ObjectUtil.isEmpty(openingForm.openingAccount.nominee) &&
+            !ObjectUtil.isEmpty(openingForm.openingAccount.nominee.imagePath)) {
+            this.documents.push(
+                {
+                    name: 'Nominee Photo',
+                    url: openingForm.openingAccount.nominee.imagePath
+                }
+            );
+        }
+        if (openingForm.openingAccount.openingCustomers.length > 0) {
+            openingForm.openingAccount.openingCustomers.forEach((customer) => {
+                if (!ObjectUtil.isEmpty(customer.imagePath)) {
+                    this.documents.push(
+                        {
+                            name: `Applicant: ${customer.firstName} ${customer.lastName} Photo`,
+                            url: customer.imagePath
+                        }
+                    );
+                }
+                if (!ObjectUtil.isEmpty(customer.citizenImagePath)) {
+                    this.documents.push(
+                        {
+                            name: `Applicant: ${customer.firstName} ${customer.lastName} Citizenship`,
+                            url: customer.citizenImagePath
+                        }
+                    );
+                }
+                if (!ObjectUtil.isEmpty(customer.passportImagePath)) {
+                    this.documents.push(
+                        {
+                            name: `Applicant: ${customer.firstName} ${customer.lastName} Passport`,
+                            url: customer.passportImagePath
+                        }
+                    );
+                }
+            });
+        }
+}
 
     applicantDetailFormGroup(): FormGroup {
         return this.formBuilder.group({
@@ -633,5 +686,14 @@ export class OpenOpeningComponentComponent implements OnInit {
         this.account.internetBanking = this.openingAccount.get('internetBankingRadio').value;
         this.account.mobileBanking = this.openingAccount.get('mobileBankingRadio').value;
         this.openingForm.openingAccount = this.account;
+    }
+
+    downloadDocument(url: string, name: string): void {
+        const link = document.createElement('a');
+        link.href = `${ApiConfig.URL}/${url}`;
+        link.target = '_blank';
+        link.download = name;
+        link.click();
+        link.remove();
     }
 }

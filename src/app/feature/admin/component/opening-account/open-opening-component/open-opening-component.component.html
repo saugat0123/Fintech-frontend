@@ -1417,6 +1417,38 @@
         </div>
       </div>
       <!-- END ROW -->
+
+      <div class="box-header with-border">
+        <h4 class="box-title title">Documents</h4>
+        <hr/>
+      </div>
+
+      <!-- START ROW -->
+      <div class="row">
+        <div class="col-md-12">
+          <p><b>Documents</b></p>
+          <table class="table table-condensed table-bordered table-responsive-md">
+            <thead>
+            <tr>
+              <th>S.N</th>
+              <th>Document</th>
+              <th>Download</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let document of documents; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{document?.name}}</td>
+              <td><i class="fa fa-download" (click)="downloadDocument(document.url, document.name)" aria-hidden="true"
+                     style="cursor: pointer"></i>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- END ROW -->
+
       <!-- START ROW -->
       <div class="text-right">
         <input (click)="onSubmit('APPROVAL')" *ngIf="showAction"
