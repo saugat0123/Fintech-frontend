@@ -690,10 +690,10 @@ export class OpenOpeningComponentComponent implements OnInit {
 
     downloadDocument(url: string, name: string): void {
         const link = document.createElement('a');
-        link.href = `${ApiConfig.URL}/${url}`;
         link.target = '_blank';
+        link.href = `${ApiConfig.URL}/${url}`;
         link.download = name;
+        link.setAttribute('visibility', 'hidden');
         link.click();
-        link.remove();
     }
 }
