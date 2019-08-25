@@ -32,6 +32,9 @@
                   [ciclValue]="loanDocument?.ciclList"
                   [insuranceValue]="loanDocument?.insurance"></app-cicl>
         <app-credit-grading #creditGrading *ngIf="selectedTab === 'Credit Risk Grading' && loanDocument"></app-credit-grading>
+        <app-financial [formData]="loanDocument?.financial" *ngIf="selectedTab === 'Financial' && loanDocument" #financial></app-financial>
+
+
         <!-- /.tab-pane -->
     </div>
 

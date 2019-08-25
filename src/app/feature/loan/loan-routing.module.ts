@@ -13,7 +13,7 @@ export const routes: Routes = [
     {path: 'summary', component: LoanSummaryComponent},
     {path: 'kyc', component: KycInfoComponent},
     {path: 'birth-mark-letter', component: BirthMarkLetterNepaliComponent},
-    {path: 'success-offer-letter', component: SuccessOfferLetterComponent},
+    {path: 'success-offer-letter', component: SuccessOfferLetterComponent}
 ];
 
 @NgModule({
