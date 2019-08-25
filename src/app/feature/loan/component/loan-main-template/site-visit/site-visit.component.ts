@@ -453,7 +453,7 @@ export class SiteVisitComponent implements OnInit {
 
   onSubmit() {
     console.log(this.siteVisitFormGroup.value);
-    JSON.stringify(this.siteVisitFormGroup.value);
+    this.siteVisitData = {data: this.siteVisitFormGroup.value};
     /*this.formValue.hasCurrentResident = this.currentResidentForm;
     this.formValue.hasBusinessSiteVisit = this.businessSiteVisitForm;
     this.formValue.hasFixedAssetsCollateral = this.fixedAssetCollateralForm;
