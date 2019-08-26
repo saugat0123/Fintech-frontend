@@ -20,7 +20,7 @@
         <app-kyc-info [formValue]="loanDocument?.customerInfo"
                       *ngIf="selectedTab==='Kyc Info' && loanDocument"
                       #kycInfo></app-kyc-info>
-        <app-dms-loan [loanFile]="loanFile" *ngIf="selectedTab==='General' && loanFile" #dmsLoanFile></app-dms-loan>
+        <app-dms-loan [loanDataHolder]="loanDocument" *ngIf="selectedTab==='General' && loanFile" #dmsLoanFile></app-dms-loan>
         <app-company-info [formValue]="loanDocument?.entityInfo" *ngIf="selectedTab==='Company Info'"
                           #entityInfo></app-company-info>
         <app-proposal [formValue]="loadProposal()"
@@ -31,6 +31,9 @@
                   [ciclRemark]="loanDocument?.ciclRemarks"
                   [ciclValue]="loanDocument?.ciclList"
                   [insuranceValue]="loanDocument?.insurance"></app-cicl>
+        <app-credit-grading #creditGrading *ngIf="selectedTab === 'Credit Risk Grading' && loanDocument"></app-credit-grading>
+        <app-financial [formData]="loanDocument?.financial" *ngIf="selectedTab === 'Financial' && loanDocument" #financial></app-financial>
+
 
         <!-- /.tab-pane -->
     </div>

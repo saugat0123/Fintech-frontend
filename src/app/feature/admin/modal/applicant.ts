@@ -2,6 +2,7 @@ import {Branch} from './branch';
 import {Answer} from './answer';
 import {LoanConfig} from './loan-config';
 import {SubmissionDocument} from './submission-document';
+import {GeneralEligibilityAnswer} from './generalEligibilityAnswer';
 
 export class Applicant {
     id: number;
@@ -12,9 +13,12 @@ export class Applicant {
     eligibilityStatus: string;
     fullName: string;
     loanConfig = new LoanConfig();
+    email: string;
     phoneNumber: number;
     requestAmount: number;
     version: number;
     obtainedMarks: number;
     eligibleAmount: number;
+    createdAt: string;
+    eligibilityAnswers: Array<GeneralEligibilityAnswer>;
 }

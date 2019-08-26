@@ -43,9 +43,6 @@ import {
     BreadcrumbComponent,
     FooterComponent,
     HeaderComponent,
-    MsgAlertComponent,
-    MsgModalComponent,
-    PaginationComponent,
     PagingComponent,
     SpinnerComponent,
     UpdateModalComponent,
@@ -57,7 +54,6 @@ import {DEFAULT_THEME} from './styles/theme.default';
 import {COSMIC_THEME} from './styles/theme.cosmic';
 import {CORPORATE_THEME} from './styles/theme.corporate';
 import {BaseLayout} from './layouts';
-import {MainNavComponent} from './main-nav/main-nav.component';
 import {RouterModule} from '@angular/router';
 import {IconCardComponent} from './components/iconcard/icon-card.component';
 import {SearchResultComponent} from './components/header/header-form/searchResult.component';
@@ -65,10 +61,11 @@ import {MessageModalComponent} from './components/message-modal/message-modal.co
 import {ProfileComponent} from './components/profile/profile.component';
 import {NotificationComponent} from './components/notification/notification.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import {CKEditorModule} from 'ng2-ckeditor';
 
 // import {NbSecurityModule} from '@nebular/security';
 
-const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
+const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule, CKEditorModule];
 
 const NB_MODULES = [
     NbCardModule,
@@ -111,13 +108,9 @@ const COMPONENTS = [
     FooterComponent,
     SearchResultComponent,
     BaseLayout,
-    MainNavComponent,
     IconCardComponent,
     AlertComponent,
     BreadcrumbComponent,
-    MsgAlertComponent,
-    MsgModalComponent,
-    PaginationComponent,
     SpinnerComponent,
     UpdateModalComponent,
     PagingComponent,
@@ -130,7 +123,8 @@ const ENTRY_COMPONENTS = [
     SearchResultComponent,
     MessageModalComponent,
     ProfileComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    UpdateModalComponent
 ];
 
 const PIPES = [

@@ -111,7 +111,7 @@
                         <input nbInput fieldSize="medium" type="number" class="form-control"
                                [(ngModel)]="model.wardNumber" name="ward"
                                id="ward_number"
-                               placeholder="Ward" required app-valid-number
+                               placeholder="Ward" required app-natural-number
                                #wardVal="ngModel"
                                [ngClass]="{ 'is-invalid': branchForm.submitted && wardVal.invalid }"/>
                         <div class="invalid-feedback" *ngIf="branchForm.submitted && wardVal.invalid">

@@ -4,8 +4,6 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LoanDataHolder} from '../../model/loanData';
-import {CommonDataService} from '../../../../@core/service/baseservice/common-dataService';
-import {MsgModalComponent} from '../../../../@theme/components';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
 import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-service';
@@ -21,7 +19,12 @@ import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.componen
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {ProposalComponent} from '../loan-main-template/proposal/proposal.component';
 import {Proposal} from '../../../admin/modal/proposal';
+import {FinancialComponent} from '../loan-main-template/financial/financial.component';
 import {CiclComponent} from '../loan-main-template/cicl/cicl.component';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {DatePipe} from '@angular/common';
+import {CreditGradingComponent} from '../loan-main-template/credit-grading/credit-grading.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -90,8 +93,13 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('cicl')
     cicl: CiclComponent;
 
+    @ViewChild('creditGrading')
+    creditGrading: CreditGradingComponent;
+
+    @ViewChild('financial')
+    financial: FinancialComponent;
+
     constructor(
-        private dataService: CommonDataService,
         private loanDataService: LoanDataService,
         private dmsLoanService: DmsLoanService,
         private dateService: DateService,
@@ -101,6 +109,8 @@ export class LoanFormComponent implements OnInit {
         private modalService: NgbModal,
         private router: Router,
         private breadcrumbService: BreadcrumbService,
+        private toastService: ToastService,
+        private datePipe: DatePipe
     ) {
 
     }
@@ -132,9 +142,8 @@ export class LoanFormComponent implements OnInit {
                     this.loanFile = new DmsLoanFile();
                 }
             });
-
-        this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
-            this.currentNepDate = response.detail.nepDateFormat;
+        this.dateService.getDateInNepali(this.datePipe.transform(new Date(), 'yyyy-MM-dd')).subscribe((response: any) => {
+            this.currentNepDate = response.detail;
         });
 
         this.populateTemplate();
@@ -158,10 +167,8 @@ export class LoanFormComponent implements OnInit {
                 this.first = true;
             }
             if (this.templateList.length === 0) {
+                this.toastService.show(new Alert(AlertType.INFO, 'NO FORM ARE AVAILABLE'));
                 this.router.navigate(['/home/dashboard']);
-                this.dataService.getGlobalMsg('NO FORM ARE AVAILABLE');
-                this.modalService.open(MsgModalComponent);
-
             }
         });
     }
@@ -212,11 +219,15 @@ export class LoanFormComponent implements OnInit {
         }
         this.loanDocument.loan = this.loan;
         this.loanDocument.loanCategory = this.allId.loanCategory;
+        this.loanDocument.previousStageList = JSON.stringify(this.loanDocument.previousList);
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
             this.loanDocument = response.detail;
             this.customerLoanId = this.loanDocument.id;
             this.loanDocument = new LoanDataHolder();
             this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}});
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, `Error saving customer: ${error.error.message}`));
         });
     }
 
@@ -233,11 +244,15 @@ export class LoanFormComponent implements OnInit {
 
         if (name === 'General' && action) {
             if (this.dmsLoanFile.loanForm.invalid) {
+                this.dmsLoanFile.customerFormField.showFormField = true;
+                this.dmsLoanFile.companyFormField.showFormField = true;
                 this.dmsLoanFile.submitted = true;
                 return true;
             }
             this.dmsLoanFile.onSubmit();
-            this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanFile;
+            this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanDataHolder.dmsLoanFile;
+            this.loanDocument.customerInfo = this.dmsLoanFile.loanDataHolder.customerInfo;
+            this.loanDocument.entityInfo = this.dmsLoanFile.loanDataHolder.entityInfo;
             this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
         }
 
@@ -272,6 +287,12 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.ciclList = this.cicl.ciclList;
             this.loanDocument.ciclRemarks = this.cicl.ciclRemark;
             this.loanDocument.insurance = this.cicl.insurance;
+        }
+
+        if (name === 'Financial' && action) {
+            this.financial.onSubmit();
+            const financialData = this.financial.financialData;
+            this.loanDocument.financial = financialData;
         }
     }
 

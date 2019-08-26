@@ -8,6 +8,8 @@ import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {Customer} from '../../../../admin/modal/customer';
 import {DateValidator} from '../../../../../@core/validator/date-validator';
+import {Occupation} from '../../../../admin/modal/occupation';
+import {IncomeSource} from '../../../../admin/modal/incomeSource';
 
 
 @Component({
@@ -29,6 +31,9 @@ export class BasicInfoComponent implements OnInit {
     districtList: Array<District> = Array<District>();
     municipality: MunicipalityVdc = new MunicipalityVdc();
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+
+    occupations = Occupation.enumObject();
+    incomeSources = IncomeSource.enumObject();
 
     constructor(
         private formBuilder: FormBuilder,
@@ -65,8 +70,7 @@ export class BasicInfoComponent implements OnInit {
             municipalities: [this.customer.municipalities === null ? '' : this.customer.municipalities, Validators.required],
             street: [this.customer.street === null ? '' : this.customer.street, Validators.required],
             wardNumber: [this.customer.wardNumber === null ? '' : this.customer.wardNumber, Validators.required],
-            telephone: [this.customer.telephone === undefined ? '' : this.customer.telephone, Validators.required],
-            mobile: [this.customer.mobile === undefined ? '' : this.customer.mobile, Validators.required],
+            contactNumber: [this.customer.contactNumber === undefined ? '' : this.customer.contactNumber, Validators.required],
             email: [this.customer.email === undefined ? '' : this.customer.email, Validators.required],
             // initial Relation Date not used in ui
             initialRelationDate: [this.customer.initialRelationDate === undefined ? '' :
@@ -77,6 +81,8 @@ export class BasicInfoComponent implements OnInit {
                 Validators.required],
             citizenshipIssuedDate: [this.customer.citizenshipIssuedDate === undefined ? '' :
                 this.customer.citizenshipIssuedDate, [Validators.required, DateValidator.isValidBefore]],
+            occupation: [this.customer.occupation === undefined ? '' : this.customer.occupation, [Validators.required]],
+            incomeSource: [this.customer.incomeSource === undefined ? '' : this.customer.incomeSource, [Validators.required]],
         });
     }
 
@@ -120,13 +126,14 @@ export class BasicInfoComponent implements OnInit {
         this.customer.province = this.basicInfo.get('province').value;
         this.customer.district = this.basicInfo.get('district').value;
         this.customer.municipalities = this.basicInfo.get('municipalities').value;
-        this.customer.telephone = this.basicInfo.get('telephone').value;
-        this.customer.mobile = this.basicInfo.get('mobile').value;
+        this.customer.contactNumber = this.basicInfo.get('contactNumber').value;
         this.customer.email = this.basicInfo.get('email').value;
         this.customer.initialRelationDate = this.basicInfo.get('initialRelationDate').value;
         this.customer.citizenshipNumber = this.basicInfo.get('citizenshipNumber').value;
         this.customer.citizenshipIssuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
         this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
+        this.customer.occupation = this.basicInfo.get('occupation').value;
+        this.customer.incomeSource = this.basicInfo.get('incomeSource').value;
     }
 
 }

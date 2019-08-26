@@ -119,7 +119,7 @@ export class GeneralQuestionComponent implements OnInit {
             operandsArray.push(operand.value.operandCharacter);
         });
         const operands = operandsArray.join('');
-        this.formulaPattern = `[${operands}\\(\\)\\+\\-\\/\\*\\.\\ \\d]+`;
+        this.formulaPattern = `[${operands}\\(\\)\\+\\-\\/\\*\\^\\I\\.\\ \\d]+`;
         this.invalidFormula = false;
         // In case you want to implement an operand character at least once :: ^(?=.*a)(?=.*b)(?=.*c)[\(\)\+\-\/\*\.\ \d]*
     }
@@ -127,6 +127,7 @@ export class GeneralQuestionComponent implements OnInit {
     deleteQuestionField(index) {
         const control = this.generalQuestionForm.controls.questions as FormArray;
         control.removeAt(index);
+        this.setFormulaPattern();
     }
 
     addCriteria() {

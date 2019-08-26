@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {BaseService} from '../../../../../@core/BaseService';
 import {LoanDataHolder} from '../../../model/loanData';
 import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
@@ -29,26 +29,25 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, status, {headers: req.header});
     }
 
-    public getProposedAmount() {
+    public getProposedAmount(startDate: string, endDate: string) {
         const api = `${this.getApi()}/proposed-amount`;
+        const param = new HttpParams().set('startDate', startDate).set('endDate', endDate);
         const req = ApiUtils.getRequest(api);
-        return this.http.get(req.url, {headers: req.header});
+        return this.http.get(req.url, { params: param, headers: req.header });
     }
 
-    public getLoanAmountByBranch(id: number) {
+    public getLoanAmountByBranch(id: number, startDate: string, endDate: string) {
         const api = `${this.getApi()}/loan-amount/${id}`;
         const req = ApiUtils.getRequest(api);
-        return this.http.get(req.url, {headers: req.header});
+        const httpOptions = {
+            headers: req.header,
+            params: new HttpParams().set('startDate', startDate).set('endDate', endDate)
+        };
+        return this.http.get(req.url, httpOptions);
     }
 
     public getLoansByCitizenship(citizenshipNumber: string) {
         const api = `${this.getApi()}/searchByCitizenship/${citizenshipNumber}`;
-        const req = ApiUtils.getRequest(api);
-        return this.http.get(req.url, {headers: req.header});
-    }
-
-    public getLoansByRegistrationNumber(registrationNumber: string) {
-        const api = `${this.getApi()}/searchByRegistrationNumber/${registrationNumber}`;
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }

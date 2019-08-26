@@ -123,7 +123,8 @@ export class HeaderComponent implements OnInit {
     }
 
     open() {
-        this.modalService.open(ProfileComponent, {size: 'lg'});
+        this.modalService.dismissAll();
+        this.modalService.open(ProfileComponent, {size: 'lg', backdrop: 'static'});
     }
     changePasswordDialog() {
         this.modalService.dismissAll();
@@ -135,5 +136,4 @@ export class HeaderComponent implements OnInit {
         this.notificationService.fetchNotifications();
         this.notificationService.notificationCount.subscribe((value => this.notificationCount = value));
     }
-
 }

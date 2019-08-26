@@ -29,6 +29,7 @@ import {OpenOpeningComponentComponent} from './component/opening-account/open-op
 import {CatalogueComponent} from './component/catalogue/catalogue.component';
 import {UserGuideComponent} from '../../@theme/components/user-guide/user-guide.component';
 import {EmailConfigurationComponent} from './component/email-configuration/email-configuration.component';
+import {EligibilitySummaryComponent} from './component/eligibility/eligibility-summary/eligibility-summary.component';
 
 
 // import {SecurityComponent} from './component/loan-config/loan-main-template/security/security.component';
@@ -58,7 +59,8 @@ export const adminRoutes: Routes = [
             {path: 'general-question', component: GeneralQuestionComponent},
             {path: 'new-requests', component: NewRequestsComponent},
             {path: 'eligible', component: EligibleRequestsComponent},
-            {path: 'non-eligible', component: NonEligibleRequestsComponent}
+            {path: 'non-eligible', component: NonEligibleRequestsComponent},
+            {path: 'eligibility-summary', component: EligibilitySummaryComponent}
         ]
     },
     {path: 'role', component: RolePermissionComponent},

@@ -36,6 +36,21 @@
                 </select>
               </div>
 
+              <div class="col-md-3">
+                <input id="startDate" [nbDatepicker]="startDate" class="form-control rounded"
+                       (change)="checkIfDateFiltration()" formControlName="startDate"
+                       placeholder="Enter Start Date" [ngClass]="{ 'is-invalid': !validStartDate }">
+                <nb-datepicker #startDate></nb-datepicker>
+                <div *ngIf="!validStartDate" class="invalid-feedback">Invalid start date</div>
+              </div>
+              <div class="col-md-3">
+                <input id="endDate" [nbDatepicker]="endDate" class="form-control rounded"
+                       (change)="checkIfDateFiltration()" formControlName="endDate"
+                       placeholder="Enter End Date" [ngClass]="{ 'is-invalid': !validEndDate }">
+                <nb-datepicker #endDate></nb-datepicker>
+                <div *ngIf="!validEndDate" class="invalid-feedback">Invalid end date</div>
+              </div>
+
               <div class="col-md-12 mt-3">
                 <button (click)="clearSearch()" data-toggle="collapse" data-target="#searchModel"
                         class="btn btn-sm btn-flat btn-outline-danger mr-1">Clear Search
@@ -64,37 +79,15 @@
               <th>Eligible Amount</th>
               <th>Status</th>
               <th>Documents</th>
-              <th>Answers</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let allList of applicantList; let i=index">
+            <tr *ngFor="let allList of applicantList; let i=index" class="cursor">
               <div *ngIf="applicantList?.length == 0">
                 <p>No Content Found</p>
               </div>
-              <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-              <td>{{allList.fullName}}
-                <div class="collapse" id="ans{{i}}">
-                  <div class="card-body">
-                    <table class="table table-striped table-bordered table-hover">
-                      <thead>
-                      <tr>
-                        <th>Questions</th>
-                        <th>Answer</th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      <tr *ngFor="let ans of allList.answers; let j = index">
-                        <div *ngIf="allList.answers?.length == 0">
-                          <p>No answers Found</p>
-                        </div>
-                        <td>{{ans.question.description}}</td>
-                        <td>{{ans.description}}</td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+              <td (click)="onApplicantClick(allList.id)">{{(pageable.number - 1) * pageable.size + i + 1}}</td>
+              <td><div (click)="onApplicantClick(allList.id)">{{allList.fullName}}</div>
                 <div class="collapse" id="doc{{i}}">
                   <div class="card-body">
                     <table class="table table-striped table-bordered table-hover">
@@ -119,18 +112,15 @@
                   </div>
                 </div>
               </td>
-              <td>{{allList.age}}</td>
-              <td>{{allList.branch?.name}}</td>
-              <td>{{allList.loanConfig?.name}}</td>
-              <td>{{allList.phoneNumber}}</td>
-              <td>{{allList.requestAmount}}</td>
-              <td>{{allList.eligibleAmount}}</td>
-              <td>{{allList.eligibilityStatus}}</td>
+              <td (click)="onApplicantClick(allList.id)">{{allList.age}}</td>
+              <td (click)="onApplicantClick(allList.id)">{{allList.branch?.name}}</td>
+              <td (click)="onApplicantClick(allList.id)">{{allList.loanConfig?.name}}</td>
+              <td (click)="onApplicantClick(allList.id)">{{allList.phoneNumber}}</td>
+              <td (click)="onApplicantClick(allList.id)">Rs.{{allList.requestAmount | currencyFormatter}}</td>
+              <td (click)="onApplicantClick(allList.id)">Rs.{{allList.eligibleAmount | currencyFormatter}}</td>
+              <td (click)="onApplicantClick(allList.id)">{{allList.eligibilityStatus}}</td>
               <td>
                 <button [attr.data-target]="'#doc'+i" class="btn btn-primary btn-sm" data-toggle="collapse">View</button>
-              </td>
-              <td>
-                <button [attr.data-target]="'#ans'+i" class="btn btn-primary btn-sm" data-toggle="collapse">answers</button>
               </td>
             </tr>
             </tbody>

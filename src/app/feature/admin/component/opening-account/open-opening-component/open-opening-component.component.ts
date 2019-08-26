@@ -4,7 +4,7 @@ import {OpeningForm} from '../../../modal/openingForm';
 import {OpeningCustomerRelative} from '../../../modal/openingCustomerRelative';
 import {OpeningOccupationalDetails} from '../../../modal/openingOccupationalDetails';
 import {OpeningCustomer} from '../../../modal/openingCustomer';
-import {OpeningAccountService} from '../opening-account.service';
+import {OpeningAccountService} from '../service/opening-account.service';
 import {DatePipe} from '@angular/common';
 import {OpeningAccount} from '../../../modal/openingAccount';
 import {OpeningKyc} from '../../../modal/openingKyc';
@@ -17,8 +17,10 @@ import {ToastService} from '../../../../../@core/utils';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AccountType} from '../../../modal/accountType';
 import {AccountPurpose} from '../../../modal/accountPurpose';
-import {AccountPurposeService} from '../account-purpose.service';
-import {AccountTypeService} from '../account-type.service';
+import {AccountPurposeService} from '../service/account-purpose.service';
+import {AccountTypeService} from '../service/account-type.service';
+import {AccountStatus} from '../../../modal/accountStatus';
+import {RoleType} from '../../../modal/roleType';
 
 @Component({
     selector: 'app-open-opening-component',
@@ -27,6 +29,7 @@ import {AccountTypeService} from '../account-type.service';
 })
 export class OpenOpeningComponentComponent implements OnInit {
     title: string;
+    requestedDate: string;
     openingAccount: FormGroup;
     account: OpeningAccount = new OpeningAccount();
     openingForm: OpeningForm = new OpeningForm();
@@ -41,6 +44,8 @@ export class OpenOpeningComponentComponent implements OnInit {
     accountTypeList: Array<AccountType> = new Array<AccountType>();
     accountPurpose: AccountPurpose = new AccountPurpose();
     id = 0;
+    isApproval = false;
+    showAction = false;
 
     constructor(
         private service: OpeningAccountService,
@@ -66,6 +71,8 @@ export class OpenOpeningComponentComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.isApproval = localStorage.getItem('roleType') === RoleType.APPROVAL &&
+            localStorage.getItem('roleName') !== 'admin';
         this.id = Number(this.activatedRoute.snapshot.queryParamMap.get('openingFormId'));
         this.accountPurposeService.getByAccountPurposeWithoutToken().subscribe((response: any) => {
             this.accountPurposeList = response.detail;
@@ -120,6 +127,8 @@ export class OpenOpeningComponentComponent implements OnInit {
         });
         this.service.detail(this.id).subscribe((response: any) => {
             this.openingForm = response.detail;
+            this.showAction = this.isApproval &&
+                this.openingForm.status === AccountStatus.name(AccountStatus.NEW_REQUEST);
             this.setOpeningForm(this.openingForm);
         });
 
@@ -127,6 +136,7 @@ export class OpenOpeningComponentComponent implements OnInit {
 
     setOpeningForm(openingForm: OpeningForm) {
         this.title = openingForm.accountType.name;
+        this.requestedDate = this.formatDate(openingForm.requestedDate);
         this.openingAccount = this.formBuilder.group({
             // OpeningForm
             id: openingForm.id,
@@ -438,15 +448,15 @@ export class OpenOpeningComponentComponent implements OnInit {
         this.setCustomers();
         this.service.saveWithoutToken(this.openingForm).subscribe((response: any) => {
                 this.router.navigate(['home/admin/openingAccount']);
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Save Success'));
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved'));
             }, error => {
-                console.log(error);
+                console.error(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Opening Form'));
             }
         );
     }
 
-    formatDate(sentDate): String {
+    formatDate(sentDate): string {
         if (sentDate === null) {
             return null;
         }

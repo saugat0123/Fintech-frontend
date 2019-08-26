@@ -37,7 +37,7 @@ import {CompanyFormComponent} from './component/company/company-form/company-for
 
 import {DocumentComponent} from './component/document/document.component';
 import {UpdateDocumentComponent} from './component/document/update-document/update-document.component';
-import {AddDocumentComponent} from './component/document/add-document/add-document.component';
+import {DocumentFormComponent} from './component/document/document-form/document-form.component';
 import {RouterModule} from '@angular/router';
 import {adminRoutes} from './admin-routing';
 import {CommonModule} from '@angular/common';
@@ -52,7 +52,7 @@ import {ThemeModule} from '../../@theme/theme.module';
 // import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {MsgModalComponent, UpdateModalComponent} from '../../@theme/components';
+import {UpdateModalComponent} from '../../@theme/components';
 import {OpeningAccountComponent} from './component/opening-account/opening-account.component';
 import {OpenOpeningComponentComponent} from './component/opening-account/open-opening-component/open-opening-component.component';
 import {NgxPrintModule} from 'ngx-print';
@@ -63,8 +63,9 @@ import {UserGuideComponent} from '../../@theme/components/user-guide/user-guide.
 import {CatalogueComponent} from './component/catalogue/catalogue.component';
 import {EmailConfigurationComponent} from './component/email-configuration/email-configuration.component';
 import {EmailValidatorDirective} from '../../@core/directive/email-validator.directive';
-import {NumberValidatorDirective} from '../../@core/directive/number-validator.directive';
-import { RoleEditComponent } from './component/role-permission/list-role/role-edit/role-edit.component';
+import {RoleEditComponent} from './component/role-permission/list-role/role-edit/role-edit.component';
+import {EligibilitySummaryComponent} from './component/eligibility/eligibility-summary/eligibility-summary.component';
+import {CoreModule} from '../../@core/core.module';
 
 @NgModule({
     declarations: [
@@ -81,14 +82,12 @@ import { RoleEditComponent } from './component/role-permission/list-role/role-ed
         RolePermissionComponent,
         RoleFormComponent,
         RolePermissionComponent,
-
         ValuatorComponent,
         ValuatorFormComponent,
         SectorComponent,
         SubSectorComponent,
         SectorFormComponent,
         SubSectorFormComponent,
-
         UIComponent,
         UserGuideComponent,
         NepseComponent,
@@ -99,7 +98,7 @@ import { RoleEditComponent } from './component/role-permission/list-role/role-ed
         SubSegmentFormComponent,
         DocumentComponent,
         UpdateDocumentComponent,
-        AddDocumentComponent,
+        DocumentFormComponent,
         SubSegmentFormComponent,
         CompanyComponent,
         CompanyFormComponent,
@@ -119,8 +118,8 @@ import { RoleEditComponent } from './component/role-permission/list-role/role-ed
         CatalogueComponent,
         EmailConfigurationComponent,
         EmailValidatorDirective,
-        NumberValidatorDirective,
-        RoleEditComponent
+        RoleEditComponent,
+        EligibilitySummaryComponent
 
         // SecurityComponent
     ],
@@ -135,7 +134,8 @@ import { RoleEditComponent } from './component/role-permission/list-role/role-ed
         ThemeModule,
         DragDropModule,
         NgSelectModule,
-        NgxPrintModule
+        NgxPrintModule,
+        CoreModule
     ],
 
     entryComponents: [
@@ -147,12 +147,11 @@ import { RoleEditComponent } from './component/role-permission/list-role/role-ed
         ValuatorFormComponent,
         SectorFormComponent,
         SubSectorFormComponent,
-        AddDocumentComponent,
+        DocumentFormComponent,
         AddLoanComponent,
         UpdateModalComponent,
         UserFormComponent,
         CompanyFormComponent,
-        MsgModalComponent,
         TemplateAddModelComponent,
         RoleFormComponent,
         EligibilityDocumentViewComponent,
