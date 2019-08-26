@@ -26,6 +26,7 @@ export class LoanDataHolder {
     ciclRemarks: string;
     insurance: Insurance;
     documentStatus: DocStatus;
+    financial: Object;
     siteVisit: Object = new SiteVisit();
     priority: Priority;
     createdAt: any;
