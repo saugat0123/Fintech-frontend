@@ -25,6 +25,7 @@ import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DatePipe} from '@angular/common';
 import {CreditGradingComponent} from '../loan-main-template/credit-grading/credit-grading.component';
+import {SiteVisitComponent} from '../loan-main-template/site-visit/site-visit.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -98,6 +99,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('financial')
     financial: FinancialComponent;
+
+    @ViewChild('siteVisit')
+    siteVisit: SiteVisitComponent;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -293,6 +297,12 @@ export class LoanFormComponent implements OnInit {
             this.financial.onSubmit();
             const financialData = this.financial.financialData;
             this.loanDocument.financial = financialData;
+        }
+
+        if (name === 'Site Visit' && action) {
+            this.siteVisit.onSubmit();
+            const siteVisitData = this.siteVisit.siteVisitData;
+            this.loanDocument.siteVisit = siteVisitData;
         }
     }
 
