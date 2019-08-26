@@ -6,7 +6,8 @@ import {AppConstant} from '../app/@core/utils/appConstant';
 
 export const environment = {
   production: false,
-  client: AppConstant.BANKNAME
+  client: AppConstant.BANKNAME,
+  GOOGLE_MAP_API_KEY: 'AIzaSyDKERYllGf5BfVR_c_45nqHVkbHoPgXPDA'
 };
 
 /*
