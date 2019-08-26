@@ -1,0 +1,1792 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="financialForm" class="form-horizontal">
+            <nb-card>
+                <nb-card-header>
+                    <h3><b>Income of Borrower</b></h3>
+                </nb-card-header>
+                <nb-card-body>
+                    <div *ngFor="let incomeOfBorrower of financialForm.get('incomeOfBorrower')['controls']; let incomeIndex = index"
+                         class="border-bottom border-dark m-4"
+                         formArrayName="incomeOfBorrower">
+                        <div [formGroupName]="incomeIndex">
+                            <!-- START ROW -->
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title"><b>Income Source</b></label><b class="text-danger">*</b>
+                                        <input [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('incomeSource').invalid && (incomeOfBorrower.get('incomeSource').dirty || incomeOfBorrower.get('incomeSource').touched),
+                                'is-valid': !incomeOfBorrower.get('incomeSource').invalid && (incomeOfBorrower.get('incomeSource').dirty || incomeOfBorrower.get('incomeSource').touched)
+                                }"
+                                               class="form-control" formControlName="incomeSource"
+                                               placeholder="Income source" type="text">
+                                        <span *ngIf="incomeOfBorrower.get('incomeSource').invalid" class="invalid-feedback">Income source required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title"><b>Organization</b></label><b class="text-danger">*</b>
+                                        <input class="form-control" [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('organization').invalid && (incomeOfBorrower.get('organization').dirty || incomeOfBorrower.get('organization').touched),
+                                'is-valid': !incomeOfBorrower.get('organization').invalid && (incomeOfBorrower.get('organization').dirty || incomeOfBorrower.get('organization').touched)
+                                }"
+                                               formControlName="organization" placeholder="Organization"
+                                               type="text">
+                                        <span *ngIf="incomeOfBorrower.get('organization').invalid" class="invalid-feedback">Organization required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title"><b>Amount</b></label><b class="text-danger">*</b>
+                                        <input class="form-control" [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('amount').invalid && (incomeOfBorrower.get('amount').dirty || incomeOfBorrower.get('amount').touched),
+                                'is-valid': !incomeOfBorrower.get('amount').invalid && (incomeOfBorrower.get('amount').dirty || incomeOfBorrower.get('amount').touched)
+                                }"
+                                               formControlName="amount" placeholder="Amount"
+                                               type="text">
+                                        <span *ngIf="incomeOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="title"><b>Remarks</b></label><b class="text-danger">*</b>
+                                        <input class="form-control" [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('remarks').invalid && (incomeOfBorrower.get('remarks').dirty || incomeOfBorrower.get('remarks').touched),
+                                'is-valid': !incomeOfBorrower.get('remarks').invalid && (incomeOfBorrower.get('remarks').dirty || incomeOfBorrower.get('remarks').touched)
+                                }"
+                                               formControlName="remarks" placeholder="Remarks"
+                                               type="text">
+                                        <span *ngIf="incomeOfBorrower.get('remarks').invalid" class="invalid-feedback">Remarks required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1 ml-0 pl-0 mt-4">
+                                    <button (click)="removeIncomeIndex(incomeIndex)"
+                                            *ngIf="financialForm.get('incomeOfBorrower')['controls'].length > 1"
+                                            class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                        <i class="fa fa-trash" style="color:white;"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <input (click)="addIncomeOfBorrower()" class="btn btn-sm btn-flat btn-primary" type="button"
+                               value="Add Field"/>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+
+
+            <nb-card>
+                <nb-card-header>
+                    <h3><b>Expenses of Borrower</b></h3>
+                </nb-card-header>
+                <nb-card-body>
+                    <div *ngFor="let expensesOfBorrower of financialForm.get('expensesOfBorrower')['controls']; let expenseIndex = index"
+                         class="border-bottom border-dark m-4"
+                         formArrayName="expensesOfBorrower">
+                        <div [formGroupName]="expenseIndex">
+
+                            <!-- START ROW -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title"><b>Particulars</b><b class="text-danger">*</b></label>
+                                        <input class="form-control" [ngClass]="{
+                               'is-invalid': expensesOfBorrower.get('particulars').invalid && (expensesOfBorrower.get('particulars').dirty || expensesOfBorrower.get('particulars').touched),
+                                'is-valid': !expensesOfBorrower.get('particulars').invalid && (expensesOfBorrower.get('particulars').dirty || expensesOfBorrower.get('particulars').touched)
+                                }"
+                                               formControlName="particulars" placeholder="Particulars"
+                                               type="text">
+                                        <span *ngIf="expensesOfBorrower.get('particulars').invalid" class="invalid-feedback">Particulars required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title"><b>Amount</b><b class="text-danger">*</b></label>
+                                        <input class="form-control" [ngClass]="{
+                               'is-invalid': expensesOfBorrower.get('amount').invalid && (expensesOfBorrower.get('amount').dirty || expensesOfBorrower.get('amount').touched),
+                                'is-valid': !expensesOfBorrower.get('amount').invalid && (expensesOfBorrower.get('amount').dirty || expensesOfBorrower.get('amount').touched)
+                                }"
+                                               formControlName="amount" placeholder="Amount"
+                                               type="text">
+                                        <span *ngIf="expensesOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title"><b>Remarks</b><b class="text-danger">*</b></label>
+                                        <input class="form-control" [ngClass]="{
+                               'is-invalid': expensesOfBorrower.get('remarks').invalid && (expensesOfBorrower.get('remarks').dirty || expensesOfBorrower.get('remarks').touched),
+                                'is-valid': !expensesOfBorrower.get('remarks').invalid && (expensesOfBorrower.get('remarks').dirty || expensesOfBorrower.get('remarks').touched)
+                                }"
+                                               formControlName="remarks" placeholder="Remarks"
+                                               type="text">
+                                        <span *ngIf="expensesOfBorrower.get('remarks').invalid" class="invalid-feedback">Remarks required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1 ml-0 pl-0 mt-4">
+                                    <button (click)="removeExpensesIndex(expenseIndex)"
+                                            *ngIf="financialForm.get('expensesOfBorrower')['controls'].length > 1"
+                                            class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                        <i class="fa fa-trash" style="color:white;"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <input (click)="addExpensesOfBorrower()" class="btn btn-sm btn-flat btn-primary" type="button"
+                               value="Add Field"/>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+
+
+            <!--check box-->
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="title"><b>Select denomination</b></label>
+                        <nb-radio-group class="form-inline" formControlName="selectDenomination" name="Relation">
+                            <nb-radio value="actual">Actual</nb-radio>
+                            <nb-radio value="000">in 000</nb-radio>
+                            <nb-radio value="000000">in 000000</nb-radio>
+                        </nb-radio-group>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+        <nb-card>
+            <nb-card-header>
+                <div class="row float-right mr-3">
+                    <div class="input-group">
+                        <input #yearValue class="form-control" nbInput placeholder="Year" type="number" required>
+                        <div class="input-group-append">
+                            <button (click)="addFiscalYear(yearValue.value)" class="mb-2" nbButton size="small">Add
+                            </button>
+                        </div>
+                    </div>
+                    <div *ngIf="yearValue.value === '' && addYear" class="small text-danger">Please enter a year!</div>
+                </div>
+            </nb-card-header>
+            <nb-card-body>
+
+                <form [formGroup]="additionalFinancialForm">
+                    <h3>Income Statement</h3>
+                    <table class="table table-bordered">
+                        <thead class="text-center">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Particulars</th>
+                            <th *ngFor="let year of fiscalYear; let j = index" scope="col">
+                                {{year}}
+                                <div class="float-right">
+                                    <a (click)="removeFiscalYear(j)" data-toggle="tooltip"
+                                       data-placement="top">
+                                        <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                    </a>
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td><b>Total Sales Revenue</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('totalSalesRevenue')['controls']; let j = index"
+                                formArrayName="totalSalesRevenue" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody *ngFor="let category of additionalFinancialForm.get('totalSalesSubCategory')['controls'];let i = index"
+                               formArrayName="totalSalesSubCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
+                            <td>{{category.get('name').value}}
+                                <a *ngIf="i > 0" (click)="removeSubCategoryTotalSales(i, category.get('amount')['controls'])" data-toggle="tooltip"
+                                   data-placement="top">
+                                    <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                </a>
+                            </td>
+                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
+                                formArrayName="amount">
+                                <div [formGroupName]="o" class="text-center">
+                                    <input (input)="onValueChange(o)" class="text-center" type="number" formControlName="value" style="border: none; outline: none;" value="0">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><input #totalSalesCategoryName fieldSize="small" nbInput placeholder="Particular"
+                                       type="text">
+                                <button (click)="addSubCategoryTotalSales(totalSalesCategoryName.value)" nbButton
+                                        size="small">Add field
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td><b>Cost of Goods Sold</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('costOfGoodsSold')['controls']; let j = index"
+                                formArrayName="costOfGoodsSold" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody *ngFor="let category of additionalFinancialForm.get('costOfGoodsSoldCategory')['controls'];let i = index"
+                               formArrayName="costOfGoodsSoldCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
+                            <td>{{category.get('name').value}}
+                                    <a *ngIf="i > 2" (click)="removeCostOfGoodsSoldCategory(i)" data-toggle="tooltip"
+                                       data-placement="top">
+                                        <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                    </a>
+                            </td>
+                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
+                                formArrayName="amount">
+                                <div [formGroupName]="o" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><input #costOfGoodsSoldCategory fieldSize="small" nbInput placeholder="Particular"
+                                       type="text">
+                                    <button (click)="addCostOfGoodsSoldCategory(costOfGoodsSoldCategory.value)" nbButton
+                                            size="small">Add field
+                                    </button>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td><b>Gross Profit</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('grossProfit')['controls']; let j = index"
+                                formArrayName="grossProfit" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td><b>Operating Expenses</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('operatingExpenses')['controls']; let j = index"
+                                formArrayName="operatingExpenses" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody *ngFor="let category of additionalFinancialForm.get('operatingExpensesCategory')['controls'];let i = index"
+                               formArrayName="operatingExpensesCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
+                            <td>{{category.get('name').value}}
+                                <a *ngIf="i > 3" (click)="removeOperatingExpensesCategory(i)" data-toggle="tooltip"
+                                   data-placement="top">
+                                    <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                </a>
+                            </td>
+                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
+                                formArrayName="amount">
+                                <div [formGroupName]="o" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><input #operatingExpensesCategory fieldSize="small" nbInput placeholder="Particular"
+                                       type="text">
+                                <button (click)="addOperatingExpensesCategory(operatingExpensesCategory.value)" nbButton
+                                        size="small">Add field
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td><b>	Operating Profit</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('operatingProfit')['controls']; let j = index"
+                                formArrayName="operatingProfit" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">6</th>
+                            <td><b>Interest Expenses</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('interestExpenses')['controls']; let j = index"
+                                formArrayName="interestExpenses" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody *ngFor="let category of additionalFinancialForm.get('interestExpensesCategory')['controls'];let i = index"
+                               formArrayName="interestExpensesCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
+                            <td>{{category.get('name').value}}
+                                <a *ngIf="i > 1" (click)="removeInterestExpensesCategory(i)" data-toggle="tooltip"
+                                   data-placement="top">
+                                    <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                </a>
+                            </td>
+                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
+                                formArrayName="amount">
+                                <div [formGroupName]="o" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><input #interestExpensesCategory fieldSize="small" nbInput placeholder="Particular"
+                                       type="text">
+                                <button (click)="addInterestExpensesCategory(interestExpensesCategory.value)" nbButton
+                                        size="small">Add field
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">7</th>
+                            <td><b>Non-Operating Income/Expenses</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('nonOperatingIncomeOrExpenses')['controls']; let j = index"
+                                formArrayName="nonOperatingIncomeOrExpenses" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody *ngFor="let category of additionalFinancialForm.get('nonOperatingIncomeOrExpensesCategory')['controls'];let i = index"
+                               formArrayName="nonOperatingIncomeOrExpensesCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
+                            <td>{{category.get('name').value}}
+                                <a *ngIf="i > 0" (click)="removeNonOperatingIncomeOrExpensesCategory(i)" data-toggle="tooltip"
+                                   data-placement="top">
+                                    <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                </a>
+                            </td>
+                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
+                                formArrayName="amount">
+                                <div [formGroupName]="o" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><input #nonOperatingIncomeOrExpensesCategory fieldSize="small" nbInput placeholder="Particular"
+                                       type="text">
+                                <button (click)="addNonOperatingIncomeOrExpensesCategory(nonOperatingIncomeOrExpensesCategory.value)" nbButton
+                                        size="small">Add field
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">8</th>
+                            <td><b>Profit Before Tax and Staff Bonus</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('profitBeforeTaxAndStaffBonus')['controls']; let j = index"
+                                formArrayName="profitBeforeTaxAndStaffBonus" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">9</th>
+                            <td><b>Staff Bonus</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('staffBonus')['controls']; let j = index"
+                                formArrayName="staffBonus" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">10</th>
+                            <td><b>Profit Before Taxes</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('profitBeforeTaxes')['controls']; let j = index"
+                                formArrayName="profitBeforeTaxes" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">11</th>
+                            <td><b>Taxes</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('taxes')['controls']; let j = index"
+                                formArrayName="taxes" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody *ngFor="let category of additionalFinancialForm.get('taxesCategory')['controls'];let i = index"
+                               formArrayName="taxesCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
+                            <td>{{category.get('name').value}}</td>
+                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
+                                formArrayName="amount">
+                                <div [formGroupName]="o" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">12</th>
+                            <td><b>Profit After Tax</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('profitAfterTax')['controls']; let j = index"
+                                formArrayName="profitAfterTax" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">13</th>
+                            <td><b>Dividend/Drawing</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('dividendOrDrawing')['controls']; let j = index"
+                                formArrayName="dividendOrDrawing" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">14</th>
+                            <td><b>Other adjustment</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('otherAdjustment')['controls']; let j = index"
+                                formArrayName="otherAdjustment" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">15</th>
+                            <td><b>Accumulated profit b/d</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('accumulatedProfitBOrD')['controls']; let j = index"
+                                formArrayName="accumulatedProfitBOrD" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">16</th>
+                            <td><b>Net Profit Transferred to Balance Sheet</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('netProfitTransferredToBalanceSheet')['controls']; let j = index"
+                                formArrayName="netProfitTransferredToBalanceSheet" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h4>Justification</h4>
+                    <textarea nbInput rows="5" class="mb-5" fullWidth placeholder="Jusification..."></textarea>
+
+                    <h3>Balance Sheet</h3>
+                    <table class="table table-bordered">
+                        <thead class="text-center">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Particulars</th>
+                            <th *ngFor="let year of fiscalYear; let j = index" scope="col">
+                                {{year}}
+                                <div class="float-right">
+                                    <a (click)="removeFiscalYear(j)" data-toggle="tooltip"
+                                       data-placement="top">
+                                        <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                    </a>
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <th scope="row">A</th>
+                        <td><b>ASSETS</b></td>
+                        <td *ngFor="let year of fiscalYear" scope="col"></td>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td><b>Current Assets</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('currentAssets')['controls']; let j = index"
+                                formArrayName="currentAssets" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody *ngFor="let category of additionalFinancialForm.get('currentAssetsCategory')['controls'];let i = index"
+                               formArrayName="currentAssetsCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
+                            <td>{{category.get('name').value}}
+                                <a *ngIf="i > 3" (click)="removeCurrentAssetsCategory(i)" data-toggle="tooltip"
+                                   data-placement="top">
+                                    <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                </a>
+                            </td>
+                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
+                                formArrayName="amount">
+                                <div [formGroupName]="o" class="text-center">
+                                    <input class="text-center" type="number" formControlName="value" style="border: none; outline: none;" value="0">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(additionalFinancialForm.get('currentAssetsCategory')['length'])}}</th>
+                            <td><b>	Inventories</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('inventories')['controls']; let j = index"
+                                formArrayName="inventories" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody *ngFor="let category of additionalFinancialForm.get('inventoriesCategory')['controls'];let i = index"
+                               formArrayName="inventoriesCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row"></th>
+                            <td>{{category.get('name').value}}</td>
+                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
+                                formArrayName="amount">
+                                <div [formGroupName]="o" class="text-center">
+                                    <input class="text-center" type="number" formControlName="value" style="border: none; outline: none;" value="0">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><input #currentAssetsCategory fieldSize="small" nbInput placeholder="Particular"
+                                       type="text">
+                                <button (click)="addCurrentAssetsCategory(currentAssetsCategory.value)" nbButton
+                                        size="small">Add field
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td><b>Fixed Assets</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('fixedAssets')['controls']; let j = index"
+                                formArrayName="fixedAssets" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody *ngFor="let category of additionalFinancialForm.get('fixedAssetsCategory')['controls'];let i = index"
+                               formArrayName="fixedAssetsCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
+                            <td>{{category.get('name').value}}
+                                <a *ngIf="i > 0" (click)="removeFixedAssetsCategory(i)" data-toggle="tooltip"
+                                   data-placement="top">
+                                    <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                </a>
+                            </td>
+                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
+                                formArrayName="amount">
+                                <div [formGroupName]="o" class="text-center">
+                                    <input class="text-center" type="number" formControlName="value" style="border: none; outline: none;" value="0">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><input #fixedAssetsCategory fieldSize="small" nbInput placeholder="Particular"
+                                       type="text">
+                                <button (click)="addFixedAssetsCategory(fixedAssetsCategory.value)" nbButton
+                                        size="small">Add field
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td><b>Other Assets</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('otherAssets')['controls']; let j = index"
+                                formArrayName="otherAssets" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody *ngFor="let category of additionalFinancialForm.get('otherAssetsCategory')['controls'];let i = index"
+                               formArrayName="otherAssetsCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
+                            <td>{{category.get('name').value}}
+                                <a *ngIf="i > 1" (click)="removeOtherAssetsCategory(i)" data-toggle="tooltip"
+                                   data-placement="top">
+                                    <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                </a>
+                            </td>
+                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
+                                formArrayName="amount">
+                                <div [formGroupName]="o" class="text-center">
+                                    <input class="text-center" type="number" formControlName="value" style="border: none; outline: none;" value="0">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><input #otherAssetsCategory fieldSize="small" nbInput placeholder="Particular"
+                                       type="text">
+                                <button (click)="addOtherAssetsCategory(otherAssetsCategory.value)" nbButton
+                                        size="small">Add field
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">B</th>
+                            <td class="text-center"><b>Total Assets</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('totalAssets')['controls']; let j = index"
+                                formArrayName="totalAssets" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <th scope="row">C</th>
+                        <td><b>LIABILITIES</b></td>
+                        <td *ngFor="let year of fiscalYear" scope="col"></td>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td><b>	Current Liabilities</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('currentLiabilities')['controls']; let j = index"
+                                formArrayName="currentLiabilities" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody *ngFor="let category of additionalFinancialForm.get('currentLiabilitiesCategory')['controls'];let i = index"
+                               formArrayName="currentLiabilitiesCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
+                            <td>{{category.get('name').value}}
+                                <a *ngIf="i > 1" (click)="removeCurrentLiabilitiesCategory(i)" data-toggle="tooltip"
+                                   data-placement="top">
+                                    <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                </a>
+                            </td>
+                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
+                                formArrayName="amount">
+                                <div [formGroupName]="o" class="text-center">
+                                    <input class="text-center" type="number" formControlName="value" style="border: none; outline: none;" value="0">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><input #currentLiabilitiesCategory fieldSize="small" nbInput placeholder="Particular"
+                                       type="text">
+                                <button (click)="addCurrentLiabilitiesCategory(currentLiabilitiesCategory.value)" nbButton
+                                        size="small">Add field
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td><b>Long Term Loan</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('longTermLoan')['controls']; let j = index"
+                                formArrayName="longTermLoan" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody *ngFor="let category of additionalFinancialForm.get('longTermLoanCategory')['controls'];let i = index"
+                               formArrayName="longTermLoanCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
+                            <td>{{category.get('name').value}}</td>
+                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
+                                formArrayName="amount">
+                                <div [formGroupName]="o" class="text-center">
+                                    <input class="text-center" type="number" formControlName="value" style="border: none; outline: none;" value="0">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">6</th>
+                            <td><b>Other Long Term Liabilities</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('otherLongTermLiabilities')['controls']; let j = index"
+                                formArrayName="otherLongTermLiabilities" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody *ngFor="let category of additionalFinancialForm.get('otherLongTermLiabilitiesCategory')['controls'];let i = index"
+                               formArrayName="otherLongTermLiabilitiesCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
+                            <td>{{category.get('name').value}}
+                                <a (click)="removeOtherLongTermLiabilitiesCategory(i)" data-toggle="tooltip"
+                                   data-placement="top">
+                                    <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                </a>
+                            </td>
+                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
+                                formArrayName="amount">
+                                <div [formGroupName]="o" class="text-center">
+                                    <input class="text-center" type="number" formControlName="value" style="border: none; outline: none;" value="0">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><input #otherLongTermLiabilitiesCategory fieldSize="small" nbInput placeholder="Particular"
+                                       type="text">
+                                <button (click)="addOtherLongTermLiabilitiesCategory(otherLongTermLiabilitiesCategory.value)" nbButton
+                                        size="small">Add field
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">7</th>
+                            <td><b>Other Provisions</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('otherProvisions')['controls']; let j = index"
+                                formArrayName="otherProvisions" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">8</th>
+                            <td><b>Net Worth</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('netWorth')['controls']; let j = index"
+                                formArrayName="netWorth" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody *ngFor="let category of additionalFinancialForm.get('netWorthCategory')['controls'];let i = index"
+                               formArrayName="netWorthCategory">
+                        <tr [formGroupName]="i">
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</th>
+                            <td>{{category.get('name').value}}
+                                <a *ngIf="i > 1" (click)="removeNetWorthCategory(i)" data-toggle="tooltip"
+                                   data-placement="top">
+                                    <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                </a>
+                            </td>
+                            <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
+                                formArrayName="amount">
+                                <div [formGroupName]="o" class="text-center">
+                                    <input class="text-center" type="number" formControlName="value" style="border: none; outline: none;" value="0">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><input #netWorthCategory fieldSize="small" nbInput placeholder="Particular"
+                                       type="text">
+                                <button (click)="addNetWorthCategory(netWorthCategory.value)" nbButton
+                                        size="small">Add field
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">D</th>
+                            <td class="text-center"><b>Total Liabilities and Equity</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('totalLiabilitiesAndEquity')['controls']; let j = index"
+                                formArrayName="totalLiabilitiesAndEquity" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">E</th>
+                            <td class="text-center"><b>Difference</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('differenceBS')['controls']; let j = index"
+                                formArrayName="differenceBS" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h4>Justification</h4>
+                    <textarea nbInput rows="5" class="mb-5" fullWidth placeholder="Jusification..."></textarea>
+
+                    <h3>Cash Flow Statement</h3>
+                    <table class="table table-bordered">
+                        <thead class="text-center">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Particulars</th>
+                            <th *ngFor="let year of fiscalYear; let j = index" scope="col">
+                                {{year}}
+                                <div class="float-right">
+                                    <a (click)="removeFiscalYear(j)" data-toggle="tooltip"
+                                       data-placement="top">
+                                        <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                    </a>
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td><b>	Cash From Operating Activities</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('cashFromOperatingActivities')['controls']; let j = index"
+                                formArrayName="cashFromOperatingActivities" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">a</th>
+                            <td>Net Profit for the Period</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('netProfitForThePeriod')['controls']; let j = index"
+                                formArrayName="netProfitForThePeriod" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <th scope="row"></th>
+                        <td><b>Adjustment for Non cash Expenses</b></td>
+                        <td *ngFor="let year of fiscalYear" scope="col"></td>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">b</th>
+                            <td>Depreciation</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('depreciation')['controls']; let j = index"
+                                formArrayName="depreciation" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">c</th>
+                            <td>Other Amortization and Non Cash Expenses</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('otherAmortizationAndNonCashExpenses')['controls']; let j = index"
+                                formArrayName="otherAmortizationAndNonCashExpenses" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <th scope="row"></th>
+                        <td><b>Adjustment for Working Capital</b></td>
+                        <td *ngFor="let year of fiscalYear" scope="col"></td>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">d</th>
+                            <td>(Increase)/Decrease in Inventory</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('increaseDecreaseInInventory')['controls']; let j = index"
+                                formArrayName="increaseDecreaseInInventory" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">e</th>
+                            <td>(Increase)/Decrease in Accounts Receivable</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('increaseDecreaseInAccountsReceivable')['controls']; let j = index"
+                                formArrayName="increaseDecreaseInAccountsReceivable" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">f</th>
+                            <td>(Increase)/Decrease in Short Term Investment</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('increaseDecreaseInShortTermInvestment')['controls']; let j = index"
+                                formArrayName="increaseDecreaseInShortTermInvestment" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">g</th>
+                            <td>(Increase)/Decrease in Advance and Deposit</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('increaseDecreaseInAdvanceAndDeposit')['controls']; let j = index"
+                                formArrayName="increaseDecreaseInAdvanceAndDeposit" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">h</th>
+                            <td>(Increase)/Decrease in Other Current Assets</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('increaseDecreaseInOtherCurrentAssets')['controls']; let j = index"
+                                formArrayName="increaseDecreaseInOtherCurrentAssets" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">i</th>
+                            <td>(Increase)/Decrease in Creditors</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('increaseDecreaseInCreditors')['controls']; let j = index"
+                                formArrayName="increaseDecreaseInCreditors" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">j</th>
+                            <td>(Increase)/Decrease in Other Current Liabilities</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('increaseDecreaseInOtherCurrentLiabilities')['controls']; let j = index"
+                                formArrayName="increaseDecreaseInOtherCurrentLiabilities" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">k</th>
+                            <td>Adjustment For Non Operating Income</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('adjustmentForNonOperatingIncome')['controls']; let j = index"
+                                formArrayName="adjustmentForNonOperatingIncome" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">l</th>
+                            <td>Interest Expenses</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('interestExpensesCFSa')['controls']; let j = index"
+                                formArrayName="interestExpensesCFSa" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td><b>	Cash From Investing Activities</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('cashFromInvestingActivities')['controls']; let j = index"
+                                formArrayName="cashFromInvestingActivities" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">a</th>
+                            <td>Changed in Fixed Assets</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('changedInFixedAsset')['controls']; let j = index"
+                                formArrayName="changedInFixedAsset" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">b</th>
+                            <td>Non-Operating income/(Expenses)</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('nonOperatingIncomeExpenses')['controls']; let j = index"
+                                formArrayName="nonOperatingIncomeExpenses" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">c</th>
+                            <td>Change in Other Assets</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('changeInOtherAssets')['controls']; let j = index"
+                                formArrayName="changeInOtherAssets" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">d</th>
+                            <td>Change in Other Long Term Liabilities</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('changeInOtherLongTermLiabilities')['controls']; let j = index"
+                                formArrayName="changeInOtherLongTermLiabilities" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td><b>Cash From Financing Activities</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('cashFromFinancingActivities')['controls']; let j = index"
+                                formArrayName="cashFromFinancingActivities" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">a</th>
+                            <td>Paid up Capital/Equity</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('paidUpCapitalEquity')['controls']; let j = index"
+                                formArrayName="paidUpCapitalEquity" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">b</th>
+                            <td>Short Term Loan</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('shortTermLoan')['controls']; let j = index"
+                                formArrayName="shortTermLoan" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">c</th>
+                            <td>Long Term Loan Received/(Paid)</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('longTermLoanReceived')['controls']; let j = index"
+                                formArrayName="longTermLoanReceived" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">d</th>
+                            <td>Dividend/Drawing</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('dividendDrawing')['controls']; let j = index"
+                                formArrayName="dividendDrawing" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">e</th>
+                            <td>Interest Expenses</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('interestExpensesCFSb')['controls']; let j = index"
+                                formArrayName="interestExpensesCFSb" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">f</th>
+                            <td>Other Adjustments</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('otherAdjustments')['controls']; let j = index"
+                                formArrayName="otherAdjustments" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td><b>Net Cash Flow</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('netCashFlow')['controls']; let j = index"
+                                formArrayName="netCashFlow" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">a</th>
+                            <td>Add:Opening Balance</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('addOpeningBalance')['controls']; let j = index"
+                                formArrayName="addOpeningBalance" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td><b>Closing Cash</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('closingCash')['controls']; let j = index"
+                                formArrayName="closingCash" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">a</th>
+                            <td>Closing Balance</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('closingBalance')['controls']; let j = index"
+                                formArrayName="closingBalance" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">6</th>
+                            <td><b>Difference</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('differenceCFS')['controls']; let j = index"
+                                formArrayName="differenceCFS" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                    <h4>Justification</h4>
+                    <textarea nbInput rows="5" class="mb-5" fullWidth placeholder="Jusification..."></textarea>
+
+                    <h3>Key Indicators</h3>
+                    <table class="table table-bordered">
+                        <thead class="text-center">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Particulars</th>
+                            <th *ngFor="let year of fiscalYear; let j = index" scope="col">
+                                {{year}}
+                                <div class="float-right">
+                                    <a (click)="removeFiscalYear(j)" data-toggle="tooltip"
+                                       data-placement="top">
+                                        <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+                                    </a>
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td><b>Growth</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('growth')['controls']; let j = index"
+                                formArrayName="growth" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">a</th>
+                            <td>Sales</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('sales')['controls']; let j = index"
+                                formArrayName="sales" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">b</th>
+                            <td>Gross Profit</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('grossProfitKI')['controls']; let j = index"
+                                formArrayName="grossProfitKI" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">c</th>
+                            <td>Operating Profit(EBIT)</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('operatingProfitKI')['controls']; let j = index"
+                                formArrayName="operatingProfitKI" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">d</th>
+                            <td>PAT</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('pAT')['controls']; let j = index"
+                                formArrayName="pAT" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td><b>Profitability</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('profitability')['controls']; let j = index"
+                                formArrayName="profitability" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">a</th>
+                            <td>Gross Profit Margin</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('grossProfitMargin')['controls']; let j = index"
+                                formArrayName="grossProfitMargin" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">b</th>
+                            <td>Net Profit Margin</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('netProfitMargin')['controls']; let j = index"
+                                formArrayName="netProfitMargin" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">c</th>
+                            <td>EBIT to Sales</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('eBITtoSales')['controls']; let j = index"
+                                formArrayName="eBITtoSales" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">d</th>
+                            <td>Return On Equity</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('returnOnEquity')['controls']; let j = index"
+                                formArrayName="returnOnEquity" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td><b>Solvency</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('solvency')['controls']; let j = index"
+                                formArrayName="solvency" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">a</th>
+                            <td>Quick Ratio (times)</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('quickRatio')['controls']; let j = index"
+                                formArrayName="quickRatio" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">b</th>
+                            <td>Current Ratio (times)</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('currentRatio')['controls']; let j = index"
+                                formArrayName="currentRatio" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">c</th>
+                            <td>Debt Service Coverage Ratio (times)</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('debtServiceCoverageRatio')['controls']; let j = index"
+                                formArrayName="debtServiceCoverageRatio" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">d</th>
+                            <td>Interest Coverage Ratio (times)</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('interestCoverageRatio')['controls']; let j = index"
+                                formArrayName="interestCoverageRatio" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">e</th>
+                            <td>Debt-Equity Ratio (Overall)</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('debtEquityRatioOverall')['controls']; let j = index"
+                                formArrayName="debtEquityRatioOverall" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">f</th>
+                            <td>Debt-Equity Ratio - Long Term (times)</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('debtEquityRatioLongTerm')['controls']; let j = index"
+                                formArrayName="debtEquityRatioLongTerm" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">g</th>
+                            <td>Debt-Equity Ratio - Working Capital (times)</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('debtEquityRatioWorkingCapital')['controls']; let j = index"
+                                formArrayName="debtEquityRatioWorkingCapital" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">h</th>
+                            <td>Debt-Equity Ratio - General</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('debtEquityRatioGeneral')['controls']; let j = index"
+                                formArrayName="debtEquityRatioGeneral" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td><b>Operating Cycle</b></td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('operatingCycle')['controls']; let j = index"
+                                formArrayName="operatingCycle" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">a</th>
+                            <td>Inventory Turnover Ratio (times)</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('inventoryTurnoverRatio')['controls']; let j = index"
+                                formArrayName="inventoryTurnoverRatio" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">b</th>
+                            <td>Stock in Hand - Days</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('stockInHandDays')['controls']; let j = index"
+                                formArrayName="stockInHandDays" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">c</th>
+                            <td>Debtor Turnover Ratio (times)</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('debtorTurnOverRatio')['controls']; let j = index"
+                                formArrayName="debtorTurnOverRatio" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">d</th>
+                            <td>Average Collection Period - Days</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('averageCollectionPeriod')['controls']; let j = index"
+                                formArrayName="averageCollectionPeriod" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">e</th>
+                            <td>Average Payment Period - Days</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('averagePaymentPeriod')['controls']; let j = index"
+                                formArrayName="averagePaymentPeriod" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">f</th>
+                            <td>Net Operating Cycle - Days</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('netOperatingCycle')['controls']; let j = index"
+                                formArrayName="netOperatingCycle" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">g</th>
+                            <td>Net WC before Bank(Rs. in 000)</td>
+                            <td *ngFor="let amount of additionalFinancialForm.get('netWCBeforeBank')['controls']; let j = index"
+                                formArrayName="netWCBeforeBank" scope="col">
+                                <div [formGroupName]="j" class="text-center">
+                                    <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h4>Justification</h4>
+                    <textarea nbInput rows="5" class="mb-5" fullWidth placeholder="Jusification..."></textarea>
+
+                </form>
+            </nb-card-body>
+        </nb-card>
+        <nb-card class="p-3">
+            <app-borrower-risk-rating [formDataForBrrEdit]="formDataForEdit?.data?.brr" #brr></app-borrower-risk-rating>
+        </nb-card>
+    </nb-card-body>
+</nb-card>
+<!--<pre>{{additionalFinancialForm.value | json}}</pre>-->
