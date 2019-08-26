@@ -29,6 +29,9 @@ import {BorrowerRiskRatingComponent} from './component/loan-main-template/financ
 import {ReadmoreModelComponent} from './component/readmore-model/readmore-model.component';
 import {CreditGradingComponent} from './component/loan-main-template/credit-grading/credit-grading.component';
 import {CoreModule} from '../../@core/core.module';
+import {environment} from '../../../environments/environment';
+import {SiteVisitComponent} from './component/loan-main-template/site-visit/site-visit.component';
+import {AgmCoreModule} from '@agm/core';
 
 
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
@@ -54,6 +57,7 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         ReadmoreModelComponent,
         CreditGradingComponent,
 
+        SiteVisitComponent,
     ],
     imports: [
         ThemeModule,
@@ -67,6 +71,9 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         NbDatepickerModule,
         NgxPrintModule,
         CoreModule,
+        AgmCoreModule.forRoot({
+            apiKey: environment.GOOGLE_MAP_API_KEY
+        })
     ],
 
     providers: [
