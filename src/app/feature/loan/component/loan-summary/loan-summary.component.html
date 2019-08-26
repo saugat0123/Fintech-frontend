@@ -337,7 +337,7 @@
                             <td>{{previousList?.toUser?.name}}</td>
                             <td>{{previousList?.toRole?.roleName}}</td>
                             <td>{{previousList?.docAction}}</td>
-                            <td>
+                            <td class="text-justify">
                                 <div class="cmt-height">
                                     {{previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49) :
@@ -355,7 +355,7 @@
                             <td>{{loanDataHolder?.currentStage?.toUser?.name}}</td>
                             <td>{{loanDataHolder?.currentStage?.toRole?.roleName}}</td>
                             <td>{{loanDataHolder?.currentStage?.docAction}}</td>
-                            <td>
+                            <td class="text-justify">
                                 <div class="cmt-height">
                                     {{loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49) :
@@ -388,7 +388,7 @@
                                 ({{previousList?.fromRole?.roleName}})
                             </td>
                             <td>{{previousList?.docAction}}</td>
-                            <td>{{previousList?.comment}}</td>
+                            <td class="text-justify">{{previousList?.comment}}</td>
                         </tr>
                         <tr>
                             <td>{{currentIndex + 1}}</td>
@@ -398,7 +398,7 @@
                                 ({{loanDataHolder?.currentStage?.fromRole?.roleName}})
                             </td>
                             <td>{{loanDataHolder?.currentStage?.docAction}}</td>
-                            <td>{{loanDataHolder?.currentStage?.comment}}</td>
+                            <td class="text-justify">{{loanDataHolder?.currentStage?.comment}}</td>
                         </tr>
                         </tbody>
                     </table>
