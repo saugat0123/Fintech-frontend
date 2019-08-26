@@ -55,7 +55,8 @@ export class EligibilitySummaryComponent implements OnInit {
         this.requestService.detail(this.applicantId).subscribe((response: any) => {
             this.applicant = response.detail;
             this.roleType === RoleType.APPROVAL &&
-            (this.applicant.eligibilityStatus === 'ELIGIBLE' || this.applicant.eligibilityStatus === 'NOT_ELIGIBLE')
+            (this.applicant.eligibilityStatus === 'ELIGIBLE' || this.applicant.eligibilityStatus === 'NOT_ELIGIBLE'
+            || this.applicant.eligibilityStatus === 'NEW_REQUEST')
                 ? this.showApproveAndRejectButton = true : this.showApproveAndRejectButton = false;
             this.dateService.getDateInNepali(this.applicant.createdAt).subscribe((nepDate: any) => {
                 this.appliedNepDate = nepDate.detail;
