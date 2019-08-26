@@ -42,8 +42,11 @@
             </option>
         </select>
 
-        <button class="btn-sm btn-warning d-flex justify-content-end" (click)="print()">PRINT<i
-                class="col-md-1 fa fa-print"></i></button>
+        <!--<button class="btn-sm btn-warning d-flex justify-content-end" (click)="print()">PRINT<i
+                class="col-md-1 fa fa-print"></i></button>-->
+        <button class="btn-sm btn-warning d-flex justify-content-end"
+                printSectionId="print-block" ngxPrint [useExistingCss]="true">PRINT<i
+            class="col-md-1 fa fa-print"></i></button>
 
 
         <button class="btn-sm btn-danger d-flex justify-content-end" (click)="deleteCustomerLoan()"

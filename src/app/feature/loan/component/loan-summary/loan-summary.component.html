@@ -8,10 +8,10 @@
         <nb-card-body id="print-block">
             <div class="col-md-12  text-success cursor disable-print"
             >
-                <a class="d-flex justify-content-start" *ngIf="loanDataHolder?.childId !=null"
+                <a class="justify-content-start" *ngIf="loanDataHolder?.childId !=null"
                    (click)="renewedOrCloseFrom(loanDataHolder?.childId)">{{loanType[loanDataHolder.loanType]}} to <i
                         class="p-1 fa fa-edit"></i></a>
-                <a class="d-flex justify-content-end" *ngIf="loanDataHolder?.parentId !=null"
+                <a class="justify-content-end" *ngIf="loanDataHolder?.parentId !=null"
                    (click)="renewedOrCloseFrom(loanDataHolder?.parentId)">{{loanType[loanDataHolder.loanType]}} From <i
                         class="p-1 fa fa-edit"></i></a></div>
             <div class="row">
@@ -344,7 +344,7 @@
                                     previousList?.comment}}
                                 </div>
                                 <a *ngIf="previousList?.comment?.length > 50"
-                                   class="d-flex justify-content-end read-margin"
+                                   class="justify-content-end read-margin"
                                    (click)="open(previousList.comment)">read more ....</a>
                             </td>
                         </tr>
@@ -362,7 +362,7 @@
                                     loanDataHolder?.currentStage?.comment}}
                                 </div>
                                 <a *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
-                                   class="d-flex justify-content-end read-margin"
+                                   class="justify-content-end read-margin"
                                    (click)="open(loanDataHolder.currentStage.comment)">read more ....</a>
                             </td>
                         </tr>
@@ -427,7 +427,8 @@
                     </table>
                 </div>
             </div>
-            <div class="row d-flex justify-content-between px-3">
+
+            <div class="row justify-content-between px-3">
                 <div *ngFor="let previous of signatureList; let i=index;"
                      class="col-md-3 padding-0-125">
                     <div class="signature-block">
