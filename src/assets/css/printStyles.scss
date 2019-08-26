@@ -1,0 +1,133 @@
+@media print {
+  .report-header {
+    text-align: center;
+    line-height: 1;
+  }
+
+  .report-header .report-header-heading {
+    font-size: 16pt;
+    font-weight: bold;
+  }
+
+  .report-header .report-header-sub-heading {
+    font-size: 14pt;
+  }
+
+  .report-logo {
+    width: 100px;
+  }
+
+  .signature-height {
+    height: 100px;
+  }
+
+  .signature-block {
+    padding: 0.5rem;
+    border: 1px solid #8c8b8b;
+    margin-top: 0.2rem;
+  }
+
+  .signature-block .signature-detail {
+    border-top: 1px dashed;
+    padding-top: 0.5rem;
+  }
+
+  .signature-detail p {
+    margin-bottom: 0;
+  }
+
+  .padding-0-125 {
+    padding-left: 0.125rem !important;
+    padding-right: 0.125rem !important;
+  }
+
+  .cmt-height {
+    max-height: 36px;
+    overflow: hidden;
+  }
+
+  .cmt-width {
+    width: 70%;
+  }
+
+  .read-margin {
+    margin-top: 5px;
+  }
+
+  span.badge {
+    border: none;
+    color: black;
+    font-weight: normal;
+  }
+
+  hr.print-line {
+    border-top: 2px solid black;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+  }
+
+  div {
+    font-size: 12pt;
+    color: black;
+    //line-height: 1.5;
+  }
+
+  div p {
+    font-size: 12pt;
+    margin-bottom: 5px;
+  }
+
+  .print-only {
+    display: block;
+  }
+
+  #print-document {
+    display: none;
+  }
+
+  .table th, .table td {
+    padding: 0.1rem;
+  }
+
+  #print-borrower-table tbody td {
+    width: 400px;
+  }
+
+  #print-company-table tbody td {
+    width: 500px;
+  }
+
+  #print-block {
+    margin-top: -6rem;
+    margin-left: 2rem;
+    margin-right: -1rem;
+    padding-top: 3rem;
+
+    .mt-3 {
+      margin-top: 0 !important;
+    }
+
+    table {
+      margin-bottom: .2rem;
+    }
+
+    p {
+      margin-bottom: 0.2rem;
+    }
+  }
+
+  table {
+    page-break-inside: auto
+  }
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto
+  }
+  thead {
+    display: table-header-group
+  }
+  tfoot {
+    display: table-footer-group
+  }
+
+}
