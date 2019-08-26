@@ -223,13 +223,18 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="occupation"><b>Occupation</b></label>
-                            <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.occupation.errors }" class="form-control" formControlName="accountNo" id="occupation"
-                                   name="occupation" placeholder="Occupation is required"
-                                   type="text">
-                            <div *ngIf="(submitted) && basicInfoControls.occupation.invalid" class="invalid-feedback">
-                                <div *ngIf="basicInfoControls.occupation.errors.required">
-                                    Occupation is required
-                                </div>
+                            <ng-select [items]="occupations"
+                                       [multiple]="false"
+                                       [ngClass]="{'is-invalid':submitted &&  basicInfoControls.occupation.errors}"
+                                       bindLabel="value"
+                                       bindValue="key"
+                                       id="occupation"
+                                       formControlName="occupation"
+                                       placeholder="Select Occupation">
+                            </ng-select>
+                            <div *ngIf="submitted && basicInfoControls.occupation.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="basicInfoControls.occupation.errors.required">Occupation is required</div>
                             </div>
                         </div>
                     </div>
@@ -240,13 +245,18 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="incomeSource"><b>Income Source</b></label>
-                            <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.incomeSource.errors }" class="form-control" formControlName="incomeSource" id="incomeSource"
-                                   name="occupation" placeholder="Occupation is required"
-                                   type="text">
-                            <div *ngIf="(submitted) && basicInfoControls.incomeSource.invalid" class="invalid-feedback">
-                                <div *ngIf="basicInfoControls.incomeSource.errors.required">
-                                    Income Source is required
-                                </div>
+                            <ng-select [items]="incomeSources"
+                                       [multiple]="false"
+                                       [ngClass]="{'is-invalid':submitted &&  basicInfoControls.incomeSource.errors}"
+                                       bindLabel="value"
+                                       bindValue="key"
+                                       formControlName="incomeSource"
+                                       id="incomeSource"
+                                       placeholder="Select Income Source">
+                            </ng-select>
+                            <div *ngIf="submitted && basicInfoControls.incomeSource.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="basicInfoControls.incomeSource.errors.required">Income Source is required</div>
                             </div>
                         </div>
                     </div>
