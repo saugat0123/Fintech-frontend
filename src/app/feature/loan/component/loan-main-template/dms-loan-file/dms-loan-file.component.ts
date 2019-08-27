@@ -30,7 +30,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 })
 
 export class DmsLoanFileComponent implements OnInit {
-    public static FILE_SIZE = 500000;
+    public static FILE_SIZE = 1000000;
     @Input()
     loanDataHolder: LoanDataHolder;
     loanForm: FormGroup;
