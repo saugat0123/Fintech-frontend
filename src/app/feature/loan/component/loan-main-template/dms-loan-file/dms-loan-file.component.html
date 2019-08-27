@@ -327,6 +327,22 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
+                                    <label for="fmvTotal"><b>Total FMV</b></label>
+                                    <input [ngClass]="{ 'is-invalid':submitted && form.fmvTotal.errors}"
+                                           class="form-control rounded" formControlName="fmvTotal"
+                                           id="fmvTotal"
+                                           min="0"
+                                           placeholder="Enter Total FMV"
+                                           type="number"/>
+                                    <div *ngIf="submitted && form.fmvTotal.errors" class="invalid-feedback">
+                                        <div *ngIf="form.fmvTotal.errors.min">
+                                            Total FMV can not be negative value.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
                                     <label for="fmvFundingPercent"><b>Fair Market Value(FMV) Funding % </b></label>
                                     <input [ngClass]="{ 'is-invalid':submitted && form.fmvFundingPercent.errors}"
                                            class="form-control rounded"
@@ -341,22 +357,6 @@
                                         </div>
                                         <div *ngIf="form.fmvFundingPercent.errors.min">
                                             Fair Market Value(FMV) Funding % Can not be negative value.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="fmvTotal"><b>Total FMV</b></label>
-                                    <input [ngClass]="{ 'is-invalid':submitted && form.fmvTotal.errors}"
-                                           class="form-control rounded" formControlName="fmvTotal"
-                                           id="fmvTotal"
-                                           min="0"
-                                           placeholder="Enter Total FMV"
-                                           type="number"/>
-                                    <div *ngIf="submitted && form.fmvTotal.errors" class="invalid-feedback">
-                                        <div *ngIf="form.fmvTotal.errors.min">
-                                            Total FMV can not be negative value.
                                         </div>
                                     </div>
                                 </div>
@@ -411,15 +411,19 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="groupExpo"><b>Group Exposure</b></label>
-                                    <input [ngClass]="{ 'is-invalid':submitted && form.groupExpo.errors}"
-                                           class="form-control rounded" formControlName="groupExpo"
-                                           id="groupExpo"
-                                           placeholder="Enter Group Exposure"
-                                           type="text"/>
-                                    <div *ngIf="submitted && form.groupExpo.errors" class="invalid-feedback">
-                                        <div *ngIf="form.groupExpo.errors.required">
-                                            Group Exposure is required
+                                    <label for="totalLoanLimit"><b>Total Loan Limit</b></label>
+                                    <input [ngClass]="{ 'is-invalid':submitted && form.totalLoanLimit.errors}"
+                                           class="form-control rounded" formControlName="totalLoanLimit"
+                                           id="totalLoanLimit"
+                                           min="0"
+                                           placeholder="Enter Total Loan Limit"
+                                           type="number"/>
+                                    <div *ngIf="submitted && form.totalLoanLimit.errors" class="invalid-feedback">
+                                        <div *ngIf="form.totalLoanLimit.errors.required">
+                                            Total Loan Limit is required.
+                                        </div>
+                                        <div *ngIf="form.totalLoanLimit.errors.min">
+                                            Total Loan Limit can not be negative value.
                                         </div>
                                     </div>
                                 </div>
@@ -466,19 +470,15 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="totalLoanLimit"><b>Total Loan Limit</b></label>
-                                    <input [ngClass]="{ 'is-invalid':submitted && form.totalLoanLimit.errors}"
-                                           class="form-control rounded" formControlName="totalLoanLimit"
-                                           id="totalLoanLimit"
-                                           min="0"
-                                           placeholder="Enter Total Loan Limit"
-                                           type="number"/>
-                                    <div *ngIf="submitted && form.totalLoanLimit.errors" class="invalid-feedback">
-                                        <div *ngIf="form.totalLoanLimit.errors.required">
-                                            Total Loan Limit is required.
-                                        </div>
-                                        <div *ngIf="form.totalLoanLimit.errors.min">
-                                            Total Loan Limit can not be negative value.
+                                    <label for="groupExpo"><b>Group Exposure</b></label>
+                                    <input [ngClass]="{ 'is-invalid':submitted && form.groupExpo.errors}"
+                                           class="form-control rounded" formControlName="groupExpo"
+                                           id="groupExpo"
+                                           placeholder="Enter Group Exposure"
+                                           type="text"/>
+                                    <div *ngIf="submitted && form.groupExpo.errors" class="invalid-feedback">
+                                        <div *ngIf="form.groupExpo.errors.required">
+                                            Group Exposure is required
                                         </div>
                                     </div>
                                 </div>
