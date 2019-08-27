@@ -10,8 +10,6 @@ import {Branch} from '../../admin/modal/branch';
 import {Cicl} from '../../admin/modal/cicl';
 import {Insurance} from '../../admin/modal/insurance';
 import {LoanType} from './loanType';
-import {newId} from '@ng-select/ng-select/ng-select/id';
-import {SiteVisit} from '../../admin/modal/siteVisit';
 
 export class LoanDataHolder {
     id: number;
@@ -27,7 +25,7 @@ export class LoanDataHolder {
     insurance: Insurance;
     documentStatus: DocStatus;
     financial: Object;
-    siteVisit: Object = new SiteVisit();
+    siteVisit: Object;
     priority: Priority;
     createdAt: any;
     previousList: LoanStage[] = [];

@@ -1,11 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {SiteVisit} from '../../../../admin/modal/siteVisit';
-import {InspectingStaff} from '../../../../admin/modal/inspectingStaff';
-import {PartyInfo} from '../../../../admin/modal/partyInfo';
-import {ReceivableCurrentAssets} from '../../../../admin/modal/receivableCurrentAssets';
-import {PayableCurrentAssets} from '../../../../admin/modal/payableCurrentAssets';
-import {BankExposureAssets} from '../../../../admin/modal/bankExposureAssets';
+
 
 declare let google: any;
 
@@ -15,7 +10,7 @@ declare let google: any;
   styleUrls: ['./site-visit.component.css']
 })
 export class SiteVisitComponent implements OnInit {
-  @Input() formValue: SiteVisit;
+  @Input() formValue: Object;
   siteVisitData: Object;
   siteVisitFormGroup: FormGroup;
   currentResidentForm = false;
@@ -31,6 +26,7 @@ export class SiteVisitComponent implements OnInit {
   addressLabel = new FormControl('');
   zoom = 8;
   latLng: string[];
+  formDataForEdit;
 
   constructor(private formBuilder: FormBuilder) {
 
@@ -79,33 +75,70 @@ export class SiteVisitComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.formValue !== undefined) {
+      const stringFormData = JSON.stringify(this.formValue);
+      console.log(this.formValue);
+      this.formDataForEdit = JSON.parse(stringFormData);
+      // const formData = this.formDataForEdit.data.siteVisitFormGroup;
+      console.log(this.formDataForEdit);
+    }
+    this.buildForm();
+
+
+  }
+
+  buildForm() {
     this.siteVisitFormGroup = this.formBuilder.group({
       currentResidentDetails: this.formBuilder.group({
-        houseNumber: [undefined],
-        streetName: [undefined],
-        address: [undefined],
-        nearBy: [undefined],
-        ownerName: [undefined]
+        houseNumber: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.data.currentResidentDetails === undefined ? ''
+            : this.formDataForEdit.data.currentResidentDetails.houseNumber)],
+        streetName: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.data.currentResidentDetails === undefined ? ''
+            : this.formDataForEdit.data.currentResidentDetails.streetName)],
+        address: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.data.currentResidentDetails === undefined ? ''
+            : this.formDataForEdit.data.currentResidentDetails.address)],
+        nearBy: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.data.currentResidentDetails === undefined ? ''
+            : this.formDataForEdit.data.currentResidentDetails.nearBy)],
+        ownerName: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.data.currentResidentDetails === undefined ? ''
+            : this.formDataForEdit.data.currentResidentDetails.ownerName)]
       }),
       businessSiteVisitDetails: this.formBuilder.group({
-        officeAddress: [undefined],
-        nameOfThePersonContacted: [undefined],
-        dateOfVisit: [undefined],
-        objectiveOfVisit: [undefined],
-        observation: [undefined],
-        visitedBy: [undefined],
-        conclusion: [undefined],
-        locationPreview: [undefined],
-        mapAddress: [undefined],
-        findingsAndComments: [undefined]
+        officeAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.data.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.data.businessSiteVisitDetails.officeAddress],
+        nameOfThePersonContacted: [this.formDataForEdit === undefined ? ''
+            : this.formDataForEdit.data.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.data.businessSiteVisitDetails.nameOfThePersonContacted],
+        dateOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.data.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.data.businessSiteVisitDetails.dateOfVisit],
+        objectiveOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.data.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.data.businessSiteVisitDetails.objectiveOfVisit],
+        observation: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.data.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.data.businessSiteVisitDetails.observation],
+        visitedBy: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.data.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.data.businessSiteVisitDetails.visitedBy],
+        conclusion: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.data.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.data.businessSiteVisitDetails.conclusion],
+        locationPreview: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.data.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.data.businessSiteVisitDetails.locationPreview],
+        mapAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.data.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.data.businessSiteVisitDetails.mapAddress],
+        findingsAndComments: [this.formDataForEdit === undefined ? ''
+            : this.formDataForEdit.data.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.data.businessSiteVisitDetails.findingAndComments]
       }),
       fixedAssetCollateralDetails: this.formBuilder.group({
-        date: [undefined],
-        address: [undefined],
-        personContacted: [undefined],
-        phoneNoOfContact: [undefined],
+        date: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+            : this.formDataForEdit.data.fixedAssetCollateralDetails.date],
+        address: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+            : this.formDataForEdit.data.fixedAssetCollateralDetails.address],
+        personContacted: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+            : this.formDataForEdit.data.fixedAssetCollateralDetails.personContacted],
+        phoneNoOfContact: [this.formDataForEdit === undefined ? ''
+            : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+            : this.formDataForEdit.data.fixedAssetCollateralDetails.phoneNoOfContact],
         facilities: this.formBuilder.group({
-          roadApproach: [undefined],
+          roadApproach: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails.facilities === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.facilities.roadApproach],
           roadWidth: [undefined],
           prominentPlace: [undefined],
           approachDistance: [undefined]
@@ -482,6 +515,7 @@ export class SiteVisitComponent implements OnInit {
     .get(`${totalFormControlName}`).patchValue(total);
 
   }
+
 }
 
 
