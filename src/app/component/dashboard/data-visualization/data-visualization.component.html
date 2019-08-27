@@ -1,26 +1,26 @@
 <div class="row mt-3">
     <div class="col-md-12">
-        <nb-card>
-            <nb-card-header class="text-center">
-                <h2>User statistics</h2>
-            </nb-card-header>
-            <nb-card-body>
-                <div class="row" *ngIf="branchVsUserPieChart && roleVsUsersPieChart">
-                    <div class="col-md-6">
-                        <div id="pie" class="col-md-12">
-                            <app-pie-chart [data]="branchVsUserPieChart" [dataLength]="branchVsUserPieChart.length"
-                                [legendTitle]="'Branch'"></app-pie-chart>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div id="pie" class="col-md-12">
-                            <app-pie-chart [data]="roleVsUsersPieChart" [dataLength]="roleVsUsersPieChart.length"
-                                [legendTitle]="'Role'"></app-pie-chart>
-                        </div>
-                    </div>
-                </div>
-            </nb-card-body>
-        </nb-card>
+<!--        <nb-card>-->
+<!--            <nb-card-header class="text-center">-->
+<!--                <h2>User statistics</h2>-->
+<!--            </nb-card-header>-->
+<!--            <nb-card-body>-->
+<!--                <div class="row" *ngIf="branchVsUserPieChart && roleVsUsersPieChart">-->
+<!--                    <div class="col-md-6">-->
+<!--                        <div id="pie" class="col-md-12">-->
+<!--                            <app-pie-chart [data]="branchVsUserPieChart" [dataLength]="branchVsUserPieChart.length"-->
+<!--                                [legendTitle]="'Branch'"></app-pie-chart>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-6">-->
+<!--                        <div id="pie" class="col-md-12">-->
+<!--                            <app-pie-chart [data]="roleVsUsersPieChart" [dataLength]="roleVsUsersPieChart.length"-->
+<!--                                [legendTitle]="'Role'"></app-pie-chart>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </nb-card-body>-->
+<!--        </nb-card>-->
         <nb-card>
             <nb-card-header class="text-center">
                 <h2>Loan By Category For {{selectedBranch}}</h2>
@@ -62,16 +62,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12 sb-bar-chart-container">
-                            <div *ngIf="!barChartData || barChartData.length <= 0" class="sb-no-data-info">
-                                    <nb-alert status="info">No data available for bar chart.</nb-alert>
-                            </div>
-                        <div id="pie" *ngIf="barChartData && barChartData.length > 0">
-                            <app-bar-chart [data]="barChartData" [width]="workingWidth"></app-bar-chart>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-md-12 sb-bar-chart-container">-->
+<!--                            <div *ngIf="!barChartData || barChartData.length <= 0" class="sb-no-data-info">-->
+<!--                                    <nb-alert status="info">No data available for bar chart.</nb-alert>-->
+<!--                            </div>-->
+<!--                        <div id="pie" *ngIf="barChartData && barChartData.length > 0">-->
+<!--                            <app-bar-chart [data]="barChartData" [width]="workingWidth"></app-bar-chart>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
             </nb-card-body>
         </nb-card>
     </div>
