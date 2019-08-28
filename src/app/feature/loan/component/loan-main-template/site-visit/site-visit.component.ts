@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {Form, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 declare let google: any;
@@ -79,10 +79,35 @@ export class SiteVisitComponent implements OnInit {
       const stringFormData = JSON.stringify(this.formValue);
       console.log(this.formValue);
       this.formDataForEdit = JSON.parse(stringFormData);
-      // const formData = this.formDataForEdit.data.siteVisitFormGroup;
       console.log(this.formDataForEdit);
     }
     this.buildForm();
+    if (this.formValue !== undefined) {
+      const formData = this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities;
+      const currentAssetsInspectionData = this.formDataForEdit.data.currentAssetsInspectionDetails;
+      console.log(formData);
+      this.checkboxSelected('currentResident', true);
+      this.checkboxSelected('businessSiteVisit', true);
+      this.checkboxSelected('fixedAssetCollateral', true);
+      this.checkboxSelected('currentAssetsInspection', true);
+      this.setStaffDetails(formData.staffs);
+      console.log(currentAssetsInspectionData);
+      this.setInspectingStaffsDetails(currentAssetsInspectionData.insuranceVerification.inspectingStaffList);
+      this.setPartyFormDetails(currentAssetsInspectionData.receivablesAndPayables.parties);
+      this.setReceivableAssetsDetails(currentAssetsInspectionData.otherCurrentAssets.receivableAssets);
+      this.setPayableAssetsDetails(currentAssetsInspectionData.otherCurrentAssets.payableAssets);
+      this.setOtherCurrentInspectingStaffs(currentAssetsInspectionData.otherCurrentAssets.inspectingStaffs);
+      this.setBankExposures(currentAssetsInspectionData.otherCurrentAssets.bankExposures);
+    } else {
+      this.addStaffOfVicinity();
+      this.addStaffOfInsurance();
+      this.addStaffOfOtherAssets();
+      this.addDetailsOfParties();
+      this.addDetailsOfReceivableAssets();
+      this.addDetailsOfPayableAssets();
+      this.addDetailsOfBankExposure();
+
+    }
 
 
   }
@@ -106,7 +131,7 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.data.businessSiteVisitDetails.officeAddress],
         nameOfThePersonContacted: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.data.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.data.businessSiteVisitDetails.nameOfThePersonContacted],
+                : this.formDataForEdit.data.businessSiteVisitDetails.nameOfThePersonContacted],
         dateOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.data.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.data.businessSiteVisitDetails.dateOfVisit],
         objectiveOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.data.businessSiteVisitDetails === undefined ? ''
@@ -123,7 +148,7 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.data.businessSiteVisitDetails.mapAddress],
         findingsAndComments: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.data.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.data.businessSiteVisitDetails.findingAndComments]
+                : this.formDataForEdit.data.businessSiteVisitDetails.findingsAndComments]
       }),
       fixedAssetCollateralDetails: this.formBuilder.group({
         date: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
@@ -134,114 +159,292 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.data.fixedAssetCollateralDetails.personContacted],
         phoneNoOfContact: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
-            : this.formDataForEdit.data.fixedAssetCollateralDetails.phoneNoOfContact],
+                : this.formDataForEdit.data.fixedAssetCollateralDetails.phoneNoOfContact],
         facilities: this.formBuilder.group({
           roadApproach: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
               : this.formDataForEdit.data.fixedAssetCollateralDetails.facilities === undefined ? ''
-                  : this.formDataForEdit.data.fixedAssetCollateralDetails.facilities.roadApproach],
-          roadWidth: [undefined],
-          prominentPlace: [undefined],
-          approachDistance: [undefined]
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.facilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.facilities.roadApproach],
+          roadWidth: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.facilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.facilities.roadWidth],
+          prominentPlace: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.facilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.facilities.prominentPlace],
+          approachDistance: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.facilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.facilities.approachDistance]
         }),
         otherFacilities: this.formBuilder.group({
-          waterSupply: [undefined],
-          electricity: [undefined],
-          boundaryWallConstruction: [undefined],
-          boundaryFencing: [undefined],
-          drainage: [undefined],
-          open: [undefined],
-          remarksForOtherFacility: [undefined],
-          building: [undefined],
-          buildingArea: [undefined],
-          constructionYear: [undefined],
-          qualityOfConstructionRemarks: [undefined],
-          loadBearingWall: [undefined],
-          mortarCement: [undefined],
-          otherRoofing: [undefined],
-          insideFurniture: [undefined],
-          frameStructure: [undefined],
-          rccRoofing: [undefined],
-          bathroomAndToilet: [undefined],
+          waterSupply: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.waterSupply],
+          electricity: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.electricity],
+          boundaryWallConstruction: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.boundryWallConstruction],
+          boundaryFencing: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.boundryFencing],
+          drainage: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.drainage],
+          open: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.open],
+          remarksForOtherFacility: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.remarksForOtherFacility],
+          building: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.building],
+          buildingArea: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.buildingArea],
+          constructionYear: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.constructionYear],
+          qualityOfConstructionRemarks: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.qualityOfConstructionRemarks],
+          loadBearingWall: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.loadBearingWall],
+          mortarCement: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.mortarCement],
+          otherRoofing: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.otherRoofing],
+          insideFurniture: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.insideFurniture],
+          frameStructure: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.frameStructure],
+          rccRoofing: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.rccRoofing],
+          bathroomAndToilet: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
+                      : this.formDataForEdit.data.fixedAssetCollateralDetails.otherFacilities.bathroomAndToilet],
         }),
         vicinityToTheBasicAmenities: this.formBuilder.group({
-          majorMarketPlaces: [undefined],
-          schoolOrCollege: [undefined],
-          hospitalOrNursingHome: [undefined],
-          electricityLine: [undefined],
-          telephoneLine: [undefined],
-          waterPipeline: [undefined],
-          staffs: this.formBuilder.array([
-            this.staffsFormGroup()
-          ]),
-          commentAboutFAC: [undefined],
-          branchInchargeComment: [undefined]
+          majorMarketPlaces: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.majorMarketPlaces],
+          schoolOrCollege: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.schoolOrCollege],
+          hospitalOrNursingHome: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.hospitalOrNursingHome],
+          electricityLine: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.electricityLine],
+          telephoneLine: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.telephoneLine],
+          waterPipeline: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.waterPipeline],
+          staffs: this.formBuilder.array([]),
+          commentAboutFAC: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.commentAboutFAC],
+          branchInchargeComment: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
+                  : this.formDataForEdit.data.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.branchInchargeComment]
         })
       }),
       currentAssetsInspectionDetails: this.formBuilder.group({
-        dateOfInspection: [undefined],
-        particularsOfGoodInspected: [undefined],
-        stockValueReported: [undefined],
-        rents: [undefined],
-        isRentPmtUpToDate: [undefined],
-        isRentReceiptShown: [undefined],
+        dateOfInspection: [this.formDataForEdit === undefined ? ''
+            : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                : this.formDataForEdit.data.currentAssetsInspectionDetails.dateOfInspection],
+        particularsOfGoodInspected: [this.formDataForEdit === undefined ? ''
+            : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                : this.formDataForEdit.data.currentAssetsInspectionDetails.particularsOfGoodInspected],
+        stockValueReported: [this.formDataForEdit === undefined ? ''
+            : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                : this.formDataForEdit.data.currentAssetsInspectionDetails.stockValueReported],
+        rents: [this.formDataForEdit === undefined ? ''
+            : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                : this.formDataForEdit.data.currentAssetsInspectionDetails.rents],
+        isRentPmtUpToDate: [this.formDataForEdit === undefined ? ''
+            : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                : this.formDataForEdit.data.currentAssetsInspectionDetails.isRentPmtUpToDate],
+        isRentReceiptShown: [this.formDataForEdit === undefined ? ''
+            : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                : this.formDataForEdit.data.currentAssetsInspectionDetails.isRentReceiptShown],
         insuranceVerification: this.formBuilder.group({
-          assetsMortgaged: [undefined],
-          insuredAmount: [undefined],
-          insuranceCompany: [undefined],
-          expireDate: [undefined],
-          clientsOverallRating: [undefined],
-          comments: [undefined],
-          stockValueConfirmed: [undefined],
-          insuranceVerificationPosition: [undefined],
-          inspectingStaffsDetails: this.formBuilder.array([
-            this.staffsFormGroup()
-          ])
+          assetsMortgaged: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.insuranceVerification.assetsMortgaged],
+          insuredAmount: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.insuranceVerification.insuredAmount],
+          insuranceCompany: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.insuranceVerification.insuranceCompany],
+          expireDate: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.insuranceVerification.expiryDate],
+          clientsOverallRating: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.insuranceVerification.clientsOverallRating],
+          comments: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.insuranceVerification.comments],
+          stockValueConfirmed: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.insuranceVerification.stockValueConfirmed],
+          insuranceVerificationPosition: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.insuranceVerificationPosition],
+          inspectingStaffsDetails: this.formBuilder.array([])
         }),
         stockCheckListQuestionaire: this.formBuilder.group({
-          uptoDateWithCharges: [undefined],
-          borrowersPossession: [undefined],
-          notUnderTR: [undefined],
-          otherBankNotInterested: [undefined],
-          securityOrder: [undefined],
-          goodsSaleable: [undefined],
-          stocksUptoDate: [undefined],
-          matchWithTheStockList: [undefined],
-          storageConditionSatisfactory: [undefined],
-          fireFightingEvidence: [undefined],
-          buildingStoreCondition: [undefined],
-          warrantiesUptoDate: [undefined],
-          noHazardousNature: [undefined],
-          nameBoardProperlyDisplayed: [undefined],
-          padlocksUse: [undefined],
-          findingAndComments: [undefined],
-          remarksForNoOption: [undefined]
+          uptoDateWithCharges: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.uptoDateWithCharges],
+          borrowersPossession: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.borrowersPossession],
+          notUnderTR: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.notUnderTR],
+          otherBankNotInterested: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.otherBankNotInterested],
+          securityOrder: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.securityOrder],
+          goodsSaleable: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.goodsSaleable],
+          stocksUptoDate: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.stocksUptoDate],
+          matchWithTheStockList: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.matchWithTheStockList],
+          storageConditionSatisfactory: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.storageConditionSatisfactory],
+          fireFightingEvidence: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.fireFightingEvidence],
+          buildingStoreCondition: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.buildingStoreCondition],
+          warrantiesUptoDate: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.warrantiesUptoDate],
+          noHazardousNature: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.noHazardousNature],
+          nameBoardProperlyDisplayed: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.nameBoardProperlyDisplayed],
+          padlocksUse: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.padlocksUse],
+          findingAndComments: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.findingAndComments],
+          remarksForNoOption: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.stockCheckListQuestionaire.remarksForNoOption]
         }),
         receivablesAndPayables: this.formBuilder.group({
-          parties: this.formBuilder.array([
-            this.partyFormGroup()
-          ]),
-          threeMonthTotal: [undefined],
-          sixMonthTotal: [undefined],
-          oneYearTotal: [undefined],
-          moreThanOneYearTotal: [undefined],
-          findingsAndCommentsForCurrentAssetsInspection: [undefined]
+          parties: this.formBuilder.array([]),
+          threeMonthTotal: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.receivablesAndPayables.threeMonthTotal],
+          sixMonthTotal: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.receivablesAndPayables.sixMonthTotal],
+          oneYearTotal: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.receivablesAndPayables.oneYearTotal],
+          moreThanOneYearTotal: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.receivablesAndPayables.moreThanOneYearTotal],
+          findingsAndCommentsForCurrentAssetsInspection: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails
+                          .receivablesAndPayables.findingsAndCommentsForCurrentAssetsInspection]
         }),
         otherCurrentAssets: this.formBuilder.group({
-          receivableAssets: this.formBuilder.array([
-            this.assetsFormGroup()
-          ]),
-          receivableCurrentAssetsTotal: [undefined],
-          payableAssets: this.formBuilder.array([
-            this.assetsFormGroup()
-          ]),
-          payableCurrentAssetsTotal: [undefined],
-          inspectingStaffs: this.formBuilder.array([
-            this.staffsFormGroup()
-          ]),
-          bankExposures: this.formBuilder.array([
-            this.bankExposureFormGroup()
-          ]),
-          overAllFindings: [undefined]
+          receivableAssets: this.formBuilder.array([]),
+          receivableCurrentAssetsTotal: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.otherCurrentAssets === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.otherCurrentAssets.receivableCurrentAssetsTotal],
+          payableAssets: this.formBuilder.array([]),
+          payableCurrentAssetsTotal: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.otherCurrentAssets === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.otherCurrentAssets.payableCurrentAssetsTotal],
+          inspectingStaffs: this.formBuilder.array([]),
+          bankExposures: this.formBuilder.array([]),
+          overAllFindings: [this.formDataForEdit === undefined ? ''
+              : this.formDataForEdit.data.currentAssetsInspectionDetails === undefined ? ''
+                  : this.formDataForEdit.data.currentAssetsInspectionDetails.otherCurrentAssets === undefined ? ''
+                      : this.formDataForEdit.data.currentAssetsInspectionDetails.otherCurrentAssets.overAllFindings]
         })
       })
     });
@@ -515,6 +718,207 @@ export class SiteVisitComponent implements OnInit {
     .get(`${totalFormControlName}`).patchValue(total);
 
   }
+
+  addStaffOfVicinity() {
+    const controls =  ((this.siteVisitFormGroup.get('fixedAssetCollateralDetails') as FormGroup)
+    .get('vicinityToTheBasicAmenities') as FormGroup)
+    .get('staffs') as FormArray;
+    controls.push(
+        this.formBuilder.group({
+          name: [undefined, Validators.required],
+          position: [undefined, Validators.required]
+        })
+    );
+  }
+
+  addStaffOfInsurance() {
+    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
+    .get('insuranceVerification') as FormGroup)
+    .get('inspectingStaffsDetails') as FormArray;
+    controls.push(
+        this.formBuilder.group({
+          name: [undefined, Validators.required],
+          position: [undefined, Validators.required]
+        })
+    );
+  }
+
+  addStaffOfOtherAssets() {
+    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
+    .get('otherCurrentAssets') as FormGroup)
+    .get('inspectingStaffs') as FormArray;
+    controls.push(
+        this.formBuilder.group({
+          name: [undefined, Validators.required],
+          position: [undefined, Validators.required]
+        })
+    );
+  }
+
+  addDetailsOfParties() {
+    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
+    .get('receivablesAndPayables') as FormGroup)
+    .get('parties') as FormArray;
+    controls.push(
+        this.formBuilder.group({
+          party: [undefined, Validators.required],
+          withinThreeMonths: [undefined, Validators.required],
+          sixMonth: [undefined, Validators.required],
+          oneYear: [undefined, Validators.required],
+          oneYearPlus: [undefined, Validators.required]
+        })
+    );
+  }
+
+  addDetailsOfReceivableAssets() {
+    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
+    .get('otherCurrentAssets') as FormGroup)
+    .get('receivableAssets') as FormArray;
+    controls.push(
+        this.formBuilder.group({
+          particulars: [undefined, Validators.required],
+          amount: [undefined, Validators.required]
+        })
+    );
+  }
+
+  addDetailsOfPayableAssets() {
+    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
+    .get('otherCurrentAssets') as FormGroup)
+    .get('payableAssets') as FormArray;
+    controls.push(
+        this.formBuilder.group({
+          particulars: [undefined, Validators.required],
+          amount: [undefined, Validators.required]
+        })
+    );
+  }
+
+  addDetailsOfBankExposure() {
+    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
+    .get('otherCurrentAssets') as FormGroup)
+    .get('bankExposures') as FormArray;
+
+    controls.push(
+        this.formBuilder.group({
+          bankName: [undefined],
+          amount: [undefined]
+        })
+    );
+  }
+
+  setStaffDetails(currentData) {
+    console.log(this.siteVisitFormGroup.value);
+    console.log(currentData);
+    const controls =  ((this.siteVisitFormGroup.get('fixedAssetCollateralDetails') as FormGroup)
+    .get('vicinityToTheBasicAmenities') as FormGroup)
+    .get('staffs') as FormArray;
+
+    console.log(controls);
+    currentData.forEach(data => {
+      controls.push(
+          this.formBuilder.group({
+            name: [data.name, Validators.required],
+            position: [data.position, Validators.required]
+          })
+
+      );
+      console.log(controls);
+    });
+  }
+
+  setInspectingStaffsDetails(currentData) {
+    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
+    .get('insuranceVerification') as FormGroup)
+    .get('inspectingStaffsDetails') as FormArray;
+    currentData.forEach(data => {
+      controls.push(
+          this.formBuilder.group({
+              name: [data.name, Validators.required],
+              position: [data.position, Validators.required]
+          })
+      );
+    });
+  }
+
+  setPartyFormDetails(currentData) {
+    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
+    .get('receivablesAndPayables') as FormGroup)
+    .get('parties') as FormArray;
+    currentData.forEach(data => {
+      controls.push(
+          this.formBuilder.group({
+            party: [data.party, Validators.required],
+            withinThreeMonths: [data.withinThreeMonths, Validators.required],
+            sixMonth: [data.sixMonth, Validators.required],
+            oneYear: [data.oneYear, Validators.required],
+            oneYearPlus: [data.oneYearPlus, Validators.required]
+          })
+      );
+    });
+  }
+
+  setReceivableAssetsDetails(currentData) {
+    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
+    .get('otherCurrentAssets') as FormGroup)
+    .get('receivableAssets') as FormArray;
+    console.log(controls);
+    currentData.forEach(data => {
+      controls.push(
+          this.formBuilder.group({
+            particulars: [data.particulars, Validators.required],
+            amount: [data.amount, Validators.required]
+          })
+      );
+    });
+  }
+
+  setPayableAssetsDetails(currentData) {
+    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
+    .get('otherCurrentAssets') as FormGroup)
+    .get('payableAssets') as FormArray;
+    console.log(controls);
+    currentData.forEach(data => {
+      controls.push(
+          this.formBuilder.group({
+            particulars: [data.particulars, Validators.required],
+            amount: [data.amount, Validators.required]
+          })
+      );
+    });
+  }
+
+  setOtherCurrentInspectingStaffs(currentData) {
+    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
+    .get('otherCurrentAssets') as FormGroup)
+    .get('inspectingStaffs') as FormArray;
+    currentData.forEach(data => {
+      controls.push(
+          this.formBuilder.group({
+            name: [data.name, Validators.required],
+            position: [data.position, Validators.required]
+          })
+      );
+    });
+  }
+
+  setBankExposures(currentData) {
+    const controls = ((this.siteVisitFormGroup.get('currentAssetsInspectionDetails') as FormGroup)
+    .get('otherCurrentAssets') as FormGroup)
+    .get('bankExposures') as FormArray;
+    currentData.forEach(data => {
+      controls.push(
+          this.formBuilder.group({
+            bankName: [data.bankName, Validators.required],
+            amount: [data.amount, Validators.required]
+          })
+      );
+    });
+  }
+
+
+
+
 
 }
 
