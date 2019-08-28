@@ -35,7 +35,7 @@ export class NewRequestsComponent implements OnInit {
         branchIds: undefined,
         loanConfigId: undefined,
         dateFilter: undefined,
-        eligibilityStatus: `${Status.ELIGIBLE},${Status.NOT_ELIGIBLE}`
+        eligibilityStatus: `${Status.ELIGIBLE},${Status.NOT_ELIGIBLE},${Status.NEW_REQUEST}`
     };
     pageable: Pageable = new Pageable();
 

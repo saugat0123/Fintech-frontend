@@ -19,10 +19,13 @@ import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.componen
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {ProposalComponent} from '../loan-main-template/proposal/proposal.component';
 import {Proposal} from '../../../admin/modal/proposal';
+import {FinancialComponent} from '../loan-main-template/financial/financial.component';
 import {CiclComponent} from '../loan-main-template/cicl/cicl.component';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DatePipe} from '@angular/common';
+import {CreditGradingComponent} from '../loan-main-template/credit-grading/credit-grading.component';
+import {SiteVisitComponent} from '../loan-main-template/site-visit/site-visit.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -90,6 +93,15 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('cicl')
     cicl: CiclComponent;
+
+    @ViewChild('creditGrading')
+    creditGrading: CreditGradingComponent;
+
+    @ViewChild('financial')
+    financial: FinancialComponent;
+
+    @ViewChild('siteVisit')
+    siteVisit: SiteVisitComponent;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -279,6 +291,18 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.ciclList = this.cicl.ciclList;
             this.loanDocument.ciclRemarks = this.cicl.ciclRemark;
             this.loanDocument.insurance = this.cicl.insurance;
+        }
+
+        if (name === 'Financial' && action) {
+            this.financial.onSubmit();
+            const financialData = this.financial.financialData;
+            this.loanDocument.financial = financialData;
+        }
+
+        if (name === 'Site Visit' && action) {
+            this.siteVisit.onSubmit();
+            const siteVisitData = this.siteVisit.siteVisitData;
+            this.loanDocument.siteVisit = siteVisitData;
         }
     }
 

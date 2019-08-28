@@ -60,7 +60,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     signatureList = [];
     previousList: Array<LoanStage> = new Array<LoanStage>();
     currentDocAction = '';
-    currentNepDate;
+    nepaliDate;
     loanCategory;
     @ViewChild('print') print;
     occupation = Occupation;
@@ -204,7 +204,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     }
                 }
                 this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
-                    this.currentNepDate = nepDate.detail;
+                    this.nepaliDate = nepDate.detail;
                 });
             }
         );
