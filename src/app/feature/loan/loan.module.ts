@@ -16,16 +16,22 @@ import {ThemeModule} from '../../@theme/theme.module';
 import {LoanActionComponent} from './loan-action/loan-action.component';
 import {LoanFormService} from './component/loan-form/service/loan-form.service';
 import {LoanSummaryComponent} from './component/loan-summary/loan-summary.component';
-import {SummaryComponent} from './component/print-summary/summary.component';
+import {FinancialComponent} from './component/loan-main-template/financial/financial.component';
 import {BirthMarkLetterNepaliComponent} from './component/offer-letter/birth-mark-letter/birth-mark-letter-nepali.component';
 // tslint:disable-next-line:max-line-length
 import {BirthMarkLetterPrintComponent} from './component/offer-letter/birth-mark-letter/birth-mark-letter-print/birth-mark-letter-print.component';
-import { SuccessOfferLetterComponent } from './component/offer-letter/success-offer-letter/success-offer-letter.component';
+import {SuccessOfferLetterComponent} from './component/offer-letter/success-offer-letter/success-offer-letter.component';
 // tslint:disable-next-line:max-line-length
-import { SuccessOfferLetterPrintComponent } from './component/offer-letter/success-offer-letter/success-offer-letter-print/success-offer-letter-print.component';
+import {SuccessOfferLetterPrintComponent} from './component/offer-letter/success-offer-letter/success-offer-letter-print/success-offer-letter-print.component';
 import {ProposalComponent} from './component/loan-main-template/proposal/proposal.component';
 import {CiclComponent} from './component/loan-main-template/cicl/cicl.component';
-import { ReadmoreModelComponent } from './component/readmore-model/readmore-model.component';
+import {BorrowerRiskRatingComponent} from './component/loan-main-template/financial/borrower-risk-rating/borrower-risk-rating.component';
+import {ReadmoreModelComponent} from './component/readmore-model/readmore-model.component';
+import {CreditGradingComponent} from './component/loan-main-template/credit-grading/credit-grading.component';
+import {CoreModule} from '../../@core/core.module';
+import {environment} from '../../../environments/environment';
+import {SiteVisitComponent} from './component/loan-main-template/site-visit/site-visit.component';
+import {AgmCoreModule} from '@agm/core';
 
 
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
@@ -41,14 +47,17 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         LoanActionComponent,
         LoanSummaryComponent,
         BirthMarkLetterNepaliComponent,
-        SummaryComponent,
         ProposalComponent,
         BirthMarkLetterPrintComponent,
         SuccessOfferLetterComponent,
         SuccessOfferLetterPrintComponent,
+        FinancialComponent,
+        BorrowerRiskRatingComponent,
         CiclComponent,
         ReadmoreModelComponent,
+        CreditGradingComponent,
 
+        SiteVisitComponent,
     ],
     imports: [
         ThemeModule,
@@ -61,6 +70,10 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         NgSelectModule,
         NbDatepickerModule,
         NgxPrintModule,
+        CoreModule,
+        AgmCoreModule.forRoot({
+            apiKey: environment.GOOGLE_MAP_API_KEY
+        })
     ],
 
     providers: [

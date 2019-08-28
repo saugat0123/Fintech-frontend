@@ -1,6 +1,6 @@
 import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {CommonPageService} from '../../../@core/service/baseservice/common-pagination-service';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../model/Alert';
@@ -25,14 +25,12 @@ export class UpdateModalComponent implements OnInit, DoCheck {
     constructor(
         private router: Router,
         private commonPageService: CommonPageService,
-        private modalService: NgbModal,
+        private modalService: NgbActiveModal,
         private toastService: ToastService
     ) {
     }
 
     ngOnInit() {
-
-
     }
 
     ngDoCheck(): void {
@@ -40,37 +38,19 @@ export class UpdateModalComponent implements OnInit, DoCheck {
         this.currentUrl = this.router.url;
     }
 
-    reloadPage() {
-        this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(e => {
-            if (e) {
-                this.router.navigate([this.currentUrl]);
-            }
-            this.modalService.dismissAll(UpdateModalComponent);
-        });
-    }
-
     updateStatus() {
-        this.service.save(this.data).subscribe(result => {
-                this.modalService.dismissAll(UpdateModalComponent);
-
-                this.globalMsg = 'SUCCESSFULLY UPDATED STATUS';
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED STATUS'));
-                this.router.navigateByUrl('home/dashboard', {skipLocationChange: true}).then(e => {
-                    if (e) {
-                        this.router.navigate([this.currentUrl]);
-
-                    }
-                });
-
-
+        this.service.save(this.data).subscribe(() => {
+            this.globalMsg = 'SUCCESSFULLY UPDATED STATUS';
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED STATUS'));
+            this.modalService.close();
             }, error => {
-                this.modalService.dismissAll(UpdateModalComponent);
-
+            this.modalService.dismiss();
                 this.globalMsg = error.error.message;
-
             }
         );
-
     }
 
+    closeModal() {
+        this.modalService.dismiss();
+    }
 }

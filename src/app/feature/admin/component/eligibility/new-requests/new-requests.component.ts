@@ -14,6 +14,7 @@ import {LoanConfig} from '../../../modal/loan-config';
 import {BranchService} from '../../branch/branch.service';
 import {LoanConfigService} from '../../loan-config/loan-config.service';
 import {Router} from '@angular/router';
+import {Status} from '../../../modal/eligibility';
 
 @Component({
     selector: 'app-new-requests',
@@ -22,13 +23,20 @@ import {Router} from '@angular/router';
 })
 export class NewRequestsComponent implements OnInit {
     spinner = false;
+    validStartDate = true;
+    validEndDate = true;
     branchList: Array<Branch> = new Array<Branch>();
     loanTypeList: Array<LoanConfig> = new Array<LoanConfig>();
     applicantList: Array<Applicant> = new Array<Applicant>();
     filterForm: FormGroup;
 
     page = 1;
-    searchString: string = NewRequestService.resolveSearchString(null, null, null);
+    search: any = {
+        branchIds: undefined,
+        loanConfigId: undefined,
+        dateFilter: undefined,
+        eligibilityStatus: `${Status.ELIGIBLE},${Status.NOT_ELIGIBLE},${Status.NEW_REQUEST}`
+    };
     pageable: Pageable = new Pageable();
 
     constructor(private newRequestService: NewRequestService,
@@ -41,9 +49,8 @@ export class NewRequestsComponent implements OnInit {
     }
 
     static loadData(other: NewRequestsComponent) {
-
         other.spinner = true;
-        other.newRequestService.getAllWithSearchObject(other.page, 10, other.searchString).subscribe((response: any) => {
+        other.newRequestService.getAllWithSearchObject(other.page, 10, other.search).subscribe((response: any) => {
                 other.applicantList = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
 
@@ -81,20 +88,34 @@ export class NewRequestsComponent implements OnInit {
         this.filterForm = this.formBuilder.group({
             branch: [undefined],
             loanType: [undefined],
+            startDate: [undefined],
+            endDate: [undefined]
         });
     }
 
     filterSearch() {
-        const branchId: number = this.filterForm.get('branch').value === null ? undefined :
+        if (this.filterForm.get('startDate').value !== null && this.filterForm.get('endDate').value) {
+            this.search.dateFilter = JSON.stringify({
+                // note: new Date().toString() is needed here to preserve timezone while JSON.stringify()
+                'startDate': new Date(this.filterForm.get('startDate').value).toLocaleDateString(),
+                'endDate': new Date(this.filterForm.get('endDate').value).toLocaleDateString()
+            });
+        }
+        this.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
             this.filterForm.get('branch').value;
-        const loanConfigId: number = this.filterForm.get('loanType').value === null ? undefined :
+        this.search.loanConfigId = this.filterForm.get('loanType').value === null ? undefined :
             this.filterForm.get('loanType').value;
-        this.searchString = NewRequestService.resolveSearchString(null, branchId, loanConfigId);
         NewRequestsComponent.loadData(this);
+    }
+
+    checkIfDateFiltration() {
+        this.validStartDate = this.filterForm.get('startDate').valid;
+        this.validEndDate = this.filterForm.get('endDate').valid;
     }
 
     clearSearch() {
         this.buildSearchForm();
+        this.search.dateFilter = undefined;
     }
 
     changePage(page: number) {

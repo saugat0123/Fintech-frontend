@@ -60,7 +60,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     signatureList = [];
     previousList: Array<LoanStage> = new Array<LoanStage>();
     currentDocAction = '';
-    currentNepDate;
+    nepaliDate;
     loanCategory;
     @ViewChild('print') print;
     occupation = Occupation;
@@ -124,9 +124,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
     );
     this.getLoanDataHolder();
-    this.dateService.getCurrentDateInNepali().subscribe((response: any) => {
-      this.currentNepDate = response.detail.nepDateFormat;
-    });
   }
 
     getLoanDataHolder() {
@@ -197,6 +194,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     this.securities = this.dmsLoanFile.securities;
                     this.documents = JSON.parse(this.dmsLoanFile.documentPath);
                     if (this.documents !== null) {
+                        this.documentNames = [];
+                        this.documentUrls = [];
                         for (this.document of this.documents) {
                             this.documentNamesSplit = this.document.split(':');
                             this.documentNames.push(this.documentNamesSplit[0]);
@@ -204,6 +203,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                         }
                     }
                 }
+                this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
+                    this.nepaliDate = nepDate.detail;
+                });
             }
         );
     }

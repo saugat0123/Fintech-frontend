@@ -37,7 +37,7 @@ import {CompanyFormComponent} from './component/company/company-form/company-for
 
 import {DocumentComponent} from './component/document/document.component';
 import {UpdateDocumentComponent} from './component/document/update-document/update-document.component';
-import {AddDocumentComponent} from './component/document/add-document/add-document.component';
+import {DocumentFormComponent} from './component/document/document-form/document-form.component';
 import {RouterModule} from '@angular/router';
 import {adminRoutes} from './admin-routing';
 import {CommonModule} from '@angular/common';
@@ -63,9 +63,9 @@ import {UserGuideComponent} from '../../@theme/components/user-guide/user-guide.
 import {CatalogueComponent} from './component/catalogue/catalogue.component';
 import {EmailConfigurationComponent} from './component/email-configuration/email-configuration.component';
 import {EmailValidatorDirective} from '../../@core/directive/email-validator.directive';
-import {NumberValidatorDirective} from '../../@core/directive/number-validator.directive';
-import { RoleEditComponent } from './component/role-permission/list-role/role-edit/role-edit.component';
-import { EligibilitySummaryComponent } from './component/eligibility/eligibility-summary/eligibility-summary.component';
+import {RoleEditComponent} from './component/role-permission/list-role/role-edit/role-edit.component';
+import {EligibilitySummaryComponent} from './component/eligibility/eligibility-summary/eligibility-summary.component';
+import {CoreModule} from '../../@core/core.module';
 
 @NgModule({
     declarations: [
@@ -82,14 +82,12 @@ import { EligibilitySummaryComponent } from './component/eligibility/eligibility
         RolePermissionComponent,
         RoleFormComponent,
         RolePermissionComponent,
-
         ValuatorComponent,
         ValuatorFormComponent,
         SectorComponent,
         SubSectorComponent,
         SectorFormComponent,
         SubSectorFormComponent,
-
         UIComponent,
         UserGuideComponent,
         NepseComponent,
@@ -100,7 +98,7 @@ import { EligibilitySummaryComponent } from './component/eligibility/eligibility
         SubSegmentFormComponent,
         DocumentComponent,
         UpdateDocumentComponent,
-        AddDocumentComponent,
+        DocumentFormComponent,
         SubSegmentFormComponent,
         CompanyComponent,
         CompanyFormComponent,
@@ -120,7 +118,6 @@ import { EligibilitySummaryComponent } from './component/eligibility/eligibility
         CatalogueComponent,
         EmailConfigurationComponent,
         EmailValidatorDirective,
-        NumberValidatorDirective,
         RoleEditComponent,
         EligibilitySummaryComponent
 
@@ -137,7 +134,8 @@ import { EligibilitySummaryComponent } from './component/eligibility/eligibility
         ThemeModule,
         DragDropModule,
         NgSelectModule,
-        NgxPrintModule
+        NgxPrintModule,
+        CoreModule
     ],
 
     entryComponents: [
@@ -149,7 +147,7 @@ import { EligibilitySummaryComponent } from './component/eligibility/eligibility
         ValuatorFormComponent,
         SectorFormComponent,
         SubSectorFormComponent,
-        AddDocumentComponent,
+        DocumentFormComponent,
         AddLoanComponent,
         UpdateModalComponent,
         UserFormComponent,

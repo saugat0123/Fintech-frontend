@@ -123,7 +123,8 @@ const ENTRY_COMPONENTS = [
     SearchResultComponent,
     MessageModalComponent,
     ProfileComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    UpdateModalComponent
 ];
 
 const PIPES = [
