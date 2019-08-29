@@ -205,7 +205,7 @@
                             <td>{{loanDataHolder?.loanCategory === 'PERSONAL_TYPE' ? 'PERSONAL' : 'BUSINESS'}}</td>
 
                             <th>Proposed Limit</th>
-                            <td>{{dmsLoanFile?.proposedAmount || loanDataHolder?.proposal?.proposedLimit}}</td>
+                            <td>{{dmsLoanFile?.proposedAmount || loanDataHolder?.proposal?.proposedLimit | currencyFormatter}}</td>
 
                             <th>Interest Rate</th>
                             <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}}</td>
@@ -225,7 +225,7 @@
                             <td>{{dmsLoanFile?.fmvFundingPercent}}</td>
 
                             <th>Total FMV</th>
-                            <td>{{dmsLoanFile?.fmvTotal}}</td>
+                            <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
 
                             <th>Total DV</th>
                             <td>{{dmsLoanFile?.distressValue}}</td>
