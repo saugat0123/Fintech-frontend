@@ -46,15 +46,4 @@ export class RoleEditComponent implements OnInit {
         this.activeModal.dismiss(ModalResponse.CANCEL);
     }
 
-
-    checkIfMaker(chkStatus) {
-        if (chkStatus) {
-            this.roleType = RoleType.MAKER;
-            this.model.roleType = RoleType.MAKER;
-        } else {
-            this.roleType = RoleType.APPROVAL;
-            this.model.roleType = RoleType.APPROVAL;
-        }
-    }
-
 }

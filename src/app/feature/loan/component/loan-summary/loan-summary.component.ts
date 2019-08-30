@@ -235,7 +235,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     loanHandler(index: number, length: number) {
         if (index === 0) {
-            return 'CREATED BY:';
+            return 'INITIATED BY:';
         } else if (index === length - 1) {
             if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
                 return 'APPROVED BY:';

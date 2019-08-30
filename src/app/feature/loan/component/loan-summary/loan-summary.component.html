@@ -40,7 +40,7 @@
                             <div class="report-header">
                                 <div class="report-header-heading">{{client}}</div>
                                 <div class="report-header-sub-heading">
-                                    Credit Appraisal Form of {{loanConfig?.name}}
+                                    Credit Appraisal of {{loanConfig?.name}}
                                     <br/>
                                     for
                                 </div>
@@ -211,7 +211,7 @@
                             <td>{{loanDataHolder?.loanCategory === 'PERSONAL_TYPE' ? 'PERSONAL' : 'BUSINESS'}}</td>
 
                             <th>Proposed Limit</th>
-                            <td>{{dmsLoanFile?.proposedAmount || loanDataHolder?.proposal?.proposedLimit}}</td>
+                            <td>{{dmsLoanFile?.proposedAmount || loanDataHolder?.proposal?.proposedLimit | currencyFormatter}}</td>
 
                             <th>Interest Rate</th>
                             <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}}</td>
@@ -231,7 +231,7 @@
                             <td>{{dmsLoanFile?.fmvFundingPercent}}</td>
 
                             <th>Total FMV</th>
-                            <td>{{dmsLoanFile?.fmvTotal}}</td>
+                            <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
 
                             <th>Total DV</th>
                             <td>{{dmsLoanFile?.distressValue}}</td>
@@ -435,6 +435,9 @@
             </div>
 
             <div class="row justify-content-between px-3" id="signatureDiv">
+                <div class="col-md-12 print-only">
+                    <p><b>Approval Chain</b></p>
+                </div>
                 <div *ngFor="let previous of signatureList; let i=index;"
                      class="col-md-3 padding-0-125">
                     <div class="signature-block">
@@ -443,6 +446,7 @@
                         </div>
                         <hr class="border-dark m-0">
                         <div class="row justify-content-center signature mx-auto">
+                            <div class="print-only signature-padding"></div>
                             <img class="img-thumbnail border-0 signature-height"
                                  src="{{previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage}}"
                                  align="middle"/>
