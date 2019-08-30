@@ -4,6 +4,12 @@
             <app-loan-action [loanConfigId]="loanConfigId" [id]="customerId" [loanCategory]="loanCategory"
                              [actionsList]="actionsList"
                              *ngIf="showAction"></app-loan-action>
+            <div align="right">
+                <button [useExistingCss]="true" class="btn-sm btn-warning d-flex justify-content-end"
+                        *ngIf="catalogueStatus"
+                        ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
+                    PRINT<i class="col-md-1 fa fa-print"></i></button>
+            </div>
         </nb-card-header>
         <nb-card-body id="print-block">
             <div class="col-md-12  text-success cursor disable-print"
@@ -54,7 +60,7 @@
                     <div *ngIf="currentDocAction === 'FORWARD' || currentDocAction === 'BACKWARD'
                           || currentDocAction === 'PENDING'">
                         <span><b>Pending Under: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
-                        ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
                     </div>
                     <div *ngIf="currentDocAction === 'APPROVED'">
                         <span><b>Approved By: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
@@ -317,7 +323,7 @@
                 <div class="col-md-12">
                     <p><b>Authority Section</b></p>
                     <table
-                        class="disable-print table table-condensed table-bordered table-responsive-md text-center">
+                            class="disable-print table table-condensed table-bordered table-responsive-md text-center">
                         <thead>
                         <tr>
                             <th>S.N</th>
@@ -369,7 +375,7 @@
                         </tbody>
                     </table>
                     <table
-                        class="print-only table table-bordered text-center">
+                            class="print-only table table-bordered text-center">
                         <thead>
                         <tr>
                             <th width="5%">S.N</th>
