@@ -1,6 +1,4 @@
 import {LoanDocument} from './loan-document';
-import {Customer} from './customer';
-import {EntityInfo} from './entity-info';
 
 export class DmsLoanFile {
     id: number;
