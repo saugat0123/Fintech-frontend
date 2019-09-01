@@ -7,4 +7,5 @@ export class Document {
     url: string;
     loanCycle: Array<LoanCycle>;
     status: string;
+    checked: boolean;
 }
