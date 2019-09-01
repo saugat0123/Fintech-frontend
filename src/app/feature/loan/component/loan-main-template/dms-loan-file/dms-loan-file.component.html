@@ -440,20 +440,20 @@
               </div>
               <div *ngIf="personal" class="col-md-4">
                 <div class="form-group">
-                  <label for="incomeCoverageRatio"><b>Income Coverage Ratio</b></label>
+                  <label for="interestCoverageRatio"><b>Interest Coverage Ratio</b></label>
                   <input [ngClass]="{ 'is-invalid':submitted && form.incomeCoverageRatio.errors}"
                          class="form-control rounded" formControlName="incomeCoverageRatio"
-                         id="incomeCoverageRatio"
+                         id="interestCoverageRatio"
                          min="0"
-                         placeholder="Enter Income Coverage Ratio"
+                         placeholder="Enter Interest Coverage Ratio"
                          type="number"/>
                   <div *ngIf="submitted && form.incomeCoverageRatio.errors"
                        class="invalid-feedback">
                     <div *ngIf="form.incomeCoverageRatio.errors.required">
-                      Income Coverage Ratio is required.
+                      Interest Coverage Ratio is required.
                     </div>
                     <div *ngIf="form.incomeCoverageRatio.errors.min">
-                      Income Coverage Ratio can not be negative value.
+                      Interest Coverage Ratio can not be negative value.
                     </div>
                   </div>
                 </div>
