@@ -613,7 +613,10 @@
                                             </div>
                                         </td>
                                         <td>
-                                            {{document.checked}}
+                                            <span *ngIf="document.checked" style="color:limegreen"><i
+                                                    class="fas fa-check-circle"></i></span>
+                                            <span *ngIf="!document.checked || document.checked === null"
+                                                  style="color:red"><i class="fas fa-times-circle"></i></span>
                                         </td>
                                     </tr>
                                     </tbody>

@@ -21,6 +21,7 @@ import {EntityInfo} from '../../../../admin/modal/entity-info';
 import {EntityInfoService} from '../../../../admin/service/entity-info.service';
 import {BusinessType} from '../../../../admin/modal/businessType';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {LoanType} from '../../../model/loanType';
 
 
 @Component({
@@ -121,9 +122,6 @@ export class DmsLoanFileComponent implements OnInit {
             if (JSON.parse(this.loanDataHolder.dmsLoanFile.documentPath) != null) {
                 this.documentMaps = JSON.parse(this.loanDataHolder.dmsLoanFile.documentPath);
                 this.loanDataHolder.dmsLoanFile.documentMap = JSON.parse(this.loanDataHolder.dmsLoanFile.documentPath);
-
-                console.log(this.documentMaps);
-
                 this.documentMaps.forEach(d => {
                     const arrayOfd = d.split(':')[0];
                     this.docHeader.push(arrayOfd);
@@ -136,8 +134,16 @@ export class DmsLoanFileComponent implements OnInit {
             (response: any) => {
                 this.loanConfig = response.detail;
                 this.loanName = this.loanConfig.name;
-                this.initialDocuments = this.loanConfig.initial;
-                this.renewDocuments = this.loanConfig.renew;
+                if (LoanType[this.loanDataHolder.loanType] === LoanType.NEW_LOAN) {
+                    this.initialDocuments = this.loanConfig.initial;
+                } else if (LoanType[this.loanDataHolder.loanType] === LoanType.RENEWED_LOAN) {
+                    this.initialDocuments = this.loanConfig.renew;
+                } else if (LoanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
+                    this.initialDocuments = this.loanConfig.closure;
+                } else {
+                    this.initialDocuments = this.loanConfig.initial;
+                }
+
                 this.initialDocuments.forEach(i => {
                     this.docHeader.forEach(d => {
                         if (d === i.displayName || d === i.name) {
@@ -347,16 +353,37 @@ export class DmsLoanFileComponent implements OnInit {
         } else {
             this.errorMessage = undefined;
             const formdata: FormData = new FormData();
+
             formdata.append('file', file);
             formdata.append('type', this.loanName);
             formdata.append('citizenNumber', this.loanForm.get('citizenshipNumber').value);
             formdata.append('customerName', this.loanForm.get('customerName').value);
             formdata.append('documentName', documentName);
+            if (this.loanDataHolder.loanType === null || this.loanDataHolder.loanType === undefined) {
+                formdata.append('action', 'new');
+            }
+
+            if (LoanType[this.loanDataHolder.loanType] === LoanType.RENEWED_LOAN) {
+                formdata.append('action', 'renew');
+            }
+
+            if (LoanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
+                formdata.append('action', 'close');
+            }
             this.dmsLoanService.uploadFile(formdata).subscribe(
                 (result: any) => {
                     this.document.name = documentName;
                     // this.loanDataHolder.dmsLoanFile.documents.push(this.document);
                     this.documentMap = documentName + ':' + result.detail;
+                    this.docHeader.push(documentName);
+                    this.initialDocuments.forEach(i => {
+                        this.docHeader.forEach(d => {
+                            if (d === i.displayName || d === i.name) {
+                                i.checked = true;
+                            }
+                        });
+                    });
+
                     if (this.documentMaps != null && !this.documentMaps.includes(this.documentMap)) {
                         this.documentMaps.forEach(d => {
                             const arrayOfd = d.split(':')[0];
@@ -365,11 +392,13 @@ export class DmsLoanFileComponent implements OnInit {
                                 this.documentMaps.splice(i, 1);
                             }
                         });
+
                         this.documentMaps.push(this.documentMap);
                         console.log(this.documentMaps);
                     } else {
                         this.documentMaps.push(this.documentMap);
                     }
+
                     this.loanDataHolder.dmsLoanFile.documentMap = this.documentMaps;
                     this.loanDataHolder.dmsLoanFile.documentPath = this.documentMaps.map(x => x).join(',');
                     this.document = new LoanDocument();
