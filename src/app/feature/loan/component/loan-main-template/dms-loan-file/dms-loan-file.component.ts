@@ -21,6 +21,7 @@ import {EntityInfo} from '../../../../admin/modal/entity-info';
 import {EntityInfoService} from '../../../../admin/service/entity-info.service';
 import {BusinessType} from '../../../../admin/modal/businessType';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {LoanType} from '../../../model/loanType';
 
 
 @Component({
@@ -30,7 +31,8 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 })
 
 export class DmsLoanFileComponent implements OnInit {
-    public static FILE_SIZE = 500000;
+    public static FILE_SIZE_5MB = 5242880;
+    public static FILE_SIZE_10MB = 10485760;
     @Input()
     loanDataHolder: LoanDataHolder;
     loanForm: FormGroup;
@@ -77,6 +79,8 @@ export class DmsLoanFileComponent implements OnInit {
         isOldCustomer: false
     };
 
+    docHeader = [];
+
     constructor(private formBuilder: FormBuilder,
                 private loanDataService: LoanDataService,
                 private router: Router,
@@ -115,13 +119,38 @@ export class DmsLoanFileComponent implements OnInit {
         if (this.loanDataHolder.dmsLoanFile.id !== undefined) {
             this.action = 'EDIT';
             this.imagePaths = JSON.parse(this.loanDataHolder.dmsLoanFile.documentPath);
+            if (JSON.parse(this.loanDataHolder.dmsLoanFile.documentPath) != null) {
+                this.documentMaps = JSON.parse(this.loanDataHolder.dmsLoanFile.documentPath);
+                this.loanDataHolder.dmsLoanFile.documentMap = JSON.parse(this.loanDataHolder.dmsLoanFile.documentPath);
+                this.documentMaps.forEach(d => {
+                    const arrayOfd = d.split(':')[0];
+                    this.docHeader.push(arrayOfd);
+                });
+
+
+            }
         }
         this.loanConfigService.detail(this.loanConfigId).subscribe(
             (response: any) => {
                 this.loanConfig = response.detail;
                 this.loanName = this.loanConfig.name;
-                this.initialDocuments = this.loanConfig.initial;
-                this.renewDocuments = this.loanConfig.renew;
+                if (LoanType[this.loanDataHolder.loanType] === LoanType.NEW_LOAN) {
+                    this.initialDocuments = this.loanConfig.initial;
+                } else if (LoanType[this.loanDataHolder.loanType] === LoanType.RENEWED_LOAN) {
+                    this.initialDocuments = this.loanConfig.renew;
+                } else if (LoanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
+                    this.initialDocuments = this.loanConfig.closure;
+                } else {
+                    this.initialDocuments = this.loanConfig.initial;
+                }
+
+                this.initialDocuments.forEach(i => {
+                    this.docHeader.forEach(d => {
+                        if (d === i.displayName || d === i.name) {
+                            i.checked = true;
+                        }
+                    });
+                });
             }
         );
 
@@ -199,7 +228,7 @@ export class DmsLoanFileComponent implements OnInit {
                     this.loanDataHolder.dmsLoanFile.proposedAmount, [Validators.required, Validators.min(0)]],
             security:
                 [this.loanDataHolder.dmsLoanFile.securities === undefined ? undefined :
-                this.loanDataHolder.dmsLoanFile.securities, Validators.required],
+                    this.loanDataHolder.dmsLoanFile.securities, Validators.required],
             serviceChargeType:
                 [ObjectUtil.isEmpty(this.loanDataHolder.dmsLoanFile.serviceChargeType) ? 'Percentage' :
                     this.loanDataHolder.dmsLoanFile.serviceChargeType, Validators.required],
@@ -217,16 +246,16 @@ export class DmsLoanFileComponent implements OnInit {
                     this.loanDataHolder.dmsLoanFile.recommendationConclusion, Validators.required],
             waiver:
                 [ObjectUtil.isEmpty(this.loanDataHolder.dmsLoanFile.waiver) ? undefined :
-                this.loanDataHolder.dmsLoanFile.waiver, Validators.required],
+                    this.loanDataHolder.dmsLoanFile.waiver, Validators.required],
             fmvTotal:
                 [ObjectUtil.isEmpty(this.loanDataHolder.dmsLoanFile.fmvTotal) ? undefined :
-                this.loanDataHolder.dmsLoanFile.fmvTotal, Validators.min(0)],
+                    this.loanDataHolder.dmsLoanFile.fmvTotal, Validators.min(0)],
             dvTotal:
                 [ObjectUtil.isEmpty(this.loanDataHolder.dmsLoanFile.distressValue) ? undefined :
-                this.loanDataHolder.dmsLoanFile.distressValue, Validators.min(0)],
+                    this.loanDataHolder.dmsLoanFile.distressValue, Validators.min(0)],
             fmvFundingPercent:
                 [ObjectUtil.isEmpty(this.loanDataHolder.dmsLoanFile.fmvFundingPercent) ? undefined :
-                this.loanDataHolder.dmsLoanFile.fmvFundingPercent, Validators.min(0)],
+                    this.loanDataHolder.dmsLoanFile.fmvFundingPercent, Validators.min(0)],
             totalLoanLimit:
                 [ObjectUtil.isEmpty(this.loanDataHolder.dmsLoanFile.totalLoanLimit) ? undefined :
                     this.loanDataHolder.dmsLoanFile.totalLoanLimit, [Validators.required, Validators.min(0)]],
@@ -241,16 +270,16 @@ export class DmsLoanFileComponent implements OnInit {
                     this.loanDataHolder.dmsLoanFile.groupExpo],
             incomeCoverageRatio:
                 [ObjectUtil.isEmpty(this.loanDataHolder.dmsLoanFile.incomeCoverageRatio) ? undefined :
-                this.loanDataHolder.dmsLoanFile.incomeCoverageRatio, Validators.min(0)],
+                    this.loanDataHolder.dmsLoanFile.incomeCoverageRatio, Validators.min(0)],
             debtServiceCoverageRatio:
                 [ObjectUtil.isEmpty(this.loanDataHolder.dmsLoanFile.debtServiceCoverageRatio) ? undefined :
-                this.loanDataHolder.dmsLoanFile.debtServiceCoverageRatio, Validators.min(0)],
+                    this.loanDataHolder.dmsLoanFile.debtServiceCoverageRatio, Validators.min(0)],
             keyPersonName:
                 [ObjectUtil.isEmpty(this.loanDataHolder.dmsLoanFile.keyPersonName) ? undefined :
                     this.loanDataHolder.dmsLoanFile.keyPersonName],
             dealingProductName:
                 [ObjectUtil.isEmpty(this.loanDataHolder.dmsLoanFile.dealingProductName) ? undefined :
-                      this.loanDataHolder.dmsLoanFile.dealingProductName],
+                    this.loanDataHolder.dmsLoanFile.dealingProductName],
             file: [undefined]
         });
         this.customerFormField = {
@@ -316,34 +345,73 @@ export class DmsLoanFileComponent implements OnInit {
     }
 
 
-    documentUploader(event, documentName: string) {
+    documentUploader(event, documentName: string, index: number) {
         const file = event.target.files[0];
-        if (file.size > DmsLoanFileComponent.FILE_SIZE) {
-            this.errorMessage = 'Maximum File Size Exceeds';
-        }
-        const formdata: FormData = new FormData();
-        formdata.append('file', file);
-        formdata.append('type', this.loanName);
-        formdata.append('citizenNumber', String(this.loanForm.get('citizenshipNumber').value));
-        formdata.append('customerName', this.loanForm.get('customerName').value);
-        formdata.append('documentName', documentName);
-        this.dmsLoanService.uploadFile(formdata).subscribe(
-            (result: any) => {
-                this.errorMessage = undefined;
-                this.document.name = documentName;
-                this.loanDataHolder.dmsLoanFile.documents.push(this.document);
-                this.documentMap = documentName + ':' + result.detail;
-                if (!this.documentMaps.includes(this.documentMap)) {
-                    this.documentMaps.push(this.documentMap);
-                }
-                this.loanDataHolder.dmsLoanFile.documentMap = this.documentMaps;
-                this.document = new LoanDocument();
-            },
-            error => {
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Error occurred while uploading the document'));
+        if (file.size > DmsLoanFileComponent.FILE_SIZE_5MB) {
+            this.errorMessage = 'Maximum File Size Exceeds for  ' + documentName;
+            (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
+        } else {
+            this.errorMessage = undefined;
+            const formdata: FormData = new FormData();
+
+            formdata.append('file', file);
+            formdata.append('type', this.loanName);
+            formdata.append('citizenNumber', this.loanForm.get('citizenshipNumber').value);
+            formdata.append('customerName', this.loanForm.get('customerName').value);
+            formdata.append('documentName', documentName);
+            if (this.loanDataHolder.loanType === null || this.loanDataHolder.loanType === undefined) {
+                formdata.append('action', 'new');
             }
-        );
+
+            if (LoanType[this.loanDataHolder.loanType] === LoanType.RENEWED_LOAN) {
+                formdata.append('action', 'renew');
+            }
+
+            if (LoanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
+                formdata.append('action', 'close');
+            }
+            this.dmsLoanService.uploadFile(formdata).subscribe(
+                (result: any) => {
+                    this.document.name = documentName;
+                    // this.loanDataHolder.dmsLoanFile.documents.push(this.document);
+                    this.documentMap = documentName + ':' + result.detail;
+                    this.docHeader.push(documentName);
+                    this.initialDocuments.forEach(i => {
+                        this.docHeader.forEach(d => {
+                            if (d === i.displayName || d === i.name) {
+                                i.checked = true;
+                            }
+                        });
+                    });
+
+                    if (this.documentMaps != null && !this.documentMaps.includes(this.documentMap)) {
+                        this.documentMaps.forEach(d => {
+                            const arrayOfd = d.split(':')[0];
+                            if (arrayOfd === documentName) {
+                                const i = this.documentMaps.findIndex(order => order === d);
+                                this.documentMaps.splice(i, 1);
+                            }
+                        });
+
+                        this.documentMaps.push(this.documentMap);
+                        console.log(this.documentMaps);
+                    } else {
+                        this.documentMaps.push(this.documentMap);
+                    }
+
+                    this.loanDataHolder.dmsLoanFile.documentMap = this.documentMaps;
+                    this.loanDataHolder.dmsLoanFile.documentPath = this.documentMaps.map(x => x).join(',');
+                    this.document = new LoanDocument();
+                },
+                error => {
+                    console.error(error);
+                    (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Failed to upload Selected File.'
+                        + error.error.message));
+                }
+            );
+        }
+
     }
 
     searchByCitizenship() {
@@ -351,7 +419,7 @@ export class DmsLoanFileComponent implements OnInit {
         this.customerService.getPaginationWithSearchObject(this.customerSearch).subscribe((customerResponse: any) => {
             if (customerResponse.detail.content.length <= 0) {
                 this.customerFormField.isOldCustomer = false;
-                this.toastService.show(new Alert(AlertType.INFO, 'No Customer'));
+                this.toastService.show(new Alert(AlertType.INFO, 'No Customer Found under provided Citizenship Number.'));
                 this.loanForm.patchValue({
                     customerEntityId: undefined,
                     customerVersion: undefined,

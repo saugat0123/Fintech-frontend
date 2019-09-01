@@ -4,6 +4,12 @@
             <app-loan-action [loanConfigId]="loanConfigId" [id]="customerId" [loanCategory]="loanCategory"
                              [actionsList]="actionsList"
                              *ngIf="showAction"></app-loan-action>
+            <div align="right">
+                <button [useExistingCss]="true" class="btn-sm btn-warning d-flex justify-content-end"
+                        *ngIf="catalogueStatus"
+                        ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
+                    PRINT<i class="col-md-1 fa fa-print"></i></button>
+            </div>
         </nb-card-header>
         <nb-card-body id="print-block">
             <div class="col-md-12  text-success cursor disable-print"
@@ -34,7 +40,7 @@
                             <div class="report-header">
                                 <div class="report-header-heading">{{client}}</div>
                                 <div class="report-header-sub-heading">
-                                    Credit Appraisal Form of {{loanConfig?.name}}
+                                    Credit Appraisal of {{loanConfig?.name}}
                                     <br/>
                                     for
                                 </div>
@@ -54,7 +60,7 @@
                     <div *ngIf="currentDocAction === 'FORWARD' || currentDocAction === 'BACKWARD'
                           || currentDocAction === 'PENDING'">
                         <span><b>Pending Under: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
-                        ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
                     </div>
                     <div *ngIf="currentDocAction === 'APPROVED'">
                         <span><b>Approved By: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
@@ -205,7 +211,7 @@
                             <td>{{loanDataHolder?.loanCategory === 'PERSONAL_TYPE' ? 'PERSONAL' : 'BUSINESS'}}</td>
 
                             <th>Proposed Limit</th>
-                            <td>{{dmsLoanFile?.proposedAmount || loanDataHolder?.proposal?.proposedLimit}}</td>
+                            <td>{{dmsLoanFile?.proposedAmount || loanDataHolder?.proposal?.proposedLimit | currencyFormatter}}</td>
 
                             <th>Interest Rate</th>
                             <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}}</td>
@@ -225,7 +231,7 @@
                             <td>{{dmsLoanFile?.fmvFundingPercent}}</td>
 
                             <th>Total FMV</th>
-                            <td>{{dmsLoanFile?.fmvTotal}}</td>
+                            <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
 
                             <th>Total DV</th>
                             <td>{{dmsLoanFile?.distressValue}}</td>
@@ -317,7 +323,7 @@
                 <div class="col-md-12">
                     <p><b>Authority Section</b></p>
                     <table
-                        class="disable-print table table-condensed table-bordered table-responsive-md text-center">
+                            class="disable-print table table-condensed table-bordered table-responsive-md text-center">
                         <thead>
                         <tr>
                             <th>S.N</th>
@@ -369,7 +375,7 @@
                         </tbody>
                     </table>
                     <table
-                        class="print-only table table-bordered text-center">
+                            class="print-only table table-bordered text-center">
                         <thead>
                         <tr>
                             <th width="5%">S.N</th>
@@ -404,6 +410,7 @@
                     </table>
                 </div>
             </div>
+
             <div class="row disable-print" *ngIf="documentNames.length>0">
                 <div class="col-md-12">
                     <p><b>Required Documents</b></p>
@@ -427,8 +434,12 @@
                     </table>
                 </div>
             </div>
+            <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
 
             <div class="row justify-content-between px-3" id="signatureDiv">
+                <div class="col-md-12 print-only">
+                    <p><b>Approval Chain</b></p>
+                </div>
                 <div *ngFor="let previous of signatureList; let i=index;"
                      class="col-md-3 padding-0-125">
                     <div class="signature-block">
@@ -437,6 +448,7 @@
                         </div>
                         <hr class="border-dark m-0">
                         <div class="row justify-content-center signature mx-auto">
+                            <div class="print-only signature-padding"></div>
                             <img class="img-thumbnail border-0 signature-height"
                                  src="{{previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage}}"
                                  align="middle"/>

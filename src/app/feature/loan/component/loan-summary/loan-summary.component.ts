@@ -32,6 +32,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     client: String;
 
+    docMsg;
+    rootDocLength;
     dmsLoanFile: DmsLoanFile = new DmsLoanFile();
     loanConfig: LoanConfig = new LoanConfig();
     loan: string;
@@ -67,64 +69,66 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     incomeSource = IncomeSource;
     businessType = BusinessType;
     navigationSubscription;
+    catalogueStatus = false;
 
-  constructor(
-      private userService: UserService,
-      private loanFormService: LoanFormService,
-      private loanActionService: LoanActionService,
-      private dmsLoanService: DmsLoanService,
-      private activatedRoute: ActivatedRoute,
-      private router: Router,
-      private loanConfigService: LoanConfigService,
-      private approvalLimitService: ApprovalLimitService,
-      private dateService: DateService,
-      private modalService: NgbModal
-  ) {
-    this.client = environment.client;
-    this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      if (e instanceof NavigationEnd) {
-        this.loadSummary();
-      }
-    });
+    constructor(
+        private userService: UserService,
+        private loanFormService: LoanFormService,
+        private loanActionService: LoanActionService,
+        private dmsLoanService: DmsLoanService,
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
+        private loanConfigService: LoanConfigService,
+        private approvalLimitService: ApprovalLimitService,
+        private dateService: DateService,
+        private modalService: NgbModal
+    ) {
+        this.client = environment.client;
+        this.navigationSubscription = this.router.events.subscribe((e: any) => {
+            if (e instanceof NavigationEnd) {
+                this.loadSummary();
+            }
+        });
     }
 
-  ngOnInit() {
-    this.loadSummary();
-  }
+    ngOnInit() {
+        this.loadSummary();
+    }
 
-  ngOnDestroy(): void {
-    this.navigationSubscription.unsubscribe();
-  }
+    ngOnDestroy(): void {
+        this.navigationSubscription.unsubscribe();
+    }
 
-  loadSummary() {
-    this.activatedRoute.queryParams.subscribe(
-        (paramsValue: Params) => {
-          this.allId = {
-            loanConfigId: null,
-            customerId: null,
-            catalogue: null
-          };
-          this.allId = paramsValue;
-          this.customerId = this.allId.customerId;
-          this.loanConfigId = this.allId.loanConfigId;
-          if (this.allId.catalogue) {
-            this.showAction = false;
-          }
-        });
-    this.id = this.activatedRoute.snapshot.params['id'];
-    this.loanConfigService.detail(this.loanConfigId).subscribe(
-        (response: any) => {
-          this.loanConfig = response.detail;
-        }
-    );
-    this.userService.getLoggedInUser().subscribe(
-        (response: any) => {
-          this.user = response.detail;
-          this.actionsList.roleTypeMaker = this.user.role.roleType === 'MAKER';
-        }
-    );
-    this.getLoanDataHolder();
-  }
+    loadSummary() {
+        this.activatedRoute.queryParams.subscribe(
+            (paramsValue: Params) => {
+                this.allId = {
+                    loanConfigId: null,
+                    customerId: null,
+                    catalogue: null
+                };
+                this.allId = paramsValue;
+                this.customerId = this.allId.customerId;
+                this.loanConfigId = this.allId.loanConfigId;
+                if (this.allId.catalogue) {
+                    this.showAction = false;
+                    this.catalogueStatus = true;
+                }
+            });
+        this.id = this.activatedRoute.snapshot.params['id'];
+        this.loanConfigService.detail(this.loanConfigId).subscribe(
+            (response: any) => {
+                this.loanConfig = response.detail;
+            }
+        );
+        this.userService.getLoggedInUser().subscribe(
+            (response: any) => {
+                this.user = response.detail;
+                this.actionsList.roleTypeMaker = this.user.role.roleType === 'MAKER';
+            }
+        );
+        this.getLoanDataHolder();
+    }
 
     getLoanDataHolder() {
         this.loanFormService.detail(this.customerId).subscribe(
@@ -201,6 +205,20 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                             this.documentNames.push(this.documentNamesSplit[0]);
                             this.documentUrls.push(this.documentNamesSplit[1]);
                         }
+
+                        if (LoanType[this.loanDataHolder.loanType] === LoanType.NEW_LOAN) {
+                            this.rootDocLength = this.loanDataHolder.loan.initial.length;
+                        }
+                        if (LoanType[this.loanDataHolder.loanType] === LoanType.RENEWED_LOAN) {
+                            this.rootDocLength = this.loanDataHolder.loan.renew.length;
+                        }
+
+                        if (LoanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
+                            this.rootDocLength = this.loanDataHolder.loan.closure.length;
+                        }
+
+                        const filledDocLength = this.documents.length;
+                        this.docMsg = filledDocLength + ' out of ' + this.rootDocLength + ' document has been uploaded';
                     }
                 }
                 this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
@@ -233,7 +251,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     loanHandler(index: number, length: number) {
         if (index === 0) {
-            return 'CREATED BY:';
+            return 'INITIATED BY:';
         } else if (index === length - 1) {
             if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
                 return 'APPROVED BY:';
@@ -255,7 +273,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     renewedOrCloseFrom(id) {
-      this.router.navigate(['/home/loan/summary'], {
+        this.router.navigate(['/home/loan/summary'], {
             queryParams: {
                 loanConfigId: this.loanConfigId,
                 customerId: id
