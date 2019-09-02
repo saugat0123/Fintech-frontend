@@ -252,6 +252,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   loanHandler(index: number, length: number) {
+    const roleName: string = this.signatureList[index].toRole.roleName.toLowerCase();
+    if (roleName === 'branch manager' || roleName === 'bm') {
+      return 'RECOMMENDED BY';
+    }
+
     if (index === 0) {
       return 'INITIATED BY:';
     } else if (index === length - 1) {
