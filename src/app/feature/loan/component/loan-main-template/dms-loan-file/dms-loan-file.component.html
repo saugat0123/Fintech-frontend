@@ -575,8 +575,13 @@
             <div class="col-md-6">
               <div class="box-header with-border">
                 <h3 class="box-title"><b>Document for initial phase</b></h3>
-                <em><span
-                    style="color:red;">(select file smaller than 10Mb)</span></em>
+                <ul>
+                  <li> Fill <strong>Customer Name and Citizenship Number</strong> before file upload
+                  </li>
+                  <li>Select File smaller than <strong>10MB</strong>
+                  </li>
+                </ul>
+
               </div>
               <div *ngIf="errorMessage">
                 <span class="color" style="color:red"> {{errorMessage}}</span>
