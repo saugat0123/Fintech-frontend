@@ -390,7 +390,7 @@
               </div>
             </div>
             <div class="row">
-              <div *ngIf="personal" class="col-md-4">
+              <!--<div *ngIf="personal" class="col-md-4">
                 <div class="form-group">
                   <label for="individualExposure"><b>Individual Exposure</b></label>
                   <input [ngClass]="{ 'is-invalid':submitted && form.individualExposure.errors}"
@@ -404,7 +404,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>-->
               <div *ngIf="!personal" class="col-md-4">
                 <div class="form-group">
                   <label for="institutionExposure"><b>Institution Exposure</b></label>
@@ -440,7 +440,7 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf="personal" class="col-md-4">
+              <!--<div *ngIf="personal" class="col-md-4">
                 <div class="form-group">
                   <label for="interestCoverageRatio"><b>Interest Coverage Ratio</b></label>
                   <input [ngClass]="{ 'is-invalid':submitted && form.incomeCoverageRatio.errors}"
@@ -459,8 +459,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div *ngIf="!personal" class="col-md-4">
+              </div>-->
+              <div class="col-md-4">
                 <div class="form-group">
                   <label for="debtServiceCoverageRatio"><b>Debt Service Coverage Ratio</b></label>
                   <input
