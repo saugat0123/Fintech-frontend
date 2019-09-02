@@ -347,7 +347,7 @@ export class DmsLoanFileComponent implements OnInit {
 
     documentUploader(event, documentName: string, index: number) {
         const file = event.target.files[0];
-    if (file.size > DmsLoanFileComponent.FILE_SIZE_5MB) {
+    if (file.size > DmsLoanFileComponent.FILE_SIZE_10MB) {
             this.errorMessage = 'Maximum File Size Exceeds for  ' + documentName;
             (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
         } else {
