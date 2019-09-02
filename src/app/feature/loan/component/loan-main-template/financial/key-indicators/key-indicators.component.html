@@ -1,0 +1,373 @@
+<form [formGroup]="keyIndicatorsForm">
+  <h3>Key Indicators</h3>
+  <table class="table table-bordered">
+    <thead class="text-center">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Particulars</th>
+      <th *ngFor="let year of fiscalYear; let j = index" scope="col">
+        {{year}}
+        <div class="float-right">
+          <a (click)="removeFiscalYear(j)" data-toggle="tooltip"
+             data-placement="top">
+            <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
+          </a>
+        </div>
+      </th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td><b>Growth</b></td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('growth')['controls']; let j = index"
+          formArrayName="growth" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">a</th>
+      <td>Sales</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('sales')['controls']; let j = index"
+          formArrayName="sales" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">b</th>
+      <td>Gross Profit</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('grossProfitKI')['controls']; let j = index"
+          formArrayName="grossProfitKI" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">c</th>
+      <td>Operating Profit(EBIT)</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('operatingProfitKI')['controls']; let j = index"
+          formArrayName="operatingProfitKI" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">d</th>
+      <td>PAT</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('pAT')['controls']; let j = index"
+          formArrayName="pAT" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">2</th>
+      <td><b>Profitability</b></td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('profitability')['controls']; let j = index"
+          formArrayName="profitability" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">a</th>
+      <td>Gross Profit Margin</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('grossProfitMargin')['controls']; let j = index"
+          formArrayName="grossProfitMargin" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">b</th>
+      <td>Net Profit Margin</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('netProfitMargin')['controls']; let j = index"
+          formArrayName="netProfitMargin" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">c</th>
+      <td>EBIT to Sales</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('eBITtoSales')['controls']; let j = index"
+          formArrayName="eBITtoSales" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">d</th>
+      <td>Return On Equity</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('returnOnEquity')['controls']; let j = index"
+          formArrayName="returnOnEquity" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">3</th>
+      <td><b>Solvency</b></td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('solvency')['controls']; let j = index"
+          formArrayName="solvency" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">a</th>
+      <td>Quick Ratio (times)</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('quickRatio')['controls']; let j = index"
+          formArrayName="quickRatio" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">b</th>
+      <td>Current Ratio (times)</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('currentRatio')['controls']; let j = index"
+          formArrayName="currentRatio" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">c</th>
+      <td>Debt Service Coverage Ratio (times)</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('debtServiceCoverageRatio')['controls']; let j = index"
+          formArrayName="debtServiceCoverageRatio" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">d</th>
+      <td>Interest Coverage Ratio (times)</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('interestCoverageRatio')['controls']; let j = index"
+          formArrayName="interestCoverageRatio" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">e</th>
+      <td>Debt-Equity Ratio (Overall)</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('debtEquityRatioOverall')['controls']; let j = index"
+          formArrayName="debtEquityRatioOverall" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">f</th>
+      <td>Debt-Equity Ratio - Long Term (times)</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('debtEquityRatioLongTerm')['controls']; let j = index"
+          formArrayName="debtEquityRatioLongTerm" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">g</th>
+      <td>Debt-Equity Ratio - Working Capital (times)</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('debtEquityRatioWorkingCapital')['controls']; let j = index"
+          formArrayName="debtEquityRatioWorkingCapital" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">h</th>
+      <td>Debt-Equity Ratio - General</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('debtEquityRatioGeneral')['controls']; let j = index"
+          formArrayName="debtEquityRatioGeneral" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">4</th>
+      <td><b>Operating Cycle</b></td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('operatingCycle')['controls']; let j = index"
+          formArrayName="operatingCycle" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">a</th>
+      <td>Inventory Turnover Ratio (times)</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('inventoryTurnoverRatio')['controls']; let j = index"
+          formArrayName="inventoryTurnoverRatio" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">b</th>
+      <td>Stock in Hand - Days</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('stockInHandDays')['controls']; let j = index"
+          formArrayName="stockInHandDays" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">c</th>
+      <td>Debtor Turnover Ratio (times)</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('debtorTurnOverRatio')['controls']; let j = index"
+          formArrayName="debtorTurnOverRatio" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">d</th>
+      <td>Average Collection Period - Days</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('averageCollectionPeriod')['controls']; let j = index"
+          formArrayName="averageCollectionPeriod" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">e</th>
+      <td>Average Payment Period - Days</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('averagePaymentPeriod')['controls']; let j = index"
+          formArrayName="averagePaymentPeriod" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">f</th>
+      <td>Net Operating Cycle - Days</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('netOperatingCycle')['controls']; let j = index"
+          formArrayName="netOperatingCycle" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+
+    <tbody>
+    <tr>
+      <th scope="row">g</th>
+      <td>Net WC before Bank(Rs. in 000)</td>
+      <td *ngFor="let amount of keyIndicatorsForm.get('netWCBeforeBank')['controls']; let j = index"
+          formArrayName="netWCBeforeBank" scope="col">
+        <div [formGroupName]="j" class="text-center">
+          <input formControlName="value" class="text-center" type="number" style="border: none; outline: none; " value="0" readonly>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <h4>Justification</h4>
+  <textarea nbInput rows="5" class="mb-5" fullWidth placeholder="Jusification..."></textarea>
+</form>

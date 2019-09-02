@@ -32,6 +32,11 @@ import {CoreModule} from '../../@core/core.module';
 import {environment} from '../../../environments/environment';
 import {SiteVisitComponent} from './component/loan-main-template/site-visit/site-visit.component';
 import {AgmCoreModule} from '@agm/core';
+import { IncomeStatementComponent } from './component/loan-main-template/financial/income-statement/income-statement.component';
+import { BalanceSheetComponent } from './component/loan-main-template/financial/balance-sheet/balance-sheet.component';
+import { CashFlowStatementComponent } from './component/loan-main-template/financial/cash-flow-statement/cash-flow-statement.component';
+import { KeyIndicatorsComponent } from './component/loan-main-template/financial/key-indicators/key-indicators.component';
+import { InitialFormComponent } from './component/loan-main-template/financial/initial-form/initial-form.component';
 
 
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
@@ -58,6 +63,12 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         CreditGradingComponent,
 
         SiteVisitComponent,
+
+        IncomeStatementComponent,
+        BalanceSheetComponent,
+        CashFlowStatementComponent,
+        KeyIndicatorsComponent,
+        InitialFormComponent,
     ],
     imports: [
         ThemeModule,
