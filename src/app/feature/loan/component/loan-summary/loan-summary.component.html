@@ -250,8 +250,8 @@
               <td>{{dmsLoanFile?.totalLoanLimit}}</td>
             </tr>
             <tr>
-              <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Individual Exposure</th>
-              <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.individualExposure}}</td>
+              <!--<th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Individual Exposure</th>
+              <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.individualExposure}}</td>-->
 
               <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Institution Exposure</th>
               <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.institutionExposure}}</td>
@@ -259,13 +259,10 @@
               <th>Group Exposure</th>
               <td>{{dmsLoanFile?.groupExpo}}</td>
 
-              <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Interest Coverage Ratio
-              </th>
-              <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.incomeCoverageRatio}}</td>
+              <!--<th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Income Coverage Ratio</th>
+              <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.incomeCoverageRatio}}</td>-->
 
-              <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Debt Service Coverage
-                Ratio
-              </th>
+              <th>Debt Service Coverage Ratio</th>
               <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
 
               <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Dealing Product Name</th>
@@ -357,7 +354,10 @@
               <td>{{previousList?.fromRole?.roleName}}</td>
               <td>{{previousList?.toUser?.name}}</td>
               <td>{{previousList?.toRole?.roleName}}</td>
-              <td>{{previousList?.docAction}}</td>
+              <td>{{previousList?.docAction.toString() === 'DRAFT' ?
+                  'INITIATED' :
+                  (previousList?.docAction.toString() === 'BACKWARD' ?
+                      'RETURNED' : previousList?.docAction.toString())}}</td>
               <td class="text-justify">
                 <div class="cmt-height">
                   {{previousList?.comment?.length > 50 ?
@@ -375,7 +375,10 @@
               <td>{{loanDataHolder?.currentStage?.fromRole?.roleName}}</td>
               <td>{{loanDataHolder?.currentStage?.toUser?.name}}</td>
               <td>{{loanDataHolder?.currentStage?.toRole?.roleName}}</td>
-              <td>{{loanDataHolder?.currentStage?.docAction}}</td>
+              <td>{{loanDataHolder?.currentStage?.docAction.toString() === 'DRAFT' ?
+                  'INITIATED' :
+                  (loanDataHolder?.currentStage?.docAction.toString() === 'BACKWARD' ?
+                      'RETURNED' : loanDataHolder?.currentStage?.docAction.toString())}}</td>
               <td class="text-justify">
                 <div class="cmt-height">
                   {{loanDataHolder?.currentStage?.comment?.length > 50 ?
@@ -408,7 +411,10 @@
                 {{previousList?.fromUser?.name}}
                 ({{previousList?.fromRole?.roleName}})
               </td>
-              <td>{{previousList?.docAction}}</td>
+              <td>{{previousList?.docAction.toString() === 'DRAFT' ?
+                  'INITIATED' :
+                  (previousList?.docAction.toString() === 'BACKWARD' ?
+                      'RETURNED' : previousList?.docAction.toString())}}</td>
               <td class="text-justify">{{previousList?.comment}}</td>
             </tr>
             <tr>
@@ -418,14 +424,16 @@
                 {{loanDataHolder?.currentStage?.fromUser?.name}}
                 ({{loanDataHolder?.currentStage?.fromRole?.roleName}})
               </td>
-              <td>{{loanDataHolder?.currentStage?.docAction}}</td>
+              <td>{{loanDataHolder?.currentStage?.docAction.toString() === 'DRAFT' ?
+                  'INITIATED' :
+                  (loanDataHolder?.currentStage?.docAction.toString() === 'BACKWARD' ?
+                      'RETURNED' : loanDataHolder?.currentStage?.docAction.toString())}}</td>
               <td class="text-justify">{{loanDataHolder?.currentStage?.comment}}</td>
             </tr>
             </tbody>
           </table>
         </div>
       </div>
-
       <div *ngIf="documentNames.length>0" class="row disable-print">
         <div class="col-md-12">
           <p><b>Required Documents</b></p>

@@ -22,6 +22,7 @@ import {LoanType} from '../../model/loanType';
 import {Occupation} from '../../../admin/modal/occupation';
 import {IncomeSource} from '../../../admin/modal/incomeSource';
 import {BusinessType} from '../../../admin/modal/businessType';
+import {DocAction} from '../../model/docAction';
 
 @Component({
   selector: 'app-loan-summary',
@@ -70,6 +71,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   businessType = BusinessType;
   navigationSubscription;
   catalogueStatus = false;
+  docAction = DocAction;
 
   constructor(
       private userService: UserService,
