@@ -1,158 +1,168 @@
 <div class="d-flex justify-content-center">
 
-    <div class="row">
-        <button class="btn-sm btn-success" [disabled]="!actionsList.approved" (click)=" approved(sendForwardBackward)"
-                [ngStyle]="{ 'filter' : (actionsList.approved === false)? 'grayscale(100%)': 'grayscale(0%)'}">
-            APPROVED<i class="col-md-1 fa fa-check"></i></button>
-        <button class="btn-sm btn-info"
-                (click)=" sendForwardList(sendForwardBackward)" [disabled]="!actionsList.sendForward"
-                [ngStyle]="{ 'filter' : (actionsList.sendForward === false)? 'grayscale(100%)': 'grayscale(0%)'}">SEND
-            FORWARD<i
-                    class="col-md-1 fa fa-arrow-circle-up"></i></button>
+  <div class="row">
+    <button (click)=" approved(sendForwardBackward)" [disabled]="!actionsList.approved"
+            [ngStyle]="{ 'filter' : (actionsList.approved === false)? 'grayscale(100%)': 'grayscale(0%)'}"
+            class="btn-sm btn-success">
+      APPROVED<i class="col-md-1 fa fa-check"></i></button>
+    <button (click)=" sendForwardList(sendForwardBackward)"
+            [disabled]="!actionsList.sendForward"
+            [ngStyle]="{ 'filter' : (actionsList.sendForward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
+            class="btn-sm btn-info">
+      SEND
+      FORWARD<i
+        class="col-md-1 fa fa-arrow-circle-up"></i></button>
 
-        <button class="btn-sm" style="color:lightseagreen;"
-                (click)="sendBackwardList(sendForwardBackward)" [disabled]="!actionsList.sendBackward"
-                [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}">
-            RETURN
-            <i class="col-md-1 fa fa-arrow-circle-left"></i></button>
-        <button class="btn-flat btn-sm btn-primary" (click)="onEdit()" [disabled]="!actionsList.edit"
-                [ngStyle]="{ 'filter' : (actionsList.edit === false)? 'grayscale(100%)': 'grayscale(0%)'}">EDIT<i
-                class="col-md-1 fa fa-edit"></i></button>
-        <button class="btn-sm btn-info"
-                (click)=" closeReject(sendForwardBackward,$event.target.value)" [disabled]="!actionsList.closed"
-                value="CLOSED"
-                [ngStyle]="{ 'filter' : (actionsList.closed === false)? 'grayscale(100%)': 'grayscale(0%)'}">
-            CLOSE/SETTLEMENT<i
-                class="col-md-1 fa-close"></i></button>
-        <button class="btn-sm btn-danger"
-                (click)=" closeReject(sendForwardBackward,$event.target.value)"
-                [disabled]="!actionsList.rejected || actionsList.roleTypeMaker" value="REJECTED"
-                [ngStyle]="{ 'filter' : (!actionsList.rejected || actionsList.roleTypeMaker)? 'grayscale(100%)': 'grayscale(0%)'}">
-            REJECTED<i
-                class="col-md-1 fa fa-ban"></i></button>
-        <select class="btn-sm btn-primary custom-select-sm cursor" [disabled]="!actionsList.offerLetter"
-                value="Offer Letter" hidden
-                [ngStyle]="{ 'filter' : (actionsList.offerLetter === false)? 'grayscale(100%)': 'grayscale(0%)'}"
-                (change)="generateOfferLetter($event.target.value)">
-            <option [value]="null" selected hidden>
-                <span>Offer Letter<i class="col-md-1 fa fa-envelope-square"></i></span>
-            </option>
-            <option *ngFor="let offerLetter of loanConfig.offerLetters" [value]="offerLetter.templateUrl">
-                {{offerLetter.name}}
-            </option>
-        </select>
+    <button (click)="sendBackwardList(sendForwardBackward)" [disabled]="!actionsList.sendBackward"
+            [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
+            class="btn-sm"
+            style="color:lightseagreen;">
+      RETURN
+      <i class="col-md-1 fa fa-arrow-circle-left"></i></button>
+    <button (click)="onEdit()" [disabled]="!actionsList.edit"
+            [ngStyle]="{ 'filter' : (actionsList.edit === false)? 'grayscale(100%)': 'grayscale(0%)'}"
+            class="btn-flat btn-sm btn-primary">
+      EDIT<i
+        class="col-md-1 fa fa-edit"></i></button>
+    <button (click)=" closeReject(sendForwardBackward,$event.target.value)"
+            [disabled]="!actionsList.closed"
+            [ngStyle]="{ 'filter' : (actionsList.closed === false)? 'grayscale(100%)': 'grayscale(0%)'}"
+            class="btn-sm btn-info"
+            value="CLOSED">
+      CLOSE/SETTLEMENT<i
+        class="col-md-1 fa-close"></i></button>
+    <button (click)=" closeReject(sendForwardBackward,$event.target.value)"
+            [disabled]="!actionsList.rejected || actionsList.roleTypeMaker"
+            [ngStyle]="{ 'filter' : (!actionsList.rejected || actionsList.roleTypeMaker)? 'grayscale(100%)': 'grayscale(0%)'}"
+            class="btn-sm btn-danger"
+            value="REJECTED">
+      REJECTED<i
+        class="col-md-1 fa fa-ban"></i></button>
+    <select (change)="generateOfferLetter($event.target.value)"
+            [disabled]="!actionsList.offerLetter"
+            [ngStyle]="{ 'filter' : (actionsList.offerLetter === false)? 'grayscale(100%)': 'grayscale(0%)'}"
+            class="btn-sm btn-primary custom-select-sm cursor"
+            hidden
+            value="Offer Letter">
+      <option [value]="null" hidden selected>
+        <span>Offer Letter<i class="col-md-1 fa fa-envelope-square"></i></span>
+      </option>
+      <option *ngFor="let offerLetter of loanConfig.offerLetters" [value]="offerLetter.templateUrl">
+        {{offerLetter.name}}
+      </option>
+    </select>
 
-        <!--<button class="btn-sm btn-warning d-flex justify-content-end" (click)="print()">PRINT<i
-                class="col-md-1 fa fa-print"></i></button>-->
-        <button [useExistingCss]="true" class="btn-sm btn-warning d-flex justify-content-end"
-                ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
-            PRINT<i class="col-md-1 fa fa-print"></i></button>
+    <!--<button class="btn-sm btn-warning d-flex justify-content-end" (click)="print()">PRINT<i
+            class="col-md-1 fa fa-print"></i></button>-->
+    <button [useExistingCss]="true" class="btn-sm btn-warning d-flex justify-content-end"
+            ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
+      PRINT<i class="col-md-1 fa fa-print"></i></button>
 
 
-        <button class="btn-sm btn-danger d-flex justify-content-end" (click)="deleteCustomerLoan()"
-                *ngIf="currentUserRoleType">delete<i
-                class="col-md-1 fa fa-ban"></i></button>
+    <button (click)="deleteCustomerLoan()" *ngIf="currentUserRoleType"
+            class="btn-sm btn-danger d-flex justify-content-end">delete<i
+        class="col-md-1 fa fa-ban"></i></button>
 
 
-    </div>
+  </div>
 </div>
 
 <ng-template #sendForwardBackward>
-    <div>
-        <div class="modal-content">
-            <div class="modal-header" style="display:block">
-                <a class="close cursor" data-dismiss="modal" aria-label="Close"
-                   (click)="onClose()">
-                    <span aria-hidden="true">×</span></a>
-                <h4 class="nav navbar navbar-right pull-left">{{popUpTitle}}</h4>
-            </div>
+  <div>
+    <div class="modal-content">
+      <div class="modal-header" style="display:block">
+        <a class="close cursor" data-dismiss="modal" aria-label="Close"
+           (click)="onClose()">
+          <span aria-hidden="true">×</span></a>
+        <h4 class="nav navbar navbar-right pull-left">{{popUpTitle}}</h4>
+      </div>
 
-            <form role="form" (ngSubmit)="onSubmit(verify)" [formGroup]="formAction">
+      <form role="form" (ngSubmit)="onSubmit(verify)" [formGroup]="formAction">
 
-                <div class="col-md-12 row">
-                    <div class="form-group col-md-6" *ngIf="popUpTitle == 'Send Forward'">
-                        <label class="toRole" for="toRole">TO</label>
-                        <select name="toRole" id="toRole" class="custom-select"
-                                formControlName="toRole" (change)="getUserList(this.formAction.get('toRole').value)">
-                            <option [value]="null" hidden>Select To</option>
-                            <option *ngFor="let forwardBackward of sendForwardBackwardList"
-                                    [ngValue]="forwardBackward">
-                                {{forwardBackward.roleName}}
-                            </option>
-                        </select>
-                    </div>
+        <div class="col-md-12 row">
+          <div class="form-group col-md-6" *ngIf="popUpTitle == 'Send Forward'">
+            <label class="toRole" for="toRole">TO</label>
+            <select name="toRole" id="toRole" class="custom-select"
+                    formControlName="toRole"
+                    (change)="getUserList(this.formAction.get('toRole').value)">
+              <option [value]="null" hidden>Select To</option>
+              <option *ngFor="let forwardBackward of sendForwardBackwardList"
+                      [ngValue]="forwardBackward">
+                {{forwardBackward.roleName}}
+              </option>
+            </select>
+          </div>
 
-                    <div class="form-group col-md-6" *ngIf="userList?.length > 1">
-                        <label class="toUser" for="toUser">To User</label>
-                        <select name="toUser" id="toUser" class="custom-select"
-                                formControlName="toUser">
-                            <option *ngFor="let user of userList"
-                                    [ngValue]="user">
-                                {{user.username}}
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group col-md-12">
-                    <label for="comment">Comment:</label>
-                    <textarea class="form-control" formControlName="comment" id="comment" name="text"
-                              [ngClass]="{ 'is-invalid': submitted && formAction.controls['comment'].errors }"
-                    ></textarea>
-                    <div *ngIf="submitted && formAction.controls['comment'].hasError('required')" class="error-message"
-                         style="color: red;">comment is required
-                    </div>
-                </div>
-
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="onSubmit(verify)"><i class="fa fa-save"></i>
-                    </button>
-                </div>
-            </form>
+          <div class="form-group col-md-6" *ngIf="userList?.length > 1">
+            <label class="toUser" for="toUser">To User</label>
+            <select name="toUser" id="toUser" class="custom-select"
+                    formControlName="toUser">
+              <option *ngFor="let user of userList"
+                      [ngValue]="user">
+                {{user.username}}
+            </select>
+          </div>
         </div>
 
+        <div class="form-group col-md-12">
+          <label for="comment">Comment :</label>
+          <textarea class="form-control" formControlName="comment" id="comment" name="text"
+                    [ngClass]="{ 'is-invalid': submitted && formAction.controls['comment'].errors }"
+          ></textarea>
+          <div *ngIf="submitted && formAction.controls['comment'].hasError('required')"
+               class="error-message"
+               style="color: red;">comment is required
+          </div>
+        </div>
+
+        <div class="form-group col-md-12" *ngIf="popUpTitle == 'APPROVED'">
+          <label for="notify">
+            <mark class="bg-yellow"> Noted :</mark>
+          </label>
+          Is this loan Approval need to be Notify to CEO <input id="notify" type="checkbox"
+                                                                formControlName="notify"/>
+        </div>
+
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="onSubmit(verify)"><i
+              class="fa fa-save"></i>
+          </button>
+        </div>
+      </form>
     </div>
+
+  </div>
 </ng-template>
 
 <ng-template #verify>
-    <div>
-        <div class="modal-content">
-            <div class="modal-header" style="display:block">
-                <div class="login-box-body">
-                    <p class="login-box-msg">Please Enter Your Credintial for Confirmation</p>
+  <div>
+    <div class="modal-content">
+      <div class="modal-header" style="display:block">
+        <div class="login-box-body">
+          <p class="login-box-msg">Please Enter Your Credential for Confirmation</p>
+          <form name="login-form" class="login-form" #lform="ngForm"
+                (ngSubmit)="lform.valid && onLogin(lform)">
 
-                    <!--<div class="alert alert-danger" *ngIf="email.invalid && email.dirty">Enter valid Email</div>-->
-                    <form name="login-form" class="login-form" #lform="ngForm"
-                          (ngSubmit)="lform.valid && onLogin(lform)">
-                        <!--<div class="form-group has-feedback">-->
-                        <!--<input type="email" id="email" class="form-control" maxlength="50" placeholder="username"-->
-                        <!--ngModel-->
-                        <!--name="email"-->
-                        <!--required #email="ngModel"-->
-                        <!--[ngClass]="{'is-invalid': lform.submitted && email.invalid}">-->
-                        <!--<span class="glyphicon glyphicon-envelope form-control-feedback"></span>-->
-                        <!--<div *ngIf="email.invalid && lform.submitted" class="invalid-feedback">-->
-                        <!--Email is required-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <div class="form-group has-feedback">
-                            <input type="password" id="password"
-                                   class="form-control" [ngClass]="{'is-invalid': lform.submitted && pass.invalid}"
-                                   placeholder="Password"
-                                   ngModel name="password" #pass="ngModel"
-                                   required>
-                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                            <div *ngIf="pass.invalid && lform.submitted" class="invalid-feedback">
-                                Password is required
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary  btn-flat">verify</button>
-                        </div>
-                    </form>
-                </div>
+            <div class="form-group has-feedback">
+              <input type="password" id="password"
+                     class="form-control"
+                     [ngClass]="{'is-invalid': lform.submitted && pass.invalid}"
+                     placeholder="Password"
+                     ngModel name="password" #pass="ngModel"
+                     required>
+              <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+              <div *ngIf="pass.invalid && lform.submitted" class="invalid-feedback">
+                Password is required
+              </div>
             </div>
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary  btn-flat">verify</button>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
 </ng-template>

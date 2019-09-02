@@ -74,7 +74,9 @@ export class LoanActionComponent implements OnInit {
                 toRole: [undefined],
                 docAction: [undefined],
                 comment: [undefined, Validators.required],
-                documentStatus: [undefined]
+                documentStatus: [undefined],
+                notify:[undefined]
+
             }
         );
 
