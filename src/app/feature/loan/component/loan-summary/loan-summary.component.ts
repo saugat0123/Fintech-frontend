@@ -33,6 +33,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
   client: String;
 
+  docMsg;
+  rootDocLength;
   dmsLoanFile: DmsLoanFile = new DmsLoanFile();
   loanConfig: LoanConfig = new LoanConfig();
   loan: string;
@@ -205,6 +207,20 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 this.documentNames.push(this.documentNamesSplit[0]);
                 this.documentUrls.push(this.documentNamesSplit[1]);
               }
+
+              if (LoanType[this.loanDataHolder.loanType] === LoanType.NEW_LOAN) {
+                this.rootDocLength = this.loanDataHolder.loan.initial.length;
+              }
+              if (LoanType[this.loanDataHolder.loanType] === LoanType.RENEWED_LOAN) {
+                this.rootDocLength = this.loanDataHolder.loan.renew.length;
+              }
+
+              if (LoanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
+                this.rootDocLength = this.loanDataHolder.loan.closure.length;
+              }
+
+              const filledDocLength = this.documents.length;
+              this.docMsg = filledDocLength + ' out of ' + this.rootDocLength + ' document has been uploaded';
             }
           }
           this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {

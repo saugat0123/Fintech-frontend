@@ -14,13 +14,11 @@
     <nb-card-body id="print-block">
       <div class="col-md-12  text-success cursor disable-print"
       >
-        <a (click)="renewedOrCloseFrom(loanDataHolder?.childId)"
-           *ngIf="loanDataHolder?.childId !=null"
+        <a (click)="renewedOrCloseFrom(loanDataHolder?.childId)" *ngIf="loanDataHolder?.childId !=null"
            class="justify-content-start">{{loanType[loanDataHolder.loanType]}}
           to <i
               class="p-1 fa fa-edit"></i></a>
-        <a (click)="renewedOrCloseFrom(loanDataHolder?.parentId)"
-           *ngIf="loanDataHolder?.parentId !=null"
+        <a (click)="renewedOrCloseFrom(loanDataHolder?.parentId)" *ngIf="loanDataHolder?.parentId !=null"
            class="justify-content-end">{{loanType[loanDataHolder.loanType]}}
           From <i
               class="p-1 fa fa-edit"></i></a></div>
@@ -459,8 +457,9 @@
           </table>
         </div>
       </div>
+      <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
 
-      <div class="row justify-content-between px-3" id="signatureDiv">
+            <div class="row justify-content-between px-3" id="signatureDiv" *ngIf="signatureList.length > 0">
         <div class="col-md-12 print-only">
           <p><b>Approval Chain</b></p>
         </div>
