@@ -362,9 +362,10 @@
                       'RETURNED' : previousList?.docAction?.toString())}}</td>
               <td class="text-justify">
                 <div class="cmt-height">
-                  {{previousList?.comment?.length > 50 ?
-                    previousList?.comment?.substring(0, 49) :
-                    previousList?.comment}}
+                  {{previousList?.comment?.toLowerCase() === 'draft' ? 'Initiated'
+                    : (previousList?.comment?.length > 50 ?
+                        previousList?.comment?.substring(0, 49) :
+                        previousList?.comment)}}
                 </div>
                 <a (click)="open(previousList.comment)"
                    *ngIf="previousList?.comment?.length > 50"
@@ -383,9 +384,10 @@
                       'RETURNED' : loanDataHolder?.currentStage?.docAction?.toString())}}</td>
               <td class="text-justify">
                 <div class="cmt-height">
-                  {{loanDataHolder?.currentStage?.comment?.length > 50 ?
-                    loanDataHolder?.currentStage?.comment?.substring(0, 49) :
-                    loanDataHolder?.currentStage?.comment}}
+                  {{loanDataHolder?.currentStage?.comment?.toLowerCase() === 'draft' ? 'Initiated'
+                    : (loanDataHolder?.currentStage?.comment?.length > 50 ?
+                        loanDataHolder?.currentStage?.comment?.substring(0, 49) :
+                        loanDataHolder?.currentStage?.comment)}}
                 </div>
                 <a (click)="open(loanDataHolder.currentStage.comment)"
                    *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
@@ -417,7 +419,9 @@
                   'INITIATED' :
                   (previousList?.docAction?.toString() === 'BACKWARD' ?
                       'RETURNED' : previousList?.docAction?.toString())}}</td>
-              <td class="text-justify">{{previousList?.comment}}</td>
+              <td class="text-justify">{{previousList?.comment?.toLowerCase() === 'draft'
+                  ? 'Initiated'
+                  : previousList?.comment}}</td>
             </tr>
             <tr>
               <td>{{currentIndex + 1}}</td>
@@ -430,7 +434,9 @@
                   'INITIATED' :
                   (loanDataHolder?.currentStage?.docAction?.toString() === 'BACKWARD' ?
                       'RETURNED' : loanDataHolder?.currentStage?.docAction?.toString())}}</td>
-              <td class="text-justify">{{loanDataHolder?.currentStage?.comment}}</td>
+              <td class="text-justify">{{loanDataHolder?.currentStage?.comment?.toLowerCase()
+              === 'draft'
+                  ? 'Initiated' : loanDataHolder?.currentStage?.comment}}</td>
             </tr>
             </tbody>
           </table>
