@@ -6,7 +6,7 @@ export enum DocAction {
     REJECT,
     CLOSED,
     TRANSFER,
-
+    NOTED
 }
 
 export namespace DocAction {
