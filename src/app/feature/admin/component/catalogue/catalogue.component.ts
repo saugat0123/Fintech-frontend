@@ -24,6 +24,7 @@ import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {DocAction} from '../../../loan/model/docAction';
 import {LoanStage} from '../../../loan/model/loanStage';
 import {SocketService} from '../../../../@core/service/socket.service';
+import {CatalogueService} from './catalogue.service';
 
 
 @Component({
@@ -48,14 +49,6 @@ export class CatalogueComponent implements OnInit {
     validEndDate = true;
     transferDoc = false;
     roleType = false;
-    search: any = {
-        branchIds: undefined,
-        documentStatus: DocStatus.value(DocStatus.PENDING),
-        loanConfigId: undefined,
-        currentStageDate: undefined,
-        currentUserRole: undefined,
-        toUser: undefined
-    };
     roleAccess: string;
     accessSpecific: boolean;
     accessAll: boolean;
@@ -76,11 +69,12 @@ export class CatalogueComponent implements OnInit {
                 private loanActionService: LoanActionService,
                 private userService: UserService,
                 private roleService: RoleService,
-                private socketService: SocketService) {
+                private socketService: SocketService,
+                private catalogueService: CatalogueService) {
     }
 
     static loadData(other: CatalogueComponent) {
-        other.loanFormService.getCatalogues(other.search, other.page, 10).subscribe((response: any) => {
+        other.loanFormService.getCatalogues(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
             other.loanDataHolderList = response.detail.content;
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
@@ -154,7 +148,7 @@ export class CatalogueComponent implements OnInit {
         if (localStorage.getItem('username') === 'SPADMIN') {
             this.transferDoc = true;
         }
-        this.search.toUser = this.id.userId;
+        this.catalogueService.search.toUser = this.id.userId;
         CatalogueComponent.loadData(this);
     }
 
@@ -197,22 +191,22 @@ export class CatalogueComponent implements OnInit {
     onSearch() {
         this.tempLoanType = null;
         this.statusApproved = this.filterForm.get('docStatus').value === 'APPROVED';
-        this.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
+        this.catalogueService.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
             this.filterForm.get('branch').value;
-        this.search.documentStatus = this.filterForm.get('docStatus').value === null ? DocStatus.value(DocStatus.PENDING) :
+        this.catalogueService.search.documentStatus = this.filterForm.get('docStatus').value === null ? DocStatus.value(DocStatus.PENDING) :
             this.filterForm.get('docStatus').value;
-        this.search.loanConfigId = this.filterForm.get('loanType').value === null ? undefined :
+        this.catalogueService.search.loanConfigId = this.filterForm.get('loanType').value === null ? undefined :
             this.filterForm.get('loanType').value;
-        this.search.loanNewRenew = this.filterForm.get('loanNewRenew').value === null ? undefined :
+        this.catalogueService.search.loanNewRenew = this.filterForm.get('loanNewRenew').value === null ? undefined :
             this.filterForm.get('loanNewRenew').value;
         if (this.filterForm.get('startDate').value !== null && this.filterForm.get('endDate').value) {
-            this.search.currentStageDate = JSON.stringify({
+            this.catalogueService.search.currentStageDate = JSON.stringify({
                 // note: new Date().toString() is needed here to preserve timezone while JSON.stringify()
                 'startDate': new Date(this.filterForm.get('startDate').value).toLocaleDateString(),
                 'endDate': new Date(this.filterForm.get('endDate').value).toLocaleDateString()
             });
         }
-        this.search.currentUserRole = this.filterForm.get('role').value === null ? undefined :
+        this.catalogueService.search.currentUserRole = this.filterForm.get('role').value === null ? undefined :
             this.filterForm.get('role').value;
         CatalogueComponent.loadData(this);
     }
@@ -251,7 +245,7 @@ export class CatalogueComponent implements OnInit {
                 this.modalService.dismissAll('Close modal');
                 this.tempLoanType = null;
                 this.clearSearch();
-                this.search.documentStatus = DocStatus.APPROVED;
+                this.catalogueService.search.documentStatus = DocStatus.APPROVED;
                 this.onSearch();
             }, error => {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan type.'));
@@ -309,7 +303,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     getCsv() {
-        this.loanFormService.download(this.search).subscribe((response: any) => {
+        this.loanFormService.download(this.catalogueService.search).subscribe((response: any) => {
             const link = document.createElement('a');
             link.target = '_blank';
             link.href = ApiConfig.URL + '/' + response.detail;
