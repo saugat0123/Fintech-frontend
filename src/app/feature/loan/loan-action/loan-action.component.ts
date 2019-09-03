@@ -33,6 +33,7 @@ export class LoanActionComponent implements OnInit {
     @Input() loanConfigId: number;
     @Input() id: number;
     @Input() loanCategory: string;
+    @Input() catalogueStatus = false;
 
     @Input() actionsList: ActionModel;
     popUpTitle: string;
@@ -256,6 +257,10 @@ export class LoanActionComponent implements OnInit {
             error => {
                 this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
             });
+    }
+
+    noteCustomerLoan() {
+
     }
 
     sendLoanNotification(customerLoanId: number): void {

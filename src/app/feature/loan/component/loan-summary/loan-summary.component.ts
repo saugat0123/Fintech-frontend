@@ -58,7 +58,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   customerId;
   loanConfigId;
   actionsList: ActionModel = new ActionModel();
-  showAction = true;
+  catalogueStatus = false;
   RootUrl = ApiConfig.URL;
   signatureList = [];
   previousList: Array<LoanStage> = new Array<LoanStage>();
@@ -70,7 +70,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   incomeSource = IncomeSource;
   businessType = BusinessType;
   navigationSubscription;
-  catalogueStatus = false;
   docAction = DocAction;
 
   constructor(
@@ -113,7 +112,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           this.customerId = this.allId.customerId;
           this.loanConfigId = this.allId.loanConfigId;
           if (this.allId.catalogue) {
-            this.showAction = false;
             this.catalogueStatus = true;
           }
         });
@@ -146,6 +144,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           this.actionsList.sendBackward = true;
           this.actionsList.rejected = true;
           this.actionsList.closed = true;
+          this.actionsList.noted = this.loanDataHolder.notify && this.loanDataHolder.notedBy == null;
           this.currentDocAction = this.loanDataHolder.currentStage.docAction.toString();
           if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
             this.actionsList.offerLetter = true;
