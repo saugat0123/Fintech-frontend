@@ -566,10 +566,8 @@ export class IncomeStatementComponent implements OnInit {
     // ---
     // Setting Values for Edit---
     setTotalSalesRevenue(currentData) {
-        this.fiscalYear = [];
         const controls = this.incomeStatementForm.get('totalSalesRevenue') as FormArray;
         currentData.forEach(singleData => {
-            this.fiscalYear.push(singleData.year);
             controls.push(
                 this.formBuilder.group({
                     value: [singleData.value],
