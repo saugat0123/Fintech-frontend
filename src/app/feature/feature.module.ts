@@ -10,14 +10,12 @@ import {DashboardComponent} from '../component/dashboard/dashboard.component';
 import {PendingLoanComponent} from '../component/dashboard/pending/pending-loan/pending-loan.component';
 import {PendingsLoanComponent} from '../component/dashboard/pending/pendings/pendings-loan.component';
 import {DataVisualizationComponent} from '../component/dashboard/data-visualization/data-visualization.component';
-import {CoreModule} from '../@core/core.module';
 
 
 @NgModule({
         imports: [
             FeatureRoutingModule,
             ThemeModule,
-            CoreModule,
             NbAccordionModule,
             NgxChartsModule,
             NbSelectModule,
