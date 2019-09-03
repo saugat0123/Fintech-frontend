@@ -29,7 +29,7 @@ export class LoanDataHolder {
     financial: Object;
     siteVisit: Object = new SiteVisit();
     priority: Priority;
-    createdAt: any;
+    createdAt: Date;
     previousList: LoanStage[] = [];
     previousStageList: string;
     distinctPreviousList: any;
@@ -39,4 +39,6 @@ export class LoanDataHolder {
     parentId: number;
     childId: number;
     isCloseRenew: boolean;
+    notify: boolean;
+    notedBy: number;
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoanActionService} from './service/loan-action.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -33,6 +33,7 @@ export class LoanActionComponent implements OnInit {
     @Input() loanConfigId: number;
     @Input() id: number;
     @Input() loanCategory: string;
+    @Input() catalogueStatus = false;
 
     @Input() actionsList: ActionModel;
     popUpTitle: string;
@@ -75,8 +76,7 @@ export class LoanActionComponent implements OnInit {
                 docAction: [undefined],
                 comment: [undefined, Validators.required],
                 documentStatus: [undefined],
-                notify:[undefined]
-
+                notify: [undefined]
             }
         );
 
@@ -256,6 +256,17 @@ export class LoanActionComponent implements OnInit {
             error => {
                 this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
             });
+    }
+
+    noteCustomerLoan(template: TemplateRef<any>) {
+        this.popUpTitle = 'Notify';
+        this.formAction.patchValue({
+                docAction: 'NOTED',
+                documentStatus: DocStatus.APPROVED,
+                comment: null
+            }
+        );
+        this.modalService.open(template);
     }
 
     sendLoanNotification(customerLoanId: number): void {

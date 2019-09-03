@@ -7,4 +7,5 @@ export class ActionModel {
     closed: boolean;
     offerLetter: boolean;
     roleTypeMaker: boolean;
+    noted: boolean;
 }
