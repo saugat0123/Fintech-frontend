@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoanFormService} from '../../../../feature/loan/component/loan-form/service/loan-form.service';
-import {CatalogueService} from '../../../../feature/admin/component/catalogue/catalogue.service';
+import {
+  CatalogueSearch,
+  CatalogueService
+} from '../../../../feature/admin/component/catalogue/catalogue.service';
 import {DocStatus} from '../../../../feature/loan/model/docStatus';
 
 
@@ -42,17 +45,18 @@ export class PendingLoanComponent implements OnInit {
 
   resolveToCatalogue(status: string) {
     this.catalogueService.search.notify = 'false';
+    const search: CatalogueSearch = new CatalogueSearch();
     if (status === 'approved') {
-      this.catalogueService.search.documentStatus = DocStatus.value(DocStatus.APPROVED);
+      search.documentStatus = DocStatus.value(DocStatus.APPROVED);
     } else if (status === 'rejected') {
-      this.catalogueService.search.documentStatus = DocStatus.value(DocStatus.REJECTED);
+      search.documentStatus = DocStatus.value(DocStatus.REJECTED);
     } else if (status === 'closed') {
-      this.catalogueService.search.documentStatus = DocStatus.value(DocStatus.CLOSED);
+      search.documentStatus = DocStatus.value(DocStatus.CLOSED);
     } else if (status === 'notify') {
-      this.catalogueService.search.documentStatus = DocStatus.value(DocStatus.APPROVED);
-      this.catalogueService.search.notify = 'true';
+      search.documentStatus = DocStatus.value(DocStatus.APPROVED);
+      search.notify = 'true';
     }
-
+    this.catalogueService.search = search;
     this.router.navigate(['/home/admin/catalogue'], {
       queryParams: {
         redirect: true
