@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoanFormService} from '../../../../feature/loan/component/loan-form/service/loan-form.service';
+import {CatalogueService} from '../../../../feature/admin/component/catalogue/catalogue.service';
+import {DocStatus} from '../../../../feature/loan/model/docStatus';
 
 
 @Component({
@@ -19,7 +21,8 @@ export class PendingLoanComponent implements OnInit {
 
   constructor(
       private router: Router,
-      private loanFormService: LoanFormService
+      private loanFormService: LoanFormService,
+      private catalogueService: CatalogueService
   ) {
   }
 
@@ -35,5 +38,24 @@ export class PendingLoanComponent implements OnInit {
           this.notifyCount = response.detail.notify;
         }
     );
+  }
+
+  resolveToCatalogue(status: string) {
+    // this.catalogueService.search.notify = false;
+    if (status === 'approved') {
+      this.catalogueService.search.documentStatus = DocStatus.value(DocStatus.APPROVED);
+    } else if (status === 'rejected') {
+      this.catalogueService.search.documentStatus = DocStatus.value(DocStatus.REJECTED);
+    } else if (status === 'closed') {
+      this.catalogueService.search.documentStatus = DocStatus.value(DocStatus.CLOSED);
+    } else if (status === 'notify') {
+      // this.catalogueService.search.notify = true;
+    }
+
+    this.router.navigate(['/home/admin/catalogue'], {
+      queryParams: {
+        redirect: true
+      }
+    });
   }
 }

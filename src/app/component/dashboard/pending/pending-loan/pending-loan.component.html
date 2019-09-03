@@ -1,31 +1,35 @@
 <div class="row">
   <div class="col-md-3 col-sm-6 col-xs-12">
     <a routerLink="/home/status/PENDING">
-      <app-icon-card detail="{{pendingCount}}" title="Pendings" type="info">
+      <app-icon-card detail="{{pendingCount}}" title="Pending" type="info">
         <i class="fas fa-hourglass"></i>
       </app-icon-card>
     </a>
   </div>
-  <div class="col-md-3 col-sm-6 col-xs-12">
-    <app-icon-card detail="{{approvedCount}}" title="Approved" type="success">
+  <div class="col-md-3 col-sm-6 col-xs-12 cursor">
+    <app-icon-card (click)="resolveToCatalogue('approved')" detail="{{approvedCount}}"
+                   title="Approved" type="success">
       <i class="fas fa-thumbs-up"></i>
     </app-icon-card>
   </div>
-  <div class="col-md-3 col-sm-6 col-xs-12">
-    <app-icon-card detail="{{rejectedCount}}" title="Rejected" type="info">
+  <div class="col-md-3 col-sm-6 col-xs-12 cursor">
+    <app-icon-card (click)="resolveToCatalogue('rejected')" detail="{{rejectedCount}}"
+                   title="Rejected" type="info">
       <i class="fa fa-ban"></i>
     </app-icon-card>
   </div>
-  <div class="col-md-3 col-sm-6 col-xs-12">
-    <app-icon-card detail="{{closedCount}}" title="Closed" type="success">
+  <div class="col-md-3 col-sm-6 col-xs-12 cursor">
+    <app-icon-card (click)="resolveToCatalogue('closed')" detail="{{closedCount}}" title="Closed"
+                   type="success">
       <i class="fa fa-times"></i>
     </app-icon-card>
   </div>
 </div>
-<div class="row" *ngIf="currentUserIsCEO">
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <app-icon-card detail="{{notifyCount}}" title="Notify" type="info">
-            <i class="fa fa-bell"></i>
-        </app-icon-card>
-    </div>
+<div *ngIf="currentUserIsCEO" class="row">
+  <div class="col-md-3 col-sm-6 col-xs-12 cursor">
+    <app-icon-card (click)="resolveToCatalogue('notify')" detail="{{notifyCount}}" title="Notify"
+                   type="info">
+      <i class="fa fa-bell"></i>
+    </app-icon-card>
+  </div>
 </div>
