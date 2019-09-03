@@ -21,14 +21,6 @@
                             <div *ngIf="roleVal.errors.required">Role name is required</div>
                         </div>
                     </div>
-
-
-                    <div class="col-md-6">
-                        <label>Role Type</label><br>
-                        <input #chk (click)="checkIfMaker(chk.checked)" [checked]="checkRoleEdit" name="roleType"
-                               type="checkbox"
-                               value="{{roleType}}"><b>Is Role a Maker?</b>
-                    </div>
                 </div>
 
             </div>
