@@ -62,6 +62,7 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {NotificationComponent} from './components/notification/notification.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import {CKEditorModule} from 'ng2-ckeditor';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -155,8 +156,8 @@ const NB_THEME_PROVIDERS = [
 ];
 
 @NgModule({
-    imports: [...BASE_MODULES, ...NB_MODULES, RouterModule],
-    exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
+    imports: [...BASE_MODULES, ...NB_MODULES, RouterModule, NgxSpinnerModule],
+    exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, NgxSpinnerModule],
     declarations: [...COMPONENTS, ...PIPES, ProfileComponent, ChangePasswordComponent],
     entryComponents: [...ENTRY_COMPONENTS],
 })

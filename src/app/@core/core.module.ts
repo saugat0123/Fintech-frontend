@@ -84,7 +84,7 @@ export const NB_CORE_PROVIDERS = [
 
 @NgModule({
     imports: [
-        CommonModule,
+        CommonModule
     ],
   exports: [
     // NbAuthModule,

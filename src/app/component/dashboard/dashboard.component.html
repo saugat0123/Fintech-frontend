@@ -33,8 +33,7 @@
             </div>
             <div class="col-md-1">
                 <button class="btn btn-md btn-primary btn-flat" (click)="selectLoan(loanCategory)">
-                    <i *ngIf="!loading" class="fa fa-arrow-right"></i>
-                    <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+                    <i class="fa fa-arrow-right"></i>
                 </button>
             </div>
         </div>
@@ -85,4 +84,12 @@
     </div>
 </div>
 <app-charts></app-charts>
-<app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
+<ngx-spinner
+        bdOpacity = 1
+        bdColor = "rgba(51,51,51,0.36)"
+        size = "medium"
+        color = "#3c87ff"
+        type = "ball-clip-rotate"
+        [fullScreen] = "true"
+>
+</ngx-spinner>
