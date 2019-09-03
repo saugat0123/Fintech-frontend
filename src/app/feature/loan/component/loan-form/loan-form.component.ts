@@ -26,6 +26,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DatePipe} from '@angular/common';
 import {CreditGradingComponent} from '../loan-main-template/credit-grading/credit-grading.component';
 import {SiteVisitComponent} from '../loan-main-template/site-visit/site-visit.component';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-loan-form',
@@ -114,7 +115,8 @@ export class LoanFormComponent implements OnInit {
         private router: Router,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService,
-        private datePipe: DatePipe
+        private datePipe: DatePipe,
+        private spinner: NgxSpinnerService
     ) {
 
     }
@@ -218,6 +220,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     save() {
+        this.spinner.show();
         if (this.selectChild(this.selectedTab, true)) {
             return;
         }
@@ -228,8 +231,10 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument = response.detail;
             this.customerLoanId = this.loanDocument.id;
             this.loanDocument = new LoanDataHolder();
-            this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}});
+            this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}})
+                .then(() => { this.spinner.hide(); });
         }, error => {
+            this.spinner.hide();
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, `Error saving customer: ${error.error.message}`));
         });
@@ -295,8 +300,7 @@ export class LoanFormComponent implements OnInit {
 
         if (name === 'Financial' && action) {
             this.financial.onSubmit();
-            const financialData = this.financial.financialData;
-            this.loanDocument.financial = financialData;
+            this.loanDocument.financial = this.financial.financialData;
         }
 
         if (name === 'Site Visit' && action) {
