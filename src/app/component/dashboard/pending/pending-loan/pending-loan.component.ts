@@ -41,7 +41,7 @@ export class PendingLoanComponent implements OnInit {
   }
 
   resolveToCatalogue(status: string) {
-    // this.catalogueService.search.notify = false;
+    this.catalogueService.search.notify = 'false';
     if (status === 'approved') {
       this.catalogueService.search.documentStatus = DocStatus.value(DocStatus.APPROVED);
     } else if (status === 'rejected') {
@@ -49,7 +49,8 @@ export class PendingLoanComponent implements OnInit {
     } else if (status === 'closed') {
       this.catalogueService.search.documentStatus = DocStatus.value(DocStatus.CLOSED);
     } else if (status === 'notify') {
-      // this.catalogueService.search.notify = true;
+      this.catalogueService.search.documentStatus = DocStatus.value(DocStatus.APPROVED);
+      this.catalogueService.search.notify = 'true';
     }
 
     this.router.navigate(['/home/admin/catalogue'], {
