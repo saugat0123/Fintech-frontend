@@ -29,7 +29,7 @@ export class LoanDataHolder {
     financial: Object;
     siteVisit: Object = new SiteVisit();
     priority: Priority;
-    createdAt: any;
+    createdAt: Date;
     previousList: LoanStage[] = [];
     previousStageList: string;
     distinctPreviousList: any;
