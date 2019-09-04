@@ -16,8 +16,8 @@ export class BalanceSheetComponent implements OnInit {
 
     ngOnInit() {
         this.buildBalanceSheetForm();
-        if (this.formData !== undefined) {
-            const balanceSheetFormData = this.formData.data.balanceSheetData;
+        if (this.formData['data'].balanceSheetData !== undefined) {
+            const balanceSheetFormData = this.formData['data'].balanceSheetData;
             this.setCurrentAssets(balanceSheetFormData.currentAssets);
             this.setCurrentAssetsCategory(balanceSheetFormData.currentAssetsCategory);
             this.setInventories(balanceSheetFormData.inventories);
@@ -38,6 +38,11 @@ export class BalanceSheetComponent implements OnInit {
             this.setNetWorthCategory(balanceSheetFormData.netWorthCategory);
             this.setTotalLiabilitiesAndEquity(balanceSheetFormData.totalLiabilitiesAndEquity);
             this.setDifferenceBS(balanceSheetFormData.differenceBS);
+        }
+        if (this.fiscalYear.length > this.balanceSheetForm.get('currentAssets')['controls'].length) {
+            this.fiscalYear.forEach( yearValue => {
+                this.addFiscalYearBalanceSheet(yearValue);
+            });
         }
     }
 

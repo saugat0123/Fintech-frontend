@@ -1,10 +1,11 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, QueryList, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BorrowerRiskRatingComponent} from './borrower-risk-rating/borrower-risk-rating.component';
 import {IncomeStatementComponent} from './income-statement/income-statement.component';
 import {BalanceSheetComponent} from './balance-sheet/balance-sheet.component';
 import {CashFlowStatementComponent} from './cash-flow-statement/cash-flow-statement.component';
 import {KeyIndicatorsComponent} from './key-indicators/key-indicators.component';
+import * as currentFormData from './financial.json';
 
 @Component({
     selector: 'app-financial',
@@ -21,26 +22,37 @@ export class FinancialComponent implements OnInit {
 
     addYear = false;
     fiscalYear = [];
+    activeTab: string;
     financialForm: FormGroup;
-    additionalFinancialForm: FormGroup;
     financialData: Object;
-    formDataForEdit;
+    formDataForEdit: Object;
 
     constructor(private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
+        console.log(currentFormData['default']);
         this.buildForm();
         if (this.formData !== undefined) {
             const formDataString = JSON.stringify(this.formData);
             this.formDataForEdit = JSON.parse(formDataString);
-            this.fiscalYear = this.formDataForEdit.data.fiscalYear;
-            const initialFormData = this.formDataForEdit.data.initialForm;
-            console.log(this.formData);
+            this.fiscalYear = this.formDataForEdit['data'].fiscalYear;
+            const initialFormData = this.formDataForEdit['data'].initialForm;
 
             this.setIncomeOfBorrower(initialFormData.incomeOfBorrower);
             this.setExpensesOfBorrower(initialFormData.expensesOfBorrower);
         } else {
+            this.formDataForEdit = {
+                data: {
+                    fiscalYear: undefined,
+                    initialForm: undefined,
+                    incomeStatementData: undefined,
+                    balanceSheetData: undefined,
+                    cashFlowStatementData: undefined,
+                    keyIndicatorsData: undefined,
+                    brr: undefined
+                }
+            };
             // functions for adding fields
             this.addIncomeOfBorrower();
             this.addExpensesOfBorrower();
@@ -52,9 +64,6 @@ export class FinancialComponent implements OnInit {
             incomeOfBorrower: this.formBuilder.array([]),
             expensesOfBorrower: this.formBuilder.array([]),
             selectDenomination: [undefined, Validators.required]
-        });
-
-        this.additionalFinancialForm = this.formBuilder.group({
         });
     }
 
@@ -96,19 +105,23 @@ export class FinancialComponent implements OnInit {
         }
         // push fiscal year
         this.fiscalYear.push(yearValue);
-
-        // Push Income Statement---
-        this.incomeStatement.addFiscalYearIncomeStatement(yearValue);
-
-        // Push Balance Sheet---
-        this.balanceSheet.addFiscalYearBalanceSheet(yearValue);
-
-        // Push Cash Flow Statement---
-        this.cashFlowStatement.addFiscalYearCashFlowStatement(yearValue);
-
-        // Push Key Indicators---
-        this.keyIndicators.addFiscalYearKeyIndicators(yearValue);
-
+        switch (this.activeTab) {
+            case 'Income Statement':
+                // Push Income Statement---
+                this.incomeStatement.addFiscalYearIncomeStatement(yearValue);
+                break;
+            case 'Balance Sheet':
+                // Push Balance Sheet---
+                this.balanceSheet.addFiscalYearBalanceSheet(yearValue);
+                break;
+            case 'Cash Flow Statement':
+                // Push Cash Flow Statement---
+                this.cashFlowStatement.addFiscalYearCashFlowStatement(yearValue);
+                break;
+            case 'Key Indicators':
+                // Push Key Indicators---
+                this.keyIndicators.addFiscalYearKeyIndicators(yearValue);
+        }
         this.addYear = false;
     }
 
@@ -128,9 +141,6 @@ export class FinancialComponent implements OnInit {
         // Splice Key Indicators---
         this.keyIndicators.removeFiscalYearKeyIndicators(index);
     }
-
-
-
 
     //
     //
@@ -164,6 +174,16 @@ export class FinancialComponent implements OnInit {
 
     removeExpensesIndex(incomeIndex) {
         (this.financialForm.get('expensesOfBorrower') as FormArray).removeAt(incomeIndex);
+    }
+
+
+    changeActiveTab(tabs: QueryList<any>) {
+        tabs.forEach( tabContent => {
+           if (tabContent.active) {
+               this.activeTab = tabContent['tabTitle'];
+           }
+        });
+        console.log(this.activeTab);
     }
 
     onSubmit() {

@@ -16,8 +16,8 @@ export class KeyIndicatorsComponent implements OnInit {
 
     ngOnInit() {
         this.buildKeyIndicatorsForm();
-        if (this.formData !== undefined) {
-            const keyIndicatorsData = this.formData.data.keyIndicatorsData;
+        if (this.formData['data'].keyIndicatorsData !== undefined) {
+            const keyIndicatorsData = this.formData['data'].keyIndicatorsData;
             this.setGrowth(keyIndicatorsData.growth);
             this.setSales(keyIndicatorsData.sales);
             this.setGrossProfitKI(keyIndicatorsData.grossProfitKI);
@@ -45,6 +45,11 @@ export class KeyIndicatorsComponent implements OnInit {
             this.setAveragePaymentPeriod(keyIndicatorsData.averagePaymentPeriod);
             this.setNetOperatingCycle(keyIndicatorsData.netOperatingCycle);
             this.setNetWCBeforeBank(keyIndicatorsData.netWCBeforeBank);
+        }
+        if (this.fiscalYear.length > this.keyIndicatorsForm.get('growth')['controls'].length) {
+            this.fiscalYear.forEach( yearValue => {
+                this.addFiscalYearKeyIndicators(yearValue);
+            });
         }
     }
 

@@ -183,13 +183,25 @@
             </nb-card-header>
             <nb-card-body>
 
-                <app-income-statement [fiscalYear]="fiscalYear" [formData]="formDataForEdit" #incomeStatement></app-income-statement>
+                <nb-tabset #currentTabSet fullWidth (changeTab)="changeActiveTab(currentTabSet['tabs'])">
 
-                <app-balance-sheet [fiscalYear]="fiscalYear" [formData]="formDataForEdit" #balanceSheet></app-balance-sheet>
+                    <nb-tab tabTitle="Income Statement">
+                        <app-income-statement *ngIf="activeTab === 'Income Statement'" [fiscalYear]="fiscalYear" [formData]="formDataForEdit" #incomeStatement></app-income-statement>
+                    </nb-tab>
 
-                <app-cash-flow-statement [fiscalYear]="fiscalYear" [formData]="formDataForEdit" #cashFlowStatement></app-cash-flow-statement>
+                    <nb-tab tabTitle="Balance Sheet">
+                        <app-balance-sheet *ngIf="activeTab === 'Balance Sheet'" [fiscalYear]="fiscalYear" [formData]="formDataForEdit" #balanceSheet></app-balance-sheet>
+                    </nb-tab>
 
-                <app-key-indicators [fiscalYear]="fiscalYear" [formData]="formDataForEdit" #keyIndicators></app-key-indicators>
+                    <nb-tab tabTitle="Cash Flow Statement">
+                        <app-cash-flow-statement *ngIf="activeTab === 'Cash Flow Statement'" [fiscalYear]="fiscalYear" [formData]="formDataForEdit" #cashFlowStatement></app-cash-flow-statement>
+                    </nb-tab>
+
+                    <nb-tab tabTitle="Key Indicators">
+                        <app-key-indicators *ngIf="activeTab === 'Key Indicators'" [fiscalYear]="fiscalYear" [formData]="formDataForEdit" #keyIndicators></app-key-indicators>
+                    </nb-tab>
+
+                </nb-tabset>
 
             </nb-card-body>
         </nb-card>

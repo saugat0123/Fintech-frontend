@@ -15,10 +15,9 @@ export class IncomeStatementComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.fiscalYear);
         this.buildIncomeStatementForm();
-        if (this.formData !== undefined) {
-            const incomeStatementFormData = this.formData.data.incomeStatementData;
+        if (this.formData['data'].incomeStatementData !== undefined) {
+            const incomeStatementFormData = this.formData['data'].incomeStatementData;
 
             this.setTotalSalesRevenue(incomeStatementFormData.totalSalesRevenue);
             this.setTotalSalesSubCategory(incomeStatementFormData.totalSalesSubCategory);
@@ -42,6 +41,11 @@ export class IncomeStatementComponent implements OnInit {
             this.setOtherAdjustment(incomeStatementFormData.otherAdjustment);
             this.setAccumulatedProfitBOrD(incomeStatementFormData.accumulatedProfitBOrD);
             this.setNetProfitTransferredToBalanceSheet(incomeStatementFormData.netProfitTransferredToBalanceSheet);
+        }
+        if (this.fiscalYear.length > this.incomeStatementForm.get('totalSalesRevenue')['controls'].length) {
+            this.fiscalYear.forEach( yearValue => {
+                this.addFiscalYearIncomeStatement(yearValue);
+            });
         }
     }
 

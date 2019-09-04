@@ -16,8 +16,8 @@ export class CashFlowStatementComponent implements OnInit {
 
     ngOnInit() {
         this.buildCashFlowStatement();
-        if (this.formData !== undefined) {
-            const cashFlowStatementData = this.formData.data.cashFlowStatementData;
+        if (this.formData['data'].cashFlowStatementData !== undefined) {
+            const cashFlowStatementData = this.formData['data'].cashFlowStatementData;
             this.setCashFromOperatingActivities(cashFlowStatementData.cashFromOperatingActivities);
             this.setNetProfitForThePeriod(cashFlowStatementData.netProfitForThePeriod);
             this.setDepreciation(cashFlowStatementData.depreciation);
@@ -48,6 +48,11 @@ export class CashFlowStatementComponent implements OnInit {
             this.setClosingCash(cashFlowStatementData.closingCash);
             this.setClosingBalance(cashFlowStatementData.closingBalance);
             this.setDifferenceCFS(cashFlowStatementData.differenceCFS);
+        }
+        if (this.fiscalYear.length > this.cashFlowStatementForm.get('depreciation')['controls'].length) {
+            this.fiscalYear.forEach( yearValue => {
+                this.addFiscalYearCashFlowStatement(yearValue);
+            });
         }
     }
 
