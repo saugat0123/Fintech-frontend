@@ -87,7 +87,8 @@
                     <div class="col-md-6">
                         <div class="position-absolute w-100 d-flex justify-content-end pr-5 ml-3 pb-2-1"
                              *ngIf="task === 'Edit'">
-                            <label> <input #chk class="m-2" type="checkbox" (change)="editRole(model.id, chk.checked)">
+                            <label> <input #chk class="m-2" type="checkbox"
+                                           (change)="editRole(model.id, chk.checked,model.role)">
                                 <b>Edit Role</b></label>
                         </div>
                         <div *ngIf="!isAll" class="form-group">
