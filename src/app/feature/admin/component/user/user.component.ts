@@ -189,6 +189,8 @@ export class UserComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Dismissed User'));
                 UserComponent.loadData(this);
 
+            }, error => {
+                this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
             });
         }
         this.modalService.dismissAll();
