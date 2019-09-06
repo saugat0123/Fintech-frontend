@@ -102,12 +102,7 @@ export class UserFormComponent implements OnInit {
             }, error => {
 
                 console.log(error);
-
-                if (error.error.message === 'udx_user_username') {
-                    this.toastService.show(new Alert(AlertType.ERROR, 'Username already exist.'));
-                } else if (error.error.message === 'udx_user_email') {
-                    this.toastService.show(new Alert(AlertType.ERROR, 'Email address already exist.'));
-                }
+                this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
                 this.activeModal.dismiss(error);
             }
         );
@@ -181,46 +176,50 @@ export class UserFormComponent implements OnInit {
             this.task = 'Edit';
             this.isAll = false;
             this.disableRoleBranch = true;
-
-            this.branchService.getBranchNoTAssignUser(this.model.role.id).subscribe((re: any) => {
-                const temp = re.detail;
-                this.branchList = this.model.branch;
-                temp.forEach(t => {
-                    this.branchList.push(t);
+            if (this.model.role !== null) {
+                this.branchService.getBranchNoTAssignUser(this.model.role.id).subscribe((re: any) => {
+                    const temp = re.detail;
+                    this.branchList = this.model.branch;
+                    temp.forEach(t => {
+                        this.branchList.push(t);
+                    });
                 });
-            });
-            this.selectedRole = this.model.role;
-            const tempRoleAccess = this.model.role.roleAccess;
-            this.branchIdList = [];
-            if (tempRoleAccess === RoleAccess.SPECIFIC) {
-                this.isSpecific = true;
-                for (let i = 0; i < this.model.branch.length; i++) {
-                    this.branchIdList.push(this.model.branch[i].id);
-                }
-            }
-            if (tempRoleAccess === RoleAccess.OWN) {
-                this.isSpecific = false;
-                for (let i = 0; i < this.model.branch.length; i++) {
-                    this.tempBranch = this.model.branch[i].id;
-                }
-            }
 
-            if (tempRoleAccess === RoleAccess.ALL) {
-                this.isAll = true;
+                this.selectedRole = this.model.role;
+                const tempRoleAccess = this.model.role.roleAccess;
+                this.branchIdList = [];
+                if (tempRoleAccess === RoleAccess.SPECIFIC) {
+                    this.isSpecific = true;
+                    for (let i = 0; i < this.model.branch.length; i++) {
+                        this.branchIdList.push(this.model.branch[i].id);
+                    }
+                }
+                if (tempRoleAccess === RoleAccess.OWN) {
+                    this.isSpecific = false;
+                    for (let i = 0; i < this.model.branch.length; i++) {
+                        this.tempBranch = this.model.branch[i].id;
+                    }
+                }
+
+                if (tempRoleAccess === RoleAccess.ALL) {
+                    this.isAll = true;
+                }
             }
 
         }
     }
 
-    editRole(id, chkStatus) {
+    editRole(id, chkStatus, role) {
         this.editedId = id;
-        if (chkStatus) {
-            this.loanService.getLoanStatusApi(id).subscribe((responsee: any) => {
-                console.log(responsee.detail.status);
-                if (responsee.detail.status === 'false') {
+        this.disableRoleBranch = true;
+        if (role === undefined || role === null) {
+            this.disableRoleBranch = false;
+        } else if (chkStatus) {
+            this.loanService.getLoanStatusApi(id).subscribe((response: any) => {
+                if (response.detail.status === 'false') {
                     this.disableRoleBranch = false;
                 } else {
-                    this.customerCount = responsee.detail.count;
+                    this.customerCount = response.detail.count;
                     this.hideCustomerCount = false;
                     this.hideSaveButton = true;
                 }

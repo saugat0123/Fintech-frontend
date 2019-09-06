@@ -54,13 +54,14 @@ export class EmailConfigurationComponent implements OnInit {
         this.emailConfigService.save(this.emailConfig.value).subscribe((res: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Configuration'));
                 this.loading = true;
-                this.emailConfigService.refreshConfiguration().subscribe((re2: any) => {
-                    this.emailConfigService.checkConfiguration(this.emailConfig.value).subscribe((rea1: any) => {
-                        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Send Email'));
+                this.emailConfigService.refreshConfiguration().subscribe(() => {
+                    this.emailConfigService.checkConfiguration(this.emailConfig.value).subscribe(() => {
+                        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Send Test Email'));
                         this.loading = false;
 
                     }, err => {
-                        this.toastService.show(new Alert(AlertType.ERROR, err.error.message));
+                        this.toastService.show(new Alert(AlertType.ERROR, 'Failed to send Email. Failed due to' +
+                            ' credential, mail host server, outgoing port '));
                         this.loading = false;
                     });
                 });
