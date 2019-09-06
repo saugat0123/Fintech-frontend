@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
     templateUrl: './income-statement.component.html',
     styleUrls: ['./income-statement.component.scss']
 })
-export class IncomeStatementComponent implements OnInit {
+export class IncomeStatementComponent implements OnInit, OnDestroy {
     @Input() fiscalYear: Array<number>;
     @Input() formData;
     incomeStatementForm: FormGroup;
@@ -42,11 +42,11 @@ export class IncomeStatementComponent implements OnInit {
             this.setAccumulatedProfitBOrD(incomeStatementFormData.accumulatedProfitBOrD);
             this.setNetProfitTransferredToBalanceSheet(incomeStatementFormData.netProfitTransferredToBalanceSheet);
         }
-        if (this.fiscalYear.length > this.incomeStatementForm.get('totalSalesRevenue')['controls'].length) {
+        /*if (this.fiscalYear.length > this.incomeStatementForm.get('totalSalesRevenue')['controls'].length) {
             this.fiscalYear.forEach( yearValue => {
                 this.addFiscalYearIncomeStatement(yearValue);
             });
-        }
+        }*/
     }
 
     buildIncomeStatementForm() {
@@ -596,7 +596,6 @@ export class IncomeStatementComponent implements OnInit {
 
     setSubCategoryAmount(singleData) {
         const amountControl = this.formBuilder.array([]);
-        console.log(singleData.amount);
         singleData.amount.forEach(singleAmount => {
             amountControl.push(
                 this.formBuilder.group({
@@ -636,7 +635,6 @@ export class IncomeStatementComponent implements OnInit {
 
     setCostOfGoodsSoldCategoryAmount(singleData) {
         const amountControl = this.formBuilder.array([]);
-        console.log(singleData.amount);
         singleData.amount.forEach(singleAmount => {
             amountControl.push(
                 this.formBuilder.group({
@@ -689,7 +687,6 @@ export class IncomeStatementComponent implements OnInit {
 
     setOperatingExpensesCategoryAmount(singleData) {
         const amountControl = this.formBuilder.array([]);
-        console.log(singleData.amount);
         singleData.amount.forEach(singleAmount => {
             amountControl.push(
                 this.formBuilder.group({
@@ -742,7 +739,6 @@ export class IncomeStatementComponent implements OnInit {
 
     setInterestExpensesCategoryAmount(singleData) {
         const amountControl = this.formBuilder.array([]);
-        console.log(singleData.amount);
         singleData.amount.forEach(singleAmount => {
             amountControl.push(
                 this.formBuilder.group({
@@ -782,7 +778,6 @@ export class IncomeStatementComponent implements OnInit {
 
     setNonOperatingIncomeOrExpensesCategoryAmount(singleData) {
         const amountControl = this.formBuilder.array([]);
-        console.log(singleData.amount);
         singleData.amount.forEach(singleAmount => {
             amountControl.push(
                 this.formBuilder.group({
@@ -861,7 +856,6 @@ export class IncomeStatementComponent implements OnInit {
 
     setTaxesCategoryAmount(singleData) {
         const amountControl = this.formBuilder.array([]);
-        console.log(singleData.amount);
         singleData.amount.forEach(singleAmount => {
             amountControl.push(
                 this.formBuilder.group({
@@ -936,5 +930,9 @@ export class IncomeStatementComponent implements OnInit {
                 })
             );
         });
+    }
+
+    ngOnDestroy() {
+        this.formData['data'].incomeStatementData = this.incomeStatementForm.value;
     }
 }

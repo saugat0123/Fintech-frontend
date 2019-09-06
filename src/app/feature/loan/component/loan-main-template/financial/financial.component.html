@@ -186,19 +186,19 @@
                 <nb-tabset #currentTabSet fullWidth (changeTab)="changeActiveTab(currentTabSet['tabs'])">
 
                     <nb-tab tabTitle="Income Statement">
-                        <app-income-statement *ngIf="activeTab === 'Income Statement'" [fiscalYear]="fiscalYear" [formData]="formDataForEdit" #incomeStatement></app-income-statement>
+                        <app-income-statement *ngIf="activeTab === 'Income Statement'" [fiscalYear]="fiscalYear" [formData]="currentFormData" #incomeStatement></app-income-statement>
                     </nb-tab>
 
                     <nb-tab tabTitle="Balance Sheet">
-                        <app-balance-sheet *ngIf="activeTab === 'Balance Sheet'" [fiscalYear]="fiscalYear" [formData]="formDataForEdit" #balanceSheet></app-balance-sheet>
+                        <app-balance-sheet *ngIf="activeTab === 'Balance Sheet'" [fiscalYear]="fiscalYear" [formData]="currentFormData" #balanceSheet></app-balance-sheet>
                     </nb-tab>
 
                     <nb-tab tabTitle="Cash Flow Statement">
-                        <app-cash-flow-statement *ngIf="activeTab === 'Cash Flow Statement'" [fiscalYear]="fiscalYear" [formData]="formDataForEdit" #cashFlowStatement></app-cash-flow-statement>
+                        <app-cash-flow-statement *ngIf="activeTab === 'Cash Flow Statement'" [fiscalYear]="fiscalYear" [formData]="currentFormData" #cashFlowStatement></app-cash-flow-statement>
                     </nb-tab>
 
                     <nb-tab tabTitle="Key Indicators">
-                        <app-key-indicators *ngIf="activeTab === 'Key Indicators'" [fiscalYear]="fiscalYear" [formData]="formDataForEdit" #keyIndicators></app-key-indicators>
+                        <app-key-indicators *ngIf="activeTab === 'Key Indicators'" [fiscalYear]="fiscalYear" [formData]="currentFormData" #keyIndicators></app-key-indicators>
                     </nb-tab>
 
                 </nb-tabset>
@@ -206,7 +206,7 @@
             </nb-card-body>
         </nb-card>
         <nb-card class="p-3">
-            <app-borrower-risk-rating [formDataForBrrEdit]="formDataForEdit?.data?.brr" #brr></app-borrower-risk-rating>
+            <app-borrower-risk-rating [formDataForBrrEdit]="currentFormData['data'].brr" #brr></app-borrower-risk-rating>
         </nb-card>
     </nb-card-body>
 </nb-card>

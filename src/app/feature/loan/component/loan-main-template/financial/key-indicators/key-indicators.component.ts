@@ -46,11 +46,11 @@ export class KeyIndicatorsComponent implements OnInit {
             this.setNetOperatingCycle(keyIndicatorsData.netOperatingCycle);
             this.setNetWCBeforeBank(keyIndicatorsData.netWCBeforeBank);
         }
-        if (this.fiscalYear.length > this.keyIndicatorsForm.get('growth')['controls'].length) {
+        /*if (this.fiscalYear.length > this.keyIndicatorsForm.get('growth')['controls'].length) {
             this.fiscalYear.forEach( yearValue => {
                 this.addFiscalYearKeyIndicators(yearValue);
             });
-        }
+        }*/
     }
 
     buildKeyIndicatorsForm() {

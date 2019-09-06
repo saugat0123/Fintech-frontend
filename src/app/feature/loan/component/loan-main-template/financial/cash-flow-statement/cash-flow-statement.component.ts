@@ -49,11 +49,11 @@ export class CashFlowStatementComponent implements OnInit {
             this.setClosingBalance(cashFlowStatementData.closingBalance);
             this.setDifferenceCFS(cashFlowStatementData.differenceCFS);
         }
-        if (this.fiscalYear.length > this.cashFlowStatementForm.get('depreciation')['controls'].length) {
+        /*if (this.fiscalYear.length > this.cashFlowStatementForm.get('depreciation')['controls'].length) {
             this.fiscalYear.forEach( yearValue => {
                 this.addFiscalYearCashFlowStatement(yearValue);
             });
-        }
+        }*/
     }
 
     buildCashFlowStatement() {

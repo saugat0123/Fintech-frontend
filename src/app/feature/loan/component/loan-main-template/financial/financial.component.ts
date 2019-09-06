@@ -6,6 +6,7 @@ import {BalanceSheetComponent} from './balance-sheet/balance-sheet.component';
 import {CashFlowStatementComponent} from './cash-flow-statement/cash-flow-statement.component';
 import {KeyIndicatorsComponent} from './key-indicators/key-indicators.component';
 import * as currentFormData from './financial.json';
+import {FinancialService} from './financial.service';
 
 @Component({
     selector: 'app-financial',
@@ -25,35 +26,139 @@ export class FinancialComponent implements OnInit {
     activeTab: string;
     financialForm: FormGroup;
     financialData: Object;
-    formDataForEdit: Object;
+    currentFormData: Object;
 
-    constructor(private formBuilder: FormBuilder) {
+    // Financial heading arrays---
+    incomeStatementArray = [
+        'totalSalesRevenue',
+        'costOfGoodsSold',
+        'grossProfit',
+        'operatingExpenses',
+        'operatingProfit',
+        'interestExpenses',
+        'nonOperatingIncomeOrExpenses',
+        'profitBeforeTaxAndStaffBonus',
+        'staffBonus',
+        'profitBeforeTaxes',
+        'taxes',
+        'profitAfterTax',
+        'dividendOrDrawing',
+        'otherAdjustment',
+        'accumulatedProfitBOrD',
+        'netProfitTransferredToBalanceSheet'
+    ];
+    incomeStatementCategoryArray = [
+        'totalSalesSubCategory',
+        'costOfGoodsSoldCategory',
+        'operatingExpensesCategory',
+        'interestExpensesCategory',
+        'nonOperatingIncomeOrExpensesCategory',
+        'taxesCategory'
+    ];
+    balanceSheetArray = [
+        'currentAssets',
+        'inventories',
+        'fixedAssets',
+        'otherAssets',
+        'totalAssets',
+        'currentLiabilities',
+        'longTermLoan',
+        'otherLongTermLiabilities',
+        'otherProvisions',
+        'netWorth',
+        'totalLiabilitiesAndEquity',
+        'differenceBS'
+    ];
+    balanceSheetCategoryArray = [
+        'currentAssetsCategory',
+        'inventoriesCategory',
+        'fixedAssetsCategory',
+        'otherAssetsCategory',
+        'currentLiabilitiesCategory',
+        'longTermLoanCategory',
+        'otherLongTermLiabilitiesCategory',
+        'netWorthCategory',
+    ];
+    cashFlowStatementArray = [
+        'cashFromOperatingActivities',
+        'netProfitForThePeriod',
+        'depreciation',
+        'otherAmortizationAndNonCashExpenses',
+        'increaseDecreaseInInventory',
+        'increaseDecreaseInAccountsReceivable',
+        'increaseDecreaseInShortTermInvestment',
+        'increaseDecreaseInAdvanceAndDeposit',
+        'increaseDecreaseInOtherCurrentAssets',
+        'increaseDecreaseInCreditors',
+        'increaseDecreaseInOtherCurrentLiabilities',
+        'adjustmentForNonOperatingIncome',
+        'interestExpensesCFSa',
+        'cashFromInvestingActivities',
+        'changedInFixedAsset',
+        'nonOperatingIncomeExpenses',
+        'changeInOtherAssets',
+        'changeInOtherLongTermLiabilities',
+        'cashFromFinancingActivities',
+        'paidUpCapitalEquity',
+        'shortTermLoan',
+        'longTermLoanReceived',
+        'dividendDrawing',
+        'interestExpensesCFSb',
+        'otherAdjustments',
+        'netCashFlow',
+        'addOpeningBalance',
+        'closingCash',
+        'closingBalance',
+        'differenceCFS'
+    ];
+    keyIndicatorsArray = [
+        'growth',
+        'sales',
+        'grossProfitKI',
+        'operatingProfitKI',
+        'pAT',
+        'profitability',
+        'grossProfitMargin',
+        'netProfitMargin',
+        'eBITtoSales',
+        'returnOnEquity',
+        'solvency',
+        'quickRatio',
+        'currentRatio',
+        'debtServiceCoverageRatio',
+        'interestCoverageRatio',
+        'debtEquityRatioOverall',
+        'debtEquityRatioLongTerm',
+        'debtEquityRatioWorkingCapital',
+        'debtEquityRatioGeneral',
+        'operatingCycle',
+        'inventoryTurnoverRatio',
+        'stockInHandDays',
+        'debtorTurnOverRatio',
+        'averageCollectionPeriod',
+        'averagePaymentPeriod',
+        'netOperatingCycle',
+        'netWCBeforeBank'
+    ];
+
+    constructor(private formBuilder: FormBuilder,
+                private financialService: FinancialService) {
     }
 
     ngOnInit() {
-        console.log(currentFormData['default']);
         this.buildForm();
         if (this.formData !== undefined) {
             const formDataString = JSON.stringify(this.formData);
-            this.formDataForEdit = JSON.parse(formDataString);
-            this.fiscalYear = this.formDataForEdit['data'].fiscalYear;
-            const initialFormData = this.formDataForEdit['data'].initialForm;
+            this.currentFormData = JSON.parse(formDataString);
+            this.fiscalYear = this.currentFormData['data'].fiscalYear;
+            const initialFormData = this.currentFormData['data'].initialForm;
 
             this.setIncomeOfBorrower(initialFormData.incomeOfBorrower);
             this.setExpensesOfBorrower(initialFormData.expensesOfBorrower);
         } else {
-            this.formDataForEdit = {
-                data: {
-                    fiscalYear: undefined,
-                    initialForm: undefined,
-                    incomeStatementData: undefined,
-                    balanceSheetData: undefined,
-                    cashFlowStatementData: undefined,
-                    keyIndicatorsData: undefined,
-                    brr: undefined
-                }
-            };
-            // functions for adding fields
+            this.currentFormData = new currentFormData['default'];
+
+            // functions for adding fields in initial Financial Form
             this.addIncomeOfBorrower();
             this.addExpensesOfBorrower();
         }
@@ -82,6 +187,7 @@ export class FinancialComponent implements OnInit {
             );
         });
     }
+
     setExpensesOfBorrower(currentData) {
         const controls = this.financialForm.get('expensesOfBorrower') as FormArray;
         currentData.forEach(singleData => {
@@ -105,41 +211,131 @@ export class FinancialComponent implements OnInit {
         }
         // push fiscal year
         this.fiscalYear.push(yearValue);
+
         switch (this.activeTab) {
             case 'Income Statement':
                 // Push Income Statement---
-                this.incomeStatement.addFiscalYearIncomeStatement(yearValue);
+                this.incomeStatement.ngOnDestroy();
                 break;
             case 'Balance Sheet':
                 // Push Balance Sheet---
-                this.balanceSheet.addFiscalYearBalanceSheet(yearValue);
-                break;
-            case 'Cash Flow Statement':
-                // Push Cash Flow Statement---
-                this.cashFlowStatement.addFiscalYearCashFlowStatement(yearValue);
-                break;
-            case 'Key Indicators':
-                // Push Key Indicators---
-                this.keyIndicators.addFiscalYearKeyIndicators(yearValue);
+                this.balanceSheet.ngOnDestroy();
         }
+
+        // Adding fiscal year for Json---
+        this.addingFiscalYearForIncomeStatementJson(yearValue);
+        this.addingFiscalYearForBalanceSheetJson(yearValue);
+        this.addingFiscalYearForCashFlowStatement(yearValue);
+        this.addingFiscalYearForKeyIndicators(yearValue);
+        // Refreshing components with new Json data---
+        this.refreshComponent();
         this.addYear = false;
     }
 
     removeFiscalYear(index) {
         // splice fiscal year
         this.fiscalYear.splice(index, 1);
+        // Removing fiscal year for Json---
+        this.removingFiscalYearForIncomeStatementJson(index);
+        this.removingFiscalYearForBalanceSheetJson(index);
+        this.removingFiscalYearForCashFlowStatement(index);
+        this.removingFiscalYearForKeyIndicators(index);
+        // Refreshing components with new Json data---
+        this.refreshComponent();
+    }
 
-        // Splice Income Statement year--
-        this.incomeStatement.removeFiscalYearIncomeStatement(index);
+    refreshComponent() {
+        switch (this.activeTab) {
+            case 'Income Statement':
+                this.incomeStatement.ngOnInit();
+                break;
+            case 'Balance Sheet':
+                this.balanceSheet.ngOnInit();
+                break;
+            case 'Cash Flow Statement':
+                this.cashFlowStatement.ngOnInit();
+                break;
+            case 'Key Indicators':
+                this.keyIndicators.ngOnInit();
+        }
+    }
 
-        // Splice Balance Sheet year---
-        this.balanceSheet.removeFiscalYearBalanceSheet(index);
+    // Adding Fiscal year for Json---
+    // Income Statement Json Fiscal year addition---
+    addingFiscalYearForIncomeStatementJson(yearValue) {
+        const incomeStatementData = this.currentFormData['data'].incomeStatementData;
+        // Income Statement Main Heading Json values--
+        this.incomeStatementArray.forEach(headingValue => {
+            this.financialService.addFiscalYearForJson(incomeStatementData[headingValue], yearValue);
+        });
+        // Income Statement Heading Category Json values--
+        this.incomeStatementCategoryArray.forEach(headingValue => {
+            this.financialService.addFiscalYearForJsonCategory(incomeStatementData[headingValue], yearValue);
+        });
+    }
 
-        // Splice Cash Flow Statement---
-        this.cashFlowStatement.removeFiscalYearCashFlowStatement(index);
+    addingFiscalYearForBalanceSheetJson(yearValue) {
+        const balanceSheetData = this.currentFormData['data'].balanceSheetData;
+        this.balanceSheetArray.forEach(headingValue => {
+            this.financialService.addFiscalYearForJson(balanceSheetData[headingValue], yearValue);
+        });
+        this.balanceSheetCategoryArray.forEach(headingValue => {
+            this.financialService.addFiscalYearForJsonCategory(balanceSheetData[headingValue], yearValue);
 
-        // Splice Key Indicators---
-        this.keyIndicators.removeFiscalYearKeyIndicators(index);
+        });
+    }
+
+    addingFiscalYearForCashFlowStatement(yearValue) {
+        const cashFlowStatementData = this.currentFormData['data'].cashFlowStatementData;
+        this.cashFlowStatementArray.forEach(headingValue => {
+            this.financialService.addFiscalYearForJson(cashFlowStatementData[headingValue], yearValue);
+        });
+    }
+
+    addingFiscalYearForKeyIndicators(yearValue) {
+        const keyIndicatorsData = this.currentFormData['data'].keyIndicatorsData;
+        this.keyIndicatorsArray.forEach(headingValue => {
+            this.financialService.addFiscalYearForJson(keyIndicatorsData[headingValue], yearValue);
+        });
+    }
+
+    //
+    // Removing Fiscal Year for json---
+    removingFiscalYearForIncomeStatementJson(index) {
+        const incomeStatementData = this.currentFormData['data'].incomeStatementData;
+        // Income Statement Main Heading Json values--
+        this.incomeStatementArray.forEach(headingValue => {
+            this.financialService.removeFiscalYearForJson(incomeStatementData[headingValue], index);
+        });
+        // Income Statement Heading Category Json values--
+        this.incomeStatementCategoryArray.forEach(headingValue => {
+            this.financialService.removeFiscalYearForJsonCategory(incomeStatementData[headingValue], index);
+        });
+    }
+
+    removingFiscalYearForBalanceSheetJson(index) {
+        const balanceSheetData = this.currentFormData['data'].balanceSheetData;
+        this.balanceSheetArray.forEach(headingValue => {
+            this.financialService.removeFiscalYearForJson(balanceSheetData[headingValue], index);
+        });
+        this.balanceSheetCategoryArray.forEach(headingValue => {
+            this.financialService.removeFiscalYearForJsonCategory(balanceSheetData[headingValue], index);
+
+        });
+    }
+
+    removingFiscalYearForCashFlowStatement(index) {
+        const cashFlowStatementData = this.currentFormData['data'].cashFlowStatementData;
+        this.cashFlowStatementArray.forEach(headingValue => {
+            this.financialService.removeFiscalYearForJson(cashFlowStatementData[headingValue], index);
+        });
+    }
+
+    removingFiscalYearForKeyIndicators(index) {
+        const keyIndicatorsData = this.currentFormData['data'].keyIndicatorsData;
+        this.keyIndicatorsArray.forEach(headingValue => {
+            this.financialService.removeFiscalYearForJson(keyIndicatorsData[headingValue], index);
+        });
     }
 
     //
@@ -178,24 +374,18 @@ export class FinancialComponent implements OnInit {
 
 
     changeActiveTab(tabs: QueryList<any>) {
-        tabs.forEach( tabContent => {
-           if (tabContent.active) {
-               this.activeTab = tabContent['tabTitle'];
-           }
+        tabs.forEach(tabContent => {
+            if (tabContent.active) {
+                this.activeTab = tabContent['tabTitle'];
+            }
         });
         console.log(this.activeTab);
     }
 
     onSubmit() {
-        const financialData = {
-            fiscalYear: this.fiscalYear,
-            initialForm: this.financialForm.value,
-            incomeStatementData: this.incomeStatement.incomeStatementForm.value,
-            balanceSheetData: this.balanceSheet.balanceSheetForm.value,
-            cashFlowStatementData: this.cashFlowStatement.cashFlowStatementForm.value,
-            keyIndicatorsData: this.keyIndicators.keyIndicatorsForm.value,
-            brr: this.brr.borrowerRiskRating.value
-        };
-        this.financialData = { data: financialData };
+        this.currentFormData['data'].fiscalYear = this.fiscalYear;
+        this.currentFormData['data'].brr = this.brr.borrowerRiskRating.value;
+        this.currentFormData['data'].initialForm = this.financialForm.value;
+        this.financialData = this.currentFormData;
     }
 }

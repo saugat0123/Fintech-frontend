@@ -1,22 +1,42 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {BaseService} from '../../../../../@core/BaseService';
-import {Observable} from 'rxjs';
-import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
 
 @Injectable({
     providedIn: 'root'
 })
-export class FinancialService extends BaseService<any> {
-    static api = 'v1/Loan-financial';
+export class FinancialService {
 
-
-    constructor(readonly http: HttpClient) {
-        super(http);
+    constructor() {
     }
 
+    addFiscalYearForJson(headingProperty: Array<any>, yearValue) {
+        headingProperty.push(
+            {
+                value: 0,
+                year: yearValue
+            }
+        );
+    }
 
-    protected getApi(): string {
-        return FinancialService.api;
+    addFiscalYearForJsonCategory(headingCategoryProperty: Array<any>, yearValue) {
+        headingCategoryProperty.forEach(subCategory => {
+            const amount = subCategory['amount'] as Array<any>;
+            amount.push(
+                {
+                    value: 0,
+                    year: yearValue
+                }
+            );
+        });
+    }
+
+    removeFiscalYearForJson(headingProperty: Array<any>, index) {
+        headingProperty.splice(index, 1);
+    }
+
+    removeFiscalYearForJsonCategory(headingCategoryProperty: Array<any>, index) {
+        headingCategoryProperty.forEach(subCategory => {
+            const amount = subCategory['amount'] as Array<any>;
+            amount.splice(index, 1);
+        });
     }
 }

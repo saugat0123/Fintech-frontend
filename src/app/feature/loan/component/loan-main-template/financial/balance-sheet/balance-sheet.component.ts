@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
     templateUrl: './balance-sheet.component.html',
     styleUrls: ['./balance-sheet.component.scss']
 })
-export class BalanceSheetComponent implements OnInit {
+export class BalanceSheetComponent implements OnInit, OnDestroy {
     @Input() fiscalYear: Array<number>;
     @Input() formData;
     balanceSheetForm: FormGroup;
@@ -39,11 +39,11 @@ export class BalanceSheetComponent implements OnInit {
             this.setTotalLiabilitiesAndEquity(balanceSheetFormData.totalLiabilitiesAndEquity);
             this.setDifferenceBS(balanceSheetFormData.differenceBS);
         }
-        if (this.fiscalYear.length > this.balanceSheetForm.get('currentAssets')['controls'].length) {
+        /*if (this.fiscalYear.length > this.balanceSheetForm.get('currentAssets')['controls'].length) {
             this.fiscalYear.forEach( yearValue => {
                 this.addFiscalYearBalanceSheet(yearValue);
             });
-        }
+        }*/
     }
 
     buildBalanceSheetForm() {
@@ -932,4 +932,7 @@ export class BalanceSheetComponent implements OnInit {
         });
     }
 
+    ngOnDestroy() {
+        this.formData['data'].balanceSheetData = this.balanceSheetForm.value;
+    }
 }
