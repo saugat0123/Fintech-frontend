@@ -1,15 +1,11 @@
 <section class="enable-print">
   <nb-card>
     <nb-card-header class="disable-print">
-      <app-loan-action *ngIf="showAction" [actionsList]="actionsList" [id]="customerId"
+      <app-loan-action [catalogueStatus]="catalogueStatus"
+                       [actionsList]="actionsList"
+                       [id]="customerId"
                        [loanCategory]="loanCategory"
                        [loanConfigId]="loanConfigId"></app-loan-action>
-      <div align="right">
-        <button *ngIf="catalogueStatus" [useExistingCss]="true"
-                class="btn-sm btn-warning d-flex justify-content-end"
-                ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
-          PRINT<i class="col-md-1 fa fa-print"></i></button>
-      </div>
     </nb-card-header>
     <nb-card-body id="print-block">
       <div class="col-md-12  text-success cursor disable-print"
