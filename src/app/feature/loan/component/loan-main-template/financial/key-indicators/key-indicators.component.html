@@ -8,7 +8,7 @@
       <th *ngFor="let year of fiscalYear; let j = index" scope="col">
         {{year}}
         <div class="float-right">
-          <a (click)="removeFiscalYear(j)" data-toggle="tooltip"
+          <a (click)="removingFiscalYear(j)" data-toggle="tooltip"
              data-placement="top">
             <i class="fa fa-ban" style="color:darkred;padding-left: 5px"></i>
           </a>
@@ -371,4 +371,3 @@
   <h4>Justification</h4>
   <textarea nbInput rows="5" class="mb-5" fullWidth placeholder="Jusification..."></textarea>
 </form>
-<pre>{{keyIndicatorsForm.value | json}}</pre>

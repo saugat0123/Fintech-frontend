@@ -98,6 +98,7 @@ export class FinancialComponent implements OnInit {
         'nonOperatingIncomeExpenses',
         'changeInOtherAssets',
         'changeInOtherLongTermLiabilities',
+        'changeInOtherProvisions',
         'cashFromFinancingActivities',
         'paidUpCapitalEquity',
         'shortTermLoan',
@@ -156,7 +157,8 @@ export class FinancialComponent implements OnInit {
             this.setIncomeOfBorrower(initialFormData.incomeOfBorrower);
             this.setExpensesOfBorrower(initialFormData.expensesOfBorrower);
         } else {
-            this.currentFormData = new currentFormData['default'];
+            const currentFormDataJson = JSON.stringify(currentFormData['default']);
+            this.currentFormData = JSON.parse(currentFormDataJson);
 
             // functions for adding fields in initial Financial Form
             this.addIncomeOfBorrower();
@@ -214,11 +216,9 @@ export class FinancialComponent implements OnInit {
 
         switch (this.activeTab) {
             case 'Income Statement':
-                // Push Income Statement---
                 this.incomeStatement.ngOnDestroy();
                 break;
             case 'Balance Sheet':
-                // Push Balance Sheet---
                 this.balanceSheet.ngOnDestroy();
         }
 
@@ -235,6 +235,17 @@ export class FinancialComponent implements OnInit {
     removeFiscalYear(index) {
         // splice fiscal year
         this.fiscalYear.splice(index, 1);
+
+        switch (this.activeTab) {
+            case 'Income Statement':
+                // Push Income Statement---
+                this.incomeStatement.ngOnDestroy();
+                break;
+            case 'Balance Sheet':
+                // Push Balance Sheet---
+                this.balanceSheet.ngOnDestroy();
+                break;
+        }
         // Removing fiscal year for Json---
         this.removingFiscalYearForIncomeStatementJson(index);
         this.removingFiscalYearForBalanceSheetJson(index);
@@ -383,6 +394,13 @@ export class FinancialComponent implements OnInit {
     }
 
     onSubmit() {
+        switch (this.activeTab) {
+            case 'Income Statement':
+                this.incomeStatement.ngOnDestroy();
+                break;
+            case 'Balance Sheet':
+                this.balanceSheet.ngOnDestroy();
+        }
         this.currentFormData['data'].fiscalYear = this.fiscalYear;
         this.currentFormData['data'].brr = this.brr.borrowerRiskRating.value;
         this.currentFormData['data'].initialForm = this.financialForm.value;

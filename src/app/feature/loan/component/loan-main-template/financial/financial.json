@@ -102,6 +102,10 @@
         {
           "name": "Advances and Deposits",
           "amount": []
+        },
+        {
+          "name": "Others",
+          "amount": []
         }
       ],
       "inventories": [],
@@ -142,6 +146,14 @@
         },
         {
           "name": "Creditors",
+          "amount": []
+        },
+        {
+          "name": "Security Deposits",
+          "amount": []
+        },
+        {
+          "name": "Taxes Payable",
           "amount": []
         }
       ],
@@ -196,6 +208,7 @@
       "nonOperatingIncomeExpenses": [],
       "changeInOtherAssets": [],
       "changeInOtherLongTermLiabilities": [],
+      "changeInOtherProvisions": [],
       "cashFromFinancingActivities": [],
       "paidUpCapitalEquity": [],
       "shortTermLoan": [],

@@ -157,7 +157,7 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label class="title"><b>Select denomination</b></label>
+                        <label class="title" (click)="removeFiscalYear(1)"><b>Select denomination</b></label>
                         <nb-radio-group class="form-inline" formControlName="selectDenomination" name="Relation">
                             <nb-radio value="actual">Actual</nb-radio>
                             <nb-radio value="000">in 000</nb-radio>
@@ -186,19 +186,35 @@
                 <nb-tabset #currentTabSet fullWidth (changeTab)="changeActiveTab(currentTabSet['tabs'])">
 
                     <nb-tab tabTitle="Income Statement">
-                        <app-income-statement *ngIf="activeTab === 'Income Statement'" [fiscalYear]="fiscalYear" [formData]="currentFormData" #incomeStatement></app-income-statement>
+                        <app-income-statement *ngIf="activeTab === 'Income Statement'"
+                                              (removeFiscalYear)="removeFiscalYear($event)"
+                                              [fiscalYear]="fiscalYear" [formData]="currentFormData"
+                                              #incomeStatement>
+                        </app-income-statement>
                     </nb-tab>
 
                     <nb-tab tabTitle="Balance Sheet">
-                        <app-balance-sheet *ngIf="activeTab === 'Balance Sheet'" [fiscalYear]="fiscalYear" [formData]="currentFormData" #balanceSheet></app-balance-sheet>
+                        <app-balance-sheet *ngIf="activeTab === 'Balance Sheet'"
+                                           (removeFiscalYear)="removeFiscalYear($event)"
+                                           [fiscalYear]="fiscalYear"
+                                           [formData]="currentFormData" #balanceSheet>
+                        </app-balance-sheet>
                     </nb-tab>
 
                     <nb-tab tabTitle="Cash Flow Statement">
-                        <app-cash-flow-statement *ngIf="activeTab === 'Cash Flow Statement'" [fiscalYear]="fiscalYear" [formData]="currentFormData" #cashFlowStatement></app-cash-flow-statement>
+                        <app-cash-flow-statement *ngIf="activeTab === 'Cash Flow Statement'"
+                                                 (removeFiscalYear)="removeFiscalYear($event)"
+                                                 [fiscalYear]="fiscalYear"
+                                                 [formData]="currentFormData" #cashFlowStatement>
+                        </app-cash-flow-statement>
                     </nb-tab>
 
                     <nb-tab tabTitle="Key Indicators">
-                        <app-key-indicators *ngIf="activeTab === 'Key Indicators'" [fiscalYear]="fiscalYear" [formData]="currentFormData" #keyIndicators></app-key-indicators>
+                        <app-key-indicators *ngIf="activeTab === 'Key Indicators'"
+                                            (removeFiscalYear)="removeFiscalYear($event)"
+                                            [fiscalYear]="fiscalYear"
+                                            [formData]="currentFormData" #keyIndicators>
+                        </app-key-indicators>
                     </nb-tab>
 
                 </nb-tabset>
@@ -210,4 +226,3 @@
         </nb-card>
     </nb-card-body>
 </nb-card>
-<!--<pre>{{additionalFinancialForm.value | json}}</pre>-->
