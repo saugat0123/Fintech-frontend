@@ -35,9 +35,7 @@
         <app-financial [formData]="loanDocument?.financial" *ngIf="selectedTab === 'Financial' && loanDocument" #financial></app-financial>
 
 
-        <app-site-visit #siteVisit
-                        [formValue] = "loanDocument?.siteVisit"
-                        *ngIf="selectedTab === 'Site Visit' && loanDocument"></app-site-visit>
+        <app-site-visit #siteVisit [formValue] = "loanDocument?.siteVisit" *ngIf="selectedTab === 'Site Visit' && loanDocument"></app-site-visit>
 
         <!-- /.tab-pane -->
     </div>
