@@ -11,7 +11,7 @@ declare let google: any;
 })
 export class SiteVisitComponent implements OnInit {
   @Input() formValue: Object;
-  siteVisitData: Object;
+  siteVisitData: Array<Object>;
   siteVisitFormGroup: FormGroup;
   currentResidentForm = false;
   businessSiteVisitForm = false;
@@ -687,7 +687,7 @@ export class SiteVisitComponent implements OnInit {
   }
 
   onSubmit() {
-    this.siteVisitData = {data: this.siteVisitFormGroup.value};
+    this.siteVisitData = [{data: this.siteVisitFormGroup.value}];
   }
 
   onChangeValue(childFormControlName: string, totalFormControlName: string) {

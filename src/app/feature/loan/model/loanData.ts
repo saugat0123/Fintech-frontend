@@ -25,7 +25,7 @@ export class LoanDataHolder {
     insurance: Insurance;
     documentStatus: DocStatus;
     financial: Object;
-    siteVisit: Object;
+    siteVisit: Array<Object>;
     priority: Priority;
     createdAt: any;
     previousList: LoanStage[] = [];
