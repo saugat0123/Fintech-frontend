@@ -18,7 +18,8 @@
   }
 
   #signatureDiv {
-    page-break-before: always;
+    page-break-before: auto;
+    page-break-inside: avoid;
   }
 
   .signature-height {
@@ -29,6 +30,8 @@
     padding: 0.5rem;
     border: 1px solid #8c8b8b;
     margin-top: 0.2rem;
+    page-break-before: auto;
+    page-break-inside: avoid;
   }
 
   .signature-block .signature-detail {
