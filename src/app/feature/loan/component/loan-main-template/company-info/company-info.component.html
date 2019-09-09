@@ -1,7 +1,7 @@
 <nb-card>
     <nb-card-body>
         <div class="form-group">
-            <form (ngSubmit)="onSubmit()" [formGroup]="companyInfo">
+            <form (ngSubmit)="onSubmit()" [formGroup]="companyInfoFormGroup">
                 <div class="box-header with-border">
                     <h3 class="box-title">1. Legal Status</h3>
                 </div>
@@ -279,13 +279,13 @@
                     <h3 class="box-title title">3. Management Team</h3>
                 </div>
                 <div formArrayName="managementTeams" class="border-bottom border-dark m-4"
-                     *ngFor="let managementTeam of companyInfo.get('managementTeams')['controls']; let managementTeamIndex = index">
+                     *ngFor="let managementTeam of companyInfoFormGroup.get('managementTeams')['controls']; let managementTeamIndex = index">
                     <div [formGroupName]="managementTeamIndex">
                         <div class="row">
                             <div class="col-md-10 form-group">
                                 <h4>{{managementTeamIndex + 1}}) Management Team</h4>
                             </div>
-                            <div class="col-md-2 float-right" *ngIf="companyInfo.get('managementTeams').length>1">
+                            <div class="col-md-2 float-right" *ngIf="companyInfoFormGroup.get('managementTeams').length>1">
                                 <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
                                        (click)="removeManagementTeam(managementTeamIndex)" value="Delete">
                             </div>
@@ -328,13 +328,13 @@
                     <h3 class="box-title">4. Information of Proprietor/Shareholder/Partner with holder %</h3>
                 </div>
                 <div formArrayName="proprietors" class="border-bottom border-dark m-4"
-                     *ngFor="let proprietor of companyInfo.get('proprietors')['controls']; let proprietorIndex = index">
+                     *ngFor="let proprietor of companyInfoFormGroup.get('proprietors')['controls']; let proprietorIndex = index">
                     <div [formGroupName]="proprietorIndex">
                         <div class="row">
                             <div class="col-md-10 form-group">
                                 <h4>{{proprietorIndex + 1}}) Proprietor Information</h4>
                             </div>
-                            <div class="col-md-2" *ngIf="companyInfo.get('proprietors').length>1">
+                            <div class="col-md-2" *ngIf="companyInfoFormGroup.get('proprietors').length>1">
                                 <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
                                        (click)="removeProprietor(proprietorIndex)" value="Delete"/>
                             </div>
