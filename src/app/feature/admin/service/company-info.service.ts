@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BaseService} from '../../../@core/BaseService';
-import {EntityInfo} from '../modal/entity-info';
+import {CompanyInfo} from '../modal/company-info';
 
 @Injectable({
     providedIn: 'root'
 })
-export class EntityInfoService extends BaseService<EntityInfo> {
+export class CompanyInfoService extends BaseService<CompanyInfo> {
 
     static API = 'v1/companyInfo';
 
@@ -15,6 +15,6 @@ export class EntityInfoService extends BaseService<EntityInfo> {
     }
 
   protected getApi(): string {
-    return EntityInfoService.API;
+    return CompanyInfoService.API;
   }
 }
