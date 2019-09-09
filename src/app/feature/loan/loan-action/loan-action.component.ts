@@ -33,6 +33,7 @@ export class LoanActionComponent implements OnInit {
     @Input() loanConfigId: number;
     @Input() id: number;
     @Input() loanCategory: string;
+    @Input() catalogueStatus = false;
 
     @Input() actionsList: ActionModel;
     popUpTitle: string;
