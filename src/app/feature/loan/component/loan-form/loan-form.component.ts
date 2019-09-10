@@ -222,6 +222,7 @@ export class LoanFormComponent implements OnInit {
     save() {
         this.spinner.show();
         if (this.selectChild(this.selectedTab, true)) {
+            this.spinner.hide();
             return;
         }
         this.loanDocument.loan = this.loan;

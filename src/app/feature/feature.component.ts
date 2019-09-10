@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {NbMenuItem} from '@nebular/theme';
 import {FeatureMenuService} from './FeatureMenuService';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
 
 @Component({
     selector: 'app-pages',
@@ -17,7 +19,9 @@ export class FeatureComponent implements OnInit {
 
     private items;
 
-    constructor(private menuService: FeatureMenuService) {
+    constructor(private menuService: FeatureMenuService,
+                private spinner: NgxSpinnerService,
+                private router: Router) {
     }
 
     ngOnInit() {
@@ -27,6 +31,14 @@ export class FeatureComponent implements OnInit {
             (error) => {
                 console.log(error);
             });
+
+        this.router.events.subscribe(event => {
+            if (event instanceof RouteConfigLoadStart) {
+                this.spinner.show();
+            } else if (event instanceof RouteConfigLoadEnd) {
+                this.spinner.hide();
+            }
+        });
     }
 }
 
