@@ -77,31 +77,31 @@ export class LoanFormComponent implements OnInit {
     loanDocument: LoanDataHolder;
 
 
-    @ViewChild('basicInfo')
+    @ViewChild('basicInfo', { static: false })
     basicInfo: BasicInfoComponent;
 
-    @ViewChild('dmsLoanFile')
+    @ViewChild('dmsLoanFile', { static: false })
     dmsLoanFile: DmsLoanFileComponent;
 
-    @ViewChild('companyInfo')
+    @ViewChild('companyInfo', { static: false })
     companyInfoComponent: CompanyInfoComponent;
 
-    @ViewChild('kycInfo')
+    @ViewChild('kycInfo', { static: false })
     kycInfo: KycInfoComponent;
 
-    @ViewChild('proposalInfo')
+    @ViewChild('proposalInfo', { static: false })
     proposalDetail: ProposalComponent;
 
-    @ViewChild('cicl')
+    @ViewChild('cicl', { static: false })
     cicl: CiclComponent;
 
-    @ViewChild('creditGrading')
+    @ViewChild('creditGrading', { static: false })
     creditGrading: CreditGradingComponent;
 
-    @ViewChild('financial')
+    @ViewChild('financial', { static: false })
     financial: FinancialComponent;
 
-    @ViewChild('siteVisit')
+    @ViewChild('siteVisit', { static: false })
     siteVisit: SiteVisitComponent;
 
     constructor(
