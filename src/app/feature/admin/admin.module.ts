@@ -44,7 +44,6 @@ import {CommonModule} from '@angular/common';
 import {RoleHierarchyComponent} from './component/role-hierarchy/role-hierarchy.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {QuestionComponent} from './component/eligibility/question/question.component';
-import {AllRequestsComponent} from './component/all-requests/all-requests.component';
 import {EligibleRequestsComponent} from './component/eligibility/eligible-requests/eligible-requests.component';
 import {NonEligibleRequestsComponent} from './component/eligibility/non-eligible-requests/non-eligible-requests.component';
 import {NewRequestsComponent} from './component/eligibility/new-requests/new-requests.component';
@@ -106,7 +105,6 @@ import {CoreModule} from '../../@core/core.module';
         ListRoleComponent,
         RoleHierarchyComponent,
         QuestionComponent,
-        AllRequestsComponent,
         EligibleRequestsComponent,
         NonEligibleRequestsComponent,
         NewRequestsComponent,

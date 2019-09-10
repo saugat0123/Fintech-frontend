@@ -118,14 +118,13 @@ export class DashboardComponent implements OnInit, AfterContentInit {
 
     newLoan() {
         this.onClose();
-        this.spinner.show();
         this.router.navigate(['/home/loan/loanForm'], {
             queryParams: {
                 loanId: this.loanType,
                 customerId: null,
                 loanCategory: this.businessOrPersonal
             }
-        }).then(() => { this.spinner.hide(); } );
+        });
     }
 
     onClose() {
