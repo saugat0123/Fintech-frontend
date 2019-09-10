@@ -21,8 +21,8 @@
                       *ngIf="selectedTab==='Kyc Info' && loanDocument"
                       #kycInfo></app-kyc-info>
         <app-dms-loan [loanDataHolder]="loanDocument" *ngIf="selectedTab==='General' && loanFile" #dmsLoanFile></app-dms-loan>
-        <app-company-info [formValue]="loanDocument?.entityInfo" *ngIf="selectedTab==='Company Info'"
-                          #entityInfo></app-company-info>
+        <app-company-info [formValue]="loanDocument?.companyInfo" *ngIf="selectedTab==='Company Info'"
+                          #companyInfo></app-company-info>
         <app-proposal [formValue]="loadProposal()"
                       *ngIf="selectedTab==='Proposal' && loanDocument"
                       (dmsDisableButton)="submitButton($event)"
