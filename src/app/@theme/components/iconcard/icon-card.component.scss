@@ -2,13 +2,13 @@
 @import '~@nebular/bootstrap/styles/hero-buttons';
 
 @include nb-install-component() {
-  nb-card {
+  /*nb-card {
     flex-direction: row;
     align-items: center;
     height: 6rem;
     overflow: visible;
 
-    $bevel: btn-hero-bevel(nb-theme(card-bg));
+    //$bevel: btn-hero-bevel(nb-theme(card-bg));
     $shadow: nb-theme(btn-hero-shadow);
     box-shadow: $bevel, $shadow;
 
@@ -177,9 +177,9 @@
         font-weight: nb-theme(font-weight-light);
       }
     }
-  }
+  }*/
 
-  @include nb-for-theme(corporate) {
+  @include nb-for-theme(default) {
     nb-card {
       .icon-container {
         height: auto;
