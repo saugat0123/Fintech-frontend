@@ -25,6 +25,7 @@ import {DocAction} from '../../../loan/model/docAction';
 import {LoanStage} from '../../../loan/model/loanStage';
 import {SocketService} from '../../../../@core/service/socket.service';
 import {CatalogueSearch, CatalogueService} from './catalogue.service';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 
 @Component({
@@ -153,7 +154,8 @@ export class CatalogueComponent implements OnInit {
       docStatus: [undefined],
       startDate: [undefined],
       endDate: [undefined],
-      role: [undefined]
+      role: [undefined],
+      customerName: [undefined]
     });
   }
 
@@ -215,6 +217,8 @@ export class CatalogueComponent implements OnInit {
     }
     this.catalogueService.search.currentUserRole = this.filterForm.get('role').value === null ? undefined :
         this.filterForm.get('role').value;
+    this.catalogueService.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
+        this.filterForm.get('customerName').value;
     CatalogueComponent.loadData(this);
   }
 

@@ -44,7 +44,11 @@
                   for
                 </div>
                 <div
-                    class="report-header-sub-heading">{{loanDataHolder?.customerInfo?.customerName}}</div>
+                    class="report-header-sub-heading">
+                  {{loanCategory === 'BUSINESS_TYPE' ?
+                    loanDataHolder?.companyInfo?.companyName
+                    : loanDataHolder?.customerInfo?.customerName}}
+                </div>
                 <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
               </div>
             </div>
@@ -103,7 +107,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <p><b>Details of Borrower</b></p>
+          <p><strong>Details of Authorized Person</strong></p>
         </div>
         <div class="col-md-12">
           <table
@@ -164,6 +168,7 @@
             <tr>
               <th>Name</th>
               <th>Establishment Date</th>
+              <th>PAN</th>
               <th>Registration Number</th>
               <th>Business Type</th>
               <th>Key Person</th>
@@ -173,6 +178,7 @@
             <tr>
               <td>{{loanDataHolder?.companyInfo?.companyName}}</td>
               <td>{{loanDataHolder?.companyInfo?.establishmentDate | date}}</td>
+              <td>{{loanDataHolder?.companyInfo?.panNumber}}</td>
               <td>{{loanDataHolder?.companyInfo?.registrationNumber}}</td>
               <td>{{businessType[loanDataHolder?.companyInfo?.businessType]}}</td>
               <td>{{loanDataHolder?.dmsLoanFile?.keyPersonName}}</td>
@@ -184,6 +190,7 @@
             <tr>
               <th>Name</th>
               <th>Establishment Date</th>
+              <th>PAN</th>
               <th>Registration Number</th>
               <th>Business Type</th>
               <th>Key Person</th>
@@ -193,6 +200,7 @@
             <tr>
               <td>{{loanDataHolder?.companyInfo?.companyName}}</td>
               <td>{{loanDataHolder?.companyInfo?.establishmentDate | date}}</td>
+              <td>{{loanDataHolder?.companyInfo?.panNumber}}</td>
               <td>{{loanDataHolder?.companyInfo?.registrationNumber}}</td>
               <td>{{businessType[loanDataHolder?.companyInfo?.businessType]}}</td>
               <td>{{loanDataHolder?.dmsLoanFile?.keyPersonName}}</td>
@@ -240,20 +248,20 @@
               <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
 
               <th>Total DV</th>
-              <td>{{dmsLoanFile?.distressValue}}</td>
+              <td>{{dmsLoanFile?.distressValue | currencyFormatter}}</td>
 
               <th>Total Loan Limit</th>
-              <td>{{dmsLoanFile?.totalLoanLimit}}</td>
+              <td>{{dmsLoanFile?.totalLoanLimit | currencyFormatter}}</td>
             </tr>
             <tr>
               <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Individual Exposure</th>
-              <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.individualExposure}}</td>
+              <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.individualExposure | currencyFormatter}}</td>
 
               <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Institution Exposure</th>
-              <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.institutionExposure}}</td>
+              <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.institutionExposure | currencyFormatter}}</td>
 
               <th>Group Exposure</th>
-              <td>{{dmsLoanFile?.groupExpo}}</td>
+              <td>{{dmsLoanFile?.groupExpo | currencyFormatter}}</td>
 
               <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Interest Coverage Ratio
               </th>

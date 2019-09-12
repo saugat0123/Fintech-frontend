@@ -20,9 +20,9 @@ export class DmsLoanFile {
     fmvTotal: number;
     distressValue: number;
     totalLoanLimit: number;
-    individualExposure: string;
-    institutionExposure: string;
-    groupExpo: String;
+    individualExposure: number;
+    institutionExposure: number;
+    groupExpo: number;
     fmvFundingPercent: number;
     incomeCoverageRatio: number;
     debtServiceCoverageRatio: number;
