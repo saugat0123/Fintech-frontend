@@ -8,6 +8,7 @@ export class CatalogueSearch {
   currentStageDate: string;
   currentUserRole: string;
   toUser: string;
+  customerName: string;
 }
 
 @Injectable({

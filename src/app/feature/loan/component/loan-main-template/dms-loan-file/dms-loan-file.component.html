@@ -417,7 +417,7 @@
                          class="form-control rounded" formControlName="individualExposure"
                          id="individualExposure"
                          placeholder="Enter Individual Exposure"
-                         type="text"/>
+                         type="number"/>
                   <div *ngIf="submitted && form.individualExposure.errors" class="invalid-feedback">
                     <div *ngIf="form.individualExposure.errors.required">
                       Individual Exposure is required
@@ -432,7 +432,7 @@
                          class="form-control rounded" formControlName="institutionExposure"
                          id="institutionExposure"
                          placeholder="Enter Institution Exposure"
-                         type="text"/>
+                         type="number"/>
                   <div *ngIf="submitted && form.institutionExposure.errors"
                        class="invalid-feedback">
                     <div *ngIf="form.institutionExposure.errors.required">
@@ -510,7 +510,7 @@
                          class="form-control rounded" formControlName="groupExpo"
                          id="groupExpo"
                          placeholder="Enter Group Exposure"
-                         type="text"/>
+                         type="number"/>
                   <div *ngIf="submitted && form.groupExpo.errors" class="invalid-feedback">
                     <div *ngIf="form.groupExpo.errors.required">
                       Group Exposure is required
