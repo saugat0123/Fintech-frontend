@@ -358,6 +358,9 @@ export class DmsLoanFileComponent implements OnInit {
     } else if (ObjectUtil.isEmpty(this.loanForm.get('citizenshipNumber').value)) {
       this.toastService.show(new Alert(AlertType.ERROR, 'Citizenship Number is required to upload file.'));
       (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
+    } else if (ObjectUtil.isEmpty(this.loanForm.get('customerName').value)) {
+      this.toastService.show(new Alert(AlertType.ERROR, 'Customer Name is required to upload file.'));
+      (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
     } else {
       this.errorMessage = undefined;
       const formdata: FormData = new FormData();
