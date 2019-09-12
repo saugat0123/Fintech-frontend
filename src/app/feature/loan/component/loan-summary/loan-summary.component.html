@@ -44,7 +44,11 @@
                   for
                 </div>
                 <div
-                    class="report-header-sub-heading">{{loanDataHolder?.customerInfo?.customerName}}</div>
+                    class="report-header-sub-heading">
+                  {{loanCategory === 'BUSINESS_TYPE' ?
+                    loanDataHolder?.companyInfo?.companyName
+                    : loanDataHolder?.customerInfo?.customerName}}
+                </div>
                 <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
               </div>
             </div>
