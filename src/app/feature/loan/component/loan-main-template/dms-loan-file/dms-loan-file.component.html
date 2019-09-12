@@ -209,6 +209,26 @@
               <div class="row">
                 <div *ngIf="companyFormField.showFormField" class="col-md-4">
                   <div class="form-group">
+                    <label for="panNumber"><strong>PAN</strong></label>
+                    <div class="input-group mb-3">
+                      <input
+                          [ngClass]="{ 'is-invalid':submitted && form.companyPAN.errors && !personal}"
+                          class="form-control rounded"
+                          formControlName="companyPAN"
+                          id="panNumber"
+                          placeholder="Enter PAN"
+                          type="text"/>
+                      <div *ngIf="submitted && form.companyPAN.errors && !personal"
+                           class="invalid-feedback">
+                        <div *ngIf="form.companyPAN.errors.required">
+                          PAN is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                  <div class="form-group">
                     <label for="businessType"><b>Business Type</b></label>
                     <ng-select [items]="businessTypes"
                                [multiple]="false"

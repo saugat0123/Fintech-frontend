@@ -17,4 +17,5 @@ export class CompanyInfo {
     version: number;
     establishmentDate: Date;
     businessType: BusinessType;
+    panNumber: string;
 }
