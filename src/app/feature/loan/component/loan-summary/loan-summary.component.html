@@ -27,12 +27,12 @@
                 Priority:
                 <span class="badge badge-danger"
                       style="font-size: 11px">{{loanDataHolder?.dmsLoanFile?.priority?.toString()
-                || loanDataHolder?.priority?.toString() | lowercase}}</span>
+                || loanDataHolder?.priority?.toString() | titlecase}}</span>
               </div>
               <div>
                 Loan Status:
                 <span class="badge badge-info"
-                      style="font-size: 11px">{{loanDataHolder.documentStatus?.toString() | lowercase}}</span>
+                      style="font-size: 11px">{{loanDataHolder.documentStatus?.toString() | titlecase}}</span>
               </div>
             </div>
             <div class="col-md-6">
@@ -228,7 +228,7 @@
               || loanDataHolder?.proposal?.proposedLimit | currencyFormatter}}</td>
 
               <th>Interest Rate</th>
-              <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}}</td>
+              <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}} %</td>
 
               <th>Tenure Duration In Month</th>
               <td>{{(dmsLoanFile?.tenureDuration
@@ -243,7 +243,7 @@
               </td>
 
               <th>FMV Funding Percentage</th>
-              <td>{{dmsLoanFile?.fmvFundingPercent}}</td>
+              <td>{{dmsLoanFile?.fmvFundingPercent}} %</td>
 
               <th>Total FMV</th>
               <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
