@@ -355,6 +355,9 @@ export class DmsLoanFileComponent implements OnInit {
     if (file.size > DmsLoanFileComponent.FILE_SIZE_5MB) {
       this.errorMessage = 'Maximum File Size Exceeds for  ' + documentName;
       (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
+    } else if (ObjectUtil.isEmpty(this.loanForm.get('citizenshipNumber').value)) {
+      this.toastService.show(new Alert(AlertType.ERROR, 'Citizenship Number is required to upload file.'));
+      (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
     } else {
       this.errorMessage = undefined;
       const formdata: FormData = new FormData();
