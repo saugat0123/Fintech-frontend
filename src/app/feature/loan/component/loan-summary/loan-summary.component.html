@@ -103,7 +103,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <p><b>Details of Borrower</b></p>
+          <p><strong>Details of Authorized Person</strong></p>
         </div>
         <div class="col-md-12">
           <table
@@ -240,20 +240,20 @@
               <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
 
               <th>Total DV</th>
-              <td>{{dmsLoanFile?.distressValue}}</td>
+              <td>{{dmsLoanFile?.distressValue | currencyFormatter}}</td>
 
               <th>Total Loan Limit</th>
-              <td>{{dmsLoanFile?.totalLoanLimit}}</td>
+              <td>{{dmsLoanFile?.totalLoanLimit | currencyFormatter}}</td>
             </tr>
             <tr>
               <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Individual Exposure</th>
-              <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.individualExposure}}</td>
+              <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.individualExposure | currencyFormatter}}</td>
 
               <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Institution Exposure</th>
-              <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.institutionExposure}}</td>
+              <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.institutionExposure | currencyFormatter}}</td>
 
               <th>Group Exposure</th>
-              <td>{{dmsLoanFile?.groupExpo}}</td>
+              <td>{{dmsLoanFile?.groupExpo | currencyFormatter}}</td>
 
               <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Interest Coverage Ratio
               </th>
