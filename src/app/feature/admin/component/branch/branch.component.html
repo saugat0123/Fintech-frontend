@@ -30,8 +30,11 @@
                                        placeholder="name...">
                             </div>
                             <div class="col-md-4">
-                                <button data-toggle="collapse" data-target="#searchModel"
-                                        nbButton outline status="primary">
+                                <button
+                                        nbButton shape="rectangle" status="primary"
+                                        (click)="isSearchCollapsed = !isSearchCollapsed"
+                                        [attr.aria-expanded]="!isSearchCollapsed"
+                                        aria-controls="searchModel">
                                     <i class="fa fa-filter"> Filter</i>
                                 </button>
                             </div>
@@ -40,22 +43,25 @@
                     <!-- <h3 class="box-title">Hover Data Table</h3> -->
                     <div class="col-md-6">
                         <div class="float-right">
-                            <a *ngIf='downloadCsv' class="pull-right btn btn-transparent-primary"
-                               (click)="getCsv()">
-                                <i class="fa fa-download" aria-hidden="true"></i> Download</a>
-                            <button *ngIf='addViewBranch' class="skin-blue pull-right" data-toggle="modal"
-                                    (click)="add()">
-                                <i class="skin-blue fa fa-plus"></i>
+                            <button *ngIf='downloadCsv'
+                                    nbButton outline status="info"
+                                    class="mr-2"
+                                    (click)="getCsv()">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                            </button>
+                            <button nbButton outline status="success" *ngIf='addViewBranch' (click)="add()">
+                                <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div id="searchModel" class="collapse col-md-12">
+                    <div id="searchModel" class="col-md-12" [ngbCollapse]="isSearchCollapsed">
                         <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
                             <div class="row py-3">
                                 <div class="col-md-3">
-                                    <select class="custom-select" formControlName="provinceId" (change)="getDistricts($event.target.value)">
+                                    <select class="custom-select" formControlName="provinceId"
+                                            (change)="getDistricts($event.target.value)">
                                         <option [value]="null" selected hidden>Province</option>
                                         <option *ngFor="let province of provinces"
                                                 value="{{province.id}}">
@@ -63,7 +69,8 @@
                                     </select>
                                 </div>
                                 <div class="col-md-3 mb-3">
-                                    <select class="custom-select" formControlName="districtId" (change)="getMunicipalities($event.target.value)">
+                                    <select class="custom-select" formControlName="districtId"
+                                            (change)="getMunicipalities($event.target.value)">
                                         <option [value]="null" selected hidden>District</option>
                                         <option *ngFor="let district of districts"
                                                 value="{{district.id}}"
@@ -83,13 +90,10 @@
                                 </div>
                             </div>
                             <div class="col-md-12 p-0">
-                                <button (click)="clearSearch()" data-toggle="collapse" data-target="#searchModel"
-                                        class="btn btn-sm btn-flat btn-outline-danger mr-1">Clear Search
+                                <button nbButton status="info" shape="rectangle" class="mr-1" type="submit">Advance
+                                    Search
                                 </button>
-                                <button class="btn btn-primary btn-sm btn-flat pull-right mr-1"
-                                        type="submit">
-                                    Advance Search
-                                </button>
+                                <button (click)="clear()" shape="rectangle" nbButton status="danger">Clear</button>
                             </div>
                         </form>
                     </div>
@@ -97,21 +101,21 @@
             </nb-card-header>
             <nb-card-body>
                 <div class="box-body" *ngIf='viewBranch'>
-                    <table id="add-branch-table" class="table table-striped table-bordered table-hover ">
-                            <thead>
-                            <tr>
-                                <th>S.N</th>
-                                <th>Branch Name</th>
-                                <th>Code</th>
-                                <th>Province</th>
-                                <th>District</th>
-                                <th>Municipality</th>
-                                <th>Street</th>
-                                <th>Ward</th>
-                                <!--<th>Status</th>-->
-                                <th *ngIf='editViewBranch === true'>Action</th>
-                            </tr>
-                            </thead>
+                    <table id="add-branch-table" class="table table-bordered table-hover ">
+                        <thead>
+                        <tr>
+                            <th>S.N</th>
+                            <th>Branch Name</th>
+                            <th>Code</th>
+                            <th>Province</th>
+                            <th>District</th>
+                            <th>Municipality</th>
+                            <th>Street</th>
+                            <th>Ward</th>
+                            <!--<th>Status</th>-->
+                            <th *ngIf='editViewBranch === true'>Action</th>
+                        </tr>
+                        </thead>
                         <tbody>
                         <tr *ngFor="let allList of dataList; let i = index">
                             <div *ngIf="!dataList?.length > 0">
@@ -126,24 +130,26 @@
                             <td>{{allList.streetName}}</td>
                             <td>{{allList.wardNumber}}</td>
                             <!--<td *ngIf='editViewBranch ==true; else status '>-->
-                                <!--<select class="select-borderless" [(ngModel)]="allList.status" name="status"-->
-                                        <!--(change)="onChange(allList)">-->
-                                    <!--<option value="ACTIVE">ACTIVE</option>-->
-                                    <!--<option value="INACTIVE">INACTIVE</option>-->
-                                <!--</select>-->
+                            <!--<select class="select-borderless" [(ngModel)]="allList.status" name="status"-->
+                            <!--(change)="onChange(allList)">-->
+                            <!--<option value="ACTIVE">ACTIVE</option>-->
+                            <!--<option value="INACTIVE">INACTIVE</option>-->
+                            <!--</select>-->
                             <!--</td>-->
                             <!--<ng-template #status>-->
 
-                                <!--<td>-->
-                                    <!--<p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>-->
-                                <!--</td>-->
+                            <!--<td>-->
+                            <!--<p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>-->
+                            <!--</td>-->
                             <!--</ng-template>-->
                             <td>
-                                <a *ngIf='editViewBranch' (click)="edit(allList)"
-                                   data-toggle="tooltip"
-                                   data-placement="top" title="EDIT" class="cursor">
-                                    <i class="fa fa-edit" style="color:#3c8dbc;"></i>
-                                </a>
+                                <button *ngIf='editViewBranch'
+                                        nbButton status="info"
+                                        size="small"
+                                        (click)="edit(allList)"
+                                        title="Edit">
+                                    <i class="fa fa-edit"></i>
+                                </button>
                                 <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip"  data-placement="top" (click)="delete(allList)"  title="DELETE" style="margin-left:10px">
                                   <i class="fa fa-trash" style="color:white;"></i>
                                 </a> -->
