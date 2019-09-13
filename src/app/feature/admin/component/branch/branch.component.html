@@ -32,8 +32,8 @@
                             <div class="col-md-4">
                                 <button
                                         nbButton shape="rectangle" status="primary"
-                                        (click)="isSearchCollapsed = !isSearchCollapsed"
-                                        [attr.aria-expanded]="!isSearchCollapsed"
+                                        (click)="isFilterCollapsed = !isFilterCollapsed"
+                                        [attr.aria-expanded]="!isFilterCollapsed"
                                         aria-controls="searchModel">
                                     <i class="fa fa-filter"> Filter</i>
                                 </button>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div id="searchModel" class="col-md-12" [ngbCollapse]="isSearchCollapsed">
+                    <div id="searchModel" class="col-md-12" [ngbCollapse]="isFilterCollapsed">
                         <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
                             <div class="row py-3">
                                 <div class="col-md-3">
@@ -90,8 +90,8 @@
                                 </div>
                             </div>
                             <div class="col-md-12 p-0">
-                                <button nbButton status="info" shape="rectangle" class="mr-1" type="submit">Advance
-                                    Search
+                                <button nbButton status="info" shape="rectangle" class="mr-2"
+                                        type="submit">Search
                                 </button>
                                 <button (click)="clear()" shape="rectangle" nbButton status="danger">Clear</button>
                             </div>
@@ -101,7 +101,7 @@
             </nb-card-header>
             <nb-card-body>
                 <div class="box-body" *ngIf='viewBranch'>
-                    <table id="add-branch-table" class="table table-bordered table-hover ">
+                    <table id="add-branch-table" class="table table-bordered table-responsive-md table-hover ">
                         <thead>
                         <tr>
                             <th>S.N</th>
