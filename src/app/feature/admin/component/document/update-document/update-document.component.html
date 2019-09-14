@@ -2,7 +2,7 @@
     <nb-accordion>
         <nb-accordion-item>
             <nb-accordion-item-header>
-                <h3>{{title}}</h3>
+                <h5>{{title}}</h5>
                 <p class="m-0 ml-2"> ({{label}})</p>
             </nb-accordion-item-header>
             <nb-accordion-item-body>
@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <div class="box-footer text-right">
-                        <button type="button" (click)="updateLoanCycleInBulk()" class="btn btn-primary">Submit</button>
+                        <button nbButton status="info" size="small" type="button" (click)="updateLoanCycleInBulk()">Submit</button>
                     </div>
                 </div>
                 <div *ngIf="allList.length <= 0">

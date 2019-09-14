@@ -43,7 +43,7 @@
                     <!-- <h3 class="box-title">Hover Data Table</h3> -->
                     <div class="col-md-6">
                         <div class="float-right">
-                            <button data-toggle="modal" (click)="addDocument()">
+                            <button nbButton outline status="success" (click)="addDocument()">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -79,10 +79,9 @@
                             </select>
                         </td>
                         <td>
-                            <a (click)="openEdit(allList)" data-toggle="tooltip"
-                               data-placement="top" title="EDIT">
-                                <i class="fa fa-edit" style="color:#3c8dbc;"></i>
-                            </a>
+                            <button nbButton status="info" size="small" (click)="openEdit(allList)" title="Edit">
+                                <i class="fa fa-edit"></i>
+                            </button>
                             <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE"
                               style="margin-left:10px">
                               <i class="fa fa-trash" style="color:white;"></i>

@@ -62,11 +62,9 @@
                             <td>{{allList.modifiedByName}}</td>
                         </ng-template>
                         <td *ngIf="allList.roleName !== 'admin'">
-                            <a (click)="openEditRole(allList)"
-                               data-toggle="tooltip"
-                               data-placement="top" title="Edit Role name" class="cursor">
-                                <i class="fa fa-edit" style="color:#3c8dbc;"></i>
-                            </a>
+                            <button nbButton size="small" status="info" (click)="openEditRole(allList)">
+                                <i class="fa fa-edit"></i>
+                            </button>
                         </td>
                     </tr>
                     </tbody>
