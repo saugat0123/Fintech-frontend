@@ -1,54 +1,49 @@
-<div class="modal-document">
-    <div class="modal-content">
-        <div class="modal-header" style="display:block">
-            <a  class="close cursor" data-dismiss="modal" aria-label="Close"
-                (click)="onClose()">
-                <span aria-hidden="true">×</span></a>
-            <h4 class="modal-title pull-left">Add Role</h4>
-        </div>
-        <div class="modal-body">
-            <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label>Name</label>
-                        <input type="hidden" class="form-control" [(ngModel)]="role.id" name="id"
-                               placeholder="id">
-                        <input type="text" class="form-control" required [(ngModel)]="role.roleName"
-                               name="roleName" placeholder="Name" #roleVal="ngModel"
-                               [ngClass]="{ 'is-invalid': f.submitted && roleVal.invalid }">
-                        <div *ngIf="f.submitted && roleVal.invalid" class="invalid-feedback">
-                            <div *ngIf="roleVal.errors.required">Role is required</div>
-                        </div>
-                    </div>
-
-                    <div *ngIf="!hideRoleType" class="col-md-6">
-                        <label>Role Type</label><br>
-                        <input #chk (click)="checkIfMaker(chk.checked)" [(ngModel)]="roleType" name="roleType" type="checkbox"
-                               value="{{role.roleType}}"><b class="ml-2">Is Role a Maker?</b>
-                    </div>
-
-                    <div *ngIf="!hideBranchAccess" class="col-md-6">
-                        <label>Branch Access</label>
-                        <select #accessVal="ngModel" [(ngModel)]="role.roleAccess"
-                                [ngClass]="{ 'is-invalid': f.submitted && accessVal.invalid }" class="custom-select"
-                                name="roleType" required>
-                            <option [ngValue]="undefined" hidden>Select the Role Type</option>
-                            <option *ngFor="let roleAccess of roleAccessList.values()"
-                                    [ngValue]="roleAccess">{{roleAccess}}</option>
-                        </select>
-                        <div *ngIf="f.submitted && accessVal.invalid" class="invalid-feedback">
-                            <div *ngIf="accessVal.errors.required">Access is required</div>
-                        </div>
-                    </div>
+<div class="modal-header">
+    <h4 class="modal-title">Add Role</h4>
+    <a class="close button" aria-label="Close" (click)="onClose()" href="#">
+        <span aria-hidden="true">×</span></a>
+</div>
+<div class="modal-body">
+    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label>Name</label>
+                <input type="hidden" class="form-control" [(ngModel)]="role.id" name="id"
+                       placeholder="id">
+                <input type="text" class="form-control" required [(ngModel)]="role.roleName"
+                       name="roleName" placeholder="Name" #roleVal="ngModel"
+                       [ngClass]="{ 'is-invalid': f.submitted && roleVal.invalid }">
+                <div *ngIf="f.submitted && roleVal.invalid" class="invalid-feedback">
+                    <div *ngIf="roleVal.errors.required">Role is required</div>
                 </div>
-                <div class="modal-footer">
-                    <div><sup>*</sup>New Role will added in Lowest Order</div>
-                    <button type="submit" class="btn btn-primary"><i
-                            class="fa fa-save"></i>
-                    </button>
+            </div>
+
+            <div *ngIf="!hideRoleType" class="col-md-6">
+                <label>Role Type</label><br>
+                <input #chk (click)="checkIfMaker(chk.checked)" [(ngModel)]="roleType" name="roleType" type="checkbox"
+                       value="{{role.roleType}}"><b class="ml-2">Is Role a Maker?</b>
+            </div>
+
+            <div *ngIf="!hideBranchAccess" class="col-md-6">
+                <label>Branch Access</label>
+                <select #accessVal="ngModel" [(ngModel)]="role.roleAccess"
+                        [ngClass]="{ 'is-invalid': f.submitted && accessVal.invalid }" class="custom-select"
+                        name="roleType" required>
+                    <option [ngValue]="undefined" hidden>Select the Role Type</option>
+                    <option *ngFor="let roleAccess of roleAccessList.values()"
+                            [ngValue]="roleAccess">{{roleAccess}}</option>
+                </select>
+                <div *ngIf="f.submitted && accessVal.invalid" class="invalid-feedback">
+                    <div *ngIf="accessVal.errors.required">Access is required</div>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+        <div class="modal-footer">
+            <div class="subtitle-2"><sup>*</sup>New Role will added in Lowest Order</div>
+            <button type="submit" nbButton status="info">
+                Save
+            </button>
+        </div>
+    </form>
 </div>
 

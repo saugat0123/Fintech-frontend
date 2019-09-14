@@ -62,7 +62,7 @@ export class RolePermissionComponent implements OnInit {
   }
 
   onOpen() {
-    const modalRef = this.modalService.open(RoleFormComponent, {backdrop: 'static'});
+    const modalRef = this.modalService.open(RoleFormComponent, {backdrop: 'static', size: 'lg'});
     ModalUtils.resolve(modalRef.result, RolePermissionComponent.loadData, this);
   }
 
