@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbTabChangeEvent} from '@ng-bootstrap/ng-bootstrap';
 import {LoanDataHolder} from '../../model/loanData';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
@@ -37,6 +37,10 @@ export class LoanFormComponent implements OnInit {
     loanFile: DmsLoanFile;
     loanTitle: string;
     loading = true;
+
+    totalTabCount = 0;
+    nextTabId = 0;
+    previousTabId = 0;
 
     customerLoanId: number;
     templateList = [
@@ -77,31 +81,31 @@ export class LoanFormComponent implements OnInit {
     loanDocument: LoanDataHolder;
 
 
-    @ViewChild('basicInfo', { static: false })
+    @ViewChild('basicInfo', {static: false})
     basicInfo: BasicInfoComponent;
 
-    @ViewChild('dmsLoanFile', { static: false })
+    @ViewChild('dmsLoanFile', {static: false})
     dmsLoanFile: DmsLoanFileComponent;
 
-    @ViewChild('companyInfo', { static: false })
+    @ViewChild('companyInfo', {static: false})
     companyInfoComponent: CompanyInfoComponent;
 
-    @ViewChild('kycInfo', { static: false })
+    @ViewChild('kycInfo', {static: false})
     kycInfo: KycInfoComponent;
 
-    @ViewChild('proposalInfo', { static: false })
+    @ViewChild('proposalInfo', {static: false})
     proposalDetail: ProposalComponent;
 
-    @ViewChild('cicl', { static: false })
+    @ViewChild('cicl', {static: false})
     cicl: CiclComponent;
 
-    @ViewChild('creditGrading', { static: false })
+    @ViewChild('creditGrading', {static: false})
     creditGrading: CreditGradingComponent;
 
-    @ViewChild('financial', { static: false })
+    @ViewChild('financial', {static: false})
     financial: FinancialComponent;
 
-    @ViewChild('siteVisit', { static: false })
+    @ViewChild('siteVisit', {static: false})
     siteVisit: SiteVisitComponent;
 
     constructor(
@@ -171,12 +175,23 @@ export class LoanFormComponent implements OnInit {
                 this.currentTab.tabName = this.templateList[0].name;
                 this.selectedTab = this.templateList[0].name;
                 this.first = true;
+
+                this.totalTabCount = this.templateList.length;
+                this.nextTabId = 1;
             }
             if (this.templateList.length === 0) {
                 this.toastService.show(new Alert(AlertType.INFO, 'NO FORM ARE AVAILABLE'));
                 this.router.navigate(['/home/dashboard']);
             }
         });
+    }
+
+    tabChange(evt: NgbTabChangeEvent) {
+        const selectedTabId = parseInt(evt.nextId, 10);
+        this.nextTabId = selectedTabId + 1;
+        this.previousTabId = selectedTabId - 1;
+
+        console.log(this.nextTabId.toString());
     }
 
     selectTab(index, name) {
@@ -233,7 +248,9 @@ export class LoanFormComponent implements OnInit {
             this.customerLoanId = this.loanDocument.id;
             this.loanDocument = new LoanDataHolder();
             this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}})
-                .then(() => { this.spinner.hide(); });
+                .then(() => {
+                    this.spinner.hide();
+                });
         }, error => {
             this.spinner.hide();
             console.error(error);
