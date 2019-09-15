@@ -81,7 +81,7 @@
                 </div>
 
                 <div class="col-md-12 p-0">
-                    <button [disabled]="!filterForm.valid"  nbButton status="info" shape="rectangle" class="mr-2"
+                    <button [disabled]="!filterForm.valid" nbButton status="info" shape="rectangle" class="mr-2"
                             type="submit">Search
                     </button>
                     <button (click)="clearSearch()" shape="rectangle" nbButton status="danger">Clear</button>
@@ -140,9 +140,10 @@
                         {{getDaysDifference(model?.currentStage?.lastModifiedAt, model?.currentStage?.createdAt)}}
                     </div>
                 </td>
-                <td *ngIf="transferDoc"><button nbButton status="warning" size="small"
-                        (click)="onTransferClick(transferDocument,model.id,model?.currentStage?.toUser?.id)">
-                    <i class="fa fa-arrow-circle-right"></i></button>
+                <td *ngIf="transferDoc">
+                    <button nbButton status="warning" size="small"
+                            (click)="onTransferClick(transferDocument,model.id,model?.currentStage?.toUser?.id)">
+                        <i class="fa fa-arrow-circle-right"></i></button>
                 </td>
                 <td class="p-1" *ngIf='statusApproved === true && roleType && !model.isCloseRenew;else linkin'>
                     <select [(ngModel)]="tempLoanType" class="custom-select py-0"
