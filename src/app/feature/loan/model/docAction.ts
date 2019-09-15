@@ -6,6 +6,7 @@ export enum DocAction {
     REJECT,
     CLOSED,
     TRANSFER,
+    PULLED
 
 }
 
@@ -25,6 +26,8 @@ export namespace DocAction {
             return 'CLOSED';
         } else if (docAction === DocAction.TRANSFER) {
             return 'TRANSFER';
+        } else if (docAction === DocAction.PULLED) {
+            return 'PULLED';
         }
     }
 }
