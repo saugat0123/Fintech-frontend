@@ -37,4 +37,5 @@ export class LoanDataHolder {
     parentId: number;
     childId: number;
     isCloseRenew: boolean;
+    pulled: boolean;
 }
