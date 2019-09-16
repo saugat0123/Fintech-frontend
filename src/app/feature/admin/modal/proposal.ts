@@ -14,4 +14,9 @@ export class Proposal {
     incomeFromTheAccount: string;
     borrowerInformation: string;
     proposedAmountInWords: string;
+    installmentAmount: string;
+    moratoriumPeriod: string;
+    prepaymentCharge: string;
+    purposeOfSubmissionSummary: string;
+    commitmentFee: string;
 }

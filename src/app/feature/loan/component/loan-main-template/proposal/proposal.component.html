@@ -9,7 +9,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="proposedLimit"><strong>Proposed Limit</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.proposedLimit.errors }" class="form-control"
+                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.proposedLimit.errors }"
+                                               class="form-control"
                                                formControlName="proposedLimit" id="proposedLimit"
                                                name="proposedLimit" placeholder="Proposed limit"
                                                type="number">
@@ -25,7 +26,8 @@
                                     <div class="form-group">
                                         <label class="title" for="interestRate"><strong>Interest
                                             Rate(%)</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.interestRate.errors }" class="form-control" formControlName="interestRate"
+                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.interestRate.errors }"
+                                               class="form-control" formControlName="interestRate"
                                                id="interestRate" name="interestRate" placeholder="Interest Rate(%)"
                                                type="number">
                                         <div *ngIf="(submitted) && formControls.interestRate.invalid"
@@ -39,7 +41,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="baseRate"><strong>Base Rate(%)</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.baseRate.errors }" class="form-control" formControlName="baseRate" id="baseRate"
+                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.baseRate.errors }"
+                                               class="form-control" formControlName="baseRate" id="baseRate"
                                                name="baseRate" placeholder="Base Rate(%)"
                                                type="number">
                                         <div *ngIf="(submitted) && formControls.baseRate.invalid"
@@ -54,7 +57,9 @@
                                     <div class="form-group">
                                         <label class="title" for="premiumRateOnBaseRate"><strong>Premium Rate On Base
                                             Rate(%)</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.premiumRateOnBaseRate.errors }" class="form-control"
+                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.premiumRateOnBaseRate.errors }"
+
+                                               class="form-control"
                                                class="form-control" formControlName="premiumRateOnBaseRate"
                                                id="premiumRateOnBaseRate" name="premiumRate"
                                                placeholder="Base Rate(%)" placeholder="Premium Rate On Base Rate(%)"
@@ -69,18 +74,20 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="serviceCharge"><strong>Service Charge</strong>
-                                            <input [ngClass]="{ 'is-untouched': (submitted) && formControls.serviceChargeMethod.errors }" formControlName="serviceChargeMethod"
+                                        <label class="title" for="serviceCharge"><strong>Service Charge    </strong>
+                                            <input [ngClass]="{ 'is-untouched': (submitted) && formControls.serviceChargeMethod.errors }"
+                                                   formControlName="serviceChargeMethod"
                                                    name="serviceChargeMethod" type="radio"
-                                                   value="PERCENT"><strong>%</strong>
+                                                   value="PERCENT"><strong>%  </strong>
                                             <input formControlName="serviceChargeMethod" name="serviceChargeMethod"
-                                                   type="radio" value="FLAT"><strong>Flat</strong>
+                                                   type="radio" value="FLAT"><strong> Flat</strong>
                                             <small *ngIf="(submitted) && formControls.serviceChargeMethod.invalid && formControls.serviceChargeMethod.errors.required"
                                                    style="color:#DC3545">
                                                 Charge method is required
                                             </small>
                                         </label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.serviceCharge.errors }" class="form-control" formControlName="serviceCharge"
+                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.serviceCharge.errors }"
+                                               class="form-control" formControlName="serviceCharge"
                                                id="serviceCharge"
                                                name="serviceCharge" placeholder="Service charge"
                                                type="number">
@@ -96,10 +103,20 @@
                                     <div class="form-group">
                                         <label class="title" for="tenureDurationInMonths"><strong>Tenure Duration in
                                             Month.</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.tenureDurationInMonths.errors }" class="form-control"
+                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.tenureDurationInMonths.errors }"
+                                               class="form-control"
                                                formControlName="tenureDurationInMonths" id="tenureDurationInMonths"
-                                               placeholder="In months."
+                                               placeholder="Tenure Duration in Months"
                                                type="number">
+
+<!--                                        <input [nbDatepicker]="tenurePicker"-->
+<!--                                               [ngClass]="{ 'is-invalid':submitted &&formControls.tenureDurationInMonths.errors}"-->
+<!--                                               class="form-control rounded"-->
+<!--                                               formControlName="tenureDurationInMonths"-->
+<!--                                               id="tenureDurationInMonths" placeholder="Enter the date"-->
+<!--                                               type="text"/>-->
+<!--                                        <nb-datepicker #tenurePicker></nb-datepicker>-->
+
                                         <div *ngIf="(submitted) && formControls.tenureDurationInMonths.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.tenureDurationInMonths.errors.required ">Tenure duration is required.</span>
@@ -110,7 +127,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="cibCharge"><strong>CIB Charge</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.cibCharge.errors }" class="form-control" formControlName="cibCharge"
+                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.cibCharge.errors }"
+                                               class="form-control" formControlName="cibCharge"
                                                id="cibCharge"
                                                name="tenureYear" placeholder="CIB charge"
                                                type="number">
@@ -122,13 +140,16 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!--                                start of repayment mode-->
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="repaymentMode"><strong>Repayment Mode</strong></label>
-                                        <select [ngClass]="{ 'is-invalid': (submitted ) && formControls.repaymentMode.errors }" class="custom-select" formControlName="repaymentMode"
+                                        <select [ngClass]="{ 'is-invalid': (submitted ) && formControls.repaymentMode.errors }"
+                                                class="custom-select" formControlName="repaymentMode"
                                                 id="repaymentMode"
                                                 name="repaymentMode">
-                                            <option [ngValue]="null" hidden selected>select</option>
+                                            <option [ngValue]="null" hidden selected>Select</option>
                                             <option value="EMI">EMI</option>
                                             <option value="EQI">EQI</option>
                                             <option value="MONTHLY">Monthly</option>
@@ -141,14 +162,62 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!--                                end of repayment mode-->
+
+                                <!--                start of installment amount div-->
+                                <div class="col-md-4">
+                                    <div class="form-group>">
+                                        <label class="title"> <strong>Installment Amount</strong></label>
+                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.installmentAmount.errors }"
+                                               class="form-control" formControlName="installmentAmount"
+                                               id="installmentAmount"
+                                               name="installmentAmount" placeholder="Installment Amount"
+                                               type="number">
+                                    </div>
+                                </div>
+                                <!--                end of installment amount div-->
+
+
+                                <!--                start of Moratorium period amount div-->
+                                <div class="col-md-4">
+                                    <div class="form-group>">
+                                        <label class="title"> <strong>Moratorium Period</strong></label>
+                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.moratoriumPeriod.errors }"
+                                               class="form-control" formControlName="moratoriumPeriod"
+                                               id="moratoriumPeriod"
+                                               name="moratoriumPeriod" placeholder="Example: 4 month"
+                                               type="number">
+                                    </div>
+                                </div>
+                                <!--                end of Moratorium Period amount div-->
+
+
+                                <!--                start of Prepayment charge  div-->
+                                <div class="col-md-4">
+                                    <div class="form-group>">
+                                        <label class="title"> <strong>Prepayment Charge (%)</strong></label>
+                                        <input [ngClass]="{ 'is-invalid': (submitted) && formControls.prepaymentCharge.errors }"
+                                               class="form-control" formControlName="prepaymentCharge"
+                                               id="prepaymentCharge"
+                                               name="prepaymentCharge" placeholder="Prepayment Amount"
+                                               type="number">
+                                    </div>
+                                </div>
+                                <!--                end of Moratorium Period amount div-->
+
+
+                                <!--                        purpose of submission div start-->
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title" for="purposeOfSubmission"><strong>Purpose of
                                             Submission</strong></label>
-                                        <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.purposeOfSubmission.errors }" class="form-control"
-                                                  formControlName="purposeOfSubmission" id="purposeOfSubmission" name="purposeOfSubmission"
-                                                  placeholder="Purpose of submission."
-                                                  rows="3">"></textarea>
+                                        <textarea
+                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.purposeOfSubmission.errors }"
+                                                class="form-control"
+                                                formControlName="purposeOfSubmission" id="purposeOfSubmission"
+                                                name="purposeOfSubmission"
+                                                placeholder="Purpose of submission."
+                                                rows="3"></textarea>
                                         <div *ngIf="(submitted) && formControls.purposeOfSubmission.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.purposeOfSubmission.errors.required">Purpose of Submission is required.</span>
@@ -157,14 +226,44 @@
 
                                     </div>
                                 </div>
+                                <!--                                purpose of submission div end-->
+
+                                <!--                                purpose of submission summary div start-->
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="title" for="purposeOfSubmissionSummary"><strong>Purpose of
+                                            Submission Summary</strong></label>
+                                        <textarea
+                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.purposeOfSubmissionSummary.errors }"
+                                                class="form-control"
+                                                formControlName="purposeOfSubmissionSummary"
+                                                id="purposeOfSubmissionSummary"
+                                                name="purposeOfSubmissionSummary"
+                                                placeholder="Purpose of submission summary."
+                                                rows="3"></textarea>
+                                        <div *ngIf="(submitted) && formControls.purposeOfSubmissionSummary.invalid"
+                                             class="invalid-feedback">
+                                            <span *ngIf="formControls.purposeOfSubmissionSummary.errors.required">Purpose of Submission Summary is required.</span>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <!--                                purpose of submission summary div end-->
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title" for="disbursementCriteria"><strong>Disbursement
                                             Criteria</strong></label>
-                                        <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.disbursementCriteria.errors }" class="form-control"
-                                                  formControlName="disbursementCriteria" id="disbursementCriteria" name="disbursementCriteria"
-                                                  placeholder="Disbursement Criteria"
-                                                  rows="3">"></textarea>
+                                        <textarea
+                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.disbursementCriteria.errors }"
+                                                class="form-control"
+                                                formControlName="disbursementCriteria" id="disbursementCriteria"
+                                                name="disbursementCriteria"
+                                                placeholder="Disbursement Criteria"
+                                                rows="3"></textarea>
                                         <div *ngIf="(submitted) && formControls.disbursementCriteria.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.disbursementCriteria.errors.required">Disbursement Criteria is required.</span>
@@ -176,10 +275,12 @@
                                     <div class="form-group">
                                         <label class="title" for="creditInfo"><strong>Credit Information Report
                                             Status</strong></label>
-                                        <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.creditInformationReportStatus.errors }" class="form-control"
-                                                  formControlName="creditInformationReportStatus" id="creditInfo"
-                                                  name="creditInfo" placeholder="Credit Information Report Status"
-                                                  rows="3">"></textarea>
+                                        <textarea
+                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.creditInformationReportStatus.errors }"
+                                                class="form-control"
+                                                formControlName="creditInformationReportStatus" id="creditInfo"
+                                                name="creditInfo" placeholder="Credit Information Report Status"
+                                                rows="3"></textarea>
                                         <div *ngIf="(submitted) && formControls.creditInformationReportStatus.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.creditInformationReportStatus.errors.required">Credit Information Report Status is required.</span>
@@ -192,10 +293,13 @@
                                     <div class="form-group">
                                         <label class="title" for="accountIncome"><strong>Income from the
                                             Account</strong></label>
-                                        <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.incomeFromTheAccount.errors }" class="form-control"
-                                                  formControlName="incomeFromTheAccount" id="accountIncome" name="accountIncome"
-                                                  placeholder="Income from the Account"
-                                                  rows="3">"></textarea>
+                                        <textarea
+                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.incomeFromTheAccount.errors }"
+                                                class="form-control"
+                                                formControlName="incomeFromTheAccount" id="accountIncome"
+                                                name="accountIncome"
+                                                placeholder="Income from the Account"
+                                                rows="3"></textarea>
                                         <div *ngIf="(submitted) && formControls.incomeFromTheAccount.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.incomeFromTheAccount.errors.required">Income from the Account is required.</span>
@@ -203,14 +307,41 @@
 
                                     </div>
                                 </div>
+
+                                <!--                                start of commitment fee div-->
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="title" for="commitmentFee"><strong>Commitment Fee</strong></label>
+                                        <textarea
+                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.commitmentFee.errors }"
+                                                class="form-control"
+                                                formControlName="commitmentFee" id="commitmentFee"
+                                                name="commitmentFee"
+                                                placeholder="Commitment Fee"
+                                                rows="3"></textarea>
+                                        <div *ngIf="(submitted) && formControls.commitmentFee.invalid"
+                                             class="invalid-feedback">
+                                            <span *ngIf="formControls.commitmentFee.errors.required">Commitment Fee is required.</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <!--                                end of commitment fee div-->
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title" for="borrowerInfo"><strong>Introduction/Justification of
                                             Borrower</strong></label>
-                                        <textarea [ngClass]="{ 'is-invalid': (submitted) && formControls.borrowerInformation.errors }" class="form-control"
-                                                  formControlName="borrowerInformation" id="borrowerInfo" name="borrowerInfo"
-                                                  placeholder="Borrower Information"
-                                                  rows="3">"></textarea>
+                                        <textarea
+                                                [ngClass]="{ 'is-invalid': (submitted) && formControls.borrowerInformation.errors }"
+                                                class="form-control"
+                                                formControlName="borrowerInformation" id="borrowerInfo"
+                                                name="borrowerInfo"
+                                                placeholder="Borrower Information"
+                                                rows="3"></textarea>
                                         <div *ngIf="(submitted) && formControls.borrowerInformation.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.borrowerInformation.errors.required">Borrower Information is required.</span>
@@ -218,6 +349,8 @@
 
                                     </div>
                                 </div>
+
+
                             </div>
                         </form>
                     </div>

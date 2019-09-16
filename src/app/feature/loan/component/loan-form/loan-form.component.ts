@@ -288,6 +288,8 @@ export class LoanFormComponent implements OnInit {
             this.proposalDetail.onSubmit();
             this.loanDocument.proposal = this.proposalDetail.proposalForm.value;
         }
+
+
         if (name === 'CICL' && action) {
             if (this.cicl.ciclForm.invalid || this.cicl.insuranceForm.invalid) {
                 this.cicl.submitted = true;

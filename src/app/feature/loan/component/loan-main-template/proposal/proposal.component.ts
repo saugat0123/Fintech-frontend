@@ -46,7 +46,25 @@ export class ProposalComponent implements OnInit {
             incomeFromTheAccount: [this.formValue.incomeFromTheAccount === undefined ? '' :
                 this.formValue.incomeFromTheAccount, [Validators.required]],
             borrowerInformation: [this.formValue.borrowerInformation === undefined ? '' :
-                this.formValue.borrowerInformation, [Validators.required]]
+                this.formValue.borrowerInformation, [Validators.required]],
+            // for installment Amount
+            installmentAmount: [this.formValue.installmentAmount === undefined ? '' :
+                this.formValue.installmentAmount, [Validators.required]],
+            // for moratoriumPeriod Amount
+            moratoriumPeriod: [this.formValue.moratoriumPeriod === undefined ? '' :
+                this.formValue.moratoriumPeriod, [Validators.required]],
+            // for prepaymentCharge Amount
+            prepaymentCharge: [this.formValue.prepaymentCharge === undefined ? '' :
+                this.formValue.prepaymentCharge, [Validators.required]],
+            // for prepaymentCharge Amount
+            purposeOfSubmissionSummary: [this.formValue.purposeOfSubmissionSummary === undefined ? '' :
+                this.formValue.purposeOfSubmissionSummary, [Validators.required]],
+            // for commitmentFee Amount
+            commitmentFee: [this.formValue.commitmentFee === undefined ? '' :
+                this.formValue.commitmentFee, [Validators.required]],
+
+
+
         });
     }
 
@@ -66,6 +84,11 @@ export class ProposalComponent implements OnInit {
         this.formValue.creditInformationReportStatus = this.proposalForm.get('creditInformationReportStatus').value;
         this.formValue.incomeFromTheAccount = this.proposalForm.get('incomeFromTheAccount').value;
         this.formValue.borrowerInformation = this.proposalForm.get('borrowerInformation').value;
+        this.formValue.borrowerInformation = this.proposalForm.get('installmentAmount').value;
+        this.formValue.moratoriumPeriod = this.proposalForm.get('moratoriumPeriod').value;
+        this.formValue.prepaymentCharge = this.proposalForm.get('prepaymentCharge').value;
+        this.formValue.purposeOfSubmissionSummary = this.proposalForm.get('purposeOfSubmissionSummary').value;
+        this.formValue.commitmentFee = this.proposalForm.get('commitmentFee').value;
     }
 
     get formControls() {
