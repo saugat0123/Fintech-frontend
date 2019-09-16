@@ -133,7 +133,7 @@
                         model?.documentStatus.toString()==="REJECTED" ||
                         model?.documentStatus.toString()==="APPROVED")'>
                         {{model?.currentStage?.toUser?.name}}
-                        /{{getDaysDifference(model?.currentStage.lastModifiedAt, model?.previousList[model?.previousList.length - 1].lastModifiedAt)}}
+                        /{{getDaysDifference(model?.currentStage.lastModifiedAt, model?.previousList[model?.previousList?.length - 1].lastModifiedAt)}}
                     </div>
                 </td>
                 <td (click)="onClick(model.loan.id,model.id)">

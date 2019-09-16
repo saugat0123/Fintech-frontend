@@ -27,12 +27,12 @@
                 Priority:
                 <span class="badge badge-danger"
                       style="font-size: 11px">{{loanDataHolder?.dmsLoanFile?.priority?.toString()
-                || loanDataHolder?.priority?.toString() | lowercase}}</span>
+                || loanDataHolder?.priority?.toString() | titlecase}}</span>
               </div>
               <div>
                 Loan Status:
                 <span class="badge badge-info"
-                      style="font-size: 11px">{{loanDataHolder.documentStatus?.toString() | lowercase}}</span>
+                      style="font-size: 11px">{{loanDataHolder.documentStatus?.toString() | titlecase}}</span>
               </div>
             </div>
             <div class="col-md-6">
@@ -107,7 +107,8 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <p><strong>Details of Authorized Person</strong></p>
+          <p><strong>Details of {{loanCategory === 'BUSINESS_TYPE' ? 'Authorized Person'
+              : 'Borrower'}}</strong></p>
         </div>
         <div class="col-md-12">
           <table
@@ -227,7 +228,7 @@
               || loanDataHolder?.proposal?.proposedLimit | currencyFormatter}}</td>
 
               <th>Interest Rate</th>
-              <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}}</td>
+              <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}} %</td>
 
               <th>Tenure Duration In Month</th>
               <td>{{(dmsLoanFile?.tenureDuration
@@ -242,7 +243,7 @@
               </td>
 
               <th>FMV Funding Percentage</th>
-              <td>{{dmsLoanFile?.fmvFundingPercent}}</td>
+              <td>{{dmsLoanFile?.fmvFundingPercent}} %</td>
 
               <th>Total FMV</th>
               <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
@@ -368,7 +369,7 @@
                     previousList?.comment?.substring(0, 49) :
                     previousList?.comment}}
                 </div>
-                <a (click)="open(previousList.comment)"
+                <a (click)="open(previousList?.comment)"
                    *ngIf="previousList?.comment?.length > 50"
                    class="justify-content-end read-margin">read more ....</a>
               </td>
