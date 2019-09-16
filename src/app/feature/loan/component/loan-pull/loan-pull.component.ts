@@ -241,7 +241,7 @@ export class LoanPullComponent implements OnInit {
                 customerLoanId: customerLoanId,
                 docAction: DocAction.value(DocAction.PULLED),
                 documentStatus: DocStatus.PENDING,
-                comment: 'PULL'
+                comment: 'PULLED'
             }
         );
         this.modalService.open(template);
