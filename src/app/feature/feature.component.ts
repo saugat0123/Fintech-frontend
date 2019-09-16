@@ -32,7 +32,7 @@ export class FeatureComponent implements OnInit {
                 if (localStorage.getItem('roleType') === RoleType[RoleType.COMMITTEE]) {
                     const tempMenu = {
                         id: null,
-                        title: 'Pull Document',
+                        title: 'Pull',
                         link: '/home/loan/pull',
                         icon: 'fas fa-angle-double-down'
                     };
