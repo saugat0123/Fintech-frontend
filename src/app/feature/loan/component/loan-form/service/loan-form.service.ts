@@ -58,6 +58,12 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, searchObj, {headers: req.header});
     }
 
+    public getCommitteePull(searchObj: any, page: number = 1, size: number = 10): Observable<any> {
+        const api = `${this.getApi()}/committee-pull?page=${page}&size=${size}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, searchObj, {headers: req.header});
+    }
+
     public renewLoan(searchObj: any) {
         const api = `${this.getApi()}/close-renew-customer-loan`;
         const req = ApiUtils.getRequest(api);

@@ -65,6 +65,7 @@ import {ChangePasswordComponent} from './components/change-password/change-passw
 import {CKEditorModule} from 'ng2-ckeditor';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {NbEvaIconsModule} from '@nebular/eva-icons';
+import { OverlaySpinnerComponent } from './components/overlay-spinner/overlay-spinner.component';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -121,7 +122,8 @@ const COMPONENTS = [
     PagingComponent,
     ValidationErrorComponent,
     MessageModalComponent,
-    NotificationComponent
+    NotificationComponent,
+    OverlaySpinnerComponent
 ];
 
 const ENTRY_COMPONENTS = [

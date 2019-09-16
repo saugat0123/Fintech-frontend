@@ -211,6 +211,10 @@ export class DmsLoanFileComponent implements OnInit {
           [(ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)
               || ObjectUtil.isEmpty(this.loanDataHolder.companyInfo.registrationNumber)) ? undefined :
               this.loanDataHolder.companyInfo.registrationNumber, !this.personal ? [Validators.required] : []],
+      companyPAN:
+          [(ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)
+              || ObjectUtil.isEmpty(this.loanDataHolder.companyInfo.panNumber)) ? undefined :
+              this.loanDataHolder.companyInfo.panNumber, !this.personal ? [Validators.required] : []],
       companyEstablishmentDate:
           [(ObjectUtil.isEmpty(this.loanDataHolder.companyInfo)
               || ObjectUtil.isEmpty(this.loanDataHolder.companyInfo.establishmentDate)) ? undefined :
@@ -316,6 +320,7 @@ export class DmsLoanFileComponent implements OnInit {
       this.loanDataHolder.companyInfo.id = this.loanForm.get('companyId').value;
       this.loanDataHolder.companyInfo.companyName = this.loanForm.get('companyName').value;
       this.loanDataHolder.companyInfo.registrationNumber = this.loanForm.get('registrationNumber').value;
+      this.loanDataHolder.companyInfo.panNumber = this.loanForm.get('companyPAN').value;
       this.loanDataHolder.companyInfo.establishmentDate = this.loanForm.get('companyEstablishmentDate').value;
       this.loanDataHolder.companyInfo.businessType = this.loanForm.get('businessType').value;
       this.loanDataHolder.companyInfo.version = this.loanForm.get('companyInfoVersion').value;
@@ -349,6 +354,12 @@ export class DmsLoanFileComponent implements OnInit {
     const file = event.target.files[0];
     if (file.size > DmsLoanFileComponent.FILE_SIZE_5MB) {
       this.errorMessage = 'Maximum File Size Exceeds for  ' + documentName;
+      (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
+    } else if (ObjectUtil.isEmpty(this.loanForm.get('citizenshipNumber').value)) {
+      this.toastService.show(new Alert(AlertType.ERROR, 'Citizenship Number is required to upload file.'));
+      (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
+    } else if (ObjectUtil.isEmpty(this.loanForm.get('customerName').value)) {
+      this.toastService.show(new Alert(AlertType.ERROR, 'Customer Name is required to upload file.'));
       (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
     } else {
       this.errorMessage = undefined;
@@ -474,6 +485,7 @@ export class DmsLoanFileComponent implements OnInit {
           companyId: undefined,
           companyName: undefined,
           companyEstablishmentDate: undefined,
+          companyPAN: undefined,
           businessType: undefined,
           companyInfoVersion: undefined
         });
@@ -484,6 +496,7 @@ export class DmsLoanFileComponent implements OnInit {
           companyId: companyInfo.id,
           companyName: companyInfo.companyName,
           companyEstablishmentDate: companyInfo.establishmentDate,
+          companyPAN: companyInfo.panNumber,
           businessType: companyInfo.businessType,
           companyInfoVersion: companyInfo.version
         });
