@@ -34,7 +34,7 @@ export class FeatureComponent implements OnInit {
                         id: null,
                         title: 'Pull',
                         link: '/home/loan/pull',
-                        icon: 'fas fa-angle-double-down'
+                        icon: 'arrowhead-down-outline'
                     };
                     this.menus.push(tempMenu);
                 }

@@ -56,6 +56,7 @@ export class LoanPullComponent implements OnInit {
     transferUserList;
     formAction: FormGroup;
     redirected = false;
+    isFilterCollapsed = true;
 
     constructor(
         private branchService: BranchService,
@@ -234,6 +235,7 @@ export class LoanPullComponent implements OnInit {
 
     clearSearch() {
         this.buildFilterForm();
+        this.isFilterCollapsed = true;
     }
 
     onPullClick(template, customerLoanId, userId) {
