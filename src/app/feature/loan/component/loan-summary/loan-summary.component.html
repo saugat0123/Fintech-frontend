@@ -369,7 +369,7 @@
                     previousList?.comment?.substring(0, 49) :
                     previousList?.comment}}
                 </div>
-                <a (click)="open(previousList.comment)"
+                <a (click)="open(previousList?.comment)"
                    *ngIf="previousList?.comment?.length > 50"
                    class="justify-content-end read-margin">read more ....</a>
               </td>

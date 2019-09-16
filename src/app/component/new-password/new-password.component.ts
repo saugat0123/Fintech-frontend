@@ -50,7 +50,7 @@ export class NewPasswordComponent implements OnInit {
 
   ok() {
     this.user.password = this.newPassword.value;
-    this.httpClient.post(this.api, this.user).subscribe((response: any) => {
+    this.httpClient.post(this.api, this.user).subscribe(() => {
       const modalRef = this.ngbModal.open(MessageModalComponent, {backdrop: 'static'});
       modalRef.componentInstance.header = 'Password Changed Successfully';
       modalRef.componentInstance.body = 'Your password has been changed successfully!';
