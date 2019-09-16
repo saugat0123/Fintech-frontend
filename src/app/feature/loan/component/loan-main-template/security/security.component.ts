@@ -9,10 +9,11 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 })
 export class SecurityComponent implements OnInit {
     marked = false;
-    security: FormGroup;
+    securityForm: FormGroup;
     landSelected = false;
     apartmentSelected = false;
     buildingSelected = false;
+    plantSelected = false;
     underConstructionChecked = false;
 
     constructor(
@@ -21,7 +22,7 @@ export class SecurityComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.security = this.formBuilder.group({
+        this.securityForm = this.formBuilder.group({
             valuatorDetails: this.formBuilder.array([
                 this.valuatorDetailsFormGroup()
             ]),
@@ -39,6 +40,9 @@ export class SecurityComponent implements OnInit {
             ]),
             buildingDetailsAfterCompletion: this.formBuilder.array([
                 this.buildingDetailsFormGroup()
+            ]),
+            plantDetails: this.formBuilder.array([
+                this.plantDetailsFormGroup()
             ])
         });
     }
@@ -50,6 +54,8 @@ export class SecurityComponent implements OnInit {
             this.showLand();
         } else if (selected === 'Apartment Security') {
             this.showApartment();
+        } else if (selected === 'Plant and Machinery Security') {
+            this.showPlantandMachinery();
         } else {
             this.showBoth();
         }
@@ -58,16 +64,25 @@ export class SecurityComponent implements OnInit {
     showLand() {
         this.landSelected = true;
         this.apartmentSelected = false;
+        this.plantSelected = false;
     }
 
     showApartment() {
         this.apartmentSelected = true;
         this.landSelected = false;
+        this.plantSelected = false;
     }
 
     showBoth() {
         this.landSelected = true;
         this.apartmentSelected = true;
+        this.plantSelected = false;
+    }
+
+    showPlantandMachinery() {
+        this.apartmentSelected = false;
+        this.landSelected = false;
+        this.plantSelected = true;
     }
 
     onSubmit() {
@@ -132,6 +147,16 @@ export class SecurityComponent implements OnInit {
         });
     }
 
+    plantDetailsFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            model: [''],
+            quotation: [''],
+            supplier: [''],
+            downPay: [''],
+            loanExp: ['']
+        });
+    }
+
     checkboxSelected(event) {
         this.marked = event.target.checked;
         if (this.marked) {
@@ -153,39 +178,47 @@ export class SecurityComponent implements OnInit {
 
     addValuatorDetails() {
 
-        (<FormArray>this.security.get('valuatorDetails')).push(this.valuatorDetailsFormGroup());
+        (this.securityForm.get('valuatorDetails') as FormArray).push(this.valuatorDetailsFormGroup());
     }
 
     removeValuatorDetails(index: number) {
-        (<FormArray>this.security.get('valuatorDetails')).removeAt(index);
+        (this.securityForm.get('valuatorDetails') as FormArray).removeAt(index);
     }
 
     addguarantorsDetails() {
 
-        (<FormArray>this.security.get('guarantorsDetails')).push(this.guarantorsDetailsFormGroup());
+        (this.securityForm.get('guarantorsDetails') as FormArray).push(this.guarantorsDetailsFormGroup());
     }
 
     removeguarantorsDetails(index: number) {
-        (<FormArray>this.security.get('guarantorsDetails')).removeAt(index);
+        (this.securityForm.get('guarantorsDetails') as FormArray).removeAt(index);
     }
 
     addMoreLand() {
-        (<FormArray>this.security.get('landDetails')).push(this.landDetailsFormGroup());
+        (this.securityForm.get('landDetails') as FormArray).push(this.landDetailsFormGroup());
     }
 
     removeLandDetails(index: number) {
-        (<FormArray>this.security.get('landDetails')).removeAt(index);
+        (<FormArray>this.securityForm.get('landDetails')).removeAt(index);
     }
 
     addBuilding() {
         if (this.buildingSelected === false) {
             this.buildingSelected = true;
         } else {
-            (<FormArray>this.security.get('buildingDetails')).push(this.buildingDetailsFormGroup());
+            (this.securityForm.get('buildingDetails') as FormArray).push(this.buildingDetailsFormGroup());
         }
     }
 
     removeBuildingDetails(index: number) {
-        (<FormArray>this.security.get('buildingDetails')).removeAt(index);
+        (this.securityForm.get('buildingDetails') as FormArray).removeAt(index);
+    }
+
+    removePlantDetails(index: number) {
+        (this.securityForm.get('plantDetails') as FormArray).removeAt(index);
+    }
+
+    addPlantandMachinery() {
+        (this.securityForm.get('plantDetails') as FormArray).push(this.plantDetailsFormGroup());
     }
 }

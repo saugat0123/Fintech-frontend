@@ -27,6 +27,7 @@ import {DatePipe} from '@angular/common';
 import {CreditGradingComponent} from '../loan-main-template/credit-grading/credit-grading.component';
 import {SiteVisitComponent} from '../loan-main-template/site-visit/site-visit.component';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {SecurityComponent} from '../loan-main-template/security/security.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -103,6 +104,8 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('siteVisit')
     siteVisit: SiteVisitComponent;
+    @ViewChild('security')
+    security: SecurityComponent;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -233,7 +236,9 @@ export class LoanFormComponent implements OnInit {
             this.customerLoanId = this.loanDocument.id;
             this.loanDocument = new LoanDataHolder();
             this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}})
-                .then(() => { this.spinner.hide(); });
+                .then(() => {
+                    this.spinner.hide();
+                });
         }, error => {
             this.spinner.hide();
             console.error(error);
@@ -308,6 +313,8 @@ export class LoanFormComponent implements OnInit {
             this.siteVisit.onSubmit();
             const siteVisitData = this.siteVisit.siteVisitData;
             this.loanDocument.siteVisit = siteVisitData;
+        }
+        if (name === 'Security' && action) {
         }
     }
 
