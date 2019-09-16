@@ -30,8 +30,7 @@ const routes: Routes = [
             },
             {
                 path: 'newPassword',
-                component: NewPasswordComponent,
-                canActivate: [LoginGuard]
+                component: NewPasswordComponent
             }
         ]
     },
