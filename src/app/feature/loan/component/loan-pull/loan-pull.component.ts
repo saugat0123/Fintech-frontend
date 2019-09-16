@@ -74,6 +74,7 @@ export class LoanPullComponent implements OnInit {
     }
 
     static loadData(other: LoanPullComponent) {
+        other.catalogueService.search.committee = 'true';
         other.loanFormService.getCommitteePull(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
             other.loanDataHolderList = response.detail.content;
             other.pageable = PaginationUtils.getPageable(response.detail);
@@ -252,7 +253,6 @@ export class LoanPullComponent implements OnInit {
     }
 
 
-
     docTransfer(userId, roleId) {
         const users = {id: userId};
         const role = {id: roleId};
@@ -262,6 +262,7 @@ export class LoanPullComponent implements OnInit {
             }
         );
     }
+
     confirm() {
         this.onClose();
         this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
