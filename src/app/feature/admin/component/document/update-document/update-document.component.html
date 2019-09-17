@@ -1,29 +1,32 @@
-<div class="box col-md-12">
-    <nb-accordion>
-        <nb-accordion-item>
-            <nb-accordion-item-header>
-                <h5>{{title}}</h5>
-                <p class="m-0 ml-2"> ({{label}})</p>
-            </nb-accordion-item-header>
-            <nb-accordion-item-body>
-                <div *ngIf="allList.length > 0">
-                    <div class="row">
-                        <div class="col-md-6" *ngFor="let document of allList; let documentIndex = index">
-                            <nb-checkbox checked="true" id="{{'document'+documentIndex}}" status="primary"
-                                         (change)="updateCheckedOptions($event,document.id)"
-                                         [value]="document.checked">
-                                <span>{{document.displayName}}</span>
+<nb-accordion>
+    <nb-accordion-item>
+        <nb-accordion-item-header>
+            <h5>{{title}}</h5>
+            <p class="m-0 ml-2"> ({{label}})</p>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+            <div *ngIf="availableDocumentOptions.length > 0">
+                <form [formGroup]="form" (ngSubmit)="save()" *ngIf="form">
+                    <div class="form-row">
+                        <div class="col-md-6" *ngFor="let option of availableDocumentOptions">
+                            <nb-checkbox id="{{'document'+ option.id}}" status="primary"
+                                         [formControlName]="option.name">
+                                {{option.displayName}}
                             </nb-checkbox>
                         </div>
                     </div>
-                    <div class="box-footer text-right">
-                        <button nbButton status="info" size="small" type="button" (click)="updateLoanCycleInBulk()">Submit</button>
+                    <div class="form-row">
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <button nbButton status="info" size="small" type="submit">
+                                Save
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div *ngIf="allList.length <= 0">
-                    No document found
-                </div>
-            </nb-accordion-item-body>
-        </nb-accordion-item>
-    </nb-accordion>
-</div>
+                </form>
+            </div>
+            <div *ngIf="availableDocumentOptions.length <= 0">
+                No document found
+            </div>
+        </nb-accordion-item-body>
+    </nb-accordion-item>
+</nb-accordion>

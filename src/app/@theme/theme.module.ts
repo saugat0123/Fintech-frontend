@@ -34,6 +34,7 @@ import {
     NbTabsetModule,
     NbThemeModule,
     NbToastrModule,
+    NbToggleModule,
     NbTooltipModule,
     NbUserModule,
     NbWindowModule,
@@ -106,6 +107,7 @@ const NB_MODULES = [
     NbTooltipModule,
     NbCalendarKitModule,
     NbIconModule,
+    NbToggleModule,
     NbEvaIconsModule
 ];
 
