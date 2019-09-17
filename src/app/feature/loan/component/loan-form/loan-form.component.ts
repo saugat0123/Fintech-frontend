@@ -83,8 +83,8 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('dmsLoanFile')
     dmsLoanFile: DmsLoanFileComponent;
 
-    @ViewChild('entityInfo')
-    entityInfo: CompanyInfoComponent;
+    @ViewChild('companyInfo')
+    companyInfoComponent: CompanyInfoComponent;
 
     @ViewChild('kycInfo')
     kycInfo: KycInfoComponent;
@@ -222,6 +222,7 @@ export class LoanFormComponent implements OnInit {
     save() {
         this.spinner.show();
         if (this.selectChild(this.selectedTab, true)) {
+            this.spinner.hide();
             return;
         }
         this.loanDocument.loan = this.loan;
@@ -261,17 +262,17 @@ export class LoanFormComponent implements OnInit {
             this.dmsLoanFile.onSubmit();
             this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanDataHolder.dmsLoanFile;
             this.loanDocument.customerInfo = this.dmsLoanFile.loanDataHolder.customerInfo;
-            this.loanDocument.entityInfo = this.dmsLoanFile.loanDataHolder.entityInfo;
+            this.loanDocument.companyInfo = this.dmsLoanFile.loanDataHolder.companyInfo;
             this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
         }
 
         if (name === 'Company Info' && action) {
-            if (this.entityInfo.companyInfo.invalid) {
-                this.entityInfo.submitted = true;
+            if (this.companyInfoComponent.companyInfoFormGroup.invalid) {
+                this.companyInfoComponent.submitted = true;
                 return true;
             }
-            this.entityInfo.onSubmit();
-            this.loanDocument.entityInfo = this.entityInfo.entityInfo;
+            this.companyInfoComponent.onSubmit();
+            this.loanDocument.companyInfo = this.companyInfoComponent.companyInfo;
         }
         if (name === 'Kyc Info' && action) {
             this.kycInfo.onSubmit();

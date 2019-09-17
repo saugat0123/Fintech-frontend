@@ -1,4 +1,4 @@
-import {EntityInfo} from '../../admin/modal/entity-info';
+import {CompanyInfo} from '../../admin/modal/company-info';
 import {DmsLoanFile} from '../../admin/modal/dms-loan-file';
 import {LoanConfig} from '../../admin/modal/loan-config';
 import {DocStatus} from './docStatus';
@@ -16,7 +16,7 @@ export class LoanDataHolder {
     branch: Branch;
     loanCategory: any;
     customerInfo: Customer = new Customer();
-    entityInfo: EntityInfo = new EntityInfo();
+    companyInfo: CompanyInfo = new CompanyInfo();
     dmsLoanFile: DmsLoanFile = new DmsLoanFile();
     proposal: Proposal;
     loan: LoanConfig;
@@ -37,6 +37,7 @@ export class LoanDataHolder {
     parentId: number;
     childId: number;
     isCloseRenew: boolean;
+    pulled: boolean;
     notify: boolean;
     notedBy: number;
 }

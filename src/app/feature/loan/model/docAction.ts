@@ -6,7 +6,10 @@ export enum DocAction {
     REJECT,
     CLOSED,
     TRANSFER,
-    NOTED
+    NOTED,
+    PULLED,
+    BACKWARD_TO_COMMITTEE
+
 }
 
 export namespace DocAction {
@@ -25,6 +28,10 @@ export namespace DocAction {
             return 'CLOSED';
         } else if (docAction === DocAction.TRANSFER) {
             return 'TRANSFER';
+        } else if (docAction === DocAction.PULLED) {
+            return 'PULLED';
+        } else if (docAction === DocAction.BACKWARD_TO_COMMITTEE) {
+            return 'BACKWARD TO COMMITTEE';
         }
     }
 }

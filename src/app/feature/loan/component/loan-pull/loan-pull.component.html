@@ -77,7 +77,8 @@
                     </div>
 
                     <div class="col-md-3">
-                        <input id="customerName" class="form-control rounded" formControlName="customerName" placeholder="Enter customer name">
+                        <input id="customerName" class="form-control rounded" formControlName="customerName"
+                               placeholder="Enter customer name">
                     </div>
                 </div>
 
@@ -107,8 +108,9 @@
                 <th>Status</th>
                 <th>Possession Under/Days</th>
                 <th>Loan lifespan</th>
-                <th *ngIf="transferDoc">Transfer</th>
+
                 <th>Action</th>
+                <th>Checked</th>
             </tr>
             </thead>
             <tbody>
@@ -133,7 +135,7 @@
                         model?.documentStatus.toString()==="REJECTED" ||
                         model?.documentStatus.toString()==="APPROVED")'>
                         {{model?.currentStage?.toUser?.name}}
-                        /{{getDaysDifference(model?.currentStage.lastModifiedAt, model?.previousList[model?.previousList?.length - 1].lastModifiedAt)}}
+                        /{{getDaysDifference(model?.currentStage.lastModifiedAt, model?.previousList[model?.previousList.length - 1].lastModifiedAt)}}
                     </div>
                 </td>
                 <td (click)="onClick(model.loan.id,model.id)">
@@ -144,33 +146,19 @@
                         {{getDaysDifference(model?.currentStage?.lastModifiedAt, model?.currentStage?.createdAt)}}
                     </div>
                 </td>
-                <td *ngIf="transferDoc"><a
-                        (click)="onTransferClick(transferDocument,model.id,model?.currentStage?.toUser?.id)">Transfer <i
-                        class="fa fa-arrow-circle-right"></i></a>
-                </td>
-                <td class="p-1" *ngIf='statusApproved === true && roleType && !model.isCloseRenew;else linkin'>
-                    <select [(ngModel)]="tempLoanType" class="custom-select py-0"
-                            (ngModelChange)="onChange(model,onActionChange)">
-                        <option [value]="null" selected hidden>Select Type</option>
-                        <option
-                                value="RENEWED_LOAN">Renew Loan
-                        </option>
-                        <option
-                                value="CLOSURE_LOAN">Close Loan
-                        </option>
-                    </select>
-                </td>
-                <ng-template #linkin>
-                    <td *ngIf="model.parentId">
-                        <a (click)="renewedOrCloseFrom(model.loan.id,model.parentId)"
-                           class="text-success cursor">{{loanType[model.loanType]}} From <i
-                                class="p-1 fa fa-edit"></i></a>
-                    </td>
 
-                    <td *ngIf="!model.parentId">
-                        <p>NA</p>
-                    </td>
-                </ng-template>
+                <td>
+                    <a (click)="onPullClick(pullDocument,model.id,model?.currentStage?.toUser?.id)"><i
+                            class="fas fa-angle-double-down"></i> pull</a>
+                </td>
+
+                <td>
+                <span *ngIf="model.pulled"
+                      style="color:limegreen"><i
+                        class="fas fa-check-circle"></i></span>
+                    <span *ngIf="!model.pulled || model.pulled === null"
+                          style="color:red"><i class="fas fa-times-circle"></i></span>
+                </td>
 
             </tr>
             </tbody>
@@ -180,97 +168,33 @@
         <!-- ===================table-pagination==================== -->
     </nb-card-body>
 
-    <ng-template #transferDocument>
+    <ng-template #pullDocument>
         <div class="modal-header">
-            <h4 class="modal-title pull-left">Transfer Loan Document</h4>
+            <h4 class="modal-title pull-left">Pull Loan Document</h4>
             <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
                 <span aria-hidden="true">&times;</span>
             </a>
         </div>
         <div class="modal-body">
+            Do you want to pull this Document?
 
 
-            <div style="height: 200px;max-height: 200px;overflow-y: auto;">
-                <nb-accordion>
-                    <nb-accordion-item *ngFor="let roles of transferUserList;let i=index">
-                        <nb-accordion-item-header>
-                            {{roles.name}}
-                        </nb-accordion-item-header>
-                        <nb-accordion-item-body>
-
-                            <div *ngFor="let users of roles.userDtoList;let i=index">
-                                <div class="col-md-12 row">
-                                    <div class="col-md-6">
-                                        <a class="cursor">
-                                            <div class="radio">
-                                                <label><input type="radio" name="optradio"
-                                                              (click)="docTransfer(users.id,roles.id)">{{users.username}}
-                                                </label>
-                                            </div>
-
-                                        </a>
-                                    </div>
-                                    <div class="col-md-6">
-
-                                        <span *ngFor="let branch of users.branchDtoList;">
-                                            {{branch?.name}}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </nb-accordion-item-body>
-                    </nb-accordion-item>
-                </nb-accordion>
-            </div>
             <div class="col-md-12">
-                <button type="submit" class="btn btn-success float-right" (click)="action(confirmation)">Next</button>
-            </div>
-
-
-        </div>
-    </ng-template>
-
-    <ng-template #confirmation>
-        <div>
-            <div class="modal-content">
-                <div class="modal-header" style="display:block">
-                    <div>
-                        <h4 class="">Do You want to transfer this document ?</h4>
-                        <form>
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
-                                    NO
-                                </button>
-                                <button type="submit" class="btn btn-primary  btn-flat" (click)="confirm()">
-                                    YES
-                                </button>
-                            </div>
-                        </form>
+                <form>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
+                            NO
+                        </button>
+                        <button type="submit" class="btn btn-success float-right" (click)="confirm()">YES
+                        </button>
                     </div>
-                </div>
-            </div>
-        </div>
+                </form>
 
-    </ng-template>
-
-    <ng-template #onActionChange>
-        <div>
-            <div class="modal-content">
-                <div class="modal-header" style="display:block">
-                    <div>
-                        <h4 class="">Do You want to change the loan type to {{tempLoanType}}
-                            ?</h4>
-                        <form>
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary  btn-flat" (click)="changeAction()">
-                                    YES
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
             </div>
+
+
         </div>
     </ng-template>
+
+
 </nb-card>
