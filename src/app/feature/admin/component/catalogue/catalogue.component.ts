@@ -200,22 +200,22 @@ export class CatalogueComponent implements OnInit {
   onSearch() {
     this.tempLoanType = null;
     this.statusApproved = this.filterForm.get('docStatus').value === 'APPROVED';
-    this.catalogueService.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
+    this.catalogueService.search.branchIds = ObjectUtil.isEmpty(this.filterForm.get('branch').value) ? undefined :
         this.filterForm.get('branch').value;
-    this.catalogueService.search.documentStatus = this.filterForm.get('docStatus').value === null ? DocStatus.value(DocStatus.PENDING) :
-        this.filterForm.get('docStatus').value;
-    this.catalogueService.search.loanConfigId = this.filterForm.get('loanType').value === null ? undefined :
-        this.filterForm.get('loanType').value;
-    this.catalogueService.search.loanNewRenew = this.filterForm.get('loanNewRenew').value === null ? undefined :
+    this.catalogueService.search.documentStatus = ObjectUtil.isEmpty(this.filterForm.get('docStatus').value) ?
+        DocStatus.value(DocStatus.PENDING) : this.filterForm.get('docStatus').value;
+    this.catalogueService.search.loanConfigId = ObjectUtil.isEmpty(this.filterForm.get('loanType').value) ?
+        undefined : this.filterForm.get('loanType').value;
+    this.catalogueService.search.loanNewRenew = ObjectUtil.isEmpty(this.filterForm.get('loanNewRenew').value) ? undefined :
         this.filterForm.get('loanNewRenew').value;
-    if (this.filterForm.get('startDate').value !== null && this.filterForm.get('endDate').value) {
+    if (!ObjectUtil.isEmpty(this.filterForm.get('startDate').value) && this.filterForm.get('endDate').value) {
       this.catalogueService.search.currentStageDate = JSON.stringify({
         // note: new Date().toString() is needed here to preserve timezone while JSON.stringify()
         'startDate': new Date(this.filterForm.get('startDate').value).toLocaleDateString(),
         'endDate': new Date(this.filterForm.get('endDate').value).toLocaleDateString()
       });
     }
-    this.catalogueService.search.currentUserRole = this.filterForm.get('role').value === null ? undefined :
+    this.catalogueService.search.currentUserRole = ObjectUtil.isEmpty(this.filterForm.get('role').value) ? undefined :
         this.filterForm.get('role').value;
     this.catalogueService.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
         this.filterForm.get('customerName').value;
