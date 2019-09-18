@@ -66,6 +66,7 @@
                                 <div class="col-md-3 mb-3">
                                     <select class="custom-select" formControlName="role">
                                         <option [value]="null" selected hidden>Select Role</option>
+                                        <option [value]="null">All Roles</option>
                                         <option *ngFor="let role of roleList" [value]="role.id">{{role.roleName}}
                                         </option>
                                     </select>
@@ -73,6 +74,7 @@
                                 <div class="col-md-3 mb-3">
                                     <select class="custom-select" formControlName="activeStatus">
                                         <option [value]="null" selected hidden>Status</option>
+                                        <option [value]="null">All Status</option>
                                         <option [value]="active">Active</option>
                                         <option [value]="inactive">Inactive</option>
                                     </select>
