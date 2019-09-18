@@ -17,6 +17,7 @@ import {RoleService} from '../role-permission/role.service';
 import {Branch} from '../../modal/branch';
 import {Role} from '../../modal/role';
 import {Status} from '../../../../@core/Status';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-user',
@@ -133,12 +134,13 @@ export class UserComponent implements OnInit {
     }
 
     onSearch() {
-        this.search.name = this.filterForm.get('name').value === null ? undefined :
+        this.search.name = ObjectUtil.isEmpty(this.filterForm.get('name').value) ? undefined :
             this.filterForm.get('name').value;
-        this.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
+        this.search.branchIds = ObjectUtil.isEmpty(this.filterForm.get('branch').value) ? undefined :
             this.filterForm.get('branch').value;
-        this.search.roleId = this.filterForm.get('role').value === null ? undefined : this.filterForm.get('role').value;
-        this.search.status = this.filterForm.get('activeStatus').value === null ? undefined : this.filterForm.get('activeStatus').value;
+        this.search.roleId = ObjectUtil.isEmpty(this.filterForm.get('role').value) ? undefined : this.filterForm.get('role').value;
+        this.search.status = ObjectUtil.isEmpty(this.filterForm.get('activeStatus').value) ? undefined :
+            this.filterForm.get('activeStatus').value;
         UserComponent.loadData(this);
     }
 

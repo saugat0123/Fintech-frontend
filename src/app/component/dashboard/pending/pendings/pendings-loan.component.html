@@ -52,22 +52,9 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <div class="form-group">
-
-                                        <select id="docStatus" class="custom-select"
-                                                (change)="statusSelect($event.target.value)">
-                                            <option [ngValue]="undefined" hidden>Select the Stage</option>
-                                            <option *ngFor="let docStatus of documentStatusList.values()"
-                                                    [value]="docStatus">{{docStatus}}</option>
-
-                                        </select>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-3">
                                     <select class="custom-select" (change)="typeSelect($event.target.value)">
                                         <option [ngValue]="undefined" hidden>Select Type</option>
+                                        <option [ngValue]="undefined">All Types</option>
                                         <option *ngFor="let status of loanType.values()"
                                                 [value]="status">{{loanType[status]}}
                                         </option>
