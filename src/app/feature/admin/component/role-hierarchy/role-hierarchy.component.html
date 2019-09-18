@@ -21,41 +21,33 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="box box-primary">
-            <div class="box-header">
-                <div class="col-md-12">
-                    <div class="box-body">
-                        <div *ngIf="!length">
-                            <p>NO Role Has Been Created Yet!</p>
-                        </div>
-                        <div *ngIf="length">
-                            <div class="section-heading">
-                                <div class="titleRole pull-left">Role Order</div>
-                            </div>
-                            <div class="drag-container" align="center">
-                                <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="roleList"
-                                     class="item-list" (cdkDropListDropped)="drop($event)">
-                                    <div class="item-box" *ngFor="let item of roleList;let i=index" cdkDrag>
-                                        <div class="col-md-2">{{i + 1}}</div>
-                                        <div class="col-md-10 pull-right">{{item.role?.roleName}}</div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                        </div>
-                        <div class="col-md-8 d-flex justify-content-center" *ngIf="length">
-                            <button class="btn btn-primary" (click)="save()" [disabled]="isDisabled">
-                                <span *ngIf="spinner" class="spinner-border spinner-border-sm"></span>
-                                SAVE
-                            </button>
-
-                        </div>
-                    </div>
-
+        <nb-card>
+            <nb-card-header>
+                Role Order
+            </nb-card-header>
+            <nb-card-body>
+                <div *ngIf="!length">
+                    <p>Roles are not created!</p>
                 </div>
-            </div>
-        </div>
+                <div *ngIf="length">
+                    <div class="drag-container">
+                        <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="roleList"
+                             class="item-list" (cdkDropListDropped)="drop($event)">
+                            <div class="item-box" *ngFor="let item of roleList;let i=index" cdkDrag>
+                                <div class="col-md-2">{{i + 1}}</div>
+                                <div class="col-md-10 pull-right">{{item.role?.roleName}}</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </nb-card-body>
+            <nb-card-footer *ngIf="length">
+                <button nbButton status="info" (click)="save()" [disabled]="isDisabled">
+                    <span *ngIf="spinner" class="spinner-border spinner-border-sm"></span>
+                    SAVE
+                </button>
+            </nb-card-footer>
+        </nb-card>
     </div>
 </div>

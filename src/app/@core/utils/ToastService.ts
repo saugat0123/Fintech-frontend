@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
-import {NbToastrService} from '@nebular/theme';
+import {NbComponentStatus, NbToastrService} from '@nebular/theme';
 import {Alert, AlertType} from '../../@theme/model/Alert';
-import {NbToastStatus} from '@nebular/theme/components/toastr/model';
 
 @Injectable({
     providedIn: 'root'
@@ -17,19 +16,18 @@ export class ToastService {
         this.service.show(alert.type, alert.message, config);
     }
 
-    private getStatus(type: AlertType): NbToastStatus {
+    private getStatus(type: AlertType): NbComponentStatus {
         switch (type) {
             case AlertType.ERROR:
-                return NbToastStatus.DANGER;
+                return 'danger';
             case AlertType.SUCCESS:
-                return NbToastStatus.SUCCESS;
+                return AlertType.SUCCESS;
             case AlertType.WARNING:
-                return NbToastStatus.WARNING;
+                return AlertType.WARNING;
             case AlertType.INFO:
-                return NbToastStatus.INFO;
+                return AlertType.INFO;
             default:
-                return NbToastStatus.DEFAULT;
-
+                return 'primary';
         }
     }
 }

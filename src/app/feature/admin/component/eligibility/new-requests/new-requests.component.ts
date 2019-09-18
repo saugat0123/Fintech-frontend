@@ -15,6 +15,7 @@ import {BranchService} from '../../branch/branch.service';
 import {LoanConfigService} from '../../loan-config/loan-config.service';
 import {Router} from '@angular/router';
 import {Status} from '../../../modal/eligibility';
+import {trendingUp} from 'ionicons/icons';
 
 @Component({
     selector: 'app-new-requests',
@@ -29,6 +30,7 @@ export class NewRequestsComponent implements OnInit {
     loanTypeList: Array<LoanConfig> = new Array<LoanConfig>();
     applicantList: Array<Applicant> = new Array<Applicant>();
     filterForm: FormGroup;
+    isFilterCollapsed = true;
 
     page = 1;
     search: any = {

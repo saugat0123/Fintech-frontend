@@ -34,7 +34,7 @@ export class FeatureComponent implements OnInit {
                         id: null,
                         title: 'Pull',
                         link: '/home/loan/pull',
-                        icon: 'fas fa-angle-double-down'
+                        icon: 'arrowhead-down-outline'
                     };
                     this.menus.push(tempMenu);
                 }
@@ -42,6 +42,8 @@ export class FeatureComponent implements OnInit {
             (error) => {
                 console.log(error);
             });
+
+        console.log(this.menus);
 
         this.router.events.subscribe(event => {
             if (event instanceof RouteConfigLoadStart) {
