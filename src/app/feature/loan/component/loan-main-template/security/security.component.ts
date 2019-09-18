@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
 
+
 @Component({
     selector: 'app-security',
     templateUrl: './security.component.html',
@@ -10,6 +11,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 export class SecurityComponent implements OnInit {
     marked = false;
     securityForm: FormGroup;
+    guarantorsForm: FormGroup;
     landSelected = false;
     apartmentSelected = false;
     buildingSelected = false;
@@ -22,12 +24,14 @@ export class SecurityComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.guarantorsForm = this.formBuilder.group({
+            guarantorsDetails: this.formBuilder.array([
+                this.guarantorsDetailsFormGroup()
+            ]),
+        });
         this.securityForm = this.formBuilder.group({
             valuatorDetails: this.formBuilder.array([
                 this.valuatorDetailsFormGroup()
-            ]),
-            guarantorsDetails: this.formBuilder.array([
-                this.guarantorsDetailsFormGroup()
             ]),
             landDetails: this.formBuilder.array([
                 this.landDetailsFormGroup()
@@ -159,10 +163,27 @@ export class SecurityComponent implements OnInit {
 
     checkboxSelected(event) {
         this.marked = event.target.checked;
-        if (this.marked) {
+        if ( this.marked) {
             this.addValuatorDetails();
+        //     this.addMoreLand();
+        // } else if (this.apartmentSelected && this.marked) {
+        //     this.addValuatorDetails();
+        //     this.addBuilding();
+        // } else if (this.plantSelected && this.marked) {
+        //     this.addValuatorDetails();
+        //     this.addPlantandMachinery();
+        // } else if (this.plantSelected && this.marked) {
+        //     this.addValuatorDetails();
+        //     this.addPlantandMachinery();
+        // } else if (this.buildingSelected && this.marked) {
+        //     this.addValuatorDetails();
+        //     this.addMoreLand();
+        //     this.addBuilding();
         } else {
             this.removeValuatorDetails(0);
+            // this.removeLandDetails(0);
+            // this.removeBuildingDetails(0);
+            // this.removePlantDetails(0);
         }
 
     }
@@ -187,11 +208,11 @@ export class SecurityComponent implements OnInit {
 
     addguarantorsDetails() {
 
-        (this.securityForm.get('guarantorsDetails') as FormArray).push(this.guarantorsDetailsFormGroup());
+        (this.guarantorsForm.get('guarantorsDetails') as FormArray).push(this.guarantorsDetailsFormGroup());
     }
 
     removeguarantorsDetails(index: number) {
-        (this.securityForm.get('guarantorsDetails') as FormArray).removeAt(index);
+        (this.guarantorsForm.get('guarantorsDetails') as FormArray).removeAt(index);
     }
 
     addMoreLand() {
