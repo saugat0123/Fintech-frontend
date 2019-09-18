@@ -8,7 +8,7 @@ import {BorrowerRiskRatingComponent} from './borrower-risk-rating/borrower-risk-
     styleUrls: ['./financial.component.scss']
 })
 export class FinancialComponent implements OnInit {
-    @ViewChild('brr') brr: BorrowerRiskRatingComponent;
+    @ViewChild('brr', { static: true }) brr: BorrowerRiskRatingComponent;
     @Input() formData: Object;
 
     addYear = false;

@@ -30,6 +30,7 @@ export class UserComponent implements OnInit {
     dataList: Array<User>;
     restApi = ApiConfig.URL;
     page = 1;
+    isFilterCollapsed = true;
 
     spinner = false;
     globalMsg: string;
@@ -145,6 +146,7 @@ export class UserComponent implements OnInit {
 
     clearSearch() {
         this.buildFilterForm();
+        this.isFilterCollapsed = true;
     }
 
     edit(user: User) {
