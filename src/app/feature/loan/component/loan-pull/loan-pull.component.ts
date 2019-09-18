@@ -18,7 +18,6 @@ import {LoanConfigService} from '../../../admin/component/loan-config/loan-confi
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LoanActionService} from '../../loan-action/service/loan-action.service';
 import {UserService} from '../../../admin/component/user/user.service';
-import {RoleService} from '../../../admin/component/role-permission/role.service';
 import {SocketService} from '../../../../@core/service/socket.service';
 import {RoleType} from '../../../admin/modal/roleType';
 import {RoleAccess} from '../../../admin/modal/role-access';
@@ -40,7 +39,6 @@ export class LoanPullComponent implements OnInit {
     spinner = false;
     pageable: Pageable = new Pageable();
     age: number;
-    docStatus = DocStatus;
     loanType = LoanType;
     filterForm: FormGroup;
     tempLoanType = null;
@@ -51,9 +49,7 @@ export class LoanPullComponent implements OnInit {
     roleAccess: string;
     accessSpecific: boolean;
     accessAll: boolean;
-    statusApproved = false;
     loanDataHolder: LoanDataHolder;
-    transferUserList;
     formAction: FormGroup;
     redirected = false;
 
@@ -68,7 +64,6 @@ export class LoanPullComponent implements OnInit {
         private modalService: NgbModal,
         private loanActionService: LoanActionService,
         private userService: UserService,
-        private roleService: RoleService,
         private socketService: SocketService,
         private catalogueService: CatalogueService) {
     }
@@ -113,17 +108,6 @@ export class LoanPullComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
             });
         }
-        if (this.accessAll) {
-            this.roleService.getAll().subscribe(
-                (response: any) => {
-                    this.roleList = response.detail;
-                    this.roleList.splice(0, 1); // removes ADMIN
-                }, error => {
-                    console.log(error);
-                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Roles'));
-                }
-            );
-        }
         this.loanConfigService.getAll().subscribe((response: any) => {
             this.loanTypeList = response.detail;
         }, error => {
@@ -150,7 +134,6 @@ export class LoanPullComponent implements OnInit {
             branch: [undefined],
             loanType: [undefined],
             loanNewRenew: [undefined],
-            docStatus: [undefined],
             startDate: [undefined],
             endDate: [undefined],
             role: [undefined],
@@ -198,23 +181,20 @@ export class LoanPullComponent implements OnInit {
 
     onSearch() {
         this.tempLoanType = null;
-        this.statusApproved = this.filterForm.get('docStatus').value === 'APPROVED';
-        this.catalogueService.search.branchIds = this.filterForm.get('branch').value === null ? undefined :
+        this.catalogueService.search.branchIds = ObjectUtil.isEmpty(this.filterForm.get('branch').value) ? undefined :
             this.filterForm.get('branch').value;
-        this.catalogueService.search.documentStatus = this.filterForm.get('docStatus').value === null ? DocStatus.value(DocStatus.PENDING) :
-            this.filterForm.get('docStatus').value;
-        this.catalogueService.search.loanConfigId = this.filterForm.get('loanType').value === null ? undefined :
+        this.catalogueService.search.loanConfigId = ObjectUtil.isEmpty(this.filterForm.get('loanType').value) ? undefined :
             this.filterForm.get('loanType').value;
-        this.catalogueService.search.loanNewRenew = this.filterForm.get('loanNewRenew').value === null ? undefined :
+        this.catalogueService.search.loanNewRenew = ObjectUtil.isEmpty(this.filterForm.get('loanNewRenew').value) ? undefined :
             this.filterForm.get('loanNewRenew').value;
-        if (this.filterForm.get('startDate').value !== null && this.filterForm.get('endDate').value) {
+        if (!ObjectUtil.isEmpty(this.filterForm.get('startDate').value) && this.filterForm.get('endDate').value) {
             this.catalogueService.search.currentStageDate = JSON.stringify({
                 // note: new Date().toString() is needed here to preserve timezone while JSON.stringify()
                 'startDate': new Date(this.filterForm.get('startDate').value).toLocaleDateString(),
                 'endDate': new Date(this.filterForm.get('endDate').value).toLocaleDateString()
             });
         }
-        this.catalogueService.search.currentUserRole = this.filterForm.get('role').value === null ? undefined :
+        this.catalogueService.search.currentUserRole = ObjectUtil.isEmpty(this.filterForm.get('role').value) ? undefined :
             this.filterForm.get('role').value;
         this.catalogueService.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
             this.filterForm.get('customerName').value;

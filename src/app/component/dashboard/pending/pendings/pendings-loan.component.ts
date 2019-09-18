@@ -124,10 +124,6 @@ export class PendingsLoanComponent implements OnInit {
     this.search.loanConfigId = loanConfigId;
   }
 
-  statusSelect(docStatus) {
-    this.search.documentStatus = docStatus;
-  }
-
   branchSelect(id) {
     this.search.branchIds = id;
   }
