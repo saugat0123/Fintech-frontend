@@ -32,6 +32,7 @@ import {CoreModule} from '../../@core/core.module';
 import {environment} from '../../../environments/environment';
 import {SiteVisitComponent} from './component/loan-main-template/site-visit/site-visit.component';
 import {AgmCoreModule} from '@agm/core';
+import { LoanPullComponent } from './component/loan-pull/loan-pull.component';
 // tslint:disable-next-line:max-line-length
 import { SecurityInitialFormComponent } from './component/loan-main-template/security/security-initial-form/security-initial-form.component';
 
@@ -61,6 +62,8 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         CreditGradingComponent,
 
         SiteVisitComponent,
+
+        LoanPullComponent,
 
         SecurityInitialFormComponent,
 

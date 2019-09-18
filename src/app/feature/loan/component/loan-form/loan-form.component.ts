@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbTabChangeEvent} from '@ng-bootstrap/ng-bootstrap';
 import {LoanDataHolder} from '../../model/loanData';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
@@ -38,6 +38,10 @@ export class LoanFormComponent implements OnInit {
     loanFile: DmsLoanFile;
     loanTitle: string;
     loading = true;
+
+    totalTabCount = 0;
+    nextTabId = 0;
+    previousTabId = 0;
 
     customerLoanId: number;
     templateList = [
@@ -78,31 +82,31 @@ export class LoanFormComponent implements OnInit {
     loanDocument: LoanDataHolder;
 
 
-    @ViewChild('basicInfo')
+    @ViewChild('basicInfo', {static: false})
     basicInfo: BasicInfoComponent;
 
-    @ViewChild('dmsLoanFile')
+    @ViewChild('dmsLoanFile', {static: false})
     dmsLoanFile: DmsLoanFileComponent;
 
-    @ViewChild('companyInfo')
+    @ViewChild('companyInfo', {static: false})
     companyInfoComponent: CompanyInfoComponent;
 
-    @ViewChild('kycInfo')
+    @ViewChild('kycInfo', {static: false})
     kycInfo: KycInfoComponent;
 
-    @ViewChild('proposalInfo')
+    @ViewChild('proposalInfo', {static: false})
     proposalDetail: ProposalComponent;
 
-    @ViewChild('cicl')
+    @ViewChild('cicl', {static: false})
     cicl: CiclComponent;
 
-    @ViewChild('creditGrading')
+    @ViewChild('creditGrading', {static: false})
     creditGrading: CreditGradingComponent;
 
-    @ViewChild('financial')
+    @ViewChild('financial', {static: false})
     financial: FinancialComponent;
 
-    @ViewChild('siteVisit')
+    @ViewChild('siteVisit', {static: false})
     siteVisit: SiteVisitComponent;
     @ViewChild('security')
     security: SecurityComponent;
@@ -174,12 +178,23 @@ export class LoanFormComponent implements OnInit {
                 this.currentTab.tabName = this.templateList[0].name;
                 this.selectedTab = this.templateList[0].name;
                 this.first = true;
+
+                this.totalTabCount = this.templateList.length;
+                this.nextTabId = 1;
             }
             if (this.templateList.length === 0) {
                 this.toastService.show(new Alert(AlertType.INFO, 'NO FORM ARE AVAILABLE'));
                 this.router.navigate(['/home/dashboard']);
             }
         });
+    }
+
+    tabChange(evt: NgbTabChangeEvent) {
+        const selectedTabId = parseInt(evt.nextId, 10);
+        this.nextTabId = selectedTabId + 1;
+        this.previousTabId = selectedTabId - 1;
+
+        console.log(this.nextTabId.toString());
     }
 
     selectTab(index, name) {

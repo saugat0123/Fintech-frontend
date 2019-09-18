@@ -3,6 +3,7 @@ import {NbMenuItem} from '@nebular/theme';
 import {FeatureMenuService} from './FeatureMenuService';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
+import {RoleType} from './admin/modal/roleType';
 
 @Component({
     selector: 'app-pages',
@@ -27,10 +28,22 @@ export class FeatureComponent implements OnInit {
     ngOnInit() {
         this.items = this.menuService.getMenus().subscribe(res => {
                 this.menus = [...res.detail];
+
+                if (localStorage.getItem('roleType') === RoleType[RoleType.COMMITTEE]) {
+                    const tempMenu = {
+                        id: null,
+                        title: 'Pull',
+                        link: '/home/loan/pull',
+                        icon: 'arrowhead-down-outline'
+                    };
+                    this.menus.push(tempMenu);
+                }
             },
             (error) => {
                 console.log(error);
             });
+
+        console.log(this.menus);
 
         this.router.events.subscribe(event => {
             if (event instanceof RouteConfigLoadStart) {

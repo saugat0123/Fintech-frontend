@@ -7,6 +7,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Status} from '../../../../../@core/Status';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-update-document',
@@ -16,28 +17,32 @@ export class UpdateDocumentComponent implements OnInit {
 
     @Input() public cycle;
     title: string;
-    documentList: Array<Document>;
-    allList = [];
+    selectedDocuments: Array<Document>;
+    availableDocumentOptions = [];
     show = false;
     loanCycle: LoanCycle = new LoanCycle();
     selectedDocumentList = Array<number>();
     label: string;
     spinner = false;
 
+    form: FormGroup;
+
     constructor(
         private router: Router,
         private service: DocumentService,
         private modalService: NgbModal,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private formBuilder: FormBuilder
     ) {
     }
 
     static loadData(other: UpdateDocumentComponent) {
         other.spinner = true;
         other.service.getAllByStatus(Status.ACTIVE).subscribe((response: any) => {
-            other.allList = response.detail;
+            other.availableDocumentOptions = response.detail;
             other.spinner = false;
-            other.documentsContaining(other.loanCycle.id);
+            other.initializeOptions();
+            other.populateOptionValues(other.loanCycle.id);
         }, error => {
             console.log(error);
             other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Documents'));
@@ -51,16 +56,20 @@ export class UpdateDocumentComponent implements OnInit {
         UpdateDocumentComponent.loadData(this);
     }
 
-    documentsContaining(loanCycleId: number) {
+    initializeOptions() {
+        this.form = this.formBuilder.group({});
+
+        this.availableDocumentOptions.forEach(d => {
+            const control = new FormControl(0);
+            this.form.addControl(d.name, control);
+        });
+    }
+
+    populateOptionValues(loanCycleId: number) {
         this.service.getByLoanCycleAndStatus(loanCycleId, 'ACTIVE').subscribe((response: any) => {
-            this.documentList = response.detail;
-            this.documentList.forEach(selectedDocument => {
-                this.allList.forEach(document => {
-                    if (selectedDocument.id === document.id) {
-                        this.selectedDocumentList.push(document.id);
-                        document.checked = true;
-                    }
-                });
+            this.selectedDocuments = response.detail;
+            this.selectedDocuments.forEach(document => {
+                this.form.get(document.name).setValue(true);
             });
         });
     }
@@ -75,21 +84,23 @@ export class UpdateDocumentComponent implements OnInit {
             });
     }
 
-    updateCheckedOptions(events, documentId: number) {
-        if (events.target.checked === true) {
-            this.selectedDocumentList.push(documentId);
-            console.log(this.selectedDocumentList);
-        } else {
-            const index = this.selectedDocumentList.indexOf(documentId);
-            if (index !== -1) {
-                this.selectedDocumentList.splice(index, 1);
-                console.log(this.selectedDocumentList);
-            }
-        }
-    }
+    save() {
+        const selectedDocumentValues = [];
 
-    toggle() {
-        this.show = !this.show;
+        this.availableDocumentOptions.forEach(d => {
+            console.log(this.form.value[d.name]);
+            if (this.form.value[d.name] === true) {
+                selectedDocumentValues.push(d.id);
+            }
+        });
+
+        this.service.updateDocumentByLoanCycle(this.loanCycle.id, selectedDocumentValues)
+            .subscribe(() => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Document Loan Cycle'));
+            }, error => {
+                console.log(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Document Loan Cycle'));
+            });
     }
 
 }
