@@ -58,6 +58,7 @@ export class CatalogueComponent implements OnInit {
   transferUserList;
   formAction: FormGroup;
   redirected = false;
+  isFilterCollapsed = true;
 
   constructor(
       private branchService: BranchService,
