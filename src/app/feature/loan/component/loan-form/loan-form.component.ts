@@ -108,8 +108,6 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('siteVisit', {static: false})
     siteVisit: SiteVisitComponent;
-    @ViewChild('security')
-    security: SecurityComponent;
 
     constructor(
         private loanDataService: LoanDataService,

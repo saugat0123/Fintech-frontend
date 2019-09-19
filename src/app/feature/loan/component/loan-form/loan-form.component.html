@@ -42,6 +42,9 @@
                     <ng-template ngbTabContent *ngIf="allList.name === 'Site Visit'">
                         <app-site-visit #siteVisit [formValue]="loanDocument?.siteVisit"></app-site-visit>
                     </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Security'">
+                    <app-security #security></app-security>
+                    </ng-template>
                 </ngb-tab>
             </ngb-tabset>
 

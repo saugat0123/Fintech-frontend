@@ -3,8 +3,7 @@
         <div class="container" id="security">
             <div class="wizard-title text-center"><h1>Security</h1></div>
                 <div class="form-group">
-                    <app-security-initial-form title="Normal" (toCheckedCombined)="onCheckCombined($event)"></app-security-initial-form>
-                    <app-security-initial-form title="Combined" *ngIf="checkedCombined"></app-security-initial-form>
+                    <app-security-initial-form></app-security-initial-form>
 
                 <!-- Guarantors -->
 
@@ -49,7 +48,7 @@
                                                    formControlName="issuedYear"
                                                    id="citizenIssuedYear" name="citizenIssuedYear"
                                                    placeholder="Citizenship Issued Date"
-                                                   required type="text">
+                                                   required type="date">
                                             <nb-datepicker #issuedYear></nb-datepicker>
                                         </div>
                                     </div>

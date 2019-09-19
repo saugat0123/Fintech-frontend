@@ -1,6 +1,5 @@
-import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {isBoolean} from 'util';
 
 @Component({
     selector: 'app-security-initial-form',
@@ -8,8 +7,7 @@ import {isBoolean} from 'util';
     styleUrls: ['./security-initial-form.component.scss']
 })
 export class SecurityInitialFormComponent implements OnInit {
-  @Input() title: string;
-  @Output() toCheckedCombined = new EventEmitter();
+    @Input() data: string;
     marked = false;
     securityForm: FormGroup;
     landSelected = false;
@@ -17,21 +15,11 @@ export class SecurityInitialFormComponent implements OnInit {
     buildingSelected = false;
     plantSelected = false;
     underConstructionChecked = false;
-    checkboxSelected = true;
 
     constructor(private formBuilder: FormBuilder) {
     }
-     check(status) {
-      if (status) {
-        this.toCheckedCombined.next(true);
-      } else {
-        this.toCheckedCombined.next(false);
-      }
-     }
+
     ngOnInit() {
-      if (this.title === 'Combined') {
-        this.checkboxSelected = false;
-      }
         this.securityForm = this.formBuilder.group({
             valuatorDetails: this.formBuilder.group({
                 valuator: [''],
@@ -58,41 +46,23 @@ export class SecurityInitialFormComponent implements OnInit {
         });
     }
 
-    onChange(event) {
-        const selected = event.target.value;
-        if (selected === 'Land Security') {
-            this.showLand();
-        } else if (selected === 'Apartment Security') {
-            this.showApartment();
-        } else if (selected === 'Plant and Machinery Security') {
-            this.showPlantandMachinery();
-        } else {
-            this.showBoth();
-        }
-    }
-
-    showLand() {
-        this.landSelected = true;
-        this.apartmentSelected = false;
-        this.plantSelected = false;
-    }
-
-    showApartment() {
-        this.apartmentSelected = true;
-        this.landSelected = false;
-        this.plantSelected = false;
-    }
-
-    showBoth() {
-        this.landSelected = true;
-        this.apartmentSelected = true;
-        this.plantSelected = false;
-    }
-
-    showPlantandMachinery() {
-        this.apartmentSelected = false;
-        this.landSelected = false;
-        this.plantSelected = true;
+    change(arraySelected) {
+        arraySelected.forEach(selectedValue => {
+            switch (selectedValue) {
+                case 'LandSecurity' :
+                    this.landSelected = true;
+                    break;
+                case 'ApartmentSecurity' :
+                    this.apartmentSelected = true;
+                    break;
+                case 'Land and Building Security' :
+                    this.apartmentSelected = this.landSelected = true;
+                    break;
+                case 'PlantSecurity' :
+                    this.plantSelected = true;
+            }
+        });
+        // console.log(arraySelected);
     }
 
     landDetailsFormGroup(): FormGroup {

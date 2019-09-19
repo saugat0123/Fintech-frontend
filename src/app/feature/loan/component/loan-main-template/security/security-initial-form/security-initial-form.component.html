@@ -1,10 +1,8 @@
-<nb-card class="p-3">
-  {{title}}
-  <div class="form-group">
+ <div class="form-group">
     <form (ngSubmit)="onSubmit()" [formGroup]="securityForm">
       <!--START ROW-->
-      <div formGroupName="valuatorDetails">
-        <div class="row">
+      <div formGroupName="valuatorDetails" class="font-weight-bold">
+        <div class="row" >
           <div class="col-md-3">
             <div class="form-group">
               <label class="title " for="valuator">Valuator</label>
@@ -15,9 +13,10 @@
           <div class="col-md-3">
             <div class="form-group">
               <label class="title" for="valuatedDate">Valuated Date</label>
-              <input class="form-control rounded" formControlName="valuatedDate"
+              <input [nbDatepicker]="valuatedDate"class="form-control rounded" formControlName="valuatedDate"
                      id="valuatedDate"
-                     name="valuatedDate" placeholder="Valuated Date" type="text">
+                     name="valuatedDate" placeholder="Valuated Date" type="date">
+              <nb-datepicker #valuatedDate></nb-datepicker>
             </div>
           </div>
           <div class="col-md-3">
@@ -44,25 +43,12 @@
         <!--END ROW-->
         <div class="row">
           <div class="col-md-3">
-            <div class="form-group">
-              <label class="title" for="chooseAny">Choose Any</label>
-              <select (change)="onChange($event)" class="form-control rounded"
-                      formControlName="chooseAny"
-                      id="chooseAny"
-                      name="chooseAny">
-                <option [ngValue]="null" hidden>---select---</option>
-                <option>Land Security</option>
-                <option>Apartment Security</option>
-                <option>Land and Building Security</option>
-                <option>Plant and Machinery Security</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group">
-              <nb-checkbox #checkBox *ngIf="checkboxSelected" (change)="check(checkBox.value)" >Check if Combined Security
-              </nb-checkbox>
-            </div>
+              <nb-select #combinedSecurityElement (selectedChange) = "change(combinedSecurityElement.selected)" multiple placeholder="Multiple Select">
+                <nb-option value="LandSecurity">Land Security</nb-option>
+                <nb-option value="ApartmentSecurity">Apartment Security</nb-option>
+                <nb-option value="Land and Building Security">Land and Building Security</nb-option>
+                <nb-option value="PlantSecurity">Plant and Machinery Security </nb-option>
+              </nb-select>
           </div>
         </div>
         <hr>
@@ -800,4 +786,3 @@
       </div>
     </form>
   </div>
-</nb-card>

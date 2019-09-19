@@ -9,7 +9,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 })
 export class SecurityComponent implements OnInit {
     guarantorsForm: FormGroup;
-    checkedCombined = false;
+
     constructor(
         private formBuilder: FormBuilder
     ) {
@@ -21,14 +21,6 @@ export class SecurityComponent implements OnInit {
                 this.guarantorsDetailsFormGroup()
             ])
         });
-    }
-
-    onCheckCombined(status) {
-        this.checkedCombined = status;
-    }
-
-    print(text) {
-        console.log(text);
     }
 
     onSubmit() {
