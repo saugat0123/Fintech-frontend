@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './component/login/login.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AddressService} from './@core/service/baseservice/address.service';
 import {QuillModule} from 'ngx-quill';
 import {DatePipe, HashLocationStrategy, LocationStrategy} from '@angular/common';
@@ -18,6 +18,7 @@ import {ForgotPasswordComponent} from './component/forgot-password/forgot-passwo
 import {ResentForgotPasswordComponent} from './component/resent-forgot-password/resent-forgot-password.component';
 import {LoginBaseComponent} from './component/login-base/login-base.component';
 import {NewPasswordComponent} from './component/new-password/new-password.component';
+import {TokenInterceptor} from "./@core/service/authentication/TokenInterceptor";
 
 
 @NgModule({
@@ -45,8 +46,9 @@ import {NewPasswordComponent} from './component/new-password/new-password.compon
     ],
     providers: [AddressService, {
         provide: LocationStrategy,
-        useClass: HashLocationStrategy
-    }, DatePipe],
+        useClass: HashLocationStrategy,
+    }, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+        DatePipe],
     bootstrap: [AppComponent],
     exports: [],
     entryComponents: []
