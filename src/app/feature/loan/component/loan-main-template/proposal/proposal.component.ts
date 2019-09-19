@@ -18,6 +18,10 @@ export class ProposalComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.buildForm();
+    }
+
+    buildForm() {
         this.proposalForm = this.fb.group({
             proposedLimit: [this.formValue.proposedLimit === undefined ? '' :
                 this.formValue.proposedLimit, [Validators.required, Validators.min(0)]],
@@ -61,10 +65,7 @@ export class ProposalComponent implements OnInit {
                 this.formValue.purposeOfSubmissionSummary, [Validators.required]],
             // for commitmentFee Amount
             commitmentFee: [this.formValue.commitmentFee === undefined ? '' :
-                this.formValue.commitmentFee, [Validators.required]],
-
-
-
+                this.formValue.commitmentFee, [Validators.required]]
         });
     }
 

@@ -33,7 +33,6 @@
                                         <div *ngIf="(submitted) && formControls.interestRate.invalid"
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.interestRate.errors.required">Interest Rate is required</span>
-
                                             <span *ngIf="formControls.interestRate.errors.min">Interest Rate must be positive numerical value.</span>
                                         </div>
                                     </div>
@@ -58,7 +57,6 @@
                                         <label class="title" for="premiumRateOnBaseRate"><strong>Premium Rate On Base
                                             Rate(%)</strong></label>
                                         <input [ngClass]="{ 'is-invalid': (submitted) && formControls.premiumRateOnBaseRate.errors }"
-
                                                class="form-control"
                                                class="form-control" formControlName="premiumRateOnBaseRate"
                                                id="premiumRateOnBaseRate" name="premiumRate"
@@ -268,7 +266,6 @@
                                              class="invalid-feedback">
                                             <span *ngIf="formControls.disbursementCriteria.errors.required">Disbursement Criteria is required.</span>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="col-md-12">

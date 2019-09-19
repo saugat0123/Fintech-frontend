@@ -27,6 +27,10 @@
                       *ngIf="selectedTab==='Proposal' && loanDocument"
                       (dmsDisableButton)="submitButton($event)"
                       #proposalInfo></app-proposal>
+
+
+<!--        <app-security *ngIf="selectedTab==='Proposal' && loanDocument"></app-security>-->
+
         <app-cicl #cicl *ngIf="selectedTab === 'CICL' && loanDocument"
                   [ciclRemark]="loanDocument?.ciclRemarks"
                   [ciclValue]="loanDocument?.ciclList"
