@@ -168,46 +168,38 @@
             </nb-card-header>
             <nb-card-body>
 
-                <nb-tabset #currentTabSet fullWidth (changeTab)="changeActiveTab(currentTabSet['tabs'])">
+                <nb-tabset class="mb-3" #currentTabSet fullWidth (changeTab)="changeActiveTab(currentTabSet['tabs'])">
 
                     <nb-tab tabTitle="Income Statement">
-                        <nb-card class="p-2">
-                            <app-income-statement *ngIf="activeTab === 'Income Statement'"
-                                                  (removeFiscalYear)="removeFiscalYear($event)"
-                                                  [fiscalYear]="fiscalYear" [formData]="currentFormData"
-                                                  #incomeStatement>
-                            </app-income-statement>
-                        </nb-card>
+                        <app-income-statement *ngIf="activeTab === 'Income Statement'"
+                                              (removeFiscalYear)="removeFiscalYear($event)"
+                                              [fiscalYear]="fiscalYear" [formData]="currentFormData"
+                                              #incomeStatement>
+                        </app-income-statement>
                     </nb-tab>
 
                     <nb-tab tabTitle="Balance Sheet">
-                        <nb-card class="p-2">
-                            <app-balance-sheet *ngIf="activeTab === 'Balance Sheet'"
-                                               (removeFiscalYear)="removeFiscalYear($event)"
-                                               [fiscalYear]="fiscalYear"
-                                               [formData]="currentFormData" #balanceSheet>
-                            </app-balance-sheet>
-                        </nb-card>
+                        <app-balance-sheet *ngIf="activeTab === 'Balance Sheet'"
+                                           (removeFiscalYear)="removeFiscalYear($event)"
+                                           [fiscalYear]="fiscalYear"
+                                           [formData]="currentFormData" #balanceSheet>
+                        </app-balance-sheet>
                     </nb-tab>
 
                     <nb-tab tabTitle="Cash Flow Statement">
-                        <nb-card class="p-2">
-                            <app-cash-flow-statement *ngIf="activeTab === 'Cash Flow Statement'"
-                                                     (removeFiscalYear)="removeFiscalYear($event)"
-                                                     [fiscalYear]="fiscalYear"
-                                                     [formData]="currentFormData" #cashFlowStatement>
-                            </app-cash-flow-statement>
-                        </nb-card>
+                        <app-cash-flow-statement *ngIf="activeTab === 'Cash Flow Statement'"
+                                                 (removeFiscalYear)="removeFiscalYear($event)"
+                                                 [fiscalYear]="fiscalYear"
+                                                 [formData]="currentFormData" #cashFlowStatement>
+                        </app-cash-flow-statement>
                     </nb-tab>
 
                     <nb-tab tabTitle="Key Indicators">
-                        <nb-card class="p-2">
-                            <app-key-indicators *ngIf="activeTab === 'Key Indicators'"
-                                                (removeFiscalYear)="removeFiscalYear($event)"
-                                                [fiscalYear]="fiscalYear"
-                                                [formData]="currentFormData" #keyIndicators>
-                            </app-key-indicators>
-                        </nb-card>
+                        <app-key-indicators *ngIf="activeTab === 'Key Indicators'"
+                                            (removeFiscalYear)="removeFiscalYear($event)"
+                                            [fiscalYear]="fiscalYear"
+                                            [formData]="currentFormData" #keyIndicators>
+                        </app-key-indicators>
                     </nb-tab>
 
                 </nb-tabset>
