@@ -11,7 +11,6 @@
         </app-icon-card>
     </div>
 
-
     <div *ngIf="roleName" class="col-md-4 col-sm-6 col-xs-12">
         <a routerLink="/home/admin/catalogue">
             <app-icon-card detail="click to transfer" title="Transfer" type="danger">
@@ -19,24 +18,28 @@
             </app-icon-card>
         </a>
     </div>
-
 </div>
 
-<div class="row center mb-3" *ngIf="addViewLoanCategory && roleType">
+<div class="row center mb-3" *ngIf="roleType">
     <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-11">
-                <select [(ngModel)]="loanType" class="form-control rounded">
-                    <option [ngValue]="undefined" hidden>---select Loan Type---</option>
-                    <option *ngFor="let allList of loanList" [value]="allList.id">{{allList.name}}</option>
-                </select>
-            </div>
-            <div class="col-md-1">
-                <button class="btn btn-md btn-primary btn-flat" (click)="selectLoan(loanCategory)">
-                    <i class="fa fa-arrow-right"></i>
-                </button>
-            </div>
-        </div>
+        <nb-card>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-11">
+                        <select [(ngModel)]="loanType" class="form-control rounded">
+                            <option [ngValue]="undefined" hidden>---select Loan Type---</option>
+                            <option *ngFor="let allList of loanList" [value]="allList.id">{{allList.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <button nbButton status="primary" (click)="selectLoan(loanCategory)">
+                            <i class="fa fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+
     </div>
 </div>
 
@@ -78,18 +81,10 @@
         </form>
     </div>
 </ng-template>
-<div class="row" *ngIf="pendingView">
+<div class="row" *ngIf="!roleName">
     <div class="col-md-11">
         <app-pending-loan></app-pending-loan>
     </div>
 </div>
 <app-charts></app-charts>
-<ngx-spinner
-        bdOpacity = 1
-        bdColor = "rgba(51,51,51,0.36)"
-        size = "medium"
-        color = "#3c87ff"
-        type = "ball-clip-rotate"
-        [fullScreen] = "true"
->
-</ngx-spinner>
+<app-overlay-spinner></app-overlay-spinner>

@@ -209,6 +209,26 @@
               <div class="row">
                 <div *ngIf="companyFormField.showFormField" class="col-md-4">
                   <div class="form-group">
+                    <label for="panNumber"><strong>PAN</strong></label>
+                    <div class="input-group mb-3">
+                      <input
+                          [ngClass]="{ 'is-invalid':submitted && form.companyPAN.errors && !personal}"
+                          class="form-control rounded"
+                          formControlName="companyPAN"
+                          id="panNumber"
+                          placeholder="Enter PAN"
+                          type="text"/>
+                      <div *ngIf="submitted && form.companyPAN.errors && !personal"
+                           class="invalid-feedback">
+                        <div *ngIf="form.companyPAN.errors.required">
+                          PAN is required.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                  <div class="form-group">
                     <label for="businessType"><b>Business Type</b></label>
                     <ng-select [items]="businessTypes"
                                [multiple]="false"
@@ -397,7 +417,7 @@
                          class="form-control rounded" formControlName="individualExposure"
                          id="individualExposure"
                          placeholder="Enter Individual Exposure"
-                         type="text"/>
+                         type="number"/>
                   <div *ngIf="submitted && form.individualExposure.errors" class="invalid-feedback">
                     <div *ngIf="form.individualExposure.errors.required">
                       Individual Exposure is required
@@ -412,7 +432,7 @@
                          class="form-control rounded" formControlName="institutionExposure"
                          id="institutionExposure"
                          placeholder="Enter Institution Exposure"
-                         type="text"/>
+                         type="number"/>
                   <div *ngIf="submitted && form.institutionExposure.errors"
                        class="invalid-feedback">
                     <div *ngIf="form.institutionExposure.errors.required">
@@ -490,7 +510,7 @@
                          class="form-control rounded" formControlName="groupExpo"
                          id="groupExpo"
                          placeholder="Enter Group Exposure"
-                         type="text"/>
+                         type="number"/>
                   <div *ngIf="submitted && form.groupExpo.errors" class="invalid-feedback">
                     <div *ngIf="form.groupExpo.errors.required">
                       Group Exposure is required
@@ -582,7 +602,7 @@
                 <span class="color" style="color:red"> {{errorMessage}}</span>
               </div>
               <div class="box-body">
-                <table class="table table-striped table-bordered table-hover ">
+                <table class="table  table-bordered table-hover ">
                   <thead>
                   <tr>
                     <th>#</th>

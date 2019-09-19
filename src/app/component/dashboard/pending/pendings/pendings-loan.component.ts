@@ -20,145 +20,145 @@ import {LoanType} from '../../../../feature/loan/model/loanType';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 
 @Component({
-    selector: 'app-pendings',
-    templateUrl: './pendings-loan.component.html',
-    styleUrls: ['./pendings-loan.component.css']
+  selector: 'app-pendings',
+  templateUrl: './pendings-loan.component.html',
+  styleUrls: ['./pendings-loan.component.css']
 })
 export class PendingsLoanComponent implements OnInit {
-    dmsLoanFiles: Array<DmsLoanFile>;
-    loanDataHolders: Array<LoanDataHolder>;
-    loanType = LoanType;
-    user: User = new User();
-    search: any = {
-        documentStatus: DocStatus.value(DocStatus.PENDING)
-    };
+  dmsLoanFiles: Array<DmsLoanFile>;
+  loanDataHolders: Array<LoanDataHolder>;
+  loanType = LoanType;
+  user: User = new User();
+  search: any = {
+    documentStatus: DocStatus.value(DocStatus.PENDING)
+  };
 
-    loanList: Array<LoanConfig> = new Array<LoanConfig>();
-    pageable: Pageable = new Pageable();
-    spinner = false;
-    page = 1;
-    documentStatusList = DocStatus;
-    branchList = [];
-    branchFilter = true;
-
-
-    constructor(private service: DmsLoanService,
-                private userService: UserService,
-                private loanConfigService: LoanConfigService,
-                private loanFormService: LoanFormService,
-                private branchService: BranchService,
-                private router: Router,
-                private toastService: ToastService,
-                private route: ActivatedRoute,
-                private datePipe: DatePipe) {
+  loanList: Array<LoanConfig> = new Array<LoanConfig>();
+  pageable: Pageable = new Pageable();
+  spinner = false;
+  page = 1;
+  documentStatusList = DocStatus;
+  branchList = [];
+  branchFilter = true;
 
 
-    }
+  constructor(
+      private service: DmsLoanService,
+      private userService: UserService,
+      private loanConfigService: LoanConfigService,
+      private loanFormService: LoanFormService,
+      private branchService: BranchService,
+      private router: Router,
+      private toastService: ToastService,
+      private route: ActivatedRoute,
+      private datePipe: DatePipe) {
+  }
 
 
-    static loadData(other: PendingsLoanComponent) {
-        other.spinner = true;
-        other.loanFormService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe(
-            (response: any) => {
-                other.dmsLoanFiles = response.detail.content;
-                other.loanDataHolders = response.detail.content;
-                other.pageable = PaginationUtils.getPageable(response.detail);
-                other.spinner = false;
-            }, error => {
-                console.log(error);
-                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
-                other.spinner = false;
-            }
-        );
-    }
-
-    ngOnInit() {
-        this.route.params.subscribe(params => {
-            this.search.documentStatus = params['name'];
-        });
-        PendingsLoanComponent.loadData(this);
-        this.userService.getLoggedInUser().subscribe(
-            (response: any) => {
-                this.user = response.detail;
-            }
-        );
-        this.loanConfigService.getAll().subscribe(
-            (response: any) => {
-                this.loanList = response.detail;
-            }
-        );
-
-        const roleAccess = localStorage.getItem('roleAccess');
-        if (roleAccess === 'ALL') {
-            this.branchService.getAll().subscribe((res: any) => {
-                this.branchFilter = true;
-                this.branchList = res.detail;
-            });
-        } else {
-
-            this.branchService.getBranchAccessByCurrentUser().subscribe((res: any) => {
-                if (roleAccess === 'OWN') {
-                    this.branchList = [];
-                    this.branchFilter = false;
-                }
-                this.branchList = res.detail;
-            });
-
-
+  static loadData(other: PendingsLoanComponent) {
+    other.spinner = true;
+    other.loanFormService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe(
+        (response: any) => {
+          other.dmsLoanFiles = response.detail.content;
+          other.loanDataHolders = response.detail.content;
+          other.pageable = PaginationUtils.getPageable(response.detail);
+          other.spinner = false;
+        }, error => {
+          console.log(error);
+          other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
+          other.spinner = false;
         }
-    }
+    );
+  }
 
-    clearSearch() {
-        this.search = {};
-    }
-
-    onSearch() {
-        if (this.search.createdAt != null) {
-            const date = this.search.createdAt;
-            this.search.createdAt = this.datePipe.transform(date, 'yyyy-MM-dd');
-
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.search.documentStatus = params['name'];
+    });
+    PendingsLoanComponent.loadData(this);
+    this.userService.getLoggedInUser().subscribe(
+        (response: any) => {
+          this.user = response.detail;
         }
-        PendingsLoanComponent.loadData(this);
+    );
+    this.loanConfigService.getAll().subscribe(
+        (response: any) => {
+          this.loanList = response.detail;
+        }
+    );
+
+    const roleAccess = localStorage.getItem('roleAccess');
+    if (roleAccess === 'ALL') {
+      this.branchService.getAll().subscribe((res: any) => {
+        this.branchFilter = true;
+        this.branchList = res.detail;
+      });
+    } else {
+
+      this.branchService.getBranchAccessByCurrentUser().subscribe((res: any) => {
+        if (roleAccess === 'OWN') {
+          this.branchList = [];
+          this.branchFilter = false;
+        }
+        this.branchList = res.detail;
+      });
+
+
     }
+  }
 
-    onChoose(loanConfigId) {
-        this.search.loanConfigId = loanConfigId;
-    }
+  clearSearch() {
+    this.search = {};
+  }
 
-    statusSelect(docStatus) {
-        this.search.documentStatus = docStatus;
-    }
-
-    branchSelect(id) {
-        this.search.branchIds = id;
-    }
-
-    typeSelect(loanType) {
-        this.search.loanNewRenew = loanType;
-    }
-
-    onClick(loanConfigId: number, customerId: number) {
-        this.spinner = true;
-        this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: loanConfigId, customerId: customerId}});
-
+  onSearch() {
+    if (this.search.createdAt != null) {
+      const date = this.search.createdAt;
+      this.search.createdAt = this.datePipe.transform(date, 'yyyy-MM-dd');
 
     }
+    PendingsLoanComponent.loadData(this);
+  }
 
-    changePage(page: number) {
+  onChoose(loanConfigId) {
+    this.search.loanConfigId = loanConfigId;
+  }
 
-        this.page = page;
-        PendingsLoanComponent.loadData(this);
-    }
+  branchSelect(id) {
+    this.search.branchIds = id;
+  }
 
-    getCsv() {
-        this.loanFormService.download(this.search).subscribe((response: any) => {
-            const link = document.createElement('a');
-            link.target = '_blank';
-            link.href = ApiConfig.URL + '/' + response.detail;
-            link.download = ApiConfig.URL + '/' + response.detail;
-            link.setAttribute('visibility', 'hidden');
-            link.click();
+  typeSelect(loanType) {
+    this.search.loanNewRenew = loanType;
+  }
 
-        });
-    }
+  onClick(loanConfigId: number, customerId: number) {
+    this.spinner = true;
+    this.router.navigate(['/home/loan/summary'], {
+      queryParams: {
+        loanConfigId: loanConfigId,
+        customerId: customerId
+      }
+    });
+
+
+  }
+
+  changePage(page: number) {
+
+    this.page = page;
+    PendingsLoanComponent.loadData(this);
+  }
+
+  getCsv() {
+    this.loanFormService.download(this.search).subscribe((response: any) => {
+      const link = document.createElement('a');
+      link.target = '_blank';
+      link.href = ApiConfig.URL + '/' + response.detail;
+      link.download = ApiConfig.URL + '/' + response.detail;
+      link.setAttribute('visibility', 'hidden');
+      link.click();
+
+    });
+  }
 }

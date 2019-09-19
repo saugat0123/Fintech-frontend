@@ -37,6 +37,7 @@ import { BalanceSheetComponent } from './component/loan-main-template/financial/
 import { CashFlowStatementComponent } from './component/loan-main-template/financial/cash-flow-statement/cash-flow-statement.component';
 import { KeyIndicatorsComponent } from './component/loan-main-template/financial/key-indicators/key-indicators.component';
 import { InitialFormComponent } from './component/loan-main-template/financial/initial-form/initial-form.component';
+import { LoanPullComponent } from './component/loan-pull/loan-pull.component';
 
 
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
@@ -64,11 +65,13 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
 
         SiteVisitComponent,
 
+        LoanPullComponent,
+
         IncomeStatementComponent,
         BalanceSheetComponent,
         CashFlowStatementComponent,
         KeyIndicatorsComponent,
-        InitialFormComponent,
+        InitialFormComponent
     ],
     imports: [
         ThemeModule,

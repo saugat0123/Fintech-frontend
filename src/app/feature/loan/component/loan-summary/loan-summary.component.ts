@@ -57,19 +57,18 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   customerId;
   loanConfigId;
   actionsList: ActionModel = new ActionModel();
-  showAction = true;
+  catalogueStatus = false;
   RootUrl = ApiConfig.URL;
   signatureList = [];
   previousList: Array<LoanStage> = new Array<LoanStage>();
   currentDocAction = '';
   nepaliDate;
   loanCategory;
-  @ViewChild('print') print;
+  @ViewChild('print', { static: false }) print;
   occupation = Occupation;
   incomeSource = IncomeSource;
   businessType = BusinessType;
   navigationSubscription;
-  catalogueStatus = false;
 
   constructor(
       private userService: UserService,
@@ -111,7 +110,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           this.customerId = this.allId.customerId;
           this.loanConfigId = this.allId.loanConfigId;
           if (this.allId.catalogue) {
-            this.showAction = false;
             this.catalogueStatus = true;
           }
         });
