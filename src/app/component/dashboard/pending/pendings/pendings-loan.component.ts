@@ -18,6 +18,8 @@ import {DocStatus} from '../../../../feature/loan/model/docStatus';
 import {BranchService} from '../../../../feature/admin/component/branch/branch.service';
 import {LoanType} from '../../../../feature/loan/model/loanType';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-pendings',
@@ -30,17 +32,20 @@ export class PendingsLoanComponent implements OnInit {
   loanType = LoanType;
   user: User = new User();
   search: any = {
-    documentStatus: DocStatus.value(DocStatus.PENDING)
+    documentStatus: DocStatus.value(DocStatus.PENDING),
+    loanConfigId: undefined,
+    branchIds: undefined,
+    loanNewRenew: undefined,
+    customerName: undefined
   };
-
+  filterForm: FormGroup;
   loanList: Array<LoanConfig> = new Array<LoanConfig>();
   pageable: Pageable = new Pageable();
   spinner = false;
   page = 1;
-  documentStatusList = DocStatus;
   branchList = [];
   branchFilter = true;
-
+  isFilterCollapsed = true;
 
   constructor(
       private service: DmsLoanService,
@@ -51,7 +56,8 @@ export class PendingsLoanComponent implements OnInit {
       private router: Router,
       private toastService: ToastService,
       private route: ActivatedRoute,
-      private datePipe: DatePipe) {
+      private datePipe: DatePipe,
+      private formBuilder: FormBuilder) {
   }
 
 
@@ -72,9 +78,7 @@ export class PendingsLoanComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.search.documentStatus = params['name'];
-    });
+    this.buildFilterForm();
     PendingsLoanComponent.loadData(this);
     this.userService.getLoggedInUser().subscribe(
         (response: any) => {
@@ -94,7 +98,6 @@ export class PendingsLoanComponent implements OnInit {
         this.branchList = res.detail;
       });
     } else {
-
       this.branchService.getBranchAccessByCurrentUser().subscribe((res: any) => {
         if (roleAccess === 'OWN') {
           this.branchList = [];
@@ -102,34 +105,26 @@ export class PendingsLoanComponent implements OnInit {
         }
         this.branchList = res.detail;
       });
-
-
     }
   }
 
-  clearSearch() {
-    this.search = {};
+  buildFilterForm() {
+    this.filterForm = this.formBuilder.group({
+      branch: [undefined],
+      customerName: [undefined],
+      loanType: [undefined],
+      loan: [undefined]
+    });
   }
 
   onSearch() {
-    if (this.search.createdAt != null) {
-      const date = this.search.createdAt;
-      this.search.createdAt = this.datePipe.transform(date, 'yyyy-MM-dd');
-
-    }
+    this.search.branchIds = ObjectUtil.isEmpty(this.filterForm.get('branch').value) ? undefined : this.filterForm.get('branch').value;
+    this.search.loanConfigId = ObjectUtil.isEmpty(this.filterForm.get('loan').value) ? undefined : this.filterForm.get('loan').value;
+    this.search.loanNewRenew = ObjectUtil.isEmpty(this.filterForm.get('loanType').value) ? undefined :
+        this.filterForm.get('loanType').value;
+    this.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
+        this.filterForm.get('customerName').value;
     PendingsLoanComponent.loadData(this);
-  }
-
-  onChoose(loanConfigId) {
-    this.search.loanConfigId = loanConfigId;
-  }
-
-  branchSelect(id) {
-    this.search.branchIds = id;
-  }
-
-  typeSelect(loanType) {
-    this.search.loanNewRenew = loanType;
   }
 
   onClick(loanConfigId: number, customerId: number) {
@@ -140,12 +135,9 @@ export class PendingsLoanComponent implements OnInit {
         customerId: customerId
       }
     });
-
-
   }
 
   changePage(page: number) {
-
     this.page = page;
     PendingsLoanComponent.loadData(this);
   }
@@ -158,7 +150,6 @@ export class PendingsLoanComponent implements OnInit {
       link.download = ApiConfig.URL + '/' + response.detail;
       link.setAttribute('visibility', 'hidden');
       link.click();
-
     });
   }
 }
