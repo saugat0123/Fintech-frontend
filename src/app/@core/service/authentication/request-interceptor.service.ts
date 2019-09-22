@@ -14,7 +14,7 @@ import {UserService} from '../user.service';
 @Injectable({
     providedIn: 'root'
 })
-export class TokenInterceptor implements HttpInterceptor {
+export class RequestInterceptor implements HttpInterceptor {
     tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
     private isTokenRefreshing = false;
 

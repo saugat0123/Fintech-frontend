@@ -18,7 +18,7 @@ import {ForgotPasswordComponent} from './component/forgot-password/forgot-passwo
 import {ResentForgotPasswordComponent} from './component/resent-forgot-password/resent-forgot-password.component';
 import {LoginBaseComponent} from './component/login-base/login-base.component';
 import {NewPasswordComponent} from './component/new-password/new-password.component';
-import {TokenInterceptor} from "./@core/service/authentication/TokenInterceptor";
+import {RequestInterceptor} from './@core/service/authentication/request-interceptor.service';
 
 
 @NgModule({
@@ -47,7 +47,7 @@ import {TokenInterceptor} from "./@core/service/authentication/TokenInterceptor"
     providers: [AddressService, {
         provide: LocationStrategy,
         useClass: HashLocationStrategy,
-    }, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    }, { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
         DatePipe],
     bootstrap: [AppComponent],
     exports: [],
