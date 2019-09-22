@@ -2,8 +2,6 @@ import {CustomerRelative} from './customer-relative';
 import {MunicipalityVdc} from './municipality_VDC';
 import {District} from './district';
 import {Province} from './province';
-import {Occupation} from './occupation';
-import {IncomeSource} from './incomeSource';
 
 export class Customer {
     id: number;
@@ -25,7 +23,7 @@ export class Customer {
     citizenshipIssuedPlace: string;
     status: string;
     customerRelatives: Array<CustomerRelative>;
-    occupation: Occupation;
-    incomeSource: IncomeSource;
+    occupation: string;
+    incomeSource: string;
     version: number;
 }
