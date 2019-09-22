@@ -19,17 +19,22 @@ export class ProposalComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
+        this.proposalForm.get('interestRate').valueChanges.subscribe( value => this.proposalForm.get('premiumRateOnBaseRate')
+            .patchValue( Number(value) - Number(this.proposalForm.get('baseRate').value)));
+        this.proposalForm.get('baseRate').valueChanges.subscribe( value => this.proposalForm.get('premiumRateOnBaseRate')
+            .patchValue(Number(this.proposalForm.get('interestRate').value) - Number(value)));
     }
 
     buildForm() {
         this.proposalForm = this.fb.group({
+
             proposedLimit: [this.formValue.proposedLimit === undefined ? '' :
                 this.formValue.proposedLimit, [Validators.required, Validators.min(0)]],
-            interestRate: [this.formValue.interestRate === undefined ? '' :
+            interestRate: [this.formValue.interestRate === 0 ? '' :
                 this.formValue.interestRate, [Validators.required, Validators.min(0)]],
-            baseRate: [this.formValue.baseRate === undefined ? '' :
+            baseRate: [this.formValue.baseRate === 0 ? '' :
                 this.formValue.baseRate, [Validators.required, Validators.min(0)]],
-            premiumRateOnBaseRate: [this.formValue.premiumRateOnBaseRate === undefined ? '' :
+            premiumRateOnBaseRate: [this.formValue.premiumRateOnBaseRate === 0 ? '' :
                 this.formValue.premiumRateOnBaseRate, [Validators.required, Validators.min(0)]],
             serviceChargeMethod: [this.formValue.serviceChargeMethod === undefined ? '' :
                 this.formValue.serviceChargeMethod, [Validators.required]],
@@ -66,7 +71,9 @@ export class ProposalComponent implements OnInit {
             // for commitmentFee Amount
             commitmentFee: [this.formValue.commitmentFee === undefined ? '' :
                 this.formValue.commitmentFee, [Validators.required]]
+
         });
+
     }
 
     onSubmit() {
