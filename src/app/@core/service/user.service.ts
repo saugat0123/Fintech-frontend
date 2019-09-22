@@ -19,7 +19,7 @@ export class UserService {
     }
 
     getNewRefreshToken(): Observable<any> {
-        console.log('newrefreshtoken method');
+        console.log('new refresh token method');
         console.log(localStorage.getItem('rt'));
         const data = `grant_type=refresh_token&refresh_token=${localStorage.getItem('rt')}`;
         console.log(`${ApiConfig.TOKEN}${data}`);
