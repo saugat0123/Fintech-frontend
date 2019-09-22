@@ -26,19 +26,20 @@
             <nb-card-header>
                 <div class=row>
                     <div class="col-md-3">
-                        <label for="configureRole">Configure Role</label>
+                        <label for="configureRole">Configure Permissions for Role</label>
                         <select (change)="roleChanged($event.target.value)" class="form-control"
                                 id="configureRole">
                             <option>---Select Role---</option>
                             <option *ngFor="let role of roleList" value="{{role.id}}">{{role.roleName}}</option>
                         </select>
                     </div>
-                    <div class="col-md-9">
-                        <div class="float-right">
-                            <button class="pull-right" data-toggle="modal" (click)="onOpen()">
+                    <div class="col-md-9 d-flex justify-content-end">
+                        <div>
+                            <button nbButton outline status="success" (click)="onOpen()">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
+
                     </div>
                 </div>
             </nb-card-header>
@@ -48,13 +49,18 @@
                     <section *ngIf="compareCheckedPermission.length > 0">
                         <div class="row">
                             <div *ngFor="let permission of compareCheckedPermission;" class="col-md-4">
-                                <input class="big-checkbox" type="checkbox" value="{{permission.id}}"
-                                       [checked]="permission.checked"
-                                       (change)="updateCheckedOptions($event.target.value,$event.target.checked)"/>
-                                <span> {{permission.permissionName}}</span>
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="{{'perm-' + permission.id}}"
+                                           value="{{permission.id}}"
+                                           [checked]="permission.checked"
+                                           (change)="updateCheckedOptions($event.target.value,$event.target.checked)"
+                                    />
+                                    <label class="form-check-label"
+                                           for="{{'perm-' + permission.id}}">{{permission.permissionName}}</label>
+                                </div>
 
                                 <!--</ng-template>-->
-                                <div [className]="permission.checked==false ? 'row collapse' : 'row'"
+                                <div [ngbCollapse]="!permission.checked"
                                      id="{{permission.id}}">
                                     <!--<div class="col-md-12">-->
                                     <!--<div class="row">-->
@@ -72,11 +78,17 @@
                                         <div class="row">
                                             <div class=" col-md-6"
                                                  *ngFor="let api of permission.apiList; let i=index">
-                                                <input class="big-checkbox {{permission.id+api.type}}"
-                                                       [checked]="api.checked"
-                                                       (change)="updateCheckapiOptions(permission.id,$event.target.value,$event.target.checked,i)"
-                                                       type="checkbox" value="{{api.id}}"/>
-                                                <span>{{api.type}}</span></div>
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" class="form-check-input"
+                                                           id="{{'api-' + permission.id}}"
+                                                           value="{{api.id}}"
+                                                           [checked]="api.checked"
+                                                           (change)="updateCheckapiOptions(permission.id,$event.target.value,$event.target.checked,i)"
+                                                    />
+                                                    <label class="form-check-label"
+                                                           for="{{'api-' + permission.id}}">{{api.type}}</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -85,9 +97,7 @@
 
                         </div>
                         <hr>
-                        <button type="submit" class="btn btn-primary" (click)="save()">
-                            <i class="fa fa-save"></i>
-                        </button>
+                        <button type="submit" nbButton status="info" (click)="save()">Save</button>
                     </section>
                 </div>
             </nb-card-body>

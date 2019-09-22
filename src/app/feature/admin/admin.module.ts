@@ -49,7 +49,6 @@ import {NonEligibleRequestsComponent} from './component/eligibility/non-eligible
 import {NewRequestsComponent} from './component/eligibility/new-requests/new-requests.component';
 import {ThemeModule} from '../../@theme/theme.module';
 // import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
-import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {UpdateModalComponent} from '../../@theme/components';
 import {OpeningAccountComponent} from './component/opening-account/opening-account.component';
@@ -127,7 +126,6 @@ import {CoreModule} from '../../@core/core.module';
         NgbPaginationModule,
         ReactiveFormsModule,
         ReactiveFormsModule,
-        NgMultiSelectDropDownModule.forRoot(),
         RouterModule.forChild(adminRoutes),
         ThemeModule,
         DragDropModule,

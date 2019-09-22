@@ -29,6 +29,7 @@ export class BranchComponent implements OnInit {
     breadcrumb = 'Branch > List';
     dataList: Array<Branch> = new Array<Branch>();
     spinner = false;
+    isFilterCollapsed = true;
 
     page = 1;
 
@@ -185,10 +186,11 @@ export class BranchComponent implements OnInit {
     }
 
 
-    clearSearch() {
+    clear() {
         this.districts = [];
         this.municipalities = [];
         this.buildFilterForm();
+        this.isFilterCollapsed = true;
     }
 
     getCsv() {

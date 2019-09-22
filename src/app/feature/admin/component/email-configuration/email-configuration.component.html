@@ -3,8 +3,9 @@
          nbSpinnerSize="large"
          nbSpinnerMessage="Testing email configuration..."
          status="primary">
-    <nb-alert *ngIf="notice">Configuration has been Setup already . </nb-alert>
-    <nb-card-header class="text-white"><h4 class="text-white">Email Configuration</h4>
+    <nb-alert *ngIf="notice">Configuration has been Setup already .</nb-alert>
+    <nb-card-header>
+        Email Configuration
     </nb-card-header>
     <nb-card-body>
         <form class="form-horizontal" (ngSubmit)="onSubmit()" [formGroup]="emailConfig">
@@ -55,14 +56,11 @@
                 </div>
 
             </div>
-
             <div class="form-group">
                 <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary" [disabled]="!emailConfig.valid"><i
-                            class="fa fa-save"></i></button>
+                    <button type="submit" nbButton status="info" [disabled]="!emailConfig.valid">Save</button>
                 </div>
             </div>
         </form>
     </nb-card-body>
-
 </nb-card>
