@@ -1,10 +1,9 @@
-<div class="modal-document">
-  <div class="modal-content">
-    <div class="modal-header" style="display:block">
+
+    <div class="modal-header">
+      <h4 class="modal-title">{{action}} Document</h4>
       <a (click)="dismiss()" aria-label="Close" class="close cursor"
          data-dismiss="modal">
         <span aria-hidden="true">×</span></a>
-      <h4 class="modal-title pull-left">{{action}} Document</h4>
     </div>
     <div class="modal-body">
       <form (ngSubmit)="modelForm.valid && onSubmit()" [formGroup]="modelForm">
@@ -29,14 +28,10 @@
           </div>
         </div>
         <div class="modal-footer">
-          <label class="text-danger text-left">* Words must be strictly separated with whitespace
+          <label class="text-danger text-left subtitle-2">* Words must be strictly separated with whitespace
             only.</label>
           <br/>
-          <button [disabled]="modelForm.invalid" class="btn btn-primary" type="submit"><i
-              class="fa fa-save"></i></button>
+          <button [disabled]="modelForm.invalid" nbButton status="info" type="submit">Save</button>
         </div>
       </form>
     </div>
-  </div>
-</div>
-

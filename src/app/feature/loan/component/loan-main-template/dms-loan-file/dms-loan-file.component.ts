@@ -60,8 +60,6 @@ export class DmsLoanFileComponent implements OnInit {
   previousLoans: Array<LoanDataHolder>;
   spinner = false;
   personal = true;
-  occupations = Occupation.enumObject();
-  incomeSources = IncomeSource.enumObject();
   security = Security.enumObject();
   businessTypes = BusinessType.enumObject();
   customerSearch = {

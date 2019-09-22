@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-3 col-sm-6 col-xs-12">
     <a routerLink="/home/status/PENDING">
-      <app-icon-card detail="{{pendingCount}}" title="Pending" type="info">
+      <app-icon-card detail="{{pendingCount}}" title="Pending" type="primary">
         <i class="fas fa-hourglass"></i>
       </app-icon-card>
     </a>
@@ -14,13 +14,13 @@
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12 cursor">
     <app-icon-card (click)="resolveToCatalogue('rejected')" detail="{{rejectedCount}}"
-                   title="Rejected" type="info">
+                   title="Rejected" type="warning">
       <i class="fa fa-ban"></i>
     </app-icon-card>
   </div>
   <div class="col-md-3 col-sm-6 col-xs-12 cursor">
     <app-icon-card (click)="resolveToCatalogue('closed')" detail="{{closedCount}}" title="Closed"
-                   type="success">
+                   type="info">
       <i class="fa fa-times"></i>
     </app-icon-card>
   </div>

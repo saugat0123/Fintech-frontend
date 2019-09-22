@@ -64,9 +64,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   currentDocAction = '';
   nepaliDate;
   loanCategory;
-  @ViewChild('print') print;
-  occupation = Occupation;
-  incomeSource = IncomeSource;
+  @ViewChild('print', { static: false }) print;
   businessType = BusinessType;
   navigationSubscription;
 
