@@ -13,6 +13,7 @@ export class ProposalComponent implements OnInit {
 
     @Input() formValue: Proposal;
     proposalForm: FormGroup;
+    proposal: Proposal = new Proposal();
 
     constructor(private fb: FormBuilder) {
     }
@@ -78,25 +79,7 @@ export class ProposalComponent implements OnInit {
 
     onSubmit() {
         console.log(this.proposalForm);
-        this.formValue.proposedLimit = (<number>this.proposalForm.get('proposedLimit').value);
-        this.formValue.interestRate = (<number>this.proposalForm.get('interestRate').value);
-        this.formValue.baseRate = <number>this.proposalForm.get('baseRate').value;
-        this.formValue.premiumRateOnBaseRate = <number>this.proposalForm.get('premiumRateOnBaseRate').value;
-        this.formValue.serviceChargeMethod = this.proposalForm.get('serviceChargeMethod').value;
-        this.formValue.serviceCharge = <number>this.proposalForm.get('serviceCharge').value;
-        this.formValue.tenureDurationInMonths = <number>this.proposalForm.get('tenureDurationInMonths').value;
-        this.formValue.cibCharge = <number>this.proposalForm.get('cibCharge').value;
-        this.formValue.repaymentMode = this.proposalForm.get('repaymentMode').value;
-        this.formValue.purposeOfSubmission = this.proposalForm.get('purposeOfSubmission').value;
-        this.formValue.disbursementCriteria = this.proposalForm.get('disbursementCriteria').value;
-        this.formValue.creditInformationReportStatus = this.proposalForm.get('creditInformationReportStatus').value;
-        this.formValue.incomeFromTheAccount = this.proposalForm.get('incomeFromTheAccount').value;
-        this.formValue.borrowerInformation = this.proposalForm.get('borrowerInformation').value;
-        this.formValue.borrowerInformation = this.proposalForm.get('installmentAmount').value;
-        this.formValue.moratoriumPeriod = this.proposalForm.get('moratoriumPeriod').value;
-        this.formValue.prepaymentCharge = this.proposalForm.get('prepaymentCharge').value;
-        this.formValue.purposeOfSubmissionSummary = this.proposalForm.get('purposeOfSubmissionSummary').value;
-        this.formValue.commitmentFee = this.proposalForm.get('commitmentFee').value;
+        this.proposal = this.proposalForm.value;
     }
 
     get formControls() {

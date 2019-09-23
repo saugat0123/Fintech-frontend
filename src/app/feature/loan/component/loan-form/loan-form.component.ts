@@ -81,31 +81,31 @@ export class LoanFormComponent implements OnInit {
     loanDocument: LoanDataHolder;
 
 
-    @ViewChild('basicInfo', {static: false})
+    @ViewChild('basicInfo', {static: true})
     basicInfo: BasicInfoComponent;
 
-    @ViewChild('dmsLoanFile', {static: false})
+    @ViewChild('dmsLoanFile', {static: true})
     dmsLoanFile: DmsLoanFileComponent;
 
-    @ViewChild('companyInfo', {static: false})
+    @ViewChild('companyInfo', {static: true})
     companyInfoComponent: CompanyInfoComponent;
 
-    @ViewChild('kycInfo', {static: false})
+    @ViewChild('kycInfo', {static: true})
     kycInfo: KycInfoComponent;
 
-    @ViewChild('proposalInfo', {static: false})
+    @ViewChild('proposalInfo', {static: true})
     proposalDetail: ProposalComponent;
 
-    @ViewChild('cicl', {static: false})
+    @ViewChild('cicl', {static: true})
     cicl: CiclComponent;
 
-    @ViewChild('creditGrading', {static: false})
+    @ViewChild('creditGrading', {static: true})
     creditGrading: CreditGradingComponent;
 
-    @ViewChild('financial', {static: false})
+    @ViewChild('financial', {static: true})
     financial: FinancialComponent;
 
-    @ViewChild('siteVisit', {static: false})
+    @ViewChild('siteVisit', {static: true})
     siteVisit: SiteVisitComponent;
 
     constructor(
