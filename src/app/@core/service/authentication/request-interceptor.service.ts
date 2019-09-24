@@ -7,8 +7,7 @@ import {
   HttpHandler,
   HttpHeaders,
   HttpInterceptor,
-  HttpRequest,
-  HttpResponse
+  HttpRequest
 } from '@angular/common/http';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, filter, switchMap, take, tap} from 'rxjs/operators';
