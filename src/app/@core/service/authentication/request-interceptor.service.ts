@@ -30,12 +30,20 @@ export class RequestInterceptor implements HttpInterceptor {
   }
 
   static attachTokenToRequest(request: HttpRequest<any>) {
-
-    return request.clone({
-      setHeaders: {
+    let header;
+    if (!ObjectUtil.isEmpty(request.headers.get('content-type'))) {
+      header = {
         'Authorization': 'Bearer ' + localStorage.getItem('at'),
         'Content-Type': 'application/json'
-      }
+      };
+    } else if (!ObjectUtil.isEmpty(request.headers.get('enctype'))) {
+      header = {
+        'Authorization': 'Bearer ' + localStorage.getItem('at'),
+        'enctype': 'multipart/form-data'
+      };
+    }
+    return request.clone({
+      setHeaders: header
     });
   }
 
