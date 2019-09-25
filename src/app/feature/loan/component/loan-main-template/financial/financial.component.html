@@ -41,7 +41,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="title"><strong>Amount</strong></label><strong class="text-danger">*</strong>
-                                        <input class="form-control" [ngClass]="{
+                                        <input (input)="totalAdditionInitialForm('incomeOfBorrower', 'totalIncome')" class="form-control" [ngClass]="{
                                'is-invalid': incomeOfBorrower.get('amount').invalid && (incomeOfBorrower.get('amount').dirty || incomeOfBorrower.get('amount').touched),
                                 'is-valid': !incomeOfBorrower.get('amount').invalid && (incomeOfBorrower.get('amount').dirty || incomeOfBorrower.get('amount').touched)
                                 }"
@@ -72,12 +72,16 @@
                                     </button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-                    <div class="text-right">
-                        <input (click)="addIncomeOfBorrower()" class="btn btn-sm btn-flat btn-primary" type="button"
-                               value="Add Field"/>
+                    <div class="row">
+                        <div class="col-md-6 pl-5">
+                            <label class="title"><strong>Total Income : Rs.{{financialForm.get('totalIncome').value | currencyFormatter}}</strong></label>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <input (click)="addIncomeOfBorrower()" class="btn btn-sm btn-flat btn-primary"
+                                   type="button" value="Add Field"/>
+                        </div>
                     </div>
                 </nb-card-body>
             </nb-card>
@@ -111,7 +115,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title"><strong>Amount</strong><strong class="text-danger">*</strong></label>
-                                        <input class="form-control" [ngClass]="{
+                                        <input (input)="totalAdditionInitialForm('expensesOfBorrower', 'totalExpense')" class="form-control" [ngClass]="{
                                'is-invalid': expensesOfBorrower.get('amount').invalid && (expensesOfBorrower.get('amount').dirty || expensesOfBorrower.get('amount').touched),
                                 'is-valid': !expensesOfBorrower.get('amount').invalid && (expensesOfBorrower.get('amount').dirty || expensesOfBorrower.get('amount').touched)
                                 }"
@@ -142,13 +146,18 @@
                                     </button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-                    <div class="text-right">
-                        <input (click)="addExpensesOfBorrower()" class="btn btn-sm btn-flat btn-primary" type="button"
-                               value="Add Field"/>
+                    <div class="row">
+                        <div class="col-md-6 pl-5">
+                            <label class="title"><strong>Total Expense : Rs.{{financialForm.get('totalExpense').value | currencyFormatter}}</strong></label>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <input (click)="addExpensesOfBorrower()" class="btn btn-sm btn-flat btn-primary"
+                                   type="button" value="Add Field"/>
+                        </div>
                     </div>
+
                 </nb-card-body>
             </nb-card>
 

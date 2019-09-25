@@ -66,6 +66,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   loanCategory;
   @ViewChild('print', { static: false }) print;
   businessType = BusinessType;
+  financialData: Object;
   navigationSubscription;
 
   constructor(
@@ -130,6 +131,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     this.loanFormService.detail(this.customerId).subscribe(
         (response: any) => {
           this.loanDataHolder = response.detail;
+          console.log(this.loanDataHolder.financial);
+          this.financialData = this.loanDataHolder.financial['data'];
           this.loanCategory = this.loanDataHolder.loanCategory;
           this.currentIndex = this.loanDataHolder.previousList.length;
           this.signatureList = this.loanDataHolder.distinctPreviousList;

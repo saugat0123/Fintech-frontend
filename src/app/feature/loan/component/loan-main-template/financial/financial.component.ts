@@ -156,6 +156,9 @@ export class FinancialComponent implements OnInit {
 
             this.setIncomeOfBorrower(initialFormData.incomeOfBorrower);
             this.setExpensesOfBorrower(initialFormData.expensesOfBorrower);
+            this.financialForm.get('totalIncome').setValue(initialFormData.totalIncome);
+            this.financialForm.get('totalExpense').setValue(initialFormData.totalExpense);
+            this.financialForm.get('netSaving').setValue(initialFormData.netSaving);
         } else {
             const currentFormDataJson = JSON.stringify(currentFormData['default']);
             this.currentFormData = JSON.parse(currentFormDataJson);
@@ -170,7 +173,9 @@ export class FinancialComponent implements OnInit {
         this.financialForm = this.formBuilder.group({
             incomeOfBorrower: this.formBuilder.array([]),
             expensesOfBorrower: this.formBuilder.array([]),
-            selectDenomination: [undefined, Validators.required]
+            totalIncome: [0],
+            totalExpense: [0],
+            netSaving: [0]
         });
     }
 
@@ -383,6 +388,13 @@ export class FinancialComponent implements OnInit {
         (this.financialForm.get('expensesOfBorrower') as FormArray).removeAt(incomeIndex);
     }
 
+    totalAdditionInitialForm(formArrayName, resultControllerName) {
+        let total = 0;
+        (this.financialForm.get(formArrayName) as FormArray).controls.forEach( group => {
+            total = Number(group.get('amount').value) + Number(total);
+        });
+        this.financialForm.get(resultControllerName).setValue(total);
+    }
 
     changeActiveTab(tabs: QueryList<any>) {
         tabs.forEach(tabContent => {
