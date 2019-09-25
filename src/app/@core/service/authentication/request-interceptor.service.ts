@@ -26,18 +26,24 @@ export class RequestInterceptor implements HttpInterceptor {
     }
 
     static attachTokenToRequest(request: HttpRequest<any>) {
-
-        return request.clone({
-            setHeaders: {
+        let header;
+        if (!ObjectUtil.isEmpty(request.headers.get('content-type'))) {
+            header = {
                 'Authorization': 'Bearer ' + localStorage.getItem('at'),
                 'Content-Type': 'application/json'
-            }
+            };
+        } else if (!ObjectUtil.isEmpty(request.headers.get('enctype'))) {
+            header = {
+                'Authorization': 'Bearer ' + localStorage.getItem('at'),
+                'enctype': 'multipart/form-data'
+            };
+        }
+        return request.clone({
+            setHeaders: header
         });
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log(req);
-        console.log(localStorage.getItem('at'));
         if (ObjectUtil.isEmpty(localStorage.getItem('at'))) {
             return next.handle(req);
         } else {
@@ -48,7 +54,6 @@ export class RequestInterceptor implements HttpInterceptor {
                     }
                 }), catchError((err): Observable<any> => {
                     if (err instanceof HttpErrorResponse && err.status === 401) {
-                        console.log(err.message);
                         console.log('token expired .. attempting refresh');
                         return this.handleHttpResponseError(req, next);
                     } else {
@@ -66,12 +71,10 @@ export class RequestInterceptor implements HttpInterceptor {
 
             return this.tokenService.getNewRefreshToken().pipe(
                 switchMap((tokenResponse: any) => {
-                    console.log(tokenResponse);
                     this.isTokenRefreshing = false;
                     this.tokenSubject.next(tokenResponse);
                     this.isTokenRefreshing = false;
                     console.log('token renewed');
-                    console.log(localStorage.getItem('at'));
                     return next.handle(RequestInterceptor.attachTokenToRequest(request));
                 }));
 
