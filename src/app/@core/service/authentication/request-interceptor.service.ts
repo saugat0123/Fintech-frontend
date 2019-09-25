@@ -54,7 +54,7 @@ export class RequestInterceptor implements HttpInterceptor {
       return next.handle(req).pipe(
           catchError((err): Observable<any> => {
             if (err instanceof HttpErrorResponse && err.status === 401) {
-              console.log('token expired .. attempting refresh');
+              console.log('token expired ... attempting refresh');
               return this.handleHttpResponseError(req, next);
             } else {
               return throwError(err);
