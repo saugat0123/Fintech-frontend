@@ -382,10 +382,12 @@ export class FinancialComponent implements OnInit {
 
     removeIncomeIndex(incomeIndex) {
         (this.financialForm.get('incomeOfBorrower') as FormArray).removeAt(incomeIndex);
+        this.totalAdditionInitialForm('incomeOfBorrower', 'totalIncome');
     }
 
     removeExpensesIndex(incomeIndex) {
         (this.financialForm.get('expensesOfBorrower') as FormArray).removeAt(incomeIndex);
+        this.totalAdditionInitialForm('expensesOfBorrower', 'totalExpense');
     }
 
     totalAdditionInitialForm(formArrayName, resultControllerName) {
@@ -394,6 +396,8 @@ export class FinancialComponent implements OnInit {
             total = Number(group.get('amount').value) + Number(total);
         });
         this.financialForm.get(resultControllerName).setValue(total);
+        this.financialForm.get('netSaving').setValue(Number(this.financialForm.get('totalIncome').value)
+            - Number(this.financialForm.get('totalExpense').value));
     }
 
     changeActiveTab(tabs: QueryList<any>) {
@@ -402,7 +406,6 @@ export class FinancialComponent implements OnInit {
                 this.activeTab = tabContent['tabTitle'];
             }
         });
-        console.log(this.activeTab);
     }
 
     onSubmit() {
