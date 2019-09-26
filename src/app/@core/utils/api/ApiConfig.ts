@@ -13,4 +13,8 @@ export class ApiConfig {
   // public static TOKEN = 'http://192.168.0.90:8086/oauth/token';
   // public static URL = 'http://192.168.0.90:8086';
 
+  // Tinau Mission server info
+  // public static TOKEN = 'http://192.168.1.119:8080/oauth/token';
+  // public static URL = 'http://192.168.1.119:8080';
+
 }
