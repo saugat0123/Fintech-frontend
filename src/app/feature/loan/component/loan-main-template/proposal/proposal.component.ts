@@ -72,7 +72,6 @@ export class ProposalComponent implements OnInit {
             // for commitmentFee Amount
             commitmentFee: [this.formValue.commitmentFee === undefined ? '' :
                 this.formValue.commitmentFee, [Validators.required]]
-
         });
 
     }
