@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {SecurityInitialFormComponent} from './security-initial-form/security-initial-form.component';
 
 
 @Component({
@@ -8,6 +9,10 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
     styleUrls: ['./security.component.css']
 })
 export class SecurityComponent implements OnInit {
+    @Input () securityValue;
+    @ViewChild ('initialSecurity', { static: false })
+    initialSecurity: SecurityInitialFormComponent;
+    securityData = {};
     guarantorsForm: FormGroup;
 
     constructor(
@@ -24,6 +29,12 @@ export class SecurityComponent implements OnInit {
     }
 
     onSubmit() {
+        const mergedForm = {
+            initialForm: this.initialSecurity.securityForm.value,
+            guarantorsForm: this.guarantorsForm.value
+        };
+        this.securityData = {data: mergedForm};
+        console.log(this.securityData);
     }
 
     guarantorsDetailsFormGroup(): FormGroup {
