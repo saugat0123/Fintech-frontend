@@ -11,6 +11,7 @@ import {UserService} from '../../feature/admin/component/user/user.service';
 import {BranchService} from '../../feature/admin/component/branch/branch.service';
 import {User} from '../../feature/admin/modal/user';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 @Component({
@@ -23,8 +24,6 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     title = 'Dashboard';
     loanType: any;
     loanList: any;
-    loading: boolean;
-    spinner = false;
     customerId: number;
     permission: Permission = new Permission();
     permissionName: string;
@@ -54,7 +53,8 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         private userService: UserService,
         private branchService: BranchService,
         private modalService: NgbModal,
-        private route: Router
+        private route: Router,
+        private spinner: NgxSpinnerService
     ) {
     }
 
@@ -76,7 +76,6 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     }
 
     ngOnInit() {
-        this.loading = false;
         this.breadcrumbService.notify(this.title);
 
         this.permissionService.getPermissionOf('DASHBOARD').subscribe(
@@ -114,13 +113,11 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     }
 
     selectLoan(template: TemplateRef<any>) {
-        this.loading = true;
         this.modalService.open(template);
     }
 
     newLoan() {
         this.onClose();
-        this.loading = true;
         this.router.navigate(['/home/loan/loanForm'], {
             queryParams: {
                 loanId: this.loanType,
@@ -128,12 +125,10 @@ export class DashboardComponent implements OnInit, AfterContentInit {
                 loanCategory: this.businessOrPersonal
             }
         });
-
     }
 
     onClose() {
         this.modalService.dismissAll();
-        this.loading = false;
     }
 
     existingLoan(template: TemplateRef<any>) {

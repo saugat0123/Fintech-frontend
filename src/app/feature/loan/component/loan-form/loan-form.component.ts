@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbTabChangeEvent} from '@ng-bootstrap/ng-bootstrap';
 import {LoanDataHolder} from '../../model/loanData';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
@@ -26,6 +26,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DatePipe} from '@angular/common';
 import {CreditGradingComponent} from '../loan-main-template/credit-grading/credit-grading.component';
 import {SiteVisitComponent} from '../loan-main-template/site-visit/site-visit.component';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-loan-form',
@@ -36,6 +37,10 @@ export class LoanFormComponent implements OnInit {
     loanFile: DmsLoanFile;
     loanTitle: string;
     loading = true;
+
+    totalTabCount = 0;
+    nextTabId = 0;
+    previousTabId = 0;
 
     customerLoanId: number;
     templateList = [
@@ -76,31 +81,31 @@ export class LoanFormComponent implements OnInit {
     loanDocument: LoanDataHolder;
 
 
-    @ViewChild('basicInfo')
+    @ViewChild('basicInfo', {static: false})
     basicInfo: BasicInfoComponent;
 
-    @ViewChild('dmsLoanFile')
+    @ViewChild('dmsLoanFile', {static: false})
     dmsLoanFile: DmsLoanFileComponent;
 
-    @ViewChild('entityInfo')
-    entityInfo: CompanyInfoComponent;
+    @ViewChild('companyInfo', {static: false})
+    companyInfoComponent: CompanyInfoComponent;
 
-    @ViewChild('kycInfo')
+    @ViewChild('kycInfo', {static: false})
     kycInfo: KycInfoComponent;
 
-    @ViewChild('proposalInfo')
+    @ViewChild('proposalInfo', {static: false})
     proposalDetail: ProposalComponent;
 
-    @ViewChild('cicl')
+    @ViewChild('cicl', {static: false})
     cicl: CiclComponent;
 
-    @ViewChild('creditGrading')
+    @ViewChild('creditGrading', {static: false})
     creditGrading: CreditGradingComponent;
 
-    @ViewChild('financial')
+    @ViewChild('financial', {static: false})
     financial: FinancialComponent;
 
-    @ViewChild('siteVisit')
+    @ViewChild('siteVisit', {static: false})
     siteVisit: SiteVisitComponent;
 
     constructor(
@@ -114,7 +119,8 @@ export class LoanFormComponent implements OnInit {
         private router: Router,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService,
-        private datePipe: DatePipe
+        private datePipe: DatePipe,
+        private spinner: NgxSpinnerService
     ) {
 
     }
@@ -169,12 +175,23 @@ export class LoanFormComponent implements OnInit {
                 this.currentTab.tabName = this.templateList[0].name;
                 this.selectedTab = this.templateList[0].name;
                 this.first = true;
+
+                this.totalTabCount = this.templateList.length;
+                this.nextTabId = 1;
             }
             if (this.templateList.length === 0) {
                 this.toastService.show(new Alert(AlertType.INFO, 'NO FORM ARE AVAILABLE'));
                 this.router.navigate(['/home/dashboard']);
             }
         });
+    }
+
+    tabChange(evt: NgbTabChangeEvent) {
+        const selectedTabId = parseInt(evt.nextId, 10);
+        this.nextTabId = selectedTabId + 1;
+        this.previousTabId = selectedTabId - 1;
+
+        console.log(this.nextTabId.toString());
     }
 
     selectTab(index, name) {
@@ -218,7 +235,9 @@ export class LoanFormComponent implements OnInit {
     }
 
     save() {
+        this.spinner.show();
         if (this.selectChild(this.selectedTab, true)) {
+            this.spinner.hide();
             return;
         }
         this.loanDocument.loan = this.loan;
@@ -228,8 +247,12 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument = response.detail;
             this.customerLoanId = this.loanDocument.id;
             this.loanDocument = new LoanDataHolder();
-            this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}});
+            this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}})
+                .then(() => {
+                    this.spinner.hide();
+                });
         }, error => {
+            this.spinner.hide();
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, `Error saving customer: ${error.error.message}`));
         });
@@ -256,17 +279,17 @@ export class LoanFormComponent implements OnInit {
             this.dmsLoanFile.onSubmit();
             this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanDataHolder.dmsLoanFile;
             this.loanDocument.customerInfo = this.dmsLoanFile.loanDataHolder.customerInfo;
-            this.loanDocument.entityInfo = this.dmsLoanFile.loanDataHolder.entityInfo;
+            this.loanDocument.companyInfo = this.dmsLoanFile.loanDataHolder.companyInfo;
             this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
         }
 
         if (name === 'Company Info' && action) {
-            if (this.entityInfo.companyInfo.invalid) {
-                this.entityInfo.submitted = true;
+            if (this.companyInfoComponent.companyInfoFormGroup.invalid) {
+                this.companyInfoComponent.submitted = true;
                 return true;
             }
-            this.entityInfo.onSubmit();
-            this.loanDocument.entityInfo = this.entityInfo.entityInfo;
+            this.companyInfoComponent.onSubmit();
+            this.loanDocument.companyInfo = this.companyInfoComponent.companyInfo;
         }
         if (name === 'Kyc Info' && action) {
             this.kycInfo.onSubmit();
@@ -295,8 +318,7 @@ export class LoanFormComponent implements OnInit {
 
         if (name === 'Financial' && action) {
             this.financial.onSubmit();
-            const financialData = this.financial.financialData;
-            this.loanDocument.financial = financialData;
+            this.loanDocument.financial = this.financial.financialData;
         }
 
         if (name === 'Site Visit' && action) {

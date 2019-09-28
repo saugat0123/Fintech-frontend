@@ -1,4 +1,4 @@
-import {EntityInfo} from '../../admin/modal/entity-info';
+import {CompanyInfo} from '../../admin/modal/company-info';
 import {DmsLoanFile} from '../../admin/modal/dms-loan-file';
 import {LoanConfig} from '../../admin/modal/loan-config';
 import {DocStatus} from './docStatus';
@@ -10,15 +10,13 @@ import {Branch} from '../../admin/modal/branch';
 import {Cicl} from '../../admin/modal/cicl';
 import {Insurance} from '../../admin/modal/insurance';
 import {LoanType} from './loanType';
-import {newId} from '@ng-select/ng-select/ng-select/id';
-import {SiteVisit} from '../../admin/modal/siteVisit';
 
 export class LoanDataHolder {
     id: number;
     branch: Branch;
     loanCategory: any;
     customerInfo: Customer = new Customer();
-    entityInfo: EntityInfo = new EntityInfo();
+    companyInfo: CompanyInfo = new CompanyInfo();
     dmsLoanFile: DmsLoanFile = new DmsLoanFile();
     proposal: Proposal;
     loan: LoanConfig;
@@ -27,9 +25,9 @@ export class LoanDataHolder {
     insurance: Insurance;
     documentStatus: DocStatus;
     financial: Object;
-    siteVisit: Object = new SiteVisit();
+    siteVisit: Array<Object>;
     priority: Priority;
-    createdAt: any;
+    createdAt: Date;
     previousList: LoanStage[] = [];
     previousStageList: string;
     distinctPreviousList: any;
@@ -39,4 +37,5 @@ export class LoanDataHolder {
     parentId: number;
     childId: number;
     isCloseRenew: boolean;
+    pulled: boolean;
 }

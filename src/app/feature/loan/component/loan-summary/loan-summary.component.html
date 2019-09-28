@@ -1,454 +1,486 @@
 <section class="enable-print">
-    <nb-card>
-        <nb-card-header class="disable-print">
-            <app-loan-action [loanConfigId]="loanConfigId" [id]="customerId" [loanCategory]="loanCategory"
-                             [actionsList]="actionsList"
-                             *ngIf="showAction"></app-loan-action>
-        </nb-card-header>
-        <nb-card-body id="print-block">
-            <div class="col-md-12  text-success cursor disable-print"
-            >
-                <a class="justify-content-start" *ngIf="loanDataHolder?.childId !=null"
-                   (click)="renewedOrCloseFrom(loanDataHolder?.childId)">{{loanType[loanDataHolder.loanType]}} to <i
-                        class="p-1 fa fa-edit"></i></a>
-                <a class="justify-content-end" *ngIf="loanDataHolder?.parentId !=null"
-                   (click)="renewedOrCloseFrom(loanDataHolder?.parentId)">{{loanType[loanDataHolder.loanType]}} From <i
-                        class="p-1 fa fa-edit"></i></a></div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-3">
+  <nb-card>
+    <nb-card-header class="disable-print">
+      <app-loan-action [catalogueStatus]="catalogueStatus"
+                       [actionsList]="actionsList"
+                       [id]="customerId"
+                       [loanCategory]="loanCategory"
+                       [loanConfigId]="loanConfigId"></app-loan-action>
+    </nb-card-header>
+    <nb-card-body id="print-block">
+      <div class="col-md-12  text-success cursor disable-print"
+      >
+        <a (click)="renewedOrCloseFrom(loanDataHolder?.childId)" *ngIf="loanDataHolder?.childId !=null"
+           class="justify-content-start">{{loanType[loanDataHolder.loanType]}}
+          to <i
+              class="p-1 fa fa-edit"></i></a>
+        <a (click)="renewedOrCloseFrom(loanDataHolder?.parentId)" *ngIf="loanDataHolder?.parentId !=null"
+           class="justify-content-end">{{loanType[loanDataHolder.loanType]}}
+          From <i
+              class="p-1 fa fa-edit"></i></a></div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-3">
 
-                            <div>
-                                Priority:
-                                <span class="badge badge-danger"
-                                      style="font-size: 11px">{{loanDataHolder?.dmsLoanFile?.priority?.toString() || loanDataHolder?.priority?.toString() | lowercase}}</span>
-                            </div>
-                            <div>
-                                Loan Status:
-                                <span class="badge badge-info"
-                                      style="font-size: 11px">{{loanDataHolder.documentStatus?.toString() | lowercase}}</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="report-header">
-                                <div class="report-header-heading">{{client}}</div>
-                                <div class="report-header-sub-heading">
-                                    Credit Appraisal Form of {{loanConfig?.name}}
-                                    <br/>
-                                    for
-                                </div>
-                                <div class="report-header-sub-heading">{{loanDataHolder?.customerInfo?.customerName}}</div>
-                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 text-right">
-                            <img class="report-log img-thumbnail border-0"
-                                 src="../../../../../assets/img/logo.png">
-                        </div>
-                    </div>
-                </div>
+              <div>
+                Priority:
+                <span class="badge badge-danger"
+                      style="font-size: 11px">{{loanDataHolder?.dmsLoanFile?.priority?.toString()
+                || loanDataHolder?.priority?.toString() | titlecase}}</span>
+              </div>
+              <div>
+                Loan Status:
+                <span class="badge badge-info"
+                      style="font-size: 11px">{{loanDataHolder.documentStatus?.toString() | titlecase}}</span>
+              </div>
             </div>
-            <div class="row mt-1">
-                <div class="col-md-6 text-left">
-                    <div *ngIf="currentDocAction === 'FORWARD' || currentDocAction === 'BACKWARD'
+            <div class="col-md-6">
+              <div class="report-header">
+                <div class="report-header-heading">{{client}}</div>
+                <div class="report-header-sub-heading">
+                  Credit Appraisal of {{loanConfig?.name}}
+                  <br/>
+                  for
+                </div>
+                <div
+                    class="report-header-sub-heading">
+                  {{loanCategory === 'BUSINESS_TYPE' ?
+                    loanDataHolder?.companyInfo?.companyName
+                    : loanDataHolder?.customerInfo?.customerName}}
+                </div>
+                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
+              </div>
+            </div>
+            <div class="col-md-3 text-right">
+              <img class="report-log img-thumbnail border-0"
+                   src="../../../../../assets/img/logo.png">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-1">
+        <div class="col-md-6 text-left">
+          <div *ngIf="currentDocAction === 'FORWARD' || currentDocAction === 'BACKWARD'
                           || currentDocAction === 'PENDING'">
-                        <span><b>Pending Under: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
-                        ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
-                    <div *ngIf="currentDocAction === 'APPROVED'">
-                        <span><b>Approved By: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
-                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
-                    <div *ngIf="currentDocAction === 'REJECT'">
-                        <span><b>Rejected By: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
-                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
-                    <div *ngIf="currentDocAction === 'CLOSED'">
-                        <span><b>Closed By: </b>{{loanDataHolder?.currentStage?.toUser?.name}}
-                            ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                    </div>
+                        <span><strong>Pending Under: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
+                          ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+          </div>
+          <div *ngIf="currentDocAction === 'APPROVED'">
+                        <span><strong>Approved By: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
+                          ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+          </div>
+          <div *ngIf="currentDocAction === 'REJECT'">
+                        <span><strong>Rejected By: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
+                          ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+          </div>
+          <div *ngIf="currentDocAction === 'CLOSED'">
+                        <span><strong>Closed By: </strong>{{loanDataHolder?.currentStage?.toUser?.name}}
+                          ({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
+          </div>
+        </div>
+        <div class="col-md-6 text-right">
+          <div *ngIf="currentDocAction === 'FORWARD'">
+                    <span><strong>Forwarded By: </strong>{{loanDataHolder?.currentStage?.fromUser?.name}}
+                      ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
+          </div>
+          <div *ngIf="currentDocAction === 'BACKWARD'">
+                    <span><strong>Backward By: </strong>{{loanDataHolder?.currentStage?.fromUser?.name}}
+                      ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
+          </div>
+          <!--<div class="col-md-6">
+              <div class="text-right">
+                  <span><strong>Branch: </strong>{{loanDataHolder?.branch?.name}}</span>
+              </div>
+          </div>-->
+        </div>
+      </div>
+      <hr class="print-line">
+      <div class="row">
+        <div class="col-md-6">
+          <span><strong>Ref. No: </strong>{{dmsLoanFile?.id}}</span>
+        </div>
+        <div class="col-md-6">
+          <p class="text-right"><strong>Date: </strong>{{loanDataHolder?.createdAt | date}} ({{nepaliDate}})
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p><strong>Details of {{loanCategory === 'BUSINESS_TYPE' ? 'Authorized Person'
+              : 'Borrower'}}</strong></p>
+        </div>
+        <div class="col-md-12">
+          <table
+              class="table table-condensed table-bordered table-responsive-md disable-print text-center">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Date Of Birth</th>
+              <th>Citizenship Number</th>
+              <th>Contact Number</th>
+              <th>Occupation</th>
+              <th>Income Source</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
+              <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
+              <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+              <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+              <td>{{loanDataHolder?.customerInfo?.occupation}}</td>
+              <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <table class="print-only table table-bordered text-center" id="print-borrower-table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Date Of Birth</th>
+              <th>Citizenship Number</th>
+              <th>Contact Number</th>
+              <th>Occupation</th>
+              <th>Income Source</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
+              <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
+              <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+              <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+              <td>{{loanDataHolder?.customerInfo?.occupation}}</td>
+              <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div *ngIf="loanCategory === 'BUSINESS_TYPE'" class="row">
+        <div class="col-md-12">
+          <p><strong>Details of Company</strong></p>
+        </div>
+        <div class="col-md-12">
+          <table
+              class="table table-condensed table-bordered table-responsive-md disable-print text-center">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Establishment Date</th>
+              <th>PAN</th>
+              <th>Registration Number</th>
+              <th>Business Type</th>
+              <th>Key Person</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>{{loanDataHolder?.companyInfo?.companyName}}</td>
+              <td>{{loanDataHolder?.companyInfo?.establishmentDate | date}}</td>
+              <td>{{loanDataHolder?.companyInfo?.panNumber}}</td>
+              <td>{{loanDataHolder?.companyInfo?.registrationNumber}}</td>
+              <td>{{businessType[loanDataHolder?.companyInfo?.businessType]}}</td>
+              <td>{{loanDataHolder?.dmsLoanFile?.keyPersonName}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <table class="print-only table table-bordered text-center" id="print-company-table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Establishment Date</th>
+              <th>PAN</th>
+              <th>Registration Number</th>
+              <th>Business Type</th>
+              <th>Key Person</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>{{loanDataHolder?.companyInfo?.companyName}}</td>
+              <td>{{loanDataHolder?.companyInfo?.establishmentDate | date}}</td>
+              <td>{{loanDataHolder?.companyInfo?.panNumber}}</td>
+              <td>{{loanDataHolder?.companyInfo?.registrationNumber}}</td>
+              <td>{{businessType[loanDataHolder?.companyInfo?.businessType]}}</td>
+              <td>{{loanDataHolder?.dmsLoanFile?.keyPersonName}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p><strong>Detail of Present Proposal of the Facility</strong></p>
+          <table class="table table-condensed table-bordered table-responsive-md text-center">
+            <tbody>
+            <tr>
+              <th>Credit Facility</th>
+              <td>{{loanDataHolder?.loan?.name}}</td>
+
+              <th>Loan Category</th>
+              <td>{{loanDataHolder?.loanCategory === 'PERSONAL_TYPE' ? 'PERSONAL'
+                  : 'BUSINESS'}}</td>
+
+              <th>Proposed Limit</th>
+              <td>{{dmsLoanFile?.proposedAmount
+              || loanDataHolder?.proposal?.proposedLimit | currencyFormatter}}</td>
+
+              <th>Interest Rate</th>
+              <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}} %</td>
+
+              <th>Tenure Duration In Month</th>
+              <td>{{(dmsLoanFile?.tenureDuration
+                  || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
+
+            </tr>
+            <tr>
+              <th>Service Charge</th>
+              <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
+                {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
+                {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}
+              </td>
+
+              <th>FMV Funding Percentage</th>
+              <td>{{dmsLoanFile?.fmvFundingPercent}} %</td>
+
+              <th>Total FMV</th>
+              <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
+
+              <th>Total DV</th>
+              <td>{{dmsLoanFile?.distressValue | currencyFormatter}}</td>
+
+              <th>Total Loan Limit</th>
+              <td>{{dmsLoanFile?.totalLoanLimit | currencyFormatter}}</td>
+            </tr>
+            <tr>
+              <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Individual Exposure</th>
+              <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.individualExposure | currencyFormatter}}</td>
+
+              <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Institution Exposure</th>
+              <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.institutionExposure | currencyFormatter}}</td>
+
+              <th>Group Exposure</th>
+              <td>{{dmsLoanFile?.groupExpo | currencyFormatter}}</td>
+
+              <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Interest Coverage Ratio
+              </th>
+              <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.incomeCoverageRatio}}</td>
+
+              <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Debt Service Coverage
+                Ratio
+              </th>
+              <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
+
+              <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Dealing Product Name</th>
+              <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.dealingProductName}}</td>
+            </tr>
+            <tr>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <strong>Propose Amount:</strong>
+          Rs. {{dmsLoanFile?.proposedAmountWord || loanDataHolder?.proposal?.proposedAmountInWords}}
+          Only /-
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <p><strong>Security Offered</strong></p>
+          <p><label *ngFor="let security of securities; let i = index">{{i + 1}}
+            . {{Security[security]}}&nbsp;&nbsp;</label>
+          </p>
+        </div>
+      </div>
+
+      <!--<div class="row mt-3">
+          <div class="col-md-6">
+              <p style="font-size: 15px"><strong>Service Charge Type</strong></p>
+              <table class="table table-condensed table-bordered">
+                  <tbody>
+                  <tr>
+                      <td>{{dmsLoanFile?.serviceChargeType}}</td>
+                  </tr>
+                  </tbody>
+              </table>
+          </div>
+          <div class="col-md-6">
+              <p style="font-size: 15px"><strong>Service Charge Amount</strong></p>
+              <table class="table table-condensed table-bordered">
+                  <tbody>
+                  <tr>
+                      <td>{{dmsLoanFile?.serviceChargeAmount}}</td>
+                  </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>-->
+
+      <div [hidden]="dmsLoanFile.recommendationConclusion == ''" class="row mt-3">
+        <div class="col-md-12">
+          <p><strong>Recommendation and Conclusion</strong></p>
+          <p class="border text-justify p-1">
+            {{dmsLoanFile?.recommendationConclusion}}
+          </p>
+        </div>
+      </div>
+
+      <div [hidden]="dmsLoanFile.waiver == ''" class="row mt-3">
+        <div class="col-md-12">
+          <p><strong>Waiver</strong></p>
+          <p class="border text-justify p-1">
+            {{dmsLoanFile?.waiver}}
+          </p>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <p><strong>Authority Section</strong></p>
+          <table
+              class="disable-print table table-condensed table-bordered table-responsive-md text-center">
+            <thead>
+            <tr>
+              <th>S.N</th>
+              <th>From User</th>
+              <th>From Position</th>
+              <th>To User</th>
+              <th>To Position</th>
+              <th>Status</th>
+              <th class="cmt-width">Remarks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{previousList?.fromUser?.name}}</td>
+              <td>{{previousList?.fromRole?.roleName}}</td>
+              <td>{{previousList?.toUser?.name}}</td>
+              <td>{{previousList?.toRole?.roleName}}</td>
+              <td>{{previousList?.docAction}}</td>
+              <td class="text-justify">
+                <div class="cmt-height">
+                  {{previousList?.comment?.length > 50 ?
+                    previousList?.comment?.substring(0, 49) :
+                    previousList?.comment}}
                 </div>
-                <div class="col-md-6 text-right">
-                    <div *ngIf="currentDocAction === 'FORWARD'">
-                    <span><b>Forwarded By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
-                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                    </div>
-                    <div *ngIf="currentDocAction === 'BACKWARD'">
-                    <span><b>Backward By: </b>{{loanDataHolder?.currentStage?.fromUser?.name}}
-                        ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                    </div>
-                    <!--<div class="col-md-6">
-                        <div class="text-right">
-                            <span><b>Branch: </b>{{loanDataHolder?.branch?.name}}</span>
-                        </div>
-                    </div>-->
+                <a (click)="open(previousList?.comment)"
+                   *ngIf="previousList?.comment?.length > 50"
+                   class="justify-content-end read-margin">read more ....</a>
+              </td>
+            </tr>
+            <tr>
+              <td>{{currentIndex + 1}}</td>
+              <td>{{loanDataHolder?.currentStage?.fromUser?.name}}</td>
+              <td>{{loanDataHolder?.currentStage?.fromRole?.roleName}}</td>
+              <td>{{loanDataHolder?.currentStage?.toUser?.name}}</td>
+              <td>{{loanDataHolder?.currentStage?.toRole?.roleName}}</td>
+              <td>{{loanDataHolder?.currentStage?.docAction}}</td>
+              <td class="text-justify">
+                <div class="cmt-height">
+                  {{loanDataHolder?.currentStage?.comment?.length > 50 ?
+                    loanDataHolder?.currentStage?.comment?.substring(0, 49) :
+                    loanDataHolder?.currentStage?.comment}}
                 </div>
+                <a (click)="open(loanDataHolder.currentStage.comment)"
+                   *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
+                   class="justify-content-end read-margin">read more ....</a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <table
+              class="print-only table table-bordered text-center">
+            <thead>
+            <tr>
+              <th width="5%">S.N</th>
+              <th width="5%">Date</th>
+              <th width="15%">From User</th>
+              <th width="5%">Status</th>
+              <th width="70%">Remarks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{previousList?.lastModifiedAt}}</td>
+              <td>
+                {{previousList?.fromUser?.name}}
+                ({{previousList?.fromRole?.roleName}})
+              </td>
+              <td>{{previousList?.docAction}}</td>
+              <td class="text-justify">{{previousList?.comment}}</td>
+            </tr>
+            <tr>
+              <td>{{currentIndex + 1}}</td>
+              <td>{{loanDataHolder?.currentStage?.lastModifiedAt}}</td>
+              <td>
+                {{loanDataHolder?.currentStage?.fromUser?.name}}
+                ({{loanDataHolder?.currentStage?.fromRole?.roleName}})
+              </td>
+              <td>{{loanDataHolder?.currentStage?.docAction}}</td>
+              <td class="text-justify">{{loanDataHolder?.currentStage?.comment}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div *ngIf="documentNames.length>0" class="row disable-print">
+        <div class="col-md-12">
+          <p><strong>Required Documents</strong></p>
+          <table class="table table-condensed table-bordered table-responsive-md">
+            <thead>
+            <tr>
+              <th>S.N</th>
+              <th>Document</th>
+              <th>Download</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let document of documentNames; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{document}}</td>
+              <td><i (click)="download(i)" aria-hidden="true" class="fa fa-download"
+                     style="cursor: pointer"></i>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
+
+      <div class="row justify-content-between px-3" id="signatureDiv">
+        <div class="col-md-12 print-only">
+          <p><strong>Approval Chain</strong></p>
+        </div>
+        <div *ngFor="let previous of signatureList; let i=index;"
+             class="col-md-3 padding-0-125">
+          <div class="signature-block">
+            <div class="text-center p-2 bg-light mb-2 ">
+              <span>{{loanHandler(i, signatureList.length)}}</span>
             </div>
-            <hr class="print-line">
-            <div class="row">
-                <div class="col-md-6">
-                    <span><b>Ref. No: </b>{{dmsLoanFile?.id}}</span>
-                </div>
-                <div class="col-md-6">
-                    <p class="text-right"><b>Date: </b>{{loanDataHolder?.createdAt | date}} ({{nepaliDate}})</p>
-                </div>
+            <hr class="border-dark m-0">
+            <div class="row justify-content-center signature mx-auto">
+              <div class="print-only signature-padding"></div>
+              <img align="middle" alt="signature"
+                   class="img-thumbnail border-0 signature-height"
+                   src="{{previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage}}"/>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p><b>Details of Borrower</b></p>
-                </div>
-                <div class="col-md-12">
-                    <table class="table table-condensed table-bordered table-responsive-md disable-print text-center">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Date Of Birth</th>
-                            <th>Citizenship Number</th>
-                            <th>Contact Number</th>
-                            <th>Occupation</th>
-                            <th>Income Source</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
-                            <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
-                            <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
-                            <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-                            <td>{{occupation[loanDataHolder?.customerInfo?.occupation]}}</td>
-                            <td>{{incomeSource[loanDataHolder?.customerInfo?.incomeSource]}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <table class="print-only table table-bordered text-center" id="print-borrower-table">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Date Of Birth</th>
-                            <th>Citizenship Number</th>
-                            <th>Contact Number</th>
-                            <th>Occupation</th>
-                            <th>Income Source</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
-                            <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
-                            <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
-                            <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-                            <td>{{occupation[loanDataHolder?.customerInfo?.occupation]}}</td>
-                            <td>{{incomeSource[loanDataHolder?.customerInfo?.incomeSource]}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="text-center signature-detail">
+              <p class="m-0">{{previous?.toUser?.name}}</p>
+              <p class="m-0">({{previous?.toUser?.role.roleName}})</p>
+              <p class="m-0">{{previous?.lastModifiedAt}}</p>
             </div>
-            <div class="row" *ngIf="loanCategory === 'BUSINESS_TYPE'">
-                <div class="col-md-12">
-                    <p><b>Details of Company</b></p>
-                </div>
-                <div class="col-md-12">
-                    <table class="table table-condensed table-bordered table-responsive-md disable-print text-center">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Establishment Date</th>
-                            <th>Registration Number</th>
-                            <th>Business Type</th>
-                            <th>Key Person</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>{{loanDataHolder?.entityInfo?.companyName}}</td>
-                            <td>{{loanDataHolder?.entityInfo?.establishmentDate | date}}</td>
-                            <td>{{loanDataHolder?.entityInfo?.registrationNumber}}</td>
-                            <td>{{businessType[loanDataHolder?.entityInfo?.businessType]}}</td>
-                            <td>{{loanDataHolder?.dmsLoanFile?.keyPersonName}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <table class="print-only table table-bordered text-center" id="print-company-table">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Establishment Date</th>
-                            <th>Registration Number</th>
-                            <th>Business Type</th>
-                            <th>Key Person</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>{{loanDataHolder?.entityInfo?.companyName}}</td>
-                            <td>{{loanDataHolder?.entityInfo?.establishmentDate | date}}</td>
-                            <td>{{loanDataHolder?.entityInfo?.registrationNumber}}</td>
-                            <td>{{businessType[loanDataHolder?.entityInfo?.businessType]}}</td>
-                            <td>{{loanDataHolder?.dmsLoanFile?.keyPersonName}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p><b>Detail of Present Proposal of the Facility</b></p>
-                    <table class="table table-condensed table-bordered table-responsive-md text-center">
-                        <tbody>
-                        <tr>
-                            <th>Credit Facility</th>
-                            <td>{{loanDataHolder?.loan?.name}}</td>
-
-                            <th>Loan Category</th>
-                            <td>{{loanDataHolder?.loanCategory === 'PERSONAL_TYPE' ? 'PERSONAL' : 'BUSINESS'}}</td>
-
-                            <th>Proposed Limit</th>
-                            <td>{{dmsLoanFile?.proposedAmount || loanDataHolder?.proposal?.proposedLimit}}</td>
-
-                            <th>Interest Rate</th>
-                            <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}}</td>
-
-                            <th>Tenure Duration In Month</th>
-                            <td>{{(dmsLoanFile?.tenureDuration || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
-
-                        </tr>
-                        <tr>
-                            <th>Service Charge</th>
-                            <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
-                                {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
-                                {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}
-                            </td>
-
-                            <th>FMV Funding Percentage</th>
-                            <td>{{dmsLoanFile?.fmvFundingPercent}}</td>
-
-                            <th>Total FMV</th>
-                            <td>{{dmsLoanFile?.fmvTotal}}</td>
-
-                            <th>Total DV</th>
-                            <td>{{dmsLoanFile?.distressValue}}</td>
-
-                            <th>Total Loan Limit</th>
-                            <td>{{dmsLoanFile?.totalLoanLimit}}</td>
-                        </tr>
-                        <tr>
-                            <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Individual Exposure</th>
-                            <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.individualExposure}}</td>
-
-                            <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Institution Exposure</th>
-                            <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.institutionExposure}}</td>
-
-                            <th>Group Exposure</th>
-                            <td>{{dmsLoanFile?.groupExpo}}</td>
-
-                            <th *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">Income Coverage Ratio</th>
-                            <td *ngIf="loanDataHolder.loanCategory === 'PERSONAL_TYPE'">{{dmsLoanFile?.incomeCoverageRatio}}</td>
-
-                            <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Debt Service Coverage Ratio</th>
-                            <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
-
-                            <th *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">Dealing Product Name</th>
-                            <td *ngIf="loanDataHolder.loanCategory === 'BUSINESS_TYPE'">{{dmsLoanFile?.dealingProductName}}</td>
-                        </tr>
-                        <tr>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <b>Propose Amount:</b>
-                    Rs. {{dmsLoanFile?.proposedAmountWord || loanDataHolder?.proposal?.proposedAmountInWords}} Only /-
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <p><b>Security Offered</b></p>
-                    <p><label *ngFor="let security of securities; let i = index">{{i + 1}}. {{Security[security]}}&nbsp;&nbsp;</label>
-                    </p>
-                </div>
-            </div>
-
-            <!--<div class="row mt-3">
-                <div class="col-md-6">
-                    <p style="font-size: 15px"><b>Service Charge Type</b></p>
-                    <table class="table table-condensed table-bordered">
-                        <tbody>
-                        <tr>
-                            <td>{{dmsLoanFile?.serviceChargeType}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-6">
-                    <p style="font-size: 15px"><b>Service Charge Amount</b></p>
-                    <table class="table table-condensed table-bordered">
-                        <tbody>
-                        <tr>
-                            <td>{{dmsLoanFile?.serviceChargeAmount}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>-->
-
-            <div class="row mt-3" [hidden]="dmsLoanFile.recommendationConclusion == ''">
-                <div class="col-md-12">
-                    <p><b>Recommendation and Conclusion</b></p>
-                    <p class="border text-justify p-1">
-                        {{dmsLoanFile?.recommendationConclusion}}
-                    </p>
-                </div>
-            </div>
-
-            <div class="row mt-3" [hidden]="dmsLoanFile.waiver == ''">
-                <div class="col-md-12">
-                    <p><b>Waiver</b></p>
-                    <p class="border text-justify p-1">
-                        {{dmsLoanFile?.waiver}}
-                    </p>
-                </div>
-            </div>
-
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <p><b>Authority Section</b></p>
-                    <table
-                        class="disable-print table table-condensed table-bordered table-responsive-md text-center">
-                        <thead>
-                        <tr>
-                            <th>S.N</th>
-                            <th>From User</th>
-                            <th>From Position</th>
-                            <th>To User</th>
-                            <th>To Position</th>
-                            <th>Status</th>
-                            <th class="cmt-width">Remarks</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
-                            <td>{{i + 1}}</td>
-                            <td>{{previousList?.fromUser?.name}}</td>
-                            <td>{{previousList?.fromRole?.roleName}}</td>
-                            <td>{{previousList?.toUser?.name}}</td>
-                            <td>{{previousList?.toRole?.roleName}}</td>
-                            <td>{{previousList?.docAction}}</td>
-                            <td class="text-justify">
-                                <div class="cmt-height">
-                                    {{previousList?.comment?.length > 50 ?
-                                    previousList?.comment?.substring(0, 49) :
-                                    previousList?.comment}}
-                                </div>
-                                <a *ngIf="previousList?.comment?.length > 50"
-                                   class="justify-content-end read-margin"
-                                   (click)="open(previousList.comment)">read more ....</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{currentIndex + 1}}</td>
-                            <td>{{loanDataHolder?.currentStage?.fromUser?.name}}</td>
-                            <td>{{loanDataHolder?.currentStage?.fromRole?.roleName}}</td>
-                            <td>{{loanDataHolder?.currentStage?.toUser?.name}}</td>
-                            <td>{{loanDataHolder?.currentStage?.toRole?.roleName}}</td>
-                            <td>{{loanDataHolder?.currentStage?.docAction}}</td>
-                            <td class="text-justify">
-                                <div class="cmt-height">
-                                    {{loanDataHolder?.currentStage?.comment?.length > 50 ?
-                                    loanDataHolder?.currentStage?.comment?.substring(0, 49) :
-                                    loanDataHolder?.currentStage?.comment}}
-                                </div>
-                                <a *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
-                                   class="justify-content-end read-margin"
-                                   (click)="open(loanDataHolder.currentStage.comment)">read more ....</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <table
-                        class="print-only table table-bordered text-center">
-                        <thead>
-                        <tr>
-                            <th width="5%">S.N</th>
-                            <th width="5%">Date</th>
-                            <th width="15%">From User</th>
-                            <th width="5%">Status</th>
-                            <th width="70%">Remarks</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
-                            <td>{{i + 1}}</td>
-                            <td>{{previousList?.lastModifiedAt}}</td>
-                            <td>
-                                {{previousList?.fromUser?.name}}
-                                ({{previousList?.fromRole?.roleName}})
-                            </td>
-                            <td>{{previousList?.docAction}}</td>
-                            <td class="text-justify">{{previousList?.comment}}</td>
-                        </tr>
-                        <tr>
-                            <td>{{currentIndex + 1}}</td>
-                            <td>{{loanDataHolder?.currentStage?.lastModifiedAt}}</td>
-                            <td>
-                                {{loanDataHolder?.currentStage?.fromUser?.name}}
-                                ({{loanDataHolder?.currentStage?.fromRole?.roleName}})
-                            </td>
-                            <td>{{loanDataHolder?.currentStage?.docAction}}</td>
-                            <td class="text-justify">{{loanDataHolder?.currentStage?.comment}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row disable-print" *ngIf="documentNames.length>0">
-                <div class="col-md-12">
-                    <p><b>Required Documents</b></p>
-                    <table class="table table-condensed table-bordered table-responsive-md">
-                        <thead>
-                        <tr>
-                            <th>S.N</th>
-                            <th>Document</th>
-                            <th>Download</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let document of documentNames; let i = index">
-                            <td>{{i + 1}}</td>
-                            <td>{{document}}</td>
-                            <td><i class="fa fa-download" (click)="download(i)" aria-hidden="true"
-                                   style="cursor: pointer"></i>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="row justify-content-between px-3" id="signatureDiv">
-                <div *ngFor="let previous of signatureList; let i=index;"
-                     class="col-md-3 padding-0-125">
-                    <div class="signature-block">
-                        <div class="text-center p-2 bg-light mb-2 ">
-                            <span>{{loanHandler(i, signatureList.length)}}</span>
-                        </div>
-                        <hr class="border-dark m-0">
-                        <div class="row justify-content-center signature mx-auto">
-                            <img class="img-thumbnail border-0 signature-height"
-                                 src="{{previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage}}"
-                                 align="middle"/>
-                        </div>
-                        <div class="text-center signature-detail">
-                            <p class="m-0">{{previous?.toUser?.name}}</p>
-                            <p class="m-0">({{previous?.toUser?.role.roleName}})</p>
-                            <p class="m-0">{{previous?.lastModifiedAt}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nb-card-body>
-    </nb-card>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
 </section>

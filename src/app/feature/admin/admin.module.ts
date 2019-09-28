@@ -44,13 +44,11 @@ import {CommonModule} from '@angular/common';
 import {RoleHierarchyComponent} from './component/role-hierarchy/role-hierarchy.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {QuestionComponent} from './component/eligibility/question/question.component';
-import {AllRequestsComponent} from './component/all-requests/all-requests.component';
 import {EligibleRequestsComponent} from './component/eligibility/eligible-requests/eligible-requests.component';
 import {NonEligibleRequestsComponent} from './component/eligibility/non-eligible-requests/non-eligible-requests.component';
 import {NewRequestsComponent} from './component/eligibility/new-requests/new-requests.component';
 import {ThemeModule} from '../../@theme/theme.module';
 // import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
-import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {UpdateModalComponent} from '../../@theme/components';
 import {OpeningAccountComponent} from './component/opening-account/opening-account.component';
@@ -106,7 +104,6 @@ import {CoreModule} from '../../@core/core.module';
         ListRoleComponent,
         RoleHierarchyComponent,
         QuestionComponent,
-        AllRequestsComponent,
         EligibleRequestsComponent,
         NonEligibleRequestsComponent,
         NewRequestsComponent,
@@ -129,7 +126,6 @@ import {CoreModule} from '../../@core/core.module';
         NgbPaginationModule,
         ReactiveFormsModule,
         ReactiveFormsModule,
-        NgMultiSelectDropDownModule.forRoot(),
         RouterModule.forChild(adminRoutes),
         ThemeModule,
         DragDropModule,

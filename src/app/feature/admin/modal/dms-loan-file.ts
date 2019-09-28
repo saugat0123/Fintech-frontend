@@ -1,6 +1,4 @@
 import {LoanDocument} from './loan-document';
-import {Customer} from './customer';
-import {EntityInfo} from './entity-info';
 
 export class DmsLoanFile {
     id: number;
@@ -22,9 +20,9 @@ export class DmsLoanFile {
     fmvTotal: number;
     distressValue: number;
     totalLoanLimit: number;
-    individualExposure: string;
-    institutionExposure: string;
-    groupExpo: String;
+    individualExposure: number;
+    institutionExposure: number;
+    groupExpo: number;
     fmvFundingPercent: number;
     incomeCoverageRatio: number;
     debtServiceCoverageRatio: number;

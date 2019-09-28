@@ -5,7 +5,7 @@ import {ManagementTeam} from './management-team';
 import {Proprietors} from './proprietors';
 import {BusinessType} from './businessType';
 
-export class EntityInfo {
+export class CompanyInfo {
     id: number;
     legalStatus: LegalStatus;
     capital: Capital;
@@ -17,4 +17,5 @@ export class EntityInfo {
     version: number;
     establishmentDate: Date;
     businessType: BusinessType;
+    panNumber: string;
 }

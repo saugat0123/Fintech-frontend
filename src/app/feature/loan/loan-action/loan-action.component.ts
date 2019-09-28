@@ -33,12 +33,14 @@ export class LoanActionComponent implements OnInit {
     @Input() loanConfigId: number;
     @Input() id: number;
     @Input() loanCategory: string;
+    @Input() catalogueStatus = false;
 
     @Input() actionsList: ActionModel;
     popUpTitle: string;
     currentUserRoleType = false;
     sendForwardBackwardList = [];
     formAction: FormGroup;
+    committeeRole = false;
     userList: Array<User> = new Array<User>();
     submitted = false;
     loanConfig: LoanConfig = new LoanConfig();
@@ -92,20 +94,35 @@ export class LoanActionComponent implements OnInit {
             this.currentUserRoleType = true;
         }
 
+        if (roleType === RoleType.COMMITTEE) {
+            this.committeeRole = true;
+        } else {
+            this.committeeRole = false;
+        }
+
     }
 
-    sendBackwardList(template) {
+    sendBackwardList(template, val) {
         this.popUpTitle = 'Send Backward';
-        this.loanActionService.getSendBackwardList().subscribe(
-            (response: any) => {
-                this.sendForwardBackwardList = response.detail;
-            });
+
         this.formAction.patchValue({
-                docAction: 'BACKWARD',
+                docAction: DocAction.value(DocAction.BACKWARD),
                 documentStatus: DocStatus.PENDING,
                 comment: null
             }
         );
+        if (this.committeeRole && val === 1) {
+            this.popUpTitle = 'Send Backward To ' + localStorage.getItem('roleName');
+            const role = {
+                id: localStorage.getItem('roleId')
+            };
+            this.formAction.patchValue({
+                    docAction: DocAction[DocAction.BACKWARD_TO_COMMITTEE],
+                    toRole: role
+                }
+            );
+            this.getUserList(role);
+        }
         this.modalService.open(template);
     }
 
@@ -117,7 +134,7 @@ export class LoanActionComponent implements OnInit {
                 this.sendForwardBackwardList = response.detail;
             });
         this.formAction.patchValue({
-                docAction: 'FORWARD',
+                docAction: DocAction.value(DocAction.FORWARD),
                 documentStatus: DocStatus.PENDING,
                 comment: null
             }

@@ -4,11 +4,13 @@ export enum Security {
     VEHICLE_SECURITY = 'Vehicle Security',
     PROPERTY_AND_MACHINERY_SECURITY = 'Property and Machinery Security',
     FIXED_DEPOSIT_RECEIPT = 'Fixed Deposit Receipt',
-    SHARE_STOCK = 'Share Stock',
+    PUBLIC_SHARE = 'Public Share',
     EDUCATION_CERTIFICATE = 'Education Certificate',
     MARKETABLE_SECURITIES = 'Marketable Securities',
-    GOLD = 'Gold',
-    PERSONAL_GUARANTOR = 'Personal Guarantor'
+    GOLD_AND_SILVER = 'Gold & Silver',
+    PERSONAL_GUARANTOR = 'Personal Guarantor',
+    PROMOTER_SHARE = 'Promoter Share',
+    CORPORATE = 'Corporate'
 }
 
 export namespace Security {

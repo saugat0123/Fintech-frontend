@@ -17,6 +17,7 @@ import {
     NbContextMenuModule,
     NbDatepickerModule,
     NbDialogModule,
+    NbIconModule,
     NbInputModule,
     NbLayoutModule,
     NbListModule,
@@ -33,6 +34,7 @@ import {
     NbTabsetModule,
     NbThemeModule,
     NbToastrModule,
+    NbToggleModule,
     NbTooltipModule,
     NbUserModule,
     NbWindowModule,
@@ -60,8 +62,11 @@ import {SearchResultComponent} from './components/header/header-form/searchResul
 import {MessageModalComponent} from './components/message-modal/message-modal.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {NotificationComponent} from './components/notification/notification.component';
-import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import {ChangePasswordComponent} from './components/change-password/change-password.component';
 import {CKEditorModule} from 'ng2-ckeditor';
+import {NgxSpinnerModule} from 'ngx-spinner';
+import {NbEvaIconsModule} from '@nebular/eva-icons';
+import { OverlaySpinnerComponent } from './components/overlay-spinner/overlay-spinner.component';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -100,7 +105,10 @@ const NB_MODULES = [
     NbSelectModule,
     NbChatModule,
     NbTooltipModule,
-    NbCalendarKitModule
+    NbCalendarKitModule,
+    NbIconModule,
+    NbToggleModule,
+    NbEvaIconsModule
 ];
 
 const COMPONENTS = [
@@ -116,7 +124,8 @@ const COMPONENTS = [
     PagingComponent,
     ValidationErrorComponent,
     MessageModalComponent,
-    NotificationComponent
+    NotificationComponent,
+    OverlaySpinnerComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -139,7 +148,7 @@ const PIPES = [
 const NB_THEME_PROVIDERS = [
     ...NbThemeModule.forRoot(
         {
-            name: 'corporate',
+            name: 'default',
         },
         [DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME],
     ).providers,
@@ -155,8 +164,8 @@ const NB_THEME_PROVIDERS = [
 ];
 
 @NgModule({
-    imports: [...BASE_MODULES, ...NB_MODULES, RouterModule],
-    exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
+    imports: [...BASE_MODULES, ...NB_MODULES, RouterModule, NgxSpinnerModule],
+    exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, NgxSpinnerModule],
     declarations: [...COMPONENTS, ...PIPES, ProfileComponent, ChangePasswordComponent],
     entryComponents: [...ENTRY_COMPONENTS],
 })

@@ -10,9 +10,9 @@ const routes: Routes = [
         children: [
             { path: 'status/:name', component: PendingsLoanComponent },
             { path: 'dashboard', component: DashboardComponent },
-            { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
-            { path: 'memo', loadChildren: './memo/memo.module#MemoModule' },
-            { path: 'loan', loadChildren: './loan/loan.module#LoanModule' },
+            { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+            { path: 'memo', loadChildren: () => import('./memo/memo.module').then(m => m.MemoModule) },
+            { path: 'loan', loadChildren: () => import('./loan/loan.module').then(m => m.LoanModule) },
             { path: '', redirectTo: 'dashboard' },
             { path: '**', redirectTo: 'dashboard' }
         ],
