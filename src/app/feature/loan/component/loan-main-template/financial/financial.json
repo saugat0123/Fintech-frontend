@@ -82,7 +82,8 @@
       "dividendOrDrawing": [],
       "otherAdjustment": [],
       "accumulatedProfitBOrD": [],
-      "netProfitTransferredToBalanceSheet": []
+      "netProfitTransferredToBalanceSheet": [],
+      "justificationIncomeStatement": ""
     },
     "balanceSheetData": {
       "currentAssets": [],
@@ -187,7 +188,8 @@
         }
       ],
       "totalLiabilitiesAndEquity": [],
-      "differenceBS": []
+      "differenceBS": [],
+      "justificationBalanceSheet": ""
     },
     "cashFlowStatementData": {
       "cashFromOperatingActivities": [],
@@ -220,7 +222,8 @@
       "addOpeningBalance": [],
       "closingCash": [],
       "closingBalance": [],
-      "differenceCFS": []
+      "differenceCFS": [],
+      "justificationCashFlowStatement": ""
     },
     "keyIndicatorsData": {
       "growth": [],
@@ -249,7 +252,8 @@
       "averageCollectionPeriod": [],
       "averagePaymentPeriod": [],
       "netOperatingCycle": [],
-      "netWCBeforeBank": []
+      "netWCBeforeBank": [],
+      "justificationKeyIndicators": ""
     },
     "brr": {}
   }
