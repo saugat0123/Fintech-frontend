@@ -16,13 +16,13 @@ export class DmsLoanService extends BaseService<DmsLoanFile> {
     }
 
     downloadDocument(path: string) {
-        const url: string = this.getApi() + '/download?path=' + path;
+        const url: string = this.getApi() + '/download';
         const getUrl = ApiUtils.getRequest(url);
         const httpOptions = {
             responseType: 'blob' as 'json',
             headers: getUrl.header
         };
-        return this.http.get(getUrl.url, httpOptions);
+        return this.http.post(getUrl.url, path, httpOptions);
     }
 
     public uploadFile(formData: FormData): Observable<object> {
