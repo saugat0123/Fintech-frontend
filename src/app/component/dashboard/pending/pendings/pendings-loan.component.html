@@ -113,7 +113,9 @@
                             </div>
                             <td>{{i + 1}}</td>
                             <td>{{loanDataHolder?.branch?.name}}</td>
-                            <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
+                            <td>{{loanDataHolder?.loanCategory === 'BUSINESS_TYPE' ?
+                                loanDataHolder?.companyInfo?.companyName
+                                : loanDataHolder?.customerInfo?.customerName}}</td>
                             <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
                             <td>{{loanDataHolder?.loan?.name}}</td>
                             <td>{{loanDataHolder.loanType}}</td>
