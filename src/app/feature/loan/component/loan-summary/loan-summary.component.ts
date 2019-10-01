@@ -23,6 +23,9 @@ import {Occupation} from '../../../admin/modal/occupation';
 import {IncomeSource} from '../../../admin/modal/incomeSource';
 import {BusinessType} from '../../../admin/modal/businessType';
 import {DocAction} from '../../model/docAction';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-loan-summary',
@@ -82,7 +85,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
       private loanConfigService: LoanConfigService,
       private approvalLimitService: ApprovalLimitService,
       private dateService: DateService,
-      private modalService: NgbModal
+      private modalService: NgbModal,
+      private toastService: ToastService
   ) {
     this.client = environment.client;
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
@@ -248,6 +252,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         error1 => {
           console.log(error1);
           console.log('Error downloading the file');
+          if (error1 instanceof HttpErrorResponse && error1.status === 404) {
+            this.toastService.show(new Alert(AlertType.ERROR, 'File is corrupted, please upload it again.'));
+          }
         }
     );
   }
