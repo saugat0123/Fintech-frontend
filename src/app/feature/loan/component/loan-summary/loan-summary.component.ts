@@ -203,8 +203,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
               this.documentUrls = [];
               for (this.document of this.documents) {
                 this.documentNamesSplit = this.document.split(':');
-                this.documentNames.push(this.documentNamesSplit[0]);
-                this.documentUrls.push(this.documentNamesSplit[1]);
+                if (!this.documentNames.includes(this.documentNamesSplit[0])) {
+                  this.documentNames.push(this.documentNamesSplit[0]);
+                  this.documentUrls.push(this.documentNamesSplit[1]);
+                }
               }
 
               if (LoanType[this.loanDataHolder.loanType] === LoanType.NEW_LOAN) {
@@ -218,7 +220,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 this.rootDocLength = this.loanDataHolder.loan.closure.length;
               }
 
-              const filledDocLength = this.documents.length;
+              const filledDocLength = this.documentNames.length;
               this.docMsg = filledDocLength + ' out of ' + this.rootDocLength + ' document has been uploaded';
             }
           }

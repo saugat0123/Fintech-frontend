@@ -353,7 +353,7 @@ export class DmsLoanFileComponent implements OnInit {
   documentUploader(event, documentName: string, index: number) {
     const file = event.target.files[0];
     if (!file.name.toLowerCase().includes('.pdf') ) {
-      this.errorMessage = 'Only PDF format document Supported. Please upload PDF file only'
+      this.errorMessage = 'Only PDF format document Supported. Please upload PDF file only';
     } else if (file.size > DmsLoanFileComponent.FILE_SIZE_10MB) {
       this.errorMessage = 'Maximum File Size Exceeds for  ' + documentName;
       (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
