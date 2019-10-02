@@ -1432,14 +1432,14 @@
             <tr>
               <th>S.N</th>
               <th>Document</th>
-              <th>Download</th>
+              <th>Preview</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let document of documents; let i = index">
               <td>{{i + 1}}</td>
               <td>{{document?.name}}</td>
-              <td><i class="fa fa-download" (click)="downloadDocument(document.url, document.name)" aria-hidden="true"
+              <td><i class="fa fa-eye" (click)="downloadDocument(document.url, document.name)" aria-hidden="true"
                      style="cursor: pointer"></i>
               </td>
             </tr>
