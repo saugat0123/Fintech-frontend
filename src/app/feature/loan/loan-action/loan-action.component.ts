@@ -20,6 +20,7 @@ import {LoanFormService} from '../component/loan-form/service/loan-form.service'
 import {LoanDataHolder} from '../model/loanData';
 import {LoanStage} from '../model/loanStage';
 import {DocAction} from '../model/docAction';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 
 @Component({
@@ -49,6 +50,8 @@ export class LoanActionComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': 'Basic Y3Atc29sdXRpb246Y3Bzb2x1dGlvbjEyMyoj',
     });
+  falseCredential = false;
+  falseCredentialMessage = '';
 
     constructor(
         private router: ActivatedRoute,
@@ -143,6 +146,7 @@ export class LoanActionComponent implements OnInit {
     }
 
     onSubmit(templateLogin) {
+      this.falseCredential = false;
         this.submitted = true;
         if (this.formAction.invalid) {
             return;
@@ -184,19 +188,19 @@ export class LoanActionComponent implements OnInit {
         });
     }
 
-    onLogin(datavalue) {
-        this.onClose();
-        const data: { email: string, password: string } = datavalue.value;
+  onLogin(dataValue) {
+    const data: { email: string, password: string } = dataValue.value;
         data.email = localStorage.getItem('username');
-        const datas = 'grant_type=password&username=' + data.email + '&password=' + data.password;
-        this.http.post(this.securityUrl, datas, {headers: this.headers})
+    const requestBody = 'grant_type=password&username=' + data.email + '&password=' + data.password;
+    this.http.post(this.securityUrl, requestBody, {headers: this.headers})
             .subscribe(
-                (res: any) => {
+                () => {
+                  this.onClose();
                     this.postAction();
                 },
                 error => {
-
-                    this.toastService.show(new Alert(AlertType.ERROR, error.error.errorDescription));
+                  this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? '' : error.error.errorDescription;
+                  this.falseCredential = true;
                 }
             );
 
