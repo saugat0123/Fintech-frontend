@@ -19,8 +19,6 @@ import {DateService} from '../../../../@core/service/baseservice/date.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component';
 import {LoanType} from '../../model/loanType';
-import {Occupation} from '../../../admin/modal/occupation';
-import {IncomeSource} from '../../../admin/modal/incomeSource';
 import {BusinessType} from '../../../admin/modal/businessType';
 
 @Component({
@@ -65,8 +63,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   nepaliDate;
   loanCategory;
   @ViewChild('print', { static: false }) print;
-  occupation = Occupation;
-  incomeSource = IncomeSource;
   businessType = BusinessType;
   navigationSubscription;
 
@@ -143,11 +139,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           this.actionsList.rejected = true;
           this.actionsList.closed = true;
           this.currentDocAction = this.loanDataHolder.currentStage.docAction.toString();
-          if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-            this.actionsList.offerLetter = true;
-          } else {
-            this.actionsList.offerLetter = false;
-          }
+          this.actionsList.offerLetter = this.loanDataHolder.documentStatus.toString() === 'APPROVED';
           if (this.loanDataHolder.createdBy.toString() === localStorage.getItem('userId')) {
             this.actionsList.sendBackward = false;
             this.actionsList.edit = true;
@@ -200,8 +192,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
               this.documentUrls = [];
               for (this.document of this.documents) {
                 this.documentNamesSplit = this.document.split(':');
-                this.documentNames.push(this.documentNamesSplit[0]);
-                this.documentUrls.push(this.documentNamesSplit[1]);
+                if (!this.documentNames.includes(this.documentNamesSplit[0])) {
+                  this.documentNames.push(this.documentNamesSplit[0]);
+                  this.documentUrls.push(this.documentNamesSplit[1]);
+                }
               }
 
               if (LoanType[this.loanDataHolder.loanType] === LoanType.NEW_LOAN) {
@@ -215,7 +209,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 this.rootDocLength = this.loanDataHolder.loan.closure.length;
               }
 
-              const filledDocLength = this.documents.length;
+              const filledDocLength = this.documentNames.length;
               this.docMsg = filledDocLength + ' out of ' + this.rootDocLength + ' document has been uploaded';
             }
           }
@@ -231,7 +225,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     this.documentName = this.documentNames[i];
     this.dmsLoanService.downloadDocument(this.documentUrl).subscribe(
         (response: any) => {
-          const newBlob = new Blob([response], {type: 'application/txt'});
           const downloadUrl = window.URL.createObjectURL(response);
           const link = document.createElement('a');
           link.href = downloadUrl;
