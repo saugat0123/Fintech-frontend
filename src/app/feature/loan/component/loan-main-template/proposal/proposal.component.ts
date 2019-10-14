@@ -13,7 +13,6 @@ export class ProposalComponent implements OnInit {
 
     @Input() formValue: Proposal;
     proposalForm: FormGroup;
-
     constructor(private fb: FormBuilder) {
     }
 

@@ -62,6 +62,8 @@ export class OpeningCustomer {
   pepDesignation: string;
   convictedOfCrime: boolean;
   convictedCrime: string;
+  highProfileRelation: string;
   residentialPermitOfForeign: boolean;
   residentialPermitOfForeignType: string;
+  residentialPermitOfForeignCountryName: string;
 }

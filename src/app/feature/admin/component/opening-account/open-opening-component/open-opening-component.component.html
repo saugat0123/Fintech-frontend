@@ -969,6 +969,7 @@
               </div>
             </div>
             <!-- END ROW -->
+
             <!-- START ROW -->
             <div [hidden]="applicantDetail.get('isConvictedForCrime').value !== 'true'"
                  class="row">
@@ -987,6 +988,30 @@
               </div>
             </div>
             <!-- END ROW -->
+            <!--Start row-->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="{{'isMemberHighProfile'+applicantIndex}}">
+                    Are you or any of your family members’ in
+                    high profile position?
+                  </label>
+                  <div class="row ml-2">
+                    <nb-radio-group class="col-md-4 d-contents form-control"
+                                    formControlName="isMemberHighProfile"
+                                    id="{{'isMemberHighProfile'+applicantIndex}}"
+                                    name="{{'isMemberHighProfile'+applicantIndex}}">
+                      <nb-radio class="form-group" value="true">Yes</nb-radio>
+                      <nb-radio class="form-group" value="false">No</nb-radio>
+                    </nb-radio-group>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!--End Row-->
+
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-12">
@@ -1036,6 +1061,26 @@
               </div>
             </div>
             <!-- END ROW -->
+            <!--Start Row-->
+
+            <div [hidden]="applicantDetail.get('holdResidentialOfForeign').value !== 'true'"
+                 class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="holdResidentialOf">
+                    Please specify convicted/non convicted crime
+                  </label>
+                  <input class="form-control form-control-error rounded"
+                         formControlName="holdResidentialOf"
+                         id="holdResidentialOf"
+                         placeholder="Country" required
+                         type="text">
+
+                </div>
+              </div>
+            </div>
+
+            <!--End Row-->
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-12">

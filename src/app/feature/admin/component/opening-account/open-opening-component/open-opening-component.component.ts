@@ -300,9 +300,11 @@ export class OpenOpeningComponentComponent implements OnInit {
             pepName: [undefined],
             pepRelationWithApplicant: [undefined],
             isConvictedForCrime: [undefined],
+            isMemberHighProfile: [undefined],
             crimeConvictedFor: [undefined],
             holdResidentialOfForeign: [undefined],
             holdResidentialOfForeignType: [undefined],
+            holdResidentialOf: [undefined],
             isUsResidentRadio: [undefined],
             isUsCitizenRadio: [undefined],
             isUsGreenCardHolderRadio: [undefined]
@@ -370,9 +372,11 @@ export class OpenOpeningComponentComponent implements OnInit {
                     pepName: applicant.pepName,
                     pepRelationWithApplicant: applicant.pepDesignation,
                     isConvictedForCrime: applicant.convictedOfCrime + '',
+                    isMemberHighProfile: applicant.highProfileRelation + '',
                     crimeConvictedFor: applicant.convictedCrime,
                     holdResidentialOfForeign: applicant.residentialPermitOfForeign + '',
                     holdResidentialOfForeignType: applicant.residentialPermitOfForeignType + '',
+                    holdResidentialOf: applicant.residentialPermitOfForeignCountryName,
                     isUsResidentRadio: applicant.usResident + '',
                     isUsCitizenRadio: applicant.usCitizen + '',
                     isUsGreenCardHolderRadio: applicant.greenCardHolder + ''
@@ -642,8 +646,10 @@ export class OpenOpeningComponentComponent implements OnInit {
             this.openingCustomer.pepDesignation = this.getApplicantDetail()[customerIndex].pepRelationWithApplicant;
             this.openingCustomer.convictedOfCrime = this.getApplicantDetail()[customerIndex].isConvictedForCrime;
             this.openingCustomer.convictedCrime = this.getApplicantDetail()[customerIndex].crimeConvictedFor;
+            this.openingCustomer.highProfileRelation = this.getApplicantDetail()[customerIndex].isMemberHighProfile;
             this.openingCustomer.residentialPermitOfForeign = this.getApplicantDetail()[customerIndex].holdResidentialOfForeign;
             this.openingCustomer.residentialPermitOfForeignType = this.getApplicantDetail()[customerIndex].holdResidentialOfForeignType;
+            this.openingCustomer.residentialPermitOfForeignCountryName = this.getApplicantDetail()[customerIndex].holdResidentialOf;
             // FATCA Declaration
             this.openingCustomer.usResident = this.getApplicantDetail()[customerIndex].isUsResidentRadio;
             this.openingCustomer.usCitizen = this.getApplicantDetail()[customerIndex].isUsCitizenRadio;
