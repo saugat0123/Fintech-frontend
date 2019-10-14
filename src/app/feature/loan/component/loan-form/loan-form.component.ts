@@ -190,10 +190,10 @@ export class LoanFormComponent implements OnInit {
         const selectedTabId = parseInt(evt.nextId, 10);
         this.nextTabId = selectedTabId + 1;
         this.previousTabId = selectedTabId - 1;
-        this.selectedTab =
         tabSet.tabs.forEach( templateListMember => {
             if (Number(templateListMember.id ) === Number(evt.activeId)) {
                 this.selectChild(templateListMember.title, true);
+                this.selectedTab = templateListMember.title;
             }
         });
         // console.log(this.nextTabId.toString());
