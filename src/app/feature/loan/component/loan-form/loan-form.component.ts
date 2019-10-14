@@ -271,6 +271,7 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Customer Info' && action) {
             if (this.basicInfo.basicInfo.invalid) {
                 this.basicInfo.submitted = true;
+                // TODO: Add Validations in Tabs
                 // return true;
             }
             this.basicInfo.onSubmit();
