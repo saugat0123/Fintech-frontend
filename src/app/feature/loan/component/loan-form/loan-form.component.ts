@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
-import {NgbModal, NgbTabChangeEvent} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbTabChangeEvent, NgbTabset} from '@ng-bootstrap/ng-bootstrap';
 import {LoanDataHolder} from '../../model/loanData';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
@@ -186,12 +186,17 @@ export class LoanFormComponent implements OnInit {
         });
     }
 
-    tabChange(evt: NgbTabChangeEvent) {
+    tabChange(evt: NgbTabChangeEvent, tabSet: NgbTabset) {
         const selectedTabId = parseInt(evt.nextId, 10);
         this.nextTabId = selectedTabId + 1;
         this.previousTabId = selectedTabId - 1;
-
-        console.log(this.nextTabId.toString());
+        this.selectedTab =
+        tabSet.tabs.forEach( templateListMember => {
+            if (Number(templateListMember.id ) === Number(evt.activeId)) {
+                this.selectChild(templateListMember.title, true);
+            }
+        });
+        // console.log(this.nextTabId.toString());
     }
 
     selectTab(index, name) {
