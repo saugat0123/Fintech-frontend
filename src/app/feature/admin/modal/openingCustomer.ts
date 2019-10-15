@@ -45,6 +45,11 @@ export class OpeningCustomer {
   passportIssuedDate: Date;
   passportExpireDate: Date;
   passportImagePath: string;
+  licenseNumber: string;
+  licenseIssuedPlace: string;
+  licenseIssuedDate: string;
+  licenseExpireDate: string;
+  licenseImagePath: string;
   idCardNumber: string;
   idCardIssueAuthority: string;
   idCardIssuedDate: Date;
