@@ -36,11 +36,20 @@ export class OpeningCustomer {
   citizenIssuedPlace: string;
   citizenIssuedDate: Date;
   citizenImagePath: string;
+  voterNumber: string;
+  voterIssuedPlace: string;
+  voterIssuedDate: Date;
+  voterImagePath: string;
   passportNumber: string;
   passportIssuedPlace: string;
   passportIssuedDate: Date;
   passportExpireDate: Date;
   passportImagePath: string;
+  licenseNumber: string;
+  licenseIssuedPlace: string;
+  licenseIssuedDate: string;
+  licenseExpireDate: string;
+  licenseImagePath: string;
   idCardNumber: string;
   idCardIssueAuthority: string;
   idCardIssuedDate: Date;
@@ -62,6 +71,8 @@ export class OpeningCustomer {
   pepDesignation: string;
   convictedOfCrime: boolean;
   convictedCrime: string;
+  highProfileRelation: string;
   residentialPermitOfForeign: boolean;
   residentialPermitOfForeignType: string;
+  residentialPermitOfForeignCountryName: string;
 }

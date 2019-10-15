@@ -586,6 +586,47 @@
               </div>
             </div>
             <!-- END ROW -->
+            <!--Start ROW-->
+            <div class="box-header with-border">
+              <h5 class="box-title title"><b>Voter's Id Details</b></h5>
+              <hr/>
+            </div>
+            <!--END ROW-->
+            <!--Start Row-->
+
+            <div class="row">
+              <div class="col-md-4 form-group">
+                <label for="applicantVoterNumber"><b>Applicant Voter's
+                  Number</b></label>
+                <input class="form-control form-control-error rounded"
+                       formControlName="applicantVoterNumber"
+                       id="applicantVoterNumber"
+                       placeholder="Applicant Voter Number" required
+                       type="text">
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="applicantVoterIssuedPlace"><b>Place of
+                  issue</b></label>
+                <input class="form-control form-control-error rounded"
+                       formControlName="applicantVoterIssuedPlace"
+                       id="applicantVoterIssuedPlace"
+                       placeholder="Applicant Voter Id Issued Place" required
+                       type="text">
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="applicantVoterIssuedDate">
+                  <b>Applicant Voter's Id Issued Date</b>
+                </label>
+                <input class="form-control form-control-error rounded"
+                       formControlName="applicantVoterIssuedDate"
+                       id="applicantVoterIssuedDate"
+                       placeholder="Applicant Voter Id Issued Date"
+                       required
+                       type="date">
+              </div>
+            </div>
+
+            <!--End Row-->
 
             <div class="box-header with-border">
               <h5 class="box-title title"><strong>Passport Details</strong></h5>
@@ -637,6 +678,68 @@
               </div>
             </div>
             <!-- END ROW -->
+            <!-- Start ROW -->
+
+
+            <div class="box-header with-border">
+              <h5 class="box-title title"><b>Driving License Details</b></h5>
+              <hr/>
+            </div>
+
+            <!-- END ROW -->
+            <!--Start Row-->
+
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label for="applicantLicenseNumber"><b>Applicant License
+                  Number</b></label>
+                <input class="form-control form-control-error rounded"
+                       formControlName="applicantLicenseNumber"
+                       id="applicantLicenseNumber"
+                       placeholder="Applicant License Number" required
+                       type="text">
+              </div>
+              <div class="col-md-6 form-group">
+                <label for="applicantLicenseIssuedPlace"><b>Place of
+                  issue</b></label>
+                <input class="form-control form-control-error rounded"
+                       formControlName="applicantLicenseIssuedPlace"
+                       id="applicantLicenseIssuedPlace"
+                       placeholder="Applicant License Issued Place" required
+                       type="text">
+              </div>
+            </div>
+
+            <!--End Row-->
+
+            <!--Start Row-->
+
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label for="applicantLicenseIssuedDate">
+                  <b>Applicant License Issued Date</b></label>
+                <input class="form-control form-control-error rounded"
+                       formControlName="applicantLicenseIssuedDate"
+                       id="applicantLicenseIssuedDate"
+                       placeholder="Applicant License Issued Date"
+                       required
+                       type="date">
+              </div>
+              <div class="col-md-6 form-group">
+                <label for="applicantLicenseExpireDate">
+                  <b>Applicant License Expire Date</b>
+                </label>
+                <input class="form-control form-control-error rounded"
+                       formControlName="applicantLicenseExpireDate"
+                       id="applicantLicenseExpireDate"
+                       placeholder="Applicant License Issued Date"
+                       required
+                       type="date">
+              </div>
+            </div>
+
+            <!--End Row-->
+
             <div class="box-header with-border">
               <h5 class="box-title title"><strong>Employment Details</strong></h5>
               <hr/>
@@ -967,6 +1070,30 @@
               </div>
             </div>
             <!-- END ROW -->
+            <!--Start row-->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="{{'isMemberHighProfile'+applicantIndex}}">
+                    Are you or any of your family members’ in
+                    high profile position?
+                  </label>
+                  <div class="row ml-2">
+                    <nb-radio-group class="col-md-4 d-contents form-control"
+                                    formControlName="isMemberHighProfile"
+                                    id="{{'isMemberHighProfile'+applicantIndex}}"
+                                    name="{{'isMemberHighProfile'+applicantIndex}}">
+                      <nb-radio class="form-group" value="true">Yes</nb-radio>
+                      <nb-radio class="form-group" value="false">No</nb-radio>
+                    </nb-radio-group>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!--End Row-->
+
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-12">
@@ -1016,6 +1143,26 @@
               </div>
             </div>
             <!-- END ROW -->
+            <!--Start Row-->
+
+            <div [hidden]="applicantDetail.get('holdResidentialOfForeign').value !== 'true'"
+                 class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="holdResidentialOf">
+                    Please specify applicant residential country name
+                  </label>
+                  <input class="form-control form-control-error rounded"
+                         formControlName="holdResidentialOf"
+                         id="holdResidentialOf"
+                         placeholder="Country" required
+                         type="text">
+
+                </div>
+              </div>
+            </div>
+
+            <!--End Row-->
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-12">
