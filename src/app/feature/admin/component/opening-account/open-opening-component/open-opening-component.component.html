@@ -21,14 +21,14 @@
         <!-- START ROW -->
         <div class="row">
           <div class="col-md-4 form-group">
-            <label for="branch"><b>Bank Branch</b></label>
+            <label for="branch"><strong>Bank Branch</strong></label>
             <select class="custom-select" formControlName="branch" id="branch">
               <option *ngFor="let branch of branchList"
                       [ngValue]="branch.id">{{branch.name}}</option>
             </select>
           </div>
           <div class="col-md-4 form-group">
-            <label for="purposeOfAccount"><b>Purpose of Account</b></label>
+            <label for="purposeOfAccount"><strong>Purpose of Account</strong></label>
             <div class="row ml-2">
               <nb-radio-group class="col-md-4 d-contents form-control"
                               formControlName="purposeOfAccount"
@@ -42,7 +42,7 @@
             </div>
           </div>
           <div class="col-md-4 form-group">
-            <label for="accountType"><b>Account Type</b></label>
+            <label for="accountType"><strong>Account Type</strong></label>
             <select class="custom-select" formControlName="accountType"
                     id="accountType">
               <option [ngValue]=null hidden>Select Account Type</option>
@@ -55,7 +55,7 @@
         <!-- START ROW -->
         <div class="row">
           <div class="col-md-4 form-group">
-            <label for="accountCurrency"><b>Currency Type</b></label>
+            <label for="accountCurrency"><strong>Currency Type</strong></label>
             <select class="custom-select" formControlName="accountCurrency"
                     id="accountCurrency">
               <option value="NPR">NPR</option>
@@ -63,27 +63,7 @@
             </select>
           </div>
           <div class="col-md-4 form-group">
-            <label for="haveExistingAccount"><b>Have Existing Account</b></label>
-            <div class="row ml-2">
-              <nb-radio-group class="col-md-4 d-contents form-control"
-                              formControlName="haveExistingAccount"
-                              id="haveExistingAccount" name="haveExistingAccount">
-                <nb-radio class="form-group" value="true">Yes</nb-radio>
-                <nb-radio class="form-group" value="false">No</nb-radio>
-              </nb-radio-group>
-            </div>
-          </div>
-          <div [hidden]="openingAccount.get('haveExistingAccount').value !== 'true'"
-               class="col-md-4 form-group">
-            <label for="existingAccountNumber"><b>Existing Account Number</b></label>
-            <input class="form-control form-control-error rounded"
-                   formControlName="existingAccountNumber" id="existingAccountNumber"
-                   placeholder="Applicant Existing Account Number"
-                   required
-                   type="text">
-          </div>
-          <div class="col-md-4 form-group">
-            <label for="jointAccountRadio"><b>Joint Account</b></label>
+            <label for="jointAccountRadio"><strong>Joint Account</strong></label>
             <div class="row ml-2">
               <nb-radio-group class="col-md-4 d-contents form-control"
                               formControlName="jointAccountRadio"
@@ -115,7 +95,7 @@
             <!-- START ROW -->
             <div class="row">
               <div class="box-header with-border col-md-12">
-                <h5 class="box-title title"><b>Applicant {{applicantIndex + 1}}</b>
+                <h5 class="box-title title"><strong>Applicant {{applicantIndex + 1}}</strong>
                 </h5>
                 <input (click)="removeApplicantDetail(applicantIndex)"
                        *ngIf="openingAccount.get('applicantDetail')['controls'].length > 1"
@@ -129,7 +109,7 @@
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-2 form-group">
-                <label for="customerTitle"><b>Title</b></label>
+                <label for="customerTitle"><strong>Title</strong></label>
                 <select class="custom-select" formControlName="customerTitle"
                         id="customerTitle">
                   <option [ngValue]="undefined" hidden>Customer Title</option>
@@ -140,7 +120,7 @@
                 </select>
               </div>
               <div class="col-md-3 form-group">
-                <label for="customerFirstName"><b>First Name</b></label>
+                <label for="customerFirstName"><strong>First Name</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="customerFirstName"
                        id="customerFirstName"
@@ -149,7 +129,7 @@
                        type="text">
               </div>
               <div class="col-md-4 form-group">
-                <label for="customerMiddleName"><b>Middle Name</b></label>
+                <label for="customerMiddleName"><strong>Middle Name</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="customerMiddleName"
                        id="customerMiddleName"
@@ -158,7 +138,7 @@
                        type="text">
               </div>
               <div class="col-md-3 form-group">
-                <label for="customerLastName"><b>Last Name</b></label>
+                <label for="customerLastName"><strong>Last Name</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="customerLastName" id="customerLastName"
                        placeholder="Applicant's Last Name"
@@ -171,7 +151,7 @@
             <div class="row">
               <div class="col-md-6 form-group">
                 <label for="{{'applicantMaritalStatusRadio'+applicantIndex}}">
-                  <b>Applicant's Marital Status</b>
+                  <strong>Applicant's Marital Status</strong>
                 </label>
                 <div class="row ml-2">
                   <nb-radio-group class="col-md-4 d-contents form-control"
@@ -197,8 +177,8 @@
                        type="text"/>
               </div>
               <div class="col-md-6 form-group">
-                <label for="{{'applicantGenderRadio'+applicantIndex}}"><b>Applicant
-                  Gender</b></label>
+                <label for="{{'applicantGenderRadio'+applicantIndex}}"><strong>Applicant
+                  Gender</strong></label>
                 <div class="row ml-2">
                   <nb-radio-group class="col-md-4 d-contents form-control"
                                   formControlName="applicantGenderRadio"
@@ -230,7 +210,7 @@
               <div class="col-md-6 form-group">
                 <label
                     for="{{'applicantEducationalQualification'+applicantIndex}}">
-                  <b>Education Qualification</b>
+                  <strong>Education Qualification</strong>
                 </label>
                 <div class="row ml-2">
                   <nb-radio-group class="col-md-6 d-contents form-control"
@@ -262,14 +242,14 @@
             </div>
             <!-- END ROW -->
             <div class="box-header with-border">
-              <h5 class="box-title title"><b>Permanent Address</b></h5>
+              <h5 class="box-title title"><strong>Permanent Address</strong></h5>
               <hr/>
             </div>
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-4 form-group">
                 <label for="applicantPermanentProvince">
-                  <b>Province</b>
+                  <strong>Province</strong>
                 </label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPermanentProvince"
@@ -280,7 +260,7 @@
               </div>
               <div class="col-md-4 form-group">
                 <label for="applicantPermanentDistrict">
-                  <b>District</b>
+                  <strong>District</strong>
                 </label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPermanentDistrict"
@@ -291,7 +271,7 @@
               </div>
               <div class="col-md-4 form-group">
                 <label for="applicantPermanentMunicipalityOrVDC">
-                  <b>Municipality/VDC</b>
+                  <strong>Municipality/VDC</strong>
                 </label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPermanentMunicipalityOrVDC"
@@ -305,7 +285,7 @@
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-4 form-group">
-                <label for="applicantPermanentWard"><b>Ward</b></label>
+                <label for="applicantPermanentWard"><strong>Ward</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPermanentWard"
                        id="applicantPermanentWard"
@@ -313,7 +293,7 @@
                        type="text">
               </div>
               <div class="col-md-4 form-group">
-                <label for="applicantPermanentStreet"><b>Street</b></label>
+                <label for="applicantPermanentStreet"><strong>Street</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPermanentStreet"
                        id="applicantPermanentStreet"
@@ -323,7 +303,7 @@
               </div>
               <div class="col-md-4 form-group">
                 <label for="applicantPermanentHouseNo">
-                  <b>House Number</b>
+                  <strong>House Number</strong>
                 </label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPermanentHouseNo"
@@ -334,13 +314,13 @@
             </div>
             <!-- END ROW -->
             <div class="box-header with-border">
-              <h5 class="box-title title"><b>Present Address</b></h5>
+              <h5 class="box-title title"><strong>Present Address</strong></h5>
               <hr/>
             </div>
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-4 form-group">
-                <label for="applicantPresentProvince"><b>Province</b></label>
+                <label for="applicantPresentProvince"><strong>Province</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPresentProvince"
                        id="applicantPresentProvince"
@@ -348,7 +328,7 @@
                        type="text">
               </div>
               <div class="col-md-4 form-group">
-                <label for="applicantPresentDistrict"><b>District</b></label>
+                <label for="applicantPresentDistrict"><strong>District</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPresentDistrict"
                        id="applicantPresentDistrict"
@@ -358,7 +338,7 @@
               </div>
               <div class="col-md-4 form-group">
                 <label for="applicantPresentMunicipalityOrVDC">
-                  <b>Municipality/VDC</b>
+                  <strong>Municipality/VDC</strong>
                 </label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPresentMunicipalityOrVDC"
@@ -371,7 +351,7 @@
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-4 form-group">
-                <label for="applicantPresentWard"><b>Ward</b></label>
+                <label for="applicantPresentWard"><strong>Ward</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPresentWard"
                        id="applicantPresentWard"
@@ -379,7 +359,7 @@
                        type="text">
               </div>
               <div class="col-md-4 form-group">
-                <label for="applicantPresentStreet"><b>Street</b></label>
+                <label for="applicantPresentStreet"><strong>Street</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPresentStreet"
                        id="applicantPresentStreet"
@@ -388,7 +368,7 @@
               </div>
               <div class="col-md-4 form-group">
                 <label for="applicantPresentHouseNo">
-                  <b>House Number</b>
+                  <strong>House Number</strong>
                 </label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPresentHouseNo"
@@ -399,14 +379,14 @@
             </div>
             <!-- END ROW -->
             <div class="box-header with-border">
-              <h5 class="box-title title"><b>In case of residing in Rented House</b>
+              <h5 class="box-title title"><strong>In case of residing in Rented House</strong>
               </h5>
               <hr/>
             </div>
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-6 form-group">
-                <label for="applicantLandLordName"><b>Land Lord Name</b></label>
+                <label for="applicantLandLordName"><strong>Land Lord Name</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantLandLordName"
                        id="applicantLandLordName"
@@ -415,7 +395,7 @@
               </div>
               <div class="col-md-6 form-group">
                 <label for="applicantLandLordContactNumber">
-                  <b>Land Lord Contact Number</b>
+                  <strong>Land Lord Contact Number</strong>
                 </label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantLandLordContactNumber"
@@ -426,14 +406,14 @@
             </div>
             <!-- END ROW -->
             <div class="box-header with-border">
-              <h5 class="box-title title"><b>Contact Number</b></h5>
+              <h5 class="box-title title"><strong>Contact Number</strong></h5>
               <hr/>
             </div>
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-4 form-group">
-                <label for="applicantResidentialContact"><b>Resident Contact
-                  Number</b></label>
+                <label for="applicantResidentialContact"><strong>Resident Contact
+                  Number</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantResidentialContact"
                        id="applicantResidentialContact"
@@ -442,8 +422,8 @@
                        type="text">
               </div>
               <div class="col-md-4 form-group">
-                <label for="applicantOfficeContact"><b>Office Contact
-                  Number</b></label>
+                <label for="applicantOfficeContact"><strong>Office Contact
+                  Number</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantOfficeContact"
                        id="applicantOfficeContact"
@@ -451,7 +431,7 @@
                        type="text">
               </div>
               <div class="col-md-4 form-group">
-                <label for="applicantMobileContact"><b>Mobile Number</b></label>
+                <label for="applicantMobileContact"><strong>Mobile Number</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantMobileContact"
                        id="applicantMobileContact"
@@ -463,7 +443,7 @@
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-12 form-group">
-                <label for="applicantEmail"><b>Email</b></label>
+                <label for="applicantEmail"><strong>Email</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantEmail" id="applicantEmail"
                        placeholder="Applicant Email Address" required
@@ -472,7 +452,7 @@
             </div>
             <!-- END ROW -->
             <div class="box-header with-border">
-              <h5 class="box-title title"><b>Applicant Relative</b></h5>
+              <h5 class="box-title title"><strong>Applicant Relative</strong></h5>
               <hr/>
             </div>
             <div *ngFor="let relative of applicantDetail['controls'].applicantRelative['controls'];
@@ -483,8 +463,8 @@
                 <div class="row">
                   <div class="col-md-10">
                     <div class="box-header with-border">
-                      <h5 class="box-title title"><b>{{relativeIndex + 1}}.
-                        Relative</b></h5>
+                      <h5 class="box-title title"><strong>{{relativeIndex + 1}}.
+                        Relative</strong></h5>
                     </div>
                   </div>
                   <div class="text-right col-md-2">
@@ -500,8 +480,8 @@
                 <!-- START ROW -->
                 <div class="row">
                   <div class="col-md-6 form-group">
-                    <label for="applicantRelationWith"><b>Relation With
-                      Applicant</b></label>
+                    <label for="applicantRelationWith"><strong>Relation With
+                      Applicant</strong></label>
                     <input class="form-control form-control-error rounded"
                            formControlName="applicantRelationWith"
                            id="applicantRelationWith"
@@ -509,8 +489,8 @@
                            type="text">
                   </div>
                   <div class="col-md-6 form-group">
-                    <label for="applicantRelativeName"><b>Relative
-                      Name</b></label>
+                    <label for="applicantRelativeName"><strong>Relative
+                      Name</strong></label>
                     <input class="form-control form-control-error rounded"
                            formControlName="applicantRelativeName"
                            id="applicantRelativeName"
@@ -529,13 +509,13 @@
             </div>
 
             <div class="box-header with-border">
-              <h5 class="box-title title"><b>Applicant Identification</b></h5>
+              <h5 class="box-title title"><strong>Applicant Identification</strong></h5>
               <hr/>
             </div>
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-4 form-group">
-                <label for="applicantNationality"><b>Nationality</b></label>
+                <label for="applicantNationality"><strong>Nationality</strong></label>
                 <select class="custom-select"
                         formControlName="applicantNationality"
                         id="applicantNationality">
@@ -550,15 +530,15 @@
                 </select>
               </div>
               <div class="col-md-4 form-group">
-                <label for="applicantDateOfBirth"><b>Date of Birth</b></label>
+                <label for="applicantDateOfBirth"><strong>Date of Birth</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantDateOfBirth"
                        id="applicantDateOfBirth"
                        type="date">
               </div>
               <div class="col-md-4 form-group">
-                <label for="applicantPanNumber"><b>Applicant PAN
-                  Number</b></label>
+                <label for="applicantPanNumber"><strong>Applicant PAN
+                  Number</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPanNumber"
                        id="applicantPanNumber"
@@ -570,14 +550,14 @@
             <!-- END ROW -->
 
             <div class="box-header with-border">
-              <h5 class="box-title title"><b>Citizenship Details</b></h5>
+              <h5 class="box-title title"><strong>Citizenship Details</strong></h5>
               <hr/>
             </div>
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-4 form-group">
-                <label for="applicantCitizenNumber"><b>Applicant Citizen
-                  Number</b></label>
+                <label for="applicantCitizenNumber"><strong>Applicant Citizen
+                  Number</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantCitizenNumber"
                        id="applicantCitizenNumber"
@@ -585,8 +565,8 @@
                        type="text">
               </div>
               <div class="col-md-4 form-group">
-                <label for="applicantCitizenIssuedPlace"><b>Place of
-                  issue</b></label>
+                <label for="applicantCitizenIssuedPlace"><strong>Place of
+                  issue</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantCitizenIssuedPlace"
                        id="applicantCitizenIssuedPlace"
@@ -595,7 +575,7 @@
               </div>
               <div class="col-md-4 form-group">
                 <label for="applicantCitizenIssuedDate">
-                  <b>Applicant Citizen Issued Date</b>
+                  <strong>Applicant Citizen Issued Date</strong>
                 </label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantCitizenIssuedDate"
@@ -608,14 +588,14 @@
             <!-- END ROW -->
 
             <div class="box-header with-border">
-              <h5 class="box-title title"><b>Passport Details</b></h5>
+              <h5 class="box-title title"><strong>Passport Details</strong></h5>
               <hr/>
             </div>
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-6 form-group">
-                <label for="applicantPassportNumber"><b>Applicant Passport
-                  Number</b></label>
+                <label for="applicantPassportNumber"><strong>Applicant Passport
+                  Number</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPassportNumber"
                        id="applicantPassportNumber"
@@ -623,8 +603,8 @@
                        type="text">
               </div>
               <div class="col-md-6 form-group">
-                <label for="applicantPassportIssuedPlace"><b>Place of
-                  issue</b></label>
+                <label for="applicantPassportIssuedPlace"><strong>Place of
+                  issue</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPassportIssuedPlace"
                        id="applicantPassportIssuedPlace"
@@ -636,7 +616,7 @@
             <div class="row">
               <div class="col-md-6 form-group">
                 <label for="applicantPassportIssuedDate">
-                  <b>Applicant Passport Issued Date</b></label>
+                  <strong>Applicant Passport Issued Date</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPassportIssuedDate"
                        id="applicantPassportIssuedDate"
@@ -646,7 +626,7 @@
               </div>
               <div class="col-md-6 form-group">
                 <label for="applicantPassportExpireDate">
-                  <b>Applicant Passport Expire Date</b>
+                  <strong>Applicant Passport Expire Date</strong>
                 </label>
                 <input class="form-control form-control-error rounded"
                        formControlName="applicantPassportExpireDate"
@@ -658,14 +638,14 @@
             </div>
             <!-- END ROW -->
             <div class="box-header with-border">
-              <h5 class="box-title title"><b>Employment Details</b></h5>
+              <h5 class="box-title title"><strong>Employment Details</strong></h5>
               <hr/>
             </div>
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-4 form-group">
                 <label for="{{'employmentDetail'+applicantIndex}}">
-                  <b>Employment Details</b>
+                  <strong>Employment Details</strong>
                 </label>
                 <div class="row ml-2">
                   <nb-radio-group class="col-md-4 d-contents form-control"
@@ -684,7 +664,7 @@
                   [hidden]="applicantDetail.get('employedDetailRadio').value !== 'Salaried'"
                   class="col-md-6 form-group">
                 <label for="{{'salariedEmployedWith'+applicantIndex}}">
-                  <b>Salaried Employed with:</b>
+                  <strong>Salaried Employed with:</strong>
                 </label>
                 <div class="row ml-2">
                   <nb-radio-group class="col-md-8 d-contents form-control"
@@ -718,7 +698,7 @@
                   [hidden]="applicantDetail.get('employedDetailRadio').value !== 'Self Employed'"
                   class="col-md-6 form-group">
                 <label for="{{'selfEmployedWith'+applicantIndex}}">
-                  <b>Self employed with:</b>
+                  <strong>Self employed with:</strong>
                 </label>
                 <div class="row ml-2">
                   <nb-radio-group class="col-md-8 d-contents form-control"
@@ -753,7 +733,7 @@
             <!-- END ROW -->
 
             <div class="box-header with-border">
-              <h5 class="box-title title"><b>Occupational Details</b></h5>
+              <h5 class="box-title title"><strong>Occupational Details</strong></h5>
               <hr/>
             </div>
             <div *ngFor="let occupation of applicantDetail['controls'].occupationDetails['controls'];
@@ -764,8 +744,8 @@
                 <div class="row">
                   <div class="col-md-10">
                     <div class="box-header with-border">
-                      <h5 class="box-title title"><b>{{occupationIndex + 1}}.
-                        Occupation</b></h5>
+                      <h5 class="box-title title"><strong>{{occupationIndex + 1}}.
+                        Occupation</strong></h5>
                     </div>
                   </div>
                   <div class="text-right col-md-2">
@@ -781,8 +761,8 @@
                 <!-- START ROW -->
                 <div class="row">
                   <div class="col-md-4 form-group">
-                    <label for="nameOfOrganization"><b>Name of
-                      Organization</b></label>
+                    <label for="nameOfOrganization"><strong>Name of
+                      Organization</strong></label>
                     <input class="form-control form-control-error rounded"
                            formControlName="nameOfOrganization"
                            id="nameOfOrganization"
@@ -791,7 +771,7 @@
                            type="text">
                   </div>
                   <div class="col-md-4 form-group">
-                    <label for="organizationAddress"><b>Address</b></label>
+                    <label for="organizationAddress"><strong>Address</strong></label>
                     <input class="form-control form-control-error rounded"
                            formControlName="organizationAddress"
                            id="organizationAddress"
@@ -800,8 +780,8 @@
                            type="text">
                   </div>
                   <div class="col-md-4 form-group">
-                    <label for="organizationTelephone"><b>Telephone
-                      Number</b></label>
+                    <label for="organizationTelephone"><strong>Telephone
+                      Number</strong></label>
                     <input class="form-control form-control-error rounded"
                            formControlName="organizationTelephone"
                            id="organizationTelephone"
@@ -814,8 +794,8 @@
                 <!-- START ROW -->
                 <div class="row">
                   <div class="col-md-4 form-group">
-                    <label for="organizationBusiness"><b>Nature of
-                      Business</b></label>
+                    <label for="organizationBusiness"><strong>Nature of
+                      Business</strong></label>
                     <input class="form-control form-control-error rounded"
                            formControlName="organizationBusiness"
                            id="organizationBusiness"
@@ -825,7 +805,7 @@
                   </div>
                   <div class="col-md-4 form-group">
                     <label
-                        for="applicantDesignation"><b>Designation</b></label>
+                        for="applicantDesignation"><strong>Designation</strong></label>
                     <input class="form-control form-control-error rounded"
                            formControlName="applicantDesignation"
                            id="applicantDesignation"
@@ -835,7 +815,7 @@
                   </div>
                   <div class="col-md-4 form-group">
                     <label for="annualIncomeFromOrganization">
-                      <b>Estimated Annual Income</b>
+                      <strong>Estimated Annual Income</strong>
                     </label>
                     <input class="form-control form-control-error rounded"
                            formControlName="annualIncomeFromOrganization"
@@ -858,7 +838,7 @@
             <div class="row">
               <div class="col-md-6 form-group">
                 <label for="{{'haveAccountInOtherBank'+applicantIndex}}">
-                  <b>Have Account In Other Bank</b>
+                  <strong>Have Account In Other Bank</strong>
                 </label>
                 <div class="row ml-2">
                   <nb-radio-group class="col-md-4 d-contents form-control"
@@ -873,7 +853,7 @@
               <div
                   [hidden]="applicantDetail.get('haveAccountInOtherBank').value !== 'true'"
                   class="col-md-6 form-group">
-                <label for="accountInOtherBankName"><b>Bank Name</b></label>
+                <label for="accountInOtherBankName"><strong>Bank Name</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="accountInOtherBankName"
                        id="accountInOtherBankName" name="accountInOtherBankName"
@@ -885,8 +865,8 @@
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-12 form-group">
-                <label for="otherIncomeSource"><b>Other Source of
-                  Income</b></label>
+                <label for="otherIncomeSource"><strong>Other Source of
+                  Income</strong></label>
                 <input class="form-control form-control-error rounded"
                        formControlName="otherIncomeSource"
                        id="otherIncomeSource"
@@ -925,8 +905,8 @@
                  class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="pepName"><b>Please specify the name of
-                    PEP</b></label>
+                  <label for="pepName"><strong>Please specify the name of
+                    PEP</strong></label>
                   <input class="form-control form-control-error rounded"
                          formControlName="pepName"
                          id="pepName"
@@ -937,7 +917,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label
-                      for="pepRelationWithApplicant"><b>Designation/Position</b></label>
+                      for="pepRelationWithApplicant"><strong>Designation/Position</strong></label>
                   <input class="form-control form-control-error rounded"
                          formControlName="pepRelationWithApplicant"
                          id="pepRelationWithApplicant"
@@ -1109,7 +1089,7 @@
       <!-- START ROW -->
       <div class="row">
         <div class="col-md-6 form-group">
-          <label for="nomineeRadio"><b>Have Nominee</b></label>
+          <label for="nomineeRadio"><strong>Have Nominee</strong></label>
           <div class="row ml-2">
             <nb-radio-group class="col-md-4 d-contents form-control"
                             formControlName="nomineeRadio"
@@ -1121,7 +1101,7 @@
           </div>
         </div>
         <div class="col-md-6 form-group">
-          <label for="beneficiaryRadio"><b>Have Beneficiary</b></label>
+          <label for="beneficiaryRadio"><strong>Have Beneficiary</strong></label>
           <div class="row ml-2">
             <nb-radio-group class="col-md-4 d-contents form-control"
                             formControlName="beneficiaryRadio"
@@ -1142,7 +1122,7 @@
         <!-- START ROW -->
         <div class="row">
           <div class="col-md-4 form-group">
-            <label for="nomineeName"><b>Nominee Name</b></label>
+            <label for="nomineeName"><strong>Nominee Name</strong></label>
             <input class="form-control form-control-error rounded"
                    formControlName="nomineeName"
                    id="nomineeName"
@@ -1150,14 +1130,14 @@
                    type="text">
           </div>
           <div class="col-md-4 form-group">
-            <label for="relationWithNominee"><b>Relation With Nominee</b></label>
+            <label for="relationWithNominee"><strong>Relation With Nominee</strong></label>
             <input class="form-control form-control-error rounded"
                    formControlName="relationWithNominee" id="relationWithNominee"
                    placeholder="Relation With Nominee" required
                    type="text">
           </div>
           <div class="col-md-4 form-group">
-            <label for="nomineeDateOfBirth"><b>Nominee Date of Birth</b></label>
+            <label for="nomineeDateOfBirth"><strong>Nominee Date of Birth</strong></label>
             <input class="form-control form-control-error rounded"
                    formControlName="nomineeDateOfBirth" id="nomineeDateOfBirth"
                    required type="date">
@@ -1167,15 +1147,15 @@
         <!-- START ROW -->
         <div class="row">
           <div class="col-md-4 form-group">
-            <label for="nomineeContactNumber"><b>Nominee Contact Number</b></label>
+            <label for="nomineeContactNumber"><strong>Nominee Contact Number</strong></label>
             <input class="form-control form-control-error rounded"
                    formControlName="nomineeContactNumber" id="nomineeContactNumber"
                    placeholder="Nominee Contact Number" required
                    type="text">
           </div>
           <div class="col-md-4 form-group">
-            <label for="nomineePermanentAddress"><b>Nominee Permanent
-              Address</b></label>
+            <label for="nomineePermanentAddress"><strong>Nominee Permanent
+              Address</strong></label>
             <input class="form-control form-control-error rounded"
                    formControlName="nomineePermanentAddress"
                    id="nomineePermanentAddress"
@@ -1183,8 +1163,8 @@
                    type="text">
           </div>
           <div class="col-md-4 form-group">
-            <label for="nomineePresentAddress"><b>Nominee Present
-              Address</b></label>
+            <label for="nomineePresentAddress"><strong>Nominee Present
+              Address</strong></label>
             <input class="form-control form-control-error rounded"
                    formControlName="nomineePresentAddress"
                    id="nomineePresentAddress"
@@ -1196,7 +1176,7 @@
         <!-- START ROW -->
         <div class="row">
           <div class="col-md-4 form-group">
-            <label for="nomineeCitizenshipNumber"><b>Citizenship Number</b></label>
+            <label for="nomineeCitizenshipNumber"><strong>Citizenship Number</strong></label>
             <input class="form-control form-control-error rounded"
                    formControlName="nomineeCitizenshipNumber"
                    id="nomineeCitizenshipNumber"
@@ -1204,8 +1184,8 @@
                    type="text">
           </div>
           <div class="col-md-4 form-group">
-            <label for="nomineeCitizenshipIssueAddress"><b>Citizenship Issued
-              Address</b></label>
+            <label for="nomineeCitizenshipIssueAddress"><strong>Citizenship Issued
+              Address</strong></label>
             <input class="form-control form-control-error rounded"
                    formControlName="nomineeCitizenshipIssueAddress"
                    id="nomineeCitizenshipIssueAddress"
@@ -1223,15 +1203,15 @@
         <!-- START ROW -->
         <div class="row">
           <div class="col-md-4 form-group">
-            <label for="beneficiaryName"><b>Beneficiary Name</b></label>
+            <label for="beneficiaryName"><strong>Beneficiary Name</strong></label>
             <input class="form-control form-control-error rounded"
                    formControlName="beneficiaryName" id="beneficiaryName"
                    placeholder="Beneficiary Name" required
                    type="text">
           </div>
           <div class="col-md-4 form-group">
-            <label for="relationWithBeneficiary"><b>Relation With
-              Beneficiary</b></label>
+            <label for="relationWithBeneficiary"><strong>Relation With
+              Beneficiary</strong></label>
             <input class="form-control form-control-error rounded"
                    formControlName="relationWithBeneficiary"
                    id="relationWithBeneficiary"
@@ -1239,8 +1219,8 @@
                    type="text">
           </div>
           <div class="col-md-4 form-group">
-            <label for="beneficiaryDateOfBirth"><b>Beneficiary Date of
-              Birth</b></label>
+            <label for="beneficiaryDateOfBirth"><strong>Beneficiary Date of
+              Birth</strong></label>
             <input class="form-control form-control-error rounded"
                    formControlName="beneficiaryDateOfBirth"
                    id="beneficiaryDateOfBirth"
@@ -1251,7 +1231,7 @@
         <!-- START ROW -->
         <div class="row">
           <div class="col-md-4 form-group">
-            <label for="beneficiaryContactNumber"><b>Beneficiary Contact Number</b></label>
+            <label for="beneficiaryContactNumber"><strong>Beneficiary Contact Number</strong></label>
             <input class="form-control form-control-error rounded"
                    formControlName="beneficiaryContactNumber"
                    id="beneficiaryContactNumber"
@@ -1259,16 +1239,16 @@
                    type="text">
           </div>
           <div class="col-md-4 form-group">
-            <label for="beneficiaryAddress"><b>Beneficiary Permanent
-              Address</b></label>
+            <label for="beneficiaryAddress"><strong>Beneficiary Permanent
+              Address</strong></label>
             <input class="form-control form-control-error rounded"
                    formControlName="beneficiaryAddress" id="beneficiaryAddress"
                    placeholder="Beneficiary Permanent Address" required
                    type="text">
           </div>
           <div class="col-md-4 form-group">
-            <label for="beneficiaryPresentAddress"><b>Beneficiary Present
-              Address</b></label>
+            <label for="beneficiaryPresentAddress"><strong>Beneficiary Present
+              Address</strong></label>
             <input class="form-control form-control-error rounded"
                    formControlName="beneficiaryPresentAddress"
                    id="beneficiaryPresentAddress"
@@ -1280,8 +1260,8 @@
         <!-- START ROW -->
         <div class="row">
           <div class="col-md-4 form-group">
-            <label for="beneficiaryCitizenshipNumber"><b>Citizenship
-              Number</b></label>
+            <label for="beneficiaryCitizenshipNumber"><strong>Citizenship
+              Number</strong></label>
             <input class="form-control form-control-error rounded"
                    formControlName="beneficiaryCitizenshipNumber"
                    id="beneficiaryCitizenshipNumber"
@@ -1289,8 +1269,8 @@
                    type="text">
           </div>
           <div class="col-md-4 form-group">
-            <label for="beneficiaryCitizenshipIssueAddress"><b>Citizenship Issued
-              Address</b></label>
+            <label for="beneficiaryCitizenshipIssueAddress"><strong>Citizenship Issued
+              Address</strong></label>
             <input class="form-control form-control-error rounded"
                    formControlName="beneficiaryCitizenshipIssueAddress"
                    id="beneficiaryCitizenshipIssueAddress"
@@ -1307,8 +1287,8 @@
       <!-- START ROW -->
       <div class="row">
         <div class="col-md-6 form-group">
-          <label for="annualTurnOver"><b>Expected Annual Turnover In
-            Account</b></label>
+          <label for="annualTurnOver"><strong>Expected Annual Turnover In
+            Account</strong></label>
           <input class="form-control form-control-error rounded"
                  formControlName="annualTurnOver"
                  id="annualTurnOver"
@@ -1317,7 +1297,7 @@
         </div>
         <div class="col-md-6 form-group">
           <label for="annualTransaction">
-            <b>Estimated Number of Annual Transaction In Account</b>
+            <strong>Estimated Number of Annual Transaction In Account</strong>
           </label>
           <input class="form-control form-control-error rounded"
                  formControlName="annualTransaction" id="annualTransaction"
@@ -1334,7 +1314,7 @@
       <!-- START ROW -->
       <div class="row">
         <div class="col-md-4 form-group">
-          <label for="accountStatementRadio"><b>Account Statement</b></label>
+          <label for="accountStatementRadio"><strong>Account Statement</strong></label>
           <div class="row ml-2">
             <nb-radio-group class="col-md-4 d-contents form-control"
                             formControlName="accountStatementRadio"
@@ -1347,8 +1327,8 @@
         </div>
         <div [hidden]="openingAccount.get('accountStatementRadio').value !== 'true'"
              class="col-md-4 form-group">
-          <label for="accountStatementFrequencyRadio"><b>Statement
-            Frequency</b></label>
+          <label for="accountStatementFrequencyRadio"><strong>Statement
+            Frequency</strong></label>
           <div class="row ml-2">
             <nb-radio-group class="col-md-4 d-contents form-control"
                             formControlName="accountStatementFrequencyRadio"
@@ -1362,7 +1342,7 @@
         </div>
         <div [hidden]="openingAccount.get('accountStatementRadio').value !== 'true'"
              class="col-md-4 form-group">
-          <label for="statementMode"><b>Statement Mode</b></label>
+          <label for="statementMode"><strong>Statement Mode</strong></label>
           <div class="row ml-2">
             <nb-radio-group class="col-md-4 d-contents form-control"
                             formControlName="statementMode" id="statementMode"
@@ -1380,7 +1360,7 @@
       <!-- START ROW -->
       <div class="row">
         <div class="col-md-4 form-group">
-          <label for="debitCardRadio"><b>Debit Card</b></label>
+          <label for="debitCardRadio"><strong>Debit Card</strong></label>
           <div class="row ml-2">
             <nb-radio-group class="col-md-4 d-contents form-control"
                             formControlName="debitCardRadio"
@@ -1392,7 +1372,7 @@
           </div>
         </div>
         <div class="col-md-4 form-group">
-          <label for="internetBankingRadio"><b>Internet Banking</b></label>
+          <label for="internetBankingRadio"><strong>Internet Banking</strong></label>
           <div class="row ml-2">
             <nb-radio-group class="col-md-4 d-contents form-control"
                             formControlName="internetBankingRadio"
@@ -1404,7 +1384,7 @@
           </div>
         </div>
         <div class="col-md-4 form-group">
-          <label for="mobileBankingRadio"><b>Mobile Banking</b></label>
+          <label for="mobileBankingRadio"><strong>Mobile Banking</strong></label>
           <div class="row ml-2">
             <nb-radio-group class="col-md-4 d-contents form-control"
                             formControlName="mobileBankingRadio"
@@ -1426,7 +1406,7 @@
       <!-- START ROW -->
       <div class="row">
         <div class="col-md-12">
-          <p><b>Documents</b></p>
+          <p><strong>Documents</strong></p>
           <table class="table table-condensed table-bordered table-responsive-md">
             <thead>
             <tr>
