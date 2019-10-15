@@ -232,6 +232,22 @@ export class OpenOpeningComponentComponent implements OnInit {
                         }
                     );
                 }
+                if (!ObjectUtil.isEmpty(customer.licenseImagePath)) {
+                    this.documents.push(
+                        {
+                            name: `Applicant: ${customer.firstName} ${customer.lastName} License`,
+                            url: customer.licenseImagePath
+                        }
+                    );
+                }
+                if (!ObjectUtil.isEmpty(customer.voterImagePath)) {
+                    this.documents.push(
+                        {
+                            name: `Applicant: ${customer.firstName} ${customer.lastName} Voter`,
+                            url: customer.voterImagePath
+                        }
+                    );
+                }
             });
         }
 }
@@ -277,10 +293,17 @@ export class OpenOpeningComponentComponent implements OnInit {
             applicantCitizenNumber: [undefined],
             applicantCitizenIssuedPlace: [undefined],
             applicantCitizenIssuedDate: [undefined],
+            applicantVoterNumber: [undefined],
+            applicantVoterIssuedPlace: [undefined],
+            applicantVoterIssuedDate: [undefined],
             applicantPassportNumber: [undefined],
             applicantPassportIssuedPlace: [undefined],
             applicantPassportIssuedDate: [undefined],
             applicantPassportExpireDate: [undefined],
+            applicantLicenseNumber: [undefined],
+            applicantLicenseIssuedPlace: [undefined],
+            applicantLicenseIssuedDate: [undefined],
+            applicantLicenseExpireDate: [undefined],
             employedDetailRadio: [undefined],
             applicantSalaried: [undefined],
             applicantSalariedOther: [undefined],
@@ -296,9 +319,11 @@ export class OpenOpeningComponentComponent implements OnInit {
             pepName: [undefined],
             pepRelationWithApplicant: [undefined],
             isConvictedForCrime: [undefined],
+            isMemberHighProfile: [undefined],
             crimeConvictedFor: [undefined],
             holdResidentialOfForeign: [undefined],
             holdResidentialOfForeignType: [undefined],
+            holdResidentialOf: [undefined],
             isUsResidentRadio: [undefined],
             isUsCitizenRadio: [undefined],
             isUsGreenCardHolderRadio: [undefined]
@@ -347,10 +372,17 @@ export class OpenOpeningComponentComponent implements OnInit {
                     applicantCitizenNumber: applicant.citizenNumber,
                     applicantCitizenIssuedPlace: applicant.citizenIssuedPlace,
                     applicantCitizenIssuedDate: this.formatDate(applicant.citizenIssuedDate),
+                    applicantVoterNumber: applicant.voterNumber,
+                    applicantVoterIssuedPlace: applicant.voterIssuedPlace,
+                    applicantVoterIssuedDate: this.formatDate(applicant.voterIssuedDate),
                     applicantPassportNumber: applicant.passportNumber,
                     applicantPassportIssuedPlace: applicant.passportIssuedPlace,
                     applicantPassportIssuedDate: this.formatDate(applicant.passportIssuedDate),
                     applicantPassportExpireDate: this.formatDate(applicant.passportExpireDate),
+                    applicantLicenseNumber: applicant.licenseNumber,
+                    applicantLicenseIssuedPlace: applicant.licenseIssuedPlace,
+                    applicantLicenseIssuedDate: this.formatDate(applicant.licenseIssuedDate),
+                    applicantLicenseExpireDate: this.formatDate(applicant.licenseExpireDate),
                     employedDetailRadio: 'Salaried',
                     applicantSalaried: applicant.salariedEmployedWith,
                     applicantSalariedOther: [undefined],
@@ -366,9 +398,11 @@ export class OpenOpeningComponentComponent implements OnInit {
                     pepName: applicant.pepName,
                     pepRelationWithApplicant: applicant.pepDesignation,
                     isConvictedForCrime: applicant.convictedOfCrime + '',
+                    isMemberHighProfile: applicant.highProfileRelation + '',
                     crimeConvictedFor: applicant.convictedCrime,
                     holdResidentialOfForeign: applicant.residentialPermitOfForeign + '',
                     holdResidentialOfForeignType: applicant.residentialPermitOfForeignType + '',
+                    holdResidentialOf: applicant.residentialPermitOfForeignCountryName,
                     isUsResidentRadio: applicant.usResident + '',
                     isUsCitizenRadio: applicant.usCitizen + '',
                     isUsGreenCardHolderRadio: applicant.greenCardHolder + ''
@@ -578,10 +612,17 @@ export class OpenOpeningComponentComponent implements OnInit {
             this.openingCustomer.citizenNumber = this.getApplicantDetail()[customerIndex].applicantCitizenNumber;
             this.openingCustomer.citizenIssuedPlace = this.getApplicantDetail()[customerIndex].applicantCitizenIssuedPlace;
             this.openingCustomer.citizenIssuedDate = this.getApplicantDetail()[customerIndex].applicantCitizenIssuedDate;
+            this.openingCustomer.voterNumber = this.getApplicantDetail()[customerIndex].applicantVoterNumber;
+            this.openingCustomer.voterIssuedPlace = this.getApplicantDetail()[customerIndex].applicantVoterIssuedPlace;
+            this.openingCustomer.voterIssuedDate = this.getApplicantDetail()[customerIndex].applicantVoterIssuedDate;
             this.openingCustomer.passportNumber = this.getApplicantDetail()[customerIndex].applicantPassportNumber;
             this.openingCustomer.passportIssuedPlace = this.getApplicantDetail()[customerIndex].applicantPassportIssuedPlace;
             this.openingCustomer.passportIssuedDate = this.getApplicantDetail()[customerIndex].applicantPassportIssuedDate;
             this.openingCustomer.passportExpireDate = this.getApplicantDetail()[customerIndex].applicantPassportExpireDate;
+            this.openingCustomer.licenseNumber = this.getApplicantDetail()[customerIndex].applicantLicenseNumber;
+            this.openingCustomer.licenseIssuedPlace = this.getApplicantDetail()[customerIndex].applicantLicenseIssuedPlace;
+            this.openingCustomer.licenseIssuedDate = this.getApplicantDetail()[customerIndex].applicantLicenseIssuedDate;
+            this.openingCustomer.licenseExpireDate = this.getApplicantDetail()[customerIndex].applicantLicenseExpireDate;
             // Family Details
             this.openingKyc = new OpeningKyc();
             this.openingKyc.customerRelatives = new Array<OpeningCustomerRelative>();
@@ -636,8 +677,10 @@ export class OpenOpeningComponentComponent implements OnInit {
             this.openingCustomer.pepDesignation = this.getApplicantDetail()[customerIndex].pepRelationWithApplicant;
             this.openingCustomer.convictedOfCrime = this.getApplicantDetail()[customerIndex].isConvictedForCrime;
             this.openingCustomer.convictedCrime = this.getApplicantDetail()[customerIndex].crimeConvictedFor;
+            this.openingCustomer.highProfileRelation = this.getApplicantDetail()[customerIndex].isMemberHighProfile;
             this.openingCustomer.residentialPermitOfForeign = this.getApplicantDetail()[customerIndex].holdResidentialOfForeign;
             this.openingCustomer.residentialPermitOfForeignType = this.getApplicantDetail()[customerIndex].holdResidentialOfForeignType;
+            this.openingCustomer.residentialPermitOfForeignCountryName = this.getApplicantDetail()[customerIndex].holdResidentialOf;
             // FATCA Declaration
             this.openingCustomer.usResident = this.getApplicantDetail()[customerIndex].isUsResidentRadio;
             this.openingCustomer.usCitizen = this.getApplicantDetail()[customerIndex].isUsCitizenRadio;
