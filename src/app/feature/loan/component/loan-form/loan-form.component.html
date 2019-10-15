@@ -6,7 +6,7 @@
     </nb-card-header>
     <nb-card-body>
         <section *ngIf="loanDocument && templateList">
-            <ngb-tabset #tabSet="ngbTabset" (tabChange)="tabChange($event)">
+            <ngb-tabset #tabSet="ngbTabset" (tabChange)="tabChange($event, tabSet)">
                 <ngb-tab *ngFor="let allList of templateList; let i = index" [title]="allList.name"
                          [id]="i.toString(10)">
                     <ng-template ngbTabContent *ngIf="allList.name == 'Customer Info'">

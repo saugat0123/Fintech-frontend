@@ -4,8 +4,6 @@ import {OpeningCustomer} from './openingCustomer';
 import {AccountPurpose} from './accountPurpose';
 
 export class OpeningAccount {
-  haveExistingAccountNo: boolean;
-  existingAccountNo: string;
   purposeOfAccount: AccountPurpose;
   currency: string;
   haveJoint: boolean;
