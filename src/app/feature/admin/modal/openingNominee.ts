@@ -1,3 +1,5 @@
+import {OpeningCustomerRelative} from './openingCustomerRelative';
+
 export class OpeningNominee {
   fullName: string;
   imagePath: string;
@@ -8,4 +10,5 @@ export class OpeningNominee {
   temporaryAddress: string;
   permanentAddress: string;
   contactNumber: string;
+  nomineeFamily: Array<OpeningCustomerRelative>;
 }
