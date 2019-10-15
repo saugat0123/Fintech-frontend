@@ -304,7 +304,7 @@ export class OpenOpeningComponentComponent implements OnInit {
             applicantPassportIssuedPlace: [undefined],
             applicantPassportIssuedDate: [undefined],
             applicantPassportExpireDate: [undefined],
-            applicantLicensenumber: [undefined],
+            applicantLicenseNumber: [undefined],
             applicantLicenseIssuedPlace: [undefined],
             applicantLicenseIssuedDate: [undefined],
             applicantLicenseExpireDate: [undefined],
