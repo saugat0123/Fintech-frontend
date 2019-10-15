@@ -281,6 +281,9 @@ export class OpenOpeningComponentComponent implements OnInit {
             applicantCitizenNumber: [undefined],
             applicantCitizenIssuedPlace: [undefined],
             applicantCitizenIssuedDate: [undefined],
+            applicantVoterNumber: [undefined],
+            applicantVoterIssuedPlace: [undefined],
+            applicantVoterIssuedDate: [undefined],
             applicantPassportNumber: [undefined],
             applicantPassportIssuedPlace: [undefined],
             applicantPassportIssuedDate: [undefined],
@@ -353,6 +356,9 @@ export class OpenOpeningComponentComponent implements OnInit {
                     applicantCitizenNumber: applicant.citizenNumber,
                     applicantCitizenIssuedPlace: applicant.citizenIssuedPlace,
                     applicantCitizenIssuedDate: this.formatDate(applicant.citizenIssuedDate),
+                    applicantVoterNumber: applicant.voterNumber,
+                    applicantVoterIssuedPlace: applicant.voterIssuedPlace,
+                    applicantVoterIssuedDate: this.formatDate(applicant.voterIssuedDate),
                     applicantPassportNumber: applicant.passportNumber,
                     applicantPassportIssuedPlace: applicant.passportIssuedPlace,
                     applicantPassportIssuedDate: this.formatDate(applicant.passportIssuedDate),
@@ -588,6 +594,9 @@ export class OpenOpeningComponentComponent implements OnInit {
             this.openingCustomer.citizenNumber = this.getApplicantDetail()[customerIndex].applicantCitizenNumber;
             this.openingCustomer.citizenIssuedPlace = this.getApplicantDetail()[customerIndex].applicantCitizenIssuedPlace;
             this.openingCustomer.citizenIssuedDate = this.getApplicantDetail()[customerIndex].applicantCitizenIssuedDate;
+            this.openingCustomer.voterNumber = this.getApplicantDetail()[customerIndex].applicantVoterNumber;
+            this.openingCustomer.voterIssuedPlace = this.getApplicantDetail()[customerIndex].applicantVoterIssuedPlace;
+            this.openingCustomer.voterIssuedDate = this.getApplicantDetail()[customerIndex].applicantVoterIssuedDate;
             this.openingCustomer.passportNumber = this.getApplicantDetail()[customerIndex].applicantPassportNumber;
             this.openingCustomer.passportIssuedPlace = this.getApplicantDetail()[customerIndex].applicantPassportIssuedPlace;
             this.openingCustomer.passportIssuedDate = this.getApplicantDetail()[customerIndex].applicantPassportIssuedDate;

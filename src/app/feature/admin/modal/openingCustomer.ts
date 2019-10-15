@@ -36,6 +36,10 @@ export class OpeningCustomer {
   citizenIssuedPlace: string;
   citizenIssuedDate: Date;
   citizenImagePath: string;
+  voterNumber: string;
+  voterIssuedPlace: string;
+  voterIssuedDate: Date;
+  voterImagePath: string;
   passportNumber: string;
   passportIssuedPlace: string;
   passportIssuedDate: Date;
