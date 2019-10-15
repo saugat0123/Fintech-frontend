@@ -111,6 +111,8 @@ export class OpenOpeningComponentComponent implements OnInit {
             nomineePresentAddress: [undefined],
             nomineeCitizenshipNumber: [undefined],
             nomineeCitizenshipIssueAddress: [undefined],
+            // Nominee Relatives
+            nomineeFamily: this.formBuilder.array([]),
             // Beneficiary
             beneficiaryRadio: [undefined],
             beneficiaryName: [undefined],
@@ -134,6 +136,8 @@ export class OpenOpeningComponentComponent implements OnInit {
             this.showAction = this.isApproval &&
                 this.openingForm.status === AccountStatus.name(AccountStatus.NEW_REQUEST);
             this.setOpeningForm(this.openingForm);
+            const nomineeFamilyArray = (this.openingForm.openingAccount.nominee.nomineeFamily) as Array<OpeningCustomerRelative>;
+            this.setNomineeFamily(nomineeFamilyArray);
         });
 
     }
@@ -166,6 +170,8 @@ export class OpenOpeningComponentComponent implements OnInit {
             nomineePresentAddress: openingForm.openingAccount.nominee.temporaryAddress,
             nomineeCitizenshipNumber: openingForm.openingAccount.nominee.citizenNumber,
             nomineeCitizenshipIssueAddress: openingForm.openingAccount.nominee.issuedPlace,
+            // Nominee Relatives
+            nomineeFamily: this.formBuilder.array([]),
             // Beneficiary
             beneficiaryRadio: openingForm.openingAccount.haveBeneficiary + '',
             beneficiaryName: openingForm.openingAccount.beneficiary.fullName,
@@ -250,7 +256,31 @@ export class OpenOpeningComponentComponent implements OnInit {
                 }
             });
         }
-}
+    }
+    setNomineeFamily(nomineeRelativeArray: Array<OpeningCustomerRelative>) {
+        const control = (this.openingAccount.get('nomineeFamily') as FormArray).controls;
+        nomineeRelativeArray.forEach( value => {
+            control.push(
+                this.formBuilder.group({
+                    relation: [value.customerRelation],
+                    relativeName: [value.customerRelativeName]
+                })
+            )
+        });
+    }
+
+    addNomineeRelative() {
+        (this.openingAccount.get('nomineeFamily') as FormArray).push(
+            this.formBuilder.group({
+                relation: [undefined],
+                relativeName: [undefined]
+            })
+        )
+    }
+
+    removeNomineeRelativeField(index) {
+        (this.openingAccount.get('nomineeFamily') as FormArray).removeAt(index);
+    }
 
     applicantDetailFormGroup(): FormGroup {
         return this.formBuilder.group({
@@ -714,6 +744,15 @@ export class OpenOpeningComponentComponent implements OnInit {
         this.openingNominee.temporaryAddress = this.openingAccount.get('nomineePresentAddress').value;
         this.openingNominee.citizenNumber = this.openingAccount.get('nomineeCitizenshipNumber').value;
         this.openingNominee.issuedPlace = this.openingAccount.get('nomineeCitizenshipIssueAddress').value;
+
+        // Nominee Relative
+        this.openingNominee.nomineeFamily = new Array<OpeningCustomerRelative>();
+        (this.openingAccount.get('nomineeFamily') as FormArray).controls.forEach( value => {
+            const nomineeRelativeObject = new OpeningCustomerRelative();
+            nomineeRelativeObject.customerRelation = value.get('relation').value;
+            nomineeRelativeObject.customerRelativeName = value.get('relativeName').value;
+            this.openingNominee.nomineeFamily.push(nomineeRelativeObject);
+        });
         this.account.nominee = this.openingNominee;
         // Required Service
         this.account.statement = this.openingAccount.get('accountStatementRadio').value;
