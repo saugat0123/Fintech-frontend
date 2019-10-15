@@ -94,8 +94,6 @@ export class OpenOpeningComponentComponent implements OnInit {
             // Opening Account
             accountType: [undefined],
             purposeOfAccount: [undefined],
-            haveExistingAccount: [undefined],
-            existingAccountNumber: [undefined],
             accountCurrency: [undefined],
             jointAccountRadio: [undefined],
             applicantDetail: this.formBuilder.array([
@@ -151,8 +149,6 @@ export class OpenOpeningComponentComponent implements OnInit {
             // Opening Account
             accountType: openingForm.accountType.id,
             purposeOfAccount: openingForm.openingAccount.purposeOfAccount.id,
-            haveExistingAccount: openingForm.openingAccount.haveExistingAccountNo + '',
-            existingAccountNumber: openingForm.openingAccount.existingAccountNo,
             accountCurrency: openingForm.openingAccount.currency,
             jointAccountRadio: openingForm.openingAccount.haveJoint + '',
             applicantDetail: this.formBuilder.array([
@@ -526,8 +522,6 @@ export class OpenOpeningComponentComponent implements OnInit {
         this.openingForm.fullName = this.getApplicantDetail()[0].customerFirstName + ' ' + this.getApplicantDetail()[0].customerMiddleName
             + ' ' + this.getApplicantDetail()[0].customerLastName;
         this.openingForm.requestedDate = this.openingAccount.get('requestedDate').value;
-        this.account.haveExistingAccountNo = this.openingAccount.get('haveExistingAccount').value;
-        this.account.existingAccountNo = this.openingAccount.get('existingAccountNumber').value;
         const accountType = new AccountType();
         accountType.id = this.openingAccount.get('accountType').value;
         this.openingForm.accountType = accountType;
