@@ -41,6 +41,7 @@ export class SocketService {
   openSocket() {
     this.isCustomSocketOpened = true;
     this.stompClient.subscribe(`/socket-publisher/${this.userId}/${this.userRoleId}`, (message) => {
+      // TODO close socket
       // this.toastService.show(new Alert(AlertType.SUCCESS, 'New notification received!!!'));
       this.notificationService.fetchNotifications();
     });
