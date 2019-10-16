@@ -28,27 +28,37 @@
             </select>
           </div>
           <div class="col-md-4 form-group">
-            <label for="purposeOfAccount"><strong>Purpose of Account</strong></label>
+            <label for="accountType"><strong>Account Type</strong></label>
             <div class="row ml-2">
-              <nb-radio-group class="col-md-4 d-contents form-control"
-                              formControlName="purposeOfAccount"
-                              id="purposeOfAccount" name="purposeOfAccount">
-                <nb-radio (click)="getAccountType(accountPurpose)"
-                          *ngFor="let accountPurpose of accountPurposeList"
-                          [value]="accountPurpose.id" class="form-group">
-                  {{accountPurpose.name}}
-                </nb-radio>
-              </nb-radio-group>
+              <div class="col-md-12">
+                <div id="accountType">
+                  <nb-radio-group
+                      formControlName="accountType"
+                      id="accountTypeList"
+                      name="personalTypeOfAccount"
+                      class="col-md-4 d-contents">
+                    <nb-radio (valueChange)="getAccountPurpose(accountType.id)"
+                              *ngFor="let accountType of accountTypeList"
+                              [value]="accountType.id">{{accountType.name}}</nb-radio>
+                  </nb-radio-group>
+                </div>
+                </div>
             </div>
           </div>
           <div class="col-md-4 form-group">
-            <label for="accountType"><strong>Account Type</strong></label>
-            <select class="custom-select" formControlName="accountType"
-                    id="accountType">
-              <option [ngValue]=null hidden>Select Account Type</option>
-              <option *ngFor="let accountType of accountTypeList"
-                      [ngValue]="accountType.id">{{accountType.name}}</option>
-            </select>
+            <label for="purposeOfAccount">Purpose of Account</label>
+            <div class="row ml-2">
+              <select class="custom-select"
+                  formControlName="purposeOfAccount"
+                  id="purposeOfAccount">
+                <option [ngValue]=null hidden>Select Account Purpose</option>
+                <option
+                    *ngFor="let accountPurpose of accountPurposeList"
+                    [ngValue]="accountPurpose.id">
+                  {{accountPurpose.name}}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
         <!-- END ROW -->
