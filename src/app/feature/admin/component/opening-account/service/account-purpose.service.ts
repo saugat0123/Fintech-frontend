@@ -3,7 +3,6 @@ import {BaseService} from '../../../../../@core/BaseService';
 import {HttpClient} from '@angular/common/http';
 import {AccountPurpose} from '../../../modal/accountPurpose';
 import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
-import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -19,9 +18,9 @@ export class AccountPurposeService extends BaseService<AccountPurpose> {
         return AccountPurposeService.API;
     }
 
-    getByAccountPurposeWithoutToken(): Observable<Object> {
-        const api = `${this.getApi()}/all`;
-        const req = ApiUtils.getRequest(api);
+    getAccountPurposeByAccountType(accountTypeId: number) {
+        const url = `${this.getApi()}/accountType/${accountTypeId}`;
+        const req = ApiUtils.getRequest(url);
         return this.http.get(req.url);
     }
 
