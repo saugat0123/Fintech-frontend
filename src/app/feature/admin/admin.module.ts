@@ -64,6 +64,10 @@ import {EmailValidatorDirective} from '../../@core/directive/email-validator.dir
 import {RoleEditComponent} from './component/role-permission/list-role/role-edit/role-edit.component';
 import {EligibilitySummaryComponent} from './component/eligibility/eligibility-summary/eligibility-summary.component';
 import {CoreModule} from '../../@core/core.module';
+import {AccountTypeConfigComponent} from './component/opening-account/config/account-type-config/account-type-config.component';
+import {AccountPurposeConfigComponent} from './component/opening-account/config/account-purpose-config/account-purpose-config.component';
+import {AccountTypeFormComponent} from './component/opening-account/config/account-type-config/account-type-form/account-type-form.component';
+import {AccountPurposeFormComponent} from './component/opening-account/config/account-purpose-config/account-purpose-form/account-purpose-form.component';
 
 @NgModule({
     declarations: [
@@ -116,7 +120,11 @@ import {CoreModule} from '../../@core/core.module';
         EmailConfigurationComponent,
         EmailValidatorDirective,
         RoleEditComponent,
-        EligibilitySummaryComponent
+        EligibilitySummaryComponent,
+        AccountTypeConfigComponent,
+        AccountPurposeConfigComponent,
+        AccountTypeFormComponent,
+        AccountPurposeFormComponent
 
         // SecurityComponent
     ],
@@ -151,7 +159,9 @@ import {CoreModule} from '../../@core/core.module';
         TemplateAddModelComponent,
         RoleFormComponent,
         EligibilityDocumentViewComponent,
-        RoleEditComponent
+        RoleEditComponent,
+        AccountTypeFormComponent,
+        AccountPurposeFormComponent
     ]
 
 })

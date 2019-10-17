@@ -37,7 +37,7 @@
                       id="accountTypeList"
                       name="personalTypeOfAccount"
                       class="col-md-4 d-contents">
-                    <nb-radio (valueChange)="getAccountPurpose(accountType.id)"
+                    <nb-radio
                               *ngFor="let accountType of accountTypeList"
                               [value]="accountType.id">{{accountType.name}}</nb-radio>
                   </nb-radio-group>
