@@ -54,7 +54,7 @@ export class OpeningAccountComponent implements OnInit {
             other.toastService.show(new Alert(AlertType.ERROR, 'Error loading Account Status Count'));
             other.spinner = false;
         });
-        other.service.getPaginationWithSearchObject(other.searchObject, 1, 10)
+        other.service.getPaginationWithSearchObject(other.searchObject, other.page, 10)
         .subscribe((response: any) => {
                 other.openingForms = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);

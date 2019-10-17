@@ -65,14 +65,15 @@ export class OpenOpeningComponentComponent implements OnInit {
     ) {
     }
 
-    getAccountPurpose(accountTypeId: number) {
+    // NOTE: remove only if account type and account purpose is not related
+    /*getAccountPurpose(accountTypeId: number) {
         this.accountPurposeService.getAccountPurposeByAccountType(accountTypeId).subscribe((response: any) => {
             this.accountPurposeList = response.detail;
         }, error => {
             console.log(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to loan Account Purpose'));
         });
-    }
+    }*/
 
     ngOnInit() {
         this.isApproval = localStorage.getItem('roleType') === RoleType.APPROVAL &&
@@ -80,9 +81,21 @@ export class OpenOpeningComponentComponent implements OnInit {
         this.id = Number(this.activatedRoute.snapshot.queryParamMap.get('openingFormId'));
         this.accountTypeService.getAll().subscribe((response: any) => {
             this.accountTypeList = response.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Account Types.'));
+        });
+        this.accountPurposeService.getAll().subscribe((response: any) => {
+            this.accountPurposeList = response.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Account Purposes.'));
         });
         this.branchService.getAll().subscribe((response: any) => {
             this.branchList = response.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Branches.'));
         });
         this.openingAccount = this.formBuilder.group({
             // OpeningForm
@@ -189,7 +202,7 @@ export class OpenOpeningComponentComponent implements OnInit {
             internetBankingRadio: openingForm.openingAccount.internetBanking + '',
             mobileBankingRadio: openingForm.openingAccount.mobileBanking + '',
         });
-        this.getAccountPurpose(openingForm.accountType.id);
+        // this.getAccountPurpose(openingForm.accountType.id);
         this.openingAccount.setControl('applicantDetail', this.setApplicantDetailFormGroup
         (this.openingForm.openingAccount.openingCustomers));
         // documents array
