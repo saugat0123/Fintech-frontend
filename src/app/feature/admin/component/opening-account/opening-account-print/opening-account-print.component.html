@@ -8,11 +8,11 @@
                 <!-- START ROW -->
                 <div class="row form-group">
                     <div class="col-md-8">
-                        <label for="branch"><b>Bank Branch:- </b></label>
+                        <label for="branch"><strong>Bank Branch:- </strong></label>
                         <span id="branch"> {{openingForm?.branch?.name}}</span>
                     </div>
                     <div class="offset-sm-1">
-                        <label for="requestedDate"><b>Requested Date:- </b></label>
+                        <label for="requestedDate"><strong>Requested Date:- </strong></label>
                         <span id="requestedDate"> {{openingForm?.requestedDate | date}}</span>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                 <!-- START ROW -->
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <label for="purposeOfAccount"><b>Purpose of Account:- </b></label>
+                        <label for="purposeOfAccount"><strong>Purpose of Account:- </strong></label>
                         <span id="purposeOfAccount"> {{openingForm?.openingAccount?.purposeOfAccount?.name}}</span>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                 <!-- START ROW -->
                 <div class="row form-group">
                     <div class="col-md-8">
-                        <label for="accountType"><b>Account Type:- </b></label>
+                        <label for="accountType"><strong>Account Type:- </strong></label>
                         <span id="accountType"> {{openingForm?.accountType?.name}}</span>
                     </div>
                 </div>
@@ -36,15 +36,8 @@
                 <!-- START ROW -->
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="haveExistingAccount"><b>Have Existing Account:- </b></label>
-                        <span id="haveExistingAccount"> {{openingForm?.openingAccount?.haveExistingAccountNo === true ? 'Yes' : 'No'}}</span>
-                    </div>
-                    <div class="col-md-4" [hidden]="openingForm?.openingAccount?.haveExistingAccountNo !== true">
-                        <span> {{openingForm?.openingAccount?.existingAccountNo}}</span>
-                    </div>
-                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="accountCurrency"><b>Currency Type:- </b></label>
+                            <label for="accountCurrency"><strong>Currency Type:- </strong></label>
                             <span id="accountCurrency"> {{openingForm?.openingAccount?.currency}}</span>
                         </div>
                     </div>
@@ -53,7 +46,7 @@
                 <!-- START ROW -->
                 <div class="row">
                     <div class="col-md-12">
-                        <label for="jointAccountRadio"><b>Joint Account:- </b></label>
+                        <label for="jointAccountRadio"><strong>Joint Account:- </strong></label>
                         <span id="jointAccountRadio"> {{openingForm?.openingAccount?.haveJoint === true ? 'Yes' : 'No'}}</span>
                     </div>
                 </div>
@@ -63,7 +56,7 @@
                     <!-- START ROW -->
                     <div class="row">
                         <div class="box-header with-border col-md-9">
-                            <h2 class="box-title title"><b>Applicant {{applicantIndex + 1}} Details</b></h2>
+                            <h2 class="box-title title"><strong>Applicant {{applicantIndex + 1}} Details</strong></h2>
                         </div>
                     </div>
                     <!-- END ROW -->
@@ -71,25 +64,25 @@
                     <div class="row">
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="customerTitle"><b>Customer Title:- </b></label>
+                                <label for="customerTitle"><strong>Customer Title:- </strong></label>
                                 <span id="customerTitle"> {{applicantDetail?.title}}</span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="customerFirstName"><b>Customer First Name:- </b></label>
+                                <label for="customerFirstName"><strong>Customer First Name:- </strong></label>
                                 <span id="customerFirstName"> {{applicantDetail?.firstName}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="customerMiddleName"><b>Customer Middle Name:- </b></label>
+                                <label for="customerMiddleName"><strong>Customer Middle Name:- </strong></label>
                                 <span id="customerMiddleName"> {{applicantDetail?.middleName}}</span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="customerLastName"><b>Customer Last Name:- </b></label>
+                                <label for="customerLastName"><strong>Customer Last Name:- </strong></label>
                                 <span id="customerLastName"> {{applicantDetail?.lastName}}</span>
                             </div>
                         </div>
@@ -100,21 +93,21 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantMaritalStatus">
-                                    <b>Applicant's Marital Status:- </b>
+                                    <strong>Applicant's Marital Status:- </strong>
                                 </label>
                                 <span id="applicantMaritalStatus"> {{applicantDetail?.maritalStatus}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantGender"><b>Applicant Gender:- </b></label>
+                                <label for="applicantGender"><strong>Applicant Gender:- </strong></label>
                                 <span id="applicantGender"> {{applicantDetail?.gender}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantEducationalQualification">
-                                    <b>Education Qualification:- </b>
+                                    <strong>Education Qualification:- </strong>
                                 </label>
                                 <span id="applicantEducationalQualification"> {{applicantDetail?.education}}</span>
                             </div>
@@ -122,14 +115,14 @@
                     </div>
                     <!-- END ROW -->
                     <div class="box-header with-border">
-                        <h4 class="box-title title"><b>Permanent Address:- </b></h4>
+                        <h4 class="box-title title"><strong>Permanent Address:- </strong></h4>
                     </div>
                     <!-- START ROW -->
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantPermanentProvince">
-                                    <b>Applicant Permanent Province:- </b>
+                                    <strong>Applicant Permanent Province:- </strong>
                                 </label>
                                 <span id="applicantPermanentProvince"> {{applicantDetail?.permanentProvince}}</span>
                             </div>
@@ -137,7 +130,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantPermanentDistrict">
-                                    <b>Applicant Permanent District:- </b>
+                                    <strong>Applicant Permanent District:- </strong>
                                 </label>
                                 <span id="applicantPermanentDistrict"> {{applicantDetail?.permanentDistrict}}</span>
                             </div>
@@ -145,7 +138,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantPermanentMunicipalityOrVDC">
-                                    <b>Applicant Permanent Municipality/VDC:- </b></label>
+                                    <strong>Applicant Permanent Municipality/VDC:- </strong></label>
                                 <span id="applicantPermanentMunicipalityOrVDC"> {{applicantDetail?.permanentMunicipality}}</span>
                             </div>
                         </div>
@@ -155,20 +148,20 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantPermanentWard"><b>Applicant Permanent Ward:- </b></label>
+                                <label for="applicantPermanentWard"><strong>Applicant Permanent Ward:- </strong></label>
                                 <span id="applicantPermanentWard"> {{applicantDetail?.permanentWard}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantPermanentStreet"><b>Applicant Permanent Street:- </b></label>
+                                <label for="applicantPermanentStreet"><strong>Applicant Permanent Street:- </strong></label>
                                 <span id="applicantPermanentStreet"> {{applicantDetail?.permanentStreet}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantPermanentHouseNo">
-                                    <b>Applicant Permanent House Number:- </b>
+                                    <strong>Applicant Permanent House Number:- </strong>
                                     <span id="applicantPermanentHouseNo"> {{applicantDetail?.permanentHouseNumber}}</span>
                                 </label>
                             </div>
@@ -176,26 +169,26 @@
                     </div>
                     <!-- END ROW -->
                     <div class="box-header with-border">
-                        <h4 class="box-title title"><b>Present Address:- </b></h4>
+                        <h4 class="box-title title"><strong>Present Address:- </strong></h4>
                     </div>
                     <!-- START ROW -->
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantPresentProvince"><b>Applicant Present Province:- </b></label>
+                                <label for="applicantPresentProvince"><strong>Applicant Present Province:- </strong></label>
                                 <span id="applicantPresentProvince"> {{applicantDetail?.presentProvince}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantPresentDistrict"><b>Applicant Present District:- </b></label>
+                                <label for="applicantPresentDistrict"><strong>Applicant Present District:- </strong></label>
                                 <span id="applicantPresentDistrict"> {{applicantDetail?.presentDistrict}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantPresentMunicipalityOrVDC">
-                                    <b>Applicant Present Municipality/VDC:- </b>
+                                    <strong>Applicant Present Municipality/VDC:- </strong>
                                 </label>
                                 <span id="applicantPresentMunicipalityOrVDC"> {{applicantDetail?.presentMunicipality}}</span>
                             </div>
@@ -206,19 +199,19 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantPresentWard"><b>Applicant Present Ward:- </b></label>
+                                <label for="applicantPresentWard"><strong>Applicant Present Ward:- </strong></label>
                                 <span id="applicantPresentWard"> {{applicantDetail?.presentWard}}</span>
                             </div>
                         </div><div class="col-md-4">
                         <div class="form-group">
-                            <label for="applicantPresentStreet"><b>Applicant Present Street:- </b></label>
+                            <label for="applicantPresentStreet"><strong>Applicant Present Street:- </strong></label>
                             <span id="applicantPresentStreet"> {{applicantDetail?.presentStreet}}</span>
                         </div>
                     </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantPresentHouseNo">
-                                    <b>Applicant Present House Number:- </b>
+                                    <strong>Applicant Present House Number:- </strong>
                                 </label>
                                 <span id="applicantPresentHouseNo"> {{applicantDetail?.presentHouseNumber}}</span>
                             </div>
@@ -226,20 +219,20 @@
                     </div>
                     <!-- END ROW -->
                     <div class="box-header with-border">
-                        <h4 class="box-title title"><b>In case of residing in Rented House:- </b></h4>
+                        <h4 class="box-title title"><strong>In case of residing in Rented House:- </strong></h4>
                     </div>
                     <!-- START ROW -->
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="applicantLandLordName"><b>Applicant Land Lord Name:- </b></label>
+                                <label for="applicantLandLordName"><strong>Applicant Land Lord Name:- </strong></label>
                                 <span id="applicantLandLordName"> {{applicantDetail?.landLordName}}</span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="applicantLandLordContactNumber">
-                                    <b>Applicant Land Lord Contact Number:- </b>
+                                    <strong>Applicant Land Lord Contact Number:- </strong>
                                 </label>
                                 <span id="applicantLandLordContactNumber"> {{applicantDetail?.landLordContactNo}}</span>
                             </div>
@@ -247,25 +240,25 @@
                     </div>
                     <!-- END ROW -->
                     <div class="box-header with-border">
-                        <h4 class="box-title title"><b>Contact Number:- </b></h4>
+                        <h4 class="box-title title"><strong>Contact Number:- </strong></h4>
                     </div>
                     <!-- START ROW -->
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantResidentialContact"><b>Resident Contact Number:- </b></label>
+                                <label for="applicantResidentialContact"><strong>Resident Contact Number:- </strong></label>
                                 <span id="applicantResidentialContact"> {{applicantDetail?.residentialContactNo}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantOfficeContact"><b>Office Contact Number:- </b></label>
+                                <label for="applicantOfficeContact"><strong>Office Contact Number:- </strong></label>
                                 <span id="applicantOfficeContact"> {{applicantDetail?.officeContactNo}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantMobileContact"><b>Mobile Number:- </b></label>
+                                <label for="applicantMobileContact"><strong>Mobile Number:- </strong></label>
                                 <span id="applicantMobileContact"> {{applicantDetail?.mobileContactNo}}</span>
                             </div>
                         </div>
@@ -275,14 +268,14 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="applicantEmail"><b>Resident Email:- </b></label>
+                                <label for="applicantEmail"><strong>Resident Email:- </strong></label>
                                 <span id="applicantEmail"> {{applicantDetail?.email}}</span>
                             </div>
                         </div>
                     </div>
                     <!-- END ROW -->
                     <div class="box-header with-border">
-                        <h4 class="box-title title"><b>Applicant Relative</b></h4>
+                        <h4 class="box-title title"><strong>Applicant Relative</strong></h4>
                     </div>
                     <div class="border-bottom border-dark m-4 row">
 
@@ -290,12 +283,12 @@
                                  *ngFor="let relative of applicantDetail?.kyc?.customerRelatives;
                           let relativeIndex = index">
                                 <div class="form-group">
-                                    <label for="applicantRelation"><b>{{relative?.customerRelation}}:-</b></label>
+                                    <label for="applicantRelation"><strong>{{relative?.customerRelation}}:-</strong></label>
                                     <span id="applicantRelation"> {{relative?.customerRelativeName}}</span>
                                 </div>
                             <!--<div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="applicantRelativeName"><b>Relative Name:- </b></label>
+                                    <label for="applicantRelativeName"><strong>Relative Name:- </strong></label>
                                     <span id="applicantRelativeName">{{relative?.customerRelativeName}}</span>
                                 </div>
                             </div>-->
@@ -303,25 +296,25 @@
                     </div>
 
                     <div class="box-header with-border">
-                        <h4 class="box-title title"><b>Applicant Identification</b></h4>
+                        <h4 class="box-title title"><strong>Applicant Identification</strong></h4>
                     </div>
                     <!-- START ROW -->
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantNationality"><b>Nationality:- </b></label>
+                                <label for="applicantNationality"><strong>Nationality:- </strong></label>
                                 <span id="applicantNationality"> {{applicantDetail?.nationality}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantDateOfBirth"><b>Date of Birth:- </b></label>
+                                <label for="applicantDateOfBirth"><strong>Date of Birth:- </strong></label>
                                 <span id="applicantDateOfBirth"> {{applicantDetail?.dateOfBirthAD | date}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantPanNumber"><b>Applicant PAN Number:- </b></label>
+                                <label for="applicantPanNumber"><strong>Applicant PAN Number:- </strong></label>
                                 <span id="applicantPanNumber"> {{applicantDetail?.panNo}}</span>
                             </div>
                         </div>
@@ -329,26 +322,26 @@
                     <!-- END ROW -->
 
                     <div class="box-header with-border">
-                        <h4 class="box-title title"><b>Citizenship Details</b></h4>
+                        <h4 class="box-title title"><strong>Citizenship Details</strong></h4>
                     </div>
                     <!-- START ROW -->
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantCitizenNumber"><b>Applicant Citizen Number:- </b></label>
+                                <label for="applicantCitizenNumber"><strong>Applicant Citizen Number:- </strong></label>
                                 <span id="applicantCitizenNumber"> {{applicantDetail?.citizenNumber}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantCitizenIssuedPlace"><b>Place of issue:- </b></label>
+                                <label for="applicantCitizenIssuedPlace"><strong>Place of issue:- </strong></label>
                                 <span id="applicantCitizenIssuedPlace"> {{applicantDetail?.citizenIssuedPlace}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantCitizenIssuedDate">
-                                    <b>Applicant Citizen Issued Date:- </b>
+                                    <strong>Applicant Citizen Issued Date:- </strong>
                                 </label>
                                 <span id="applicantCitizenIssuedDate"> {{applicantDetail?.citizenIssuedDate | date}}</span>
                             </div>
@@ -358,19 +351,19 @@
 
 
                     <div class="box-header with-border">
-                        <h4 class="box-title title"><b>Passport Details</b></h4>
+                        <h4 class="box-title title"><strong>Passport Details</strong></h4>
                     </div>
                     <!-- START ROW -->
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantPassportNumber"><b>Applicant Passport Number:- </b></label>
+                                <label for="applicantPassportNumber"><strong>Applicant Passport Number:- </strong></label>
                                 <span id="applicantPassportNumber"> {{applicantDetail?.passportNumber}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantPassportIssuedPlace"><b>Place of issue:- </b></label>
+                                <label for="applicantPassportIssuedPlace"><strong>Place of issue:- </strong></label>
                                 <span id="applicantPassportIssuedPlace"> {{applicantDetail?.passportIssuedPlace}}</span>
                             </div>
                         </div>
@@ -380,14 +373,14 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantPassportIssuedDate">
-                                    <b>Applicant Passport Issued Date:- </b></label>
+                                    <strong>Applicant Passport Issued Date:- </strong></label>
                                 <span id="applicantPassportIssuedDate"> {{applicantDetail?.passportIssuedDate | date}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantPassportExpireDate">
-                                    <b>Applicant Passport Expire Date:- </b>
+                                    <strong>Applicant Passport Expire Date:- </strong>
                                 </label>
                                 <span id="applicantPassportExpireDate"> {{applicantDetail?.passportExpireDate | date}}</span>
                             </div>
@@ -395,14 +388,14 @@
                     </div>
                     <!-- END ROW -->
                     <div class="box-header with-border">
-                        <h4 class="box-title title"><b>Employment Details</b></h4>
+                        <h4 class="box-title title"><strong>Employment Details</strong></h4>
                     </div>
                     <!-- START ROW -->
                     <div class="row" [hidden]="applicantDetail?.salariedEmployedWith === undefined">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="salariedEmployedWith">
-                                    <b>Salaried Employed with:- </b>
+                                    <strong>Salaried Employed with:- </strong>
                                 </label>
                                 <span id="salariedEmployedWith"> {{applicantDetail?.salariedEmployedWith}}</span>
                             </div>
@@ -414,7 +407,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="selfEmployedWith">
-                                    <b>Self Employed with:- </b>
+                                    <strong>Self Employed with:- </strong>
                                 </label>
                                 <span id="selfEmployedWith"> {{applicantDetail?.selfEmployedWith}}</span>
                             </div>
@@ -422,7 +415,7 @@
                     </div>
                     <!-- END ROW -->
                     <div class="box-header with-border">
-                        <h4 class="box-title title"><b>Occupational Details</b></h4>
+                        <h4 class="box-title title"><strong>Occupational Details</strong></h4>
                     </div>
                     <div class="border-bottom border-dark m-4"
                          *ngFor="let occupation of applicantDetail?.kyc?.occupationalDetails;
@@ -431,7 +424,7 @@
                         <div class="row">
                             <div class="col-md-10">
                                 <div class="box-header with-border">
-                                    <h5 class="box-title title"><b>{{occupationIndex + 1.}} Occupation</b></h5>
+                                    <h5 class="box-title title"><strong>{{occupationIndex + 1.}} Occupation</strong></h5>
                                 </div>
                             </div>
                         </div>
@@ -440,19 +433,19 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="nameOfOrganization"><b>Name of Organization:- </b></label>
+                                    <label for="nameOfOrganization"><strong>Name of Organization:- </strong></label>
                                     <span id="nameOfOrganization"> {{occupation?.nameOfOrganization}}</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="organizationAddress"><b>Address:- </b></label>
+                                    <label for="organizationAddress"><strong>Address:- </strong></label>
                                     <span id="organizationAddress"> {{occupation?.address}}</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="organizationTelephone"><b>Telephone Number:- </b></label>
+                                    <label for="organizationTelephone"><strong>Telephone Number:- </strong></label>
                                     <span id="organizationTelephone"> {{occupation?.telNo}}</span>
                                 </div>
                             </div>
@@ -462,20 +455,20 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="organizationBusiness"><b>Nature of Business:- </b></label>
+                                    <label for="organizationBusiness"><strong>Nature of Business:- </strong></label>
                                     <span id="organizationBusiness"> {{occupation?.natureOfBusiness}}</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="applicantDesignation"><b>Designation:- </b></label>
+                                    <label for="applicantDesignation"><strong>Designation:- </strong></label>
                                     <span id="applicantDesignation"> {{occupation?.designation}}</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="annualIncomeFromOrganization">
-                                        <b>Estimated Annual Income:- </b>
+                                        <strong>Estimated Annual Income:- </strong>
                                     </label>
                                     <span id="annualIncomeFromOrganization"> {{occupation?.estimatedAnnualIncome}}</span>
                                 </div>
@@ -487,13 +480,13 @@
                     <div class="row">
                         <div class="col-md-4 form-group">
                             <label for="haveAccountInOtherBank">
-                                <b>Have Account In Other Bank:- </b>
+                                <strong>Have Account In Other Bank:- </strong>
                             </label>
                             <span id="haveAccountInOtherBank"> {{applicantDetail?.accountInAnotherBank  === true ? 'Yes' : 'No'}}</span>
                         </div>
                         <div class="col-md-4 form-group"
                              [hidden]="applicantDetail?.accountInAnotherBank !== true">
-                            <label for="accountInOtherBankName"><b>Bank Name:- </b></label>
+                            <label for="accountInOtherBankName"><strong>Bank Name:- </strong></label>
                             <span id="accountInOtherBankName"> {{applicantDetail?.bankName}}</span>
                         </div>
                     </div>
@@ -502,14 +495,14 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="otherIncomeSource"><b>Other Source of Income:- </b></label>
+                                <label for="otherIncomeSource"><strong>Other Source of Income:- </strong></label>
                                 <span id="otherIncomeSource"> {{applicantDetail?.otherSourceOfIncome}}</span>
                             </div>
                         </div>
                     </div>
                     <!-- END ROW -->
                     <div class="box-header with-border">
-                        <h4 class="box-title title"><b>Declarative</b></h4>
+                        <h4 class="box-title title"><strong>Declarative</strong></h4>
                     </div>
                     <!-- START ROW -->
                     <div class="row form-group">
@@ -525,13 +518,13 @@
                     <div class="row" [hidden]="applicantDetail?.exposeToPep !== true">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="pepName"><b>Please specify the name of PEP:- </b></label>
+                                <label for="pepName"><strong>Please specify the name of PEP:- </strong></label>
                                 <span id="pepName"> {{applicantDetail?.pepName}}</span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="pepRelationWithApplicant"><b>Designation/Position:- </b></label>
+                                <label for="pepRelationWithApplicant"><strong>Designation/Position:- </strong></label>
                                 <span id="pepRelationWithApplicant"> {{applicantDetail?.pepDesignation}}</span>
                             </div>
                         </div>
@@ -612,7 +605,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="nomineeRadio"><b>Have Nominee:- </b></label>
+                            <label for="nomineeRadio"><strong>Have Nominee:- </strong></label>
                             <span id="nomineeRadio"> {{openingForm?.openingAccount?.haveNominee === true ? 'Yes' : 'No'}}</span>
                         </div>
                     </div>
@@ -620,25 +613,25 @@
                 <!-- END ROW -->
                 <div [hidden]="openingForm?.openingAccount?.haveNominee !== true">
                     <div class="box-header with-border">
-                        <h3 class="box-title title"><b>Applicant Nominee</b></h3>
+                        <h3 class="box-title title"><strong>Applicant Nominee</strong></h3>
                     </div>
                     <!-- START ROW -->
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="nomineeName"><b>Nominee Name:- </b></label>
+                                <label for="nomineeName"><strong>Nominee Name:- </strong></label>
                                 <span id="nomineeName"> {{openingForm?.openingAccount?.nominee?.fullName}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="relationWithNominee"><b>Relation With Nominee:- </b></label>
+                                <label for="relationWithNominee"><strong>Relation With Nominee:- </strong></label>
                                 <span id="relationWithNominee"> {{openingForm?.openingAccount?.nominee?.relationToMe}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="nomineeDateOfBirth"><b>Nominee Date of Birth:- </b></label>
+                                <label for="nomineeDateOfBirth"><strong>Nominee Date of Birth:- </strong></label>
                                 <span id="nomineeDateOfBirth"> {{openingForm?.openingAccount?.nominee?.dateOfBirth | date}}</span>
                             </div>
                         </div>
@@ -648,19 +641,19 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="nomineeContactNumber"><b>Nominee Contact Number:- </b></label>
+                                <label for="nomineeContactNumber"><strong>Nominee Contact Number:- </strong></label>
                                 <span id="nomineeContactNumber"> {{openingForm?.openingAccount?.nominee?.contactNumber}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="nomineePermanentAddress"><b>Nominee Permanent Address:- </b></label>
+                                <label for="nomineePermanentAddress"><strong>Nominee Permanent Address:- </strong></label>
                                 <span id="nomineePermanentAddress"> {{openingForm?.openingAccount?.nominee?.permanentAddress}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="nomineePresentAddress"><b>Nominee Present Address:- </b></label>
+                                <label for="nomineePresentAddress"><strong>Nominee Present Address:- </strong></label>
                                 <span id="nomineePresentAddress"> {{openingForm?.openingAccount?.nominee?.temporaryAddress}}</span>
                             </div>
                         </div>
@@ -670,13 +663,13 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="nomineeCitizenshipNumber"><b>Citizenship Number:- </b></label>
+                                <label for="nomineeCitizenshipNumber"><strong>Citizenship Number:- </strong></label>
                                 <span id="nomineeCitizenshipNumber"> {{openingForm?.openingAccount?.nominee?.citizenNumber}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="nomineeCitizenshipIssueAddress"><b>Citizenship Issued Address:- </b></label>
+                                <label for="nomineeCitizenshipIssueAddress"><strong>Citizenship Issued Address:- </strong></label>
                                 <span id="nomineeCitizenshipIssueAddress"> {{openingForm?.openingAccount?.nominee?.issuedPlace}}</span>
                             </div>
                         </div>
@@ -687,7 +680,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="beneficiaryRadio"><b>Have Beneficiary:- </b></label>
+                            <label for="beneficiaryRadio"><strong>Have Beneficiary:- </strong></label>
                             <span id="beneficiaryRadio"> {{openingForm?.openingAccount?.haveBeneficiary === true ? 'Yes' : 'No'}}</span>
                         </div>
                     </div>
@@ -695,25 +688,25 @@
                 <!-- END ROW -->
                 <div [hidden]="openingForm?.openingAccount?.haveBeneficiary !== true">
                     <div class="box-header with-border">
-                        <h3 class="box-title title"><b>Applicant Beneficiary Details</b></h3>
+                        <h3 class="box-title title"><strong>Applicant Beneficiary Details</strong></h3>
                     </div>
                     <!-- START ROW -->
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="beneficiaryName"><b>Beneficiary Name:- </b></label>
+                                <label for="beneficiaryName"><strong>Beneficiary Name:- </strong></label>
                                 <span id="beneficiaryName"> {{openingForm?.openingAccount?.beneficiary?.fullName}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="relationWithBeneficiary"><b>Relation With Beneficiary:- </b></label>
+                                <label for="relationWithBeneficiary"><strong>Relation With Beneficiary:- </strong></label>
                                 <span id="relationWithBeneficiary"> {{openingForm?.openingAccount?.beneficiary?.relationToMe}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="beneficiaryDateOfBirth"><b>Beneficiary Date of Birth:- </b></label>
+                                <label for="beneficiaryDateOfBirth"><strong>Beneficiary Date of Birth:- </strong></label>
                                 <span id="beneficiaryDateOfBirth"> {{openingForm?.openingAccount?.beneficiary?.dateOfBirth | date}}</span>
                             </div>
                         </div>
@@ -723,19 +716,19 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="beneficiaryContactNumber"><b>Beneficiary Contact Number:- </b></label>
+                                <label for="beneficiaryContactNumber"><strong>Beneficiary Contact Number:- </strong></label>
                                 <span id="beneficiaryContactNumber"> {{openingForm?.openingAccount?.beneficiary?.contactNumber}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="beneficiaryAddress"><b>Beneficiary Permanent Address:- </b></label>
+                                <label for="beneficiaryAddress"><strong>Beneficiary Permanent Address:- </strong></label>
                                 <span id="beneficiaryAddress"> {{openingForm?.openingAccount?.beneficiary?.permanentAddress}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="beneficiaryPresentAddress"><b>Beneficiary Present Address:- </b></label>
+                                <label for="beneficiaryPresentAddress"><strong>Beneficiary Present Address:- </strong></label>
                                 <span id="beneficiaryPresentAddress"> {{openingForm?.openingAccount?.beneficiary?.temporaryAddress}}</span>
                             </div>
                         </div>
@@ -745,14 +738,14 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="beneficiaryCitizenshipNumber"><b>Citizenship Number:- </b></label>
+                                <label for="beneficiaryCitizenshipNumber"><strong>Citizenship Number:- </strong></label>
                                 <span id="beneficiaryCitizenshipNumber"> {{openingForm?.openingAccount?.beneficiary?.citizenNumber}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="beneficiaryCitizenshipIssueAddress"><b>Citizenship Issued
-                                    Address:- </b></label>
+                                <label for="beneficiaryCitizenshipIssueAddress"><strong>Citizenship Issued
+                                    Address:- </strong></label>
                                 <span id="beneficiaryCitizenshipIssueAddress"> {{openingForm?.openingAccount?.beneficiary?.issuedPlace}}</span>
                             </div>
                         </div>
@@ -760,20 +753,20 @@
                     <!-- END ROW -->
                 </div>
                 <div class="box-header with-border">
-                    <h3 class="box-title title"><b>Account Transaction Details</b></h3>
+                    <h3 class="box-title title"><strong>Account Transaction Details</strong></h3>
                 </div>
                 <!-- START ROW -->
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="annualTurnOver"><b>Expected Annual Turnover In Account:- </b></label>
+                            <label for="annualTurnOver"><strong>Expected Annual Turnover In Account:- </strong></label>
                             <span id="annualTurnOver"> {{openingForm?.openingAccount?.annualTurnover}}</span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="annualTransaction">
-                                <b>Estimated Number of Annual Transaction In Account:- </b>
+                                <strong>Estimated Number of Annual Transaction In Account:- </strong>
                             </label>
                             <span id="annualTransaction"> {{openingForm?.openingAccount?.annualTransaction}}</span>
                         </div>
@@ -782,25 +775,25 @@
                 <!-- END ROW -->
 
                 <div class="box-header with-border">
-                    <h3 class="box-title title"><b>Service</b></h3>
+                    <h3 class="box-title title"><strong>Service</strong></h3>
                 </div>
                 <!-- START ROW -->
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="accountStatementRadio"><b>Account Statement:- </b></label>
+                            <label for="accountStatementRadio"><strong>Account Statement:- </strong></label>
                             <span id="accountStatementRadio"> {{openingForm?.openingAccount?.statement === true ? 'Yes' : 'No'}}</span>
                         </div>
                     </div>
                     <div class="col-md-4" [hidden]="openingForm?.openingAccount?.statement !== true">
                         <div class="form-group">
-                            <label for="accountStatementFrequencyRadio"><b>Statement Frequency:- </b></label>
+                            <label for="accountStatementFrequencyRadio"><strong>Statement Frequency:- </strong></label>
                             <span id="accountStatementFrequencyRadio"> {{openingForm?.openingAccount?.statementFrequency}}</span>
                         </div>
                     </div>
                     <div class="col-md-4" [hidden]="openingForm?.openingAccount?.statement !== true">
                         <div class="form-group">
-                            <label for="statementMode"><b>Statement Mode:- </b></label>
+                            <label for="statementMode"><strong>Statement Mode:- </strong></label>
                             <span id="statementMode"> {{openingForm?.openingAccount?.statementMode}}</span>
                         </div>
                     </div>
@@ -810,19 +803,19 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="debitCardRadio"><b>Debit Card:- </b></label>
+                            <label for="debitCardRadio"><strong>Debit Card:- </strong></label>
                             <span id="debitCardRadio"> {{openingForm?.openingAccount?.debitCard === true ? 'Yes' : 'No'}}</span>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="internetBankingRadio"><b>Internet Banking:- </b></label>
+                            <label for="internetBankingRadio"><strong>Internet Banking:- </strong></label>
                             <span id="internetBankingRadio"> {{openingForm?.openingAccount?.internetBanking === true ? 'Yes' : 'No'}}</span>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="mobileBankingRadio"><b>Mobile Banking:- </b></label>
+                            <label for="mobileBankingRadio"><strong>Mobile Banking:- </strong></label>
                             <span id="mobileBankingRadio"> {{openingForm?.openingAccount?.mobileBanking === true ? 'Yes' : 'No'}}</span>
                         </div>
                     </div>

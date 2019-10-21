@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
-import {NgbModal, NgbTabChangeEvent} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbTabChangeEvent, NgbTabset} from '@ng-bootstrap/ng-bootstrap';
 import {LoanDataHolder} from '../../model/loanData';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
@@ -186,11 +186,19 @@ export class LoanFormComponent implements OnInit {
         });
     }
 
-    tabChange(evt: NgbTabChangeEvent) {
+    tabChange(evt: NgbTabChangeEvent, tabSet: NgbTabset) {
         const selectedTabId = parseInt(evt.nextId, 10);
         this.nextTabId = selectedTabId + 1;
         this.previousTabId = selectedTabId - 1;
 
+        tabSet.tabs.forEach( templateListMember => {
+            if (Number(templateListMember.id) === Number(evt.activeId)) {
+                this.selectChild(templateListMember.title, true);
+            }
+            if (Number(templateListMember.id) === Number(evt.nextId)) {
+                this.selectedTab = templateListMember.title;
+            }
+        });
         console.log(this.nextTabId.toString());
     }
 
@@ -263,7 +271,8 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Customer Info' && action) {
             if (this.basicInfo.basicInfo.invalid) {
                 this.basicInfo.submitted = true;
-                return true;
+                // TODO: Add Validations in Tabs
+                // return true;
             }
             this.basicInfo.onSubmit();
             this.loanDocument.customerInfo = this.basicInfo.basicInfo.value;
@@ -274,7 +283,7 @@ export class LoanFormComponent implements OnInit {
                 this.dmsLoanFile.customerFormField.showFormField = true;
                 this.dmsLoanFile.companyFormField.showFormField = true;
                 this.dmsLoanFile.submitted = true;
-                return true;
+                // return true;
             }
             this.dmsLoanFile.onSubmit();
             this.loanDocument.dmsLoanFile = this.dmsLoanFile.loanDataHolder.dmsLoanFile;
@@ -286,7 +295,7 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Company Info' && action) {
             if (this.companyInfoComponent.companyInfoFormGroup.invalid) {
                 this.companyInfoComponent.submitted = true;
-                return true;
+                // return true;
             }
             this.companyInfoComponent.onSubmit();
             this.loanDocument.companyInfo = this.companyInfoComponent.companyInfo;
@@ -300,7 +309,7 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Proposal' && action) {
             if (this.proposalDetail.proposalForm.invalid) {
                 this.proposalDetail.submitted = true;
-                return true;
+                // return true;
             }
             this.proposalDetail.onSubmit();
             this.loanDocument.proposal = this.proposalDetail.proposalForm.value;
@@ -310,7 +319,7 @@ export class LoanFormComponent implements OnInit {
         if (name === 'CICL' && action) {
             if (this.cicl.ciclForm.invalid || this.cicl.insuranceForm.invalid) {
                 this.cicl.submitted = true;
-                return true;
+                // return true;
             }
             this.cicl.onSubmit();
             this.loanDocument.ciclList = this.cicl.ciclList;
@@ -328,6 +337,8 @@ export class LoanFormComponent implements OnInit {
             const siteVisitData = this.siteVisit.siteVisitData;
             this.loanDocument.siteVisit = siteVisitData;
         }
+
+        return false;
     }
 
 
