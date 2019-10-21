@@ -14,16 +14,23 @@ export class ProposalComponent implements OnInit {
     @Input() formValue: Proposal;
     proposalForm: FormGroup;
     proposal: Proposal = new Proposal();
-
+    formDataForEdit;
+    proposalData: Object;
     constructor(private fb: FormBuilder) {
     }
 
     ngOnInit() {
         this.buildForm();
-        this.proposalForm.get('interestRate').valueChanges.subscribe( value => this.proposalForm.get('premiumRateOnBaseRate')
-            .patchValue( Number(value) - Number(this.proposalForm.get('baseRate').value)));
-        this.proposalForm.get('baseRate').valueChanges.subscribe( value => this.proposalForm.get('premiumRateOnBaseRate')
-            .patchValue(Number(this.proposalForm.get('interestRate').value) - Number(value)));
+        // this.proposalForm.get('interestRate').valueChanges.subscribe( value => this.proposalForm.get('premiumRateOnBaseRate')
+        //     .patchValue( Number(value) - Number(this.proposalForm.get('baseRate').value)));
+        // this.proposalForm.get('baseRate').valueChanges.subscribe( value => this.proposalForm.get('premiumRateOnBaseRate')
+        //     .patchValue(Number(this.proposalForm.get('interestRate').value) - Number(value)));
+        //
+        if (this.formValue !== undefined) {
+            const  formValueString = JSON.stringify(this.formValue);
+            this.formDataForEdit = JSON.parse(formValueString);
+            // const formValue = this.formDataForEdit.data.proposalForm;
+        }
     }
 
     buildForm() {
@@ -69,7 +76,7 @@ export class ProposalComponent implements OnInit {
             // for prepaymentCharge Amount
             purposeOfSubmissionSummary: [this.formValue.purposeOfSubmissionSummary === undefined ? '' :
                 this.formValue.purposeOfSubmissionSummary, [Validators.required]],
-            // for commitmentFee Amount
+            // for commitmentFee Amount6523
             commitmentFee: [this.formValue.commitmentFee === undefined ? '' :
                 this.formValue.commitmentFee, [Validators.required]]
         });
@@ -78,7 +85,9 @@ export class ProposalComponent implements OnInit {
 
     onSubmit() {
         console.log(this.proposalForm);
-        this.proposal = this.proposalForm.value;
+        const proposalData = this.proposalForm.value;
+        // this.proposal = this.proposalForm.value;
+        this.proposalData = {data: proposalData};
     }
 
     get formControls() {
