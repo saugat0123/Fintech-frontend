@@ -33,6 +33,8 @@ import {environment} from '../../../environments/environment';
 import {SiteVisitComponent} from './component/loan-main-template/site-visit/site-visit.component';
 import {AgmCoreModule} from '@agm/core';
 import { LoanPullComponent } from './component/loan-pull/loan-pull.component';
+import { LoanOfferLetterComponent } from './loan-offer-letter/loan-offer-letter.component';
+import { OfferLetterActionComponent } from './loan-offer-letter/offer-letter-action/offer-letter-action.component';
 
 
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
@@ -61,6 +63,10 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         SiteVisitComponent,
 
         LoanPullComponent,
+
+        LoanOfferLetterComponent,
+
+        OfferLetterActionComponent,
     ],
     imports: [
         ThemeModule,
