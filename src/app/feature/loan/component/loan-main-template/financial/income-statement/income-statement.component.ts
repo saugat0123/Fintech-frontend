@@ -19,8 +19,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.buildIncomeStatementForm();
-        if (this.formData['data'].incomeStatementData !== undefined) {
-            const incomeStatementFormData = this.formData['data'].incomeStatementData;
+        if (this.formData['incomeStatementData'] !== undefined) {
+            const incomeStatementFormData = this.formData['incomeStatementData'];
 
             this.setTotalSalesRevenue(incomeStatementFormData.totalSalesRevenue);
             this.setTotalSalesSubCategory(incomeStatementFormData.totalSalesSubCategory);
@@ -159,11 +159,11 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
         const netProfitTransferredToBalanceSheet = (this.incomeStatementForm.get('netProfitTransferredToBalanceSheet') as FormArray)
             .controls[index] as FormGroup;
         // Balance Sheet variable--
-        const balanceSheet = this.formData['data'].balanceSheetData;
+        const balanceSheet = this.formData['balanceSheetData'];
         // Cash Flow Statement variable--
-        const cashFlowStatement = this.formData['data'].cashFlowStatementData;
+        const cashFlowStatement = this.formData['cashFlowStatementData'];
         // KeyIndicators variable--
-        const keyIndicators = this.formData['data'].keyIndicatorsData;
+        const keyIndicators = this.formData['keyIndicatorsData'];
 
         switch (headingTitle) {
             case 'totalSalesRevenue':
@@ -864,6 +864,6 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.formData['data'].incomeStatementData = this.incomeStatementForm.value;
+        this.formData['incomeStatementData'] = this.incomeStatementForm.value;
     }
 }

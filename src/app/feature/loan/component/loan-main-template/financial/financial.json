@@ -1,5 +1,4 @@
 {
-  "data": {
     "fiscalYear": [],
     "initialForm": {},
     "incomeStatementData": {
@@ -256,5 +255,4 @@
       "justificationKeyIndicators": ""
     },
     "brr": {}
-  }
 }

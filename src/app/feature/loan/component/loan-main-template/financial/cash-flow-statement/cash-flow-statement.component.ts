@@ -17,8 +17,8 @@ export class CashFlowStatementComponent implements OnInit {
 
     ngOnInit() {
         this.buildCashFlowStatement();
-        if (this.formData['data'].cashFlowStatementData !== undefined) {
-            const cashFlowStatementData = this.formData['data'].cashFlowStatementData;
+        if (this.formData['cashFlowStatementData'] !== undefined) {
+            const cashFlowStatementData = this.formData['cashFlowStatementData'];
             this.setCashFromOperatingActivities(cashFlowStatementData.cashFromOperatingActivities);
             this.setNetProfitForThePeriod(cashFlowStatementData.netProfitForThePeriod);
             this.setDepreciation(cashFlowStatementData.depreciation);

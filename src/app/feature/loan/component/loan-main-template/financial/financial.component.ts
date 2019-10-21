@@ -7,6 +7,7 @@ import {CashFlowStatementComponent} from './cash-flow-statement/cash-flow-statem
 import {KeyIndicatorsComponent} from './key-indicators/key-indicators.component';
 import * as currentFormData from './financial.json';
 import {FinancialService} from './financial.service';
+import {Financial} from '../../../model/financial';
 
 @Component({
     selector: 'app-financial',
@@ -19,13 +20,13 @@ export class FinancialComponent implements OnInit {
     @ViewChild('balanceSheet', {static: false}) balanceSheet: BalanceSheetComponent;
     @ViewChild('cashFlowStatement', {static: false}) cashFlowStatement: CashFlowStatementComponent;
     @ViewChild('keyIndicators', {static: false}) keyIndicators: KeyIndicatorsComponent;
-    @Input() formData: Object;
+    @Input() formData: Financial;
 
     addYear = false;
     fiscalYear = [];
     activeTab: string;
     financialForm: FormGroup;
-    financialData: Object;
+    financialData: Financial = new Financial();
     currentFormData: Object;
 
     // Financial heading arrays---
@@ -149,10 +150,9 @@ export class FinancialComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         if (this.formData !== undefined) {
-            const formDataString = JSON.stringify(this.formData);
-            this.currentFormData = JSON.parse(formDataString);
-            this.fiscalYear = this.currentFormData['data'].fiscalYear;
-            const initialFormData = this.currentFormData['data'].initialForm;
+            this.currentFormData = JSON.parse(this.formData.data);
+            this.fiscalYear = this.currentFormData['fiscalYear'];
+            const initialFormData = this.currentFormData['initialForm'];
 
             this.setIncomeOfBorrower(initialFormData.incomeOfBorrower);
             this.setExpensesOfBorrower(initialFormData.expensesOfBorrower);
@@ -162,6 +162,7 @@ export class FinancialComponent implements OnInit {
         } else {
             const currentFormDataJson = JSON.stringify(currentFormData['default']);
             this.currentFormData = JSON.parse(currentFormDataJson);
+            console.log(this.currentFormData);
 
             // functions for adding fields in initial Financial Form
             this.addIncomeOfBorrower();
@@ -279,7 +280,7 @@ export class FinancialComponent implements OnInit {
     // Adding Fiscal year for Json---
     // Income Statement Json Fiscal year addition---
     addingFiscalYearForIncomeStatementJson(yearValue) {
-        const incomeStatementData = this.currentFormData['data'].incomeStatementData;
+        const incomeStatementData = this.currentFormData['incomeStatementData'];
         // Income Statement Main Heading Json values--
         this.incomeStatementArray.forEach(headingValue => {
             this.financialService.addFiscalYearForJson(incomeStatementData[headingValue], yearValue);
@@ -291,7 +292,7 @@ export class FinancialComponent implements OnInit {
     }
 
     addingFiscalYearForBalanceSheetJson(yearValue) {
-        const balanceSheetData = this.currentFormData['data'].balanceSheetData;
+        const balanceSheetData = this.currentFormData['balanceSheetData'];
         this.balanceSheetArray.forEach(headingValue => {
             this.financialService.addFiscalYearForJson(balanceSheetData[headingValue], yearValue);
         });
@@ -302,14 +303,14 @@ export class FinancialComponent implements OnInit {
     }
 
     addingFiscalYearForCashFlowStatement(yearValue) {
-        const cashFlowStatementData = this.currentFormData['data'].cashFlowStatementData;
+        const cashFlowStatementData = this.currentFormData['cashFlowStatementData'];
         this.cashFlowStatementArray.forEach(headingValue => {
             this.financialService.addFiscalYearForJson(cashFlowStatementData[headingValue], yearValue);
         });
     }
 
     addingFiscalYearForKeyIndicators(yearValue) {
-        const keyIndicatorsData = this.currentFormData['data'].keyIndicatorsData;
+        const keyIndicatorsData = this.currentFormData['keyIndicatorsData'];
         this.keyIndicatorsArray.forEach(headingValue => {
             this.financialService.addFiscalYearForJson(keyIndicatorsData[headingValue], yearValue);
         });
@@ -318,7 +319,7 @@ export class FinancialComponent implements OnInit {
     //
     // Removing Fiscal Year for json---
     removingFiscalYearForIncomeStatementJson(index) {
-        const incomeStatementData = this.currentFormData['data'].incomeStatementData;
+        const incomeStatementData = this.currentFormData['incomeStatementData'];
         // Income Statement Main Heading Json values--
         this.incomeStatementArray.forEach(headingValue => {
             this.financialService.removeFiscalYearForJson(incomeStatementData[headingValue], index);
@@ -330,7 +331,7 @@ export class FinancialComponent implements OnInit {
     }
 
     removingFiscalYearForBalanceSheetJson(index) {
-        const balanceSheetData = this.currentFormData['data'].balanceSheetData;
+        const balanceSheetData = this.currentFormData['balanceSheetData'];
         this.balanceSheetArray.forEach(headingValue => {
             this.financialService.removeFiscalYearForJson(balanceSheetData[headingValue], index);
         });
@@ -341,14 +342,14 @@ export class FinancialComponent implements OnInit {
     }
 
     removingFiscalYearForCashFlowStatement(index) {
-        const cashFlowStatementData = this.currentFormData['data'].cashFlowStatementData;
+        const cashFlowStatementData = this.currentFormData['cashFlowStatementData'];
         this.cashFlowStatementArray.forEach(headingValue => {
             this.financialService.removeFiscalYearForJson(cashFlowStatementData[headingValue], index);
         });
     }
 
     removingFiscalYearForKeyIndicators(index) {
-        const keyIndicatorsData = this.currentFormData['data'].keyIndicatorsData;
+        const keyIndicatorsData = this.currentFormData['keyIndicatorsData'];
         this.keyIndicatorsArray.forEach(headingValue => {
             this.financialService.removeFiscalYearForJson(keyIndicatorsData[headingValue], index);
         });
@@ -416,9 +417,9 @@ export class FinancialComponent implements OnInit {
             case 'Balance Sheet':
                 this.balanceSheet.ngOnDestroy();
         }
-        this.currentFormData['data'].fiscalYear = this.fiscalYear;
-        this.currentFormData['data'].brr = this.brr.borrowerRiskRating.value;
-        this.currentFormData['data'].initialForm = this.financialForm.value;
-        this.financialData = this.currentFormData;
+        this.currentFormData['fiscalYear'] = this.fiscalYear;
+        this.currentFormData['brr'] = this.brr.borrowerRiskRating.value;
+        this.currentFormData['initialForm'] = this.financialForm.value;
+        this.financialData.data = JSON.stringify(this.currentFormData);
     }
 }

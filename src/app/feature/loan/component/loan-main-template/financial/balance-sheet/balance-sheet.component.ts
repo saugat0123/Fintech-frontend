@@ -19,8 +19,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.buildBalanceSheetForm();
-        if (this.formData['data'].balanceSheetData !== undefined) {
-            const balanceSheetFormData = this.formData['data'].balanceSheetData;
+        if (this.formData['balanceSheetData'] !== undefined) {
+            const balanceSheetFormData = this.formData['balanceSheetData'];
             this.setCurrentAssets(balanceSheetFormData.currentAssets);
             this.setCurrentAssetsCategory(balanceSheetFormData.currentAssetsCategory);
             this.setInventories(balanceSheetFormData.inventories);
@@ -173,11 +173,11 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             .controls[index] as FormGroup;
         const differenceBS = (this.balanceSheetForm.get('differenceBS') as FormArray).controls[index] as FormGroup;
         // Income Statement variable--
-        const incomeStatement = this.formData['data'].incomeStatementData;
+        const incomeStatement = this.formData['incomeStatementData'];
         // Cash Flow Statement variable--
-        const cashFlowStatement = this.formData['data'].cashFlowStatementData;
+        const cashFlowStatement = this.formData['cashFlowStatementData'];
         // KeyIndicators variable--
-        const keyIndicators = this.formData['data'].keyIndicatorsData;
+        const keyIndicators = this.formData['keyIndicatorsData'];
 
         switch (headingTitle) {
             case 'currentAssets':
@@ -225,7 +225,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         totalAssets.controls['value'].setValue(totalAssetsValue);
 
         // Calculating retainedEarningsValue--
-        const retainedEarningsValue = (this.formData['data'].incomeStatementData
+        const retainedEarningsValue = (this.formData['incomeStatementData']
             .netProfitTransferredToBalanceSheet as Array<Object>)[index]['value'];
         this.balanceSheetForm.get('netWorthCategory')['controls'].forEach( category => {
             if (category.get('name').value === 'Retained Earning') {
@@ -978,6 +978,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.formData['data'].balanceSheetData = this.balanceSheetForm.value;
+        this.formData['balanceSheetData'] = this.balanceSheetForm.value;
     }
 }

@@ -20,6 +20,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component';
 import {LoanType} from '../../model/loanType';
 import {BusinessType} from '../../../admin/modal/businessType';
+import {Financial} from '../../model/financial';
 
 @Component({
   selector: 'app-loan-summary',
@@ -64,7 +65,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   loanCategory;
   @ViewChild('print', { static: false }) print;
   businessType = BusinessType;
-  financialData: Object;
+  financialData: Financial;
   navigationSubscription;
 
   constructor(
@@ -130,7 +131,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         (response: any) => {
           this.loanDataHolder = response.detail;
           console.log(this.loanDataHolder.financial);
-          this.financialData = this.loanDataHolder.financial['data'];
+          this.financialData = this.loanDataHolder.financial;
           this.loanCategory = this.loanDataHolder.loanCategory;
           this.currentIndex = this.loanDataHolder.previousList.length;
           this.signatureList = this.loanDataHolder.distinctPreviousList;

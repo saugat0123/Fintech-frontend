@@ -17,8 +17,8 @@ export class KeyIndicatorsComponent implements OnInit {
 
     ngOnInit() {
         this.buildKeyIndicatorsForm();
-        if (this.formData['data'].keyIndicatorsData !== undefined) {
-            const keyIndicatorsData = this.formData['data'].keyIndicatorsData;
+        if (this.formData['keyIndicatorsData'] !== undefined) {
+            const keyIndicatorsData = this.formData['keyIndicatorsData'];
             this.setGrowth(keyIndicatorsData.growth);
             this.setSales(keyIndicatorsData.sales);
             this.setGrossProfitKI(keyIndicatorsData.grossProfitKI);
