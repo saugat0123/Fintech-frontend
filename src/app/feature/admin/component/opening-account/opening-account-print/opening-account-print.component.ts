@@ -7,11 +7,10 @@ import {OpeningForm} from '../../../modal/openingForm';
   styleUrls: ['./opening-account-print.component.scss']
 })
 export class OpeningAccountPrintComponent implements OnInit {
-    @Input()
+  @Input()
   openingForm: OpeningForm = new OpeningForm();
 
-  constructor(
-  ) {
+  constructor() {
   }
 
 
