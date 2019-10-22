@@ -35,6 +35,7 @@ import {AgmCoreModule} from '@agm/core';
 import { LoanPullComponent } from './component/loan-pull/loan-pull.component';
 // tslint:disable-next-line:max-line-length
 import { SecurityInitialFormComponent } from './component/loan-main-template/security/security-initial-form/security-initial-form.component';
+import { SecuritySummaryComponent } from './component/loan-summary/security-summary/security-summary.component';
 
 
 
@@ -66,6 +67,8 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         LoanPullComponent,
 
         SecurityInitialFormComponent,
+
+        SecuritySummaryComponent,
 
 
     ],

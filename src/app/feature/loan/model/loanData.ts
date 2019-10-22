@@ -10,6 +10,7 @@ import {Branch} from '../../admin/modal/branch';
 import {Cicl} from '../../admin/modal/cicl';
 import {Insurance} from '../../admin/modal/insurance';
 import {LoanType} from './loanType';
+import {Security} from './security';
 
 export class LoanDataHolder {
     id: number;
@@ -26,7 +27,7 @@ export class LoanDataHolder {
     documentStatus: DocStatus;
     financial: Object;
     siteVisit: Array<Object>;
-    security: Array<Object>;
+    security: Security;
     priority: Priority;
     createdAt: Date;
     previousList: LoanStage[] = [];

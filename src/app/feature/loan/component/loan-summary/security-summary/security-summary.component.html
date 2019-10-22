@@ -1,0 +1,200 @@
+<div class="row mt-3">
+    <div class="col-md-12">
+        <p><strong>Security Position</strong></p>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="disable-print table table-condensed table-bordered table-responsive-md text-center">
+                    <thead>
+                    <tr>
+                        <th class="text-center" colspan="4">Valuator Details</th>
+                    </tr>
+                    <tr>
+                        <th>Valuator</th>
+                        <th>Valuated Date</th>
+                        <th>Valuator Representative Name</th>
+                        <th>Staff Representative</th>
+                    </tr>
+                    <tr>
+                        <td>{{formData['initialForm']['valuatorDetails']['valuator']}}</td>
+                        <td>{{formData['initialForm']['valuatorDetails']['valuatedDate'] | date}}</td>
+                        <td>{{formData['initialForm']['valuatorDetails']['valuatorRepresentativeName']}}</td>
+                        <td>{{formData['initialForm']['valuatorDetails']['staffRepresentativeName']}}</td>
+
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="row" *ngIf= "landSelected">
+            <div class="col-md-12">
+                <table class="disable-print table table-condensed table-bordered table-responsive-md text-center">
+                    <thead>
+                    <tr>
+                        <th class="text-center" colspan="6">Land Security Details</th>
+                    </tr>
+                    <tr>
+                        <th>S.N</th>
+                        <th>Owner</th>
+                        <th>Location</th>
+                        <th>Plot No.</th>
+                        <th>Area Format</th>
+                        <th>Area</th>
+                    </tr>
+                    <tr *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
+                        <td>{{i+1}}</td>
+                        <td>{{landDetails?.owner}}</td>
+                        <td>{{landDetails?.location}}</td>
+                        <td>{{landDetails?.plotNumber}}</td>
+                        <td>{{landDetails?.areaFormat}}</td>
+                        <td>{{landDetails?.area}}</td>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+<!--        buildingDetails-->
+        <div class="row" *ngIf= "apartmentSelected">
+            <div class="col-md-12">
+                <table class="disable-print table table-condensed table-bordered table-responsive-md text-center">
+                    <thead>
+                    <tr>
+                        <th class="text-center" colspan="6">Building Security Details</th>
+                    </tr>
+                    <tr>
+                        <th>S.N</th>
+                        <th>Building Name</th>
+                        <th>Building Description</th>
+                        <th>Build Area</th>
+                        <th>Build Rate</th>
+                        <th>Total Cost</th>
+                    </tr>
+                    <tr *ngFor="let buildingDetails of formData['initialForm']['buildingDetails']; let i= index">
+                        <td>{{i+1}}</td>
+                        <td>{{buildingDetails?.buildingName}}</td>
+                        <td>{{buildingDetails?.buildingDescription}}</td>
+                        <td>{{buildingDetails?.buildArea}}</td>
+                        <td>{{buildingDetails?.buildRate}}</td>
+                        <td><strong>Rs. {{buildingDetails?.totalCost | currencyFormatter}}</strong></td>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+<!--        undercostructions-->
+        <div class="row" *ngIf="formData['underConstructionChecked']">
+            <div class="col-md-12">
+                <p><strong>Building Under Costructions</strong></p>
+                <table class="disable-print table table-condensed table-bordered table-responsive-md text-center">
+                    <thead>
+                    <tr>
+                        <th class="text-center" colspan="6">Building before Completion</th>
+                    </tr>
+                    <tr>
+                        <th>S.N</th>
+                        <th>Building Name</th>
+                        <th>Building Description</th>
+                        <th>BuildArea</th>
+                        <th>BuildRate</th>
+                        <th>TotalCost</th>
+                    </tr>
+                    <tr *ngFor="let beforeCompletion of formData['initialForm']['buildingUnderConstructions']; let i= index">
+                        <td>{{i+1}}</td>
+                        <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingName}}</td>
+                        <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildingDescription}}</td>
+                        <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildArea}}</td>
+                        <td>{{beforeCompletion?.buildingDetailsBeforeCompletion.buildRate}}</td>
+                        <td><strong>Rs. {{beforeCompletion?.buildingDetailsBeforeCompletion.totalCost | currencyFormatter}}</strong></td>
+
+                    </tr>
+                    </thead>
+                </table>
+                <table class="disable-print table table-condensed table-bordered table-responsive-md text-center">
+                    <thead>
+                    <tr>
+                        <th class="text-center" colspan="6">Building After Completion</th>
+                    </tr>
+                    <tr>
+                        <th>S.N</th>
+                        <th>Building Name</th>
+                        <th>Building Description</th>
+                        <th>BuildArea</th>
+                        <th>BuildRate</th>
+                        <th>TotalCost</th>
+                    </tr>
+                    <tr *ngFor="let afterCompletion of formData['initialForm']['buildingUnderConstructions']; let i= index">
+                        <td>{{i+1}}</td>
+                        <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildingName}}</td>
+                        <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildingDescription}}</td>
+                        <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildArea}}</td>
+                        <td>{{afterCompletion?.buildingDetailsAfterCompletion.buildRate}}</td>
+                        <td><strong>Rs.{{afterCompletion?.buildingDetailsAfterCompletion.totalCost | currencyFormatter}}</strong></td>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+<!--        plantmachineryDetails-->
+
+        <div class="row" *ngIf= "plantSelected">
+            <div class="col-md-12">
+                <table class="disable-print table table-condensed table-bordered table-responsive-md text-center">
+                    <thead>
+                    <tr>
+                        <th class="text-center" colspan="5">Plant and Machinery Details Security</th>
+                    </tr>
+                    <tr>
+                        <th>S.N</th>
+                        <th>Model</th>
+                        <th>Quotation</th>
+                        <th>Supplier</th>
+                        <th>Downpay</th>
+
+                    </tr>
+                    <tr *ngFor="let plantDetails of formData['initialForm']['plantDetails']; let i= index">
+                        <td>{{i+1}}</td>
+                        <td>{{plantDetails?.model}}</td>
+                        <td>{{plantDetails?.quotation}}</td>
+                        <td>{{plantDetails?.supplier}}</td>
+                        <td>{{plantDetails?.downPay}}</td>
+
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <!--        guarantors details-->
+        <div class="row">
+            <div class="col-md-12">
+                <table class="disable-print table table-condensed table-bordered table-responsive-md text-center">
+                    <thead>
+                    <tr>
+                        <th class="text-center" colspan="6">Gurantors Details</th>
+                    </tr>
+                    <tr>
+                        <th>S.N</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Citizen Number</th>
+                        <th>Citizen Issued Year</th>
+                        <th>Contact</th>
+                    </tr>
+                    <tr *ngFor="let guarantor of formData['guarantorsForm']['guarantorsDetails']; let i= index">
+                        <td>{{i+1}}</td>
+                        <td>{{guarantor?.name}}</td>
+                        <td>{{guarantor?.address}}</td>
+                        <td>{{guarantor?.citizenNumber}}</td>
+                        <td>{{guarantor?.issuedYear | date}}</td>
+                        <td>{{guarantor?.contactNumber}}</td>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+<pre>{{formData | json}}</pre>

@@ -108,7 +108,8 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('siteVisit', {static: false})
     siteVisit: SiteVisitComponent;
-
+    @ViewChild('security', {static: false})
+    security: SecurityComponent;
     constructor(
         private loanDataService: LoanDataService,
         private dmsLoanService: DmsLoanService,
@@ -337,6 +338,8 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.siteVisit = siteVisitData;
         }
         if (name === 'Security' && action) {
+            this.security.onSubmit();
+            this.loanDocument.security = this.security.securityData;
         }
         return false;
 

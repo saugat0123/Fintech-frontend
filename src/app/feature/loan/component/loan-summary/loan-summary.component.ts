@@ -65,6 +65,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   @ViewChild('print', { static: false }) print;
   businessType = BusinessType;
   navigationSubscription;
+  securitySummary = false;
+  securityData: Object;
 
   constructor(
       private userService: UserService,
@@ -127,6 +129,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   getLoanDataHolder() {
     this.loanFormService.detail(this.customerId).subscribe(
         (response: any) => {
+            this.securityData = JSON.parse(response.detail.security.data);
+            this.securitySummary = true;
+            // console.log(JSON.parse(response.detail.security.data));
           this.loanDataHolder = response.detail;
           this.loanCategory = this.loanDataHolder.loanCategory;
           this.currentIndex = this.loanDataHolder.previousList.length;
