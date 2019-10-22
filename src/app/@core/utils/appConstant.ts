@@ -1,4 +1,4 @@
 export class AppConstant {
-    public static BANKNAME = 'Mega Bank Limited.';
+    public static BANKNAME = 'Shine Resunga Development Bank.';
 
 }
