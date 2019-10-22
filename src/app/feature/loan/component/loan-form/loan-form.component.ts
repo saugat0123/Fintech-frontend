@@ -81,31 +81,31 @@ export class LoanFormComponent implements OnInit {
     loanDocument: LoanDataHolder;
 
 
-    @ViewChild('basicInfo', {static: true})
+    @ViewChild('basicInfo', {static: false})
     basicInfo: BasicInfoComponent;
 
-    @ViewChild('dmsLoanFile', {static: true})
+    @ViewChild('dmsLoanFile', {static: false})
     dmsLoanFile: DmsLoanFileComponent;
 
-    @ViewChild('companyInfo', {static: true})
+    @ViewChild('companyInfo', {static: false})
     companyInfoComponent: CompanyInfoComponent;
 
-    @ViewChild('kycInfo', {static: true})
+    @ViewChild('kycInfo', {static: false})
     kycInfo: KycInfoComponent;
 
-    @ViewChild('proposalInfo', {static: true})
+    @ViewChild('proposalInfo', {static: false})
     proposalDetail: ProposalComponent;
 
-    @ViewChild('cicl', {static: true})
+    @ViewChild('cicl', {static: false})
     cicl: CiclComponent;
 
-    @ViewChild('creditGrading', {static: true})
+    @ViewChild('creditGrading', {static: false})
     creditGrading: CreditGradingComponent;
 
-    @ViewChild('financial', {static: true})
+    @ViewChild('financial', {static: false})
     financial: FinancialComponent;
 
-    @ViewChild('siteVisit', {static: true})
+    @ViewChild('siteVisit', {static: false})
     siteVisit: SiteVisitComponent;
 
     constructor(
@@ -312,7 +312,7 @@ export class LoanFormComponent implements OnInit {
                 // return true;
             }
             this.proposalDetail.onSubmit();
-            this.loanDocument.proposal = this.proposalDetail.proposalForm.value;
+            this.loanDocument.proposal = this.proposalDetail.proposalData;
         }
 
 
@@ -348,7 +348,7 @@ export class LoanFormComponent implements OnInit {
 
     loadProposal() {
         if (this.loanDocument.proposal === undefined) {
-            return new Proposal();
+            return undefined;
         } else {
             return this.loanDocument.proposal;
         }
