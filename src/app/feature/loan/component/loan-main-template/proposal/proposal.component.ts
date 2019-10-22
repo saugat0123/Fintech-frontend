@@ -28,6 +28,11 @@ export class ProposalComponent implements OnInit {
             this.proposalForm.setValue(this.formDataForEdit);
             this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
         }
+        // this.proposalForm.get('interestRate').valueChanges.subscribe( value => this.proposalForm.get('premiumRateOnBaseRate')
+        //     .patchValue( Number(value) - Number(this.proposalForm.get('baseRate').value)));
+        // this.proposalForm.get('baseRate').valueChanges.subscribe( value => this.proposalForm.get('premiumRateOnBaseRate')
+        //     .patchValue(Number(this.proposalForm.get('interestRate').value) - Number(value)));
+
     }
 
     buildForm() {
