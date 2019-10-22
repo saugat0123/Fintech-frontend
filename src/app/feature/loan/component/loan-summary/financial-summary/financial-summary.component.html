@@ -21,7 +21,7 @@
             <td>{{i+1}}</td>
             <td>{{incomeOfBorrower.incomeSource}}</td>
             <td>{{incomeOfBorrower.organization}}</td>
-            <td>{{incomeOfBorrower.amount}}</td>
+            <td>Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
             <td>{{incomeOfBorrower.remarks}}</td>
           </tr>
           <tr>
@@ -50,7 +50,7 @@
           <tr *ngFor="let expensesOfBorrower of financialData?.initialForm?.expensesOfBorrower; let i = index;">
             <td>{{i+1}}</td>
             <td>{{expensesOfBorrower.particulars}}</td>
-            <td>{{expensesOfBorrower.amount | currencyFormatter}}</td>
+            <td>Rs. {{expensesOfBorrower.amount | currencyFormatter}}</td>
             <td>{{expensesOfBorrower.remarks}}</td>
           </tr>
           <tr>
