@@ -26,7 +26,7 @@
           </tr>
           <tr>
             <td colspan="3" class="text-center"><strong>Total Income</strong></td>
-            <td colspan="2"><strong>Mock</strong></td>
+            <td colspan="2"><strong>Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</strong></td>
           </tr>
           </tbody>
         </table>
@@ -50,16 +50,16 @@
           <tr *ngFor="let expensesOfBorrower of financialData?.initialForm?.expensesOfBorrower; let i = index;">
             <td>{{i+1}}</td>
             <td>{{expensesOfBorrower.particulars}}</td>
-            <td>{{expensesOfBorrower.amount}}</td>
+            <td>{{expensesOfBorrower.amount | currencyFormatter}}</td>
             <td>{{expensesOfBorrower.remarks}}</td>
           </tr>
           <tr>
             <td colspan="3" class="text-center"><strong>Total Expense</strong></td>
-            <td colspan="2"><strong>Mock</strong></td>
+            <td colspan="2"><strong>Rs. {{financialData?.initialForm?.totalExpense | currencyFormatter}}</strong></td>
           </tr>
           <tr>
             <td colspan="3" class="text-center"><strong>Net Saving</strong></td>
-            <td colspan="2"><strong>Mock</strong></td>
+            <td colspan="2"><strong>Rs. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong></td>
           </tr>
           </tbody>
         </table>
@@ -68,35 +68,35 @@
   </div>
 </div>
 
-<div class="row mt-3">
-  <div class="col-md-12">
-    <p><strong>Financial Highlights of the Entity</strong></p>
-    <div class="row">
-      <div class="col-md-12">
-        <table class="table table-bordered">
-          <thead>
-          <tr>
-            <th>S.No.</th>
-            <th>Particulars/Years</th>
-            <th *ngFor="let fiscalYear of financialData?.fiscalYear">{{fiscalYear}}</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let incomeOfBorrower of financialData?.initialForm?.incomeOfBorrower; let i = index;">
-            <td>{{i+1}}</td>
-            <td>{{incomeOfBorrower.incomeSource}}</td>
-            <td>{{incomeOfBorrower.organization}}</td>
-            <td>{{incomeOfBorrower.amount}}</td>
-            <td>{{incomeOfBorrower.remarks}}</td>
-          </tr>
-          <tr>
-            <td colspan="3" class="text-center"><strong>Total Income</strong></td>
-            <td colspan="2"><strong>Mock</strong></td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-<pre>{{financialData | json}}</pre>
+<!--<div class="row mt-3">-->
+  <!--<div class="col-md-12">-->
+    <!--<p><strong>Financial Highlights of the Entity</strong></p>-->
+    <!--<div class="row">-->
+      <!--<div class="col-md-12">-->
+        <!--<table class="table table-bordered">-->
+          <!--<thead>-->
+          <!--<tr>-->
+            <!--<th>S.No.</th>-->
+            <!--<th>Particulars/Years</th>-->
+            <!--<th *ngFor="let fiscalYear of financialData?.fiscalYear">{{fiscalYear}}</th>-->
+          <!--</tr>-->
+          <!--</thead>-->
+          <!--<tbody>-->
+          <!--<tr *ngFor="let incomeOfBorrower of financialData?.initialForm?.incomeOfBorrower; let i = index;">-->
+            <!--<td>{{i+1}}</td>-->
+            <!--<td>{{incomeOfBorrower.incomeSource}}</td>-->
+            <!--<td>{{incomeOfBorrower.organization}}</td>-->
+            <!--<td>Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>-->
+            <!--<td>{{incomeOfBorrower.remarks}}</td>-->
+          <!--</tr>-->
+          <!--<tr>-->
+            <!--<td colspan="3" class="text-center"><strong>Total Income</strong></td>-->
+            <!--<td colspan="2"><strong>Mock</strong></td>-->
+          <!--</tr>-->
+          <!--</tbody>-->
+        <!--</table>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+<!--<pre>{{financialData | json}}</pre>-->
