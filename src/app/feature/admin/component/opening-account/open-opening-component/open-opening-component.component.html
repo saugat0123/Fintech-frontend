@@ -28,27 +28,37 @@
             </select>
           </div>
           <div class="col-md-4 form-group">
-            <label for="purposeOfAccount"><strong>Purpose of Account</strong></label>
+            <label for="accountType"><strong>Account Type</strong></label>
             <div class="row ml-2">
-              <nb-radio-group class="col-md-4 d-contents form-control"
-                              formControlName="purposeOfAccount"
-                              id="purposeOfAccount" name="purposeOfAccount">
-                <nb-radio (click)="getAccountType(accountPurpose)"
-                          *ngFor="let accountPurpose of accountPurposeList"
-                          [value]="accountPurpose.id" class="form-group">
-                  {{accountPurpose.name}}
-                </nb-radio>
-              </nb-radio-group>
+              <div class="col-md-12">
+                <div id="accountType">
+                  <nb-radio-group
+                      formControlName="accountType"
+                      id="accountTypeList"
+                      name="personalTypeOfAccount"
+                      class="col-md-4 d-contents">
+                    <nb-radio
+                              *ngFor="let accountType of accountTypeList"
+                              [value]="accountType.id">{{accountType.name}}</nb-radio>
+                  </nb-radio-group>
+                </div>
+                </div>
             </div>
           </div>
           <div class="col-md-4 form-group">
-            <label for="accountType"><strong>Account Type</strong></label>
-            <select class="custom-select" formControlName="accountType"
-                    id="accountType">
-              <option [ngValue]=null hidden>Select Account Type</option>
-              <option *ngFor="let accountType of accountTypeList"
-                      [ngValue]="accountType.id">{{accountType.name}}</option>
-            </select>
+            <label for="purposeOfAccount">Purpose of Account</label>
+            <div class="row ml-2">
+              <select class="custom-select"
+                  formControlName="purposeOfAccount"
+                  id="purposeOfAccount">
+                <option [ngValue]=null hidden>Select Account Purpose</option>
+                <option
+                    *ngFor="let accountPurpose of accountPurposeList"
+                    [ngValue]="accountPurpose.id">
+                  {{accountPurpose.name}}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
         <!-- END ROW -->
@@ -97,11 +107,11 @@
               <div class="box-header with-border col-md-12">
                 <h5 class="box-title title"><strong>Applicant {{applicantIndex + 1}}</strong>
                 </h5>
-                <input (click)="removeApplicantDetail(applicantIndex)"
+                <!--<input (click)="removeApplicantDetail(applicantIndex)"
                        *ngIf="openingAccount.get('applicantDetail')['controls'].length > 1"
                        class="btn btn-sm btn-flat btn-danger float-right"
                        status="small"
-                       type="button" value="Remove Applicant">
+                       type="button" value="Remove Applicant">-->
                 <hr/>
               </div>
             </div>
@@ -467,14 +477,14 @@
                         Relative</strong></h5>
                     </div>
                   </div>
-                  <div class="text-right col-md-2">
+                  <!--<div class="text-right col-md-2">
                     <input
                         (click)="removeApplicantRelative(applicantDetail.controls.applicantRelative, relativeIndex)"
                         *ngIf="applicantDetail['controls'].applicantRelative['controls'].length > 1"
                         class="btn btn-sm btn-flat btn-danger"
                         type="button"
                         value="Remove">
-                  </div>
+                  </div>-->
                 </div>
                 <!-- END ROW -->
                 <!-- START ROW -->
@@ -501,12 +511,12 @@
                 <!-- END ROW -->
               </div>
             </div>
-            <div class="text-right">
+            <!--<div class="text-right">
               <input (click)="addApplicantRelative(applicantIndex)"
                      class="btn btn-sm btn-flat btn-primary"
                      type="button"
                      value="Add Relative"/>
-            </div>
+            </div>-->
 
             <div class="box-header with-border">
               <h5 class="box-title title"><strong>Applicant Identification</strong></h5>
@@ -851,14 +861,14 @@
                         Occupation</strong></h5>
                     </div>
                   </div>
-                  <div class="text-right col-md-2">
+                  <!--<div class="text-right col-md-2">
                     <input
                         (click)="removeApplicantOccupationDetails(applicantDetail.controls.occupationDetails, occupationIndex)"
                         *ngIf="applicantDetail['controls'].occupationDetails['controls'].length > 1"
                         class="btn btn-sm btn-flat btn-danger"
                         type="button"
                         value="Remove Occupation">
-                  </div>
+                  </div>-->
                 </div>
                 <!-- END ROW -->
                 <!-- START ROW -->
@@ -931,12 +941,12 @@
                 <!-- END ROW -->
               </div>
             </div>
-            <div class="text-right">
+            <!--<div class="text-right">
               <input (click)="addApplicantOccupationDetails(applicantIndex)"
                      class="btn btn-sm btn-flat btn-primary"
                      type="button"
                      value="Add Occupation"/>
-            </div>
+            </div>-->
             <!-- START ROW -->
             <div class="row">
               <div class="col-md-6 form-group">
@@ -1223,11 +1233,11 @@
             <!-- END ROW -->
           </div>
         </div>
-        <div class="text-right">
+        <!--<div class="text-right">
           <input (click)="addApplicantDetail()" class="btn btn-sm btn-flat btn-primary"
                  type="button"
                  value="Add Applicant"/>
-        </div>
+        </div>-->
       </section>
       <!-- APPLICANT PERSONAL DETAILS END -->
 
@@ -1358,14 +1368,14 @@
                     Relative</strong></h5>
                 </div>
               </div>
-              <div class="text-right col-md-2">
+              <!--<div class="text-right col-md-2">
                 <input
                     (click)="removeNomineeRelativeField(i)"
                     *ngIf="openingAccount.get('nomineeFamily')['controls'].length > 1"
                     class="btn btn-sm btn-flat btn-danger"
                     type="button"
                     value="Remove">
-              </div>
+              </div>-->
             </div>
             <!-- END ROW -->
             <!-- START ROW -->
@@ -1391,12 +1401,12 @@
             </div>
           </div>
         </div>
-        <div class="text-right">
+        <!--<div class="text-right">
           <input (click)="addNomineeRelative()"
                  class="btn btn-sm btn-flat btn-primary"
                  type="button"
                  value="Add Relative"/>
-        </div>
+        </div>-->
       </div>
       <div [hidden]="openingAccount.get('beneficiaryRadio').value !== 'true'">
         <div class="box-header with-border">
@@ -1640,12 +1650,13 @@
         <input (click)="onSubmit('REJECTED')" *ngIf="showAction"
                class="btn btn-flat btn-lg btn-danger m-4" type="button"
                value="Reject"/>
-        <button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4"
+        <!--<button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4"
                 ngxPrint printSectionId="formId">Print
-        </button>
+        </button>-->
       </div>
       <!-- END ROW -->
     </form>
   </nb-card-body>
 </nb-card>
 <app-opening-account-print [openingForm]="openingForm"></app-opening-account-print>
+<!-- TODO Manage commented buttons -->
