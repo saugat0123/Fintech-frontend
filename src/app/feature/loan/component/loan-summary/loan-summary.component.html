@@ -339,6 +339,8 @@
         </div>
       </div>
 
+      <app-security-summary *ngIf="securitySummary" [formData]="securityData"></app-security-summary>
+
       <div class="row mt-3">
         <div class="col-md-12">
           <p><strong>Authority Section</strong></p>

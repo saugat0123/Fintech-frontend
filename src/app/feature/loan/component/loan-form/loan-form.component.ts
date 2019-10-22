@@ -27,6 +27,7 @@ import {DatePipe} from '@angular/common';
 import {CreditGradingComponent} from '../loan-main-template/credit-grading/credit-grading.component';
 import {SiteVisitComponent} from '../loan-main-template/site-visit/site-visit.component';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {SecurityComponent} from '../loan-main-template/security/security.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -107,7 +108,8 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('siteVisit', {static: false})
     siteVisit: SiteVisitComponent;
-
+    @ViewChild('security', {static: false})
+    security: SecurityComponent;
     constructor(
         private loanDataService: LoanDataService,
         private dmsLoanService: DmsLoanService,
@@ -335,8 +337,12 @@ export class LoanFormComponent implements OnInit {
             const siteVisitData = this.siteVisit.siteVisitData;
             this.loanDocument.siteVisit = siteVisitData;
         }
-
+        if (name === 'Security' && action) {
+            this.security.onSubmit();
+            this.loanDocument.security = this.security.securityData;
+        }
         return false;
+
     }
 
 

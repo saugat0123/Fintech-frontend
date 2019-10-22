@@ -39,6 +39,10 @@ import { KeyIndicatorsComponent } from './component/loan-main-template/financial
 import { InitialFormComponent } from './component/loan-main-template/financial/initial-form/initial-form.component';
 import { LoanPullComponent } from './component/loan-pull/loan-pull.component';
 import { FinancialSummaryComponent } from './component/loan-summary/financial-summary/financial-summary.component';
+// tslint:disable-next-line:max-line-length
+import { SecurityInitialFormComponent } from './component/loan-main-template/security/security-initial-form/security-initial-form.component';
+import { SecuritySummaryComponent } from './component/loan-summary/security-summary/security-summary.component';
+
 
 
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
@@ -67,6 +71,9 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         SiteVisitComponent,
 
         LoanPullComponent,
+
+        SecurityInitialFormComponent,
+        SecuritySummaryComponent,
 
         IncomeStatementComponent,
         BalanceSheetComponent,

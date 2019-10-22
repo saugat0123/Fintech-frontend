@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {Component, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {SecurityInitialFormComponent} from './security-initial-form/security-initial-form.component';
+import {Security} from '../../../model/security';
 
 
 @Component({
@@ -8,184 +10,83 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
     styleUrls: ['./security.component.css']
 })
 export class SecurityComponent implements OnInit {
-    marked = false;
-    security: FormGroup;
-    landSelected = false;
-    apartmentSelected = false;
-    buildingSelected = false;
-    underConstructionChecked = false;
-
+    @Input () securityValue: Security;
+    @ViewChild ('initialSecurity', { static: false })
+    initialSecurity: SecurityInitialFormComponent;
+    securityData: Security = new Security();
+    guarantorsForm: FormGroup;
+    initialSecurityValue: Object;
+    securityValueForEdit;
     constructor(
         private formBuilder: FormBuilder
     ) {
     }
 
     ngOnInit() {
-        this.security = this.formBuilder.group({
-            valuatorDetails: this.formBuilder.array([
-                this.valuatorDetailsFormGroup()
-            ]),
-            guarantorsDetails: this.formBuilder.array([
-                this.guarantorsDetailsFormGroup()
-            ]),
-            landDetails: this.formBuilder.array([
-                this.landDetailsFormGroup()
-            ]),
-            buildingDetails: this.formBuilder.array([
-                this.buildingDetailsFormGroup()
-            ]),
-            buildingDetailsBeforeCompletion: this.formBuilder.array([
-                this.buildingDetailsFormGroup()
-            ]),
-            buildingDetailsAfterCompletion: this.formBuilder.array([
-                this.buildingDetailsFormGroup()
-            ])
-        });
-    }
+        this.buildForm();
+        if (this.securityValue !== undefined) {
+            this.securityValueForEdit = JSON.parse(this.securityValue.data);
 
+            this.initialSecurityValue = this.securityValueForEdit;
+            this.setGuarantorsDetails(this.securityValueForEdit['guarantorsForm'].guarantorsDetails);
 
-    onChange(event) {
-        const selected = event.target.value;
-        if (selected === 'Land Security') {
-            this.showLand();
-        } else if (selected === 'Apartment Security') {
-            this.showApartment();
         } else {
-            this.showBoth();
+            this.addguarantorsDetails();
+            this.initialSecurityValue = undefined;
         }
     }
-
-    showLand() {
-        this.landSelected = true;
-        this.apartmentSelected = false;
-    }
-
-    showApartment() {
-        this.apartmentSelected = true;
-        this.landSelected = false;
-    }
-
-    showBoth() {
-        this.landSelected = true;
-        this.apartmentSelected = true;
-    }
-
-    onSubmit() {
-
-    }
-
-    guarantorsDetailsFormGroup(): FormGroup {
-        return this.formBuilder.group({
-            name: [''],
-            address: [''],
-            citizenNumber: [''],
-            issuedYear: [''],
-            issuedPlace: [''],
-            contactNumber: [''],
-            fatherName: [''],
-            grandFatherName: [''],
-            relationship: ['']
+    buildForm() {
+        this.guarantorsForm = this.formBuilder.group({
+            guarantorsDetails: this.formBuilder.array([])// this.guarantorsDetailsFormGroup()
         });
     }
-
-    valuatorDetailsFormGroup(): FormGroup {
-        return this.formBuilder.group({
-            valuator: [''],
-            valuatedDate: [''],
-            valuatorRepresentativeName: [''],
-            staffRepresentativeName: [''],
-            chooseAny: [null],
+    setGuarantorsDetails(currentData) {
+        const details = this.guarantorsForm.get('guarantorsDetails') as FormArray;
+        currentData.forEach(singleData => {
+            details.push(
+                this.formBuilder.group({
+                    name: [singleData.name],
+                    address: [singleData.address],
+                    citizenNumber: [singleData.citizenNumber],
+                    issuedYear: [singleData.issuedYear],
+                    issuedPlace: [singleData.issuedPlace],
+                    contactNumber: [singleData.contactNumber],
+                    fatherName: [singleData.fatherName],
+                    grandFatherName: [singleData.grandFatherName],
+                    relationship: [singleData.relationship]
+                    })
+            );
         });
-    }
-
-    landDetailsFormGroup(): FormGroup {
-        return this.formBuilder.group({
-            owner: [''],
-            location: [''],
-            plotNumber: [''],
-            areaFormat: [''],
-            area: [''],
-            marketValue: [''],
-            distressValue: [''],
-            description: [''],
-        });
-    }
-
-    buildingDetailsFormGroup(): FormGroup {
-        return this.formBuilder.group({
-            buildingName: [''],
-            buildingDescription: [''],
-            buildArea: [''],
-            buildRate: [''],
-            totalCost: [''],
-            floorName: [''],
-            valuationArea: [''],
-            ratePerSquareFeet: [''],
-            estimatedCost: [''],
-            waterSupply: [''],
-            sanitation: [''],
-            electrification: [''],
-            buildingTotalCost: [''],
-            buildingFairMarketValue: [''],
-            buildingDistressValue: [''],
-
-        });
-    }
-
-    checkboxSelected(event) {
-        this.marked = event.target.checked;
-        if (this.marked) {
-            this.addValuatorDetails();
-        } else {
-            this.removeValuatorDetails(0);
-        }
-
-    }
-
-    underConstruction(event) {
-
-        if (event.target.checked) {
-            this.underConstructionChecked = true;
-        } else {
-            this.underConstructionChecked = false;
-        }
-    }
-
-    addValuatorDetails() {
-
-        (<FormArray>this.security.get('valuatorDetails')).push(this.valuatorDetailsFormGroup());
-    }
-
-    removeValuatorDetails(index: number) {
-        (<FormArray>this.security.get('valuatorDetails')).removeAt(index);
     }
 
     addguarantorsDetails() {
-
-        (<FormArray>this.security.get('guarantorsDetails')).push(this.guarantorsDetailsFormGroup());
+        const addDetails = this.guarantorsForm.get('guarantorsDetails') as FormArray;
+        addDetails.push(
+            this.formBuilder.group({
+                name: [undefined],
+                address: [undefined],
+                citizenNumber: [undefined],
+                issuedYear: [undefined],
+                issuedPlace: [undefined],
+                contactNumber: [undefined],
+                fatherName: [undefined],
+                grandFatherName: [undefined],
+                relationship: [undefined]
+            })
+        );
     }
 
     removeguarantorsDetails(index: number) {
-        (<FormArray>this.security.get('guarantorsDetails')).removeAt(index);
+        (this.guarantorsForm.get('guarantorsDetails') as FormArray).removeAt(index);
     }
 
-    addMoreLand() {
-        (<FormArray>this.security.get('landDetails')).push(this.landDetailsFormGroup());
-    }
-
-    removeLandDetails(index: number) {
-        (<FormArray>this.security.get('landDetails')).removeAt(index);
-    }
-
-    addBuilding() {
-        if (this.buildingSelected === false) {
-            this.buildingSelected = true;
-        } else {
-            (<FormArray>this.security.get('buildingDetails')).push(this.buildingDetailsFormGroup());
-        }
-    }
-
-    removeBuildingDetails(index: number) {
-        (<FormArray>this.security.get('buildingDetails')).removeAt(index);
+    onSubmit() {
+        const mergedForm = {
+            initialForm: this.initialSecurity.securityForm.value,
+            selectedArray: this.initialSecurity.selectedArray,
+            underConstructionChecked: this.initialSecurity.underConstructionChecked,
+            guarantorsForm: this.guarantorsForm.value
+        };
+        this.securityData.data = JSON.stringify(mergedForm);
     }
 }
