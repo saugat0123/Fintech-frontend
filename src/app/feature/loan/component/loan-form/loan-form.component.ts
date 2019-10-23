@@ -314,8 +314,10 @@ export class LoanFormComponent implements OnInit {
                 // return true;
             }
             this.proposalDetail.onSubmit();
-            this.loanDocument.proposal = this.proposalDetail.proposalForm.value;
+            this.loanDocument.proposal = this.proposalDetail.proposalData;
         }
+
+
         if (name === 'CICL' && action) {
             if (this.cicl.ciclForm.invalid || this.cicl.insuranceForm.invalid) {
                 this.cicl.submitted = true;
@@ -352,7 +354,7 @@ export class LoanFormComponent implements OnInit {
 
     loadProposal() {
         if (this.loanDocument.proposal === undefined) {
-            return new Proposal();
+            return undefined;
         } else {
             return this.loanDocument.proposal;
         }
