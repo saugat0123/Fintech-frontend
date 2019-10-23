@@ -12,7 +12,6 @@ export class SecurityInitialFormComponent implements OnInit {
     securityForm: FormGroup;
     landSelected = false;
     apartmentSelected = false;
-    buildingSelected = false;
     plantSelected = false;
     underConstructionChecked = false;
     formDataForEdit: Object;
@@ -226,7 +225,6 @@ buildForm() {
                     this.plantSelected = true;
             }
         });
-        // console.log(arraySelected);
     }
 
     landDetailsFormGroup(): FormGroup {

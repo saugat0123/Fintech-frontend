@@ -132,15 +132,17 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   getLoanDataHolder() {
     this.loanFormService.detail(this.customerId).subscribe(
         (response: any) => {
-            this.securityData = JSON.parse(response.detail.security.data);
-            this.securitySummary = true;
-            // console.log(JSON.parse(response.detail.security.data));
+
           this.loanDataHolder = response.detail;
-          console.log(this.loanDataHolder.financial);
 
           // Setting financial data---
           this.financialData = this.loanDataHolder.financial;
           this.financialSummary = true;
+
+          // Setting Security data--
+          this.securityData = JSON.parse(this.loanDataHolder.security.data);
+          console.log(this.loanDataHolder.security);
+          this.securitySummary = true;
 
           this.loanCategory = this.loanDataHolder.loanCategory;
           this.currentIndex = this.loanDataHolder.previousList.length;

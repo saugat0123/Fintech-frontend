@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 
 @Component({
@@ -11,24 +12,27 @@ export class SecuritySummaryComponent implements OnInit {
   landSelected = false;
   apartmentSelected = false;
   plantSelected = false;
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit() {
-    console.log("kaam gariraxa",this.formData);
-    (this.formData['selectedArray'] as Array<any>).forEach(selectedValue => {
-      switch (selectedValue) {
-        case 'LandSecurity' :
-          this.landSelected = true;
-          break;
-        case 'ApartmentSecurity' :
-          this.apartmentSelected = true;
-          break;
-        case 'Land and Building Security' :
-          this.apartmentSelected = this.landSelected = true;
-          break;
-        case 'PlantSecurity' :
-          this.plantSelected = true;
-      }
-        });
+    if (ObjectUtil.isEmpty(this.formData)) {
+      (this.formData['selectedArray'] as Array<any>).forEach(selectedValue => {
+        switch (selectedValue) {
+          case 'LandSecurity' :
+            this.landSelected = true;
+            break;
+          case 'ApartmentSecurity' :
+            this.apartmentSelected = true;
+            break;
+          case 'Land and Building Security' :
+            this.apartmentSelected = this.landSelected = true;
+            break;
+          case 'PlantSecurity' :
+            this.plantSelected = true;
+        }
+      });
+    }
   }
 }

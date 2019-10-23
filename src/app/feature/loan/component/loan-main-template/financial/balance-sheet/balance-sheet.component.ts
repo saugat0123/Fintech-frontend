@@ -633,7 +633,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
 
     setCurrentAssetsCategoryAmount(singleData) {
         const amountControl = this.formBuilder.array([]);
-        console.log(singleData.amount);
         singleData.amount.forEach(singleAmount => {
             amountControl.push(
                 this.formBuilder.group({
@@ -673,7 +672,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
 
     setInventoriesCategoryAmount(singleData) {
         const amountControl = this.formBuilder.array([]);
-        console.log(singleData.amount);
         singleData.amount.forEach(singleAmount => {
             amountControl.push(
                 this.formBuilder.group({
@@ -713,7 +711,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
 
     setFixedAssetsCategoryAmount(singleData) {
         const amountControl = this.formBuilder.array([]);
-        console.log(singleData.amount);
         singleData.amount.forEach(singleAmount => {
             amountControl.push(
                 this.formBuilder.group({
@@ -753,7 +750,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
 
     setOtherAssetsCategoryAmount(singleData) {
         const amountControl = this.formBuilder.array([]);
-        console.log(singleData.amount);
         singleData.amount.forEach(singleAmount => {
             amountControl.push(
                 this.formBuilder.group({
@@ -806,7 +802,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
 
     setCurrentLiabilitiesCategoryAmount(singleData) {
         const amountControl = this.formBuilder.array([]);
-        console.log(singleData.amount);
         singleData.amount.forEach(singleAmount => {
             amountControl.push(
                 this.formBuilder.group({
@@ -846,7 +841,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
 
     setLongTermLoanCategoryAmount(singleData) {
         const amountControl = this.formBuilder.array([]);
-        console.log(singleData.amount);
         singleData.amount.forEach(singleAmount => {
             amountControl.push(
                 this.formBuilder.group({
@@ -886,7 +880,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
 
     setOtherLongTermLiabilitiesCategoryAmount(singleData) {
         const amountControl = this.formBuilder.array([]);
-        console.log(singleData.amount);
         singleData.amount.forEach(singleAmount => {
             amountControl.push(
                 this.formBuilder.group({
@@ -939,7 +932,6 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
 
     setNetWorthCategoryAmount(singleData) {
         const amountControl = this.formBuilder.array([]);
-        console.log(singleData.amount);
         singleData.amount.forEach(singleAmount => {
             amountControl.push(
                 this.formBuilder.group({

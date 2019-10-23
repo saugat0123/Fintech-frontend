@@ -1,5 +1,5 @@
-import {Component, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {SecurityInitialFormComponent} from './security-initial-form/security-initial-form.component';
 import {Security} from '../../../model/security';
 
@@ -31,13 +31,13 @@ export class SecurityComponent implements OnInit {
             this.setGuarantorsDetails(this.securityValueForEdit['guarantorsForm'].guarantorsDetails);
 
         } else {
-            this.addguarantorsDetails();
+            this.addGuarantorsDetails();
             this.initialSecurityValue = undefined;
         }
     }
     buildForm() {
         this.guarantorsForm = this.formBuilder.group({
-            guarantorsDetails: this.formBuilder.array([])// this.guarantorsDetailsFormGroup()
+            guarantorsDetails: this.formBuilder.array([])
         });
     }
     setGuarantorsDetails(currentData) {
@@ -59,7 +59,7 @@ export class SecurityComponent implements OnInit {
         });
     }
 
-    addguarantorsDetails() {
+    addGuarantorsDetails() {
         const addDetails = this.guarantorsForm.get('guarantorsDetails') as FormArray;
         addDetails.push(
             this.formBuilder.group({
@@ -76,7 +76,7 @@ export class SecurityComponent implements OnInit {
         );
     }
 
-    removeguarantorsDetails(index: number) {
+    removeGuarantorsDetails(index: number) {
         (this.guarantorsForm.get('guarantorsDetails') as FormArray).removeAt(index);
     }
 
