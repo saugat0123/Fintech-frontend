@@ -12,6 +12,7 @@ import {Insurance} from '../../admin/modal/insurance';
 import {LoanType} from './loanType';
 import {Financial} from './financial';
 import {Security} from './security';
+import {SiteVisit} from '../../admin/modal/siteVisit';
 
 export class LoanDataHolder {
     id: number;
@@ -26,8 +27,8 @@ export class LoanDataHolder {
     ciclRemarks: string;
     insurance: Insurance;
     documentStatus: DocStatus;
+    siteVisit: SiteVisit;
     financial: Financial;
-    siteVisit: Array<Object>;
     security: Security;
     priority: Priority;
     createdAt: Date;
