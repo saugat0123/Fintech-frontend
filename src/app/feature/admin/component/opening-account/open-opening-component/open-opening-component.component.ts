@@ -44,7 +44,6 @@ export class OpenOpeningComponentComponent implements OnInit {
     branchList: Array<Branch> = new Array<Branch>();
     accountPurposeList: Array<AccountPurpose> = new Array<AccountPurpose>();
     accountTypeList: Array<AccountType> = new Array<AccountType>();
-    accountPurpose: AccountPurpose = new AccountPurpose();
     id = 0;
     isApproval = false;
     showAction = false;
@@ -66,25 +65,37 @@ export class OpenOpeningComponentComponent implements OnInit {
     ) {
     }
 
-    getAccountType(accountPurpose) {
-        this.accountPurpose = accountPurpose;
-        this.accountTypeService.getAllByAccountTypeWithoutToken(this.accountPurpose.id).subscribe((response: any) => {
-            this.accountTypeList = response.detail;
+    // NOTE: remove only if account type and account purpose is not related
+    /*getAccountPurpose(accountTypeId: number) {
+        this.accountPurposeService.getAccountPurposeByAccountType(accountTypeId).subscribe((response: any) => {
+            this.accountPurposeList = response.detail;
         }, error => {
             console.log(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to loan Account Type'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to loan Account Purpose'));
         });
-    }
+    }*/
 
     ngOnInit() {
         this.isApproval = localStorage.getItem('roleType') === RoleType.APPROVAL &&
             localStorage.getItem('roleName') !== 'admin';
         this.id = Number(this.activatedRoute.snapshot.queryParamMap.get('openingFormId'));
-        this.accountPurposeService.getByAccountPurposeWithoutToken().subscribe((response: any) => {
+        this.accountTypeService.getAll().subscribe((response: any) => {
+            this.accountTypeList = response.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Account Types.'));
+        });
+        this.accountPurposeService.getAll().subscribe((response: any) => {
             this.accountPurposeList = response.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Account Purposes.'));
         });
         this.branchService.getAll().subscribe((response: any) => {
             this.branchList = response.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Branches.'));
         });
         this.openingAccount = this.formBuilder.group({
             // OpeningForm
@@ -111,6 +122,8 @@ export class OpenOpeningComponentComponent implements OnInit {
             nomineePresentAddress: [undefined],
             nomineeCitizenshipNumber: [undefined],
             nomineeCitizenshipIssueAddress: [undefined],
+            // Nominee Relatives
+            nomineeFamily: this.formBuilder.array([]),
             // Beneficiary
             beneficiaryRadio: [undefined],
             beneficiaryName: [undefined],
@@ -134,6 +147,9 @@ export class OpenOpeningComponentComponent implements OnInit {
             this.showAction = this.isApproval &&
                 this.openingForm.status === AccountStatus.name(AccountStatus.NEW_REQUEST);
             this.setOpeningForm(this.openingForm);
+            console.log(this.openingAccount);
+            const nomineeFamilyArray = (this.openingForm.openingAccount.nominee.nomineeFamily) as Array<OpeningCustomerRelative>;
+            this.setNomineeFamily(nomineeFamilyArray);
         });
 
     }
@@ -166,6 +182,8 @@ export class OpenOpeningComponentComponent implements OnInit {
             nomineePresentAddress: openingForm.openingAccount.nominee.temporaryAddress,
             nomineeCitizenshipNumber: openingForm.openingAccount.nominee.citizenNumber,
             nomineeCitizenshipIssueAddress: openingForm.openingAccount.nominee.issuedPlace,
+            // Nominee Relatives
+            nomineeFamily: this.formBuilder.array([]),
             // Beneficiary
             beneficiaryRadio: openingForm.openingAccount.haveBeneficiary + '',
             beneficiaryName: openingForm.openingAccount.beneficiary.fullName,
@@ -184,7 +202,7 @@ export class OpenOpeningComponentComponent implements OnInit {
             internetBankingRadio: openingForm.openingAccount.internetBanking + '',
             mobileBankingRadio: openingForm.openingAccount.mobileBanking + '',
         });
-        this.getAccountType(openingForm.openingAccount.purposeOfAccount);
+        // this.getAccountPurpose(openingForm.accountType.id);
         this.openingAccount.setControl('applicantDetail', this.setApplicantDetailFormGroup
         (this.openingForm.openingAccount.openingCustomers));
         // documents array
@@ -232,9 +250,49 @@ export class OpenOpeningComponentComponent implements OnInit {
                         }
                     );
                 }
+                if (!ObjectUtil.isEmpty(customer.licenseImagePath)) {
+                    this.documents.push(
+                        {
+                            name: `Applicant: ${customer.firstName} ${customer.lastName} License`,
+                            url: customer.licenseImagePath
+                        }
+                    );
+                }
+                if (!ObjectUtil.isEmpty(customer.voterImagePath)) {
+                    this.documents.push(
+                        {
+                            name: `Applicant: ${customer.firstName} ${customer.lastName} Voter`,
+                            url: customer.voterImagePath
+                        }
+                    );
+                }
             });
         }
-}
+    }
+    setNomineeFamily(nomineeRelativeArray: Array<OpeningCustomerRelative>) {
+        const control = (this.openingAccount.get('nomineeFamily') as FormArray).controls;
+        nomineeRelativeArray.forEach( value => {
+            control.push(
+                this.formBuilder.group({
+                    relation: [value.customerRelation],
+                    relativeName: [value.customerRelativeName]
+                })
+            );
+        });
+    }
+
+    addNomineeRelative() {
+        (this.openingAccount.get('nomineeFamily') as FormArray).push(
+            this.formBuilder.group({
+                relation: [undefined],
+                relativeName: [undefined]
+            })
+        );
+    }
+
+    removeNomineeRelativeField(index) {
+        (this.openingAccount.get('nomineeFamily') as FormArray).removeAt(index);
+    }
 
     applicantDetailFormGroup(): FormGroup {
         return this.formBuilder.group({
@@ -277,10 +335,17 @@ export class OpenOpeningComponentComponent implements OnInit {
             applicantCitizenNumber: [undefined],
             applicantCitizenIssuedPlace: [undefined],
             applicantCitizenIssuedDate: [undefined],
+            applicantVoterNumber: [undefined],
+            applicantVoterIssuedPlace: [undefined],
+            applicantVoterIssuedDate: [undefined],
             applicantPassportNumber: [undefined],
             applicantPassportIssuedPlace: [undefined],
             applicantPassportIssuedDate: [undefined],
             applicantPassportExpireDate: [undefined],
+            applicantLicenseNumber: [undefined],
+            applicantLicenseIssuedPlace: [undefined],
+            applicantLicenseIssuedDate: [undefined],
+            applicantLicenseExpireDate: [undefined],
             employedDetailRadio: [undefined],
             applicantSalaried: [undefined],
             applicantSalariedOther: [undefined],
@@ -296,9 +361,11 @@ export class OpenOpeningComponentComponent implements OnInit {
             pepName: [undefined],
             pepRelationWithApplicant: [undefined],
             isConvictedForCrime: [undefined],
+            isMemberHighProfile: [undefined],
             crimeConvictedFor: [undefined],
             holdResidentialOfForeign: [undefined],
             holdResidentialOfForeignType: [undefined],
+            holdResidentialOf: [undefined],
             isUsResidentRadio: [undefined],
             isUsCitizenRadio: [undefined],
             isUsGreenCardHolderRadio: [undefined]
@@ -347,10 +414,17 @@ export class OpenOpeningComponentComponent implements OnInit {
                     applicantCitizenNumber: applicant.citizenNumber,
                     applicantCitizenIssuedPlace: applicant.citizenIssuedPlace,
                     applicantCitizenIssuedDate: this.formatDate(applicant.citizenIssuedDate),
+                    applicantVoterNumber: applicant.voterNumber,
+                    applicantVoterIssuedPlace: applicant.voterIssuedPlace,
+                    applicantVoterIssuedDate: this.formatDate(applicant.voterIssuedDate),
                     applicantPassportNumber: applicant.passportNumber,
                     applicantPassportIssuedPlace: applicant.passportIssuedPlace,
                     applicantPassportIssuedDate: this.formatDate(applicant.passportIssuedDate),
                     applicantPassportExpireDate: this.formatDate(applicant.passportExpireDate),
+                    applicantLicenseNumber: applicant.licenseNumber,
+                    applicantLicenseIssuedPlace: applicant.licenseIssuedPlace,
+                    applicantLicenseIssuedDate: this.formatDate(applicant.licenseIssuedDate),
+                    applicantLicenseExpireDate: this.formatDate(applicant.licenseExpireDate),
                     employedDetailRadio: 'Salaried',
                     applicantSalaried: applicant.salariedEmployedWith,
                     applicantSalariedOther: [undefined],
@@ -366,9 +440,11 @@ export class OpenOpeningComponentComponent implements OnInit {
                     pepName: applicant.pepName,
                     pepRelationWithApplicant: applicant.pepDesignation,
                     isConvictedForCrime: applicant.convictedOfCrime + '',
+                    isMemberHighProfile: applicant.highProfileRelation + '',
                     crimeConvictedFor: applicant.convictedCrime,
                     holdResidentialOfForeign: applicant.residentialPermitOfForeign + '',
                     holdResidentialOfForeignType: applicant.residentialPermitOfForeignType + '',
+                    holdResidentialOf: applicant.residentialPermitOfForeignCountryName,
                     isUsResidentRadio: applicant.usResident + '',
                     isUsCitizenRadio: applicant.usCitizen + '',
                     isUsGreenCardHolderRadio: applicant.greenCardHolder + ''
@@ -525,7 +601,9 @@ export class OpenOpeningComponentComponent implements OnInit {
         const accountType = new AccountType();
         accountType.id = this.openingAccount.get('accountType').value;
         this.openingForm.accountType = accountType;
-        this.account.purposeOfAccount = this.accountPurpose;
+        const accountPurpose = new AccountPurpose();
+        accountPurpose.id = this.openingAccount.get('purposeOfAccount').value;
+        this.account.purposeOfAccount = accountPurpose;
         this.account.currency = this.openingAccount.get('accountCurrency').value;
         this.account.haveJoint = this.openingAccount.get('jointAccountRadio').value;
         // Applicant Personal Details
@@ -578,10 +656,17 @@ export class OpenOpeningComponentComponent implements OnInit {
             this.openingCustomer.citizenNumber = this.getApplicantDetail()[customerIndex].applicantCitizenNumber;
             this.openingCustomer.citizenIssuedPlace = this.getApplicantDetail()[customerIndex].applicantCitizenIssuedPlace;
             this.openingCustomer.citizenIssuedDate = this.getApplicantDetail()[customerIndex].applicantCitizenIssuedDate;
+            this.openingCustomer.voterNumber = this.getApplicantDetail()[customerIndex].applicantVoterNumber;
+            this.openingCustomer.voterIssuedPlace = this.getApplicantDetail()[customerIndex].applicantVoterIssuedPlace;
+            this.openingCustomer.voterIssuedDate = this.getApplicantDetail()[customerIndex].applicantVoterIssuedDate;
             this.openingCustomer.passportNumber = this.getApplicantDetail()[customerIndex].applicantPassportNumber;
             this.openingCustomer.passportIssuedPlace = this.getApplicantDetail()[customerIndex].applicantPassportIssuedPlace;
             this.openingCustomer.passportIssuedDate = this.getApplicantDetail()[customerIndex].applicantPassportIssuedDate;
             this.openingCustomer.passportExpireDate = this.getApplicantDetail()[customerIndex].applicantPassportExpireDate;
+            this.openingCustomer.licenseNumber = this.getApplicantDetail()[customerIndex].applicantLicenseNumber;
+            this.openingCustomer.licenseIssuedPlace = this.getApplicantDetail()[customerIndex].applicantLicenseIssuedPlace;
+            this.openingCustomer.licenseIssuedDate = this.getApplicantDetail()[customerIndex].applicantLicenseIssuedDate;
+            this.openingCustomer.licenseExpireDate = this.getApplicantDetail()[customerIndex].applicantLicenseExpireDate;
             // Family Details
             this.openingKyc = new OpeningKyc();
             this.openingKyc.customerRelatives = new Array<OpeningCustomerRelative>();
@@ -636,8 +721,10 @@ export class OpenOpeningComponentComponent implements OnInit {
             this.openingCustomer.pepDesignation = this.getApplicantDetail()[customerIndex].pepRelationWithApplicant;
             this.openingCustomer.convictedOfCrime = this.getApplicantDetail()[customerIndex].isConvictedForCrime;
             this.openingCustomer.convictedCrime = this.getApplicantDetail()[customerIndex].crimeConvictedFor;
+            this.openingCustomer.highProfileRelation = this.getApplicantDetail()[customerIndex].isMemberHighProfile;
             this.openingCustomer.residentialPermitOfForeign = this.getApplicantDetail()[customerIndex].holdResidentialOfForeign;
             this.openingCustomer.residentialPermitOfForeignType = this.getApplicantDetail()[customerIndex].holdResidentialOfForeignType;
+            this.openingCustomer.residentialPermitOfForeignCountryName = this.getApplicantDetail()[customerIndex].holdResidentialOf;
             // FATCA Declaration
             this.openingCustomer.usResident = this.getApplicantDetail()[customerIndex].isUsResidentRadio;
             this.openingCustomer.usCitizen = this.getApplicantDetail()[customerIndex].isUsCitizenRadio;
@@ -671,6 +758,15 @@ export class OpenOpeningComponentComponent implements OnInit {
         this.openingNominee.temporaryAddress = this.openingAccount.get('nomineePresentAddress').value;
         this.openingNominee.citizenNumber = this.openingAccount.get('nomineeCitizenshipNumber').value;
         this.openingNominee.issuedPlace = this.openingAccount.get('nomineeCitizenshipIssueAddress').value;
+
+        // Nominee Relative
+        this.openingNominee.nomineeFamily = new Array<OpeningCustomerRelative>();
+        (this.openingAccount.get('nomineeFamily') as FormArray).controls.forEach( value => {
+            const nomineeRelativeObject = new OpeningCustomerRelative();
+            nomineeRelativeObject.customerRelation = value.get('relation').value;
+            nomineeRelativeObject.customerRelativeName = value.get('relativeName').value;
+            this.openingNominee.nomineeFamily.push(nomineeRelativeObject);
+        });
         this.account.nominee = this.openingNominee;
         // Required Service
         this.account.statement = this.openingAccount.get('accountStatementRadio').value;
