@@ -21,6 +21,7 @@ import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component
 import {LoanType} from '../../model/loanType';
 import {BusinessType} from '../../../admin/modal/businessType';
 import {Financial} from '../../model/financial';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-loan-summary',
@@ -136,13 +137,16 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           this.loanDataHolder = response.detail;
 
           // Setting financial data---
-          this.financialData = this.loanDataHolder.financial;
-          this.financialSummary = true;
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
+            this.financialData = this.loanDataHolder.financial;
+            this.financialSummary = true;
+          }
 
           // Setting Security data--
-          this.securityData = JSON.parse(this.loanDataHolder.security.data);
-          console.log(this.loanDataHolder.security);
-          this.securitySummary = true;
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+            this.securityData = JSON.parse(this.loanDataHolder.security.data);
+            this.securitySummary = true;
+          }
 
           this.loanCategory = this.loanDataHolder.loanCategory;
           this.currentIndex = this.loanDataHolder.previousList.length;
