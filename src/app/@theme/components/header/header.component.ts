@@ -114,7 +114,9 @@ export class HeaderComponent implements OnInit {
     }
 
     logout() {
+        this.socketService.closeSocket();
         localStorage.clear();
+
         this.router.navigate(['/login']);
     }
 
