@@ -290,8 +290,8 @@ export class LoanOfferLetterComponent implements OnInit {
         });
     }
 
-    generateOfferLetter(templateUrl, id) {
-        this.router.navigate([templateUrl], {queryParams: {customerId: id}});
+    generateOfferLetter(templateUrl, id, offerLetterId) {
+        this.router.navigate([templateUrl], {queryParams: {customerId: id, offerLetterId: offerLetterId}});
     }
 
     uploadOfferLetterTemplate(uploadDocument, customerId) {

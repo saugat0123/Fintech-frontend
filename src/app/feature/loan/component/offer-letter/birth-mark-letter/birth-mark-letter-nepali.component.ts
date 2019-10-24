@@ -15,7 +15,7 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
     id;
     show = false;
     applicant: Applicant;
-    applicantList: Array<Applicant> = new Array<Applicant>();
+        applicantList: Array<Applicant> = new Array<Applicant>();
     list: Array<Customer> = new Array<Customer>();
     loanNepali: LoanNepali = new LoanNepali();
     loanDataHolder: LoanDataHolder = new LoanDataHolder();
