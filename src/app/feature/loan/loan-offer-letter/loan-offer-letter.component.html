@@ -143,29 +143,34 @@
                 <td>
 
                     <div class="col-md-12">
-                        <!--                    <select (change)="generateOfferLetter($event.target.value,model.id)"-->
-                        <!--                            class="btn-sm btn-default btn-flat custom-select-sm cursor"-->
 
-                        <!--                            value="Offer Letter">-->
-                        <!--                        <option [value]="null" hidden selected>-->
-                        <!--                            <span>Offer Letter<i class="col-md-1 fa fa-envelope-square"></i></span>-->
-                        <!--                        </option>-->
-                        <!--                        <option *ngFor="let offerLetter of model.loan.offerLetters" [value]="offerLetter.templateUrl">-->
-                        <!--                            {{offerLetter.name}}-->
-                        <!--                        </option>-->
-                        <!--                    </select>-->
 
                         <nb-select placeholder="Select Offer Letter Action">
 
-                            <nb-option *ngFor="let offerLetter of model.loan.offerLetters"
-                                       [value]="offerLetter.templateUrl"
-                                       (click)="generateOfferLetter(offerLetter.templateUrl,model.id)">
-                                {{offerLetter.name}}
+
+                            <nb-option>
+                                 <span *ngIf="model?.customerOfferLetter != null;"
+                                       (click)="generateOfferLetter(model?.customerOfferLetter?.offerLetter.templateUrl,model.id,model?.customerOfferLetter?.offerLetter.id)">
+                                    {{model?.customerOfferLetter?.offerLetter.name}}
+                                </span>
+
+
                             </nb-option>
 
 
-                            <nb-option>
-                                <a (click)="uploadOfferLetterTemplate(uploadDocument,model.id)"><i
+                            <nb-option
+                                    *ngFor="let offerLetter of model.loan.offerLetters;"
+                                   >
+                                <span *ngIf="model?.customerOfferLetter == null;"  (click)="generateOfferLetter(offerLetter.templateUrl,model.id,offerLetter.id)">
+                                    {{offerLetter.name}}
+                                </span>
+
+                            </nb-option>
+
+
+                            <nb-option *ngIf="model?.customerOfferLetter !==null">
+                                <a (click)=" uploadOfferLetterTemplate(uploadDocument,model.id)
+                            "><i
                                         class="fa fa-upload"></i><span class="px-3 cursor">Upload</span></a>
                             </nb-option>
                             <nb-option *ngIf="model?.customerOfferLetter?.path !==null">

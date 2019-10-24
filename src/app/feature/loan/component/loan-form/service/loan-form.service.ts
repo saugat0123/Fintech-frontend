@@ -33,7 +33,7 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         const api = `${this.getApi()}/proposed-amount`;
         const param = new HttpParams().set('startDate', startDate).set('endDate', endDate);
         const req = ApiUtils.getRequest(api);
-        return this.http.get(req.url, { params: param, headers: req.header });
+        return this.http.get(req.url, {params: param, headers: req.header});
     }
 
     public getLoanAmountByBranch(id: number, startDate: string, endDate: string) {
@@ -73,6 +73,11 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
     public uploadOfferFile(formData: FormData): Observable<object> {
         const req = ApiUtils.getRequestWithFileSupport(`v1/customer-offer-letter/uploadFile`);
         return this.http.post(req.url, formData, {headers: req.header});
+    }
+
+    public postOfferLetterAction(object): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`v1/customer-offer-letter/action`);
+        return this.http.post(req.url, object, {headers: req.header});
     }
 
     public renewLoan(searchObj: any) {
