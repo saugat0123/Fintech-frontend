@@ -122,11 +122,11 @@ export class BasicInfoComponent implements OnInit {
     searchByCustomerId() {
         const tempId = this.basicInfo.get('customerId').value;
         this.customerDetailField.showFormField = true;
-
         if (tempId) {
             this.customerSearchData.customerId = this.basicInfo.get('customerId').value;
             this.customerService.getByCustomerId(this.customerSearchData.customerId).subscribe((customerResponse: any) => {
                 if (customerResponse.detail === undefined) {
+                    this.getProvince();
                     this.customerDetailField.isOldCustomer = false;
                     this.toastService.show(new Alert(AlertType.INFO, 'No Customer Found under provided Customer Id.'));
                     this.customer = new Customer();
@@ -134,6 +134,7 @@ export class BasicInfoComponent implements OnInit {
                     this.formMaker();
                     this.createRelativesArray();
                 } else {
+                    this.getProvince();
                     this.customer = customerResponse.detail;
                     this.formMaker();
                     this.setRelatives(this.customer.customerRelatives);
