@@ -277,7 +277,7 @@ export class LoanFormComponent implements OnInit {
                 // return true;
             }
             this.basicInfo.onSubmit();
-            this.loanDocument.customerInfo = this.basicInfo.basicInfo.value;
+            this.loanDocument.customerInfo = this.basicInfo.customer;
         }
 
         if (name === 'General' && action) {
