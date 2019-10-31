@@ -5,6 +5,11 @@ import {LoanDataHolder} from '../../../model/loanData';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {CustomerOfferLetter} from '../../../model/customer-offer-letter';
+import {DocStatus} from '../../../model/docStatus';
+import {OfferLetter} from '../../../../admin/modal/offerLetter';
+import {CustomerOfferLetterService} from '../../../service/customer-offer-letter.service';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-birth-mark-letter-nepali',
@@ -15,18 +20,24 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
     show = false;
     form: FormGroup;
     loanDataHolder: LoanDataHolder = new LoanDataHolder();
+    customerOfferLetter: CustomerOfferLetter;
+    customerId: number;
+    offerLetterId: number;
+    spinner = false;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private loanFormService: LoanFormService,
         private formBuilder: FormBuilder,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private customerOfferLetterService: CustomerOfferLetterService
     ) {
     }
 
     ngOnInit() {
-        const customerId = Number(this.activatedRoute.snapshot.queryParamMap.get('customerId'));
-        this.loanFormService.detail(customerId).subscribe((response: any) => {
+        this.customerId = Number(this.activatedRoute.snapshot.queryParamMap.get('customerId'));
+        this.offerLetterId = Number(this.activatedRoute.snapshot.queryParamMap.get('offerLetterId'));
+        this.loanFormService.detail(this.customerId).subscribe((response: any) => {
             this.loanDataHolder = response.detail;
         }, error => {
             console.error(error);
@@ -39,6 +50,7 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
     }
 
     buildForm(): void {
+        this.dummyData();
         this.form = this.formBuilder.group({
             date: [undefined],
             applicantName: [undefined],
@@ -67,7 +79,7 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
                 stockQuantity: [undefined],
                 landArea: [undefined]
             }),
-            securityGuarantorRemaining: this.formBuilder.array([this.securityGuarantorRemainingFormGroup()]),
+            securityGuarantorRemaining: this.formBuilder.array([]),
             securityRemaining: this.formBuilder.group({
                 securityRemaining1Amount: [undefined],
                 securityRemaining1Word: [undefined],
@@ -77,22 +89,65 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
                 securityRemaining3Word: [undefined]
             })
         });
+        if (ObjectUtil.isEmpty(this.customerOfferLetter.id)) {
+            (this.form.get('securityGuarantorRemaining') as FormArray).push(this.securityGuarantorRemainingFormGroup(null));
+        } else {
+            const initialInfo = JSON.parse(this.customerOfferLetter.initialInformation);
+            this.form.patchValue(initialInfo, {emitEvent: false});
+            initialInfo.securityGuarantorRemaining.forEach(info => {
+                (this.form.get('securityGuarantorRemaining') as FormArray).push(
+                    this.securityGuarantorRemainingFormGroup(
+                        {
+                            name: info.name,
+                            amount: info.amount,
+                            amountInWords: info.amountInWords
+                        }
+                    )
+                );
+            });
+        }
     }
 
-    securityGuarantorRemainingFormGroup(): FormGroup {
+    securityGuarantorRemainingFormGroup(info): FormGroup {
         return this.formBuilder.group({
-            name: [undefined],
-            amount: [undefined],
-            amountInWords: [undefined]
+            name: [ObjectUtil.isEmpty(info) ? undefined : info.name],
+            amount: [ObjectUtil.isEmpty(info) ? undefined : info.amount],
+            amountInWords: [ObjectUtil.isEmpty(info) ? undefined : info.amountInWords]
         });
     }
 
     addGuarantor(): void {
-        (this.form.get('securityGuarantorRemaining') as FormArray).push(this.securityGuarantorRemainingFormGroup());
+        (this.form.get('securityGuarantorRemaining') as FormArray).push(this.securityGuarantorRemainingFormGroup(null));
     }
 
     removeGuarantor(deleteIndex: number): void {
         (this.form.get('securityGuarantorRemaining') as FormArray).removeAt(deleteIndex);
+    }
+
+    submit(): void {
+        this.spinner = true;
+        this.customerOfferLetter.docStatus = DocStatus.PENDING;
+        this.customerOfferLetter.customerLoanId = this.customerId;
+        this.customerOfferLetter.initialInformation = JSON.stringify(this.form.value);
+        // TODO: Assign Supported Information in OfferLetter
+        const offerLetter = new OfferLetter();
+        offerLetter.id = this.offerLetterId;
+        this.customerOfferLetter.offerLetter = offerLetter;
+
+        this.customerOfferLetterService.save(this.customerOfferLetter).subscribe(() => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+            this.spinner = false;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+            this.spinner = false;
+        });
+    }
+
+    dummyData(): void {
+        this.customerOfferLetter = new CustomerOfferLetter();
+        this.customerOfferLetter.id = 1;
+        this.customerOfferLetter.initialInformation = '{"date":"@)$@","applicantName":"asdasd","applicantPermanentAddress":"asdasd","applicantPresentAddress":"asdsadsa","applicantAge":"@#","applicantCitizenshipNumber":"asadasdsa","applicantCitizenshipIssuedPlace":"asdasdasd","applicantCitizenshipIssuedDate":"@#@#","applicantMobileNumber":null,"loanType":"asdasd","applicantRelativeOne":"asdasd","applicantRelativeOneRelation":"asdsad","applicantRelativeTwo":"asdsadad","applicantRelativeTwoRelation":"asdsadasd","totalApplicantCount":"#","amountLimit":"@#@#@#@","amountLimitWord":"asdasdsads","interestRate":"@#@#","interestAmount":"@#@#@#","interestWord":"asdsasads","securityGuarantorFirst":{"name":"asdasasd","district":"asdasdasd","address":"adsasdasd","stockQuantity":"@#","landArea":"@##@#"},"securityGuarantorRemaining":[{"name":"asdsad","amount":"@#@#","amountInWords":"sadasdasd"},{"name":null,"amount":null,"amountInWords":null}],"securityRemaining":{"securityRemaining1Amount":"@#@#","securityRemaining1Word":"assad","securityRemaining2Amount":"@#@#","securityRemaining2Word":"SDASDaasdd","securityRemaining3Amount":"@#@#","securityRemaining3Word":"asdsadasd"}}';
     }
 
 }

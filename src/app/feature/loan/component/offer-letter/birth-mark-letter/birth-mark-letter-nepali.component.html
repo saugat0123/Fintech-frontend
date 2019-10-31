@@ -2,7 +2,7 @@
     <app-offer-letter-action></app-offer-letter-action>
 
 <nb-card>
-  <nb-card-body>
+  <nb-card-body [nbSpinner]="spinner">
     <div class="row">
       <section *ngIf="show" class="col-md-2 fixed" id="englishDate"
                style='position:fixed;width:100%; transition: all 0.2s'>
@@ -49,7 +49,7 @@
       </section>
 
       <section [class]="show === true? 'offset-md-2' : 'col-md-12'" style="transition: all 0.2s">
-        <form [formGroup]="form" class="nep">
+        <form [formGroup]="form" class="nep"(ngSubmit)="submit()">
           <button (click)="show = !show" nbButton status="primary" *ngIf="!show">Show</button>
           <div class="row form-group">
             <div class="col-md-12">
@@ -364,7 +364,7 @@
             <div class="row my-2">
               <div class="col-md-12 text-right">
             <button (click)="addGuarantor()"
-                    nbButton size="small"
+                    nbButton size="small" type="button"
                     status="info">थप्नुहोस्..
             </button>
               </div>
@@ -1021,6 +1021,11 @@
             काठमाण्डौं,
             मिति २०२४/१०/२७ ।
           </p>
+          <div class="row">
+            <div class="col-md-12">
+              <button nbButton status="success" type="submit">Save</button>
+            </div>
+          </div>
         </form>
       </section>
     </div>
