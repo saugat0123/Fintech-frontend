@@ -15,7 +15,7 @@ export class LoanDataHolder {
     id: number;
     branch: Branch;
     loanCategory: any;
-    customerInfo: Customer = new Customer();
+    customerInfo: Customer;
     companyInfo: CompanyInfo = new CompanyInfo();
     dmsLoanFile: DmsLoanFile = new DmsLoanFile();
     proposal: Proposal;
