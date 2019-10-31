@@ -4,9 +4,9 @@
 <nb-card>
   <nb-card-body>
     <div class="row">
-      <button (click)="show = !show" class="btn btn-primary ">show/hide</button>
       <section *ngIf="show" class="col-md-2 fixed" id="englishDate"
-               style='position:fixed; margin-top: 50px; width:100%; transition: all 0.2s'>
+               style='position:fixed;width:100%; transition: all 0.2s'>
+        <button (click)="show = !show" nbButton status="primary" class="mb-5">Hide</button>
         <table class="table">
           <tbody>
           <tr>
@@ -50,6 +50,7 @@
 
       <section [class]="show === true? 'offset-md-2' : 'col-md-12'" style="transition: all 0.2s">
         <form [formGroup]="form" class="nep">
+          <button (click)="show = !show" nbButton status="primary" *ngIf="!show">Show</button>
           <div class="row form-group">
             <div class="col-md-12">
               पत्र संख्या नं . सीटीबीएन/सीडी–१३/०४९९
