@@ -28,7 +28,7 @@ export class SiteVisitComponent implements OnInit {
   zoom = 8;
   latLng: string[];
   formDataForEdit;
-
+    currentResident = false;
   constructor(private formBuilder: FormBuilder) {
   }
 
@@ -98,6 +98,10 @@ export class SiteVisitComponent implements OnInit {
 
   buildForm() {
     this.siteVisitFormGroup = this.formBuilder.group({
+      currentResidentFormChecked: [false],
+      businessSiteVisitFormChecked: [false],
+      fixedAssetCollateralFormChecked: [false],
+      currentAssetsInspectionFormChecked: [false],
       currentResidentDetails: this.formBuilder.group({
         houseNumber: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
             : this.formDataForEdit.currentResidentDetails.houseNumber)],
@@ -437,22 +441,28 @@ export class SiteVisitComponent implements OnInit {
   checkboxSelected(label: String, isChecked: boolean) {
     if (label === 'currentResident') {
       this.currentResidentForm = isChecked;
+      this.siteVisitFormGroup.get('currentResidentFormChecked').patchValue(isChecked);
     } else if (label === 'businessSiteVisit') {
       this.businessSiteVisitForm = isChecked;
+      this.siteVisitFormGroup.get('businessSiteVisitFormChecked').patchValue(isChecked);
+
     } else if (label === 'fixedAssetCollateral') {
       this.fixedAssetCollateralForm = isChecked;
+      this.siteVisitFormGroup.get('fixedAssetCollateralFormChecked').patchValue(isChecked);
+
     } else if (label === 'currentAssetsInspection') {
       this.currentAssetsInspectionForm = isChecked;
+      this.siteVisitFormGroup.get('currentAssetsInspectionFormChecked').patchValue(isChecked);
     }
   }
 
   populateData() {
     const formData = this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities;
     const currentAssetsInspectionData = this.formDataForEdit.currentAssetsInspectionDetails;
-    this.checkboxSelected('currentResident', true);
-    this.checkboxSelected('businessSiteVisit', true);
-    this.checkboxSelected('fixedAssetCollateral', true);
-    this.checkboxSelected('currentAssetsInspection', true);
+    this.checkboxSelected('currentResident', this.formDataForEdit['currentResidentFormChecked']);
+    this.checkboxSelected('businessSiteVisit', this.formDataForEdit['businessSiteVisitFormChecked']);
+    this.checkboxSelected('fixedAssetCollateral', this.formDataForEdit['fixedAssetCollateralFormChecked']);
+    this.checkboxSelected('currentAssetsInspection', this.formDataForEdit['currentAssetsInspectionFormChecked']);
     this.setStaffDetails(formData.staffs);
     this.setInspectingStaffsDetails(currentAssetsInspectionData.insuranceVerification.inspectingStaffsDetails);
     this.setPartyFormDetails(currentAssetsInspectionData.receivablesAndPayables.parties);
