@@ -3,22 +3,22 @@
     <form [formGroup]="siteVisitFormGroup" class="form-horizontal">
       <div class="row justify-content-around">
         <div class="col-md-3">
-          <nb-checkbox (change)="checkboxSelected('currentResident',$event.target.checked)">
+          <nb-checkbox [checked]="currentResidentForm" (change)="checkboxSelected('currentResident',$event.target.checked)">
             Current Resident
           </nb-checkbox>
         </div>
         <div class="col-md-3">
-          <nb-checkbox (change)="checkboxSelected('businessSiteVisit',$event.target.checked)">
+          <nb-checkbox [checked]="businessSiteVisitForm" (change)="checkboxSelected('businessSiteVisit',$event.target.checked)">
             Business Site Visit
           </nb-checkbox>
         </div>
         <div class="col-md-3">
-          <nb-checkbox (change)="checkboxSelected('fixedAssetCollateral',$event.target.checked)">
+          <nb-checkbox [checked]="fixedAssetCollateralForm" (change)="checkboxSelected('fixedAssetCollateral',$event.target.checked)">
             Fixed Asset Collateral
           </nb-checkbox>
         </div>
         <div class="col-md-3">
-          <nb-checkbox (change)="checkboxSelected('currentAssetsInspection',$event.target.checked)">
+          <nb-checkbox [checked]="currentAssetsInspectionForm" (change)="checkboxSelected('currentAssetsInspection',$event.target.checked)">
             Current Assets Inspection
           </nb-checkbox>
         </div>
