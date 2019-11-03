@@ -19,8 +19,8 @@ export class LoanDataHolder {
     branch: Branch;
     loanCategory: any;
     customerInfo: Customer;
-    companyInfo: CompanyInfo = new CompanyInfo();
-    dmsLoanFile: DmsLoanFile = new DmsLoanFile();
+    companyInfo: CompanyInfo;
+    dmsLoanFile: DmsLoanFile;
     proposal: Proposal;
     loan: LoanConfig;
     ciclList: Array<Cicl>;

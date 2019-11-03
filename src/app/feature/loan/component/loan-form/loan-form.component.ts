@@ -28,6 +28,7 @@ import {CreditGradingComponent} from '../loan-main-template/credit-grading/credi
 import {SiteVisitComponent} from '../loan-main-template/site-visit/site-visit.component';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {SecurityComponent} from '../loan-main-template/security/security.component';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-loan-form',
@@ -75,6 +76,16 @@ export class LoanFormComponent implements OnInit {
         index: null
     };
 
+    // Priority options--
+    dropdownPriorities = [
+        {id: 'HIGH', name: 'High'},
+        {id: 'MEDIUM', name: 'Medium'},
+        {id: 'LOW', name: 'Low'},
+
+    ];
+
+    // Priority Form
+    priorityForm: FormGroup;
 
     loan: LoanConfig = new LoanConfig();
     currentNepDate;
@@ -122,12 +133,14 @@ export class LoanFormComponent implements OnInit {
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService,
         private datePipe: DatePipe,
-        private spinner: NgxSpinnerService
+        private spinner: NgxSpinnerService,
+        private formBuilder: FormBuilder
     ) {
 
     }
 
     ngOnInit() {
+        this.buildPriorityForm();
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.allId = {
@@ -147,6 +160,7 @@ export class LoanFormComponent implements OnInit {
                             this.loanDocument = response.detail;
                             this.loanDocument.id = response.detail.id;
                             this.submitDisable = false;
+                            this.priorityForm.get('priority').patchValue(this.loanDocument.priority);
                         }
                     );
                 } else {
@@ -162,10 +176,25 @@ export class LoanFormComponent implements OnInit {
         this.loading = false;
     }
 
+    buildPriorityForm() {
+        this.priorityForm = this.formBuilder.group({
+            priority: [undefined, Validators.required]
+        });
+    }
 
     populateTemplate() {
         this.loanConfigService.detail(this.id).subscribe((response: any) => {
             this.templateList = response.detail.templateList;
+
+            // Splicing customer loan for Personal Type Loan--
+            if (this.allId.loanCategory === 'PERSONAL_TYPE') {
+                this.templateList.forEach( (value, index) => {
+                    if (value.name === 'Company Info') {
+                        this.templateList.splice(index, 1);
+                    }
+                });
+            }
+
             this.loanTitle = response.detail.name;
             this.breadcrumbService.notify(response.detail.name);
             for (let i = 0; i < this.templateList.length; i++) {
@@ -245,12 +274,14 @@ export class LoanFormComponent implements OnInit {
     }
 
     save() {
+        if (this.priorityForm.invalid) { return; }
         this.spinner.show();
         if (this.selectChild(this.selectedTab, true)) {
             this.spinner.hide();
             return;
         }
         this.loanDocument.loan = this.loan;
+        this.loanDocument.priority = this.priorityForm.get('priority').value;
         this.loanDocument.loanCategory = this.allId.loanCategory;
         this.loanDocument.previousStageList = JSON.stringify(this.loanDocument.previousList);
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
