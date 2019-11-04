@@ -21,33 +21,33 @@ export class BorrowerRiskRatingComponent implements OnInit {
         this.ratingData = new Map<string, number>();
 
         this.borrowerRiskRating = this.formBuilder.group({
-            management: [this.formDataForBrrEdit === null ? undefined :
+            management: [this.formDataForBrrEdit === undefined ? undefined :
                 this.formDataForBrrEdit.management, Validators.required],
-            financialStatementQuality: [this.formDataForBrrEdit === null ? undefined :
+            financialStatementQuality: [this.formDataForBrrEdit === undefined ? undefined :
                 this.formDataForBrrEdit.financialStatementQuality, Validators.required],
-            financialStatementSource: [this.formDataForBrrEdit === null ? undefined :
+            financialStatementSource: [this.formDataForBrrEdit === undefined ? undefined :
                 this.formDataForBrrEdit.financialStatementSource, Validators.required],
-            industryTrend: [this.formDataForBrrEdit === null ? undefined :
+            industryTrend: [this.formDataForBrrEdit === undefined ? undefined :
                 this.formDataForBrrEdit.industryTrend, Validators.required],
-            timeInBusiness: [this.formDataForBrrEdit === null ? undefined :
+            timeInBusiness: [this.formDataForBrrEdit === undefined ? undefined :
                 this.formDataForBrrEdit.timeInBusiness, Validators.required],
-            collateral: [this.formDataForBrrEdit === null ? undefined :
+            collateral: [this.formDataForBrrEdit === undefined ? undefined :
                 this.formDataForBrrEdit.collateral, Validators.required],
-            balanceSheetRatios: [this.formDataForBrrEdit === null ? undefined :
+            balanceSheetRatios: [this.formDataForBrrEdit === undefined ? undefined :
                 this.formDataForBrrEdit.balanceSheetRatios, Validators.required],
-            pAndLHistory: [this.formDataForBrrEdit === null ? undefined :
+            pAndLHistory: [this.formDataForBrrEdit === undefined ? undefined :
                 this.formDataForBrrEdit.pAndLHistory, Validators.required],
-            debtServiceCapacity: [this.formDataForBrrEdit === null ? undefined :
+            debtServiceCapacity: [this.formDataForBrrEdit === undefined ? undefined :
                 this.formDataForBrrEdit.debtServiceCapacity, Validators.required],
-            salesTrade: [this.formDataForBrrEdit === null ? undefined :
+            salesTrade: [this.formDataForBrrEdit === undefined ? undefined :
                 this.formDataForBrrEdit.salesTrade, Validators.required],
-            repaymentSource: [this.formDataForBrrEdit === null ? undefined :
+            repaymentSource: [this.formDataForBrrEdit === undefined ? undefined :
                 this.formDataForBrrEdit.repaymentSource, Validators.required],
-            totalBrr: [this.formDataForBrrEdit === null ? undefined :
+            totalBrr: [this.formDataForBrrEdit === undefined ? undefined :
                 this.formDataForBrrEdit.totalBrr]
         });
 
-        if (this.formDataForBrrEdit !== null) {
+        if (this.formDataForBrrEdit !== undefined) {
             this.riskAverage = this.formDataForBrrEdit.totalBrr;
             this.ratingData.set('management', this.formDataForBrrEdit.management);
             this.ratingData.set('financialStatementQuality', this.formDataForBrrEdit.financialStatementQuality);

@@ -1,0 +1,202 @@
+<div class="row mt-3">
+  <div class="col-md-12">
+    <p><strong>Financial Position and Repayment Capacity of the Borrower</strong></p>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th class="text-center" colspan="5">Income of Borrower</th>
+          </tr>
+          <tr>
+            <th>S.N</th>
+            <th>Source of Income</th>
+            <th>Organization</th>
+            <th>Amount</th>
+            <th>Remarks</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let incomeOfBorrower of financialData?.initialForm?.incomeOfBorrower; let i = index;">
+            <td>{{i+1}}</td>
+            <td>{{incomeOfBorrower.incomeSource}}</td>
+            <td>{{incomeOfBorrower.organization}}</td>
+            <td>Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
+            <td>{{incomeOfBorrower.remarks}}</td>
+          </tr>
+          <tr>
+            <td colspan="3" class="text-center"><strong>Total Income</strong></td>
+            <td colspan="2"><strong>Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</strong></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th class="text-center" colspan="5">Expenses of Borrower</th>
+          </tr>
+          <tr>
+            <th>S.N</th>
+            <th>Particulars</th>
+            <th>Amount</th>
+            <th>Remarks</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let expensesOfBorrower of financialData?.initialForm?.expensesOfBorrower; let i = index;">
+            <td>{{i+1}}</td>
+            <td>{{expensesOfBorrower.particulars}}</td>
+            <td>Rs. {{expensesOfBorrower.amount | currencyFormatter}}</td>
+            <td>{{expensesOfBorrower.remarks}}</td>
+          </tr>
+          <tr>
+            <td colspan="3" class="text-center"><strong>Total Expense</strong></td>
+            <td colspan="2"><strong>Rs. {{financialData?.initialForm?.totalExpense | currencyFormatter}}</strong></td>
+          </tr>
+          <tr>
+            <td colspan="3" class="text-center"><strong>Net Saving</strong></td>
+            <td colspan="2"><strong>Rs. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-md-12">
+    <p><strong>Financial Highlights of the Entity</strong></p>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Particulars/Years:</th>
+            <th *ngFor="let fiscalYear of financialData?.fiscalYear">{{fiscalYear}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>1</td>
+            <td><strong>Current Assets</strong></td>
+            <td *ngFor="let currentAssetValue of financialData?.balanceSheetData?.currentAssets">
+              {{currentAssetValue.value}}</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><strong>Current Liability</strong></td>
+            <td *ngFor="let currentLiabilities of financialData?.balanceSheetData?.currentLiabilities">
+              {{currentLiabilities.value}}</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><strong>Inventory</strong></td>
+            <td *ngFor="let inventories of financialData?.balanceSheetData?.inventories">
+              {{inventories.value}}</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><strong>Account Receivable</strong></td>
+            <td *ngFor="let accountReceivable of accountReceivableArray()">
+              {{accountReceivable.value}}</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><strong>Sales</strong></td>
+            <td *ngFor="let sales of financialData?.incomeStatementData?.totalSalesRevenue">
+              {{sales.value}}</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><strong>Operating Profit</strong></td>
+            <td *ngFor="let operatingProfit of financialData?.incomeStatementData?.operatingProfit">
+              {{operatingProfit.value}}</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td><strong>Interest Expense</strong></td>
+            <td *ngFor="let interestExpenses of financialData?.incomeStatementData?.interestExpenses">
+              {{interestExpenses.value}}</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td><strong>Total Debt</strong></td>
+            <td *ngFor="let totalDebt of totalDebtValueArray">
+              {{totalDebt}}</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td><strong>Net Worth</strong></td>
+            <td *ngFor="let netWorth of financialData?.balanceSheetData?.netWorth">
+              {{netWorth.value}}</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td><strong>Net Profit</strong></td>
+            <td *ngFor="let profitAfterTax of financialData?.incomeStatementData?.profitAfterTax">
+              {{profitAfterTax.value}}</td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td><strong>Debt Service Cost</strong></td>
+            <td *ngFor="let debtServiceCost of debtServiceCostArray">
+              {{debtServiceCost}}</td>
+          </tr>
+          <tr>
+            <td [attr.colspan]="2 + 1 + financialData?.fiscalYear?.length" class="text-center"><strong>Major Financial Indicators</strong></td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td><strong>Current Ratio (in times)</strong></td>
+            <td *ngFor="let currentRatio of financialData['keyIndicatorsData']?.currentRatio">
+              {{currentRatio.value}}</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><strong>Operating Profit Margin (%)</strong></td>
+            <td *ngFor="let operatingProfitKI of financialData['keyIndicatorsData']?.operatingProfitKI">
+              {{operatingProfitKI.value}}</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><strong>Inventory Turnover Ratio (in times)</strong></td>
+            <td *ngFor="let inventoryTurnoverRatio of financialData['keyIndicatorsData']?.inventoryTurnoverRatio">
+              {{inventoryTurnoverRatio.value}}</td>
+          </tr>
+          <tr>
+            <td>4(II)</td>
+            <td><strong>Interest Coverage Ratio (in times)</strong></td>
+            <td *ngFor="let interestCoverageRatio of financialData['keyIndicatorsData']?.interestCoverageRatio">
+              {{interestCoverageRatio.value}}</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><strong>Debtor/Receivable Turnover Ratio (in times)</strong></td>
+            <td *ngFor="let debtorTurnOverRatio of financialData['keyIndicatorsData']?.debtorTurnOverRatio">
+              {{debtorTurnOverRatio.value}}</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><strong>Debt-Equity Ratio - General (in times)</strong></td>
+            <td *ngFor="let debtServiceCoverageRatio of financialData['keyIndicatorsData']?.debtServiceCoverageRatio">
+              {{debtServiceCoverageRatio.value}}</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td><strong>Net Profit Margin (%)</strong></td>
+            <td *ngFor="let currentAssetValue of financialData['keyIndicatorsData']?.netProfitMargin">
+              {{currentAssetValue.value}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!--<pre>{{financialData | json}}</pre>-->
