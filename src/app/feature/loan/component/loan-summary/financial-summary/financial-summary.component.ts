@@ -32,10 +32,11 @@ export class FinancialSummaryComponent implements OnInit {
 
   setTotalDebtValue() {
     this.financialData['fiscalYear'].forEach( (value, index) => {
-      this.totalDebtValueArray.push(Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentLiabilitiesCategory,
+      const totalDebtValue = (Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentLiabilitiesCategory,
           'Short Term Loan', index)) +
           Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].longTermLoanCategory,
               'Term Loan', index)));
+      this.totalDebtValueArray.push(totalDebtValue);
     });
   }
 

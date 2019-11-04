@@ -128,7 +128,7 @@
             <td>8</td>
             <td><strong>Total Debt</strong></td>
             <td *ngFor="let totalDebt of totalDebtValueArray">
-              {{totalDebt.value}}</td>
+              {{totalDebt}}</td>
           </tr>
           <tr>
             <td>9</td>
@@ -146,7 +146,7 @@
             <td>11</td>
             <td><strong>Debt Service Cost</strong></td>
             <td *ngFor="let debtServiceCost of debtServiceCostArray">
-              {{debtServiceCost.value}}</td>
+              {{debtServiceCost}}</td>
           </tr>
           <tr>
             <td [attr.colspan]="2 + 1 + financialData?.fiscalYear?.length" class="text-center"><strong>Major Financial Indicators</strong></td>
