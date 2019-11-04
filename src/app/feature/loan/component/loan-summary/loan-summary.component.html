@@ -26,8 +26,7 @@
               <div>
                 Priority:
                 <span class="badge badge-danger"
-                      style="font-size: 11px">{{loanDataHolder?.dmsLoanFile?.priority?.toString()
-                || loanDataHolder?.priority?.toString() | titlecase}}</span>
+                      style="font-size: 11px">{{loanDataHolder.priority?.toString() | titlecase}}</span>
               </div>
               <div>
                 Loan Status:
@@ -210,7 +209,7 @@
           </table>
         </div>
       </div>
-      <div class="row">
+      <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
         <div class="col-md-12">
           <p><strong>Detail of Present Proposal of the Facility</strong></p>
           <table class="table table-condensed table-bordered table-responsive-md text-center">
@@ -289,7 +288,7 @@
           Only /-
         </div>
       </div>
-      <div class="row mt-3">
+      <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
         <div class="col-md-12">
           <p><strong>Security Offered</strong></p>
           <p><label *ngFor="let security of securities; let i = index">{{i + 1}}
@@ -321,7 +320,7 @@
           </div>
       </div>-->
 
-      <div [hidden]="dmsLoanFile.recommendationConclusion == ''" class="row mt-3">
+      <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
         <div class="col-md-12">
           <p><strong>Recommendation and Conclusion</strong></p>
           <p class="border text-justify p-1">
@@ -330,7 +329,7 @@
         </div>
       </div>
 
-      <div [hidden]="dmsLoanFile.waiver == ''" class="row mt-3">
+      <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
         <div class="col-md-12">
           <p><strong>Waiver</strong></p>
           <p class="border text-justify p-1">
@@ -338,6 +337,8 @@
           </p>
         </div>
       </div>
+
+      <app-security-summary *ngIf="securitySummary" [formData]="securityData"></app-security-summary>
 
       <div class="row mt-3">
         <div class="col-md-12">
@@ -431,6 +432,18 @@
         </div>
       </div>
 
+      <app-financial-summary *ngIf="financialSummary" [formData]="financialData"></app-financial-summary>
+
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <p><b>Site Visit</b></p>
+          <p class="border text-justify p-5 text-center">
+            Placeholder for aggregate site visit information.
+          </p>
+        </div>
+      </div>
+
+
       <div *ngIf="documentNames.length>0" class="row disable-print">
         <div class="col-md-12">
           <p><strong>Required Documents</strong></p>
@@ -443,7 +456,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let document of documentNames; let i = index">
+            <tr *ngFor="let documrecommendationConclusionent of documentNames; let i = index">
               <td>{{i + 1}}</td>
               <td>{{document}}</td>
               <td><i (click)="download(i)" aria-hidden="true" class="fa fa-download"

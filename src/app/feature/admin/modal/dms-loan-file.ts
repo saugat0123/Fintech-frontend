@@ -9,7 +9,7 @@ export class DmsLoanFile {
     serviceChargeAmount: number;
     documentPath: string;
     documentMap: Array<string>;
-    documents = new Array<LoanDocument>();
+    documents: Array<LoanDocument>;
     securities: string;
     tenure: Date;
     tenureDuration: number;
