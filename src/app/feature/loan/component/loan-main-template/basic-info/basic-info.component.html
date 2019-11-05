@@ -49,6 +49,29 @@
                     </div>
                 </div>
                 <!-- END ROW -->
+                <!-- Start Row-->
+
+                <div *ngIf="customerDetailField.showFormField" class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="dob"><b>Date of birth</b></label>
+                            <input [nbDatepicker]="dob" [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.dob.errors }"
+                                   class="form-control" formControlName="dob"
+                                   id="dob"
+                                   name="dob"
+                                   placeholder="Customer Date of birth">
+                            <nb-datepicker #dob></nb-datepicker>
+                            <div *ngIf="submitted && basicInfoControls.dob.errors"
+                                 class="invalid-feedback">
+                                <div *ngIf="basicInfoControls.dob.errors.required || basicInfoControls.dob.errors.beforeToday">
+                                    Invalid date of birth
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--End Row-->
                 <!-- START ROW -->
                 <div *ngIf="customerDetailField.showFormField" class="row">
                     <div class="col-md-4">
