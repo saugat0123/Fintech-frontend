@@ -8,7 +8,7 @@ import {LoanType} from '../model/loanType';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BranchService} from '../../admin/component/branch/branch.service';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
-import {ToastService} from '../../../@core/utils';
+import {ModalUtils, ToastService} from '../../../@core/utils';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {LoanFormService} from '../component/loan-form/service/loan-form.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -26,6 +26,7 @@ import {DocAction} from '../model/docAction';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {OfferLetter} from '../../admin/modal/offerLetter';
 import {CustomerOfferLetterService} from '../service/customer-offer-letter.service';
+import {OfferLetterUploadComponent} from './offer-letter-upload/offer-letter-upload.component';
 
 @Component({
     selector: 'app-loan-offer-letter',
@@ -57,9 +58,6 @@ export class LoanOfferLetterComponent implements OnInit {
     redirected = false;
     isFilterCollapsed = true;
     loanConfig: LoanConfig = new LoanConfig();
-    uploadFile;
-    preview;
-    customerId;
     valForwardBackward;
     roleName = false;
 
@@ -312,54 +310,11 @@ export class LoanOfferLetterComponent implements OnInit {
             });
     }
 
-    uploadOfferLetterTemplate(uploadDocument, customerId) {
-        this.preview = false;
-        this.customerId = customerId;
-        this.modalService.open(uploadDocument);
-    }
-
-    uploadOfferLetter(event) {
-        this.uploadFile = event.target.files[0];
-        this.preview = true;
-    }
-
-    previewClick(file) {
-        alert(file);
-        let fileName = this.uploadFile;
-        if (file !== null) {
-            fileName = ApiConfig.URL + '/' + file;
-
-            const link = document.createElement('a');
-            link.href = fileName;
-            link.target = '_blank';
-            link.click();
-        } else {
-            const downloadUrl = window.URL.createObjectURL(fileName);
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.target = '_blank';
-            link.click();
-        }
-    }
-
-    submitOfferLetter() {
-        const formdata: FormData = new FormData();
-
-        formdata.append('file', this.uploadFile);
-        formdata.append('id', this.customerId);
-        formdata.append('status', DocStatus[DocStatus.PENDING]);
-        if (this.customerId === undefined) {
-            return this.toastService.show(new Alert(AlertType.ERROR, 'Customer Cannot be empty'));
-        }
-        this.customerOfferLetterService.uploadOfferFile(formdata).subscribe((response: any) => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'OFFER LETTER HAS BEEN UPLOADED'));
-            this.modalService.dismissAll();
-            LoanOfferLetterComponent.loadData(this);
-        }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-            this.modalService.dismissAll();
-        });
-
+    uploadOfferLetterTemplate(customerLoan: LoanDataHolder) {
+        const modalRef = this.modalService.open(OfferLetterUploadComponent, {backdrop: 'static'});
+        modalRef.componentInstance.customerOfferLetter = customerLoan.customerOfferLetter;
+        modalRef.componentInstance.customerId = customerLoan.id;
+        ModalUtils.resolve(modalRef.result, LoanOfferLetterComponent.loadData, this);
     }
 
     openForwardBackward(template, offerLetterId, val) {

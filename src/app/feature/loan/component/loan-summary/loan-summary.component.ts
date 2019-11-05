@@ -20,6 +20,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ReadmoreModelComponent} from '../readmore-model/readmore-model.component';
 import {LoanType} from '../../model/loanType';
 import {BusinessType} from '../../../admin/modal/businessType';
+import {Financial} from '../../model/financial';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-loan-summary',
@@ -64,7 +66,16 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   loanCategory;
   @ViewChild('print', { static: false }) print;
   businessType = BusinessType;
+  financialData: Financial = new Financial();
+  financialSummary = false;
   navigationSubscription;
+  securitySummary = false;
+  securityData: Object;
+  offerLetterDocuments: {
+    name: string,
+    url: string
+  }[] = [];
+  registeredOfferLetters: Array<String> = [];
 
   constructor(
       private userService: UserService,
@@ -127,7 +138,21 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   getLoanDataHolder() {
     this.loanFormService.detail(this.customerId).subscribe(
         (response: any) => {
+
           this.loanDataHolder = response.detail;
+
+          // Setting financial data---
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
+            this.financialData = this.loanDataHolder.financial;
+            this.financialSummary = true;
+          }
+
+          // Setting Security data--
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
+            this.securityData = JSON.parse(this.loanDataHolder.security.data);
+            this.securitySummary = true;
+          }
+
           this.loanCategory = this.loanDataHolder.loanCategory;
           this.currentIndex = this.loanDataHolder.previousList.length;
           this.signatureList = this.loanDataHolder.distinctPreviousList;
@@ -216,6 +241,19 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
             this.nepaliDate = nepDate.detail;
           });
+
+          // Offer Letter Documents
+          if (this.loanDataHolder.customerOfferLetter && this.loanDataHolder.customerOfferLetter.customerOfferLetterPath) {
+            this.loanDataHolder.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
+              if (offerLetterPath.path && !this.registeredOfferLetters.includes(offerLetterPath.offerLetter.name)) {
+                this.registeredOfferLetters.push(offerLetterPath.offerLetter.name);
+                this.offerLetterDocuments.push({
+                  name: offerLetterPath.offerLetter.name,
+                  url: offerLetterPath.path
+                });
+              }
+            });
+          }
         }
     );
   }
@@ -274,6 +312,15 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     this.customerId = id;
     this.getLoanDataHolder();
 
+  }
+
+  previewOfferLetterDocument(url: string, name: string): void {
+    const link = document.createElement('a');
+    link.target = '_blank';
+    link.href = `${ApiConfig.URL}/${url}`;
+    link.download = name;
+    link.setAttribute('visibility', 'hidden');
+    link.click();
   }
 }
 

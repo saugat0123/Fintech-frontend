@@ -2,6 +2,28 @@
 
     <nb-card-header>
         <h2 class="d-flex justify-content-center">{{loanTitle}}</h2>
+        <hr>
+
+        <form [formGroup]="priorityForm">
+            <div class="row">
+                <div class="col-md-3">
+                    <label><strong>Priority</strong></label>
+                    <ng-select [items]="dropdownPriorities"
+                               [multiple]="false"
+                               bindLabel="name"
+                               bindValue="id"
+                               formControlName="priority"
+                               placeholder="Select the priority level">
+                    </ng-select>
+                    <div *ngIf="priorityForm.get('priority').errors">
+                        <small class="text-danger">
+                            Priority is required!
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </form>
+
         <span class="d-flex justify-content-end">{{currentNepDate}}</span>
     </nb-card-header>
     <nb-card-body>
@@ -9,7 +31,7 @@
             <ngb-tabset #tabSet="ngbTabset" (tabChange)="tabChange($event, tabSet)">
                 <ngb-tab *ngFor="let allList of templateList; let i = index" [title]="allList.name"
                          [id]="i.toString(10)">
-                    <ng-template ngbTabContent *ngIf="allList.name == 'Customer Info'">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Customer Info'">
                         <app-basic-info [formValue]="loanDocument?.customerInfo" #basicInfo>
                         </app-basic-info>
                     </ng-template>
@@ -41,6 +63,9 @@
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Site Visit'">
                         <app-site-visit #siteVisit [formValue]="loanDocument?.siteVisit"></app-site-visit>
+                    </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Security'">
+                    <app-security #security [securityValue]="loanDocument?.security"></app-security>
                     </ng-template>
                 </ngb-tab>
             </ngb-tabset>

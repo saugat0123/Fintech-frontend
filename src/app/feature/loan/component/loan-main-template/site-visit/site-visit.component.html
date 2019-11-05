@@ -3,22 +3,22 @@
     <form [formGroup]="siteVisitFormGroup" class="form-horizontal">
       <div class="row justify-content-around">
         <div class="col-md-3">
-          <nb-checkbox (change)="checkboxSelected('currentResident',$event.target.checked)">
+          <nb-checkbox [checked]="currentResidentForm" (change)="checkboxSelected('currentResident',$event.target.checked)">
             Current Resident
           </nb-checkbox>
         </div>
         <div class="col-md-3">
-          <nb-checkbox (change)="checkboxSelected('businessSiteVisit',$event.target.checked)">
+          <nb-checkbox [checked]="businessSiteVisitForm" (change)="checkboxSelected('businessSiteVisit',$event.target.checked)">
             Business Site Visit
           </nb-checkbox>
         </div>
         <div class="col-md-3">
-          <nb-checkbox (change)="checkboxSelected('fixedAssetCollateral',$event.target.checked)">
+          <nb-checkbox [checked]="fixedAssetCollateralForm" (change)="checkboxSelected('fixedAssetCollateral',$event.target.checked)">
             Fixed Asset Collateral
           </nb-checkbox>
         </div>
         <div class="col-md-3">
-          <nb-checkbox (change)="checkboxSelected('currentAssetsInspection',$event.target.checked)">
+          <nb-checkbox [checked]="currentAssetsInspectionForm" (change)="checkboxSelected('currentAssetsInspection',$event.target.checked)">
             Current Assets Inspection
           </nb-checkbox>
         </div>
@@ -258,7 +258,8 @@
               <nb-datepicker #datepicker5></nb-datepicker>
             </div>
             <div class="col-md-12 form-group">
-              <label class="title" for="qualityOfConstructionRemarks">Remarks For 'No' Option</label>
+              <label class="title" for="qualityOfConstructionRemarks">Remarks For 'No'
+                Option</label>
               <textarea class="form-control" formControlName="qualityOfConstructionRemarks"
                         id="qualityOfConstructionRemarks" name="qualityOfConstructionRemarks"
                         placeholder="remarks"
@@ -458,9 +459,9 @@
                      placeholder="insurance company">
             </div>
             <div class="col-md-6 form-group">
-              <label class="title" for="expireDate">Expiry Date</label>
-              <input [nbDatepicker]="datepicker2" class="form-control" formControlName="expireDate"
-                     id="expireDate" placeholder="expiry date">
+              <label class="title" for="expiryDate">Expiry Date</label>
+              <input [nbDatepicker]="datepicker2" class="form-control" formControlName="expiryDate"
+                     id="expiryDate" placeholder="expiry date">
               <nb-datepicker #datepicker2></nb-datepicker>
             </div>
             <div class="col-md-6 form-group">
@@ -642,24 +643,28 @@
               </div>
               <div class="col-md-2 form-group">
                 <label class="title" for="withinThreeMonths">Within 3 Months</label>
-                <input class="form-control" formControlName="withinThreeMonths"
-                       id="withinThreeMonths" name="party" (keyup)="onChangeValue('withinThreeMonths','threeMonthTotal')"
+                <input (keyup)="onChangeValue('withinThreeMonths','threeMonthTotal')" class="form-control"
+                       formControlName="withinThreeMonths" id="withinThreeMonths"
+                       name="party"
                        placeholder="0.0">
               </div>
               <div class="col-md-2 form-group">
                 <label class="title" for="sixMonth">6 Month</label>
-                <input class="form-control" formControlName="sixMonth" id="sixMonth"
-                       name="sixMonth" placeholder="0.0" (keyup)="onChangeValue('sixMonth', 'sixMonthTotal')">
+                <input (keyup)="onChangeValue('sixMonth', 'sixMonthTotal')" class="form-control" formControlName="sixMonth"
+                       id="sixMonth" name="sixMonth"
+                       placeholder="0.0">
               </div>
               <div class="col-md-2 form-group">
                 <label class="title" for="oneYear">One year</label>
-                <input class="form-control" formControlName="oneYear" id="oneYear"
-                       name="oneYear" placeholder="0.0" (keyup)="onChangeValue('oneYear', 'oneYearTotal')">
+                <input (keyup)="onChangeValue('oneYear', 'oneYearTotal')" class="form-control" formControlName="oneYear"
+                       id="oneYear" name="oneYear"
+                       placeholder="0.0">
               </div>
               <div class="col-md-2 form-group">
                 <label class="title" for="oneYearPlus">1+ year</label>
-                <input class="form-control" formControlName="oneYearPlus" id="oneYearPlus"
-                       name="oneYeaPlus" placeholder="0.0" (keyup)="onChangeValue('oneYearPlus', 'moreThanOneYearTotal')">
+                <input (keyup)="onChangeValue('oneYearPlus', 'moreThanOneYearTotal')" class="form-control" formControlName="oneYearPlus"
+                       id="oneYearPlus" name="oneYeaPlus"
+                       placeholder="0.0">
               </div>
               <div *ngIf="partyLength()>1" class="col-md-1 pt-4">
                 <input (click)="deletePartyForm(i)"
@@ -676,23 +681,30 @@
             <div class="row">
               <div class="col-md-2 form-group"><label class="title">Total:</label></div>
               <div class="col-md-2 form-group">
-                <input class="form-control" placeholder="0.0" disabled type="text" formControlName="threeMonthTotal">
+                <input class="form-control" disabled formControlName="threeMonthTotal" placeholder="0.0"
+                       type="text">
               </div>
               <div class="col-md-2 form-group">
-                <input class="form-control" placeholder="0.0" disabled type="text" formControlName="sixMonthTotal">
+                <input class="form-control" disabled formControlName="sixMonthTotal" placeholder="0.0"
+                       type="text">
               </div>
               <div class="col-md-2 form-group">
-                <input class="form-control" placeholder="0.0" disabled type="text" formControlName="oneYearTotal">
+                <input class="form-control" disabled formControlName="oneYearTotal" placeholder="0.0"
+                       type="text">
               </div>
               <div class="col-md-2 form-group">
-                <input class="form-control" placeholder="0.0" disabled type="text" formControlName="moreThanOneYearTotal">
+                <input class="form-control" disabled formControlName="moreThanOneYearTotal" placeholder="0.0"
+                       type="text">
               </div>
             </div>
           </div>
           <div class="col-md-6 form-group">
-            <label class="title" for="findingsAndCommentsForCurrentAssetsInspection">Findings & Comments</label>
-            <textarea class="form-control" formControlName="findingsAndCommentsForCurrentAssetsInspection"
-                      id="findingsAndCommentsForCurrentAssetsInspection" name="findingsAndCommentsForCurrentAssetsInspection"
+            <label class="title" for="findingsAndCommentsForCurrentAssetsInspection">Findings &
+              Comments</label>
+            <textarea class="form-control"
+                      formControlName="findingsAndCommentsForCurrentAssetsInspection"
+                      id="findingsAndCommentsForCurrentAssetsInspection"
+                      name="findingsAndCommentsForCurrentAssetsInspection"
                       placeholder="findings and comments"
                       row="3" type="text"></textarea>
           </div>
@@ -711,8 +723,9 @@
                 </div>
                 <div class="col-md-4 form-group ml-3">
                   <label class="title" for="amount">Amount</label>
-                  <input class="form-control" formControlName="amount" id="amount"
-                         name="amount" placeholder="0.0" (keyup)="onReceivableAssetValueChange('amount', 'receivableCurrentAssetsTotal')">
+                  <input (keyup)="onReceivableAssetValueChange('amount', 'receivableCurrentAssetsTotal')" class="form-control" formControlName="amount"
+                         id="amount" name="amount"
+                         placeholder="0.0">
                 </div>
                 <div *ngIf="receivableAssetsLength()>1" class="col-md-2 form-group pt-4">
                   <input (click)="deleteReceivableAssets(i)"
@@ -729,7 +742,8 @@
               </div>
               <div class="col-md-4 justify-content-end ml-3">
                 <label class="title" for="total">Total</label>
-                <input class="form-control" id="total" disabled name="amount" placeholder="0.0" type="text" formControlName="receivableCurrentAssetsTotal">
+                <input class="form-control" disabled formControlName="receivableCurrentAssetsTotal" id="total" name="amount"
+                       placeholder="0.0" type="text">
               </div>
             </div>
             <h5 class="col-md-12 mt-3">Inspecting Staffs</h5>
@@ -773,8 +787,9 @@
                 </div>
                 <div class="col-md-4 form-group ml-3">
                   <label class="title" for="amount">Amount</label>
-                  <input class="form-control" formControlName="amount" id="amount"
-                         name="amount" placeholder="0.0" (keyup)="onPayableAssetsValueChange('amount', 'payableCurrentAssetsTotal')">
+                  <input (keyup)="onPayableAssetsValueChange('amount', 'payableCurrentAssetsTotal')" class="form-control" formControlName="amount"
+                         id="amount" name="amount"
+                         placeholder="0.0">
                 </div>
                 <div *ngIf="payableAssetsLength()>1" class="col-md-2 form-group pt-4">
                   <input (click)="deletePayableAssets(i)" class="btn btn-sm btn-danger btn-primary"
@@ -790,7 +805,8 @@
               </div>
               <div class="col-md-4 justify-content-end ml-3">
                 <label class="title" for="total">Total</label>
-                <input class="form-control" id="total" name="amount" disabled placeholder="0.0" type="text" formControlName="payableCurrentAssetsTotal">
+                <input class="form-control" disabled formControlName="payableCurrentAssetsTotal" id="total" name="amount"
+                       placeholder="0.0" type="text">
               </div>
             </div>
             <h5 class="col-md-12 mt-3">Bank Exposure</h5>
