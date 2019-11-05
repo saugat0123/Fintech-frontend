@@ -1,15 +1,4 @@
-import {User} from '../../admin/modal/user';
-import {Role} from '../../admin/modal/role';
-import {DocAction} from './docAction';
+import {Stage} from './stage';
 
-export class LoanStage {
-    createdAt: Date;
-    lastModifiedAt: Date;
-    fromUser: User;
-    toUser: User;
-    fromRole: Role;
-    toRole: Role;
-    comment: string;
-    docAction: DocAction;
-
+export class LoanStage extends Stage {
 }

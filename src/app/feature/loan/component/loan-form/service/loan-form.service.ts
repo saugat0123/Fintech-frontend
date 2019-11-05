@@ -64,22 +64,6 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, searchObj, {headers: req.header});
     }
 
-    public getIssuedOfferLetter(searchObj: any, page: number = 1, size: number = 10): Observable<any> {
-        const api = `${this.getApi()}/issue-offer-letter?page=${page}&size=${size}`;
-        const req = ApiUtils.getRequest(api);
-        return this.http.post(req.url, searchObj, {headers: req.header});
-    }
-
-    public uploadOfferFile(formData: FormData): Observable<object> {
-        const req = ApiUtils.getRequestWithFileSupport(`v1/customer-offer-letter/uploadFile`);
-        return this.http.post(req.url, formData, {headers: req.header});
-    }
-
-    public postOfferLetterAction(object): Observable<any> {
-        const req = ApiUtils.getRequestWithFileSupport(`v1/customer-offer-letter/action`);
-        return this.http.post(req.url, object, {headers: req.header});
-    }
-
     public renewLoan(searchObj: any) {
         const api = `${this.getApi()}/close-renew-customer-loan`;
         const req = ApiUtils.getRequest(api);

@@ -24,6 +24,8 @@ import {DocStatus} from '../model/docStatus';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {DocAction} from '../model/docAction';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
+import {OfferLetter} from '../../admin/modal/offerLetter';
+import {CustomerOfferLetterService} from '../service/customer-offer-letter.service';
 
 @Component({
     selector: 'app-loan-offer-letter',
@@ -73,12 +75,13 @@ export class LoanOfferLetterComponent implements OnInit {
         private loanActionService: LoanActionService,
         private userService: UserService,
         private socketService: SocketService,
-        private catalogueService: CatalogueService) {
+        private catalogueService: CatalogueService,
+        private customerOfferLetterService: CustomerOfferLetterService) {
     }
 
     static loadData(other: LoanOfferLetterComponent) {
         other.catalogueService.search.committee = 'true';
-        other.loanFormService.getIssuedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
+        other.customerOfferLetterService.getIssuedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
             other.loanDataHolderList = response.detail.content;
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
@@ -290,8 +293,23 @@ export class LoanOfferLetterComponent implements OnInit {
         });
     }
 
-    generateOfferLetter(templateUrl, id, offerLetterId) {
-        this.router.navigate([templateUrl], {queryParams: {customerId: id, offerLetterId: offerLetterId}});
+    generateOfferLetter(offerLetter: OfferLetter, customerLoan: LoanDataHolder) {
+        let existing = false;
+        if (customerLoan.customerOfferLetter) {
+            customerLoan.customerOfferLetter.customerOfferLetterPath.forEach(existingOfferLetter => {
+                if (offerLetter.id === existingOfferLetter.id) {
+                    existing = true;
+                }
+            });
+        }
+        this.router.navigate([offerLetter.templateUrl],
+            {
+                queryParams: {
+                    customerId: customerLoan.id,
+                    offerLetterId: offerLetter.id,
+                    existing: existing
+                }
+            });
     }
 
     uploadOfferLetterTemplate(uploadDocument, customerId) {
@@ -333,7 +351,7 @@ export class LoanOfferLetterComponent implements OnInit {
         if (this.customerId === undefined) {
             return this.toastService.show(new Alert(AlertType.ERROR, 'Customer Cannot be empty'));
         }
-        this.loanFormService.uploadOfferFile(formdata).subscribe((response: any) => {
+        this.customerOfferLetterService.uploadOfferFile(formdata).subscribe((response: any) => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'OFFER LETTER HAS BEEN UPLOADED'));
             this.modalService.dismissAll();
             LoanOfferLetterComponent.loadData(this);
