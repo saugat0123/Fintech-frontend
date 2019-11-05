@@ -51,9 +51,9 @@ export class CustomerDocumentComponent implements OnInit {
         });
 
     if (this.loanDataHolder.id !== undefined) {
-      if (JSON.parse(this.loanDataHolder.documents.documentPath) != null) {
-        this.documentMaps = JSON.parse(this.loanDataHolder.documents.documentPath);
-        this.loanDataHolder.documents.documentMap = JSON.parse(this.loanDataHolder.documents.documentPath);
+      if (JSON.parse(this.loanDataHolder.customerDocument.documentPath) != null) {
+        this.documentMaps = JSON.parse(this.loanDataHolder.customerDocument.documentPath);
+        this.loanDataHolder.customerDocument.documentMap = JSON.parse(this.loanDataHolder.customerDocument.documentPath);
         this.documentMaps.forEach(d => {
           const arrayOfd = d.split(':')[0];
           this.docHeader.push(arrayOfd);
@@ -151,8 +151,8 @@ export class CustomerDocumentComponent implements OnInit {
               this.documentMaps.push(this.documentMap);
             }
 
-            this.loanDataHolder.documents.documentMap = this.documentMaps;
-            this.loanDataHolder.documents.documentPath = this.documentMaps.map(x => x).join(',');
+            this.loanDataHolder.customerDocument.documentMap = this.documentMaps;
+            this.loanDataHolder.customerDocument.documentPath = this.documentMaps.map(x => x).join(',');
             this.document = new LoanDocument();
           },
           error => {

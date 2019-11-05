@@ -28,7 +28,7 @@ export class LoanDataHolder {
     ciclRemarks: string;
     insurance: Insurance;
     documentStatus: DocStatus;
-    documents: Documents;
+    customerDocument: Documents;
     siteVisit: SiteVisit;
     financial: Financial;
     security: Security;
