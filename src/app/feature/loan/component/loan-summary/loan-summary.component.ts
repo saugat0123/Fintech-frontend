@@ -66,7 +66,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   loanCategory;
   @ViewChild('print', { static: false }) print;
   businessType = BusinessType;
-  financialData: Financial= new Financial();
+  financialData: Financial = new Financial();
   financialSummary = false;
   navigationSubscription;
   securitySummary = false;
