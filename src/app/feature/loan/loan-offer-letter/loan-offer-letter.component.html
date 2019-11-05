@@ -146,18 +146,6 @@
 
 
                         <nb-select placeholder="Select Offer Letter Action">
-
-
-                            <!--<nb-option>
-                                 <span *ngIf="model?.customerOfferLetter != null;"
-                                       (click)="generateOfferLetter(model?.customerOfferLetter?.offerLetter.templateUrl,model.id,model?.customerOfferLetter?.offerLetter.id)">
-                                    {{model?.customerOfferLetter?.offerLetter.name}}
-                                </span>
-
-
-                            </nb-option>-->
-
-
                             <nb-option *ngFor="let offerLetter of model.loan.offerLetters;">
                                 <span (click)="generateOfferLetter(offerLetter, model)">
                                     {{offerLetter.name}}
@@ -165,30 +153,15 @@
                             </nb-option>
 
 
-                            <nb-option *ngIf="model?.customerOfferLetter !==null">
-                                <a (click)=" uploadOfferLetterTemplate(uploadDocument,model.id)
-                            "><i
-                                        class="fa fa-upload"></i><span class="px-3 cursor">Upload</span></a>
+                            <nb-option *ngIf="model?.customerOfferLetter !== null">
+                                <a (click)=" uploadOfferLetterTemplate(model)"><i
+                                    class="fa fa-upload"></i><span class="px-3 cursor">Upload</span></a>
                             </nb-option>
-                            <nb-option *ngIf="model?.customerOfferLetter?.path !==null">
+                            <!--<nb-option *ngIf="model?.customerOfferLetter?.path !==null">
                                 <i class="fa fa-download"></i>
                                 <span class="px-3 cursor"
                                       (click)="previewClick(model?.customerOfferLetter?.path)">Preview/Download</span>
-                            </nb-option>
-
-                            <nb-option *ngIf="roleType && model?.customerOfferLetter?.path !==null">
-                                <a (click)="openForwardBackward(forwardBackwardOfferLetter,model?.customerOfferLetter?.id,1)"><i
-                                        class="fa fa-arrow-circle-right"></i><span
-                                        class="px-3 cursor">Forward to CAD</span></a>
-                            </nb-option>
-
-                            <nb-option *ngIf="roleName && model?.customerOfferLetter?.path !==null">
-                                <a (click)="openForwardBackward(forwardBackwardOfferLetter,model?.customerOfferLetter?.id,0)"><i
-                                        class="fa fa-arrow-circle-left"></i><span
-                                        class="px-3 cursor">BACKWARD to RM</span></a>
-                            </nb-option>
-
-
+                            </nb-option>-->
                         </nb-select>
 
                     </div>
@@ -203,84 +176,6 @@
         <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
         <!-- ===================table-pagination==================== -->
     </nb-card-body>
-
-    <ng-template #uploadDocument>
-        <div class="modal-header">
-            <h4 class="modal-title pull-left">Upload Offer Letter</h4>
-            <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
-                <span aria-hidden="true">&times;</span>
-            </a>
-        </div>
-        <div class="modal-body">
-
-
-            <div class="col-md-12">
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group files">
-                                <label>Upload Your File </label>
-                                <input type="file" class="form-control" multiple=""
-                                       (change)="uploadOfferLetter($event)">
-                            </div>
-
-                        </div>
-
-
-                    </div>
-                </div>
-                <div *ngIf="preview" (click)="previewClick(null)" class="d-flex justify-content-center">
-                    <div>
-                        <button class="btn btn-primary btn-sm btn-flat"><span class="px-2">preview</span></button>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
-                        NO
-                    </button>
-                    <button type="submit" class="btn btn-success float-right" (click)="submitOfferLetter()"
-                            [disabled]="!preview">YES
-                    </button>
-                </div>
-
-
-            </div>
-
-
-        </div>
-    </ng-template>
-
-
-    <ng-template #forwardBackwardOfferLetter>
-        <div class="modal-header">
-            <h4 class="modal-title pull-left">Offer Letter Action</h4>
-            <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
-                <span aria-hidden="true">&times;</span>
-            </a>
-        </div>
-        <div class="modal-body">
-
-
-            <div class="col-md-12">
-
-                <div class="container">
-                    DO you want to {{valForwardBackward}}
-                </div>
-                <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-danger  btn-flat fa-pull-left" (click)="onClose()">
-                        NO
-                    </button>
-                    <button type="submit" class="btn btn-success float-right" (click)="submitOfferLetter()">YES
-                    </button>
-                </div>
-
-
-            </div>
-
-
-        </div>
-    </ng-template>
 
 
 </nb-card>

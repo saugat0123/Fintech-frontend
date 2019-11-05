@@ -305,6 +305,7 @@ export class DmsLoanFileComponent implements OnInit {
 
   onSubmit() {
     // Customer Information
+    this.loanDataHolder.customerInfo = new Customer();
     this.loanDataHolder.customerInfo.id = this.loanForm.get('customerEntityId').value;
     this.loanDataHolder.customerInfo.version = this.loanForm.get('customerVersion').value;
     this.loanDataHolder.customerInfo.customerName = this.loanForm.get('customerName').value;

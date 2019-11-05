@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {LoanFormService} from '../../loan-form/service/loan-form.service';
 import {LoanDataHolder} from '../../../model/loanData';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
@@ -32,7 +32,8 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
         private loanFormService: LoanFormService,
         private formBuilder: FormBuilder,
         private toastService: ToastService,
-        private customerOfferLetterService: CustomerOfferLetterService
+        private customerOfferLetterService: CustomerOfferLetterService,
+        private router: Router
     ) {
     }
 
@@ -167,6 +168,13 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
         // TODO: Assign Supported Information in OfferLetter
         this.customerOfferLetterService.save(this.customerOfferLetter).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+            this.router.navigate(['/home/loan/summary'], {
+                queryParams: {
+                    loanConfigId: this.loanDataHolder.loan.id,
+                    customerId: this.loanDataHolder.id,
+                    catalogue: true
+                }
+            });
             this.spinner = false;
         }, error => {
             console.error(error);

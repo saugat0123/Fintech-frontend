@@ -13,5 +13,5 @@ export class CustomerOfferLetter extends BaseEntity {
     new: boolean;
     offerLetterStage: OfferLetterStage;
     offerLetterStageList: string;
-    previousList: any;
+    previousList: Array<OfferLetterStage>;
 }

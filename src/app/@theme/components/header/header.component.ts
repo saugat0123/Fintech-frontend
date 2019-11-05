@@ -76,29 +76,7 @@ export class HeaderComponent implements OnInit {
         this.userProfilePicture = localStorage.getItem('userProfilePicture');
         this.roleName = localStorage.getItem('roleName');
 
-        this.menuService.onItemClick().pipe(
-            filter(({tag}) => tag === this.contextMenuTag),
-            map(({item: {title}}) => title),
-            filter((title) => title === HeaderComponent.LOGOUT)
-        ).subscribe(() => {
-            this.logout();
-        });
-        this.menuService.onItemClick().pipe(
-            filter(({tag}) => tag === this.contextMenuTag),
-            map(({item: {title}}) => title),
-            filter((title) => title === HeaderComponent.PROFILE)
-        ).subscribe(() => {
-            this.open();
-        });
-        this.menuService.onItemClick().pipe(
-            filter(({tag}) => tag === this.contextMenuTag),
-            map(({item: {title}}) => title),
-            filter((title) => title === HeaderComponent.CHANGE_PASSWORD)
-        ).subscribe(() => {
-            this.changePasswordDialog();
-        });
-
-        this.menuService.onItemClick().pipe();
+        this.headerMenu();
         this.setupNotification();
     }
 
@@ -113,22 +91,31 @@ export class HeaderComponent implements OnInit {
         this.menuService.navigateHome();
     }
 
-    logout() {
-        localStorage.clear();
-        this.router.navigate(['/login']);
+    headerMenu(): void {
+        this.menuService.onItemClick().pipe(
+            filter(({tag}) => tag === this.contextMenuTag),
+            map(({item: {title}}) => title),
+            filter((title) =>
+                title === HeaderComponent.LOGOUT ||
+                title === HeaderComponent.PROFILE ||
+                title === HeaderComponent.CHANGE_PASSWORD)
+        ).subscribe((value) => {
+            if (value === HeaderComponent.LOGOUT) {
+                localStorage.clear();
+                this.socketService.closeSocket();
+                this.router.navigate(['/login']);
+            } else if (value === HeaderComponent.PROFILE) {
+                this.modalService.dismissAll();
+                this.modalService.open(ProfileComponent, {size: 'lg', backdrop: 'static'});
+            } else if (value === HeaderComponent.CHANGE_PASSWORD) {
+                this.modalService.dismissAll();
+                this.modalService.open(ChangePasswordComponent, {size: 'lg', backdrop: 'static'});
+            }
+        });
     }
 
     userGuide() {
         this.router.navigate(['/home/admin/user-guide']);
-    }
-
-    open() {
-        this.modalService.dismissAll();
-        this.modalService.open(ProfileComponent, {size: 'lg', backdrop: 'static'});
-    }
-    changePasswordDialog() {
-        this.modalService.dismissAll();
-        this.modalService.open(ChangePasswordComponent, {size: 'lg', backdrop: 'static'});
     }
 
     setupNotification(): void {
