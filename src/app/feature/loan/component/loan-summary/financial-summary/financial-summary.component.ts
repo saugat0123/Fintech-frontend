@@ -10,7 +10,7 @@ import {FinancialService} from '../../loan-main-template/financial/financial.ser
 export class FinancialSummaryComponent implements OnInit {
   @Input() formData: Financial;
 
-  financialData: Object;
+  financialData: any;
 
   // Additional Summary Fields---
   totalDebtValueArray = [];
