@@ -10,6 +10,7 @@ import {Branch} from '../../admin/modal/branch';
 import {Cicl} from '../../admin/modal/cicl';
 import {Insurance} from '../../admin/modal/insurance';
 import {LoanType} from './loanType';
+import {CustomerOfferLetter} from './customer-offer-letter';
 
 export class LoanDataHolder {
     id: number;
@@ -38,5 +39,5 @@ export class LoanDataHolder {
     childId: number;
     isCloseRenew: boolean;
     pulled: boolean;
-    customerOfferLetter: any;
+    customerOfferLetter: CustomerOfferLetter;
 }

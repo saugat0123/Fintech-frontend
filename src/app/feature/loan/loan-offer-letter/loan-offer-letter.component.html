@@ -148,23 +148,20 @@
                         <nb-select placeholder="Select Offer Letter Action">
 
 
-                            <nb-option>
+                            <!--<nb-option>
                                  <span *ngIf="model?.customerOfferLetter != null;"
                                        (click)="generateOfferLetter(model?.customerOfferLetter?.offerLetter.templateUrl,model.id,model?.customerOfferLetter?.offerLetter.id)">
                                     {{model?.customerOfferLetter?.offerLetter.name}}
                                 </span>
 
 
-                            </nb-option>
+                            </nb-option>-->
 
 
-                            <nb-option
-                                    *ngFor="let offerLetter of model.loan.offerLetters;"
-                                   >
-                                <span *ngIf="model?.customerOfferLetter == null;"  (click)="generateOfferLetter(offerLetter.templateUrl,model.id,offerLetter.id)">
+                            <nb-option *ngFor="let offerLetter of model.loan.offerLetters;">
+                                <span (click)="generateOfferLetter(offerLetter, model)">
                                     {{offerLetter.name}}
                                 </span>
-
                             </nb-option>
 
 

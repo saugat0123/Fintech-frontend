@@ -15,6 +15,7 @@ import {RoleType} from '../../../admin/modal/roleType';
 import {DocStatus} from '../../model/docStatus';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {CustomerOfferLetterService} from '../../service/customer-offer-letter.service';
 
 @Component({
     selector: 'app-offer-letter-action',
@@ -58,6 +59,7 @@ export class OfferLetterActionComponent implements OnInit {
         private http: HttpClient,
         private socketService: SocketService,
         private loanFormService: LoanFormService,
+        private customerOfferLetterService: CustomerOfferLetterService
     ) {
     }
 
@@ -155,7 +157,7 @@ export class OfferLetterActionComponent implements OnInit {
 
     postAction() {
 
-        this.loanFormService.postOfferLetterAction(this.formAction.value).subscribe((response: any) => {
+        this.customerOfferLetterService.postOfferLetterAction(this.formAction.value).subscribe((response: any) => {
             this.onClose();
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
