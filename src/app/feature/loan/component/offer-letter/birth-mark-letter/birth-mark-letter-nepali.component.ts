@@ -100,9 +100,9 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
             this.customerOfferLetterService.detail(this.loanDataHolder.customerOfferLetter.id).subscribe(response => {
                 this.customerOfferLetter = response.detail;
                 let initialInfo = null;
-                this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetter => {
-                    if (offerLetter.id === this.offerLetterTypeId) {
-                        initialInfo = JSON.parse(offerLetter.initialInformation);
+                this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
+                    if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
+                        initialInfo = JSON.parse(offerLetterPath.initialInformation);
                     }
                 });
                 this.form.patchValue(initialInfo, {emitEvent: false});
@@ -150,9 +150,9 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
         customerLoan.id = this.customerId;
         this.customerOfferLetter.customerLoan = customerLoan;
         if (this.existingOfferLetter) {
-            this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetter => {
-                if (offerLetter.id === this.offerLetterTypeId) {
-                    offerLetter.initialInformation = JSON.stringify(this.form.value);
+            this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
+                if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
+                    offerLetterPath.initialInformation = JSON.stringify(this.form.value);
                 }
             });
         } else {
