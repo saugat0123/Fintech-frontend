@@ -10,6 +10,7 @@ import {DocStatus} from '../../../model/docStatus';
 import {OfferLetter} from '../../../../admin/modal/offerLetter';
 import {CustomerOfferLetterService} from '../../../service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {CustomerOfferLetterPath} from '../../../model/customer-offer-letter-path';
 
 @Component({
     selector: 'app-birth-mark-letter-nepali',
@@ -22,7 +23,8 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
     loanDataHolder: LoanDataHolder = new LoanDataHolder();
     customerOfferLetter: CustomerOfferLetter;
     customerId: number;
-    offerLetterId: number;
+    offerLetterTypeId: number;
+    existingOfferLetter = false;
     spinner = false;
 
     constructor(
@@ -36,21 +38,18 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
 
     ngOnInit() {
         this.customerId = Number(this.activatedRoute.snapshot.queryParamMap.get('customerId'));
-        this.offerLetterId = Number(this.activatedRoute.snapshot.queryParamMap.get('offerLetterId'));
+        this.offerLetterTypeId = Number(this.activatedRoute.snapshot.queryParamMap.get('offerLetterId'));
         this.loanFormService.detail(this.customerId).subscribe((response: any) => {
             this.loanDataHolder = response.detail;
+            this.fillForm();
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Error loading loan information.'));
         });
         this.buildForm();
-        this.form.valueChanges.subscribe((value) => {
-            this.form.patchValue(value, {emitEvent: false});
-        });
     }
 
     buildForm(): void {
-        this.dummyData();
         this.form = this.formBuilder.group({
             date: [undefined],
             applicantName: [undefined],
@@ -89,23 +88,42 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
                 securityRemaining3Word: [undefined]
             })
         });
-        if (ObjectUtil.isEmpty(this.customerOfferLetter.id)) {
+    }
+
+    fillForm(): void {
+        this.existingOfferLetter = this.activatedRoute.snapshot.queryParamMap.get('existing') === 'true';
+        if (!this.existingOfferLetter) {
+            this.customerOfferLetter = new CustomerOfferLetter();
             (this.form.get('securityGuarantorRemaining') as FormArray).push(this.securityGuarantorRemainingFormGroup(null));
         } else {
-            const initialInfo = JSON.parse(this.customerOfferLetter.initialInformation);
-            this.form.patchValue(initialInfo, {emitEvent: false});
-            initialInfo.securityGuarantorRemaining.forEach(info => {
-                (this.form.get('securityGuarantorRemaining') as FormArray).push(
-                    this.securityGuarantorRemainingFormGroup(
-                        {
-                            name: info.name,
-                            amount: info.amount,
-                            amountInWords: info.amountInWords
-                        }
-                    )
-                );
+            this.customerOfferLetterService.detail(this.loanDataHolder.customerOfferLetter.id).subscribe(response => {
+                this.customerOfferLetter = response.detail;
+                let initialInfo = null;
+                this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetter => {
+                    if (offerLetter.id === this.offerLetterTypeId) {
+                        initialInfo = JSON.parse(offerLetter.initialInformation);
+                    }
+                });
+                this.form.patchValue(initialInfo, {emitEvent: false});
+                initialInfo.securityGuarantorRemaining.forEach(info => {
+                    (this.form.get('securityGuarantorRemaining') as FormArray).push(
+                        this.securityGuarantorRemainingFormGroup(
+                            {
+                                name: info.name,
+                                amount: info.amount,
+                                amountInWords: info.amountInWords
+                            }
+                        )
+                    );
+                });
+            }, error => {
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Offer Letter'));
             });
         }
+        this.form.valueChanges.subscribe((value) => {
+            this.form.patchValue(value, {emitEvent: false});
+        });
     }
 
     securityGuarantorRemainingFormGroup(info): FormGroup {
@@ -127,13 +145,26 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
     submit(): void {
         this.spinner = true;
         this.customerOfferLetter.docStatus = DocStatus.PENDING;
-        this.customerOfferLetter.customerLoanId = this.customerId;
-        this.customerOfferLetter.initialInformation = JSON.stringify(this.form.value);
+        const customerLoan = new LoanDataHolder();
+        customerLoan.id = this.customerId;
+        this.customerOfferLetter.customerLoan = customerLoan;
+        if (this.existingOfferLetter) {
+            this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetter => {
+                if (offerLetter.id === this.offerLetterTypeId) {
+                    offerLetter.initialInformation = JSON.stringify(this.form.value);
+                }
+            });
+        } else {
+            const offerLetter = new OfferLetter();
+            offerLetter.id = this.offerLetterTypeId;
+            const customerOfferLetterPathArray = [];
+            const customerOfferLetterPath = new CustomerOfferLetterPath();
+            customerOfferLetterPath.offerLetter = offerLetter;
+            customerOfferLetterPath.initialInformation = JSON.stringify(this.form.value);
+            customerOfferLetterPathArray.push(customerOfferLetterPath);
+            this.customerOfferLetter.customerOfferLetterPath = customerOfferLetterPathArray;
+        }
         // TODO: Assign Supported Information in OfferLetter
-        const offerLetter = new OfferLetter();
-        offerLetter.id = this.offerLetterId;
-        this.customerOfferLetter.offerLetter = offerLetter;
-
         this.customerOfferLetterService.save(this.customerOfferLetter).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
             this.spinner = false;
@@ -142,12 +173,6 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
             this.spinner = false;
         });
-    }
-
-    dummyData(): void {
-        this.customerOfferLetter = new CustomerOfferLetter();
-        this.customerOfferLetter.id = 1;
-        this.customerOfferLetter.initialInformation = '{"date":"@)$@","applicantName":"asdasd","applicantPermanentAddress":"asdasd","applicantPresentAddress":"asdsadsa","applicantAge":"@#","applicantCitizenshipNumber":"asadasdsa","applicantCitizenshipIssuedPlace":"asdasdasd","applicantCitizenshipIssuedDate":"@#@#","applicantMobileNumber":null,"loanType":"asdasd","applicantRelativeOne":"asdasd","applicantRelativeOneRelation":"asdsad","applicantRelativeTwo":"asdsadad","applicantRelativeTwoRelation":"asdsadasd","totalApplicantCount":"#","amountLimit":"@#@#@#@","amountLimitWord":"asdasdsads","interestRate":"@#@#","interestAmount":"@#@#@#","interestWord":"asdsasads","securityGuarantorFirst":{"name":"asdasasd","district":"asdasdasd","address":"adsasdasd","stockQuantity":"@#","landArea":"@##@#"},"securityGuarantorRemaining":[{"name":"asdsad","amount":"@#@#","amountInWords":"sadasdasd"},{"name":null,"amount":null,"amountInWords":null}],"securityRemaining":{"securityRemaining1Amount":"@#@#","securityRemaining1Word":"assad","securityRemaining2Amount":"@#@#","securityRemaining2Word":"SDASDaasdd","securityRemaining3Amount":"@#@#","securityRemaining3Word":"asdsadasd"}}';
     }
 
 }
