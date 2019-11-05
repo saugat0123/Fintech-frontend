@@ -29,6 +29,7 @@ import {SiteVisitComponent} from '../loan-main-template/site-visit/site-visit.co
 import {NgxSpinnerService} from 'ngx-spinner';
 import {SecurityComponent} from '../loan-main-template/security/security.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CustomerDocumentComponent} from '../loan-main-template/customer-document/customer-document.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -119,8 +120,13 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('siteVisit', {static: false})
     siteVisit: SiteVisitComponent;
+
     @ViewChild('security', {static: false})
     security: SecurityComponent;
+
+    @ViewChild('customerDocument', {static: false})
+    customerDocument: CustomerDocumentComponent;
+
     constructor(
         private loanDataService: LoanDataService,
         private dmsLoanService: DmsLoanService,

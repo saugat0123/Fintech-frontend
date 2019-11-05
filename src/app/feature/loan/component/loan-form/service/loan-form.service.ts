@@ -88,6 +88,11 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.get(req.url, {headers: req.header});
     }
 
+    public uploadFile(formData: FormData): Observable<object> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/uploadFile`);
+        return this.http.post(req.url, formData, {headers: req.header});
+    }
+
     protected getApi(): string {
         return LoanFormService.API;
     }
