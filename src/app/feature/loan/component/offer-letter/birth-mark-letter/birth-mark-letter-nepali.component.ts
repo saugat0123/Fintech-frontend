@@ -94,15 +94,24 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
     fillForm(): void {
         this.existingOfferLetter = this.activatedRoute.snapshot.queryParamMap.get('existing') === 'true';
         if (!this.existingOfferLetter) {
-            this.customerOfferLetter = new CustomerOfferLetter();
+            if (this.loanDataHolder.customerOfferLetter) {
+                this.customerOfferLetterService.detail(this.loanDataHolder.customerOfferLetter.id).subscribe(response => {
+                    this.customerOfferLetter = response.detail;
+                }, error => {
+                    console.error(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Offer Letter'));
+                });
+            } else {
+                this.customerOfferLetter = new CustomerOfferLetter();
+            }
             (this.form.get('securityGuarantorRemaining') as FormArray).push(this.securityGuarantorRemainingFormGroup(null));
         } else {
             this.customerOfferLetterService.detail(this.loanDataHolder.customerOfferLetter.id).subscribe(response => {
                 this.customerOfferLetter = response.detail;
                 let initialInfo = null;
-                this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetter => {
-                    if (offerLetter.id === this.offerLetterTypeId) {
-                        initialInfo = JSON.parse(offerLetter.initialInformation);
+                this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
+                    if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
+                        initialInfo = JSON.parse(offerLetterPath.initialInformation);
                     }
                 });
                 this.form.patchValue(initialInfo, {emitEvent: false});
@@ -150,15 +159,16 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
         customerLoan.id = this.customerId;
         this.customerOfferLetter.customerLoan = customerLoan;
         if (this.existingOfferLetter) {
-            this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetter => {
-                if (offerLetter.id === this.offerLetterTypeId) {
-                    offerLetter.initialInformation = JSON.stringify(this.form.value);
+            this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
+                if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
+                    offerLetterPath.initialInformation = JSON.stringify(this.form.value);
                 }
             });
         } else {
             const offerLetter = new OfferLetter();
             offerLetter.id = this.offerLetterTypeId;
-            const customerOfferLetterPathArray = [];
+            const customerOfferLetterPathArray = this.customerOfferLetter.customerOfferLetterPath ?
+                this.customerOfferLetter.customerOfferLetterPath : [];
             const customerOfferLetterPath = new CustomerOfferLetterPath();
             customerOfferLetterPath.offerLetter = offerLetter;
             customerOfferLetterPath.initialInformation = JSON.stringify(this.form.value);
