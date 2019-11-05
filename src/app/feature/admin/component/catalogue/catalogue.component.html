@@ -128,7 +128,7 @@
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">
                     <span
-                            class="d-flex justify-content-end">{{model?.dmsLoanFile?.proposedAmount | number}}</span>
+                            class="d-flex justify-content-end">{{model?.proposal?.proposedLimit | number}}</span>
                 </td>
                 <td (click)="onClick(model.loan.id,model.id)">{{loanType[model?.loanType]}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.documentStatus}}</td>
