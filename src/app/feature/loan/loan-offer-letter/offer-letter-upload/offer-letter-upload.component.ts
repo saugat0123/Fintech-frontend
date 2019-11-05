@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerOfferLetter} from '../../model/customer-offer-letter';
-import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {DocStatus} from '../../model/docStatus';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {ModalResponse, ToastService} from '../../../../@core/utils';
@@ -20,7 +19,7 @@ export class OfferLetterUploadComponent implements OnInit {
   preview;
 
   constructor(
-      private ngbModal: NgbActiveModal,
+      public ngbModal: NgbActiveModal,
       private toastService: ToastService,
       private customerOfferLetterService: CustomerOfferLetterService,
   ) { }

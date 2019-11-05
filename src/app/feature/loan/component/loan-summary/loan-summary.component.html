@@ -590,6 +590,32 @@
         </div>
       </div>
 
+      <div *ngIf="offerLetterDocuments.length>0" class="row disable-print">
+        <div class="col-md-12">
+          <p><strong>Offer Letter Documents</strong></p>
+          <table class="table table-condensed table-bordered table-responsive-md">
+            <thead>
+            <tr>
+              <th>S.N</th>
+              <th>Document</th>
+              <th>Preview</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let offerLetterDocument of offerLetterDocuments; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{offerLetterDocument?.name}}</td>
+              <td><i
+                  (click)="previewOfferLetterDocument(offerLetterDocument.url, offerLetterDocument.name)"
+                  aria-hidden="true" class="fa fa-eye"
+                  style="cursor: pointer"></i>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </nb-card-body>
   </nb-card>
 </section>
