@@ -59,7 +59,7 @@ export class BasicInfoComponent implements OnInit {
         this.getProvince();
         this.formMaker();
         if (this.formValue !== undefined) {
-            if (this.formValue.customerId != undefined) {
+            if (this.formValue.customerId !== undefined) {
                 this.customerDetailField.showFormField = true;
             }
             this.customer = this.formValue;
@@ -80,7 +80,7 @@ export class BasicInfoComponent implements OnInit {
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined]
             })
-        )
+        );
     }
 
     removeRelatives(i) {
@@ -139,7 +139,7 @@ export class BasicInfoComponent implements OnInit {
                     this.formMaker();
                     this.setRelatives(this.customer.customerRelatives);
                 }
-            })
+            });
         } else {
             this.customer = new Customer();
             this.formMaker();
@@ -160,6 +160,7 @@ export class BasicInfoComponent implements OnInit {
         this.customer.wardNumber = this.basicInfo.get('wardNumber').value;
         this.customer.contactNumber = this.basicInfo.get('contactNumber').value;
         this.customer.email = this.basicInfo.get('email').value;
+        this.customer.dob = this.basicInfo.get('dob').value;
         this.customer.initialRelationDate = this.basicInfo.get('initialRelationDate').value;
         this.customer.citizenshipNumber = this.basicInfo.get('citizenshipNumber').value;
         this.customer.citizenshipIssuedPlace = this.basicInfo.get('citizenshipIssuedPlace').value;
@@ -212,6 +213,8 @@ export class BasicInfoComponent implements OnInit {
                 Validators.required],
             citizenshipIssuedDate: [this.customer.citizenshipIssuedDate === undefined ? '' :
                 this.customer.citizenshipIssuedDate, [Validators.required, DateValidator.isValidBefore]],
+            dob: [this.customer.dob === undefined ? '' :
+                this.customer.dob, [ Validators.required, DateValidator.isValidBefore]],
             occupation: [this.customer.occupation === undefined ? '' : this.customer.occupation, [Validators.required]],
             incomeSource: [this.customer.incomeSource === undefined ? '' : this.customer.incomeSource, [Validators.required]],
             customerRelatives: this.formBuilder.array([])
@@ -244,6 +247,6 @@ export class BasicInfoComponent implements OnInit {
                 citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
                 citizenshipIssuedDate: [singleRelatives.citizenshipIssuedDate]
             }));
-        })
+        });
     }
 }
