@@ -38,15 +38,16 @@ export class FeatureComponent implements OnInit {
                     };
                     this.menus.push(tempMenu);
                 }
-
-                const temp1Menu = {
-                    id: null,
-                    title: 'Offer Letter',
-                    link: '/home/loan/loan-offer-letter',
-                    icon: 'arrowhead-down-outline'
-                };
-                this.menus.push(temp1Menu);
-
+                if (localStorage.getItem('roleType') === RoleType[RoleType.MAKER]
+                    || ((localStorage.getItem('roleName') === 'CAD'))) {
+                    const temp1Menu = {
+                        id: null,
+                        title: 'Offer Letter',
+                        link: '/home/loan/loan-offer-letter',
+                        icon: 'arrowhead-down-outline'
+                    };
+                    this.menus.push(temp1Menu);
+                }
             },
             (error) => {
                 console.log(error);
