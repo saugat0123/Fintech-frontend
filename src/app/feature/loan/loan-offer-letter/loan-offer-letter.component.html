@@ -98,6 +98,7 @@
                 <!--                <th>Loan lifespan</th>-->
                 <th>Offer Letter Status</th>
                 <th>Action</th>
+                <th>Offer Letter Saved Nos.</th>
 
 
             </tr>
@@ -155,7 +156,7 @@
 
                             <nb-option *ngIf="model?.customerOfferLetter !== null">
                                 <a (click)=" uploadOfferLetterTemplate(model)"><i
-                                    class="fa fa-upload"></i><span class="px-3 cursor">Upload</span></a>
+                                        class="fa fa-upload"></i><span class="px-3 cursor">Upload</span></a>
                             </nb-option>
                             <!--<nb-option *ngIf="model?.customerOfferLetter?.path !==null">
                                 <i class="fa fa-download"></i>
@@ -166,6 +167,9 @@
 
                     </div>
 
+                </td>
+                <td>
+                    {{model.uploadedOfferLetterStat}} / {{model.offerLetterStat}}
                 </td>
 
 

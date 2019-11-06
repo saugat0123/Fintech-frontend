@@ -44,4 +44,7 @@ export class LoanDataHolder {
     isCloseRenew: boolean;
     pulled: boolean;
     customerOfferLetter: CustomerOfferLetter;
+    offerLetterStat: number;
+    uploadedOfferLetterStat: number;
+
 }
