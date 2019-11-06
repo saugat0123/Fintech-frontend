@@ -98,6 +98,7 @@
                 <!--                <th>Loan lifespan</th>-->
                 <th>Offer Letter Status</th>
                 <th>Action</th>
+                <th>Offer Letter Saved Nos.</th>
 
 
             </tr>
@@ -145,7 +146,9 @@
                           status="success">Generate
                   </button>
                 </td>
-
+                <td>
+                    {{model.uploadedOfferLetterStat}} / {{model.offerLetterStat}}
+                </td>
 
             </tr>
             </tbody>

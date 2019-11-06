@@ -121,6 +121,7 @@ export class LoanFormComponent implements OnInit {
     siteVisit: SiteVisitComponent;
     @ViewChild('security', {static: false})
     security: SecurityComponent;
+
     constructor(
         private loanDataService: LoanDataService,
         private dmsLoanService: DmsLoanService,
@@ -188,7 +189,7 @@ export class LoanFormComponent implements OnInit {
 
             // Splicing customer loan for Personal Type Loan--
             if (this.allId.loanCategory === 'PERSONAL_TYPE') {
-                this.templateList.forEach( (value, index) => {
+                this.templateList.forEach((value, index) => {
                     if (value.name === 'Company Info') {
                         this.templateList.splice(index, 1);
                     }
@@ -222,7 +223,7 @@ export class LoanFormComponent implements OnInit {
         this.nextTabId = selectedTabId + 1;
         this.previousTabId = selectedTabId - 1;
 
-        tabSet.tabs.forEach( templateListMember => {
+        tabSet.tabs.forEach(templateListMember => {
             if (Number(templateListMember.id) === Number(evt.activeId)) {
                 this.selectChild(templateListMember.title, true);
             }
@@ -274,7 +275,9 @@ export class LoanFormComponent implements OnInit {
     }
 
     save() {
-        if (this.priorityForm.invalid) { return; }
+        if (this.priorityForm.invalid) {
+            return;
+        }
         this.spinner.show();
         if (this.selectChild(this.selectedTab, true)) {
             this.spinner.hide();
@@ -283,7 +286,6 @@ export class LoanFormComponent implements OnInit {
         this.loanDocument.loan = this.loan;
         this.loanDocument.priority = this.priorityForm.get('priority').value;
         this.loanDocument.loanCategory = this.allId.loanCategory;
-        this.loanDocument.previousStageList = JSON.stringify(this.loanDocument.previousList);
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
             this.loanDocument = response.detail;
             this.customerLoanId = this.loanDocument.id;
