@@ -16,6 +16,7 @@ export class OfferLetterUploadComponent implements OnInit {
   offerLetterId: number;
   uploadFile;
   preview;
+  uploadedOfferLetter: Array<String> = [];
 
   constructor(
       private toastService: ToastService,
@@ -24,7 +25,11 @@ export class OfferLetterUploadComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.customerOfferLetter);
+    this.customerOfferLetter.customerOfferLetterPath.forEach(customerOfferLetter => {
+      if (!this.uploadedOfferLetter.includes(customerOfferLetter.offerLetter.name)) {
+        this.uploadedOfferLetter.push(customerOfferLetter.offerLetter.name);
+      }
+    });
   }
 
   submitOfferLetter() {
@@ -51,7 +56,6 @@ export class OfferLetterUploadComponent implements OnInit {
   }
 
   previewClick(file) {
-    alert(file);
     let fileName = this.uploadFile;
     if (file !== null) {
       fileName = ApiConfig.URL + '/' + file;
