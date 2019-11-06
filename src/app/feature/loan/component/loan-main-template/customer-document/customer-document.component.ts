@@ -24,12 +24,9 @@ export class CustomerDocumentComponent implements OnInit {
   initialDocuments: Document[] = [];
   renewDocuments: Document[] = [];
   loanConfig: LoanConfig = new LoanConfig();
-  document: LoanDocument = new LoanDocument();
   loanName: string;
 
   customerDocumentArray: Array<CustomerDocuments> = new Array<CustomerDocuments>();
-  documentMaps = [];
-  docHeader = [];
   documentMap: string;
 
   paramProperties: any;
@@ -52,19 +49,6 @@ export class CustomerDocumentComponent implements OnInit {
           this.paramProperties = paramsValue;
         });
 
-    // if (this.loanDataHolder.id !== undefined) {
-    //   if (JSON.parse(this.loanDataHolder.customerDocument.documentPath) != null) {
-    //     this.documentMaps = JSON.parse(this.loanDataHolder.customerDocument.documentPath);
-    //     this.loanDataHolder.customerDocument.documentMap = JSON.parse(this.loanDataHolder.customerDocument.documentPath);
-    //     this.documentMaps.forEach(d => {
-    //       const arrayOfd = d.split(':')[0];
-    //       this.docHeader.push(arrayOfd);
-    //     });
-    //   }
-    // } else {
-    //   this.finalCustomerLoan.customerDocument = new Documents();
-    // }
-
     this.loanConfigService.detail(this.paramProperties.loanId).subscribe(
         (response: any) => {
           this.loanConfig = response.detail;
@@ -79,13 +63,15 @@ export class CustomerDocumentComponent implements OnInit {
             this.initialDocuments = this.loanConfig.initial;
           }
 
-          this.initialDocuments.forEach(i => {
-            this.docHeader.forEach(d => {
-              if (d === i.displayName || d === i.name) {
-                i.checked = true;
-              }
+          if (this.loanDataHolder.customerDocument !== undefined) {
+            this.customerDocumentArray = this.loanDataHolder.customerDocument;
+            this.customerDocumentArray.forEach( (singleDoc, i) => {
+              this.initialDocuments.forEach((initDoc, j) => {
+                if (singleDoc.document.id === initDoc.id)
+                  initDoc.checked = true;
+              });
             });
-          });
+          }
         }
     );
 
@@ -128,38 +114,22 @@ export class CustomerDocumentComponent implements OnInit {
       }
       this.loanFormService.uploadFile(formData).subscribe(
           (result: any) => {
-            this.document.name = documentName;
-            this.customerDocumentArray.push(result.detail);
-            console.log(this.customerDocumentArray);
-            this.documentMap = documentName + ':' + result.detail;
-            this.docHeader.push(documentName);
-            this.initialDocuments.forEach(i => {
-              this.docHeader.forEach(d => {
-                if (d === i.displayName || d === i.name) {
-                  i.checked = true;
+            const customerDocumentObject = result.detail;
+            if (this.customerDocumentArray.length > 0) {
+              this.customerDocumentArray.forEach((singleDoc, index) => {
+                if (singleDoc.document.id === documentId) {
+                  this.customerDocumentArray.splice(index, 1);
                 }
-              });
-            });
-
-            if (this.documentMaps != null && !this.documentMaps.includes(this.documentMap)) {
-              this.documentMaps.forEach(d => {
-                const arrayOfd = d.split(':')[0];
-                if (arrayOfd === documentName) {
-                  const i = this.documentMaps.findIndex(order => order === d);
-                  this.documentMaps.splice(i, 1);
-                }
-              });
-
-              this.documentMaps.push(this.documentMap);
-            } else {
-              this.documentMaps.push(this.documentMap);
+              })
             }
-            // this.finalCustomerLoan.customerDocument.documentMap = this.documentMaps;
-            // this.finalCustomerLoan.customerDocument.documentPath = this.documentMaps.map(x => x).join(',');
-            this.document = new LoanDocument();
+            this.customerDocumentArray.push(customerDocumentObject);
+
+            console.log(this.customerDocumentArray);
+            this.initialDocuments[index].checked = true;
           },
           error => {
             console.error(error);
+            this.initialDocuments[index].checked = false;
             (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to upload Selected File.'
                 + error.error.message));
