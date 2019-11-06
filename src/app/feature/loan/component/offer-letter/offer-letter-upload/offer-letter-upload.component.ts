@@ -1,10 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CustomerOfferLetter} from '../../model/customer-offer-letter';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {Alert, AlertType} from '../../../../@theme/model/Alert';
-import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
-import {ModalResponse, ToastService} from '../../../../@core/utils';
-import {CustomerOfferLetterService} from '../../service/customer-offer-letter.service';
+import {CustomerOfferLetter} from '../../../model/customer-offer-letter';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
+import {ToastService} from '../../../../../@core/utils';
+import {CustomerOfferLetterService} from '../../../service/customer-offer-letter.service';
 
 @Component({
   selector: 'app-offer-letter-upload',
@@ -17,15 +16,20 @@ export class OfferLetterUploadComponent implements OnInit {
   offerLetterId: number;
   uploadFile;
   preview;
+  uploadedOfferLetter: Array<String> = [];
 
   constructor(
-      public ngbModal: NgbActiveModal,
       private toastService: ToastService,
       private customerOfferLetterService: CustomerOfferLetterService,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
-    console.log(this.customerOfferLetter);
+    this.customerOfferLetter.customerOfferLetterPath.forEach(customerOfferLetter => {
+      if (!this.uploadedOfferLetter.includes(customerOfferLetter.offerLetter.name)) {
+        this.uploadedOfferLetter.push(customerOfferLetter.offerLetter.name);
+      }
+    });
   }
 
   submitOfferLetter() {
@@ -39,10 +43,9 @@ export class OfferLetterUploadComponent implements OnInit {
     }
     this.customerOfferLetterService.uploadOfferFile(formData).subscribe((response: any) => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'OFFER LETTER HAS BEEN UPLOADED'));
-      this.ngbModal.close(ModalResponse.SUCCESS);
     }, error => {
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-      this.ngbModal.close(ModalResponse.ERROR);
+      console.error(error);
     });
 
   }
@@ -53,7 +56,6 @@ export class OfferLetterUploadComponent implements OnInit {
   }
 
   previewClick(file) {
-    alert(file);
     let fileName = this.uploadFile;
     if (file !== null) {
       fileName = ApiConfig.URL + '/' + file;

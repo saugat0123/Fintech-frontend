@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {LoanDataHolder} from '../../../model/loanData';
 import {CustomerOfferLetter} from '../../../model/customer-offer-letter';
@@ -20,16 +20,15 @@ import {CustomerOfferLetterPath} from '../../../model/customer-offer-letter-path
 export class SuccessOfferLetterComponent implements OnInit {
   show = false;
   form: FormGroup;
-  loanDataHolder: LoanDataHolder = new LoanDataHolder();
+  @Input() loanDataHolder: LoanDataHolder;
   customerOfferLetter: CustomerOfferLetter;
-  customerId: number;
-  offerLetterTypeId: number;
+  @Input() customerId: number;
+  offerLetterTypeId = 2;  // 2 represents Success Offer Letter
   existingOfferLetter = false;
   spinner = false;
 
   constructor(
       private activatedRoute: ActivatedRoute,
-      private loanFormService: LoanFormService,
       private formBuilder: FormBuilder,
       private toastService: ToastService,
       private customerOfferLetterService: CustomerOfferLetterService,
@@ -38,16 +37,8 @@ export class SuccessOfferLetterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.customerId = Number(this.activatedRoute.snapshot.queryParamMap.get('customerId'));
-    this.offerLetterTypeId = Number(this.activatedRoute.snapshot.queryParamMap.get('offerLetterId'));
-    this.loanFormService.detail(this.customerId).subscribe((response: any) => {
-      this.loanDataHolder = response.detail;
-      this.fillForm();
-    }, error => {
-      console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Error loading loan information.'));
-    });
     this.buildForm();
+    this.fillForm();
   }
 
   buildForm(): void {
@@ -92,7 +83,13 @@ export class SuccessOfferLetterComponent implements OnInit {
   }
 
   fillForm(): void {
-    this.existingOfferLetter = this.activatedRoute.snapshot.queryParamMap.get('existing') === 'true';
+    if (this.loanDataHolder.customerOfferLetter) {
+      this.loanDataHolder.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
+        if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
+          this.existingOfferLetter = true;
+        }
+      });
+    }
     if (!this.existingOfferLetter) {
       if (this.loanDataHolder.customerOfferLetter) {
         this.customerOfferLetterService.detail(this.loanDataHolder.customerOfferLetter.id).subscribe(response => {
@@ -192,4 +189,5 @@ export class SuccessOfferLetterComponent implements OnInit {
       this.spinner = false;
     });
   }
+
 }
