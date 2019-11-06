@@ -10,6 +10,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {LoanFormService} from '../../loan-form/service/loan-form.service';
+import {Documents} from '../../../model/documents';
 
 @Component({
   selector: 'app-customer-document',
@@ -24,6 +25,7 @@ export class CustomerDocumentComponent implements OnInit {
   renewDocuments: Document[] = [];
   loanConfig: LoanConfig = new LoanConfig();
   document: LoanDocument = new LoanDocument();
+  finalCustomerLoan: LoanDataHolder = new LoanDataHolder();
   loanName: string;
 
   documentMaps = [];
@@ -58,9 +60,9 @@ export class CustomerDocumentComponent implements OnInit {
           const arrayOfd = d.split(':')[0];
           this.docHeader.push(arrayOfd);
         });
-
-
       }
+    } else {
+      this.finalCustomerLoan.customerDocument = new Documents();
     }
 
     this.loanConfigService.detail(this.paramProperties.loanId).subscribe(
@@ -146,13 +148,12 @@ export class CustomerDocumentComponent implements OnInit {
               });
 
               this.documentMaps.push(this.documentMap);
-              console.log(this.documentMaps);
+              console.log(this.documentMaps, this.finalCustomerLoan.customerDocument, 'asd');
             } else {
               this.documentMaps.push(this.documentMap);
             }
-
-            this.loanDataHolder.customerDocument.documentMap = this.documentMaps;
-            this.loanDataHolder.customerDocument.documentPath = this.documentMaps.map(x => x).join(',');
+            this.finalCustomerLoan.customerDocument.documentMap = this.documentMaps;
+            this.finalCustomerLoan.customerDocument.documentPath = this.documentMaps.map(x => x).join(',');
             this.document = new LoanDocument();
           },
           error => {

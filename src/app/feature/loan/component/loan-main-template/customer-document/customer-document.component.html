@@ -29,7 +29,8 @@
                 {{i + 1}}
               </td>
               <td>{{document.name}}</td>
-              <td><input (change)="documentUploader($event,document.name, i)"
+              <!--(change)="documentUploader($event,document.name, i)"-->
+              <td><input
                          accept=".png, .jpg"
                          class="form-control-file"
                          id="uploadDocument{{i}}" multiple=""
