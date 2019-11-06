@@ -3,9 +3,13 @@
     <div class="row">
         <div class="d-flex justify-content-center px-5" style="margin: auto; width: 60%;">
             <button (click)="approvedForwardBackward(sendForwardBackward,'APPROVED')"
+                    [disabled]="isApprovedDisabled"
+                    [ngStyle]="{ 'filter' : (isApprovedDisabled === true)? 'grayscale(100%)': 'grayscale(0%)'}"
                     class="btn-sm btn-success">
                 APPROVE<i class="col-md-1 fa fa-check"></i></button>
             <button (click)="approvedForwardBackward(sendForwardBackward,'FORWARD')"
+                    [disabled]="isForwardDisabled"
+                    [ngStyle]="{ 'filter' : (isForwardDisabled === true)? 'grayscale(100%)': 'grayscale(0%)'}"
                     class="btn-sm btn-info">
                 SEND
                 FORWARD<i
@@ -13,6 +17,8 @@
 
             <button (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD')"
                     class="btn-sm"
+                    [disabled]="isBackwardDisabled"
+                    [ngStyle]="{ 'filter' : (isBackwardDisabled === true)? 'grayscale(100%)': 'grayscale(0%)'}"
                     style="color:lightseagreen;">
                 RETURN
                 <i class="col-md-1 fa fa-arrow-circle-left"></i></button>

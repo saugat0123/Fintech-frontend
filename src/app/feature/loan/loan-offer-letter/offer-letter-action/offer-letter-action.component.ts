@@ -16,6 +16,7 @@ import {DocStatus} from '../../model/docStatus';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {CustomerOfferLetterService} from '../../service/customer-offer-letter.service';
+import {CustomerOfferLetter} from '../../model/customer-offer-letter';
 
 @Component({
     selector: 'app-offer-letter-action',
@@ -36,6 +37,10 @@ export class OfferLetterActionComponent implements OnInit {
     userList;
     errorMsg;
     errorMsgStatus = false;
+    currentUserId;
+    isBackwardDisabled = false;
+    isForwardDisabled = false;
+    isApprovedDisabled = false;
 
     private securityUrl = ApiConfig.TOKEN;
     private headers = new HttpHeaders({
@@ -44,6 +49,7 @@ export class OfferLetterActionComponent implements OnInit {
     });
     falseCredential = false;
     falseCredentialMessage = '';
+    customerOfferLetter: CustomerOfferLetter;
 
     constructor(
         private router: ActivatedRoute,
@@ -64,16 +70,48 @@ export class OfferLetterActionComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.currentUserId = localStorage.getItem('userId');
         this.router.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.allId = {
 
                     customerId: null,
+                    existing: null
 
                 };
                 this.allId = paramsValue;
                 this.id = this.allId.customerId;
+                this.customerOfferLetterService.getByCustomerLoanId(this.id).subscribe(response => {
+                    this.customerOfferLetter = response.detail;
+                    if (this.currentUserId.toString() === this.customerOfferLetter.createdBy.toString()) {
+                        this.isBackwardDisabled = true;
+                    }
+
+                }, error => {
+
+                });
+
+                const roleName: string = localStorage.getItem('roleName');
+                const roleType: string = localStorage.getItem('roleType');
+                if (roleName !== 'admin') {
+                    this.currentUserRoleType = roleType === RoleType.MAKER;
+                }
+
+                if (roleType === RoleType.MAKER) {
+                    this.currentUserRoleType = true;
+                    this.isForwardDisabled = false;
+                    this.isApprovedDisabled = true;
+                }
+
+                if (roleName === 'CAD') {
+                    this.isForwardDisabled = true;
+                    this.isApprovedDisabled = false;
+                }
+                if (this.allId.existing === 'false' || this.allId.existing === false) {
+                    this.isApprovedDisabled = true;
+                    this.isForwardDisabled = true;
+                    this.isBackwardDisabled = true;
+                }
             });
 
         this.formAction = this.formBuilder.group(
@@ -95,16 +133,6 @@ export class OfferLetterActionComponent implements OnInit {
                 );
             }
         });
-
-        const roleName: string = localStorage.getItem('roleName');
-        const roleType: string = localStorage.getItem('roleType');
-        if (roleName !== 'admin') {
-            this.currentUserRoleType = roleType === RoleType.MAKER;
-        }
-
-        if (roleType === RoleType.MAKER) {
-            this.currentUserRoleType = true;
-        }
 
 
     }

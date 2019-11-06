@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BaseService} from '../../../@core/BaseService';
 import {HttpClient} from '@angular/common/http';
 import {CustomerOfferLetter} from '../model/customer-offer-letter';
@@ -33,5 +33,12 @@ export class CustomerOfferLetterService extends BaseService<CustomerOfferLetter>
   public postOfferLetterAction(object): Observable<any> {
     const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/action`);
     return this.http.post(req.url, object, {headers: req.header});
+  }
+
+  public getByCustomerLoanId(id: number): Observable<any> {
+    const api = `${this.getApi()}/customer-loan/${id}`;
+    const req = ApiUtils.getRequest(api);
+
+    return this.http.get(req.url, {headers: req.header});
   }
 }
