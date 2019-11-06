@@ -142,29 +142,20 @@
 
                 <td>
 
-                    <div class="col-md-12">
 
-
-                        <nb-select placeholder="Select Offer Letter Action">
+                        <!--<nb-select placeholder="Select Offer Letter Action">
                             <nb-option *ngFor="let offerLetter of model.loan.offerLetters;">
                                 <span (click)="generateOfferLetter(offerLetter, model)">
                                     {{offerLetter.name}}
                                 </span>
                             </nb-option>
 
-
                             <nb-option *ngIf="model?.customerOfferLetter !== null">
                                 <a (click)=" uploadOfferLetterTemplate(model)"><i
                                     class="fa fa-upload"></i><span class="px-3 cursor">Upload</span></a>
                             </nb-option>
-                            <!--<nb-option *ngIf="model?.customerOfferLetter?.path !==null">
-                                <i class="fa fa-download"></i>
-                                <span class="px-3 cursor"
-                                      (click)="previewClick(model?.customerOfferLetter?.path)">Preview/Download</span>
-                            </nb-option>-->
-                        </nb-select>
-
-                    </div>
+                        </nb-select>-->
+                        <button nbButton status="success" size="small" (click)="generateOfferLetter(model)">Generate</button>
 
                 </td>
 

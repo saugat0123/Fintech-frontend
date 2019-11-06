@@ -45,6 +45,7 @@ import {SecuritySummaryComponent} from './component/loan-summary/security-summar
 import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.component';
 import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-action/offer-letter-action.component';
 import {OfferLetterUploadComponent} from './loan-offer-letter/offer-letter-upload/offer-letter-upload.component';
+import {OfferLetterComponent} from './component/offer-letter/offer-letter.component';
 
 
 const ENTRY_COMPONENTS = [ReadmoreModelComponent, OfferLetterUploadComponent];
@@ -86,6 +87,7 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent, OfferLetterUploadComponent];
         LoanOfferLetterComponent,
         OfferLetterActionComponent,
         OfferLetterUploadComponent,
+        OfferLetterComponent,
     ],
     imports: [
         ThemeModule,

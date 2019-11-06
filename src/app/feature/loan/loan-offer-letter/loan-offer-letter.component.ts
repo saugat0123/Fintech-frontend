@@ -291,21 +291,11 @@ export class LoanOfferLetterComponent implements OnInit {
         });
     }
 
-    generateOfferLetter(offerLetter: OfferLetter, customerLoan: LoanDataHolder) {
-        let existing = false;
-        if (customerLoan.customerOfferLetter) {
-            customerLoan.customerOfferLetter.customerOfferLetterPath.forEach(existingOfferLetter => {
-                if (offerLetter.id === existingOfferLetter.id) {
-                    existing = true;
-                }
-            });
-        }
-        this.router.navigate([offerLetter.templateUrl],
+    generateOfferLetter(customerLoan: LoanDataHolder) {
+        this.router.navigate(['/home/loan/offer-letter'],
             {
                 queryParams: {
                     customerId: customerLoan.id,
-                    offerLetterId: offerLetter.id,
-                    existing: existing
                 }
             });
     }
