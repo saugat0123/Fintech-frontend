@@ -354,6 +354,10 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.proposal = this.proposalDetail.proposalData;
         }
 
+        if (name === 'Customer Document' && action) {
+            this.loanDocument.customerDocument = this.customerDocument.customerDocumentArray;
+        }
+
 
         if (name === 'CICL' && action) {
             if (this.cicl.ciclForm.invalid || this.cicl.insuranceForm.invalid) {

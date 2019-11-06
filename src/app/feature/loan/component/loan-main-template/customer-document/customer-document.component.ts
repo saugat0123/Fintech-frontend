@@ -10,7 +10,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {LoanFormService} from '../../loan-form/service/loan-form.service';
-import {Documents} from '../../../model/documents';
+import {CustomerDocuments} from '../../../model/customerDocuments';
 
 @Component({
   selector: 'app-customer-document',
@@ -25,9 +25,9 @@ export class CustomerDocumentComponent implements OnInit {
   renewDocuments: Document[] = [];
   loanConfig: LoanConfig = new LoanConfig();
   document: LoanDocument = new LoanDocument();
-  finalCustomerLoan: LoanDataHolder = new LoanDataHolder();
   loanName: string;
 
+  customerDocumentArray: Array<CustomerDocuments> = new Array<CustomerDocuments>();
   documentMaps = [];
   docHeader = [];
   documentMap: string;
@@ -52,18 +52,18 @@ export class CustomerDocumentComponent implements OnInit {
           this.paramProperties = paramsValue;
         });
 
-    if (this.loanDataHolder.id !== undefined) {
-      if (JSON.parse(this.loanDataHolder.customerDocument.documentPath) != null) {
-        this.documentMaps = JSON.parse(this.loanDataHolder.customerDocument.documentPath);
-        this.loanDataHolder.customerDocument.documentMap = JSON.parse(this.loanDataHolder.customerDocument.documentPath);
-        this.documentMaps.forEach(d => {
-          const arrayOfd = d.split(':')[0];
-          this.docHeader.push(arrayOfd);
-        });
-      }
-    } else {
-      this.finalCustomerLoan.customerDocument = new Documents();
-    }
+    // if (this.loanDataHolder.id !== undefined) {
+    //   if (JSON.parse(this.loanDataHolder.customerDocument.documentPath) != null) {
+    //     this.documentMaps = JSON.parse(this.loanDataHolder.customerDocument.documentPath);
+    //     this.loanDataHolder.customerDocument.documentMap = JSON.parse(this.loanDataHolder.customerDocument.documentPath);
+    //     this.documentMaps.forEach(d => {
+    //       const arrayOfd = d.split(':')[0];
+    //       this.docHeader.push(arrayOfd);
+    //     });
+    //   }
+    // } else {
+    //   this.finalCustomerLoan.customerDocument = new Documents();
+    // }
 
     this.loanConfigService.detail(this.paramProperties.loanId).subscribe(
         (response: any) => {
@@ -94,7 +94,7 @@ export class CustomerDocumentComponent implements OnInit {
     }*/
   }
 
-  documentUploader(event, documentName: string, index: number) {
+  documentUploader(event, documentName: string, documentId, index: number) {
     const file = event.target.files[0];
     if (file.size > CustomerDocumentComponent.FILE_SIZE_5MB) {
       this.errorMessage = 'Maximum File Size Exceeds for  ' + documentName;
@@ -114,6 +114,7 @@ export class CustomerDocumentComponent implements OnInit {
       formData.append('citizenNumber', this.loanDataHolder.customerInfo.citizenshipNumber);
       formData.append('customerName', this.loanDataHolder.customerInfo.customerName);
       formData.append('documentName', documentName);
+      formData.append('documentId', documentId);
       if (this.loanDataHolder.loanType === null || this.loanDataHolder.loanType === undefined) {
         formData.append('action', 'new');
       }
@@ -128,6 +129,8 @@ export class CustomerDocumentComponent implements OnInit {
       this.loanFormService.uploadFile(formData).subscribe(
           (result: any) => {
             this.document.name = documentName;
+            this.customerDocumentArray.push(result.detail);
+            console.log(this.customerDocumentArray);
             this.documentMap = documentName + ':' + result.detail;
             this.docHeader.push(documentName);
             this.initialDocuments.forEach(i => {
@@ -148,12 +151,11 @@ export class CustomerDocumentComponent implements OnInit {
               });
 
               this.documentMaps.push(this.documentMap);
-              console.log(this.documentMaps, this.finalCustomerLoan.customerDocument, 'asd');
             } else {
               this.documentMaps.push(this.documentMap);
             }
-            this.finalCustomerLoan.customerDocument.documentMap = this.documentMaps;
-            this.finalCustomerLoan.customerDocument.documentPath = this.documentMaps.map(x => x).join(',');
+            // this.finalCustomerLoan.customerDocument.documentMap = this.documentMaps;
+            // this.finalCustomerLoan.customerDocument.documentPath = this.documentMaps.map(x => x).join(',');
             this.document = new LoanDocument();
           },
           error => {
