@@ -26,7 +26,7 @@ import {DocAction} from '../model/docAction';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {OfferLetter} from '../../admin/modal/offerLetter';
 import {CustomerOfferLetterService} from '../service/customer-offer-letter.service';
-import {OfferLetterUploadComponent} from './offer-letter-upload/offer-letter-upload.component';
+import {OfferLetterUploadComponent} from '../component/offer-letter/offer-letter-upload/offer-letter-upload.component';
 
 @Component({
     selector: 'app-loan-offer-letter',
