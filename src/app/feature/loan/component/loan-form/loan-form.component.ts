@@ -358,7 +358,6 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.customerDocument = this.customerDocument.customerDocumentArray;
         }
 
-
         if (name === 'CICL' && action) {
             if (this.cicl.ciclForm.invalid || this.cicl.insuranceForm.invalid) {
                 this.cicl.submitted = true;
