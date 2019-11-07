@@ -1,5 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {LoanNepali} from '../../model/loanNepali';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-success-offer-letter-print',
@@ -7,9 +6,6 @@ import {LoanNepali} from '../../model/loanNepali';
   styleUrls: ['./success-offer-letter-print.component.scss']
 })
 export class SuccessOfferLetterPrintComponent implements OnInit {
-
-  @Input()
-  loanNepali: LoanNepali = new LoanNepali();
 
   constructor() {
   }

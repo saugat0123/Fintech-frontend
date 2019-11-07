@@ -33,7 +33,7 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         const api = `${this.getApi()}/proposed-amount`;
         const param = new HttpParams().set('startDate', startDate).set('endDate', endDate);
         const req = ApiUtils.getRequest(api);
-        return this.http.get(req.url, { params: param, headers: req.header });
+        return this.http.get(req.url, {params: param, headers: req.header});
     }
 
     public getLoanAmountByBranch(id: number, startDate: string, endDate: string) {

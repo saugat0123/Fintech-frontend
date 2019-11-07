@@ -14,6 +14,7 @@ import {Financial} from './financial';
 import {Security} from './security';
 import {SiteVisit} from '../../admin/modal/siteVisit';
 import {CustomerDocuments} from './customerDocuments';
+import {CustomerOfferLetter} from './customer-offer-letter';
 
 export class LoanDataHolder {
     id: number;
@@ -44,4 +45,8 @@ export class LoanDataHolder {
     childId: number;
     isCloseRenew: boolean;
     pulled: boolean;
+    customerOfferLetter: CustomerOfferLetter;
+    offerLetterStat: number;
+    uploadedOfferLetterStat: number;
+
 }

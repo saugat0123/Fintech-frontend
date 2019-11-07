@@ -494,6 +494,129 @@
           </div>
         </div>
       </div>
+
+      <div *ngIf="loanDataHolder?.customerOfferLetter" class="row justify-content-between pt-5"
+           id="offerLetterDiv">
+        <div class="col-md-12">
+          <p><strong>Offer Letter Authority Section</strong></p>
+        </div>
+        <div class="col-md-12">
+          <table
+              class="disable-print table table-condensed table-bordered table-responsive-md text-center">
+            <thead>
+            <tr>
+              <th>S.N</th>
+              <th>From User</th>
+              <th>From Position</th>
+              <th>To User</th>
+              <th>To Position</th>
+              <th>Status</th>
+              <th class="cmt-width">Remarks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let previousList of loanDataHolder?.customerOfferLetter?.previousList ; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{previousList?.fromUser?.name}}</td>
+              <td>{{previousList?.fromRole?.roleName}}</td>
+              <td>{{previousList?.toUser?.name}}</td>
+              <td>{{previousList?.toRole?.roleName}}</td>
+              <td>{{previousList?.docAction}}</td>
+              <td class="text-justify">
+                <div class="cmt-height">
+                  {{previousList?.comment?.length > 50 ?
+                    previousList?.comment?.substring(0, 49) :
+                    previousList?.comment}}
+                </div>
+                <a (click)="open(previousList?.comment)"
+                   *ngIf="previousList?.comment?.length > 50"
+                   class="justify-content-end read-margin">read more ....</a>
+              </td>
+            </tr>
+            <tr>
+              <td>{{loanDataHolder?.customerOfferLetter?.previousList?.length + 1}}</td>
+              <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromUser?.name}}</td>
+              <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromRole?.roleName}}</td>
+              <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.toUser?.name}}</td>
+              <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.toRole?.roleName}}</td>
+              <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.docAction}}</td>
+              <td class="text-justify">
+                <div class="cmt-height">
+                  {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length > 50 ?
+                    loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.substring(0, 49)
+                    :
+                    loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment}}
+                </div>
+                <a (click)="open(loanDataHolder.customerOfferLetter?.offerLetterStage.comment)"
+                   *ngIf="loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length > 50"
+                   class="justify-content-end read-margin">read more ....</a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <table
+              class="print-only table table-bordered text-center">
+            <thead>
+            <tr>
+              <th width="5%">S.N</th>
+              <th width="5%">Date</th>
+              <th width="15%">From User</th>
+              <th width="5%">Status</th>
+              <th width="70%">Remarks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let previousList of loanDataHolder?.customerOfferLetter?.previousList ; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{previousList?.lastModifiedAt}}</td>
+              <td>
+                {{previousList?.fromUser?.name}}
+                ({{previousList?.fromRole?.roleName}})
+              </td>
+              <td>{{previousList?.docAction}}</td>
+              <td class="text-justify">{{previousList?.comment}}</td>
+            </tr>
+            <tr>
+              <td>{{loanDataHolder?.customerOfferLetter?.previousList?.length + 1}}</td>
+              <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.lastModifiedAt}}</td>
+              <td>
+                {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromUser?.name}}
+                ({{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromRole?.roleName}})
+              </td>
+              <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.docAction}}</td>
+              <td class="text-justify">{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div *ngIf="offerLetterDocuments.length>0" class="row disable-print">
+        <div class="col-md-12">
+          <p><strong>Offer Letter Documents</strong></p>
+          <table class="table table-condensed table-bordered table-responsive-md">
+            <thead>
+            <tr>
+              <th>S.N</th>
+              <th>Document</th>
+              <th>Preview</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let offerLetterDocument of offerLetterDocuments; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{offerLetterDocument?.name}}</td>
+              <td><i
+                  (click)="previewOfferLetterDocument(offerLetterDocument.url, offerLetterDocument.name)"
+                  aria-hidden="true" class="fa fa-eye"
+                  style="cursor: pointer"></i>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </nb-card-body>
   </nb-card>
 </section>

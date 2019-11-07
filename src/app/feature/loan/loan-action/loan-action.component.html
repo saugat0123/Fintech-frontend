@@ -47,7 +47,7 @@
                 value="REJECTED">
             REJECTED<i
                 class="col-md-1 fa fa-ban"></i></button>
-        <select (change)="generateOfferLetter($event.target.value)" *ngIf="!catalogueStatus"
+        <select (change)="generateOfferLetter($event.target.value)" *ngIf="catalogueStatus && actionsList.offerLetter"
                 [disabled]="!actionsList.offerLetter"
                 [ngStyle]="{ 'filter' : (actionsList.offerLetter === false)? 'grayscale(100%)': 'grayscale(0%)'}"
                 class="btn-sm btn-primary custom-select-sm cursor"

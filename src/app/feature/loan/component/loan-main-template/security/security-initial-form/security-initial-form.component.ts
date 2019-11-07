@@ -257,7 +257,7 @@ buildForm() {
             buildingTotalCost: [''],
             buildingFairMarketValue: [''],
             buildingDistressValue: [''],
-            buildingDetailsDescription:['']
+            buildingDetailsDescription: ['']
 
         });
     }

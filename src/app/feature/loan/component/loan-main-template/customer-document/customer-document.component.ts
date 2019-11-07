@@ -1,3 +1,6 @@
+
+
+
 import {Component, Input, OnInit} from '@angular/core';
 import {Document} from '../../../../admin/modal/document';
 import {LoanDocument} from '../../../../admin/modal/loan-document';
@@ -67,8 +70,9 @@ export class CustomerDocumentComponent implements OnInit {
             this.customerDocumentArray = this.loanDataHolder.customerDocument;
             this.customerDocumentArray.forEach( (singleDoc, i) => {
               this.initialDocuments.forEach((initDoc, j) => {
-                if (singleDoc.document.id === initDoc.id)
+                if (singleDoc.document.id === initDoc.id) {
                   initDoc.checked = true;
+                }
               });
             });
           }
@@ -116,11 +120,11 @@ export class CustomerDocumentComponent implements OnInit {
           (result: any) => {
             const customerDocumentObject = result.detail;
             if (this.customerDocumentArray.length > 0) {
-              this.customerDocumentArray.forEach((singleDoc, index) => {
+              this.customerDocumentArray.forEach((singleDoc, docIndex) => {
                 if (singleDoc.document.id === documentId) {
-                  this.customerDocumentArray.splice(index, 1);
+                  this.customerDocumentArray.splice(docIndex, 1);
                 }
-              })
+              });
             }
             this.customerDocumentArray.push(customerDocumentObject);
 

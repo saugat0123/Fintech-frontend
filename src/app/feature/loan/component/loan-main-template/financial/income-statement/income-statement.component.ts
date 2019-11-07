@@ -226,7 +226,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             - (Number(dividendOrDrawing.controls['value'].value)
                 + Number(otherAdjustment.controls['value'].value)) + Number(accumulatedProfitBOrD.controls['value'].value);
         netProfitTransferredToBalanceSheet.controls['value'].setValue(netProfitTransferredToBalanceSheetValue);
-        //Reflecting the value of netProfitTransferredToBalanceSheetValue into Balance Sheet (BS43)---
+        // Reflecting the value of netProfitTransferredToBalanceSheetValue into Balance Sheet (BS43)---
         // balanceSheet.netWorthCategory[index]
 
 
