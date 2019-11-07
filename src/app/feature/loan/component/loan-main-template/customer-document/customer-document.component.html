@@ -1,0 +1,62 @@
+<nb-card>
+  <nb-card-header>
+    <h3><strong>Documents</strong></h3>
+  </nb-card-header>
+  <nb-card-body>
+    <div *ngIf="initialDocuments.length > 0" class="row">
+      <div class="col-md-6">
+        <div class="box-header with-border">
+          <h2><strong>Document for initial phase</strong></h2>
+          <em><span
+              style="color:red;">(select file smaller than 5Mb)</span></em>
+        </div>
+        <div *ngIf="errorMessage">
+          <span class="color" style="color:red"> {{errorMessage}}</span>
+        </div>
+        <div class="box-body">
+          <table class="table  table-bordered table-hover ">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Document Type</th>
+              <th>Upload</th>
+              <th>Upload Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let document of initialDocuments; let i=index">
+              <td>
+                {{i + 1}}
+              </td>
+              <td>{{document.name}}</td>
+
+              <td><input (change)="documentUploader($event, document.name, document.id, i)"
+                         accept=".png, .jpg"
+                         class="form-control-file"
+                         id="uploadDocument{{i}}" multiple=""
+                         type="file">
+                <!--<div *ngIf="submitted && form.file.errors"
+                     class="invalid-feedback">
+                  <div *ngIf="form.file.errors.required">Please upload the
+                    required
+                    documents
+                  </div>
+                </div>-->
+              </td>
+              <td>
+                <span *ngIf="document.checked" style="color:limegreen">
+                  <i class="fas fa-check-circle"></i></span>
+                <span *ngIf="!document.checked || document.checked === null"
+                      style="color:red"><i class="fas fa-times-circle"></i></span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <!--<div *ngFor="let path of imageUrl">
+            <img [src]="path" id="image" width="100%"/>
+          </div>-->
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
