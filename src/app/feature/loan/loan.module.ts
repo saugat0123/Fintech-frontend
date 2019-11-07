@@ -42,6 +42,7 @@ import { FinancialSummaryComponent } from './component/loan-summary/financial-su
 // tslint:disable-next-line:max-line-length
 import { SecurityInitialFormComponent } from './component/loan-main-template/security/security-initial-form/security-initial-form.component';
 import { SecuritySummaryComponent } from './component/loan-summary/security-summary/security-summary.component';
+import { CustomerDocumentComponent } from './component/loan-main-template/customer-document/customer-document.component';
 
 
 
@@ -80,7 +81,8 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         CashFlowStatementComponent,
         KeyIndicatorsComponent,
         InitialFormComponent,
-        FinancialSummaryComponent
+        FinancialSummaryComponent,
+        CustomerDocumentComponent
     ],
     imports: [
         ThemeModule,
