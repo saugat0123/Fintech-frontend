@@ -13,6 +13,7 @@ import {LoanType} from './loanType';
 import {Financial} from './financial';
 import {Security} from './security';
 import {SiteVisit} from '../../admin/modal/siteVisit';
+import {CustomerDocuments} from './customerDocuments';
 import {CustomerOfferLetter} from './customer-offer-letter';
 
 export class LoanDataHolder {
@@ -28,6 +29,7 @@ export class LoanDataHolder {
     ciclRemarks: string;
     insurance: Insurance;
     documentStatus: DocStatus;
+    customerDocument: Array<CustomerDocuments>;
     siteVisit: SiteVisit;
     financial: Financial;
     security: Security;

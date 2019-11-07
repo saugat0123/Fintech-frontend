@@ -278,6 +278,24 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     );
   }
 
+  downloadCustomerDocument(documentPath, documentName) {
+    this.dmsLoanService.downloadDocument(documentPath).subscribe(
+        (response: any) => {
+          const downloadUrl = window.URL.createObjectURL(response);
+          const link = document.createElement('a');
+          link.href = downloadUrl;
+          const toArray = documentPath.split('.');
+          const extension = toArray[toArray.length - 1];
+          link.download = documentName + '.' + extension;
+          link.click();
+        },
+        error => {
+          console.log(error);
+          console.log('Error downloading the file!');
+        }
+    );
+  }
+
   loanHandler(index: number, length: number) {
     if (index === 0) {
       return 'INITIATED BY:';

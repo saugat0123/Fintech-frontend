@@ -351,6 +351,32 @@
         </div>
       </div>
 
+      <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row disable-print">
+        <div class="col-md-12">
+          <p><strong>Documents</strong></p>
+          <table class="table table-condensed table-bordered table-responsive-md">
+            <thead>
+            <tr>
+              <th>S.N</th>
+              <th>Document</th>
+              <th>Download</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let singleDoc of loanDataHolder?.customerDocument; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{singleDoc?.document?.name}}</td>
+              <td><i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
+                     aria-hidden="true" class="fa fa-download"
+                     style="cursor: pointer"></i>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
+
       <div class="row mt-3">
         <div class="col-md-12">
           <p><strong>Authority Section</strong></p>
@@ -442,31 +468,6 @@
           </table>
         </div>
       </div>
-
-      <div *ngIf="documentNames.length>0" class="row disable-print">
-        <div class="col-md-12">
-          <p><strong>Required Documents</strong></p>
-          <table class="table table-condensed table-bordered table-responsive-md">
-            <thead>
-            <tr>
-              <th>S.N</th>
-              <th>Document</th>
-              <th>Download</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let documrecommendationConclusionent of documentNames; let i = index">
-              <td>{{i + 1}}</td>
-              <td>{{document}}</td>
-              <td><i (click)="download(i)" aria-hidden="true" class="fa fa-download"
-                     style="cursor: pointer"></i>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
 
       <div class="row justify-content-between px-3" id="signatureDiv">
         <div class="col-md-12 print-only">
