@@ -66,11 +66,16 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   loanCategory;
   @ViewChild('print', { static: false }) print;
   businessType = BusinessType;
-  financialData: Financial= new Financial();
+  financialData: Financial = new Financial();
   financialSummary = false;
   navigationSubscription;
   securitySummary = false;
   securityData: Object;
+  offerLetterDocuments: {
+    name: string,
+    url: string
+  }[] = [];
+  registeredOfferLetters: Array<String> = [];
 
   constructor(
       private userService: UserService,
@@ -236,6 +241,19 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
             this.nepaliDate = nepDate.detail;
           });
+
+          // Offer Letter Documents
+          if (this.loanDataHolder.customerOfferLetter && this.loanDataHolder.customerOfferLetter.customerOfferLetterPath) {
+            this.loanDataHolder.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
+              if (offerLetterPath.path && !this.registeredOfferLetters.includes(offerLetterPath.offerLetter.name)) {
+                this.registeredOfferLetters.push(offerLetterPath.offerLetter.name);
+                this.offerLetterDocuments.push({
+                  name: offerLetterPath.offerLetter.name,
+                  url: offerLetterPath.path
+                });
+              }
+            });
+          }
         }
     );
   }
@@ -312,6 +330,15 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     this.customerId = id;
     this.getLoanDataHolder();
 
+  }
+
+  previewOfferLetterDocument(url: string, name: string): void {
+    const link = document.createElement('a');
+    link.target = '_blank';
+    link.href = `${ApiConfig.URL}/${url}`;
+    link.download = name;
+    link.setAttribute('visibility', 'hidden');
+    link.click();
   }
 }
 

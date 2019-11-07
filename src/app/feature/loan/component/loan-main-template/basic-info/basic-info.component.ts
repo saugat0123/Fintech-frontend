@@ -10,10 +10,10 @@ import {Customer} from '../../../../admin/modal/customer';
 import {DateValidator} from '../../../../../@core/validator/date-validator';
 import {Occupation} from '../../../../admin/modal/occupation';
 import {IncomeSource} from '../../../../admin/modal/incomeSource';
-import {CustomerService} from "../../../../admin/service/customer.service";
-import {Alert, AlertType} from "../../../../../@theme/model/Alert";
-import {ToastService} from "../../../../../@core/utils";
-import {ObjectUtil} from "../../../../../@core/utils/ObjectUtil";
+import {CustomerService} from '../../../../admin/service/customer.service';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {ToastService} from '../../../../../@core/utils';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 
 @Component({
@@ -223,9 +223,9 @@ export class BasicInfoComponent implements OnInit {
 
     createRelativesArray() {
         const relation = ['Grand Father', 'Father', 'Spouse'];
-        relation.forEach((relation) => {
+        relation.forEach((customerRelation) => {
             (this.basicInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
-                customerRelation: [{value: relation, disabled: true}],
+                customerRelation: [{value: customerRelation, disabled: true}],
                 customerRelativeName: [undefined, Validators.compose([Validators.required])],
                 citizenshipNumber: [undefined, Validators.compose([Validators.required])],
                 citizenshipIssuedPlace: [undefined, Validators.compose([Validators.required])],

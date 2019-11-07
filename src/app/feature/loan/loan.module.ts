@@ -44,6 +44,10 @@ import { SecurityInitialFormComponent } from './component/loan-main-template/sec
 import { SecuritySummaryComponent } from './component/loan-summary/security-summary/security-summary.component';
 import { CustomerDocumentComponent } from './component/loan-main-template/customer-document/customer-document.component';
 
+import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.component';
+import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-action/offer-letter-action.component';
+import {OfferLetterUploadComponent} from './component/offer-letter/offer-letter-upload/offer-letter-upload.component';
+import {OfferLetterComponent} from './component/offer-letter/offer-letter.component';
 
 
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
@@ -82,7 +86,12 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         KeyIndicatorsComponent,
         InitialFormComponent,
         FinancialSummaryComponent,
-        CustomerDocumentComponent
+        CustomerDocumentComponent,
+        FinancialSummaryComponent,
+        LoanOfferLetterComponent,
+        OfferLetterActionComponent,
+        OfferLetterUploadComponent,
+        OfferLetterComponent,
     ],
     imports: [
         ThemeModule,

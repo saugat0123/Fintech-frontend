@@ -22,6 +22,11 @@ export class UserService extends BaseService<User> {
         return this.http.get(req.url, {headers: req.header});
     }
 
+    public getUserListByRoleCad(): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${UserService.API}/user-cad`);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
     public getUsersByRole(roles: any): Observable<any> {
         const req = ApiUtils.getRequest(`${UserService.API}/listByRole`);
 
