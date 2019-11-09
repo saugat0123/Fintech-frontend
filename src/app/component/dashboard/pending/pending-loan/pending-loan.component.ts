@@ -49,7 +49,8 @@ export class PendingLoanComponent implements OnInit {
     this.catalogueService.search = search;
     this.router.navigate(['/home/admin/catalogue'], {
       queryParams: {
-        redirect: true
+        redirect: true,
+        search: search.documentStatus
       }
     });
   }
