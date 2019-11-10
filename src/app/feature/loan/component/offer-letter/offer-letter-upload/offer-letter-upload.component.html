@@ -2,7 +2,7 @@
   <div class="col-md-12 form-group">
     <label for="offerLetter">Select Offer Letter</label>
     <select [(ngModel)]="offerLetterId" class="form-control" id="offerLetter">
-      <option *ngFor="let cusOfferLetter of customerOfferLetter.customerOfferLetterPath;"
+      <option *ngFor="let cusOfferLetter of customerOfferLetter?.customerOfferLetterPath;"
               [value]="cusOfferLetter.offerLetter.id">
         {{cusOfferLetter.offerLetter.name}}
       </option>
@@ -39,7 +39,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let cusOfferLetter of customerOfferLetter.customerOfferLetterPath; let i=index">
+      <tr *ngFor="let cusOfferLetter of customerOfferLetter?.customerOfferLetterPath; let i=index">
         <td>
           {{i + 1}}
         </td>
