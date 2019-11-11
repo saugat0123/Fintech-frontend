@@ -104,7 +104,7 @@
         <table id="add-branch-table" class="table table-bordered table-hover ">
             <thead>
             <tr>
-                <th>Branch</th>
+              <th *ngIf="this.showBranch">Branch</th>
                 <th>Customer Name</th>
                 <th>Loan Facility</th>
                 <th>Proposed Amount</th>
@@ -113,6 +113,7 @@
                 <th>Possession Under/Days</th>
                 <th>Loan lifespan</th>
                 <th *ngIf="transferDoc">Transfer</th>
+              <th>Created On</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -120,7 +121,8 @@
             <tr *ngFor="let model of loanDataHolderList;let i=index"
 
                 class="cursor">
-                <td (click)="onClick(model.loan.id,model.id)">{{model?.branch?.name}}</td>
+              <td (click)="onClick(model.loan.id,model.id)"
+                  *ngIf="this.showBranch">{{model?.branch?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">
                     {{model?.loanCategory === 'BUSINESS_TYPE' ?
                     model?.companyInfo?.companyName
@@ -157,6 +159,11 @@
                             (click)="onTransferClick(transferDocument,model.id,model?.currentStage?.toUser?.id)">
                         <i class="fa fa-arrow-circle-right"></i></button>
                 </td>
+              <td>
+                <div (click)="onClick(model.loan.id,model.id)">
+                  {{model?.createdAt}}
+                </div>
+              </td>
                 <td class="p-1" *ngIf='statusApproved === true && roleType && !model.isCloseRenew;else linkin'>
                     <select [(ngModel)]="tempLoanType" class="custom-select py-0"
                             (ngModelChange)="onChange(model,onActionChange)">
