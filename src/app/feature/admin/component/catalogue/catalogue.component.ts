@@ -59,6 +59,7 @@ export class CatalogueComponent implements OnInit {
   formAction: FormGroup;
   redirected = false;
   isFilterCollapsed = true;
+  showBranch = true;
 
   constructor(
       private branchService: BranchService,
@@ -105,6 +106,9 @@ export class CatalogueComponent implements OnInit {
       this.accessSpecific = true;
     } else if (this.roleAccess === RoleAccess.ALL) {
       this.accessAll = true;
+    }
+    if (this.roleAccess === RoleAccess.OWN) {
+      this.showBranch = false;
     }
 
     if (this.accessSpecific || this.accessAll) {
@@ -203,8 +207,22 @@ export class CatalogueComponent implements OnInit {
     this.statusApproved = this.filterForm.get('docStatus').value === 'APPROVED';
     this.catalogueService.search.branchIds = ObjectUtil.isEmpty(this.filterForm.get('branch').value) ? undefined :
         this.filterForm.get('branch').value;
-    this.catalogueService.search.documentStatus = ObjectUtil.isEmpty(this.filterForm.get('docStatus').value) ?
-        DocStatus.value(DocStatus.PENDING) : this.filterForm.get('docStatus').value;
+    this.activatedRoute.queryParams.subscribe(
+        (paramsValue: Params) => {
+          if (paramsValue.search === 'APPROVED') {
+            this.catalogueService.search.documentStatus = ObjectUtil.isEmpty(this.filterForm.get('docStatus').value) ?
+                DocStatus.value(DocStatus.APPROVED) : this.filterForm.get('docStatus').value;
+          } else if (paramsValue.search === 'REJECTED') {
+            this.catalogueService.search.documentStatus = ObjectUtil.isEmpty(this.filterForm.get('docStatus').value) ?
+                DocStatus.value(DocStatus.REJECTED) : this.filterForm.get('docStatus').value;
+          } else if (paramsValue.search === 'CLOSED') {
+            this.catalogueService.search.documentStatus = ObjectUtil.isEmpty(this.filterForm.get('docStatus').value) ?
+                DocStatus.value(DocStatus.CLOSED) : this.filterForm.get('docStatus').value;
+          } else {
+            this.catalogueService.search.documentStatus = ObjectUtil.isEmpty(this.filterForm.get('docStatus').value) ?
+                DocStatus.value(DocStatus.PENDING) : this.filterForm.get('docStatus').value;
+          }
+        });
     this.catalogueService.search.loanConfigId = ObjectUtil.isEmpty(this.filterForm.get('loanType').value) ?
         undefined : this.filterForm.get('loanType').value;
     this.catalogueService.search.loanNewRenew = ObjectUtil.isEmpty(this.filterForm.get('loanNewRenew').value) ? undefined :
