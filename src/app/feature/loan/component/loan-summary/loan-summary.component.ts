@@ -78,7 +78,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   }[] = [];
   registeredOfferLetters: Array<String> = [];
   sortedList: Array<LoanStage>;
-  filteredList: Array<LoanStage> = new Array<LoanStage>();
   constructor(
       private userService: UserService,
       private loanFormService: LoanFormService,
