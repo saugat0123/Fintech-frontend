@@ -76,16 +76,6 @@
           <!--                        </nb-accordion-item-body>-->
           <!--                    </nb-accordion-item>-->
 
-          <nb-accordion-item>
-            <nb-accordion-item-header>
-              Upload Offer Letter Documents
-            </nb-accordion-item-header>
-            <nb-accordion-item-body>
-              <app-offer-letter-upload *ngIf="loanDataHolder"
-                                       [customerId]="loanDataHolder.id"
-                                       [customerOfferLetter]="loanDataHolder.customerOfferLetter"></app-offer-letter-upload>
-            </nb-accordion-item-body>
-          </nb-accordion-item>
 
           <nb-accordion-item *ngFor="let list of offerLetterList">
             <nb-accordion-item-header>
@@ -126,6 +116,17 @@
                                             [customerId]="customerId"
                                             [loanDataHolder]="loanDataHolder"></app-birth-mark-letter-nepali>
 
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+
+          <nb-accordion-item>
+            <nb-accordion-item-header>
+              Upload Offer Letter Documents
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <app-offer-letter-upload *ngIf="loanDataHolder"
+                                       [customerId]="loanDataHolder.id"
+                                       [customerOfferLetter]="loanDataHolder.customerOfferLetter"></app-offer-letter-upload>
             </nb-accordion-item-body>
           </nb-accordion-item>
         </nb-accordion>
