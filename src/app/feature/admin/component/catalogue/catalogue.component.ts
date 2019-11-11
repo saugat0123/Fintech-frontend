@@ -59,6 +59,7 @@ export class CatalogueComponent implements OnInit {
   formAction: FormGroup;
   redirected = false;
   isFilterCollapsed = true;
+  showBranch = true;
 
   constructor(
       private branchService: BranchService,
@@ -105,6 +106,9 @@ export class CatalogueComponent implements OnInit {
       this.accessSpecific = true;
     } else if (this.roleAccess === RoleAccess.ALL) {
       this.accessAll = true;
+    }
+    if (this.roleAccess === RoleAccess.OWN) {
+      this.showBranch = false;
     }
 
     if (this.accessSpecific || this.accessAll) {
