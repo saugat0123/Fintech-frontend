@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="customerID"><b>Customer ID</b></label>
+                            <label for="customerID"><strong>Customer ID</strong></label>
                             <div class="input-group mb-3">
                                 <input (change)="searchByCustomerId()"
                                        [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerId.errors }" class="form-control" formControlName="customerId"
@@ -25,7 +25,7 @@
                     </div>
                     <div *ngIf="customerDetailField.showFormField" class="col-md-4">
                         <div class="form-group">
-                            <label for="customerName"><b>Customer Name</b></label>
+                            <label for="customerName"><strong>Customer Name</strong></label>
                             <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerName.errors }" class="form-control form-control-sm-error rounded" formControlName="customerName" id="customerName"
                                    name="customerName"
                                    placeholder="Applicant's Full Name"
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div *ngIf="customerDetailField.showFormField" class="col-md-4">
-                        <label for="email"><b>Email</b></label>
+                        <label for="email"><strong>Email</strong></label>
                         <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.email.errors }" class="form-control" formControlName="email" id="email" name="email"
                                placeholder="eg. xyz@abc.com"
                                type="email">
@@ -54,7 +54,7 @@
                 <div *ngIf="customerDetailField.showFormField" class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="dob"><b>Date of birth</b></label>
+                            <label for="dob"><strong>Date of birth</strong></label>
                             <input [nbDatepicker]="dob" [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.dob.errors }"
                                    class="form-control" formControlName="dob"
                                    id="dob"
@@ -76,7 +76,7 @@
                 <div *ngIf="customerDetailField.showFormField" class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="province"><b>Province</b></label>
+                            <label for="province"><strong>Province</strong></label>
                             <select (change)="getDistricts(this.basicInfo.get('province').value)" [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.province.errors }" class="custom-select"
                                     formControlName="province"
                                     id="province"
@@ -93,7 +93,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="district"><b>District</b></label>
+                            <label for="district"><strong>District</strong></label>
                             <select (change)="getMunicipalities(this.basicInfo.get('district').value)" [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.district.errors }" class="custom-select"
                                     formControlName="district"
                                     id="district"
@@ -111,7 +111,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="municipality"><b>Municipalities or VDC</b></label>
+                            <label for="municipality"><strong>Municipalities or VDC</strong></label>
                             <select [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.municipalities.errors }" class="custom-select" formControlName="municipalities"
                                     id="municipality"
                                     name="municipality">
@@ -133,7 +133,7 @@
                 <div *ngIf="customerDetailField.showFormField" class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="street"><b>Street</b></label>
+                            <label for="street"><strong>Street</strong></label>
                             <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.street.errors }" class="form-control" formControlName="street" id="street"
                                    name="street" placeholder="Street Name"
                                    type="text">
@@ -144,9 +144,9 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="wardNumber"><b>Ward Number</b></label>
+                            <label for="wardNumber"><strong>Ward Number</strong></label>
                             <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.wardNumber.errors }" class="form-control" formControlName="wardNumber" id="wardNumber"
-                                   name="wardNumber" placeholder="Ward Number" read
+                                   name="wardNumber" placeholder="Ward Number"
                                    type="text">
                             <div *ngIf="(submitted) && basicInfoControls.wardNumber.invalid" class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.wardNumber.errors.required">
@@ -174,7 +174,7 @@
                     </div> -->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="contactNumber"><b>Contact Number</b></label>
+                            <label for="contactNumber"><strong>Contact Number</strong></label>
                             <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.contactNumber.errors }" class="form-control" formControlName="contactNumber" id="contactNumber"
                                    name="contactNumber"
                                    placeholder="Contact number"
@@ -189,7 +189,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="accountNo"><b>Account No.</b></label>
+                            <label for="accountNo"><strong>Account No.</strong></label>
                             <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.accountNo.errors }" class="form-control" formControlName="accountNo" id="accountNo"
                                    name="accountNo" placeholder="Applicant's Account Number"
                                    type="text">
@@ -202,7 +202,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="citizenshipNumber"><b>Citizenship Number</b></label>
+                            <label for="citizenshipNumber"><strong>Citizenship Number</strong></label>
                             <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipNumber.errors }" class="form-control" formControlName="citizenshipNumber"
                                    id="citizenshipNumber" name="citizenshipNumber" placeholder="Citizenship Number"
                                    type="text">
@@ -221,7 +221,7 @@
                 <div *ngIf="customerDetailField.showFormField" class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="citizenshipIssuedPlace"><b>Issued Place</b></label>
+                            <label for="citizenshipIssuedPlace"><strong>Issued Place</strong></label>
                             <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipIssuedPlace.errors }" class="form-control"
                                    formControlName="citizenshipIssuedPlace" id="citizenshipIssuedPlace" name="citizenshipIssuedPlace"
                                    placeholder="Citizenship Issued Place"
@@ -236,7 +236,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="customerCitizenshipIssuedDate"><b>Issued Date</b></label>
+                            <label for="customerCitizenshipIssuedDate"><strong>Issued Date</strong></label>
                             <input [nbDatepicker]="customerCitizenshipIssuedDate" [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipIssuedDate.errors }"
                                    class="form-control" formControlName="citizenshipIssuedDate"
                                    id="customerCitizenshipIssuedDate"
@@ -253,7 +253,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="occupation"><b>Occupation</b></label>
+                            <label for="occupation"><strong>Occupation</strong></label>
                             <ng-select [items]="occupations"
                                        [multiple]="false"
                                        [ngClass]="{'is-invalid':submitted &&  basicInfoControls.occupation.errors}"
@@ -275,7 +275,7 @@
                 <div *ngIf="customerDetailField.showFormField" class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="incomeSource"><b>Income Source</b></label>
+                            <label for="incomeSource"><strong>Income Source</strong></label>
                             <ng-select [items]="incomeSources"
                                        [multiple]="false"
                                        [ngClass]="{'is-invalid':submitted &&  basicInfoControls.incomeSource.errors}"
@@ -300,37 +300,37 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="customerRelation"><b>Relation</b></label>
+                                        <label for="customerRelation"><strong>Relation</strong></label>
                                         <input class="form-control" formControlName="customerRelation" id="customerRelation"
                                                placeholder="Relation" type="text">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="relationName"><b>Name</b></label>
+                                        <label for="relationName"><strong>Name</strong></label>
                                         <input class="form-control" formControlName="customerRelativeName" id="relationName"
                                                placeholder="Name" type="text">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="citizenship"><b>CitizenshipNumber</b></label>
+                                        <label for="citizenship"><strong>CitizenshipNumber</strong></label>
                                         <input class="form-control" formControlName="citizenshipNumber" id="citizenship"
                                                placeholder="Citizenship Number" type="text">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="issuedLocation"><b>Issued Place</b></label>
+                                        <label for="issuedLocation"><strong>Issued Place</strong></label>
                                         <input class="form-control" formControlName="citizenshipIssuedPlace" id="issuedLocation"
                                                placeholder="Issued Place" type="text">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="issuedDate"><b>Issued Date</b></label>
+                                        <label for="issuedDate"><strong>Issued Date</strong></label>
                                         <input [nbDatepicker]="relationCitizenIssueDate" class="form-control"
-                                               formControlName="citizenshipIssuedPlace"
+                                               formControlName="citizenshipIssuedDate"
                                                id="issuedDate" placeholder="Issued Date">
                                         <nb-datepicker #relationCitizenIssueDate></nb-datepicker>
                                     </div>

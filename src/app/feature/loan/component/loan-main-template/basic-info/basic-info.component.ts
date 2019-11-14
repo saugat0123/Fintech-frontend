@@ -63,7 +63,6 @@ export class BasicInfoComponent implements OnInit {
                 this.customerDetailField.showFormField = true;
             }
             this.customer = this.formValue;
-            console.log(this.customer);
             this.formMaker();
             this.setRelatives(this.customer.customerRelatives);
         } else {
@@ -169,7 +168,6 @@ export class BasicInfoComponent implements OnInit {
         this.customer.incomeSource = this.basicInfo.get('incomeSource').value;
         const rawFromValue = this.basicInfo.getRawValue();
         this.customer.customerRelatives = rawFromValue.customerRelatives;
-        console.log(this.customer.customerRelatives);
     }
 
     getProvince() {
@@ -241,11 +239,11 @@ export class BasicInfoComponent implements OnInit {
             // Increase index number with increase in static relatives---
             relativesData.push(this.formBuilder.group({
                 customerRelation: (index > 2) ? [(customerRelative)] :
-                    [({value: customerRelative, disabled: true})],
-                customerRelativeName: [singleRelatives.customerRelativeName],
-                citizenshipNumber: [singleRelatives.citizenshipNumber],
-                citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
-                citizenshipIssuedDate: [singleRelatives.citizenshipIssuedDate]
+                    [({value: customerRelative, disabled: true}), Validators.required],
+                customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
+                citizenshipNumber: [singleRelatives.citizenshipNumber, Validators.required],
+                citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace, Validators.required],
+                citizenshipIssuedDate: [singleRelatives.citizenshipIssuedDate, [Validators.required, DateValidator.isValidBefore]]
             }));
         });
     }
