@@ -25,6 +25,7 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
     offerLetterTypeId = 1;  // 1 represents Birth Mark Letter
     existingOfferLetter = false;
     spinner = false;
+    initialInfoPrint;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -107,6 +108,7 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
                 this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
                     if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
                         initialInfo = JSON.parse(offerLetterPath.initialInformation);
+                        this.initialInfoPrint = initialInfo;
                     }
                 });
                 this.form.patchValue(initialInfo, {emitEvent: false});
