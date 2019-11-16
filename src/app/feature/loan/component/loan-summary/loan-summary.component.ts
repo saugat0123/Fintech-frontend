@@ -74,6 +74,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   businessType = BusinessType;
   navigationSubscription;
   docAction = DocAction;
+  sortedList: Array<LoanStage>;
 
   constructor(
       private userService: UserService,
@@ -141,6 +142,27 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           this.loanCategory = this.loanDataHolder.loanCategory;
           this.currentIndex = this.loanDataHolder.previousList.length;
           this.signatureList = this.loanDataHolder.distinctPreviousList;
+          this.sortedList = new Array<LoanStage>();
+          this.sortedList.push(...this.loanDataHolder.previousList, this.loanDataHolder.currentStage);
+          let lastBackwardIndex = 0;
+          this.sortedList.forEach((data, index) => {
+            if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)) {
+              lastBackwardIndex = index;
+            }
+          });
+          if (lastBackwardIndex !== 0) {
+            this.sortedList.splice(0, lastBackwardIndex);
+            if (this.sortedList.length === 1) {
+              this.sortedList.splice(0, 1);
+            }
+          }
+          const toUserIds = new Set<Number>();
+          this.sortedList.forEach(loanStage => toUserIds.add(loanStage.toUser.id));
+          this.sortedList.filter(loanStage => toUserIds.has(loanStage.toUser.id));
+
+          if (this.sortedList.length !== 0) {
+            this.sortedList.splice(0, 1);
+          }
           this.previousList = this.loanDataHolder.previousList;
           this.actionsList.approved = true;
           this.actionsList.sendForward = true;
