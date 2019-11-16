@@ -25,6 +25,7 @@ export class SuccessOfferLetterComponent implements OnInit {
   offerLetterTypeId = 2;  // 2 represents Success Offer Letter
   existingOfferLetter = false;
   spinner = false;
+  initialInfoPrint;
 
   constructor(
       private activatedRoute: ActivatedRoute,
@@ -107,6 +108,7 @@ export class SuccessOfferLetterComponent implements OnInit {
         this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
           if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
             initialInfo = JSON.parse(offerLetterPath.initialInformation);
+            this.initialInfoPrint = initialInfo;
           }
         });
         this.form.patchValue(initialInfo, {emitEvent: false});
