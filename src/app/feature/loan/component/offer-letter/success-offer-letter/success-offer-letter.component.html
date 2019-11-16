@@ -901,7 +901,7 @@
     </form>
   </div>
 </div>
-<!--    <button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4"-->
-<!--            ngxPrint printSectionId="formId">Print-->
-<!--    </button>-->
-<!--<app-birth-mark-letter-print [form]="form" hidden></app-birth-mark-letter-print>-->
+    <button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4"
+            ngxPrint printSectionId="successId">Print
+    </button>
+<app-success-offer-letter-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-success-offer-letter-print>
