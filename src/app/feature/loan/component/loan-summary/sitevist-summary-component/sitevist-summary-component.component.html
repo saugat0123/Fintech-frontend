@@ -63,7 +63,7 @@
 <table *ngIf="formData['fixedAssetCollateralFormChecked'] === true"
        class="table table-condensed table-bordered table-responsive-md text-center">
     <tr>
-        <th>Date</th>
+        <th>Date of Inspection</th>
         <th>Address</th>
         <th>Person Contacted</th>
         <th>Phone Number</th>
@@ -122,7 +122,6 @@
         <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['mortarCement']}}</td>
         <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['otherRoofing']}}</td>
         <td>{{formData['fixedAssetCollateralDetails']['otherFacilities']['insideFurniture']}}</td>
-
     </tr>
     <tr>
         <th>Frame Structure</th>
@@ -234,6 +233,34 @@
         <td *ngFor="let staff of formData['currentAssetsInspectionDetails']['insuranceVerification']['inspectingStaffsDetails'];let i = index">
             {{staff.name}}
         </td>
+    </tr>
+</table>
+
+<!-- ============================================================= Current Asset Inspection form End ==============================================================-->
+
+<!-- ============================================================= Current Assets Inspection - Stock form Start ==============================================================-->
+<p *ngIf="formData['currentAssetsInspectionDetails']['particularsOfGoodInspected'] === true" class="font-weight-bold">Current Assets Inspection - Stock form
+</p>
+<table *ngIf="formData['currentAssetsInspectionDetails'] === true"
+       class="table table-condensed table-bordered table-responsive-md text-center">
+    <tr>
+        <th>Date Of Inspection</th>
+        <th>Particulars Of Good Inspected</th>
+        <th>Stock Value Reported</th>
+        <th>Rents</th>
+        <th>Is Rent Payment up to date?</th>
+        <th>Is Rent Receipt up to date?</th>
+    </tr>
+
+    <tr>
+
+        <td>{{formData['currentAssetsInspectionDetails']['dateOfInspection'] | date}}</td>
+        <td>{{formData['currentAssetsInspectionDetails']['particularsOfGoodInspected']}}</td>
+        <td>{{formData['currentAssetsInspectionDetails']['stockValueReported']}}</td>
+        <td>{{formData['currentAssetsInspectionDetails']['rents']}}</td>
+        <td>{{formData['currentAssetsInspectionDetails']['isRentPmtUpToDate']}}</td>
+        <td>{{formData['currentAssetsInspectionDetails']['isRentReceiptShown']}}</td>
+
     </tr>
 
 
