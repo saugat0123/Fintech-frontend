@@ -69,9 +69,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   businessType = BusinessType;
   financialData: Financial = new Financial();
   financialSummary = false;
+  siteVisitSummary = false;
   navigationSubscription;
   securitySummary = false;
   securityData: Object;
+  siteVisitData: Object;
   offerLetterDocuments: {
     name: string,
     url: string
@@ -152,6 +154,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           if (!ObjectUtil.isEmpty(this.loanDataHolder.security)) {
             this.securityData = JSON.parse(this.loanDataHolder.security.data);
             this.securitySummary = true;
+          }
+          // Setting SiteVisit data--
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
+            this.siteVisitData = JSON.parse(this.loanDataHolder.siteVisit.data);
+            this.siteVisitSummary = true;
           }
 
           this.loanCategory = this.loanDataHolder.loanCategory;

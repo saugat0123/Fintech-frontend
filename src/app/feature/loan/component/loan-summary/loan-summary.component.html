@@ -344,10 +344,8 @@
 
       <div class="row mt-3">
         <div class="col-md-12">
-          <p><b>Site Visit</b></p>
-          <p class="border text-justify p-5 text-center">
-            Placeholder for aggregate site visit information.
-          </p>
+          <app-sitevist-summary-component *ngIf="siteVisitSummary"
+                                          [formData]="siteVisitData"></app-sitevist-summary-component>
         </div>
       </div>
 
