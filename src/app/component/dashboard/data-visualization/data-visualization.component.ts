@@ -36,6 +36,10 @@ export class DataVisualizationComponent implements OnInit {
     accessAll: boolean;
     filterForm: FormGroup;
     workingWidth: number;
+    pendingProposedAmount = 0;
+    approvedProposedAmount = 0;
+    rejectedProposedAmount = 0;
+    closureProposedAmount = 0;
 
     constructor(
         private fb: FormBuilder,
@@ -50,6 +54,7 @@ export class DataVisualizationComponent implements OnInit {
         this.initalizeCurrentUserBranch();
         this.getGeneralPieChartData();
         this.getAllData();
+        this.getSeperateProposedAmount();
         this.getBarChartData();
         this.buildFilterForm();
         this.getWidth();
@@ -72,6 +77,7 @@ export class DataVisualizationComponent implements OnInit {
             this.getAdvancedPieChartDataByBranchId();
         }
         this.getBarChartData();
+        this.getSeperateProposedAmount();
     }
 
     buildFilterForm(): void {
@@ -103,6 +109,56 @@ export class DataVisualizationComponent implements OnInit {
     private getAdvancedPieChartDataByBranchId() {
         this.loanFormService.getLoanAmountByBranch(this.branchId, this.startDate, this.endDate)
         .subscribe((response: any) => this.pieChart = response.detail, (error) => console.log(error));
+    }
+
+    private getSeperateProposedAmount() {
+        this.pendingProposedAmount = 0;
+        this.approvedProposedAmount = 0;
+        this.rejectedProposedAmount = 0;
+        this.closureProposedAmount = 0;
+        let responseArray = [];
+        const proposedAmountArray = [];
+        let counter = 1;
+        let responseCounter = 0;
+        let lenghtOfResponse;
+        this.barChartService.getBarData(this.branchId, this.startDate, this.endDate)
+            .subscribe((response: any) => {
+                    {
+                        responseArray = response.detail;
+                        lenghtOfResponse = responseArray.length - 1;
+                        do {
+                            proposedAmountArray[responseCounter] = responseArray[lenghtOfResponse];
+                            for (const key in proposedAmountArray[responseCounter]) {
+                                const value = proposedAmountArray[responseCounter][key];
+                                if (typeof value === 'object') {
+                                    proposedAmountArray[counter] = [value];
+                                    // console.log('second aray', proposedAmountArray[counter][0]);
+                                    // tslint:disable-next-line:forin
+                                    for (const secondKey in proposedAmountArray[counter][0]) {
+                                        const secondValue = proposedAmountArray[counter][0][secondKey];
+                                        this.getSpecificProposedAmount(secondValue);
+                                    }
+                                }
+                            }
+                            counter += 2;
+                            responseCounter += 2;
+                            lenghtOfResponse = lenghtOfResponse - 1;
+                        }
+                        while (lenghtOfResponse > -1);
+                    }
+                }
+            );
+    }
+    private getSpecificProposedAmount (value) {
+        if (value.name === 'Pending') {
+            this.pendingProposedAmount = this.pendingProposedAmount + value.value;
+        } else if (value.name === 'Approved') {
+            this.approvedProposedAmount = this.approvedProposedAmount + value.value;
+        } else if (value.name === 'Rejected') {
+            this.rejectedProposedAmount = this.rejectedProposedAmount + value.value;
+        } else {
+            this.closureProposedAmount = this.closureProposedAmount + value.value;
+        }
     }
 
     private findActiveRole() {
