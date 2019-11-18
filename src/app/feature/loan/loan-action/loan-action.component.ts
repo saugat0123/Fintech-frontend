@@ -20,6 +20,7 @@ import {LoanFormService} from '../component/loan-form/service/loan-form.service'
 import {LoanDataHolder} from '../model/loanData';
 import {LoanStage} from '../model/loanStage';
 import {DocAction} from '../model/docAction';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 
 @Component({
@@ -33,12 +34,14 @@ export class LoanActionComponent implements OnInit {
     @Input() loanConfigId: number;
     @Input() id: number;
     @Input() loanCategory: string;
+    @Input() catalogueStatus = false;
 
     @Input() actionsList: ActionModel;
     popUpTitle: string;
     currentUserRoleType = false;
     sendForwardBackwardList = [];
     formAction: FormGroup;
+    committeeRole = false;
     userList: Array<User> = new Array<User>();
     submitted = false;
     loanConfig: LoanConfig = new LoanConfig();
@@ -47,6 +50,8 @@ export class LoanActionComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': 'Basic Y3Atc29sdXRpb246Y3Bzb2x1dGlvbjEyMyoj',
     });
+  falseCredential = false;
+  falseCredentialMessage = '';
 
     constructor(
         private router: ActivatedRoute,
@@ -92,20 +97,35 @@ export class LoanActionComponent implements OnInit {
             this.currentUserRoleType = true;
         }
 
+        if (roleType === RoleType.COMMITTEE) {
+            this.committeeRole = true;
+        } else {
+            this.committeeRole = false;
+        }
+
     }
 
-    sendBackwardList(template) {
+    sendBackwardList(template, val) {
         this.popUpTitle = 'Send Backward';
-        this.loanActionService.getSendBackwardList().subscribe(
-            (response: any) => {
-                this.sendForwardBackwardList = response.detail;
-            });
+
         this.formAction.patchValue({
-                docAction: 'BACKWARD',
+                docAction: DocAction.value(DocAction.BACKWARD),
                 documentStatus: DocStatus.PENDING,
                 comment: null
             }
         );
+        if (this.committeeRole && val === 1) {
+            this.popUpTitle = 'Send Backward To ' + localStorage.getItem('roleName');
+            const role = {
+                id: localStorage.getItem('roleId')
+            };
+            this.formAction.patchValue({
+                    docAction: DocAction[DocAction.BACKWARD_TO_COMMITTEE],
+                    toRole: role
+                }
+            );
+            this.getUserList(role);
+        }
         this.modalService.open(template);
     }
 
@@ -117,7 +137,7 @@ export class LoanActionComponent implements OnInit {
                 this.sendForwardBackwardList = response.detail;
             });
         this.formAction.patchValue({
-                docAction: 'FORWARD',
+                docAction: DocAction.value(DocAction.FORWARD),
                 documentStatus: DocStatus.PENDING,
                 comment: null
             }
@@ -126,6 +146,7 @@ export class LoanActionComponent implements OnInit {
     }
 
     onSubmit(templateLogin) {
+      this.falseCredential = false;
         this.submitted = true;
         if (this.formAction.invalid) {
             return;
@@ -167,19 +188,19 @@ export class LoanActionComponent implements OnInit {
         });
     }
 
-    onLogin(datavalue) {
-        this.onClose();
-        const data: { email: string, password: string } = datavalue.value;
+  onLogin(dataValue) {
+    const data: { email: string, password: string } = dataValue.value;
         data.email = localStorage.getItem('username');
-        const datas = 'grant_type=password&username=' + data.email + '&password=' + data.password;
-        this.http.post(this.securityUrl, datas, {headers: this.headers})
+    const requestBody = 'grant_type=password&username=' + data.email + '&password=' + data.password;
+    this.http.post(this.securityUrl, requestBody, {headers: this.headers})
             .subscribe(
-                (res: any) => {
+                () => {
+                  this.onClose();
                     this.postAction();
                 },
                 error => {
-
-                    this.toastService.show(new Alert(AlertType.ERROR, error.error.errorDescription));
+                  this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? '' : error.error.errorDescription;
+                  this.falseCredential = true;
                 }
             );
 
@@ -238,9 +259,9 @@ export class LoanActionComponent implements OnInit {
 
     }
 
-    print() {
+    /*print() {
         window.print();
-    }
+    }*/
 
     generateOfferLetter(templateUrl) {
         this.route.navigate([templateUrl], {queryParams: {customerId: this.id}});

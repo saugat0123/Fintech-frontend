@@ -1,4 +1,5 @@
 export enum Status {
+    NEW_REQUEST = 'NEW_REQUEST',
     ELIGIBLE = 'ELIGIBLE',
     NOT_ELIGIBLE = 'NOT_ELIGIBLE',
     APPROVED = 'APPROVED',

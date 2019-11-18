@@ -1,30 +1,27 @@
 <div class="row">
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <a routerLink="/home/status/PENDING">
-            <app-icon-card title="Pendings" type="info" detail="{{pendingCount}}">
-                <i class="fas fa-hourglass"></i>
-            </app-icon-card>
-        </a>
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <a routerLink="/home/status/APPROVED">
-            <app-icon-card title="Approved" type="success" detail="{{approvedCount}}">
-                <i class="fas fa-thumbs-up"></i>
-            </app-icon-card>
-        </a>
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <a routerLink="/home/status/REJECTED">
-            <app-icon-card title="Rejected" type="info" detail="{{rejectedCount}}">
-                <i class="fa fa-ban"></i>
-            </app-icon-card>
-        </a>
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <a routerLink="/home/status/CLOSED">
-            <app-icon-card title="Closed" type="success" detail="{{closedCount}}">
-                <i class="fa fa-times"></i>
-            </app-icon-card>
-        </a>
-    </div>
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <a routerLink="/home/status/PENDING">
+      <app-icon-card detail="{{pendingCount}}" title="Pending" type="primary">
+        <i class="fas fa-hourglass"></i>
+      </app-icon-card>
+    </a>
+  </div>
+  <div class="col-md-3 col-sm-6 col-xs-12 cursor">
+    <app-icon-card (click)="resolveToCatalogue('approved')" detail="{{approvedCount}}"
+                   title="Approved" type="success">
+      <i class="fas fa-thumbs-up"></i>
+    </app-icon-card>
+  </div>
+  <div class="col-md-3 col-sm-6 col-xs-12 cursor">
+    <app-icon-card (click)="resolveToCatalogue('rejected')" detail="{{rejectedCount}}"
+                   title="Rejected" type="warning">
+      <i class="fa fa-ban"></i>
+    </app-icon-card>
+  </div>
+  <div class="col-md-3 col-sm-6 col-xs-12 cursor">
+    <app-icon-card (click)="resolveToCatalogue('closed')" detail="{{closedCount}}" title="Closed"
+                   type="info">
+      <i class="fa fa-times"></i>
+    </app-icon-card>
+  </div>
 </div>

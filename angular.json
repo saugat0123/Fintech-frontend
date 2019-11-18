@@ -35,21 +35,12 @@
               "node_modules/quill/dist/quill.bubble.css",
               "node_modules/quill/dist/quill.snow.css",
               "node_modules/@ng-select/ng-select/themes/default.theme.css",
-              "node_modules/nebular-icons/scss/nebular-icons.scss",
-              "src/app/@theme/styles/styles.scss",
-              "src/styles.scss"
+              "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
+              "src/styles.scss",
+              "src/app/@theme/styles/styles.scss"
             ],
             "scripts": [
-              "node_modules/admin-lte/bower_components/jquery/dist/jquery.min.js",
-              "node_modules/popper.js/dist/umd/popper.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/admin-lte/bower_components/fastclick/lib/fastclick.js",
-              "node_modules/admin-lte/dist/js/adminlte.min.js",
-              "node_modules/admin-lte/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js",
-              "node_modules/admin-lte/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js",
-              "node_modules/admin-lte/plugins/jvectormap/jquery-jvectormap-world-mill-en.js",
-              "node_modules/admin-lte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js",
-              "node_modules/admin-lte/bower_components/chart.js/Chart.js"
+              "node_modules/pace-js/pace.min.js"
             ]
           },
           "configurations": {
@@ -121,7 +112,8 @@
               "src/tsconfig.spec.json"
             ],
             "exclude": [
-              "**/node_modules/**"
+              "**/node_modules/**",
+              "**/src/**/*.json"
             ]
           }
         }
@@ -149,7 +141,8 @@
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
             "exclude": [
-              "**/node_modules/**"
+              "**/node_modules/**",
+              "**/src/**/*.json"
             ]
           }
         }

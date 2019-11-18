@@ -15,7 +15,7 @@ export class DmsLoanFile {
     serviceChargeAmount: number;
     documentPath: string;
     documentMap: Array<string>;
-    documents = new Array<LoanDocument>();
+    documents: Array<LoanDocument>;
     securities: string;
     tenure: Date;
     tenureDuration: number;
@@ -26,9 +26,9 @@ export class DmsLoanFile {
     fmvTotal: number;
     distressValue: number;
     totalLoanLimit: number;
-    individualExposure: string;
-    institutionExposure: string;
-    groupExpo: String;
+    individualExposure: number;
+    institutionExposure: number;
+    groupExpo: number;
     fmvFundingPercent: number;
     incomeCoverageRatio: number;
     debtServiceCoverageRatio: number;

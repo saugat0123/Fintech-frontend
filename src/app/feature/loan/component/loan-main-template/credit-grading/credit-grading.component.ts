@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {QuestionService} from '../../../../service/question.service';
 import {Questions} from '../../../../admin/modal/question';
 import {ActivatedRoute, Params} from '@angular/router';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {QuestionService} from '../../../../admin/component/eligibility/question/question.service';
 
 @Component({
   selector: 'app-credit-grading',
@@ -60,9 +60,9 @@ export class CreditGradingComponent implements OnInit {
     const control = this.questionAnswerForm.controls.questionForm as FormArray;
     this.questionList.forEach(qsn => {
       control.push(this.formBuilder.group({
-          id: qsn.id,
-          description: qsn.description,
-          answers: this.setAnswers(qsn),
+        id: qsn.id,
+        description: qsn.description,
+        answers: this.setAnswers(qsn),
         selectedAnswer: undefined
       }));
     });
@@ -72,9 +72,9 @@ export class CreditGradingComponent implements OnInit {
     const arr = new FormArray([]);
     qsn.answers.forEach(ans => {
       arr.push(this.formBuilder.group({
-          selectAnswer: qsn.id,
-          description: ans.description,
-          points: ans.points
+        selectAnswer: qsn.id,
+        description: ans.description,
+        points: ans.points
       }));
     });
     return arr;

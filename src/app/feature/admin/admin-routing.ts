@@ -30,6 +30,8 @@ import {CatalogueComponent} from './component/catalogue/catalogue.component';
 import {UserGuideComponent} from '../../@theme/components/user-guide/user-guide.component';
 import {EmailConfigurationComponent} from './component/email-configuration/email-configuration.component';
 import {EligibilitySummaryComponent} from './component/eligibility/eligibility-summary/eligibility-summary.component';
+import {AccountTypeConfigComponent} from './component/opening-account/config/account-type-config/account-type-config.component';
+import {AccountPurposeConfigComponent} from './component/opening-account/config/account-purpose-config/account-purpose-config.component';
 
 
 // import {SecurityComponent} from './component/loan-config/loan-main-template/security/security.component';
@@ -68,6 +70,13 @@ export const adminRoutes: Routes = [
     {path: 'roleHierarchy', component: RoleHierarchyComponent},
     {path: 'openingAccount', component: OpeningAccountComponent},
     {path: 'openOpeningAccount', component: OpenOpeningComponentComponent},
+    {
+        path: 'openingAccountConfig',
+        children: [
+            {path: 'accountType', component: AccountTypeConfigComponent},
+            {path: 'accountPurpose', component: AccountPurposeConfigComponent}
+        ]
+    },
     {path: 'catalogue', component: CatalogueComponent},
     {path: 'email-config', component: EmailConfigurationComponent},
 

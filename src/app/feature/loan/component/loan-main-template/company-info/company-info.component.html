@@ -1,31 +1,135 @@
 <nb-card>
     <nb-card-body>
         <div class="form-group">
-            <form (ngSubmit)="onSubmit()" [formGroup]="companyInfo">
+            <form (ngSubmit)="onSubmit()" [formGroup]="companyInfoFormGroup">
+                <div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5>Company Information
+                                <small
+                                    *ngIf="companyFormField.isOldCustomer" style="color:red;">
+                                    (Note: Any change in old company information will be
+                                    over-written.)
+                                </small>
+                            </h5>
+                            <hr/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                            <div class="form-group">
+                                <label for="companyName"><strong>Company Name</strong></label>
+                                <input
+                                    [ngClass]="{ 'is-invalid':submitted && form.companyName.errors }"
+                                    class="form-control rounded"
+                                    formControlName="companyName"
+                                    id="companyName" placeholder="Enter company name"
+                                    type="text"/>
+                                <div *ngIf="submitted && form.companyName.errors"
+                                     class="invalid-feedback">
+                                    <div *ngIf="form.companyName.errors.required">Name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                            <div class="form-group">
+                                <label for="companyEstablishmentDate"><strong>Establishment Date</strong></label>
+                                <input [nbDatepicker]="establishmentPicker"
+                                       [ngClass]="{ 'is-invalid':submitted && form.companyEstablishmentDate.errors}"
+                                       class="form-control rounded"
+                                       formControlName="companyEstablishmentDate"
+                                       id="companyEstablishmentDate" placeholder="Enter Establishment Date"
+                                       type="text"/>
+                                <nb-datepicker #establishmentPicker></nb-datepicker>
+                                <div *ngIf="submitted && form.companyEstablishmentDate.errors"
+                                     class="invalid-feedback">
+                                    <div *ngIf="form.companyEstablishmentDate.errors.required">Establishment
+                                        Date
+                                        is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group rounded">
+                                <label for="registrationNumber"><strong>Registration Number</strong></label>
+                                <div class="input-group mb-3">
+                                    <input
+                                        (change)="searchByRegNO()"
+                                        [ngClass]="{ 'is-invalid':submitted && form.registrationNumber.errors }"
+                                        class="form-control rounded"
+                                        formControlName="registrationNumber"
+                                        id="registrationNumber"
+                                        min="0" placeholder="Enter registration number"
+                                        type="text"/>
+                                    <div class="input-group-append">
+                                        <button (click)="searchByRegNO()" nbButton outline size="small"
+                                                status="primary">Search
+                                        </button>
+                                    </div>
+                                    <div *ngIf="submitted && form.registrationNumber.errors "
+                                         class="invalid-feedback">
+                                        <div *ngIf="form.registrationNumber.errors.required">
+                                            registration number is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                            <div class="form-group">
+                                <label for="panNumber"><strong>PAN</strong></label>
+                                <div class="input-group mb-3">
+                                    <input
+                                        [ngClass]="{ 'is-invalid':submitted && form.companyPAN.errors }"
+                                        class="form-control rounded"
+                                        formControlName="companyPAN"
+                                        id="panNumber"
+                                        placeholder="Enter PAN"
+                                        type="text"/>
+                                    <div *ngIf="submitted && form.companyPAN.errors"
+                                         class="invalid-feedback">
+                                        <div *ngIf="form.companyPAN.errors.required">
+                                            PAN is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                            <div class="form-group">
+                                <label for="businessType"><strong>Business Type</strong></label>
+                                <ng-select [items]="businessTypes"
+                                           [multiple]="false"
+                                           [ngClass]="{'is-invalid':submitted &&  form.businessType.errors}"
+                                           bindLabel="value"
+                                           bindValue="key"
+                                           formControlName="businessType"
+                                           id="businessType"
+                                           placeholder="Select Business Type">
+                                </ng-select>
+                                <div *ngIf="submitted && form.businessType.errors"
+                                     class="invalid-feedback">
+                                    <div *ngIf="form.businessType.errors.required">Business Type is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
                 <div class="box-header with-border">
-                    <h3 class="box-title">1. Legal Status</h3>
+                    <h5 class="box-title">1. Legal Status</h5>
                 </div>
                 <!-- START ROW -->
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="companyName"><b>Company Name</b></label>
-                            <input id="companyName" formControlName="companyName" name="companyName" type="text"
-                                   class="form-control" placeholder="Company Name"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.companyName.errors }">
-                            <div *ngIf="(submitted) && form.companyName.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="form.companyName.errors.required">Company Name is
-                                    required
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="corporateStructure"><b>Corporate Structure</b></label>
+                            <label for="corporateStructure"><strong>Corporate Structure</strong></label>
                             <input id="corporateStructure" formControlName="corporateStructure"
                                    name="corporateStructure"
                                    type="text" class="form-control" placeholder="Corporate Structure"
@@ -44,7 +148,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="registeredOffice"><b>Registered Office</b></label>
+                            <label for="registeredOffice"><strong>Registered Office</strong></label>
                             <input id="registeredOffice" formControlName="registeredOffice" name="registeredOffice"
                                    type="text" class="form-control" placeholder="Registered Office"
                                    [ngClass]="{ 'is-invalid': (submitted) && form.registeredOffice.errors }">
@@ -60,7 +164,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="registeredUnderAct"><b>Registered Under Act</b></label>
+                            <label for="registeredUnderAct"><strong>Registered Under Act</strong></label>
                             <input id="registeredUnderAct" formControlName="registeredUnderAct"
                                    name="registeredUnderAct"
                                    type="text" class="form-control" placeholder="Registered Under Act"
@@ -75,26 +179,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="registrationNo"><b>Registration No</b></label>
-                            <input id="registrationNo" formControlName="registrationNo" name="registrationNo"
-                                   type="text"
-                                   class="form-control" placeholder="Registration No"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.registrationNo.errors }">
-                            <div *ngIf="(submitted) && form.registrationNo.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="form.registrationNo.errors.required">
-                                    Registration No is required
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END ROW -->
-                <!-- START ROW -->
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="registrationDate"><b>Registration Date</b></label>
+                            <label for="registrationDate"><strong>Registration Date</strong></label>
                             <input id="registrationDate" formControlName="registrationDate"
                                    [nbDatepicker]="registrationDate" name="registrationDate"
                                    class="form-control" placeholder="Registration Date"
@@ -105,12 +190,15 @@
                                     Invalid Registration Date
                                 </div>
                             </div>
-
                         </div>
                     </div>
+                </div>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="panRegistrationOffice"><b>Pan Registration Office</b></label>
+                            <label for="panRegistrationOffice"><strong>Pan Registration Office</strong></label>
                             <input id="panRegistrationOffice" formControlName="panRegistrationOffice"
                                    name="panRegistrationOffice" type="text" class="form-control"
                                    placeholder="Pan Registration Office"
@@ -125,25 +213,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="panNumber"><b>Pan Number</b></label>
-                            <input id="panNumber" formControlName="panNumber" name="panNumber" type="text"
-                                   class="form-control" placeholder="Pan Number"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.panNumber.errors }">
-                            <div *ngIf="(submitted) && form.panNumber.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="form.panNumber.errors.required">
-                                    Pan Number is required
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END ROW -->
-                <!-- START ROW -->
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="panRegistrationDate"><b>Pan Registration Date</b></label>
+                            <label for="panRegistrationDate"><strong>Pan Registration Date</strong></label>
                             <input id="panRegistrationDate" formControlName="panRegistrationDate"
                                    [nbDatepicker]="panRegistrationDate" name="panRegistrationDate"
                                    class="form-control" placeholder="Pan Registration Date"
@@ -158,16 +228,17 @@
                         </div>
                     </div>
                 </div>
-                <!-- END ROW -->
+
+                <hr>
 
                 <div class="box-header with-border">
-                    <h3 class="box-title">2. Capital Information</h3>
+                    <h5 class="box-title">2. Capital Information</h5>
                 </div>
                 <!-- START ROW -->
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="authorizedCapital"><b>Authorized Capital</b></label>
+                            <label for="authorizedCapital"><strong>Authorized Capital</strong></label>
                             <input id="authorizedCapital" formControlName="authorizedCapital" name="authorizedCapital"
                                    type="number" class="form-control" placeholder="Authorized Capital"
                                    [ngClass]="{ 'is-invalid': (submitted) && form.authorizedCapital.errors }">
@@ -181,7 +252,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="paidUpCapital"><b>Paid Up Capital</b></label>
+                            <label for="paidUpCapital"><strong>Paid Up Capital</strong></label>
                             <input id="paidUpCapital" formControlName="paidUpCapital" name="paidUpCapital" type="number"
                                    class="form-control" placeholder="Paid Up Capital"
                                    [ngClass]="{ 'is-invalid': (submitted) && form.paidUpCapital.errors }">
@@ -195,7 +266,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="issuedCapital"><b>Issued Capital</b></label>
+                            <label for="issuedCapital"><strong>Issued Capital</strong></label>
                             <input id="issuedCapital" formControlName="issuedCapital" name="issuedCapital" type="number"
                                    class="form-control" placeholder="Issued Capital"
                                    [ngClass]="{ 'is-invalid': (submitted) && form.issuedCapital.errors }">
@@ -213,7 +284,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="totalCapital"><b>Total Capital</b></label>
+                            <label for="totalCapital"><strong>Total Capital</strong></label>
                             <input id="totalCapital" formControlName="totalCapital" name="totalCapital" type="number"
                                    class="form-control" placeholder="Total Capital"
                                    [ngClass]="{ 'is-invalid': (submitted) && form.totalCapital.errors }">
@@ -227,7 +298,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="fixedCapital"><b>Fixed Capital</b></label>
+                            <label for="fixedCapital"><strong>Fixed Capital</strong></label>
                             <input id="fixedCapital" formControlName="fixedCapital" name="fixedCapital" type="number"
                                    class="form-control" placeholder="Fixed Capital"
                                    [ngClass]="{ 'is-invalid': (submitted) && form.fixedCapital.errors }">
@@ -241,7 +312,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="workingCapital"><b>Working Capital</b></label>
+                            <label for="workingCapital"><strong>Working Capital</strong></label>
                             <input id="workingCapital" formControlName="workingCapital" name="workingCapital"
                                    type="number"
                                    class="form-control" placeholder="Working Capital"
@@ -260,7 +331,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="numberOfShareholder"><b>Number Of Shareholder</b></label>
+                            <label for="numberOfShareholder"><strong>Number Of Shareholder</strong></label>
                             <input id="numberOfShareholder" formControlName="numberOfShareholder"
                                    name="numberOfShareholder"
                                    type="number" class="form-control" placeholder="Number Of Shareholder"
@@ -275,24 +346,27 @@
                     </div>
                 </div>
                 <!-- END ROW -->
+
+                <hr>
+
                 <div class="box-header with-border">
-                    <h3 class="box-title title">3. Management Team</h3>
+                    <h5 class="box-title title">3. Management Team</h5>
                 </div>
                 <div formArrayName="managementTeams" class="border-bottom border-dark m-4"
-                     *ngFor="let managementTeam of companyInfo.get('managementTeams')['controls']; let managementTeamIndex = index">
+                     *ngFor="let managementTeam of companyInfoFormGroup.get('managementTeams')['controls']; let managementTeamIndex = index">
                     <div [formGroupName]="managementTeamIndex">
                         <div class="row">
                             <div class="col-md-10 form-group">
-                                <h4>{{managementTeamIndex + 1}}) Management Team</h4>
+                                <h5>{{managementTeamIndex + 1}}) Management Team</h5>
                             </div>
-                            <div class="col-md-2 float-right" *ngIf="companyInfo.get('managementTeams').length>1">
+                            <div class="col-md-2 float-right" *ngIf="companyInfoFormGroup.get('managementTeams').length>1">
                                 <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
                                        (click)="removeManagementTeam(managementTeamIndex)" value="Delete">
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-6">
-                                <label for="managementTeamName"><b>Name</b></label>
+                                <label for="managementTeamName"><strong>Name</strong></label>
                                 <input id="managementTeamName" formControlName="name" name="name" type="text"
                                        class="form-control" placeholder="Name"
                                        [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('name').errors }">
@@ -305,7 +379,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="designation"><b>Designation</b></label>
+                                    <label for="designation"><strong>Designation</strong></label>
                                     <input id="designation" formControlName="designation" name="designation" type="text"
                                            class="form-control" placeholder="Designation"
                                            [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('designation').errors }">
@@ -324,17 +398,20 @@
                     <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addManagementTeam()"
                            value="Add More"/>
                 </div>
+
+                <hr>
+
                 <div class="box-header with-border">
-                    <h3 class="box-title">4. Information of Proprietor/Shareholder/Partner with holder %</h3>
+                    <h5 class="box-title">4. Information of Proprietor/Shareholder/Partner with holder %</h5>
                 </div>
                 <div formArrayName="proprietors" class="border-bottom border-dark m-4"
-                     *ngFor="let proprietor of companyInfo.get('proprietors')['controls']; let proprietorIndex = index">
+                     *ngFor="let proprietor of companyInfoFormGroup.get('proprietors')['controls']; let proprietorIndex = index">
                     <div [formGroupName]="proprietorIndex">
                         <div class="row">
                             <div class="col-md-10 form-group">
-                                <h4>{{proprietorIndex + 1}}) Proprietor Information</h4>
+                                <h5>{{proprietorIndex + 1}}) Proprietor Information</h5>
                             </div>
-                            <div class="col-md-2" *ngIf="companyInfo.get('proprietors').length>1">
+                            <div class="col-md-2" *ngIf="companyInfoFormGroup.get('proprietors').length>1">
                                 <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
                                        (click)="removeProprietor(proprietorIndex)" value="Delete"/>
                             </div>
@@ -342,7 +419,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="name"><b>Name</b></label>
+                                    <label for="name"><strong>Name</strong></label>
                                     <input id="name" formControlName="name" name="name" type="text" class="form-control"
                                            placeholder="Name"
                                            [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('name').errors }">
@@ -356,7 +433,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="contactNo"><b>Contact No</b></label>
+                                    <label for="contactNo"><strong>Contact No</strong></label>
                                     <input id="contactNo" formControlName="contactNo" name="contactNo" type="text"
                                            class="form-control" placeholder="Contact No"
                                            [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('contactNo').errors }">
@@ -370,7 +447,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="share"><b>Share</b></label>
+                                    <label for="share"><strong>Share</strong></label>
                                     <input id="share" formControlName="share" name="share" type="number"
                                            class="form-control" placeholder="Share"
                                            [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('share').errors }">
@@ -386,7 +463,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="province"><b>Province</b></label>
+                                    <label for="province"><strong>Province</strong></label>
                                     <select name="province" formControlName="province" id="province"
                                             class="custom-select"
                                             (change)="getDistricts(proprietor.get('province').value, proprietorIndex)"
@@ -407,7 +484,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="district"><b>District</b></label>
+                                    <label for="district"><strong>District</strong></label>
                                     <select name="district" formControlName="district" id="district"
                                             class="custom-select"
                                             (change)="getMunicipalities(proprietor.get('district').value, proprietorIndex)"
@@ -428,7 +505,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="municipality"><b>Municipalities or VDC</b></label>
+                                    <label for="municipality"><strong>Municipalities or VDC</strong></label>
                                     <select name="municipality" id="municipality" formControlName="municipalityVdc"
                                             class="custom-select"
                                             [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('municipalityVdc').errors }">
@@ -453,13 +530,16 @@
                     <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addProprietor()"
                            value="Add More"/>
                 </div>
+
+                <hr>
+
                 <div class="box-header with-border">
-                    <h3 class="box-title">5. SWOT Analysis</h3>
+                    <h5 class="box-title">5. SWOT Analysis</h5>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="strength"><b>Strength</b></label>
+                            <label for="strength"><strong>Strength</strong></label>
                             <input id="strength" formControlName="strength" name="strength" type="text"
                                    class="form-control" placeholder="Strength"
                                    [ngClass]="{ 'is-invalid': (submitted) && form.strength.errors }">
@@ -473,7 +553,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="weakness"><b>Weakness</b></label>
+                            <label for="weakness"><strong>Weakness</strong></label>
                             <input id="weakness" formControlName="weakness" name="weakness" type="text"
                                    class="form-control" placeholder="Weakness"
                                    [ngClass]="{ 'is-invalid': (submitted) && form.weakness.errors }">
@@ -487,7 +567,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="opportunity"><b>Opportunity</b></label>
+                            <label for="opportunity"><strong>Opportunity</strong></label>
                             <input id="opportunity" formControlName="opportunity" name="opportunity" type="text"
                                    class="form-control" placeholder="Opportunity"
                                    [ngClass]="{ 'is-invalid': (submitted) && form.opportunity.errors }">
@@ -501,7 +581,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="threats"><b>Threats</b></label>
+                            <label for="threats"><strong>Threats</strong></label>
                             <input id="threats" formControlName="threats" name="threats" type="text"
                                    class="form-control" placeholder="Threats"
                                    [ngClass]="{ 'is-invalid': (submitted) && form.threats.errors }">

@@ -30,14 +30,13 @@ const routes: Routes = [
             },
             {
                 path: 'newPassword',
-                component: NewPasswordComponent,
-                canActivate: [LoginGuard]
+                component: NewPasswordComponent
             }
         ]
     },
     {
         path: 'home',
-        loadChildren: './feature/feature.module#FeatureModule',
+        loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule),
         canActivate: [AuthGuard],
         runGuardsAndResolvers: 'paramsOrQueryParamsChange'
     },

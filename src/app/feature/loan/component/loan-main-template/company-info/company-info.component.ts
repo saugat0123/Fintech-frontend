@@ -3,7 +3,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {EntityInfo} from '../../../../admin/modal/entity-info';
+import {CompanyInfo} from '../../../../admin/modal/company-info';
 import {LegalStatus} from '../../../../admin/modal/legal-status';
 import {Swot} from '../../../../admin/modal/swot';
 import {Capital} from '../../../../admin/modal/capital';
@@ -17,6 +17,11 @@ import {AddressService} from '../../../../../@core/service/baseservice/address.s
 import {Address} from '../../../model/address';
 import {LoanFormService} from '../../loan-form/service/loan-form.service';
 import {DateValidator} from '../../../../../@core/validator/date-validator';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {CompanyInfoService} from '../../../../admin/service/company-info.service';
+import {ToastService} from '../../../../../@core/utils';
+import {BusinessType} from '../../../../admin/modal/businessType';
 
 
 @Component({
@@ -25,13 +30,22 @@ import {DateValidator} from '../../../../../@core/validator/date-validator';
     styleUrls: ['./company-info.component.css']
 })
 export class CompanyInfoComponent implements OnInit {
-    @Input() formValue: EntityInfo;
+    @Input() formValue: CompanyInfo;
 
-    companyInfo: FormGroup;
+    companyInfoFormGroup: FormGroup;
     customerId;
     submitted = false;
 
-    entityInfo: EntityInfo = new EntityInfo();
+    companyFormField = {
+        showFormField: false,
+        isOldCustomer: false
+    };
+
+    companySearch = {
+        registrationNumber: undefined
+    };
+
+    companyInfo: CompanyInfo = new CompanyInfo();
     legalStatus: LegalStatus = new LegalStatus();
     capital: Capital = new Capital();
     swot: Swot = new Swot();
@@ -42,58 +56,30 @@ export class CompanyInfoComponent implements OnInit {
     districtList: Array<District> = new Array<District>();
     municipalityVdcList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
     addressList: Array<Address> = new Array<Address>();
+    businessTypes = BusinessType.enumObject();
 
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
         private loanDataService: LoanDataService,
         private activatedRoute: ActivatedRoute,
-        private loanFormService: LoanFormService
+        private loanFormService: LoanFormService,
+        private toastService: ToastService,
+        private companyInfoService: CompanyInfoService
     ) {
 
     }
 
     ngOnInit() {
-        this.companyInfo = this.formBuilder.group({
-            // legalStatus
-            companyName: [undefined, Validators.required],
-            corporateStructure: [undefined, Validators.required],
-            registeredOffice: [undefined, Validators.required],
-            registeredUnderAct: [undefined, Validators.required],
-            registrationNo: [undefined, Validators.required],
-            registrationDate: [undefined, [Validators.required, DateValidator.isValidBefore]],
-            panRegistrationOffice: [undefined, Validators.required],
-            panNumber: [undefined, Validators.required],
-            panRegistrationDate: [undefined, [Validators.required, DateValidator.isValidBefore]],
-            // capital
-            authorizedCapital: [undefined, Validators.required],
-            paidUpCapital: [undefined, Validators.required],
-            issuedCapital: [undefined, Validators.required],
-            totalCapital: [undefined, Validators.required],
-            fixedCapital: [undefined, Validators.required],
-            workingCapital: [undefined, Validators.required],
-            numberOfShareholder: [undefined, Validators.required],
-            // managementTeams
-            managementTeams: this.formBuilder.array([
-                this.managementTeamFormGroup()
-            ]),
-            // proprietors
-            proprietors: this.formBuilder.array([
-                this.proprietorsFormGroup()
-            ]),
-            // swot
-            strength: [undefined, Validators.required],
-            weakness: [undefined, Validators.required],
-            opportunity: [undefined, Validators.required],
-            threats: [undefined, Validators.required]
-        });
+        this.buildForm();
+
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
             }
         );
-        // on edit
-        if (this.formValue === undefined || this.formValue === null) {
+
+        if (this.formValue === undefined) {
             this.customerId = Number(this.activatedRoute.snapshot.queryParamMap.get('customerId'));
             if (this.customerId !== 0) {
                 this.loanFormService.detail(this.customerId).subscribe(
@@ -103,58 +89,115 @@ export class CompanyInfoComponent implements OnInit {
                                 this.provinceList = responseProvince.detail;
                             }
                         );
-                        this.entityInfo = response.detail.entityInfo;
-                        this.setCompanyInfo(this.entityInfo);
+                        this.companyInfo = response.detail.companyInfo;
+                        this.buildForm();
+                        this.setCompanyInfo(this.companyInfo);
                     }
                 );
             }
         } else {
-            this.entityInfo = this.formValue;
-            this.setCompanyInfo(this.entityInfo);
+            this.companyInfo = this.formValue;
+            this.setCompanyInfo(this.companyInfo);
         }
+
+        this.companyFormField = {
+            showFormField: (!ObjectUtil.isEmpty(this.formValue)
+                && !ObjectUtil.isEmpty(this.formValue.id)),
+            isOldCustomer: (!ObjectUtil.isEmpty(this.formValue)
+                && !ObjectUtil.isEmpty(this.formValue.id))
+        };
     }
 
     get form() {
-        return this.companyInfo.controls;
+        return this.companyInfoFormGroup.controls;
     }
 
-    // set data on edit
-    setCompanyInfo(entityInfo: EntityInfo) {
-        this.companyInfo = this.formBuilder.group({
+    buildForm() {
+        this.companyInfoFormGroup = this.formBuilder.group({
+
+            // Company Information
+            companyId:
+                [(ObjectUtil.isEmpty(this.formValue)
+                    || ObjectUtil.isEmpty(this.formValue.id)) ? undefined :
+                    this.formValue.id],
+            companyInfoVersion:
+                [(ObjectUtil.isEmpty(this.formValue)
+                    || ObjectUtil.isEmpty(this.formValue.version)) ? undefined :
+                    this.formValue.version],
+            companyName:
+                [(ObjectUtil.isEmpty(this.formValue)
+                    || ObjectUtil.isEmpty(this.formValue.companyName)) ? undefined :
+                    this.formValue.companyName, [Validators.required]],
+            registrationNumber:
+                [(ObjectUtil.isEmpty(this.formValue)
+                    || ObjectUtil.isEmpty(this.formValue.registrationNumber)) ? undefined :
+                    this.formValue.registrationNumber, [Validators.required]],
+            companyPAN:
+                [(ObjectUtil.isEmpty(this.formValue)
+                    || ObjectUtil.isEmpty(this.formValue.panNumber)) ? undefined :
+                    this.formValue.panNumber, [Validators.required]],
+            companyEstablishmentDate:
+                [(ObjectUtil.isEmpty(this.formValue)
+                    || ObjectUtil.isEmpty(this.formValue.establishmentDate)) ? undefined :
+                    this.formValue.establishmentDate, [Validators.required]],
+            businessType:
+                [(ObjectUtil.isEmpty(this.formValue)
+                    || ObjectUtil.isEmpty(this.formValue.businessType)) ? undefined :
+                    this.formValue.businessType, [Validators.required]],
+
             // legalStatus
-            companyName: [entityInfo.legalStatus.companyName === undefined ? '' :
-                entityInfo.legalStatus.companyName, Validators.required],
-            corporateStructure: [entityInfo.legalStatus.corporateStructure === undefined ? '' :
-                entityInfo.legalStatus.corporateStructure, Validators.required],
-            registeredOffice: [entityInfo.legalStatus.registeredOffice === undefined ? '' :
-                entityInfo.legalStatus.registeredOffice, Validators.required],
-            registeredUnderAct: [entityInfo.legalStatus.registeredUnderAct === undefined ? '' :
-                entityInfo.legalStatus.registeredUnderAct, Validators.required],
-            registrationNo: [entityInfo.legalStatus.registrationNo === undefined ? '' :
-                entityInfo.legalStatus.registrationNo, Validators.required],
-            registrationDate: [entityInfo.legalStatus.registrationDate === undefined ? '' :
-                entityInfo.legalStatus.registrationDate, [Validators.required, DateValidator.isValidBefore]],
-            panRegistrationOffice: [entityInfo.legalStatus.panRegistrationOffice === undefined ? '' :
-                entityInfo.legalStatus.panRegistrationOffice, Validators.required],
-            panNumber: [entityInfo.legalStatus.panNumber === undefined ? '' :
-                entityInfo.legalStatus.panNumber, Validators.required],
-            panRegistrationDate: [entityInfo.legalStatus.panRegistrationDate === undefined ? '' :
-                entityInfo.legalStatus.panRegistrationDate, [Validators.required, DateValidator.isValidBefore]],
+            corporateStructure: [(ObjectUtil.isEmpty(this.formValue) || ObjectUtil.isEmpty(this.formValue.legalStatus)) ?
+                undefined : this.formValue.legalStatus.corporateStructure, Validators.required],
+
+            registeredOffice: [(ObjectUtil.isEmpty(this.formValue)
+                || ObjectUtil.isEmpty(this.formValue.legalStatus)) ? undefined :
+                this.formValue.legalStatus.registeredOffice, Validators.required],
+
+            registeredUnderAct: [(ObjectUtil.isEmpty(this.formValue)
+                || ObjectUtil.isEmpty(this.formValue.legalStatus)) ? undefined :
+                this.formValue.legalStatus.registeredUnderAct, Validators.required],
+
+            registrationDate: [(ObjectUtil.isEmpty(this.formValue)
+                || ObjectUtil.isEmpty(this.formValue.legalStatus)) ? undefined :
+                this.formValue.legalStatus.registrationDate, [Validators.required, DateValidator.isValidBefore]],
+
+            panRegistrationOffice: [(ObjectUtil.isEmpty(this.formValue)
+                || ObjectUtil.isEmpty(this.formValue.legalStatus)) ? undefined :
+                this.formValue.legalStatus.panRegistrationOffice, Validators.required],
+
+            panRegistrationDate: [(ObjectUtil.isEmpty(this.formValue)
+                || ObjectUtil.isEmpty(this.formValue.legalStatus)) ? undefined :
+                this.formValue.legalStatus.panRegistrationDate, [Validators.required, DateValidator.isValidBefore]],
+
             // capital
-            authorizedCapital: [entityInfo.capital.authorizedCapital === undefined ? '' :
-                entityInfo.capital.authorizedCapital, Validators.required],
-            paidUpCapital: [entityInfo.capital.paidUpCapital === undefined ? '' :
-                entityInfo.capital.paidUpCapital, Validators.required],
-            issuedCapital: [entityInfo.capital.issuedCapital === undefined ? '' :
-                entityInfo.capital.issuedCapital, Validators.required],
-            totalCapital: [entityInfo.capital.totalCapital === undefined ? '' :
-                entityInfo.capital.totalCapital, Validators.required],
-            fixedCapital: [entityInfo.capital.fixedCapital === undefined ? '' :
-                entityInfo.capital.fixedCapital, Validators.required],
-            workingCapital: [entityInfo.capital.workingCapital === undefined ? '' :
-                entityInfo.capital.workingCapital, Validators.required],
-            numberOfShareholder: [entityInfo.capital.numberOfShareholder === undefined ? '' :
-                entityInfo.capital.numberOfShareholder, Validators.required],
+            authorizedCapital: [(ObjectUtil.isEmpty(this.formValue)
+                || ObjectUtil.isEmpty(this.formValue.capital)) ? undefined :
+                this.formValue.capital.authorizedCapital, Validators.required],
+
+            paidUpCapital: [(ObjectUtil.isEmpty(this.formValue)
+                || ObjectUtil.isEmpty(this.formValue.capital)) ? undefined :
+                this.formValue.capital.paidUpCapital, Validators.required],
+
+            issuedCapital: [(ObjectUtil.isEmpty(this.formValue)
+                || ObjectUtil.isEmpty(this.formValue.capital)) ? undefined :
+                this.formValue.capital.issuedCapital, Validators.required],
+
+            totalCapital: [(ObjectUtil.isEmpty(this.formValue)
+                || ObjectUtil.isEmpty(this.formValue.capital)) ? undefined :
+                this.formValue.capital.totalCapital, Validators.required],
+
+            fixedCapital: [(ObjectUtil.isEmpty(this.formValue)
+                || ObjectUtil.isEmpty(this.formValue.capital)) ? undefined :
+                this.formValue.capital.fixedCapital, Validators.required],
+
+            workingCapital: [(ObjectUtil.isEmpty(this.formValue)
+                || ObjectUtil.isEmpty(this.formValue.capital)) ? undefined :
+                this.formValue.capital.workingCapital, Validators.required],
+
+            numberOfShareholder: [(ObjectUtil.isEmpty(this.formValue)
+                || ObjectUtil.isEmpty(this.formValue.capital)) ? undefined :
+                this.formValue.capital.numberOfShareholder, Validators.required],
+
             // managementTeams
             managementTeams: this.formBuilder.array([
                 this.managementTeamFormGroup()
@@ -164,15 +207,25 @@ export class CompanyInfoComponent implements OnInit {
                 this.proprietorsFormGroup()
             ]),
             // swot
-            strength: [entityInfo.swot.strength === undefined ? '' : entityInfo.swot.strength, Validators.required],
-            weakness: [entityInfo.swot.weakness === undefined ? '' : entityInfo.swot.weakness, Validators.required],
-            opportunity: [entityInfo.swot.opportunity === undefined ? '' : entityInfo.swot.opportunity, Validators.required],
-            threats: [entityInfo.swot.threats === undefined ? '' : entityInfo.swot.threats, Validators.required],
+            strength: [(ObjectUtil.isEmpty(this.formValue)
+                || ObjectUtil.isEmpty(this.formValue.swot)) ? undefined : this.formValue.swot.strength, Validators.required],
+
+            weakness: [(ObjectUtil.isEmpty(this.formValue)
+                || ObjectUtil.isEmpty(this.formValue.swot)) ? undefined : this.formValue.swot.weakness, Validators.required],
+
+            opportunity: [(ObjectUtil.isEmpty(this.formValue)
+                || ObjectUtil.isEmpty(this.formValue.swot)) ? undefined : this.formValue.swot.opportunity, Validators.required],
+
+            threats: [(ObjectUtil.isEmpty(this.formValue)
+                || ObjectUtil.isEmpty(this.formValue.swot)) ? undefined : this.formValue.swot.threats, Validators.required],
         });
+    }
+
+    setCompanyInfo(info: CompanyInfo) {
         // set managementTeams data
-        this.companyInfo.setControl('managementTeams', this.setManagementTeams(entityInfo.managementTeamList));
+        this.companyInfoFormGroup.setControl('managementTeams', this.setManagementTeams(info.managementTeamList));
         // proprietors data
-        this.companyInfo.setControl('proprietors', this.setProprietors(entityInfo.proprietorsList));
+        this.companyInfoFormGroup.setControl('proprietors', this.setProprietors(info.proprietorsList));
     }
 
     managementTeamFormGroup(): FormGroup {
@@ -195,11 +248,11 @@ export class CompanyInfoComponent implements OnInit {
     }
 
     removeManagementTeam(index: number) {
-        (<FormArray>this.companyInfo.get('managementTeams')).removeAt(index);
+        (<FormArray>this.companyInfoFormGroup.get('managementTeams')).removeAt(index);
     }
 
     addManagementTeam() {
-        (<FormArray>this.companyInfo.get('managementTeams')).push(this.managementTeamFormGroup());
+        (<FormArray>this.companyInfoFormGroup.get('managementTeams')).push(this.managementTeamFormGroup());
     }
 
     proprietorsFormGroup(): FormGroup {
@@ -239,17 +292,17 @@ export class CompanyInfoComponent implements OnInit {
 
     // return proprietors formArray
     getProprietor() {
-        return (this.companyInfo.value.proprietors as FormArray);
+        return (this.companyInfoFormGroup.value.proprietors as FormArray);
     }
 
     removeProprietor(index: number) {
-        (<FormArray>this.companyInfo.get('proprietors')).removeAt(index);
+        (<FormArray>this.companyInfoFormGroup.get('proprietors')).removeAt(index);
         this.addressList.splice(index, 1);
     }
 
     addProprietor() {
         this.addressList.push(new Address());
-        (<FormArray>this.companyInfo.get('proprietors')).push(this.proprietorsFormGroup());
+        (<FormArray>this.companyInfoFormGroup.get('proprietors')).push(this.proprietorsFormGroup());
     }
 
     // get district list based on province
@@ -276,37 +329,77 @@ export class CompanyInfoComponent implements OnInit {
         );
     }
 
+    searchByRegNO() {
+        this.companySearch.registrationNumber = this.companyInfoFormGroup.get('registrationNumber').value;
+        this.companyInfoService.getPaginationWithSearchObject(this.companySearch).subscribe((response: any) => {
+            if (response.detail.content <= 0) {
+                this.companyFormField.isOldCustomer = false;
+                this.toastService.show(new Alert(AlertType.INFO, 'No company  under given registration number.'));
+                this.companyInfoFormGroup.patchValue({
+                    companyId: undefined,
+                    companyName: undefined,
+                    companyEstablishmentDate: undefined,
+                    companyPAN: undefined,
+                    businessType: undefined,
+                    companyInfoVersion: undefined
+                });
+            } else {
+                this.companyFormField.isOldCustomer = true;
+                const companyInfo: CompanyInfo = response.detail.content[0];
+                this.companyInfoFormGroup.patchValue({
+                    companyId: companyInfo.id,
+                    companyName: companyInfo.companyName,
+                    companyEstablishmentDate: companyInfo.establishmentDate,
+                    companyPAN: companyInfo.panNumber,
+                    businessType: companyInfo.businessType,
+                    companyInfoVersion: companyInfo.version
+                });
+            }
+        }, error => console.error(error));
+        this.companyFormField.showFormField = true;
+    }
+
     onSubmit() {
+        this.companyInfo = new CompanyInfo();
+        // Company Information--
+        this.companyInfo.id = this.companyInfoFormGroup.get('companyId').value;
+        this.companyInfo.companyName = this.companyInfoFormGroup.get('companyName').value;
+        this.companyInfo.registrationNumber = this.companyInfoFormGroup.get('registrationNumber').value;
+        this.companyInfo.panNumber = this.companyInfoFormGroup.get('companyPAN').value;
+        this.companyInfo.establishmentDate = this.companyInfoFormGroup.get('companyEstablishmentDate').value;
+        this.companyInfo.businessType = this.companyInfoFormGroup.get('businessType').value;
+        this.companyInfo.version = this.companyInfoFormGroup.get('companyInfoVersion').value;
+
         // legalStatus
-        this.legalStatus.companyName = this.companyInfo.get('companyName').value;
-        this.legalStatus.corporateStructure = this.companyInfo.get('corporateStructure').value;
-        this.legalStatus.registeredOffice = this.companyInfo.get('registeredOffice').value;
-        this.legalStatus.registeredUnderAct = this.companyInfo.get('registeredUnderAct').value;
-        this.legalStatus.registrationNo = this.companyInfo.get('registrationNo').value;
-        this.legalStatus.registrationDate = this.companyInfo.get('registrationDate').value;
-        this.legalStatus.panRegistrationOffice = this.companyInfo.get('panRegistrationOffice').value;
-        this.legalStatus.panNumber = this.companyInfo.get('panNumber').value;
-        this.legalStatus.panRegistrationDate = this.companyInfo.get('panRegistrationDate').value;
-        this.entityInfo.legalStatus = this.legalStatus;
+        // this.legalStatus.companyName = this.companyInfoFormGroup.get('companyName').value;
+        this.legalStatus.corporateStructure = this.companyInfoFormGroup.get('corporateStructure').value;
+        this.legalStatus.registeredOffice = this.companyInfoFormGroup.get('registeredOffice').value;
+        this.legalStatus.registeredUnderAct = this.companyInfoFormGroup.get('registeredUnderAct').value;
+        // this.legalStatus.registrationNo = this.companyInfoFormGroup.get('registrationNo').value;
+        this.legalStatus.registrationDate = this.companyInfoFormGroup.get('registrationDate').value;
+        this.legalStatus.panRegistrationOffice = this.companyInfoFormGroup.get('panRegistrationOffice').value;
+        // this.legalStatus.panNumber = this.companyInfoFormGroup.get('panNumber').value;
+        this.legalStatus.panRegistrationDate = this.companyInfoFormGroup.get('panRegistrationDate').value;
+        this.companyInfo.legalStatus = this.legalStatus;
         // capital
-        this.capital.authorizedCapital = this.companyInfo.get('authorizedCapital').value;
-        this.capital.paidUpCapital = this.companyInfo.get('paidUpCapital').value;
-        this.capital.issuedCapital = this.companyInfo.get('issuedCapital').value;
-        this.capital.totalCapital = this.companyInfo.get('totalCapital').value;
-        this.capital.fixedCapital = this.companyInfo.get('fixedCapital').value;
-        this.capital.workingCapital = this.companyInfo.get('workingCapital').value;
-        this.capital.numberOfShareholder = this.companyInfo.get('numberOfShareholder').value;
-        this.entityInfo.capital = this.capital;
+        this.capital.authorizedCapital = this.companyInfoFormGroup.get('authorizedCapital').value;
+        this.capital.paidUpCapital = this.companyInfoFormGroup.get('paidUpCapital').value;
+        this.capital.issuedCapital = this.companyInfoFormGroup.get('issuedCapital').value;
+        this.capital.totalCapital = this.companyInfoFormGroup.get('totalCapital').value;
+        this.capital.fixedCapital = this.companyInfoFormGroup.get('fixedCapital').value;
+        this.capital.workingCapital = this.companyInfoFormGroup.get('workingCapital').value;
+        this.capital.numberOfShareholder = this.companyInfoFormGroup.get('numberOfShareholder').value;
+        this.companyInfo.capital = this.capital;
         // swot
-        this.swot.strength = this.companyInfo.get('strength').value;
-        this.swot.weakness = this.companyInfo.get('weakness').value;
-        this.swot.opportunity = this.companyInfo.get('opportunity').value;
-        this.swot.threats = this.companyInfo.get('threats').value;
-        this.entityInfo.swot = this.swot;
+        this.swot.strength = this.companyInfoFormGroup.get('strength').value;
+        this.swot.weakness = this.companyInfoFormGroup.get('weakness').value;
+        this.swot.opportunity = this.companyInfoFormGroup.get('opportunity').value;
+        this.swot.threats = this.companyInfoFormGroup.get('threats').value;
+        this.companyInfo.swot = this.swot;
         // management team list
-        this.entityInfo.managementTeamList = this.companyInfo.get('managementTeams').value;
+        this.companyInfo.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
         // proprietorsList
-        this.entityInfo.proprietorsList = new Array<Proprietors>();
+        this.companyInfo.proprietorsList = new Array<Proprietors>();
         let proprietorsIndex = 0;
         while (proprietorsIndex < this.getProprietor().length) {
             const proprietors = new Proprietors();
@@ -323,7 +416,7 @@ export class CompanyInfoComponent implements OnInit {
             municipalityVdc.id = this.getProprietor()[proprietorsIndex].municipalityVdc;
             proprietors.municipalityVdc = municipalityVdc;
             proprietorsIndex++;
-            this.entityInfo.proprietorsList.push(proprietors);
+            this.companyInfo.proprietorsList.push(proprietors);
         }
     }
 

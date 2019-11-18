@@ -44,13 +44,11 @@ import {CommonModule} from '@angular/common';
 import {RoleHierarchyComponent} from './component/role-hierarchy/role-hierarchy.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {QuestionComponent} from './component/eligibility/question/question.component';
-import {AllRequestsComponent} from './component/all-requests/all-requests.component';
 import {EligibleRequestsComponent} from './component/eligibility/eligible-requests/eligible-requests.component';
 import {NonEligibleRequestsComponent} from './component/eligibility/non-eligible-requests/non-eligible-requests.component';
 import {NewRequestsComponent} from './component/eligibility/new-requests/new-requests.component';
 import {ThemeModule} from '../../@theme/theme.module';
 // import { SecurityComponent } from './component/loan-config/loan-main-template/security/security.component';
-import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {UpdateModalComponent} from '../../@theme/components';
 import {OpeningAccountComponent} from './component/opening-account/opening-account.component';
@@ -66,6 +64,10 @@ import {EmailValidatorDirective} from '../../@core/directive/email-validator.dir
 import {RoleEditComponent} from './component/role-permission/list-role/role-edit/role-edit.component';
 import {EligibilitySummaryComponent} from './component/eligibility/eligibility-summary/eligibility-summary.component';
 import {CoreModule} from '../../@core/core.module';
+import {AccountTypeConfigComponent} from './component/opening-account/config/account-type-config/account-type-config.component';
+import {AccountPurposeConfigComponent} from './component/opening-account/config/account-purpose-config/account-purpose-config.component';
+import {AccountTypeFormComponent} from './component/opening-account/config/account-type-config/account-type-form/account-type-form.component';
+import {AccountPurposeFormComponent} from './component/opening-account/config/account-purpose-config/account-purpose-form/account-purpose-form.component';
 
 @NgModule({
     declarations: [
@@ -106,7 +108,6 @@ import {CoreModule} from '../../@core/core.module';
         ListRoleComponent,
         RoleHierarchyComponent,
         QuestionComponent,
-        AllRequestsComponent,
         EligibleRequestsComponent,
         NonEligibleRequestsComponent,
         NewRequestsComponent,
@@ -119,7 +120,11 @@ import {CoreModule} from '../../@core/core.module';
         EmailConfigurationComponent,
         EmailValidatorDirective,
         RoleEditComponent,
-        EligibilitySummaryComponent
+        EligibilitySummaryComponent,
+        AccountTypeConfigComponent,
+        AccountPurposeConfigComponent,
+        AccountTypeFormComponent,
+        AccountPurposeFormComponent
 
         // SecurityComponent
     ],
@@ -129,7 +134,6 @@ import {CoreModule} from '../../@core/core.module';
         NgbPaginationModule,
         ReactiveFormsModule,
         ReactiveFormsModule,
-        NgMultiSelectDropDownModule.forRoot(),
         RouterModule.forChild(adminRoutes),
         ThemeModule,
         DragDropModule,
@@ -155,7 +159,9 @@ import {CoreModule} from '../../@core/core.module';
         TemplateAddModelComponent,
         RoleFormComponent,
         EligibilityDocumentViewComponent,
-        RoleEditComponent
+        RoleEditComponent,
+        AccountTypeFormComponent,
+        AccountPurposeFormComponent
     ]
 
 })

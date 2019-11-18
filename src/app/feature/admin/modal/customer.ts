@@ -7,6 +7,7 @@ export class Customer {
     id: number;
     title: string;
     customerName: string;
+    dob: Date;
     customerId: string;
     accountNo: string;
     province: Province;
@@ -14,8 +15,7 @@ export class Customer {
     municipalities: MunicipalityVdc;
     street: string;
     wardNumber: string;
-    telephone: string;
-    mobile: string;
+    contactNumber: string;
     email: string;
     initialRelationDate: Date;
     citizenshipNumber: string;
@@ -23,4 +23,7 @@ export class Customer {
     citizenshipIssuedPlace: string;
     status: string;
     customerRelatives: Array<CustomerRelative>;
+    occupation: string;
+    incomeSource: string;
+    version: number;
 }

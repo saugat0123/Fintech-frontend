@@ -220,7 +220,6 @@ export class QuestionComponent implements OnInit {
                 console.log(error);
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Unable to Update Question'));
                 this.questionList = new Array<Questions>();
-                this.modalService.dismissAll('Close modal');
             }
         );
     }

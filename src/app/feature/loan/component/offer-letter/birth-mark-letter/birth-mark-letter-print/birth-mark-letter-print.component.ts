@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {LoanNepali} from '../../model/loanNepali';
+import {FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-birth-mark-letter-print',
@@ -8,7 +8,7 @@ import {LoanNepali} from '../../model/loanNepali';
 })
 export class BirthMarkLetterPrintComponent implements OnInit {
     @Input()
-    loanNepali: LoanNepali = new LoanNepali();
+    form: FormGroup;
 
     constructor() {
     }

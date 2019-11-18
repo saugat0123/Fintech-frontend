@@ -1,0 +1,222 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="financialForm" class="form-horizontal">
+            <nb-card>
+                <nb-card-header>
+                    <h3><strong>Income of Borrower</strong></h3>
+                </nb-card-header>
+                <nb-card-body>
+                    <div *ngFor="let incomeOfBorrower of financialForm.get('incomeOfBorrower')['controls']; let incomeIndex = index"
+                         class="border-bottom border-dark m-4"
+                         formArrayName="incomeOfBorrower">
+                        <div [formGroupName]="incomeIndex">
+                            <!-- START ROW -->
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Income Source</strong></label><strong class="text-danger">*</strong>
+                                        <input [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('incomeSource').invalid && (incomeOfBorrower.get('incomeSource').dirty || incomeOfBorrower.get('incomeSource').touched),
+                                'is-valid': !incomeOfBorrower.get('incomeSource').invalid && (incomeOfBorrower.get('incomeSource').dirty || incomeOfBorrower.get('incomeSource').touched)
+                                }"
+                                               class="form-control" formControlName="incomeSource"
+                                               placeholder="Income source" type="text">
+                                        <span *ngIf="incomeOfBorrower.get('incomeSource').invalid" class="invalid-feedback">Income source required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Organization</strong></label><strong class="text-danger">*</strong>
+                                        <input class="form-control" [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('organization').invalid && (incomeOfBorrower.get('organization').dirty || incomeOfBorrower.get('organization').touched),
+                                'is-valid': !incomeOfBorrower.get('organization').invalid && (incomeOfBorrower.get('organization').dirty || incomeOfBorrower.get('organization').touched)
+                                }"
+                                               formControlName="organization" placeholder="Organization"
+                                               type="text">
+                                        <span *ngIf="incomeOfBorrower.get('organization').invalid" class="invalid-feedback">Organization required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Amount</strong></label><strong class="text-danger">*</strong>
+                                        <input (input)="totalAdditionInitialForm('incomeOfBorrower', 'totalIncome')" class="form-control" [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('amount').invalid && (incomeOfBorrower.get('amount').dirty || incomeOfBorrower.get('amount').touched),
+                                'is-valid': !incomeOfBorrower.get('amount').invalid && (incomeOfBorrower.get('amount').dirty || incomeOfBorrower.get('amount').touched)
+                                }"
+                                               formControlName="amount" placeholder="Amount"
+                                               type="text">
+                                        <span *ngIf="incomeOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Remarks</strong></label><strong class="text-danger">*</strong>
+                                        <input class="form-control" [ngClass]="{
+                               'is-invalid': incomeOfBorrower.get('remarks').invalid && (incomeOfBorrower.get('remarks').dirty || incomeOfBorrower.get('remarks').touched),
+                                'is-valid': !incomeOfBorrower.get('remarks').invalid && (incomeOfBorrower.get('remarks').dirty || incomeOfBorrower.get('remarks').touched)
+                                }"
+                                               formControlName="remarks" placeholder="Remarks"
+                                               type="text">
+                                        <span *ngIf="incomeOfBorrower.get('remarks').invalid" class="invalid-feedback">Remarks required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1 ml-0 pl-0 mt-4">
+                                    <button (click)="removeIncomeIndex(incomeIndex)"
+                                            *ngIf="financialForm.get('incomeOfBorrower')['controls'].length > 1"
+                                            class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                        <em class="fa fa-trash" style="color:white;"></em>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 pl-5">
+                            <label class="title"><strong>Total Income : Rs.{{financialForm.get('totalIncome').value | currencyFormatter}}</strong></label>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <input (click)="addIncomeOfBorrower()" class="btn btn-sm btn-flat btn-primary"
+                                   type="button" value="Add Field"/>
+                        </div>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+
+
+            <nb-card>
+                <nb-card-header>
+                    <h3><strong>Expenses of Borrower</strong></h3>
+                </nb-card-header>
+                <nb-card-body>
+                    <div *ngFor="let expensesOfBorrower of financialForm.get('expensesOfBorrower')['controls']; let expenseIndex = index"
+                         class="border-bottom border-dark m-4"
+                         formArrayName="expensesOfBorrower">
+                        <div [formGroupName]="expenseIndex">
+
+                            <!-- START ROW -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Particulars</strong><strong class="text-danger">*</strong></label>
+                                        <input class="form-control" [ngClass]="{
+                               'is-invalid': expensesOfBorrower.get('particulars').invalid && (expensesOfBorrower.get('particulars').dirty || expensesOfBorrower.get('particulars').touched),
+                                'is-valid': !expensesOfBorrower.get('particulars').invalid && (expensesOfBorrower.get('particulars').dirty || expensesOfBorrower.get('particulars').touched)
+                                }"
+                                               formControlName="particulars" placeholder="Particulars"
+                                               type="text">
+                                        <span *ngIf="expensesOfBorrower.get('particulars').invalid" class="invalid-feedback">Particulars required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Amount</strong><strong class="text-danger">*</strong></label>
+                                        <input (input)="totalAdditionInitialForm('expensesOfBorrower', 'totalExpense')" class="form-control" [ngClass]="{
+                               'is-invalid': expensesOfBorrower.get('amount').invalid && (expensesOfBorrower.get('amount').dirty || expensesOfBorrower.get('amount').touched),
+                                'is-valid': !expensesOfBorrower.get('amount').invalid && (expensesOfBorrower.get('amount').dirty || expensesOfBorrower.get('amount').touched)
+                                }"
+                                               formControlName="amount" placeholder="Amount"
+                                               type="text">
+                                        <span *ngIf="expensesOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title"><strong>Remarks</strong><strong class="text-danger">*</strong></label>
+                                        <input class="form-control" [ngClass]="{
+                               'is-invalid': expensesOfBorrower.get('remarks').invalid && (expensesOfBorrower.get('remarks').dirty || expensesOfBorrower.get('remarks').touched),
+                                'is-valid': !expensesOfBorrower.get('remarks').invalid && (expensesOfBorrower.get('remarks').dirty || expensesOfBorrower.get('remarks').touched)
+                                }"
+                                               formControlName="remarks" placeholder="Remarks"
+                                               type="text">
+                                        <span *ngIf="expensesOfBorrower.get('remarks').invalid" class="invalid-feedback">Remarks required</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1 ml-0 pl-0 mt-4">
+                                    <button (click)="removeExpensesIndex(expenseIndex)"
+                                            *ngIf="financialForm.get('expensesOfBorrower')['controls'].length > 1"
+                                            class="btn btn-sm btn-flat btn-danger" value="Delete">
+                                        <em class="fa fa-trash" style="color:white;"></em>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 pl-5">
+                            <label class="title"><strong>Total Expense : Rs.{{financialForm.get('totalExpense').value | currencyFormatter}}</strong></label>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <input (click)="addExpensesOfBorrower()" class="btn btn-sm btn-flat btn-primary"
+                                   type="button" value="Add Field"/>
+                        </div>
+                    </div>
+
+                </nb-card-body>
+            </nb-card>
+
+        </form>
+        <nb-card>
+            <nb-card-header>
+                <div class="row float-right mr-3">
+                    <div class="input-group">
+                        <input #yearValue class="form-control" nbInput placeholder="Year" type="text" required>
+                        <div class="input-group-append">
+                            <button (click)="addFiscalYear(yearValue.value)" class="mb-2" nbButton size="small">Add
+                            </button>
+                        </div>
+                    </div>
+                    <div *ngIf="yearValue.value === '' && addYear" class="small text-danger">Please enter a year!</div>
+                </div>
+            </nb-card-header>
+            <nb-card-body>
+
+                <nb-tabset class="mb-3" #currentTabSet fullWidth (changeTab)="changeActiveTab(currentTabSet['tabs'])">
+
+                    <nb-tab tabTitle="Income Statement">
+                        <app-income-statement *ngIf="activeTab === 'Income Statement'"
+                                              (removeFiscalYear)="removeFiscalYear($event)"
+                                              [fiscalYear]="fiscalYear" [formData]="currentFormData"
+                                              #incomeStatement>
+                        </app-income-statement>
+                    </nb-tab>
+
+                    <nb-tab tabTitle="Balance Sheet">
+                        <app-balance-sheet *ngIf="activeTab === 'Balance Sheet'"
+                                           (removeFiscalYear)="removeFiscalYear($event)"
+                                           [fiscalYear]="fiscalYear"
+                                           [formData]="currentFormData" #balanceSheet>
+                        </app-balance-sheet>
+                    </nb-tab>
+
+                    <nb-tab tabTitle="Cash Flow Statement">
+                        <app-cash-flow-statement *ngIf="activeTab === 'Cash Flow Statement'"
+                                                 (removeFiscalYear)="removeFiscalYear($event)"
+                                                 [fiscalYear]="fiscalYear"
+                                                 [formData]="currentFormData" #cashFlowStatement>
+                        </app-cash-flow-statement>
+                    </nb-tab>
+
+                    <nb-tab tabTitle="Key Indicators">
+                        <app-key-indicators *ngIf="activeTab === 'Key Indicators'"
+                                            (removeFiscalYear)="removeFiscalYear($event)"
+                                            [fiscalYear]="fiscalYear"
+                                            [formData]="currentFormData" #keyIndicators>
+                        </app-key-indicators>
+                    </nb-tab>
+
+                </nb-tabset>
+
+            </nb-card-body>
+        </nb-card>
+        <nb-card class="p-3">
+            <app-borrower-risk-rating [formDataForBrrEdit]="currentFormData['brr']" #brr></app-borrower-risk-rating>
+        </nb-card>
+    </nb-card-body>
+</nb-card>

@@ -33,7 +33,7 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         const api = `${this.getApi()}/proposed-amount`;
         const param = new HttpParams().set('startDate', startDate).set('endDate', endDate);
         const req = ApiUtils.getRequest(api);
-        return this.http.get(req.url, { params: param, headers: req.header });
+        return this.http.get(req.url, {params: param, headers: req.header});
     }
 
     public getLoanAmountByBranch(id: number, startDate: string, endDate: string) {
@@ -64,6 +64,12 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, searchObj, {headers: req.header});
     }
 
+    public getCommitteePull(searchObj: any, page: number = 1, size: number = 10): Observable<any> {
+        const api = `${this.getApi()}/committee-pull?page=${page}&size=${size}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, searchObj, {headers: req.header});
+    }
+
     public renewLoan(searchObj: any) {
         const api = `${this.getApi()}/close-renew-customer-loan`;
         const req = ApiUtils.getRequest(api);
@@ -86,6 +92,11 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
     public deleteLoanCustomer(id): Observable<any> {
         const req = ApiUtils.getRequestWithFileSupport(`${LoanFormService.API}/${id}/delete`);
         return this.http.get(req.url, {headers: req.header});
+    }
+
+    public uploadFile(formData: FormData): Observable<object> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/uploadFile`);
+        return this.http.post(req.url, formData, {headers: req.header});
     }
 
     protected getApi(): string {

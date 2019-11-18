@@ -56,14 +56,13 @@
 
   @media print {
 
-    .disable-print {
-      display: none;
-    }
-
     nb-card {
       background: none;
       border: none;
       box-shadow: none;
+      position: absolute;
+      overflow: visible;
+      display: inline;
 
       span.badge {
         border: none;
@@ -140,5 +139,12 @@
         }
       }
     }
+
+    table { page-break-after:auto }
+    tr    { page-break-inside:avoid; page-break-after:auto }
+    td    { page-break-inside:avoid; page-break-after:auto }
+    thead { display:table-header-group }
+    tfoot { display:table-footer-group }
+
   }
 }

@@ -1,4 +1,4 @@
-// This file can be replaced during build by using the `fileReplacements` array.
+// This file can be replaced during build by using the `fweileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
@@ -6,7 +6,8 @@ import {AppConstant} from '../app/@core/utils/appConstant';
 
 export const environment = {
   production: false,
-  client: AppConstant.BANKNAME
+  client: AppConstant.BANKNAME,
+  GOOGLE_MAP_API_KEY: 'AIzaSyDKERYllGf5BfVR_c_45nqHVkbHoPgXPDA'
 };
 
 /*

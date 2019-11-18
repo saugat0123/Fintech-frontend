@@ -12,7 +12,7 @@
         </div>
         <div class="row">
             <div class="container">
-                <table class="table table-striped table-bordered table-hover">
+                <table class="table  table-bordered table-hover">
                     <thead>
                     <tr>
                         <th>Criteria Id</th>
@@ -32,7 +32,7 @@
                         <td>{{criteria.id}}
                             <div class="collapse" id="qsn{{i}}">
                                 <nb-card-body>
-                                    <table class="table table-striped table-bordered table-hover">
+                                    <table class="table  table-bordered table-hover">
                                         <thead>
                                         <tr>
                                             <th>Question description</th>
@@ -113,6 +113,9 @@
                                            type="text">
                                     <span *ngIf="submitted && qsn.get('operandCharacter').invalid"
                                           class="small text-danger">Please enter operand character</span>
+                                    <span *ngIf="qsn.get('operandCharacter').value === 'T'" class="text-primary">
+                                        <i class="fa fa-info-circle"><i class="ml-2">Use 'T' only for Tenure</i></i>
+                                    </span>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Appearance order:</label>
@@ -135,9 +138,17 @@
                 </div>
             </div>
             <div class="container">
-                <div class="row mx-2">
-                    <i class="fa fa-info-circle"><i><b>Note:</b> The keyword <b>'I'</b> has been reserved as Operand Character for <b>Interest Rate</b> as per
-                        selected Loan Scheme.</i></i>
+                <div class="row m-2">
+                    <i class="fa fa-info-circle"><i class="ml-2">The keyword 'I' has been reserved as Operand Character for Interest
+                        Rate as per selected Loan Scheme.</i></i>
+                </div>
+                <div class="row m-2">
+                    <i class="fa fa-info-circle"><i class="ml-2">Required keyword for Tenure as Operand Character is 'T'
+                        if you decide to include one.</i></i>
+                </div>
+                <div class="row m-2">
+                    <i class="fa fa-info-circle"><i class="ml-2">Note : In absence of question concerning Tenure, the default value for tenure
+                        during EMI calculation will be set to 10 years.</i></i>
                 </div>
             </div>
             <div class="container">
@@ -172,6 +183,12 @@
                                     (generalQuestionForm.get('formula').invalid && submitted)"
                                           class="small text-danger">Please compose a valid formula</span>
                                     <span *ngIf="invalidFormula" class="small text-danger">Invalid formula</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>EMI Formula :</th>
+                                <td>
+                                    <img src="../../../../../../assets/img/emi-formula.jpg">
                                 </td>
                             </tr>
                             <tr>

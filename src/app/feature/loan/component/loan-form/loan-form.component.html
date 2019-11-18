@@ -1,63 +1,103 @@
-<nb-card-header>
-    <h2 class="d-flex justify-content-center" style="margin-top: -3%">{{loanTitle}}</h2>
-    <span class="d-flex justify-content-end">{{currentNepDate}}</span></nb-card-header>
+<nb-card>
 
-<div class="nav-tabs-custom">
-    <ul class="nav nav-tabs">
-        <li *ngFor="let allList of templateList;let i=index ;"
-            [ngClass]="allList.active === true ?'nav-item active ': 'nav-item'"
-            (click)="selectTab(i,allList.name)">
-            <a href="{{allList.templateUrl}}" data-toggle="tab" aria-expanded="false"
-               class="nav-link">{{allList.name}}</a>
-        </li>
+    <nb-card-header>
+        <h2 class="d-flex justify-content-center">{{loanTitle}}</h2>
+        <hr>
 
-    </ul>
-
-    <div class="tab-content">
-
-        <app-basic-info [formValue]="loanDocument?.customerInfo"
-                        *ngIf="selectedTab==='Customer Info' && loanDocument"
-                        #basicInfo></app-basic-info>
-        <app-kyc-info [formValue]="loanDocument?.customerInfo"
-                      *ngIf="selectedTab==='Kyc Info' && loanDocument"
-                      #kycInfo></app-kyc-info>
-        <app-dms-loan [loanFile]="loanFile" *ngIf="selectedTab==='General' && loanFile" #dmsLoanFile></app-dms-loan>
-        <app-company-info [formValue]="loanDocument?.entityInfo" *ngIf="selectedTab==='Company Info'"
-                          #entityInfo></app-company-info>
-        <app-proposal [formValue]="loadProposal()"
-                      *ngIf="selectedTab==='Proposal' && loanDocument"
-                      (dmsDisableButton)="submitButton($event)"
-                      #proposalInfo></app-proposal>
-        <app-cicl #cicl *ngIf="selectedTab === 'CICL' && loanDocument"
-                  [ciclRemark]="loanDocument?.ciclRemarks"
-                  [ciclValue]="loanDocument?.ciclList"
-                  [insuranceValue]="loanDocument?.insurance"></app-cicl>
-        <app-credit-grading #creditGrading *ngIf="selectedTab === 'Credit Risk Grading' && loanDocument"></app-credit-grading>
-        <!-- /.tab-pane -->
-    </div>
-
-    <div class="justify-content-center" style="padding-bottom: 20px">
-        <div class="col-md-12">
-            <div class="row text-center">
-                <div class="col-md-6 d-flex justify-content-start">
-                    <a class="btn btn-sm btn-flat btn-primary" data-toggle="tab"
-                       aria-expanded="false"
-                       href="{{previousTab}}" *ngIf="!first" (click)="prevTab()">PREVIOUS</a>
-                </div>
-                <div class="col-md-6 d-flex justify-content-end">
-                    <a class="btn btn-sm btn-flat btn-primary" data-toggle="tab"
-                       aria-expanded="false"
-                       href="{{nxtTab}}" (click)="nextTab()" *ngIf="!last">NEXT</a>
-
-                    <button class="btn btn-sm btn-flat btn-primary" style="float:right;" data-toggle="tab"
-                            aria-expanded="false"
-                            (click)="save()" *ngIf="last" [disabled]="submitDisable">SAVE
-                    </button>
+        <form [formGroup]="priorityForm">
+            <div class="row">
+                <div class="col-md-3">
+                    <label><strong>Priority</strong></label>
+                    <ng-select [items]="dropdownPriorities"
+                               [multiple]="false"
+                               bindLabel="name"
+                               bindValue="id"
+                               formControlName="priority"
+                               placeholder="Select the priority level">
+                    </ng-select>
+                    <div *ngIf="priorityForm.get('priority').errors">
+                        <small class="text-danger">
+                            Priority is required!
+                        </small>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
 
-    </div>
+        <span class="d-flex justify-content-end">{{currentNepDate}}</span>
+    </nb-card-header>
+    <nb-card-body>
+        <section *ngIf="loanDocument && templateList">
+            <ngb-tabset #tabSet="ngbTabset" (tabChange)="tabChange($event, tabSet)">
+                <ngb-tab *ngFor="let allList of templateList; let i = index" [title]="allList.name"
+                         [id]="i.toString(10)">
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Customer Info'">
+                        <app-basic-info [formValue]="loanDocument?.customerInfo" #basicInfo>
+                        </app-basic-info>
+                    </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Kyc Info'">
+                        <app-kyc-info [formValue]="loanDocument?.customerInfo" #kycInfo>
+                        </app-kyc-info>
+                    </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'General'">
+                        <app-dms-loan [loanDataHolder]="loanDocument" #dmsLoanFile></app-dms-loan>
+                    </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Company Info'">
+                        <app-company-info [formValue]="loanDocument?.companyInfo" #companyInfo></app-company-info>
+                    </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Proposal'">
+                        <app-proposal [formValue]="loadProposal()" (dmsDisableButton)="submitButton($event)"
+                                      #proposalInfo></app-proposal>
+                    </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
+                        <app-cicl #cicl
+                                  [ciclRemark]="loanDocument?.ciclRemarks"
+                                  [ciclValue]="loanDocument?.ciclList"
+                                  [insuranceValue]="loanDocument?.insurance"></app-cicl>
+                    </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading'">
+                        <app-credit-grading #creditGrading></app-credit-grading>
+                    </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Financial'">
+                        <app-financial [formData]="loanDocument?.financial" #financial></app-financial>
+                    </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Site Visit'">
+                        <app-site-visit #siteVisit [formValue]="loanDocument?.siteVisit"></app-site-visit>
+                    </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Security'">
+                    <app-security #security [securityValue]="loanDocument?.security"></app-security>
+                    </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Customer Document'">
+                        <app-customer-document #customerDocument [loanDataHolder]="loanDocument"></app-customer-document>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
 
-    <!-- /.tab-content -->
-</div>
+            <div class="justify-content-center" style="padding-bottom: 20px">
+                <div class="col-md-12">
+                    <div class="row text-center">
+                        <div class="col-md-6 d-flex justify-content-start">
+                            <button nbButton status="primary"
+                                    *ngIf="nextTabId > 1"
+                                    (click)="tabSet.select(previousTabId.toString(10))">Previous
+                            </button>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <button nbButton status="primary"
+                                    (click)="tabSet.select(nextTabId.toString(10))"
+                                    *ngIf="nextTabId !== totalTabCount">Next
+                            </button>
+
+                            <button nbButton status="info"
+                                    (click)="save()" *ngIf="nextTabId === totalTabCount" [disabled]="submitDisable">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </nb-card-body>
+</nb-card>
+<app-overlay-spinner></app-overlay-spinner>
