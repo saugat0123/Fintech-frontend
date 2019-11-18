@@ -22,7 +22,7 @@ import {LoanType} from '../../model/loanType';
 import {BusinessType} from '../../../admin/modal/businessType';
 import {Financial} from '../../model/financial';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {DocAction} from "../../model/docAction";
+import {DocAction} from '../../model/docAction';
 
 @Component({
   selector: 'app-loan-summary',

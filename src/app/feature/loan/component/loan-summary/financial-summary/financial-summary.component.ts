@@ -99,7 +99,8 @@ export class FinancialSummaryComponent implements OnInit {
 
   getAccountRecievableDPC() {
     this.projectedYearsMap.forEach( (value, key) => {
-      this.debtorsArray.push(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentAssetsCategory,
+      this.debtorsArray.push(
+          this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentAssetsCategory,
           'Account Receivable', key));
     });
   }
@@ -112,21 +113,24 @@ export class FinancialSummaryComponent implements OnInit {
 
   getTotalCurrentAssetDPC() {
     this.projectedYearsMap.forEach( (value, key) => {
-      this.totalCurrentAssetArray.push(Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentAssetsCategory,
+      this.totalCurrentAssetArray.push(
+          Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentAssetsCategory,
           'Account Receivable', key)) - Number(this.financialData.balanceSheetData.inventories[key].value));
     });
   }
 
   getCreditorsForDPC() {
     this.projectedYearsMap.forEach( (value, key) => {
-      this.creditorsArray.push(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentLiabilitiesCategory,
+      this.creditorsArray.push(
+          this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentLiabilitiesCategory,
           'Creditors', key));
     });
   }
 
   getNtcaDPC() {
     this.projectedYearsMap.forEach( (value, key) => {
-      this.ntcaArray.push(Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentAssetsCategory,
+      this.ntcaArray.push(
+          Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentAssetsCategory,
           'Account Receivable', key)) + Number(this.financialData.balanceSheetData.inventories[key].value) -
       Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentLiabilitiesCategory,
           'Creditors', key)));
@@ -135,7 +139,8 @@ export class FinancialSummaryComponent implements OnInit {
 
   getDrawingPowerWCP() {
     this.projectedYearsMap.forEach( (value, key) => {
-      this.drawingPowerArray.push((0.9 * (Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentAssetsCategory,
+      this.drawingPowerArray.push(
+          (0.9 * (Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentAssetsCategory,
           'Account Receivable', key)) + Number(this.financialData.balanceSheetData.inventories[key].value) -
           Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentLiabilitiesCategory,
               'Creditors', key)))).toFixed(2));
@@ -176,14 +181,16 @@ export class FinancialSummaryComponent implements OnInit {
 
   getTermLoan() {
     this.projectedYearsMap.forEach( (value, key) => {
-      this.termLoanTLArray.push(Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].longTermLoanCategory,
+      this.termLoanTLArray.push(
+          Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].longTermLoanCategory,
           'Term Loan', key)));
     });
   }
 
   getDPCalculationTermLoan() {
     this.projectedYearsMap.forEach( (value, key) => {
-      this.termLoanDPC.push((100 * (Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].longTermLoanCategory,
+      this.termLoanDPC.push(
+          (100 * (Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].longTermLoanCategory,
           'Term Loan', key)) / Number(this.financialData.balanceSheetData.fixedAssets[key].value))).toFixed(2));
     });
   }
