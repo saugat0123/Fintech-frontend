@@ -66,6 +66,7 @@
                   <td><35</td>
                 </tr>
               </table>
+
               <form [formGroup]="questionAnswerForm">
                 <table class="table table-condensed table-bordered table-responsive-md"
                        formArrayName="questionForm">
@@ -75,43 +76,131 @@
                     <th>Criteria</th>
                     <th>Weight</th>
                     <th>Parameter</th>
+                    <th>Score</th>
+                    <th>Actual Parameter</th>
                     <th>Score Obtained</th>
                   </tr>
                   </thead>
                   <tbody>
 
-                  <tr *ngFor="let qsn of questionAnswerForm.get('questionForm')['controls']; let i = index"
-                      [formGroupName]="i">
-                    <td>{{i+1}}</td>
-                    <td width="40%" colspan="2">
+                  <td></td>
 
-                      <div [innerHtml]="qsn.get('description').value | safeHtml"></div>
+                  <td width="280px">
+                    <p>
+                      1. Leverage: (15%)
+                      Debt Equity Ratio (x) - Times
+                      Total Liabilities to Tangible Net worth
 
+                      All calculations should be based on annual financial
+                      statements of the borrower (audited preferred).
+                    </p>
+                  </td>
+                  <td>
+                    50%
+                  </td>
+                  <td>
+                    <ul>
+                      <li>Less than 0.25x</li>
+                      <li>0.26x to 0.35x</li>
+                      <li>0.36x to 0.50x</li>
+                      <li>0.51x to 0.75x</li>
+                      <li>0.76x to 1.25x</li>
+                      <li>1.26x to 2.00x</li>
+                      <li>2.01x to 2.50x</li>
+                      <li>2.51x to 2.75x</li>
+                      <li>More than 2.75x</li>
+                    </ul>
+
+
+                  </td>
+                  <td>
+                    <ul class="list-unstyled">
+                      <li>15</li>
+                      <li>14</li>
+                      <li>13</li>
+                      <li>12</li>
+                      <li>11</li>
+                      <li>10</li>
+                      <li>8</li>
+                      <li>7</li>
+                      <li>0</li>
+                    </ul>
+
+                  </td>
+                  <tr>
+                    <td></td>
+                    <td>
+                      <p>
+                        2. Liquidity: (15%)
+
+                        Current Ratio (x) - Times
+                        Current Assets to Current Liabilities
+
+                      </p>
+                    </td>
+                    <td></td>
+                    <td>
+                      <ul>
+                        <li>Greater than 2.74x</li>
+                        <li>2.50x to 2.74x</li>
+                        <li>1.50x to 1.99x</li>
+                        <li>1.10x to 1.49x</li>
+                        <li>0.90x to 1.09x</li>
+                        <li>0.80x to 0.89x</li>
+                        <li>0.70x to 0.79x</li>
+                        <li>Less than 0.70x</li>
+                      </ul>
                     </td>
                     <td>
-                                            <span *ngFor="let ans of qsn.get('answers')['controls']; let j = index"
-                                                  formArrayName="answers">
-                                                <div [formGroupName]="j">
-                                                    <input #selectedAnswer
-                                                           (click)="onChangeOption(qsn,qsn.get('id').value,selectedAnswer.value)"
-                                                           [name]="qsn.get('id').value" [value]="ans.controls.points.value"
-                                                           type="radio">
-                                                <input #description formControlName="description" hidden>
-                                                  {{description.value}}<br>
-                                            </div>
-                                            </span>
+                      <ul class="list-unstyled">
+                        <li>15</li>
+                        <li>14</li>
+                        <li>13</li>
+                        <li>12</li>
+                        <li>11</li>
+                        <li>10</li>
+                        <li>8</li>
+                        <li>7</li>
+                        <li>0</li>
+                      </ul>
                     </td>
-                    <!--                                        <td>-->
-                    <!--                                                <span *ngFor="let ans of qsn.get('answers')['controls']; let k = index" formArrayName="answers">-->
-                    <!--                                                    <div [formGroupName]="k">-->
-                    <!--                                                        <input #points formControlName="points" hidden>-->
-                    <!--                                                        {{points.value}}-->
-                    <!--                                                    </div>-->
+                    <td></td>
+                    <td></td>
 
-                    <!--                                                </span>-->
-                    <!--                                        </td>-->
-                    <td>{{qsn.get('selectedAnswer').value}}</td>
                   </tr>
+
+                  <!--                  <tr *ngFor="let qsn of questionAnswerForm.get('questionForm')['controls']; let i = index"-->
+                  <!--                      [formGroupName]="i">-->
+                  <!--                    <td>{{i+1}}</td>-->
+                  <!--                    <td width="40%" colspan="2">-->
+
+                  <!--                      <div [innerHtml]="qsn.get('description').value | safeHtml"></div>-->
+
+                  <!--                    </td>-->
+                  <!--                    <td>-->
+                  <!--                      <span *ngFor="let ans of qsn.get('answers')['controls']; let j = index"-->
+                  <!--                            formArrayName="answers">-->
+                  <!--                          <div [formGroupName]="j">-->
+                  <!--                              <input #selectedAnswer-->
+                  <!--                                     (click)="onChangeOption(qsn,qsn.get('id').value,selectedAnswer.value)"-->
+                  <!--                                     [name]="qsn.get('id').value" [value]="ans.controls.points.value"-->
+                  <!--                                     type="radio">-->
+                  <!--                          <input #description formControlName="description" hidden>-->
+                  <!--                            {{description.value}}<br>-->
+                  <!--                      </div>-->
+                  <!--                      </span>-->
+                  <!--                    </td>-->
+                  <!--                    &lt;!&ndash;                                        <td>&ndash;&gt;-->
+                  <!--                    &lt;!&ndash;                                                <span *ngFor="let ans of qsn.get('answers')['controls']; let k = index" formArrayName="answers">&ndash;&gt;-->
+                  <!--                    &lt;!&ndash;                                                    <div [formGroupName]="k">&ndash;&gt;-->
+                  <!--                    &lt;!&ndash;                                                        <input #points formControlName="points" hidden>&ndash;&gt;-->
+                  <!--                    &lt;!&ndash;                                                        {{points.value}}&ndash;&gt;-->
+                  <!--                    &lt;!&ndash;                                                    </div>&ndash;&gt;-->
+
+                  <!--                    &lt;!&ndash;                                                </span>&ndash;&gt;-->
+                  <!--                    &lt;!&ndash;                                        </td>&ndash;&gt;-->
+                  <!--                    <td>{{qsn.get('selectedAnswer').value}}</td>-->
+                  <!--                  </tr>-->
 
                   <tr>
                     <td colspan="2"><b>Grading:</b> {{grading}}</td>

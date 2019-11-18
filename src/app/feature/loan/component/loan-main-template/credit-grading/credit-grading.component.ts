@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Questions} from '../../../../admin/modal/question';
 import {ActivatedRoute, Params} from '@angular/router';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {QuestionService} from '../../../../admin/component/eligibility/question/question.service';
+import {QuestionService} from '../../../../service/question.service';
+
 
 @Component({
   selector: 'app-credit-grading',
