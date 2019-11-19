@@ -132,7 +132,6 @@ export class DataVisualizationComponent implements OnInit {
                                 const value = proposedAmountArray[responseCounter][key];
                                 if (typeof value === 'object') {
                                     proposedAmountArray[counter] = [value];
-                                    // console.log('second aray', proposedAmountArray[counter][0]);
                                     // tslint:disable-next-line:forin
                                     for (const secondKey in proposedAmountArray[counter][0]) {
                                         const secondValue = proposedAmountArray[counter][0][secondKey];
