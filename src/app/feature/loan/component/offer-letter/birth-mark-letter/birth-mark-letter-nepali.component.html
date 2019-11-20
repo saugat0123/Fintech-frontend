@@ -1,5 +1,5 @@
 <div class="row" [nbSpinner]="spinner">
-  <div class="col-md-12">
+  <div class="col-md-12" style="overflow-y: auto;height:500px">
     <form (ngSubmit)="submit()" [formGroup]="form" class="nep">
       <div class="row form-group">
         <div class="col-md-12">
@@ -305,8 +305,8 @@
           </div>
         </li>
         <ng-container
-            *ngFor="let guarantor of form.get('securityGuarantorRemaining')['controls']; let guarantorIndex = index"
-            formArrayName="securityGuarantorRemaining">
+                *ngFor="let guarantor of form.get('securityGuarantorRemaining')['controls']; let guarantorIndex = index"
+                formArrayName="securityGuarantorRemaining">
           <li [formGroupName]="guarantorIndex" class="row">
             <div class="col-md-1 d-contents mr-3">
               <span class="nepaliFont">{{guarantorIndex + 2 | nepaliWord:'pretti' }}</span>)
@@ -324,10 +324,10 @@
             </div>
             <div class="col-md-12 text-right">
               <button
-                  (click)="removeGuarantor(guarantorIndex)"
-                  *ngIf="form.get('securityGuarantorRemaining')['controls'].length > 1"
-                  nbButton size="small"
-                  status="primary">हटाउनुहोस्..
+                      (click)="removeGuarantor(guarantorIndex)"
+                      *ngIf="form.get('securityGuarantorRemaining')['controls'].length > 1"
+                      nbButton size="small"
+                      status="primary">हटाउनुहोस्..
               </button>
             </div>
           </li>
@@ -1005,7 +1005,7 @@
     </form>
   </div>
 </div>
-<!--    <button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4"-->
-<!--            ngxPrint printSectionId="formId">Print-->
-<!--    </button>-->
-<!--<app-birth-mark-letter-print [form]="form" hidden></app-birth-mark-letter-print>-->
+    <button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4" *ngIf="initialInfoPrint"
+            ngxPrint printSectionId="birthId">Print
+    </button>
+<app-birth-mark-letter-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-birth-mark-letter-print>
