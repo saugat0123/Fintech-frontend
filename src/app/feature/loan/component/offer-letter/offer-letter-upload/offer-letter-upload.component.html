@@ -1,58 +1,66 @@
-<div class="row">
-  <div class="col-md-12 form-group">
-    <label for="offerLetter">Select Offer Letter</label>
-    <select [(ngModel)]="offerLetterId" class="form-control" id="offerLetter">
-      <option *ngFor="let cusOfferLetter of customerOfferLetter.customerOfferLetterPath;"
-              [value]="cusOfferLetter.offerLetter.id">
-        {{cusOfferLetter.offerLetter.name}}
-      </option>
-    </select>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12 form-group">
-    <label>Upload Your File </label>
-    <input (change)="uploadOfferLetter($event)" class="form-control"
-           type="file">
-    <div (click)="previewClick(null)" *ngIf="preview"
-         class="d-flex justify-content-center">
-      <button class="btn btn-primary btn-sm btn-flat"><span class="px-2">Preview</span>
-      </button>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-      <button (click)="submitOfferLetter()" [disabled]="!preview" nbButton status="success">Upload
-      </button>
-  </div>
-</div>
+<!--<div class="row">-->
+<!--  <div class="col-md-12 form-group">-->
+<!--    <label for="offerLetter">Select Offer Letter</label>-->
+<!--    <select [(ngModel)]="offerLetterId" class="form-control" id="offerLetter">-->
+<!--      <option *ngFor="let cusOfferLetter of customerOfferLetter?.customerOfferLetterPath;"-->
+<!--              [value]="cusOfferLetter.offerLetter.id">-->
+<!--        {{cusOfferLetter.offerLetter.name}}-->
+<!--      </option>-->
+<!--    </select>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--  <div class="col-md-12 form-group">-->
+<!--    <label>Upload Your File </label>-->
+<!--    <input (change)="uploadOfferLetter($event)" class="form-control"-->
+<!--           type="file">-->
+<!--    <div (click)="previewClick(null)" *ngIf="preview"-->
+<!--         class="d-flex justify-content-center">-->
+<!--      <button class="btn btn-primary btn-sm btn-flat"><span class="px-2">Preview</span>-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--  <div class="col-md-12">-->
+<!--      <button (click)="submitOfferLetter()" [disabled]="!preview" nbButton status="success">Upload-->
+<!--      </button>-->
+<!--  </div>-->
+<!--</div>-->
 
-<div class="row pt-5">
-  <div class="col-md-12">
-    <table class="table table-bordered table-hover">
-      <thead>
-      <tr>
-        <th>#</th>
-        <th>Offer Letter</th>
-        <th>Upload Status</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let cusOfferLetter of customerOfferLetter.customerOfferLetterPath; let i=index">
-        <td>
-          {{i + 1}}
-        </td>
-        <td>{{cusOfferLetter?.offerLetter?.name}}</td>
-        <td>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Offer Letter</th>
+                <th>Upload Status</th>
+                <th>Preview</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let cusOfferLetter of customerOfferLetter?.customerOfferLetterPath; let i=index">
+                <td>
+                    {{i + 1}}
+                </td>
+                <td>{{cusOfferLetter?.offerLetter?.name}}</td>
+                <td>
           <span *ngIf="uploadedOfferLetter.includes(cusOfferLetter.offerLetter.name)"
                 style="color:limegreen"><i class="fas fa-check-circle"></i></span>
-          <span *ngIf="!uploadedOfferLetter.includes(cusOfferLetter.offerLetter.name)"
-                style="color:red">
+                    <span *ngIf="!uploadedOfferLetter.includes(cusOfferLetter.offerLetter.name)"
+                          style="color:red">
             <i class="fas fa-times-circle"></i></span>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+                </td>
+                <td>
+              <span *ngIf="cusOfferLetter?.path !== null"
+                    style="color:cornflowerblue">
+                <a (click)="previewClick(cusOfferLetter.path)"><i class="fas fa-eye"></i>
+                </a>
+              </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

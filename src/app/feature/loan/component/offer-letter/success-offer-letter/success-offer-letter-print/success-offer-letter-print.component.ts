@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-success-offer-letter-print',
@@ -6,6 +6,8 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./success-offer-letter-print.component.scss']
 })
 export class SuccessOfferLetterPrintComponent implements OnInit {
+  @Input()
+  letter: any;
 
   constructor() {
   }
