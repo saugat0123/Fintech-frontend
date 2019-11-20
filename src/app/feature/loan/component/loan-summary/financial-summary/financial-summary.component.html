@@ -170,7 +170,7 @@
               {{inventoryTurnoverRatio.value}}</td>
           </tr>
           <tr>
-            <td>4(II)</td>
+            <td>4</td>
             <td><strong>Interest Coverage Ratio (in times)</strong></td>
             <td *ngFor="let interestCoverageRatio of financialData['keyIndicatorsData']?.interestCoverageRatio">
               {{interestCoverageRatio.value}}</td>
@@ -192,6 +192,120 @@
             <td><strong>Net Profit Margin (%)</strong></td>
             <td *ngFor="let currentAssetValue of financialData['keyIndicatorsData']?.netProfitMargin">
               {{currentAssetValue.value}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-md-12">
+    <p><strong>Drawing Power Calculation (Working Capital Loan)</strong></p>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Particulars/Years:</th>
+            <th *ngFor="let fiscalYear of projectedYearsMap | keyvalue">{{fiscalYear.value}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>1</td>
+            <td><strong>Stock</strong></td>
+            <td *ngFor="let stock of stockArray">
+              {{stock}}</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><strong>Debtors</strong></td>
+            <td *ngFor="let debtors of debtorsArray">
+              {{debtors}}</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><strong>Total Current Assets</strong></td>
+            <td *ngFor="let totalCurrentAsset of totalCurrentAssetArray">
+              {{totalCurrentAsset}}</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><strong>Creditors</strong></td>
+            <td *ngFor="let creditors of creditorsArray">
+              {{creditors}}</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><strong>Total Net Trading Current Assets (NTCA)</strong></td>
+            <td *ngFor="let ntca of ntcaArray">
+              {{ntca}}</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><strong>Drawing Power</strong></td>
+            <td *ngFor="let drawingPower of drawingPowerArray">
+              {{drawingPower}}</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td><strong>Loan Limit</strong></td>
+            <td *ngFor="let loanLimit of loanLimitArray">
+              {{loanLimit}}</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td><strong>Loan to NTCA (%)</strong></td>
+            <td *ngFor="let loanToNtca of loanToNtcaArray">
+              {{loanToNtca}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-md-12">
+    <p><strong>Drawing Power Calculation (Term Loan)</strong></p>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Particulars/Years:</th>
+            <th *ngFor="let fiscalYear of projectedYearsMap | keyvalue">{{fiscalYear.value}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>1</td>
+            <td><strong>Total Fixed Assets</strong></td>
+            <td *ngFor="let totalFixedAssets of totalFixedAssetsArray">
+              {{totalFixedAssets}}</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><strong>Drawing power</strong></td>
+            <td *ngFor="let termDrawingPower of termDrawingPowerArray">
+              {{termDrawingPower}}</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><strong>Term Loan</strong></td>
+            <td *ngFor="let termLoanTL of termLoanTLArray">
+              {{termLoanTL}}</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><strong>Drawing Power Calculation</strong></td>
+            <td *ngFor="let termLoanDPCvalue of termLoanDPC">
+              {{termLoanDPCvalue}}</td>
           </tr>
           </tbody>
         </table>

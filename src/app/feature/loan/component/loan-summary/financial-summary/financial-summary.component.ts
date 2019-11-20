@@ -16,6 +16,25 @@ export class FinancialSummaryComponent implements OnInit {
   totalDebtValueArray = [];
   debtServiceCostArray = [];
 
+  // Fiscal years for Drawing power calculation (projected years)--
+  projectedYearsMap: Map<number, string> = new Map<number, string>();
+
+  // Working capital Drawing calculation arrays--
+  stockArray = [];
+  debtorsArray = [];
+  totalCurrentAssetArray = [];
+  creditorsArray = [];
+  ntcaArray = [];
+  drawingPowerArray = [];
+  loanLimitArray = [];
+  loanToNtcaArray = [];
+
+  // Term Loan Drawing Power Calculation--
+  totalFixedAssetsArray = [];
+  termDrawingPowerArray = [];
+  termLoanTLArray = [];
+  termLoanDPC = [];
+
   constructor(private financialService: FinancialService) { }
 
   ngOnInit() {
@@ -23,6 +42,30 @@ export class FinancialSummaryComponent implements OnInit {
       this.financialData = JSON.parse(this.formData.data);
       this.setTotalDebtValue();
       this.setDebtServiceCost();
+
+      // Drawing power calculation projected years only--
+      this.financialData.fiscalYear.forEach( (singleYear, i) => {
+        if (singleYear.toUpperCase().includes('PROJECTED')) {
+          this.projectedYearsMap.set(i, singleYear);
+        }
+      });
+
+      // Working Capital Loan Drawing power calculation---
+      this.getStockForDPC();
+      this.getAccountRecievableDPC();
+      this.getTotalCurrentAssetDPC();
+      this.getCreditorsForDPC();
+      this.getNtcaDPC();
+      this.getDrawingPowerWCP();
+      this.getLoanLimit();
+      this.getLoanToNtca();
+
+      // Term Loan Drawing power calculation---
+      this.getTotalFixedAssets();
+      this.getDPTermLoan();
+      this.getTermLoan();
+      this.getDPCalculationTermLoan();
+
     }
   }
 
@@ -51,6 +94,104 @@ export class FinancialSummaryComponent implements OnInit {
       } else {
         this.debtServiceCostArray.push(Number(this.financialData['incomeStatementData'].interestExpenses[index].value));
       }
+    });
+  }
+
+  getAccountRecievableDPC() {
+    this.projectedYearsMap.forEach( (value, key) => {
+      this.debtorsArray.push(
+          this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentAssetsCategory,
+          'Account Receivable', key));
+    });
+  }
+
+  getStockForDPC() {
+    this.projectedYearsMap.forEach( (value, key) => {
+      this.stockArray.push(this.financialData.balanceSheetData.inventories[key].value);
+    });
+  }
+
+  getTotalCurrentAssetDPC() {
+    this.projectedYearsMap.forEach( (value, key) => {
+      this.totalCurrentAssetArray.push(
+          Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentAssetsCategory,
+          'Account Receivable', key)) - Number(this.financialData.balanceSheetData.inventories[key].value));
+    });
+  }
+
+  getCreditorsForDPC() {
+    this.projectedYearsMap.forEach( (value, key) => {
+      this.creditorsArray.push(
+          this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentLiabilitiesCategory,
+          'Creditors', key));
+    });
+  }
+
+  getNtcaDPC() {
+    this.projectedYearsMap.forEach( (value, key) => {
+      this.ntcaArray.push(
+          Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentAssetsCategory,
+          'Account Receivable', key)) + Number(this.financialData.balanceSheetData.inventories[key].value) -
+      Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentLiabilitiesCategory,
+          'Creditors', key)));
+    });
+  }
+
+  getDrawingPowerWCP() {
+    this.projectedYearsMap.forEach( (value, key) => {
+      this.drawingPowerArray.push(
+          (0.9 * (Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentAssetsCategory,
+          'Account Receivable', key)) + Number(this.financialData.balanceSheetData.inventories[key].value) -
+          Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentLiabilitiesCategory,
+              'Creditors', key)))).toFixed(2));
+    });
+  }
+
+  getLoanLimit() {
+    this.projectedYearsMap.forEach( (value, key) => {
+      this.loanLimitArray.push(Number(this.financialService.fetchValuesForJsonSubCategories(
+          this.financialData['balanceSheetData'].currentLiabilitiesCategory,
+          'Short Term Loan', key)));
+    });
+  }
+
+  getLoanToNtca() {
+    this.projectedYearsMap.forEach( (value, key) => {
+      this.loanToNtcaArray.push((Number(this.financialService.fetchValuesForJsonSubCategories(
+          this.financialData['balanceSheetData'].currentLiabilitiesCategory,
+          'Short Term Loan', key)) /
+          ((Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentAssetsCategory,
+          'Account Receivable', key)) + Number(this.financialData.balanceSheetData.inventories[key].value) -
+          Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].currentLiabilitiesCategory,
+              'Creditors', key))) * 100)));
+    });
+  }
+
+  getTotalFixedAssets() {
+    this.projectedYearsMap.forEach( (value, key) => {
+      this.totalFixedAssetsArray.push(Number(this.financialData.balanceSheetData.fixedAssets[key].value));
+    });
+  }
+
+  getDPTermLoan() {
+    this.projectedYearsMap.forEach( (value, key) => {
+      this.termDrawingPowerArray.push((0.8 * Number(this.financialData.balanceSheetData.fixedAssets[key].value)).toFixed(2));
+    });
+  }
+
+  getTermLoan() {
+    this.projectedYearsMap.forEach( (value, key) => {
+      this.termLoanTLArray.push(
+          Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].longTermLoanCategory,
+          'Term Loan', key)));
+    });
+  }
+
+  getDPCalculationTermLoan() {
+    this.projectedYearsMap.forEach( (value, key) => {
+      this.termLoanDPC.push(
+          (100 * (Number(this.financialService.fetchValuesForJsonSubCategories(this.financialData['balanceSheetData'].longTermLoanCategory,
+          'Term Loan', key)) / Number(this.financialData.balanceSheetData.fixedAssets[key].value))).toFixed(2));
     });
   }
 }
