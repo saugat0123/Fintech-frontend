@@ -901,7 +901,7 @@
     </form>
   </div>
 </div>
-    <button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4"
+    <button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4"*ngIf="initialInfoPrint"
             ngxPrint printSectionId="successId">Print
     </button>
 <app-success-offer-letter-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-success-offer-letter-print>
