@@ -86,7 +86,9 @@ export class OfferLetterActionComponent implements OnInit {
                     if (this.currentUserId.toString() === this.customerOfferLetter.createdBy.toString()) {
                         this.isBackwardDisabled = true;
                     }
-
+                  if (this.customerOfferLetter.docStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
+                    this.isForwardDisabled = true;
+                  }
                 }, error => {
 
                 });
