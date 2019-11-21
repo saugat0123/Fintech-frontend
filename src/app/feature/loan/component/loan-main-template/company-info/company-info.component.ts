@@ -140,7 +140,7 @@ export class CompanyInfoComponent implements OnInit {
             companyEstablishmentDate:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :
-                    this.companyInfo.establishmentDate, [Validators.required]],
+                    new Date(this.companyInfo.establishmentDate), [Validators.required]],
             businessType:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.businessType)) ? undefined :
@@ -160,7 +160,7 @@ export class CompanyInfoComponent implements OnInit {
 
             registrationDate: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
-                this.companyInfo.legalStatus.registrationDate, [Validators.required, DateValidator.isValidBefore]],
+                new Date(this.companyInfo.legalStatus.registrationDate), [Validators.required, DateValidator.isValidBefore]],
 
             panRegistrationOffice: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
@@ -168,7 +168,7 @@ export class CompanyInfoComponent implements OnInit {
 
             panRegistrationDate: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
-                this.companyInfo.legalStatus.panRegistrationDate, [Validators.required, DateValidator.isValidBefore]],
+                new Date(this.companyInfo.legalStatus.panRegistrationDate), [Validators.required, DateValidator.isValidBefore]],
 
             // capital
             authorizedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
