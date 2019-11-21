@@ -22,7 +22,7 @@
         <div id="searchModel" class="col-md-12" [ngbCollapse]="isFilterCollapsed">
             <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
                 <div class="row py-3">
-                    <div class="col-md-3" *ngIf="accessSpecific || accessAll">
+                    <div class="col-md-3 mb-3" *ngIf="accessSpecific || accessAll">
                         <select class="custom-select" formControlName="branch">
                             <option [value]="null" selected hidden>Select Branch</option>
                             <option [value]="null">All Branch</option>
@@ -30,7 +30,7 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-3">
                         <select class="custom-select" formControlName="loanType">
                             <option [value]="null" selected hidden>Select Loan Type</option>
                             <option [value]="null">All Loan Type</option>
@@ -40,7 +40,7 @@
                         </select>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-3">
                         <select class="custom-select" formControlName="docStatus">
                             <option [value]="null" selected hidden>Select Document Status</option>
                             <option [value]="null">All Document Status</option>
@@ -58,14 +58,14 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-3">
                         <input id="startDate" [nbDatepicker]="startDate" class="form-control rounded"
                                (change)="checkIfDateFiltration()" formControlName="startDate"
                                placeholder="Enter Start Date" [ngClass]="{ 'is-invalid': !validStartDate }">
                         <nb-datepicker #startDate></nb-datepicker>
                         <div *ngIf="!validStartDate" class="invalid-feedback">Invalid start date</div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-3">
                         <input id="endDate" [nbDatepicker]="endDate" class="form-control rounded"
                                (change)="checkIfDateFiltration()" formControlName="endDate"
                                placeholder="Enter End Date" [ngClass]="{ 'is-invalid': !validEndDate }">
@@ -74,7 +74,7 @@
                     </div>
 
 
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-3">
                         <select class="custom-select" formControlName="loanNewRenew">
                             <option [value]="null" selected hidden>Select Type</option>
                             <option [value]="null">All Types</option>
@@ -84,10 +84,13 @@
                         </select>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-3 mb-3">
                         <input id="customerName" class="form-control rounded" formControlName="customerName" placeholder="Enter customer name">
                     </div>
-                </div>
+
+                    <div class="col-md-3 mb-3">
+                        <input id="companyName" class="form-control rounded" formControlName="companyName" placeholder="Enter company name">
+                    </div>
 
                 <div class="col-md-12 p-0">
                     <button [disabled]="!filterForm.valid" nbButton status="info" shape="rectangle" class="mr-2"

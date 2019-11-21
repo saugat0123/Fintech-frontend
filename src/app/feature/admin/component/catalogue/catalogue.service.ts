@@ -10,6 +10,7 @@ export class CatalogueSearch {
     toUser: string;
     customerName: string;
     committee: string;
+    companyName: string;
 }
 
 @Injectable({
