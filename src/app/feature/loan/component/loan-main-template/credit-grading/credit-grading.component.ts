@@ -10,7 +10,6 @@ import {QuestionService} from '../../../../service/question.service';
 })
 export class CreditGradingComponent implements OnInit {
 
-  totalObtainablePoints: number;
   creditRiskGrading: FormGroup;
   points: any;
   leverage = [15, 14, 13, 12, 11, 10, 8, 7, 0];
@@ -43,38 +42,6 @@ export class CreditGradingComponent implements OnInit {
       private formBuilder: FormBuilder,
   ) {
   }
-
-  // onChangeOption(qsnFormGroup: FormGroup, qsnId, points: number) {
-  //   qsnFormGroup.controls['selectedAnswer'].setValue(points);
-  //   this.totalPointMapper.set(qsnId, points);
-  //   console.log(qsnId);
-  //   if (this.totalPointMapper.size === this.questionList.length) {
-  //     let sum = 0;
-  //     this.totalPointMapper.forEach((value: number) => {
-  //       sum = sum + Number(value);
-  //       console.log(sum);
-  //     });
-  //     this.totalPoints = sum;
-  //
-  //     if (this.totalPoints === 100) {
-  //       this.grading = 'Superior';
-  //     } else if (this.totalPoints >= 85) {
-  //       this.grading = 'Good';
-  //     } else if (this.totalPoints >= 75 && this.totalPoints < 85) {
-  //       this.grading = 'Acceptable';
-  //     } else if (this.totalPoints >= 65 && this.totalPoints < 75) {
-  //       this.grading = 'Marginal/Watchlist';
-  //     } else if (this.totalPoints >= 55 && this.totalPoints < 65) {
-  //       this.grading = 'Special Mention';
-  //     } else if (this.totalPoints >= 45 && this.totalPoints < 55) {
-  //       this.grading = 'Substandard';
-  //     } else if (this.totalPoints >= 35 && this.totalPoints < 45) {
-  //       this.grading = 'Doubtful';
-  //     } else if (this.totalPoints <= 35) {
-  //       this.grading = 'Bad & Loss';
-  //     }
-  //   }
-  // }
 
   ngOnInit() {
     this.creditRiskGrading = this.formBuilder.group({
