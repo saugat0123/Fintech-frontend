@@ -227,7 +227,6 @@ export class LoanFormComponent implements OnInit {
         }
         this.loanDocument.loan = this.loan;
         this.loanDocument.loanCategory = this.allId.loanCategory;
-        this.loanDocument.previousStageList = JSON.stringify(this.loanDocument.previousList);
         this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
             this.loanDocument = response.detail;
             this.customerLoanId = this.loanDocument.id;
