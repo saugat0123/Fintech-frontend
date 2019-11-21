@@ -59,19 +59,75 @@
                         <div id="pie" *ngIf="pieChart && pieChart.length > 0">
                             <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorScheme" [results]="pieChart">
                             </ngx-charts-advanced-pie-chart>
+
+                            <div class="row">
+                                <div class="col-md-4 ">
+                                    <nb-card class="  card bg-warning text-white"  >
+                                        <div >
+                                            <label class="card-header">
+                                                Pending
+                                            </label>
+                                            <div id="seperateAmountPending"  style="display: inline">
+                                                {{ pendingProposedAmount | currency: 'NRS '}}
+                                            </div>
+                                        </div>
+                                    </nb-card>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <nb-card  class=" card bg-success text-white"  >
+                                        <div >
+                                            <label class="card-header">
+                                                Approved
+                                            </label>
+                                            <div id="seperateAmountApproved"  style="display: inline">
+                                                &nbsp;{{approvedProposedAmount | currency: 'NRS '}}
+                                            </div>
+                                        </div>
+                                    </nb-card>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 ">
+                                    <nb-card  class=" card bg-danger text-white" >
+                                        <div >
+                                            <label class="card-header">
+                                                Rejected
+                                            </label>
+                                            <div id="seperateAmountRejected"  style="display: inline">
+                                                &nbsp;{{rejectedProposedAmount | currency: 'NRS '}}
+                                            </div>
+                                        </div>
+                                    </nb-card>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <nb-card  class=" bg-primary text-white align-self-center" >
+                                        <div >
+                                            <label class="card-header">
+                                                Closed
+                                            </label>
+                                            <div id="seperateAmountClosed"  style="display: inline" class="m-md-auto">
+                                                &nbsp;{{closureProposedAmount | currency: 'NRS '}}
+                                            </div>
+                                        </div>
+                                    </nb-card>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-<!--                <div class="row">-->
-<!--                    <div class="col-md-12 sb-bar-chart-container">-->
-<!--                            <div *ngIf="!barChartData || barChartData.length <= 0" class="sb-no-data-info">-->
-<!--                                    <nb-alert status="info">No data available for bar chart.</nb-alert>-->
-<!--                            </div>-->
-<!--                        <div id="pie" *ngIf="barChartData && barChartData.length > 0">-->
-<!--                            <app-bar-chart [data]="barChartData" [width]="workingWidth"></app-bar-chart>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+
+
+
+                <div class="row">
+                    <div class="col-md-12 sb-bar-chart-container">
+                            <div *ngIf="!barChartData || barChartData.length <= 0" class="sb-no-data-info">
+                                    <nb-alert status="info">No data available for bar chart.</nb-alert>
+                            </div>
+                        <div id="pie" *ngIf="barChartData && barChartData.length > 0">
+                            <app-bar-chart [data]="barChartData" [width]="workingWidth"></app-bar-chart>
+                        </div>
+                    </div>
+                </div>
             </nb-card-body>
         </nb-card>
     </div>
