@@ -2,8 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {LoanDataHolder} from '../../../model/loanData';
 import {CustomerOfferLetter} from '../../../model/customer-offer-letter';
-import {ActivatedRoute, Router} from '@angular/router';
-import {LoanFormService} from '../../loan-form/service/loan-form.service';
+import {ActivatedRoute} from '@angular/router';
 import {ToastService} from '../../../../../@core/utils';
 import {CustomerOfferLetterService} from '../../../service/customer-offer-letter.service';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
@@ -26,13 +25,13 @@ export class SuccessOfferLetterComponent implements OnInit {
   offerLetterTypeId = 2;  // 2 represents Success Offer Letter
   existingOfferLetter = false;
   spinner = false;
+  initialInfoPrint;
 
   constructor(
       private activatedRoute: ActivatedRoute,
       private formBuilder: FormBuilder,
       private toastService: ToastService,
       private customerOfferLetterService: CustomerOfferLetterService,
-      private router: Router
   ) {
   }
 
@@ -109,6 +108,7 @@ export class SuccessOfferLetterComponent implements OnInit {
         this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
           if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
             initialInfo = JSON.parse(offerLetterPath.initialInformation);
+            this.initialInfoPrint = initialInfo;
           }
         });
         this.form.patchValue(initialInfo, {emitEvent: false});
@@ -174,18 +174,11 @@ export class SuccessOfferLetterComponent implements OnInit {
     }
     // TODO: Assign Supported Information in OfferLetter
     this.customerOfferLetterService.save(this.customerOfferLetter).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
-      this.router.navigate(['/home/loan/summary'], {
-        queryParams: {
-          loanConfigId: this.loanDataHolder.loan.id,
-          customerId: this.loanDataHolder.id,
-          catalogue: true
-        }
-      });
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Success Offer Letter'));
       this.spinner = false;
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Success Offer Letter'));
       this.spinner = false;
     });
   }
