@@ -274,8 +274,12 @@ export class CompanyInfoComponent implements OnInit {
         let proprietorIndex = 0;
         proprietorsList.forEach(proprietors => {
             this.addressList[proprietorIndex] = new Address();
-            this.getDistricts(proprietors.province.id, proprietorIndex);
-            this.getMunicipalities(proprietors.district.id, proprietorIndex);
+            if (proprietors.province.id !== null) {
+                this.getDistricts(proprietors.province.id, proprietorIndex);
+                if (proprietors.district.id !== null) {
+                    this.getMunicipalities(proprietors.district.id, proprietorIndex);
+                }
+            }
             proprietorIndex++;
             managementTeamFormArray.push(this.formBuilder.group({
                 name: [proprietors.name === undefined ? '' : proprietors.name, Validators.required],
