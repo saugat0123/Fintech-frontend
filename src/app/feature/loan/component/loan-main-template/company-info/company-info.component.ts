@@ -45,7 +45,7 @@ export class CompanyInfoComponent implements OnInit {
         registrationNumber: undefined
     };
 
-    companyInfo: CompanyInfo = new CompanyInfo();
+    companyInfo: CompanyInfo;
     legalStatus: LegalStatus = new LegalStatus();
     capital: Capital = new Capital();
     swot: Swot = new Swot();
@@ -71,6 +71,7 @@ export class CompanyInfoComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.companyInfo = this.formValue;
         this.buildForm();
 
         this.commonLocation.getProvince().subscribe(
@@ -117,86 +118,86 @@ export class CompanyInfoComponent implements OnInit {
 
             // Company Information
             companyId:
-                [(ObjectUtil.isEmpty(this.formValue)
-                    || ObjectUtil.isEmpty(this.formValue.id)) ? undefined :
-                    this.formValue.id],
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.id)) ? undefined :
+                    this.companyInfo.id],
             companyInfoVersion:
-                [(ObjectUtil.isEmpty(this.formValue)
-                    || ObjectUtil.isEmpty(this.formValue.version)) ? undefined :
-                    this.formValue.version],
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.version)) ? undefined :
+                    this.companyInfo.version],
             companyName:
-                [(ObjectUtil.isEmpty(this.formValue)
-                    || ObjectUtil.isEmpty(this.formValue.companyName)) ? undefined :
-                    this.formValue.companyName, [Validators.required]],
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.companyName)) ? undefined :
+                    this.companyInfo.companyName, [Validators.required]],
             registrationNumber:
-                [(ObjectUtil.isEmpty(this.formValue)
-                    || ObjectUtil.isEmpty(this.formValue.registrationNumber)) ? undefined :
-                    this.formValue.registrationNumber, [Validators.required]],
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.registrationNumber)) ? undefined :
+                    this.companyInfo.registrationNumber, [Validators.required]],
             companyPAN:
-                [(ObjectUtil.isEmpty(this.formValue)
-                    || ObjectUtil.isEmpty(this.formValue.panNumber)) ? undefined :
-                    this.formValue.panNumber, [Validators.required]],
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.panNumber)) ? undefined :
+                    this.companyInfo.panNumber, [Validators.required]],
             companyEstablishmentDate:
-                [(ObjectUtil.isEmpty(this.formValue)
-                    || ObjectUtil.isEmpty(this.formValue.establishmentDate)) ? undefined :
-                    this.formValue.establishmentDate, [Validators.required]],
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :
+                    this.companyInfo.establishmentDate, [Validators.required]],
             businessType:
-                [(ObjectUtil.isEmpty(this.formValue)
-                    || ObjectUtil.isEmpty(this.formValue.businessType)) ? undefined :
-                    this.formValue.businessType, [Validators.required]],
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.businessType)) ? undefined :
+                    this.companyInfo.businessType, [Validators.required]],
 
             // legalStatus
-            corporateStructure: [(ObjectUtil.isEmpty(this.formValue) || ObjectUtil.isEmpty(this.formValue.legalStatus)) ?
-                undefined : this.formValue.legalStatus.corporateStructure, Validators.required],
+            corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ?
+                undefined : this.companyInfo.legalStatus.corporateStructure, Validators.required],
 
-            registeredOffice: [(ObjectUtil.isEmpty(this.formValue)
-                || ObjectUtil.isEmpty(this.formValue.legalStatus)) ? undefined :
-                this.formValue.legalStatus.registeredOffice, Validators.required],
+            registeredOffice: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
+                this.companyInfo.legalStatus.registeredOffice, Validators.required],
 
-            registeredUnderAct: [(ObjectUtil.isEmpty(this.formValue)
-                || ObjectUtil.isEmpty(this.formValue.legalStatus)) ? undefined :
-                this.formValue.legalStatus.registeredUnderAct, Validators.required],
+            registeredUnderAct: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
+                this.companyInfo.legalStatus.registeredUnderAct, Validators.required],
 
-            registrationDate: [(ObjectUtil.isEmpty(this.formValue)
-                || ObjectUtil.isEmpty(this.formValue.legalStatus)) ? undefined :
-                this.formValue.legalStatus.registrationDate, [Validators.required, DateValidator.isValidBefore]],
+            registrationDate: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
+                this.companyInfo.legalStatus.registrationDate, [Validators.required, DateValidator.isValidBefore]],
 
-            panRegistrationOffice: [(ObjectUtil.isEmpty(this.formValue)
-                || ObjectUtil.isEmpty(this.formValue.legalStatus)) ? undefined :
-                this.formValue.legalStatus.panRegistrationOffice, Validators.required],
+            panRegistrationOffice: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
+                this.companyInfo.legalStatus.panRegistrationOffice, Validators.required],
 
-            panRegistrationDate: [(ObjectUtil.isEmpty(this.formValue)
-                || ObjectUtil.isEmpty(this.formValue.legalStatus)) ? undefined :
-                this.formValue.legalStatus.panRegistrationDate, [Validators.required, DateValidator.isValidBefore]],
+            panRegistrationDate: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
+                this.companyInfo.legalStatus.panRegistrationDate, [Validators.required, DateValidator.isValidBefore]],
 
             // capital
-            authorizedCapital: [(ObjectUtil.isEmpty(this.formValue)
-                || ObjectUtil.isEmpty(this.formValue.capital)) ? undefined :
-                this.formValue.capital.authorizedCapital, Validators.required],
+            authorizedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+                this.companyInfo.capital.authorizedCapital, Validators.required],
 
-            paidUpCapital: [(ObjectUtil.isEmpty(this.formValue)
-                || ObjectUtil.isEmpty(this.formValue.capital)) ? undefined :
-                this.formValue.capital.paidUpCapital, Validators.required],
+            paidUpCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+                this.companyInfo.capital.paidUpCapital, Validators.required],
 
-            issuedCapital: [(ObjectUtil.isEmpty(this.formValue)
-                || ObjectUtil.isEmpty(this.formValue.capital)) ? undefined :
-                this.formValue.capital.issuedCapital, Validators.required],
+            issuedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+                this.companyInfo.capital.issuedCapital, Validators.required],
 
-            totalCapital: [(ObjectUtil.isEmpty(this.formValue)
-                || ObjectUtil.isEmpty(this.formValue.capital)) ? undefined :
-                this.formValue.capital.totalCapital, Validators.required],
+            totalCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+                this.companyInfo.capital.totalCapital, Validators.required],
 
-            fixedCapital: [(ObjectUtil.isEmpty(this.formValue)
-                || ObjectUtil.isEmpty(this.formValue.capital)) ? undefined :
-                this.formValue.capital.fixedCapital, Validators.required],
+            fixedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+                this.companyInfo.capital.fixedCapital, Validators.required],
 
-            workingCapital: [(ObjectUtil.isEmpty(this.formValue)
-                || ObjectUtil.isEmpty(this.formValue.capital)) ? undefined :
-                this.formValue.capital.workingCapital, Validators.required],
+            workingCapital: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+                this.companyInfo.capital.workingCapital, Validators.required],
 
-            numberOfShareholder: [(ObjectUtil.isEmpty(this.formValue)
-                || ObjectUtil.isEmpty(this.formValue.capital)) ? undefined :
-                this.formValue.capital.numberOfShareholder, Validators.required],
+            numberOfShareholder: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
+                this.companyInfo.capital.numberOfShareholder, Validators.required],
 
             // managementTeams
             managementTeams: this.formBuilder.array([
@@ -207,17 +208,17 @@ export class CompanyInfoComponent implements OnInit {
                 this.proprietorsFormGroup()
             ]),
             // swot
-            strength: [(ObjectUtil.isEmpty(this.formValue)
-                || ObjectUtil.isEmpty(this.formValue.swot)) ? undefined : this.formValue.swot.strength, Validators.required],
+            strength: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.strength, Validators.required],
 
-            weakness: [(ObjectUtil.isEmpty(this.formValue)
-                || ObjectUtil.isEmpty(this.formValue.swot)) ? undefined : this.formValue.swot.weakness, Validators.required],
+            weakness: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.weakness, Validators.required],
 
-            opportunity: [(ObjectUtil.isEmpty(this.formValue)
-                || ObjectUtil.isEmpty(this.formValue.swot)) ? undefined : this.formValue.swot.opportunity, Validators.required],
+            opportunity: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.opportunity, Validators.required],
 
-            threats: [(ObjectUtil.isEmpty(this.formValue)
-                || ObjectUtil.isEmpty(this.formValue.swot)) ? undefined : this.formValue.swot.threats, Validators.required],
+            threats: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.threats, Validators.required],
         });
     }
 
@@ -334,26 +335,16 @@ export class CompanyInfoComponent implements OnInit {
         this.companyInfoService.getPaginationWithSearchObject(this.companySearch).subscribe((response: any) => {
             if (response.detail.content <= 0) {
                 this.companyFormField.isOldCustomer = false;
+
+                this.companyInfo = undefined;
+                this.buildForm();
+
                 this.toastService.show(new Alert(AlertType.INFO, 'No company  under given registration number.'));
-                this.companyInfoFormGroup.patchValue({
-                    companyId: undefined,
-                    companyName: undefined,
-                    companyEstablishmentDate: undefined,
-                    companyPAN: undefined,
-                    businessType: undefined,
-                    companyInfoVersion: undefined
-                });
             } else {
                 this.companyFormField.isOldCustomer = true;
-                const companyInfo: CompanyInfo = response.detail.content[0];
-                this.companyInfoFormGroup.patchValue({
-                    companyId: companyInfo.id,
-                    companyName: companyInfo.companyName,
-                    companyEstablishmentDate: companyInfo.establishmentDate,
-                    companyPAN: companyInfo.panNumber,
-                    businessType: companyInfo.businessType,
-                    companyInfoVersion: companyInfo.version
-                });
+                this.companyInfo = response.detail.content[0];
+                this.buildForm();
+                this.setCompanyInfo(this.companyInfo);
             }
         }, error => console.error(error));
         this.companyFormField.showFormField = true;
