@@ -67,9 +67,8 @@
                 </tr>
               </table>
 
-              <form [formGroup]="questionAnswerForm">
-                <table class="table table-condensed table-bordered table-responsive-md"
-                       formArrayName="questionForm">
+              <form [formGroup]="creditRiskGrading">
+                <table class="table table-condensed table-bordered table-responsive-md">
                   <thead>
                   <tr>
                     <th>SN.</th>
@@ -128,23 +127,15 @@
                       <li>0</li>
                     </ul>
                   </td>
-                  <td *ngFor="let qsn of questionAnswerForm.get('questionForm')['controls']">
-                    <!--                    <input id="15" type="radio" class="custom-control-input" value="15" formControlName="">-->
-                    <span *ngFor="let ans of qsn.get('answers')['controls']; let j = index"
-                          formArrayName="answers">
-                                            <div [formGroupName]="j">
-                                                <input #selectedAnswer
-                                                       (click)="onChangeOption(qsn,qsn.get('id').value,selectedAnswer.value)"
-                                                       [name]="qsn.get('id').value"
-                                                       [value]="ans.controls.points.value"
-                                                       type="radio">
-                                            <input #description formControlName="description"
-                                                   hidden>
-                                              {{description.value}}<br>
-                                        </div>
-                                        </span>
+                  <td>
+                    <div *ngFor="let lev of leverage; let i = index">
+                      <input id="leverage" type="radio" class="form-control-input"
+                             (change)="onChangeOption('leverage', lev)" [value]="lev"
+                             formControlName="leverage"><br>
+                    </div>
                   </td>
-                  <td></td>
+
+                  <td>{{this.creditRiskGrading.get('leverage').value}}</td>
                   <tr>
                     <td></td>
                     <td>
@@ -182,8 +173,14 @@
                         <li>0</li>
                       </ul>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div *ngFor="let liq of liquidity; let i = index">
+                        <input id="liquidity" type="radio" class="form-control-input"
+                               (change)="onChangeOption('liquidity', liq)" [value]="liq"
+                               formControlName="liquidity"><br>
+                      </div>
+                    </td>
+                    <td>{{this.creditRiskGrading.get('liquidity').value}}</td>
 
                   </tr>
                   <tr>
@@ -220,8 +217,14 @@
                         <li>0</li>
                       </ul>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div *ngFor="let pro of profit; let i = index">
+                        <input id="profit" type="radio" class="form-control-input"
+                               (change)="onChangeOption('profit', pro)" [value]="pro"
+                               formControlName="profit"><br>
+                      </div>
+                    </td>
+                    <td>{{this.creditRiskGrading.get('profit').value}}</td>
                   </tr>
 
                   <tr>
@@ -252,8 +255,14 @@
                         <li>0</li>
                       </ul>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div *ngFor="let cov of coverage; let i = index">
+                        <input id="coverage" type="radio" class="form-control-input"
+                               (change)="onChangeOption('coverage', cov)" [value]="cov"
+                               formControlName="coverage"><br>
+                      </div>
+                    </td>
+                    <td>{{this.creditRiskGrading.get('coverage').value}}</td>
                   </tr>
 
                   <td></td>
@@ -294,8 +303,14 @@
                       <li>0</li>
                     </ul>
                   </td>
-                  <td></td>
-                  <td></td>
+                  <td>
+                    <div *ngFor="let sob of sizeOfBusiness; let i = index">
+                      <input id="sizeOfBusiness" type="radio" class="form-control-input"
+                             (change)="onChangeOption('sizeOfBusiness', sob)" [value]="sob"
+                             formControlName="sizeOfBusiness"><br>
+                    </div>
+                  </td>
+                  <td>{{this.creditRiskGrading.get('sizeOfBusiness').value}}</td>
                   <tr>
                     <td></td>
                     <td>
@@ -324,8 +339,14 @@
                         <li>0</li>
                       </ul>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div *ngFor="let aob of ageOfBusiness; let i = index">
+                        <input id="ageOfBusiness" type="radio" class="form-control-input"
+                               (change)="onChangeOption('ageOfBusiness', aob)" [value]="aob"
+                               formControlName="ageOfBusiness"><br>
+                      </div>
+                    </td>
+                    <td>{{this.creditRiskGrading.get('ageOfBusiness').value}}</td>
 
                   </tr>
                   <tr>
@@ -356,8 +377,14 @@
                         <li>0</li>
                       </ul>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div *ngFor="let bok of businessOutlook; let i = index">
+                        <input id="businessOutlook" type="radio" class="form-control-input"
+                               (change)="onChangeOption('businessOutlook', bok)" [value]="bok"
+                               formControlName="businessOutlook"><br>
+                      </div>
+                    </td>
+                    <td>{{this.creditRiskGrading.get('businessOutlook').value}}</td>
                   </tr>
 
                   <tr>
@@ -384,8 +411,14 @@
                         <li>0</li>
                       </ul>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div *ngFor="let ig of industryGrowth; let i = index">
+                        <input id="industryGrowth" type="radio" class="form-control-input"
+                               (change)="onChangeOption('industryGrowth', ig)" [value]="ig"
+                               formControlName="industryGrowth"><br>
+                      </div>
+                    </td>
+                    <td>{{this.creditRiskGrading.get('industryGrowth').value}}</td>
                   </tr>
 
                   <tr>
@@ -410,8 +443,14 @@
                         <li>0</li>
                       </ul>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div *ngFor="let market of marketCompetition; let i = index">
+                        <input id="marketCompetition" type="radio" class="form-control-input"
+                               (change)="onChangeOption('marketCompetition', market)"
+                               [value]="market" formControlName="marketCompetition"><br>
+                      </div>
+                    </td>
+                    <td>{{this.creditRiskGrading.get('marketCompetition').value}}</td>
                   </tr>
 
                   <tr>
@@ -436,8 +475,14 @@
                         <li>0</li>
                       </ul>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div *ngFor="let barriers of entryExitBarriers; let i = index">
+                        <input id="entryExitBarriers" type="radio" class="form-control-input"
+                               (change)="onChangeOption('entryExitBarriers', barriers)"
+                               [value]="barriers" formControlName="entryExitBarriers"><br>
+                      </div>
+                    </td>
+                    <td>{{this.creditRiskGrading.get('entryExitBarriers').value}}</td>
                   </tr>
 
 
@@ -475,8 +520,14 @@
                       <li>0</li>
                     </ul>
                   </td>
-                  <td></td>
-                  <td></td>
+                  <td>
+                    <div *ngFor="let exp of experience; let i = index">
+                      <input id="experience" type="radio" class="form-control-input"
+                             (change)="onChangeOption('experience', exp)" [value]="exp"
+                             formControlName="experience"><br>
+                    </div>
+                  </td>
+                  <td>{{this.creditRiskGrading.get('experience').value}}</td>
                   <tr>
                     <td></td>
                     <td>
@@ -502,8 +553,15 @@
                         <li>0</li>
                       </ul>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div *ngFor="let secondSuccession of secondLineSuccession; let i = index">
+                        <input id="secondLineSuccession" type="radio" class="form-control-input"
+                               (change)="onChangeOption('secondLineSuccession', secondSuccession)"
+                               [value]="secondSuccession"
+                               formControlName="secondLineSuccession"><br>
+                      </div>
+                    </td>
+                    <td>{{this.creditRiskGrading.get('secondLineSuccession').value}}</td>
 
                   </tr>
                   <tr>
@@ -530,8 +588,14 @@
                         <li>0</li>
                       </ul>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div *ngFor="let tw of teamWork; let i = index">
+                        <input id="teamWork" type="radio" class="form-control-input"
+                               (change)="onChangeOption('teamWork', tw)" [value]="tw"
+                               formControlName="teamWork"><br>
+                      </div>
+                    </td>
+                    <td>{{this.creditRiskGrading.get('teamWork').value}}</td>
                   </tr>
 
                   <td></td>
@@ -573,8 +637,14 @@
                       <li>0</li>
                     </ul>
                   </td>
-                  <td></td>
-                  <td></td>
+                  <td>
+                    <div *ngFor="let sc of securityCoverage; let i = index">
+                      <input id="securityCoverage" type="radio" class="form-control-input"
+                             (change)="onChangeOption('securityCoverage', sc)" [value]="sc"
+                             formControlName="securityCoverage"><br>
+                    </div>
+                  </td>
+                  <td>{{this.creditRiskGrading.get('securityCoverage').value}}</td>
                   <tr>
                     <td></td>
                     <td>
@@ -613,8 +683,14 @@
                         <li>0</li>
                       </ul>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div *ngFor="let cc of collateralCoverage; let i = index">
+                        <input id="collateralCoverage" type="radio" class="form-control-input"
+                               (change)="onChangeOption('collateralCoverage', cc)" [value]="cc"
+                               formControlName="collateralCoverage"><br>
+                      </div>
+                    </td>
+                    <td>{{this.creditRiskGrading.get('collateralCoverage').value}}</td>
 
                   </tr>
                   <tr>
@@ -646,8 +722,14 @@
                         <li>0</li>
                       </ul>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div *ngFor="let spt of support; let i = index">
+                        <input id="support" type="radio" class="form-control-input"
+                               (change)="onChangeOption('support', spt)" [value]="spt"
+                               formControlName="support"><br>
+                      </div>
+                    </td>
+                    <td>{{this.creditRiskGrading.get('support').value}}</td>
                   </tr>
 
                   <td></td>
@@ -692,8 +774,14 @@
                       <li>0</li>
                     </ul>
                   </td>
-                  <td></td>
-                  <td></td>
+                  <td>
+                    <div *ngFor="let ac of accountConduct; let i = index">
+                      <input id="accountConduct" type="radio" class="form-control-input"
+                             (change)="onChangeOption('accountConduct', ac)" [value]="ac"
+                             formControlName="accountConduct"><br>
+                    </div>
+                  </td>
+                  <td>{{this.creditRiskGrading.get('accountConduct').value}}</td>
                   <tr>
                     <td></td>
                     <td>
@@ -718,8 +806,14 @@
                         <li>0</li>
                       </ul>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div *ngFor="let ul of utilizationOfLimit; let i = index">
+                        <input id="utilizationOfLimit" type="radio" class="form-control-input"
+                               (change)="onChangeOption('utilizationOfLimit', ul)" [value]="ul"
+                               formControlName="utilizationOfLimit"><br>
+                      </div>
+                    </td>
+                    <td>{{this.creditRiskGrading.get('utilizationOfLimit').value}}</td>
 
                   </tr>
                   <tr>
@@ -745,8 +839,14 @@
                         <li>0</li>
                       </ul>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div *ngFor="let coc of complianceOfCovenants; let i = index">
+                        <input id="complianceOfCovenants" type="radio" class="form-control-input"
+                               (change)="onChangeOption('complianceOfCovenants', coc)" [value]="coc"
+                               formControlName="complianceOfCovenants"><br>
+                      </div>
+                    </td>
+                    <td>{{this.creditRiskGrading.get('complianceOfCovenants').value}}</td>
                   </tr>
 
                   <tr>
@@ -778,8 +878,14 @@
                         <li>0</li>
                       </ul>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div *ngFor="let pd of personalDeposits; let i = index">
+                        <input id="personalDeposits" type="radio" class="form-control-input"
+                               (change)="onChangeOption('personalDeposits', pd)" [value]="pd"
+                               formControlName="personalDeposits"><br>
+                      </div>
+                    </td>
+                    <td>{{this.creditRiskGrading.get('personalDeposits').value}}</td>
                   </tr>
 
                   <!--                                    <tr *ngFor="let qsn of questionAnswerForm.get('questionForm')['controls']; let i = index"-->
@@ -817,7 +923,7 @@
 
                   <tr>
                     <td colspan="2"><b>Grading:</b> {{grading}}</td>
-                    <th colspan="2" class="text-center">Total Score: </th>
+                    <th colspan="4" class="text-center">Total Score:</th>
                     <td>{{totalPoints}}</td>
                   </tr>
 
