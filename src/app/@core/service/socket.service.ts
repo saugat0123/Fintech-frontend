@@ -46,6 +46,11 @@ export class SocketService {
     });
   }
 
+  closeSocket() {
+    this.stompClient.unsubscribe(`/socket-publisher/${this.userId}/${this.userRoleId}`);
+    this.stompClient.disconnect();
+  }
+
   sendMessageUsingSocket() {
     this.stompClient.send('/socket-subscriber/send/message', {}, JSON.stringify(this.message));
   }
