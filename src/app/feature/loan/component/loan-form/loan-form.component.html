@@ -84,7 +84,7 @@
                         </div>
                         <div class="col-md-6 d-flex justify-content-end">
                             <button nbButton status="primary"
-                                    (click)="tabSet.select(nextTabId.toString(10))"
+                                    (click)="nextButtonActionFxn(tabSet)"
                                     *ngIf="nextTabId !== totalTabCount">Next
                             </button>
 
@@ -95,7 +95,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
     </nb-card-body>
