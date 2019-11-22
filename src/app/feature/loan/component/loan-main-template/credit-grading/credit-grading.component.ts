@@ -74,7 +74,6 @@ export class CreditGradingComponent implements OnInit {
       let sum = 0;
       this.totalPointMapper.forEach(data => {
         sum = sum + data;
-        console.log(sum);
       });
       this.totalPoints = sum;
       if (this.totalPoints === 100) {
