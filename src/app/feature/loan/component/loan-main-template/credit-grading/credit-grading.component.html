@@ -887,40 +887,6 @@
                     </td>
                     <td>{{this.creditRiskGrading.get('personalDeposits').value}}</td>
                   </tr>
-
-                  <!--                                    <tr *ngFor="let qsn of questionAnswerForm.get('questionForm')['controls']; let i = index"-->
-                  <!--                                        [formGroupName]="i">-->
-                  <!--                                      <td>{{i+1}}</td>-->
-                  <!--                                      <td width="40%" colspan="2">-->
-
-                  <!--                                        <div [innerHtml]="qsn.get('description').value | safeHtml"></div>-->
-
-                  <!--                                      </td>-->
-                  <!--                                      <td>-->
-                  <!--                                        <span *ngFor="let ans of qsn.get('answers')['controls']; let j = index"-->
-                  <!--                                              formArrayName="answers">-->
-                  <!--                                            <div [formGroupName]="j">-->
-                  <!--                                                <input #selectedAnswer-->
-                  <!--                                                       (click)="onChangeOption(qsn,qsn.get('id').value,selectedAnswer.value)"-->
-                  <!--                                                       [name]="qsn.get('id').value" [value]="ans.controls.points.value"-->
-                  <!--                                                       type="radio">-->
-                  <!--                                            <input #description formControlName="description" hidden>-->
-                  <!--                                              {{description.value}}<br>-->
-                  <!--                                        </div>-->
-                  <!--                                        </span>-->
-                  <!--                                      </td>-->
-                  <!--                                      &lt;!&ndash;                                        <td>&ndash;&gt;-->
-                  <!--                                      &lt;!&ndash;                                                <span *ngFor="let ans of qsn.get('answers')['controls']; let k = index" formArrayName="answers">&ndash;&gt;-->
-                  <!--                                      &lt;!&ndash;                                                    <div [formGroupName]="k">&ndash;&gt;-->
-                  <!--                                      &lt;!&ndash;                                                        <input #points formControlName="points" hidden>&ndash;&gt;-->
-                  <!--                                      &lt;!&ndash;                                                        {{points.value}}&ndash;&gt;-->
-                  <!--                                      &lt;!&ndash;                                                    </div>&ndash;&gt;-->
-
-                  <!--                                      &lt;!&ndash;                                                </span>&ndash;&gt;-->
-                  <!--                                      &lt;!&ndash;                                        </td>&ndash;&gt;-->
-                  <!--                                      <td>{{qsn.get('selectedAnswer').value}}</td>-->
-                  <!--                                    </tr>-->
-
                   <tr>
                     <td colspan="2"><b>Grading:</b> {{grading}}</td>
                     <th colspan="4" class="text-center">Total Score:</th>
