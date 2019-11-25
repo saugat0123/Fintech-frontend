@@ -7,7 +7,7 @@ import {LoanConfig} from '../../../modal/loan-config';
 import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {LoanConfigService} from '../../loan-config/loan-config.service';
-import {QuestionService} from './question.service';
+import {QuestionService} from '../../../../service/question.service';
 
 @Component({
     selector: 'app-question',
