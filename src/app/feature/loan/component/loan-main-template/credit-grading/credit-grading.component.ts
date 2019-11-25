@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {QuestionService} from '../../../../service/question.service';
+import {CreditRiskGrading} from '../../../../admin/modal/creditRiskGrading';
 
 
 @Component({
@@ -9,8 +10,9 @@ import {QuestionService} from '../../../../service/question.service';
   styleUrls: ['./credit-grading.component.scss']
 })
 export class CreditGradingComponent implements OnInit {
-
+  @Input() formData: CreditRiskGrading;
   creditRiskGrading: FormGroup;
+  creditRiskData: CreditRiskGrading = new CreditRiskGrading();
   points: any;
   leverage = [15, 14, 13, 12, 11, 10, 8, 7, 0];
   liquidity = [15, 14, 13, 12, 11, 10, 8, 7, 0];
@@ -96,5 +98,10 @@ export class CreditGradingComponent implements OnInit {
     }
   }
 
-
+  onSubmit() {
+    if (this.formData !== undefined) {
+      this.creditRiskData = this.formData;
+    }
+    this.creditRiskData.data = JSON.stringify(this.creditRiskGrading.value);
+  }
 }
