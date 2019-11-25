@@ -219,16 +219,16 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.actionsList.closed = false;
           }
           // commented code is for approval limit
-          // this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id).subscribe((res: any) => {
-          //     if (res.detail === undefined) {
-          //         this.actionsList.approved = false;
-          //     } else {
-          //         if (this.loanDataHolder.dmsLoanFile !== null
-          //             && this.loanDataHolder.dmsLoanFile.proposedAmount > res.detail.amount) {
-          //             this.actionsList.approved = false;
-          //         }
-          //     }
-          // });
+          this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id).subscribe((res: any) => {
+              if (res.detail === undefined) {
+                  this.actionsList.approved = false;
+              } else {
+                  if (this.loanDataHolder.dmsLoanFile !== null
+                      && this.loanDataHolder.dmsLoanFile.proposedAmount > res.detail.amount) {
+                      this.actionsList.approved = false;
+                  }
+              }
+          });
           this.id = this.loanDataHolder.id;
           this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
           if (this.dmsLoanFile !== undefined && this.dmsLoanFile !== null) {
