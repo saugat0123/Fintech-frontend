@@ -417,6 +417,9 @@ export class FinancialComponent implements OnInit {
             case 'Balance Sheet':
                 this.balanceSheet.ngOnDestroy();
         }
+        if (this.formData !== undefined) {
+            this.financialData = this.formData;
+        }
         this.currentFormData['fiscalYear'] = this.fiscalYear;
         this.currentFormData['brr'] = this.brr.borrowerRiskRating.value;
         this.currentFormData['initialForm'] = this.financialForm.value;

@@ -88,6 +88,8 @@ export class LoanFormComponent implements OnInit {
     // Priority Form
     priorityForm: FormGroup;
 
+    nextButtonAction = false;
+
     loan: LoanConfig = new LoanConfig();
     currentNepDate;
     submitDisable = false;
@@ -229,7 +231,7 @@ export class LoanFormComponent implements OnInit {
         this.previousTabId = selectedTabId - 1;
 
         tabSet.tabs.forEach(templateListMember => {
-            if (Number(templateListMember.id) === Number(evt.activeId)) {
+            if (Number(templateListMember.id) === Number(evt.activeId) && !this.nextButtonAction) {
                 this.selectChild(templateListMember.title, true);
             }
             if (Number(templateListMember.id) === Number(evt.nextId)) {
@@ -237,6 +239,7 @@ export class LoanFormComponent implements OnInit {
             }
         });
         console.log(this.nextTabId.toString());
+        this.nextButtonAction = false;
     }
 
     selectTab(index, name) {
@@ -306,13 +309,27 @@ export class LoanFormComponent implements OnInit {
         });
     }
 
+    nextButtonActionFxn(tabSet: NgbTabset) {
+      this.nextButtonAction = true;
+        tabSet.tabs.some(templateListMember => {
+            if (Number(templateListMember.id) === Number(tabSet.activeId)) {
+                if (this.selectChild(templateListMember.title, true)) {
+                  this.nextButtonAction = false;
+                  return true;
+                } else {
+                  tabSet.select(this.nextTabId.toString(10));
+                  return true;
+                }
+            }
+        });
+    }
 
     selectChild(name, action) {
         if (name === 'Customer Info' && action) {
-            if (this.basicInfo.basicInfo.invalid) {
+            if (this.basicInfo.basicInfo.invalid && this.nextButtonAction) {
                 this.basicInfo.submitted = true;
                 // TODO: Add Validations in Tabs
-                // return true;
+                return true;
             }
             this.basicInfo.onSubmit();
             this.loanDocument.customerInfo = this.basicInfo.customer;
@@ -333,9 +350,9 @@ export class LoanFormComponent implements OnInit {
         }
 
         if (name === 'Company Info' && action) {
-            if (this.companyInfoComponent.companyInfoFormGroup.invalid) {
+            if (this.companyInfoComponent.companyInfoFormGroup.invalid && this.nextButtonAction) {
                 this.companyInfoComponent.submitted = true;
-                // return true;
+                return true;
             }
             this.companyInfoComponent.onSubmit();
             this.loanDocument.companyInfo = this.companyInfoComponent.companyInfo;
@@ -347,9 +364,9 @@ export class LoanFormComponent implements OnInit {
         }
 
         if (name === 'Proposal' && action) {
-            if (this.proposalDetail.proposalForm.invalid) {
+            if (this.proposalDetail.proposalForm.invalid && this.nextButtonAction) {
                 this.proposalDetail.submitted = true;
-                // return true;
+                return true;
             }
             this.proposalDetail.onSubmit();
             this.loanDocument.proposal = this.proposalDetail.proposalData;
