@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {Questions} from '../../../../admin/modal/question';
-import {ActivatedRoute, Params} from '@angular/router';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {QuestionService} from '../../../../admin/component/eligibility/question/question.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {QuestionService} from '../../../../service/question.service';
+
 
 @Component({
   selector: 'app-credit-grading',
@@ -11,87 +10,72 @@ import {QuestionService} from '../../../../admin/component/eligibility/question/
 })
 export class CreditGradingComponent implements OnInit {
 
-  loanConfigId: number;
-  totalObtainablePoints: number;
-  questionList: Array<Questions> = new Array<Questions>();
-  questionAnswerForm: FormGroup;
-  allId;
+  creditRiskGrading: FormGroup;
+  points: any;
+  leverage = [15, 14, 13, 12, 11, 10, 8, 7, 0];
+  liquidity = [15, 14, 13, 12, 11, 10, 8, 7, 0];
+  profit = [15, 14, 13, 12, 10, 9, 7, 0];
+  coverage = [5, 4, 3, 2, 0];
+  sizeOfBusiness = [5, 4, 3, 2, 1, 0];
+  ageOfBusiness = [3, 2, 1, 0];
+  businessOutlook = [3, 2, 1, 0];
+  industryGrowth = [3, 2, 1, 0];
+  marketCompetition = [2, 1, 0];
+  entryExitBarriers = [2, 1, 0];
+  experience = [5, 3, 2, 0];
+  secondLineSuccession = [4, 3, 2, 0];
+  teamWork = [3, 2, 1, 0];
+  securityCoverage = [4, 3, 2, 1, 0];
+  collateralCoverage = [4, 3, 2, 1, 0];
+  support = [2, 1, 0];
+  accountConduct = [5, 4, 2, 0];
+  utilizationOfLimit = [2, 1, 0];
+  complianceOfCovenants = [2, 1, 0];
+  personalDeposits = [1, 0];
+
   totalPointMapper: Map<string, number> = new Map<string, number>();
   totalPoints = 0;
   grading: string;
+
   constructor(
       private questionService: QuestionService,
       private formBuilder: FormBuilder,
-      private activatedRoute: ActivatedRoute,
-
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe( (paramsValue: Params) => {
-      this.allId = {
-        loanId: null,
-        customerId: null,
-        loanCategory: null
-      };
-      this.allId = paramsValue;
-      this.loanConfigId = this.allId.loanId;
-    });
-    this.onChangeSchemeOption();
-    this.questionAnswerForm = this.formBuilder.group({
-      questionForm: this.formBuilder.array([])
-    });
-  }
-
-  onChangeSchemeOption() {
-    this.totalObtainablePoints = 0;
-
-    this.questionService.getAllQuestions(this.loanConfigId).subscribe((response: any) => {
-      this.questionList = response.detail;
-
-      this.questionList.forEach(qsn => {
-        this.totalObtainablePoints = this.totalObtainablePoints + qsn.maximumPoints;
-      });
-
-      this.setQuestions();
+    this.creditRiskGrading = this.formBuilder.group({
+      leverage: [undefined, [Validators.required]],
+      liquidity: [undefined, [Validators.required]],
+      profit: [undefined, [Validators.required]],
+      coverage: [undefined, [Validators.required]],
+      sizeOfBusiness: [undefined, [Validators.required]],
+      ageOfBusiness: [undefined, [Validators.required]],
+      businessOutlook: [undefined, [Validators.required]],
+      industryGrowth: [undefined, [Validators.required]],
+      marketCompetition: [undefined, [Validators.required]],
+      entryExitBarriers: [undefined, [Validators.required]],
+      experience: [undefined, [Validators.required]],
+      secondLineSuccession: [undefined, [Validators.required]],
+      teamWork: [undefined, [Validators.required]],
+      securityCoverage: [undefined, [Validators.required]],
+      collateralCoverage: [undefined, [Validators.required]],
+      support: [undefined, [Validators.required]],
+      accountConduct: [undefined, [Validators.required]],
+      utilizationOfLimit: [undefined, [Validators.required]],
+      complianceOfCovenants: [undefined, [Validators.required]],
+      personalDeposits: [undefined, [Validators.required]]
     });
   }
 
-  setQuestions() {
-    const control = this.questionAnswerForm.controls.questionForm as FormArray;
-    this.questionList.forEach(qsn => {
-      control.push(this.formBuilder.group({
-        id: qsn.id,
-        description: qsn.description,
-        answers: this.setAnswers(qsn),
-        selectedAnswer: undefined
-      }));
-    });
-  }
-
-  setAnswers(qsn) {
-    const arr = new FormArray([]);
-    qsn.answers.forEach(ans => {
-      arr.push(this.formBuilder.group({
-        selectAnswer: qsn.id,
-        description: ans.description,
-        points: ans.points
-      }));
-    });
-    return arr;
-  }
-
-  onChangeOption(qsnFormGroup: FormGroup, qsnId, points: number) {
-    qsnFormGroup.controls['selectedAnswer'].setValue(points);
-    this.totalPointMapper.set(qsnId, points);
-    console.log(qsnId);
-    if (this.totalPointMapper.size === this.questionList.length) {
+  onChangeOption(field, point) {
+    this.totalPointMapper.set(field, point);
+    if (this.totalPointMapper.size !== 0) {
       let sum = 0;
-      this.totalPointMapper.forEach((value: number) => {
-        sum = sum + Number(value);
-        console.log(sum);
+      this.totalPointMapper.forEach(data => {
+        sum = sum + data;
       });
       this.totalPoints = sum;
-
       if (this.totalPoints === 100) {
         this.grading = 'Superior';
       } else if (this.totalPoints >= 85) {
