@@ -41,7 +41,7 @@
                             <div *ngIf="questionList?.length == 0">
                                 <p>No Content Found</p>
                             </div>
-                            <td>{{qsn.description}}
+                            <td><div [innerHtml]="qsn.description | safeHtml"></div>
                                 <div class="collapse" id="ans{{i}}">
                                     <nb-card-body>
                                         <table class="table  table-bordered table-hover">
