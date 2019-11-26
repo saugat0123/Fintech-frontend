@@ -59,7 +59,9 @@ export class CatalogueComponent implements OnInit {
   formAction: FormGroup;
   redirected = false;
   isFilterCollapsed = true;
+  isExpiryClicked = true;
   showBranch = true;
+  expiryButton = 'Expiry';
 
   constructor(
       private branchService: BranchService,
@@ -389,5 +391,6 @@ export class CatalogueComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
     });
   }
+
 
 }

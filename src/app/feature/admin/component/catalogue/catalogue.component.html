@@ -2,7 +2,7 @@
     <nb-card-header>
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <button
                             nbButton shape="rectangle" status="primary"
                             (click)="isFilterCollapsed = !isFilterCollapsed"
@@ -11,7 +11,18 @@
                         <i class="fa fa-filter"> Filter</i>
                     </button>
                 </div>
-                <div class="col-md-6 d-flex justify-content-end">
+                <div class="col-md-6 d-flex justify-content-end" >
+                    <button
+                            nbButton shape="rectangle" status="primary"
+                            (click)="isExpiryClicked=!isExpiryClicked "
+                            [attr.aria-expanded]="!isExpiryClicked"
+                            aria-controls="expiryNotification"
+                    >
+                        <i class="fa fa-hourglass-half" *ngIf="isExpiryClicked"> View Expiry Notification</i>
+                    <i class="fa fa-book" *ngIf="!isExpiryClicked">  View Catalogue</i> </button>
+
+                </div>
+                <div class="col-md-2 d-flex justify-content-end">
                     <button nbButton outline status="info"
                             (click)="getCsv()">
                         <i class="fa fa-download" aria-hidden="true"></i></button>
@@ -103,9 +114,9 @@
         </div>
 
     </nb-card-header>
-    <nb-card-body>
+    <nb-card-body *ngIf="isExpiryClicked">
         <br>
-        <table id="add-branch-table" class="table table-bordered table-hover ">
+        <table id="add-branch-table" class="table table-bordered table-hover " >
             <thead>
             <tr>
               <th *ngIf="this.showBranch">Branch</th>
@@ -291,4 +302,6 @@
             </div>
         </div>
     </ng-template>
+    <app-expiry-notification id="expiryNotification" [ngbCollapse]="isExpiryClicked" ></app-expiry-notification>
 </nb-card>
+

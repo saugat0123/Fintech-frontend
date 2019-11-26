@@ -68,6 +68,7 @@ import {AccountTypeConfigComponent} from './component/opening-account/config/acc
 import {AccountPurposeConfigComponent} from './component/opening-account/config/account-purpose-config/account-purpose-config.component';
 import {AccountTypeFormComponent} from './component/opening-account/config/account-type-config/account-type-form/account-type-form.component';
 import {AccountPurposeFormComponent} from './component/opening-account/config/account-purpose-config/account-purpose-form/account-purpose-form.component';
+import { ExpiryNotificationComponent } from './component/expiry-notification/expiry-notification.component';
 
 @NgModule({
     declarations: [
@@ -124,7 +125,8 @@ import {AccountPurposeFormComponent} from './component/opening-account/config/ac
         AccountTypeConfigComponent,
         AccountPurposeConfigComponent,
         AccountTypeFormComponent,
-        AccountPurposeFormComponent
+        AccountPurposeFormComponent,
+        ExpiryNotificationComponent
 
         // SecurityComponent
     ],
