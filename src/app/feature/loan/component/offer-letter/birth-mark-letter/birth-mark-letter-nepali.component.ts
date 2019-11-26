@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {LoanDataHolder} from '../../../model/loanData';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ToastService} from '../../../../../@core/utils';
@@ -32,6 +32,7 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
         private formBuilder: FormBuilder,
         private toastService: ToastService,
         private customerOfferLetterService: CustomerOfferLetterService,
+        private router: Router,
     ) {
     }
 
@@ -176,6 +177,13 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
         this.customerOfferLetterService.save(this.customerOfferLetter).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
             this.spinner = false;
+            this.router.navigateByUrl('/home/dashboard').then(value => {
+                if (value) {
+                    this.router.navigate(['/home/loan/offer-letter'], {
+                        queryParams: {customerId: this.customerId, }
+                    });
+                }
+            });
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Birth Mark Offer Letter'));
