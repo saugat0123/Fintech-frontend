@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {LoanDataHolder} from '../../../model/loanData';
 import {CustomerOfferLetter} from '../../../model/customer-offer-letter';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ToastService} from '../../../../../@core/utils';
 import {CustomerOfferLetterService} from '../../../service/customer-offer-letter.service';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
@@ -32,6 +32,7 @@ export class SuccessOfferLetterComponent implements OnInit {
       private formBuilder: FormBuilder,
       private toastService: ToastService,
       private customerOfferLetterService: CustomerOfferLetterService,
+      private router: Router
   ) {
   }
 
@@ -176,6 +177,13 @@ export class SuccessOfferLetterComponent implements OnInit {
     this.customerOfferLetterService.save(this.customerOfferLetter).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Success Offer Letter'));
       this.spinner = false;
+      this.router.navigateByUrl('/home/dashboard').then(value => {
+        if (value) {
+          this.router.navigate(['/home/loan/offer-letter'], {
+            queryParams: {customerId: this.customerId, }
+          });
+        }
+      });
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Success Offer Letter'));
