@@ -56,7 +56,7 @@
                                   [insuranceValue]="loanDocument?.insurance"></app-cicl>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading'">
-                        <app-credit-grading #creditGrading></app-credit-grading>
+                        <app-credit-grading #creditGrading [formData]="loanDocument?.creditRiskGrading"></app-credit-grading>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Financial'">
                         <app-financial [formData]="loanDocument?.financial" #financial></app-financial>
