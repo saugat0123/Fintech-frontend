@@ -15,6 +15,7 @@ import {Security} from './security';
 import {SiteVisit} from '../../admin/modal/siteVisit';
 import {CustomerDocuments} from './customerDocuments';
 import {CustomerOfferLetter} from './customer-offer-letter';
+import {CreditRiskGrading} from '../../admin/modal/creditRiskGrading';
 
 export class LoanDataHolder {
     id: number;
@@ -48,5 +49,6 @@ export class LoanDataHolder {
     customerOfferLetter: CustomerOfferLetter;
     offerLetterStat: number;
     uploadedOfferLetterStat: number;
+    creditRiskGrading: CreditRiskGrading;
 
 }
