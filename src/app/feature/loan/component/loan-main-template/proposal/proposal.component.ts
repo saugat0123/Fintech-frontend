@@ -57,14 +57,10 @@ export class ProposalComponent implements OnInit {
                     this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
                 });
             });
-        if (this.proposalForm.get('interestRate').valueChanges) {
             this.proposalForm.get('interestRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
             .patchValue(Number(value) - Number(this.proposalForm.get('baseRate').value)));
-        }
-        if (this.proposalForm.get('baseRate').valueChanges) {
             this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
             .patchValue(Number(this.interestLimit) - Number(value)));
-        }
     }
 
     buildForm() {
