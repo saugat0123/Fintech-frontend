@@ -22,7 +22,7 @@ import {LoanType} from '../../model/loanType';
 import {BusinessType} from '../../../admin/modal/businessType';
 import {Financial} from '../../model/financial';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {DocAction} from "../../model/docAction";
+import {DocAction} from '../../model/docAction';
 
 @Component({
   selector: 'app-loan-summary',
@@ -69,9 +69,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   businessType = BusinessType;
   financialData: Financial = new Financial();
   financialSummary = false;
+  siteVisitSummary = false;
   navigationSubscription;
   securitySummary = false;
   securityData: Object;
+  siteVisitData: Object;
   offerLetterDocuments: {
     name: string,
     url: string
@@ -153,6 +155,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.securityData = JSON.parse(this.loanDataHolder.security.data);
             this.securitySummary = true;
           }
+          // Setting SiteVisit data--
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
+            this.siteVisitData = JSON.parse(this.loanDataHolder.siteVisit.data);
+            this.siteVisitSummary = true;
+          }
 
           this.loanCategory = this.loanDataHolder.loanCategory;
           this.currentIndex = this.loanDataHolder.previousList.length;
@@ -175,6 +182,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           this.sortedList.forEach(loanStage => toUserIds.add(loanStage.toUser.id));
           this.sortedList.filter(loanStage => toUserIds.has(loanStage.toUser.id));
 
+          if (this.sortedList.length !== 0) {
+            this.sortedList.splice(0, 1);
+          }
           this.previousList = this.loanDataHolder.previousList;
           this.actionsList.approved = true;
           this.actionsList.sendForward = true;

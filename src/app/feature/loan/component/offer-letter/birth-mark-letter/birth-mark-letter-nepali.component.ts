@@ -25,13 +25,14 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
     offerLetterTypeId = 1;  // 1 represents Birth Mark Letter
     existingOfferLetter = false;
     spinner = false;
+    initialInfoPrint;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private formBuilder: FormBuilder,
         private toastService: ToastService,
         private customerOfferLetterService: CustomerOfferLetterService,
-        private router: Router
+        private router: Router,
     ) {
     }
 
@@ -108,6 +109,7 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
                 this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
                     if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
                         initialInfo = JSON.parse(offerLetterPath.initialInformation);
+                        this.initialInfoPrint = initialInfo;
                     }
                 });
                 this.form.patchValue(initialInfo, {emitEvent: false});
@@ -174,17 +176,17 @@ export class BirthMarkLetterNepaliComponent implements OnInit {
         // TODO: Assign Supported Information in OfferLetter
         this.customerOfferLetterService.save(this.customerOfferLetter).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
-            this.router.navigate(['/home/loan/summary'], {
-                queryParams: {
-                    loanConfigId: this.loanDataHolder.loan.id,
-                    customerId: this.loanDataHolder.id,
-                    catalogue: true
+            this.spinner = false;
+            this.router.navigateByUrl('/home/dashboard').then(value => {
+                if (value) {
+                    this.router.navigate(['/home/loan/offer-letter'], {
+                        queryParams: {customerId: this.customerId, }
+                    });
                 }
             });
-            this.spinner = false;
         }, error => {
             console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Birth Mark Offer Letter'));
             this.spinner = false;
         });
     }

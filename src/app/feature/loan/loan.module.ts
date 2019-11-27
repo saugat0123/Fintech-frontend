@@ -25,10 +25,10 @@ import {SuccessOfferLetterComponent} from './component/offer-letter/success-offe
 import {SuccessOfferLetterPrintComponent} from './component/offer-letter/success-offer-letter/success-offer-letter-print/success-offer-letter-print.component';
 import {ProposalComponent} from './component/loan-main-template/proposal/proposal.component';
 import {CiclComponent} from './component/loan-main-template/cicl/cicl.component';
-import {BorrowerRiskRatingComponent} from './component/loan-main-template/financial/borrower-risk-rating/borrower-risk-rating.component';
 import {ReadmoreModelComponent} from './component/readmore-model/readmore-model.component';
 import {CreditGradingComponent} from './component/loan-main-template/credit-grading/credit-grading.component';
 import {CoreModule} from '../../@core/core.module';
+import {BorrowerRiskRatingComponent} from './component/loan-main-template/financial/borrower-risk-rating/borrower-risk-rating.component';
 import {environment} from '../../../environments/environment';
 import {SiteVisitComponent} from './component/loan-main-template/site-visit/site-visit.component';
 import {AgmCoreModule} from '@agm/core';
@@ -48,11 +48,14 @@ import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.co
 import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-action/offer-letter-action.component';
 import {OfferLetterUploadComponent} from './component/offer-letter/offer-letter-upload/offer-letter-upload.component';
 import {OfferLetterComponent} from './component/offer-letter/offer-letter.component';
+import {SitevistSummaryComponentComponent} from './component/loan-summary/sitevist-summary-component/sitevist-summary-component.component';
 import {NepaliLoanTemplateComponent} from './component/loan-main-template/nepali-loan-template/nepali-loan-template.component';
 
 
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
 
+// @ts-ignore
+// @ts-ignore
 @NgModule({
     declarations: [
         LoanFormComponent,
@@ -93,6 +96,7 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         OfferLetterActionComponent,
         OfferLetterUploadComponent,
         OfferLetterComponent,
+        SitevistSummaryComponentComponent,
         NepaliLoanTemplateComponent,
     ],
     imports: [

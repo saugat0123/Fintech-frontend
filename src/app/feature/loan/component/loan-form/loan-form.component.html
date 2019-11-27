@@ -56,7 +56,7 @@
                                   [insuranceValue]="loanDocument?.insurance"></app-cicl>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading'">
-                        <app-credit-grading #creditGrading></app-credit-grading>
+                        <app-credit-grading #creditGrading [formData]="loanDocument?.creditRiskGrading"></app-credit-grading>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Financial'">
                         <app-financial [formData]="loanDocument?.financial" #financial></app-financial>
@@ -84,7 +84,7 @@
                         </div>
                         <div class="col-md-6 d-flex justify-content-end">
                             <button nbButton status="primary"
-                                    (click)="tabSet.select(nextTabId.toString(10))"
+                                    (click)="nextButtonActionFxn(tabSet)"
                                     *ngIf="nextTabId !== totalTabCount">Next
                             </button>
 
@@ -95,7 +95,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
     </nb-card-body>

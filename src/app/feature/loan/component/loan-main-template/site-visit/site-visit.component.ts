@@ -697,6 +697,9 @@ export class SiteVisitComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.formValue !== undefined) {
+      this.siteVisitData = this.formValue;
+    }
     this.siteVisitData.data = JSON.stringify(this.siteVisitFormGroup.value);
   }
 
