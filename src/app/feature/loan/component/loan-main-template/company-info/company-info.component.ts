@@ -336,13 +336,14 @@ export class CompanyInfoComponent implements OnInit {
 
     searchByRegNO() {
         this.companySearch.registrationNumber = this.companyInfoFormGroup.get('registrationNumber').value;
-        this.companyInfoService.getPaginationWithSearchObject(this.companySearch).subscribe((response: any) => {
+        const regNo = this.companyInfoFormGroup.get('registrationNumber').value;
+            this.companyInfoService.getPaginationWithSearchObject(this.companySearch).subscribe((response: any) => {
             if (response.detail.content <= 0) {
                 this.companyFormField.isOldCustomer = false;
 
                 this.companyInfo = undefined;
                 this.buildForm();
-
+                this.companyInfoFormGroup.get('registrationNumber').patchValue(regNo);
                 this.toastService.show(new Alert(AlertType.INFO, 'No company  under given registration number.'));
             } else {
                 this.companyFormField.isOldCustomer = true;
