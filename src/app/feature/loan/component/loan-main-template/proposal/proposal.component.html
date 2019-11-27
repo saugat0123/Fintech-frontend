@@ -20,6 +20,7 @@
                       <span *ngIf="(formControls.proposedLimit.errors.required)">Proposed Limit is required</span>
 
                       <span *ngIf="(formControls.proposedLimit.errors.min)">Proposed Limit must be positive numerical value.</span>
+                      <span *ngIf="proposalForm.get('proposedLimit').hasError('amountRange') ">Minimum Proposed Amount Limit Reached.</span>
                     </div>
                   </div>
                 </div>
@@ -31,6 +32,7 @@
                         [ngClass]="{ 'is-invalid': (submitted) && formControls.interestRate.errors }"
                         class="form-control" formControlName="interestRate"
                         id="interestRate" name="interestRate" placeholder="Interest Rate(%)"
+                        [(ngModel)]="interestLimit"
                         type="number">
                     <div *ngIf="(submitted) && formControls.interestRate.invalid"
                          class="invalid-feedback">
@@ -65,7 +67,7 @@
                         class="form-control" formControlName="premiumRateOnBaseRate"
                         id="premiumRateOnBaseRate" name="premiumRate"
                         placeholder="Base Rate(%)" placeholder="Premium Rate On Base Rate(%)"
-                        type="number">
+                        type="number" readonly>
                     <div *ngIf="(submitted) && formControls.premiumRateOnBaseRate.invalid"
                          class="invalid-feedback">
                       <span *ngIf="formControls.premiumRateOnBaseRate.errors.required">Premium Rate On Base Rate is required</span>
