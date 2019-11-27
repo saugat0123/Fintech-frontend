@@ -50,8 +50,6 @@ export class ProposalComponent implements OnInit {
                 this.loanConfigService.detail(this.loanId).subscribe((response: any) => {
                     this.minimumAmountLimit = response.detail.minimumProposedAmount;
                     this.interestLimit = response.detail.interestRate;
-                    console.log(this.interestLimit);
-                    console.log(this.minimumAmountLimit);
                 }, error => {
                     console.error(error);
                     this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
@@ -60,7 +58,7 @@ export class ProposalComponent implements OnInit {
             this.proposalForm.get('interestRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
             .patchValue(Number(value) - Number(this.proposalForm.get('baseRate').value)));
             this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-            .patchValue(Number(this.interestLimit) - Number(value)));
+            .patchValue(Number(this.proposalForm.get('interestRate').value) - Number(value)));
     }
 
     buildForm() {

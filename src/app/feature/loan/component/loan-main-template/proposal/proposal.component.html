@@ -32,7 +32,7 @@
                         [ngClass]="{ 'is-invalid': (submitted) && formControls.interestRate.errors }"
                         class="form-control" formControlName="interestRate"
                         id="interestRate" name="interestRate" placeholder="Interest Rate(%)"
-                        [value]="interestLimit"
+                        [(ngModel)]="interestLimit"
                         type="number">
                     <div *ngIf="(submitted) && formControls.interestRate.invalid"
                          class="invalid-feedback">
