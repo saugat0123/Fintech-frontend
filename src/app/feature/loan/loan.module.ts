@@ -32,22 +32,23 @@ import {CoreModule} from '../../@core/core.module';
 import {environment} from '../../../environments/environment';
 import {SiteVisitComponent} from './component/loan-main-template/site-visit/site-visit.component';
 import {AgmCoreModule} from '@agm/core';
-import { IncomeStatementComponent } from './component/loan-main-template/financial/income-statement/income-statement.component';
-import { BalanceSheetComponent } from './component/loan-main-template/financial/balance-sheet/balance-sheet.component';
-import { CashFlowStatementComponent } from './component/loan-main-template/financial/cash-flow-statement/cash-flow-statement.component';
-import { KeyIndicatorsComponent } from './component/loan-main-template/financial/key-indicators/key-indicators.component';
-import { InitialFormComponent } from './component/loan-main-template/financial/initial-form/initial-form.component';
-import { LoanPullComponent } from './component/loan-pull/loan-pull.component';
-import { FinancialSummaryComponent } from './component/loan-summary/financial-summary/financial-summary.component';
+import {IncomeStatementComponent} from './component/loan-main-template/financial/income-statement/income-statement.component';
+import {BalanceSheetComponent} from './component/loan-main-template/financial/balance-sheet/balance-sheet.component';
+import {CashFlowStatementComponent} from './component/loan-main-template/financial/cash-flow-statement/cash-flow-statement.component';
+import {KeyIndicatorsComponent} from './component/loan-main-template/financial/key-indicators/key-indicators.component';
+import {InitialFormComponent} from './component/loan-main-template/financial/initial-form/initial-form.component';
+import {LoanPullComponent} from './component/loan-pull/loan-pull.component';
+import {FinancialSummaryComponent} from './component/loan-summary/financial-summary/financial-summary.component';
 // tslint:disable-next-line:max-line-length
-import { SecurityInitialFormComponent } from './component/loan-main-template/security/security-initial-form/security-initial-form.component';
-import { SecuritySummaryComponent } from './component/loan-summary/security-summary/security-summary.component';
-import { CustomerDocumentComponent } from './component/loan-main-template/customer-document/customer-document.component';
+import {SecurityInitialFormComponent} from './component/loan-main-template/security/security-initial-form/security-initial-form.component';
+import {SecuritySummaryComponent} from './component/loan-summary/security-summary/security-summary.component';
+import {CustomerDocumentComponent} from './component/loan-main-template/customer-document/customer-document.component';
 
 import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.component';
 import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-action/offer-letter-action.component';
 import {OfferLetterUploadComponent} from './component/offer-letter/offer-letter-upload/offer-letter-upload.component';
 import {OfferLetterComponent} from './component/offer-letter/offer-letter.component';
+import {NepaliLoanTemplateComponent} from './component/loan-main-template/nepali-loan-template/nepali-loan-template.component';
 
 
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
@@ -92,6 +93,7 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         OfferLetterActionComponent,
         OfferLetterUploadComponent,
         OfferLetterComponent,
+        NepaliLoanTemplateComponent,
     ],
     imports: [
         ThemeModule,

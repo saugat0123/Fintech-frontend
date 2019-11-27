@@ -1,0 +1,342 @@
+<nb-card>
+    <nb-card-body>
+
+        <div class="form-group">
+            <form  [formGroup]="nepaliLoan" class="form-horizontal">
+                <!-- Start Row-->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="nameNepali">नाम (देवनागरी )</label>
+                            <input class="form-control rounded" formControlName="nameNepali" id="nameNepali"
+                                   name="nameNepali" placeholder="नाम "
+                                   type="text"/>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="name">Name</label>
+                            <input class="form-control rounded" formControlName="name" id="name"
+                                   name="name" placeholder="Name"
+                                   type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="dob">जन्म मिति </label>
+                            <input class="form-control rounded" formControlName="address" id="dob"
+                                   name="dob" placeholder="जन्म मिति " type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="age"> उमेर</label>
+                            <input class="form-control rounded" formControlName="age"
+                                   id="age"
+                                   name="age" placeholder="उमेर" type="text"/>
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="citizenship">नागरिकता नं</label>
+                            <input class="form-control rounded" formControlName="citizenship"
+                                   id="citizenship"
+                                   name="citizenship" placeholder="नागरिकता नं"
+                                   type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="issuedYear">जारी मिति</label>
+                            <input class="form-control rounded" formControlName="issuedYear"
+                                   id="issuedYear"
+                                   name="issuedYear" placeholder="जारी मिति" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="issuedPlace">जारी गरेको जिल्ला </label>
+                            <input class="form-control rounded" formControlName="issuedPlace"
+                                   id="issuedPlace"
+                                   name="issuedPlace" placeholder="जारी गरेको जिल्ला " type="text"/>
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="fatherName">पिताको / श्रीमानको नाम </label>
+                            <input class="form-control rounded" formControlName="fatherName"
+                                   id="fatherName"
+                                   name="fatherName" placeholder="पिताको / श्रीमानको नाम" type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="grandfatherName">बाजे/ससुराको नाम  </label>
+                            <input class="form-control rounded" formControlName="grandfatherName"
+                                   id="grandfatherName"
+                                   name="grandfatherName" placeholder="बाजे/ससुराको नाम" type="text"/>
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div  class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="relationship">ऋणसंगको नाता </label>
+                            <input class="form-control rounded" formControlName="relationship"
+                                   id="relationship"
+                                   name="relationship" placeholder="ऋणसंगको नाता" type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="knownfor">ऋणीलाई कहिलेदेखि चिन्नुहुन्छ</label>
+                            <input class="form-control rounded" formControlName="knownfor"
+                                   id="knownfor"
+                                   name="knownfor" placeholder="ऋणीलाई कहिलेदेखि चिन्नुहुन्छ" type="text"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="permanentAddress">स्थायी  ठेगाना (हालको भन्दा फरक भएमा )</label>
+                            <input class="form-control rounded" formControlName="permanentAddress"
+                                   id="permanentAddress"
+                                   name="permanentAddress" placeholder="स्थायी  ठेगाना (हालको भन्दा फरक भएमा )" type="text"/>
+                        </div>
+                    </div>
+                </div>
+                <!-- END ROW -->
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="currentAddress">हालको ठेगाना : जिल्ला </label>
+                            <input class="form-control rounded" formControlName="currentAddress"
+                                   id="currentAddress"
+                                   name="currentAddress" placeholder="सालको ठेगाना : जिल्ला" type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="municipality">गा.वि.स./न.पा./उ.म.न.पा./म.न.पा.   </label>
+                            <input class="form-control rounded" formControlName="municipality"
+                                   id="municipality"
+                                   name="municipality" placeholder="" type="text"/>
+                        </div>
+                    </div>
+                </div>
+                <!-- START ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="wardNumber">वार्ड  नं  </label>
+                            <input class="form-control rounded" formControlName="wardNumber"
+                                   id="wardNumber"
+                                   name="wardNumber" placeholder="वार्ड  नं " type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="tol"> टोल </label>
+                            <input class="form-control rounded" formControlName="tol"
+                                   id="tol"
+                                   name="tol" placeholder=" टोल " type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="houseNumber">घर नं</label>
+                            <input class="form-control rounded" formControlName="houseNumber"
+                                   id="houseNumber"
+                                   name="houseNumber" placeholder="घर नं:" type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="contactNo">फोन नं </label>
+                            <input class="form-control rounded" formControlName="contactNo"
+                                   id="contactNo"
+                                   name="contactNo" placeholder="फोन नं" type="text"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- END ROW -->
+                <!-- Start ROW -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="mobileNo">वार्ड  नं  </label>
+                            <input class="form-control rounded" formControlName="mobileNo"
+                                   id="mobileNo"
+                                   name="mobileNo" placeholder="वार्ड  नं " type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="email"> Email </label>
+                            <input class="form-control rounded" formControlName="email"
+                                   id="email"
+                                   name="email" placeholder=" email " type="text"/>
+                        </div>
+                    </div>
+                </div>
+<!--                END ROW-->
+<!--                Start Row-->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="currentResidence">हालको वसोवास  :  आफ्नै / आफन्त / भाडाको / क्वाटर / अन्य  </label>
+                            <input class="form-control rounded" formControlName="currentResidence"
+                                   id="currentResidence"
+                                   name="currentResidence" placeholder="ालको वसोवास  :  आफ्नै / आफन्त / भाडाको / क्वाटर / अन्य " type="text"/>
+                        </div>
+                    </div>
+                </div>
+                <!--END ROW-->
+                <!-- Start Row-->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="occupation">पेशा </label>
+                            <input class="form-control rounded" formControlName="occupation"
+                                   id="occupation"
+                                   name="occupation" placeholder="पेशा " type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="companyName"> कार्यरत संस्थाको नाम </label>
+                            <input class="form-control rounded" formControlName="companyName"
+                                   id="companyName"
+                                   name="companyName" placeholder="कार्यरत संस्थाको नाम " type="text"/>
+                        </div>
+                    </div>
+                </div>
+                <!--END ROW-->
+                <!-- Start Row-->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="workAddress">कार्यलाएको ठेगाना  </label>
+                            <input class="form-control rounded" formControlName="workAddress"
+                                   id="workAddress"
+                                   name="workAddress" placeholder="कार्यलाएको ठेगाना" type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="WorkPhoneNo">  फोन नं </label>
+                            <input class="form-control rounded" formControlName="WorkPhoneNo"
+                                   id="WorkPhoneNo"
+                                   name="WorkPhoneNo" placeholder=" फोन नं " type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="position">  पद </label>
+                            <input class="form-control rounded" formControlName="position"
+                                   id="position"
+                                   name="position" placeholder="पद" type="text"/>
+                        </div>
+                    </div>
+                </div>
+                <!--END ROW-->
+                <!-- Start Row-->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <nb-checkbox>विवाहित</nb-checkbox>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <nb-checkbox>अविवाहित</nb-checkbox>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="spouseName">श्रीमान्  / श्रीमतीको  नाम  </label>
+                            <input class="form-control rounded" formControlName="spouseName"
+                                   id="spouseName"
+                                   name="spouseName" placeholder="श्रीमान्  / श्रीमतीको  नाम " type="text"/>
+                        </div>
+                    </div>
+                </div>
+<!--                START ROW-->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="school/collegeName">विद्यार्थी भएमा अध्ययनरत संस्थाको नाम</label>
+                            <input class="form-control rounded" formControlName="school/collegeName"
+                                   id="school/collegeName"
+                                   name="school/collegeName" placeholder="" type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="level">अध्ययनरत तह</label>
+                            <input class="form-control rounded" formControlName="level"
+                                   id="level"
+                                   name="level" placeholder="" type="text"/>
+                        </div>
+                    </div>
+                </div>
+                <!--END ROW-->
+                <!-- START ROW-->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="relativesName">नाम</label>
+                            <input class="form-control rounded" formControlName="relativesName" id="relativesName"
+                                   name="relativesName" placeholder="नाम "
+                                   type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="relativesAddress"> ठेगाना </label>
+                            <input class="form-control rounded" formControlName="relativesAddress" id="relativesAddress"
+                                   name="relativesAddress" placeholder="ठेगाना "
+                                   type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="relativesPhone">  फोन  </label>
+                            <input class="form-control rounded" formControlName="relativesPhone" id="relativesPhone"
+                                   name="relativesPhone" placeholder="  फोन "
+                                   type="text"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title" for="relativesMobileNo"> मो </label>
+                            <input class="form-control rounded" formControlName="relativesMobileNo" id="relativesMobileNo"
+                                   name="relativesMobileNo" placeholder="मो "
+                                   type="text"/>
+                        </div>
+                    </div>
+                </div>
+                <!--END ROW-->
+
+                <!-- END ROW -->
+            </form>
+        </div>
+    </nb-card-body>
+</nb-card>
