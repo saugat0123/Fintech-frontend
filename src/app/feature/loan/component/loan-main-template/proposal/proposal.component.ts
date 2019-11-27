@@ -20,10 +20,10 @@ export class ProposalComponent implements OnInit {
     proposalForm: FormGroup;
     proposalData: Proposal = new Proposal();
     formDataForEdit: Object;
-    minimumAmountLimit;
-    interestLimit;
-    allId;
-    loanId;
+    minimumAmountLimit: number;
+    interestLimit: number;
+    allId: Params;
+    loanId: number;
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -56,12 +56,15 @@ export class ProposalComponent implements OnInit {
                     console.error(error);
                     this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
                 });
-                // this.proposalForm.get('interestRate').valueChanges.subscribe( value => this.proposalForm.get('premiumRateOnBaseRate')
-                //     .patchValue( Number(value) - Number(this.proposalForm.get('baseRate').value)));
-                // this.proposalForm.get('baseRate').valueChanges.subscribe( value => this.proposalForm.get('premiumRateOnBaseRate')
-                //     .patchValue(Number(this.proposalForm.get('interestRate').value) - Number(value)));
-
             });
+        if (this.proposalForm.get('interestRate').valueChanges) {
+            this.proposalForm.get('interestRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
+            .patchValue(Number(value) - Number(this.proposalForm.get('baseRate').value)));
+        }
+        if (this.proposalForm.get('baseRate').valueChanges) {
+            this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
+            .patchValue(Number(this.interestLimit) - Number(value)));
+        }
     }
 
     buildForm() {
@@ -70,7 +73,7 @@ export class ProposalComponent implements OnInit {
             // Proposed Limit--
             proposedLimit: [undefined, [Validators.required, Validators.min(0), this.proposedAmountValidator(this.minimumAmountLimit)]],
 
-            interestRate: [undefined, [Validators.required, Validators.min(0), this.interestRateValidator(this.interestLimit)]],
+            interestRate: [undefined, [Validators.required, Validators.min(0)]],
             baseRate: [undefined, [Validators.required, Validators.min(0)]],
             premiumRateOnBaseRate: [undefined, [Validators.required, Validators.min(0)]],
             serviceChargeMethod: [undefined, [Validators.required]],
@@ -112,22 +115,11 @@ export class ProposalComponent implements OnInit {
 
     proposedAmountValidator(min: number): ValidatorFn {
         return (control: AbstractControl): { [key: string]: boolean } | null => {
-            if (control.value !== undefined && (isNaN(control.value) || control.value < min || control.value > this.minimumAmountLimit)) {
+            if (control.value !== undefined && (isNaN(control.value) || control.value < min || control.value < this.minimumAmountLimit)) {
                 return { 'amountRange': true };
             }
             return null;
         };
     }
-
-    interestRateValidator(min: number): ValidatorFn {
-        return (control: AbstractControl): { [key: string]: boolean } | null => {
-            if (control.value !== undefined && (isNaN(control.value) || control.value < min || control.value > this.interestLimit)) {
-                return {'interestRange': true };
-            }
-            return null;
-        };
-    }
-
-
 
 }
