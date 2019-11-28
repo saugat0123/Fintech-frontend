@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {SiteVisit} from '../../../../admin/modal/siteVisit';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 
 
@@ -75,7 +76,7 @@ export class SiteVisitComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.formValue !== undefined) {
+    if (!ObjectUtil.isEmpty(this.formValue)) {
       const stringFormData = this.formValue.data;
       this.formDataForEdit = JSON.parse(stringFormData);
     }
@@ -697,7 +698,7 @@ export class SiteVisitComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.formValue !== undefined) {
+    if (!ObjectUtil.isEmpty(this.formValue)) {
       this.siteVisitData = this.formValue;
     }
     this.siteVisitData.data = JSON.stringify(this.siteVisitFormGroup.value);
