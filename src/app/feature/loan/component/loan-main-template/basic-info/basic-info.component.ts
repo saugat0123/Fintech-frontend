@@ -73,11 +73,11 @@ export class BasicInfoComponent implements OnInit {
     addRelatives() {
         (this.basicInfo.get('customerRelatives') as FormArray).push(
             this.formBuilder.group({
-                customerRelation: [undefined],
-                customerRelativeName: [undefined],
-                citizenshipNumber: [undefined],
-                citizenshipIssuedPlace: [undefined],
-                citizenshipIssuedDate: [undefined]
+                customerRelation: [undefined, Validators.required],
+                customerRelativeName: [undefined, Validators.compose([Validators.required])],
+                citizenshipNumber: [undefined, Validators.compose([Validators.required])],
+                citizenshipIssuedPlace: [undefined, Validators.compose([Validators.required])],
+                citizenshipIssuedDate: [undefined, Validators.compose([Validators.required, DateValidator.isValidBefore])]
             })
         );
     }
@@ -227,7 +227,7 @@ export class BasicInfoComponent implements OnInit {
                 customerRelativeName: [undefined, Validators.compose([Validators.required])],
                 citizenshipNumber: [undefined, Validators.compose([Validators.required])],
                 citizenshipIssuedPlace: [undefined, Validators.compose([Validators.required])],
-                citizenshipIssuedDate: [undefined, Validators.compose([Validators.required])]
+                citizenshipIssuedDate: [undefined, Validators.compose([Validators.required, DateValidator.isValidBefore])]
             }));
         });
     }
