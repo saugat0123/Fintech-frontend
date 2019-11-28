@@ -81,6 +81,9 @@ export class SecurityComponent implements OnInit {
     }
 
     onSubmit() {
+      if (this.securityValue !== undefined) {
+        this.securityData = this.securityValue;
+      }
         const mergedForm = {
             initialForm: this.initialSecurity.securityForm.value,
             selectedArray: this.initialSecurity.selectedArray,
