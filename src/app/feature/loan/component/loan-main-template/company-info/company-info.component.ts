@@ -102,10 +102,8 @@ export class CompanyInfoComponent implements OnInit {
         }
 
         this.companyFormField = {
-            showFormField: (!ObjectUtil.isEmpty(this.formValue)
-                && !ObjectUtil.isEmpty(this.formValue.id)),
-            isOldCustomer: (!ObjectUtil.isEmpty(this.formValue)
-                && !ObjectUtil.isEmpty(this.formValue.id))
+            showFormField: (!ObjectUtil.isEmpty(this.formValue)),
+            isOldCustomer: (ObjectUtil.isEmpty(this.formValue))
         };
     }
 
@@ -140,7 +138,7 @@ export class CompanyInfoComponent implements OnInit {
             companyEstablishmentDate:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) ? undefined :
-                    new Date(this.companyInfo.establishmentDate), [Validators.required]],
+                    new Date(this.companyInfo.establishmentDate), [Validators.required, DateValidator.isValidBefore]],
             businessType:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.businessType)) ? undefined :
@@ -159,7 +157,8 @@ export class CompanyInfoComponent implements OnInit {
                 this.companyInfo.legalStatus.registeredUnderAct, Validators.required],
 
             registrationDate: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus.registrationDate)) ? undefined :
                 new Date(this.companyInfo.legalStatus.registrationDate), [Validators.required, DateValidator.isValidBefore]],
 
             panRegistrationOffice: [(ObjectUtil.isEmpty(this.companyInfo)
@@ -167,7 +166,8 @@ export class CompanyInfoComponent implements OnInit {
                 this.companyInfo.legalStatus.panRegistrationOffice, Validators.required],
 
             panRegistrationDate: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus.panRegistrationDate)) ? undefined :
                 new Date(this.companyInfo.legalStatus.panRegistrationDate), [Validators.required, DateValidator.isValidBefore]],
 
             // capital
