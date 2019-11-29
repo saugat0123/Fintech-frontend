@@ -301,29 +301,53 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="customerRelation"><strong>Relation</strong></label>
-                                        <input class="form-control" formControlName="customerRelation" id="customerRelation"
+                                        <input class="form-control" formControlName="customerRelation"
+                                               id="customerRelation"
+                                               [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelation').errors }"
                                                placeholder="Relation" type="text">
+                                      <div *ngIf="submitted && relatives.get('customerRelation').errors"
+                                           class="invalid-feedback">
+                                        <div *ngIf="relatives.get('customerRelation').errors.required">Relation is required</div>
+                                      </div>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="relationName"><strong>Name</strong></label>
-                                        <input class="form-control" formControlName="customerRelativeName" id="relationName"
+                                        <input class="form-control" formControlName="customerRelativeName"
+                                               id="relationName"
+                                               [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelativeName').errors }"
                                                placeholder="Name" type="text">
+                                      <div *ngIf="submitted && relatives.get('customerRelativeName').errors"
+                                           class="invalid-feedback">
+                                        <div *ngIf="relatives.get('customerRelativeName').errors.required">Name is required</div>
+                                      </div>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="citizenship"><strong>CitizenshipNumber</strong></label>
-                                        <input class="form-control" formControlName="citizenshipNumber" id="citizenship"
+                                        <input class="form-control" formControlName="citizenshipNumber"
+                                               id="citizenship"
+                                               [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipNumber').errors }"
                                                placeholder="Citizenship Number" type="text">
+                                      <div *ngIf="submitted && relatives.get('citizenshipNumber').errors"
+                                           class="invalid-feedback">
+                                        <div *ngIf="relatives.get('citizenshipNumber').errors.required">Number is required</div>
+                                      </div>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="issuedLocation"><strong>Issued Place</strong></label>
-                                        <input class="form-control" formControlName="citizenshipIssuedPlace" id="issuedLocation"
+                                        <input class="form-control" formControlName="citizenshipIssuedPlace"
+                                               id="issuedLocation"
+                                               [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipIssuedPlace').errors }"
                                                placeholder="Issued Place" type="text">
+                                      <div *ngIf="submitted && relatives.get('citizenshipIssuedPlace').errors"
+                                           class="invalid-feedback">
+                                        <div *ngIf="relatives.get('citizenshipIssuedPlace').errors.required">Name is required</div>
+                                      </div>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -331,8 +355,13 @@
                                         <label for="issuedDate"><strong>Issued Date</strong></label>
                                         <input nbInput [nbDatepicker]="relationCitizenIssueDate" class="form-control"
                                                formControlName="citizenshipIssuedDate"
+                                               [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipIssuedDate').errors }"
                                                id="issuedDate" placeholder="Issued Date">
                                         <nb-datepicker #relationCitizenIssueDate></nb-datepicker>
+                                      <div *ngIf="submitted && relatives.get('citizenshipIssuedDate').errors"
+                                           class="invalid-feedback">
+                                        Invalid Issued Date!
+                                      </div>
                                     </div>
                                 </div>
                                 <div *ngIf="i>2" class="ml-3">
