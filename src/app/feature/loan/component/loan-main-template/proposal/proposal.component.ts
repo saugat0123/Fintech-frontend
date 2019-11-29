@@ -52,6 +52,7 @@ export class ProposalComponent implements OnInit {
                     this.minimumAmountLimit = response.detail.minimumProposedAmount;
                     this.proposalForm.get('proposedLimit').setValidators([Validators.required,
                         MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
+                    this.proposalForm.get('proposedLimit').updateValueAndValidity();
                     this.interestLimit = response.detail.interestRate;
                 }, error => {
                     console.error(error);
