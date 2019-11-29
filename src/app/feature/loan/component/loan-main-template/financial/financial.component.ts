@@ -8,6 +8,7 @@ import {KeyIndicatorsComponent} from './key-indicators/key-indicators.component'
 import * as currentFormData from './financial.json';
 import {FinancialService} from './financial.service';
 import {Financial} from '../../../model/financial';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-financial',
@@ -149,7 +150,7 @@ export class FinancialComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        if (this.formData !== undefined) {
+        if (!ObjectUtil.isEmpty(this.formData)) {
             this.currentFormData = JSON.parse(this.formData.data);
             this.fiscalYear = this.currentFormData['fiscalYear'];
             const initialFormData = this.currentFormData['initialForm'];
@@ -417,7 +418,7 @@ export class FinancialComponent implements OnInit {
             case 'Balance Sheet':
                 this.balanceSheet.ngOnDestroy();
         }
-        if (this.formData !== undefined) {
+        if (!ObjectUtil.isEmpty(this.formData)) {
             this.financialData = this.formData;
         }
         this.currentFormData['fiscalYear'] = this.fiscalYear;

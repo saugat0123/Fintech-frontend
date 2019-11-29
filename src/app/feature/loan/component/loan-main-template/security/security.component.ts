@@ -2,6 +2,7 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {SecurityInitialFormComponent} from './security-initial-form/security-initial-form.component';
 import {Security} from '../../../model/security';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class SecurityComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        if (this.securityValue !== undefined) {
+        if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityValueForEdit = JSON.parse(this.securityValue.data);
 
             this.initialSecurityValue = this.securityValueForEdit;
@@ -81,6 +82,9 @@ export class SecurityComponent implements OnInit {
     }
 
     onSubmit() {
+      if (!ObjectUtil.isEmpty(this.securityValue)) {
+        this.securityData = this.securityValue;
+      }
         const mergedForm = {
             initialForm: this.initialSecurity.securityForm.value,
             selectedArray: this.initialSecurity.selectedArray,

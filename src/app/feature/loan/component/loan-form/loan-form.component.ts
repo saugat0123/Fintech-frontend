@@ -286,27 +286,30 @@ export class LoanFormComponent implements OnInit {
         if (this.priorityForm.invalid) {
             return;
         }
+        this.nextButtonAction = true;
         this.spinner.show();
         if (this.selectChild(this.selectedTab, true)) {
             this.spinner.hide();
+            this.nextButtonAction = false;
             return;
-        }
-        this.loanDocument.loan = this.loan;
-        this.loanDocument.priority = this.priorityForm.get('priority').value;
-        this.loanDocument.loanCategory = this.allId.loanCategory;
-        this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
-            this.loanDocument = response.detail;
-            this.customerLoanId = this.loanDocument.id;
-            this.loanDocument = new LoanDataHolder();
-            this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}})
+        } else {
+            this.loanDocument.loan = this.loan;
+            this.loanDocument.priority = this.priorityForm.get('priority').value;
+            this.loanDocument.loanCategory = this.allId.loanCategory;
+            this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
+                this.loanDocument = response.detail;
+                this.customerLoanId = this.loanDocument.id;
+                this.loanDocument = new LoanDataHolder();
+                this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}})
                 .then(() => {
                     this.spinner.hide();
                 });
-        }, error => {
-            this.spinner.hide();
-            console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, `Error saving customer: ${error.error.message}`));
-        });
+            }, error => {
+                this.spinner.hide();
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, `Error saving customer: ${error.error.message}`));
+            });
+        }
     }
 
     nextButtonActionFxn(tabSet: NgbTabset) {
