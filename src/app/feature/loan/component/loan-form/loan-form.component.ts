@@ -401,6 +401,10 @@ export class LoanFormComponent implements OnInit {
             this.security.onSubmit();
             this.loanDocument.security = this.security.securityData;
         }
+        if (name === 'Credit Risk Grading' && action) {
+          this.creditGrading.onSubmit();
+          this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
+        }
         return false;
 
     }
