@@ -1,11 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Proposal} from '../../../../admin/modal/proposal';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {MinimumAmountValidator} from '../../../../../@core/validator/minimum-amount-validator';
 
 @Component({
     selector: 'app-proposal',
@@ -20,7 +21,7 @@ export class ProposalComponent implements OnInit {
     proposalForm: FormGroup;
     proposalData: Proposal = new Proposal();
     formDataForEdit: Object;
-    minimumAmountLimit: number;
+    minimumAmountLimit = 0;
     interestLimit: number;
     allId: Params;
     loanId: number;
@@ -49,6 +50,8 @@ export class ProposalComponent implements OnInit {
                 this.loanId = this.allId.loanId;
                 this.loanConfigService.detail(this.loanId).subscribe((response: any) => {
                     this.minimumAmountLimit = response.detail.minimumProposedAmount;
+                    this.proposalForm.get('proposedLimit').setValidators([Validators.required,
+                        MinimumAmountValidator.minimumAmountValidator(this.minimumAmountLimit)]);
                     this.interestLimit = response.detail.interestRate;
                 }, error => {
                     console.error(error);
@@ -65,7 +68,7 @@ export class ProposalComponent implements OnInit {
         this.proposalForm = this.formBuilder.group({
 
             // Proposed Limit--
-            proposedLimit: [undefined, [Validators.required, Validators.min(0), this.proposedAmountValidator(this.minimumAmountLimit)]],
+            proposedLimit: [undefined, [Validators.required, Validators.min(0)]],
 
             interestRate: [undefined, [Validators.required, Validators.min(0)]],
             baseRate: [undefined, [Validators.required, Validators.min(0)]],
@@ -107,13 +110,5 @@ export class ProposalComponent implements OnInit {
         return this.proposalForm.controls;
     }
 
-    proposedAmountValidator(min: number): ValidatorFn {
-        return (control: AbstractControl): { [key: string]: boolean } | null => {
-            if (control.value !== undefined && (isNaN(control.value) || control.value < min || control.value < this.minimumAmountLimit)) {
-                return { 'amountRange': true };
-            }
-            return null;
-        };
-    }
 
 }
