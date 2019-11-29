@@ -100,10 +100,15 @@ export class ProposalComponent implements OnInit {
 
     onSubmit() {
         // Proposal Form Data--
+        if (this.formValue !== undefined) {
+            this.proposalData = this.formValue;
+        }
         this.proposalData.data = JSON.stringify(this.proposalForm.value);
 
         // Proposed Limit value--
         this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
+
+        this.proposalData.tenureDurationInMonths = this.proposalForm.get('tenureDurationInMonths').value;
     }
 
     get formControls() {
