@@ -73,11 +73,11 @@ export class BasicInfoComponent implements OnInit {
     addRelatives() {
         (this.basicInfo.get('customerRelatives') as FormArray).push(
             this.formBuilder.group({
-                customerRelation: [undefined],
-                customerRelativeName: [undefined],
-                citizenshipNumber: [undefined],
-                citizenshipIssuedPlace: [undefined],
-                citizenshipIssuedDate: [undefined]
+                customerRelation: [undefined, Validators.required],
+                customerRelativeName: [undefined, Validators.compose([Validators.required])],
+                citizenshipNumber: [undefined, Validators.compose([Validators.required])],
+                citizenshipIssuedPlace: [undefined, Validators.compose([Validators.required])],
+                citizenshipIssuedDate: [undefined, Validators.compose([Validators.required, DateValidator.isValidBefore])]
             })
         );
     }
@@ -191,30 +191,30 @@ export class BasicInfoComponent implements OnInit {
     formMaker() {
         this.basicInfo = this.formBuilder.group({
             // title not used in ui
-            title: [this.customer.title === undefined ? '' : this.customer.title],
-            customerName: [this.customer.customerName === undefined ? '' : this.customer.customerName, Validators.required],
-            customerId: [this.customer.customerId === undefined ? '' : this.customer.customerId, Validators.required],
-            accountNo: [this.customer.accountNo === undefined ? '' : this.customer.accountNo, Validators.required],
-            province: [this.customer.province === null ? '' : this.customer.province, Validators.required],
-            district: [this.customer.district === null ? '' : this.customer.district, Validators.required],
-            municipalities: [this.customer.municipalities === null ? '' : this.customer.municipalities, Validators.required],
-            street: [this.customer.street === null ? '' : this.customer.street, Validators.required],
-            wardNumber: [this.customer.wardNumber === null ? '' : this.customer.wardNumber, Validators.required],
-            contactNumber: [this.customer.contactNumber === undefined ? '' : this.customer.contactNumber, Validators.required],
-            email: [this.customer.email === undefined ? '' : this.customer.email, Validators.required],
+            title: [this.customer.title === undefined ? undefined : this.customer.title],
+            customerName: [this.customer.customerName === undefined ? undefined : this.customer.customerName, Validators.required],
+            customerId: [this.customer.customerId === undefined ? undefined : this.customer.customerId, Validators.required],
+            accountNo: [this.customer.accountNo === undefined ? undefined : this.customer.accountNo, Validators.required],
+            province: [this.customer.province === null ? undefined : this.customer.province, Validators.required],
+            district: [this.customer.district === null ? undefined : this.customer.district, Validators.required],
+            municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities, Validators.required],
+            street: [this.customer.street === null ? undefined : this.customer.street, Validators.required],
+            wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
+            contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, Validators.required],
+            email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.required],
             // initial Relation Date not used in ui
-            initialRelationDate: [this.customer.initialRelationDate === undefined ? '' :
+            initialRelationDate: [this.customer.initialRelationDate === undefined ? undefined :
                 new Date(this.customer.initialRelationDate)],
-            citizenshipNumber: [this.customer.citizenshipNumber === undefined ? '' : this.customer.citizenshipNumber
+            citizenshipNumber: [this.customer.citizenshipNumber === undefined ? undefined : this.customer.citizenshipNumber
                 , Validators.required],
-            citizenshipIssuedPlace: [this.customer.citizenshipIssuedPlace === undefined ? '' : this.customer.citizenshipIssuedPlace,
+            citizenshipIssuedPlace: [this.customer.citizenshipIssuedPlace === undefined ? undefined : this.customer.citizenshipIssuedPlace,
                 Validators.required],
-            citizenshipIssuedDate: [this.customer.citizenshipIssuedDate === undefined ? '' :
+            citizenshipIssuedDate: [ObjectUtil.isEmpty(this.customer.citizenshipIssuedDate) ? undefined :
                 new Date(this.customer.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]],
-            dob: [this.customer.dob === undefined ? '' :
+            dob: [ObjectUtil.isEmpty(this.customer.dob ) ? undefined :
                 new Date(this.customer.dob), [ Validators.required, DateValidator.isValidBefore]],
-            occupation: [this.customer.occupation === undefined ? '' : this.customer.occupation, [Validators.required]],
-            incomeSource: [this.customer.incomeSource === undefined ? '' : this.customer.incomeSource, [Validators.required]],
+            occupation: [this.customer.occupation === undefined ? undefined : this.customer.occupation, [Validators.required]],
+            incomeSource: [this.customer.incomeSource === undefined ? undefined : this.customer.incomeSource, [Validators.required]],
             customerRelatives: this.formBuilder.array([])
         });
     }
@@ -227,7 +227,7 @@ export class BasicInfoComponent implements OnInit {
                 customerRelativeName: [undefined, Validators.compose([Validators.required])],
                 citizenshipNumber: [undefined, Validators.compose([Validators.required])],
                 citizenshipIssuedPlace: [undefined, Validators.compose([Validators.required])],
-                citizenshipIssuedDate: [undefined, Validators.compose([Validators.required])]
+                citizenshipIssuedDate: [undefined, Validators.compose([Validators.required, DateValidator.isValidBefore])]
             }));
         });
     }
@@ -243,7 +243,8 @@ export class BasicInfoComponent implements OnInit {
                 customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
                 citizenshipNumber: [singleRelatives.citizenshipNumber, Validators.required],
                 citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace, Validators.required],
-                citizenshipIssuedDate: [new Date(singleRelatives.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]]
+                citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
+                    undefined : new Date(singleRelatives.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]]
             }));
         });
     }

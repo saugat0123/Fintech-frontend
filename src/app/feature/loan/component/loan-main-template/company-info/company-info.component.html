@@ -43,9 +43,9 @@
                                 <nb-datepicker #establishmentPicker></nb-datepicker>
                                 <div *ngIf="submitted && form.companyEstablishmentDate.errors"
                                      class="invalid-feedback">
-                                    <div *ngIf="form.companyEstablishmentDate.errors.required">Establishment
-                                        Date
-                                        is required
+                                    <div *ngIf="form.companyEstablishmentDate.errors.required ||
+                                    form.companyEstablishmentDate.errors.beforeToday">
+                                        Invalid Establishment date!
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +112,8 @@
                                 </ng-select>
                                 <div *ngIf="submitted && form.businessType.errors"
                                      class="invalid-feedback">
-                                    <div *ngIf="form.businessType.errors.required">Business Type is required
+                                    <div *ngIf="form.businessType.errors.required">
+                                        Business Type is required
                                     </div>
                                 </div>
                             </div>
@@ -217,7 +218,7 @@
                             <input id="panRegistrationDate" formControlName="panRegistrationDate"
                                    [nbDatepicker]="panRegistrationDate" name="panRegistrationDate"
                                    class="form-control" placeholder="Pan Registration Date"
-                                   [ngClass]="{ 'is-invalid':submitted && form.registrationDate.errors}">
+                                   [ngClass]="{ 'is-invalid':submitted && form.panRegistrationDate.errors}">
                             <nb-datepicker #panRegistrationDate></nb-datepicker>
                             <div *ngIf="submitted && form.panRegistrationDate.errors" class="invalid-feedback">
                                 <div *ngIf="form.panRegistrationDate.errors.required ||
