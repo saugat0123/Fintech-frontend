@@ -225,13 +225,15 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.actionsList.rejected = false;
             this.actionsList.closed = false;
           }
+            console.log(this.loanDataHolder.loanCategory, 'asdasdasd');
           // commented code is for approval limit
-          this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id).subscribe((res: any) => {
+            // tslint:disable-next-line:max-line-length
+          this.approvalLimitService.getLimitByRoleAndLoan(this.loanDataHolder.loan.id, this.loanDataHolder.loanCategory).subscribe((res: any) => {
               if (res.detail === undefined) {
                   this.actionsList.approved = false;
               } else {
-                  if (this.loanDataHolder.dmsLoanFile !== null
-                      && this.loanDataHolder.dmsLoanFile.proposedAmount > res.detail.amount) {
+                  if (this.loanDataHolder.proposal !== null
+                      && this.loanDataHolder.proposal.proposedLimit > res.detail.amount) {
                       this.actionsList.approved = false;
                   }
               }

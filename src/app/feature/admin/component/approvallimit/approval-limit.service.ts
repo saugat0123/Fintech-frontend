@@ -15,8 +15,8 @@ export class ApprovalLimitService extends BaseService<ApprovalLimit> {
         super(http);
     }
 
-    public getLimitByRoleAndLoan(id: number): Observable<any> {
-        const api = `${this.getApi()}/${id}/role`;
+    public getLimitByRoleAndLoan(id: number, loanCategory: String): Observable<any> {
+        const api = `${this.getApi()}/${id}/${loanCategory}/role`;
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }
