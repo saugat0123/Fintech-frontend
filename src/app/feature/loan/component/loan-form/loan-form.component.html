@@ -49,6 +49,10 @@
                         <app-proposal [formValue]="loadProposal()" (dmsDisableButton)="submitButton($event)"
                                       #proposalInfo></app-proposal>
                     </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Nepali Loan Template'">
+                        <app-nepali-loan-template >
+                        </app-nepali-loan-template>
+                    </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
                         <app-cicl #cicl
                                   [ciclRemark]="loanDocument?.ciclRemarks"

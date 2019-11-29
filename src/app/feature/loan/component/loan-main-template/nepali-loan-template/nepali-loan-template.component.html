@@ -1,17 +1,76 @@
 <nb-card>
     <nb-card-body>
-
-        <div class="form-group">
-            <form  [formGroup]="nepaliLoan" class="form-horizontal">
+        <div class="container" id="nepaliLoan">
+            <div class="wizard-title text-center"><h1>जमानी बस्नेको विवरण</h1></div>
+            <div class="form-group">
+                <form  [formGroup]="nepaliLoan" class="form-horizontal">
                 <!-- Start Row-->
-                <div class="row">
-                    <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <p>श्रीमान प्रवन्धक ज्यू </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <p>एम.ए.डब्लु .इन्भेस्टमेन्ट प्रा. लि.</p>
+                            </div>
+                        </div>
+                    </div>
+                            <!--ROW END-->
+                            <!-- Start Row-->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <p>महाशय,</p>
+                            </div>
+                        </div>
+                    </div>
+
+                            <!--ROW END-->
+                            <!-- Start Row-->
+                            <div class="row">
+                                <div class="form-group">
+                                श्री <input class="form-field form-control-sm nepaliFont" formControlName="customerName" id="customerName"
+                                               name="customerName" placeholder="नाम"
+                                               type="text"/>
+                                </div>
+
+                                <div class="form-group">
+                                को अनुरोध बमोजिम सवारी साधन / मेशिनरी उपकरण खरिदका लागि निजलाई रु.
+                                <input  class="form-field form-control-sm nepaliFont" formControlName="rupees" id="rupees"
+                                               name="rupees" placeholder=" रु "
+                                               type="text"/>/-
+                                </div>
+                            </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                          (अक्षेरेपि मात्र) <input class="form-field form-control-sm nepaliFont" formControlName="amountInWords" id="amountInWords"
+                                       name="amountInWords" placeholder="अक्षेरेपि मात्र  "
+                                       type="text"/>
+                        </div>
+                        <div class="form-group">
+                            <p>हयारपर्चेज कर्जा उपलब्ध गरिदिनहुन अनुरोध गर्दछु । निजले उक्त कर्जा रकम नियमित रुपमा भुक्तान नगरेमा सम्पूर्ण साँवा ब्याज लगायत कम्पनीले लगाउने विभिन्न शुल्कहरुको लागि म</p>
+                            <input class="form-field form-control-sm nepaliFont" formControlName="guarantorName" id="guarantorName"
+                                       name="guarantorName" placeholder="धनजमानि बस्नेको नाम "
+                                       type="text"/>
+                            धनजमानि बस्नका लागि मन्जुर गर्दछु।
+                            </div>
+                    </div>
+                                    <!--ROW END-->
+                    <div class="row">
+                        <h3>व्यक्तिगत विवरण </h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="nameNepali">नाम (देवनागरी )</label>
-                            <input class="form-control rounded" formControlName="nameNepali" id="nameNepali"
+                            <input class="form-control rounded nepaliFont" formControlName="nameNepali" id="nameNepali"
                                    name="nameNepali" placeholder="नाम "
                                    type="text"/>
-
                         </div>
                     </div>
                 </div>
@@ -20,7 +79,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="name">Name</label>
-                            <input class="form-control rounded" formControlName="name" id="name"
+                            <input class="form-control rounded " formControlName="name" id="name"
                                    name="name" placeholder="Name"
                                    type="text"/>
                         </div>
@@ -28,14 +87,14 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="dob">जन्म मिति </label>
-                            <input class="form-control rounded" formControlName="address" id="dob"
-                                   name="dob" placeholder="जन्म मिति " type="text">
+                            <input class="form-control rounded nepaliFont" formControlName="address" id="dob"
+                                   name="dob" placeholder="" type="text">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="age"> उमेर</label>
-                            <input class="form-control rounded" formControlName="age"
+                            <input class="form-control rounded nepaliFont" formControlName="age"
                                    id="age"
                                    name="age" placeholder="उमेर" type="text"/>
                         </div>
@@ -47,7 +106,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="citizenship">नागरिकता नं</label>
-                            <input class="form-control rounded" formControlName="citizenship"
+                            <input class="form-control rounded nepaliFont" formControlName="citizenship"
                                    id="citizenship"
                                    name="citizenship" placeholder="नागरिकता नं"
                                    type="text"/>
@@ -56,7 +115,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="issuedYear">जारी मिति</label>
-                            <input class="form-control rounded" formControlName="issuedYear"
+                            <input class="form-control rounded nepaliFont" formControlName="issuedYear"
                                    id="issuedYear"
                                    name="issuedYear" placeholder="जारी मिति" type="text">
                         </div>
@@ -64,7 +123,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="issuedPlace">जारी गरेको जिल्ला </label>
-                            <input class="form-control rounded" formControlName="issuedPlace"
+                            <input class="form-control rounded nepaliFont" formControlName="issuedPlace"
                                    id="issuedPlace"
                                    name="issuedPlace" placeholder="जारी गरेको जिल्ला " type="text"/>
                         </div>
@@ -76,17 +135,17 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="fatherName">पिताको / श्रीमानको नाम </label>
-                            <input class="form-control rounded" formControlName="fatherName"
+                            <input class="form-control rounded nepaliFont" formControlName="fatherName"
                                    id="fatherName"
-                                   name="fatherName" placeholder="पिताको / श्रीमानको नाम" type="text"/>
+                                   name="fatherName" placeholder="" type="text"/>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="grandfatherName">बाजे/ससुराको नाम  </label>
-                            <input class="form-control rounded" formControlName="grandfatherName"
+                            <input class="form-control rounded nepaliFont" formControlName="grandfatherName"
                                    id="grandfatherName"
-                                   name="grandfatherName" placeholder="बाजे/ससुराको नाम" type="text"/>
+                                   name="grandfatherName" placeholder="" type="text"/>
                         </div>
                     </div>
                 </div>
@@ -96,15 +155,15 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="relationship">ऋणसंगको नाता </label>
-                            <input class="form-control rounded" formControlName="relationship"
+                            <input class="form-control rounded nepaliFont" formControlName="relationship"
                                    id="relationship"
-                                   name="relationship" placeholder="ऋणसंगको नाता" type="text"/>
+                                   name="relationship" placeholder="ऋणसंगको नाता " type="text"/>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="knownfor">ऋणीलाई कहिलेदेखि चिन्नुहुन्छ</label>
-                            <input class="form-control rounded" formControlName="knownfor"
+                            <input class="form-control rounded nepaliFont" formControlName="knownfor"
                                    id="knownfor"
                                    name="knownfor" placeholder="ऋणीलाई कहिलेदेखि चिन्नुहुन्छ" type="text"/>
                         </div>
@@ -114,9 +173,9 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="permanentAddress">स्थायी  ठेगाना (हालको भन्दा फरक भएमा )</label>
-                            <input class="form-control rounded" formControlName="permanentAddress"
+                            <input class="form-control rounded nepaliFont" formControlName="permanentAddress"
                                    id="permanentAddress"
-                                   name="permanentAddress" placeholder="स्थायी  ठेगाना (हालको भन्दा फरक भएमा )" type="text"/>
+                                   name="permanentAddress" placeholder="खिचापोखरी, वडा नं ३० , काठमाडौँ " type="text"/>
                         </div>
                     </div>
                 </div>
@@ -126,15 +185,15 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="currentAddress">हालको ठेगाना : जिल्ला </label>
-                            <input class="form-control rounded" formControlName="currentAddress"
+                            <input class="form-control rounded nepaliFont" formControlName="currentAddress"
                                    id="currentAddress"
-                                   name="currentAddress" placeholder="सालको ठेगाना : जिल्ला" type="text"/>
+                                   name="currentAddress" placeholder="खिचापोखरी, वडा नं ३० , काठमाडौँ " type="text"/>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="municipality">गा.वि.स./न.पा./उ.म.न.पा./म.न.पा.   </label>
-                            <input class="form-control rounded" formControlName="municipality"
+                            <input class="form-control rounded nepaliFont" formControlName="municipality"
                                    id="municipality"
                                    name="municipality" placeholder="" type="text"/>
                         </div>
@@ -145,7 +204,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="wardNumber">वार्ड  नं  </label>
-                            <input class="form-control rounded" formControlName="wardNumber"
+                            <input class="form-control rounded nepaliFont" formControlName="wardNumber"
                                    id="wardNumber"
                                    name="wardNumber" placeholder="वार्ड  नं " type="text"/>
                         </div>
@@ -153,7 +212,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="tol"> टोल </label>
-                            <input class="form-control rounded" formControlName="tol"
+                            <input class="form-control rounded nepaliFont" formControlName="tol"
                                    id="tol"
                                    name="tol" placeholder=" टोल " type="text"/>
                         </div>
@@ -161,15 +220,15 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="houseNumber">घर नं</label>
-                            <input class="form-control rounded" formControlName="houseNumber"
+                            <input class="form-control rounded nepaliFont" formControlName="houseNumber"
                                    id="houseNumber"
-                                   name="houseNumber" placeholder="घर नं:" type="text"/>
+                                   name="houseNumber" placeholder="घर नं" type="text"/>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="contactNo">फोन नं </label>
-                            <input class="form-control rounded" formControlName="contactNo"
+                            <input class="form-control rounded nepaliFont" formControlName="contactNo"
                                    id="contactNo"
                                    name="contactNo" placeholder="फोन नं" type="text"/>
                         </div>
@@ -181,10 +240,10 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="title" for="mobileNo">वार्ड  नं  </label>
-                            <input class="form-control rounded" formControlName="mobileNo"
+                            <label class="title" for="mobileNo">मोबाईल नं  </label>
+                            <input class="form-control rounded nepaliFont" formControlName="mobileNo"
                                    id="mobileNo"
-                                   name="mobileNo" placeholder="वार्ड  नं " type="text"/>
+                                   name="mobileNo" placeholder="मोबाईल नं  " type="text"/>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -202,9 +261,9 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="currentResidence">हालको वसोवास  :  आफ्नै / आफन्त / भाडाको / क्वाटर / अन्य  </label>
-                            <input class="form-control rounded" formControlName="currentResidence"
+                            <input class="form-control rounded nepaliFont" formControlName="currentResidence"
                                    id="currentResidence"
-                                   name="currentResidence" placeholder="ालको वसोवास  :  आफ्नै / आफन्त / भाडाको / क्वाटर / अन्य " type="text"/>
+                                   name="currentResidence" placeholder="हालको वसोवास" type="text"/>
                         </div>
                     </div>
                 </div>
@@ -214,7 +273,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="occupation">पेशा </label>
-                            <input class="form-control rounded" formControlName="occupation"
+                            <input class="form-control rounded nepaliFont" formControlName="occupation"
                                    id="occupation"
                                    name="occupation" placeholder="पेशा " type="text"/>
                         </div>
@@ -222,7 +281,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="companyName"> कार्यरत संस्थाको नाम </label>
-                            <input class="form-control rounded" formControlName="companyName"
+                            <input class="form-control rounded nepaliFont" formControlName="companyName"
                                    id="companyName"
                                    name="companyName" placeholder="कार्यरत संस्थाको नाम " type="text"/>
                         </div>
@@ -234,7 +293,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="workAddress">कार्यलाएको ठेगाना  </label>
-                            <input class="form-control rounded" formControlName="workAddress"
+                            <input class="form-control rounded nepaliFont" formControlName="workAddress"
                                    id="workAddress"
                                    name="workAddress" placeholder="कार्यलाएको ठेगाना" type="text"/>
                         </div>
@@ -242,7 +301,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="WorkPhoneNo">  फोन नं </label>
-                            <input class="form-control rounded" formControlName="WorkPhoneNo"
+                            <input class="form-control rounded nepaliFont" formControlName="WorkPhoneNo"
                                    id="WorkPhoneNo"
                                    name="WorkPhoneNo" placeholder=" फोन नं " type="text"/>
                         </div>
@@ -250,7 +309,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="position">  पद </label>
-                            <input class="form-control rounded" formControlName="position"
+                            <input class="form-control rounded nepaliFont" formControlName="position"
                                    id="position"
                                    name="position" placeholder="पद" type="text"/>
                         </div>
@@ -272,9 +331,9 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="spouseName">श्रीमान्  / श्रीमतीको  नाम  </label>
-                            <input class="form-control rounded" formControlName="spouseName"
+                            <input class="form-control rounded nepaliFont" formControlName="spouseName"
                                    id="spouseName"
-                                   name="spouseName" placeholder="श्रीमान्  / श्रीमतीको  नाम " type="text"/>
+                                   name="spouseName" placeholder=" " type="text"/>
                         </div>
                     </div>
                 </div>
@@ -283,60 +342,79 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="school/collegeName">विद्यार्थी भएमा अध्ययनरत संस्थाको नाम</label>
-                            <input class="form-control rounded" formControlName="school/collegeName"
+                            <input class="form-control rounded nepaliFont" formControlName="school/collegeName"
                                    id="school/collegeName"
-                                   name="school/collegeName" placeholder="" type="text"/>
+                                   name="school/collegeName" placeholder="संस्थाको नाम" type="text"/>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="title" for="level">अध्ययनरत तह</label>
-                            <input class="form-control rounded" formControlName="level"
+                            <input class="form-control rounded nepaliFont" formControlName="level"
                                    id="level"
-                                   name="level" placeholder="" type="text"/>
+                                   name="level" placeholder="अध्ययनरत तह" type="text"/>
                         </div>
                     </div>
                 </div>
                 <!--END ROW-->
                 <!-- START ROW-->
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="title" for="relativesName">नाम</label>
-                            <input class="form-control rounded" formControlName="relativesName" id="relativesName"
-                                   name="relativesName" placeholder="नाम "
-                                   type="text"/>
-                        </div>
+                    <div class="row">
+                        <h3>आफुसंग परिचित व्यक्तिको विवरण </h3>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="title" for="relativesAddress"> ठेगाना </label>
-                            <input class="form-control rounded" formControlName="relativesAddress" id="relativesAddress"
-                                   name="relativesAddress" placeholder="ठेगाना "
-                                   type="text"/>
+                    <div *ngFor="let relativesDetails of nepaliLoan.get('relativesDetails')['controls']; let i = index"
+                        formArrayName="relativesDetails">
+                        <div [formGroupName]="i">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title" for="relativesName">नाम</label>
+                                        <input class="form-control rounded nepaliFont" formControlName="relativesName" id="relativesName"
+                                               name="relativesName" placeholder="नाम "
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title" for="relativesAddress"> ठेगाना </label>
+                                        <input class="form-control rounded nepaliFont" formControlName="relativesAddress" id="relativesAddress"
+                                               name="relativesAddress" placeholder="ठेगाना "
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title" for="relativesPhone">  फोन नं </label>
+                                        <input class="form-control rounded nepaliFont" formControlName="relativesPhone" id="relativesPhone"
+                                               name="relativesPhone" placeholder=" ४२१२३३३ "
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="title" for="relativesMobileNo">मोबाईल नं</label>
+                                        <input class="form-control rounded nepaliFont" formControlName="relativesMobileNo" id="relativesMobileNo"
+                                               name="relativesMobileNo" placeholder="९८४५१२३३३ "
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div *ngIf="nepaliLoan.get('relativesDetails')['length']>1"
+                                     class="col-md-1 pt-4">
+                                    <button (click)="removeDetails(i)"
+                                            class="align-self-end btn btn-sm btn-danger btn-primary">
+                                        Remove
+                                    </button>
+                                </div>
+                            </div>
                         </div>
+                        <hr>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="title" for="relativesPhone">  फोन  </label>
-                            <input class="form-control rounded" formControlName="relativesPhone" id="relativesPhone"
-                                   name="relativesPhone" placeholder="  फोन "
-                                   type="text"/>
-                        </div>
+                    <div class="text-right">
+                        <button (click)="addDetails()" class="btn btn-sm btn-flat btn-primary">
+                            Add Customer Relative</button>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="title" for="relativesMobileNo"> मो </label>
-                            <input class="form-control rounded" formControlName="relativesMobileNo" id="relativesMobileNo"
-                                   name="relativesMobileNo" placeholder="मो "
-                                   type="text"/>
-                        </div>
-                    </div>
-                </div>
-                <!--END ROW-->
-
                 <!-- END ROW -->
-            </form>
+                </form>
+            </div>
         </div>
     </nb-card-body>
 </nb-card>
