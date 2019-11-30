@@ -43,42 +43,44 @@
                         </div>
                     </div>
                 </div>
+
                 <h4>Assessment</h4>
                 <div class="row">
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <div class="box box-default border border-gray rounded" style="height: 300px">
-                                <div class="box-body" class="cursor">
-                                    <div class="col-sm-offset-2 col-sm-10"
-                                         *ngFor="let loanTemplate of loanTemplateList">
-                                        <div (dblclick)="updateSelectTemplate(loanTemplate)">
-                                            <span>{{loanTemplate.name}}</span>
-                                        </div>
-                                        <br/>
+                    <div class="col-md-5 pr-0">
+                        <nb-card size="small">
+                            <nb-card-header>
+                                Loan Templates
+                            </nb-card-header>
+                            <nb-list>
+                                <nb-list-item *ngFor="let loanTemplate of loanTemplateList">
+                                    <div (dblclick)="updateSelectTemplate(loanTemplate)"
+                                         style="cursor: pointer;">
+                                        <span>{{loanTemplate.name}}</span>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+                                </nb-list-item>
+                            </nb-list>
+                        </nb-card>
                     </div>
                     <div class="col-md-2 my-auto">
                         <div class="text-center">
-                            <i class="fas fa-arrow-right fa-5x"></i>
+                            <em class="fas fa-arrow-right fa-5x"></em>
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <div class="box box-default border border-gray rounded" style="height: 300px">
-                                <div class="box-body cursor">
-                                    <div class="col-sm-offset-2 col-sm-10"
-                                         *ngFor="let confirmLoanTemplate of confirmLoanTemplateList">
-                                        <div (dblclick)="updateUnselectTemplate(confirmLoanTemplate)">
-                                            <span>{{confirmLoanTemplate.name}}</span>
-                                        </div>
-                                        <br/>
+
+                    <div class="col-md-5 pl-0">
+                        <nb-card size="small">
+                            <nb-card-header>
+                                Confirmed Loan Templates
+                            </nb-card-header>
+                            <nb-list>
+                                <nb-list-item *ngFor="let confirmLoanTemplate of confirmLoanTemplateList">
+                                    <div (dblclick)="updateUnselectTemplate(confirmLoanTemplate)"
+                                         style="cursor: pointer;">
+                                        <span>{{confirmLoanTemplate.name}}</span>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+                                </nb-list-item>
+                            </nb-list>
+                        </nb-card>
                     </div>
                 </div>
                 <div class="row">
@@ -97,7 +99,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label><b>Offer Letter</b></label>
+                            <label><strong>Offer Letter</strong></label>
                             <ng-select [items]="offerLetterList"
                                        bindLabel="name"
                                        bindValue="id"
@@ -110,7 +112,7 @@
                 </div>
                 <div class="row form-group">
                     <div class="col-md-6">
-                        <label><b>Minimum Proposal Amount</b></label>
+                        <label><strong>Minimum Proposal Amount</strong></label>
                         <input type="number" class="form-control" name="minimumProposedAmount" required
                                pattern="^\d*[.]?\d*$" min="0"
                                placeholder="Minimum Proposal Amount"
@@ -217,3 +219,4 @@
         </form>
     </nb-card-body>
 </nb-card>
+<app-overlay-spinner></app-overlay-spinner>
