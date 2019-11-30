@@ -23,6 +23,7 @@ import {BusinessType} from '../../../admin/modal/businessType';
 import {Financial} from '../../model/financial';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {DocAction} from '../../model/docAction';
+import {DocumentService} from "../../../admin/component/document/document.service";
 
 @Component({
   selector: 'app-loan-summary',
@@ -90,7 +91,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
       private loanConfigService: LoanConfigService,
       private approvalLimitService: ApprovalLimitService,
       private dateService: DateService,
-      private modalService: NgbModal
+      private modalService: NgbModal,
+      private documentService: DocumentService
   ) {
     this.client = environment.client;
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
@@ -325,7 +327,16 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     );
   }
 
-  loanHandler(index: number, length: number) {
+    downloadAllDocument(path: string) {
+
+        this.documentService.downloadAllDoc(path).subscribe((res: any) => {
+            this.previewOfferLetterDocument(res.detail, res.detail);
+        });
+
+
+    }
+
+    loanHandler(index: number, length: number) {
     if (index === 0) {
       return 'INITIATED BY:';
     } else if (index === length - 1) {

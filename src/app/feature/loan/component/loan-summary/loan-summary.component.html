@@ -357,7 +357,11 @@
             <tr>
               <th>S.N</th>
               <th>Document</th>
-              <th>Download</th>
+                <th>Download
+                    <b (click)="downloadAllDocument(loanDataHolder?.customerDocument[0].documentPath)"
+                       class="float-right btn-link"> Download all
+                    </b>
+                </th>
             </tr>
             </thead>
             <tbody>
