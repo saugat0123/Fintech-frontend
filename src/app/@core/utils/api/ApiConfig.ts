@@ -2,8 +2,8 @@ export class ApiConfig {
   public static TOKEN = 'http://localhost:8086/oauth/token';
   public static URL = 'http://localhost:8086';
   //
-  // public static TOKEN = 'http://103.98.131.67:8085/SB/oauth/token';
-  // public static URL = 'http://103.98.131.67:8085/SB';
+  // public static TOKEN = 'http://3.17.141.198:8080/LAS/oauth/token';
+  // public static URL = 'http://3.17.141.198:8080/LAS';
 
   // United Finance server info
   // public static TOKEN = 'http://192.168.1.217:8080/oauth/token';

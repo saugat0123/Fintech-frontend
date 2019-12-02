@@ -12,6 +12,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {OfferLetter} from '../../../modal/offerLetter';
 import {OfferLetterService} from '../offer-letter.service';
 import {Status} from '../../../../../@core/Status';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 @Component({
@@ -20,7 +21,6 @@ import {Status} from '../../../../../@core/Status';
     styleUrls: ['./ui.component.css']
 })
 export class UIComponent implements OnInit {
-    spinner = false;
     title: string;
     pageable: Pageable = new Pageable();
     search: string;
@@ -50,7 +50,8 @@ export class UIComponent implements OnInit {
         private service: LoanConfigService,
         private toastService: ToastService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private spinner: NgxSpinnerService,
     ) {
     }
 
@@ -164,14 +165,14 @@ export class UIComponent implements OnInit {
     }
 
     getTemplate() {
-        this.spinner = true;
+        this.spinner.show()
         this.loanTemplateService.getAll().subscribe((response: any) => {
             this.loanTemplateList = response.detail;
-            this.spinner = false;
+            this.spinner.hide();
         }, error => {
             console.log(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Templates'));
-            this.spinner = false;
+            this.spinner.show();
         });
 
     }
@@ -239,6 +240,7 @@ export class UIComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
+        this.spinner.show();
         if (this.selectedOfferLetterIdList !== undefined) {
             this.selectedOfferLetterIdList.forEach(offerLetterId => {
                 const offerLetter = new OfferLetter();
@@ -257,8 +259,11 @@ export class UIComponent implements OnInit {
         this.service.save(this.loanConfig).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Config!'));
                 this.loanConfig = new LoanConfig();
-                this.router.navigate(['home/admin/config']);
+                this.router.navigate(['home/admin/config']).then( () => {
+                    this.spinner.hide();
+                });
             }, error => {
+            this.spinner.hide();
                 console.log(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Loan Config!'));
             }
