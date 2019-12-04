@@ -11,6 +11,7 @@ export class CatalogueSearch {
     customerName: string;
     committee: string;
     companyName: string;
+    docAction: string;
 }
 
 @Injectable({

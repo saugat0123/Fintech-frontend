@@ -3,13 +3,18 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-6">
-                    <button
+                    <div class="btn-group">
+                        <button
                             nbButton shape="rectangle" status="primary"
                             (click)="isFilterCollapsed = !isFilterCollapsed"
                             [attr.aria-expanded]="!isFilterCollapsed"
                             aria-controls="searchModel">
-                        <i class="fa fa-filter"> Filter</i>
-                    </button>
+                            <em class="fa fa-filter"> Filter</em>
+                        </button>
+                        <nb-toggle (checkedChange)="onChangeTransferToggle($event)"
+                                   class="pt-2 pl-4" [disabled]="!transferToggle">
+                            Transferred</nb-toggle>
+                    </div>
                 </div>
                 <div class="col-md-6 d-flex justify-content-end">
                     <button nbButton outline status="info"
@@ -161,7 +166,7 @@
                 <td *ngIf="transferDoc">
                     <button nbButton status="warning" size="small"
                             (click)="onTransferClick(transferDocument,model.id,model?.currentStage?.toUser?.id)">
-                        <i class="fa fa-arrow-circle-right"></i></button>
+                        <em class="fa fa-arrow-circle-right"></em></button>
                 </td>
               <td>
                 <div (click)="onClick(model.loan.id,model.id)">
@@ -183,8 +188,8 @@
                 <ng-template #linkin>
                     <td *ngIf="model.parentId">
                         <a (click)="renewedOrCloseFrom(model.loan.id,model.parentId)"
-                           class="text-success cursor">{{loanType[model.loanType]}} From <i
-                                class="p-1 fa fa-edit"></i></a>
+                           class="text-success cursor">{{loanType[model.loanType]}} From
+                          <em class="p-1 fa fa-edit"></em></a>
                     </td>
 
                     <td *ngIf="!model.parentId">
@@ -195,6 +200,7 @@
             </tr>
             </tbody>
         </table>
+        <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
         <!-- ===================table-pagination==================== -->
         <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
         <!-- ===================table-pagination==================== -->
