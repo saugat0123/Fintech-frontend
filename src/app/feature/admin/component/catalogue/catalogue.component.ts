@@ -40,6 +40,7 @@ export class CatalogueComponent implements OnInit {
   roleList: Array<Role> = new Array<Role>();
   page = 1;
   spinner = false;
+  transferToggle = false;
   pageable: Pageable = new Pageable();
   age: number;
   docStatus = DocStatus;
@@ -78,14 +79,17 @@ export class CatalogueComponent implements OnInit {
   }
 
   static loadData(other: CatalogueComponent) {
+    other.spinner = true;
     other.loanFormService.getCatalogues(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
       other.loanDataHolderList = response.detail.content;
       other.pageable = PaginationUtils.getPageable(response.detail);
       other.spinner = false;
+      other.transferToggle = true;
     }, error => {
       console.error(error);
       other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
       other.spinner = false;
+      other.transferToggle = true;
     });
   }
 
@@ -242,6 +246,17 @@ export class CatalogueComponent implements OnInit {
     this.catalogueService.search.companyName = ObjectUtil.isEmpty(this.filterForm.get('companyName').value) ? undefined :
         this.filterForm.get('companyName').value;
     CatalogueComponent.loadData(this);
+  }
+
+  onChangeTransferToggle(event) {
+    this.transferToggle = false;
+    if (event) {
+      this.catalogueService.search.docAction = DocAction.value(DocAction.TRANSFER);
+      this.onSearch();
+    } else {
+      this.catalogueService.search.docAction = undefined;
+      this.onSearch();
+    }
   }
 
   onClick(loanConfigId: number, customerId: number) {
