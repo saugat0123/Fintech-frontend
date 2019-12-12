@@ -3,10 +3,8 @@
          nbSpinnerSize="large"
          nbSpinnerMessage="Testing email configuration..."
          status="primary">
-    <nb-alert *ngIf="notice">Configuration has been Setup already .</nb-alert>
-    <nb-card-header>
-        Email Configuration
-    </nb-card-header>
+    <!--    <nb-alert *ngIf="notice">Configuration has been Setup already .</nb-alert>-->
+
     <nb-card-body>
         <form class="form-horizontal" (ngSubmit)="onSubmit()" [formGroup]="emailConfig">
             <div class="form-group row">
