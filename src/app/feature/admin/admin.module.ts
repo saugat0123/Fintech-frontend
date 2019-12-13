@@ -69,6 +69,7 @@ import {AccountPurposeConfigComponent} from './component/opening-account/config/
 import {AccountTypeFormComponent} from './component/opening-account/config/account-type-config/account-type-form/account-type-form.component';
 import {AccountPurposeFormComponent} from './component/opening-account/config/account-purpose-config/account-purpose-form/account-purpose-form.component';
 import {PreferenceComponent} from './component/preference/preference.component';
+import {UserHistoryComponent} from './component/user/user-history/user-history.component';
 
 @NgModule({
     declarations: [
@@ -126,7 +127,8 @@ import {PreferenceComponent} from './component/preference/preference.component';
         AccountPurposeConfigComponent,
         AccountTypeFormComponent,
         AccountPurposeFormComponent,
-        PreferenceComponent
+        PreferenceComponent,
+        UserHistoryComponent
 
         // SecurityComponent
     ],
@@ -163,7 +165,8 @@ import {PreferenceComponent} from './component/preference/preference.component';
         EligibilityDocumentViewComponent,
         RoleEditComponent,
         AccountTypeFormComponent,
-        AccountPurposeFormComponent
+        AccountPurposeFormComponent,
+        UserHistoryComponent
     ]
 
 })
