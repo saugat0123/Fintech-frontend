@@ -19,10 +19,10 @@
       </tr>
       </thead>
       <tbody>
+      <tr *ngIf="userHistory && userHistory?.length === 0">
+        <td colspan="8" class="text-center">No Content Found</td>
+      </tr>
       <tr *ngFor="let history of userHistory;let i=index">
-        <div *ngIf="!userHistory?.length > 0">
-          <p>No Content Found</p>
-        </div>
         <td>{{i + 1}}</td>
         <td>{{history?.revisionDate | date}}</td>
         <td>{{history?.entity?.name}}</td>
