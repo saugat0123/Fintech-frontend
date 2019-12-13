@@ -144,16 +144,18 @@
                                 <div class="zoom cursor"><img height="50px" *ngIf="allList.signatureImage !=null"
                                                               src="{{ RootUrl + '/' + allList?.signatureImage}}"/></div>
                             </td>
-                            <td *ngIf="allList.role?.roleName !== 'admin'">
-                                <button nbButton status="info" size="small" class="m-1" (click)="edit(allList)"
-                                        title="Edit">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                                <button nbButton status="danger" size="small" class="m-1"
-                                        (click)="dismiss(allList,dismissAll)"
-                                        title="Dismiss  Branch & role" *ngIf="allList.role !== null;">
-                                    <i class="fa fa-ban"></i>
-                                </button>
+                            <td>
+                                <ng-container *ngIf="allList.role?.roleName !== 'admin'">
+                                    <button nbButton status="info" size="small" class="m-1" (click)="edit(allList)"
+                                            title="Edit">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button nbButton status="danger" size="small" class="m-1"
+                                            (click)="dismiss(allList,dismissAll)"
+                                            title="Dismiss  Branch & role" *ngIf="allList.role !== null;">
+                                        <i class="fa fa-ban"></i>
+                                    </button>
+                                </ng-container>
                             </td>
                         </tr>
                         </tbody>
