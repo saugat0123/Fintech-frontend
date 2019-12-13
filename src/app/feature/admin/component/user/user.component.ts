@@ -18,6 +18,7 @@ import {Branch} from '../../modal/branch';
 import {Role} from '../../modal/role';
 import {Status} from '../../../../@core/Status';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {UserHistoryComponent} from './user-history/user-history.component';
 
 @Component({
     selector: 'app-user',
@@ -212,6 +213,11 @@ export class UserComponent implements OnInit {
             link.click();
 
         });
+    }
+
+    history(user: User): void {
+        const modalRef = this.modalService.open(UserHistoryComponent, {size: 'xl'});
+        modalRef.componentInstance.userId = user.id;
     }
 
 }
