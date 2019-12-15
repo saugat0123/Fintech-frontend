@@ -144,6 +144,7 @@ export class ValuatorComponent implements OnInit {
                         }
                     )
                 }
+              ValuatorComponent.loadData(this);
             }
         );
     }

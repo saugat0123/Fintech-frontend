@@ -14,6 +14,8 @@ export class InactiveValuatorCommentComponent {
   @Input()
   valuatorService: any;
 
+  spinner = false;
+
   constructor(
       private activeModalService: NgbActiveModal,
       private toastService: ToastService
@@ -21,6 +23,7 @@ export class InactiveValuatorCommentComponent {
   }
 
   setInactiveComment(comment) {
+    this.spinner = true;
     this.data.inactiveComment = comment;
     this.valuatorService.save(this.data).subscribe(() => {
           this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED STATUS'));

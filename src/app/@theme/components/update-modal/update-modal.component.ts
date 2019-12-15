@@ -23,6 +23,8 @@ export class UpdateModalComponent implements OnInit, DoCheck {
     globalMsg: any;
     currentUrl: any;
 
+    spinner = false;
+
     constructor(
         private router: Router,
         private commonPageService: CommonPageService,
@@ -41,6 +43,7 @@ export class UpdateModalComponent implements OnInit, DoCheck {
     }
 
     updateStatus() {
+      this.spinner = true;
         if (this.data.valuatingField !== undefined && this.data.status === Status.INACTIVE) {
             this.activeModalService.dismiss('openInactiveComment');
             return;
