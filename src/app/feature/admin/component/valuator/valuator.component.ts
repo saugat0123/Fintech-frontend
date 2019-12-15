@@ -11,6 +11,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {ValuatorService} from './valuator.service';
 import {PermissionService} from '../../../../@core/service/permission.service';
+import {InactiveValuatorCommentComponent} from './inactive-valuator-comment/inactive-valuator-comment.component';
 
 @Component({
     selector: 'app-valuator',
@@ -117,7 +118,7 @@ export class ValuatorComponent implements OnInit {
     }
 
 
-    onChange(data) {
+    onChange(data, event) {
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
@@ -127,6 +128,24 @@ export class ValuatorComponent implements OnInit {
         const modalRef = this.modalService.open(UpdateModalComponent, {size: 'lg'});
         modalRef.componentInstance.data = data;
         modalRef.componentInstance.service = this.service;
+        modalRef.result.then(
+            close => {
+                ValuatorComponent.loadData(this);
+            }, dismissMsg => {
+                if (dismissMsg === 'openInactiveComment') {
+                    const inactiveCommentModalRef = this.modalService.open(InactiveValuatorCommentComponent, {size: 'lg'});
+                    inactiveCommentModalRef.componentInstance.data = data;
+                    inactiveCommentModalRef.componentInstance.valuatorService = this.service;
+                    inactiveCommentModalRef.result.then(
+                        () => {
+                            ValuatorComponent.loadData(this);
+                        }, () => {
+                            ValuatorComponent.loadData(this);
+                        }
+                    )
+                }
+            }
+        );
     }
 
     onSearchChange(searchValue: string) {
