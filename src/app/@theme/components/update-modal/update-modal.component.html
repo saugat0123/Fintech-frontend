@@ -1,4 +1,6 @@
-<nb-card class="text-center m-0">
+<nb-card class="text-center m-0"[nbSpinner]="spinner"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="large">
     <nb-card-header>
         <a (click)="closeModal()" aria-hidden="true" class="close cursor">&times;</a>
     </nb-card-header>
