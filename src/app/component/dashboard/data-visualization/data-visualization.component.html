@@ -2,27 +2,6 @@
     <div class="col-md-12">
         <nb-card>
             <nb-card-header class="text-center">
-                <h2>User statistics</h2>
-            </nb-card-header>
-            <nb-card-body>
-                <div class="row" *ngIf="branchVsUserPieChart && roleVsUsersPieChart">
-                    <div class="col-md-6">
-                        <div id="pie" class="col-md-12">
-                            <app-pie-chart [data]="branchVsUserPieChart" [dataLength]="branchVsUserPieChart.length"
-                                [legendTitle]="'Branch'"></app-pie-chart>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div id="pie" class="col-md-12">
-                            <app-pie-chart [data]="roleVsUsersPieChart" [dataLength]="roleVsUsersPieChart.length"
-                                [legendTitle]="'Role'"></app-pie-chart>
-                        </div>
-                    </div>
-                </div>
-            </nb-card-body>
-        </nb-card>
-        <nb-card>
-            <nb-card-header class="text-center">
                 <h2>Loan By Category For {{selectedBranch}}</h2>
             </nb-card-header>
             <nb-card-body>
