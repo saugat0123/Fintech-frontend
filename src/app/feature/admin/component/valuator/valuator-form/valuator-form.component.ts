@@ -111,6 +111,9 @@ export class ValuatorFormComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.model.maxAmount)) ? undefined :
                 this.model.maxAmount, [Validators.required, Validators.min(0)]],
             branch: [undefined, [Validators.required]],
+            inactiveComment: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.inactiveComment)) ? undefined :
+                this.model.inactiveComment],
             status: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.status)) ? undefined :
                 this.model.status],

@@ -162,4 +162,12 @@ export class ValuatorComponent implements OnInit {
         ValuatorComponent.loadData(this);
     }
 
+  deleteValuator(valuatorId) {
+    this.service.delete(valuatorId).subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully deleted valuator'));
+    }, error => {
+      console.log(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to delete valuator'));
+    })
+  }
 }

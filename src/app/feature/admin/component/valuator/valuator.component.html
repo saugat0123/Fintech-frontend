@@ -109,13 +109,18 @@
                                 </td>
                             </ng-template>
                             <td *ngIf='editValuator === true'>
-                                <a (click)="edit(allList)" data-toggle="tooltip"
-                                   data-placement="top" title="EDIT" *ngIf="editValuator">
-                                    <em class="fa fa-edit" style="color:#3c8dbc;"></em>
-                                </a>
-                                <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px">
-                                  <i class="fa fa-trash" style="color:white;"></i>
-                                </a> -->
+                              <ng-container>
+                                <button nbButton status="info" size="small" class="m-1" (click)="edit(allList)"
+                                        *ngIf="editValuator"
+                                        title="Edit">
+                                  <em class="fa fa-edit"></em>
+                                </button>
+                                <!--<button nbButton status="danger" size="small" class="m-1"-->
+                                        <!--(click)="deleteValuator(allList?.id)"-->
+                                        <!--title="Delete">-->
+                                  <!--<em class="fa fa-ban"></em>-->
+                                <!--</button>-->
+                              </ng-container>
                             </td>
                         </tr>
                         </tbody>
