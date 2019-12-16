@@ -1,0 +1,15 @@
+<nb-card class="text-center m-0">
+  <nb-card-header>
+    Valuator Inactive Comment
+    <a (click)="closeModal()" aria-hidden="true" class="close cursor">&times;</a>
+  </nb-card-header>
+  <nb-card-body>
+    <textarea #inactiveComment class="form-control" id="comment">
+    </textarea>
+  </nb-card-body>
+  <nb-card-footer class="text-right">
+    <button (click)="setInactiveComment(inactiveComment.value)" class="btn btn-success btn-flat btn-sm" type="button">Save
+    </button>
+    <button class="btn btn-danger btn-flat btn-sm cursor" type="button" (click)="closeModal()">Cancel</button>
+  </nb-card-footer>
+</nb-card>
