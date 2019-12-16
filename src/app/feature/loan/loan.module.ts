@@ -49,6 +49,7 @@ import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-actio
 import {OfferLetterUploadComponent} from './component/offer-letter/offer-letter-upload/offer-letter-upload.component';
 import {OfferLetterComponent} from './component/offer-letter/offer-letter.component';
 import {SitevistSummaryComponentComponent} from './component/loan-summary/sitevist-summary-component/sitevist-summary-component.component';
+import { TemplateSummaryComponent } from './component/loan-main-template/template-summary/template-summary.component';
 
 
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
@@ -96,6 +97,7 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         OfferLetterUploadComponent,
         OfferLetterComponent,
         SitevistSummaryComponentComponent,
+        TemplateSummaryComponent,
     ],
     imports: [
         ThemeModule,

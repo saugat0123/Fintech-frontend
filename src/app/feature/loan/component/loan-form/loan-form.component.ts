@@ -89,6 +89,7 @@ export class LoanFormComponent implements OnInit {
     priorityForm: FormGroup;
 
     nextButtonAction = false;
+    printEnabled = false;
 
     loan: LoanConfig = new LoanConfig();
     currentNepDate;
@@ -282,6 +283,25 @@ export class LoanFormComponent implements OnInit {
         this.selectTab(this.previousParameter.index, this.previousParameter.name);
     }
 
+    nextButtonActionFxn(tabSet: NgbTabset) {
+        this.nextButtonAction = true;
+        tabSet.tabs.some(templateListMember => {
+            if (Number(templateListMember.id) === Number(tabSet.activeId)) {
+                if (this.selectChild(templateListMember.title, true)) {
+                    this.nextButtonAction = false;
+                    return true;
+                } else {
+                    tabSet.select(this.nextTabId.toString(10));
+                    return true;
+                }
+            }
+        });
+    }
+
+    enableDisablePrinting() {
+        this.printEnabled = !this.printEnabled;
+    }
+
     save() {
         if (this.priorityForm.invalid) {
             return;
@@ -310,21 +330,6 @@ export class LoanFormComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.ERROR, `Error saving customer: ${error.error.message}`));
             });
         }
-    }
-
-    nextButtonActionFxn(tabSet: NgbTabset) {
-      this.nextButtonAction = true;
-        tabSet.tabs.some(templateListMember => {
-            if (Number(templateListMember.id) === Number(tabSet.activeId)) {
-                if (this.selectChild(templateListMember.title, true)) {
-                  this.nextButtonAction = false;
-                  return true;
-                } else {
-                  tabSet.select(this.nextTabId.toString(10));
-                  return true;
-                }
-            }
-        });
     }
 
     selectChild(name, action) {
