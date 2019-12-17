@@ -165,7 +165,7 @@ export class UIComponent implements OnInit {
     }
 
     getTemplate() {
-        this.spinner.show()
+        this.spinner.show();
         this.loanTemplateService.getAll().subscribe((response: any) => {
             this.loanTemplateList = response.detail;
             this.spinner.hide();

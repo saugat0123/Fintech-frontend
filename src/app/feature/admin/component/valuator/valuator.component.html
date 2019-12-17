@@ -1,19 +1,19 @@
 <div class="row">
     <div class="col-md-4 col-sm-6 col-xs-12">
         <app-icon-card title="Valuator" type="info" detail="{{valuators}}">
-            <i class="fas fa-money-bill"></i>
+            <em class="fas fa-money-bill"></em>
         </app-icon-card>
     </div>
 
     <div class="col-md-4 col-sm-6 col-xs-12">
         <app-icon-card title="Active" type="success" detail="{{activeCount}}">
-            <i class="fas fa-money-bill"></i>
+            <em class="fas fa-money-bill"></em>
         </app-icon-card>
     </div>
 
     <div class="col-md-4 col-sm-6 col-xs-12">
         <app-icon-card title="Inactive" type="warning" detail="{{inactiveCount}}">
-            <i class="fas fa-money-bill"></i>
+            <em class="fas fa-money-bill"></em>
         </app-icon-card>
     </div>
 </div>
@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <button type="submit" nbButton outline status="primary">
-                                        <i class="fa fa-search"></i>
+                                        <em class="fa fa-search"></em>
                                     </button>
                                 </div>
                             </div>
@@ -43,8 +43,8 @@
                     <!-- <h3 class="box-title">Hover Data Table</h3> -->
                     <div class="col-md-6">
                         <div class="float-right">
-                            <button class="" data-toggle="modal" (click)="add()" *ngIf="addViewValuator">
-                                <i class="fa fa-plus"></i>
+                            <button nbButton outline status="success" data-toggle="modal" (click)="add()" *ngIf="addViewValuator">
+                                <em class="fa fa-plus"></em>
                             </button>
                         </div>
                     </div>
@@ -59,7 +59,12 @@
                             <th>Valuator Name</th>
                             <th>Address</th>
                             <th>Contact Number</th>
-                            <th>Site Location</th>
+                            <th>Email</th>
+                            <th>Branches</th>
+                            <th>Valuating field</th>
+                            <th>Bank Associate Date</th>
+                            <th>Minimum Amount</th>
+                            <th>Maximum Amount</th>
                             <th>Status</th>
                             <th *ngIf='editValuator === true'>Action</th>
                         </tr>
@@ -73,13 +78,26 @@
                             <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                             <td>{{allList.name}}</td>
                             <td>{{allList?.province?.name}}, {{allList?.district?.name}}
-                                , {{allList?.municipalityVdc?.name}}</td>
-                            <td>{{allList.contactNo}}</td>
-                            <td>{{allList?.siteProvince?.name}}, {{allList?.siteDistrict?.name}}
-                                , {{allList?.siteMunicipalityVdc?.name}}</td>
+                                , {{allList?.municipalityVdc?.name}}, {{allList?.streetName}},
+                                {{allList?.wardNumber}}</td>
+                            <td>{{allList?.contactNo}}</td>
+                            <td>{{allList?.email}}</td>
+                            <td>
+                                <div *ngFor="let branch of allList?.branch">
+                                    {{branch.name}}
+                                </div>
+                            </td>
+                            <td>{{allList?.valuatingField}}</td>
+                            <td>{{allList?.bankAssociateDate | date}}</td>
+                            <td>Rs.{{allList?.minAmount | currencyFormatter}}</td>
+                            <td>Rs.{{allList?.maxAmount | currencyFormatter}}</td>
                             <td *ngIf='editValuator === true; else status '>
                                 <select class="select-borderless" [(ngModel)]="allList.status" name="status"
-                                        (change)="onChange(allList)">
+                                        (change)="onChange(allList, $event)"
+                                        [nbPopover]="allList?.status === 'INACTIVE' ?
+                                        'Inactive Reason: ' + allList?.inactiveComment :
+                                        'No Comments available'" nbPopoverTrigger="hover"
+                                        nbPopoverAdjustment="vertical">
                                     <option value="ACTIVE">ACTIVE</option>
                                     <option value="INACTIVE">INACTIVE</option>
                                 </select>
@@ -91,13 +109,18 @@
                                 </td>
                             </ng-template>
                             <td *ngIf='editValuator === true'>
-                                <a (click)="edit(allList)" data-toggle="tooltip"
-                                   data-placement="top" title="EDIT" *ngIf="editValuator">
-                                    <i class="fa fa-edit" style="color:#3c8dbc;"></i>
-                                </a>
-                                <!-- <a class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="DELETE" style="margin-left:10px">
-                                  <i class="fa fa-trash" style="color:white;"></i>
-                                </a> -->
+                              <ng-container>
+                                <button nbButton status="info" size="small" class="m-1" (click)="edit(allList)"
+                                        *ngIf="editValuator"
+                                        title="Edit">
+                                  <em class="fa fa-edit"></em>
+                                </button>
+                                <!--<button nbButton status="danger" size="small" class="m-1"-->
+                                        <!--(click)="deleteValuator(allList?.id)"-->
+                                        <!--title="Delete">-->
+                                  <!--<em class="fa fa-ban"></em>-->
+                                <!--</button>-->
+                              </ng-container>
                             </td>
                         </tr>
                         </tbody>

@@ -32,6 +32,7 @@ import {EmailConfigurationComponent} from './component/email-configuration/email
 import {EligibilitySummaryComponent} from './component/eligibility/eligibility-summary/eligibility-summary.component';
 import {AccountTypeConfigComponent} from './component/opening-account/config/account-type-config/account-type-config.component';
 import {AccountPurposeConfigComponent} from './component/opening-account/config/account-purpose-config/account-purpose-config.component';
+import {PreferenceComponent} from './component/preference/preference.component';
 
 
 // import {SecurityComponent} from './component/loan-config/loan-main-template/security/security.component';
@@ -54,6 +55,7 @@ export const adminRoutes: Routes = [
     {path: 'approvalLimit', component: ApprovalLimitComponent},
     {path: 'company', component: CompanyComponent},
     {path: 'user-guide', component: UserGuideComponent},
+    {path: 'preference-master', component: PreferenceComponent},
     {
         path: 'eligibility',
         children: [

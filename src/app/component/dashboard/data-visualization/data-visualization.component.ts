@@ -5,7 +5,6 @@ import { BranchService } from '../../../feature/admin/component/branch/branch.se
 import { Branch } from '../../../feature/admin/modal/branch';
 import { User } from '../../../feature/admin/modal/user';
 import { RoleAccess } from '../../../feature/admin/modal/role-access';
-import { StatisticsService } from '../../../chart/shared/service/statistics.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { BarChart } from '../../../chart/bar-chart/bar-chart.model';
@@ -17,8 +16,7 @@ import { BarChartService } from '../../../chart/bar-chart/bar-chart.service';
     styleUrls: ['./data-visualization.css']
 })
 export class DataVisualizationComponent implements OnInit {
-    roleVsUsersPieChart: Array<PieChart>;
-    branchVsUserPieChart: Array<PieChart>;
+
     pieChart: Array<PieChart> = new Array<PieChart>();
     barChartData: Array<BarChart> = new Array<BarChart>();
     branches: Branch[] = [];
@@ -45,14 +43,12 @@ export class DataVisualizationComponent implements OnInit {
         private fb: FormBuilder,
         private loanFormService: LoanFormService,
         private barChartService: BarChartService,
-        private statisticsService: StatisticsService,
         private branchService: BranchService
     ) { }
 
     ngOnInit() {
         this.findActiveRole();
         this.initalizeCurrentUserBranch();
-        this.getGeneralPieChartData();
         this.getAllData();
         this.getSeperateProposedAmount();
         this.getBarChartData();
@@ -196,19 +192,6 @@ export class DataVisualizationComponent implements OnInit {
         return date;
     }
 
-    private getGeneralPieChartData(): void {
-        this.getStatisticsForUsersPerBranch();
-        this.getStatisticsForUsersPerRole();
-    }
 
-    private getStatisticsForUsersPerRole() {
-        this.statisticsService.getStatisticsForUsersPerRole()
-            .subscribe((response: any) => this.roleVsUsersPieChart = response.detail, (error) => console.log(error));
-    }
-
-    private getStatisticsForUsersPerBranch() {
-        this.statisticsService.getStatisticsForUsersPerBranch()
-            .subscribe((response: any) => this.branchVsUserPieChart = response.detail, (error) => console.log(error));
-    }
 
 }

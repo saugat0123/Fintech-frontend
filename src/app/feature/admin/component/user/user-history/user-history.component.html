@@ -1,0 +1,43 @@
+<div class="modal-header">
+  <h4 class="modal-title">User History</h4>
+  <a (click)="onClose()" aria-label="Close" class="close cursor"><span
+      aria-hidden="true">×</span></a>
+</div>
+<div class="modal-body">
+  <div class="table-responsive">
+    <table class="table table-bordered table-responsive-md table-hover">
+      <thead>
+      <tr>
+        <th scope="col">S.No</th>
+        <th scope="col">Modified Date</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Username</th>
+        <th scope="col">Role</th>
+        <th scope="col">Status</th>
+        <th scope="col">Signature</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngIf="userHistory && userHistory?.length === 0">
+        <td colspan="8" class="text-center">No Content Found</td>
+      </tr>
+      <tr *ngFor="let history of userHistory;let i=index">
+        <td>{{i + 1}}</td>
+        <td>{{history?.revisionDate | date}}</td>
+        <td>{{history?.entity?.name}}</td>
+        <td>{{history?.entity?.email}}</td>
+        <td>{{history?.entity?.username}}</td>
+        <td>{{history?.entity?.role?.roleName}}</td>
+        <td>{{history?.entity?.role?.status}}</td>
+        <td>
+          <div class="zoom cursor">
+            <img *ngIf="history?.entity?.signatureImage !=null" alt="signature" height="50px"
+                 src="{{ rootUrl + '/' + history?.entity?.signatureImage}}"/>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

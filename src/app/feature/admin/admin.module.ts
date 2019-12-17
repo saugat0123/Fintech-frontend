@@ -68,6 +68,9 @@ import {AccountTypeConfigComponent} from './component/opening-account/config/acc
 import {AccountPurposeConfigComponent} from './component/opening-account/config/account-purpose-config/account-purpose-config.component';
 import {AccountTypeFormComponent} from './component/opening-account/config/account-type-config/account-type-form/account-type-form.component';
 import {AccountPurposeFormComponent} from './component/opening-account/config/account-purpose-config/account-purpose-form/account-purpose-form.component';
+import { InactiveValuatorCommentComponent } from './component/valuator/inactive-valuator-comment/inactive-valuator-comment.component';
+import {PreferenceComponent} from './component/preference/preference.component';
+import {UserHistoryComponent} from './component/user/user-history/user-history.component';
 
 @NgModule({
     declarations: [
@@ -124,7 +127,10 @@ import {AccountPurposeFormComponent} from './component/opening-account/config/ac
         AccountTypeConfigComponent,
         AccountPurposeConfigComponent,
         AccountTypeFormComponent,
-        AccountPurposeFormComponent
+        AccountPurposeFormComponent,
+        InactiveValuatorCommentComponent,
+        PreferenceComponent,
+        UserHistoryComponent
 
         // SecurityComponent
     ],
@@ -161,7 +167,9 @@ import {AccountPurposeFormComponent} from './component/opening-account/config/ac
         EligibilityDocumentViewComponent,
         RoleEditComponent,
         AccountTypeFormComponent,
-        AccountPurposeFormComponent
+        AccountPurposeFormComponent,
+        InactiveValuatorCommentComponent,
+        UserHistoryComponent
     ]
 
 })

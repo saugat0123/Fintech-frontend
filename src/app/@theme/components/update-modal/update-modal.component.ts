@@ -1,9 +1,10 @@
 import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CommonPageService} from '../../../@core/service/baseservice/common-pagination-service';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../model/Alert';
+import {Status} from '../../../@core/Status';
 
 @Component({
     selector: 'app-update-modal',
@@ -22,10 +23,13 @@ export class UpdateModalComponent implements OnInit, DoCheck {
     globalMsg: any;
     currentUrl: any;
 
+    spinner = false;
+
     constructor(
         private router: Router,
         private commonPageService: CommonPageService,
-        private modalService: NgbActiveModal,
+        private modalService: NgbModal,
+        private activeModalService: NgbActiveModal,
         private toastService: ToastService
     ) {
     }
@@ -39,18 +43,23 @@ export class UpdateModalComponent implements OnInit, DoCheck {
     }
 
     updateStatus() {
+      this.spinner = true;
+        if (this.data.valuatingField !== undefined && this.data.status === Status.INACTIVE) {
+            this.activeModalService.dismiss('openInactiveComment');
+            return;
+        }
         this.service.save(this.data).subscribe(() => {
             this.globalMsg = 'SUCCESSFULLY UPDATED STATUS';
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED STATUS'));
-            this.modalService.close();
+            this.activeModalService.close();
             }, error => {
-            this.modalService.dismiss();
+            this.activeModalService.dismiss();
                 this.globalMsg = error.error.message;
             }
         );
     }
 
     closeModal() {
-        this.modalService.dismiss();
+        this.activeModalService.dismiss();
     }
 }
