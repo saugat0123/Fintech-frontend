@@ -133,6 +133,38 @@
             </tr>
             </tbody>
           </table>
+
+          <p><strong>Family Details</strong></p>
+          <table
+                  class="table table-condensed table-bordered table-responsive-md disable-print text-center">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Relation Name</th>
+              <th>Citizenship no.</th>
+              <th>Citizenship Issued Date</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
+              <td >
+                {{relative.customerRelativeName}}
+              </td>
+
+              <td >
+                {{relative.customerRelation}}
+              </td>
+              <td >
+                {{relative.citizenshipNumber}}
+              </td>
+              <td >
+                {{relative.citizenshipIssuedDate | date}}
+              </td>
+
+            </tr>
+            </tbody>
+          </table>
           <table class="print-only table table-bordered text-center" id="print-borrower-table">
             <thead>
             <tr>
