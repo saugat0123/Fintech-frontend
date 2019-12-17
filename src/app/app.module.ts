@@ -19,6 +19,11 @@ import {ResentForgotPasswordComponent} from './component/resent-forgot-password/
 import {LoginBaseComponent} from './component/login-base/login-base.component';
 import {NewPasswordComponent} from './component/new-password/new-password.component';
 import {RequestInterceptor} from './@core/service/authentication/request-interceptor.service';
+import {NbAccordionModule} from '@nebular/theme';
+import {ReactiveFormsModule} from '@angular/forms';
+
+// import { GroupComponent } from './group/group.component';
+
 
 
 @NgModule({
@@ -28,7 +33,8 @@ import {RequestInterceptor} from './@core/service/authentication/request-interce
         ForgotPasswordComponent,
         ResentForgotPasswordComponent,
         LoginBaseComponent,
-        NewPasswordComponent
+        NewPasswordComponent,
+
     ],
     imports: [
         BrowserModule,
@@ -43,6 +49,8 @@ import {RequestInterceptor} from './@core/service/authentication/request-interce
         DragDropModule,
         NgxPrintModule,
         NbDatepickerModule.forRoot(),
+        NbAccordionModule,
+        ReactiveFormsModule,
     ],
     providers: [AddressService, {
         provide: LocationStrategy,

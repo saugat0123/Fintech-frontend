@@ -1,66 +1,73 @@
+
 <nb-card [nbSpinner]="loading"
          nbSpinnerStatus="primary"
          nbSpinnerSize="large"
          nbSpinnerMessage="Testing email configuration..."
          status="primary">
+
+
+    <nb-accordion>
+        <nb-accordion-item>
+            <nb-accordion-item-header > Email Configuration</nb-accordion-item-header>
+            <nb-accordion-item-body>
+                <form class="form-horizontal" (ngSubmit)="onSubmit()" [formGroup]="emailConfig">
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2" for="username"><b>Username:</b></label>
+                        <div class="col-sm-4">
+                            <input type="email" class="form-control" formControlName="username" id="username"
+                                   placeholder="Enter username"
+                                   required/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2" for="pwd"><b>Password:</b></label>
+                        <div class="col-sm-4">
+                            <input type="password" class="form-control" formControlName="password" id="pwd"
+                                   placeholder="Enter password" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2" for="username"><b>Domain:</b></label>
+                        <div class="col-sm-4">
+                            <input type="email" class="form-control" formControlName="domain" id="domain"
+                                   placeholder="info@abc.com`"
+                                   required/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2" for="host"><b>Host:</b></label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" formControlName="host" id="host"
+                                   placeholder="Enter host eg smtp.gmail.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2" for="port"><b>Port:</b></label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" formControlName="port" id="port"
+                                   placeholder="Enter Port eg 457" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-sm-2" for="port"><b>Check Mail Config:</b></label>
+                        <div class="col-sm-4">
+                            <input type="email" class="form-control" formControlName="testMail" id="testEmail"
+                                   placeholder="Enter your email eg abc@gmail.com" required>
+                            <div class="text-danger" style="font-size: 12px">test your email configuration</div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" nbButton status="info" [disabled]="!emailConfig.valid">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </nb-accordion-item-body>
+        </nb-accordion-item>
+    </nb-accordion>
     <nb-alert *ngIf="notice">Configuration has been Setup already .</nb-alert>
-    <nb-card-header>
-        Email Configuration
-    </nb-card-header>
-    <nb-card-body>
-        <form class="form-horizontal" (ngSubmit)="onSubmit()" [formGroup]="emailConfig">
-            <div class="form-group row">
-                <label class="control-label col-sm-2" for="username"><b>Username:</b></label>
-                <div class="col-sm-4">
-                    <input type="email" class="form-control" formControlName="username" id="username"
-                           placeholder="Enter username"
-                           required/>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="control-label col-sm-2" for="pwd"><b>Password:</b></label>
-                <div class="col-sm-4">
-                    <input type="password" class="form-control" formControlName="password" id="pwd"
-                           placeholder="Enter password" required>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="control-label col-sm-2" for="username"><b>Domain:</b></label>
-                <div class="col-sm-4">
-                    <input type="email" class="form-control" formControlName="domain" id="domain"
-                           placeholder="info@abc.com`"
-                           required/>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="control-label col-sm-2" for="host"><b>Host:</b></label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" formControlName="host" id="host"
-                           placeholder="Enter host eg smtp.gmail.com" required>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="control-label col-sm-2" for="port"><b>Port:</b></label>
-                <div class="col-sm-4">
-                    <input type="number" class="form-control" formControlName="port" id="port"
-                           placeholder="Enter Port eg 457" required>
-                </div>
-            </div>
 
-            <div class="form-group row">
-                <label class="control-label col-sm-2" for="port"><b>Check Mail Config:</b></label>
-                <div class="col-sm-4">
-                    <input type="email" class="form-control" formControlName="testMail" id="testEmail"
-                           placeholder="Enter your email eg abc@gmail.com" required>
-                    <div class="text-danger" style="font-size: 12px">test your email configuration</div>
-                </div>
 
-            </div>
-            <div class="form-group">
-                <div class="d-flex justify-content-end">
-                    <button type="submit" nbButton status="info" [disabled]="!emailConfig.valid">Save</button>
-                </div>
-            </div>
-        </form>
-    </nb-card-body>
 </nb-card>

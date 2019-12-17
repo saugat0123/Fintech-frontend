@@ -70,6 +70,9 @@
                     <ng-template ngbTabContent *ngIf="allList.name === 'Customer Document'">
                         <app-customer-document #customerDocument [loanDataHolder]="loanDocument"></app-customer-document>
                     </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Group'">
+                        <app-group></app-group>
+                    </ng-template>
                 </ngb-tab>
             </ngb-tabset>
 
