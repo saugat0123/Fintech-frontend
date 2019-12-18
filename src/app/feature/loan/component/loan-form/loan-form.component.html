@@ -4,7 +4,7 @@
         <h2 class="d-flex justify-content-center">{{loanTitle}}</h2>
         <hr>
 
-        <form [formGroup]="priorityForm">
+        <form #priorityFormNav id="priorityFormNav" [formGroup]="priorityForm">
             <div class="row justify-content-between">
                 <div class="col-md-3">
                     <label><strong>Priority</strong></label>
@@ -21,17 +21,13 @@
                         </small>
                     </div>
                 </div>
-                <div class="col-md-3 text-right">
-                    <button *ngIf="!printEnabled" nbButton status="warning" class="mt-4" (click)="enableDisablePrinting()">Print</button>
-                    <button *ngIf="printEnabled"nbButton status="warning" class="mt-4" (click)="enableDisablePrinting()">Back to templates</button>
-                </div>
             </div>
         </form>
 
         <span class="d-flex justify-content-end">{{currentNepDate}}</span>
     </nb-card-header>
     <nb-card-body>
-        <section *ngIf="loanDocument && templateList && !printEnabled">
+        <section *ngIf="loanDocument && templateList">
             <ngb-tabset #tabSet="ngbTabset" (tabChange)="tabChange($event, tabSet)">
                 <ngb-tab *ngFor="let allList of templateList; let i = index" [title]="allList.name"
                          [id]="i.toString(10)">
@@ -100,9 +96,6 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <section *ngIf="printEnabled">
-            <app-template-summary></app-template-summary>
         </section>
     </nb-card-body>
 </nb-card>

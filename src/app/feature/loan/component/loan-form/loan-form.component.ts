@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
@@ -30,6 +30,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {SecurityComponent} from '../loan-main-template/security/security.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerDocumentComponent} from '../loan-main-template/customer-document/customer-document.component';
+import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
 
 @Component({
     selector: 'app-loan-form',
@@ -89,13 +90,14 @@ export class LoanFormComponent implements OnInit {
     priorityForm: FormGroup;
 
     nextButtonAction = false;
-    printEnabled = false;
 
     loan: LoanConfig = new LoanConfig();
     currentNepDate;
     submitDisable = false;
     loanDocument: LoanDataHolder;
 
+    @ViewChild('priorityFormNav', {static: false})
+    priorityFormNav: ElementRef;
 
     @ViewChild('basicInfo', {static: false})
     basicInfo: BasicInfoComponent;
@@ -143,7 +145,8 @@ export class LoanFormComponent implements OnInit {
         private toastService: ToastService,
         private datePipe: DatePipe,
         private spinner: NgxSpinnerService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private scrollNavService: ScrollNavigationService
     ) {
 
     }
@@ -283,27 +286,9 @@ export class LoanFormComponent implements OnInit {
         this.selectTab(this.previousParameter.index, this.previousParameter.name);
     }
 
-    nextButtonActionFxn(tabSet: NgbTabset) {
-        this.nextButtonAction = true;
-        tabSet.tabs.some(templateListMember => {
-            if (Number(templateListMember.id) === Number(tabSet.activeId)) {
-                if (this.selectChild(templateListMember.title, true)) {
-                    this.nextButtonAction = false;
-                    return true;
-                } else {
-                    tabSet.select(this.nextTabId.toString(10));
-                    return true;
-                }
-            }
-        });
-    }
-
-    enableDisablePrinting() {
-        this.printEnabled = !this.printEnabled;
-    }
-
     save() {
         if (this.priorityForm.invalid) {
+            this.scrollNavService.scrollNavigateTo(this.priorityFormNav);
             return;
         }
         this.nextButtonAction = true;
@@ -330,6 +315,21 @@ export class LoanFormComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.ERROR, `Error saving customer: ${error.error.message}`));
             });
         }
+    }
+
+    nextButtonActionFxn(tabSet: NgbTabset) {
+      this.nextButtonAction = true;
+        tabSet.tabs.some(templateListMember => {
+            if (Number(templateListMember.id) === Number(tabSet.activeId)) {
+                if (this.selectChild(templateListMember.title, true)) {
+                  this.nextButtonAction = false;
+                  return true;
+                } else {
+                  tabSet.select(this.nextTabId.toString(10));
+                  return true;
+                }
+            }
+        });
     }
 
     selectChild(name, action) {
