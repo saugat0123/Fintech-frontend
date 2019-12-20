@@ -5,9 +5,10 @@
                        [actionsList]="actionsList"
                        [id]="customerId"
                        [loanCategory]="loanCategory"
-                       [loanConfigId]="loanConfigId"></app-loan-action>
+                       [loanConfigId]="loanConfigId"
+      (viewDetailPrintClick)="viewDetailPrint()"></app-loan-action>
     </nb-card-header>
-    <nb-card-body id="print-block">
+    <nb-card-body id="print-block" *ngIf="!viewDetailedPrint">
       <div class="col-md-12  text-success cursor disable-print"
       >
         <a (click)="renewedOrCloseFrom(loanDataHolder?.childId)" *ngIf="loanDataHolder?.childId !=null"
@@ -649,6 +650,9 @@
         </div>
       </div>
 
+    </nb-card-body>
+    <nb-card-body *ngIf="viewDetailedPrint">
+      <app-full-template-details></app-full-template-details>
     </nb-card-body>
   </nb-card>
 </section>

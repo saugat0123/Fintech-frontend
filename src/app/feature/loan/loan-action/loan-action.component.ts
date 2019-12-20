@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoanActionService} from './service/loan-action.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -35,8 +35,10 @@ export class LoanActionComponent implements OnInit {
     @Input() id: number;
     @Input() loanCategory: string;
     @Input() catalogueStatus = false;
-
     @Input() actionsList: ActionModel;
+
+    @Output() viewDetailPrintClick = new EventEmitter();
+
     popUpTitle: string;
     currentUserRoleType = false;
     sendForwardBackwardList = [];

@@ -81,6 +81,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   }[] = [];
   registeredOfferLetters: Array<String> = [];
   sortedList: Array<LoanStage>;
+
+  viewDetailedPrint = false;
+
   constructor(
       private userService: UserService,
       private loanFormService: LoanFormService,
@@ -381,6 +384,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     link.download = name;
     link.setAttribute('visibility', 'hidden');
     link.click();
+  }
+
+  viewDetailPrint() {
+      this.viewDetailedPrint = true;
   }
 }
 
