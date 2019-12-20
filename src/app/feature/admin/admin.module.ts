@@ -71,6 +71,8 @@ import {AccountPurposeFormComponent} from './component/opening-account/config/ac
 import { InactiveValuatorCommentComponent } from './component/valuator/inactive-valuator-comment/inactive-valuator-comment.component';
 import {PreferenceComponent} from './component/preference/preference.component';
 import {UserHistoryComponent} from './component/user/user-history/user-history.component';
+import {AgmCoreModule} from "@agm/core";
+import {environment} from "../../../environments/environment";
 
 @NgModule({
     declarations: [
@@ -145,7 +147,11 @@ import {UserHistoryComponent} from './component/user/user-history/user-history.c
         DragDropModule,
         NgSelectModule,
         NgxPrintModule,
-        CoreModule
+        CoreModule,
+        AgmCoreModule,
+        AgmCoreModule.forRoot({
+            apiKey: environment.GOOGLE_MAP_API_KEY
+        })
     ],
 
     entryComponents: [

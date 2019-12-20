@@ -6,7 +6,7 @@ import {MunicipalityVdc} from './municipality_VDC';
 export class Branch {
     id: number;
     name: string;
-    branchCode: string;
+    branchCode: number;
     address: string;
     created: string;
     lastModified: string;
@@ -16,4 +16,6 @@ export class Branch {
     wardNumber: number;
     municipalityVdc: MunicipalityVdc;
     status: string;
+    landline_number: any;
+    email: string;
 }
