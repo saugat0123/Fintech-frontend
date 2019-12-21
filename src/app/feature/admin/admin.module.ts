@@ -71,8 +71,8 @@ import {AccountPurposeFormComponent} from './component/opening-account/config/ac
 import { InactiveValuatorCommentComponent } from './component/valuator/inactive-valuator-comment/inactive-valuator-comment.component';
 import {PreferenceComponent} from './component/preference/preference.component';
 import {UserHistoryComponent} from './component/user/user-history/user-history.component';
-import {AgmCoreModule} from "@agm/core";
-import {environment} from "../../../environments/environment";
+import {AgmCoreModule} from '@agm/core';
+import {environment} from '../../../environments/environment';
 
 @NgModule({
     declarations: [

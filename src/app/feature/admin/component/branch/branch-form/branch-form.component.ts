@@ -43,8 +43,8 @@ export class BranchFormComponent implements OnInit, DoCheck {
     infoWindowOpen = new FormControl(false);
     addressLabel = new FormControl('');
     zoom = 10;
-    branchForm: any;
-    branchFormGroup: FormGroup;
+
+
 
 
 
