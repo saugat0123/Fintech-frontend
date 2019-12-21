@@ -21,6 +21,8 @@ import {NewPasswordComponent} from './component/new-password/new-password.compon
 import {RequestInterceptor} from './@core/service/authentication/request-interceptor.service';
 
 
+
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -42,7 +44,8 @@ import {RequestInterceptor} from './@core/service/authentication/request-interce
         AppRoutingModule,
         DragDropModule,
         NgxPrintModule,
-        NbDatepickerModule.forRoot(),
+        NbDatepickerModule.forRoot()
+
     ],
     providers: [AddressService, {
         provide: LocationStrategy,
@@ -52,6 +55,7 @@ import {RequestInterceptor} from './@core/service/authentication/request-interce
     bootstrap: [AppComponent],
     exports: [],
     entryComponents: []
+
 })
 export class AppModule {
 }

@@ -16,4 +16,6 @@ export class Branch {
     wardNumber: number;
     municipalityVdc: MunicipalityVdc;
     status: string;
+    landlineNumber: any;
+    email: string;
 }
