@@ -9,11 +9,16 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {AlertService} from '../../../../../@theme/components/alert/alert.service';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {BranchService} from '../branch.service';
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+
+
+declare let google: any;
 
 
 @Component({
     selector: 'app-branch-form',
     templateUrl: './branch-form.component.html'
+
 })
 export class BranchFormComponent implements OnInit, DoCheck {
 
@@ -30,14 +35,29 @@ export class BranchFormComponent implements OnInit, DoCheck {
     district: District = new District();
     province: Province = new Province();
     municipality: MunicipalityVdc = new MunicipalityVdc();
+    latLng: string[];
+    latitude = 27.732453;
+    longitude = 85.291547;
+    markerLatitude = null;
+    markerLongitude = null;
+    infoWindowOpen = new FormControl(false);
+    addressLabel = new FormControl('');
+    zoom = 10;
+
+
+
+
 
     constructor(
         private service: BranchService,
         private location: AddressService,
         private activeModal: NgbActiveModal,
         private alertService: AlertService,
-        private toastService: ToastService
-    ) {
+        private toastService: ToastService,
+        private formBuilder: FormBuilder
+
+
+) {
     }
 
     ngOnInit() {
@@ -109,7 +129,9 @@ export class BranchFormComponent implements OnInit, DoCheck {
         }
     }
 
-    onSubmit() {
+    onSubmit()
+
+    {
         this.submitted = true;
         this.service.save(this.model).subscribe(() => {
 
@@ -141,4 +163,51 @@ export class BranchFormComponent implements OnInit, DoCheck {
     getMunicipality() {
         this.model.municipalityVdc = this.municipality;
     }
+
+    findLocation(coordinate) {
+
+        this.latLng = coordinate.split(',', 2);
+        this.placeMaker(+this.latLng[0], +this.latLng[1]);
+
+    }
+    placeMaker(latitude, longitude) {
+        this.infoWindowOpen.setValue('false');
+        this.zoom = 10;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.markerLatitude = this.latitude;
+        this.markerLongitude = this.longitude;
+
+        this.getAddress(this.latitude, this.longitude);
+    }
+
+
+    getAddress(latitude: number, longitude: number) {
+        if (navigator.geolocation) {
+            const geocoder = new google.maps.Geocoder();
+            const latlng = new google.maps.LatLng(latitude, longitude);
+            const request = {latLng: latlng};
+            geocoder.geocode(request, (results, status) => {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    const result = results[0];
+                    const rsltAdrComponent = result.formatted_address;
+                    if (rsltAdrComponent != null) {
+                        this.addressLabel.setValue(rsltAdrComponent);
+
+                        this.infoWindowOpen.setValue('true');
+                    } else {
+                        this.addressLabel.setValue(null);
+
+                        alert('No address available!');
+                    }
+                } else {
+                    this.addressLabel.setValue(null);
+
+                    alert('Error in GeoCoder');
+                }
+            });
+        }
+    }
+
+
 }
