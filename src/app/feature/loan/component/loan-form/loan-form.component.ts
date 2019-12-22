@@ -28,6 +28,7 @@ import {CreditGradingComponent} from '../loan-main-template/credit-grading/credi
 import {SiteVisitComponent} from '../loan-main-template/site-visit/site-visit.component';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {SecurityComponent} from '../loan-main-template/security/security.component';
+import {GroupComponent} from '../loan-main-template/group/group.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerDocumentComponent} from '../loan-main-template/customer-document/customer-document.component';
 
@@ -128,6 +129,8 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('customerDocument', {static: false})
     customerDocument: CustomerDocumentComponent;
+    @ViewChild('group', {static: false})
+    group: GroupComponent;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -407,6 +410,10 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Credit Risk Grading' && action) {
           this.creditGrading.onSubmit();
           this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
+        }
+        if (name === 'Group' && action) {
+            this.group.onSubmit();
+            this.loanDocument.group = this.group.newGroupData;
         }
         return false;
 

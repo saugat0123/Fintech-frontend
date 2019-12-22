@@ -25,6 +25,7 @@ export class SecurityComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
+        console.log(this.securityValue, 'this is security');
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityValueForEdit = JSON.parse(this.securityValue.data);
 
