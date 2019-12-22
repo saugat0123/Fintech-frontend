@@ -413,7 +413,7 @@ export class LoanFormComponent implements OnInit {
         }
         if (name === 'Group' && action) {
             this.group.onSubmit();
-            this.loanDocument.group = this.group.newGroupData;
+            this.loanDocument.group = this.group.modelData;
         }
         return false;
 
