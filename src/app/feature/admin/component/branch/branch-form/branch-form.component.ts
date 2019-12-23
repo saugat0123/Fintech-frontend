@@ -9,7 +9,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {AlertService} from '../../../../../@theme/components/alert/alert.service';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {BranchService} from '../branch.service';
-import {FormBuilder, FormControl} from "@angular/forms";
+import {FormBuilder, FormControl} from '@angular/forms';
 
 
 declare let google: any;
@@ -129,9 +129,7 @@ export class BranchFormComponent implements OnInit, DoCheck {
         }
     }
 
-    onSubmit()
-
-    {
+    onSubmit() {
         this.submitted = true;
         this.service.save(this.model).subscribe(() => {
 
