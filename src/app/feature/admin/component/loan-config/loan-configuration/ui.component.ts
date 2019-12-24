@@ -13,7 +13,6 @@ import {OfferLetter} from '../../../modal/offerLetter';
 import {OfferLetterService} from '../offer-letter.service';
 import {Status} from '../../../../../@core/Status';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {ProductModeService} from '../../../../service/product-mode.service';
 
 
 @Component({
@@ -53,7 +52,6 @@ export class UIComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private spinner: NgxSpinnerService,
-        private productModeService: ProductModeService
     ) {
     }
 
@@ -164,9 +162,6 @@ export class UIComponent implements OnInit {
 
     ngOnInit() {
         UIComponent.loadData(this);
-        this.productModeService.getAll().subscribe((res: any) => {
-            console.log(res);
-        });
     }
 
     getTemplate() {
