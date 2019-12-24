@@ -91,7 +91,7 @@ export class ComposeComponent implements OnInit {
         );
     }
 
-    send() {
+    getProperties() {
         this.memo.id = this.memoComposeForm.get('id').value;
         this.memo.subject = this.memoComposeForm.get('subject').value;
         this.memo.refNumber = this.memoComposeForm.get('refNumber').value;
@@ -101,6 +101,10 @@ export class ComposeComponent implements OnInit {
         this.memo.cc = this.memoComposeForm.get('cc').value;
         this.memo.bcc = this.memoComposeForm.get('bcc').value;
         this.memo.content = this.memoComposeForm.get('content').value;
+    }
+
+    send() {
+        this.getProperties();
 
         if (this.isNewMemo) {
 
@@ -129,14 +133,15 @@ export class ComposeComponent implements OnInit {
             if ((this.memo.stages) && this.memo.stages.length === 1) {
                 const stage = this.memo.stages[0];
                 stage.stage = 'FORWARD';
+                this.memo.stage = stage.stage;
             }
 
             this.memoService.update(this.memo.id, this.memo).subscribe((response: any) => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Memo'));
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Memo sss'));
                 this.router.navigate([MemoFullRoute.DRAFT]);
             }, error => {
                 console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Memo'));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Memo sss'));
             });
         }
     }
@@ -165,4 +170,13 @@ export class ComposeComponent implements OnInit {
         return this.memoComposeForm.get('content');
     }
 
+    saveAsDraft() {
+        this.getProperties();
+        this.memo.stage = 'DRAFT';
+        this.memoService.save(this.memo).subscribe(res => {
+            console.log(res);
+        }, err => {
+            console.log(err);
+        });
+    }
 }

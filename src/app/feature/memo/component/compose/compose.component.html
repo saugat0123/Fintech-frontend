@@ -85,13 +85,14 @@
                     </ng-select>
                 </div>
                 <div class="form-group">
-                    <quill-editor formControlName="content"
-                                  placeholder="Insert memo content..." [ngClass]="{
-                               'is-invalid': content.invalid && (content.dirty || content.touched),
-                                'is-valid': !content.invalid && (content.dirty || content.touched)
-                                }"
-                                  [style]="{height: '200px'}"
-                    ></quill-editor>
+<!--                    <quill-editor formControlName="content"-->
+<!--                                  placeholder="Insert memo content..." [ngClass]="{-->
+<!--                               'is-invalid': content.invalid && (content.dirty || content.touched),-->
+<!--                                'is-valid': !content.invalid && (content.dirty || content.touched)-->
+<!--                                }"-->
+<!--                                  [style]="{height: '200px'}"-->
+<!--                    ></quill-editor>-->
+                    <textarea formControlName="content"></textarea>
                 </div>
                 <!--<div class="form-group">
                     <nb-card>
@@ -109,18 +110,18 @@
         <nb-card-footer>
             <div class="col-md-12">
                 <!--<div class="float-left">
-                    <button nbButton status="warning" size="small" type="reset"><i class="fa fa-times"></i>
+                    <button nbButton status="warning" size="small" type="reset"><em class="fa fa-times"></em>
                         Discard
                     </button>
                 </div>-->
 
                 <div class="float-right">
-                    <button nbButton status="primary" size="small" type="button">
-                        <i class="fa fa-pencil"></i>Save as Draft
+                    <button nbButton (click)="saveAsDraft()" status="primary" size="small" type="button">
+                        <em class="fa fa-pencil"></em>Save as Draft
                     </button>
                     <span class="m-1"></span>
                     <button nbButton status="success" size="small" type="submit" [disabled]="!memoComposeForm.valid">
-                        <i class="fa fa-envelope-o"></i> Send
+                        <em class="fa fa-envelope-o"></em> Send
                     </button>
                 </div>
             </div>
