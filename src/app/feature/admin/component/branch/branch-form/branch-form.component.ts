@@ -9,7 +9,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {AlertService} from '../../../../../@theme/components/alert/alert.service';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {BranchService} from '../branch.service';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl} from '@angular/forms';
 
 
 declare let google: any;
@@ -192,13 +192,11 @@ export class BranchFormComponent implements OnInit, DoCheck {
                         this.infoWindowOpen.setValue('true');
                     } else {
                         this.addressLabel.setValue(null);
-
-                        alert('No address available!');
+                        this.toastService.show(new Alert(AlertType.INFO, 'No address available!' ));
                     }
                 } else {
                     this.addressLabel.setValue(null);
-
-                    alert('Error in GeoCoder');
+                    this.toastService.show(new Alert(AlertType.INFO, 'Error in GeoCoder!' ));
                 }
             });
         }
