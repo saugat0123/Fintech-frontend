@@ -1,0 +1,42 @@
+<div class="modal-header" xmlns="http://www.w3.org/1999/html">
+  <h4 class="modal-title">Add Share</h4>
+  <a aria-label="Close" class="close cursor"><span (click)="closeModel()"
+                                                   aria-hidden="true">×</span></a>
+</div>
+<div class="modal-body">
+  <form #shareValueForm="ngForm" (ngSubmit)=" onSubmit(shareValueForm)">
+    <div class="row form-group">
+      <div class="col-md-6">
+        <label for="promoterShare">Share Type</label>
+        <input class="form-control" disabled id="promoterShare" value="PromoterShare"></div>
+      <div class="col-md-6">
+        <label for="shareValue">Share Value(%)</label>
+        <input [ngModel]="shareValuesModel.promoterValue" class="form-control" id="shareValue"
+               name="promoterValue" required type="number"></div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-6">
+        <label for="promoterShare">Share Type</label>
+        <input Value="OrdinaryShare" class="form-control" disabled id="ordinaryShare">
+
+        <span *ngIf="errMsg">
+        <p>{{errMsg}}</p>
+      </span></div>
+      <div class="col-md-6">
+        <label for="ordinaryValue"> Value(%)</label>
+        <input [ngModel]="shareValuesModel.ordinaryValue" class="form-control" id="ordinaryValue"
+               name="ordinaryValue" required type="number">
+
+        <span *ngIf="errMsg">
+        <p>{{errMsg}}</p>
+      </span>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-primary" type="submit"><i
+          class="fa fa-save"></i>
+      </button>
+    </div>
+  </form>
+</div>

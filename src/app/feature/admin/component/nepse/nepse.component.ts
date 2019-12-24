@@ -9,6 +9,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {NepseService} from './nepse.service';
 import {PermissionService} from '../../../../@core/service/permission.service';
+import {Status} from "../../../../@core/Status";
 
 @Component({
     selector: 'app-nepse',
@@ -33,7 +34,7 @@ export class NepseComponent implements OnInit {
     permissions = [];
     viewNepse = false;
     addViewNepse = false;
-
+  status = Status;
     constructor(
         private service: NepseService,
         private permissionService: PermissionService,
@@ -101,7 +102,7 @@ export class NepseComponent implements OnInit {
 
     onSearchChange(searchValue: string) {
         this.search = {
-            'name': searchValue
+          'name': searchValue,
         };
 
         NepseComponent.loadData(this);
