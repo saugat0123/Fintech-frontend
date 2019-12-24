@@ -43,6 +43,7 @@ export class BranchFormComponent implements OnInit, DoCheck {
     infoWindowOpen = new FormControl(false);
     addressLabel = new FormControl('');
     zoom = 10;
+    locationPreview: string;
 
 
 
@@ -175,7 +176,7 @@ export class BranchFormComponent implements OnInit, DoCheck {
         this.longitude = longitude;
         this.markerLatitude = this.latitude;
         this.markerLongitude = this.longitude;
-
+        this.locationPreview = `${this.latitude},${this.longitude}`;
         this.getAddress(this.latitude, this.longitude);
     }
 
