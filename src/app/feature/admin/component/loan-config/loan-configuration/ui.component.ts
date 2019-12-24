@@ -78,7 +78,6 @@ export class UIComponent implements OnInit {
                     });
                     other.loanConfig.templateList.forEach(loanConfigTemplate => {
                         other.loanTemplateList.forEach(loanTemplate => {
-                            console.log(loanTemplate);
                             if (loanConfigTemplate.id === loanTemplate.id) {
                                 other.confirmLoanTemplateList.push(loanConfigTemplate);
                                 other.loanTemplateList.splice(other.loanTemplateList.indexOf(loanTemplate), 1);

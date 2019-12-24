@@ -278,22 +278,14 @@
 
     </ng-template>
 
-    <ng-template #onActionChange>
-        <div>
-            <div class="modal-content">
-                <div class="modal-header" style="display:block">
-                    <div>
-                        <h4 class="">Do You want to change the loan type to {{tempLoanType}}
-                            ?</h4>
-                        <form>
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary  btn-flat" (click)="changeAction()">
-                                    YES
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+    <ng-template #onActionChange class="modal">
+        <div class="modal-header">
+            <h5>Do you want to change the loan type to {{loanType[tempLoanType]}}?</h5>
+        </div>
+        <div class="modal-body">
+            <div class="d-flex justify-content-end">
+                <button (click)="changeAction()" nbButton status="primary" type="submit">YES</button>
+                <button (click)="onClose()" nbButton status="warning" type="button">NO</button>
             </div>
         </div>
     </ng-template>
