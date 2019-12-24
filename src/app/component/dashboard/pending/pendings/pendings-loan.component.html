@@ -6,11 +6,11 @@
           <div class="row">
             <div class="col-md-6">
               <button
-                  (click)="isFilterCollapsed = !isFilterCollapsed"
-                  [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
-                  nbButton
-                  shape="rectangle"
-                  status="primary">
+                      (click)="isFilterCollapsed = !isFilterCollapsed"
+                      [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+                      nbButton
+                      shape="rectangle"
+                      status="primary">
                 <em class="fa fa-filter"> Filter</em>
               </button>
             </div>
@@ -54,12 +54,23 @@
                   </option>
                 </select>
               </div>
+
+              <div class="col-md-3">
+                <ng-select [items]="docStatusMakerList"
+                           [multiple]="false"
+                           bindLabel="name"
+                           bindValue="name"
+                           formControlName="documentStatus"
+                           placeholder="Select the docStatus">
+                </ng-select>
+              </div>
             </div>
             <div class="col-md-12 p-0">
               <button [disabled]="!filterForm.valid" class="mr-2" nbButton shape="rectangle"
                       status="info" type="submit">Search
               </button>
-              <button (click)="buildFilterForm()" type="button" nbButton shape="rectangle" status="danger">Clear
+              <button (click)="buildFilterForm()" nbButton shape="rectangle" status="danger"
+                      type="button">Clear
               </button>
             </div>
           </form>
@@ -91,8 +102,8 @@
               <td>{{i + 1}}</td>
               <td>{{loanDataHolder?.branch?.name}}</td>
               <td>{{loanDataHolder?.loanCategory === 'BUSINESS_TYPE' ?
-                  loanDataHolder?.companyInfo?.companyName
-                  : loanDataHolder?.customerInfo?.customerName}}</td>
+                      loanDataHolder?.companyInfo?.companyName
+                      : loanDataHolder?.customerInfo?.customerName}}</td>
               <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
               <td>{{loanDataHolder?.loan?.name}}</td>
               <td>{{loanDataHolder.loanType}}</td>

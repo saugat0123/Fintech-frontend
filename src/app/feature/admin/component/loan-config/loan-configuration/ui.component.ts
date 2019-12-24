@@ -13,6 +13,7 @@ import {OfferLetter} from '../../../modal/offerLetter';
 import {OfferLetterService} from '../offer-letter.service';
 import {Status} from '../../../../../@core/Status';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {ProductModeService} from '../../../../service/product-mode.service';
 
 
 @Component({
@@ -52,6 +53,7 @@ export class UIComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private spinner: NgxSpinnerService,
+        private productModeService: ProductModeService
     ) {
     }
 
@@ -162,6 +164,9 @@ export class UIComponent implements OnInit {
 
     ngOnInit() {
         UIComponent.loadData(this);
+        this.productModeService.getAll().subscribe((res: any) => {
+            console.log(res);
+        });
     }
 
     getTemplate() {
@@ -259,7 +264,7 @@ export class UIComponent implements OnInit {
         this.service.save(this.loanConfig).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Config!'));
                 this.loanConfig = new LoanConfig();
-                this.router.navigate(['home/admin/config']).then( () => {
+            this.router.navigate(['home/admin/config']).then(() => {
                     this.spinner.hide();
                 });
             }, error => {
