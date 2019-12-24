@@ -142,7 +142,7 @@ export class ValuatorComponent implements OnInit {
                         }, () => {
                             ValuatorComponent.loadData(this);
                         }
-                    )
+                    );
                 }
               ValuatorComponent.loadData(this);
             }
@@ -168,6 +168,6 @@ export class ValuatorComponent implements OnInit {
     }, error => {
       console.log(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to delete valuator'));
-    })
+    });
   }
 }

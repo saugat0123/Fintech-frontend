@@ -43,7 +43,10 @@ export class BranchFormComponent implements OnInit, DoCheck {
     infoWindowOpen = new FormControl(false);
     addressLabel = new FormControl('');
     zoom = 10;
-    locationPreview: string;
+
+
+
+
 
     constructor(
         private service: BranchService,
@@ -172,7 +175,7 @@ export class BranchFormComponent implements OnInit, DoCheck {
         this.longitude = longitude;
         this.markerLatitude = this.latitude;
         this.markerLongitude = this.longitude;
-        this.locationPreview = `${this.latitude},${this.longitude}`;
+
         this.getAddress(this.latitude, this.longitude);
     }
 
@@ -192,11 +195,11 @@ export class BranchFormComponent implements OnInit, DoCheck {
                         this.infoWindowOpen.setValue('true');
                     } else {
                         this.addressLabel.setValue(null);
-                        this.toastService.show(new Alert(AlertType.INFO, 'No address available!' ));
+                        this.toastService.show(new Alert(AlertType.INFO, 'No address available!'));
                     }
                 } else {
                     this.addressLabel.setValue(null);
-                    this.toastService.show(new Alert(AlertType.INFO, 'Error in GeoCoder!' ));
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Error in GeoCoder'));
                 }
             });
         }
