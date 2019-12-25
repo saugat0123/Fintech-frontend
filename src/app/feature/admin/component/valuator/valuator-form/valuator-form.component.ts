@@ -174,6 +174,10 @@ export class ValuatorFormComponent implements OnInit {
         );
     }
 
+    addCustomValuatingField(tag: string) {
+        return tag;
+    }
+
     onSubmit() {
         this.submitted = true;
         if (this.valuatorForm.invalid) { return; }

@@ -137,6 +137,9 @@
                     <label>Valuating Field</label>
                     <ng-select [ngClass]="{'is-invalid': submitted && valuatorFormControl.valuatingField.errors}"
                                formControlName="valuatingField"
+                               [addTag]="addCustomValuatingField"
+                               [addTagText] = "null"
+                               [multiple]="false"
                                placeholder="Select valuating field">
                         <ng-option *ngFor="let valuatingField of valuatingFieldEnum.values()"
                                    [value]="valuatingField">
