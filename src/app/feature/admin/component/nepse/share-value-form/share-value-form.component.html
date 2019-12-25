@@ -23,7 +23,7 @@
         <label for="promoterShare">Share Type</label>
         <input Value="OrdinaryShare" class="form-control" disabled id="ordinaryShare"></div>
       <div class="col-md-6">
-        <label for="ordinaryValue"> Value(%)</label>
+        <label for="ordinaryValue">Share Value(%)</label>
         <input [ngModel]="shareValuesModel.ordinaryValue" class="form-control" #ordinary="ngModel" id="ordinaryValue"
                [ngClass]="{ 'is-invalid': shareValueForm.submitted && ordinary.invalid }"
                name="ordinaryValue" required type="number">

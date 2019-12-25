@@ -54,8 +54,6 @@ export class NepseComponent implements OnInit {
 
             }, error => {
 
-                console.log(error);
-
                 other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
                 other.spinner = false;
             }

@@ -15,7 +15,6 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 export class ShareValueFormComponent implements OnInit {
   shareData: ShareForm = new ShareForm();
   shareValuesModel: ShareValue = new ShareValue();
-  errMsg: string;
 
   constructor(private nepseService: NepseService,
               private toastService: ToastService,
@@ -27,10 +26,6 @@ export class ShareValueFormComponent implements OnInit {
   }
 
   onSubmit(sharevalue: any) {
-    if (sharevalue.invalid) {
-      this.errMsg = "invalid input";
-      return;
-    }
     this.shareData.shareData = JSON.stringify(sharevalue.value);
     this.shareData.status = Status.ACTIVE;
     this.nepseService.addShare(this.shareData).subscribe(response => {
