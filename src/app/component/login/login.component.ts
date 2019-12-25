@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {ApiConfig} from '../../@core/utils/api/ApiConfig';
 import {UserService} from '../../feature/admin/component/user/user.service';
 import {User} from '../../feature/admin/modal/user';
+import {ProductMode, ProductModeService} from '../../feature/admin/service/product-mode.service';
 
 @Component({
     selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     constructor(
         private http: HttpClient,
         private router: Router,
-        private userService: UserService
+        private userService: UserService,
+        private productModeService: ProductModeService,
     ) {
     }
 
@@ -65,6 +67,13 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                         localStorage.setItem('roleType', user.role.roleType);
                         localStorage.setItem('roleId', (user.role.id).toString());
                         this.router.navigate(['/home/dashboard']);
+                    });
+
+                    this.productModeService.getAll().subscribe((response: any) => {
+                        const productMode: ProductMode[] = response.detail;
+                        localStorage.setItem('productMode', JSON.stringify(productMode));
+                    }, error => {
+                        console.error(error);
                     });
                 },
                 error => {
