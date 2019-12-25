@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {ShareValueFormComponent} from "../share-value-form/share-value-form.component";
-import {ModalUtils, ToastService} from "../../../../../@core/utils";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {ShareForm} from "../../../modal/shareForm";
-import {NepseService} from "../nepse.service";
-import {PaginationUtils} from "../../../../../@core/utils/PaginationUtils";
-import {Alert, AlertType} from "../../../../../@theme/model/Alert";
-import {Pageable} from "../../../../../@core/service/baseservice/common-pageable";
+import {ShareValueFormComponent} from '../share-value-form/share-value-form.component';
+import {ModalUtils, ToastService} from '../../../../../@core/utils';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ShareForm} from '../../../modal/shareForm';
+import {NepseService} from '../nepse.service';
+import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 
 @Component({
   selector: 'app-share-list',

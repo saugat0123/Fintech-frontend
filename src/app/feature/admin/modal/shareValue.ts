@@ -1,6 +1,6 @@
 
 
 export class ShareValue {
- promoterValue:number;
+ promoterValue: number;
  ordinaryValue: number;
 }
