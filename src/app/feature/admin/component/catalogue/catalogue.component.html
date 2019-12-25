@@ -5,15 +5,17 @@
                 <div class="col-md-6">
                     <div class="btn-group">
                         <button
-                            nbButton shape="rectangle" status="primary"
-                            (click)="isFilterCollapsed = !isFilterCollapsed"
-                            [attr.aria-expanded]="!isFilterCollapsed"
-                            aria-controls="searchModel">
+                                (click)="isFilterCollapsed = !isFilterCollapsed"
+                                [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+                                nbButton
+                                shape="rectangle"
+                                status="primary">
                             <em class="fa fa-filter"> Filter</em>
                         </button>
                         <nb-toggle (checkedChange)="onChangeTransferToggle($event)"
                                    class="pt-2 pl-4" [disabled]="!transferToggle">
-                            Transferred</nb-toggle>
+                            Transferred
+                        </nb-toggle>
                     </div>
                 </div>
                 <div class="col-md-6 d-flex justify-content-end">
@@ -90,11 +92,13 @@
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <input id="customerName" class="form-control rounded" formControlName="customerName" placeholder="Enter customer name">
+                        <input class="form-control rounded" formControlName="customerName" id="customerName"
+                               placeholder="Enter customer name">
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <input id="companyName" class="form-control rounded" formControlName="companyName" placeholder="Enter company name">
+                        <input class="form-control rounded" formControlName="companyName" id="companyName"
+                               placeholder="Enter company name">
                     </div>
                 </div>
 
@@ -102,7 +106,8 @@
                     <button [disabled]="!filterForm.valid" nbButton status="info" shape="rectangle" class="mr-2"
                             type="submit">Search
                     </button>
-                    <button (click)="clearSearch()" type="button" shape="rectangle" nbButton status="danger">Clear</button>
+                    <button (click)="clearSearch()" nbButton shape="rectangle" status="danger" type="button">Clear
+                    </button>
                 </div>
             </form>
         </div>
@@ -113,7 +118,7 @@
         <table id="add-branch-table" class="table table-bordered table-hover ">
             <thead>
             <tr>
-              <th *ngIf="this.showBranch">Branch</th>
+                <th *ngIf="this.showBranch">Branch</th>
                 <th>Customer Name</th>
                 <th>Loan Facility</th>
                 <th>Proposed Amount</th>
@@ -122,7 +127,7 @@
                 <th>Possession Under/Days</th>
                 <th>Loan lifespan</th>
                 <th *ngIf="transferDoc">Transfer</th>
-              <th>Created On</th>
+                <th>Created On</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -130,8 +135,8 @@
             <tr *ngFor="let model of loanDataHolderList;let i=index"
 
                 class="cursor">
-              <td (click)="onClick(model.loan.id,model.id)"
-                  *ngIf="this.showBranch">{{model?.branch?.name}}</td>
+                <td (click)="onClick(model.loan.id,model.id)"
+                    *ngIf="this.showBranch">{{model?.branch?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">
                     {{model?.loanCategory === 'BUSINESS_TYPE' ?
                     model?.companyInfo?.companyName
@@ -144,7 +149,11 @@
                 <td (click)="onClick(model.loan.id,model.id)">{{loanType[model?.loanType]}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.documentStatus}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">
-                    <div *ngIf='model?.documentStatus.toString()==="PENDING"'>
+                    <div *ngIf='model?.documentStatus.toString()==="PENDING" ||
+                         model?.documentStatus.toString()==="DOCUMENTATION" ||
+                         model?.documentStatus.toString()==="DISCUSSION" ||
+                         model?.documentStatus.toString()==="UNDER_REVIEW" ||
+                         model?.documentStatus.toString()==="VALUATION"'>
                         {{model?.currentStage?.toUser?.name}}
                         / {{getDifferenceInDays(model?.currentStage?.lastModifiedAt)}}
                     </div>
@@ -156,7 +165,12 @@
                     </div>
                 </td>
                 <td (click)="onClick(model.loan.id,model.id)">
-                    <div *ngIf='model?.documentStatus.toString()==="PENDING"'>{{getDifferenceInDays(model?.currentStage?.createdAt)}}</div>
+                    <div *ngIf='model?.documentStatus.toString()==="PENDING" ||
+                         model?.documentStatus.toString()==="DOCUMENTATION" ||
+                         model?.documentStatus.toString()==="DISCUSSION" ||
+                         model?.documentStatus.toString()==="UNDER_REVIEW" ||
+                         model?.documentStatus.toString()==="VALUATION"'>
+                        {{getDifferenceInDays(model?.currentStage?.createdAt)}}</div>
                     <div *ngIf='(model?.documentStatus.toString()==="CLOSED" ||
                         model?.documentStatus.toString()==="REJECTED" ||
                         model?.documentStatus.toString()==="APPROVED")'>
@@ -168,11 +182,11 @@
                             (click)="onTransferClick(transferDocument,model.id,model?.currentStage?.toUser?.id)">
                         <em class="fa fa-arrow-circle-right"></em></button>
                 </td>
-              <td>
-                <div (click)="onClick(model.loan.id,model.id)">
-                  {{model?.createdAt | date}}
-                </div>
-              </td>
+                <td>
+                    <div (click)="onClick(model.loan.id,model.id)">
+                        {{model?.createdAt | date}}
+                    </div>
+                </td>
                 <td class="p-1" *ngIf='statusApproved === true && roleType && !model.isCloseRenew;else linkin'>
                     <select [(ngModel)]="tempLoanType" class="custom-select py-0"
                             (ngModelChange)="onChange(model,onActionChange)">
@@ -189,7 +203,7 @@
                     <td *ngIf="model.parentId">
                         <a (click)="renewedOrCloseFrom(model.loan.id,model.parentId)"
                            class="text-success cursor">{{loanType[model.loanType]}} From
-                          <em class="p-1 fa fa-edit"></em></a>
+                            <em class="p-1 fa fa-edit"></em></a>
                     </td>
 
                     <td *ngIf="!model.parentId">

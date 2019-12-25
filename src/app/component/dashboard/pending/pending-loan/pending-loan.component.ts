@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoanFormService} from '../../../../feature/loan/component/loan-form/service/loan-form.service';
-import {
-  CatalogueSearch,
-  CatalogueService
-} from '../../../../feature/admin/component/catalogue/catalogue.service';
+import {CatalogueSearch, CatalogueService} from '../../../../feature/admin/component/catalogue/catalogue.service';
 import {DocStatus} from '../../../../feature/loan/model/docStatus';
 
 
@@ -18,6 +15,7 @@ export class PendingLoanComponent implements OnInit {
   approvedCount: number;
   rejectedCount: number;
   closedCount: number;
+  initCount: number;
 
   constructor(
       private router: Router,
@@ -27,12 +25,14 @@ export class PendingLoanComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.loanFormService.getStatus().subscribe(
         (response: any) => {
           this.pendingCount = response.detail.pending;
           this.approvedCount = response.detail.Approved;
           this.rejectedCount = response.detail.Rejected;
           this.closedCount = response.detail.Closed;
+          this.initCount = response.detail.initial;
         }
     );
   }

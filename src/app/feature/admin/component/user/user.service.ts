@@ -41,7 +41,7 @@ export class UserService extends BaseService<User> {
 
     public uploadFile(formData: FormData): Observable<any> {
         const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/uploadFile`);
-
+        console.log(formData.get("file"));
         return this.http.post(req.url, formData, {headers: req.header});
     }
 
