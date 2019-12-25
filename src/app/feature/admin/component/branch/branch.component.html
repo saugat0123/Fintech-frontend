@@ -107,6 +107,8 @@
                             <th>Municipality</th>
                             <th>Street</th>
                             <th>Ward</th>
+                            <th>Email</th>
+                            <th>Landline Number</th>
                             <!--<th>Status</th>-->
                             <th *ngIf='editViewBranch === true'>Action</th>
                         </tr>
@@ -124,6 +126,10 @@
                             <td>{{allList.municipalityVdc?.name}}</td>
                             <td>{{allList.streetName}}</td>
                             <td>{{allList.wardNumber}}</td>
+                            <td>{{allList.email}}</td>
+                            <td>{{allList.landlineNumber}}</td>
+
+
                             <!--<td *ngIf='editViewBranch ==true; else status '>-->
                             <!--<select class="select-borderless" [(ngModel)]="allList.status" name="status"-->
                             <!--(change)="onChange(allList)">-->

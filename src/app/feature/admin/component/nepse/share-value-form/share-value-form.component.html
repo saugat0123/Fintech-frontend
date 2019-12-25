@@ -11,24 +11,24 @@
         <input class="form-control" disabled id="promoterShare" value="PromoterShare"></div>
       <div class="col-md-6">
         <label for="shareValue">Share Value(%)</label>
-        <input [ngModel]="shareValuesModel.promoterValue" class="form-control" id="shareValue"
-               name="promoterValue" required type="number"></div>
+        <input [ngModel]="shareValuesModel.promoterValue" class="form-control" #promoter="ngModel" id="shareValue"
+               [ngClass]="{ 'is-invalid': shareValueForm.submitted && promoter.invalid }" name="promoterValue" required type="number">
+        <span *ngIf="shareValueForm.submitted && promoter.invalid">
+        <p>promoter value required</p>
+      </span>
+      </div>
     </div>
     <div class="row form-group">
       <div class="col-md-6">
         <label for="promoterShare">Share Type</label>
-        <input Value="OrdinaryShare" class="form-control" disabled id="ordinaryShare">
-
-        <span *ngIf="errMsg">
-        <p>{{errMsg}}</p>
-      </span></div>
+        <input Value="OrdinaryShare" class="form-control" disabled id="ordinaryShare"></div>
       <div class="col-md-6">
         <label for="ordinaryValue"> Value(%)</label>
-        <input [ngModel]="shareValuesModel.ordinaryValue" class="form-control" id="ordinaryValue"
+        <input [ngModel]="shareValuesModel.ordinaryValue" class="form-control" #ordinary="ngModel" id="ordinaryValue"
+               [ngClass]="{ 'is-invalid': shareValueForm.submitted && ordinary.invalid }"
                name="ordinaryValue" required type="number">
-
-        <span *ngIf="errMsg">
-        <p>{{errMsg}}</p>
+        <span *ngIf="shareValueForm.submitted && ordinary.invalid">
+        <p>ordinary value required</p>
       </span>
       </div>
     </div>

@@ -54,9 +54,9 @@ export class ValuatorFormComponent implements OnInit {
 
         this.branchService.getAll().subscribe( (response: any) => {
             this.branchList = response.detail;
-            (!ObjectUtil.isEmpty(this.model)
-                && !ObjectUtil.isEmpty(this.model.branch)) ?
-            this.valuatorForm.get('branch').patchValue(this.model.branch) : null;
+            if (!ObjectUtil.isEmpty(this.model) && !ObjectUtil.isEmpty(this.model.branch)) {
+                this.valuatorForm.get('branch').patchValue(this.model.branch);
+            }
         });
 
         this.location.getProvince().subscribe((response: any) => {
@@ -80,7 +80,7 @@ export class ValuatorFormComponent implements OnInit {
             contactNo: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.contactNo)) ? undefined :
                 this.model.contactNo, [Validators.required]],
-            email:[(ObjectUtil.isEmpty(this.model)
+            email: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.email)) ? undefined :
                 this.model.email, [Validators.required, Validators.email]],
             province: [(ObjectUtil.isEmpty(this.model)
@@ -128,11 +128,11 @@ export class ValuatorFormComponent implements OnInit {
     }
 
     formatDate(date: Date) {
-        return date.getFullYear() + "-" + ("0"+(date.getMonth()+1)).slice(-2) + "-" +
-            ("0" + date.getDate()).slice(-2);
+        return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+            ('0' + date.getDate()).slice(-2);
     }
 
-    compareFn(c1: any, c2:any): boolean {
+    compareFn(c1: any, c2: any): boolean {
         return c1 && c2 ? c1.id === c2.id : c1 === c2;
     }
 

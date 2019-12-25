@@ -73,6 +73,8 @@ import {PreferenceComponent} from './component/preference/preference.component';
 import {UserHistoryComponent} from './component/user/user-history/user-history.component';
 import { ShareValueFormComponent } from './component/nepse/share-value-form/share-value-form.component';
 import { ShareListComponent } from './component/nepse/share-list/share-list.component';
+import {AgmCoreModule} from '@agm/core';
+import {environment} from '../../../environments/environment';
 
 @NgModule({
     declarations: [
@@ -149,7 +151,11 @@ import { ShareListComponent } from './component/nepse/share-list/share-list.comp
         DragDropModule,
         NgSelectModule,
         NgxPrintModule,
-        CoreModule
+        CoreModule,
+        AgmCoreModule,
+        AgmCoreModule.forRoot({
+            apiKey: environment.GOOGLE_MAP_API_KEY
+        })
     ],
 
     entryComponents: [
