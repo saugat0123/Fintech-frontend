@@ -176,7 +176,7 @@ export class BranchFormComponent implements OnInit, DoCheck {
         this.longitude = longitude;
         this.markerLatitude = this.latitude;
         this.markerLongitude = this.longitude;
-        this.locationPreview = `${this.latitude},${this.longitude}`;
+        this.model.locationPreview = `${this.latitude},${this.longitude}`;
         this.getAddress(this.latitude, this.longitude);
     }
 
