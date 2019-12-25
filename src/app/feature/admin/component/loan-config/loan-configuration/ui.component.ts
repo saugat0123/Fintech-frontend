@@ -13,6 +13,7 @@ import {OfferLetter} from '../../../modal/offerLetter';
 import {OfferLetterService} from '../offer-letter.service';
 import {Status} from '../../../../../@core/Status';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {ProductModeService} from '../../../service/product-mode.service';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class UIComponent implements OnInit {
     offerLetterList: Array<OfferLetter>;
     selectedOfferLetterIdList: Array<number>;
     selectedOfferLetterList: Array<OfferLetter> = new Array<OfferLetter>();
+    showEligibility = false;
 
     constructor(
         private loanTemplateService: LoanTemplateService,
@@ -52,6 +54,7 @@ export class UIComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private spinner: NgxSpinnerService,
+        private productModeService: ProductModeService,
     ) {
     }
 
@@ -134,29 +137,31 @@ export class UIComponent implements OnInit {
                 });
             }
         });
+        other.showEligibility = other.productModeService.isProductEnable('ELIGIBILITY');
+        if (other.showEligibility) {
 
-        // Id for Eligibility is set 4 in patch backend
-        other.documentService.getByLoanCycleAndStatus(4, Status.ACTIVE).subscribe((response: any) => {
-            other.eligibilityDocumentList = response.detail;
+            // Id for Eligibility is set 4 in patch backend
+            other.documentService.getByLoanCycleAndStatus(4, Status.ACTIVE).subscribe((response: any) => {
+                other.eligibilityDocumentList = response.detail;
 
-            if (other.id !== undefined && other.id !== 0) {
-                other.service.detail(other.id).subscribe((res: any) => {
-                    other.loanConfig = res.detail;
-                    other.eligibilityDocumentList.forEach(eligibilityDocument => {
-                        other.loanConfig.eligibilityDocuments.forEach(eligibilityDocuments => {
-                            if (eligibilityDocument.id === eligibilityDocuments.id) {
-                                other.finalEligibilityDocument.push(eligibilityDocument);
-                                eligibilityDocument.checked = true;
-                            }
+                if (other.id !== undefined && other.id !== 0) {
+                    other.service.detail(other.id).subscribe((res: any) => {
+                        other.loanConfig = res.detail;
+                        other.eligibilityDocumentList.forEach(eligibilityDocument => {
+                            other.loanConfig.eligibilityDocuments.forEach(eligibilityDocuments => {
+                                if (eligibilityDocument.id === eligibilityDocuments.id) {
+                                    other.finalEligibilityDocument.push(eligibilityDocument);
+                                    eligibilityDocument.checked = true;
+                                }
+                            });
                         });
                     });
-                });
-            }
-        });
-
-        other.documentService.getAll().subscribe((response: any) => {
-            other.eligibilityDocumentList = response.detail;
-        });
+                }
+            });
+            other.documentService.getAll().subscribe((response: any) => {
+                other.eligibilityDocumentList = response.detail;
+            });
+        }
 
     }
 
