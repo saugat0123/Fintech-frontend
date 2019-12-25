@@ -28,8 +28,9 @@ export class EmailConfigurationComponent implements OnInit {
     ngOnInit(): void {
         this.buildForm();
         this.emailConfigService.getAll().subscribe((res: any) => {
-            this.emailConfigData = res.detail[0];
-            if (res.detail !== []) {
+
+            if (res.detail instanceof Array && res.detail.length > 0) {
+                this.emailConfigData = res.detail[0];
                 this.notice = true;
                 this.buildForm();
             }
