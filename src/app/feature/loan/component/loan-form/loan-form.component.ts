@@ -191,6 +191,7 @@ export class LoanFormComponent implements OnInit {
                 } else {
                     this.loanDocument = new LoanDataHolder();
                     this.loanFile = new DmsLoanFile();
+                    this.docStatusForm.get('documentStatus').patchValue(DocStatus.value(DocStatus.DISCUSSION));
                 }
             });
         this.dateService.getDateInNepali(this.datePipe.transform(new Date(), 'yyyy-MM-dd')).subscribe((response: any) => {
