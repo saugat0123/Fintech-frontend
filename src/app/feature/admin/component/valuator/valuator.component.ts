@@ -12,6 +12,8 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {ValuatorService} from './valuator.service';
 import {PermissionService} from '../../../../@core/service/permission.service';
 import {InactiveValuatorCommentComponent} from './inactive-valuator-comment/inactive-valuator-comment.component';
+import {DocStatus} from '../../../loan/model/docStatus';
+import {Status} from '../../../../@core/Status';
 
 @Component({
     selector: 'app-valuator',
@@ -118,14 +120,16 @@ export class ValuatorComponent implements OnInit {
     }
 
 
-    onChange(data, event) {
+    onChange(data: Valuator, event) {
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
-
         event.preventDefault();
 
         const modalRef = this.modalService.open(UpdateModalComponent, {size: 'lg'});
+        if (data.status === Status.ACTIVE) {
+            data.state = null;
+        }
         modalRef.componentInstance.data = data;
         modalRef.componentInstance.service = this.service;
         modalRef.result.then(
@@ -153,12 +157,10 @@ export class ValuatorComponent implements OnInit {
         this.search = {
             'name': searchValue
         };
-
         ValuatorComponent.loadData(this);
     }
 
     onSearch() {
-
         ValuatorComponent.loadData(this);
     }
 
@@ -170,4 +172,9 @@ export class ValuatorComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to delete valuator'));
     });
   }
+
+    dddd(ss) {
+        if (ss) {
+        }
+    }
 }

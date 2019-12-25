@@ -28,7 +28,7 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <input type="text" [(ngModel)]="search.name"
-                                           (input)="onSearchChange($event.target.value)" name="name"
+                                           (input)="onSearchChange($event.target['value'])" name="name"
                                            placeholder="search...."
                                            nbInput fullWidth>
                                 </div>
@@ -71,7 +71,14 @@
                         </thead>
 
                         <tbody>
-                        <tr *ngFor="let allList of dataList;let i=index">
+                        <tr *ngFor="let allList of dataList;let i=index"
+                            [ngStyle]="{'color': (allList.state === 'BLACKLISTED' || allList.state === 'SUSPENDED') ?
+                              'red': 'black'}" [nbPopover]="allList?.state === 'BLACKLISTED' ?
+                                        'BLACKLISTED Reason:     ' + allList?.inactiveComment :
+                                        allList?.state === 'SUSPENDED' ?
+                                        'SUSPENDED Reason:        ' + allList?.inactiveComment :
+                                        'No Comments available'" nbPopoverTrigger="hover"
+                            nbPopoverAdjustment="vertical" (nbPopoverShowStateChange)="dddd($event)">
                             <div *ngIf="!dataList?.length > 0">
                                 <p>No Content Found</p>
                             </div>
@@ -138,3 +145,14 @@
         </nb-card>
     </div>
 </div>
+
+<ng-template #stateCode>
+    <nb-card>
+        <nb-card-header>
+
+        </nb-card-header>
+        <nb-card-body>
+
+        </nb-card-body>
+    </nb-card>
+</ng-template>
