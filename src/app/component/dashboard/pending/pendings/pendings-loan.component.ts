@@ -48,6 +48,7 @@ export class PendingsLoanComponent implements OnInit {
   isFilterCollapsed = true;
   docStatus = DocStatus;
   docStatusMakerList = [];
+  showDocStatusList = false;
 
   constructor(
       private service: DmsLoanService,
@@ -83,7 +84,13 @@ export class PendingsLoanComponent implements OnInit {
 
     this.search.documentStatus = this.router.url.substr(this.router.url.lastIndexOf('/') + 1);
     this.buildFilterForm();
-    this.docStatusForMaker();
+    if (this.search.documentStatus.toString() === DocStatus.value(DocStatus.PENDING)) {
+      this.showDocStatusList = false;
+    } else {
+      this.docStatusForMaker();
+      this.showDocStatusList = true;
+    }
+
     PendingsLoanComponent.loadData(this);
     this.userService.getLoggedInUser().subscribe(
         (response: any) => {
