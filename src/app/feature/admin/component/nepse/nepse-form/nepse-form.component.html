@@ -6,7 +6,7 @@
                 <span aria-hidden="true">×</span></a>
             <h4 class="modal-title pull-left">{{task}} Nepse</h4>
         </div>
-        <div class="modal-body">
+      <div *ngIf="task == 'Edit'" class="modal-body">
             <form name="form" (ngSubmit)="nepseForm.form.valid && onSubmit()" #nepseForm="ngForm">
                 <div class="row form-group">
                     <div class="col-md-6">
@@ -35,6 +35,28 @@
                     <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
                 </div>
             </form>
+      </div>
+      <div *ngIf="task == 'Add'" class="modal-body">
+        <div class="row form-group">
+          <form>
+            <div class="col-md-12">
+              <input #nepseFile name="uploadNepse" type="file">
+              <br>
+              <div class="card" style="width: 29rem">
+                <div class="card-header">
+                  <b>Upload Format</b>
+                </div>
+                <div class="card-body">
+                  <img class="report-log img-thumbnail border-0"
+                       src="../../../../../assets/img/NepseCompanyUploadFormat.jpg" width="100%">
+                </div>
+                <div class="modal-footer">
+                  <input (click)="excelUpload(nepseFile)" class="btn btn-primary" type="submit">
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
 </div>
