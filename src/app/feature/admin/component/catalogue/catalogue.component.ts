@@ -208,7 +208,6 @@ export class CatalogueComponent implements OnInit {
     }
 
     onSearch() {
-        alert('f');
         this.tempLoanType = null;
         this.statusApproved = this.filterForm.get('docStatus').value === 'APPROVED';
         this.catalogueService.search.branchIds = ObjectUtil.isEmpty(this.filterForm.get('branch').value) ? undefined :
