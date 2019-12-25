@@ -198,46 +198,13 @@ export class UIComponent implements OnInit {
         this.show = !this.show;
     }
 
-    updateInitialDocument(events, document: Document) {
+    updateDocument(events, document: Document, documentArray: Document[]) {
         if (events.target.checked === true) {
-            this.finalInitialDocument.push(document);
+            documentArray.push(document);
         } else {
-            const index: number = this.finalInitialDocument.indexOf(document);
+            const index: number = documentArray.indexOf(document);
             if (index !== -1) {
-                this.finalInitialDocument.splice(index, 1);
-            }
-        }
-    }
-
-    updateRenewalDocument(events, document: Document) {
-        if (events.target.checked === true) {
-            this.finalRenewalDocument.push(document);
-        } else {
-            const index: number = this.finalRenewalDocument.indexOf(document);
-            if (index !== -1) {
-                this.finalRenewalDocument.splice(index, 1);
-            }
-        }
-    }
-
-    updateClosureDocument(events, document: Document) {
-        if (events.target.checked === true) {
-            this.finalClosureDocument.push(document);
-        } else {
-            const index: number = this.finalClosureDocument.indexOf(document);
-            if (index !== -1) {
-                this.finalClosureDocument.splice(index, 1);
-            }
-        }
-    }
-
-    updateEligibilityDocument(events, document: Document) {
-        if (events.target.checked === true) {
-            this.finalEligibilityDocument.push(document);
-        } else {
-            const index: number = this.finalEligibilityDocument.indexOf(document);
-            if (index !== -1) {
-                this.finalEligibilityDocument.splice(index, 1);
+                documentArray.splice(index, 1);
             }
         }
     }
@@ -263,11 +230,11 @@ export class UIComponent implements OnInit {
         this.service.save(this.loanConfig).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Config!'));
                 this.loanConfig = new LoanConfig();
-            this.router.navigate(['home/admin/config']).then(() => {
+                this.router.navigate(['home/admin/config']).then(() => {
                     this.spinner.hide();
                 });
             }, error => {
-            this.spinner.hide();
+                this.spinner.hide();
                 console.log(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Loan Config!'));
             }
