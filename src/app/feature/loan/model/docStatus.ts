@@ -3,6 +3,11 @@ export enum DocStatus {
     APPROVED,
     REJECTED,
     CLOSED,
+    DISCUSSION,
+    DOCUMENTATION,
+    VALUATION,
+    UNDER_REVIEW,
+    INITIAL,
 }
 
 export namespace DocStatus {
@@ -22,6 +27,16 @@ export namespace DocStatus {
             return 'REJECTED';
         } else if (docStatus === DocStatus.CLOSED) {
             return 'CLOSED';
+        } else if (docStatus === DocStatus.DISCUSSION) {
+            return 'DISCUSSION';
+        } else if (docStatus === DocStatus.DOCUMENTATION) {
+            return 'DOCUMENTATION';
+        } else if (docStatus === DocStatus.VALUATION) {
+            return 'VALUATION';
+        } else if (docStatus === DocStatus.UNDER_REVIEW) {
+            return 'UNDER_REVIEW';
+        } else if (docStatus === DocStatus.INITIAL) {
+            return 'INITIAL';
         }
     }
 }

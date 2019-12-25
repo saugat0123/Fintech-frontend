@@ -46,6 +46,9 @@ export class PendingsLoanComponent implements OnInit {
   branchList = [];
   branchFilter = true;
   isFilterCollapsed = true;
+  docStatus = DocStatus;
+  docStatusMakerList = [];
+  showDocStatusList = false;
 
   constructor(
       private service: DmsLoanService,
@@ -78,7 +81,16 @@ export class PendingsLoanComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.search.documentStatus = this.router.url.substr(this.router.url.lastIndexOf('/') + 1);
     this.buildFilterForm();
+    if (this.search.documentStatus.toString() === DocStatus.value(DocStatus.PENDING)) {
+      this.showDocStatusList = false;
+    } else {
+      this.docStatusForMaker();
+      this.showDocStatusList = true;
+    }
+
     PendingsLoanComponent.loadData(this);
     this.userService.getLoggedInUser().subscribe(
         (response: any) => {
@@ -113,7 +125,8 @@ export class PendingsLoanComponent implements OnInit {
       branch: [undefined],
       customerName: [undefined],
       loanType: [undefined],
-      loan: [undefined]
+      loan: [undefined],
+      documentStatus: [undefined]
     });
   }
 
@@ -124,6 +137,8 @@ export class PendingsLoanComponent implements OnInit {
         this.filterForm.get('loanType').value;
     this.search.customerName = ObjectUtil.isEmpty(this.filterForm.get('customerName').value) ? undefined :
         this.filterForm.get('customerName').value;
+    this.search.documentStatus = ObjectUtil.isEmpty(this.filterForm.get('documentStatus').value) ? undefined :
+        this.filterForm.get('documentStatus').value;
     PendingsLoanComponent.loadData(this);
   }
 
@@ -150,6 +165,18 @@ export class PendingsLoanComponent implements OnInit {
       link.download = ApiConfig.URL + '/' + response.detail;
       link.setAttribute('visibility', 'hidden');
       link.click();
+    });
+  }
+
+  docStatusForMaker() {
+    DocStatus.values().forEach((value) => {
+      if (value === DocStatus.value(DocStatus.DISCUSSION) ||
+          value === DocStatus.value(DocStatus.DOCUMENTATION) ||
+          value === DocStatus.value(DocStatus.VALUATION) ||
+          value === DocStatus.value(DocStatus.INITIAL) ||
+          value === DocStatus.value(DocStatus.UNDER_REVIEW)) {
+        this.docStatusMakerList.push(value);
+      }
     });
   }
 }
