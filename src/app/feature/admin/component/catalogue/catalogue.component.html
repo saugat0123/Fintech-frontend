@@ -191,12 +191,11 @@
                     <select [(ngModel)]="tempLoanType" class="custom-select py-0"
                             (ngModelChange)="onChange(model,onActionChange)">
                         <option [value]="null" selected hidden>Select Type</option>
-                        <option
-                                value="RENEWED_LOAN">Renew Loan
-                        </option>
-                        <option
-                                value="CLOSURE_LOAN">Close Loan
-                        </option>
+                        <option value="RENEWED_LOAN">Renew Loan</option>
+                        <option value="CLOSURE_LOAN">Close Loan</option>
+                        <option value="ENHANCED_LOAN">Enhance Loan</option>
+                        <option value="PARTIAL_SETTLEMENT_LOAN">Partial Settle Loan</option>
+                        <option value="FULL_SETTLEMENT_LOAN">Full Settle Loan</option>
                     </select>
                 </td>
                 <ng-template #linkin>

@@ -1,9 +1,5 @@
-
-
-
 import {Component, Input, OnInit} from '@angular/core';
 import {Document} from '../../../../admin/modal/document';
-import {LoanDocument} from '../../../../admin/modal/loan-document';
 import {LoanType} from '../../../model/loanType';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {ActivatedRoute, Params} from '@angular/router';
@@ -56,19 +52,32 @@ export class CustomerDocumentComponent implements OnInit {
         (response: any) => {
           this.loanConfig = response.detail;
           this.loanName = this.loanConfig.name;
-          if (LoanType[this.loanDataHolder.loanType] === LoanType.NEW_LOAN) {
-            this.initialDocuments = this.loanConfig.initial;
-          } else if (LoanType[this.loanDataHolder.loanType] === LoanType.RENEWED_LOAN) {
-            this.initialDocuments = this.loanConfig.renew;
-          } else if (LoanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
-            this.initialDocuments = this.loanConfig.closure;
-          } else {
-            this.initialDocuments = this.loanConfig.initial;
+          switch (LoanType[this.loanDataHolder.loanType]) {
+            case LoanType.NEW_LOAN:
+              this.initialDocuments = this.loanConfig.initial;
+              break;
+            case LoanType.RENEWED_LOAN:
+              this.initialDocuments = this.loanConfig.renew;
+              break;
+            case LoanType.CLOSURE_LOAN:
+              this.initialDocuments = this.loanConfig.closure;
+              break;
+            case LoanType.ENHANCED_LOAN:
+              this.initialDocuments = this.loanConfig.enhance;
+              break;
+            case LoanType.PARTIAL_SETTLEMENT_LOAN:
+              this.initialDocuments = this.loanConfig.partialSettlement;
+              break;
+            case LoanType.FULL_SETTLEMENT_LOAN:
+              this.initialDocuments = this.loanConfig.fullSettlement;
+              break;
+            default:
+              this.initialDocuments = this.loanConfig.initial;
           }
 
           if (this.loanDataHolder.customerDocument !== undefined) {
             this.customerDocumentArray = this.loanDataHolder.customerDocument;
-            this.customerDocumentArray.forEach( (singleDoc, i) => {
+            this.customerDocumentArray.forEach((singleDoc, i) => {
               this.initialDocuments.forEach((initDoc, j) => {
                 if (singleDoc.document.id === initDoc.id) {
                   initDoc.checked = true;
