@@ -68,7 +68,7 @@ export class NepseFormComponent implements OnInit, DoCheck {
         formdata.append('type', 'nepseFile');
         this.nepseService.uploadNepseFile(formdata).subscribe(result => {
             this.activeModal.close(ModalResponse.SUCCESS);
-            this.toastService.show(new Alert(AlertType.SUCCESS, "sucessfully saved"));
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'sucessfully saved'));
         }, error => {
             this.activeModal.dismiss(error);
             this.toastService.show(new Alert(AlertType.ERROR, error.value));

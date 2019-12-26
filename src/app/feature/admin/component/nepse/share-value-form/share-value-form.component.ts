@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {ShareValue} from "../../../modal/shareValue";
-import {NepseService} from "../nepse.service";
-import {ShareForm} from "../../../modal/shareForm";
-import {Status} from "../../../../../@core/Status";
-import {ModalResponse, ToastService} from "../../../../../@core/utils";
-import {Alert, AlertType} from "../../../../../@theme/model/Alert";
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import {ShareValue} from '../../../modal/shareValue';
+import {NepseService} from '../nepse.service';
+import {ShareForm} from '../../../modal/shareForm';
+import {Status} from '../../../../../@core/Status';
+import {ModalResponse, ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-share-value-form',
@@ -30,10 +30,10 @@ export class ShareValueFormComponent implements OnInit {
     this.shareData.status = Status.ACTIVE;
     this.nepseService.addShare(this.shareData).subscribe(response => {
       this.activeModel.close(ModalResponse.SUCCESS);
-      this.toastService.show(new Alert(AlertType.SUCCESS, "sucessfully saved"));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'sucessfully saved'));
     }, error => {
       this.activeModel.close(ModalResponse.ERROR);
-      this.toastService.show(new Alert(AlertType.ERROR, "error while adding share"));
+      this.toastService.show(new Alert(AlertType.ERROR, 'error while adding share'));
     });
   }
 

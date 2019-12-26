@@ -9,7 +9,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {NepseService} from './nepse.service';
 import {PermissionService} from '../../../../@core/service/permission.service';
-import {Status} from "../../../../@core/Status";
+import {Status} from '../../../../@core/Status';
 
 @Component({
     selector: 'app-nepse',
