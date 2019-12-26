@@ -20,7 +20,7 @@ export class NepseFormComponent implements OnInit, DoCheck {
     spinner = false;
 
     constructor(
-        private service: NepseService,
+        private nepseService: NepseService,
         private activeModal: NgbActiveModal,
         private toastService: ToastService
     ) {
@@ -39,7 +39,7 @@ export class NepseFormComponent implements OnInit, DoCheck {
 
     onSubmit() {
         this.submitted = true;
-        this.service.save(this.model).subscribe(result => {
+        this.nepseService.save(this.model).subscribe(result => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Nepse Company'));
 
@@ -61,4 +61,17 @@ export class NepseFormComponent implements OnInit, DoCheck {
         this.activeModal.dismiss(ModalResponse.CANCEL);
     }
 
+    excelUpload(event) {
+        const excelFile = <File>event.files[0];
+        const formdata: FormData = new FormData();
+        formdata.append('excelFile', excelFile);
+        formdata.append('type', 'nepseFile');
+        this.nepseService.uploadNepseFile(formdata).subscribe(result => {
+            this.activeModal.close(ModalResponse.SUCCESS);
+            this.toastService.show(new Alert(AlertType.SUCCESS, "sucessfully saved"));
+        }, error => {
+            this.activeModal.dismiss(error);
+            this.toastService.show(new Alert(AlertType.ERROR, error.value));
+        });
+    }
 }

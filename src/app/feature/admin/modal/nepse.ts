@@ -3,5 +3,7 @@ export class Nepse {
     companyName: string;
     amountPerUnit: string;
     status: string;
+    companyCode: string;
+    shareType: string;
 
 }
