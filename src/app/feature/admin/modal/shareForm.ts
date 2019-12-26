@@ -1,4 +1,4 @@
-import {Status} from "../../../@core/Status";
+import {Status} from '../../../@core/Status';
 
 export class ShareForm {
   shareData: string;

@@ -39,6 +39,12 @@ export class UIComponent implements OnInit {
     finalClosureDocument = Array<Document>();
     eligibilityDocumentList = [];
     finalEligibilityDocument = Array<Document>();
+    enhanceDocumentList = [];
+    finalEnhanceDocument = Array<Document>();
+    partialSettlementDocumentList = [];
+    finalPartialSettlementDocument = Array<Document>();
+    fullSettlementDocumentList = [];
+    finalFullSettlementDocument = Array<Document>();
     id: number;
     offerLetterList: Array<OfferLetter>;
     selectedOfferLetterIdList: Array<number>;
@@ -81,7 +87,6 @@ export class UIComponent implements OnInit {
                     });
                     other.loanConfig.templateList.forEach(loanConfigTemplate => {
                         other.loanTemplateList.forEach(loanTemplate => {
-                            console.log(loanTemplate);
                             if (loanConfigTemplate.id === loanTemplate.id) {
                                 other.confirmLoanTemplateList.push(loanConfigTemplate);
                                 other.loanTemplateList.splice(other.loanTemplateList.indexOf(loanTemplate), 1);
@@ -163,6 +168,63 @@ export class UIComponent implements OnInit {
             });
         }
 
+        // Id of Enhance Loan cycle is set 5 in patch backend
+        other.documentService.getByLoanCycleAndStatus(5, Status.ACTIVE).subscribe((response: any) => {
+            other.enhanceDocumentList = response.detail;
+
+            if (other.id !== undefined && other.id !== 0) {
+                other.service.detail(other.id).subscribe((res: any) => {
+                    other.loanConfig = res.detail;
+                    other.enhanceDocumentList.forEach(enhanceDocument => {
+                        other.loanConfig.enhance.forEach(loanConfigEnhanceDocument => {
+                            if (enhanceDocument.id === loanConfigEnhanceDocument.id) {
+                                other.finalEnhanceDocument.push(enhanceDocument);
+                                enhanceDocument.checked = true;
+                            }
+                        });
+                    });
+                });
+            }
+        });
+
+        // Id of Partial Settlement Loan cycle is set 6 in patch backend
+        other.documentService.getByLoanCycleAndStatus(6, Status.ACTIVE).subscribe((response: any) => {
+            other.partialSettlementDocumentList = response.detail;
+
+            if (other.id !== undefined && other.id !== 0) {
+                other.service.detail(other.id).subscribe((res: any) => {
+                    other.loanConfig = res.detail;
+                    other.partialSettlementDocumentList.forEach(partialDocument => {
+                        other.loanConfig.partialSettlement.forEach(loanConfigPartialDocument => {
+                            if (partialDocument.id === loanConfigPartialDocument.id) {
+                                other.finalPartialSettlementDocument.push(partialDocument);
+                                partialDocument.checked = true;
+                            }
+                        });
+                    });
+                });
+            }
+        });
+
+        // Id of Full Settlement Loan cycle is set 7 in patch backend
+        other.documentService.getByLoanCycleAndStatus(7, Status.ACTIVE).subscribe((response: any) => {
+            other.fullSettlementDocumentList = response.detail;
+
+            if (other.id !== undefined && other.id !== 0) {
+                other.service.detail(other.id).subscribe((res: any) => {
+                    other.loanConfig = res.detail;
+                    other.fullSettlementDocumentList.forEach(fullDocument => {
+                        other.loanConfig.fullSettlement.forEach(loanConfigFullDocument => {
+                            if (fullDocument.id === loanConfigFullDocument.id) {
+                                other.finalFullSettlementDocument.push(fullDocument);
+                                fullDocument.checked = true;
+                            }
+                        });
+                    });
+                });
+            }
+        });
+
     }
 
     ngOnInit() {
@@ -199,46 +261,13 @@ export class UIComponent implements OnInit {
         this.show = !this.show;
     }
 
-    updateInitialDocument(events, document: Document) {
+    updateDocument(events, document: Document, documentArray: Document[]) {
         if (events.target.checked === true) {
-            this.finalInitialDocument.push(document);
+            documentArray.push(document);
         } else {
-            const index: number = this.finalInitialDocument.indexOf(document);
+            const index: number = documentArray.indexOf(document);
             if (index !== -1) {
-                this.finalInitialDocument.splice(index, 1);
-            }
-        }
-    }
-
-    updateRenewalDocument(events, document: Document) {
-        if (events.target.checked === true) {
-            this.finalRenewalDocument.push(document);
-        } else {
-            const index: number = this.finalRenewalDocument.indexOf(document);
-            if (index !== -1) {
-                this.finalRenewalDocument.splice(index, 1);
-            }
-        }
-    }
-
-    updateClosureDocument(events, document: Document) {
-        if (events.target.checked === true) {
-            this.finalClosureDocument.push(document);
-        } else {
-            const index: number = this.finalClosureDocument.indexOf(document);
-            if (index !== -1) {
-                this.finalClosureDocument.splice(index, 1);
-            }
-        }
-    }
-
-    updateEligibilityDocument(events, document: Document) {
-        if (events.target.checked === true) {
-            this.finalEligibilityDocument.push(document);
-        } else {
-            const index: number = this.finalEligibilityDocument.indexOf(document);
-            if (index !== -1) {
-                this.finalEligibilityDocument.splice(index, 1);
+                documentArray.splice(index, 1);
             }
         }
     }
@@ -259,16 +288,18 @@ export class UIComponent implements OnInit {
         this.loanConfig.closure = this.finalClosureDocument;
         this.loanConfig.enableEligibility = true;
         this.loanConfig.eligibilityDocuments = this.finalEligibilityDocument;
+        this.loanConfig.enhance = this.finalEnhanceDocument;
+        this.loanConfig.partialSettlement = this.finalPartialSettlementDocument;
+        this.loanConfig.fullSettlement = this.finalFullSettlementDocument;
         this.loanConfig.offerLetters = this.selectedOfferLetterList;
-        console.log(this.loanConfig);
         this.service.save(this.loanConfig).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Config!'));
                 this.loanConfig = new LoanConfig();
-            this.router.navigate(['home/admin/config']).then(() => {
+                this.router.navigate(['home/admin/config']).then(() => {
                     this.spinner.hide();
                 });
             }, error => {
-            this.spinner.hide();
+                this.spinner.hide();
                 console.log(error);
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Loan Config!'));
             }
