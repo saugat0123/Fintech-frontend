@@ -12,6 +12,7 @@ import {BranchService} from '../../feature/admin/component/branch/branch.service
 import {User} from '../../feature/admin/modal/user';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {LocalStorageUtil} from '../../@core/utils/local-storage-util';
 
 
 @Component({
@@ -59,8 +60,8 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     }
 
     ngAfterContentInit() {
-        const roleName: string = localStorage.getItem('roleName');
-        const roleType: string = localStorage.getItem('roleType');
+        const roleName: string = LocalStorageUtil.getStorage().roleName;
+        const roleType: string = LocalStorageUtil.getStorage().roleType;
         if (roleName !== 'admin') {
             this.roleType = roleType === RoleType.MAKER;
         } else {

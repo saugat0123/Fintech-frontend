@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BranchService} from '../../../feature/admin/component/branch/branch.service';
 import {Branch} from '../../../feature/admin/modal/branch';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-profile',
@@ -19,9 +20,9 @@ export class ProfileComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.username = localStorage.getItem('username');
-        this.roleName = localStorage.getItem('roleName');
-        this.roleType = localStorage.getItem('roleType');
+        this.username = LocalStorageUtil.getStorage().username;
+        this.roleName = LocalStorageUtil.getStorage().roleName;
+        this.roleType = LocalStorageUtil.getStorage().roleType;
         this.branchService.getBranchAccessByCurrentUser().subscribe(
             (response: any) => {
                 this.branches = response.detail;

@@ -10,6 +10,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AccountTypeFormComponent} from './account-type-form/account-type-form.component';
 import {Action} from '../../../../../../@core/Action';
+import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-account-type-config',
@@ -52,7 +53,7 @@ export class AccountTypeConfigComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.editPermission = localStorage.getItem('roleName') === 'admin';
+    this.editPermission = LocalStorageUtil.getStorage().roleName === 'admin';
     this.buildFilterForm();
     AccountTypeConfigComponent.loadData(this);
   }

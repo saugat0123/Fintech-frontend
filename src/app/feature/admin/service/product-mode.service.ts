@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {BaseService} from '../../../@core/BaseService';
 import {HttpClient} from '@angular/common/http';
 import {Status} from '../../../@core/Status';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class ProductModeService extends BaseService<ProductMode> {
   }
 
   public isProductEnable(productName: string): boolean {
-    const productMode: ProductMode[] = JSON.parse(localStorage.getItem('productMode'));
+    const productMode: ProductMode[] = JSON.parse(LocalStorageUtil.getStorage().productMode);
     for (const pm of productMode) {
       if (pm.product === productName && pm.status === Status.ACTIVE) {
         return true;

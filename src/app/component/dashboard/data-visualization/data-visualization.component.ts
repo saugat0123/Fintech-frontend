@@ -9,6 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { BarChart } from '../../../chart/bar-chart/bar-chart.model';
 import { BarChartService } from '../../../chart/bar-chart/bar-chart.service';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-charts',
@@ -157,7 +158,7 @@ export class DataVisualizationComponent implements OnInit {
     }
 
     private findActiveRole() {
-        this.roleAccess = localStorage.getItem('roleAccess');
+        this.roleAccess = LocalStorageUtil.getStorage().roleAccess;
         if (this.roleAccess === RoleAccess.SPECIFIC) {
             this.accessSpecific = true;
         } else if (this.roleAccess === RoleAccess.ALL) {

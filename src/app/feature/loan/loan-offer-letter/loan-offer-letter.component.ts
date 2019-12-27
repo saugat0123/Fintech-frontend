@@ -27,6 +27,7 @@ import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {OfferLetter} from '../../admin/modal/offerLetter';
 import {CustomerOfferLetterService} from '../service/customer-offer-letter.service';
 import {OfferLetterUploadComponent} from '../component/offer-letter/offer-letter-upload/offer-letter-upload.component';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-loan-offer-letter',
@@ -96,17 +97,17 @@ export class LoanOfferLetterComponent implements OnInit {
                 this.redirected = paramsValue.redirect === 'true';
             });
 
-        if (localStorage.getItem('roleType') === RoleType.MAKER) {
+        if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
             this.roleType = true;
         }
-        if (localStorage.getItem('roleName') === 'CAD') {
+        if (LocalStorageUtil.getStorage().roleName === 'CAD') {
             this.roleName = true;
         }
         this.buildFilterForm();
         this.buildActionForm();
 
-        this.roleAccess = localStorage.getItem('roleAccess');
-        if (localStorage.getItem('roleType') === RoleType.MAKER) {
+        this.roleAccess = LocalStorageUtil.getStorage().roleAccess;
+        if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
             this.roleType = true;
         }
         if (this.roleAccess === RoleAccess.SPECIFIC) {
@@ -131,7 +132,7 @@ export class LoanOfferLetterComponent implements OnInit {
         });
 
 
-        if (localStorage.getItem('username') === 'SPADMIN') {
+        if (LocalStorageUtil.getStorage().username === 'SPADMIN') {
             this.transferDoc = true;
         }
 

@@ -9,6 +9,7 @@ import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {Router} from '@angular/router';
 import {MemoBaseComponent} from '../memo-base/memo-base.component';
 import {MemoFullRoute} from '../../memo-full-routes';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-memo-approved',
@@ -37,7 +38,7 @@ export class ApprovedComponent implements OnInit {
     static loadData(other: ApprovedComponent) {
         other.spinner = true;
         if (other.search === null || other.search === undefined) {
-            other.search = `stage=APPROVED&sentBy.id=${localStorage.getItem('userId')}`;
+            other.search = `stage=APPROVED&sentBy.id=${LocalStorageUtil.getStorage().userId}`;
         }
         other.memoService.getPaginationWithSearch(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.content;
