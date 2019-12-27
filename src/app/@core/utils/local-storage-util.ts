@@ -1,17 +1,16 @@
 import {ObjectUtil} from './ObjectUtil';
 import {CryptoJsUtil} from './crypto-js-util';
+import {environment} from '../../../environments/environment';
 
 export class LocalStorageUtil {
-  private static STORAGE_NAME = 'SagarmathaLocalStorage';
-
   /**
    * @description
    * Get an instance of LocalStorage.
    */
   public static getStorage(): LocalStorage {
-    return ObjectUtil.isEmpty(localStorage.getItem(LocalStorageUtil.STORAGE_NAME)) ?
+    return ObjectUtil.isEmpty(localStorage.getItem(environment.LOCAL_STORAGE_NAME)) ?
         new LocalStorage() :
-        JSON.parse(CryptoJsUtil.decrypt(localStorage.getItem(LocalStorageUtil.STORAGE_NAME)));
+        JSON.parse(CryptoJsUtil.decrypt(localStorage.getItem(environment.LOCAL_STORAGE_NAME)));
   }
 
   /**
@@ -23,7 +22,7 @@ export class LocalStorageUtil {
    * LocalStorageUtil.setStorage() to set in the browser's localStorage.
    */
   public static setStorage(data: LocalStorage): void {
-    localStorage.setItem(LocalStorageUtil.STORAGE_NAME, CryptoJsUtil.encrypt(JSON.stringify(data)));
+    localStorage.setItem(environment.LOCAL_STORAGE_NAME, CryptoJsUtil.encrypt(JSON.stringify(data)));
   }
 
   /**
