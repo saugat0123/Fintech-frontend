@@ -26,6 +26,7 @@ import {LoanStage} from '../../../loan/model/loanStage';
 import {SocketService} from '../../../../@core/service/socket.service';
 import {CatalogueSearch, CatalogueService} from './catalogue.service';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 
 @Component({
@@ -102,8 +103,8 @@ export class CatalogueComponent implements OnInit {
         this.buildFilterForm();
         this.buildActionForm();
 
-        this.roleAccess = localStorage.getItem('roleAccess');
-        if (localStorage.getItem('roleType') === RoleType.MAKER) {
+        this.roleAccess = LocalStorageUtil.getStorage().roleAccess;
+        if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
             this.roleType = true;
         }
         if (this.roleAccess === RoleAccess.SPECIFIC) {
@@ -142,7 +143,7 @@ export class CatalogueComponent implements OnInit {
         });
 
 
-        if (localStorage.getItem('username') === 'SPADMIN') {
+        if (LocalStorageUtil.getStorage().username === 'SPADMIN') {
             this.transferDoc = true;
         }
 

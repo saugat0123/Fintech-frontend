@@ -4,6 +4,7 @@ import {FeatureMenuService} from './FeatureMenuService';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
 import {RoleType} from './admin/modal/roleType';
+import {LocalStorageUtil} from '../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-pages',
@@ -29,7 +30,7 @@ export class FeatureComponent implements OnInit {
         this.items = this.menuService.getMenus().subscribe(res => {
                 this.menus = [...res.detail];
 
-                if (localStorage.getItem('roleType') === RoleType[RoleType.COMMITTEE]) {
+                if (LocalStorageUtil.getStorage().roleType === RoleType[RoleType.COMMITTEE]) {
                     const tempMenu = {
                         id: null,
                         title: 'Pull',
@@ -38,8 +39,8 @@ export class FeatureComponent implements OnInit {
                     };
                     this.menus.push(tempMenu);
                 }
-                if (localStorage.getItem('roleType') === RoleType[RoleType.MAKER]
-                    || ((localStorage.getItem('roleName') === 'CAD'))) {
+                if (LocalStorageUtil.getStorage().roleType === RoleType[RoleType.MAKER]
+                    || ((LocalStorageUtil.getStorage().roleName === 'CAD'))) {
                     const temp1Menu = {
                         id: null,
                         title: 'Offer Letter',

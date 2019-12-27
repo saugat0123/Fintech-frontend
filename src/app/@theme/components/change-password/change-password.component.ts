@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../../../feature/admin/component/user/user.service';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../model/Alert';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 
 
 @Component({
@@ -43,7 +44,7 @@ export class ChangePasswordComponent implements OnInit, AfterViewInit {
     }
 
   onChangePassword() {
-        this.changePasswordObject.username = localStorage.getItem('username');
+        this.changePasswordObject.username = LocalStorageUtil.getStorage().username;
         console.log(this.changePasswordObject.username);
         this.changePasswordObject.oldPassword = this.passwordForm.get('oldPassword').value;
         this.changePasswordObject.newPassword = this.passwordForm.get('newPassword').value;
@@ -51,7 +52,7 @@ export class ChangePasswordComponent implements OnInit, AfterViewInit {
             this.userService.updateUserPassword(this.changePasswordObject).subscribe((response: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, response.detail));
               this.modalService.dismissAll();
-              localStorage.clear();
+              LocalStorageUtil.clearStorage();
               this.router.navigate(['/login']);
             }, error => {
                 console.log(error);

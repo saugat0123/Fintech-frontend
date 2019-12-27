@@ -41,4 +41,13 @@ export class LocalStorage {
   rt: string;
   ty: string;
   et: string;
+  username: string;
+  roleName: string;
+  roleType: string;
+  roleAccess: string;
+  userId: string;
+  userFullName: string;
+  userProfilePicture: string;
+  roleId: string;
+  productMode: string;
 }

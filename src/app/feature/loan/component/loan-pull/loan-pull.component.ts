@@ -24,6 +24,7 @@ import {RoleAccess} from '../../../admin/modal/role-access';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {DocAction} from '../../model/docAction';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-loan-pull',
@@ -91,8 +92,8 @@ export class LoanPullComponent implements OnInit {
         this.buildFilterForm();
         this.buildActionForm();
 
-        this.roleAccess = localStorage.getItem('roleAccess');
-        if (localStorage.getItem('roleType') === RoleType.MAKER) {
+        this.roleAccess = LocalStorageUtil.getStorage().roleAccess;
+        if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
             this.roleType = true;
         }
         if (this.roleAccess === RoleAccess.SPECIFIC) {
@@ -117,7 +118,7 @@ export class LoanPullComponent implements OnInit {
         });
 
 
-        if (localStorage.getItem('username') === 'SPADMIN') {
+        if (LocalStorageUtil.getStorage().username === 'SPADMIN') {
             this.transferDoc = true;
         }
 

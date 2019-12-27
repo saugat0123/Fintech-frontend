@@ -23,6 +23,7 @@ import {AccountStatus} from '../../../modal/accountStatus';
 import {RoleType} from '../../../modal/roleType';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-open-opening-component',
@@ -76,8 +77,8 @@ export class OpenOpeningComponentComponent implements OnInit {
     }*/
 
     ngOnInit() {
-        this.isApproval = localStorage.getItem('roleType') === RoleType.APPROVAL &&
-            localStorage.getItem('roleName') !== 'admin';
+        this.isApproval = LocalStorageUtil.getStorage().roleType === RoleType.APPROVAL &&
+            LocalStorageUtil.getStorage().roleName !== 'admin';
         this.id = Number(this.activatedRoute.snapshot.queryParamMap.get('openingFormId'));
         this.accountTypeService.getAll().subscribe((response: any) => {
             this.accountTypeList = response.detail;
