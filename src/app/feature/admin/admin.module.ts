@@ -71,6 +71,8 @@ import {AccountPurposeFormComponent} from './component/opening-account/config/ac
 import { InactiveValuatorCommentComponent } from './component/valuator/inactive-valuator-comment/inactive-valuator-comment.component';
 import {PreferenceComponent} from './component/preference/preference.component';
 import {UserHistoryComponent} from './component/user/user-history/user-history.component';
+import { ShareValueFormComponent } from './component/nepse/share-value-form/share-value-form.component';
+import { ShareListComponent } from './component/nepse/share-list/share-list.component';
 import {AgmCoreModule} from '@agm/core';
 import {environment} from '../../../environments/environment';
 
@@ -132,7 +134,9 @@ import {environment} from '../../../environments/environment';
         AccountPurposeFormComponent,
         InactiveValuatorCommentComponent,
         PreferenceComponent,
-        UserHistoryComponent
+        UserHistoryComponent,
+        ShareValueFormComponent,
+        ShareListComponent
 
         // SecurityComponent
     ],
@@ -175,7 +179,8 @@ import {environment} from '../../../environments/environment';
         AccountTypeFormComponent,
         AccountPurposeFormComponent,
         InactiveValuatorCommentComponent,
-        UserHistoryComponent
+        UserHistoryComponent,
+        ShareValueFormComponent
     ]
 
 })
