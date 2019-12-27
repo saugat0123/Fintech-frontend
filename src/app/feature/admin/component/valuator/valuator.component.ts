@@ -4,7 +4,6 @@ import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {Valuator} from '../../modal/valuator';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ValuatorFormComponent} from './valuator-form/valuator-form.component';
-import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 import {UpdateModalComponent} from '../../../../@theme/components';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -49,7 +48,6 @@ export class ValuatorComponent implements OnInit {
         private service: ValuatorService,
         private permissionService: PermissionService,
         private modalService: NgbModal,
-        private breadcrumbService: BreadcrumbService,
         private toastService: ToastService
     ) {
     }
@@ -59,28 +57,20 @@ export class ValuatorComponent implements OnInit {
         other.spinner = true;
         other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
-
                 other.pageable = PaginationUtils.getPageable(response.detail);
-
                 other.spinner = false;
 
             }, error => {
                 console.log(error);
-
                 other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
-
                 other.spinner = false;
             }
         );
     }
 
     ngOnInit() {
-        this.breadcrumbService.notify(this.title);
-
         ValuatorComponent.loadData(this);
-
         this.service.getStatus().subscribe((response: any) => {
-
             this.activeCount = response.detail.active;
             this.inactiveCount = response.detail.inactive;
             this.valuators = response.detail.valuators;
