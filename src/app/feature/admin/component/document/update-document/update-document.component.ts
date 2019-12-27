@@ -88,7 +88,6 @@ export class UpdateDocumentComponent implements OnInit {
         const selectedDocumentValues = [];
 
         this.availableDocumentOptions.forEach(d => {
-            console.log(this.form.value[d.name]);
             if (this.form.value[d.name] === true) {
                 selectedDocumentValues.push(d.id);
             }

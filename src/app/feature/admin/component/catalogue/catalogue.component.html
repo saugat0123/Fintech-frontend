@@ -191,12 +191,11 @@
                     <select [(ngModel)]="tempLoanType" class="custom-select py-0"
                             (ngModelChange)="onChange(model,onActionChange)">
                         <option [value]="null" selected hidden>Select Type</option>
-                        <option
-                                value="RENEWED_LOAN">Renew Loan
-                        </option>
-                        <option
-                                value="CLOSURE_LOAN">Close Loan
-                        </option>
+                        <option value="RENEWED_LOAN">Renew Loan</option>
+                        <option value="CLOSURE_LOAN">Close Loan</option>
+                        <option value="ENHANCED_LOAN">Enhance Loan</option>
+                        <option value="PARTIAL_SETTLEMENT_LOAN">Partial Settle Loan</option>
+                        <option value="FULL_SETTLEMENT_LOAN">Full Settle Loan</option>
                     </select>
                 </td>
                 <ng-template #linkin>
@@ -292,22 +291,14 @@
 
     </ng-template>
 
-    <ng-template #onActionChange>
-        <div>
-            <div class="modal-content">
-                <div class="modal-header" style="display:block">
-                    <div>
-                        <h4 class="">Do You want to change the loan type to {{tempLoanType}}
-                            ?</h4>
-                        <form>
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary  btn-flat" (click)="changeAction()">
-                                    YES
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+    <ng-template #onActionChange class="modal">
+        <div class="modal-header">
+            <h5>Do you want to change the loan type to {{loanType[tempLoanType]}}?</h5>
+        </div>
+        <div class="modal-body">
+            <div class="d-flex justify-content-end">
+                <button (click)="changeAction()" nbButton status="primary" type="submit">YES</button>
+                <button (click)="onClose()" nbButton status="warning" type="button">NO</button>
             </div>
         </div>
     </ng-template>

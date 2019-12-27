@@ -139,7 +139,7 @@
                                         <div class="col-md-4"
                                              *ngFor="let initialDocument of initialDocumentList; let documentIndex = index">
                                                 <nb-checkbox id="{{'initialDocument'+documentIndex}}" status="primary"
-                                                             (change)="updateInitialDocument($event,initialDocument)"
+                                                             (change)="updateDocument($event, initialDocument, this.finalInitialDocument)"
                                                              [value]="initialDocument.checked">
                                                     {{initialDocument.displayName}}
                                                 </nb-checkbox>
@@ -158,7 +158,7 @@
                                         <div class="col-md-4"
                                              *ngFor="let renewalDocument of renewalDocumentList; let documentIndex = index;">
                                             <nb-checkbox id="{{'renewDocument'+documentIndex}}" status="primary"
-                                                         (change)="updateRenewalDocument($event,renewalDocument)"
+                                                         (change)="updateDocument($event, renewalDocument, finalRenewalDocument)"
                                                          [value]="renewalDocument.checked">
                                                 <span>{{renewalDocument.displayName}}</span>
                                             </nb-checkbox>
@@ -178,7 +178,7 @@
                                         <div class="col-md-4"
                                              *ngFor="let closureDocument of closureDocumentList; let documentIndex = index">
                                             <nb-checkbox id="{{'closureDocument'+documentIndex}}" status="primary"
-                                                         (change)="updateClosureDocument($event,closureDocument)"
+                                                         (change)="updateDocument($event, closureDocument, finalClosureDocument)"
                                                          [value]="closureDocument.checked">
                                                 {{closureDocument.displayName}}
                                             </nb-checkbox>
@@ -199,11 +199,80 @@
                                             *ngFor="let eligibilityDocument of eligibilityDocumentList; let documentIndex = index"
                                             class="col-md-4">
                                             <nb-checkbox
-                                                (change)="updateEligibilityDocument($event,eligibilityDocument)"
+                                                (change)="updateDocument($event, eligibilityDocument, finalEligibilityDocument)"
                                                 [value]="eligibilityDocument.checked"
                                                 id="{{'eligibility'+documentIndex}}"
                                                 status="primary">
                                                 <span>{{eligibilityDocument.displayName}}</span>
+                                            </nb-checkbox>
+                                        </div>
+                                    </div>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
+                    </div>
+
+                    <div class="box box-primary col-md-6 mb-2">
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>Enhance</nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <div class="row">
+                                        <div
+                                            *ngFor="let enhanceDocument of enhanceDocumentList; let documentIndex = index"
+                                            class="col-md-4">
+                                            <nb-checkbox
+                                                (change)="updateDocument($event, enhanceDocument, finalEnhanceDocument)"
+                                                [value]="enhanceDocument.checked"
+                                                id="{{'enhance'+documentIndex}}"
+                                                status="primary">
+                                                <span>{{enhanceDocument.displayName}}</span>
+                                            </nb-checkbox>
+                                        </div>
+                                    </div>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
+                    </div>
+
+                    <div class="box box-primary col-md-6 mb-2">
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>Partial Settlement</nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <div class="row">
+                                        <div
+                                            *ngFor="let partialDocument of partialSettlementDocumentList; let documentIndex = index"
+                                            class="col-md-4">
+                                            <nb-checkbox
+                                                (change)="updateDocument($event, partialDocument, finalPartialSettlementDocument)"
+                                                [value]="partialDocument.checked"
+                                                id="{{'partial'+documentIndex}}"
+                                                status="primary">
+                                                <span>{{partialDocument.displayName}}</span>
+                                            </nb-checkbox>
+                                        </div>
+                                    </div>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
+                    </div>
+
+                    <div class="box box-primary col-md-6 mb-2">
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>Full Settlement</nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <div class="row">
+                                        <div
+                                            *ngFor="let fullDocument of fullSettlementDocumentList; let documentIndex = index"
+                                            class="col-md-4">
+                                            <nb-checkbox
+                                                (change)="updateDocument($event, fullDocument, finalFullSettlementDocument)"
+                                                [value]="fullDocument.checked"
+                                                id="{{'full'+documentIndex}}"
+                                                status="primary">
+                                                <span>{{fullDocument.displayName}}</span>
                                             </nb-checkbox>
                                         </div>
                                     </div>
