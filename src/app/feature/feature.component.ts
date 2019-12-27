@@ -54,8 +54,6 @@ export class FeatureComponent implements OnInit {
                 console.log(error);
             });
 
-        console.log(this.menus);
-
         this.router.events.subscribe(event => {
             if (event instanceof RouteConfigLoadStart) {
                 this.spinner.show();
