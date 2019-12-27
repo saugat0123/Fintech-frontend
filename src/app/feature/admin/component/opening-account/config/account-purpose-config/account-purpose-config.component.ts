@@ -10,6 +10,7 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {AccountPurposeFormComponent} from './account-purpose-form/account-purpose-form.component';
 import {Action} from '../../../../../../@core/Action';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-account-purpose-config',
@@ -53,7 +54,7 @@ export class AccountPurposeConfigComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.editPermission = localStorage.getItem('roleName') === 'admin';
+    this.editPermission = LocalStorageUtil.getStorage().roleName === 'admin';
     this.buildFilterForm();
     AccountPurposeConfigComponent.loadData(this);
   }

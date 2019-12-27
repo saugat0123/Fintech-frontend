@@ -10,6 +10,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {OpeningAccountService} from './service/opening-account.service';
 import {AccountStatus} from '../../modal/accountStatus';
 import {RoleType} from '../../modal/roleType';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-opening-account',
@@ -68,8 +69,8 @@ export class OpeningAccountComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.isApproval = localStorage.getItem('roleType') === RoleType.APPROVAL &&
-            localStorage.getItem('roleName') !== 'admin';
+        this.isApproval = LocalStorageUtil.getStorage().roleType === RoleType.APPROVAL &&
+            LocalStorageUtil.getStorage().roleName !== 'admin';
         this.showAction = this.isApproval;
         OpeningAccountComponent.loadData(this);
         this.breadcrumbService.notify(this.title);

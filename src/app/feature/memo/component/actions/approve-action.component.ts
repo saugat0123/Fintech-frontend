@@ -6,6 +6,7 @@ import {Memo} from '../../model/memo';
 import {MemoStage} from '../../model/MemoStage';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {User} from '../../../admin/modal/user';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-memo-forward',
@@ -68,7 +69,7 @@ export class ApproveActionComponent implements OnInit {
         stage.stage = 'APPROVED';
 
         const sentBy = new User();
-        sentBy.id = parseInt(localStorage.getItem('userId'), 10);
+        sentBy.id = parseInt(LocalStorageUtil.getStorage().userId, 10);
         stage.sentBy = sentBy;
         stage.sentTo = this.memo.sentBy;
 

@@ -4,6 +4,7 @@ import {BaseService} from '../../../../@core/BaseService';
 import {Message} from '../model/message';
 import {BehaviorSubject} from 'rxjs';
 import {Status} from '../../../../@core/Status';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Injectable({
     providedIn: 'root'
@@ -35,8 +36,8 @@ export class NotificationService extends BaseService<Message> {
 
     fetchNotifications(): void {
         const notificationSearchObject = {
-            toId: localStorage.getItem('userId'),
-            toRole: localStorage.getItem('roleId'),
+            toId: LocalStorageUtil.getStorage().userId,
+            toRole: LocalStorageUtil.getStorage().roleId,
             status: Status.ACTIVE
         };
         this.getPaginationWithSearchObject(notificationSearchObject, 1, 5).subscribe((response: any) => {

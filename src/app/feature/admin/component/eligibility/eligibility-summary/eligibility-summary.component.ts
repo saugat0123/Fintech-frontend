@@ -10,6 +10,7 @@ import {ApplicantService} from './applicant.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Status} from '../../../modal/eligibility';
 import {RoleType} from '../../../modal/roleType';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-eligibility-summary',
@@ -40,7 +41,7 @@ export class EligibilitySummaryComponent implements OnInit {
 
     ngOnInit() {
         this.loading = true;
-        this.roleType = localStorage.getItem('roleType');
+        this.roleType = LocalStorageUtil.getStorage().roleType;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.applicantParam = {applicantId: null};
