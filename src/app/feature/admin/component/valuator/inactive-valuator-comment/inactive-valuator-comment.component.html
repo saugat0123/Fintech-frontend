@@ -6,7 +6,7 @@
     <nb-card-body>
         <div class="col-md-6">
             <label for="inactiveCode"><strong>Inactive Code</strong></label>
-            <select [(ngModel)]="inactiveCode" class="form-control" id="inactiveCode">
+            <select [(ngModel)]="data.state" class="form-control" id="inactiveCode">
                 <option [ngValue]="null" hidden>Select code</option>
                 <option ngValue="BLACKLISTED">BLACKLISTED</option>
                 <option ngValue="SUSPENDED">SUSPENDED</option>
@@ -16,13 +16,13 @@
         <hr>
         <div class="col-md-12">
             <label for="inactiveCode"><strong>Inactive reason</strong></label>
-            <textarea #inactiveComment class="form-control" id="inactiveComment" rows="4"></textarea>
+            <textarea [(ngModel)]="data.inactiveComment" class="form-control" id="inactiveComment" rows="4"></textarea>
         </div>
     </nb-card-body>
     <nb-card-footer class="text-right">
-        <button (click)="setInactiveComment(inactiveComment.value)" class="btn btn-success btn-flat btn-sm"
+        <button nbButton outline status="primary" (click)="closeModal()" class="btn btn-flat btn-sm cursor" type="button">Cancel</button>
+        <button nbButton status="primary" (click)="setInactiveComment()" class="btn btn-flat btn-sm"
                 type="button">Save
         </button>
-        <button (click)="closeModal()" class="btn btn-danger btn-flat btn-sm cursor" type="button">Cancel</button>
     </nb-card-footer>
 </nb-card>

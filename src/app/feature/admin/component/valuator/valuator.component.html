@@ -1,18 +1,18 @@
 <div class="row">
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <app-icon-card title="Valuator" type="info" detail="{{valuators}}">
+        <app-icon-card detail="{{valuators}}" title="Valuator" type="info">
             <em class="fas fa-money-bill"></em>
         </app-icon-card>
     </div>
 
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <app-icon-card title="Active" type="success" detail="{{activeCount}}">
+        <app-icon-card detail="{{activeCount}}" title="Active" type="success">
             <em class="fas fa-money-bill"></em>
         </app-icon-card>
     </div>
 
     <div class="col-md-4 col-sm-6 col-xs-12">
-        <app-icon-card title="Inactive" type="warning" detail="{{inactiveCount}}">
+        <app-icon-card detail="{{inactiveCount}}" title="Inactive" type="warning">
             <em class="fas fa-money-bill"></em>
         </app-icon-card>
     </div>
@@ -27,23 +27,23 @@
                         <form (ngSubmit)="onSearch()">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <input type="text" [(ngModel)]="search.name"
-                                           (input)="onSearchChange($event.target['value'])" name="name"
-                                           placeholder="search...."
-                                           nbInput fullWidth>
+                                    <input (input)="onSearchChange($event.target['value'])" [(ngModel)]="search.name"
+                                           fullWidth name="name"
+                                           nbInput
+                                           placeholder="search...." type="text">
                                 </div>
                                 <div class="col-md-4">
-                                    <button type="submit" nbButton outline status="primary">
+                                    <button nbButton outline status="primary" type="submit">
                                         <em class="fa fa-search"></em>
                                     </button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <!-- <h3 class="box-title">Hover Data Table</h3> -->
                     <div class="col-md-6">
                         <div class="float-right">
-                            <button nbButton outline status="success" data-toggle="modal" (click)="add()" *ngIf="addViewValuator">
+                            <button (click)="add()" *ngIf="addViewValuator" data-toggle="modal" nbButton outline
+                                    status="success">
                                 <em class="fa fa-plus"></em>
                             </button>
                         </div>
@@ -52,59 +52,54 @@
             </nb-card-header>
             <nb-card-body>
                 <section *ngIf="viewValuator">
-                    <table id="add-valuator-table" class="table  table-bordered table-hover ">
+                    <table aria-describedby="Valuator list" class="table table-bordered table-hover"
+                           id="add-valuator-table">
                         <thead>
                         <tr>
-                            <th>S.N</th>
-                            <th>Valuator Name</th>
-                            <th>Address</th>
-                            <th>Contact Number</th>
-                            <th>Email</th>
-                            <th>Branches</th>
-                            <th>Valuating field</th>
-                            <th>Bank Associate Date</th>
-                            <th>Minimum Amount</th>
-                            <th>Maximum Amount</th>
-                            <th>Status</th>
-                            <th *ngIf='editValuator === true'>Action</th>
+                            <th scope="col">S.N</th>
+                            <th scope="col">Valuator Name</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Contact Number</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Branches</th>
+                            <th scope="col">Valuating field</th>
+                            <th scope="col">Bank Associate Date</th>
+                            <th scope="col">Minimum Amount</th>
+                            <th scope="col">Maximum Amount</th>
+                            <th scope="col">Status</th>
+                            <th *ngIf='editValuator === true' scope="col">Action</th>
                         </tr>
                         </thead>
 
                         <tbody>
-                        <tr *ngFor="let allList of dataList;let i=index"
-                            [ngStyle]="{'color': (allList.state === 'BLACKLISTED' || allList.state === 'SUSPENDED') ?
-                              'red': 'black'}" [nbPopover]="allList?.state === 'BLACKLISTED' ?
-                                        'BLACKLISTED Reason:     ' + allList?.inactiveComment :
-                                        allList?.state === 'SUSPENDED' ?
-                                        'SUSPENDED Reason:        ' + allList?.inactiveComment :
-                                        'No Comments available'" nbPopoverTrigger="hover"
-                            nbPopoverAdjustment="vertical" (nbPopoverShowStateChange)="dddd($event)">
-                            <div *ngIf="!dataList?.length > 0">
-                                <p>No Content Found</p>
-                            </div>
+                        <tr (nbPopoverShowStateChange)="showPopover($event, stateCodePopOver, valuator)"
+                            *ngFor="let valuator of dataList;let i=index" [nbPopover]="popoverContent" [ngStyle]="{'color': (valuator.state === 'BLACKLISTED' || valuator.state === 'SUSPENDED') ?
+                              'red': 'black'}"
+                            nbPopoverAdjustment="vertical"
+                            nbPopoverTrigger="click">
                             <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                            <td>{{allList.name}}</td>
-                            <td>{{allList?.province?.name}}, {{allList?.district?.name}}
-                                , {{allList?.municipalityVdc?.name}}, {{allList?.streetName}},
-                                {{allList?.wardNumber}}</td>
-                            <td>{{allList?.contactNo}}</td>
-                            <td>{{allList?.email}}</td>
+                            <td>{{valuator.name}}</td>
+                            <td>{{valuator?.province?.name}}, {{valuator?.district?.name}}
+                                , {{valuator?.municipalityVdc?.name}}, {{valuator?.streetName}},
+                                {{valuator?.wardNumber}}</td>
+                            <td>{{valuator?.contactNo}}</td>
+                            <td>{{valuator?.email}}</td>
                             <td>
-                                <div *ngFor="let branch of allList?.branch">
+                                <div *ngFor="let branch of valuator?.branch">
                                     {{branch.name}}
                                 </div>
                             </td>
-                            <td>{{allList?.valuatingField}}</td>
-                            <td>{{allList?.bankAssociateDate | date}}</td>
-                            <td>Rs.{{allList?.minAmount | currencyFormatter}}</td>
-                            <td>Rs.{{allList?.maxAmount | currencyFormatter}}</td>
+                            <td>{{valuator?.valuatingField}}</td>
+                            <td>{{valuator?.bankAssociateDate | date}}</td>
+                            <td>Rs.{{valuator?.minAmount | currencyFormatter}}</td>
+                            <td>Rs.{{valuator?.maxAmount | currencyFormatter}}</td>
                             <td *ngIf='editValuator === true; else status '>
-                                <select class="select-borderless" [(ngModel)]="allList.status" name="status"
-                                        (change)="onChange(allList, $event)"
-                                        [nbPopover]="allList?.status === 'INACTIVE' ?
-                                        'Inactive Reason: ' + allList?.inactiveComment :
-                                        'No Comments available'" nbPopoverTrigger="hover"
-                                        nbPopoverAdjustment="vertical">
+                                <select (change)="onChange(valuator, $event)" [(ngModel)]="valuator.status" [nbPopover]="valuator?.status === 'INACTIVE' ?
+                                        'Inactive Reason: ' + valuator?.inactiveComment :
+                                        'No Comments available'"
+                                        class="select-borderless"
+                                        name="status" nbPopoverAdjustment="vertical"
+                                        nbPopoverTrigger="hover">
                                     <option value="ACTIVE">ACTIVE</option>
                                     <option value="INACTIVE">INACTIVE</option>
                                 </select>
@@ -112,22 +107,22 @@
                             <ng-template #status>
 
                                 <td>
-                                    <p [className]="allList.status=='ACTIVE' ? 'greenP' : 'redP'">{{allList.status}}</p>
+                                    <p [className]="valuator.status=='ACTIVE' ? 'greenP' : 'redP'">{{valuator.status}}</p>
                                 </td>
                             </ng-template>
                             <td *ngIf='editValuator === true'>
-                              <ng-container>
-                                <button nbButton status="info" size="small" class="m-1" (click)="edit(allList)"
-                                        *ngIf="editValuator"
-                                        title="Edit">
-                                  <em class="fa fa-edit"></em>
-                                </button>
-                                <!--<button nbButton status="danger" size="small" class="m-1"-->
-                                        <!--(click)="deleteValuator(allList?.id)"-->
-                                        <!--title="Delete">-->
-                                  <!--<em class="fa fa-ban"></em>-->
-                                <!--</button>-->
-                              </ng-container>
+                                <ng-container>
+                                    <button (click)="edit(valuator)" *ngIf="editValuator" class="m-1" nbButton size="small"
+                                            status="info"
+                                            title="Edit">
+                                        <em class="fa fa-edit"></em>
+                                    </button>
+                                    <button (click)="deleteValuator(valuator, $event)" class="m-1" nbButton size="small"
+                                            status="danger"
+                                            title="Delete">
+                                        <em class="fa fa-ban"></em>
+                                    </button>
+                                </ng-container>
                             </td>
                         </tr>
                         </tbody>
@@ -135,24 +130,21 @@
 
                     <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
                     <!-- ===================table-pagination==================== -->
-                    <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+                    <app-paging (changePage)="changePage($event)" *ngIf="!spinner" [pageable]="pageable"></app-paging>
                     <!-- ===================table-pagination==================== -->
-                    <!-- /.box-body -->
-
-                    <!-- /.box -->
                 </section>
             </nb-card-body>
         </nb-card>
     </div>
 </div>
 
-<ng-template #stateCode>
-    <nb-card>
-        <nb-card-header>
-
+<ng-template #stateCodePopOver>
+    <nb-card class="mb-0">
+        <nb-card-header class="p-1 m-1">
+            {{inactiveCodePopoverContent}} Reason:
         </nb-card-header>
-        <nb-card-body>
-
+        <nb-card-body class="p-1 m-1">
+            {{inactiveCommentPopoverContent}}
         </nb-card-body>
     </nb-card>
 </ng-template>

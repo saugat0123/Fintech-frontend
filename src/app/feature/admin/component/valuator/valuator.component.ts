@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {Valuator} from '../../modal/valuator';
@@ -12,14 +12,20 @@ import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {ValuatorService} from './valuator.service';
 import {PermissionService} from '../../../../@core/service/permission.service';
 import {InactiveValuatorCommentComponent} from './inactive-valuator-comment/inactive-valuator-comment.component';
-import {DocStatus} from '../../../loan/model/docStatus';
 import {Status} from '../../../../@core/Status';
+import {NbPopoverDirective} from '@nebular/theme';
+import {DeleteModalComponent} from '../../../../@theme/components/delete-modal/delete-modal.component';
 
 @Component({
     selector: 'app-valuator',
     templateUrl: './valuator.component.html'
 })
 export class ValuatorComponent implements OnInit {
+    @ViewChild(NbPopoverDirective, { static: false }) popover: NbPopoverDirective;
+    popoverContent = undefined;
+    inactiveCodePopoverContent = '';
+    inactiveCommentPopoverContent = '';
+
     title = 'Valuator';
     breadcrumb = 'Valuator > List';
 
@@ -164,17 +170,34 @@ export class ValuatorComponent implements OnInit {
         ValuatorComponent.loadData(this);
     }
 
-  deleteValuator(valuatorId) {
-    this.service.delete(valuatorId).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully deleted valuator'));
-    }, error => {
-      console.log(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to delete valuator'));
-    });
-  }
+    deleteValuator(valuator: Valuator, event) {
+        valuator.status = Status.DELETED;
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
+        event.preventDefault();
 
-    dddd(ss) {
-        if (ss) {
+        const modalRef = this.modalService.open(DeleteModalComponent, {size: 'lg'});
+        modalRef.componentInstance.data = valuator;
+        modalRef.componentInstance.service = this.service;
+        modalRef.result.then(
+            close => {
+                ValuatorComponent.loadData(this);
+            }, dismiss => {
+                ValuatorComponent.loadData(this);
+            }
+        );
+    }
+
+    showPopover(event, template, valuator: Valuator) {
+        if (event.isShown && (valuator.state === 'BLACKLISTED' || valuator.state === 'SUSPENDED')) {
+            this.popoverContent = template;
+            this.inactiveCodePopoverContent = valuator.state;
+            this.inactiveCommentPopoverContent = valuator.inactiveComment;
+            this.popover.content = this.popoverContent;
+            this.popover.rebuild();
+        } else if (event.isShown && !(valuator.state === 'BLACKLISTED' || valuator.state === 'SUSPENDED')) {
+            this.popoverContent = undefined;
         }
     }
 }
