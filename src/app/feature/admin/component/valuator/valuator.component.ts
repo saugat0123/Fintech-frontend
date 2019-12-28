@@ -36,6 +36,7 @@ export class ValuatorComponent implements OnInit {
     viewValuator = false;
     editValuator = false;
     csvDownload = false;
+    list = [];
 
     constructor(
         private service: ValuatorService,
@@ -142,9 +143,9 @@ export class ValuatorComponent implements OnInit {
                         }, () => {
                             ValuatorComponent.loadData(this);
                         }
-                    )
+                    );
                 }
-              ValuatorComponent.loadData(this);
+                ValuatorComponent.loadData(this);
             }
         );
     }
@@ -162,12 +163,18 @@ export class ValuatorComponent implements OnInit {
         ValuatorComponent.loadData(this);
     }
 
-  deleteValuator(valuatorId) {
-    this.service.delete(valuatorId).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully deleted valuator'));
-    }, error => {
-      console.log(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to delete valuator'));
-    })
-  }
+    deleteValuator(valuatorId) {
+        this.service.delete(valuatorId).subscribe(() => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully deleted valuator'));
+        }, error => {
+            console.log(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to delete valuator'));
+        });
+    }
+
+    valuatorList() {
+        this.service.getValuatorList(null).subscribe((response: any) => {
+            this.list = response.detail;
+        });
+    }
 }
