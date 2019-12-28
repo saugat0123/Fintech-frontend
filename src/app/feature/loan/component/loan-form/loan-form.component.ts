@@ -31,6 +31,7 @@ import {SecurityComponent} from '../loan-main-template/security/security.compone
 import {GroupComponent} from '../loan-main-template/group/group.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerDocumentComponent} from '../loan-main-template/customer-document/customer-document.component';
+import {DocStatus} from '../../model/docStatus';
 
 @Component({
     selector: 'app-loan-form',
@@ -89,6 +90,8 @@ export class LoanFormComponent implements OnInit {
     // Priority Form
     priorityForm: FormGroup;
 
+    docStatusForm: FormGroup;
+
     nextButtonAction = false;
 
     loan: LoanConfig = new LoanConfig();
@@ -96,6 +99,9 @@ export class LoanFormComponent implements OnInit {
     submitDisable = false;
     loanDocument: LoanDataHolder;
 
+    docStatusMakerList = [];
+
+    showDocStatusDropDown = true;
 
     @ViewChild('basicInfo', {static: false})
     basicInfo: BasicInfoComponent;
@@ -151,7 +157,9 @@ export class LoanFormComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.docStatusForMaker();
         this.buildPriorityForm();
+        this.buildDocStatusForm();
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.allId = {
@@ -172,11 +180,21 @@ export class LoanFormComponent implements OnInit {
                             this.loanDocument.id = response.detail.id;
                             this.submitDisable = false;
                             this.priorityForm.get('priority').patchValue(this.loanDocument.priority);
+                            if (this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION) ||
+                                this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DOCUMENTATION) ||
+                                this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.VALUATION) ||
+                                this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.UNDER_REVIEW)) {
+                                this.showDocStatusDropDown = true;
+                            } else {
+                                this.showDocStatusDropDown = false;
+                            }
+                            this.docStatusForm.get('documentStatus').patchValue(this.loanDocument.documentStatus);
                         }
                     );
                 } else {
                     this.loanDocument = new LoanDataHolder();
                     this.loanFile = new DmsLoanFile();
+                    this.docStatusForm.get('documentStatus').patchValue(DocStatus.value(DocStatus.DISCUSSION));
                 }
             });
         this.dateService.getDateInNepali(this.datePipe.transform(new Date(), 'yyyy-MM-dd')).subscribe((response: any) => {
@@ -187,9 +205,27 @@ export class LoanFormComponent implements OnInit {
         this.loading = false;
     }
 
+    docStatusForMaker() {
+        DocStatus.values().forEach((value) => {
+            if (value === DocStatus.value(DocStatus.DISCUSSION) ||
+                value === DocStatus.value(DocStatus.DOCUMENTATION) ||
+                value === DocStatus.value(DocStatus.VALUATION) ||
+                value === DocStatus.value(DocStatus.UNDER_REVIEW)) {
+                this.docStatusMakerList.push(value);
+            }
+        });
+    }
+
     buildPriorityForm() {
         this.priorityForm = this.formBuilder.group({
             priority: [undefined, Validators.required]
+        });
+    }
+
+
+    buildDocStatusForm() {
+        this.docStatusForm = this.formBuilder.group({
+            documentStatus: [undefined, Validators.required]
         });
     }
 
@@ -298,15 +334,16 @@ export class LoanFormComponent implements OnInit {
         } else {
             this.loanDocument.loan = this.loan;
             this.loanDocument.priority = this.priorityForm.get('priority').value;
+            this.loanDocument.documentStatus = this.docStatusForm.get('documentStatus').value;
             this.loanDocument.loanCategory = this.allId.loanCategory;
             this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
                 this.loanDocument = response.detail;
                 this.customerLoanId = this.loanDocument.id;
                 this.loanDocument = new LoanDataHolder();
                 this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}})
-                .then(() => {
-                    this.spinner.hide();
-                });
+                    .then(() => {
+                        this.spinner.hide();
+                    });
             }, error => {
                 this.spinner.hide();
                 console.error(error);
@@ -316,15 +353,15 @@ export class LoanFormComponent implements OnInit {
     }
 
     nextButtonActionFxn(tabSet: NgbTabset) {
-      this.nextButtonAction = true;
+        this.nextButtonAction = true;
         tabSet.tabs.some(templateListMember => {
             if (Number(templateListMember.id) === Number(tabSet.activeId)) {
                 if (this.selectChild(templateListMember.title, true)) {
-                  this.nextButtonAction = false;
-                  return true;
+                    this.nextButtonAction = false;
+                    return true;
                 } else {
-                  tabSet.select(this.nextTabId.toString(10));
-                  return true;
+                    tabSet.select(this.nextTabId.toString(10));
+                    return true;
                 }
             }
         });
@@ -408,8 +445,8 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.security = this.security.securityData;
         }
         if (name === 'Credit Risk Grading' && action) {
-          this.creditGrading.onSubmit();
-          this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
+            this.creditGrading.onSubmit();
+            this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
         }
         if (name === 'Group' && action) {
             this.group.onSubmit();

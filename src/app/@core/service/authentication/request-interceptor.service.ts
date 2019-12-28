@@ -13,6 +13,7 @@ import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, filter, switchMap, take, tap} from 'rxjs/operators';
 import {ObjectUtil} from '../../utils/ObjectUtil';
 import {ApiConfig} from '../../utils/api/ApiConfig';
+import {LocalStorageUtil} from '../../utils/local-storage-util';
 
 @Injectable({
   providedIn: 'root'
@@ -33,12 +34,12 @@ export class RequestInterceptor implements HttpInterceptor {
     let header;
     if (!ObjectUtil.isEmpty(request.headers.get('content-type'))) {
       header = {
-        'Authorization': 'Bearer ' + localStorage.getItem('at'),
+        'Authorization': 'Bearer ' + LocalStorageUtil.getStorage().at,
         'Content-Type': 'application/json'
       };
     } else if (!ObjectUtil.isEmpty(request.headers.get('enctype'))) {
       header = {
-        'Authorization': 'Bearer ' + localStorage.getItem('at'),
+        'Authorization': 'Bearer ' + LocalStorageUtil.getStorage().at,
         'enctype': 'multipart/form-data'
       };
     }
@@ -48,7 +49,7 @@ export class RequestInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (ObjectUtil.isEmpty(localStorage.getItem('at'))) {
+    if (ObjectUtil.isEmpty(LocalStorageUtil.getStorage().at)) {
       return next.handle(req);
     } else {
       return next.handle(req).pipe(
@@ -65,17 +66,19 @@ export class RequestInterceptor implements HttpInterceptor {
   }
 
   getNewRefreshToken() {
-    const data = `grant_type=refresh_token&refresh_token=${localStorage.getItem('rt')}`;
+    const data = `grant_type=refresh_token&refresh_token=${LocalStorageUtil.getStorage().rt}`;
     return this.httpClient.post(`${ApiConfig.TOKEN}`, data, {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': 'Basic Y3Atc29sdXRpb246Y3Bzb2x1dGlvbjEyMyoj',
       })
     }).pipe(tap((tokenResponse: any) => {
-      localStorage.setItem('at', tokenResponse.access_token);
-      localStorage.setItem('rt', tokenResponse.refresh_token);
-      localStorage.setItem('ty', tokenResponse.token_type);
-      localStorage.setItem('et', tokenResponse.expires_in);
+      const storage = LocalStorageUtil.getStorage();
+      storage.at = tokenResponse.access_token;
+      storage.rt = tokenResponse.refresh_token;
+      storage.ty = tokenResponse.token_type;
+      storage.et = tokenResponse.expires_in;
+      LocalStorageUtil.setStorage(storage);
     }));
   }
 

@@ -4,9 +4,11 @@
         <h2 class="d-flex justify-content-center">{{loanTitle}}</h2>
         <hr>
 
-        <form [formGroup]="priorityForm">
-            <div class="row">
-                <div class="col-md-3">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <form [formGroup]="priorityForm">
                     <label><strong>Priority</strong></label>
                     <ng-select [items]="dropdownPriorities"
                                [multiple]="false"
@@ -20,9 +22,25 @@
                             Priority is required!
                         </small>
                     </div>
-                </div>
+                </form>
             </div>
-        </form>
+
+
+            <div *ngIf="showDocStatusDropDown" class="col-md-3">
+                <form [formGroup]="docStatusForm">
+                    <label><strong>Document Status</strong></label>
+                    <ng-select [items]="docStatusMakerList"
+                               [multiple]="false"
+                               bindLabel="name"
+                               bindValue="name"
+                               formControlName="documentStatus"
+                               placeholder="Select the docStatus">
+                    </ng-select>
+                </form>
+            </div>
+
+        </div>
+
 
         <span class="d-flex justify-content-end">{{currentNepDate}}</span>
     </nb-card-header>
@@ -56,7 +74,8 @@
                                   [insuranceValue]="loanDocument?.insurance"></app-cicl>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading'">
-                        <app-credit-grading #creditGrading [formData]="loanDocument?.creditRiskGrading"></app-credit-grading>
+                        <app-credit-grading #creditGrading
+                                            [formData]="loanDocument?.creditRiskGrading"></app-credit-grading>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Financial'">
                         <app-financial [formData]="loanDocument?.financial" #financial></app-financial>
@@ -65,10 +84,11 @@
                         <app-site-visit #siteVisit [formValue]="loanDocument?.siteVisit"></app-site-visit>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Security'">
-                    <app-security #security [securityValue]="loanDocument?.security"></app-security>
+                        <app-security #security [securityValue]="loanDocument?.security"></app-security>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Customer Document'">
-                        <app-customer-document #customerDocument [loanDataHolder]="loanDocument"></app-customer-document>
+                        <app-customer-document #customerDocument
+                                               [loanDataHolder]="loanDocument"></app-customer-document>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Group'">
                         <app-group #group [groupValue]="loanDocument?.group" [proposalDataHolder]="loanDocument?.proposal" ></app-group>

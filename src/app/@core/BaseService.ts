@@ -2,7 +2,6 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {ApiUtils} from './utils/api/ApiUtils';
 
-
 /**
  * API are expected to be developed in rest pattern
  *
