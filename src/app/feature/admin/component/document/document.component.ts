@@ -11,6 +11,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {DocumentService} from './document.service';
 import {Action} from '../../../../@core/Action';
+import {ProductModeService} from '../../service/product-mode.service';
 
 @Component({
     selector: 'app-document',
@@ -30,13 +31,15 @@ export class DocumentComponent implements OnInit {
     activeCount: number;
     inactiveCount: number;
     documents: number;
+    showEligibility = false;
 
 
     constructor(
         private service: DocumentService,
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private productModeService: ProductModeService,
     ) {
     }
 
@@ -58,6 +61,7 @@ export class DocumentComponent implements OnInit {
         other.service.getAllLoanCycle().subscribe((response: any) => {
             other.loanCycleList = response.detail;
         });
+        other.showEligibility = other.productModeService.isProductEnable('ELIGIBILITY');
     }
 
     ngOnInit() {

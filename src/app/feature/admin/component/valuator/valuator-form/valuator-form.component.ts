@@ -49,7 +49,7 @@ export class ValuatorFormComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.spinner = true;
         this.buildForm();
 
         this.branchService.getAll().subscribe( (response: any) => {
@@ -57,10 +57,20 @@ export class ValuatorFormComponent implements OnInit {
             if (!ObjectUtil.isEmpty(this.model) && !ObjectUtil.isEmpty(this.model.branch)) {
                 this.valuatorForm.get('branch').patchValue(this.model.branch);
             }
+            this.spinner = false;
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Branch List!'));
+            console.log(error);
+            this.spinner = false;
         });
 
         this.location.getProvince().subscribe((response: any) => {
             this.provinces = response.detail;
+            this.spinner = false;
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Provinces!'));
+            console.log(error);
+            this.spinner = false;
         });
 
         if (!ObjectUtil.isEmpty(this.model.province)) {
@@ -162,6 +172,10 @@ export class ValuatorFormComponent implements OnInit {
                 }
             }
         );
+    }
+
+    addCustomValuatingField(tag: string) {
+        return tag;
     }
 
     onSubmit() {

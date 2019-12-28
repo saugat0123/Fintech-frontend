@@ -11,6 +11,7 @@ import {ProfileComponent} from '../profile/profile.component';
 import {SocketService} from '../../../@core/service/socket.service';
 import {NotificationService} from '../notification/service/notification.service';
 import {ChangePasswordComponent} from '../change-password/change-password.component';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-header',
@@ -71,10 +72,10 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.userId = Number(localStorage.getItem('userId'));
-        this.userFullName = localStorage.getItem('userFullName');
-        this.userProfilePicture = localStorage.getItem('userProfilePicture');
-        this.roleName = localStorage.getItem('roleName');
+        this.userId = Number(LocalStorageUtil.getStorage().userId);
+        this.userFullName = LocalStorageUtil.getStorage().userFullName;
+        this.userProfilePicture = LocalStorageUtil.getStorage().userProfilePicture;
+        this.roleName = LocalStorageUtil.getStorage().roleName;
 
         this.headerMenu();
         this.setupNotification();
@@ -101,7 +102,7 @@ export class HeaderComponent implements OnInit {
                 title === HeaderComponent.CHANGE_PASSWORD)
         ).subscribe((value) => {
             if (value === HeaderComponent.LOGOUT) {
-                localStorage.clear();
+                LocalStorageUtil.clearStorage();
                 this.socketService.closeSocket();
                 this.router.navigate(['/login']);
             } else if (value === HeaderComponent.PROFILE) {
