@@ -99,6 +99,12 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, formData, {headers: req.header});
     }
 
+    public getLoansByCustomerIdCustomerProfileLoan(id: number) {
+        const api = `${this.getApi()}/customer/${id}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
     protected getApi(): string {
         return LoanFormService.API;
     }

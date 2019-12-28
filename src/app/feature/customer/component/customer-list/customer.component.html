@@ -1,6 +1,49 @@
 <nb-card>
     <nb-card-header>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="btn-group">
+                        <button
+                                (click)="isFilterCollapsed = !isFilterCollapsed"
+                                [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+                                nbButton
+                                shape="rectangle"
+                                status="primary">
+                            <em class="fa fa-filter"> Filter</em>
+                        </button>
 
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex justify-content-end">
+                    <button (click)="getCsv()" nbButton outline
+                            status="info">
+                        <i aria-hidden="true" class="fa fa-download"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">
+            <form [formGroup]="filterForm">
+                <div class="row py-3">
+
+
+                    <div class="col-md-3 mb-3">
+                        <input class="form-control rounded" formControlName="customerName" id="customerName"
+                               placeholder="Enter customer name">
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 p-0">
+                    <button (click)="onSearch()" [disabled]="!filterForm.valid" class="mr-2" nbButton shape="rectangle"
+                            status="info">Search
+                    </button>
+                    <button nbButton shape="rectangle" status="danger" type="button">Clear
+                    </button>
+                </div>
+            </form>
+        </div>
 
     </nb-card-header>
     <nb-card-body>
@@ -14,7 +57,7 @@
                 <th>Address</th>
                 <th>Contact No</th>
                 <th>Occupation</th>
-                <th>Created On</th>
+                <th>Associated Since</th>
 
 
             </tr>
