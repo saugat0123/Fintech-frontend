@@ -10,6 +10,7 @@ export class Valuator {
   name: string;
   contactNo: string;
   status: string;
+  state: string;
   province: Province;
   district: District;
   municipalityVdc: MunicipalityVdc;
