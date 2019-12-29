@@ -153,7 +153,7 @@
 
                 <div class="col-md-6">
                     <label>Bank Associate Date</label>
-                    <input [ngClass]="{'is-invalid': submitted && valuatorFormControl.bankAssociateDate.errors}"
+                    <input nbInput fullWidth [ngClass]="{'is-invalid': submitted && valuatorFormControl.bankAssociateDate.errors}"
                            class="form-control" formControlName="bankAssociateDate"
                            type="date">
                     <div *ngIf="valuatorFormControl.bankAssociateDate.invalid && submitted" class="invalid-feedback">
