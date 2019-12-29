@@ -6,6 +6,7 @@ import {ApiConfig} from '../utils/api/ApiConfig';
 import {ToastService} from '../utils';
 import {Alert, AlertType} from '../../@theme/model/Alert';
 import {NotificationService} from '../../@theme/components/notification/service/notification.service';
+import {LocalStorageUtil} from '../utils/local-storage-util';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,8 @@ export class SocketService {
 
   message: Message = new Message();
 
-  userId = Number(localStorage.getItem('userId'));
-  userRoleId = Number(localStorage.getItem('roleId'));
+  userId = Number(LocalStorageUtil.getStorage().userId);
+  userRoleId = Number(LocalStorageUtil.getStorage().roleId);
 
   constructor(
       private toastService: ToastService,

@@ -21,6 +21,7 @@ import {LoanDataHolder} from '../model/loanData';
 import {LoanStage} from '../model/loanStage';
 import {DocAction} from '../model/docAction';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 
 
 @Component({
@@ -87,8 +88,8 @@ export class LoanActionComponent implements OnInit {
             this.loanConfig = response.detail;
         });
 
-        const roleName: string = localStorage.getItem('roleName');
-        const roleType: string = localStorage.getItem('roleType');
+        const roleName: string = LocalStorageUtil.getStorage().roleName;
+        const roleType: string = LocalStorageUtil.getStorage().roleType;
         if (roleName !== 'admin') {
             this.currentUserRoleType = roleType === RoleType.MAKER;
         }
@@ -115,9 +116,9 @@ export class LoanActionComponent implements OnInit {
             }
         );
         if (this.committeeRole && val === 1) {
-            this.popUpTitle = 'Send Backward To ' + localStorage.getItem('roleName');
+            this.popUpTitle = 'Send Backward To ' + LocalStorageUtil.getStorage().roleName;
             const role = {
-                id: localStorage.getItem('roleId')
+                id: LocalStorageUtil.getStorage().roleId
             };
             this.formAction.patchValue({
                     docAction: DocAction[DocAction.BACKWARD_TO_COMMITTEE],
@@ -190,7 +191,7 @@ export class LoanActionComponent implements OnInit {
 
   onLogin(dataValue) {
     const data: { email: string, password: string } = dataValue.value;
-        data.email = localStorage.getItem('username');
+        data.email = LocalStorageUtil.getStorage().username;
     const requestBody = 'grant_type=password&username=' + data.email + '&password=' + data.password;
     this.http.post(this.securityUrl, requestBody, {headers: this.headers})
             .subscribe(

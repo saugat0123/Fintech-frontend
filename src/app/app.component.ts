@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {AppConstant} from './@core/utils/appConstant';
+import {environment} from '../environments/environment';
 
 @Component({
     selector: 'app-root',
@@ -13,6 +13,6 @@ export class AppComponent {
     menu: [];
 
     public constructor(private titleService: Title) {
-        this.titleService.setTitle(AppConstant.BANKNAME);
+        this.titleService.setTitle(environment.client);
     }
 }

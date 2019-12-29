@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {LocalStorageUtil} from '../../utils/local-storage-util';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthGuard implements CanActivate {
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot) {
-        if (localStorage.getItem('at')) {
+        if (LocalStorageUtil.getStorage().at) {
             return true;
         } else {
             this.router.navigate(['']);

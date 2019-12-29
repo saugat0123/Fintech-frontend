@@ -24,6 +24,7 @@ import {Financial} from '../../model/financial';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {DocAction} from '../../model/docAction';
 import {DocumentService} from '../../../admin/component/document/document.service';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-loan-summary',
@@ -196,7 +197,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           this.actionsList.closed = true;
           this.currentDocAction = this.loanDataHolder.currentStage.docAction.toString();
           this.actionsList.offerLetter = this.loanDataHolder.documentStatus.toString() === 'APPROVED';
-          if (this.loanDataHolder.createdBy.toString() === localStorage.getItem('userId')) {
+          if (this.loanDataHolder.createdBy.toString() === LocalStorageUtil.getStorage().userId) {
             this.actionsList.sendBackward = false;
             this.actionsList.edit = true;
             this.actionsList.approved = false;

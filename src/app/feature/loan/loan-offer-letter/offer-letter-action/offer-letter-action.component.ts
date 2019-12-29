@@ -17,6 +17,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {CustomerOfferLetterService} from '../../service/customer-offer-letter.service';
 import {CustomerOfferLetter} from '../../model/customer-offer-letter';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-offer-letter-action',
@@ -70,7 +71,7 @@ export class OfferLetterActionComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.currentUserId = localStorage.getItem('userId');
+        this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.router.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.allId = {
@@ -93,8 +94,8 @@ export class OfferLetterActionComponent implements OnInit {
 
                 });
 
-                const roleName: string = localStorage.getItem('roleName');
-                const roleType: string = localStorage.getItem('roleType');
+                const roleName: string = LocalStorageUtil.getStorage().roleName;
+                const roleType: string = LocalStorageUtil.getStorage().roleType;
                 if (roleName !== 'admin') {
                     this.currentUserRoleType = roleType === RoleType.MAKER;
                 }
@@ -168,7 +169,7 @@ export class OfferLetterActionComponent implements OnInit {
     onLogin(dataValue) {
 
         const data: { email: string, password: string } = dataValue.value;
-        data.email = localStorage.getItem('username');
+        data.email = LocalStorageUtil.getStorage().username;
         const requestBody = 'grant_type=password&username=' + data.email + '&password=' + data.password;
         this.http.post(this.securityUrl, requestBody, {headers: this.headers})
             .subscribe(

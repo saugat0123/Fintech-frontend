@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {ApiConfig} from '../../@core/utils/api/ApiConfig';
 import {UserService} from '../../feature/admin/component/user/user.service';
 import {User} from '../../feature/admin/modal/user';
+import {ProductMode, ProductModeService} from '../../feature/admin/service/product-mode.service';
+import {LocalStorageUtil} from '../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-login',
@@ -20,7 +22,8 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     constructor(
         private http: HttpClient,
         private router: Router,
-        private userService: UserService
+        private userService: UserService,
+        private productModeService: ProductModeService,
     ) {
     }
 
@@ -48,23 +51,34 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
             .subscribe(
                 // tslint:disable-next-line:no-shadowed-variable
                 (data: any) => {
-                    localStorage.setItem('at', data.access_token);
-                    localStorage.setItem('rt', data.refresh_token);
-                    localStorage.setItem('ty', data.token_type);
-                    localStorage.setItem('et', data.expires_in);
+                    const storage = LocalStorageUtil.getStorage();
+                    storage.at = data.access_token;
+                    storage.rt = data.refresh_token;
+                    storage.ty = data.token_type;
+                    storage.et = data.expires_in;
+                    LocalStorageUtil.setStorage(storage);
 
                     this.userService.getLoggedInUser()
                     .subscribe((res: any) => {
                         const user: User = res.detail;
-                        localStorage.setItem('userId', (user.id).toString());
-                        localStorage.setItem('username', user.username);
-                        localStorage.setItem('userFullName', user.name);
-                        localStorage.setItem('userProfilePicture', user.profilePicture);
-                        localStorage.setItem('roleAccess', user.role.roleAccess);
-                        localStorage.setItem('roleName', user.role.roleName);
-                        localStorage.setItem('roleType', user.role.roleType);
-                        localStorage.setItem('roleId', (user.role.id).toString());
+                        storage.userId = (user.id).toString();
+                        storage.username = user.username;
+                        storage.userFullName = user.name;
+                        storage.userProfilePicture = user.profilePicture;
+                        storage.roleAccess = user.role.roleAccess;
+                        storage.roleName = user.role.roleName;
+                        storage.roleType = user.role.roleType;
+                        storage.roleId = (user.role.id).toString();
+                        LocalStorageUtil.setStorage(storage);
                         this.router.navigate(['/home/dashboard']);
+                    });
+
+                    this.productModeService.getAll().subscribe((response: any) => {
+                        const productMode: ProductMode[] = response.detail;
+                        storage.productMode = JSON.stringify(productMode);
+                        LocalStorageUtil.setStorage(storage);
+                    }, error => {
+                        console.error(error);
                     });
                 },
                 error => {
