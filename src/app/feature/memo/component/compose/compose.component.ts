@@ -174,8 +174,10 @@ export class ComposeComponent implements OnInit {
         this.getProperties();
         this.memo.stage = 'DRAFT';
         this.memoService.save(this.memo).subscribe(res => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'SAVED MEMO AS DRAFT'));
             console.log(res);
         }, err => {
+            this.toastService.show(new Alert(AlertType.ERROR, 'UNABLE TO SAVE MEMO AS DRAFT'));
             console.log(err);
         });
     }

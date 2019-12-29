@@ -4,5 +4,7 @@ export enum MemoFullRoute {
     REVIEW = 'home/memo/review',
     APPROVE = 'home/memo/approve',
     EDIT = 'home/memo/compose/:id',
-    READ = 'home/memo/read/'
+    READ = 'home/memo/read/',
+    SENT = 'home/memo/sent',
+    RECEIVED = 'home/memo/received',
 }
