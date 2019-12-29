@@ -1,21 +1,21 @@
 <nb-card class="m-0">
     <nb-card-header>
-        Valuator Inactive Reason
+        Valuator inactive reason
         <a (click)="closeModal()" aria-hidden="true" class="close cursor">&times;</a>
     </nb-card-header>
     <nb-card-body>
         <div class="col-md-6">
-            <label for="inactiveCode"><strong>Inactive Code</strong></label>
+            <label for="inactiveCode"><strong>Inactive code</strong></label>
             <select [(ngModel)]="data.state" class="form-control" id="inactiveCode">
                 <option [ngValue]="null" hidden>Select code</option>
-                <option ngValue="BLACKLISTED">BLACKLISTED</option>
-                <option ngValue="SUSPENDED">SUSPENDED</option>
-                <option [ngValue]="null">NONE</option>
+                <option ngValue="BLACKLISTED">Black Listed</option>
+                <option ngValue="SUSPENDED">Suspended</option>
+                <option [ngValue]="null">None</option>
             </select>
         </div>
         <hr>
         <div class="col-md-12">
-            <label for="inactiveCode"><strong>Inactive reason</strong></label>
+            <label for="inactiveComment"><strong>Inactive reason</strong></label>
             <textarea [(ngModel)]="data.inactiveComment" class="form-control" id="inactiveComment" rows="4"></textarea>
         </div>
     </nb-card-body>
