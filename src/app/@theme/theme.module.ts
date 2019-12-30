@@ -67,6 +67,7 @@ import {CKEditorModule} from 'ng2-ckeditor';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {NbEvaIconsModule} from '@nebular/eva-icons';
 import { OverlaySpinnerComponent } from './components/overlay-spinner/overlay-spinner.component';
+import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -125,7 +126,8 @@ const COMPONENTS = [
     ValidationErrorComponent,
     MessageModalComponent,
     NotificationComponent,
-    OverlaySpinnerComponent
+    OverlaySpinnerComponent,
+    DeleteModalComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -133,7 +135,8 @@ const ENTRY_COMPONENTS = [
     MessageModalComponent,
     ProfileComponent,
     ChangePasswordComponent,
-    UpdateModalComponent
+    UpdateModalComponent,
+    DeleteModalComponent
 ];
 
 const PIPES = [

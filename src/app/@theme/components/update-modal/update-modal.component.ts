@@ -1,4 +1,4 @@
-import {Component, DoCheck, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CommonPageService} from '../../../@core/service/baseservice/common-pagination-service';
@@ -11,7 +11,7 @@ import {Status} from '../../../@core/Status';
     templateUrl: './update-modal.component.html',
     styleUrls: ['./update-modal.component.css']
 })
-export class UpdateModalComponent implements OnInit, DoCheck {
+export class UpdateModalComponent {
 
     @Input()
     data: any = {};
@@ -19,10 +19,7 @@ export class UpdateModalComponent implements OnInit, DoCheck {
     @Input()
     service: any;
 
-    currentApi: any;
     globalMsg: any;
-    currentUrl: any;
-
     spinner = false;
 
     constructor(
@@ -32,14 +29,6 @@ export class UpdateModalComponent implements OnInit, DoCheck {
         private activeModalService: NgbActiveModal,
         private toastService: ToastService
     ) {
-    }
-
-    ngOnInit() {
-    }
-
-    ngDoCheck(): void {
-        this.currentApi = this.commonPageService.getCurrentApi();
-        this.currentUrl = this.router.url;
     }
 
     updateStatus() {
