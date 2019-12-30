@@ -127,6 +127,9 @@ export class ValuatorFormComponent implements OnInit {
             status: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.status)) ? undefined :
                 this.model.status],
+            state: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.state)) ? undefined :
+                this.model.state],
             version: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.version)) ? undefined :
                 this.model.version]
