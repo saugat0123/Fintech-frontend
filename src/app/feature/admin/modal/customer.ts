@@ -6,6 +6,7 @@ import {Province} from './province';
 export class Customer {
     id: number;
     title: string;
+    profilePic: string;
     customerName: string;
     dob: Date;
     customerId: string;
@@ -26,4 +27,5 @@ export class Customer {
     occupation: string;
     incomeSource: string;
     version: number;
+
 }
