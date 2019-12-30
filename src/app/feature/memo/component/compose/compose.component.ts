@@ -16,6 +16,7 @@ import {MemoBaseComponent} from '../memo-base/memo-base.component';
 import {CustomValidator} from '../../../../@core/validator/custom-validator';
 import {MemoStage} from '../../model/MemoStage';
 import {MemoFullRoute} from '../../memo-full-routes';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-memo-compose',
@@ -28,8 +29,8 @@ export class ComposeComponent implements OnInit {
 
     isNewMemo: boolean;
     memoTask: string;
-    memoTypes$: Observable<MemoType[]>;
-    users$: Observable<User[]>;
+    memoTypes: MemoType[] = [];
+    users: User[] = [];
     memo: Memo = new Memo();
     memoId: number;
     memoComposeForm: FormGroup;
@@ -66,10 +67,10 @@ export class ComposeComponent implements OnInit {
             }, error => console.error(error));
         }
         this.memoTypeService.getPaginationWithSearch(this.searchMemo).subscribe((response: any) => {
-            this.memoTypes$ = response.content;
+            this.memoTypes = response.content;
         }, error => console.error(error));
         this.userService.getPaginationWithSearchObject(this.search).subscribe((response: any) => {
-            this.users$ = response.detail.content;
+            this.users = response.detail.content;
         }, error => console.error(error));
 
         this.buildMemoForm(this.memo);
@@ -81,30 +82,37 @@ export class ComposeComponent implements OnInit {
                 id: [memo.id, (memo.id === null || memo.id === 0 || memo.id === undefined) ? [] : Validators.required],
                 subject: [memo.subject, [Validators.required, CustomValidator.notEmpty]],
                 refNumber: [memo.refNumber, [Validators.required, CustomValidator.notEmpty]],
-                memoType: [memo.type, Validators.required],
+                type: [memo.type, Validators.required],
+                stage: [memo.stage],
+                stages: [memo.stages],
+                status: [memo.status],
                 sentBy: [memo.sentBy, Validators.required],
                 sentTo: [memo.sentTo, Validators.required],
                 cc: [memo.cc],
                 bcc: [memo.bcc],
-                content: [memo.content, [Validators.required, CustomValidator.notEmpty]]
+                content: [memo.content, [Validators.required, CustomValidator.notEmpty]],
+                version: [memo.version]
             }
         );
     }
 
-    getProperties() {
-        this.memo.id = this.memoComposeForm.get('id').value;
-        this.memo.subject = this.memoComposeForm.get('subject').value;
-        this.memo.refNumber = this.memoComposeForm.get('refNumber').value;
-        this.memo.type = this.memoComposeForm.get('memoType').value;
-        this.memo.sentBy = this.memoComposeForm.get('sentBy').value;
-        this.memo.sentTo = this.memoComposeForm.get('sentTo').value;
-        this.memo.cc = this.memoComposeForm.get('cc').value;
-        this.memo.bcc = this.memoComposeForm.get('bcc').value;
-        this.memo.content = this.memoComposeForm.get('content').value;
+    setMemoValues() {
+        const sentByUser = new User();
+        sentByUser.id = Number(LocalStorageUtil.getStorage().userId);
+        // this.memo.id = this.memoComposeForm.get('id').value;
+        // this.memo.subject = this.memoComposeForm.get('subject').value;
+        // this.memo.refNumber = this.memoComposeForm.get('refNumber').value;
+        // this.memo.type = this.memoComposeForm.get('memoType').value;
+        // this.memo.sentTo = this.memoComposeForm.get('sentTo').value;
+        // this.memo.cc = this.memoComposeForm.get('cc').value;
+        // this.memo.bcc = this.memoComposeForm.get('bcc').value;
+        // this.memo.content = this.memoComposeForm.get('content').value;
+        this.memo = this.memoComposeForm.value;
+        this.memo.sentBy = sentByUser;
     }
 
     send() {
-        this.getProperties();
+        this.setMemoValues();
 
         if (this.isNewMemo) {
 
@@ -154,8 +162,8 @@ export class ComposeComponent implements OnInit {
         return this.memoComposeForm.get('refNumber');
     }
 
-    get memoType() {
-        return this.memoComposeForm.get('memoType');
+    get type() {
+        return this.memoComposeForm.get('type');
     }
 
     get sentBy() {
@@ -171,14 +179,15 @@ export class ComposeComponent implements OnInit {
     }
 
     saveAsDraft() {
-        this.getProperties();
+        this.setMemoValues();
         this.memo.stage = 'DRAFT';
-        this.memoService.save(this.memo).subscribe(res => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'SAVED MEMO AS DRAFT'));
-            console.log(res);
-        }, err => {
-            this.toastService.show(new Alert(AlertType.ERROR, 'UNABLE TO SAVE MEMO AS DRAFT'));
-            console.log(err);
-        });
+        console.log(this.memo);
+    //     this.memoService.save(this.memo).subscribe(res => {
+    //         this.toastService.show(new Alert(AlertType.SUCCESS, 'SAVED MEMO AS DRAFT'));
+    //         console.log(res);
+    //     }, err => {
+    //         this.toastService.show(new Alert(AlertType.ERROR, 'UNABLE TO SAVE MEMO AS DRAFT'));
+    //         console.log(err);
+    //     });
     }
 }
