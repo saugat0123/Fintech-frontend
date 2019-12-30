@@ -1,8 +1,8 @@
-import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from '../component/dashboard/dashboard.component';
-import { NgModule } from '@angular/core';
-import { FeatureComponent } from './feature.component';
-import { PendingsLoanComponent } from '../component/dashboard/pending/pendings/pendings-loan.component';
+import {RouterModule, Routes} from '@angular/router';
+import {DashboardComponent} from '../component/dashboard/dashboard.component';
+import {NgModule} from '@angular/core';
+import {FeatureComponent} from './feature.component';
+import {PendingsLoanComponent} from '../component/dashboard/pending/pendings/pendings-loan.component';
 
 const routes: Routes = [
     {
@@ -13,6 +13,7 @@ const routes: Routes = [
             { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
             { path: 'memo', loadChildren: () => import('./memo/memo.module').then(m => m.MemoModule) },
             { path: 'loan', loadChildren: () => import('./loan/loan.module').then(m => m.LoanModule) },
+            {path: 'customer', loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)},
             { path: '', redirectTo: 'dashboard' },
             { path: '**', redirectTo: 'dashboard' }
         ],

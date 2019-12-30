@@ -1,0 +1,16 @@
+<nb-card class="text-center m-0" [nbSpinner]="spinner"
+         accent="primary"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="large">
+    <nb-card-header>
+        <a (click)="closeModal()" aria-hidden="true" class="close cursor">&times;</a>
+    </nb-card-header>
+    <nb-card-body>
+        Are you sure you want to <strong>delete</strong> this record?
+    </nb-card-body>
+    <nb-card-footer class="text-right">
+        <button nbButton outline (click)="closeModal()" class="btn btn-danger btn-flat btn-sm" type="button">No
+        </button>
+        <button nbButton class="btn btn-success btn-flat btn-sm cursor" type="button" (click)="deleteRecord()">Yes</button>
+    </nb-card-footer>
+</nb-card>

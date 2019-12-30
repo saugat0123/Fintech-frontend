@@ -1,15 +1,28 @@
-<nb-card class="text-center m-0">
-  <nb-card-header>
-    Valuator Inactive Comment
-    <a (click)="closeModal()" aria-hidden="true" class="close cursor">&times;</a>
-  </nb-card-header>
-  <nb-card-body>
-    <textarea #inactiveComment class="form-control" id="comment">
-    </textarea>
-  </nb-card-body>
-  <nb-card-footer class="text-right">
-    <button (click)="setInactiveComment(inactiveComment.value)" class="btn btn-success btn-flat btn-sm" type="button">Save
-    </button>
-    <button class="btn btn-danger btn-flat btn-sm cursor" type="button" (click)="closeModal()">Cancel</button>
-  </nb-card-footer>
+<nb-card class="m-0">
+    <nb-card-header>
+        Valuator inactive reason
+        <a (click)="closeModal()" aria-hidden="true" class="close cursor">&times;</a>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="col-md-6">
+            <label for="inactiveCode"><strong>Inactive code</strong></label>
+            <select [(ngModel)]="data.state" class="form-control" id="inactiveCode">
+                <option [ngValue]="null" hidden>Select code</option>
+                <option ngValue="BLACKLISTED">Blacklisted</option>
+                <option ngValue="SUSPENDED">Suspended</option>
+                <option [ngValue]="null">None</option>
+            </select>
+        </div>
+        <hr>
+        <div class="col-md-12">
+            <label for="inactiveComment"><strong>Inactive reason</strong></label>
+            <textarea [(ngModel)]="data.inactiveComment" class="form-control" id="inactiveComment" rows="4"></textarea>
+        </div>
+    </nb-card-body>
+    <nb-card-footer class="text-right">
+        <button nbButton outline status="primary" (click)="closeModal()" class="btn btn-flat btn-sm cursor" type="button">Cancel</button>
+        <button nbButton status="primary" (click)="setInactiveComment()" class="btn btn-flat btn-sm"
+                type="button">Save
+        </button>
+    </nb-card-footer>
 </nb-card>

@@ -20,6 +20,7 @@ import {LoanType} from '../../../../feature/loan/model/loanType';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-pendings',
@@ -103,7 +104,7 @@ export class PendingsLoanComponent implements OnInit {
         }
     );
 
-    const roleAccess = localStorage.getItem('roleAccess');
+    const roleAccess = LocalStorageUtil.getStorage().roleAccess;
     if (roleAccess === 'ALL') {
       this.branchService.getAll().subscribe((res: any) => {
         this.branchFilter = true;
