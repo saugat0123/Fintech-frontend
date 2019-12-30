@@ -106,7 +106,7 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('basicInfo', {static: false})
     basicInfo: BasicInfoComponent;
 
-    @ViewChild('dmsLoanFile', {static: falgitse})
+    @ViewChild('dmsLoanFile', {static: false})
     dmsLoanFile: DmsLoanFileComponent;
 
     @ViewChild('companyInfo', {static: false})
