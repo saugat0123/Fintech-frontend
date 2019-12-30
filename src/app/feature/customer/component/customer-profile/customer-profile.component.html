@@ -1,14 +1,30 @@
 <nb-card>
     <div class="container bg-light mb-3">
         <div class="row">
+            <a (click)="editCustomer(1)" *ngIf="!isEdited" class="p-2 cursor table-hover"><i class="fa fa-edit"></i></a>
             <div class=" row col-md-3 m-4">
-                <img alt="..." class="card-img-top" src="../../../../../assets/img/avatar.png"
-                     style="width: 15rem">
+                <div class="profile-img">
+
+                    <label class="container" for="file-input">
+                        <img *ngIf="customer.profilePic !==null" class="image"
+                             src="{{restUrl+'/'+customer.profilePic}}"/>
+                        <div *ngIf="customer.profilePic == null" class="bg-info no-img">
+                            <div>
+                                <span class="text">NA</span>
+                            </div>
+
+                        </div>
+
+                    </label>
+
+                    <input (change)="profileUploader($event)" hidden id="file-input" type="file"/>
+                    <!--                    <span *ngIf="fileUploadError == true" style="color:red;">File Upload Failed</span>-->
+                </div>
             </div>
-            <div class="col-md-6 mt-3">
+            <div *ngIf="!isEdited" class="col-md-6 mt-3 py-4">
 
                 <div class="row">
-                    <span> <b>Name :</b> {{customer.contactNumber}}</span></div>
+                    <span> <b>Name :</b> {{customer.customerName}}</span></div>
                 <div class="row">
                     <span> <b>Date Of Birth :</b> {{customer.dob | date}}</span></div>
 
@@ -22,9 +38,83 @@
                     <span> <b>Contact :</b> {{customer.contactNumber }}</span></div>
 
             </div>
+
+            <div *ngIf="isEdited" class="col-md-8 mt-3 py-4">
+                <form [formGroup]="basicForm">
+                    <div class="row form-inline">
+                        <span> <b>Name :</b> <input formControlName="customerName" placeholder="name"
+                                                    type="text"></span></div>
+                    <div class="row form-inline">
+                        <span> <b>Date Of Birth :</b>      <input [nbDatepicker]="dob"
+                                                                  class="form-control" formControlName="dob"
+                                                                  id="dob"
+                                                                  name="dob"
+                                                                  placeholder="Customer Date of birth">
+                         <nb-datepicker #dob></nb-datepicker></span></div>
+
+                    <div class="row">
+                    <span> <b>Address :</b> <select (change)="getDistricts(this.basicForm.get('province').value)"
+                                                    formControlName="province"
+                                                    id="province"
+                                                    name="province">
+                                <option [value]="null" hidden>Select Province</option>
+                                <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal"
+                                        [selected]="provinceVal.id === province?.id">
+                                    {{provinceVal.name}}
+                            </select>
+                        <select (change)="getMunicipalities(this.basicForm.get('district').value)"
+                                formControlName="district"
+                                id="district"
+                                name="district">
+                                <option [ngValue]="null" hidden>Select District</option>
+                                <option *ngFor="let districtVal of districtList" [ngValue]="districtVal"
+                                        [selected]="districtVal.id === district?.id">{{districtVal.name}}
+
+                                </option>
+                            </select>
+                           <select formControlName="municipalities"
+                                   id="municipality"
+                                   name="municipality">
+                                <option [ngValue]="null" hidden>Select Municipality</option>
+                                <option *ngFor="let municipalityVal of municipalitiesList" [ngValue]="municipalityVal"
+                                        [selected]="municipalityVal.id === municipality?.id">
+                                    {{municipalityVal.name}}
+                                </option>
+                            </select>
+                        <input formControlName="street" placeholder="name"
+                               type="text">
+                             <input formControlName="wardNumber" placeholder="name"
+                                    type="text" width="20px">
+
+                      </span></div>
+                    <div class="row">
+                        <span> <b>Email :</b>   <input formControlName="email" placeholder="name"
+                                                       type="text"></span></div>
+                    <div class="row">
+                        <span> <b>Contact :</b>   <input formControlName="contactNumber" placeholder="name"
+                                                         type="text"></span></div>
+                </form>
+
+            </div>
+            <div class="col-md-2 py-2">
+                <!--                <div class="d-flex justify-content-end">-->
+                <!--                    <span class="btn btn-success btn-flat btn-sm">Active</span></div>-->
+            </div>
         </div>
         <div class="d-flex justify-content-end">
-            <button (click)="openSelectLoanTemplate(loanListTemplate)" class="btn btn-primary">Apply Loan</button>
+            <div class="row">
+                <button (click)="editCustomer(0)" *ngIf="isEdited" class="btn btn-danger">cancel</button>
+                <div class="px-2">
+                    <button (click)="saveBasic()" *ngIf="isEdited"
+                            class="btn btn-primary btn-flat">save
+                    </button>
+                </div>
+                <div class="px-2">
+                    <button (click)="openSelectLoanTemplate(loanListTemplate)" *ngIf="!isEdited"
+                            class="btn btn-primary btn-flat">Apply Loan
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -38,7 +128,7 @@
                             Loan History
                         </div>
                         <div class="card-body">
-                            <table class="table table-bordered table-hover " id="add-branch-table"
+                            <table class="table table-bordered table-hover table-responsive"
                                    style="max-height: 400px;overflow-y: auto">
                                 <thead>
                                 <tr>
@@ -55,6 +145,7 @@
                                 </thead>
                                 <tbody>
                                 <tr *ngFor="let model of customerLoanList;let i=index"
+                                    (click)="onClick(model?.loan.id,model.id)"
 
                                     class="cursor">
                                     <td>{{i + 1}}</td>
@@ -86,10 +177,10 @@
                 <div class="row col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            Description 2
+                            Customer History
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
+                            <h5 class="card-title">Customer Modification History</h5>
                             <p class="card-text">Near the beginning of his career, Einstein thought that Newtonian
                                 mechanics was no longer enough to reconcile the laws of classical mechanics with the
                                 laws of the electromagnetic field. This led him to develop his special theory of
@@ -107,25 +198,64 @@
 
             <div class="col-md-4">
 
-                <div class="row bg-danger">
-                    <div class="col-4">
-                        <div class="nav flex-column nav-pills mt-1">
+                <div class="row bg-transparent">
 
-                            <ul><a class="nav-link active">Content 1</a></ul>
-                            <ul><a class="nav-link active">Content 2</a></ul>
-                            <ul><a class="nav-link active">Content 3</a></ul>
-                            <ul><a class="nav-link active">Content 4</a></ul>
-                            <ul><a class="nav-link active">Content 5</a></ul>
-                            <ul><a class="nav-link active">Content 6</a></ul>
-                            <ul><a class="nav-link active">Content 7 </a></ul>
-                            <ul><a class="nav-link active">Content 8</a></ul>
+                    <div class="col-md-12 d-flex justify-content-center bg-primary"><h3 class="text-white">
+                        Relatives</h3></div>
+                    <div class="col-md-12 py-2">
+                        <div *ngFor="let customerRelatives of customer.customerRelatives">
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <span> <b>Name</b></span></div>
+                                <div class="col-md-1">
+                                    <span> <b>:</b></span></div>
+                                <div class="col-md-5">{{customerRelatives.customerRelativeName}}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <span> <b>Relation</b></span></div>
+                                <div class="col-md-1">
+                                    <span> <b>:</b></span></div>
+                                <div class="col-md-5">{{customerRelatives.customerRelation}}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <span> <b>Citizenship no</b></span></div>
+                                <div class="col-md-1">
+                                    <span> <b>:</b></span></div>
+                                <div class="col-md-5">{{customerRelatives.citizenshipNumber}}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <span> <b>Issued Place</b></span></div>
+                                <div class="col-md-1">
+                                    <span> <b>:</b></span></div>
+                                <div class="col-md-5">{{customerRelatives.citizenshipIssuedPlace}}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <span> <b>Issued Date</b></span></div>
+                                <div class="col-md-1">
+                                    <span> <b>:</b></span></div>
+                                <div class="col-md-5">{{customerRelatives.citizenshipIssuedDate | date}}</div>
+                            </div>
+
+                            <hr>
+
+
                         </div>
                     </div>
-
                 </div>
             </div>
+
         </div>
     </div>
+
     <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
 </nb-card>
 
