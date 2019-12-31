@@ -17,6 +17,9 @@ import {CustomValidator} from '../../../../@core/validator/custom-validator';
 import {MemoStage} from '../../model/MemoStage';
 import {MemoFullRoute} from '../../memo-full-routes';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {LoanActionService} from '../../../loan/loan-action/service/loan-action.service';
+import {Status} from '../../../../@core/Status';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-memo-compose',
@@ -37,11 +40,14 @@ export class ComposeComponent implements OnInit {
     searchMemo: string;
     search: any = {};
 
+    sendForwardUserList: User[] = [];
+
     constructor(
         private breadcrumbService: BreadcrumbService,
         private alertService: AlertService,
         private memoService: MemoService,
         private memoTypeService: MemoTypeService,
+        private loanActionService: LoanActionService,
         private formBuilder: FormBuilder,
         private userService: UserService,
         private router: Router,
@@ -52,8 +58,9 @@ export class ComposeComponent implements OnInit {
 
     ngOnInit() {
         this.breadcrumbService.notify(ComposeComponent.TITLE);
+        // this.getSendForwardUsers();
         this.memoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-        if (this.memoId === null || this.memoId === 0 || this.memoId === undefined) {
+        if (ObjectUtil.isEmpty(this.memoId)) {
             this.isNewMemo = true;
             this.memoTask = 'Compose New';
             this.memo = new Memo();
@@ -84,9 +91,9 @@ export class ComposeComponent implements OnInit {
                 refNumber: [memo.refNumber, [Validators.required, CustomValidator.notEmpty]],
                 type: [memo.type, Validators.required],
                 stage: [memo.stage],
-                stages: [memo.stages],
-                status: [memo.status],
-                sentBy: [memo.sentBy, Validators.required],
+                stages: [ObjectUtil.isEmpty(memo.stages) ? [] : memo.stages],
+                status: [ObjectUtil.isEmpty(memo.stages) ? Status.ACTIVE : memo.status],
+                sentBy: [memo.sentBy],
                 sentTo: [memo.sentTo, Validators.required],
                 cc: [memo.cc],
                 bcc: [memo.bcc],
@@ -96,19 +103,40 @@ export class ComposeComponent implements OnInit {
         );
     }
 
+    getSendForwardUsers() {
+        this.loanActionService.getSendForwardList().subscribe( res => {
+            console.log(res, 'list of fordable users');
+            this.sendForwardUserList = res.detail;
+        });
+    }
+
     setMemoValues() {
+        this.memo = this.memoComposeForm.value;
+
         const sentByUser = new User();
         sentByUser.id = Number(LocalStorageUtil.getStorage().userId);
-        // this.memo.id = this.memoComposeForm.get('id').value;
-        // this.memo.subject = this.memoComposeForm.get('subject').value;
-        // this.memo.refNumber = this.memoComposeForm.get('refNumber').value;
-        // this.memo.type = this.memoComposeForm.get('memoType').value;
-        // this.memo.sentTo = this.memoComposeForm.get('sentTo').value;
-        // this.memo.cc = this.memoComposeForm.get('cc').value;
-        // this.memo.bcc = this.memoComposeForm.get('bcc').value;
-        // this.memo.content = this.memoComposeForm.get('content').value;
-        this.memo = this.memoComposeForm.value;
         this.memo.sentBy = sentByUser;
+    }
+
+    saveMemo(memo: Memo) {
+        this.memoService.save(memo).subscribe((response: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, memo.stage === 'DRAFT' ? 'SAVED MEMO AS DRAFT' : 'SUCCESSFULLY SENT MEMO'));
+            this.router.navigate(memo.stage === 'DRAFT' ? [MemoFullRoute.DRAFT] : [MemoFullRoute.SENT]);
+
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, memo.stage === 'DRAFT' ? 'UNABLE TO SAVE MEMO AS DRAFT' : 'UNABLE TO SEND MEMO'));
+        });
+    }
+
+    updateMemo(memo: Memo) {
+        this.memoService.update(memo.id, memo).subscribe((response: any) => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, memo.stage === 'DRAFT' ? 'SUCCESSFULLY UPDATED MEMO' : 'SUCCESSFULLY SENT MEMO'));
+            this.router.navigate(memo.stage === 'DRAFT' ? [MemoFullRoute.DRAFT] : [MemoFullRoute.SENT]);
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, memo.stage === 'DRAFT' ? 'UNABLE TO UPDATE MEMO AS DRAFT' : 'UNABLE TO SEND MEMO'));
+        });
     }
 
     send() {
@@ -126,31 +154,35 @@ export class ComposeComponent implements OnInit {
 
             this.memo.stages = new Array<MemoStage>();
             this.memo.stages.push(stage);
+            this.saveMemo(this.memo);
 
-            this.memoService.save(this.memo).subscribe((response: any) => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Created Memo'));
-
-                this.router.navigate(['home/memo/review']);
-
-            }, error => {
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Create Memo'));
-            });
         } else {
+            this.memo.stage = 'FORWARD';
 
             if ((this.memo.stages) && this.memo.stages.length === 1) {
                 const stage = this.memo.stages[0];
+                stage.sentBy = this.memo.sentBy;
+                stage.sentTo = this.memo.sentTo;
                 stage.stage = 'FORWARD';
-                this.memo.stage = stage.stage;
+                stage.note = 'Memo Forwarded';
             }
 
-            this.memoService.update(this.memo.id, this.memo).subscribe((response: any) => {
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Memo sss'));
-                this.router.navigate([MemoFullRoute.DRAFT]);
-            }, error => {
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Update Memo sss'));
-            });
+            this.updateMemo(this.memo);
+        }
+    }
+
+    saveAsDraft() {
+        this.setMemoValues();
+        this.memo.stage = 'DRAFT';
+        if (ObjectUtil.isEmpty(this.memo.id)) {
+            this.saveMemo(this.memo);
+        } else {
+            const stage = this.memo.stages[0];
+            stage.sentBy = this.memo.sentBy;
+            stage.sentTo = this.memo.sentTo;
+            stage.stage = 'DRAFT';
+            stage.note = 'Updated as draft';
+            this.updateMemo(this.memo);
         }
     }
 
@@ -166,28 +198,11 @@ export class ComposeComponent implements OnInit {
         return this.memoComposeForm.get('type');
     }
 
-    get sentBy() {
-        return this.memoComposeForm.get('sentBy');
-    }
-
     get sentTo() {
         return this.memoComposeForm.get('sentTo');
     }
 
     get content() {
         return this.memoComposeForm.get('content');
-    }
-
-    saveAsDraft() {
-        this.setMemoValues();
-        this.memo.stage = 'DRAFT';
-        console.log(this.memo);
-    //     this.memoService.save(this.memo).subscribe(res => {
-    //         this.toastService.show(new Alert(AlertType.SUCCESS, 'SAVED MEMO AS DRAFT'));
-    //         console.log(res);
-    //     }, err => {
-    //         this.toastService.show(new Alert(AlertType.ERROR, 'UNABLE TO SAVE MEMO AS DRAFT'));
-    //         console.log(err);
-    //     });
     }
 }
