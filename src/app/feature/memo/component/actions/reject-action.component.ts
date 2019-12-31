@@ -52,7 +52,7 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
             </div>
             <div class="modal-footer">
                 <button (click)="cancel()" class="btn btn-default" data-dismiss="modal" type="button">No</button>
-                <button (click)="ok()" type="submit" class="btn btn-success" data-dismiss="modal">Yes</button>
+                <button type="submit" class="btn btn-success" data-dismiss="modal">Yes</button>
             </div>
         </form>
     `,
@@ -93,10 +93,12 @@ export class RejectActionComponent implements OnInit {
 
         const stage: MemoStage = this.stageForm.getRawValue();
         stage.stage = 'BACKWARD';
+        this.memo.sentTo = stage.sentTo;
 
         const sentBy = new User();
         sentBy.id = parseInt(LocalStorageUtil.getStorage().userId, 10);
         stage.sentBy = sentBy;
+        this.memo.sentBy = sentBy;
 
         this.memo.stages.push(stage);
         this.memo.stage = stage.stage;
