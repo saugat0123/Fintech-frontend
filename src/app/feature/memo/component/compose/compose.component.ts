@@ -60,7 +60,7 @@ export class ComposeComponent implements OnInit {
         this.breadcrumbService.notify(ComposeComponent.TITLE);
         // this.getSendForwardUsers();
         this.memoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-        if (ObjectUtil.isEmpty(this.memoId)) {
+        if (this.memoId === null || this.memoId === 0 || this.memoId === undefined) {
             this.isNewMemo = true;
             this.memoTask = 'Compose New';
             this.memo = new Memo();
