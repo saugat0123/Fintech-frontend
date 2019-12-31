@@ -31,6 +31,7 @@ import {SecurityComponent} from '../loan-main-template/security/security.compone
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerDocumentComponent} from '../loan-main-template/customer-document/customer-document.component';
 import {DocStatus} from '../../model/docStatus';
+import {CustomerService} from '../../../customer/service/customer.service';
 
 @Component({
     selector: 'app-loan-form',
@@ -56,6 +57,7 @@ export class LoanFormComponent implements OnInit {
     ];
 
     customerId: number;
+    customerProfileId: number;
     id;
     selectedTab;
     nxtTab;
@@ -148,7 +150,8 @@ export class LoanFormComponent implements OnInit {
         private toastService: ToastService,
         private datePipe: DatePipe,
         private spinner: NgxSpinnerService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private customerService: CustomerService,
     ) {
 
     }
@@ -162,13 +165,17 @@ export class LoanFormComponent implements OnInit {
                 this.allId = {
                     loanId: null,
                     customerId: null,
-                    loanCategory: null
+                    loanCategory: null,
+                    customerProfileId: null
                 };
 
                 this.allId = paramsValue;
                 this.id = this.allId.loanId;
                 this.loan.id = this.id;
                 this.customerId = this.allId.customerId;
+                if (this.allId.customerProfileId !== undefined) {
+                    this.getCustomerInfo();
+                }
                 if (this.customerId !== undefined) {
                     this.loanFormService.detail(this.customerId).subscribe(
                         (response: any) => {
@@ -460,5 +467,11 @@ export class LoanFormComponent implements OnInit {
         } else {
             return this.loanDocument.proposal;
         }
+    }
+
+    getCustomerInfo() {
+        this.customerService.detail(this.id).subscribe((res: any) => {
+            this.loanDocument.customerInfo = res.detail;
+        });
     }
 }
