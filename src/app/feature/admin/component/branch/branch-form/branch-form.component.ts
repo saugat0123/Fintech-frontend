@@ -1,174 +1,151 @@
-import {Component, DoCheck, Input, OnInit} from '@angular/core';
-import {Branch} from '../../../modal/branch';
+import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {Province} from '../../../modal/province';
 import {District} from '../../../modal/district';
 import {MunicipalityVdc} from '../../../modal/municipality_VDC';
-import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {AlertService} from '../../../../../@theme/components/alert/alert.service';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
-import {BranchService} from '../branch.service';
-import {FormBuilder, FormControl} from '@angular/forms';
-
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {BranchService} from '../../branch/branch.service';
+import {Branch} from '../../../modal/branch';
 
 declare let google: any;
+
 
 
 @Component({
     selector: 'app-branch-form',
     templateUrl: './branch-form.component.html'
-
 })
-export class BranchFormComponent implements OnInit, DoCheck {
+export class BranchFormComponent implements OnInit {
 
     @Input()
-    model: Branch;
+    model: Branch = new Branch();
 
-    task: string;
+
+
+
     submitted = false;
     spinner = false;
-
     provinces: Province[];
     districts: District[];
     municipalities: MunicipalityVdc[];
-    district: District = new District();
-    province: Province = new Province();
-    municipality: MunicipalityVdc = new MunicipalityVdc();
-    latLng: string[];
-    latitude = 27.732453;
-    longitude = 85.291547;
+    branchForm: FormGroup;
+    task: string;
+    latitude = 27.732454;
+    longitude = 85.291543;
     markerLatitude = null;
     markerLongitude = null;
     infoWindowOpen = new FormControl(false);
     addressLabel = new FormControl('');
-    zoom = 10;
-    locationPreview: string;
-
-
-
+    zoom = 8;
+    latLng: string[];
+    formDataForEdit ;
 
 
     constructor(
         private service: BranchService,
         private location: AddressService,
         private activeModal: NgbActiveModal,
-        private alertService: AlertService,
         private toastService: ToastService,
         private formBuilder: FormBuilder
+    ) {
 
-
-) {
     }
 
     ngOnInit() {
+        this.buildForm();
         this.location.getProvince().subscribe((response: any) => {
             this.provinces = response.detail;
-            this.province = this.model.province;
-            if (this.province !== undefined) {
-                this.getSelectedProvinceDistrict();
-            }
-            this.district = this.model.district;
-            if (this.district !== undefined) {
-                this.getSelectedDistrictMunicipality();
-            }
         });
-    }
-
-    getSelectedProvinceDistrict() {
-        this.location.getDistrictByProvince(this.model.province).subscribe(
-            (response: any) => {
-                this.districts = response.detail;
-            }
-        );
-    }
-
-    getSelectedDistrictMunicipality() {
-        this.location.getMunicipalityVDCByDistrict(this.model.district).subscribe(
-            (response: any) => {
-                this.municipalities = response.detail;
-            }
-        );
-    }
-
-    getMunicipalities() {
-        this.model.district = this.district;
-        this.location.getMunicipalityVDCByDistrict(this.district).subscribe(
-            (response: any) => {
-                this.municipalities = response.detail;
-            }
-        );
-    }
 
 
-    getDistricts(provinceId: number) {
-        this.model.province = this.province;
-        this.province.id = provinceId;
-
-        this.location.getDistrictByProvince(this.province).subscribe(
-            (response: any) => {
-                this.districts = response.detail;
-            }
-        );
-
-        this.municipalities = new Array();
-
-    }
-
-    ngDoCheck(): void {
-        if (this.model.id == null) {
-            this.task = 'Add';
-            this.province = new Province();
-            this.district = new District();
-            this.municipality = new MunicipalityVdc();
-        } else {
-            this.task = 'Edit';
-            this.district = this.model.district;
-            this.province = this.model.province;
-            this.municipality = this.model.municipalityVdc;
-
+        if (!ObjectUtil.isEmpty(this.model.province)) {
+            this.getDistrictsById(this.model.province.id, null);
+            this.getMunicipalitiesById(this.model.district.id, null);
         }
     }
 
-    onSubmit() {
-        this.submitted = true;
-        this.service.save(this.model).subscribe(() => {
+    buildForm() {
+        this.branchForm = this.formBuilder.group({
+            id: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.id)) ? undefined :
+                this.model.id],
+            name: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.name)) ? undefined :
+                this.model.name, [Validators.required]],
+            landlineNumber: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.landlineNumber)) ? undefined :
+                this.model.landlineNumber, [Validators.required]],
+            email: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.email)) ? undefined :
+                this.model.email, [Validators.required, Validators.email]],
+            province: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.province)) ? undefined :
+                this.model.province, [Validators.required]],
+            district: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.district)) ? undefined :
+                this.model.district, [Validators.required]],
+            municipalityVdc: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.municipalityVdc)) ? undefined :
+                this.model.municipalityVdc, [Validators.required]],
+            streetName: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.streetName)) ? undefined :
+                this.model.streetName, [Validators.required]],
+            wardNumber: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.wardNumber)) ? undefined :
+                this.model.wardNumber, [Validators.required]],
+            branchCode: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.branchCode)) ? undefined :
+                this.model.branchCode, [Validators.required]],
+            status: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.status)) ? undefined :
+                this.model.status],
+            locationPreview: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.locationDetails === undefined ? ''
+                : this.formDataForEdit.locationDetails.locationPreview],
+            mapAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.locationDetails === undefined ? ''
+                : this.formDataForEdit.locationDetails.mapAddress],
+        });
+        }
 
-                this.activeModal.close(ModalResponse.SUCCESS);
+    get branchFormControl() {
+        return this.branchForm.controls;
+    }
 
-                if (this.model.id == null) {
-                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Branch'));
-                } else {
-                    this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Branch'));
+    compareFn(c1: any, c2: any): boolean {
+        return c1 && c2 ? c1.id === c2.id : c1 === c2;
+    }
+
+    getDistrictsById(provinceId: number, event) {
+        const province = new Province();
+        province.id = provinceId;
+        this.location.getDistrictByProvince(province).subscribe(
+            (response: any) => {
+                this.districts = response.detail;
+                if (event !== null) {
+                    this.branchForm.get('district').patchValue(null);
+                    this.branchForm.get('municipalityVdc').patchValue(null);
+                    this.municipalities = null;
                 }
-
-                this.model = new Branch();
-
-            }, error => {
-
-                console.log(error);
-
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Branch'));
-
-                this.activeModal.dismiss(ModalResponse.ERROR);
             }
         );
     }
 
-    onClose() {
-        this.activeModal.dismiss(ModalResponse.CANCEL);
+    getMunicipalitiesById(districtId: number, event) {
+        const district = new District();
+        district.id = districtId;
+        this.location.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.municipalities = response.detail;
+                if (event !== null) {
+                    this.branchForm.get('municipalityVdc').patchValue(null);
+                }
+            }
+        );
     }
 
-    getMunicipality() {
-        this.model.municipalityVdc = this.municipality;
-    }
-
-    findLocation(coordinate) {
-
-        this.latLng = coordinate.split(',', 2);
-        this.placeMaker(+this.latLng[0], +this.latLng[1]);
-
-    }
     placeMaker(latitude, longitude) {
         this.infoWindowOpen.setValue('false');
         this.zoom = 10;
@@ -176,10 +153,10 @@ export class BranchFormComponent implements OnInit, DoCheck {
         this.longitude = longitude;
         this.markerLatitude = this.latitude;
         this.markerLongitude = this.longitude;
-        this.model.locationPreview = `${this.latitude},${this.longitude}`;
+        (<FormGroup>this.branchForm
+            .get('locationPreview'))
         this.getAddress(this.latitude, this.longitude);
     }
-
 
     getAddress(latitude: number, longitude: number) {
         if (navigator.geolocation) {
@@ -192,19 +169,59 @@ export class BranchFormComponent implements OnInit, DoCheck {
                     const rsltAdrComponent = result.formatted_address;
                     if (rsltAdrComponent != null) {
                         this.addressLabel.setValue(rsltAdrComponent);
-
+                        (<FormGroup>this.branchForm
+                            .get('mapAddress'))
+                            .setValue(rsltAdrComponent);
                         this.infoWindowOpen.setValue('true');
                     } else {
                         this.addressLabel.setValue(null);
-                        this.toastService.show(new Alert(AlertType.INFO, 'No address available!'));
+                        (<FormGroup>this.branchForm
+                            .get('mapAddress'))
+                            .setValue(null);
+                        alert('No address available!');
                     }
                 } else {
                     this.addressLabel.setValue(null);
-                    this.toastService.show(new Alert(AlertType.ERROR, 'Error in GeoCoder'));
+                    (<FormGroup>this.branchForm
+                        .get('mapAddress'))
+                        .setValue(null);
+                    alert('Error in GeoCoder');
                 }
             });
         }
     }
 
+    findLocation() {
+        const coordinate = (<FormGroup>this.branchForm)
+            .get('locationPreview').value;
+        this.latLng = coordinate.split(',', 2);
+        this.placeMaker(+this.latLng[0], +this.latLng[1]);
 
+    }
+
+    onSubmit() {
+        this.submitted = true;
+        if (this.branchForm.invalid) { return; }
+        this.spinner = true;
+        this.model = this.branchForm.value;
+        console.log(this.model)
+        this.service.save(this.model).subscribe(() => {
+
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Branch!'));
+                this.model = new Branch();
+                this.activeModal.close(ModalResponse.SUCCESS);
+
+            }, error => {
+
+                console.log(error);
+
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Branch!'));
+                this.activeModal.dismiss(error);
+            }
+        );
+    }
+
+    onClose() {
+        this.activeModal.dismiss(BranchFormComponent);
+    }
 }
