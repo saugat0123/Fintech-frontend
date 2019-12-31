@@ -10,6 +10,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {BranchService} from '../../branch/branch.service';
 import {Branch} from '../../../modal/branch';
+import {SiteVisit} from "../../../modal/siteVisit";
 
 declare let google: any;
 
@@ -23,8 +24,6 @@ export class BranchFormComponent implements OnInit {
 
     @Input()
     model: Branch = new Branch();
-
-
 
 
     submitted = false;
@@ -43,6 +42,7 @@ export class BranchFormComponent implements OnInit {
     zoom = 8;
     latLng: string[];
     formDataForEdit ;
+    locationPreview = null;
 
 
     constructor(
@@ -103,12 +103,14 @@ export class BranchFormComponent implements OnInit {
             status: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.status)) ? undefined :
                 this.model.status],
-            locationPreview: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.locationDetails === undefined ? ''
-                : this.formDataForEdit.locationDetails.locationPreview],
-            mapAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.locationDetails === undefined ? ''
-                : this.formDataForEdit.locationDetails.mapAddress],
+        }),
+        this.formBuilder.group({
+            locationPreview: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.branchDetails === undefined ? ''
+            : this.formDataForEdit.branchDetails.locationPreview],
+            mapAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.branchDetails === undefined ? ''
+            : this.formDataForEdit.branchDetails.mapAddress],
         });
-        }
+    }
 
     get branchFormControl() {
         return this.branchForm.controls;
@@ -153,9 +155,8 @@ export class BranchFormComponent implements OnInit {
         this.longitude = longitude;
         this.markerLatitude = this.latitude;
         this.markerLongitude = this.longitude;
-        (<FormGroup>this.branchForm
-            .get('locationPreview'))
         this.getAddress(this.latitude, this.longitude);
+        this.locationPreview = `${this.latitude},${this.longitude}`;
     }
 
     getAddress(latitude: number, longitude: number) {
@@ -191,9 +192,7 @@ export class BranchFormComponent implements OnInit {
         }
     }
 
-    findLocation() {
-        const coordinate = (<FormGroup>this.branchForm)
-            .get('locationPreview').value;
+    findLocation(coordinate) {
         this.latLng = coordinate.split(',', 2);
         this.placeMaker(+this.latLng[0], +this.latLng[1]);
 
@@ -204,7 +203,6 @@ export class BranchFormComponent implements OnInit {
         if (this.branchForm.invalid) { return; }
         this.spinner = true;
         this.model = this.branchForm.value;
-        console.log(this.model)
         this.service.save(this.model).subscribe(() => {
 
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Branch!'));
@@ -225,3 +223,4 @@ export class BranchFormComponent implements OnInit {
         this.activeModal.dismiss(BranchFormComponent);
     }
 }
+
