@@ -48,6 +48,7 @@ export class CustomerProfileComponent implements OnInit {
     districtList: Array<District> = Array<District>();
     municipality: MunicipalityVdc = new MunicipalityVdc();
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    routeLoanForm = false;
 
 
     constructor(private route: ActivatedRoute,
@@ -115,7 +116,6 @@ export class CustomerProfileComponent implements OnInit {
     openLoanForm() {
         this.onClose();
         this.spinner = true;
-
         this.router.navigate(['/home/loan/loanForm'], {
             queryParams: {
                 loanId: this.applyForm.loanId,
@@ -124,6 +124,7 @@ export class CustomerProfileComponent implements OnInit {
                 customerProfileId: this.id
             }
         });
+
     }
 
 
