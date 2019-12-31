@@ -36,7 +36,7 @@ export class ReviewComponent implements OnInit {
     static loadData(other: ReviewComponent) {
         other.spinner = true;
         if (other.search === null || other.search === undefined) {
-            other.search = `stage=FORWARD&stages.sentTo.id=${LocalStorageUtil.getStorage().userId}`;
+            other.search = `stage=FORWARD&sentTo.id=${LocalStorageUtil.getStorage().userId}`;
         }
         other.memoService.getPaginationWithSearch(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.content;

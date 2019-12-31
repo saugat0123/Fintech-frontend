@@ -8,21 +8,20 @@ import {DraftComponent} from './component/draft/draft.component';
 import {RejectedComponent} from './component/reject/rejected.component';
 import {ApprovedComponent} from './component/approved/approved.component';
 import {SentMemoComponent} from './component/sent-memo/sent-memo.component';
-import {ReceivedMemoComponent} from './component/received-memo/received-memo.component';
 
 export const MemoRoutes: Routes = [
     {
         path: '', component: MemoBaseComponent, children: [
+            { path: '', redirectTo: 'compose', pathMatch: 'full' },
             {path: 'compose', component: ComposeComponent},
             {path: 'draft', component: DraftComponent},
             {path: 'rejected', component: RejectedComponent},
             {path: 'sent', component: SentMemoComponent},
-            {path: 'received', component: ReceivedMemoComponent},
             {path: 'review', component: ReviewComponent},
             {path: 'approved', component: ApprovedComponent},
             {path: 'compose/:id', component: ComposeComponent},
-            {path: 'read/:id', component: ReadComponent}
-
+            {path: 'read/:id', component: ReadComponent},
+            { path: '**', redirectTo: 'compose', pathMatch: 'full' }
         ]
     },
     {path: 'type', component: MemoTypeComponent}
