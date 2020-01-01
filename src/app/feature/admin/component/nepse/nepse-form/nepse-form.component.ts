@@ -71,7 +71,7 @@ export class NepseFormComponent implements OnInit, DoCheck {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'sucessfully saved'));
         }, error => {
             this.activeModal.dismiss(error);
-            this.toastService.show(new Alert(AlertType.ERROR, error.value));
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
         });
     }
 }
