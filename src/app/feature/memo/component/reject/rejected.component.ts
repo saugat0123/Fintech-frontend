@@ -37,7 +37,7 @@ export class RejectedComponent implements OnInit {
     static loadData(other: RejectedComponent) {
         other.spinner = true;
         if (other.search === null || other.search === undefined) {
-            other.search = `stage=BACKWARD&stages.sentTo.id=${LocalStorageUtil.getStorage().userId}`;
+            other.search = `stage=BACKWARD&sentTo.id=${LocalStorageUtil.getStorage().userId}`;
         }
         other.memoService.getPaginationWithSearch(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.content;
