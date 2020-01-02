@@ -48,6 +48,7 @@ export class CustomerProfileComponent implements OnInit {
     districtList: Array<District> = Array<District>();
     municipality: MunicipalityVdc = new MunicipalityVdc();
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    routeLoanForm = false;
 
 
     constructor(private route: ActivatedRoute,
@@ -115,7 +116,6 @@ export class CustomerProfileComponent implements OnInit {
     openLoanForm() {
         this.onClose();
         this.spinner = true;
-
         this.router.navigate(['/home/loan/loanForm'], {
             queryParams: {
                 loanId: this.applyForm.loanId,
@@ -124,6 +124,7 @@ export class CustomerProfileComponent implements OnInit {
                 customerProfileId: this.id
             }
         });
+
     }
 
 
@@ -157,6 +158,9 @@ export class CustomerProfileComponent implements OnInit {
             this.formData = new FormData();
             this.customerService.save(this.customer).subscribe((response: any) => {
                 this.customer = response.detail;
+                this.customerBasicFormBuilder();
+                this.getProvince();
+                this.setRelatives(this.customer.customerRelatives);
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Picture HAS BEEN UPLOADED'));
             }, error => {
                 this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
@@ -260,6 +264,9 @@ export class CustomerProfileComponent implements OnInit {
             this.customer = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
             this.isEdited = false;
+            this.customerBasicFormBuilder();
+            this.getProvince();
+            this.setRelatives(this.customer.customerRelatives);
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
         });
