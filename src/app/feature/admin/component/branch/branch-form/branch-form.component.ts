@@ -10,7 +10,6 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {BranchService} from '../../branch/branch.service';
 import {Branch} from '../../../modal/branch';
-import {branchFormValue} from "../../../modal/branchFormValue";
 
 declare let google: any;
 
@@ -25,7 +24,6 @@ export class BranchFormComponent implements OnInit {
     @Input()
     model: Branch = new Branch();
 
-    @Input() formValue: branchFormValue;
 
 
     submitted = false;
@@ -39,7 +37,6 @@ export class BranchFormComponent implements OnInit {
     longitude = 85.291543;
     markerLatitude = null;
     markerLongitude = null;
-    googleMapForm = false;
     infoWindowOpen = new FormControl(false);
     addressLabel = new FormControl('');
     zoom = 8;
@@ -58,11 +55,6 @@ export class BranchFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (!ObjectUtil.isEmpty(this.formValue)) {
-            const stringFormData = this.formValue.data;
-            this.formDataForEdit = JSON.parse(stringFormData);
-        }
-
         this.buildForm();
         this.location.getProvince().subscribe((response: any) => {
             this.provinces = response.detail;
@@ -163,10 +155,7 @@ export class BranchFormComponent implements OnInit {
         this.longitude = longitude;
         this.markerLatitude = this.latitude;
         this.markerLongitude = this.longitude;
-        (<FormGroup>this.branchForm
-            .get('googleMapDetails'))
-            .get('locationPreview')
-            .setValue(this.latitude + ',' + this.longitude);
+
         this.getAddress(this.latitude, this.longitude);
     }
 
@@ -181,35 +170,20 @@ export class BranchFormComponent implements OnInit {
                     const rsltAdrComponent = result.formatted_address;
                     if (rsltAdrComponent != null) {
                         this.addressLabel.setValue(rsltAdrComponent);
-                        (<FormGroup>this.branchForm
-                            .get('googleMapDetails'))
-                            .get('mapAddress')
-                            .setValue(rsltAdrComponent);
                         this.infoWindowOpen.setValue('true');
                     } else {
                         this.addressLabel.setValue(null);
-                        (<FormGroup>this.branchForm
-                            .get('googleMapDetails'))
-                            .get('mapAddress')
-                            .setValue(null);
                         alert('No address available!');
                     }
                 } else {
                     this.addressLabel.setValue(null);
-                    (<FormGroup>this.branchForm
-                        .get('googleMapDetails'))
-                        .get('mapAddress')
-                        .setValue(null);
                     alert('Error in GeoCoder');
                 }
             });
         }
     }
 
-    findLocation() {
-        const coordinate = (<FormGroup>this.branchForm
-            .get('googleMapDetails'))
-            .get('locationPreview').value;
+    findLocation(coordinate) {
         this.latLng = coordinate.split(',', 2);
         this.placeMaker(+this.latLng[0], +this.latLng[1]);
 

@@ -130,16 +130,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 pr-0 form-group row">
-                    <div class="form-group col-md-8 pr-0">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
                         <label class="title" for="locationPreview">Location Preview</label>
                         <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview"
-                               name="locationPreview"
+                               name="locationPreview" #coordinate
                                type="text">
                     </div>
-                    <div class="col-md-4 pr-0 pt-4">
-                        <button (click)="findLocation()" class="btn-primary">Find Location</button>
+                    <div class="input-group-append">
+                        <a (click)="findLocation(coordinate)" class="btn">Find Location</a>
                     </div>
+                </div>
                     <div class="ml-3">
                         <agm-map (mapClick)="placeMaker($event.coords.lat,$event.coords.lng)"
                                  [clickableIcons]='false'
@@ -148,7 +149,7 @@
                                  [longitude]="longitude"
                                  [mapTypeControl]='true'
                                  [zoom]="zoom"
-                                 style="height: 300px; width: 300px;">
+                                 style="height: 200px; width: 100%;">
                             <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">
                                 <agm-info-window [isOpen]="infoWindowOpen.value">
                                     {{addressLabel.value}}
@@ -156,7 +157,6 @@
                             </agm-marker>
                         </agm-map>
                     </div>
-                </div>
         <nb-card-footer class="float-right">
             <button nbButton (click)="onSubmit()" [disabled]="spinner" status="primary">
                 <em class="fa fa-save"></em>
