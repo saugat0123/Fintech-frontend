@@ -19,4 +19,5 @@ export class Branch {
     landlineNumber: string;
     email: string;
     locationPreview: string;
+    version: number;
 }

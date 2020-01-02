@@ -24,8 +24,6 @@ export class BranchFormComponent implements OnInit {
     @Input()
     model: Branch = new Branch();
 
-
-
     submitted = false;
     spinner = false;
     provinces: Province[];
@@ -41,7 +39,6 @@ export class BranchFormComponent implements OnInit {
     addressLabel = new FormControl('');
     zoom = 8;
     latLng: string[];
-    formDataForEdit ;
 
 
     constructor(
@@ -102,13 +99,13 @@ export class BranchFormComponent implements OnInit {
             status: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.status)) ? undefined :
                 this.model.status],
+            locationPreview: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.locationPreview)) ? undefined :
+                this.model.locationPreview],
+            version: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.version)) ? undefined :
+                this.model.version]
 
-            googleMapDetails: this.formBuilder.group({
-                locationPreview: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.googleMapDetails === undefined ? ''
-                    : this.formDataForEdit.googleMapDetails.locationPreview],
-                mapAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.googleMapDetails === undefined ? ''
-                    : this.formDataForEdit.googleMapDetails.mapAddress],
-            })
     });
     }
 
@@ -155,7 +152,9 @@ export class BranchFormComponent implements OnInit {
         this.longitude = longitude;
         this.markerLatitude = this.latitude;
         this.markerLongitude = this.longitude;
-
+        (<FormGroup>this.branchForm)
+            .get('locationPreview')
+            .setValue(this.latitude + ',' + this.longitude);
         this.getAddress(this.latitude, this.longitude);
     }
 
@@ -184,9 +183,9 @@ export class BranchFormComponent implements OnInit {
     }
 
     findLocation(coordinate) {
-        this.latLng = coordinate.split(',', 2);
+        this.latLng = coordinate.value.split(',', 2);
         this.placeMaker(+this.latLng[0], +this.latLng[1]);
-
+        console.log(this.latLng);
     }
     onSubmit() {
         this.submitted = true;

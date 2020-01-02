@@ -8,161 +8,155 @@
         <h4 class="modal-title pull-left">{{task}} Branch </h4>
     </nb-card-header>
     <nb-card-body>
-            <form [formGroup]="branchForm" (ngSubmit)="onSubmit()">
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name"
-                               formControlName="name" placeholder="Name"
-                               [ngClass]="{'is-invalid': submitted && branchFormControl.name.errors}"/>
-                        <div *ngIf="submitted && branchFormControl.name.invalid" class="invalid-feedback">
-                            Name is required!
-                        </div>
+        <form [formGroup]="branchForm" class="form-horizontal">
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name"
+                           formControlName="name" placeholder="Name"
+                           [ngClass]="{'is-invalid': submitted && branchFormControl.name.errors}"/>
+                    <div *ngIf="submitted && branchFormControl.name.invalid" class="invalid-feedback">
+                        Name is required!
                     </div>
-                    <div class="col-md-6">
-                        <label for="province">Province</label>
-                        <select formControlName="province" id="province"
-                                class="custom-select"
-                                (change)="getDistrictsById(branchFormControl.province.value?.id, $event)"
-                                [compareWith]="compareFn"
-                                [ngClass]="{ 'is-invalid': (submitted) && branchFormControl.province.errors }">
-                            <option [ngValue]="null" hidden>Province</option>
-                            <option *ngFor="let provinceVal of provinces"
-                                    [ngValue]="provinceVal">
-                                {{provinceVal.name}}
-                            </option>
-                        </select>
-                        <div *ngIf="(submitted) && branchFormControl.province.invalid"
-                             class="invalid-feedback">
-                            <div *ngIf="branchFormControl.province.errors.required">
-                                Province is required
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="district">District</label>
-                        <select formControlName="district" id="district"
-                                class="custom-select"
-                                (change)="getMunicipalitiesById(branchFormControl.district.value?.id, $event)"
-                                [compareWith]="compareFn"
-                                [ngClass]="{ 'is-invalid': (submitted) && branchFormControl.district.errors }">
-                            <option [ngValue]="null" hidden>District</option>
-                            <option *ngFor="let districtVal of districts"
-                                    [ngValue]="districtVal">
-                                {{districtVal.name}}
-                            </option>
-                        </select>
-                        <div *ngIf="(submitted) && branchFormControl.district.invalid"
-                             class="invalid-feedback">
-                            <div *ngIf="branchFormControl.district.errors.required">
-                                District is required!
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="municipality">Municipality</label>
-                        <select id="municipality" formControlName="municipalityVdc"
-                                class="custom-select"
-                                [compareWith]="compareFn"
-                                [ngClass]="{ 'is-invalid': (submitted) && branchFormControl.municipalityVdc.errors }">
-                            <option [ngValue]="null" hidden>Municipality</option>
-                            <option *ngFor="let municipalityVal of municipalities"
-                                    [ngValue]="municipalityVal">
-                                {{municipalityVal.name}}
-                            </option>
-                        </select>
-                        <div *ngIf="(submitted) && branchFormControl.municipalityVdc.invalid"
-                             class="invalid-feedback">
-                            <div *ngIf="branchFormControl.municipalityVdc.errors.required">
-                                Municipality Vdc is required!
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="street_name">Street Name</label>
-                        <input type="text" class="form-control"
-                               formControlName="streetName" name="streetName"
-                               id="street_name"
-                               placeholder="Street Name"
-                               [ngClass]="{ 'is-invalid': submitted && branchFormControl.streetName.errors }"/>
-                        <div *ngIf="submitted && branchFormControl.streetName.invalid" class="invalid-feedback">
-                            Street is required!
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="ward_number">Ward Number</label>
-                        <input type="number" class="form-control"
-                               formControlName="wardNumber" name="ward"
-                               id="ward_number"
-                               placeholder="Ward Number"
-                               [ngClass]="{ 'is-invalid': submitted && branchFormControl.wardNumber.errors }"/>
-                        <div *ngIf="submitted && branchFormControl.wardNumber.invalid" class="invalid-feedback">
-                            Invalid Ward number!
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="branch_code">Branch Code</label>
-                        <input type="text" class="form-control"
-                               formControlName="branchCode" name="branchCode"
-                               id="branch_code"
-                               placeholder="Branch Code"
-                               [ngClass]="{ 'is-invalid': submitted && branchFormControl.branchCode.errors }"/>
-                        <div *ngIf="submitted && branchFormControl.branchCode.invalid" class="invalid-feedback">
-                            Invalid Ward number!
-                        </div>
-                    </div>
-                    <div class="col-md-6 ">
-                        <label for="landlineNumber">Landline Number</label>
-                        <input type="text" class="form-control" formControlName="landlineNumber"
-                               id="landlineNumber" name="landlineNumber" placeholder="Landline Number"
-                               [ngClass]="{'is-invalid': submitted && branchFormControl.landlineNumber.errors}"/>
-                        <div *ngIf="branchFormControl.landlineNumber.invalid && submitted" class="invalid-feedback">
-                            landline Number is required!
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="email">Email</label>
-                        <input type="text" class="form-control" id="email"
-                               formControlName="email" placeholder="Email"
-                               [ngClass]="{'is-invalid': submitted && branchFormControl.email.errors}"/>
-                        <div *ngIf="submitted && branchFormControl.email.invalid" class="invalid-feedback">
-                            Invalid Email!
+                </div>
+                <div class="col-md-4">
+                    <label for="province">Province</label>
+                    <select formControlName="province" id="province"
+                            class="custom-select"
+                            (change)="getDistrictsById(branchFormControl.province.value?.id, $event)"
+                            [compareWith]="compareFn"
+                            [ngClass]="{ 'is-invalid': (submitted) && branchFormControl.province.errors }">
+                        <option [ngValue]="null" hidden>Province</option>
+                        <option *ngFor="let provinceVal of provinces"
+                                [ngValue]="provinceVal">
+                            {{provinceVal.name}}
+                        </option>
+                    </select>
+                    <div *ngIf="(submitted) && branchFormControl.province.invalid"
+                         class="invalid-feedback">
+                        <div *ngIf="branchFormControl.province.errors.required">
+                            Province is required
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <label for="district">District</label>
+                    <select formControlName="district" id="district"
+                            class="custom-select"
+                            (change)="getMunicipalitiesById(branchFormControl.district.value?.id, $event)"
+                            [compareWith]="compareFn"
+                            [ngClass]="{ 'is-invalid': (submitted) && branchFormControl.district.errors }">
+                        <option [ngValue]="null" hidden>District</option>
+                        <option *ngFor="let districtVal of districts"
+                                [ngValue]="districtVal">
+                            {{districtVal.name}}
+                        </option>
+                    </select>
+                    <div *ngIf="(submitted) && branchFormControl.district.invalid"
+                         class="invalid-feedback">
+                        <div *ngIf="branchFormControl.district.errors.required">
+                            District is required!
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="municipality">Municipality</label>
+                    <select id="municipality" formControlName="municipalityVdc"
+                            class="custom-select"
+                            [compareWith]="compareFn"
+                            [ngClass]="{ 'is-invalid': (submitted) && branchFormControl.municipalityVdc.errors }">
+                        <option [ngValue]="null" hidden>Municipality</option>
+                        <option *ngFor="let municipalityVal of municipalities"
+                                [ngValue]="municipalityVal">
+                            {{municipalityVal.name}}
+                        </option>
+                    </select>
+                    <div *ngIf="(submitted) && branchFormControl.municipalityVdc.invalid"
+                         class="invalid-feedback">
+                        <div *ngIf="branchFormControl.municipalityVdc.errors.required">
+                            Municipality Vdc is required!
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="street_name">Street Name</label>
+                    <input type="text" class="form-control"
+                           formControlName="streetName" name="streetName"
+                           id="street_name"
+                           placeholder="Street Name"
+                           [ngClass]="{ 'is-invalid': submitted && branchFormControl.streetName.errors }"/>
+                    <div *ngIf="submitted && branchFormControl.streetName.invalid" class="invalid-feedback">
+                        Street is required!
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="ward_number">Ward Number</label>
+                    <input type="number" class="form-control"
+                           formControlName="wardNumber" name="ward"
+                           id="ward_number"
+                           placeholder="Ward Number"
+                           [ngClass]="{ 'is-invalid': submitted && branchFormControl.wardNumber.errors }"/>
+                    <div *ngIf="submitted && branchFormControl.wardNumber.invalid" class="invalid-feedback">
+                        Invalid Ward number!
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="branch_code">Branch Code</label>
+                    <input type="text" class="form-control"
+                           formControlName="branchCode" name="branchCode"
+                           id="branch_code"
+                           placeholder="Branch Code"
+                           [ngClass]="{ 'is-invalid': submitted && branchFormControl.branchCode.errors }"/>
+                    <div *ngIf="submitted && branchFormControl.branchCode.invalid" class="invalid-feedback">
+                        Invalid Ward number!
+                    </div>
+                </div>
+                <div class="col-md-4 ">
+                    <label for="landlineNumber">Landline Number</label>
+                    <input type="text" class="form-control" formControlName="landlineNumber"
+                           id="landlineNumber" name="landlineNumber" placeholder="Landline Number"
+                           [ngClass]="{'is-invalid': submitted && branchFormControl.landlineNumber.errors}"/>
+                    <div *ngIf="branchFormControl.landlineNumber.invalid && submitted" class="invalid-feedback">
+                        landline Number is required!
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email"
+                           formControlName="email" placeholder="Email"
+                           [ngClass]="{'is-invalid': submitted && branchFormControl.email.errors}"/>
+                    <div *ngIf="submitted && branchFormControl.email.invalid" class="invalid-feedback">
+                        Invalid Email!
+                    </div>
+                </div>
+            </div>
                 <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="title" for="locationPreview">Location Preview</label>
                         <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview"
-                               name="locationPreview" #coordinate
-                               type="text">
-                    </div>
+                               name="locationPreview" #coordinate placeholder="Location Coordinates" type="text">
                     <div class="input-group-append">
-                        <a (click)="findLocation(coordinate)" class="btn">Find Location</a>
+                        <button (click)="findLocation(coordinate)" class="btn btn-light">Find Location</button>
                     </div>
                 </div>
-                    <div class="ml-3">
-                        <agm-map (mapClick)="placeMaker($event.coords.lat,$event.coords.lng)"
-                                 [clickableIcons]='false'
-                                 [fullscreenControl]='true'
-                                 [latitude]="latitude"
-                                 [longitude]="longitude"
-                                 [mapTypeControl]='true'
-                                 [zoom]="zoom"
-                                 style="height: 200px; width: 100%;">
-                            <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">
-                                <agm-info-window [isOpen]="infoWindowOpen.value">
-                                    {{addressLabel.value}}
-                                </agm-info-window>
-                            </agm-marker>
-                        </agm-map>
-                    </div>
-        <nb-card-footer class="float-right">
-            <button nbButton (click)="onSubmit()" [disabled]="spinner" status="primary">
-                <em class="fa fa-save"></em>
-            </button>
-        </nb-card-footer>
-            </form>
+                <agm-map (mapClick)="placeMaker($event.coords.lat,$event.coords.lng)"
+                         [clickableIcons]='false'
+                         [fullscreenControl]='true'
+                         [latitude]="latitude"
+                         [longitude]="longitude"
+                         [mapTypeControl]='true'
+                         [zoom]="zoom"
+                         style="height: 200px; width: 100%;">
+                    <agm-marker [latitude]="markerLatitude" [longitude]="markerLongitude">
+                        <agm-info-window [isOpen]="infoWindowOpen.value">
+                            {{addressLabel.value}}
+                        </agm-info-window>
+                    </agm-marker>
+                </agm-map>
+            <nb-card-footer class="float-right">
+                <button nbButton (click)="onSubmit()" [disabled]="spinner" status="primary">
+                    <em class="fa fa-save"></em>
+                </button>
+            </nb-card-footer>
+        </form>
     </nb-card-body>
 </nb-card>
 
