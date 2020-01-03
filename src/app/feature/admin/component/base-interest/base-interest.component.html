@@ -21,7 +21,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let access of listing ; let i = index">
-                <div *ngIf="!datalist?.length > 0">
+                <div *ngIf="!listing?.length > 0">
                     <p>No Content Found</p>
                 </div>
                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
