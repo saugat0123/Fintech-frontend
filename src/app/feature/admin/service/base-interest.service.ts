@@ -10,12 +10,6 @@ import {BaseService} from '../../../@core/BaseService';
 export class BaseInterestService extends BaseService<BaseInterest> {
   static API = 'v1/base-interest';
 
-  // headers = {
-  //   headers: new HttpHeaders({
-  //     'Content-Type': 'application/json'
-  //   })
-  // };
-
   constructor(protected http: HttpClient) {
     super(http);
   }
