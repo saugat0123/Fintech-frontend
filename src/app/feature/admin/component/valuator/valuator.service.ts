@@ -19,7 +19,7 @@ export class ValuatorService extends BaseService<Valuator> {
     }
 
     public getValuatorList(branches: Branch[]): Observable<any> {
-        const req = ApiUtils.getRequest(`${ValuatorService.API}/valuatorList`);
+        const req = ApiUtils.getRequest(`${ValuatorService.API}/valuator-branch`);
         return this.http.post(req.url, branches, {headers: req.header});
     }
 }
