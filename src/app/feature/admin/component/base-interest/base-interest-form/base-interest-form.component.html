@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{task}} Base Interest</h4>
+    <a (click)="onClose()" aria-label="Close" class="close cursor"><span aria-hidden="true">×</span></a>
+</div>
+
+<div class="modal-body">
+    <form #baseform="ngForm" (ngSubmit)="baseform.form.valid && onSubmit()" name="form">
+        <div class="row form-group">
+            <div class="col-md-12">
+                <label for="name"></label>
+                <input [(ngModel)]="model.id" class="form-control" name="id" placeholder="id"
+                       type="hidden">
+                <input #baseForms="ngModel" [(ngModel)]="model.rate" [ngClass]="{'is-invalid': baseform.submitted && baseform.invalid}" class="form-control"
+                       id="name" name="name" placeholder="Base Interest" required
+                       type="number"/>
+                <div *ngIf="baseform.invalid && baseform.submitted" class="invalid-feedback">
+                    BaseInterest is required
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer  ">
+            <button nbButton status="info" type="submit" class="float-right" >save</button>
+        </div>
+    </form>
+</div>
+
