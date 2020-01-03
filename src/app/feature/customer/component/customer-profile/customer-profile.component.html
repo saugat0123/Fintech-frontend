@@ -267,17 +267,23 @@
         </a>
     </div>
     <div class="modal-body">
-        <form>
+        <form #f="ngForm" (ngSubmit)="f.form.valid && openLoanForm()">
             <div class="col-md-12 row">
 
                 <div class="col-md-6">
-                    <select [(ngModel)]="applyForm.loanId" class="form-control rounded" name="loanId">
+                    <select #type="ngModel"
+                            [(ngModel)]="applyForm.loanId"
+                            [ngClass]="{ 'is-invalid': f.submitted && type.invalid }" class="form-control rounded"
+                            name="loanId" required>
                         <option [ngValue]="undefined" hidden> select Loan Type</option>
                         <option *ngFor="let allList of loanList" [ngValue]="allList.id">{{allList.name}}</option>
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <select [(ngModel)]="applyForm.loanCategory" class="form-control rounded" name="businessOrPersonal">
+                    <select #loanCategory="ngModel"
+                            [(ngModel)]="applyForm.loanCategory"
+                            [ngClass]="{ 'is-invalid': f.submitted && loanCategory.invalid }"
+                            class="form-control rounded" name="loanCategory" required>
                         <option [ngValue]="undefined" hidden>Loan Category</option>
                         <option value="PERSONAL_TYPE">PERSONAL</option>
                         <option value="BUSINESS_TYPE">BUSINESS</option>
@@ -286,7 +292,9 @@
             </div>
 
             <div class="col-md-12 py-2">
-                <button (click)="openLoanForm()" class="btn btn-success float-right" type="submit">Next</button>
+                <button class="btn btn-success float-right" type="submit"
+                >Next
+                </button>
             </div>
         </form>
     </div>
