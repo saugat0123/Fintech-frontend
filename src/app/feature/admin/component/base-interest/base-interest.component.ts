@@ -71,7 +71,7 @@ export class BaseInterestComponent implements OnInit {
         this.baseInterestService.save(inter).subscribe((data: any) => {
             this.baseList = data;
             this.GetInterestData();
-            this.add();
+            this.addInterest();
 
         });
 
@@ -87,7 +87,7 @@ export class BaseInterestComponent implements OnInit {
 
 
 
-    add() {
+    addInterest() {
         const modalRef = this.modalService.open(BaseInterestFormComponent);
         modalRef.componentInstance.model = new BaseInterest();
         ModalUtils.resolve(modalRef.result, BaseInterestComponent.loadData, this);
