@@ -31,7 +31,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>FMV</label>
-                                                <input class="form-control" formArrayName="fmv" name="fmv" placeholder="45"
+                                                <input class="form-control" formControlName="fmv" name="fmv" placeholder="45"
                                                        type="text">
 
                                             </div>
@@ -64,11 +64,7 @@
                                                         name="validatorName">
                                                     <option [ngValue]="null" hidden selected>--Select validator--
                                                     </option>
-                                                    <!--                                                    <div *ngFor="let name of names">-->
-                                                    <!--                                                        <div *ngIf="name.minAmount < proposalData?.proposedLimit && name.maxAmount>=proposalData?.proposedLimit">-->
-                                                    <!--                                                            <option  value="name.name">{{name.name}}</option>-->
-                                                    <!--                                                        </div>-->
-                                                    <!--                                                    </div>-->
+
                                                     <option *ngFor="let name of finalValuatorName"
                                                             value="{{name}}">{{name}}</option>
 
