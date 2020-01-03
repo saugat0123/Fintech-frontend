@@ -85,16 +85,7 @@ export class BaseInterestComponent implements OnInit {
         });
     }
 
-    // updateStatus(id: number, access: BaseInterest) {
-    //     if (this.datalist.slice(-1)[0].id === id) { // if the id is equal to last id then no change else change status
-    //         access.status = 'ACTIVE';
-    //     } else {
-    //         access.status = 'INACTIVE';
-    //         this.baseInterestService.update(id, access).subscribe(data => {
-    //             this.Get();
-    //         });
-    //     }
-    // }
+
 
     add() {
         const modalRef = this.modalService.open(BaseInterestFormComponent);
