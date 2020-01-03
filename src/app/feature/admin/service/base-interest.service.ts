@@ -8,7 +8,7 @@ import {BaseService} from '../../../@core/BaseService';
 })
 
 export class BaseInterestService extends BaseService<BaseInterest> {
-  static API = 'v1/baseInterest';
+  static API = 'v1/base-interest';
 
   // headers = {
   //   headers: new HttpHeaders({
