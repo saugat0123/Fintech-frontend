@@ -63,11 +63,11 @@ import {MessageModalComponent} from './components/message-modal/message-modal.co
 import {ProfileComponent} from './components/profile/profile.component';
 import {NotificationComponent} from './components/notification/notification.component';
 import {ChangePasswordComponent} from './components/change-password/change-password.component';
-import {CKEditorModule} from 'ng2-ckeditor';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {NbEvaIconsModule} from '@nebular/eva-icons';
 import { OverlaySpinnerComponent } from './components/overlay-spinner/overlay-spinner.component';
 import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
+import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 
 // import {NbSecurityModule} from '@nebular/security';
 

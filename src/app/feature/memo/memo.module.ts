@@ -23,6 +23,8 @@ import {RejectedComponent} from './component/reject/rejected.component';
 import {DraftComponent} from './component/draft/draft.component';
 import {ApprovedComponent} from './component/approved/approved.component';
 import { SentMemoComponent } from './component/sent-memo/sent-memo.component';
+import { BackwardedMemoComponent } from './component/backwarded-memo/backwarded-memo.component';
+import {BackwardActionComponent} from './component/actions/backward-action.component';
 
 @NgModule({
     declarations: [
@@ -39,8 +41,10 @@ import { SentMemoComponent } from './component/sent-memo/sent-memo.component';
         ApprovedComponent,
         ForwardActionComponent,
         RejectActionComponent,
+        BackwardActionComponent,
         ApproveActionComponent,
-        SentMemoComponent
+        SentMemoComponent,
+        BackwardedMemoComponent
     ],
 
     imports: [
@@ -58,7 +62,8 @@ import { SentMemoComponent } from './component/sent-memo/sent-memo.component';
         MemoTypeFormComponent,
         ApproveActionComponent,
         ForwardActionComponent,
-        RejectActionComponent
+        RejectActionComponent,
+        BackwardActionComponent
     ]
 })
 export class MemoModule {

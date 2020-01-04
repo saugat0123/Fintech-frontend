@@ -1,10 +1,7 @@
 <section class="enable-print">
     <nb-card>
         <nb-card-body>
-            <div class="row">
-                <div class="col-md-3">
-                    Status: {{memo?.stage}}
-                </div>
+            <div class="row justify-content-end">
                 <div class="col-md-6">
                     <div class="report-header">
                         <div class="report-header-heading">
@@ -25,42 +22,82 @@
             </div>
 
             <hr class="print-line">
+            <div class="row justify-content-between">
+                <div class="col-md-6">
+                    <p><strong>Ref No:</strong> {{memo?.refNumber}}</p>
+                    <p><strong>Status:</strong> {{memo?.status}}</p>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right"><strong>Date: </strong>{{memo?.createdAt | date}}</p>
+                </div>
+            </div>
+            <hr class="print-line">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p><b>Ref No:</b> {{memo?.refNumber}}</p>
-                            <div>
-                                <b>CC:</b>
-                                <h6 *ngFor="let ccUser of memo?.cc">{{ccUser.name}}</h6>
-
-                            </div>
-                            <div>
-                                <b>BCC:</b>
-                                <h6 *ngFor="let bccUser of memo?.bcc">{{bccUser.name}}</h6>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <p class="text-right"><b>Date: </b>{{memo?.createdAt | date}}</p>
+                    <h5><strong>Cc:</strong></h5>
+                    <table aria-describedby="memo-cc-list"
+                           class="table table-condensed table-bordered table-responsive-md text-justify mt-2">
+                        <thead>
+                        <tr>
+                            <th scope="col">S.N</th>
+                            <th scope="col">Name</th>
+<!--                            <th scope="col">Role</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let ccUser of memo?.cc; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{ccUser?.name}}</td>
+<!--                            <td>{{ccUser?.role?.roleName}}</td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h5><strong>Bcc:</strong></h5>
+                    <table aria-describedby="memo-cc-list"
+                           class="table table-condensed table-bordered table-responsive-md text-justify mt-2">
+                        <thead>
+                        <tr>
+                            <th scope="col">S.N</th>
+                            <th scope="col">Name</th>
+                            <!--                            <th scope="col">Role</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let ccUser of memo?.bcc; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{ccUser?.name}}</td>
+                            <!--                            <td>{{ccUser?.role?.roleName}}</td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 justify-content-center my-2">
+                    <h5><strong>Content</strong></h5>
+                    <div class="card mt-2">
+                        <div class="card-body">
+                            <div [innerHtml]="memo?.content | safeHtml" class="text-justify"></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div [innerHtml]="memo?.content | safeHtml" class="text-justify"></div>
-                </div>
-                <div class="col-md-12">
-                    <p><b>Authority Section</b></p>
-                    <table class="table table-condensed table-bordered table-responsive-md text-justify">
+                <div class="col-md-12 my-2">
+                    <h5><strong>Authority Section</strong></h5>
+                    <table aria-describedby="stages-list-table" class="table table-condensed table-bordered table-responsive-md text-justify">
                         <thead>
                         <tr>
-                            <th>S.N</th>
-                            <th class="print-only">Date</th>
-                            <th class="text-center">From User</th>
-                            <th class="disable-print">From Position</th>
-                            <th class="disable-print text-center">To User</th>
-                            <th class="disable-print">To Position</th>
-                            <th>Status</th>
-                            <th class="cmt-width">Comment</th>
+                            <th scope="col">S.N</th>
+                            <th scope="col" class="print-only">Date</th>
+                            <th scope="col" class="text-center">From User</th>
+                            <th scope="col" class="disable-print">From Position</th>
+                            <th scope="col" class="disable-print text-center">To User</th>
+                            <th scope="col" class="disable-print">To Position</th>
+                            <th scope="col">Status</th>
+                            <th scope="col" class="cmt-width">Comment</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -95,18 +132,21 @@
                 </div>
             </div>
         </nb-card-body>
-        <nb-card-footer *ngIf="memo?.stage === 'FORWARD'" class="disable-print">
+        <nb-card-footer *ngIf="memo?.stage === 'FORWARD' && memo?.sentTo?.id === activeUserId" class="disable-print">
             <div class="text-center">
                 <div class="btn-group">
                     <button (click)="backward()" class="btn btn-primary" data-container="body"
-                            data-toggle="tooltip" title="Reject" type="button">
-                        <i class="fa fa-reply"></i>
+                            data-toggle="tooltip" title="backward" type="button">
+                        <em class="fa fa-reply"></em>
                     </button>
                     <button (click)="forward()" class="btn btn-primary" data-container="body"
-                            data-toggle="tooltip" title="Send Forward" type="button"><i class="fa fa-share"></i>
+                            data-toggle="tooltip" title="Send Forward" type="button"><em class="fa fa-share"></em>
                     </button>
                     <button (click)="approve()" class="btn btn-primary" data-container="body"
-                            data-toggle="tooltip" title="Approve" type="button"><i class="fa fa-check"></i></button>
+                            data-toggle="tooltip" title="Approve" type="button"><em class="fa fa-check"></em></button>
+                    <button (click)="reject()" class="btn btn-primary" data-container="body"
+                            data-toggle="tooltip" title="reject" type="button">
+                        <em class="fa fa-times"></em></button>
                 </div>
             </div>
         </nb-card-footer>
@@ -115,7 +155,7 @@
                 <div class="btn-group">
                     <button (click)="editMemo(memo.id)" class="btn btn-primary" data-container="body"
                             data-toggle="tooltip" title="Edit Memo" type="button">
-                        <i class="fa fa-pencil-alt"></i>
+                        <em class="fa fa-pencil-alt"></em>
                     </button>
                 </div>
             </div>

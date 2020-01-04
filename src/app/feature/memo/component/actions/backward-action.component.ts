@@ -9,17 +9,17 @@ import {User} from '../../../admin/modal/user';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
-    selector: 'app-memo-reject',
+    selector: 'app-memo-backward',
     template: `
         <div class="modal-header">
-            <h4 class="modal-title pull-left">Reject Memo: {{memo?.subject}}</h4>
+            <h4 class="modal-title pull-left">Backward Memo: {{memo?.subject}}</h4>
             <button (click)="cancel()" aria-label="Close" class="close pull-right" type="button">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <form (ngSubmit)="ok()" [formGroup]="stageForm">
             <div class="modal-body">
-                <p>Are you sure you want to Reject this memo?</p>
+                <p>Are you sure you want to Backward this memo?</p>
                 <hr/>
                 <!--<div class="form-group">
                     <ng-select
@@ -46,7 +46,7 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
     `,
     styles: []
 })
-export class RejectActionComponent implements OnInit {
+export class BackwardActionComponent implements OnInit {
 
     @Input()
     memo: Memo;
@@ -79,9 +79,18 @@ export class RejectActionComponent implements OnInit {
     ok(): void {
 
         const stage: MemoStage = this.stageForm.getRawValue();
-        stage.stage = 'REJECTED';
-        stage.sentBy = this.memo.sentBy;
-        stage.sentTo = this.memo.sentTo;
+        stage.stage = 'BACKWARD';
+
+        // sent to or backwarded to the user who created it
+        const sentTo = new User();
+        sentTo.id = this.memo.createdBy;
+        stage.sentTo = sentTo;
+        this.memo.sentTo = stage.sentTo;
+
+        const sentBy = new User();
+        sentBy.id = parseInt(LocalStorageUtil.getStorage().userId, 10);
+        stage.sentBy = sentBy;
+        this.memo.sentBy = sentBy;
 
         this.memo.stages.push(stage);
         this.memo.stage = stage.stage;

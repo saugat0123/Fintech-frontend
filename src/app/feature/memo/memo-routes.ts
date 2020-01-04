@@ -8,6 +8,7 @@ import {DraftComponent} from './component/draft/draft.component';
 import {RejectedComponent} from './component/reject/rejected.component';
 import {ApprovedComponent} from './component/approved/approved.component';
 import {SentMemoComponent} from './component/sent-memo/sent-memo.component';
+import {BackwardedMemoComponent} from './component/backwarded-memo/backwarded-memo.component';
 
 export const MemoRoutes: Routes = [
     {
@@ -21,6 +22,7 @@ export const MemoRoutes: Routes = [
             {path: 'approved', component: ApprovedComponent},
             {path: 'compose/:id', component: ComposeComponent},
             {path: 'read/:id', component: ReadComponent},
+            {path: 'backward', component: BackwardedMemoComponent},
             { path: '**', redirectTo: 'compose', pathMatch: 'full' }
         ]
     },

@@ -20,6 +20,7 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {LoanActionService} from '../../../loan/loan-action/service/loan-action.service';
 import {Status} from '../../../../@core/Status';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-memo-compose',
@@ -41,6 +42,8 @@ export class ComposeComponent implements OnInit {
     search: any = {};
 
     sendForwardUserList: User[] = [];
+
+    editor = ClassicEditor;
 
     constructor(
         private breadcrumbService: BreadcrumbService,
@@ -110,6 +113,10 @@ export class ComposeComponent implements OnInit {
         });
     }
 
+    getAuthorizedUsers() {
+
+    }
+
     setMemoValues() {
         this.memo = this.memoComposeForm.value;
 
@@ -157,16 +164,27 @@ export class ComposeComponent implements OnInit {
             this.saveMemo(this.memo);
 
         } else {
-            this.memo.stage = 'FORWARD';
-
-            if ((this.memo.stages) && this.memo.stages.length === 1) {
-                const stage = this.memo.stages[0];
-                stage.sentBy = this.memo.sentBy;
+            if (this.memo.stage === 'BACKWARD') {
+                this.memo.stage = 'FORWARD';
+                const stage = new MemoStage();
                 stage.sentTo = this.memo.sentTo;
+                stage.sentBy = this.memo.sentBy;
                 stage.stage = 'FORWARD';
                 stage.note = 'Memo Forwarded';
-            }
 
+                this.memo.stages.push(stage);
+
+            } else {
+                this.memo.stage = 'FORWARD';
+
+                if ((this.memo.stages) && this.memo.stages.length === 1) {
+                    const stage = this.memo.stages[0];
+                    stage.sentBy = this.memo.sentBy;
+                    stage.sentTo = this.memo.sentTo;
+                    stage.stage = 'FORWARD';
+                    stage.note = 'Memo Forwarded';
+                }
+            }
             this.updateMemo(this.memo);
         }
     }

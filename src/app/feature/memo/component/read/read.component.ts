@@ -16,6 +16,8 @@ import {ApproveActionComponent} from '../actions/approve-action.component';
 import {RejectActionComponent} from '../actions/reject-action.component';
 import {MemoFullRoute} from '../../memo-full-routes';
 import {environment} from '../../../../../environments/environment';
+import {BackwardActionComponent} from '../actions/backward-action.component';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-memo-read',
@@ -34,6 +36,8 @@ export class ReadComponent implements OnInit, DoCheck {
     roles$: any;
     users$: Array<User>;
     search = new Object();
+
+    activeUserId = Number(LocalStorageUtil.getStorage().userId);
 
     constructor(
         private breadcrumbService: BreadcrumbService,
@@ -109,7 +113,7 @@ export class ReadComponent implements OnInit, DoCheck {
     }
 
     backward() {
-        const modalRef = this.modalService.open(RejectActionComponent);
+        const modalRef = this.modalService.open(BackwardActionComponent);
         modalRef.componentInstance.memo = this.memo;
         modalRef.componentInstance.users$ = this.users$;
         modalRef.componentInstance.roles$ = this.roles$;
@@ -156,4 +160,19 @@ export class ReadComponent implements OnInit, DoCheck {
             });
     }
 
+    reject() {
+        const modalRef = this.modalService.open(RejectActionComponent);
+        modalRef.componentInstance.memo = this.memo;
+        modalRef.componentInstance.users$ = this.users$;
+        modalRef.componentInstance.roles$ = this.roles$;
+
+        modalRef.result.then(() => {
+                console.log('success');
+
+                this.reloadPage();
+            },
+            () => {
+                console.log('failure');
+            });
+    }
 }

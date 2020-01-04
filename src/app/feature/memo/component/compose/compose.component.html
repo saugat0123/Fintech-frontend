@@ -78,7 +78,8 @@
 <!--                                }"-->
 <!--                                  [style]="{height: '200px'}"-->
 <!--                    ></quill-editor>-->
-                    <textarea formControlName="content"></textarea>
+                    <ckeditor [editor]="editor" formControlName="content"></ckeditor>
+<!--                    <textarea formControlName="content"></textarea>-->
                 </div>
                 <!--<div class="form-group">
                     <nb-card>
@@ -102,7 +103,7 @@
                 </div>-->
 
                 <div class="float-right">
-                    <button nbButton (click)="saveAsDraft()" status="primary" size="small" type="button">
+                    <button nbButton *ngIf="memo.stage !== 'BACKWARD'" (click)="saveAsDraft()" status="primary" size="small" type="button">
                         <em class="fa fa-pencil"></em>Save as Draft
                     </button>
                     <span class="m-1"></span>
