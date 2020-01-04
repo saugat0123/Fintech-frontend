@@ -37,7 +37,9 @@ export class ValuatorComponent implements OnInit {
         name: undefined,
         branchIds: undefined,
         status: undefined,
-        valuatingField: undefined
+        valuatingField: undefined,
+        minAmount: undefined,
+        maxAmount: undefined
     };
     pageable: Pageable = new Pageable();
     activeCount: number;
@@ -178,7 +180,9 @@ export class ValuatorComponent implements OnInit {
             name: [undefined],
             branch: [undefined],
             status: [undefined],
-            valuatingField: [undefined]
+            valuatingField: [undefined],
+            minAmount: [undefined],
+            maxAmount: [undefined]
         });
     }
 
@@ -193,6 +197,10 @@ export class ValuatorComponent implements OnInit {
         this.search.branchIds = ObjectUtil.setUndefinedIfNull(this.filterForm.get('branch').value);
         this.search.status = ObjectUtil.setUndefinedIfNull(this.filterForm.get('status').value);
         this.search.valuatingField = ObjectUtil.setUndefinedIfNull(this.filterForm.get('valuatingField').value);
+        this.search.minAmount = ObjectUtil.isEmpty(this.filterForm.get('minAmount').value) ? undefined :
+            this.filterForm.get('minAmount').value.toString();
+        this.search.maxAmount = ObjectUtil.isEmpty(this.filterForm.get('maxAmount').value) ? undefined :
+            this.filterForm.get('maxAmount').value.toString();
         ValuatorComponent.loadData(this);
     }
 }

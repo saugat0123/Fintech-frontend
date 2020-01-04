@@ -43,7 +43,7 @@
                         <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
                             <div class="row py-3">
                                 <div class="col-md-3 mb-3">
-                                    <input fieldSize="medium" formControlName="name" name="name"
+                                    <input fieldSize="medium" formControlName="name"
                                            nbInput
                                            placeholder="Enter name"
                                            type="text">
@@ -72,6 +72,18 @@
                                             {{valuatingField?.value}}
                                         </option>
                                     </select>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <input fieldSize="medium" formControlName="minAmount"
+                                           nbInput
+                                           placeholder="Enter min amount"
+                                           type="number">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <input fieldSize="medium" formControlName="maxAmount"
+                                           nbInput
+                                           placeholder="Enter max amount"
+                                           type="number">
                                 </div>
                             </div>
                             <div class="col-md-12 p-0">
