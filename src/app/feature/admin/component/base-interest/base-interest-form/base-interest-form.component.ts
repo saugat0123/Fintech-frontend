@@ -4,6 +4,8 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {BaseInterestService} from '../../../service/base-interest.service';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {Action} from '../../../../../@core/Action';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-base-interest-form',
@@ -12,33 +14,45 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class BaseInterestFormComponent implements OnInit {
 
+  @Input() model: BaseInterest;
+  @Input() action: Action = Action.ADD;
+  spinner = false;
+  form: FormGroup;
+
   constructor(private baseInterestService: BaseInterestService,
               private activeModal: NgbActiveModal,
-              private toastService: ToastService) { }
-
-  @Input()
-  model: BaseInterest = new BaseInterest();
-  task: string;
-  submitted = false;
-  spinner = false;
-
-  ngOnInit() {
+              private toastService: ToastService,
+              private formBuilder: FormBuilder) {
   }
 
-  onSubmit() {
-    this.submitted = true;
-    this.baseInterestService.save(this.model).subscribe(result => {
-          this.model = new BaseInterest();
+  get rate() {
+      return this.form.get('rate');
+  }
+
+  ngOnInit() {
+      this.buildForm();
+  }
+
+  buildForm(): void {
+      this.form = this.formBuilder.group({
+          rate: [undefined, Validators.required]
+      });
+  }
+
+  onSubmit(interest) {
+    this.spinner = true;
+    this.baseInterestService.save(interest).subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Base Interest'));
           this.activeModal.close(ModalResponse.SUCCESS);
-
+          this.spinner = false;
         }, error => {
-
-          console.log(error);
+          this.spinner = false;
           this.activeModal.dismiss(error);
           this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Base Interest'));
         }
     );
   }
+
   onClose() {
     this.activeModal.dismiss(ModalResponse.CANCEL);
   }

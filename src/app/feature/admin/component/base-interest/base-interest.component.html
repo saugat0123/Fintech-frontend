@@ -1,11 +1,9 @@
 <nb-card-header>
-    <div  class="col-md-12">
         <div class="float-right">
-            <button (click)="addInterest()" data-toggle="modal" class="m-3">
+            <button nbButton outline status="success" class="mb-4 mt-0" (click)="addInterest()">
                 <i class="fa fa-plus"></i>
             </button>
         </div>
-    </div>
 </nb-card-header>
 <nb-card-body>
     <div class="box-body">
@@ -13,8 +11,7 @@
             <thead>
             <tr>
                 <th>S.N</th>
-                <th>From Date</th>
-                <th>To Date</th>
+                <th>Created Date</th>
                 <th>Base Rate</th>
                 <th>Status</th>
             </tr>
@@ -26,7 +23,6 @@
                 </div>
                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                 <td>{{access.createdAt | date:'yyyy-MM-dd'}}</td>
-                <td >{{access.lastModifiedAt  | date:'yyyy-MM-dd'}}</td>
                 <td >{{access.rate}}</td>
                 <td >
                     <p [className]="access.status=='ACTIVE' ? 'text-success' : 'text-danger'">{{access.status}}</p>
