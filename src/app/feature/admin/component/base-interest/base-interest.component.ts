@@ -8,7 +8,7 @@ import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {BaseInterestFormComponent} from './base-interest-form/base-interest-form.component';
 import {Action} from '../../../../@core/Action';
-import {search} from 'ionicons/icons';
+
 
 
 @Component({
