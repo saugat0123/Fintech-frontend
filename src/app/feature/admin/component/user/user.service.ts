@@ -68,4 +68,9 @@ export class UserService extends BaseService<User> {
         const req = ApiUtils.getRequest(`${UserService.API}/changePassword`);
         return this.http.post(req.url, obj, {headers: req.header});
     }
+
+    public getAuthenticatedUsers(): Observable<any> {
+        const req = ApiUtils.getRequest(`${UserService.API}/higher-authority-user-list`);
+        return this.http.get(req.url, {headers: req.header});
+    }
 }

@@ -38,7 +38,7 @@
                     <ng-select
                             [closeOnSelect]="true"
                             [hideSelected]="true"
-                            [items]="users"
+                            [items]="forwardUsers"
                             [multiple]="false"
                             bindLabel="name"
                             formControlName="sentTo"
@@ -116,4 +116,3 @@
         </nb-card-footer>
     </form>
 </nb-card>
-<pre>{{memoComposeForm.value | json}}</pre>

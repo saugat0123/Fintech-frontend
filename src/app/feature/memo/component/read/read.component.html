@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <img class="report-log img-thumbnail border-0"
+                    <img class="report-log img-thumbnail border-0" alt="Bank logo"
                          src="../../../../../assets/img/logo.png">
                 </div>
             </div>
@@ -41,14 +41,14 @@
                         <tr>
                             <th scope="col">S.N</th>
                             <th scope="col">Name</th>
-<!--                            <th scope="col">Role</th>-->
+                            <th scope="col">Role</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr *ngFor="let ccUser of memo?.cc; let i = index">
                             <td>{{i + 1}}</td>
                             <td>{{ccUser?.name}}</td>
-<!--                            <td>{{ccUser?.role?.roleName}}</td>-->
+                            <td>{{ccUser?.role?.roleName}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -63,14 +63,14 @@
                         <tr>
                             <th scope="col">S.N</th>
                             <th scope="col">Name</th>
-                            <!--                            <th scope="col">Role</th>-->
+                            <th scope="col">Role</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr *ngFor="let ccUser of memo?.bcc; let i = index">
                             <td>{{i + 1}}</td>
                             <td>{{ccUser?.name}}</td>
-                            <!--                            <td>{{ccUser?.role?.roleName}}</td>-->
+                            <td>{{ccUser?.role?.roleName}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -87,17 +87,18 @@
                 </div>
                 <div class="col-md-12 my-2">
                     <h5><strong>Authority Section</strong></h5>
-                    <table aria-describedby="stages-list-table" class="table table-condensed table-bordered table-responsive-md text-justify">
+                    <table aria-describedby="stages-list-table"
+                           class="table table-condensed table-bordered table-responsive-md text-justify">
                         <thead>
                         <tr>
                             <th scope="col">S.N</th>
-                            <th scope="col" class="print-only">Date</th>
-                            <th scope="col" class="text-center">From User</th>
-                            <th scope="col" class="disable-print">From Position</th>
-                            <th scope="col" class="disable-print text-center">To User</th>
-                            <th scope="col" class="disable-print">To Position</th>
+                            <th class="print-only" scope="col">Date</th>
+                            <th class="text-center" scope="col">From User</th>
+                            <th class="disable-print" scope="col">From Position</th>
+                            <th class="disable-print text-center" scope="col">To User</th>
+                            <th class="disable-print" scope="col">To Position</th>
                             <th scope="col">Status</th>
-                            <th scope="col" class="cmt-width">Comment</th>
+                            <th class="cmt-width" scope="col">Comment</th>
                         </tr>
                         </thead>
                         <tbody>

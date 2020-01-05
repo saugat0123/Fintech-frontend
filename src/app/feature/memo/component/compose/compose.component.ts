@@ -35,6 +35,7 @@ export class ComposeComponent implements OnInit {
     memoTask: string;
     memoTypes: MemoType[] = [];
     users: User[] = [];
+    forwardUsers: User[] = [];
     memo: Memo = new Memo();
     memoId: number;
     memoComposeForm: FormGroup;
@@ -61,7 +62,7 @@ export class ComposeComponent implements OnInit {
 
     ngOnInit() {
         this.breadcrumbService.notify(ComposeComponent.TITLE);
-        // this.getSendForwardUsers();
+        this.getAuthorizedUsers();
         this.memoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
         if (this.memoId === null || this.memoId === 0 || this.memoId === undefined) {
             this.isNewMemo = true;
@@ -73,6 +74,9 @@ export class ComposeComponent implements OnInit {
             this.breadcrumbService.notify('Memo - Edit');
             this.memoService.detail(Number(this.memoId)).subscribe((response: any) => {
                 this.memo = response.detail;
+                if (this.memo.stage === 'BACKWARD') {
+                    this.memo.sentTo = this.memo.sentBy;
+                }
                 this.buildMemoForm(this.memo);
             }, error => console.error(error));
         }
@@ -106,15 +110,10 @@ export class ComposeComponent implements OnInit {
         );
     }
 
-    getSendForwardUsers() {
-        this.loanActionService.getSendForwardList().subscribe( res => {
-            console.log(res, 'list of fordable users');
-            this.sendForwardUserList = res.detail;
-        });
-    }
-
     getAuthorizedUsers() {
-
+        this.userService.getAuthenticatedUsers().subscribe(res => {
+            this.forwardUsers = res.detail;
+        });
     }
 
     setMemoValues() {
@@ -126,7 +125,7 @@ export class ComposeComponent implements OnInit {
     }
 
     saveMemo(memo: Memo) {
-        this.memoService.save(memo).subscribe((response: any) => {
+        this.memoService.save(memo).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, memo.stage === 'DRAFT' ? 'SAVED MEMO AS DRAFT' : 'SUCCESSFULLY SENT MEMO'));
             this.router.navigate(memo.stage === 'DRAFT' ? [MemoFullRoute.DRAFT] : [MemoFullRoute.SENT]);
 
@@ -137,7 +136,7 @@ export class ComposeComponent implements OnInit {
     }
 
     updateMemo(memo: Memo) {
-        this.memoService.update(memo.id, memo).subscribe((response: any) => {
+        this.memoService.update(memo.id, memo).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, memo.stage === 'DRAFT' ? 'SUCCESSFULLY UPDATED MEMO' : 'SUCCESSFULLY SENT MEMO'));
             this.router.navigate(memo.stage === 'DRAFT' ? [MemoFullRoute.DRAFT] : [MemoFullRoute.SENT]);
         }, error => {
