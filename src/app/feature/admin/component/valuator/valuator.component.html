@@ -24,34 +24,79 @@
             <nb-card-header>
                 <div class=row>
                     <div class="col-md-6">
-                        <form (ngSubmit)="onSearch()">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <input (input)="onSearchChange($event.target['value'])" [(ngModel)]="search.name"
-                                           fullWidth name="name"
-                                           nbInput
-                                           placeholder="search...." type="text">
-                                </div>
-                                <div class="col-md-4">
-                                    <button nbButton outline status="primary" type="submit">
-                                        <em class="fa fa-search"></em>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                        <button (click)="isFilterCollapsed = !isFilterCollapsed" [attr.aria-expanded]="!isFilterCollapsed"
+                                nbButton
+                                status="primary">
+                            <i class="fa fa-filter"> Filter</i>
+                        </button>
                     </div>
                     <div class="col-md-6">
                         <div class="float-right">
-                            <button (click)="add()" *ngIf="addViewValuator" data-toggle="modal" nbButton outline
-                                    status="success">
-                                <em class="fa fa-plus"></em>
+                            <button nbButton outline status="success" (click)="add()">
+                                <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div id="searchModel" class="col-md-12" [ngbCollapse]="isFilterCollapsed">
+                        <form (ngSubmit)="onSearch()" [formGroup]="filterForm">
+                            <div class="row py-3">
+                                <div class="col-md-3 mb-3">
+                                    <input fieldSize="medium" formControlName="name"
+                                           nbInput
+                                           placeholder="Enter name"
+                                           type="text">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <select class="custom-select" formControlName="branch">
+                                        <option [value]="null" selected hidden>Select Branch</option>
+                                        <option *ngFor="let branch of branchList"
+                                                [value]="branch.id">{{branch.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <select class="custom-select" formControlName="status">
+                                        <option [value]="null" selected hidden>Select Status</option>
+                                        <option [value]="null">All Status</option>
+                                        <option value="ACTIVE">Active</option>
+                                        <option value="INACTIVE">Inactive</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <select class="custom-select" formControlName="valuatingField">
+                                        <option [value]="null" selected hidden>Select Valuating Field</option>
+                                        <option *ngFor="let valuatingField of valuatingFieldEnumObject"
+                                                   [value]="valuatingField?.key">
+                                            {{valuatingField?.value}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <input fieldSize="medium" formControlName="minAmount"
+                                           nbInput
+                                           placeholder="Enter min amount"
+                                           type="number">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <input fieldSize="medium" formControlName="maxAmount"
+                                           nbInput
+                                           placeholder="Enter max amount"
+                                           type="number">
+                                </div>
+                            </div>
+                            <div class="col-md-12 p-0">
+                                <button nbButton status="info" type="submit" class="mr-2">Search</button>
+                                <button (click)="clearSearch()" class="mr-2" nbButton
+                                        status="danger" type="button">Clear
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </nb-card-header>
             <nb-card-body>
-                <section *ngIf="viewValuator">
                     <table aria-describedby="Valuator list" class="table table-bordered table-hover"
                            id="add-valuator-table">
                         <thead>
@@ -67,7 +112,7 @@
                             <th scope="col">Minimum Amount</th>
                             <th scope="col">Maximum Amount</th>
                             <th scope="col">Status</th>
-                            <th *ngIf='editValuator === true' scope="col">Action</th>
+                            <th scope="col">Action</th>
                         </tr>
                         </thead>
 
@@ -93,8 +138,9 @@
                             <td>{{valuator?.bankAssociateDate | date}}</td>
                             <td>Rs.{{valuator?.minAmount | currencyFormatter}}</td>
                             <td>Rs.{{valuator?.maxAmount | currencyFormatter}}</td>
-                            <td *ngIf='editValuator === true; else status '>
-                                <select (change)="onChange(valuator, $event)" [(ngModel)]="valuator.status" [nbPopover]="valuator?.status === 'INACTIVE' ?
+                            <td>
+                                <select (change)="onChange(valuator, $event)"
+                                        [(ngModel)]="valuator.status" [nbPopover]="valuator?.status === 'INACTIVE' ?
                                         'Inactive Reason: ' + valuator?.inactiveComment :
                                         'No Comments available'"
                                         class="select-borderless"
@@ -110,19 +156,18 @@
                                     <p [className]="valuator.status=='ACTIVE' ? 'greenP' : 'redP'">{{valuator.status}}</p>
                                 </td>
                             </ng-template>
-                            <td *ngIf='editValuator === true'>
-                                <ng-container>
-                                    <button (click)="edit(valuator)" *ngIf="editValuator" class="m-1" nbButton size="small"
-                                            status="info"
-                                            title="Edit">
-                                        <em class="fa fa-edit"></em>
-                                    </button>
-                                    <button (click)="deleteValuator(valuator, $event)" class="m-1" nbButton size="small"
-                                            status="danger"
-                                            title="Delete">
-                                        <em class="fa fa-ban"></em>
-                                    </button>
-                                </ng-container>
+                            <td>
+                                <button (click)="edit(valuator)" class="m-1" nbButton size="small"
+                                        status="info"
+                                        title="Edit">
+                                    <em class="fa fa-edit"></em>
+                                </button>
+                                <button (click)="deleteValuator(valuator, $event)" class="m-1"
+                                        nbButton size="small"
+                                        status="danger"
+                                        title="Delete">
+                                    <em class="fa fa-ban"></em>
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -132,7 +177,6 @@
                     <!-- ===================table-pagination==================== -->
                     <app-paging (changePage)="changePage($event)" *ngIf="!spinner" [pageable]="pageable"></app-paging>
                     <!-- ===================table-pagination==================== -->
-                </section>
             </nb-card-body>
         </nb-card>
     </div>
