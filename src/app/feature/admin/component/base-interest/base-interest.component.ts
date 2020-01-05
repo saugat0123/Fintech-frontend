@@ -35,7 +35,6 @@ export class BaseInterestComponent implements OnInit {
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
         }, error => {
-            console.error(error);
             other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
             other.spinner = false;
         });
