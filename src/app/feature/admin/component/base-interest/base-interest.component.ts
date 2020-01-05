@@ -34,7 +34,7 @@ export class BaseInterestComponent implements OnInit {
             other.listing = response.detail.content;
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
-        }, error => {
+        }, () => {
             other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data!'));
             other.spinner = false;
         });
