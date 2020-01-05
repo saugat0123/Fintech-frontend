@@ -19,6 +19,7 @@ import {BranchService} from './branch.service';
 import {PermissionService} from '../../../../@core/service/permission.service';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {Action} from '../../../../@core/Action';
 
 @Component({
     selector: 'app-branch',
@@ -155,14 +156,16 @@ export class BranchComponent implements OnInit {
 
         const modalRef = this.modalService.open(BranchFormComponent, {size: 'lg'});
         modalRef.componentInstance.model = branch;
+        modalRef.componentInstance.action = Action.UPDATE;
+
         ModalUtils.resolve(modalRef.result, BranchComponent.loadData, this);
     }
 
     add() {
 
         const modalRef = this.modalService.open(BranchFormComponent, {size: 'lg'});
-
         modalRef.componentInstance.model = new Branch();
+        modalRef.componentInstance.action = Action.ADD;
 
         ModalUtils.resolve(modalRef.result, BranchComponent.loadData, this);
     }
