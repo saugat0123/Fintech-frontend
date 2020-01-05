@@ -10,6 +10,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {BranchService} from '../branch.service';
 import {Branch} from '../../../modal/branch';
+import {Action} from '../../../../../@core/Action';
 
 declare let google: any;
 
@@ -21,6 +22,7 @@ declare let google: any;
 export class BranchFormComponent implements OnInit {
 
   @Input() model: Branch;
+  @Input() action: Action;
 
   submitted = false;
   spinner = false;
@@ -28,7 +30,6 @@ export class BranchFormComponent implements OnInit {
   districts: District[];
   municipalities: MunicipalityVdc[];
   branchForm: FormGroup;
-  task: string;
   latitude = 27.732454;
   longitude = 85.291543;
   markerLatitude = null;
@@ -53,8 +54,15 @@ export class BranchFormComponent implements OnInit {
     return this.branchForm.controls;
   }
 
+  get locationPreview() {
+    return this.branchForm.get('locationPreview');
+  }
+
   ngOnInit() {
     this.buildForm();
+    if (this.action === Action.UPDATE) {
+      this.findLocation(this.locationPreview.value);
+    }
     this.location.getProvince().subscribe((response: any) => {
       this.provinces = response.detail;
     });
@@ -156,9 +164,8 @@ export class BranchFormComponent implements OnInit {
   }
 
   findLocation(coordinate) {
-    this.latLng = coordinate.value.split(',', 2);
+    this.latLng = coordinate.split(',', 2);
     this.placeMaker(+this.latLng[0], +this.latLng[1]);
-    console.log(this.latLng);
   }
 
   onSubmit() {
