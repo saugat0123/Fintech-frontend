@@ -12,9 +12,9 @@ export class Branch {
     lastModified: string;
     district: District;
     province: Province;
-    municipalityVdc: MunicipalityVdc;
     streetName: string;
     wardNumber: number;
+    municipalityVdc: MunicipalityVdc;
     status: string;
     landlineNumber: string;
     email: string;

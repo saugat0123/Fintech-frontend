@@ -8,208 +8,181 @@ import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {BranchService} from '../../branch/branch.service';
+import {BranchService} from '../branch.service';
 import {Branch} from '../../../modal/branch';
 
 declare let google: any;
 
 
-
 @Component({
-    selector: 'app-branch-form',
-    templateUrl: './branch-form.component.html'
+  selector: 'app-branch-form',
+  templateUrl: './branch-form.component.html'
 })
 export class BranchFormComponent implements OnInit {
 
-    @Input()
-    model: Branch = new Branch();
+  @Input() model: Branch;
 
-    submitted = false;
-    spinner = false;
-    provinces: Province[];
-    districts: District[];
-    municipalities: MunicipalityVdc[];
-    branchForm: FormGroup;
-    task: string;
-    latitude = 27.732454;
-    longitude = 85.291543;
-    markerLatitude = null;
-    markerLongitude = null;
-    infoWindowOpen = new FormControl(false);
-    addressLabel = new FormControl('');
-    zoom = 8;
-    latLng: string[];
-
-
-    constructor(
-        private service: BranchService,
-        private location: AddressService,
-        private activeModal: NgbActiveModal,
-        private toastService: ToastService,
-        private formBuilder: FormBuilder
-    ) {
-
-    }
-
-    ngOnInit() {
-        this.buildForm();
-        this.location.getProvince().subscribe((response: any) => {
-            this.provinces = response.detail;
-        });
+  submitted = false;
+  spinner = false;
+  provinces: Province[];
+  districts: District[];
+  municipalities: MunicipalityVdc[];
+  branchForm: FormGroup;
+  task: string;
+  latitude = 27.732454;
+  longitude = 85.291543;
+  markerLatitude = null;
+  markerLongitude = null;
+  infoWindowOpen = new FormControl(false);
+  addressLabel = new FormControl('');
+  zoom = 8;
+  latLng: string[];
 
 
-        if (!ObjectUtil.isEmpty(this.model.province)) {
-            this.getDistrictsById(this.model.province.id, null);
-            this.getMunicipalitiesById(this.model.district.id, null);
-        }
-    }
+  constructor(
+      private service: BranchService,
+      private location: AddressService,
+      private activeModal: NgbActiveModal,
+      private toastService: ToastService,
+      private formBuilder: FormBuilder
+  ) {
 
-    buildForm() {
-        this.branchForm = this.formBuilder.group({
-            id: [(ObjectUtil.isEmpty(this.model)
-                || ObjectUtil.isEmpty(this.model.id)) ? undefined :
-                this.model.id],
-            name: [(ObjectUtil.isEmpty(this.model)
-                || ObjectUtil.isEmpty(this.model.name)) ? undefined :
-                this.model.name, [Validators.required]],
-            landlineNumber: [(ObjectUtil.isEmpty(this.model)
-                || ObjectUtil.isEmpty(this.model.landlineNumber)) ? undefined :
-                this.model.landlineNumber, [Validators.required]],
-            email: [(ObjectUtil.isEmpty(this.model)
-                || ObjectUtil.isEmpty(this.model.email)) ? undefined :
-                this.model.email, [Validators.required, Validators.email]],
-            province: [(ObjectUtil.isEmpty(this.model)
-                || ObjectUtil.isEmpty(this.model.province)) ? undefined :
-                this.model.province, [Validators.required]],
-            district: [(ObjectUtil.isEmpty(this.model)
-                || ObjectUtil.isEmpty(this.model.district)) ? undefined :
-                this.model.district, [Validators.required]],
-            municipalityVdc: [(ObjectUtil.isEmpty(this.model)
-                || ObjectUtil.isEmpty(this.model.municipalityVdc)) ? undefined :
-                this.model.municipalityVdc, [Validators.required]],
-            streetName: [(ObjectUtil.isEmpty(this.model)
-                || ObjectUtil.isEmpty(this.model.streetName)) ? undefined :
-                this.model.streetName, [Validators.required]],
-            wardNumber: [(ObjectUtil.isEmpty(this.model)
-                || ObjectUtil.isEmpty(this.model.wardNumber)) ? undefined :
-                this.model.wardNumber, [Validators.required]],
-            branchCode: [(ObjectUtil.isEmpty(this.model)
-                || ObjectUtil.isEmpty(this.model.branchCode)) ? undefined :
-                this.model.branchCode, [Validators.required]],
-            status: [(ObjectUtil.isEmpty(this.model)
-                || ObjectUtil.isEmpty(this.model.status)) ? undefined :
-                this.model.status],
-            locationPreview: [(ObjectUtil.isEmpty(this.model)
-                || ObjectUtil.isEmpty(this.model.locationPreview)) ? undefined :
-                this.model.locationPreview],
-            version: [(ObjectUtil.isEmpty(this.model)
-                || ObjectUtil.isEmpty(this.model.version)) ? undefined :
-                this.model.version]
+  }
 
+  get branchFormControl() {
+    return this.branchForm.controls;
+  }
+
+  ngOnInit() {
+    this.buildForm();
+    this.location.getProvince().subscribe((response: any) => {
+      this.provinces = response.detail;
     });
-    }
 
-    get branchFormControl() {
-        return this.branchForm.controls;
-    }
 
-    compareFn(c1: any, c2: any): boolean {
-        return c1 && c2 ? c1.id === c2.id : c1 === c2;
+    if (!ObjectUtil.isEmpty(this.model.province)) {
+      this.getDistrictsById(this.model.province.id, null);
+      this.getMunicipalitiesById(this.model.district.id, null);
     }
+  }
 
-    getDistrictsById(provinceId: number, event) {
-        const province = new Province();
-        province.id = provinceId;
-        this.location.getDistrictByProvince(province).subscribe(
-            (response: any) => {
-                this.districts = response.detail;
-                if (event !== null) {
-                    this.branchForm.get('district').patchValue(null);
-                    this.branchForm.get('municipalityVdc').patchValue(null);
-                    this.municipalities = null;
-                }
-            }
-        );
-    }
+  buildForm() {
+    this.branchForm = this.formBuilder.group({
+      id: [ObjectUtil.setUndefinedIfNull(this.model.id)],
+      name: [ObjectUtil.setUndefinedIfNull(this.model.name), [Validators.required]],
+      landlineNumber: [ObjectUtil.setUndefinedIfNull(this.model.landlineNumber), [Validators.required]],
+      email: [ObjectUtil.setUndefinedIfNull(this.model.email), [Validators.required, Validators.email]],
+      province: [ObjectUtil.setUndefinedIfNull(this.model.province), [Validators.required]],
+      district: [ObjectUtil.setUndefinedIfNull(this.model.district), [Validators.required]],
+      municipalityVdc: [ObjectUtil.setUndefinedIfNull(this.model.municipalityVdc), [Validators.required]],
+      streetName: [ObjectUtil.setUndefinedIfNull(this.model.streetName), [Validators.required]],
+      wardNumber: [ObjectUtil.setUndefinedIfNull(this.model.wardNumber), [Validators.required]],
+      branchCode: [ObjectUtil.setUndefinedIfNull(this.model.branchCode), [Validators.required]],
+      status: [ObjectUtil.setUndefinedIfNull(this.model.status)],
+      locationPreview: [ObjectUtil.setUndefinedIfNull(this.model.locationPreview)],
+      version: [ObjectUtil.setUndefinedIfNull(this.model.version)]
+    });
+  }
 
-    getMunicipalitiesById(districtId: number, event) {
-        const district = new District();
-        district.id = districtId;
-        this.location.getMunicipalityVDCByDistrict(district).subscribe(
-            (response: any) => {
-                this.municipalities = response.detail;
-                if (event !== null) {
-                    this.branchForm.get('municipalityVdc').patchValue(null);
-                }
-            }
-        );
-    }
+  compareFn(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
 
-    placeMaker(latitude, longitude) {
-        this.infoWindowOpen.setValue('false');
-        this.zoom = 10;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.markerLatitude = this.latitude;
-        this.markerLongitude = this.longitude;
-        (<FormGroup>this.branchForm)
-            .get('locationPreview')
-            .setValue(this.latitude + ',' + this.longitude);
-        this.getAddress(this.latitude, this.longitude);
-    }
-
-    getAddress(latitude: number, longitude: number) {
-        if (navigator.geolocation) {
-            const geocoder = new google.maps.Geocoder();
-            const latlng = new google.maps.LatLng(latitude, longitude);
-            const request = {latLng: latlng};
-            geocoder.geocode(request, (results, status) => {
-                if (status === google.maps.GeocoderStatus.OK) {
-                    const result = results[0];
-                    const rsltAdrComponent = result.formatted_address;
-                    if (rsltAdrComponent != null) {
-                        this.addressLabel.setValue(rsltAdrComponent);
-                        this.infoWindowOpen.setValue('true');
-                    } else {
-                        this.addressLabel.setValue(null);
-                        alert('No address available!');
-                    }
-                } else {
-                    this.addressLabel.setValue(null);
-                    alert('Error in GeoCoder');
-                }
-            });
+  getDistrictsById(provinceId: number, event) {
+    const province = new Province();
+    province.id = provinceId;
+    this.location.getDistrictByProvince(province).subscribe(
+        (response: any) => {
+          this.districts = response.detail;
+          if (event !== null) {
+            this.branchForm.get('district').patchValue(null);
+            this.branchForm.get('municipalityVdc').patchValue(null);
+            this.municipalities = null;
+          }
         }
+    );
+  }
+
+  getMunicipalitiesById(districtId: number, event) {
+    const district = new District();
+    district.id = districtId;
+    this.location.getMunicipalityVDCByDistrict(district).subscribe(
+        (response: any) => {
+          this.municipalities = response.detail;
+          if (event !== null) {
+            this.branchForm.get('municipalityVdc').patchValue(null);
+          }
+        }
+    );
+  }
+
+  placeMaker(latitude, longitude) {
+    this.infoWindowOpen.setValue('false');
+    this.zoom = 10;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.markerLatitude = this.latitude;
+    this.markerLongitude = this.longitude;
+    (<FormGroup>this.branchForm)
+    .get('locationPreview')
+    .setValue(this.latitude + ',' + this.longitude);
+    this.getAddress(this.latitude, this.longitude);
+  }
+
+
+  getAddress(latitude: number, longitude: number) {
+    if (navigator.geolocation) {
+      const geocoder = new google.maps.Geocoder();
+      const latlng = new google.maps.LatLng(latitude, longitude);
+      const request = {latLng: latlng};
+      geocoder.geocode(request, (results, status) => {
+        if (status === google.maps.GeocoderStatus.OK) {
+          const result = results[0];
+          const rsltAdrComponent = result.formatted_address;
+          if (rsltAdrComponent != null) {
+            this.addressLabel.setValue(rsltAdrComponent);
+
+            this.infoWindowOpen.setValue('true');
+          } else {
+            this.addressLabel.setValue(null);
+            this.toastService.show(new Alert(AlertType.INFO, 'No address available!'));
+          }
+        } else {
+          this.addressLabel.setValue(null);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Error in GeoCoder'));
+        }
+      });
     }
+  }
 
-    findLocation(coordinate) {
-        this.latLng = coordinate.value.split(',', 2);
-        this.placeMaker(+this.latLng[0], +this.latLng[1]);
-        console.log(this.latLng);
+  findLocation(coordinate) {
+    this.latLng = coordinate.value.split(',', 2);
+    this.placeMaker(+this.latLng[0], +this.latLng[1]);
+    console.log(this.latLng);
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    if (this.branchForm.invalid) {
+      return;
     }
-    onSubmit() {
-        this.submitted = true;
-        if (this.branchForm.invalid) { return; }
-        this.spinner = true;
-        this.model = this.branchForm.value;
-        this.service.save(this.model).subscribe(() => {
+    this.spinner = true;
+    this.model = this.branchForm.value;
+    this.service.save(this.model).subscribe(() => {
 
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Branch!'));
-                this.model = new Branch();
-                this.activeModal.close(ModalResponse.SUCCESS);
+          this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Branch!'));
+          this.model = new Branch();
+          this.activeModal.close(ModalResponse.SUCCESS);
 
-            }, error => {
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Branch!'));
+          this.activeModal.dismiss(error);
+        }
+    );
+  }
 
-                console.log(error);
-
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Branch!'));
-                this.activeModal.dismiss(error);
-            }
-        );
-    }
-
-    onClose() {
-        this.activeModal.dismiss(BranchFormComponent);
-    }
+  onClose() {
+    this.activeModal.dismiss('Dismiss');
+  }
 }
-
