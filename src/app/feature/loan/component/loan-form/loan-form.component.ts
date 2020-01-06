@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
@@ -33,6 +33,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerDocumentComponent} from '../loan-main-template/customer-document/customer-document.component';
 import {DocStatus} from '../../model/docStatus';
 import {CustomerService} from '../../../customer/service/customer.service';
+import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
 
 @Component({
     selector: 'app-loan-form',
@@ -105,6 +106,9 @@ export class LoanFormComponent implements OnInit {
 
     showDocStatusDropDown = true;
 
+    @ViewChild('priorityFormNav', {static: false})
+    priorityFormNav: ElementRef;
+
     @ViewChild('basicInfo', {static: false})
     basicInfo: BasicInfoComponent;
 
@@ -155,6 +159,7 @@ export class LoanFormComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private formBuilder: FormBuilder,
         private customerService: CustomerService,
+        private scrollNavService: ScrollNavigationService
     ) {
 
     }
@@ -330,6 +335,7 @@ export class LoanFormComponent implements OnInit {
 
     save() {
         if (this.priorityForm.invalid) {
+            this.scrollNavService.scrollNavigateTo(this.priorityFormNav);
             return;
         }
         this.nextButtonAction = true;
