@@ -10,7 +10,6 @@ export class GroupDetailComponent implements OnInit {
     detailGroup: FormGroup;
     @Input() data: any;
 
-    // initialGroupData: object;
     constructor(
         private detailBuild: FormBuilder
     ) {

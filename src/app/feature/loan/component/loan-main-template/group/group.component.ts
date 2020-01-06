@@ -6,7 +6,6 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {FormBuilder , FormGroup} from '@angular/forms';
 import {ValuatorService} from '../../../../admin/component/valuator/valuator.service';
 import {Proposal} from '../../../../admin/modal/proposal';
-import {LoanDataHolder} from '../../../model/loanData';
 
 @Component({
     selector: 'app-group' ,
@@ -15,7 +14,6 @@ import {LoanDataHolder} from '../../../model/loanData';
 })
 export class GroupComponent implements OnInit {
     @Input() groupValue: Group;
-    @Input() loanDataHolder: LoanDataHolder;
     @Input() proposalDataHolder: Proposal;
 
     @ViewChild('groupDetail' , {static: false})
@@ -46,6 +44,8 @@ export class GroupComponent implements OnInit {
             this.solValue = this.groupDataForEdit.solDetail;
             this.setSolValue(this.solValue);
             this.groupBackData = this.groupDataForEdit;
+            this.modelData.id = this.groupValue.id;
+            this.modelData.version = this.groupValue.version;
         }
         if (!ObjectUtil.isEmpty(this.proposalDataHolder)) {
             this.proposalData = JSON.parse(this.proposalDataHolder.data);
@@ -63,10 +63,6 @@ export class GroupComponent implements OnInit {
                 });
             }
         });
-        if(this.loanDataHolder.group !== undefined){
-            this.modelData.id = this.loanDataHolder.group.id;
-            this.modelData.version = this.loanDataHolder.group.version;
-        }
     }
 
     onSubmit() {

@@ -21,7 +21,6 @@ export class SecurityDetailComponent implements OnInit {
         this.formBuild();
         if (this.data !== undefined) {
             this.data.securityDetail.securityArray.forEach((value) => this.setSecurityDetail(value));
-            // console.log(this.data.securityDetail.securityArray , 'security data');
 
         } else {
             this.addSecurityDetail();

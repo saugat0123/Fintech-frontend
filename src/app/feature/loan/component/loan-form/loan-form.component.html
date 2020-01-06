@@ -91,7 +91,7 @@
                                                [loanDataHolder]="loanDocument"></app-customer-document>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Group'">
-                        <app-group #group [groupValue]="loanDocument?.group" [proposalDataHolder]="loanDocument?.proposal" [loanDataHolder]="loanDocument" ></app-group>
+                        <app-group #group [groupValue]="loanDocument?.group" [proposalDataHolder]="loanDocument?.proposal" ></app-group>
                     </ng-template>
                 </ngb-tab>
             </ngb-tabset>
