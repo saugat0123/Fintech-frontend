@@ -77,8 +77,9 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Valuation Date</label>
-                                                <input class="form-control" formControlName="valuationDate" name="valuationDate"
-                                                       placeholder="mm/dd/yyyy" type="date">
+                                                <input [nbDatepicker]="securityValuationDate" class="form-control" formControlName="valuationDate" name="valuationDate"
+                                                       placeholder="mm/dd/yyyy" >
+                                                <nb-datepicker #securityValuationDate></nb-datepicker>
 
                                             </div>
                                         </div>
@@ -110,8 +111,9 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Expiry Date</label>
-                                                <input class="form-control" formControlName="expiryDate" name="expiryDate"
-                                                       placeholder="mm/dd/yyyy" type="date">
+                                                <input [nbDatepicker]="securityExpiryDate"  class="form-control" formControlName="expiryDate" name="expiryDate"
+                                                       placeholder="mm/dd/yyyy">
+                                                <nb-datepicker #securityExpiryDate></nb-datepicker>
 
                                             </div>
                                         </div>
