@@ -4,11 +4,10 @@
         <h2 class="d-flex justify-content-center">{{loanTitle}}</h2>
         <hr>
 
-
         <div class="row">
 
             <div class="col-md-3">
-                <form [formGroup]="priorityForm">
+                <form #priorityFormNav id="priorityFormNav" [formGroup]="priorityForm">
                     <label><strong>Priority</strong></label>
                     <ng-select [items]="dropdownPriorities"
                                [multiple]="false"
