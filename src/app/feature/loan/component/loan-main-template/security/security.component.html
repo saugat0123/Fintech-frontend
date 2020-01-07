@@ -13,9 +13,7 @@
                 <div class="form-group">
                     <form [formGroup]="guarantorsForm">
                         <!--START ROW-->
-                        <div *ngFor="let guarantorsDetails of guarantorsForm.get('guarantorsDetails')['controls']; let i = index"
-                             class="font-weight-bold"
-                             formArrayName="guarantorsDetails">
+                        <div *ngFor="let guarantorsDetails of guarantorsForm.get('guarantorsDetails')['controls']; let i = index" class="font-weight-bold" formArrayName="guarantorsDetails">
                             <div [formGroupName]="i">
                                 <div class="row">
                                     <div class="col-md-3">
@@ -53,7 +51,6 @@
                                     </div>
                                 </div>
                                 <!--END ROW-->
-
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
@@ -121,4 +118,5 @@
         </div>
     </nb-card-body>
 </nb-card>
+
 
