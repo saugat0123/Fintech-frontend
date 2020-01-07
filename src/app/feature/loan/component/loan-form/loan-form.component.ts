@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
@@ -28,10 +28,12 @@ import {CreditGradingComponent} from '../loan-main-template/credit-grading/credi
 import {SiteVisitComponent} from '../loan-main-template/site-visit/site-visit.component';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {SecurityComponent} from '../loan-main-template/security/security.component';
+import {GroupComponent} from '../loan-main-template/group/group.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerDocumentComponent} from '../loan-main-template/customer-document/customer-document.component';
 import {DocStatus} from '../../model/docStatus';
 import {CustomerService} from '../../../customer/service/customer.service';
+import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
 
 @Component({
     selector: 'app-loan-form',
@@ -104,6 +106,9 @@ export class LoanFormComponent implements OnInit {
 
     showDocStatusDropDown = true;
 
+    @ViewChild('priorityFormNav', {static: false})
+    priorityFormNav: ElementRef;
+
     @ViewChild('basicInfo', {static: false})
     basicInfo: BasicInfoComponent;
 
@@ -136,6 +141,8 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('customerDocument', {static: false})
     customerDocument: CustomerDocumentComponent;
+    @ViewChild('group', {static: false})
+    group: GroupComponent;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -152,6 +159,7 @@ export class LoanFormComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private formBuilder: FormBuilder,
         private customerService: CustomerService,
+        private scrollNavService: ScrollNavigationService
     ) {
 
     }
@@ -327,6 +335,7 @@ export class LoanFormComponent implements OnInit {
 
     save() {
         if (this.priorityForm.invalid) {
+            this.scrollNavService.scrollNavigateTo(this.priorityFormNav);
             return;
         }
         this.nextButtonAction = true;
@@ -451,6 +460,10 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Credit Risk Grading' && action) {
             this.creditGrading.onSubmit();
             this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
+        }
+        if (name === 'Group' && action) {
+            this.group.onSubmit();
+            this.loanDocument.group = this.group.modelData;
         }
         return false;
 

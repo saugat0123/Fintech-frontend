@@ -25,6 +25,7 @@ export class SecurityComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
+        console.log(this.securityValue, 'this is security');
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityValueForEdit = JSON.parse(this.securityValue.data);
 
@@ -85,12 +86,12 @@ export class SecurityComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.securityValue)) {
         this.securityData = this.securityValue;
       }
-        const mergedForm = {
+      const mergedForm = {
             initialForm: this.initialSecurity.securityForm.value,
             selectedArray: this.initialSecurity.selectedArray,
             underConstructionChecked: this.initialSecurity.underConstructionChecked,
             guarantorsForm: this.guarantorsForm.value
-        };
-        this.securityData.data = JSON.stringify(mergedForm);
+      };
+      this.securityData.data = JSON.stringify(mergedForm);
     }
 }
