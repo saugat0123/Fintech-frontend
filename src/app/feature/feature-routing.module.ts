@@ -12,6 +12,7 @@ const routes: Routes = [
             { path: 'dashboard', component: DashboardComponent },
             { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
             { path: 'memo', loadChildren: () => import('./memo/memo.module').then(m => m.MemoModule) },
+            { path: 'credit-memo', loadChildren: () => import('./credit-memo/credit-memo.module').then(m => m.CreditMemoModule) },
             { path: 'loan', loadChildren: () => import('./loan/loan.module').then(m => m.LoanModule) },
             {path: 'customer', loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)},
             { path: '', redirectTo: 'dashboard' },
