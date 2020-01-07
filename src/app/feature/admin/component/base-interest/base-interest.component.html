@@ -11,8 +11,8 @@
             <thead>
             <tr>
                 <th>S.N</th>
-                <th>Created Date</th>
                 <th>Base Rate</th>
+                <th>Created Date</th>
                 <th>Status</th>
             </tr>
             </thead>
@@ -22,8 +22,8 @@
                     <p>No Content Found</p>
                 </div>
                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
-                <td>{{access.createdAt | date:'yyyy-MM-dd'}}</td>
                 <td >{{access.rate}}</td>
+                <td>{{access.createdAt | date}}</td>
                 <td >
                     <p [className]="access.status=='ACTIVE' ? 'text-success' : 'text-danger'">{{access.status}}</p>
                 </td>
