@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-3 disable-print">
+        <div class="row">
+            <div class="col-md-12">
+                <nb-card>
+                    <nb-card-body>
+                        <nb-list>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/credit-memo/compose">
+                                    <em class="fa fa-inbox"></em>
+                                    Compose
+                                </a>
+                            </nb-list-item>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/credit-memo/under-review">
+                                    <em class="fa fa-inbox"></em>
+                                    Under Review
+                                </a>
+                            </nb-list-item>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/credit-memo/sent"><em class="fa fa-share"></em> Sent</a>
+                            </nb-list-item>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/credit-memo/backward"><em class="fa fa-reply"></em> Backwarded</a>
+                            </nb-list-item>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/credit-memo/draft">
+                                    <em class="fa fa-envelope-open-text"></em> Drafts</a>
+                            </nb-list-item>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/credit-memo/approved">
+                                    <em class="fa fa-check"></em> Approved
+                                </a>
+                            </nb-list-item>
+                            <nb-list-item routerLinkActive="active">
+                                <a routerLink="/home/credit-memo/rejected">
+                                    <em class="fa fa-times"></em> Rejected</a>
+                            </nb-list-item>
+                        </nb-list>
+                    </nb-card-body>
+                </nb-card>
+            </div>
+        </div>
+    </div>
+    <!-- /.col -->
+    <div class="col-md-9">
+        <router-outlet></router-outlet>
+    </div>
+</div>

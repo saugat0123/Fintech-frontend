@@ -1,25 +1,26 @@
 import {Routes} from '@angular/router';
-import {MemoBaseComponent} from '../memo/component/memo-base/memo-base.component';
-import {ComposeComponent} from '../memo/component/compose/compose.component';
-import {DraftComponent} from '../memo/component/draft/draft.component';
-import {RejectedComponent} from '../memo/component/reject/rejected.component';
-import {ReviewComponent} from '../memo/component/review/review.component';
-import {ApprovedComponent} from '../memo/component/approved/approved.component';
-import {ReadComponent} from '../memo/component/read/read.component';
-import {MemoTypeComponent} from '../memo/component/memo-type/memo-type.component';
+import {ViewMemoComponent} from './component/view-memo/view-memo.component';
+import {ComposeComponent} from './component/compose/compose.component';
+import {ReadComponent} from './component/read/read.component';
+import {CreditMemoBaseComponent} from './component/credit-memo-base/credit-memo-base.component';
+import {CreditMemoTypeComponent} from './component/credit-memo-type/credit-memo-type.component';
 
 export const CreditMemoRoutes: Routes = [
     {
-        path: '', component: MemoBaseComponent, children: [
+        path: '', component: CreditMemoBaseComponent, children: [
+            {path: '', redirectTo: 'compose', pathMatch: 'full'},
             {path: 'compose', component: ComposeComponent},
-            {path: 'draft', component: DraftComponent},
-            {path: 'rejected', component: RejectedComponent},
-            {path: 'review', component: ReviewComponent},
-            {path: 'approved', component: ApprovedComponent},
+            {path: 'draft', component: ViewMemoComponent},
+            {path: 'rejected', component: ViewMemoComponent},
+            {path: 'sent', component: ViewMemoComponent},
+            {path: 'under-review', component: ViewMemoComponent},
+            {path: 'approved', component: ViewMemoComponent},
             {path: 'compose/:id', component: ComposeComponent},
-            {path: 'read/:id', component: ReadComponent}
-
+            {path: 'read/:id', component: ReadComponent},
+            {path: 'backward', component: ViewMemoComponent},
+            {path: '**', redirectTo: 'compose', pathMatch: 'full'}
         ]
     },
-    {path: 'type', component: MemoTypeComponent}
+    {path: 'type', component: CreditMemoTypeComponent}
+
 ];

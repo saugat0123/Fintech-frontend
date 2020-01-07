@@ -1,0 +1,110 @@
+<nb-card>
+    <nb-card-header>
+        <h3>{{memoTask}} Memo</h3>
+    </nb-card-header>
+    <form (ngSubmit)="send()" [formGroup]="memoComposeForm">
+        <nb-card-body>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="hidden" formControlName="id" [hidden]="true">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" formControlName="subject" placeholder="Subject:" [ngClass]="{
+                               'is-invalid': subject.invalid && (subject.dirty || subject.touched),
+                                'is-valid': !subject.invalid && (subject.dirty || subject.touched)
+                                }">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" formControlName="refNumber" placeholder="Reference No:" [ngClass]="{
+                               'is-invalid': refNumber.invalid && (refNumber.dirty || refNumber.touched),
+                                'is-valid': !refNumber.invalid && (refNumber.dirty || refNumber.touched)
+                                }">
+                </div>
+                <div class="form-group">
+                    <ng-select
+                            [closeOnSelect]="true"
+                            [hideSelected]="true"
+                            [items]="memoTypes"
+                            [multiple]="false"
+                            bindLabel="name"
+                            formControlName="type"
+                            placeholder="Select Memo Type" [ngClass]="{
+                               'is-invalid': type.invalid && (type.dirty || type.touched),
+                                'is-valid': !type.invalid && (type.dirty || type.touched)
+                                }">
+                    </ng-select>
+                </div>
+                <div class="form-group">
+                    <ng-select
+                            [closeOnSelect]="true"
+                            [hideSelected]="true"
+                            [items]="forwardUsers"
+                            [multiple]="false"
+                            bindLabel="name"
+                            formControlName="sentTo"
+                            placeholder="Sending To:" [ngClass]="{
+                               'is-invalid': sentTo.invalid && (sentTo.dirty || sentTo.touched),
+                                'is-valid': !sentTo.invalid && (sentTo.dirty || sentTo.touched)
+                                }">
+                    </ng-select>
+                </div>
+                <div class="form-group">
+                    <ng-select
+                            [closeOnSelect]="false"
+                            [hideSelected]="true"
+                            [items]="users"
+                            [multiple]="true"
+                            bindLabel="name"
+                            formControlName="cc"
+                            placeholder="CC:">
+                    </ng-select>
+                </div>
+                <div class="form-group">
+                    <ng-select
+                            [closeOnSelect]="false"
+                            [hideSelected]="true"
+                            [items]="users"
+                            [multiple]="true"
+                            bindLabel="name"
+                            formControlName="bcc"
+                            placeholder="BCC:">
+                    </ng-select>
+                </div>
+                <div class="form-group">
+                    <ckeditor [editor]="editor" formControlName="content"></ckeditor>
+                </div>
+                <!--<div class="form-group">
+                    <nb-card>
+                        <nb-card-header>
+                            Attachments <small>Max. 32MB</small>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <input type="file" multiple="multiple" class="form-control-file">
+                        </nb-card-body>
+                    </nb-card>
+                </div>-->
+            </div>
+
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="col-md-12">
+                <!--<div class="float-left">
+                    <button nbButton status="warning" size="small" type="reset"><em class="fa fa-times"></em>
+                        Discard
+                    </button>
+                </div>-->
+
+                <div class="float-right">
+                    <button nbButton *ngIf="memo.stage !== 'BACKWARD'" (click)="saveAsDraft()" status="primary" size="small" type="button">
+                        <em class="fa fa-pencil"></em>Save as Draft
+                    </button>
+                    <span class="m-1"></span>
+                    <button nbButton status="success" size="small" type="submit" [disabled]="!memoComposeForm.valid">
+                        <em class="fa fa-envelope-o"></em> Send
+                    </button>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </nb-card-footer>
+    </form>
+</nb-card>
