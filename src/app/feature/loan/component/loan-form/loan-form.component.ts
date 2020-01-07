@@ -34,6 +34,7 @@ import {CustomerDocumentComponent} from '../loan-main-template/customer-document
 import {DocStatus} from '../../model/docStatus';
 import {CustomerService} from '../../../customer/service/customer.service';
 import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
+import {VehicleSecurityComponent} from '../loan-main-template/vehicle-security/vehicle-security.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -143,6 +144,9 @@ export class LoanFormComponent implements OnInit {
     customerDocument: CustomerDocumentComponent;
     @ViewChild('group', {static: false})
     group: GroupComponent;
+
+    @ViewChild('vehicleSecurity', {static: false})
+    vehicleSecurity: VehicleSecurityComponent;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -464,6 +468,11 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Group' && action) {
             this.group.onSubmit();
             this.loanDocument.group = this.group.modelData;
+        }
+
+        if (name === 'Vehicle Security' && action) {
+            this.vehicleSecurity.onSubmit();
+            this.loanDocument.vehicleSecurity = this.vehicleSecurity.vehicleSecurityList;
         }
         return false;
 

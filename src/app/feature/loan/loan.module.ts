@@ -52,6 +52,7 @@ import {SitevistSummaryComponentComponent} from './component/loan-summary/sitevi
 import { GroupComponent } from './component/loan-main-template/group/group.component';
 import {GroupDetailComponent} from './component/loan-main-template/group/group-detail/group-detail.component';
 import { SecurityDetailComponent } from './component/loan-main-template/group/security-detail/security-detail.component';
+import { VehicleSecurityComponent } from './component/loan-main-template/vehicle-security/vehicle-security.component';
 
 
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
@@ -102,6 +103,7 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
         GroupComponent,
         GroupDetailComponent,
         SecurityDetailComponent,
+        VehicleSecurityComponent,
     ],
     imports: [
         ThemeModule,
