@@ -90,6 +90,10 @@
                         <app-customer-document #customerDocument
                                                [loanDataHolder]="loanDocument"></app-customer-document>
                     </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name == 'Share Security'">
+                        <app-share-security #shareSecurity>
+                        </app-share-security>
+                    </ng-template>
                 </ngb-tab>
             </ngb-tabset>
 

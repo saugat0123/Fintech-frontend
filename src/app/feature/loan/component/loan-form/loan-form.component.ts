@@ -32,6 +32,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerDocumentComponent} from '../loan-main-template/customer-document/customer-document.component';
 import {DocStatus} from '../../model/docStatus';
 import {CustomerService} from '../../../customer/service/customer.service';
+import {ShareSecurityComponent} from "../loan-main-template/share-security/share-security.component";
 
 @Component({
     selector: 'app-loan-form',
@@ -136,6 +137,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('customerDocument', {static: false})
     customerDocument: CustomerDocumentComponent;
+
+    @ViewChild('shareSecurity', {static: false})
+    shareSecurity: ShareSecurityComponent;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -451,6 +455,10 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Credit Risk Grading' && action) {
             this.creditGrading.onSubmit();
             this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
+        }
+        if (name === 'Share Security' && action) {
+            this.shareSecurity.onSubmit();
+            this.loanDocument.shareSecurity = this.shareSecurity.shareSecurity;
         }
         return false;
 
