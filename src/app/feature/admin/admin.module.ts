@@ -75,6 +75,8 @@ import { ShareValueFormComponent } from './component/nepse/share-value-form/shar
 import { ShareListComponent } from './component/nepse/share-list/share-list.component';
 import {AgmCoreModule} from '@agm/core';
 import {environment} from '../../../environments/environment';
+import { BaseInterestComponent } from './component/base-interest/base-interest.component';
+import { BaseInterestFormComponent } from './component/base-interest/base-interest-form/base-interest-form.component';
 
 @NgModule({
     declarations: [
@@ -136,7 +138,9 @@ import {environment} from '../../../environments/environment';
         PreferenceComponent,
         UserHistoryComponent,
         ShareValueFormComponent,
-        ShareListComponent
+        ShareListComponent,
+        BaseInterestComponent,
+        BaseInterestFormComponent
 
         // SecurityComponent
     ],
@@ -180,7 +184,8 @@ import {environment} from '../../../environments/environment';
         AccountPurposeFormComponent,
         InactiveValuatorCommentComponent,
         UserHistoryComponent,
-        ShareValueFormComponent
+        ShareValueFormComponent,
+        BaseInterestFormComponent
     ]
 
 })
