@@ -3,6 +3,10 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {SecurityInitialFormComponent} from './security-initial-form/security-initial-form.component';
 import {Security} from '../../../model/security';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {AddressService} from '../../../../../@core/service/baseservice/address.service';
+import {Province} from '../../../../admin/modal/province';
+import {District} from '../../../../admin/modal/district';
+import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 
 
 @Component({
@@ -18,14 +22,23 @@ export class SecurityComponent implements OnInit {
     guarantorsForm: FormGroup;
     initialSecurityValue: Object;
     securityValueForEdit;
+    province: Province = new Province();
+    provinceList: Array<Province> = new Array<Province>();
+    district: District = new District();
+    districtList: Array<District> = Array<District>();
+    municipality: MunicipalityVdc = new MunicipalityVdc();
+    municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+
     constructor(
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder ,
+        private addressServices: AddressService ,
     ) {
     }
 
     ngOnInit() {
         this.buildForm();
-        console.log(this.securityValue, 'this is security');
+        this.getProvince();
+        console.log(this.securityValue , 'this is security');
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityValueForEdit = JSON.parse(this.securityValue.data);
 
@@ -47,14 +60,17 @@ export class SecurityComponent implements OnInit {
         currentData.forEach(singleData => {
             details.push(
                 this.formBuilder.group({
-                    name: [singleData.name],
-                    address: [singleData.address],
-                    citizenNumber: [singleData.citizenNumber],
-                    issuedYear: [singleData.issuedYear],
-                    issuedPlace: [singleData.issuedPlace],
-                    contactNumber: [singleData.contactNumber],
-                    fatherName: [singleData.fatherName],
-                    grandFatherName: [singleData.grandFatherName],
+                    name: [singleData.name] ,
+                    // address: [singleData.address],
+                    province:[singleData.province],
+                    district:[singleData.district],
+                    municipalities:[singleData.municipalities],
+                    citizenNumber: [singleData.citizenNumber] ,
+                    issuedYear: [singleData.issuedYear] ,
+                    issuedPlace: [singleData.issuedPlace] ,
+                    contactNumber: [singleData.contactNumber] ,
+                    fatherName: [singleData.fatherName] ,
+                    grandFatherName: [singleData.grandFatherName] ,
                     relationship: [singleData.relationship]
                     })
             );
@@ -65,14 +81,17 @@ export class SecurityComponent implements OnInit {
         const addDetails = this.guarantorsForm.get('guarantorsDetails') as FormArray;
         addDetails.push(
             this.formBuilder.group({
-                name: [undefined],
-                address: [undefined],
-                citizenNumber: [undefined],
-                issuedYear: [undefined],
-                issuedPlace: [undefined],
-                contactNumber: [undefined],
-                fatherName: [undefined],
-                grandFatherName: [undefined],
+                name: [undefined] ,
+                // address: [undefined],
+                province: [undefined] ,
+                district: [undefined] ,
+                municipalities: [undefined] ,
+                citizenNumber: [undefined] ,
+                issuedYear: [undefined] ,
+                issuedPlace: [undefined] ,
+                contactNumber: [undefined] ,
+                fatherName: [undefined] ,
+                grandFatherName: [undefined] ,
                 relationship: [undefined]
             })
         );
@@ -81,6 +100,26 @@ export class SecurityComponent implements OnInit {
     removeGuarantorsDetails(index: number) {
         (this.guarantorsForm.get('guarantorsDetails') as FormArray).removeAt(index);
     }
+
+    getProvince() {
+        this.addressServices.getProvince().subscribe(
+            (response: any) => {
+                this.provinceList = response.detail;
+            });
+    }
+
+    getDistrict(province: Province) {
+        this.addressServices.getDistrictByProvince(province).subscribe((response: any) => {
+            this.districtList = response.detail;
+        });
+    }
+
+    getMunicipalities(district: District) {
+        this.addressServices.getMunicipalityVDCByDistrict(district).subscribe((response: any) => {
+            this.municipalitiesList = response.detail;
+        });
+    }
+
 
     onSubmit() {
       if (!ObjectUtil.isEmpty(this.securityValue)) {

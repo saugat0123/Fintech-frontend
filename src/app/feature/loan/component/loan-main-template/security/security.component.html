@@ -24,11 +24,61 @@
                                                    type="text"/>
                                         </div>
                                     </div>
+<!--                                    <div class="col-md-3">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label class="title" for="address">Address</label>-->
+<!--                                            <input class="form-control rounded" formControlName="address" id="address"-->
+<!--                                                   name="address" placeholder="address" type="text">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label class="title" for="address">Address</label>
-                                            <input class="form-control rounded" formControlName="address" id="address"
-                                                   name="address" placeholder="address" type="text">
+                                            <label><strong>Province</strong></label>
+                                            <select class="custom-select"
+                                                    formControlName="province"
+                                                    name="province"
+                                                    (change)="getDistrict(this.guarantorsDetails.get('province').value)">
+                                                <option [value]="null" hidden>Select Province</option>
+                                                <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal"
+                                                        [selected]="provinceVal.id === province?.id">
+                                                    {{provinceVal.name}}
+                                            </select>
+<!--&lt;!&ndash;                                            <div *ngIf="(submitted) && basicInfoControls.province.invalid" class="invalid-feedback">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <span *ngIf="basicInfoControls.province.errors.required">Province is required</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label><strong>District</strong></label>
+                                            <select  class="custom-select"
+                                                     formControlName="district"
+                                                     name="district"
+                                                     (change)="getMunicipalities(this.guarantorsDetails.get('district').value)">
+                                                <option [value]="null" hidden>Select District</option>
+                                                <option *ngFor="let districtVal of districtList" [ngValue]="districtVal"
+                                                        [selected]="districtVal.id === district?.id">
+                                                    {{districtVal.name}}</option>
+                                            </select>
+                                            <!--&lt;!&ndash;                                            <div *ngIf="(submitted) && basicInfoControls.province.invalid" class="invalid-feedback">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;                                                <span *ngIf="basicInfoControls.province.errors.required">Province is required</span>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label><strong>Municipalities/VDC</strong></label>
+                                            <select  class="custom-select"
+                                                     formControlName="municipalities"
+                                                     name="municipalities">
+                                                <option [value]="null" hidden>Select Municipalities/VDC</option>
+                                                <option *ngFor="let municipalitiesVal of municipalitiesList" [ngValue]="municipalitiesVal"
+                                                        [selected]="municipalitiesVal.id === municipality?.id">
+                                                    {{municipalitiesVal.name}}
+                                            </select>
+                                            <!--&lt;!&ndash;                                            <div *ngIf="(submitted) && basicInfoControls.province.invalid" class="invalid-feedback">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;                                                <span *ngIf="basicInfoControls.province.errors.required">Province is required</span>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
                                         </div>
                                     </div>
                                     <div class="col-md-3">
