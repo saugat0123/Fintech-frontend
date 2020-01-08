@@ -284,7 +284,11 @@ export class CustomerProfileComponent implements OnInit {
             if (this.customer !== null) {
                 this.router.navigate(['/home/customer/profile/' + this.customer.id]);
                 this.id = this.customer.id;
-                this.ngOnInit();
+                this.totalProposedAmountByGuarantor = 0;
+                this.totalProposedAmountByKYC = 0;
+                this.totalProposalAmount = 0;
+                this.getCustomerLoans();
+                this.getLoanOfCustomerAssociatedToByKYCAndSecurity();
             }
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
