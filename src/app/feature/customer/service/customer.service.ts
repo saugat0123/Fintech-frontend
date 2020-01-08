@@ -3,6 +3,7 @@ import {BaseService} from '../../../@core/BaseService';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../../@core/utils/api/ApiUtils';
+import {CustomerRelative} from '../../admin/modal/customer-relative';
 
 @Injectable({
     providedIn: 'root'
@@ -27,6 +28,10 @@ export class CustomerService extends BaseService<Object> {
         return this.http.post(req.url, formData, {headers: req.header});
     }
 
+    public getCustomerIdOfRelative(customerRelative: CustomerRelative): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/check`);
+        return this.http.post(req.url, customerRelative, {headers: req.header});
+    }
     protected getApi(): string {
         return CustomerService.API;
     }

@@ -6,9 +6,10 @@
                 <div class="profile-img">
 
                     <label class="container" for="file-input">
-                        <img *ngIf="customer.profilePic !==null" class="image"
+                        <img *ngIf="customer.profilePic !==null " class="image"
                              src="{{restUrl+'/'+customer.profilePic}}"/>
-                        <div *ngIf="customer.profilePic == null" class="bg-info no-img">
+                        <div *ngIf="customer.profilePic == null || customer.profilePic == undefined"
+                             class="bg-info no-img">
                             <div>
                                 <span class="text">NA</span>
                             </div>
@@ -81,9 +82,9 @@
                                     {{municipalityVal.name}}
                                 </option>
                             </select>
-                        <input formControlName="street" placeholder="name"
+                        <input formControlName="street" placeholder="street Address"
                                type="text">
-                             <input formControlName="wardNumber" placeholder="name"
+                             <input formControlName="wardNumber" placeholder="ward no."
                                     type="text" width="20px">
 
                       </span></div>
@@ -177,19 +178,48 @@
                 <div class="row col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            Customer History
+                            Customer Groups
+                            <div class="float-right" nbTooltip="">Total Group Amount : {{totalProposalAmount | number}}
+                            </div>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Customer Modification History</h5>
-                            <p class="card-text">Near the beginning of his career, Einstein thought that Newtonian
-                                mechanics was no longer enough to reconcile the laws of classical mechanics with the
-                                laws of the electromagnetic field. This led him to develop his special theory of
-                                relativity during his time at the Swiss Patent Office in Bern (1902–1909). He
-                                subsequently realized that the principle of relativity could be extended to
-                                gravitational fields, and published a paper on general relativity in 1916 introducing
-                                his theory of gravitation. He continued to deal with problems of statistical mechanics
-                                and quantum theory, which led to his explanations of particle theory and the motion of
-                                molecules. </p>
+                            <nb-accordion>
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>
+                                        <div class="row col-md-12">
+                                            <div class="col-md-8">
+                                                <span>KYC</span>
+                                            </div>
+                                            <div class="col-md-4 d-flex justify-content-end">
+                                                {{totalProposedAmountByKYC | number}}
+                                            </div>
+                                        </div>
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body>
+                                        <app-customer-group-loan
+                                                [formValue]="loanAssociatedByKYC"></app-customer-group-loan>
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>
+                                        <div class="row col-md-12">
+                                            <div class="col-md-8">
+                                                <span>SECURITY</span>
+                                            </div>
+                                            <div class="col-md-4 d-flex justify-content-end">
+                                                {{totalProposedAmountByGuarantor | number}}
+                                            </div>
+                                        </div>
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body>
+                                        <app-customer-group-loan
+                                                [formValue]="loanAssociatedByGuarantor"></app-customer-group-loan>
+
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+                            </nb-accordion>
+
+
                         </div>
                     </div>
                 </div>
@@ -201,16 +231,17 @@
                 <div class="row bg-transparent">
 
                     <div class="col-md-12 d-flex justify-content-center bg-primary"><h3 class="text-white">
-                        Relatives</h3></div>
+                        KYC</h3></div>
                     <div class="col-md-12 py-2">
-                        <div *ngFor="let customerRelatives of customer.customerRelatives">
+                        <div (click)="checkKycLoan(customerRelative)"
+                             *ngFor="let customerRelative of customer.customerRelatives" class="cursor">
 
                             <div class="row">
                                 <div class="col-md-5">
                                     <span> <b>Name</b></span></div>
                                 <div class="col-md-1">
                                     <span> <b>:</b></span></div>
-                                <div class="col-md-5">{{customerRelatives.customerRelativeName}}</div>
+                                <div class="col-md-5">{{customerRelative.customerRelativeName}}</div>
                             </div>
 
                             <div class="row">
@@ -218,7 +249,7 @@
                                     <span> <b>Relation</b></span></div>
                                 <div class="col-md-1">
                                     <span> <b>:</b></span></div>
-                                <div class="col-md-5">{{customerRelatives.customerRelation}}</div>
+                                <div class="col-md-5">{{customerRelative.customerRelation}}</div>
                             </div>
 
                             <div class="row">
@@ -226,7 +257,7 @@
                                     <span> <b>Citizenship no</b></span></div>
                                 <div class="col-md-1">
                                     <span> <b>:</b></span></div>
-                                <div class="col-md-5">{{customerRelatives.citizenshipNumber}}</div>
+                                <div class="col-md-5">{{customerRelative.citizenshipNumber}}</div>
                             </div>
 
                             <div class="row">
@@ -234,7 +265,7 @@
                                     <span> <b>Issued Place</b></span></div>
                                 <div class="col-md-1">
                                     <span> <b>:</b></span></div>
-                                <div class="col-md-5">{{customerRelatives.citizenshipIssuedPlace}}</div>
+                                <div class="col-md-5">{{customerRelative.citizenshipIssuedPlace}}</div>
                             </div>
 
                             <div class="row">
@@ -242,7 +273,7 @@
                                     <span> <b>Issued Date</b></span></div>
                                 <div class="col-md-1">
                                     <span> <b>:</b></span></div>
-                                <div class="col-md-5">{{customerRelatives.citizenshipIssuedDate | date}}</div>
+                                <div class="col-md-5">{{customerRelative.citizenshipIssuedDate | date}}</div>
                             </div>
 
                             <hr>
