@@ -1,0 +1,46 @@
+<div class="card-body">
+    <table class="table table-bordered table-hover table-responsive"
+           style="max-height: 400px;overflow-y: auto">
+        <thead>
+        <tr>
+            <th>S.N</th>
+            <th>Name</th>
+            <th>Branch</th>
+            <th>Loan Facility</th>
+            <th>Proposed Amount</th>
+            <th>Type</th>
+            <th>Status</th>
+
+            <th>Created On</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr (click)="onClick(model?.loan.id,model.id)"
+            *ngFor="let model of customerGroupLoanList;let i=index"
+
+            class="cursor">
+            <td>{{i + 1}}</td>
+            <td>{{model?.customerInfo?.customerName}}</td>
+            <td>{{model?.branch?.name}}</td>
+
+            <td>{{model?.loan?.name}}</td>
+            <td>
+                <span class="d-flex justify-content-end">{{(model?.proposal?.proposedLimit | number) || 0}}</span>
+            </td>
+
+            <td>{{loanType[model?.loanType]}}</td>
+            <td>{{model?.documentStatus}}</td>
+
+
+            <td>
+
+                {{model?.createdAt | date}}
+
+            </td>
+
+
+        </tr>
+        </tbody>
+    </table>
+</div>
