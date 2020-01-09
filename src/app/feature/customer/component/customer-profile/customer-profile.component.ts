@@ -1,5 +1,5 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {CustomerService} from '../../service/customer.service';
 import {ToastService} from '../../../../@core/utils';
 import {Customer} from '../../../admin/modal/customer';
@@ -17,6 +17,8 @@ import {District} from '../../../admin/modal/district';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
+import {FetchLoan} from '../../model/fetchLoan';
+import {LoanAmountType} from '../../model/loanAmountType';
 
 @Component({
     selector: 'app-customer-profile',
@@ -26,11 +28,8 @@ import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 export class CustomerProfileComponent implements OnInit {
     id: number;
     customer: Customer = new Customer();
-    customerLoanList = [];
     loanType = LoanType;
     loanList = [];
-    businessOrPersonal;
-    loanId;
     spinner = false;
     formData: FormData = new FormData();
     restUrl = ApiConfig.URL;
@@ -39,6 +38,7 @@ export class CustomerProfileComponent implements OnInit {
         loanCategory: undefined,
         customerProfileId: undefined
     };
+    mySubscription: any;
     isEdited = false;
     basicForm: FormGroup;
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
@@ -50,6 +50,13 @@ export class CustomerProfileComponent implements OnInit {
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     routeLoanForm = false;
 
+    totalProposedAmountByKYC = 0;
+    totalProposedAmountByGuarantor = 0;
+    totalGroupAmount = 0;
+    totalProposalAmount = 0;
+    totalLoanProposedAmount = 0;
+    fetchLoan = FetchLoan;
+
 
     constructor(private route: ActivatedRoute,
                 private customerService: CustomerService,
@@ -60,24 +67,32 @@ export class CustomerProfileComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
                 private commonLocation: AddressService) {
+
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
+        this.mySubscription = this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                // Trick the Router into believing it's last link wasn't previously loaded
+                this.router.navigated = false;
+            }
+        });
     }
 
     ngOnInit() {
-
         this.id = this.route.snapshot.params.id;
         this.customerService.detail(this.id).subscribe((res: any) => {
             this.customer = res.detail;
             this.customerBasicFormBuilder();
             this.getProvince();
             this.setRelatives(this.customer.customerRelatives);
+
+
         });
-        this.getCustomerLoans();
+
         this.loanConfigService.getAll().subscribe((response: any) => {
             this.loanList = response.detail;
-
         });
-
-
     }
 
     getProvince() {
@@ -98,11 +113,6 @@ export class CustomerProfileComponent implements OnInit {
         );
     }
 
-    getCustomerLoans() {
-        this.customerLoanService.getLoansByCustomerIdCustomerProfileLoan(this.id).subscribe((res: any) => {
-            this.customerLoanList = res.detail;
-        });
-    }
 
     openSelectLoanTemplate(template: TemplateRef<any>) {
         this.modalService.open(template);
@@ -145,6 +155,7 @@ export class CustomerProfileComponent implements OnInit {
         } else {
             this.isEdited = false;
         }
+
     }
 
     profileUploader(event) {
@@ -272,4 +283,32 @@ export class CustomerProfileComponent implements OnInit {
         });
     }
 
+    checkKycLoan(customerRelative: CustomerRelative) {
+
+        this.customerService.getCustomerIdOfRelative(customerRelative).subscribe((response: any) => {
+            this.customer = response.detail;
+            if (this.customer !== null) {
+                this.router.navigate(['/home/customer/profile/' + this.customer.id]);
+                this.id = this.customer.id;
+            }
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+        });
+
+
+    }
+
+    getTotalLoanAmount(value: LoanAmountType) {
+        if (value.type === this.fetchLoan.CUSTOMER_LOAN) {
+            this.totalLoanProposedAmount = value.value;
+        }
+        if (value.type === this.fetchLoan.CUSTOMER_AS_KYC) {
+            this.totalProposedAmountByKYC = value.value;
+        }
+        if (value.type === this.fetchLoan.CUSTOMER_AS_GUARANTOR) {
+            this.totalProposedAmountByGuarantor = value.value;
+        }
+        this.totalGroupAmount = this.totalProposedAmountByGuarantor + this.totalProposedAmountByKYC;
+        this.totalProposalAmount = this.totalProposedAmountByGuarantor + this.totalProposedAmountByKYC + this.totalLoanProposedAmount;
+    }
 }
