@@ -27,7 +27,7 @@ export class DataVisualizationComponent implements OnInit {
     selectedBranch = 'All Branches';
     view: any[];
     colorScheme = {
-        domain: ['#F45123', '#B523F4', '#10E9AE', '#2D23F4']
+        domain: ['#F45123', '#B523F4', '#10E9AE', '#2D23F4', '#ADD8E6', '#808000']
     };
     user: User = new User();
     roleAccess: string;
@@ -35,6 +35,10 @@ export class DataVisualizationComponent implements OnInit {
     accessAll: boolean;
     filterForm: FormGroup;
     workingWidth: number;
+    discussionProposedAmount = 0;
+    documentationProposedAmount = 0;
+    valuationProposedAmount = 0;
+    reviewProposedAmount = 0;
     pendingProposedAmount = 0;
     approvedProposedAmount = 0;
     rejectedProposedAmount = 0;
@@ -146,7 +150,16 @@ export class DataVisualizationComponent implements OnInit {
             );
     }
     private getSpecificProposedAmount (value) {
-        if (value.name === 'Pending') {
+
+        if (value.name === 'Discussion') {
+            this.discussionProposedAmount = this.pendingProposedAmount + value.value;
+        } else  if (value.name === 'Documentation') {
+            this.documentationProposedAmount = this.pendingProposedAmount + value.value;
+        } else if (value.name === 'Valuation') {
+            this.valuationProposedAmount = this.pendingProposedAmount + value.value;
+        } else if (value.name === 'Under Review') {
+            this.reviewProposedAmount = this.pendingProposedAmount + value.value;
+        } else if (value.name === 'Pending') {
             this.pendingProposedAmount = this.pendingProposedAmount + value.value;
         } else if (value.name === 'Approved') {
             this.approvedProposedAmount = this.approvedProposedAmount + value.value;

@@ -4,6 +4,7 @@ import {BaseService} from '../../../../../@core/BaseService';
 import {LoanDataHolder} from '../../../model/loanData';
 import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
 import {Observable} from 'rxjs';
+import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 
 
 @Injectable({
@@ -103,6 +104,12 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         const api = `${this.getApi()}/customer/${id}`;
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
+    }
+
+    public getLoanByCustomerKyc(customerRelative: CustomerRelative) {
+        const api = `${this.getApi()}/customer-kyc`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, customerRelative, {headers: req.header});
     }
 
     protected getApi(): string {
