@@ -311,6 +311,9 @@ export class CustomerProfileComponent implements OnInit {
         this.customerLoanService.getLoanByCustomerKyc(customerRelative).subscribe((res: any) => {
             this.loanAssociatedByKYC = res.detail;
             this.loanAssociatedByKYC.forEach((l) => {
+                if (l.proposal == null) {
+                    l.proposal.proposedLimit = 0;
+                }
                 this.totalProposedAmountByKYC = this.totalProposedAmountByKYC + l.proposal.proposedLimit;
             });
             this.totalProposalAmount = this.totalProposedAmountByKYC + this.totalProposedAmountByGuarantor;
