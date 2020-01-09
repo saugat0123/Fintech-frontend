@@ -92,6 +92,7 @@
                                 <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal"
                                         [selected]="provinceVal.id === province?.id">
                                     {{provinceVal.name}}
+                                </option>
                             </select>
                             <div *ngIf="(submitted) && basicInfoControls.province.invalid" class="invalid-feedback">
                                 <span *ngIf="basicInfoControls.province.errors.required">Province is required</span>
