@@ -1,5 +1,5 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {CustomerService} from '../../service/customer.service';
 import {ToastService} from '../../../../@core/utils';
 import {Customer} from '../../../admin/modal/customer';
@@ -17,6 +17,7 @@ import {District} from '../../../admin/modal/district';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
+import {LoanDataHolder} from '../../../loan/model/loanData';
 
 @Component({
     selector: 'app-customer-profile',
@@ -39,6 +40,7 @@ export class CustomerProfileComponent implements OnInit {
         loanCategory: undefined,
         customerProfileId: undefined
     };
+    mySubscription: any;
     isEdited = false;
     basicForm: FormGroup;
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
@@ -49,7 +51,11 @@ export class CustomerProfileComponent implements OnInit {
     municipality: MunicipalityVdc = new MunicipalityVdc();
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     routeLoanForm = false;
-
+    loanAssociatedByKYC: Array<LoanDataHolder> = Array<LoanDataHolder>();
+    loanAssociatedByGuarantor: Array<LoanDataHolder> = Array<LoanDataHolder>();
+    totalProposedAmountByKYC = 0;
+    totalProposedAmountByGuarantor = 0;
+    totalProposalAmount = 0;
 
     constructor(private route: ActivatedRoute,
                 private customerService: CustomerService,
@@ -60,24 +66,33 @@ export class CustomerProfileComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
                 private commonLocation: AddressService) {
+
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
+        this.mySubscription = this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                // Trick the Router into believing it's last link wasn't previously loaded
+                this.router.navigated = false;
+            }
+        });
     }
 
     ngOnInit() {
-
         this.id = this.route.snapshot.params.id;
         this.customerService.detail(this.id).subscribe((res: any) => {
             this.customer = res.detail;
             this.customerBasicFormBuilder();
             this.getProvince();
             this.setRelatives(this.customer.customerRelatives);
+            this.getLoanOfCustomerAssociatedToByKYCAndSecurity();
+
         });
         this.getCustomerLoans();
         this.loanConfigService.getAll().subscribe((response: any) => {
             this.loanList = response.detail;
 
         });
-
-
     }
 
     getProvince() {
@@ -145,6 +160,7 @@ export class CustomerProfileComponent implements OnInit {
         } else {
             this.isEdited = false;
         }
+
     }
 
     profileUploader(event) {
@@ -271,5 +287,38 @@ export class CustomerProfileComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
         });
     }
+
+    checkKycLoan(customerRelative: CustomerRelative) {
+
+        this.customerService.getCustomerIdOfRelative(customerRelative).subscribe((response: any) => {
+            this.customer = response.detail;
+            if (this.customer !== null) {
+                this.router.navigate(['/home/customer/profile/' + this.customer.id]);
+                this.id = this.customer.id;
+            }
+        }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+        });
+
+
+    }
+
+    getLoanOfCustomerAssociatedToByKYCAndSecurity() {
+        const customerRelative = new CustomerRelative();
+        customerRelative.customerRelativeName = this.customer.customerName;
+        customerRelative.citizenshipNumber = this.customer.citizenshipNumber;
+        customerRelative.citizenshipIssuedDate = this.customer.citizenshipIssuedDate;
+        this.customerLoanService.getLoanByCustomerKyc(customerRelative).subscribe((res: any) => {
+            this.loanAssociatedByKYC = res.detail;
+            this.loanAssociatedByKYC.forEach((l) => {
+                if (l.proposal == null) {
+                    l.proposal.proposedLimit = 0;
+                }
+                this.totalProposedAmountByKYC = this.totalProposedAmountByKYC + l.proposal.proposedLimit;
+            });
+            this.totalProposalAmount = this.totalProposedAmountByKYC + this.totalProposedAmountByGuarantor;
+        });
+    }
+
 
 }

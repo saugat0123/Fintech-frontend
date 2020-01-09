@@ -6,9 +6,10 @@
                 <div class="profile-img">
 
                     <label class="container" for="file-input">
-                        <img *ngIf="customer.profilePic !==null" class="image"
+                        <img *ngIf="customer.profilePic !==null " class="image"
                              src="{{restUrl+'/'+customer.profilePic}}"/>
-                        <div *ngIf="customer.profilePic == null" class="bg-info no-img">
+                        <div *ngIf="customer.profilePic == null || customer.profilePic == undefined"
+                             class="bg-info no-img">
                             <div>
                                 <span class="text">NA</span>
                             </div>
@@ -81,9 +82,9 @@
                                     {{municipalityVal.name}}
                                 </option>
                             </select>
-                        <input formControlName="street" placeholder="name"
+                        <input formControlName="street" placeholder="street Address"
                                type="text">
-                             <input formControlName="wardNumber" placeholder="name"
+                             <input formControlName="wardNumber" placeholder="ward no."
                                     type="text" width="20px">
 
                       </span></div>
@@ -118,141 +119,132 @@
         </div>
     </div>
 
-    <div class="container mb-5">
-        <div class="row">
+    <div class="container">
+        <div class="col-md-12">
+            <div class="row">
 
-            <div class="col-md-8">
-                <div class="row col-md-12">
-                    <div class="card">
-                        <div class="card-header">
+                <div class="col-md-8">
+
+                    <nb-card>
+                        <nb-card-header>
                             Loan History
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-bordered table-hover table-responsive"
-                                   style="max-height: 400px;overflow-y: auto">
-                                <thead>
-                                <tr>
-                                    <th>S.N</th>
-                                    <th>Branch</th>
-                                    <th>Loan Facility</th>
-                                    <th>Proposed Amount</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
-
-                                    <th>Created On</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr *ngFor="let model of customerLoanList;let i=index"
-                                    (click)="onClick(model?.loan.id,model.id)"
-
-                                    class="cursor">
-                                    <td>{{i + 1}}</td>
-                                    <td>{{model?.branch?.name}}</td>
-
-                                    <td>{{model?.loan?.name}}</td>
-                                    <td>
-                                        <span class="d-flex justify-content-end">{{model?.proposal?.proposedLimit | number}}</span>
-                                    </td>
-
-                                    <td>{{loanType[model?.loanType]}}</td>
-                                    <td>{{model?.documentStatus}}</td>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <app-customer-group-loan [formValue]="customerLoanList"></app-customer-group-loan>
+                        </nb-card-body>
+                    </nb-card>
 
 
-                                    <td>
+                    <nb-card>
+                        <nb-card-header>
+                            Customer Groups
+                            <div class="float-right" nbTooltip="">Total Group Amount : {{totalProposalAmount | number}}
+                            </div>
+                        </nb-card-header>
+                        <nb-card-body>
+                            <nb-accordion>
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>
+                                        <div class="row col-md-12">
+                                            <div class="col-md-8">
+                                                <span>KYC</span>
+                                            </div>
+                                            <div class="col-md-4 d-flex justify-content-end">
+                                                Total Amount :  {{(totalProposedAmountByKYC | number)}}
+                                            </div>
+                                        </div>
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body>
+                                        <app-customer-group-loan
+                                                [formValue]="loanAssociatedByKYC"></app-customer-group-loan>
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+                                <nb-accordion-item>
+                                    <nb-accordion-item-header>
+                                        <div class="row col-md-12">
+                                            <div class="col-md-8">
+                                                <span>SECURITY</span>
+                                            </div>
+                                            <div class="col-md-4 d-flex justify-content-end">
+                                                Total Amount :  {{(totalProposedAmountByGuarantor | number)}}
+                                            </div>
+                                        </div>
+                                    </nb-accordion-item-header>
+                                    <nb-accordion-item-body>
+                                        <app-customer-group-loan
+                                                [formValue]="loanAssociatedByGuarantor"></app-customer-group-loan>
 
-                                        {{model?.createdAt | date}}
+                                    </nb-accordion-item-body>
+                                </nb-accordion-item>
+                            </nb-accordion>
 
-                                    </td>
+
+                        </nb-card-body>
+
+                    </nb-card>
 
 
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
 
-                <div class="row col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            Customer History
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Customer Modification History</h5>
-                            <p class="card-text">Near the beginning of his career, Einstein thought that Newtonian
-                                mechanics was no longer enough to reconcile the laws of classical mechanics with the
-                                laws of the electromagnetic field. This led him to develop his special theory of
-                                relativity during his time at the Swiss Patent Office in Bern (1902–1909). He
-                                subsequently realized that the principle of relativity could be extended to
-                                gravitational fields, and published a paper on general relativity in 1916 introducing
-                                his theory of gravitation. He continued to deal with problems of statistical mechanics
-                                and quantum theory, which led to his explanations of particle theory and the motion of
-                                molecules. </p>
+                <div class="col-md-4">
+
+                    <div class="row bg-transparent">
+
+                        <div class="col-md-12 d-flex justify-content-center bg-primary"><h3 class="text-white">
+                            KYC</h3></div>
+                        <div class="col-md-12 py-2">
+                            <div (click)="checkKycLoan(customerRelative)"
+                                 *ngFor="let customerRelative of customer.customerRelatives" class="cursor">
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span> <b>Name</b></span></div>
+                                    <div class="col-md-1">
+                                        <span> <b>:</b></span></div>
+                                    <div class="col-md-5">{{customerRelative.customerRelativeName}}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span> <b>Relation</b></span></div>
+                                    <div class="col-md-1">
+                                        <span> <b>:</b></span></div>
+                                    <div class="col-md-5">{{customerRelative.customerRelation}}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span> <b>Citizenship no</b></span></div>
+                                    <div class="col-md-1">
+                                        <span> <b>:</b></span></div>
+                                    <div class="col-md-5">{{customerRelative.citizenshipNumber}}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span> <b>Issued Place</b></span></div>
+                                    <div class="col-md-1">
+                                        <span> <b>:</b></span></div>
+                                    <div class="col-md-5">{{customerRelative.citizenshipIssuedPlace}}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span> <b>Issued Date</b></span></div>
+                                    <div class="col-md-1">
+                                        <span> <b>:</b></span></div>
+                                    <div class="col-md-5">{{customerRelative.citizenshipIssuedDate | date}}</div>
+                                </div>
+
+                                <hr>
+
+
+                            </div>
                         </div>
                     </div>
                 </div>
 
             </div>
-
-            <div class="col-md-4">
-
-                <div class="row bg-transparent">
-
-                    <div class="col-md-12 d-flex justify-content-center bg-primary"><h3 class="text-white">
-                        Relatives</h3></div>
-                    <div class="col-md-12 py-2">
-                        <div *ngFor="let customerRelatives of customer.customerRelatives">
-
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <span> <b>Name</b></span></div>
-                                <div class="col-md-1">
-                                    <span> <b>:</b></span></div>
-                                <div class="col-md-5">{{customerRelatives.customerRelativeName}}</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <span> <b>Relation</b></span></div>
-                                <div class="col-md-1">
-                                    <span> <b>:</b></span></div>
-                                <div class="col-md-5">{{customerRelatives.customerRelation}}</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <span> <b>Citizenship no</b></span></div>
-                                <div class="col-md-1">
-                                    <span> <b>:</b></span></div>
-                                <div class="col-md-5">{{customerRelatives.citizenshipNumber}}</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <span> <b>Issued Place</b></span></div>
-                                <div class="col-md-1">
-                                    <span> <b>:</b></span></div>
-                                <div class="col-md-5">{{customerRelatives.citizenshipIssuedPlace}}</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <span> <b>Issued Date</b></span></div>
-                                <div class="col-md-1">
-                                    <span> <b>:</b></span></div>
-                                <div class="col-md-5">{{customerRelatives.citizenshipIssuedDate | date}}</div>
-                            </div>
-
-                            <hr>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 
