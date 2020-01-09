@@ -58,6 +58,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         this.customerLoanService.getLoansByCustomerIdCustomerProfileLoan(this.customer.id).subscribe((res: any) => {
             this.customerGroupLoanList = res.detail;
             this.spinner = false;
+            this.totalLoanProposedAmount = 0;
             this.customerGroupLoanList.forEach(l => {
                     if (l.proposal) {
                         this.totalLoanProposedAmount = this.totalLoanProposedAmount + l.proposal.proposedLimit;
@@ -81,6 +82,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         this.customerLoanService.getLoanByCustomerKyc(customerRelative).subscribe((res: any) => {
             this.customerGroupLoanList = res.detail;
             this.spinner = false;
+            this.totalProposedAmountByKYC = 0;
             this.customerGroupLoanList.forEach((l) => {
                 if (l.proposal) {
                     this.totalProposedAmountByKYC = this.totalProposedAmountByKYC + l.proposal.proposedLimit;

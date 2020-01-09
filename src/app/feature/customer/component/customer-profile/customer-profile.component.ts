@@ -52,6 +52,7 @@ export class CustomerProfileComponent implements OnInit {
 
     totalProposedAmountByKYC = 0;
     totalProposedAmountByGuarantor = 0;
+    totalGroupAmount = 0;
     totalProposalAmount = 0;
     totalLoanProposedAmount = 0;
     fetchLoan = FetchLoan;
@@ -307,7 +308,7 @@ export class CustomerProfileComponent implements OnInit {
         if (value.type === this.fetchLoan.CUSTOMER_AS_GUARANTOR) {
             this.totalProposedAmountByGuarantor = value.value;
         }
-
+        this.totalGroupAmount = this.totalProposedAmountByGuarantor + this.totalProposedAmountByKYC;
         this.totalProposalAmount = this.totalProposedAmountByGuarantor + this.totalProposedAmountByKYC + this.totalLoanProposedAmount;
     }
 }
