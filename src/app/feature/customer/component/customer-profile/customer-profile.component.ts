@@ -1,5 +1,5 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {CustomerService} from '../../service/customer.service';
 import {ToastService} from '../../../../@core/utils';
 import {Customer} from '../../../admin/modal/customer';
@@ -40,6 +40,7 @@ export class CustomerProfileComponent implements OnInit {
         loanCategory: undefined,
         customerProfileId: undefined
     };
+    mySubscription: any;
     isEdited = false;
     basicForm: FormGroup;
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
@@ -65,6 +66,16 @@ export class CustomerProfileComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
                 private commonLocation: AddressService) {
+
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
+        this.mySubscription = this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                // Trick the Router into believing it's last link wasn't previously loaded
+                this.router.navigated = false;
+            }
+        });
     }
 
     ngOnInit() {
@@ -284,11 +295,6 @@ export class CustomerProfileComponent implements OnInit {
             if (this.customer !== null) {
                 this.router.navigate(['/home/customer/profile/' + this.customer.id]);
                 this.id = this.customer.id;
-                this.totalProposedAmountByGuarantor = 0;
-                this.totalProposedAmountByKYC = 0;
-                this.totalProposalAmount = 0;
-                this.getCustomerLoans();
-                this.getLoanOfCustomerAssociatedToByKYCAndSecurity();
             }
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
@@ -305,6 +311,9 @@ export class CustomerProfileComponent implements OnInit {
         this.customerLoanService.getLoanByCustomerKyc(customerRelative).subscribe((res: any) => {
             this.loanAssociatedByKYC = res.detail;
             this.loanAssociatedByKYC.forEach((l) => {
+                if (l.proposal == null) {
+                    l.proposal.proposedLimit = 0;
+                }
                 this.totalProposedAmountByKYC = this.totalProposedAmountByKYC + l.proposal.proposedLimit;
             });
             this.totalProposalAmount = this.totalProposedAmountByKYC + this.totalProposedAmountByGuarantor;
