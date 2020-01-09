@@ -16,7 +16,8 @@ import {SiteVisit} from '../../admin/modal/siteVisit';
 import {CustomerDocuments} from './customerDocuments';
 import {CustomerOfferLetter} from './customer-offer-letter';
 import {CreditRiskGrading} from '../../admin/modal/creditRiskGrading';
-import {ShareSecurityComponent} from '../component/loan-main-template/share-security/share-security.component';
+import {Group} from './group';
+import {ShareSecurity} from '../../admin/modal/shareSecurity';
 
 export class LoanDataHolder {
     id: number;
@@ -38,7 +39,6 @@ export class LoanDataHolder {
     priority: Priority;
     createdAt: Date;
     previousList: LoanStage[] = [];
-    previousStageList: string;
     distinctPreviousList: any;
     currentStage: LoanStage = new LoanStage();
     loanType: LoanType;
@@ -51,6 +51,7 @@ export class LoanDataHolder {
     offerLetterStat: number;
     uploadedOfferLetterStat: number;
     creditRiskGrading: CreditRiskGrading;
-    shareSecurity: ShareSecurityComponent;
+    group: Group;
+    shareSecurity: ShareSecurity;
 
 }

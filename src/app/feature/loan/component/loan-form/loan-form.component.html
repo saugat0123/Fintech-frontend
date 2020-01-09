@@ -4,11 +4,10 @@
         <h2 class="d-flex justify-content-center">{{loanTitle}}</h2>
         <hr>
 
-
         <div class="row">
 
             <div class="col-md-3">
-                <form [formGroup]="priorityForm">
+                <form #priorityFormNav id="priorityFormNav" [formGroup]="priorityForm">
                     <label><strong>Priority</strong></label>
                     <ng-select [items]="dropdownPriorities"
                                [multiple]="false"
@@ -89,6 +88,9 @@
                     <ng-template ngbTabContent *ngIf="allList.name === 'Customer Document'">
                         <app-customer-document #customerDocument
                                                [loanDataHolder]="loanDocument"></app-customer-document>
+                    </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Group'">
+                        <app-group #group [groupValue]="loanDocument?.group" [proposalDataHolder]="loanDocument?.proposal" ></app-group>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name == 'Share Security'">
                         <app-share-security #shareSecurity>

@@ -1,8 +1,84 @@
 <nb-card>
   <ng-container>
-    <div class=form-group>
-      <div class="box-header with-border">
-        <h2 class="box-title title">Details of security offered and valuation amount</h2>
+    <div class="tab-pane fade active show">
+      <div class="form-group">
+      <div class="row">
+        <div class="col-md-12">
+          <nb-card>
+            <nb-card-header>
+              <h6 class="box-title title">Details of security offered and valuation amount</h6>
+           </nb-card-header>
+            <nb-card-body>
+                <form [formGroup]="shareSecurityForm">
+                <div *ngFor="let shareField of shareSecurityForm.get('shareField')['controls'];  let shareFieldIndex = index" formArrayName="shareField">
+                  <div [formGroupName]="shareFieldIndex">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                    <label for="companyName">Select Company Name</label>
+                <select formControlName="companyName" class="custom-select" id="companyName" name="companyName" (change)="findShareValue(shareFieldIndex)">
+                  <option [value]="null" selected disabled>--Select Company Name--</option>
+                  <option *ngFor="let nepse of nepseList" value="{{nepse.companyName}}">{{nepse.companyName}}</option>
+                </select></div>
+                </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                    <label for="shareType">Select Share Type</label>
+                    <select formControlName="shareType" class="custom-select" id="shareType" name="shareType"  (change)="findShareValue(shareFieldIndex)">
+                      <option [value]="null" selected disabled>--Select Share Type--</option>
+                      <option *ngFor="let shareTypes of shareType.values()">{{shareTypes}}</option>
+                    </select>
+                  </div>
+                  </div>
+              </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                    <label for="totalShareUnit">Number of Share Unit</label>
+                    <input formControlName="totalShareUnit" name="totalShareUnit" id="totalShareUnit" class="form-control"  (change)="findShareValue(shareFieldIndex)" placeholder="{{message}}">
+                  </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                    <label for="shareRate">Rate of Each Unit</label>
+                    <input formControlName="shareRate" name="shareRate" id="shareRate" class="form-control" readonly (change)="findShareValue(shareFieldIndex)">
+                  <div class="text-danger">{{companySelectMessage}}</div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="total">Total</label>
+                      <input formControlName="total" name="total" id="total" class="form-control" readonly>
+                    </div>
+                  </div>
+                </div>
+                    <div class="float-right" *ngIf="shareFieldIndex>0">
+                      <button class="btn btn-danger" (click)="removeShareList(shareFieldIndex)">Delete</button>
+                    </div>
+                </div>
+                </div>
+                  <div class="float-right">
+                    <button class="btn btn-primary" (click)="addShareList()">Add More</button>
+                  </div>
+              </form>
+            </nb-card-body>
+          </nb-card>
+          <nb-card>
+            <nb-card-header><h6>Guarantors Detail</h6></nb-card-header>
+<nb-card-body>
+  <div class="form-group">
+<div class="row">
+  <div class="col-md-3">
+    <label for="gurantorName">Name</label>
+<input name="gurantorName" class="form-control" id="gurantorName">
+  </div>
+</div>
+  </div>
+</nb-card-body>
+          </nb-card>
+        </div>
+      </div>
       </div>
     </div>
   </ng-container>
