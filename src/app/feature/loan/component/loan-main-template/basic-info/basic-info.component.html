@@ -28,8 +28,7 @@
                         <div class="form-group">
                             <label for="customerName"><strong>Customer Name</strong></label>
                             <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerName.errors }"
-                                   class="form-control form-control-sm-error rounded" formControlName="customerName"
-                                   id="customerName"
+                                   class="form-control form-control-sm-error rounded" formControlName="customerName" id="customerName"
                                    name="customerName"
                                    placeholder="Applicant's Full Name"
                                    type="text">
@@ -60,8 +59,7 @@
                         <div class="form-group">
                             <label for="dob"><strong>Date of birth</strong></label>
                             <input [nbDatepicker]="dob"
-                                   [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.dob.errors }"
-                                   class="form-control" formControlName="dob"
+                                   [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.dob.errors }" class="form-control" formControlName="dob"
                                    id="dob"
                                    name="dob"
                                    placeholder="Customer Date of birth">
@@ -83,8 +81,7 @@
                         <div class="form-group">
                             <label for="province"><strong>Province</strong></label>
                             <select (change)="getDistricts(this.basicInfo.get('province').value)"
-                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.province.errors }"
-                                    class="custom-select"
+                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.province.errors }" class="custom-select"
                                     formControlName="province"
                                     id="province"
                                     name="province">
@@ -103,8 +100,7 @@
                         <div class="form-group">
                             <label for="district"><strong>District</strong></label>
                             <select (change)="getMunicipalities(this.basicInfo.get('district').value)"
-                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.district.errors }"
-                                    class="custom-select"
+                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.district.errors }" class="custom-select"
                                     formControlName="district"
                                     id="district"
                                     name="district">
@@ -122,8 +118,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="municipality"><strong>Municipalities or VDC</strong></label>
-                            <select [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.municipalities.errors }"
-                                    class="custom-select" formControlName="municipalities"
+                            <select [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.municipalities.errors }" class="custom-select" formControlName="municipalities"
                                     id="municipality"
                                     name="municipality">
                                 <option [ngValue]="null" hidden>Select Municipality</option>
