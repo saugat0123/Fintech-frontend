@@ -7,6 +7,7 @@ import {ToastService} from '../../../../@core/utils';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {LoanType} from '../../../loan/model/loanType';
+import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
 
 @Component({
     selector: 'app-customer-component',
@@ -26,13 +27,14 @@ export class CustomerComponent implements OnInit {
 
     constructor(private customerService: CustomerService,
                 private toastService: ToastService,
+                private customerLoanService: LoanFormService,
                 private router: Router,
                 private formBuilder: FormBuilder) {
     }
 
     static loadData(other: CustomerComponent) {
         other.spinner = true;
-        other.customerService.getCustomerList(other.filterForm.value, other.page, 10).subscribe((response: any) => {
+        other.customerLoanService.getCustomerFromCustomerLoan(other.filterForm.value, other.page, 10).subscribe((response: any) => {
             other.customerList = response.detail.content;
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
