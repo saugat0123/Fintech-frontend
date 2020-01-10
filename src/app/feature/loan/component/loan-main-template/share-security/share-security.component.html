@@ -35,21 +35,21 @@
                   <div class="col-md-4">
                     <div class="form-group">
                     <label for="totalShareUnit">Number of Share Unit</label>
-                    <input formControlName="totalShareUnit" name="totalShareUnit" id="totalShareUnit" class="form-control"  (change)="findShareValue(shareFieldIndex)">
+                    <input formControlName="totalShareUnit" name="totalShareUnit" type="number" id="totalShareUnit" class="form-control"  (change)="findShareValue(shareFieldIndex)">
                   </div>
                   </div>
 
                   <div class="col-md-4">
                     <div class="form-group">
                     <label for="shareRate">Rate of Each Unit</label>
-                    <input formControlName="shareRate" name="shareRate" id="shareRate" class="form-control" readonly (change)="findShareValue(shareFieldIndex)">
+                    <input formControlName="shareRate" name="shareRate" type="number" id="shareRate" class="form-control" readonly (change)="findShareValue(shareFieldIndex)">
                     <div class="text-danger">{{companySelectMessage.get(shareFieldIndex.toString())}}</div>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
                       <label for="total">Total</label>
-                      <input formControlName="total" name="total" id="total" class="form-control" readonly>
+                      <input formControlName="total" name="total" id="total" class="form-control" type="number" readonly>
                     </div>
                   </div>
                 </div>
