@@ -39,7 +39,6 @@ export class ShareSecurityComponent implements OnInit {
     } else {
       this.addShareList();
     }
-    console.log(this.getNepseData());
   }
 
   onSubmit() {
@@ -62,7 +61,6 @@ export class ShareSecurityComponent implements OnInit {
             }
         )
     );
-    console.log(this.shareSecurityForm.get('shareField').value);
   }
 
   setShareData() {
