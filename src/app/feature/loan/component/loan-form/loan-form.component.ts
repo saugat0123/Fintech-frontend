@@ -33,8 +33,8 @@ import {CustomerDocumentComponent} from '../loan-main-template/customer-document
 import {DocStatus} from '../../model/docStatus';
 import {CustomerService} from '../../../customer/service/customer.service';
 import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
-import {ShareSecurityComponent} from "../loan-main-template/share-security/share-security.component";
-import {GroupComponent} from "../loan-main-template/group/group.component";
+import {ShareSecurityComponent} from '../loan-main-template/share-security/share-security.component';
+import {GroupComponent} from '../loan-main-template/group/group.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -471,7 +471,7 @@ export class LoanFormComponent implements OnInit {
         }
         if (name === 'Share Security' && action) {
             this.shareSecurity.onSubmit();
-            this.loanDocument.shareSecurity = this.shareSecurity.shareSecurity;
+            this.loanDocument.shareSecurity = this.shareSecurity.shareSecurityData;
         }
         return false;
 

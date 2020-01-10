@@ -93,7 +93,7 @@
                         <app-group #group [groupValue]="loanDocument?.group" [proposalDataHolder]="loanDocument?.proposal" ></app-group>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name == 'Share Security'">
-                        <app-share-security #shareSecurity>
+                        <app-share-security #shareSecurity [shareSecurity]="loanDocument?.shareSecurity">
                         </app-share-security>
                     </ng-template>
                 </ngb-tab>

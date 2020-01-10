@@ -7,8 +7,8 @@
                     <div class="form-group">
                         <form [formGroup]="detailGroup">
                             <div *ngFor="let detailArray of detailGroup.get('detailArray')['controls']; let i = index"
-                                                                  class="font-weight-bold" formArrayName="detailArray">
-                                        <div [formGroupName]="i">                                    <!--                                                start-->
+                                 class="font-weight-bold" formArrayName="detailArray">
+                                <div [formGroupName]="i">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
                             <div>
-                                <div class="float-right">
+                                <div class="text-right">
                                     <button (click)="addGroupDetail()" class="btn btn-sm btn-flat btn-primary">Add
                                     </button>
                                 </div>

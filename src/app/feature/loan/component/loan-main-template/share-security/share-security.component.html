@@ -35,7 +35,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                     <label for="totalShareUnit">Number of Share Unit</label>
-                    <input formControlName="totalShareUnit" name="totalShareUnit" id="totalShareUnit" class="form-control"  (change)="findShareValue(shareFieldIndex)" placeholder="{{message}}">
+                    <input formControlName="totalShareUnit" name="totalShareUnit" id="totalShareUnit" class="form-control"  (change)="findShareValue(shareFieldIndex)">
                   </div>
                   </div>
 
@@ -43,7 +43,7 @@
                     <div class="form-group">
                     <label for="shareRate">Rate of Each Unit</label>
                     <input formControlName="shareRate" name="shareRate" id="shareRate" class="form-control" readonly (change)="findShareValue(shareFieldIndex)">
-                  <div class="text-danger">{{companySelectMessage}}</div>
+                    <div class="text-danger">{{companySelectMessage.get(shareFieldIndex.toString())}}</div>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -63,19 +63,6 @@
                   </div>
               </form>
             </nb-card-body>
-          </nb-card>
-          <nb-card>
-            <nb-card-header><h6>Guarantors Detail</h6></nb-card-header>
-<nb-card-body>
-  <div class="form-group">
-<div class="row">
-  <div class="col-md-3">
-    <label for="gurantorName">Name</label>
-<input name="gurantorName" class="form-control" id="gurantorName">
-  </div>
-</div>
-  </div>
-</nb-card-body>
           </nb-card>
         </div>
       </div>

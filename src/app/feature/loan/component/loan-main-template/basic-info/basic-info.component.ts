@@ -42,6 +42,7 @@ export class BasicInfoComponent implements OnInit {
     districtList: Array<District> = Array<District>();
     municipality: MunicipalityVdc = new MunicipalityVdc();
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    relativesList: FormArray;
 
     occupations = Occupation.enumObject();
     incomeSources = IncomeSource.enumObject();
