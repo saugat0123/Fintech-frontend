@@ -17,7 +17,8 @@ import {District} from '../../../admin/modal/district';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
-import {LoanDataHolder} from '../../../loan/model/loanData';
+import {FetchLoan} from '../../model/fetchLoan';
+import {LoanAmountType} from '../../model/loanAmountType';
 
 @Component({
     selector: 'app-customer-profile',
@@ -27,11 +28,8 @@ import {LoanDataHolder} from '../../../loan/model/loanData';
 export class CustomerProfileComponent implements OnInit {
     id: number;
     customer: Customer = new Customer();
-    customerLoanList = [];
     loanType = LoanType;
     loanList = [];
-    businessOrPersonal;
-    loanId;
     spinner = false;
     formData: FormData = new FormData();
     restUrl = ApiConfig.URL;
@@ -51,11 +49,14 @@ export class CustomerProfileComponent implements OnInit {
     municipality: MunicipalityVdc = new MunicipalityVdc();
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     routeLoanForm = false;
-    loanAssociatedByKYC: Array<LoanDataHolder> = Array<LoanDataHolder>();
-    loanAssociatedByGuarantor: Array<LoanDataHolder> = Array<LoanDataHolder>();
+
     totalProposedAmountByKYC = 0;
     totalProposedAmountByGuarantor = 0;
+    totalGroupAmount = 0;
     totalProposalAmount = 0;
+    totalLoanProposedAmount = 0;
+    fetchLoan = FetchLoan;
+
 
     constructor(private route: ActivatedRoute,
                 private customerService: CustomerService,
@@ -85,13 +86,12 @@ export class CustomerProfileComponent implements OnInit {
             this.customerBasicFormBuilder();
             this.getProvince();
             this.setRelatives(this.customer.customerRelatives);
-            this.getLoanOfCustomerAssociatedToByKYCAndSecurity();
+
 
         });
-        this.getCustomerLoans();
+
         this.loanConfigService.getAll().subscribe((response: any) => {
             this.loanList = response.detail;
-
         });
     }
 
@@ -113,11 +113,6 @@ export class CustomerProfileComponent implements OnInit {
         );
     }
 
-    getCustomerLoans() {
-        this.customerLoanService.getLoansByCustomerIdCustomerProfileLoan(this.id).subscribe((res: any) => {
-            this.customerLoanList = res.detail;
-        });
-    }
 
     openSelectLoanTemplate(template: TemplateRef<any>) {
         this.modalService.open(template);
@@ -303,22 +298,17 @@ export class CustomerProfileComponent implements OnInit {
 
     }
 
-    getLoanOfCustomerAssociatedToByKYCAndSecurity() {
-        const customerRelative = new CustomerRelative();
-        customerRelative.customerRelativeName = this.customer.customerName;
-        customerRelative.citizenshipNumber = this.customer.citizenshipNumber;
-        customerRelative.citizenshipIssuedDate = this.customer.citizenshipIssuedDate;
-        this.customerLoanService.getLoanByCustomerKyc(customerRelative).subscribe((res: any) => {
-            this.loanAssociatedByKYC = res.detail;
-            this.loanAssociatedByKYC.forEach((l) => {
-                if (l.proposal == null) {
-                    l.proposal.proposedLimit = 0;
-                }
-                this.totalProposedAmountByKYC = this.totalProposedAmountByKYC + l.proposal.proposedLimit;
-            });
-            this.totalProposalAmount = this.totalProposedAmountByKYC + this.totalProposedAmountByGuarantor;
-        });
+    getTotalLoanAmount(value: LoanAmountType) {
+        if (value.type === this.fetchLoan.CUSTOMER_LOAN) {
+            this.totalLoanProposedAmount = value.value;
+        }
+        if (value.type === this.fetchLoan.CUSTOMER_AS_KYC) {
+            this.totalProposedAmountByKYC = value.value;
+        }
+        if (value.type === this.fetchLoan.CUSTOMER_AS_GUARANTOR) {
+            this.totalProposedAmountByGuarantor = value.value;
+        }
+        this.totalGroupAmount = this.totalProposedAmountByGuarantor + this.totalProposedAmountByKYC;
+        this.totalProposalAmount = this.totalProposedAmountByGuarantor + this.totalProposedAmountByKYC + this.totalLoanProposedAmount;
     }
-
-
 }

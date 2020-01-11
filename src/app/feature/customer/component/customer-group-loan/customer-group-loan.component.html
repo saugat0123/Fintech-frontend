@@ -1,6 +1,7 @@
 <div class="card-body">
+    <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
     <table class="table table-bordered table-hover table-responsive"
-           style="max-height: 400px;overflow-y: auto">
+           *ngIf="!spinner" style="max-height: 400px;overflow-y: auto">
         <thead>
         <tr>
             <th>S.N</th>
@@ -20,6 +21,7 @@
             *ngFor="let model of customerGroupLoanList;let i=index"
 
             class="cursor">
+
             <td>{{i + 1}}</td>
             <td>{{model?.customerInfo?.customerName}}</td>
             <td>{{model?.branch?.name}}</td>
