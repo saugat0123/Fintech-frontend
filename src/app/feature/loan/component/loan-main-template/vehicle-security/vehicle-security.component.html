@@ -1,0 +1,358 @@
+<nb-card>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="wizard-title text-center">
+          <h3>Vehicle Security</h3>
+        </div>
+      </div>
+    </div>
+    <form (ngSubmit)="onSubmit()" [formGroup]="vehicleSecurityForm">
+      <div
+          *ngFor="let addMoreVehicle of vehicleSecurityForm.get('vehicleSecurityDetails')['controls']; let i = index"
+          class="font-weight-bold"
+          formArrayName="vehicleSecurityDetails">
+        <div [formGroupName]="i">
+          <br>
+          <div class="row">
+            <div class="col-md-10">
+              <h5>{{i + 1}}) Details of Security Offered: Vehicle</h5>
+            </div>
+            <div *ngIf="vehicleSecurityForm.get('vehicleSecurityDetails')['length']>1"
+                 class="col-md-2 ">
+              <button (click)="removeVehicleSecurityDetails(i)"
+                      class="float-right btn tbn-sm btn-flat btn-danger" value="Delete">
+                <em class="fa fa-trash" style="color: white;"></em>
+
+              </button>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="title" for="vehicleName"><strong>Vehicle Name</strong></label>
+                <input
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.vehicleName.errors }"
+                    class="form-control" formControlName="vehicleName" id="vehicleName"
+                    name="vehicleName" placeholder="Vehicle Name"
+                    type="text">
+                <div *ngIf="(submitted) && vehicleSecurityControls.vehicleName.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.vehicleName.errors.required">Vehicle name is
+                    required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="title" for="model"><strong>Model</strong></label>
+                <input
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.model.errors }"
+                    class="form-control" formControlName="model" id="model" name="model"
+                    placeholder="Model"
+                    type="text">
+                <div *ngIf="(submitted) && vehicleSecurityControls.model.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.model.errors.required">Model is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="title" for="manufactureYear"><strong>Manufacture
+                  Year</strong></label>
+                <input
+                    [nbDatepicker]="manufactureYear"
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.manufactureYear.errors }"
+                    class="form-control" formControlName="manufactureYear"
+                    id="manufactureYear" name="manufactureYear"
+                    placeholder="Manufacture Year">
+                <div *ngIf="(submitted) && vehicleSecurityControls.manufactureYear.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.manufactureYear.errors.required">Manufacture
+                    Year is required
+                  </div>
+                </div>
+                <nb-datepicker #manufactureYear></nb-datepicker>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="title" for="registrationNumber"><strong>Registration
+                  Number</strong></label>
+                <input
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.registrationNumber.errors }"
+                    class="form-control" formControlName="registrationNumber"
+                    id="registrationNumber"
+                    name="registrationNumber" placeholder="Registration Number"
+                    type="number">
+                <div *ngIf="(submitted) && vehicleSecurityControls.registrationNumber.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.registrationNumber.errors.required">
+                    Registration Number is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="title" for="valuationAmount"><strong>Valuation
+                  Amount</strong></label>
+                <input
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.valuationAmount.errors }"
+                    class="form-control" formControlName="valuationAmount" id="valuationAmount"
+                    name="valuationAmount"
+                    placeholder="Valuation Amount" type="number">
+                <div *ngIf="(submitted) && vehicleSecurityControls.valuationAmount.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.valuationAmount.errors.required">Valuation
+                    Amount is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="title" for="engineNumber"><strong>Engine Number</strong></label>
+                <input
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.engineNumber.errors }"
+                    class="form-control" formControlName="engineNumber" id="engineNumber"
+                    name="model"
+                    placeholder="Engine Number" type="text">
+                <div *ngIf="(submitted) && vehicleSecurityControls.engineNumber.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.engineNumber.errors.required">Engine Number
+                    is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="title" for="chassisNumber"><strong>Chassis Number</strong></label>
+                <input
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.chassisNumber.errors }"
+                    class="form-control" formControlName="chassisNumber" id="chassisNumber"
+                    name="chassisNumber"
+                    placeholder="Chassis Number" type="text">
+                <div *ngIf="(submitted) && vehicleSecurityControls.chassisNumber.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.chassisNumber.errors.required">Chassis
+                    Number is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="title" for="registrationDate"><strong>Registration
+                  Date</strong></label>
+                <input
+                    [nbDatepicker]="registrationDate"
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.registrationDate.errors }"
+                    class="form-control" formControlName="registrationDate"
+                    id="registrationDate" name="registrationDate"
+                    nbInput placeholder="Registration Date">
+                <div *ngIf="(submitted) && vehicleSecurityControls.registrationDate.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.registrationDate.errors.required">
+                    Registration Date is required
+                  </div>
+                </div>
+                <nb-datepicker #registrationDate></nb-datepicker>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="title" for="color"><strong>Color</strong></label>
+                <input
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.color.errors }"
+                    class="form-control" formControlName="color" id="color" name="color"
+                    placeholder="Color"
+                    type="text">
+                <div *ngIf="(submitted) && vehicleSecurityControls.color.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.color.errors.required">Color is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="title" for="purpose"><strong>Purpose</strong></label>
+                <input
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.purpose.errors }"
+                    class="form-control" formControlName="purpose" id="purpose" name="purpose"
+                    placeholder="Purpose" type="text">
+                <div *ngIf="(submitted) && vehicleSecurityControls.purpose.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.purpose.errors.required">Purpose is
+                    required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="supplier"><strong>Supplier</strong></label>
+                <input
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.Supplier.errors }"
+                    class="form-control" formControlName="supplier" id="supplier" name="supplier"
+                    placeholder="Supplier" type="text">
+                <div *ngIf="(submitted) && vehicleSecurityControls.supplier.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.supplier.errors.required">Supplier is
+                    required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="title" for="downPayment"><strong>Down Payment</strong></label>
+                <input
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.downPayment.errors }"
+                    class="form-control" formControlName="downPayment" id="downPayment"
+                    name="downPayment"
+                    placeholder="Down Payment" type="text">
+                <div *ngIf="(submitted) && vehicleSecurityControls.downPayment.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.downPayment.errors.required">Down Payment is
+                    required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="title" for="loanExposure"><strong>Loan Exposure(%)</strong></label>
+                <input
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.loanExposure.errors }"
+                    class="form-control" formControlName="loanExposure" id="loanExposure"
+                    name="loanExposure"
+                    placeholder="Loan Exposure" type="number">
+                <div *ngIf="(submitted) && vehicleSecurityControls.loanExposure.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.loanExposure.errors.required">Loan Exposure
+                    is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="title" for="showroomCommission"><strong>Showroom
+                  Commission</strong></label>
+                <input
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.showroomCommission.errors }"
+                    class="form-control" formControlName="showroomCommission"
+                    id="showroomCommission"
+                    name="showroomCommission" placeholder="Showroom Commission"
+                    type="number">
+                <div *ngIf="(submitted) && vehicleSecurityControls.showroomCommission.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.showroomCommission.errors.required">Showroom
+                    Commission is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="title" for="valuator"><strong>Valuator</strong></label>
+                <ng-select [items]="valuatorList"
+                           [searchable]="true"
+                           bindLabel="name"
+                           bindValue="id"
+                           formControlName="valuator"
+                           id="valuator"
+                           placeholder="Select Valuator">
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="title" for="valuatedDate"><strong>Valuated Date</strong></label>
+                <input
+                    [nbDatepicker]="valuatedDate"
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.valuatedDate.errors }"
+                    class="form-control" formControlName="valuatedDate"
+                    id="valuatedDate" name="valuatedDate"
+                    nbInput placeholder="Valuated Date">
+                <div *ngIf="(submitted) && vehicleSecurityControls.valuatedDate.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.valuatedDate.errors.required">Valuated Date
+                    is required
+                  </div>
+                </div>
+                <nb-datepicker #valuatedDate></nb-datepicker>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="title" for="valuatorRepresentativeName"><strong>Valuator
+                  Representative
+                  Name</strong></label>
+                <input
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.valuatorRepresentativeName.errors }"
+                    class="form-control" formControlName="valuatorRepresentativeName"
+                    id="valuatorRepresentativeName"
+                    name="valuatorRepresentativeName" placeholder="Valuator Representative Name"
+                    type="text">
+                <div
+                    *ngIf="(submitted) && vehicleSecurityControls.valuatorRepresentativeName.invalid"
+                    class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.valuatorRepresentativeName.errors.required">
+                    Valuator Representative Name is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="title" for="staffRepresentativeName"><strong>Staff Representative
+                  Name</strong></label>
+                <input
+                    [ngClass]="{ 'is-invalid': (submitted) && vehicleSecurityControls.staffRepresentativeName.errors }"
+                    class="form-control" formControlName="staffRepresentativeName"
+                    id="staffRepresentativeName"
+                    name="staffRepresentativeName" placeholder="Staff Representative Name"
+                    type="text">
+                <div
+                    *ngIf="(submitted) && vehicleSecurityControls.staffRepresentativeName.invalid"
+                    class="invalid-feedback">
+                  <div *ngIf="vehicleSecurityControls.staffRepresentativeName.errors.required">
+                    Staff Representative Name is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+      <div class="text-right">
+        <input (click)="addEmptyGroup()" class="btn btn-sm btn-flat btn-primary"
+               type="button"
+               value="Add More"/>
+      </div>
+
+    </form>
+  </nb-card-body>
+</nb-card>

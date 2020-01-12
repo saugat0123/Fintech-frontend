@@ -33,6 +33,7 @@ import {CustomerDocumentComponent} from '../loan-main-template/customer-document
 import {DocStatus} from '../../model/docStatus';
 import {CustomerService} from '../../../customer/service/customer.service';
 import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
+import {VehicleSecurityComponent} from '../loan-main-template/vehicle-security/vehicle-security.component';
 import {ShareSecurityComponent} from '../loan-main-template/share-security/share-security.component';
 import {GroupComponent} from '../loan-main-template/group/group.component';
 
@@ -144,6 +145,9 @@ export class LoanFormComponent implements OnInit {
     customerDocument: CustomerDocumentComponent;
     @ViewChild('group', {static: false})
     group: GroupComponent;
+
+    @ViewChild('vehicleSecurity', {static: false})
+    vehicleSecurity: VehicleSecurityComponent;
 
     @ViewChild('shareSecurity', {static: false})
     shareSecurity: ShareSecurityComponent;
@@ -293,7 +297,6 @@ export class LoanFormComponent implements OnInit {
                 this.selectedTab = templateListMember.title;
             }
         });
-        console.log(this.nextTabId.toString());
         this.nextButtonAction = false;
     }
 
@@ -454,8 +457,7 @@ export class LoanFormComponent implements OnInit {
 
         if (name === 'Site Visit' && action) {
             this.siteVisit.onSubmit();
-            const siteVisitData = this.siteVisit.siteVisitData;
-            this.loanDocument.siteVisit = siteVisitData;
+            this.loanDocument.siteVisit = this.siteVisit.siteVisitData;
         }
         if (name === 'Security' && action) {
             this.security.onSubmit();
@@ -468,6 +470,11 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Group' && action) {
             this.group.onSubmit();
             this.loanDocument.group = this.group.modelData;
+        }
+
+        if (name === 'Vehicle Security' && action) {
+            this.vehicleSecurity.onSubmit();
+            this.loanDocument.vehicleSecurity = this.vehicleSecurity.vehicleSecurity;
         }
         if (name === 'Share Security' && action) {
             this.shareSecurity.onSubmit();
