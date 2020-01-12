@@ -53,7 +53,6 @@ import {GroupComponent} from './component/loan-main-template/group/group.compone
 import {GroupDetailComponent} from './component/loan-main-template/group/group-detail/group-detail.component';
 import {SecurityDetailComponent} from './component/loan-main-template/group/security-detail/security-detail.component';
 import {VehicleSecurityComponent} from './component/loan-main-template/vehicle-security/vehicle-security.component';
-import { SecurityDetailComponent } from './component/loan-main-template/group/security-detail/security-detail.component';
 import { ShareSecurityComponent } from './component/loan-main-template/share-security/share-security.component';
 
 
@@ -97,6 +96,7 @@ const COMPONENTS = [
     GroupDetailComponent,
     SecurityDetailComponent,
     VehicleSecurityComponent,
+    ShareSecurityComponent
 ];
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
 
@@ -104,56 +104,6 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
 // @ts-ignore
 @NgModule({
     declarations: [...COMPONENTS],
-const ENTRY_COMPONENTS = [ReadmoreModelComponent];
-
-// @ts-ignore
-// @ts-ignore
-@NgModule({
-    declarations: [
-        LoanFormComponent,
-        BasicInfoComponent,
-        CompanyInfoComponent,
-        KycInfoComponent,
-        DmsLoanFileComponent,
-        SecurityComponent,
-        LoanActionComponent,
-        LoanSummaryComponent,
-        BirthMarkLetterNepaliComponent,
-        ProposalComponent,
-        BirthMarkLetterPrintComponent,
-        SuccessOfferLetterComponent,
-        SuccessOfferLetterPrintComponent,
-        FinancialComponent,
-        BorrowerRiskRatingComponent,
-        CiclComponent,
-        ReadmoreModelComponent,
-        CreditGradingComponent,
-
-        SiteVisitComponent,
-
-        LoanPullComponent,
-
-        SecurityInitialFormComponent,
-        SecuritySummaryComponent,
-
-        IncomeStatementComponent,
-        BalanceSheetComponent,
-        CashFlowStatementComponent,
-        KeyIndicatorsComponent,
-        InitialFormComponent,
-        FinancialSummaryComponent,
-        CustomerDocumentComponent,
-        FinancialSummaryComponent,
-        LoanOfferLetterComponent,
-        OfferLetterActionComponent,
-        OfferLetterUploadComponent,
-        OfferLetterComponent,
-        SitevistSummaryComponentComponent,
-        GroupComponent,
-        GroupDetailComponent,
-        SecurityDetailComponent,
-        ShareSecurityComponent,
-    ],
     imports: [
         ThemeModule,
         CommonModule,
