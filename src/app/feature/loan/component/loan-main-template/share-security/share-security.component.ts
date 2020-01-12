@@ -4,7 +4,6 @@ import {NepseService} from '../../../../admin/component/nepse/nepse.service';
 import {Nepse} from '../../../../admin/modal/nepse';
 import {ShareType} from '../../../model/ShareType';
 import {ShareSecurity} from '../../../../admin/modal/shareSecurity';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-share-security',
