@@ -20,7 +20,7 @@ export class GroupComponent implements OnInit {
     groupDetail: GroupDetailComponent;
 
     @ViewChild('securityDetail' , {static: false})
-    securityValues: SecurityDetailComponent;
+    securityDetail: SecurityDetailComponent;
 
     groupDataForEdit;
     proposalData;
@@ -68,7 +68,7 @@ export class GroupComponent implements OnInit {
     onSubmit() {
         const mergedForm = {
             groupDetail: this.groupDetail.detailGroup.value ,
-            securityDetail: this.securityValues.securityGroup.value ,
+            securityDetail: this.securityDetail.securityGroup.value ,
             solDetail: this.groupGroup.value ,
         };
         this.modelData.data = JSON.stringify(mergedForm);

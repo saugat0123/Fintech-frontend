@@ -14,6 +14,11 @@ import {InactiveValuatorCommentComponent} from './inactive-valuator-comment/inac
 import {Status} from '../../../../@core/Status';
 import {NbPopoverDirective} from '@nebular/theme';
 import {DeleteModalComponent} from '../../../../@theme/components/delete-modal/delete-modal.component';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {BranchService} from '../branch/branch.service';
+import {Branch} from '../../modal/branch';
+import {ValuatingField} from '../../modal/valuatingField';
 
 @Component({
     selector: 'app-valuator',
@@ -24,44 +29,51 @@ export class ValuatorComponent implements OnInit {
     popoverContent = undefined;
     inactiveCodePopoverContent = '';
     inactiveCommentPopoverContent = '';
-
-    title = 'Valuator';
-    breadcrumb = 'Valuator > List';
-
     page = 1;
-
     dataList: Array<Valuator>;
     spinner = false;
     globalMsg: string;
-    search: any = {};
+    search = {
+        name: undefined,
+        branchIds: undefined,
+        status: undefined,
+        valuatingField: undefined,
+        minAmount: undefined,
+        maxAmount: undefined
+    };
     pageable: Pageable = new Pageable();
     activeCount: number;
     inactiveCount: number;
     valuators: number;
     permissions = [];
-    addViewValuator = false;
-    viewValuator = false;
-    editValuator = false;
-    csvDownload = false;
+    isFilterCollapsed = true;
+    filterForm: FormGroup;
+    branchList: Array<Branch> = new Array<Branch>();
+    valuatingFieldEnumObject = ValuatingField.enumObject();
 
     constructor(
         private service: ValuatorService,
         private permissionService: PermissionService,
         private modalService: NgbModal,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private formBuilder: FormBuilder,
+        private branchService: BranchService
     ) {
     }
 
     static loadData(other: ValuatorComponent) {
-
         other.spinner = true;
+        other.service.getStatus().subscribe((response: any) => {
+            other.activeCount = response.detail.active;
+            other.inactiveCount = response.detail.inactive;
+            other.valuators = response.detail.valuators;
+        });
         other.service.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
                 other.dataList = response.detail.content;
                 other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
-
             }, error => {
-                console.log(error);
+                console.error(error);
                 other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Data'));
                 other.spinner = false;
             }
@@ -70,34 +82,17 @@ export class ValuatorComponent implements OnInit {
 
     ngOnInit() {
         ValuatorComponent.loadData(this);
-        this.service.getStatus().subscribe((response: any) => {
-            this.activeCount = response.detail.active;
-            this.inactiveCount = response.detail.inactive;
-            this.valuators = response.detail.valuators;
+        this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
+            this.branchList = response.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
         });
-        this.permissionService.getPermissionOf('VALUATOR').subscribe((response: any) => {
-            this.permissions = response.detail;
-            for (let i = 0; this.permissions.length > i; i++) {
-                if (this.permissions[i].type === 'ADD VALUATOR') {
-                    this.addViewValuator = true;
-                }
-                if (this.permissions[i].type === 'VIEW VALUATOR') {
-                    this.viewValuator = true;
-                }
-                if (this.permissions[i].type === 'EDIT VALUATOR') {
-                    this.editValuator = true;
-                }
-                if (this.permissions[i].type === 'DOWNLOAD CSV') {
-                    ValuatorComponent.loadData(this);
-                    this.csvDownload = true;
-                }
-            }
-        });
+        this.buildFilterForm();
     }
 
     changePage(page: number) {
         this.page = page;
-
         ValuatorComponent.loadData(this);
     }
 
@@ -149,17 +144,6 @@ export class ValuatorComponent implements OnInit {
         );
     }
 
-    onSearchChange(searchValue: string) {
-        this.search = {
-            'name': searchValue
-        };
-        ValuatorComponent.loadData(this);
-    }
-
-    onSearch() {
-        ValuatorComponent.loadData(this);
-    }
-
     deleteValuator(valuator: Valuator, event) {
         valuator.status = Status.DELETED;
         if (document.activeElement instanceof HTMLElement) {
@@ -189,5 +173,34 @@ export class ValuatorComponent implements OnInit {
         } else if (event.isShown && !(valuator.state === 'BLACKLISTED' || valuator.state === 'SUSPENDED')) {
             this.popoverContent = undefined;
         }
+    }
+
+    buildFilterForm() {
+        this.filterForm = this.formBuilder.group({
+            name: [undefined],
+            branch: [undefined],
+            status: [undefined],
+            valuatingField: [undefined],
+            minAmount: [undefined],
+            maxAmount: [undefined]
+        });
+    }
+
+    clearSearch() {
+        this.buildFilterForm();
+        this.onSearch();
+        this.isFilterCollapsed = true;
+    }
+
+    onSearch() {
+        this.search.name = ObjectUtil.setUndefinedIfNull(this.filterForm.get('name').value);
+        this.search.branchIds = ObjectUtil.setUndefinedIfNull(this.filterForm.get('branch').value);
+        this.search.status = ObjectUtil.setUndefinedIfNull(this.filterForm.get('status').value);
+        this.search.valuatingField = ObjectUtil.setUndefinedIfNull(this.filterForm.get('valuatingField').value);
+        this.search.minAmount = ObjectUtil.isEmpty(this.filterForm.get('minAmount').value) ? undefined :
+            this.filterForm.get('minAmount').value.toString();
+        this.search.maxAmount = ObjectUtil.isEmpty(this.filterForm.get('maxAmount').value) ? undefined :
+            this.filterForm.get('maxAmount').value.toString();
+        ValuatorComponent.loadData(this);
     }
 }

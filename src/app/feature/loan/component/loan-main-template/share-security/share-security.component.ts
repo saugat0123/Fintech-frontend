@@ -38,7 +38,7 @@ export class ShareSecurityComponent implements OnInit {
       this.setShareData();
     } else {
       this.addShareList();
-    }
+    }this.getNepseData();
   }
 
   onSubmit() {

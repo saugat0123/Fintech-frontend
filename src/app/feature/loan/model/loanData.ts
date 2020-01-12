@@ -16,6 +16,7 @@ import {SiteVisit} from '../../admin/modal/siteVisit';
 import {CustomerDocuments} from './customerDocuments';
 import {CustomerOfferLetter} from './customer-offer-letter';
 import {CreditRiskGrading} from '../../admin/modal/creditRiskGrading';
+
 import {Group} from './group';
 import {ShareSecurity} from '../../admin/modal/shareSecurity';
 
@@ -39,6 +40,7 @@ export class LoanDataHolder {
     priority: Priority;
     createdAt: Date;
     previousList: LoanStage[] = [];
+    previousStageList: string;
     distinctPreviousList: any;
     currentStage: LoanStage = new LoanStage();
     loanType: LoanType;
