@@ -2,6 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {VehicleSecurity} from '../../../../admin/modal/vehicleSecurity';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {ValuatorService} from '../../../../admin/component/valuator/valuator.service';
+import {ToastService} from '../../../../../@core/utils';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-vehicle-security',
@@ -13,15 +17,13 @@ export class VehicleSecurityComponent implements OnInit {
   vehicleSecurityForm: FormGroup;
   submitted = false;
   vehicleSecurity: VehicleSecurity = new VehicleSecurity();
+  valuatorList: { id: number, name: string }[];
 
-  valuatorList: any[] = [
-    {'id': 'Valuator1', 'name': 'Valuator 1'},
-    {'id': 'Valuator2', 'name': 'Valuator 2'},
-    {'id': 'Valuator3', 'name': 'Valuator 3'},
-    {'id': 'Valuator4', 'name': 'Valuator 4'}
-  ];
-
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+      private formBuilder: FormBuilder,
+      private valuatorService: ValuatorService,
+      private toastService: ToastService,
+  ) {
   }
 
   get vehicleSecurityControls() {
@@ -30,6 +32,17 @@ export class VehicleSecurityComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    const valuatorSearch = {
+      valuatingField: 'VEHICLE',
+      'branchIds': LocalStorageUtil.getStorage().branch,
+    };
+    this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((response: any) => {
+      this.valuatorList = [];
+      response.detail.forEach(v => this.valuatorList.push({id: v.id, name: v.name}));
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Error loading valuators!!!'));
+    });
   }
 
   buildForm(): void {

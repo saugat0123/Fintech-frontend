@@ -1,11 +1,12 @@
-import {Component , Input , OnInit , ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {GroupDetailComponent} from './group-detail/group-detail.component';
 import {Group} from '../../../model/group';
 import {SecurityDetailComponent} from './security-detail/security-detail.component';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {FormBuilder , FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ValuatorService} from '../../../../admin/component/valuator/valuator.service';
 import {Proposal} from '../../../../admin/modal/proposal';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-group' ,
@@ -32,8 +33,10 @@ export class GroupComponent implements OnInit {
     valuatorByBranch = [];
     valuatorName = [];
 
-    constructor(private groupBuilder: FormBuilder ,
-                private service: ValuatorService , ) {
+    constructor(
+        private groupBuilder: FormBuilder,
+        private valuatorService: ValuatorService
+    ) {
     }
 
     ngOnInit() {
@@ -50,7 +53,10 @@ export class GroupComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.proposalDataHolder)) {
             this.proposalData = JSON.parse(this.proposalDataHolder.data);
         }
-        this.service.getValuatorList(null).subscribe((res: any) => {
+        const valuatorSearch = {
+            'branchIds': LocalStorageUtil.getStorage().branch
+        };
+        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
             this.valuatorByBranch = res.detail;
             if (this.proposalData !== undefined) {
                 this.limit = this.proposalData.proposedLimit;
@@ -90,7 +96,7 @@ export class GroupComponent implements OnInit {
             totalFmv: [solValue.totalFmv] ,
             percentage: [solValue.percentage] ,
             solDv: [solValue.solDv] ,
-            per: [solValue.per] ,
+            per: [solValue.per],
         });
     }
 }
