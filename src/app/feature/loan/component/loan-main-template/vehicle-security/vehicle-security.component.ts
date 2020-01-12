@@ -9,13 +9,12 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
   styleUrls: ['./vehicle-security.component.scss']
 })
 export class VehicleSecurityComponent implements OnInit {
-  @Input() vehicleSecurityFormValue: VehicleSecurity;
+  @Input() vehicleSecurityValue: VehicleSecurity;
   vehicleSecurityForm: FormGroup;
   submitted = false;
-  vehicleSecurityList: VehicleSecurity = new VehicleSecurity();
-  vehicleSecurityFormValueEdit;
+  vehicleSecurity: VehicleSecurity = new VehicleSecurity();
 
-  dropDownValuatorList: any[] = [
+  valuatorList: any[] = [
     {'id': 'Valuator1', 'name': 'Valuator 1'},
     {'id': 'Valuator2', 'name': 'Valuator 2'},
     {'id': 'Valuator3', 'name': 'Valuator 3'},
@@ -25,91 +24,65 @@ export class VehicleSecurityComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
   }
 
+  get vehicleSecurityControls() {
+    return this.vehicleSecurityForm.controls;
+  }
+
   ngOnInit() {
     this.buildForm();
-    this.addVehicleSecurityDetails();
-
-    if (!ObjectUtil.isEmpty(this.vehicleSecurityFormValue)) {
-      this.vehicleSecurityFormValueEdit = JSON.parse(this.vehicleSecurityFormValue.data);
-      console.log('data are', this.vehicleSecurityFormValueEdit);
-      this.buildForm();
-      this.setVehicleSecurityDetails(this.vehicleSecurityFormValueEdit);
-    }
   }
 
-  get vehicleSecurityControls() {
-    return  this.vehicleSecurityForm.controls;
-  }
-
-  buildForm() {
+  buildForm(): void {
     this.vehicleSecurityForm = this.formBuilder.group({
       vehicleSecurityDetails: this.formBuilder.array([])
     });
+
+    if (ObjectUtil.isEmpty(this.vehicleSecurityValue)) {
+      this.addEmptyGroup();
+    } else {
+      const formArray = this.vehicleSecurityForm.get('vehicleSecurityDetails') as FormArray;
+      const data = JSON.parse(this.vehicleSecurityValue.data)['vehicleSecurityDetails'];
+      data.forEach(v => formArray.push(this.addVehicleSecurityDetails(v)));
+    }
   }
 
-  setVehicleSecurityDetails(currentData) {
-    const details =  this.vehicleSecurityForm.get('vehicleSecurityDetails') as FormArray;
-    currentData.vehicleSecurityDetails.forEach(singleData => {
-      details.push(
-          this.formBuilder.group({
-            vehicleName: [singleData.vehicleName],
-            model: [singleData.model],
-            manufactureYear: [singleData.manufactureYear],
-            registrationNumber: [singleData.registrationNumber],
-            valuationAmount: [singleData.valuationAmount],
-            engineNumber: [singleData.engineNumber],
-            chassisNumber: [singleData.chassisNumber],
-            registrationDate: [singleData.registrationDate],
-            color: [singleData.color],
-            purpose: [singleData.purpose],
-            supplier: [singleData.supplier],
-            downPayment: [singleData.downPayment],
-            loanExposure: [singleData.loanExposure],
-            showroomCommission: [singleData.showroomCommission],
-            valuator: [singleData.valuator],
-            valuatedDate: [singleData.valuatedDate],
-            valuatorRepresentativeName: [singleData.valuatorRepresentativeName],
-            staffRepresentativeName: [singleData.staffRepresentativeName]
-          })
-      );
+  removeVehicleSecurityDetails(index: number): void {
+    (this.vehicleSecurityForm.get('vehicleSecurityDetails') as FormArray).removeAt(index);
+  }
+
+  addVehicleSecurityDetails(data) {
+    return this.formBuilder.group({
+      vehicleName: [ObjectUtil.setUndefinedIfNull(data.vehicleName), Validators.required],
+      manufactureYear: [ObjectUtil.setUndefinedIfNull(data.manufactureYear), Validators.required],
+      registrationNumber: [ObjectUtil.setUndefinedIfNull(data.registrationNumber), Validators.required],
+      valuationAmount: [ObjectUtil.setUndefinedIfNull(data.valuationAmount), Validators.required],
+      engineNumber: [ObjectUtil.setUndefinedIfNull(data.engineNumber), Validators.required],
+      chassisNumber: [ObjectUtil.setUndefinedIfNull(data.chassisNumber), Validators.required],
+      registrationDate: [ObjectUtil.setUndefinedIfNull(data.registrationDate), Validators.required],
+      color: [ObjectUtil.setUndefinedIfNull(data.color), Validators.required],
+      purpose: [ObjectUtil.setUndefinedIfNull(data.purpose), Validators.required],
+      supplier: [ObjectUtil.setUndefinedIfNull(data.supplier), Validators.required],
+      model: [ObjectUtil.setUndefinedIfNull(data.model), Validators.required],
+      downPayment: [ObjectUtil.setUndefinedIfNull(data.downPayment), Validators.required],
+      loanExposure: [ObjectUtil.setUndefinedIfNull(data.loanExposure), Validators.required],
+      showroomCommission: [ObjectUtil.setUndefinedIfNull(data.showroomCommission), Validators.required],
+      valuator: [ObjectUtil.setUndefinedIfNull(data.valuator), Validators.required],
+      valuatedDate: [ObjectUtil.setUndefinedIfNull(data.valuatedDate), Validators.required],
+      valuatorRepresentativeName: [ObjectUtil.setUndefinedIfNull(data.valuatorRepresentativeName), Validators.required],
+      staffRepresentativeName: [ObjectUtil.setUndefinedIfNull(data.staffRepresentativeName), Validators.required]
     });
   }
 
-
-  removeVehicleSecurityDetails(index: number) {
-    (this.vehicleSecurityForm.get('vehicleSecurityDetails') as  FormArray).removeAt(index);
-
+  addEmptyGroup(): void {
+    const formArray = this.vehicleSecurityForm.get('vehicleSecurityDetails') as FormArray;
+    formArray.push(this.addVehicleSecurityDetails({}));
   }
 
-  addVehicleSecurityDetails() {
-    const addDetails = this.vehicleSecurityForm.get('vehicleSecurityDetails') as FormArray;
-    addDetails.push(
-        this.formBuilder.group({
-          vehicleName: [undefined, Validators.required],
-          model: [undefined, Validators.required],
-          manufactureYear: [undefined, Validators.required],
-          registrationNumber: [undefined, Validators.required],
-          valuationAmount: [undefined, Validators.required],
-          engineNumber: [undefined, Validators.required],
-          chassisNumber: [undefined, Validators.required],
-          registrationDate: [undefined, Validators.required],
-          color: [undefined, Validators.required],
-          purpose: [undefined, Validators.required],
-          supplier: [undefined, Validators.required],
-          downPayment: [undefined, Validators.required],
-          loanExposure: [undefined, Validators.required],
-          showroomCommission: [undefined, Validators.required],
-          valuator: [undefined, Validators.required],
-          valuatedDate: [undefined, Validators.required],
-          valuatorRepresentativeName: [undefined, Validators.required],
-          staffRepresentativeName: [undefined, Validators.required]
-        }));
-
-  }
-
-  onSubmit() {
-    this.vehicleSecurityList.data = JSON.stringify(this.vehicleSecurityForm.value);
-
+  onSubmit(): void {
+    if (!ObjectUtil.isEmpty(this.vehicleSecurityValue)) {
+      this.vehicleSecurity = this.vehicleSecurityValue;
+    }
+    this.vehicleSecurity.data = JSON.stringify(this.vehicleSecurityForm.value);
   }
 
 }

@@ -57,8 +57,6 @@ export class GroupComponent implements OnInit {
                 this.valuatorByBranch.forEach((value) => {
                     if (Number(value.minAmount) <= Number(this.limit) && Number(value.maxAmount) >= Number(this.limit)) {
                         this.valuatorName.push(value.name);
-                    } else {
-                        console.log('enter proposal limit');
                     }
                 });
             }

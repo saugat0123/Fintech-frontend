@@ -49,62 +49,58 @@ import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-actio
 import {OfferLetterUploadComponent} from './component/offer-letter/offer-letter-upload/offer-letter-upload.component';
 import {OfferLetterComponent} from './component/offer-letter/offer-letter.component';
 import {SitevistSummaryComponentComponent} from './component/loan-summary/sitevist-summary-component/sitevist-summary-component.component';
-import { GroupComponent } from './component/loan-main-template/group/group.component';
+import {GroupComponent} from './component/loan-main-template/group/group.component';
 import {GroupDetailComponent} from './component/loan-main-template/group/group-detail/group-detail.component';
-import { SecurityDetailComponent } from './component/loan-main-template/group/security-detail/security-detail.component';
-import { VehicleSecurityComponent } from './component/loan-main-template/vehicle-security/vehicle-security.component';
+import {SecurityDetailComponent} from './component/loan-main-template/group/security-detail/security-detail.component';
+import {VehicleSecurityComponent} from './component/loan-main-template/vehicle-security/vehicle-security.component';
 
-
+const COMPONENTS = [
+    LoanFormComponent,
+    BasicInfoComponent,
+    CompanyInfoComponent,
+    KycInfoComponent,
+    DmsLoanFileComponent,
+    SecurityComponent,
+    LoanActionComponent,
+    LoanSummaryComponent,
+    BirthMarkLetterNepaliComponent,
+    ProposalComponent,
+    BirthMarkLetterPrintComponent,
+    SuccessOfferLetterComponent,
+    SuccessOfferLetterPrintComponent,
+    FinancialComponent,
+    BorrowerRiskRatingComponent,
+    CiclComponent,
+    ReadmoreModelComponent,
+    CreditGradingComponent,
+    SiteVisitComponent,
+    LoanPullComponent,
+    SecurityInitialFormComponent,
+    SecuritySummaryComponent,
+    IncomeStatementComponent,
+    BalanceSheetComponent,
+    CashFlowStatementComponent,
+    KeyIndicatorsComponent,
+    InitialFormComponent,
+    FinancialSummaryComponent,
+    CustomerDocumentComponent,
+    FinancialSummaryComponent,
+    LoanOfferLetterComponent,
+    OfferLetterActionComponent,
+    OfferLetterUploadComponent,
+    OfferLetterComponent,
+    SitevistSummaryComponentComponent,
+    GroupComponent,
+    GroupDetailComponent,
+    SecurityDetailComponent,
+    VehicleSecurityComponent,
+];
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
 
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [
-        LoanFormComponent,
-        BasicInfoComponent,
-        CompanyInfoComponent,
-        KycInfoComponent,
-        DmsLoanFileComponent,
-        SecurityComponent,
-        LoanActionComponent,
-        LoanSummaryComponent,
-        BirthMarkLetterNepaliComponent,
-        ProposalComponent,
-        BirthMarkLetterPrintComponent,
-        SuccessOfferLetterComponent,
-        SuccessOfferLetterPrintComponent,
-        FinancialComponent,
-        BorrowerRiskRatingComponent,
-        CiclComponent,
-        ReadmoreModelComponent,
-        CreditGradingComponent,
-
-        SiteVisitComponent,
-
-        LoanPullComponent,
-
-        SecurityInitialFormComponent,
-        SecuritySummaryComponent,
-
-        IncomeStatementComponent,
-        BalanceSheetComponent,
-        CashFlowStatementComponent,
-        KeyIndicatorsComponent,
-        InitialFormComponent,
-        FinancialSummaryComponent,
-        CustomerDocumentComponent,
-        FinancialSummaryComponent,
-        LoanOfferLetterComponent,
-        OfferLetterActionComponent,
-        OfferLetterUploadComponent,
-        OfferLetterComponent,
-        SitevistSummaryComponentComponent,
-        GroupComponent,
-        GroupDetailComponent,
-        SecurityDetailComponent,
-        VehicleSecurityComponent,
-    ],
+    declarations: [...COMPONENTS],
     imports: [
         ThemeModule,
         CommonModule,

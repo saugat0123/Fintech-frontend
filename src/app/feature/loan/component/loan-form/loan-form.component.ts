@@ -293,7 +293,6 @@ export class LoanFormComponent implements OnInit {
                 this.selectedTab = templateListMember.title;
             }
         });
-        console.log(this.nextTabId.toString());
         this.nextButtonAction = false;
     }
 
@@ -454,8 +453,7 @@ export class LoanFormComponent implements OnInit {
 
         if (name === 'Site Visit' && action) {
             this.siteVisit.onSubmit();
-            const siteVisitData = this.siteVisit.siteVisitData;
-            this.loanDocument.siteVisit = siteVisitData;
+            this.loanDocument.siteVisit = this.siteVisit.siteVisitData;
         }
         if (name === 'Security' && action) {
             this.security.onSubmit();
@@ -472,7 +470,7 @@ export class LoanFormComponent implements OnInit {
 
         if (name === 'Vehicle Security' && action) {
             this.vehicleSecurity.onSubmit();
-            this.loanDocument.vehicleSecurity = this.vehicleSecurity.vehicleSecurityList;
+            this.loanDocument.vehicleSecurity = this.vehicleSecurity.vehicleSecurity;
         }
         return false;
 

@@ -54,6 +54,6 @@ export class LoanDataHolder {
     uploadedOfferLetterStat: number;
     creditRiskGrading: CreditRiskGrading;
     group: Group;
-    vehicleSecurity: VehicleSecurity ;
+    vehicleSecurity: VehicleSecurity;
 
 }
