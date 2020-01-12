@@ -18,6 +18,7 @@ import {CustomerOfferLetter} from './customer-offer-letter';
 import {CreditRiskGrading} from '../../admin/modal/creditRiskGrading';
 
 import {Group} from './group';
+import {VehicleSecurity} from '../../admin/modal/vehicleSecurity';
 
 export class LoanDataHolder {
     id: number;
@@ -53,5 +54,6 @@ export class LoanDataHolder {
     uploadedOfferLetterStat: number;
     creditRiskGrading: CreditRiskGrading;
     group: Group;
+    vehicleSecurity: VehicleSecurity;
 
 }
