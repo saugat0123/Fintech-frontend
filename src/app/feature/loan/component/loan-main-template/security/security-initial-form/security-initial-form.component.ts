@@ -8,6 +8,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 })
 export class SecurityInitialFormComponent implements OnInit {
     @Input() formData: string;
+    @Input() name;
     selectedArray = [];
     securityForm: FormGroup;
     landSelected = false;

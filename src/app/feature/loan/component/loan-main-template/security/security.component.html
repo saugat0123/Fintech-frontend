@@ -3,7 +3,7 @@
         <div class="container" id="security">
             <div class="wizard-title text-center"><h1>Security</h1></div>
                 <div class="form-group">
-                    <app-security-initial-form #initialSecurity [formData]="initialSecurityValue"></app-security-initial-form>
+                    <app-security-initial-form #initialSecurity [formData]="initialSecurityValue" [name]="valuatorName"></app-security-initial-form>
 
                 <!-- Guarantors -->
 
@@ -16,6 +16,11 @@
                         <div *ngFor="let guarantorsDetails of guarantorsForm.get('guarantorsDetails')['controls']; let i = index" class="font-weight-bold" formArrayName="guarantorsDetails">
                             <div [formGroupName]="i">
                                 <div class="row">
+                                    <div class="col-md-10 form-group">
+                                        <h5>{{i + 1}}) guarantor Information</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="title" for="name">Name</label>
@@ -24,28 +29,20 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-<!--                                    <div class="col-md-3">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label class="title" for="address">Address</label>-->
-<!--                                            <input class="form-control rounded" formControlName="address" id="address"-->
-<!--                                                   name="address" placeholder="address" type="text">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
+
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label><strong>Province</strong></label>
                                             <select class="custom-select"
                                                     formControlName="province"
                                                     name="province"
-                                                    (change)="getDistrict(this.guarantorsDetails.get('province').value)">
+                                                    (change)="getDistrict(guarantorsDetails.get('province').value,i)"
+                                                    [ngClass]="{ 'is-invalid': (submitted) && guarantorsDetails.get('province').errors}">
                                                 <option [value]="null" hidden>Select Province</option>
-                                                <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal"
-                                                        [selected]="provinceVal.id === province?.id">
+                                                <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal.id">
                                                     {{provinceVal.name}}
                                             </select>
-<!--&lt;!&ndash;                                            <div *ngIf="(submitted) && basicInfoControls.province.invalid" class="invalid-feedback">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                <span *ngIf="basicInfoControls.province.errors.required">Province is required</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -54,15 +51,13 @@
                                             <select  class="custom-select"
                                                      formControlName="district"
                                                      name="district"
-                                                     (change)="getMunicipalities(this.guarantorsDetails.get('district').value)">
+                                                     (change)="getMunicipalities(guarantorsDetails.get('district').value, i)"
+                                                     [ngClass]="{ 'is-invalid': (submitted) && guarantorsDetails.get('district').errors}">
                                                 <option [value]="null" hidden>Select District</option>
-                                                <option *ngFor="let districtVal of districtList" [ngValue]="districtVal"
-                                                        [selected]="districtVal.id === district?.id">
+                                                <option *ngFor="let districtVal of addressList[i].districtList" [ngValue]="districtVal.id">
                                                     {{districtVal.name}}</option>
                                             </select>
-                                            <!--&lt;!&ndash;                                            <div *ngIf="(submitted) && basicInfoControls.province.invalid" class="invalid-feedback">&ndash;&gt;-->
-                                            <!--&lt;!&ndash;                                                <span *ngIf="basicInfoControls.province.errors.required">Province is required</span>&ndash;&gt;-->
-                                            <!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -70,15 +65,13 @@
                                             <label><strong>Municipalities/VDC</strong></label>
                                             <select  class="custom-select"
                                                      formControlName="municipalities"
-                                                     name="municipalities">
+                                                     name="municipalities"
+                                                     [ngClass]="{ 'is-invalid': (submitted) && guarantorsDetails.get('municipalities').errors}">
                                                 <option [value]="null" hidden>Select Municipalities/VDC</option>
-                                                <option *ngFor="let municipalitiesVal of municipalitiesList" [ngValue]="municipalitiesVal"
-                                                        [selected]="municipalitiesVal.id === municipality?.id">
+                                                <option *ngFor="let municipalitiesVal of addressList[i].municipalityVdcList" [ngValue]="municipalitiesVal.id">
                                                     {{municipalitiesVal.name}}
                                             </select>
-                                            <!--&lt;!&ndash;                                            <div *ngIf="(submitted) && basicInfoControls.province.invalid" class="invalid-feedback">&ndash;&gt;-->
-                                            <!--&lt;!&ndash;                                                <span *ngIf="basicInfoControls.province.errors.required">Province is required</span>&ndash;&gt;-->
-                                            <!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+
                                         </div>
                                     </div>
                                     <div class="col-md-3">
