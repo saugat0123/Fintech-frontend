@@ -53,6 +53,8 @@ import {GroupComponent} from './component/loan-main-template/group/group.compone
 import {GroupDetailComponent} from './component/loan-main-template/group/group-detail/group-detail.component';
 import {SecurityDetailComponent} from './component/loan-main-template/group/security-detail/security-detail.component';
 import {VehicleSecurityComponent} from './component/loan-main-template/vehicle-security/vehicle-security.component';
+import { ShareSecurityComponent } from './component/loan-main-template/share-security/share-security.component';
+
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -94,6 +96,7 @@ const COMPONENTS = [
     GroupDetailComponent,
     SecurityDetailComponent,
     VehicleSecurityComponent,
+    ShareSecurityComponent
 ];
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
 
