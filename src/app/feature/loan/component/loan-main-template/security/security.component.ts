@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component , Input , OnInit , ViewChild} from '@angular/core';
 import {FormArray , FormBuilder , FormGroup , Validators} from '@angular/forms';
 import {SecurityInitialFormComponent} from './security-initial-form/security-initial-form.component';
 import {Security} from '../../../model/security';
@@ -11,11 +11,12 @@ import {ValuatorService} from '../../../../admin/component/valuator/valuator.ser
 import {Proposal} from '../../../../admin/modal/proposal';
 import {Address} from '../../../model/address';
 import {Guarantors} from '../../../model/guarantors';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 
 
 @Component({
-    selector: 'app-security',
-    templateUrl: './security.component.html',
+    selector: 'app-security' ,
+    templateUrl: './security.component.html' ,
     styleUrls: ['./security.component.css']
 })
 export class SecurityComponent implements OnInit {
@@ -40,8 +41,7 @@ export class SecurityComponent implements OnInit {
     proposalAllData;
     submitted: false;
     guarantorsDetails: Guarantors = new Guarantors();
-    guarantorsList: Array<Guarantors> = new Array<Guarantors>();
-    guarantorValue;
+
     constructor(
         private formBuilder: FormBuilder ,
         private addressServices: AddressService ,
@@ -52,13 +52,10 @@ export class SecurityComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         this.getProvince();
-        console.log(this.securityValue, 'this is security');
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityValueForEdit = JSON.parse(this.securityValue.data);
             this.initialSecurityValue = this.securityValueForEdit;
             this.setGuarantorsDetails(this.securityValue.guarantor);
-
-
         } else {
             this.addGuarantorsDetails();
             this.initialSecurityValue = undefined;
@@ -66,7 +63,10 @@ export class SecurityComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.proposalDataHolder)) {
             this.proposalAllData = JSON.parse(this.proposalDataHolder.data);
         }
-        this.valuatorService.getValuatorList(null).subscribe((res: any) => {
+        const valuatorSearch = {
+            'branchIds': LocalStorageUtil.getStorage().branch
+        };
+        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
             this.valuatorByBranch = res.detail;
             if (this.proposalAllData !== undefined) {
                 this.limit = this.proposalAllData.proposedLimit;
@@ -94,24 +94,24 @@ export class SecurityComponent implements OnInit {
         guarantorList.forEach(guarantor => {
             this.addressList[guarantorIndex] = new Address();
             if (guarantor.province.id !== null) {
-                this.getDistrict(guarantor.province.id, guarantorIndex);
+                this.getDistrict(guarantor.province.id , guarantorIndex);
                 if (guarantor.district.id !== null) {
-                    this.getMunicipalities(guarantor.district.id, guarantorIndex);
+                    this.getMunicipalities(guarantor.district.id , guarantorIndex);
                 }
             }
             guarantorIndex++;
             details.push(this.formBuilder.group({
-                name: [guarantor.name === undefined ? '' : guarantor.name, Validators.required],
-                citizenNumber: [guarantor.citizenNumber === undefined ? '' : guarantor.citizenNumber, Validators.required],
-                issuedYear: [guarantor.issuedYear === undefined ? '' : guarantor.issuedYear, Validators.required],
-                issuedPlace: [guarantor.issuedPlace === undefined ? '' : guarantor.issuedPlace, Validators.required],
-                contactNumber: [guarantor.contactNumber === undefined ? '' : guarantor.contactNumber, Validators.required],
-                fatherName: [guarantor.fatherName === undefined ? '' : guarantor.fatherName, Validators.required],
-                grandFatherName: [guarantor.grandFatherName === undefined ? '' : guarantor.grandFatherName, Validators.required],
-                relationship: [guarantor.relationship === undefined ? '' : guarantor.relationship, Validators.required],
-                province: [guarantor.province.id === undefined ? '' : guarantor.province.id, Validators.required],
-                district: [guarantor.district.id === undefined ? '' : guarantor.district.id, Validators.required],
-                municipalities: [guarantor.municipalities.id === undefined ? '' : guarantor.municipalities.id, Validators.required]
+                name: [guarantor.name === undefined ? '' : guarantor.name , Validators.required] ,
+                citizenNumber: [guarantor.citizenNumber === undefined ? '' : guarantor.citizenNumber , Validators.required] ,
+                issuedYear: [guarantor.issuedYear === undefined ? '' : guarantor.issuedYear , Validators.required] ,
+                issuedPlace: [guarantor.issuedPlace === undefined ? '' : guarantor.issuedPlace , Validators.required] ,
+                contactNumber: [guarantor.contactNumber === undefined ? '' : guarantor.contactNumber , Validators.required] ,
+                fatherName: [guarantor.fatherName === undefined ? '' : guarantor.fatherName , Validators.required] ,
+                grandFatherName: [guarantor.grandFatherName === undefined ? '' : guarantor.grandFatherName , Validators.required] ,
+                relationship: [guarantor.relationship === undefined ? '' : guarantor.relationship , Validators.required] ,
+                province: [guarantor.province.id === undefined ? '' : guarantor.province.id , Validators.required] ,
+                district: [guarantor.district.id === undefined ? '' : guarantor.district.id , Validators.required] ,
+                municipalities: [guarantor.municipalities.id === undefined ? '' : guarantor.municipalities.id , Validators.required]
             }));
         });
         return details;
@@ -165,9 +165,11 @@ export class SecurityComponent implements OnInit {
             this.addressList[i].municipalityVdcList = this.municipalitiesList;
         });
     }
+
     getGuarantor() {
         return this.guarantorsForm.value.guarantorsDetails as FormArray;
     }
+
     onSubmit() {
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityData = this.securityValue;
@@ -179,7 +181,7 @@ export class SecurityComponent implements OnInit {
             guarantorsForm: this.guarantorsForm.value
         };
         this.securityData.data = JSON.stringify(mergedForm);
-          this.securityData.guarantor = new Array<Guarantors>();
+        this.securityData.guarantor = new Array<Guarantors>();
         let guarantorIndex = 0;
         while (guarantorIndex < this.getGuarantor().length) {
             const guarantor = new Guarantors();
