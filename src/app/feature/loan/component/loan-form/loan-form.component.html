@@ -96,6 +96,10 @@
                         <app-vehicle-security #vehicleSecurity
                                               [vehicleSecurityValue]="loanDocument?.vehicleSecurity"></app-vehicle-security>
                     </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name == 'Share Security'">
+                        <app-share-security #shareSecurity [shareSecurity]="loanDocument?.shareSecurity">
+                        </app-share-security>
+                    </ng-template>
                 </ngb-tab>
             </ngb-tabset>
 
