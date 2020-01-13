@@ -92,6 +92,14 @@
                     <ng-template ngbTabContent *ngIf="allList.name === 'Group'">
                         <app-group #group [groupValue]="loanDocument?.group" [proposalDataHolder]="loanDocument?.proposal" ></app-group>
                     </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Vehicle Security'">
+                        <app-vehicle-security #vehicleSecurity
+                                              [vehicleSecurityValue]="loanDocument?.vehicleSecurity"></app-vehicle-security>
+                    </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name == 'Share Security'">
+                        <app-share-security #shareSecurity [shareSecurity]="loanDocument?.shareSecurity">
+                        </app-share-security>
+                    </ng-template>
                 </ngb-tab>
             </ngb-tabset>
 
