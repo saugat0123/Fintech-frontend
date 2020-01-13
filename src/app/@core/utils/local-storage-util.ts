@@ -49,4 +49,5 @@ export class LocalStorage {
   userProfilePicture: string;
   roleId: string;
   productMode: string;
+  branch: string;
 }
