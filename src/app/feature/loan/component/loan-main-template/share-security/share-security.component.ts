@@ -13,6 +13,7 @@ import {ShareSecurity} from '../../../../admin/modal/shareSecurity';
 export class ShareSecurityComponent implements OnInit {
   @Input()
   shareSecurity: ShareSecurity;
+  securityOffered: string;
   shareSecurityForm: FormGroup;
   shareType = ShareType;
   shareDataForEdit = [];
@@ -33,7 +34,10 @@ export class ShareSecurityComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     if (this.shareSecurity !== undefined) {
-      this.shareDataForEdit = JSON.parse(this.shareSecurity.data);
+     const shareSecurityAllData = JSON.parse(this.shareSecurity.data);
+      console.log(shareSecurityAllData);
+      this.shareDataForEdit = shareSecurityAllData.shareField;
+      this.securityOffered = shareSecurityAllData.securityOffered;
       this.setShareData();
     } else {
       this.addShareList();
@@ -41,7 +45,11 @@ export class ShareSecurityComponent implements OnInit {
   }
 
   onSubmit() {
-    this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value.shareField);
+    const mergedData = {
+      shareField: this.shareSecurityForm.value.shareField,
+      securityOffered: this.securityOffered
+    };
+    this.shareSecurityData.data = JSON.stringify(mergedData);
   }
 
   buildForm() {
