@@ -14,7 +14,7 @@ import {CustomerService} from '../../../../admin/service/customer.service';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-
+import {Address} from '../../../model/address';
 
 @Component({
     selector: 'app-basic-info',
@@ -34,15 +34,18 @@ export class BasicInfoComponent implements OnInit {
     customerSearchData = {
         customerId: undefined
     };
+
     customer: Customer = new Customer();
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
     province: Province = new Province();
     provinceList: Array<Province> = Array<Province>();
     district: District = new District();
     districtList: Array<District> = Array<District>();
+    districts: Array<District> = Array<District>();
     municipality: MunicipalityVdc = new MunicipalityVdc();
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-    relativesList: FormArray;
+    municipalities:  Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    addresslist: Array<Address> = new Array<Address>();
 
     occupations = Occupation.enumObject();
     incomeSources = IncomeSource.enumObject();
@@ -51,15 +54,20 @@ export class BasicInfoComponent implements OnInit {
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
         private customerService: CustomerService,
-        private toastService: ToastService
+        private toastService: ToastService,
     ) {
     }
 
+    def(val) {
+        console.log('Formvalue of customer:', val);
+    }
+
     ngOnInit() {
+        this.def(this.formValue);
         this.getProvince();
         this.formMaker();
-        if (this.formValue !== undefined) {
-            if (this.formValue.customerId !== undefined) {
+        if (this.formValue !== undefined || null) {
+            if (this.formValue.customerId !== undefined || null) {
                 this.customerDetailField.showFormField = true;
             }
             this.customer = this.formValue;
@@ -69,10 +77,16 @@ export class BasicInfoComponent implements OnInit {
             this.createRelativesArray();
         }
     }
+    logs(message: string, rel) {
+        console.log(message, rel);
+    }
 
-    addRelatives() {
-        (this.basicInfo.get('customerRelatives') as FormArray).push(
-            this.formBuilder.group({
+    getRelatives() {
+        return (this.basicInfo.value.customerRelatives as FormArray);
+    }
+    RelativesFormGroup(): FormGroup {
+        this.addresslist.push(new Address());
+           return  this.formBuilder.group({
                 customerRelation: [undefined, Validators.required],
                 customerRelativeName: [undefined, Validators.compose([Validators.required])],
                 citizenshipNumber: [undefined, Validators.compose([Validators.required])],
@@ -81,12 +95,18 @@ export class BasicInfoComponent implements OnInit {
                 province: [undefined, Validators.compose([Validators.required])],
                 district: [undefined, Validators.compose([Validators.required])],
                 municipalities: [undefined, Validators.compose([Validators.required])]
-            })
-        );
+            });
+    }
+
+    addRelatives() {
+        this.addresslist.push(new Address());
+        (<FormArray>this.basicInfo.get('customerRelatives')).push(this.RelativesFormGroup());
     }
 
     removeRelatives(i) {
+        this.logs('Delete: ', i);
         (this.basicInfo.get('customerRelatives') as FormArray).removeAt(i);
+        this.addresslist.splice(i, 1);
     }
 
     get basicInfoControls() {
@@ -97,7 +117,7 @@ export class BasicInfoComponent implements OnInit {
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.districtList = response.detail;
-                this.districtList.forEach(district => {
+                this.districtList.forEach((district) => {
                     if (!ObjectUtil.isEmpty(this.customer.district) && district.id === this.customer.district.id) {
                         this.basicInfo.controls.district.setValue(district);
                         this.getMunicipalities(district);
@@ -111,14 +131,13 @@ export class BasicInfoComponent implements OnInit {
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.municipalitiesList = response.detail;
-                this.municipalitiesList.forEach(municipality => {
+                this.municipalitiesList.forEach((municipality) => {
                     if (!ObjectUtil.isEmpty(this.customer.municipalities) && municipality.id === this.customer.municipalities.id) {
                         this.basicInfo.controls.municipalities.setValue(municipality);
                     }
                 });
             }
         );
-
     }
 
     searchByCustomerId() {
@@ -140,6 +159,7 @@ export class BasicInfoComponent implements OnInit {
                     this.customer = customerResponse.detail;
                     this.formMaker();
                     this.setRelatives(this.customer.customerRelatives);
+                    console.log(this.customer.customerRelatives);
                 }
             });
         } else {
@@ -152,6 +172,7 @@ export class BasicInfoComponent implements OnInit {
 
 
     onSubmit() {
+        this.customer = new Customer();
         this.customer.title = this.basicInfo.get('title').value;
         this.customer.customerName = this.basicInfo.get('customerName').value;
         this.customer.customerId = this.basicInfo.get('customerId').value;
@@ -170,15 +191,33 @@ export class BasicInfoComponent implements OnInit {
         this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
         this.customer.occupation = this.basicInfo.get('occupation').value;
         this.customer.incomeSource = this.basicInfo.get('incomeSource').value;
-        const rawFromValue = this.basicInfo.getRawValue();
-        this.customer.customerRelatives = rawFromValue.customerRelatives;
+        this.customer.customerRelatives = new Array<CustomerRelative>();
+
+        let proprietorsIndex = 0;
+        while (proprietorsIndex < this.getRelatives().length) {
+            const customerRelative = new CustomerRelative();
+            customerRelative.customerRelation = this.getRelatives()[proprietorsIndex].customerRelation;
+            customerRelative.citizenshipNumber = this.getRelatives()[proprietorsIndex].citizenshipNumber;
+            customerRelative.citizenshipIssuedDate = this.getRelatives()[proprietorsIndex].citizenshipIssuedDate;
+            const province = new Province();
+            province.id = this.getRelatives()[proprietorsIndex].province;
+            customerRelative.province = province;
+            const district = new District();
+            district.id = this.getRelatives()[proprietorsIndex].district;
+            customerRelative.district = district;
+            const municipalityVdc = new MunicipalityVdc();
+            municipalityVdc.id = this.getRelatives()[proprietorsIndex].municipalities;
+            customerRelative.municipalities = municipalityVdc;
+            proprietorsIndex++;
+            this.customer.customerRelatives.push(customerRelative);
+        }
     }
 
     getProvince() {
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
-                this.provinceList.forEach((province: Province) => {
+                this.provinceList.forEach((province: Province, index) => {
                     if (this.customer !== undefined && this.customer.customerId) {
                         if (!ObjectUtil.isEmpty(this.customer.province)) {
                             if (province.id === this.customer.province.id) {
@@ -219,15 +258,16 @@ export class BasicInfoComponent implements OnInit {
                 new Date(this.customer.dob), [ Validators.required, DateValidator.isValidBefore]],
             occupation: [this.customer.occupation === undefined ? undefined : this.customer.occupation, [Validators.required]],
             incomeSource: [this.customer.incomeSource === undefined ? undefined : this.customer.incomeSource, [Validators.required]],
-            customerRelatives: this.formBuilder.array([])
+            customerRelatives: this.formBuilder.array([
+            ]),
+
         });
     }
 
     createRelativesArray() {
-        const relation = ['Grand Father', 'Father', 'Spouse'];
-        relation.forEach((customerRelation) => {
+        this.addresslist.push(new Address());
             (this.basicInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
-                customerRelation: [{value: customerRelation, disabled: true}],
+                customerRelation: [undefined, Validators.compose([Validators.required])],
                 customerRelativeName: [undefined, Validators.compose([Validators.required])],
                 citizenshipNumber: [undefined, Validators.compose([Validators.required])],
                 citizenshipIssuedPlace: [undefined, Validators.compose([Validators.required])],
@@ -237,12 +277,24 @@ export class BasicInfoComponent implements OnInit {
                 district: [undefined, Validators.compose([Validators.required])]
 
             }));
-        });
-    }
+        }
 
-    setRelatives(currentData) {
+    setRelatives(currentData: Array<CustomerRelative>): FormArray {
+        console.log(currentData, 'ppp');
         const relativesData = (this.basicInfo.get('customerRelatives') as FormArray);
+        this.addresslist = new Array<Address>(currentData.length);
+        console.log('address value from setRelatives:', this.addresslist);
+        let relativeIndex = 0;
         currentData.forEach((singleRelatives, index) => {
+            console.log(singleRelatives);
+            this.addresslist[relativeIndex] = new Address();
+                if (singleRelatives.province.id !== null) {
+                    this.Districts(singleRelatives.province.id, relativeIndex);
+                    if (singleRelatives.district.id !== null) {
+                        this.Municipalities(singleRelatives.district.id, relativeIndex);
+                    }
+                }
+            relativeIndex ++;
             const customerRelative = singleRelatives.customerRelation;
             // Increase index number with increase in static relatives---
             relativesData.push(this.formBuilder.group({
@@ -253,11 +305,47 @@ export class BasicInfoComponent implements OnInit {
                 citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace, Validators.required],
                 citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
                     undefined : new Date(singleRelatives.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]],
-                province:  [singleRelatives.province, Validators.required],
-                municipalities: [singleRelatives.municipalities, Validators.required],
-                district: [singleRelatives.district, Validators.required]
-
+                province:  [singleRelatives.province , [Validators.required]],
+                municipalities: [singleRelatives.municipalities, [Validators.required]],
+                district: [singleRelatives.district, [Validators.required]]
             }));
         });
+        return relativesData;
     }
+
+    Districts(provinceId: number, index: number) {
+        const province = new Province();
+        province.id = provinceId;
+        this.commonLocation.getDistrictByProvince(province).subscribe(
+            (response: any) => {
+                console.log('response: ', response.detail);
+                this.districts = response.detail;
+                console.log('districts:', this.districts);
+                this.addresslist[index].districtList = this.districts;
+            }
+        );
+        console.log('index:', index);
+        console.log('province.id: ', province.id, 'and ProvinceId: ', provinceId);
+        // console.log('districts:', this.districts);
+        console.log('address:', this.addresslist[index]);
+        console.log('districtList: ', this.addresslist[index].districtList );
+
+    }
+    Municipalities(districtId: number, index: number) {
+        const district = new District();
+        district.id = districtId;
+        this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.municipalities = response.detail;
+                this.addresslist[index].municipalityVdcList = this.municipalities;
+            }
+        );
+
+    }
+
+    reviewed(point) {
+        console.log('povision clicked: ', point);
+    }
+
+
 }

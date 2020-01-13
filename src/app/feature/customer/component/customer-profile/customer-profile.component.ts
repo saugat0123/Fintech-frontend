@@ -220,7 +220,10 @@ export class CustomerProfileComponent implements OnInit {
                 customerRelativeName: [undefined, Validators.compose([Validators.required])],
                 citizenshipNumber: [undefined, Validators.compose([Validators.required])],
                 citizenshipIssuedPlace: [undefined, Validators.compose([Validators.required])],
-                citizenshipIssuedDate: [undefined, Validators.compose([Validators.required, DateValidator.isValidBefore])]
+                citizenshipIssuedDate: [undefined, Validators.compose([Validators.required, DateValidator.isValidBefore])],
+                province: [undefined, Validators.compose([Validators.required])],
+                district: [undefined, Validators.compose([Validators.required])],
+                municipalities: [undefined, Validators.compose([Validators.required])],
             }));
         });
     }
@@ -237,7 +240,10 @@ export class CustomerProfileComponent implements OnInit {
                 citizenshipNumber: [singleRelatives.citizenshipNumber, Validators.required],
                 citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace, Validators.required],
                 citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
-                    undefined : new Date(singleRelatives.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]]
+                    undefined : new Date(singleRelatives.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]],
+                province: [singleRelatives.province, [Validators.required]],
+                district: [singleRelatives.district, [Validators.required]],
+                municipalities: [singleRelatives.municipalities, [Validators.required]],
             }));
         });
     }

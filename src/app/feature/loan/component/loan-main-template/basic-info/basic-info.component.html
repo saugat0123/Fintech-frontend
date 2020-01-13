@@ -294,9 +294,9 @@
                     </div>
                 </div>
                 <div *ngIf="customerDetailField.showFormField">
-                    <div *ngFor="let relatives of basicInfo.get('customerRelatives')['controls']; let i = index"
+                    <div *ngFor="let relatives of basicInfo.get('customerRelatives')['controls']; let r = index"
                          formArrayName="customerRelatives">
-                        <div [formGroupName]="i">
+                        <div [formGroupName]="r">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -349,42 +349,44 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="provinces"><strong>Province</strong></label>
-                                            <select (change)="getDistricts(this.relatives.get('province').value)"
+                                            <select (change)="Districts(relatives.get('province').value, r)"
                                                     [ngClass]="{ 'is-invalid': (submitted) && relatives.get('province').errors }"
                                                     class="custom-select"
                                                     formControlName="province"
                                                     id="provinces"
                                                     name="province">
-                                                <option [ngValue]="null" hidden>Select Province</option>
-                                                <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal"
-                                                        [selected]="provinceVal.id === province?.id">
+                                                <option [ngValue]="null" hidden>Province</option>
+                                                <option *ngFor="let provinceVal of provinceList"
+                                                        [ngValue]="provinceVal.id">
                                                     {{provinceVal.name}}
                                                 </option>
                                             </select>
                                         <div *ngIf="(submitted) && relatives.get('province').invalid"
                                              class="invalid-feedback">
-                                            Province is required
+                                                Province is required
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="districts"><strong>District</strong></label>
-                                        <select (change)="getMunicipalities(this.relatives.get('district').value)"
+                                        <label for="Districts"><strong>District</strong></label>
+                                        <select (change)="Municipalities(relatives.get('district').value, r)"
                                                 [ngClass]="{ 'is-invalid': (submitted) && relatives.get('district').errors }"
                                                 class="custom-select"
                                                 formControlName="district"
-                                                id="districts"
+                                                id="Districts"
                                                 name="district">
-                                            <option [ngValue]="null" hidden>Select District</option>
-                                            <option *ngFor="let districtVal of districtList" [ngValue]="districtVal"
-                                                    [selected]="districtVal.id === district?.id">
+                                            <option [ngValue]="null" hidden>District</option>
+                                            <option *ngFor="let districtVal of addresslist[r].districtList"
+                                                    [ngValue]="districtVal.id">
                                                 {{districtVal.name}}
                                             </option>
                                         </select>
                                         <div *ngIf="(submitted) &&  relatives.get('district').invalid"
                                              class="invalid-feedback">
-                                            District is required
+                                            <div *ngIf=" relatives.get('district').errors.required" >
+                                                District is required
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -396,19 +398,19 @@
                                                 id="municipalities"
                                                 name="municipality">
                                             <option [ngValue]="null" hidden>Select Municipality</option>
-                                            <option *ngFor="let municipalityVal of municipalitiesList"
-                                                    [ngValue]="municipalityVal"
-                                                    [selected]="municipalityVal.id === municipality?.id">
+                                            <option *ngFor="let municipalityVal of addresslist[r].municipalityVdcList"
+                                                    [ngValue]="municipalityVal.id">
                                                 {{municipalityVal.name}}
                                             </option>
                                         </select>
                                         <div *ngIf="(submitted) && relatives.get('municipalities').invalid"
                                              class="invalid-feedback">
-                                           Municipality is required
+                                            <div *ngIf=" relatives.get('municipalities').errors.required" >
+                                                Municipality is required
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="issuedDate"><strong>Issued Date</strong></label>
@@ -425,12 +427,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div *ngIf="i>2" class="ml-3">
-                                    <button (click)="removeRelatives(i)"
+<!--                                <div *ngIf="relatives >2" class="ml-3">-->
+                                    <button (click)="removeRelatives(r)"
                                             class="float-right" nbButton
                                             size="small" status="danger">remove
                                     </button>
-                                </div>
+<!--                                </div>-->
                             </div>
                         </div>
                     </div>
