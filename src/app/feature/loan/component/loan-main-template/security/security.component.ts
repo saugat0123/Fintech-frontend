@@ -72,7 +72,8 @@ export class SecurityComponent implements OnInit {
                 this.limit = this.proposalAllData.proposedLimit;
                 this.valuatorByBranch.forEach((value) => {
                     if ((Number(value.minAmount) <= Number(this.limit)) && (Number(value.maxAmount) >= Number(this.limit))) {
-                        this.valuatorName.push(value.name);
+                        const valuatorList = {id: value.id , name: value.name};
+                        this.valuatorName.push(valuatorList);
                     } else {
                         console.log('enter proposal limit');
                     }

@@ -16,12 +16,14 @@ export class SecurityInitialFormComponent implements OnInit {
     plantSelected = false;
     underConstructionChecked = false;
     formDataForEdit: Object;
+    valuatorList =[];
 
     constructor(private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
         this.buildForm();
+        this.valuatorList = this.name;
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
@@ -46,10 +48,10 @@ export class SecurityInitialFormComponent implements OnInit {
     buildForm() {
         this.securityForm = this.formBuilder.group({
             valuatorDetails: this.formBuilder.group({
-                valuator: [''] ,
-                valuatedDate: [''] ,
-                valuatorRepresentativeName: [''] ,
-                staffRepresentativeName: ['']
+                valuator: [undefined],
+                valuatedDate: [undefined],
+                valuatorRepresentativeName: [undefined] ,
+                staffRepresentativeName: [undefined]
             }) ,
             buildingDetailsDescription: [undefined] ,
             description: [undefined] ,
