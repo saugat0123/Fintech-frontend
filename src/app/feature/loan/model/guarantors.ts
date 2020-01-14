@@ -9,10 +9,10 @@ export class Guarantors {
     province: Province ;
     district: District ;
     municipalities: MunicipalityVdc;
-    citizenNumber: number;
+    citizenNumber: string;
     issuedYear: number;
     issuedPlace: string;
-    contactNumber: number;
+    contactNumber: string;
     fatherName: string;
     grandFatherName: string;
     relationship: string;
