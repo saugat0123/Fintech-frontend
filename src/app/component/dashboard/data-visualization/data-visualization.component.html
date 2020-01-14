@@ -43,7 +43,7 @@
                                     <nb-card class="card bg-info text-white" >
                                         <div>
                                             <label class="card-header bg-dark">
-                                                Discussion
+                                                Discussion <mark class="text-info"><strong> {{discussionFileCount}}</strong></mark>
                                             </label>
                                             <div id="Discussion"  style="display: inline">
                                                 <strong>&nbsp;{{ discussionProposedAmount | currency: 'NRS '}}</strong>
@@ -55,7 +55,7 @@
                                     <nb-card  class="card bg-info text-white"  >
                                         <div >
                                             <label class="card-header bg-dark">
-                                                Documentation
+                                                Documentation <mark class="text-info"><strong> {{documentationFileCount}}</strong></mark>
                                             </label>
                                             <div id="documentationAmountApproved"  style="display: inline">
                                                 &nbsp;<strong>&nbsp;{{approvedProposedAmount | currency: 'NRS '}}</strong>
@@ -69,7 +69,7 @@
                                     <nb-card class="card bg-info text-white" >
                                         <div >
                                             <label class="card-header bg-dark">
-                                                Valuation
+                                                Valuation <mark class="text-info"><strong> {{valuationFileCount}}</strong></mark>
                                             </label>
                                             <div id="seperateAmountPending"  style="display: inline">
                                                 <strong>&nbsp; {{ valuationProposedAmount | currency: 'NRS '}}</strong>
@@ -81,7 +81,7 @@
                                     <nb-card  class="card bg-info text-white"  >
                                         <div >
                                             <label class="card-header bg-dark">
-                                                Under Review
+                                                Under Review <mark class="text-info"><strong> {{valuationFileCount}}</strong></mark>
                                             </label>
                                             <div id="seperateAmountApproved"  style="display: inline">
                                                 &nbsp;<strong>&nbsp;{{reviewProposedAmount | currency: 'NRS '}}</strong>
@@ -95,7 +95,7 @@
                                     <nb-card class="  card bg-warning text-white" >
                                         <div >
                                             <label class="card-header bg-dark">
-                                                Pending
+                                                Pending <mark class="text-warning"><strong> {{pendingFileCount}}</strong></mark>
                                             </label>
                                             <div id="seperateAmountPending"  style="display: inline">
                                                 <strong>&nbsp;{{ pendingProposedAmount | currency: 'NRS '}}</strong>
@@ -107,7 +107,7 @@
                                     <nb-card  class=" card bg-success text-white"  >
                                         <div >
                                             <label class="card-header bg-dark">
-                                                Approved
+                                                Approved <mark class="text-success"><strong> {{approvedFileCount}}</strong></mark>
                                             </label>
                                             <div id="seperateAmountApproved"  style="display: inline">
                                                 <strong>&nbsp;{{approvedProposedAmount | currency: 'NRS '}}</strong>
@@ -121,7 +121,7 @@
                                     <nb-card  class=" card bg-danger text-white" >
                                         <div >
                                             <label class="card-header bg-dark">
-                                                Rejected
+                                                Rejected <mark class="text-danger"><strong> {{rejectedFileCount}}</strong></mark>
                                             </label>
                                             <div id="seperateAmountRejected"  style="display: inline">
                                                 &nbsp;<strong>&nbsp;{{rejectedProposedAmount | currency: 'NRS '}}</strong>
@@ -133,7 +133,7 @@
                                     <nb-card  class=" bg-primary text-white align-self-center" >
                                         <div >
                                             <label class="card-header bg-dark">
-                                                Closed
+                                                Closed <mark class="text-primary"><strong> {{closureFileCount}}</strong></mark>
                                             </label>
                                             <div id="seperateAmountClosed"  style="display: inline" class="m-md-auto">
                                                 <strong>&nbsp;{{closureProposedAmount | currency: 'NRS '}}</strong>
