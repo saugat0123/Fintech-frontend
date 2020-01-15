@@ -41,11 +41,9 @@ export class BasicInfoComponent implements OnInit {
     provinceList: Array<Province> = Array<Province>();
     district: District = new District();
     districtList: Array<District> = Array<District>();
-    districts: Array<District> = Array<District>();
     municipality: MunicipalityVdc = new MunicipalityVdc();
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-    municipalities:  Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-    addresslist: Array<Address> = new Array<Address>();
+    addressList: Array<Address> = new Array<Address>();
 
     occupations = Occupation.enumObject();
     incomeSources = IncomeSource.enumObject();
@@ -58,12 +56,7 @@ export class BasicInfoComponent implements OnInit {
     ) {
     }
 
-    def(val) {
-        console.log('Formvalue of customer:', val);
-    }
-
     ngOnInit() {
-        this.def(this.formValue);
         this.getProvince();
         this.formMaker();
         if (this.formValue !== undefined || null) {
@@ -77,15 +70,12 @@ export class BasicInfoComponent implements OnInit {
             this.createRelativesArray();
         }
     }
-    logs(message: string, rel) {
-        console.log(message, rel);
-    }
 
     getRelatives() {
         return (this.basicInfo.value.customerRelatives as FormArray);
     }
     RelativesFormGroup(): FormGroup {
-        this.addresslist.push(new Address());
+        this.addressList.push(new Address());
            return  this.formBuilder.group({
                 customerRelation: [undefined, Validators.required],
                 customerRelativeName: [undefined, Validators.compose([Validators.required])],
@@ -99,22 +89,22 @@ export class BasicInfoComponent implements OnInit {
     }
 
     addRelatives() {
-        this.addresslist.push(new Address());
+        this.addressList.push(new Address());
         (<FormArray>this.basicInfo.get('customerRelatives')).push(this.RelativesFormGroup());
     }
 
     removeRelatives(i) {
-        this.logs('Delete: ', i);
         (this.basicInfo.get('customerRelatives') as FormArray).removeAt(i);
-        this.addresslist.splice(i, 1);
+        this.addressList.splice(i, 1);
     }
 
     get basicInfoControls() {
         return this.basicInfo.controls;
     }
 
-    getDistricts(province: Province) {
-        this.commonLocation.getDistrictByProvince(province).subscribe(
+    getDistricts(provinceId) {
+        this.province.id = provinceId;
+        this.commonLocation.getDistrictByProvince(this.province).subscribe(
             (response: any) => {
                 this.districtList = response.detail;
                 this.districtList.forEach((district) => {
@@ -127,8 +117,9 @@ export class BasicInfoComponent implements OnInit {
         );
     }
 
-    getMunicipalities(district: District) {
-        this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
+    getMunicipalities(districtsId) {
+        this.district.id = districtsId;
+        this.commonLocation.getMunicipalityVDCByDistrict(this.district).subscribe(
             (response: any) => {
                 this.municipalitiesList = response.detail;
                 this.municipalitiesList.forEach((municipality) => {
@@ -159,7 +150,6 @@ export class BasicInfoComponent implements OnInit {
                     this.customer = customerResponse.detail;
                     this.formMaker();
                     this.setRelatives(this.customer.customerRelatives);
-                    console.log(this.customer.customerRelatives);
                 }
             });
         } else {
@@ -197,6 +187,7 @@ export class BasicInfoComponent implements OnInit {
         while (proprietorsIndex < this.getRelatives().length) {
             const customerRelative = new CustomerRelative();
             customerRelative.customerRelation = this.getRelatives()[proprietorsIndex].customerRelation;
+            customerRelative.customerRelativeName = this.getRelatives()[proprietorsIndex].customerRelativeName;
             customerRelative.citizenshipNumber = this.getRelatives()[proprietorsIndex].citizenshipNumber;
             customerRelative.citizenshipIssuedDate = this.getRelatives()[proprietorsIndex].citizenshipIssuedDate;
             const province = new Province();
@@ -217,12 +208,12 @@ export class BasicInfoComponent implements OnInit {
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
-                this.provinceList.forEach((province: Province, index) => {
+                this.provinceList.forEach((province: Province) => {
                     if (this.customer !== undefined && this.customer.customerId) {
                         if (!ObjectUtil.isEmpty(this.customer.province)) {
                             if (province.id === this.customer.province.id) {
                                 this.basicInfo.controls.province.setValue(province);
-                                this.getDistricts(province);
+                                this.getDistricts(province.id);
                             }
                         }
                     }
@@ -258,14 +249,13 @@ export class BasicInfoComponent implements OnInit {
                 new Date(this.customer.dob), [ Validators.required, DateValidator.isValidBefore]],
             occupation: [this.customer.occupation === undefined ? undefined : this.customer.occupation, [Validators.required]],
             incomeSource: [this.customer.incomeSource === undefined ? undefined : this.customer.incomeSource, [Validators.required]],
-            customerRelatives: this.formBuilder.array([
-            ]),
+            customerRelatives: this.formBuilder.array([]),
 
         });
     }
 
     createRelativesArray() {
-        this.addresslist.push(new Address());
+        this.addressList.push(new Address());
             (this.basicInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
                 customerRelation: [undefined, Validators.compose([Validators.required])],
                 customerRelativeName: [undefined, Validators.compose([Validators.required])],
@@ -273,25 +263,21 @@ export class BasicInfoComponent implements OnInit {
                 citizenshipIssuedPlace: [undefined, Validators.compose([Validators.required])],
                 citizenshipIssuedDate: [undefined, Validators.compose([Validators.required, DateValidator.isValidBefore])],
                 province: [undefined, Validators.compose([Validators.required])],
+                district:  [undefined, Validators.compose([Validators.required])],
                 municipalities: [undefined, Validators.compose([Validators.required])],
-                district: [undefined, Validators.compose([Validators.required])]
-
             }));
         }
 
     setRelatives(currentData: Array<CustomerRelative>): FormArray {
-        console.log(currentData, 'ppp');
         const relativesData = (this.basicInfo.get('customerRelatives') as FormArray);
-        this.addresslist = new Array<Address>(currentData.length);
-        console.log('address value from setRelatives:', this.addresslist);
+        this.addressList = new Array<Address>(currentData.length);
         let relativeIndex = 0;
         currentData.forEach((singleRelatives, index) => {
-            console.log(singleRelatives);
-            this.addresslist[relativeIndex] = new Address();
+            this.addressList[relativeIndex] = new Address();
                 if (singleRelatives.province.id !== null) {
                     this.Districts(singleRelatives.province.id, relativeIndex);
                     if (singleRelatives.district.id !== null) {
-                        this.Municipalities(singleRelatives.district.id, relativeIndex);
+                        this.Municipalities( singleRelatives.district.id, relativeIndex);
                     }
                 }
             relativeIndex ++;
@@ -300,14 +286,18 @@ export class BasicInfoComponent implements OnInit {
             relativesData.push(this.formBuilder.group({
                 customerRelation: (index > 2) ? [(customerRelative)] :
                     [({value: customerRelative, disabled: true}), Validators.required],
-                customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
-                citizenshipNumber: [singleRelatives.citizenshipNumber, Validators.required],
-                citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace, Validators.required],
+                customerRelativeName: [singleRelatives.customerRelativeName === undefined ? '' : singleRelatives.customerRelativeName,
+                    Validators.required],
+                citizenshipNumber: [singleRelatives.citizenshipNumber === undefined ? '' : singleRelatives.citizenshipNumber,
+                    Validators.required],
+                citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace === undefined ? '' : singleRelatives.citizenshipIssuedPlace,
+                    Validators.required],
                 citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
                     undefined : new Date(singleRelatives.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]],
-                province:  [singleRelatives.province , [Validators.required]],
-                municipalities: [singleRelatives.municipalities, [Validators.required]],
-                district: [singleRelatives.district, [Validators.required]]
+                province:  [singleRelatives.province.id === undefined ? '' : singleRelatives.province.id , Validators.required],
+                district: [singleRelatives.district.id === undefined ? '' : singleRelatives.district.id, Validators.required],
+                municipalities: [singleRelatives.municipalities.id === undefined ? '' : singleRelatives.municipalities.id,
+                    Validators.required]
             }));
         });
         return relativesData;
@@ -318,33 +308,21 @@ export class BasicInfoComponent implements OnInit {
         province.id = provinceId;
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
-                console.log('response: ', response.detail);
-                this.districts = response.detail;
-                console.log('districts:', this.districts);
-                this.addresslist[index].districtList = this.districts;
+                this.districtList = response.detail;
+                this.addressList[index].districtList = this.districtList;
             }
         );
-        console.log('index:', index);
-        console.log('province.id: ', province.id, 'and ProvinceId: ', provinceId);
-        // console.log('districts:', this.districts);
-        console.log('address:', this.addresslist[index]);
-        console.log('districtList: ', this.addresslist[index].districtList );
-
     }
     Municipalities(districtId: number, index: number) {
         const district = new District();
         district.id = districtId;
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
-                this.municipalities = response.detail;
-                this.addresslist[index].municipalityVdcList = this.municipalities;
+                this.municipalitiesList = response.detail;
+                this.addressList[index].municipalityVdcList = this.municipalitiesList;
             }
         );
 
-    }
-
-    reviewed(point) {
-        console.log('povision clicked: ', point);
     }
 
 

@@ -85,9 +85,8 @@
                                     formControlName="province"
                                     id="province"
                                     name="province">
-                                <option [ngValue]="null" hidden>Select Province</option>
-                                <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal"
-                                        [selected]="provinceVal.id === province?.id">
+                                <option [ngValue]="null" selected hidden>Select Province</option>
+                                <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal.id">
                                     {{provinceVal.name}}
                                 </option>
                             </select>
@@ -104,14 +103,13 @@
                                     formControlName="district"
                                     id="district"
                                     name="district">
-                                <option [ngValue]="null" hidden>Select District</option>
-                                <option *ngFor="let districtVal of districtList" [ngValue]="districtVal"
-                                        [selected]="districtVal.id === district?.id">
+                                <option [ngValue]="null" selected hidden>Select District</option>
+                                <option *ngFor="let districtVal of districtList" [ngValue]="districtVal.id">
                                     {{districtVal.name}}
                                 </option>
                             </select>
                             <div *ngIf="(submitted) &&  basicInfoControls.district.invalid" class="invalid-feedback">
-                                <span *ngIf="basicInfoControls.district.errors.required">Municipality is required</span>
+                                <span *ngIf="basicInfoControls.district.errors.required">District is required</span>
                             </div>
                         </div>
                     </div>
@@ -122,14 +120,13 @@
                                     id="municipality"
                                     name="municipality">
                                 <option [ngValue]="null" hidden>Select Municipality</option>
-                                <option *ngFor="let municipalityVal of municipalitiesList" [ngValue]="municipalityVal"
-                                        [selected]="municipalityVal.id === municipality?.id">
+                                <option *ngFor="let municipalityVal of municipalitiesList" [ngValue]="municipalityVal.id">
                                     {{municipalityVal.name}}
                                 </option>
                             </select>
                             <div *ngIf="(submitted) && basicInfoControls.municipalities.invalid"
                                  class="invalid-feedback">
-                                <span *ngIf="basicInfoControls.municipalities.errors.required">Province is required</span>
+                                <span *ngIf="basicInfoControls.municipalities.errors.required">Municipalities is required</span>
                             </div>
                         </div>
                     </div>
@@ -355,7 +352,7 @@
                                                     formControlName="province"
                                                     id="provinces"
                                                     name="province">
-                                                <option [ngValue]="null" hidden>Province</option>
+                                                <option [ngValue]="null" hidden>Select Province</option>
                                                 <option *ngFor="let provinceVal of provinceList"
                                                         [ngValue]="provinceVal.id">
                                                     {{provinceVal.name}}
@@ -363,7 +360,9 @@
                                             </select>
                                         <div *ngIf="(submitted) && relatives.get('province').invalid"
                                              class="invalid-feedback">
+                                            <div *ngIf=" relatives.get('province').errors.required">
                                                 Province is required
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -376,8 +375,8 @@
                                                 formControlName="district"
                                                 id="Districts"
                                                 name="district">
-                                            <option [ngValue]="null" hidden>District</option>
-                                            <option *ngFor="let districtVal of addresslist[r].districtList"
+                                            <option [ngValue]="null" hidden>Select District</option>
+                                            <option *ngFor="let districtVal of addressList[r].districtList"
                                                     [ngValue]="districtVal.id">
                                                 {{districtVal.name}}
                                             </option>
@@ -398,7 +397,7 @@
                                                 id="municipalities"
                                                 name="municipality">
                                             <option [ngValue]="null" hidden>Select Municipality</option>
-                                            <option *ngFor="let municipalityVal of addresslist[r].municipalityVdcList"
+                                            <option *ngFor="let municipalityVal of addressList[r].municipalityVdcList"
                                                     [ngValue]="municipalityVal.id">
                                                 {{municipalityVal.name}}
                                             </option>
@@ -406,7 +405,9 @@
                                         <div *ngIf="(submitted) && relatives.get('municipalities').invalid"
                                              class="invalid-feedback">
                                             <div *ngIf=" relatives.get('municipalities').errors.required" >
+                                                <div *ngIf=" relatives.get('municipalities').errors.required">
                                                 Municipality is required
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -427,12 +428,12 @@
                                         </div>
                                     </div>
                                 </div>
-<!--                                <div *ngIf="relatives >2" class="ml-3">-->
+                                <div *ngIf="r>0" class="ml-3">
                                     <button (click)="removeRelatives(r)"
                                             class="float-right" nbButton
                                             size="small" status="danger">remove
                                     </button>
-<!--                                </div>-->
+                                </div>
                             </div>
                         </div>
                     </div>

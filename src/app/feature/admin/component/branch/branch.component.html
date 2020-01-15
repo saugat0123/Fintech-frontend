@@ -68,8 +68,7 @@
                                             (change)="getMunicipalities($event.target.value)">
                                         <option [value]="null" selected hidden>District</option>
                                         <option *ngFor="let district of districts"
-                                                value="{{district.id}}"
-                                        >
+                                                value="{{district.id}}">
                                             {{district.name}}
                                         </option>
                                     </select>
