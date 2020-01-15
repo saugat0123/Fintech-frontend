@@ -54,6 +54,7 @@ import {GroupDetailComponent} from './component/loan-main-template/group/group-d
 import {SecurityDetailComponent} from './component/loan-main-template/group/security-detail/security-detail.component';
 import {VehicleSecurityComponent} from './component/loan-main-template/vehicle-security/vehicle-security.component';
 import { ShareSecurityComponent } from './component/loan-main-template/share-security/share-security.component';
+import { ShareSecuritySummaryComponent } from './component/loan-summary/share-security-summary/share-security-summary.component';
 
 
 const COMPONENTS = [
@@ -103,7 +104,7 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS],
+    declarations: [...COMPONENTS, ShareSecuritySummaryComponent],
     imports: [
         ThemeModule,
         CommonModule,
