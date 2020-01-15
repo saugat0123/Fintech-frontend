@@ -109,9 +109,11 @@ export class BasicInfoComponent implements OnInit {
             (response: any) => {
                 this.districtList = response.detail;
                 this.districtList.forEach((district) => {
-                    if (!ObjectUtil.isEmpty(this.customer.district) && district.id === this.customer.district.id) {
-                        this.basicInfo.controls.district.setValue(district);
-                        this.getMunicipalities(district);
+                    if (this.customer !== undefined && this.customer.customerId) {
+                        if (!ObjectUtil.isEmpty(this.customer.district) && district.id === this.customer.district.id) {
+                            this.basicInfo.controls.district.setValue(district);
+                            this.getMunicipalities(district);
+                        }
                     }
                 });
             }
@@ -123,8 +125,10 @@ export class BasicInfoComponent implements OnInit {
             (response: any) => {
                 this.municipalitiesList = response.detail;
                 this.municipalitiesList.forEach((municipality) => {
-                    if (!ObjectUtil.isEmpty(this.customer.municipalities) && municipality.id === this.customer.municipalities.id) {
-                        this.basicInfo.controls.municipalities.setValue(municipality);
+                    if (this.customer !== undefined && this.customer.customerId) {
+                        if (!ObjectUtil.isEmpty(this.customer.municipalities) && municipality.id === this.customer.municipalities.id) {
+                            this.basicInfo.controls.municipalities.setValue(municipality);
+                        }
                     }
                 });
             }
@@ -272,7 +276,7 @@ export class BasicInfoComponent implements OnInit {
         const relativesData = (this.basicInfo.get('customerRelatives') as FormArray);
         this.addressList = new Array<Address>(currentData.length);
         let relativeIndex = 0;
-        currentData.forEach((singleRelatives, index) => {
+        currentData.forEach((singleRelatives => {
             this.addressList[relativeIndex] = new Address();
                 if (singleRelatives.province.id !== null) {
                     this.Districts(singleRelatives.province.id, relativeIndex);
@@ -282,11 +286,10 @@ export class BasicInfoComponent implements OnInit {
                     }
                 }
             relativeIndex ++;
-            const customerRelative = singleRelatives.customerRelation;
             // Increase index number with increase in static relatives---
             relativesData.push(this.formBuilder.group({
-                customerRelation: (index > 2) ? [(customerRelative)] :
-                    [({value: customerRelative, disabled: true}), Validators.required],
+                customerRelation: [singleRelatives.customerRelation === undefined ? '' : singleRelatives.customerRelation,
+                    Validators.required],
                 customerRelativeName: [singleRelatives.customerRelativeName === undefined ? '' : singleRelatives.customerRelativeName,
                     Validators.required],
                 citizenshipNumber: [singleRelatives.citizenshipNumber === undefined ? '' : singleRelatives.citizenshipNumber,
@@ -300,7 +303,7 @@ export class BasicInfoComponent implements OnInit {
                 municipalities: [singleRelatives.municipalities.id === undefined ? '' : singleRelatives.municipalities.id,
                     Validators.required]
             }));
-        });
+        }));
         return relativesData;
     }
 
@@ -310,9 +313,7 @@ export class BasicInfoComponent implements OnInit {
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.districts = response.detail;
-                this.reviewed('response', response.detail);
                 this.addressList[index].districtList = this.districts;
-                this.reviewed('district', this.districts);
             }
         );
     }
@@ -322,15 +323,9 @@ export class BasicInfoComponent implements OnInit {
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.municipalitie = response.detail;
-                this.reviewed('municipality respons:', response.detail );
                 this.addressList[index].municipalityVdcList = this.municipalitie;
-                this.reviewed('minicipality:',  this.municipalitie );
             }
         );
 
-    }
-
-    reviewed(message, val) {
-        console.log(message, val);
     }
 }

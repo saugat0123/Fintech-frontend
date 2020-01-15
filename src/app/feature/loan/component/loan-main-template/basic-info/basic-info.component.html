@@ -123,7 +123,7 @@
                                     name="municipality">
                                 <option [ngValue]="null" hidden>Select Municipality</option>
                                 <option *ngFor="let municipalityVal of municipalitiesList" [ngValue]="municipalityVal"
-                                [selected]="municipalityVal.id === municipality?.id">
+                                [selected]="municipalityVal.id === municipality.id">
                                     {{municipalityVal.name}}
                                 </option>
                             </select>

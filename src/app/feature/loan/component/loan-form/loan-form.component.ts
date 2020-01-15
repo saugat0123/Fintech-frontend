@@ -357,6 +357,7 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.documentStatus = this.docStatusForm.get('documentStatus').value;
             this.loanDocument.loanCategory = this.allId.loanCategory;
             this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully save customer Information' ));
                 this.loanDocument = response.detail;
                 this.customerLoanId = this.loanDocument.id;
                 this.loanDocument = new LoanDataHolder();
@@ -364,6 +365,7 @@ export class LoanFormComponent implements OnInit {
                     .then(() => {
                         this.spinner.hide();
                     });
+
             }, error => {
                 this.spinner.hide();
                 console.error(error);
@@ -376,7 +378,7 @@ export class LoanFormComponent implements OnInit {
         this.nextButtonAction = true;
         tabSet.tabs.some(templateListMember => {
             if (Number(templateListMember.id) === Number(tabSet.activeId)) {
-                if (this.selectChild(templateListMember.title, true)) {
+                if (this.selectChild(this.selectedTab, true)) {
                     this.nextButtonAction = false;
                     return true;
                 } else {
@@ -386,7 +388,6 @@ export class LoanFormComponent implements OnInit {
             }
         });
     }
-
     selectChild(name, action) {
         if (name === 'Customer Info' && action) {
             if (this.basicInfo.basicInfo.invalid && this.nextButtonAction) {
