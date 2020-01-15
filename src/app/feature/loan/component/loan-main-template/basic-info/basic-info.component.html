@@ -86,7 +86,8 @@
                                     id="province"
                                     name="province">
                                 <option [ngValue]="null" selected hidden>Select Province</option>
-                                <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal.id">
+                                <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal"
+                                [selected]="provinceVal.id === province?.id">
                                     {{provinceVal.name}}
                                 </option>
                             </select>
@@ -104,7 +105,8 @@
                                     id="district"
                                     name="district">
                                 <option [ngValue]="null" selected hidden>Select District</option>
-                                <option *ngFor="let districtVal of districtList" [ngValue]="districtVal.id">
+                                <option *ngFor="let districtVal of districtList" [ngValue]="districtVal"
+                                [selected]="districtVal.id === district?.id">
                                     {{districtVal.name}}
                                 </option>
                             </select>
@@ -120,7 +122,8 @@
                                     id="municipality"
                                     name="municipality">
                                 <option [ngValue]="null" hidden>Select Municipality</option>
-                                <option *ngFor="let municipalityVal of municipalitiesList" [ngValue]="municipalityVal.id">
+                                <option *ngFor="let municipalityVal of municipalitiesList" [ngValue]="municipalityVal"
+                                [selected]="municipalityVal.id === municipality?.id">
                                     {{municipalityVal.name}}
                                 </option>
                             </select>

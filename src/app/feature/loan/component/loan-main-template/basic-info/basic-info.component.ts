@@ -41,8 +41,10 @@ export class BasicInfoComponent implements OnInit {
     provinceList: Array<Province> = Array<Province>();
     district: District = new District();
     districtList: Array<District> = Array<District>();
+    districts:  Array<District> = Array<District>();
     municipality: MunicipalityVdc = new MunicipalityVdc();
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    municipalitie: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     addressList: Array<Address> = new Array<Address>();
 
     occupations = Occupation.enumObject();
@@ -102,9 +104,8 @@ export class BasicInfoComponent implements OnInit {
         return this.basicInfo.controls;
     }
 
-    getDistricts(provinceId) {
-        this.province.id = provinceId;
-        this.commonLocation.getDistrictByProvince(this.province).subscribe(
+    getDistricts(province: Province) {
+        this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
                 this.districtList = response.detail;
                 this.districtList.forEach((district) => {
@@ -117,9 +118,8 @@ export class BasicInfoComponent implements OnInit {
         );
     }
 
-    getMunicipalities(districtsId) {
-        this.district.id = districtsId;
-        this.commonLocation.getMunicipalityVDCByDistrict(this.district).subscribe(
+    getMunicipalities(district: District) {
+        this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
                 this.municipalitiesList = response.detail;
                 this.municipalitiesList.forEach((municipality) => {
@@ -213,7 +213,7 @@ export class BasicInfoComponent implements OnInit {
                         if (!ObjectUtil.isEmpty(this.customer.province)) {
                             if (province.id === this.customer.province.id) {
                                 this.basicInfo.controls.province.setValue(province);
-                                this.getDistricts(province.id);
+                                this.getDistricts(province);
                             }
                         }
                     }
@@ -278,6 +278,7 @@ export class BasicInfoComponent implements OnInit {
                     this.Districts(singleRelatives.province.id, relativeIndex);
                     if (singleRelatives.district.id !== null) {
                         this.Municipalities( singleRelatives.district.id, relativeIndex);
+
                     }
                 }
             relativeIndex ++;
@@ -308,8 +309,10 @@ export class BasicInfoComponent implements OnInit {
         province.id = provinceId;
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
-                this.districtList = response.detail;
-                this.addressList[index].districtList = this.districtList;
+                this.districts = response.detail;
+                this.reviewed('response', response.detail);
+                this.addressList[index].districtList = this.districts;
+                this.reviewed('district', this.districts);
             }
         );
     }
@@ -318,12 +321,16 @@ export class BasicInfoComponent implements OnInit {
         district.id = districtId;
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
-                this.municipalitiesList = response.detail;
-                this.addressList[index].municipalityVdcList = this.municipalitiesList;
+                this.municipalitie = response.detail;
+                this.reviewed('municipality respons:', response.detail );
+                this.addressList[index].municipalityVdcList = this.municipalitie;
+                this.reviewed('minicipality:',  this.municipalitie );
             }
         );
 
     }
 
-
+    reviewed(message, val) {
+        console.log(message, val);
+    }
 }
