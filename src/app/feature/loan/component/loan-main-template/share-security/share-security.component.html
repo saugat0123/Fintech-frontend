@@ -62,7 +62,7 @@
                 </div>
                 </div>
                   <div class="float-right">
-                    <button class="btn btn-sm btn-flat btn-primary" (click)="addShareList()">Add More</button>
+                    <button class="btn btn-sm btn-flat btn-primary" (click)="addShareList()"> <i class="fa fa-plus"></i></button>
                   </div>
               </form>
             </nb-card-body>
@@ -78,7 +78,9 @@
   <nb-card-body>
     <div class="row">
       <div class="col-md-12">
-        <textarea class="form-control text-area" name="securityOffered" [(ngModel)]="securityOffered">{{securityOffered}}</textarea>
+        <label>
+          <textarea class="form-control text-area" name="securityOffered" [(ngModel)]="securityOffered">{{securityOffered}}</textarea>
+        </label>
       </div>
     </div>
   </nb-card-body>
