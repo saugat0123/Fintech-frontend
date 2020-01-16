@@ -40,9 +40,11 @@ export class ShareSecuritySummaryComponent implements OnInit {
             let consideredValue = 0;
             this.totalValue += shareSecurityData.total;
             if (shareSecurityData.shareType.toString() === ShareType.PROMOTER.toString()) {
-                consideredValue = ((shareSecurityData.totalShareUnit * shareSecurityData.shareRate) / 100) * this.sharePercent.promoterValue;
+                consideredValue = ((shareSecurityData.totalShareUnit * shareSecurityData.shareRate) / 100)
+                    * this.sharePercent.promoterValue;
             } else {
-                consideredValue = ((shareSecurityData.totalShareUnit * shareSecurityData.shareRate) / 100) * this.sharePercent.ordinaryValue;
+                consideredValue = ((shareSecurityData.totalShareUnit * shareSecurityData.shareRate) / 100)
+                    * this.sharePercent.ordinaryValue;
             }
             this.totalConsideredValue += consideredValue;
             this.consideredValues.push(consideredValue);
