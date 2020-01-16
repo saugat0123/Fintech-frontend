@@ -36,6 +36,7 @@ import {ScrollNavigationService} from '../../../../@core/service/baseservice/scr
 import {VehicleSecurityComponent} from '../loan-main-template/vehicle-security/vehicle-security.component';
 import {ShareSecurityComponent} from '../loan-main-template/share-security/share-security.component';
 import {GroupComponent} from '../loan-main-template/group/group.component';
+import {LoanMainNepaliTemplateComponent} from '../loan-main-nepali-template/loan-main-nepali-template.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -501,5 +502,9 @@ export class LoanFormComponent implements OnInit {
         this.customerService.detail(this.id).subscribe((res: any) => {
             this.loanDocument.customerInfo = res.detail;
         });
+    }
+
+    nepaliFormTemplate() {
+        this.modalService.open(LoanMainNepaliTemplateComponent, {size: 'lg'});
     }
 }
