@@ -54,6 +54,7 @@ import {GroupDetailComponent} from './component/loan-main-template/group/group-d
 import {SecurityDetailComponent} from './component/loan-main-template/group/security-detail/security-detail.component';
 import {VehicleSecurityComponent} from './component/loan-main-template/vehicle-security/vehicle-security.component';
 import {ShareSecurityComponent} from './component/loan-main-template/share-security/share-security.component';
+import {ShareSecuritySummaryComponent} from './component/loan-summary/share-security-summary/share-security-summary.component';
 import {DhitoLikhatManjurinamaComponent} from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-manjurinama.component';
 import {DhristiBandhakComponent} from './component/offer-letter/dhristi-bandhak/dhristi-bandhak.component';
 import {JamaniTamsukComponent} from './component/offer-letter/jamani-tamsuk/jamani-tamsuk.component';
@@ -104,6 +105,7 @@ const COMPONENTS = [
     SecurityDetailComponent,
     VehicleSecurityComponent,
     ShareSecurityComponent,
+    ShareSecuritySummaryComponent,
     DhitoLikhatManjurinamaComponent,
     DhristiBandhakComponent,
     JamaniTamsukComponent,
