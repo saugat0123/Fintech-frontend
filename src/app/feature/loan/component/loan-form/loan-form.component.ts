@@ -365,7 +365,6 @@ export class LoanFormComponent implements OnInit {
                     .then(() => {
                         this.spinner.hide();
                     });
-
             }, error => {
                 this.spinner.hide();
                 console.error(error);
@@ -378,7 +377,7 @@ export class LoanFormComponent implements OnInit {
         this.nextButtonAction = true;
         tabSet.tabs.some(templateListMember => {
             if (Number(templateListMember.id) === Number(tabSet.activeId)) {
-                if (this.selectChild(this.selectedTab, true)) {
+                if (this.selectChild(templateListMember.title, true)) {
                     this.nextButtonAction = false;
                     return true;
                 } else {
@@ -388,6 +387,7 @@ export class LoanFormComponent implements OnInit {
             }
         });
     }
+
     selectChild(name, action) {
         if (name === 'Customer Info' && action) {
             if (this.basicInfo.basicInfo.invalid && this.nextButtonAction) {
