@@ -21,7 +21,6 @@ export class SecurityInitialFormComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        console.log(this.formData);
         if (this.formData !== undefined) {
              this.formDataForEdit = this.formData['initialForm'];
              this.selectedArray = this.formData['selectedArray'];

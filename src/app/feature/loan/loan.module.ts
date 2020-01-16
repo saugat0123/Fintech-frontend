@@ -49,54 +49,78 @@ import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-actio
 import {OfferLetterUploadComponent} from './component/offer-letter/offer-letter-upload/offer-letter-upload.component';
 import {OfferLetterComponent} from './component/offer-letter/offer-letter.component';
 import {SitevistSummaryComponentComponent} from './component/loan-summary/sitevist-summary-component/sitevist-summary-component.component';
+import {GroupComponent} from './component/loan-main-template/group/group.component';
+import {GroupDetailComponent} from './component/loan-main-template/group/group-detail/group-detail.component';
+import {SecurityDetailComponent} from './component/loan-main-template/group/security-detail/security-detail.component';
+import {VehicleSecurityComponent} from './component/loan-main-template/vehicle-security/vehicle-security.component';
+import {ShareSecurityComponent} from './component/loan-main-template/share-security/share-security.component';
+import {ShareSecuritySummaryComponent} from './component/loan-summary/share-security-summary/share-security-summary.component';
+import {DhitoLikhatManjurinamaComponent} from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-manjurinama.component';
+import {DhristiBandhakComponent} from './component/offer-letter/dhristi-bandhak/dhristi-bandhak.component';
+import {JamaniTamsukComponent} from './component/offer-letter/jamani-tamsuk/jamani-tamsuk.component';
+import {KararnamaComponent} from './component/offer-letter/kararnama/kararnama.component';
+import {KarjatamsukComponent} from './component/offer-letter/karjatamsuk/karjatamsuk.component';
+import {ManjurinamaComponent} from './component/offer-letter/manjurinama/manjurinama.component';
+import {PratigyaPatraComponent} from './component/offer-letter/pratigya-patra/pratigya-patra.component';
+import {LoanMainNepaliTemplateComponent} from './component/loan-main-nepali-template/loan-main-nepali-template.component';
 
 
+const COMPONENTS = [
+    LoanFormComponent,
+    BasicInfoComponent,
+    CompanyInfoComponent,
+    KycInfoComponent,
+    DmsLoanFileComponent,
+    SecurityComponent,
+    LoanActionComponent,
+    LoanSummaryComponent,
+    BirthMarkLetterNepaliComponent,
+    ProposalComponent,
+    BirthMarkLetterPrintComponent,
+    SuccessOfferLetterComponent,
+    SuccessOfferLetterPrintComponent,
+    FinancialComponent,
+    BorrowerRiskRatingComponent,
+    CiclComponent,
+    ReadmoreModelComponent,
+    CreditGradingComponent,
+    SiteVisitComponent,
+    LoanPullComponent,
+    SecurityInitialFormComponent,
+    SecuritySummaryComponent,
+    IncomeStatementComponent,
+    BalanceSheetComponent,
+    CashFlowStatementComponent,
+    KeyIndicatorsComponent,
+    InitialFormComponent,
+    FinancialSummaryComponent,
+    CustomerDocumentComponent,
+    FinancialSummaryComponent,
+    LoanOfferLetterComponent,
+    OfferLetterActionComponent,
+    OfferLetterUploadComponent,
+    OfferLetterComponent,
+    SitevistSummaryComponentComponent,
+    GroupComponent,
+    GroupDetailComponent,
+    SecurityDetailComponent,
+    VehicleSecurityComponent,
+    ShareSecurityComponent,
+    ShareSecuritySummaryComponent,
+    DhitoLikhatManjurinamaComponent,
+    DhristiBandhakComponent,
+    JamaniTamsukComponent,
+    KararnamaComponent,
+    KarjatamsukComponent,
+    ManjurinamaComponent,
+    PratigyaPatraComponent
+];
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
 
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [
-        LoanFormComponent,
-        BasicInfoComponent,
-        CompanyInfoComponent,
-        KycInfoComponent,
-        DmsLoanFileComponent,
-        SecurityComponent,
-        LoanActionComponent,
-        LoanSummaryComponent,
-        BirthMarkLetterNepaliComponent,
-        ProposalComponent,
-        BirthMarkLetterPrintComponent,
-        SuccessOfferLetterComponent,
-        SuccessOfferLetterPrintComponent,
-        FinancialComponent,
-        BorrowerRiskRatingComponent,
-        CiclComponent,
-        ReadmoreModelComponent,
-        CreditGradingComponent,
-
-        SiteVisitComponent,
-
-        LoanPullComponent,
-
-        SecurityInitialFormComponent,
-        SecuritySummaryComponent,
-
-        IncomeStatementComponent,
-        BalanceSheetComponent,
-        CashFlowStatementComponent,
-        KeyIndicatorsComponent,
-        InitialFormComponent,
-        FinancialSummaryComponent,
-        CustomerDocumentComponent,
-        FinancialSummaryComponent,
-        LoanOfferLetterComponent,
-        OfferLetterActionComponent,
-        OfferLetterUploadComponent,
-        OfferLetterComponent,
-        SitevistSummaryComponentComponent,
-    ],
+    declarations: [...COMPONENTS, LoanMainNepaliTemplateComponent],
     imports: [
         ThemeModule,
         CommonModule,

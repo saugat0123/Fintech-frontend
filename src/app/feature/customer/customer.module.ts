@@ -4,10 +4,11 @@ import {CustomerComponent} from './component/customer-list/customer.component';
 import {CustomerRoutingModule} from './customer-routing.module';
 import {ThemeModule} from '../../@theme/theme.module';
 import {CustomerProfileComponent} from './component/customer-profile/customer-profile.component';
+import {CustomerGroupLoanComponent} from './component/customer-group-loan/customer-group-loan.component';
 
 
 @NgModule({
-    declarations: [CustomerComponent, CustomerProfileComponent],
+    declarations: [CustomerComponent, CustomerProfileComponent, CustomerGroupLoanComponent],
     imports: [
         CommonModule,
         CustomerRoutingModule,

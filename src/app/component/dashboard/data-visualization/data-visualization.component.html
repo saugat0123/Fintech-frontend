@@ -40,13 +40,65 @@
                             </ngx-charts-advanced-pie-chart>
                             <div class="row">
                                 <div class="col-md-4 ">
-                                    <nb-card class="  card bg-warning text-white" >
+                                    <nb-card class="card bg-info text-white" >
+                                        <div>
+                                            <label class="card-header bg-dark">
+                                                Discussion <mark class="text-info"><strong> {{discussionFileCount}}</strong></mark>
+                                            </label>
+                                            <div id="Discussion"  style="display: inline">
+                                                <strong>&nbsp;{{ discussionProposedAmount | currency: 'NRS '}}</strong>
+                                            </div>
+                                        </div>
+                                    </nb-card>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <nb-card  class="card bg-info text-white"  >
                                         <div >
-                                            <label class="card-header">
-                                                Pending
+                                            <label class="card-header bg-dark">
+                                                Documentation <mark class="text-info"><strong> {{documentationFileCount}}</strong></mark>
+                                            </label>
+                                            <div id="documentationAmountApproved"  style="display: inline">
+                                                &nbsp;<strong>&nbsp;{{approvedProposedAmount | currency: 'NRS '}}</strong>
+                                            </div>
+                                        </div>
+                                    </nb-card>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 ">
+                                    <nb-card class="card bg-info text-white" >
+                                        <div >
+                                            <label class="card-header bg-dark">
+                                                Valuation <mark class="text-info"><strong> {{valuationFileCount}}</strong></mark>
                                             </label>
                                             <div id="seperateAmountPending"  style="display: inline">
-                                                {{ pendingProposedAmount | currency: 'NRS '}}
+                                                <strong>&nbsp; {{ valuationProposedAmount | currency: 'NRS '}}</strong>
+                                            </div>
+                                        </div>
+                                    </nb-card>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <nb-card  class="card bg-info text-white"  >
+                                        <div >
+                                            <label class="card-header bg-dark">
+                                                Under Review <mark class="text-info"><strong> {{valuationFileCount}}</strong></mark>
+                                            </label>
+                                            <div id="seperateAmountApproved"  style="display: inline">
+                                                &nbsp;<strong>&nbsp;{{reviewProposedAmount | currency: 'NRS '}}</strong>
+                                            </div>
+                                        </div>
+                                    </nb-card>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 ">
+                                    <nb-card class="  card bg-warning text-white" >
+                                        <div >
+                                            <label class="card-header bg-dark">
+                                                Pending <mark class="text-warning"><strong> {{pendingFileCount}}</strong></mark>
+                                            </label>
+                                            <div id="seperateAmountPending"  style="display: inline">
+                                                <strong>&nbsp;{{ pendingProposedAmount | currency: 'NRS '}}</strong>
                                             </div>
                                         </div>
                                     </nb-card>
@@ -54,11 +106,11 @@
                                 <div class="col-md-4 ">
                                     <nb-card  class=" card bg-success text-white"  >
                                         <div >
-                                            <label class="card-header">
-                                                Approved
+                                            <label class="card-header bg-dark">
+                                                Approved <mark class="text-success"><strong> {{approvedFileCount}}</strong></mark>
                                             </label>
                                             <div id="seperateAmountApproved"  style="display: inline">
-                                                &nbsp;{{approvedProposedAmount | currency: 'NRS '}}
+                                                <strong>&nbsp;{{approvedProposedAmount | currency: 'NRS '}}</strong>
                                             </div>
                                         </div>
                                     </nb-card>
@@ -68,11 +120,11 @@
                                 <div class="col-md-4 ">
                                     <nb-card  class=" card bg-danger text-white" >
                                         <div >
-                                            <label class="card-header">
-                                                Rejected
+                                            <label class="card-header bg-dark">
+                                                Rejected <mark class="text-danger"><strong> {{rejectedFileCount}}</strong></mark>
                                             </label>
                                             <div id="seperateAmountRejected"  style="display: inline">
-                                                &nbsp;{{rejectedProposedAmount | currency: 'NRS '}}
+                                                &nbsp;<strong>&nbsp;{{rejectedProposedAmount | currency: 'NRS '}}</strong>
                                             </div>
                                         </div>
                                     </nb-card>
@@ -80,11 +132,11 @@
                                 <div class="col-md-4 ">
                                     <nb-card  class=" bg-primary text-white align-self-center" >
                                         <div >
-                                            <label class="card-header">
-                                                Closed
+                                            <label class="card-header bg-dark">
+                                                Closed <mark class="text-primary"><strong> {{closureFileCount}}</strong></mark>
                                             </label>
                                             <div id="seperateAmountClosed"  style="display: inline" class="m-md-auto">
-                                                &nbsp;{{closureProposedAmount | currency: 'NRS '}}
+                                                <strong>&nbsp;{{closureProposedAmount | currency: 'NRS '}}</strong>
                                             </div>
                                         </div>
                                     </nb-card>
