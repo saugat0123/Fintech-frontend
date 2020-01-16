@@ -75,14 +75,12 @@
   </ng-container>
 </nb-card>
 <nb-card>
-    <nb-card-header><h5>Description/Details of secuirty offered</h5></nb-card-header>
     <nb-card-body>
         <div class="row">
             <div class="col-md-12">
-                <label>
-                    <textarea [(ngModel)]="securityOffered" class="form-control text-area"
+              <label for="securityOffered"><h5>Description/Details of secuirty offered</h5></label>
+                    <textarea [(ngModel)]="securityOffered" class="form-control text-area" id="securityOffered"
                               name="securityOffered">{{securityOffered}}</textarea>
-                </label>
             </div>
         </div>
     </nb-card-body>
