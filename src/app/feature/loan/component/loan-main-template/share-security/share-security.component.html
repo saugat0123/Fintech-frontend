@@ -18,7 +18,7 @@
                     <label for="companyName">Select Company Name :: Company Code</label>
                 <select formControlName="companyName" class="custom-select" id="companyName" name="companyName" (change)="findShareValue(shareFieldIndex)">
                   <option [value]="null" selected disabled>--Select Company Name--</option>
-                    <option *ngFor="let nepse of nepseList" value="{{nepse.companyCode }}">{{nepse.companyName}} :: {{nepse.companyCode}}</option>
+                    <option *ngFor="let nepse of nepseList" value="{{nepse.companyName }}">{{nepse.companyName}} :: {{nepse.companyCode}}</option>
                 </select></div>
                 </div>
                   <div class="col-md-6">
@@ -78,7 +78,7 @@
     <nb-card-body>
         <div class="row">
             <div class="col-md-12">
-              <label for="securityOffered"><h5>Description/Details of secuirty offered</h5></label>
+              <label for="securityOffered">Description/Details of secuirty offered</label>
                     <textarea [(ngModel)]="securityOffered" class="form-control text-area" id="securityOffered"
                               name="securityOffered">{{securityOffered}}</textarea>
             </div>
