@@ -9,6 +9,7 @@ import {CustomerOfferLetterService} from '../../service/customer-offer-letter.se
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {CustomerOfferLetterPath} from '../../model/customer-offer-letter-path';
+import {OfferLetterConst} from './model/offer-letter-const';
 
 @Component({
   selector: 'app-offer-letter',
@@ -24,6 +25,7 @@ export class OfferLetterComponent implements OnInit {
   uploadFile;
   preview = false;
   customerOfferLetterPathList: Array<CustomerOfferLetterPath>;
+    offerLetterConst = OfferLetterConst;
 
 
   constructor(

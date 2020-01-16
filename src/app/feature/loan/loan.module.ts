@@ -53,7 +53,14 @@ import {GroupComponent} from './component/loan-main-template/group/group.compone
 import {GroupDetailComponent} from './component/loan-main-template/group/group-detail/group-detail.component';
 import {SecurityDetailComponent} from './component/loan-main-template/group/security-detail/security-detail.component';
 import {VehicleSecurityComponent} from './component/loan-main-template/vehicle-security/vehicle-security.component';
-import { ShareSecurityComponent } from './component/loan-main-template/share-security/share-security.component';
+import {ShareSecurityComponent} from './component/loan-main-template/share-security/share-security.component';
+import {DhitoLikhatManjurinamaComponent} from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-manjurinama.component';
+import {DhristiBandhakComponent} from './component/offer-letter/dhristi-bandhak/dhristi-bandhak.component';
+import {JamaniTamsukComponent} from './component/offer-letter/jamani-tamsuk/jamani-tamsuk.component';
+import {KararnamaComponent} from './component/offer-letter/kararnama/kararnama.component';
+import {KarjatamsukComponent} from './component/offer-letter/karjatamsuk/karjatamsuk.component';
+import {ManjurinamaComponent} from './component/offer-letter/manjurinama/manjurinama.component';
+import {PratigyaPatraComponent} from './component/offer-letter/pratigya-patra/pratigya-patra.component';
 
 
 const COMPONENTS = [
@@ -96,7 +103,14 @@ const COMPONENTS = [
     GroupDetailComponent,
     SecurityDetailComponent,
     VehicleSecurityComponent,
-    ShareSecurityComponent
+    ShareSecurityComponent,
+    DhitoLikhatManjurinamaComponent,
+    DhristiBandhakComponent,
+    JamaniTamsukComponent,
+    KararnamaComponent,
+    KarjatamsukComponent,
+    ManjurinamaComponent,
+    PratigyaPatraComponent
 ];
 const ENTRY_COMPONENTS = [ReadmoreModelComponent];
 
