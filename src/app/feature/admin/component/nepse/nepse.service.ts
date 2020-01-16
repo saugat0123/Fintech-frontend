@@ -29,6 +29,7 @@ export class NepseService extends BaseService<Nepse> {
         console.log(shareValue);
         return this.http.post(req.url, shareValue, {headers: req.header});
     }
+
     public getActiveShare(): Observable<any> {
         const req = ApiUtils.getRequest(`${this.getApi()}/share`);
         return this.http.get(req.url, {headers: req.header});
