@@ -15,14 +15,11 @@
                class="form-control"
                id="shareValue"
                name="promoterValue" required type="number">
-        <span *ngIf="shareValueForm.submitted && promoter.invalid">
-        <p>promoter value required</p>
-      </span>
       </div>
     </div>
     <div class="row form-group">
       <div class="col-md-6">
-        <label for="promoterShare">Share Type</label>
+        <label for="ordinaryShare">Share Type</label>
         <input Value="OrdinaryShare" class="form-control" disabled id="ordinaryShare"></div>
       <div class="col-md-6">
         <label for="ordinaryValue">Share Value(%)</label>
@@ -30,16 +27,15 @@
                class="form-control"
                id="ordinaryValue"
                name="ordinaryValue" required type="number">
-        <span *ngIf="shareValueForm.submitted && ordinary.invalid">
-        <p>ordinary value required</p>
-      </span>
       </div>
     </div>
 
     <div class="modal-footer">
-      <button class="btn btn-primary" type="submit"><i
-          class="fa fa-save"></i>
+      <span *ngIf="!(ordinary.invalid)">
+         <button class="btn btn-primary" type="submit"><i
+             class="fa fa-save"></i>
       </button>
+      </span>
     </div>
   </form>
 </div>
