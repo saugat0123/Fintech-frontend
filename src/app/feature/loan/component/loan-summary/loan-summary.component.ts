@@ -71,10 +71,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   @ViewChild('print', { static: false }) print;
   businessType = BusinessType;
   financialData: Financial = new Financial();
-  shareSecurityData: ShareSecurity = new ShareSecurity();
+    shareSecurityData: ShareSecurity = new ShareSecurity();
   financialSummary = false;
   siteVisitSummary = false;
-  shareSecuritySummary = false;
+    shareSecuritySummary = false;
   navigationSubscription;
   securitySummary = false;
   securityData: Object;
@@ -167,11 +167,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.siteVisitSummary = true;
           }
 
-          // setting share-secuirty data--
-          if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
-            this.shareSecuritySummary = true;
-            this.shareSecurityData = this.loanDataHolder.shareSecurity;
-          }
+            // setting share-secuirty data--
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
+                this.shareSecuritySummary = true;
+                this.shareSecurityData = this.loanDataHolder.shareSecurity;
+            }
           this.loanCategory = this.loanDataHolder.loanCategory;
           this.currentIndex = this.loanDataHolder.previousList.length;
           this.signatureList = this.loanDataHolder.distinctPreviousList;

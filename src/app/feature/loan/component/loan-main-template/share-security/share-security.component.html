@@ -62,7 +62,8 @@
                 </div>
                 </div>
                   <div class="float-right">
-                    <button class="btn btn-sm btn-flat btn-primary" (click)="addShareList()"> <i class="fa fa-plus"></i></button>
+                      <button (click)="addShareList()" class="btn btn-sm btn-flat btn-primary"><i
+                              class="fa fa-plus"></i></button>
                   </div>
               </form>
             </nb-card-body>
@@ -74,14 +75,15 @@
   </ng-container>
 </nb-card>
 <nb-card>
-  <nb-card-header><h5>Description/Details of secuirty offered</h5></nb-card-header>
-  <nb-card-body>
-    <div class="row">
-      <div class="col-md-12">
-        <label>
-          <textarea class="form-control text-area" name="securityOffered" [(ngModel)]="securityOffered">{{securityOffered}}</textarea>
-        </label>
-      </div>
-    </div>
-  </nb-card-body>
+    <nb-card-header><h5>Description/Details of secuirty offered</h5></nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-12">
+                <label>
+                    <textarea [(ngModel)]="securityOffered" class="form-control text-area"
+                              name="securityOffered">{{securityOffered}}</textarea>
+                </label>
+            </div>
+        </div>
+    </nb-card-body>
 </nb-card>
