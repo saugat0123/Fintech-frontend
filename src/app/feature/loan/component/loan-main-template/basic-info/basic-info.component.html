@@ -293,6 +293,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="box-header with-border">
+                    <h5 class="box-title">KYC</h5>
+                </div>
                 <div *ngIf="customerDetailField.showFormField">
                     <div *ngFor="let relatives of basicInfo.get('customerRelatives')['controls']; let r = index"
                          formArrayName="customerRelatives">
@@ -431,7 +434,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div *ngIf="r>0" class="ml-3">
+                                <div *ngIf="r>0" class="ml-0 col-md-12 float-right mb-4">
                                     <button (click)="removeRelatives(r)"
                                             class="float-right" nbButton
                                             size="small" status="danger">remove

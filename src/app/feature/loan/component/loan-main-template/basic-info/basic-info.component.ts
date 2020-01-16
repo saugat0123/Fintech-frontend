@@ -167,10 +167,11 @@ export class BasicInfoComponent implements OnInit {
 
     onSubmit() {
         this.customer = new Customer();
+        this.customer.id = this.basicInfo.get('id').value;
+        this.customer.version = this.basicInfo.get('customerVersion').value;
         this.customer.title = this.basicInfo.get('title').value;
         this.customer.customerName = this.basicInfo.get('customerName').value;
         this.customer.customerId = this.basicInfo.get('customerId').value;
-        this.customer.accountNo = this.basicInfo.get('accountNo').value;
         this.customer.province = this.basicInfo.get('province').value;
         this.customer.district = this.basicInfo.get('district').value;
         this.customer.municipalities = this.basicInfo.get('municipalities').value;
@@ -229,6 +230,13 @@ export class BasicInfoComponent implements OnInit {
     formMaker() {
         this.basicInfo = this.formBuilder.group({
             // title not used in ui
+            id:  [(ObjectUtil.isEmpty(this.customer)
+                || ObjectUtil.isEmpty(this.customer.id)) ? undefined :
+                this.customer.id],
+            customerVersion:
+                [(ObjectUtil.isEmpty(this.customer)
+                    || ObjectUtil.isEmpty(this.customer.version)) ? undefined :
+                    this.customer.version],
             title: [this.customer.title === undefined ? undefined : this.customer.title],
             customerName: [this.customer.customerName === undefined ? undefined : this.customer.customerName, Validators.required],
             customerId: [this.customer.customerId === undefined ? undefined : this.customer.customerId, Validators.required],
