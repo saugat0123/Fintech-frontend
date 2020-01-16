@@ -62,6 +62,7 @@ import {KararnamaComponent} from './component/offer-letter/kararnama/kararnama.c
 import {KarjatamsukComponent} from './component/offer-letter/karjatamsuk/karjatamsuk.component';
 import {ManjurinamaComponent} from './component/offer-letter/manjurinama/manjurinama.component';
 import {PratigyaPatraComponent} from './component/offer-letter/pratigya-patra/pratigya-patra.component';
+import {LoanMainNepaliTemplateComponent} from './component/loan-main-nepali-template/loan-main-nepali-template.component';
 
 
 const COMPONENTS = [
@@ -119,7 +120,7 @@ const ENTRY_COMPONENTS = [ReadmoreModelComponent];
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS],
+    declarations: [...COMPONENTS, LoanMainNepaliTemplateComponent],
     imports: [
         ThemeModule,
         CommonModule,
