@@ -1,1 +1,34 @@
-<p>loan-main-nepali-template works!</p>
+<nb-card>
+    <nb-card accent="info" status="danger">
+        <nb-card-header class="text-white bank-text-color"></nb-card-header>
+        <nb-card-body>
+            <nb-card>
+                <nb-card-body>
+                    <nb-stepper orientation="horizontal">
+                        <nb-step [label]="labelOne">
+                            <ng-template #labelOne>First step</ng-template>
+
+                            <!--TODO add your nepali template component here-->
+
+                        </nb-step>
+                        <nb-step [label]="labelTwo">
+                            <ng-template #labelTwo>Second Step</ng-template>
+                            <!--TODO add your nepali template component here-->
+                        </nb-step>
+
+                        <nb-step [label]="labelThree">
+                            <ng-template #labelThree>Third Step</ng-template>
+                            <!--TODO add your nepali template component here-->
+                        </nb-step>
+
+                        <nb-step [label]="labelForth">
+                            <ng-template #labelForth>Fourth Step</ng-template>
+                            <!--TODO add your nepali template component here-->
+                        </nb-step>
+
+                    </nb-stepper>
+                </nb-card-body>
+            </nb-card>
+        </nb-card-body>
+    </nb-card>
+</nb-card>
