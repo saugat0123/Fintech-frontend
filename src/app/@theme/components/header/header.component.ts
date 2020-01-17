@@ -12,6 +12,7 @@ import {SocketService} from '../../../@core/service/socket.service';
 import {NotificationService} from '../notification/service/notification.service';
 import {ChangePasswordComponent} from '../change-password/change-password.component';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {PushNotificationsService} from '../../../@core/service/push-notification.service';
 
 @Component({
     selector: 'app-header',
@@ -33,7 +34,7 @@ export class HeaderComponent implements OnInit {
     userProfilePicture;
     roleName;
 
-    userMenu = [{title: HeaderComponent.PROFILE}, {title: HeaderComponent.CHANGE_PASSWORD}, {title: HeaderComponent.LOGOUT}, ];
+    userMenu = [{title: HeaderComponent.PROFILE}, {title: HeaderComponent.CHANGE_PASSWORD}, {title: HeaderComponent.LOGOUT}];
 
     notificationCount;
 
@@ -46,7 +47,8 @@ export class HeaderComponent implements OnInit {
                 private searchService: NbSearchService,
                 private modalService: NgbModal,
                 private socketService: SocketService,
-                private notificationService: NotificationService) {
+                private notificationService: NotificationService,
+                private _pushNotificationService: PushNotificationsService) {
 
         this.searchService.onSearchSubmit()
             .subscribe((searchData: any) => {
@@ -69,6 +71,8 @@ export class HeaderComponent implements OnInit {
                     }
                 );
             }, error => console.error(error));
+
+        this._pushNotificationService.requestPermission();
     }
 
     ngOnInit() {
@@ -124,4 +128,6 @@ export class HeaderComponent implements OnInit {
         this.notificationService.fetchNotifications();
         this.notificationService.notificationCount.subscribe((value => this.notificationCount = value));
     }
+
+
 }
