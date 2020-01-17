@@ -116,7 +116,7 @@ const COMPONENTS = [
     ManjurinamaComponent,
     PratigyaPatraComponent
 ];
-const ENTRY_COMPONENTS = [ReadmoreModelComponent, FiscalYearModalComponent];
+const ENTRY_COMPONENTS = [ReadmoreModelComponent, FiscalYearModalComponent, LoanMainNepaliTemplateComponent];
 
 // @ts-ignore
 // @ts-ignore

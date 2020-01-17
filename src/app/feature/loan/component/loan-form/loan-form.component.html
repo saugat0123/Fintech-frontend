@@ -27,7 +27,9 @@
 
             <div *ngIf="showDocStatusDropDown" class="col-md-3">
                 <form [formGroup]="docStatusForm">
-                    <label><strong><mark class="ql-color-yellow"> Phase - Loan Build Cycle</mark></strong></label>
+                    <label><strong>
+                        <mark class="ql-color-yellow"> Phase - Loan Build Cycle</mark>
+                    </strong></label>
                     <ng-select [items]="docStatusMakerList"
                                [multiple]="false"
                                bindLabel="name"
@@ -36,6 +38,14 @@
                                placeholder="Select the docStatus">
                     </ng-select>
                 </form>
+            </div>
+
+            <div class="col-md-6">
+                <div class=" d-flex justify-content-end py-4">
+                    <button (click)="nepaliFormTemplate()" class="btn btn-flat btn-outline-primary">
+                        नेपाली फाराम
+                    </button>
+                </div>
             </div>
 
         </div>
@@ -63,8 +73,7 @@
                         <app-company-info [formValue]="loanDocument?.companyInfo" #companyInfo></app-company-info>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Proposal'">
-                        <app-proposal [formValue]="loadProposal()" (dmsDisableButton)="submitButton($event)"
-                                      #proposalInfo></app-proposal>
+                        <app-proposal [formValue]="loadProposal()" #proposalInfo></app-proposal>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
                         <app-cicl #cicl
@@ -90,7 +99,8 @@
                                                [loanDataHolder]="loanDocument"></app-customer-document>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Group'">
-                        <app-group #group [groupValue]="loanDocument?.group" [proposalDataHolder]="loanDocument?.proposal" ></app-group>
+                        <app-group #group [groupValue]="loanDocument?.group"
+                                   [proposalDataHolder]="loanDocument?.proposal"></app-group>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Vehicle Security'">
                         <app-vehicle-security #vehicleSecurity

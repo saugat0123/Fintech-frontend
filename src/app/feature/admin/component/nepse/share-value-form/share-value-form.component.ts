@@ -26,17 +26,21 @@ export class ShareValueFormComponent implements OnInit {
   }
 
   onSubmit(sharevalue: any) {
+    if (sharevalue.valid) {
     this.shareData.shareData = JSON.stringify(sharevalue.value);
     this.shareData.status = Status.ACTIVE;
     this.nepseService.addShare(this.shareData).subscribe(response => {
       this.activeModel.close(ModalResponse.SUCCESS);
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'sucessfully saved'));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'successfully saved'));
     }, error => {
       this.activeModel.close(ModalResponse.ERROR);
       this.toastService.show(new Alert(AlertType.ERROR, 'error while adding share'));
     });
+  } else {
+      this.activeModel.close(ModalResponse.ERROR);
+      this.toastService.show(new Alert(AlertType.ERROR, 'please Insert all field'));
+    }
   }
-
   closeModel() {
     this.activeModel.dismiss(ModalResponse.CANCEL);
   }
