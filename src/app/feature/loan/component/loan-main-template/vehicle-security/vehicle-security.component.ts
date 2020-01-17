@@ -56,12 +56,10 @@ export class VehicleSecurityComponent implements OnInit {
       this.addEmptyGroup();
     } else {
       const formArray = this.vehicleSecurityForm.get('vehicleSecurityDetails') as FormArray;
-      const data = JSON.parse(this.vehicleSecurityValue.data)['vehicleSecurityDetails'];
-      data.forEach(v => formArray.push(this.addVehicleSecurityDetails(v)));
-      this.vehicleSecurityValue.valuatorList.forEach((v, index: number) => {
-        formArray.controls[index].get('vehicleSecurityValuatorId').setValue(v.id);
-        formArray.controls[index].get('version').setValue(v.version);
-      });
+      if (this.vehicleSecurityValue.valuatorList.length === 0) {
+        this.addEmptyGroup();
+      }
+      this.vehicleSecurityValue.valuatorList.forEach(v => formArray.push(this.addVehicleSecurityDetails(v)));
     }
   }
 
@@ -69,9 +67,11 @@ export class VehicleSecurityComponent implements OnInit {
     (this.vehicleSecurityForm.get('vehicleSecurityDetails') as FormArray).removeAt(index);
   }
 
-  addVehicleSecurityDetails(data) {
+  addVehicleSecurityDetails(data: VehicleSecurityValuator) {
     return this.formBuilder.group({
+      id: [ObjectUtil.setUndefinedIfNull(data.id)],
       vehicleName: [ObjectUtil.setUndefinedIfNull(data.vehicleName), Validators.required],
+      model: [ObjectUtil.setUndefinedIfNull(data.model), Validators.required],
       manufactureYear: [ObjectUtil.setUndefinedIfNull(data.manufactureYear), Validators.required],
       registrationNumber: [ObjectUtil.setUndefinedIfNull(data.registrationNumber), Validators.required],
       valuationAmount: [ObjectUtil.setUndefinedIfNull(data.valuationAmount), Validators.required],
@@ -81,47 +81,37 @@ export class VehicleSecurityComponent implements OnInit {
       color: [ObjectUtil.setUndefinedIfNull(data.color), Validators.required],
       purpose: [ObjectUtil.setUndefinedIfNull(data.purpose), Validators.required],
       supplier: [ObjectUtil.setUndefinedIfNull(data.supplier), Validators.required],
-      model: [ObjectUtil.setUndefinedIfNull(data.model), Validators.required],
       downPayment: [ObjectUtil.setUndefinedIfNull(data.downPayment), Validators.required],
       loanExposure: [ObjectUtil.setUndefinedIfNull(data.loanExposure), Validators.required],
       showroomCommission: [ObjectUtil.setUndefinedIfNull(data.showroomCommission), Validators.required],
-      vehicleSecurityValuatorId: [undefined],
-      valuator: [ObjectUtil.setUndefinedIfNull(data.valuator), Validators.required],
+      valuator: [ObjectUtil.isEmpty(data.valuator) ? undefined : ObjectUtil.setUndefinedIfNull(data.valuator.id), Validators.required],
       valuatedDate: [ObjectUtil.setUndefinedIfNull(data.valuatedDate), Validators.required],
       valuatorRepresentativeName: [ObjectUtil.setUndefinedIfNull(data.valuatorRepresentativeName), Validators.required],
       staffRepresentativeName: [ObjectUtil.setUndefinedIfNull(data.staffRepresentativeName), Validators.required],
-      version: [undefined]
+      version: [ObjectUtil.setUndefinedIfNull(data.version)]
     });
   }
 
   addEmptyGroup(): void {
     const formArray = this.vehicleSecurityForm.get('vehicleSecurityDetails') as FormArray;
-    formArray.push(this.addVehicleSecurityDetails({}));
+    formArray.push(this.addVehicleSecurityDetails(new VehicleSecurityValuator()));
   }
 
   onSubmit(): void {
-    // pass data into JSON
     if (!ObjectUtil.isEmpty(this.vehicleSecurityValue)) {
       this.vehicleSecurity = this.vehicleSecurityValue;
-    }
-    this.vehicleSecurity.data = JSON.stringify(this.vehicleSecurityForm.value);
-    // pass valuator data
-    this.vehicleSecurity.valuatorList = new Array<VehicleSecurityValuator>();
-    const formArray = this.vehicleSecurityForm.get('vehicleSecurityDetails') as FormArray;
-    formArray['controls'].forEach(c => {
-      if (!ObjectUtil.isEmpty(c.get('valuator').value)) {
-        const vehicleSecurityValuator = new VehicleSecurityValuator();
-        vehicleSecurityValuator.id = c.get('vehicleSecurityValuatorId').value;
+      this.vehicleSecurity.valuatorList = new Array<VehicleSecurityValuator>();
+      const formArray = this.vehicleSecurityForm.get('vehicleSecurityDetails') as FormArray;
+      formArray['controls'].forEach(c => {
+        const vehicleSecurityValuator = c.value;
         const valuator = new Valuator();
         valuator.id = c.get('valuator').value;
         vehicleSecurityValuator.valuator = valuator;
-        vehicleSecurityValuator.valuatedDate = c.get('valuatedDate').value;
-        vehicleSecurityValuator.valuatorRepresentativeName = c.get('valuatorRepresentativeName').value;
-        vehicleSecurityValuator.staffRepresentativeName = c.get('staffRepresentativeName').value;
-        vehicleSecurityValuator.version = c.get('version').value;
-        this.vehicleSecurity.valuatorList.push(vehicleSecurityValuator);
-      }
-    });
+        if (!ObjectUtil.isEmpty(valuator.id)) {
+          this.vehicleSecurity.valuatorList.push(vehicleSecurityValuator);
+        }
+      });
+    }
   }
 
 }

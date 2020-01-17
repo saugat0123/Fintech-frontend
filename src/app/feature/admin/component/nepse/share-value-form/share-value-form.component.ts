@@ -36,7 +36,7 @@ export class ShareValueFormComponent implements OnInit {
       this.activeModel.close(ModalResponse.ERROR);
       this.toastService.show(new Alert(AlertType.ERROR, 'error while adding share'));
     });
-  }else{
+  } else {
       this.activeModel.close(ModalResponse.ERROR);
       this.toastService.show(new Alert(AlertType.ERROR, 'please Insert all field'));
     }
