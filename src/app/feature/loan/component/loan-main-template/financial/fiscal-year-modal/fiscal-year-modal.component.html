@@ -1,0 +1,33 @@
+<form [formGroup]="financialStatementForm">
+    <nb-card class="mb-0">
+        <nb-card-header>
+            <a (click)="onClose()" aria-label="Close" class="close cursor"
+               data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+            <h4 class="modal-title pull-left">Financial statement options</h4>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Financial Statement</label>
+                    <ng-select [items]="financialStatementList"
+                               [multiple]="false"
+                               [ngClass]="{'is-invalid': financialStatementFormControl.financialStatement.invalid}"
+                               formControlName="financialStatement"
+                               placeholder="Select Financial Statement">
+                    </ng-select>
+                </div>
+                <div class="col-md-12">
+                    <label>Fiscal year</label>
+                    <input class="form-control" formControlName="fiscalYear">
+                </div>
+            </div>
+        </nb-card-body>
+        <nb-card-footer class="float-md-right">
+            <button nbButton status="primary">
+                Add
+            </button>
+        </nb-card-footer>
+    </nb-card>
+</form>
+<pre>{{financialStatementForm.value | json}}</pre>

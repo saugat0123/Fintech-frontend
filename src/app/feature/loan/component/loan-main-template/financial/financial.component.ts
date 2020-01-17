@@ -9,6 +9,8 @@ import * as currentFormData from './financial.json';
 import {FinancialService} from './financial.service';
 import {Financial} from '../../../model/financial';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {FiscalYearModalComponent} from './fiscal-year-modal/fiscal-year-modal.component';
 
 @Component({
     selector: 'app-financial',
@@ -145,7 +147,8 @@ export class FinancialComponent implements OnInit {
     ];
 
     constructor(private formBuilder: FormBuilder,
-                private financialService: FinancialService) {
+                private financialService: FinancialService,
+                private modalService: NgbModal) {
     }
 
     ngOnInit() {
@@ -260,6 +263,10 @@ export class FinancialComponent implements OnInit {
         this.removingFiscalYearForKeyIndicators(index);
         // Refreshing components with new Json data---
         this.refreshComponent();
+    }
+
+    openFiscalYearModal() {
+        const fiscalYearModalRef = this.modalService.open(FiscalYearModalComponent, {backdrop: 'static'});
     }
 
     refreshComponent() {
