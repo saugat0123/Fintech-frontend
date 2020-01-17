@@ -94,7 +94,7 @@ export class SecurityComponent implements OnInit {
         let guarantorIndex = 0;
         guarantorList.forEach(guarantor => {
             this.addressList[guarantorIndex] = new Address();
-            if (guarantor.province.id !== null) {
+            if (!ObjectUtil.isEmpty(guarantor.province) && !ObjectUtil.isEmpty(guarantor.province.id)) {
                 this.getDistrict(guarantor.province.id , guarantorIndex);
                 if (guarantor.district.id !== null) {
                     this.getMunicipalities(guarantor.district.id , guarantorIndex);
@@ -102,18 +102,24 @@ export class SecurityComponent implements OnInit {
             }
             guarantorIndex++;
             details.push(this.formBuilder.group({
-                name: [guarantor.name === undefined ? '' : guarantor.name , Validators.required] ,
-                citizenNumber: [guarantor.citizenNumber === undefined ? '' : guarantor.citizenNumber , Validators.required] ,
-                issuedYear: [guarantor.issuedYear === undefined ? '' : guarantor.issuedYear , Validators.required] ,
-                issuedPlace: [guarantor.issuedPlace === undefined ? '' : guarantor.issuedPlace , Validators.required] ,
-                contactNumber: [guarantor.contactNumber === undefined ? '' : guarantor.contactNumber , Validators.required] ,
-                fatherName: [guarantor.fatherName === undefined ? '' : guarantor.fatherName , Validators.required] ,
-                grandFatherName: [guarantor.grandFatherName === undefined ? '' : guarantor.grandFatherName , Validators.required] ,
-                relationship: [guarantor.relationship === undefined ? '' : guarantor.relationship , Validators.required] ,
-                province: [guarantor.province.id === undefined ? '' : guarantor.province.id , Validators.required] ,
-                district: [guarantor.district.id === undefined ? '' : guarantor.district.id , Validators.required] ,
-                municipalities: [guarantor.municipalities.id === undefined ? '' : guarantor.municipalities.id , Validators.required]
+                id: [guarantor.id === undefined ? undefined : guarantor.id] ,
+                version: [guarantor.version === undefined ? undefined : guarantor.version] ,
+                name: [guarantor.name === undefined ? undefined : guarantor.name , Validators.required] ,
+                citizenNumber: [guarantor.citizenNumber === undefined ? undefined : guarantor.citizenNumber , Validators.required] ,
+                issuedYear: [guarantor.issuedYear === undefined ? undefined : guarantor.issuedYear , Validators.required] ,
+                issuedPlace: [guarantor.issuedPlace === undefined ? undefined : guarantor.issuedPlace , Validators.required] ,
+                contactNumber: [guarantor.contactNumber === undefined ? undefined : guarantor.contactNumber , Validators.required] ,
+                fatherName: [guarantor.fatherName === undefined ? undefined : guarantor.fatherName , Validators.required] ,
+                grandFatherName: [guarantor.grandFatherName === undefined ? undefined : guarantor.grandFatherName , Validators.required] ,
+                relationship: [guarantor.relationship === undefined ? undefined : guarantor.relationship , Validators.required] ,
+                province: [!ObjectUtil.isEmpty(guarantor.province) && !ObjectUtil.isEmpty(guarantor.province.id) ? guarantor.province.id :
+                    undefined , Validators.required] ,
+                district: [!ObjectUtil.isEmpty(guarantor.district) && !ObjectUtil.isEmpty(guarantor.district.id) ? guarantor.district.id :
+                    undefined , Validators.required] ,
+                municipalities: [!ObjectUtil.isEmpty(guarantor.municipalities) && !ObjectUtil.isEmpty(guarantor.municipalities.id) ?
+                    guarantor.municipalities.id : undefined , Validators.required]
             }));
+
         });
         return details;
     }
@@ -123,17 +129,17 @@ export class SecurityComponent implements OnInit {
         this.addressList.push(new Address());
         addDetails.push(
             this.formBuilder.group({
-                name: [undefined] ,
-                province: [undefined] ,
-                district: [undefined] ,
-                municipalities: [undefined] ,
-                citizenNumber: [undefined] ,
-                issuedYear: [undefined] ,
-                issuedPlace: [undefined] ,
-                contactNumber: [undefined] ,
-                fatherName: [undefined] ,
-                grandFatherName: [undefined] ,
-                relationship: [undefined]
+                name: [undefined , Validators.required] ,
+                province: [null , Validators.required] ,
+                district: [null , Validators.required] ,
+                municipalities: [null , Validators.required] ,
+                citizenNumber: [undefined , Validators.required] ,
+                issuedYear: [undefined , Validators.required] ,
+                issuedPlace: [undefined , Validators.required] ,
+                contactNumber: [undefined , Validators.required] ,
+                fatherName: [undefined , Validators.required] ,
+                grandFatherName: [undefined , Validators.required] ,
+                relationship: [undefined , Validators.required]
             })
         );
     }
@@ -171,6 +177,7 @@ export class SecurityComponent implements OnInit {
         return this.guarantorsForm.value.guarantorsDetails as FormArray;
     }
 
+
     onSubmit() {
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityData = this.securityValue;
@@ -182,10 +189,13 @@ export class SecurityComponent implements OnInit {
             guarantorsForm: this.guarantorsForm.value
         };
         this.securityData.data = JSON.stringify(mergedForm);
-        this.securityData.guarantor = new Array<Guarantors>();
+        this.securityData.valuatorId = this.initialSecurity.securityForm.get('valuatorDetails').value.valuator;
+        this.securityData.guarantor = [];
         let guarantorIndex = 0;
         while (guarantorIndex < this.getGuarantor().length) {
             const guarantor = new Guarantors();
+            guarantor.id = this.getGuarantor()[guarantorIndex].id;
+            guarantor.version = this.getGuarantor()[guarantorIndex].version;
             guarantor.name = this.getGuarantor()[guarantorIndex].name;
             guarantor.citizenNumber = this.getGuarantor()[guarantorIndex].citizenNumber;
             guarantor.issuedYear = this.getGuarantor()[guarantorIndex].issuedYear;
@@ -194,15 +204,17 @@ export class SecurityComponent implements OnInit {
             guarantor.grandFatherName = this.getGuarantor()[guarantorIndex].grandFatherName;
             guarantor.relationship = this.getGuarantor()[guarantorIndex].relationship;
             guarantor.contactNumber = this.getGuarantor()[guarantorIndex].contactNumber;
-            const province = new Province();
-            province.id = this.getGuarantor()[guarantorIndex].province;
-            guarantor.province = province;
-            const district = new District();
-            district.id = this.getGuarantor()[guarantorIndex].district;
-            guarantor.district = district;
-            const municipalityVdc = new MunicipalityVdc();
-            municipalityVdc.id = this.getGuarantor()[guarantorIndex].municipalities;
-            guarantor.municipalities = municipalityVdc;
+            if (!ObjectUtil.isEmpty(this.getGuarantor()[guarantorIndex].province)) {
+                const province = new Province();
+                province.id = this.getGuarantor()[guarantorIndex].province;
+                guarantor.province = province;
+                const district = new District();
+                district.id = this.getGuarantor()[guarantorIndex].district;
+                guarantor.district = district;
+                const municipalityVdc = new MunicipalityVdc();
+                municipalityVdc.id = this.getGuarantor()[guarantorIndex].municipalities;
+                guarantor.municipalities = municipalityVdc;
+            }
             guarantorIndex++;
             this.securityData.guarantor.push(guarantor);
         }

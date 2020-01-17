@@ -1,5 +1,7 @@
 import {Component , Input , OnInit} from '@angular/core';
 import {FormArray , FormBuilder , FormGroup} from '@angular/forms';
+import {ToastService} from '../../../../../../@core/utils';
+import {Alert , AlertType} from '../../../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-security-initial-form' ,
@@ -18,12 +20,14 @@ export class SecurityInitialFormComponent implements OnInit {
     formDataForEdit: Object;
     valuatorList =[];
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder,
+                private valuatorToast: ToastService ) {
     }
 
     ngOnInit() {
         this.buildForm();
         this.valuatorList = this.name;
+        this.message();
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
@@ -318,5 +322,9 @@ export class SecurityInitialFormComponent implements OnInit {
 
     addPlantandMachinery() {
         (this.securityForm.get('plantDetails') as FormArray).push(this.plantDetailsFormGroup());
+    }
+    message() {
+        const alert = new Alert(AlertType.INFO, 'Enter valid proposal limit to select valuator');
+        this.valuatorToast.show(alert);
     }
 }
