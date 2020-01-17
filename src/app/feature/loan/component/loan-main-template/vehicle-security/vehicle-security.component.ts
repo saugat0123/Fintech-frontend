@@ -6,6 +6,8 @@ import {ValuatorService} from '../../../../admin/component/valuator/valuator.ser
 import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {VehicleSecurityValuator} from '../../../../admin/modal/VehicleSecurityValuator';
+import {Valuator} from '../../../../admin/modal/valuator';
 
 @Component({
   selector: 'app-vehicle-security',
@@ -56,6 +58,10 @@ export class VehicleSecurityComponent implements OnInit {
       const formArray = this.vehicleSecurityForm.get('vehicleSecurityDetails') as FormArray;
       const data = JSON.parse(this.vehicleSecurityValue.data)['vehicleSecurityDetails'];
       data.forEach(v => formArray.push(this.addVehicleSecurityDetails(v)));
+      this.vehicleSecurityValue.valuatorList.forEach((v, index: number) => {
+        formArray.controls[index].get('vehicleSecurityValuatorId').setValue(v.id);
+        formArray.controls[index].get('version').setValue(v.version);
+      });
     }
   }
 
@@ -79,10 +85,12 @@ export class VehicleSecurityComponent implements OnInit {
       downPayment: [ObjectUtil.setUndefinedIfNull(data.downPayment), Validators.required],
       loanExposure: [ObjectUtil.setUndefinedIfNull(data.loanExposure), Validators.required],
       showroomCommission: [ObjectUtil.setUndefinedIfNull(data.showroomCommission), Validators.required],
+      vehicleSecurityValuatorId: [undefined],
       valuator: [ObjectUtil.setUndefinedIfNull(data.valuator), Validators.required],
       valuatedDate: [ObjectUtil.setUndefinedIfNull(data.valuatedDate), Validators.required],
       valuatorRepresentativeName: [ObjectUtil.setUndefinedIfNull(data.valuatorRepresentativeName), Validators.required],
-      staffRepresentativeName: [ObjectUtil.setUndefinedIfNull(data.staffRepresentativeName), Validators.required]
+      staffRepresentativeName: [ObjectUtil.setUndefinedIfNull(data.staffRepresentativeName), Validators.required],
+      version: [undefined]
     });
   }
 
@@ -92,10 +100,28 @@ export class VehicleSecurityComponent implements OnInit {
   }
 
   onSubmit(): void {
+    // pass data into JSON
     if (!ObjectUtil.isEmpty(this.vehicleSecurityValue)) {
       this.vehicleSecurity = this.vehicleSecurityValue;
     }
     this.vehicleSecurity.data = JSON.stringify(this.vehicleSecurityForm.value);
+    // pass valuator data
+    this.vehicleSecurity.valuatorList = new Array<VehicleSecurityValuator>();
+    const formArray = this.vehicleSecurityForm.get('vehicleSecurityDetails') as FormArray;
+    formArray['controls'].forEach(c => {
+      if (!ObjectUtil.isEmpty(c.get('valuator').value)) {
+        const vehicleSecurityValuator = new VehicleSecurityValuator();
+        vehicleSecurityValuator.id = c.get('vehicleSecurityValuatorId').value;
+        const valuator = new Valuator();
+        valuator.id = c.get('valuator').value;
+        vehicleSecurityValuator.valuator = valuator;
+        vehicleSecurityValuator.valuatedDate = c.get('valuatedDate').value;
+        vehicleSecurityValuator.valuatorRepresentativeName = c.get('valuatorRepresentativeName').value;
+        vehicleSecurityValuator.staffRepresentativeName = c.get('staffRepresentativeName').value;
+        vehicleSecurityValuator.version = c.get('version').value;
+        this.vehicleSecurity.valuatorList.push(vehicleSecurityValuator);
+      }
+    });
   }
 
 }
