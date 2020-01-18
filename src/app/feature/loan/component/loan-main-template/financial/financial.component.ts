@@ -25,8 +25,8 @@ export class FinancialComponent implements OnInit {
     @ViewChild('keyIndicators', {static: false}) keyIndicators: KeyIndicatorsComponent;
     @Input() formData: Financial;
 
-    addYear = false;
     fiscalYear = [];
+    auditorList = [];
     activeTab: string;
     financialForm: FormGroup;
     financialData: Financial = new Financial();
@@ -156,6 +156,7 @@ export class FinancialComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.currentFormData = JSON.parse(this.formData.data);
             this.fiscalYear = this.currentFormData['fiscalYear'];
+            this.auditorList = this.currentFormData['auditorList'];
             const initialFormData = this.currentFormData['initialForm'];
 
             this.setIncomeOfBorrower(initialFormData.incomeOfBorrower);
@@ -216,13 +217,14 @@ export class FinancialComponent implements OnInit {
     //
     //
     // Fiscal Year --
-    addFiscalYear(yearValue) {
-        this.addYear = true;
-        if (yearValue === '' || yearValue === undefined) {
-            return;
-        }
+    addFiscalYear(yearValue, auditorDetails) {
         // push fiscal year
         this.fiscalYear.push(yearValue);
+
+        // push Auditor Details if there's one
+        if (!ObjectUtil.isEmpty(auditorDetails)) {
+            this.auditorList.push(auditorDetails);
+        }
 
         switch (this.activeTab) {
             case 'Income Statement':
@@ -239,12 +241,14 @@ export class FinancialComponent implements OnInit {
         this.addingFiscalYearForKeyIndicators(yearValue);
         // Refreshing components with new Json data---
         this.refreshComponent();
-        this.addYear = false;
     }
 
-    removeFiscalYear(index) {
+    removeFiscalYear(removeParamsObject) {
         // splice fiscal year
-        this.fiscalYear.splice(index, 1);
+        this.fiscalYear.splice(removeParamsObject.index, 1);
+
+        // splice Auditor Detail from list
+        this.auditorList = this.auditorList.filter(value => !(removeParamsObject.fiscalYear as string).match(value.audited));
 
         switch (this.activeTab) {
             case 'Income Statement':
@@ -257,16 +261,19 @@ export class FinancialComponent implements OnInit {
                 break;
         }
         // Removing fiscal year for Json---
-        this.removingFiscalYearForIncomeStatementJson(index);
-        this.removingFiscalYearForBalanceSheetJson(index);
-        this.removingFiscalYearForCashFlowStatement(index);
-        this.removingFiscalYearForKeyIndicators(index);
+        this.removingFiscalYearForIncomeStatementJson(removeParamsObject.index);
+        this.removingFiscalYearForBalanceSheetJson(removeParamsObject.index);
+        this.removingFiscalYearForCashFlowStatement(removeParamsObject.index);
+        this.removingFiscalYearForKeyIndicators(removeParamsObject.index);
         // Refreshing components with new Json data---
         this.refreshComponent();
     }
 
     openFiscalYearModal() {
-        const fiscalYearModalRef = this.modalService.open(FiscalYearModalComponent, {backdrop: 'static'});
+        const fiscalYearModalRef = this.modalService.open(FiscalYearModalComponent, {backdrop: 'static', size: 'lg'});
+        fiscalYearModalRef.result.then( closeParams => {
+            this.addFiscalYear(closeParams.fiscalYearValue, closeParams.auditorDetails);
+        });
     }
 
     refreshComponent() {
@@ -431,6 +438,7 @@ export class FinancialComponent implements OnInit {
         this.currentFormData['fiscalYear'] = this.fiscalYear;
         this.currentFormData['brr'] = this.brr.borrowerRiskRating.value;
         this.currentFormData['initialForm'] = this.financialForm.value;
+        this.currentFormData['auditorList'] = this.auditorList;
         this.financialData.data = JSON.stringify(this.currentFormData);
     }
 }
