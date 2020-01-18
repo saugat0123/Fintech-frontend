@@ -74,7 +74,8 @@ export class FiscalYearModalComponent implements OnInit {
 
     onSubmit() {
         const fiscalYearDetails = {
-            fiscalYearValue: `${this.financialStatementForm.get('financialStatement').value} ${this.financialStatementForm.get('fiscalYear').value}`,
+            fiscalYearValue: `${this.financialStatementForm.get('financialStatement').value === 'Audited' ?
+                '*Audited*' : this.financialStatementForm.get('financialStatement').value} ${this.financialStatementForm.get('fiscalYear').value}`,
             auditorDetails: ObjectUtil.isEmpty(this.financialStatementForm.get('auditorDetails')) ? null : this.financialStatementForm.get('auditorDetails').value
         };
         this.activeModalService.close(fiscalYearDetails);
