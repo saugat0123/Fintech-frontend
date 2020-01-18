@@ -18,7 +18,7 @@ export class SecurityInitialFormComponent implements OnInit {
     plantSelected = false;
     underConstructionChecked = false;
     formDataForEdit: Object;
-    valuatorList =[];
+    valuatorList = [];
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService ) {
