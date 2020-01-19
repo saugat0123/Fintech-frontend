@@ -65,8 +65,8 @@
                                                     <option [ngValue]="null" hidden selected>--Select validator--
                                                     </option>
 
-                                                    <option *ngFor="let name of finalValuatorName"
-                                                            value="{{name}}">{{name}}</option>
+                                                    <option *ngFor="let names of finalValuatorName"
+                                                            value="{{names.id}}">{{names.name}}</option>
 
 
                                                 </select>
