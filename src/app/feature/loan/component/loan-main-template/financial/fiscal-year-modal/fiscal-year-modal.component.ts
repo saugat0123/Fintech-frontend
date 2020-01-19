@@ -36,7 +36,7 @@ export class FiscalYearModalComponent implements OnInit {
     buildForm() {
         this.financialStatementForm = this.formBuilder.group({
             financialStatement: [undefined, Validators.required],
-            fiscalYear: [undefined, Validators.required],
+            fiscalYear: [undefined, [Validators.required, Validators.pattern('\\d\\d\\d\\d\\/\\d\\d\\d\\d')]],
             auditorDetails: [undefined]
         });
     }

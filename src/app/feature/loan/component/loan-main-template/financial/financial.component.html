@@ -186,36 +186,38 @@
         <hr>
 
         <div *ngIf="auditorList.length > 0" class="row mb-4">
-            <div class="col-md-12 mark">
-                <h3 class="mb-2">Financial Auditor Detail Information</h3>
-               <table aria-describedby="auditor list table" class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col">S.N</th>
-                        <th scope="col">Audited</th>
-                        <th scope="col">Audit Firm</th>
-                        <th scope="col">Propriete/Partner</th>
-                        <th scope="col">Membership No.</th>
-                        <th scope="col">Certificate of Practice</th>
-                        <th scope="col">Class</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let auditor of auditorList; let i = index">
-                        <td><strong>{{i + 1}}</strong></td>
-                        <td>{{auditor['audited']}}</td>
-                        <td>{{auditor['auditFirm']}}</td>
-                        <td>{{auditor['proprietePartner']}}</td>
-                        <td>{{auditor['membershipNo']}}</td>
-                        <td>{{auditor['certificateOfPractice']}}</td>
-                        <td>{{auditor['class']}}</td>
-                    </tr>
-                    </tbody>
-            </table>
+            <div class="col-md-12">
+                <nb-card class="mark">
+                    <nb-card-body>
+                        <h3 class="mb-2">Financial Auditor Detail Information</h3>
+                        <table aria-describedby="auditor list table" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">S.N</th>
+                                <th scope="col">Audited</th>
+                                <th scope="col">Audit Firm</th>
+                                <th scope="col">Propriete/Partner</th>
+                                <th scope="col">Membership No.</th>
+                                <th scope="col">Certificate of Practice</th>
+                                <th scope="col">Class</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let auditor of auditorList; let i = index">
+                                <td><strong>{{i + 1}}</strong></td>
+                                <td>{{auditor['audited']}}</td>
+                                <td>{{auditor['auditFirm']}}</td>
+                                <td>{{auditor['proprietePartner']}}</td>
+                                <td>{{auditor['membershipNo']}}</td>
+                                <td>{{auditor['certificateOfPractice']}}</td>
+                                <td>{{auditor['class']}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </nb-card-body>
+                </nb-card>
             </div>
         </div>
-
-        <hr>
 
         <nb-tabset #currentTabSet (changeTab)="changeActiveTab(currentTabSet['tabs'])" class="mb-4" fullWidth>
 
