@@ -1,0 +1,109 @@
+<form [formGroup]="financialStatementForm" (ngSubmit)="financialStatementForm.valid && onSubmit()">
+    <nb-card [nbSpinner]="spinner" accent="primary" class="m-0"
+             nbSpinnerSize="giant"
+             nbSpinnerStatus="primary">
+        <nb-card-header>
+            <a (click)="onClose()" aria-label="Close" class="close cursor"
+               data-dismiss="modal">
+                <span aria-hidden="true">×</span></a>
+            <h4 class="modal-title pull-left">Financial statement options</h4>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="row form-group">
+                <div class="col-md-12 mb-2">
+                    <label>Financial Statement</label>
+                    <ng-select [items]="financialStatementList"
+                               [multiple]="false"
+                               [ngClass]="{'is-invalid': financialStatementFormControl.financialStatement.invalid
+                               && (financialStatementFormControl.financialStatement.dirty ||
+                                financialStatementFormControl.financialStatement.touched)}"
+                               formControlName="financialStatement"
+                               (change)="onFinancialStatementChange($event)"
+                               placeholder="Select Financial Statement">
+                    </ng-select>
+                    <div *ngIf="financialStatementFormControl.financialStatement.invalid" class="invalid-feedback">
+                        Financial Statement is required!
+                    </div>
+                </div>
+                <div class="col-md-12 mb-2">
+                    <label for="fiscalYear">Fiscal year</label>
+                    <input id="fiscalYear" class="form-control" formControlName="fiscalYear" placeholder="(YYYY/YYYY)"
+                           [ngClass]="{'is-invalid': financialStatementFormControl.fiscalYear.invalid
+                           && (financialStatementFormControl.fiscalYear.dirty ||
+                                financialStatementFormControl.fiscalYear.touched)}">
+                    <div *ngIf="financialStatementFormControl.fiscalYear.invalid" class="invalid-feedback">
+                        Invalid Fiscal year!
+                    </div>
+                </div>
+            </div>
+            <nb-card *ngIf="showAuditorDetailsForm" accent="primary" class="mb-0">
+                <nb-card-body>
+                    <h4 class="mb-2">Auditor Details</h4>
+                    <div class="row form-group" formGroupName="auditorDetails">
+                        <div class="col-md-6 mb-2">
+                            <label for="audited">Audited</label>
+                            <input id="audited" class="form-control" formControlName="audited" placeholder="Audited fiscal year" readonly>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label for="auditFirm">Audit Firm</label>
+                            <input id="auditFirm"  class="form-control" formControlName="auditFirm" placeholder="Enter Audit Firm"
+                                   [ngClass]="{'is-invalid': auditorDetailsFormControl.auditFirm.invalid
+                                   && (auditorDetailsFormControl.auditFirm.dirty ||
+                                auditorDetailsFormControl.auditFirm.touched)}">
+                            <div *ngIf="auditorDetailsFormControl.auditFirm.invalid" class="invalid-feedback">
+                                Invalid Fiscal year!
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label for="proprietePartner">Propiete/Partner</label>
+                            <input id="proprietePartner"  class="form-control" formControlName="proprietePartner"
+                                   placeholder="Enter Propiete/Partner"
+                                   [ngClass]="{'is-invalid': auditorDetailsFormControl.proprietePartner.invalid
+                                   && (auditorDetailsFormControl.proprietePartner.dirty ||
+                                auditorDetailsFormControl.proprietePartner.touched)}">
+                            <div *ngIf="auditorDetailsFormControl.proprietePartner.invalid" class="invalid-feedback">
+                                Invalid Fiscal year!
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label for="membershipNo">Membership No.</label>
+                            <input id="membershipNo"  class="form-control" formControlName="membershipNo" placeholder="Enter Membership No."
+                                   [ngClass]="{'is-invalid': auditorDetailsFormControl.membershipNo.invalid
+                                   && (auditorDetailsFormControl.membershipNo.dirty ||
+                                auditorDetailsFormControl.membershipNo.touched)}">
+                            <div *ngIf="auditorDetailsFormControl.membershipNo.invalid" class="invalid-feedback">
+                                Invalid Fiscal year!
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label for="certificateOfPractice">Certificate of Practice</label>
+                            <input id="certificateOfPractice"  class="form-control" formControlName="certificateOfPractice"
+                                   placeholder="Enter Certificate of Practice"
+                                   [ngClass]="{'is-invalid': auditorDetailsFormControl.certificateOfPractice.invalid
+                                   && (auditorDetailsFormControl.certificateOfPractice.dirty ||
+                                auditorDetailsFormControl.certificateOfPractice.touched)}">
+                            <div *ngIf="auditorDetailsFormControl.certificateOfPractice.invalid" class="invalid-feedback">
+                                Invalid Fiscal year!
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="class">Class</label>
+                            <input id="class"  class="form-control" formControlName="class" placeholder="Enter Class (A, B, C,..)"
+                                   [ngClass]="{'is-invalid': auditorDetailsFormControl.class.invalid
+                                   && (auditorDetailsFormControl.class.dirty ||
+                                auditorDetailsFormControl.class.touched)}">
+                            <div *ngIf="auditorDetailsFormControl.class.invalid" class="invalid-feedback">
+                                Invalid Fiscal year!
+                            </div>
+                        </div>
+                    </div>
+                </nb-card-body>
+            </nb-card>
+        </nb-card-body>
+        <nb-card-footer class="text-right">
+            <button nbButton status="primary" type="submit">
+                Add
+            </button>
+        </nb-card-footer>
+    </nb-card>
+</form>

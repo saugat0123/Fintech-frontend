@@ -73,8 +73,7 @@
                         <app-company-info [formValue]="loanDocument?.companyInfo" #companyInfo></app-company-info>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Proposal'">
-                        <app-proposal [formValue]="loadProposal()" (dmsDisableButton)="submitButton($event)"
-                                      #proposalInfo></app-proposal>
+                        <app-proposal [formValue]="loadProposal()" #proposalInfo></app-proposal>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
                         <app-cicl #cicl
