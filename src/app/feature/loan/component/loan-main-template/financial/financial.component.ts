@@ -273,6 +273,8 @@ export class FinancialComponent implements OnInit {
         const fiscalYearModalRef = this.modalService.open(FiscalYearModalComponent, {backdrop: 'static', size: 'lg'});
         fiscalYearModalRef.result.then( closeParams => {
             this.addFiscalYear(closeParams.fiscalYearValue, closeParams.auditorDetails);
+        }, dismiss => {
+            console.log(dismiss);
         });
     }
 
