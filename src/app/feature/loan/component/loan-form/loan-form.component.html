@@ -92,7 +92,7 @@
                         <app-site-visit #siteVisit [formValue]="loanDocument?.siteVisit"></app-site-visit>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Security'">
-                        <app-security #security [securityValue]="loanDocument?.security"></app-security>
+                        <app-security #security [securityValue]="loanDocument?.security" [proposalDataHolder]="loanDocument?.proposal"></app-security>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Customer Document'">
                         <app-customer-document #customerDocument
