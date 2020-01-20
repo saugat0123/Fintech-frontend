@@ -64,6 +64,8 @@ import {ManjurinamaComponent} from './component/offer-letter/manjurinama/manjuri
 import {PratigyaPatraComponent} from './component/offer-letter/pratigya-patra/pratigya-patra.component';
 import {LoanMainNepaliTemplateComponent} from './component/loan-main-nepali-template/loan-main-nepali-template.component';
 import { FiscalYearModalComponent } from './component/loan-main-template/financial/fiscal-year-modal/fiscal-year-modal.component';
+import { BikeKarjaComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja.component';
+
 
 
 const COMPONENTS = [
@@ -114,14 +116,15 @@ const COMPONENTS = [
     KararnamaComponent,
     KarjatamsukComponent,
     ManjurinamaComponent,
-    PratigyaPatraComponent
+    PratigyaPatraComponent,
+    BikeKarjaComponent,
 ];
 const ENTRY_COMPONENTS = [ReadmoreModelComponent, FiscalYearModalComponent, LoanMainNepaliTemplateComponent];
 
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS, LoanMainNepaliTemplateComponent, FiscalYearModalComponent],
+    declarations: [...COMPONENTS, LoanMainNepaliTemplateComponent, FiscalYearModalComponent, BikeKarjaComponent],
     imports: [
         ThemeModule,
         CommonModule,
