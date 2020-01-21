@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="row">
+		<div class="left">
+			<img src="logo.png" alt="logo" />
+		</div>
+		<div class="head-right">
+			<p>
+				<strong>एम.ए डब्लु. इन्भेष्टमेन्ट प्रा.लि.</strong>
+			</p>
+			<p>
+				(नेपाल राष्ट्र बैंकबाट हायर पर्चेज कर्जा प्रदान गर्न इजाजत प्राप्त)
+			</p>
+		</div>
+	</div>
+	<hr>
+	<!-- Body begins -->
+
+	<div class="proposal">
+		<!-- <input type="image" src="foto.png" alt="photo" align="right"> -->
+		<p id="main-heading">
+			हायर पर्चेज कर्जा आवेदन फाराम
+		</p>
+		<p id="photo"><input type="file" name="फोटो" alt="फोटो" ></p>
+		<p>
+			मितिः <input type="date" placeholder="मिति" />
+		</p>
+		<br>
+		<p>
+			<strong>
+				श्री एम.ए.डब्लु. इन्भेष्टमेन्ट प्रा. लि. <br>
+				टेकु रोड, त्रिपुरेश्वर, काठमाडौं	
+			</strong>
+		</p>
+		<br>
+		<p>
+			<strong>महाशय,</strong>
+		</p>
+		<p class="indent">
+			म/हामी निम्न लिखित विवरण उल्लेख गरी तपाई धनी कम्पनी एम.ए.डब्लु. इन्भेष्टमेन्ट प्रा.लि., त्रिपुरेश्वरबाट गर्ने लिखत 
+			लगायत सम्झौतामा उल्लेखित शर्त तथा बन्देजको अधिनमा रहने गरी हायर पर्चेज कर्जा रु. <input type="number" name="invest-amt" placeholder="५,००,००० " />
+			 लगानी गरिदिनुहुन आवेदन गर्दछु/छौं ।
+		</p>
+	</div>
+	<br>
+
+	<!--Personal info -->
+
+	<div class="personal-info">
+		<h3>आवेदकको व्यक्तिगत विवरण</h3>
+		<p>
+			आवेदकको पूरा नाम: <input type="text" placeholder="आशिष श्रेष्ठ" size="40" />
+		</p>
+
+		<p> 
+			जन्म मिति: <input type="date" placeholder="२०७२/१/१२" />
+		 	<span style="padding-left: 15px"> लिङ्गः </span>
+		 		<span style="padding-left: 5px"> 
+		 			पुरुष <input type="radio" name="लिङ्ग" value="पुरुष" checked="checked" /> 
+		 		</span>
+		 		<span style="padding-left: 5px"> 
+		 			महिला <input type="radio" name="लिङ्ग" value="महिला" />
+		 		</span>
+		 		<span style="padding-left: 5px">
+				 	अन्य <input type="radio" name="लिङ्ग" value="अन्य" />
+				</span>
+
+			<span style="padding-left: 35px"> उमेरः <input type="number" name="age" placeholder="२२" /> वर्ष  </span>
+		</p>
+		<p class="inline"> नागरिकता नम्बर: <input type="text" name="नागरिकता नम्बर" size="15" /> </p>
+ 		<p class="hori-spacing inline"> जारी मिति: <input type="date" name="जारी मिति" size="15" /> </p>
+ 		<p class="hori-spacing inline"> जारी जिल्ला: <input type="text" name="जारी जिल्ला" /> </p>
+  		</p>
+
+		<p>
+			बाजेको	नामः <input type="text" name="बाजेको नाम" placeholder="के पि शर्मा" />
+		</p>
+		<p>
+			बाबुको	नाम: <input type="text" name="बाबुको नाम" placeholder="निर कुमार कुँवर" />
+		</p>
+		<p>
+			आमाको नाम: <input type="text" name="आमाको नाम" placeholder="रमा देवी" />
+		</p>
+		<p class="inline">
+			वैवाहिक स्थितिः विवाहित <input type="radio" name="वैवाहिक स्थिति" value="विवाहित" /> </p>
+						 <p class="inline hori-spacing"> अविवाहित <input type="radio" name="वैवाहिक स्थिति" value="अविवाहित" checked="checked" /> </p> 
+			<span style="padding-left: 150px">श्रीमान्/श्रीमतीको नाम:</span> <input type="text" name="श्रीमान्/श्रीमतीको नाम" placeholder="रमा देवी श्रेष्ठ" />  						
+		</p>
+		<p>
+			आश्रित परिवारको संख्या: <input type="text" name="अविभावक" size="1"> अविभावक <span style="padding-left: 10px"><input type="text" name="बालबालिका" size="1"> बालबालिका </span> <span style="padding-left: 40px"><input type="text" name="अन्य भए उल्लेख गर्ने"> अन्य भए उल्लेख गर्ने	
+		</p>
+
+		<p>
+			स्थायी ठेगाना (हाल बसोबास गर्ने ठेगानाभन्दा फरक भएमा): <input type="text" name="स्थायी ठेगाना (हाल बसोबास गर्ने ठेगानाभन्दा फरक भएमा)" size="10" placeholder="धरान" /> 
+
+			<span style="padding-left: 80px">
+				हालको ठेगानाः <input type="text" name="हालको ठेगाना" size="10" placeholder="काठमाडौ" />
+			</span>
+		</p>
+		<p class="small-all-in-one-row">
+			जिल्लाः <input type="text" name="जिल्ला" size="3"> गा.पा./न.पा./उ.म.न.पा./म.न.पा. <input type="text" name="गा.पा./न.पा./उ.म.न.पा./म.न.पा." size="3"> वडा नं.: <input type="text" name="वडा नं." size="3"> टोलः <input type="text" name="टोल" size="3"> घर नं.:<input type="text" name="घर नं." size="3"> कति साल देखि बसेकोः <input type="text" name="कति साल देखि बसेको" size="3"> फोन नं.: <input type="text" name="फोन नं." size="3"> मोबाइल नं.: <input type="text" name="मोबाइल नं." size="3"> ई–मेलः <input type="email" name="ई–मेल" size="3"> 
+		</p>
+		<p>
+			बासस्थानको	प्रकारः
+							<select name="बासस्थानको	प्रकार">
+								<option value="आफ्नै">आफ्नै</option>
+								<option value="आफन्त">आफन्त</option>
+								<option value="भाडामा">भाडामा</option>
+								<option value="अन्य">अन्य</option>
+							</select>
+		</p>
+		<p>																		
+			शैक्षिक योग्यता: प्राथमिक <input type="radio" name="शैक्षिक योग्यता" value="प्राथमिक" />
+						   माध्यमिक <input type="radio" name="शैक्षिक योग्यता" value="माध्यमिक" checked="checked" />	
+						   स्नातक <input type="radio" name="शैक्षिक योग्यता" value="स्नातक" />
+						   स्नातकोतर	<input type="radio" name="शैक्षिक योग्यता" value="स्नातकोतर" />
+		</p>
+	</div>
+
+	<!-- Occupation Information -->
+	<div class="occupation-info">
+		
+		<h3>रोजगारीको विवरण</h3>																		
+		<p>
+			पेशा: तलबी <input type="radio" name="पेशा" value="तलबी" />
+			    <span style="padding-left: 15px"> स्वरोजगार <input type="radio" name="पेशा" value="स्वरोजगार" /><span>
+			 	<span style="padding-left: 15px"> सेवा निवृत <input type="radio" name="पेशा" value="सेवा निवृत" /></span>
+			 	<span style="padding-left: 15px">अन्य <input type="radio" name="पेशा" value="अन्य" />	</span>												
+		</p>												
+		<p>
+			रोजगारदाताको नाम: <input type="text" name="रोजगारदाताको नाम"> 
+		</p>
+		<p>
+			ठेगाना: <input type="text" name="ठेगाना"> फोन नं.: <input type="text" name="फोन नं."> फ्याक्स नं.: <input type="text" name="फ्याक्स नं.">
+		</p>
+		<p>
+			पद: <input type="text" name="पद" size="10"> मासिक तलब: <input type="text" name="मासिक तलब" size="10"> हालको रोजगारदातासँग काम गरेको अवधि: <input type="text" name="हालको रोजगारदातासँग काम गरेको अवधि" size="10" />			
+		</p>
+				
+	</div>
+
+	<!-- Business Information -->
+	<div class="business-info">
+		
+		<h3>व्यवसायको विवरण</h3>
+		<p>
+			व्यवसायको नाम: <input type="text" name="व्यवसायको नाम"> ठेगाना: <input type="text" name="ठेगाना">
+		</p>
+		<p>
+			फोन नं.: <input type="text" name="फोन नं."> फ्याक्स: <input type="text" name="फ्याक्स"> ईमेलः <input type="text" name="ईमेल">
+		</p>
+		<p>
+			व्यवसाय/दर्ता प्रकृति: प्रा.लि. <input type="radio" name="व्यवसाय/दर्ता प्रकृति" value="प्रा.लि."> 
+								लिमिटेड <input type="radio" name="व्यवसाय/दर्ता प्रकृति" value="लिमिटेड">
+								प्रोप्राइटर्स <input type="radio" name="व्यवसाय/दर्ता प्रकृति" value="प्रोप्राइटर्स">
+								अन्य <input type="radio" name="व्यवसाय/दर्ता प्रकृति" value="अन्य"> 
+			कम्पनी/फर्म दर्ता मिति: <input type="date" name="कम्पनी/फर्म दर्ता मिति">
+		</p>
+		<p>
+			व्यवसाय शुरु गरेको मितिः <input type="date" name="व्यवसाय शुरु गरेको मिति"> <span style="padding-left: 10px"> व्यवसायमा जम्मा लगानी:</span> <input type="text" name="व्यवसायमा जम्मा लगानी"> 
+		</p>
+		<p>
+			आयकर प्रमाणपत्र नं.: <input type="text" name="आयकर प्रमाणपत्र नं."> <span style="padding-left: 20px"> मासिक कारोवार: </span> <input type="text" name="मासिक कारोवार"> 
+		</p>
+		<p>
+			मासिक आम्दानी: <input type="text" name="मासिक आम्दानी"> <span style="padding-left: 30px"> अन्य आम्दानी: </span> <input type="text" name="अन्य आम्दानी"> 
+		</p>
+	</div>
+
+	<!-- House Rent Information -->
+	<div class="house-rent-info">
+		
+		<h3>घरभाडाको विवरण</h3>
+		<p>
+			घरधनीको नाम: <input type="text" name="घरधनीको नाम"> <span style="padding-left: 10px"> फोन नं./मो.नं.: </span> <input type="text" name="फोन नं./मो.नं."> 
+		</p>
+		<p>
+			घरधनीसंग सम्बन्ध: <input type="text" name="घरधनीसंग सम्बन्ध"> <span style="padding-left: 20px"> घर भाडा मासिक रु.: </span> <input type="text" name="घर भाडा मासिक रु.">
+		</p>
+		<p>
+			भाडामा दिएको घरको ठेगाना: <input type="text" name="भाडामा दिएको घरको ठेगाना">
+		</p>
+		<p>
+			घरभाडा सम्झौता: छ <input type="radio" name="घरभाडा सम्झौता" value="छ"> 
+						छैन <input type="radio" name="घरभाडा सम्झौता" value="छैन" checked="checked">
+		</p>
+	</div>
+
+	<!-- Property Information -->
+	<div class="propety-info">
+
+		<h3>स्वामित्वमा रहेको सम्पत्तीको विवरण</h3>
+
+		<div class="house-and-land">
+
+			
+			<h3>१. भवन तथा जग्गा:</h3>
+			
+			<p>
+				घर/जग्गा धनीको नाम: <input type="text" name="घर/जग्गा धनीको नाम" > घर/जग्गाको प्रकृति/अवस्था: <input type="text" name="घर/जग्गाको प्रकृति/अवस्था" > 
+			</p>
+			<p>
+				ठेगाना: <input type="text" name="ठेगाना" size="10"> घर/जग्गाको क्षेत्रफल: <input type="text" name="घर/जग्गाको क्षेत्रफल" size="10"> घर/जग्गाको कित्ता नं.: <input type="text" name="घर/जग्गाको कित्ता नं" size="10">
+			</p>
+			<p>
+				घर/जग्गाको अनुमानित मूल्य: <input type="text" name="घर/जग्गाको अनुमानित मूल्य">
+		</div>
+
+		<div class="vehicle">
+			
+			<h3>२. सवारी साधन:</h3>
+			
+			<p>
+				सवारी साधनको किसिम: <input type="text" name="सवारी साधनको किसिम"> मोडेल: <input type="text" name="मोडेल">
+			</p>
+			<p>
+				अनुमानित मूल्य: <input type="text" name="अनुमानित मूल्य"> सवारी साधन दर्ता नं.: <input type="text" name="सवारी साधन दर्ता नं."> 
+			</p>
+		</div>
+
+		<div class="home-utensils">
+			
+			<h3>३. घरायसी सामानको विवरणः</h3>
+			
+			<p>
+				<input type="checkbox" name="घरायसी सामानको विवरण" value="कलर टि.भि."> कलर टि.भि. <br>
+				<input type="checkbox" name="घरायसी सामानको विवरण" value="फ्रिज"> फ्रिज <br>
+				<input type="checkbox" name="घरायसी सामानको विवरण" value="वासिङ्ग मेसिन"> वासिङ्ग मेसिन <br>
+				<input type="checkbox" name="घरायसी सामानको विवरण" value="अडियो सि.डि. प्लेयर"> अडियो सि.डि. प्लेयर <br>
+				<input type="checkbox" name="घरायसी सामानको विवरण" value="माइक्रो ओभन"> माइक्रो ओभन <br>
+				<input type="checkbox" name="घरायसी सामानको विवरण" value="कम्प्युटर"> कम्प्युटर <br>
+				<input type="checkbox" name="घरायसी सामानको विवरण" value="ए.सी."> ए.सी. <br>
+				<input type="checkbox" name="घरायसी सामानको विवरण" value="भ्याकुम क्लिनर"> भ्याकुम क्लिनर <br>
+				<input type="checkbox" name="घरायसी सामानको विवरण" value="अन्य"> अन्य <input type="text" name="अन्य"><br>
+			</p>
+		</div>
+
+		<div class="bank-acc-info">
+			<h3>४. बैंक खाताको विवरण:</h3>
+			<p>
+				क. बैंकको नाम: <input type="text" name="बैंकको नाम" size="15"> ख. खाता नं.: <input type="text" name="खाता नं." size="15"> ग. शाखा: <input type="text" name="शाखा" size="15">
+			</p>
+			<p>
+				घ. खाताको किसिम: <input type="text" name="खाताको किसिम"> ङ. बैंक ब्यालेन्स/मिति: रु. <input type="text" name="बैंक ब्यालेन्स/मिति" placeholder=""/>
+			</p>
+			<p>				
+				क्रेडिट कार्ड: छ <input type="radio" name="क्रेडिट कार्ड" value="yes"> छैन <input type="radio" name="क्रेडिट कार्ड" value="no">
+				<span style="padding-left: 20px"> <strong> यदि भएमा </strong> सोको विवरण: </span> <input type="text" name="यदि भएमा सोको विवरण">
+			</p>
+			<p>
+				यस अघिको कारोवार: छ <input type="radio" name="यस अघिको कारोवार" value="छ"> छैन <input type="radio" name="यस अघिको कारोवार" value="छैन">
+			</p>
+			<p>
+				यदि भएमा,	१. कर्जा शिर्षक: <input type="text" name="कर्जा शिर्षक"> २. कर्जा प्रवाह मिति: <input type="date" name="कर्जा प्रवाह मिति"> 
+			</p>
+			<p>
+				३. कर्जा रकम: <input type="text" name="कर्जा रकम"> ४. कर्जा अवधि: <input type="text" name="कर्जा अवधि"> 
+			</p>				
+		</div>
+
+		<!-- Introduced Distinguished personality -->
+		<div class="known-distinguished-personality">
+			<h3>परिचीत प्रतिष्ठित व्यक्तिहरुको विवरण</h3>
+
+			<div class="row">
+				<div class="left">
+					
+						१. नाम: <input type="text" name="नाम" size="10"> नाताः <input type="text" name="नाता" size="10"> <br>
+						ठेगाना: <input type="text" name="ठेगाना"> <br>
+						फोन नं.: <input type="text" name="फोन नं." size="10"> मो.नं.: <input type="text" name="मो.नं." size="10">
+					
+				</div>
+				<div class="right">
+					
+						२. नाम: <input type="text" name="नाम" size="10"> नाता: <input type="text" name="नाता" size="10"> <br>
+						ठेगाना: <input type="text" name="ठेगाना"> <br>
+						फोन नं.: <input type="text" name="फोन नं." size="10"> मो.नं.: <input type="text" name="मो.नं." size="10">
+				</div>
+			</div>
+
+			<br>
+
+			<div class="row">
+				<div class="left">
+					
+						३. नाम: <input type="text" name="नाम" size="10"> नाताः <input type="text" name="नाता" size="10"> <br>
+						ठेगाना: <input type="text" name="ठेगाना"> <br>
+						फोन नं.: <input type="text" name="फोन नं." size="10"> मो.नं.: <input type="text" name="मो.नं." size="10">
+					
+				</div>	
+
+				<div class="right">
+				
+						४. नाम: <input type="text" name="नाम" size="10"> नाता: <input type="text" name="नाता" size="10"> <br>
+						ठेगाना: <input type="text" name="ठेगाना"> <br>
+						फोन नं.: <input type="text" name="फोन नं." size="10"> मो.नं.: <input type="text" name="मो.नं." size="10">
+					
+				</div>			
+			</div>			
+		</div>
+
+		<!-- Two maps here -->
+		<div class="row">
+			<div class="left">
+				<p>
+					<strong> आवेदक बसोबास गरेको नक्सा: </strong> <br>
+					<input type="file" name="आवेदक बसोबास गरेको नक्सा">
+				</p>
+			</div>
+			<div class="right">
+				<p>
+					<strong> जमानतकर्ता बसोबास गरेको नक्सा: </strong>
+					<input type="file" name="जमानतकर्ता बसोबास गरेको नक्सा">
+				</p>
+			</div>
+		</div>
+
+		<!-- Related Required Documents -->
+		<div class="required-docs">
+			<h3>आवेदनसंग संलग्न गर्नुपर्ने कागजातहरुको विवरण</h3>
+			<p>
+				<ul>
+					<li>१)	नागरिकताको प्रमाणपत्रको प्रतिलिपि</li>
+					<li>२)	कार्यालयको परिचय पत्रको प्रतिलिपि</li>
+					<li>३)	दुई प्रति पासपोर्ट साइज फोटो</li>
+					<li>४)	आम्दानी प्रमाणपत्र (तलब प्रमाणपत्र, घर भाडा तथा कन्सल्टेण्टको प्रमाण पत्र)</li>
+					<li>५)	व्यवसाय दर्ता प्रमाणपत्रको नक्कल/आयकर प्रमाणपत्रको नक्कल</li>
+					<li>६)	विगत ३ महिनाको बैंक विवरणको प्रतिलिपि</li>
+					<li>७)	धितो राख्ने सम्पति माथि स्वामित्वको प्रमाणपत्रको प्रतिलिपि</li>
+					<li>८)	कम्पनीले माग गरेका अन्य कागजातहरु</li>
+				</ul>
+			</p>
+		</div>
+
+		<div class="loan-amt-dur-interest">
+			<h3>कर्जा रकम, अवधि, किस्ता, ब्याज, सेवा शुल्क</h3>
+
+			<p>
+				<strong>कर्जा शिर्षक:</strong> <p class="left-indent"> हायर पर्चेज कर्जा (दुई पाङ्ग्रे्रे्रे सवारी साधन) </p>
+			</p>
+
+			<p>
+				<strong>सवारी साधन/मेशिनको मोडल:</strong> <p class="left-indent"><input type="text" name="machine-model"> </p>
+			</p>
+			<p>
+				<strong>कर्जा रकम:</strong><p class="left-indent"> रु. <input type="text" name="loan-amount"> 
+				अक्षरेपी <input type="text" name="aksharepi"> मात्र) </p>
+			</p>
+			<p>
+				<strong>उद्वेश्य:</strong> <p class="left-indent"> यो कर्जा उपरोक्त विवरणको दुई पाङ्ग्रे्रे्रे सवारी साधन (मोटरसाइकल/स्कुटर) खरिद गर्नका
+				गरिएको हो । </p>
+			</p>
+			<p>
+			 	<strong>ब्याज दर:</strong> <p class="left-indent"> <input type="text" name="interest-rate"> प्रतिशत प्रतिवर्ष अर्थात कम्पनीले समय समयमा तोके वमोजिम हुनेछ । धनी कम्पनीले प ऋणको ब्याजदर वा अन्य कुनै दरहरु थपघट भएमा धनी कम्पनीले सो सम्बन्धमा ऋणीलाई गरेको फोन क्ःक्, हुलाक मार्फत पठाएको चिठ्ठी तथा डिजिटल सेवा मार्फत पठाएको जानकारीहरु समेतलाई ऋणीले जा पाएको मानिनेछ र यस्तो परिवर्तित ब्याजदर अनुरपको किस्ता रकम तिर्न बुझाउन ऋणीे सदैव मञ्जु </p>
+			 </p>
+			 <p>			 
+				<strong>भुक्तानी अवधि:</strong> <p class="left-indent"> कर्जा प्रवाह मिति देखि <input type="text" name="years"> वर्षको हुनेछ । (कर्जा भुक्तानी तालिका कर्जा प्रवाह गरेको मि गराइनेछ ।) </p>
+			</p>
+			<p>
+				<strong>कर्जा भुक्तानी:</strong> <p class="left-indent"> कर्जाको भुक्तानी मासिक किस्तावन्दी ९भ्त्रगबतभम ःयलतजथि क्ष्लकतबििmभलत ूभ्ःक्ष्ू० को आधारमा प्रति महिनाको किस्ता रु. <input type="text" name="amount-per-month"> का दरले <input type="text" name=""> किस्तामा बुझाउनु पर्नेछ । कर्जाको कि धनी कम्पनीले उपलब्ध गराएको कर्जा भुक्तानी तालिकाको अवधि भित्रै अनिवार्य रुपमा बुझाउनु पर्नेछ रकम धनी कम्पनीले कर्जाको ब्याजदर परिवर्तन गरेको अवस्थामा सोही बमोजिम स्वतः परिवर्तन ह </p>
+			</p>
+			<p>
+				<strong>कर्जा भूक्तानी मिति:</strong> <p class="left-indent"> प्रत्येक अंग्रेजी महिनाको २० तारिखमा । </p>
+			</p>
+			<p>
+				<strong>अग्रिम भुक्तानी शूल्क:</strong> <p class="left-indent"> ऋणीले अग्रिम रुपमा कर्जा भुक्तानी गर्न चाहेमा अग्रिम भुक्तानी शुल्क ९एचभउबथmभलत ऋजब भुक्तानी गर्न सकिनेछ । अग्रिम भूक्तानी गरेको रकमको फ्ल्याट (समदर) मा १ प्रतिशतले हुन कम्पनीमा बुझाउनु पर्नेछ । ऋणीले गरेको अग्रिम भुक्तानी रकम कुनै परिस्थितीमा पनि ऋणीले पू सक्नेछैन । </p>
+			</p>
+			<p>
+				<strong>कर्जा स्थानान्तरण:</strong> <p class="left-indent"> कम्पनीको कर्जा रकम चुक्ता नभएसम्मको लागि तोकिए बमोजिम कर्जा तिर्ने दायित्व पूर्ण रुप
+				हुनेछ । कम्पनीको ऋण चुक्ता भुक्तान नभएसम्म उक्त ऋणको दायित्व ऋणी बाहेक तेश्रो पक्षमा स्थान हुनेछैन । </p>
+			 </p>
+			 <p>
+				<strong>बीमा:</strong>
+					<p class="left-indent">
+						 उल्लेखित मोटरसाइकल/स्कुटरको किस्ता रकम र अन्य दै–दस्तुर चुक्ता फर्छ्यौट नभएसम्म बीमा
+						प्रिमियम तिर्ने कार्य, बीमा नविकरण गर्दा लाग्ने सम्पूर्ण खर्च ऋणी स्वयम्ले व्योहोर्नु पर्नेछ
+						बीमा प्रमाणपत्र म्याद सकिनुभन्दा तिन दिन अगाडी नै यस कम्पनीमा पेश गरी सक्नु पर्नेछ अन्यथा धनी कम्प
+						आफैंले उक्त सवारी साधनको बीमा गरी/गराई ऋणीको खातामा खर्च लेखिदिएमा उक्त रकम तिर्न, व्योह
+						मञ्जुर गर्दछ । तर उल्लेखित सवारी साधन कर्जाको साँवा रकम रु ७०००।– (अक्षरेपी सात हजार रुपैया
+						वा सो भन्दा कम भएमा धनी कम्पनीले उक्त सवारी साधनको बीमा नविकरण गराउनेछैन तर ऋणिको नामम
+						रहेको खातामा बीमा बापत लाग्ने शुल्क बराबर रकम रहेमा धनी कम्पनीले बीमा नविकरण गर्न सक्नेछ
+						बीमा नविकरण नगराएको कारणबाट हुने घाटा वा सोको क्षतिपूर्ति उपर पूर्ण रुपमा ऋणी स्वयम् नै
+						हुनेछ । 
+						<br>
+						: ऋणीले उपलब्ध गराएको ठेगानालाई सहि र प्रामाणित मानी कम्पनीले कारोवार गने
+					</p>
+			 </p>
+			
+			<strong>ठेगाना:</strong> <p class="left-indent"><input type="text" name="ठेगाना"> </p>
+		</div>
+
+		<div class="sarta-bandej">
+			<h3>शर्त बन्देजहरु: </h3>
+			<ul>
+				<li><strong>* धितो सुरक्षण:</strong>
+					<p>
+						ऋणीले निम्न बमोजिम सम्पूर्ण कर्जा सुविधाको सुरक्षण प्रदान गर्नेछ ।
+					</p>
+					<p>
+						निम्न बमोजिम विवरण भएको सवारी साधन <strong>एम.ए.डब्लु. इन्भेष्टमेन्ट प्रा.लि.</strong> को नाममा सम्बन्धित सरकारी निकायमा दत ९च्भनष्कतभच० गरी उक्त सवारी साधनको धनी कम्पनीले तोके बमोजिमको पूर्ण रुपमा कर्जा चुक्ता भुक्तानी नभएसम्म धितो सुरक्षणको रुपमा रहनेछ ।
+					</p>
+					<p>
+						<table>
+							<tr>
+								<th> सवारी साधनको मोडल </th>
+								<th> सवारी साधन दर्ता नं. </th>
+								<th> इन्जिन नं. </th>
+								<th> च्यासिस नं. </th>
+								<th> रंग	</th>
+							</tr>
+							<tr>
+								<td><input class="textboxid" type="text" name="सवारी साधनको मोडल" width="50" ></td>
+								<td><input class="textboxid" type="text" name="सवारी साधन दर्ता नं."></td>
+								<td><input class="textboxid" type="text" name="इन्जिन नं."></td>
+								<td><input class="textboxid" type="text" name="च्यासिस नं."></td>
+								<td><input class="textboxid" type="text" name="रंग"></td>
+							</tr>
+						</table>
+						<li>
+							<p>
+								<strong>* थप ब्याज लाग्ने:</strong> 
+								ऋणीले कर्जा किस्ता अनियमित गरेमा वा अरु कुनै पनि शर्त, बन्देजहरुको उल्लंघन गरेमा, थ ५ प्रतिशत भन्दा नघट्ने गरि कम्पनीको नियम अनुसार ऋणीको कर्जा खातामा बिलम्ब शुल्क/जरिवाना जनाई उपर गरिलिनेछ ।
+							</p>
+						</li>
+						<li>
+							<p>	
+								<strong>* कर्जा भुक्तानी:</strong> ऋणीले धनी कम्पनीसँग भए गरेका सम्झौताहरु तथा शर्त बन्देजहरु उल्लंघन गरेमा वा कर्जा गरेमा धनी कम्पनीले कुनै पनि समयमा बांकी सम्पूर्ण कर्जा, ब्याज र अन्य तिर्नु पर्ने रकम तुरुन्त तिर्न आदे
+							</p>
+						</li>
+						<li>
+							<p>
+								* यस कर्जा लगानीबाट खरिद गरिएको सवारी साधन/गाडी/मेशिन आदि धनी कम्पनीको बन्धकमा रहनेछ ।
+							</p>
+						</li>
+						<li>
+							<p>
+								* कर्जा स्वीकृत भए पछि सम्पूर्ण मासिक किस्ता, ब्याज, शुल्क तथा अन्य दै–दस्तुरहरु वापत मेरो/हाम्रो खाता खच गर्न मैले/हामीले धनी कम्पनीलाई अख्तियारी दिएको छु/छौँ ।
+							</p>
+						</li>
+						<li>
+							<p>
+								*  मैले/हामीले कर्जा सदैव धनी कम्पनीको पूर्ण स्वविवेकको अधिनमा रहेको स्पष्ट बुझेको छु/बुभे कुनै पनि सूचना नदिई धनी कम्पनीले कर्जा रकम, कर्जाको ब्याज, भुक्तानी, अग्रीम भुक्तानी, शुल्क र अन्य शर्त तथा कवुलियतहरुमा कुनै पनि समयमा परिवर्तन वा संशोधन गर्नसक्ने कुरा स्वीकार गर्द
+							</p>
+						</li>
+					</p>
+				</li>
+
+			</ul>
+		</div>
+
+		<!-- jamani karta haru ko information -->
+		<div class="jamani-karta">
+			<h3>जमानीकर्ता (हरु)को विवरण: </h3>
+			<p>
+				निम्नलिखित म/हामी व्यक्तिगत जमानीकर्ताहरुले आफुले धितो दिएको तथा ऋणीले उपभोग गरेको कर्जा दायित्वको धनी कम्पनीलाई भविष्यमा कुनै धितो लेखिदिनुपरेमा तथा दायित्व पुरा गर्नुपर्ने अवस्था आएमा मेरो/हाम्रो मञ् राष्ट्र बैंकको निर्देशिकाको दफा ४ र ५ बमोजिम कालो सूचिमा समावेश गर्ने गरि मेरो/हाम्रो नाम कजा पठाएमा समेत मेरो/हाम्रो मञ्जुरी छ ।
+			</p>
+			<p>
+				१) व्यक्तिगत जमानीकर्ताको नाम: <input type="text" name="व्यक्तिगत जमानीकर्ताको नाम"> दस्तखत: <input type="file" name="दस्तखत"> <br>
+				मिति: <input type="date" name="मिति">
+			</p>
+			<p>
+				२) व्यक्तिगत जमानीकर्ताको नाम: <input type="text" name="व्यक्तिगत जमानीकर्ताको नाम"> दस्तखत: <input type="file" name="दस्तखत"> <br>
+				मिति: <input type="date" name="मिति">
+			</p>
+		</div>
+		<div class="declaration">
+			<h3>घोषणा:</h3>
+			<p>
+				यस निवेदनमा उल्लेख गरिएका प्रत्येक विवरणहरु ठीक तथा सत्य हुन्/छन् भन्ने कुरा म/हामी कबुल गर्दछु/छौं उल्लेखित विवरणहरुले ऋण लगाानी स्विकृतीमा महत्वपूर्ण भूमिका खेल्ने हुनाले उल्लेखित विवरणहरु झुठा र गलत त्यसबाट मैले /हामीले कुनै दायित्व व्यहोर्नु परेमा सो सम्पूर्ण आर्थिक दायित्व म/हामीले तिर्न व्यहोर्न तथा सहन
+			</p>
+			<div class="row">
+				<div class="left">
+					<input type="file" name="आवेदकको हस्ताक्षर"> <br>
+					आवेदकको हस्ताक्षरः <br>
+					नामः	<input type="text" name="नाम">
+				</div>
+				<div class="right">
+					<input type="file" name="जमानीकर्ता(हरु)को हस्ताक्षर"> <br>
+					जमानीकर्ता(हरु)को हस्ताक्षरः <br>
+					नामः	<input type="text" name="नाम">
+				</div>
+			</div>
+				<!-- Only for company use -->
+			<div class="company-use-only">
+				<h3>धनी कम्पनीको प्रयोजनको लागि मात्र</h3>
+				<div class="row">
+					<div class="company-class-left">
+		 				<input type="text" name="तयार पार्ने"><br>
+						तयार पार्ने <br>
+						मिति: <input type="date" name="मिति">
+					</div>
+
+					<div class="company-class-right">
+						<input type="text" name="स्वीकृत गर्ने"><br>
+						स्वीकृत गर्ने
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
