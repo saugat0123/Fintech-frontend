@@ -7,6 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BikeKarjaComponent implements OnInit {
 
+  // date1: string;
+  // proposalAmount: number;
+  // applicantFullName: string;
+  // applicantDob: string;
+  //
+
+
   constructor() { }
 
   ngOnInit() {
