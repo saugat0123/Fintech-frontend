@@ -17,7 +17,7 @@ export class PushNotificationsService {
     }
 
     requestPermission(): void {
-        let self = this;
+        const self = this;
         if ('Notification' in window) {
             Notification.requestPermission(function (status) {
                 return self.permission = status;

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ShareValue} from '../../../modal/shareValue';
 import {NepseService} from '../nepse.service';
-import {ShareForm} from '../../../modal/shareForm';
+import {NepseMaster} from '../../../modal/NepseMaster';
 import {Status} from '../../../../../@core/Status';
 import {ModalResponse, ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
@@ -13,7 +13,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./share-value-form.component.scss']
 })
 export class ShareValueFormComponent implements OnInit {
-  shareData: ShareForm = new ShareForm();
+  nepseMaster: NepseMaster = new NepseMaster();
   shareValuesModel: ShareValue = new ShareValue();
 
   constructor(private nepseService: NepseService,
@@ -26,17 +26,16 @@ export class ShareValueFormComponent implements OnInit {
   }
 
   onSubmit(sharevalue: any) {
+    console.log(this.nepseMaster.ordinary);
     if (sharevalue.valid) {
-    this.shareData.shareData = JSON.stringify(sharevalue.value);
-    this.shareData.status = Status.ACTIVE;
-    this.nepseService.addShare(this.shareData).subscribe(response => {
+    this.nepseService.addShare(this.nepseMaster).subscribe(response => {
       this.activeModel.close(ModalResponse.SUCCESS);
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'sucessfully saved'));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'successfully saved'));
     }, error => {
       this.activeModel.close(ModalResponse.ERROR);
       this.toastService.show(new Alert(AlertType.ERROR, 'error while adding share'));
     });
-  }else{
+  } else {
       this.activeModel.close(ModalResponse.ERROR);
       this.toastService.show(new Alert(AlertType.ERROR, 'please Insert all field'));
     }

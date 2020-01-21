@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
     userProfilePicture;
     roleName;
 
-    userMenu = [{title: HeaderComponent.PROFILE}, {title: HeaderComponent.CHANGE_PASSWORD}, {title: HeaderComponent.LOGOUT},];
+    userMenu = [{title: HeaderComponent.PROFILE}, {title: HeaderComponent.CHANGE_PASSWORD}, {title: HeaderComponent.LOGOUT}, ];
 
     notificationCount;
 
@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit {
                 private modalService: NgbModal,
                 private socketService: SocketService,
                 private notificationService: NotificationService,
-                private _pushNotificationService: PushNotificationsService,) {
+                private _pushNotificationService: PushNotificationsService, ) {
 
         this.searchService.onSearchSubmit()
             .subscribe((searchData: any) => {
