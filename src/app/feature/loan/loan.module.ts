@@ -63,6 +63,7 @@ import {KarjatamsukComponent} from './component/offer-letter/karjatamsuk/karjata
 import {ManjurinamaComponent} from './component/offer-letter/manjurinama/manjurinama.component';
 import {PratigyaPatraComponent} from './component/offer-letter/pratigya-patra/pratigya-patra.component';
 import {LoanMainNepaliTemplateComponent} from './component/loan-main-nepali-template/loan-main-nepali-template.component';
+import { FiscalYearModalComponent } from './component/loan-main-template/financial/fiscal-year-modal/fiscal-year-modal.component';
 
 
 const COMPONENTS = [
@@ -115,12 +116,12 @@ const COMPONENTS = [
     ManjurinamaComponent,
     PratigyaPatraComponent
 ];
-const ENTRY_COMPONENTS = [ReadmoreModelComponent];
+const ENTRY_COMPONENTS = [ReadmoreModelComponent, FiscalYearModalComponent, LoanMainNepaliTemplateComponent];
 
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS, LoanMainNepaliTemplateComponent],
+    declarations: [...COMPONENTS, LoanMainNepaliTemplateComponent, FiscalYearModalComponent],
     imports: [
         ThemeModule,
         CommonModule,

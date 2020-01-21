@@ -1,5 +1,7 @@
+import {VehicleSecurityValuator} from './VehicleSecurityValuator';
+
 export class VehicleSecurity {
     id: number;
-    data: string;
+    valuatorList: Array<VehicleSecurityValuator>;
     version: number;
 }
