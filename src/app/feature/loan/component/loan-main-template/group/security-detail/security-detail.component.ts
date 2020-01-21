@@ -1,5 +1,6 @@
 import {Component , Input , OnInit} from '@angular/core';
 import {FormArray , FormBuilder , FormGroup} from '@angular/forms';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 
 
 @Component({
@@ -57,14 +58,15 @@ export class SecurityDetailComponent implements OnInit {
 
     setSecurityDetail(value) {
         const addDetail = this.securityGroup.get('securityArray') as FormArray;
-        addDetail.push(
+      addDetail.push(
             this.securityBuilder.group({
                 details: [value.details] ,
                 against: [value.against] ,
                 fmv: [value.fmv] ,
                 interestRate: [value.interestRate] ,
                 dv: [value.dv] ,
-                validatorName: [value.validatorName] ,
+                validatorName: [!ObjectUtil.isEmpty(value.validatorName) &&
+                  !ObjectUtil.isEmpty(value.validatorName.id) ? value.validatorName : undefined ] ,
                 valuationDate: [value.valuatedDate] ,
                 number: [value.number] ,
                 couponRate: [value.couponRate] ,

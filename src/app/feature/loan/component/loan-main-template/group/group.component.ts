@@ -32,6 +32,7 @@ export class GroupComponent implements OnInit {
     solValue;
     valuatorByBranch = [];
     valuatorName = [];
+    valuatorList = [];
 
     constructor(
         private groupBuilder: FormBuilder,
@@ -77,6 +78,10 @@ export class GroupComponent implements OnInit {
             solDetail: this.groupGroup.value ,
         };
         this.modelData.data = JSON.stringify(mergedForm);
+        this.securityDetail.securityGroup.get('securityArray').value.forEach(value => {
+            this.valuatorList.push(value.validatorName) ;
+        });
+        this.modelData.valuator = this.valuatorList;
     }
 
     buildForm() {
