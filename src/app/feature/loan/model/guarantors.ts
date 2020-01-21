@@ -10,7 +10,7 @@ export class Guarantors {
     district: District ;
     municipalities: MunicipalityVdc;
     citizenNumber: string;
-    issuedYear: number;
+    issuedYear: Date;
     issuedPlace: string;
     contactNumber: string;
     fatherName: string;
