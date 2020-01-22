@@ -37,7 +37,7 @@ export class DhitoLikhatManjurinamaComponent implements OnInit {
     }
 
     addCustomerDetail() {
-        (this.dhitoForm.get('dhitoForm').get('customerDetail') as FormArray).push(
+        (this.dhitoForm.get('customerDetail') as FormArray).push(
             this.formBuilder.group({
                 grandFathername : [undefined],
                 fatherName : [undefined],
