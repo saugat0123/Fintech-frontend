@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ShareValueFormComponent} from '../share-value-form/share-value-form.component';
 import {ModalUtils, ToastService} from '../../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {ShareForm} from '../../../modal/shareForm';
+import {NepseMaster} from '../../../modal/NepseMaster';
 import {NepseService} from '../nepse.service';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
@@ -15,7 +15,7 @@ import {Pageable} from '../../../../../@core/service/baseservice/common-pageable
 })
 export class ShareListComponent implements OnInit {
 
-  shareDataList: ShareForm[] = [];
+  shareDataList: NepseMaster[] = [];
   pageable: Pageable = new Pageable();
   page = 1;
 
@@ -28,7 +28,7 @@ export class ShareListComponent implements OnInit {
 
     other.nepseService.getPaginationOrdered(null, other.page, 5).subscribe((response: any) => {
           other.shareDataList = response.detail.content;
-          other.pageable = PaginationUtils.getPageable(response.detail);
+      other.pageable = PaginationUtils.getPageable(response.detail);
         }, error => {
           other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Share Data'));
         }
@@ -43,10 +43,6 @@ export class ShareListComponent implements OnInit {
   showShareValue() {
     const modal = this.modalService.open(ShareValueFormComponent);
     ModalUtils.resolve(modal.result, ShareListComponent.loadData, this);
-  }
-
-  parsedData(value: any) {
-    return JSON.parse(value);
   }
 
   changePage(page: number) {
