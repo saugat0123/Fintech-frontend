@@ -20,9 +20,10 @@
     <div class="col-md-4 form-group">
       <label for="dob"><strong>जन्म मिति</strong></label>
       <input [ngClass]="{ 'is-invalid': submitted && customerInfoNepaliControls.dob.errors }"
-             class="form-control" formControlName="dob"
+             class="form-control nepaliFont" formControlName="dob"
              id="dob"
-             type="date">
+             placeholder="जन्म मिति"
+             type="text">
       <div *ngIf="submitted && customerInfoNepaliControls.dob.errors"
            class="invalid-feedback">
         <div
@@ -35,7 +36,7 @@
       <label for="contactNumber"><strong>सम्पर्क नम्बर</strong></label>
       <input
           [ngClass]="{ 'is-invalid': submitted && customerInfoNepaliControls.contactNumber.errors }"
-          class="form-control" formControlName="contactNumber" id="contactNumber"
+          class="form-control nepaliFont" formControlName="contactNumber" id="contactNumber"
           placeholder="सम्पर्क नम्बर"
           type="text">
       <div *ngIf="submitted && customerInfoNepaliControls.contactNumber.invalid"
@@ -101,7 +102,7 @@
       <label for="street"><strong>सडक</strong></label>
       <input
           [ngClass]="{ 'is-invalid': submitted && customerInfoNepaliControls.street.errors }"
-          class="form-control" formControlName="street" id="street"
+          class="form-control nepaliFont" formControlName="street" id="street"
           placeholder="बाटोको नाम"
           type="text">
       <div *ngIf="submitted && customerInfoNepaliControls.street.invalid"
@@ -113,7 +114,7 @@
       <label for="wardNumber"><strong>वार्ड नम्बर</strong></label>
       <input
           [ngClass]="{ 'is-invalid': submitted && customerInfoNepaliControls.wardNumber.errors }"
-          class="form-control" formControlName="wardNumber" id="wardNumber"
+          class="form-control nepaliFont" formControlName="wardNumber" id="wardNumber"
           name="wardNumber" placeholder="वार्ड नम्बर"
           type="text">
       <div *ngIf="submitted && customerInfoNepaliControls.wardNumber.invalid"
@@ -131,7 +132,7 @@
       <label for="citizenshipNumber"><strong>नागरिकता नम्बर</strong></label>
       <input
           [ngClass]="{ 'is-invalid': submitted && customerInfoNepaliControls.citizenshipNumber.errors }"
-          class="form-control" formControlName="citizenshipNumber"
+          class="form-control nepaliFont" formControlName="citizenshipNumber"
           id="citizenshipNumber" placeholder="नागरिकता नम्बर"
           type="text">
       <div *ngIf="submitted && customerInfoNepaliControls.citizenshipNumber.invalid"
@@ -145,7 +146,7 @@
       <label for="citizenshipIssuedPlace"><strong>जारी गरिएको ठाउँ</strong></label>
       <input
           [ngClass]="{ 'is-invalid': submitted && customerInfoNepaliControls.citizenshipIssuedPlace.errors }"
-          class="form-control"
+          class="form-control nepaliFont"
           formControlName="citizenshipIssuedPlace" id="citizenshipIssuedPlace"
           placeholder="जारी गरिएको ठाउँ"
           type="text">
@@ -160,10 +161,10 @@
       <label for="customerCitizenshipIssuedDate"><strong>जारी मिति</strong></label>
       <input
           [ngClass]="{ 'is-invalid': submitted && customerInfoNepaliControls.citizenshipIssuedDate.errors }"
-          class="form-control" formControlName="citizenshipIssuedDate"
+          class="form-control nepaliFont" formControlName="citizenshipIssuedDate"
           id="customerCitizenshipIssuedDate"
           placeholder="जारी मिति"
-          type="date">
+          type="text">
       <div *ngIf="submitted && customerInfoNepaliControls.citizenshipIssuedDate.errors"
            class="invalid-feedback">
         <div
@@ -181,7 +182,7 @@
       <label for="occupation"><strong>पेशा</strong></label>
       <input
           [ngClass]="{ 'is-invalid': submitted && customerInfoNepaliControls.occupation.errors }"
-          class="form-control"
+          class="form-control nepaliFont"
           formControlName="occupation" id="occupation"
           placeholder="पेशा"
           type="text">
@@ -194,7 +195,7 @@
       <label for="incomeSource"><strong>आय स्रोत</strong></label>
       <input
           [ngClass]="{ 'is-invalid': submitted && customerInfoNepaliControls.incomeSource.errors }"
-          class="form-control"
+          class="form-control nepaliFont"
           formControlName="incomeSource" id="incomeSource"
           placeholder="आय स्रोत"
           type="text">
@@ -217,7 +218,7 @@
             <label for="customerRelation"><strong>सम्बन्ध</strong></label>
             <input
                 [ngClass]="{ 'is-invalid': submitted && relatives.get('customerRelation').errors }"
-                class="form-control"
+                class="form-control nepaliFont"
                 formControlName="customerRelation"
                 id="customerRelation"
                 placeholder="सम्बन्ध" type="text">
@@ -232,7 +233,7 @@
             <label for="relationName"><strong>नाम</strong></label>
             <input
                 [ngClass]="{ 'is-invalid': submitted && relatives.get('customerRelativeName').errors }"
-                class="form-control"
+                class="form-control nepaliFont"
                 formControlName="customerRelativeName"
                 id="relationName"
                 placeholder="नाम" type="text">
@@ -247,7 +248,7 @@
             <label for="citizenship"><strong>नागरिकता नम्बर</strong></label>
             <input
                 [ngClass]="{ 'is-invalid': submitted && relatives.get('citizenshipNumber').errors }"
-                class="form-control"
+                class="form-control nepaliFont"
                 formControlName="citizenshipNumber"
                 id="citizenship"
                 placeholder="नागरिकता नम्बर" type="text">
@@ -264,7 +265,7 @@
             <label for="issuedLocation"><strong>जारी स्थान</strong></label>
             <input
                 [ngClass]="{ 'is-invalid': submitted && relatives.get('citizenshipIssuedPlace').errors }"
-                class="form-control"
+                class="form-control nepaliFont"
                 formControlName="citizenshipIssuedPlace"
                 id="issuedLocation"
                 placeholder="जारी स्थान" type="text">
@@ -281,10 +282,10 @@
             <label for="issuedDate"><strong>जारी मिति</strong></label>
             <input
                 [ngClass]="{ 'is-invalid': submitted && relatives.get('citizenshipIssuedDate').errors }"
-                class="form-control"
+                class="form-control nepaliFont"
                 formControlName="citizenshipIssuedDate"
                 id="issuedDate"
-                nbInput placeholder="जारी मिति" type="date">
+                placeholder="जारी मिति" type="text">
             <div *ngIf="submitted && relatives.get('citizenshipIssuedDate').errors"
                  class="invalid-feedback">अवैध जारी मिति
             </div>
@@ -300,7 +301,7 @@
     </div>
   </div>
   <div class="text-right">
-    <input (click)="addRelatives()" class="btn btn-sm btn-flat btn-primary"
+    <input (click)="addRelatives(null)" class="btn btn-sm btn-flat btn-primary"
            type="button" value="थप्नुहोस्"/>
   </div>
   <!-- END ROW -->

@@ -516,7 +516,6 @@ export class LoanFormComponent implements OnInit {
             close => {
                 if (close instanceof Map) {
                     this.loanDocument = (close as Map<string, any>).get('CustomerLoan');
-                    console.log(this.loanDocument);
                 }
             },
             dismiss => {

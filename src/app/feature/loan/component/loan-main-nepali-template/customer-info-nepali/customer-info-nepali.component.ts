@@ -45,18 +45,35 @@ export class CustomerInfoNepaliComponent implements OnInit {
       customerRelatives: this.formBuilder.array([])
     });
     if (!ObjectUtil.isEmpty(this.data)) {
-      this.customerInfoNepali.patchValue(JSON.parse(this.data));
+      const parsedData = JSON.parse(this.data);
+      this.customerInfoNepali.patchValue(parsedData);
+      parsedData['customerRelatives'].forEach(v => this.addRelatives(v));
     }
   }
 
-  addRelatives() {
+  addRelatives(data: any | null) {
     (this.customerInfoNepaliControls.customerRelatives as FormArray).push(
         this.formBuilder.group({
-          customerRelation: [undefined, Validators.required],
-          customerRelativeName: [undefined, Validators.compose([Validators.required])],
-          citizenshipNumber: [undefined, Validators.compose([Validators.required])],
-          citizenshipIssuedPlace: [undefined, Validators.compose([Validators.required])],
-          citizenshipIssuedDate: [undefined, Validators.compose([Validators.required, DateValidator.isValidBefore])]
+          customerRelation: [
+            ObjectUtil.setUndefinedIfNull(data.customerRelation),
+            Validators.required
+          ],
+          customerRelativeName: [
+            ObjectUtil.setUndefinedIfNull(data.customerRelativeName),
+            Validators.compose([Validators.required])
+          ],
+          citizenshipNumber: [
+            ObjectUtil.setUndefinedIfNull(data.citizenshipNumber),
+            Validators.compose([Validators.required])
+          ],
+          citizenshipIssuedPlace: [
+            ObjectUtil.setUndefinedIfNull(data.citizenshipIssuedPlace),
+            Validators.compose([Validators.required])
+          ],
+          citizenshipIssuedDate: [
+            ObjectUtil.setUndefinedIfNull(data.citizenshipIssuedDate),
+            Validators.compose([Validators.required, DateValidator.isValidBefore])
+          ]
         })
     );
   }
