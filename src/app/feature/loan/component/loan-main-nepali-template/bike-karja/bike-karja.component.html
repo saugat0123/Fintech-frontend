@@ -1,7 +1,7 @@
 <!-- author: noitanec -->
 
 <div class="container text-justify my-5" style="width:100%">
-    <form>
+    <form [formGroup]="bikeKarjaForm">
         <div class="row">
             <div class="col-md-6"><img src="../../../../../../assets/img/logo.png" alt="logo" /></div>
             <div class="col-md-6 text-right">
@@ -54,7 +54,7 @@
                 लगायत सम्झौतामा उल्लेखित शर्त तथा बन्देजको अधिनमा रहने गरी हायर पर्चेज कर्जा
             </div>
             <div class="d-inline form-inline form-group">
-                रु. <input class="form-control-sm mx-2 nepaliFont" type="number"
+                रु. <input class="form-control-sm mx-2 nepaliFont" type="text"
                            formControlName="proposalAmount" name="रु." id="रु"
                            placeholder="५,००,००० "/>
                 लगानी गरिदिनुहुन आवेदन गर्दछु/छौं ।
@@ -75,35 +75,48 @@
                    formControlName="applicantFullName" name="आवेदकको पूरा नाम"
                    placeholder="आशिष श्रेष्ठ" size="40" >
         </div>
-
-
+        
 
         <div class="form-inline">
 
             <div class="d-flex justify-content-start">
                 <div class="form-group">
                     <label for="जन्म मिति"> जन्म मिति: </label>
-                    <input type="date" class="form-control ml-1"
+                    <input type="text" class="form-control ml-1"
                            formControlName="applicantDob" id="जन्म मिति"
                            name="जन्म मिति"
                            placeholder="२०७२/१/१२" />
                 </div>
 
-                <div class="form-group mx-5">
-                    <label > लिङ्गः </label> <span class="ml-2"></span>
-                    पुरुष <input class="ml-1" type="radio" name="लिङ्ग"  value="पुरुष"
-                                 checked="checked" />
-                    <span class="ml-2"></span>
-                    महिला <input class="ml-1" type="radio" name="लिङ्ग" value="महिला"
-                />
-                    <span class="ml-2"></span>
-                    अन्य <input class="ml-1" type="radio" name="लिङ्ग" value="अन्य"/>
-                </div>
+                <select class="custom-select ml-2"  name="sex"
+                        formControlName="gender">
+                    <option value="पुरुष">पुरुष</option>
+                    <option value="महिला">महिला</option>
+                    <option value="अन्य">अन्य</option>
+                </select>
+
+
+
+<!--                        Radio button not used-->
+                <!--                <div class="form-group mx-5">-->
+                <!--                    <label > लिङ्गः </label> <span class="ml-2"></span>-->
+                <!--                    पुरुष <input class="ml-1" type="radio" name="male"
+formControlName="male"  value="पुरुष"-->
+                <!--                                 checked="checked" />-->
+                <!--                    <span class="ml-2"></span>-->
+                <!--                    महिला <input class="ml-1" type="radio" name="female"
+formControlName="female" value="महिला"-->
+                <!--                />-->
+                <!--                    <span class="ml-2"></span>-->
+                <!--                    अन्य <input class="ml-1" type="radio" name="thirdsex"
+ formControlName="thirdsex" value="अन्य"/>-->
+                <!--                </div>-->
 
                 <div class="form-group">
                     <label for="उमेर"> उमेरः </label>
-                    <input class="form-control col-md-3 mx-1 nepaliFont" formControlName="applicant-age"
-                           type="number" id="उमेर" name="उमेर" placeholder="२२" /> वर्ष
+                    <input class="form-control col-md-3 mx-1 nepaliFont"
+                           formControlName="applicantAge"
+                           type="text" id="उमेर" name="उमेर" placeholder="२२" /> वर्ष
                 </div>
             </div>
 
@@ -114,21 +127,24 @@
             <div class="d-flex justify-content-start">
                 <div class="form-group">
                     <label for="नागरिकता नम्बर">नागरिकता नम्बर:</label>
-                    <input class="form-control col-md-7 ml-1 nepaliFont" formControlName="applicant-citizenship-no"
+                    <input class="form-control col-md-7 ml-1 nepaliFont"
+                           formControlName="applicantCitizenshipNo"
                            type="text" id="नागरिकता नम्बर" name="नागरिकता नम्बर"  />
                 </div>
                 <!-- </div>	 -->
 
                 <!-- <div class="form-group d-flex justify-content-start">												 -->
                 <div class="form-group">
-                    जारी मिति: <input class="form-control col-md-8 ml-1" formControlName="applicant-citizenship-issued-date"
-                                      type="date" name="जारी मिति" />
+                    जारी मिति: <input class="form-control col-md-8 ml-1"
+                                      formControlName="applicantCitizenshipIssuedDate"
+                                      type="text" name="जारी मिति" />
                 </div>
                 <!-- </div>	 -->
 
                 <!-- <div class="form-group d-flex justify-content-start">						 -->
                 <div class="form-group">
-                    जारी जिल्ला: <input class="form-control col-md-7 ml-1 nepaliFont" formControlName="citizenship-issued-district"
+                    जारी जिल्ला: <input class="form-control col-md-7 ml-1 nepaliFont"
+                                        formControlName="citizenshipIssuedDistrict"
                                         type="text" name="जारी जिल्ला" />
                 </div>
             </div>
@@ -137,41 +153,58 @@
 
         <div class="form-group form-inline">
             <label for="बाजेको नाम">बाजेको	नामः</label>
-            <input class="form-control col-md-6 ml-1 nepaliFont" type="text" formControlName="grandfather-name"
+            <input class="form-control col-md-6 ml-1 nepaliFont" type="text"
+                   formControlName="grandfatherName"
                    id="बाजेको नाम" name="बाजेको नाम" placeholder="के पि शर्मा" />
         </div>
 
         <div class="form-group form-inline">
             बाबुको	नाम:
-            <input class="form-control col-md-6 ml-1 nepaliFont" type="text" name="बाबुको नाम" formControlName="father-name"
+            <input class="form-control col-md-6 ml-1 nepaliFont" type="text"
+                   name="बाबुको नाम" formControlName="fatherName"
                    placeholder="निर कुमार कुँवर" />
         </div>
 
         <div class="form-group form-inline">
             आमाको नाम:
-            <input class="form-control ml-1 nepaliFont" formControlName="mother-name"
+            <input class="form-control ml-1 nepaliFont" formControlName="motherName"
                    type="text" name="आमाको नाम" placeholder="रमा देवी" />
         </div>
 
         <div class="form-group form-inline row">
             <div class="col">
-                वैवाहिक स्थितिः <span class="ml-2"></span> विवाहित <input type="radio" name="वैवाहिक स्थिति" value="विवाहित" />
-                <span class="ml-1"></span>
-                अविवाहित <input type="radio" name="वैवाहिक स्थिति" value="अविवाहित" checked="checked" />
+                वैवाहिक स्थितिः
+                <select class="custom-select ml-2" formControlName="maritalStatus"
+                     name="maritalStatus">
+                    <option value="विवाहित">विवाहित</option>
+                    <option value="अविवाहित">अविवाहित</option>
+                </select>
             </div>
 
+            <!--
+                <input type="radio" name="वैवाहिक स्थिति" value="विवाहित" />-->
+            <!--                <span class="ml-1"></span>-->
+            <!--                अविवाहित <input type="radio" name="वैवाहिक स्थिति" value="अविवाहित"-->
+            <!--                                checked="checked" />-->
+
             <div class="col">
-                श्रीमान्/श्रीमतीको नाम: <input class="form-control nepaliFont" formControlName="spouse-name"
-                                               type="text" name="श्रीमान्/श्रीमतीको नाम" placeholder="रमा देवी श्रेष्ठ" >
+                श्रीमान्/श्रीमतीको नाम: <input class="form-control nepaliFont"
+                                               formControlName="spouseName"
+                                               type="text" name="श्रीमान्/श्रीमतीको नाम"
+                                               placeholder="रमा देवी श्रेष्ठ" >
             </div>
         </div>
 
         <div class="form-group form-inline">
-            आश्रित परिवारको संख्या: <input class="form-control mx-1 nepaliFont" formControlName="guardian"
-                                           type="text" name="अविभावक" size="2"> अविभावक
-            <input class="form-control ml-3 nepaliFont" type="text" name="बालबालिका" formControlName="children"
+            आश्रित परिवारको संख्या: <input class="form-control mx-1 nepaliFont"
+                                           formControlName="guardian"
+                                           type="text" name="अविभावक" size="2">
+            अविभावक
+            <input class="form-control ml-3 nepaliFont" type="text" name="बालबालिका"
+                   formControlName="children"
                    size="2"><span class="ml-2"></span>  बालबालिका
-            <textarea class="form-control ml-3 mr-1 nepaliFont" rows="2" formControlName="other"
+            <textarea class="form-control ml-3 mr-1 nepaliFont" rows="2"
+                      formControlName="other"
                       name="अन्य भए उल्लेख गर्ने"></textarea> अन्य भए उल्लेख गर्ने
         </div>
 
@@ -180,13 +213,16 @@
             <div class="d-flex justify-content-start">
                 <div class="form-group">
                     स्थायी ठेगाना (हाल बसोबास गर्ने ठेगानाभन्दा फरक भएमा):
-                    <input class="form-control col-md-3 ml-1 nepaliFont" formControlName="permanent-address"
-                           type="text" name="स्थायी ठेगाना (हाल बसोबास गर्ने ठेगानाभन्दा फरक भएमा)" placeholder="धरान" />
+                    <input class="form-control col-md-3 ml-1 nepaliFont"
+                           formControlName="permanentAddress"
+                           type="text" name="स्थायी ठेगाना (हाल बसोबास गर्ने ठेगानाभन्दा फरक भएमा)"
+                           placeholder="धरान" />
                 </div>
 
                 <div class="form-group">
                     हालको ठेगानाः
-                    <input class="form-control col-md-5 ml-1 nepaliFont" type="text" formControlName="current-address"
+                    <input class="form-control col-md-5 ml-1 nepaliFont" type="text"
+                           formControlName="currentAddress"
                            name="हालको ठेगाना" placeholder="काठमाडौ"  />
                 </div>
             </div>
@@ -199,35 +235,48 @@
             <div class="d-flex justify-content-start">
                 <div class="form-group">
                     जिल्लाः
-                    <input class="form-control nepaliFont" formControlName="district" type="text" name="जिल्ला" size="3">
+                    <input class="form-control nepaliFont"
+                           formControlName="district" type="text"
+                           name="जिल्ला" size="3">
                 </div>
                 <div class="form-group">
-                    गा.पा./न.पा./उ.म.न.पा./म.न.पा. <input class="form-control nepaliFont" formControlName="vdc-municipality"
-                                                          type="text" name="गा.पा./न.पा./उ.म.न.पा./म.न.पा." size="3">
+                    गा.पा./न.पा./उ.म.न.पा./म.न.पा.
+                    <input class="form-control nepaliFont"
+                           formControlName="vdcMunicipality"
+                           type="text" name="गा.पा./न.पा./उ.म.न.पा./म.न.पा." size="3">
                 </div>
                 <div class="form-group">
-                    वडा नं.: <input class="form-control nepaliFont" formControlName="ward-no"
+                    वडा नं.: <input class="form-control nepaliFont"
+                                    formControlName="wardNo"
                                     type="text" name="वडा नं." size="3">
                 </div>
                 <div class="form-group">
-                    टोलः <input class="form-control nepaliFont" formControlName="tole"
+                    टोलः <input class="form-control nepaliFont"
+                                formControlName="tole"
                                 type="text" name="टोल" size="3">
                 </div>
                 <div class="form-group">
-                    घर नं.:<input class="form-control nepaliFont" formControlName="home-no"
+                    घर नं.:<input class="form-control nepaliFont"
+                                  formControlName="homeNo"
                                   type="text" name="घर नं." size="3">
                 </div>
             </div>
             <div class="d-flex justify-content-start">
                 <div class="form-group">
-                    कति साल देखि बसेकोः <input class="form-control nepaliFont" formControlName="lived-since"
-                                               type="text" name="कति साल देखि बसेको" size="3">
+                    कति साल देखि बसेकोः <input class="form-control nepaliFont"
+                                               formControlName="livedSince"
+                                               type="text" name="कति साल देखि बसेको"
+                                               size="3">
                 </div>
                 <div class="form-group">
-                    फोन नं.: <input class="form-control nepaliFont" formControlName="phone-no" type="text" name="फोन नं." size="3">
+                    फोन नं.: <input class="form-control nepaliFont"
+                                    formControlName="phoneNum" type="text"
+                                    name="फोन नं." size="3">
                 </div>
                 <div class="form-group">
-                    मोबाइल नं.: <input class="form-control nepaliFont" type="text" name="मोबाइल नं." formControlName="mob-no"
+                    मोबाइल नं.: <input class="form-control nepaliFont"
+                                       type="text" name="मोबाइल नं."
+                                       formControlName="mobileNum"
                                        size="3">
                 </div>
                 <div class="form-group">
@@ -239,8 +288,9 @@
 
         <div class="form-group form-inline">
             बासस्थानको	प्रकारः
-            <select class="form-control ml-2" name="बासस्थानको प्रकार">
-                <option value="आफ्नै">आफ्नै</option>
+            <select class="custom-select ml-2" name="बासस्थानको प्रकार"
+            formControlName="residencyType">
+            <option value="आफ्नै">आफ्नै</option>
                 <option value="आफन्त">आफन्त</option>
                 <option value="भाडामा">भाडामा</option>
                 <option value="अन्य">अन्य</option>
@@ -248,12 +298,28 @@
         </div>
 
         <div class="form-group">
-            शैक्षिक योग्यता:<span class="ml-1"> प्राथमिक <input class="mx-1" type="radio" formControlName="academic-qualification" name="शैक्षिक योग्यता" value="प्राथमिक" />
-						   माध्यमिक <input class="mr-1" type="radio" formControlName="academic-qualification" name="शैक्षिक योग्यता" value="माध्यमिक" checked="checked" />
-						   स्नातक <input class="mr-1" type="radio" formControlName="academic-qualification" name="शैक्षिक योग्यता" value="स्नातक" />
-            स्नातकोतर	<input type="radio" name="शैक्षिक योग्यता" formControlName="academic-qualification" value="स्नातकोतर" /></span>
-        </div>
+            शैक्षिक योग्यता:
+            <select class="custom-select ml-1" name="academicQualification"
+            formControlName="academicQualification">
+                <option value="प्राथमिक">प्राथमिक</option>
+                <option value="माध्यमिक">माध्यमिक</option>
+                <option value="स्नातक">स्नातक</option>
 
+            </select>
+
+
+            <!--            <input class="mx-1" type="radio"                                                                 formControlName="academic-qualification" name="शैक्षिक योग्यता" value="प्राथमिक" />-->
+            <!--						   माध्यमिक <input class="mr-1" type="radio"-->
+            <!--                                           formControlName="academicQualification"-->
+            <!--                                           name="शैक्षिक योग्यता" value="माध्यमिक"-->
+            <!--                                           checked="checked" />-->
+            <!--						   स्नातक <input class="mr-1" type="radio"-->
+            <!--                                         formControlName="academicQualification"-->
+            <!--                                         name="शैक्षिक योग्यता" value="स्नातक" />-->
+            <!--            स्नातकोतर	<input type="radio" name="शैक्षिक योग्यता"-->
+            <!--                                formControlName="academicQualification"-->
+            <!--                                value="स्नातकोतर" /></span>-->
+        </div>
         <br>
 
 
@@ -261,41 +327,67 @@
 
 
         <h3>रोजगारीको विवरण</h3>
+
         <p>
-            पेशा: तलबी <input type="radio" name="पेशा" formControlName="occupation" value="तलबी" />
-            <span style="padding-left: 15px"> स्वरोजगार <input type="radio" formControlName="occupation" name="पेशा" value="स्वरोजगार" /></span>
-            <span style="padding-left: 15px"> सेवा निवृत <input type="radio" name="पेशा" formControlName="occupation" value="सेवा निवृत" /></span>
-            <span style="padding-left: 15px">अन्य <input type="radio" name="पेशा" value="अन्य" formControlName="occupation" checked="checked" />	</span>
+            पेशा:
+            <select class="custom-select ml-2">
+                <option value="तलबी">तलबी</option>
+                <option value="स्वरोजगार">स्वरोजगार</option>
+                <option value="सेवा निवृत">सेवा निवृत</option>
+                <option value="अन्य">अन्य</option>
+            </select>
         </p>
+        <!--            पेशा: तलबी <input type="radio" name="पेशा" formControlName="occupation"-->
+        <!--                              value="तलबी" />-->
+        <!--            <span style="padding-left: 15px"> स्वरोजगार-->
+        <!--                <input type="radio" formControlName="occupation"-->
+        <!--                       name="पेशा" value="स्वरोजगार" /></span>-->
+        <!--            <span style="padding-left: 15px"> सेवा निवृत-->
+        <!--                <input type="radio" name="पेशा"-->
+        <!--                       formControlName="occupation" value="सेवा निवृत" /></span>-->
+        <!--            <span style="padding-left: 15px">अन्य-->
+        <!--                <input type="radio" name="पेशा" value="अन्य"-->
+        <!--                       formControlName="occupation" checked="checked" />	</span>-->
         <div class="form-group form-inline">
             <label for="रोजगारदाताको नाम">रोजगारदाताको नाम:</label>
-            <input class="form-control ml-1 col-md-6 nepaliFont" formControlName="employers-name" id="रोजगारदाताको नाम" type="text"
+            <input class="form-control ml-1 col-md-6 nepaliFont"
+                   formControlName="employersName" id="रोजगारदाताको नाम"
+                   type="text"
                    name="रोजगारदाताको नाम">
         </div>
         <div class="form-group form-inline">
             <label for="ठेगाना"> ठेगाना: </label>
-            <input class="form-control ml-1 nepaliFont" formControlName="employers-address" id="ठेगाना" type="text" name="ठेगाना">
+            <input class="form-control ml-1 nepaliFont"
+                   formControlName="employersAddress" id="ठेगाना"
+                   type="text" name="ठेगाना">
             <label class="ml-2" for="फोन नं"> फोन नं.: </label>
-            <input class="form-control ml-1 nepaliFont" type="text" formControlName="employers-phone-no" id="फोन नं" name="फोन नं.">
+            <input class="form-control ml-1 nepaliFont" type="text"
+                   formControlName="employersPhoneNum" id="फोन नं" name="फोन नं.">
             <label class="ml-2"> फ्याक्स नं.: </label>
-            <input class="form-control ml-1 nepaliFont" type="text" formControlName="employers-fax-no" name="फ्याक्स नं.">
+            <input class="form-control ml-1 nepaliFont" type="text"
+                   formControlName="employersFaxNum" name="फ्याक्स नं.">
         </div>
 
 
         <div class="form-group form-inline">
             <div class="d-flex justify-content-start">
-                <label class="ml-2">पद: </label><input class="form-control ml-1 nepaliFont"
-                                                       formControlName="post" type="text" name="पद" size="10">
+                <label class="ml-2">पद: </label>
+                <input class="form-control ml-1 nepaliFont"
+                       formControlName="post" type="text" name="पद" size="10">
             </div>
             <div class="d-flex justify-content-start">
                 <label for="मासिक तलब" class="ml-2"> मासिक तलब: </label>
-                <input class="form-control ml-1 nepaliFont" id="मासिक तलब" formControlName="monthly-salary"
+                <input class="form-control ml-1 nepaliFont" id="मासिक तलब"
+                       formControlName="monthlySalary"
                        type="text" name="मासिक तलब" size="10">
             </div>
             <div class="d-flex justify-content-start">
-                <label class="ml-2" for="हालको रोजगारदातासँग काम गरेको अवधि"> हालको रोजगारदातासँग काम गरेको अवधि:</label>
-                <input class="form-control nepaliFont ml-1" id="हालको रोजगारदातासँग काम गरेको अवधि" type="text"
-                      formControlName="years-worked-with-current-employer" name="हालको रोजगारदातासँग काम गरेको अवधि" size="10" />
+                <label class="ml-2" for="हालको रोजगारदातासँग काम गरेको अवधि">
+                    हालको रोजगारदातासँग काम गरेको अवधि:</label>
+                <input class="form-control nepaliFont ml-1"
+                       id="हालको रोजगारदातासँग काम गरेको अवधि" type="text"
+                      formControlName="yearsWorkedWithCurrentEmployer"
+                       name="हालको रोजगारदातासँग काम गरेको अवधि" size="10" />
             </div>
         </div>
         <br>
@@ -307,53 +399,90 @@
 
         <div class="form-group form-inline">
             <div class="d-flex justify-content-start">
-                व्यवसायको नाम: <input class="form-control ml-1 nepaliFont" formControlName="business-name"
+                व्यवसायको नाम: <input class="form-control ml-1 nepaliFont"
+                                      formControlName="businessName"
                                       type="text" name="व्यवसायको नाम" size="30">
             </div>
             <div class="d-flex justify-content-start ml-5">
-                ठेगाना: <input class="form-control ml-1 nepaliFont" formControlName="business-address"
+                ठेगाना: <input class="form-control ml-1 nepaliFont"
+                               formControlName="businessAddress"
                                type="text" name="ठेगाना" size="30">
             </div>
         </div>
 
         <div class="form-group form-inline">
             <div class="d-flex justify-content-start">
-                फोन नं.: <input class="form-control ml-1 nepaliFont" formControlName="business-phone" type="text" name="फोन नं.">
+                फोन नं.: <input class="form-control ml-1 nepaliFont"
+                                formControlName="businessPhone" type="text"
+                                name="फोन नं.">
             </div>
             <div class="form-group form-inline ml-2">
-                फ्याक्स: <input class="form-control ml-1 nepaliFont" type="text" formControlName="business-fax" name="फ्याक्स">
+                फ्याक्स: <input class="form-control ml-1 nepaliFont"
+                                type="text" formControlName="businessFax"
+                                name="फ्याक्स">
             </div>
             <div class="form-group form-inline ml-2">
-                ईमेलः <input class="form-control ml-1" type="text" formControlName="business-email" name="ईमेल">
+                ईमेलः <input class="form-control ml-1" type="text"
+                             formControlName="businessEmail" name="ईमेल">
             </div>
         </div>
 
         <div class="form-group form-inline">
-            व्यवसाय/दर्ता प्रकृति: <span class="ml-2"></span> प्रा.लि. 
-            <input class="form-control ml-1" formControlName="business-regd-type" type="radio" name="व्यवसाय/दर्ता प्रकृति" value="प्रा.लि.">
-            <span class="ml-2"></span> लिमिटेड 
-            <input class="form-control ml-1" formControlName="business-regd-type" type="radio" name="व्यवसाय/दर्ता प्रकृति" value="लिमिटेड">
-            <span class="ml-2"></span> प्रोप्राइटर्स 
-            <input class="form-control ml-1" formControlName="business-regd-type" type="radio" name="व्यवसाय/दर्ता प्रकृति" value="प्रोप्राइटर्स">
-            <span class="ml-2">	अन्य </span>
-            <input class="form-control ml-1" formControlName="business-regd-type" type="radio" name="व्यवसाय/दर्ता प्रकृति" value="अन्य"> <span class="ml-5">
-            कम्पनी/फर्म दर्ता मिति:</span> <input class="form-control ml-1" formControlName="business-regd-date" type="date" name="कम्पनी/फर्म दर्ता मिति">
+            व्यवसाय/दर्ता प्रकृति:
+                <select class="custom-select ml-2"
+                        formControlName="businessRegdType"
+                        name="businessRegdType">
+                    <option value="प्रा.लि.">प्रा.लि.</option>
+                    <option value="लिमिटेड">लिमिटेड</option>
+                    <option value="प्रोप्राइटर्स">प्रोप्राइटर्स</option>
+                    <option value="अन्य">अन्य</option>
+                </select>
+
+<!--            <span class="ml-2"></span> प्रा.लि.-->
+<!--            <input class="form-control ml-1" formControlName="businessRegdType"-->
+<!--                   type="radio" name="व्यवसाय/दर्ता प्रकृति" value="प्रा.लि.">-->
+<!--            <span class="ml-2"></span> लिमिटेड -->
+<!--            <input class="form-control ml-1" formControlName="businessRegdType"-->
+<!--                   type="radio" name="व्यवसाय/दर्ता प्रकृति" value="लिमिटेड">-->
+<!--            <span class="ml-2"></span> प्रोप्राइटर्स -->
+<!--            <input class="form-control ml-1" formControlName="businessRegdType"-->
+<!--                   type="radio" name="व्यवसाय/दर्ता प्रकृति" value="प्रोप्राइटर्स">-->
+<!--            <span class="ml-2">	अन्य </span>-->
+<!--            <input class="form-control ml-1" formControlName="businessRegdType"-->
+<!--                   type="radio" name="व्यवसाय/दर्ता प्रकृति" value="अन्य"> <span class="ml-5">-->
+            कम्पनी/फर्म दर्ता मिति:
+            <input class="form-control ml-1" formControlName="businessRegdDate"
+                   type="text" name="कम्पनी/फर्म दर्ता मिति">
         </div>
 
         <div class="form-group form-inline">
-            व्यवसाय शुरु गरेको मितिः <input class="form-control ml-1" type="date" formControlName="business-start-date" name="व्यवसाय शुरु गरेको मिति">
+            व्यवसाय शुरु गरेको मितिः <input class="form-control ml-1" type="text"
+                                            formControlName="businessStartDate"
+                                            name="व्यवसाय शुरु गरेको मिति">
             <span class="ml-4"></span>
-            व्यवसायमा जम्मा लगानी: <input class="form-control nepaliFont" type="text" formControlName="business-total-investment" name="व्यवसायमा जम्मा लगानी">
+            व्यवसायमा जम्मा लगानी: <input class="form-control nepaliFont"
+                                          type="text"
+                                          formControlName="businessTotalInvestment"
+                                          name="व्यवसायमा जम्मा लगानी">
         </div>
         <div class="form-inline form-group">
-            आयकर प्रमाणपत्र नं.: <input class="form-control ml-1" formControlName="incometax-certified-no" type="text" name="आयकर प्रमाणपत्र नं.">
+            आयकर प्रमाणपत्र नं.: <input class="form-control ml-1"
+                                        formControlName="incomeTaxCertifiedNum"
+                                        type="text" name="आयकर प्रमाणपत्र नं.">
             <span class="ml-4"> </span>
-            मासिक कारोवार: <input class="form-control ml-1 nepaliFont" type="text" formControlName="montly-karobar" name="मासिक कारोवार">
+            मासिक कारोवार: <input class="form-control ml-1 nepaliFont"
+                                  type="text" formControlName="montlyKarobar"
+                                  name="मासिक कारोवार">
         </div>
         <div class="form-group form-inline">
-            मासिक आम्दानी: <input class="form-control ml-1 nepaliFont" formControlName="business-income-monthly" type="text" name="मासिक आम्दानी">
+            मासिक आम्दानी: <input class="form-control ml-1 nepaliFont"
+                                  formControlName="businessIncomeMonthly"
+                                  type="text" name="मासिक आम्दानी">
             <span class="ml-5"> </span>
-            अन्य आम्दानी: <input class="form-control  nepaliFont" type="text" formControlName="business-other-income" name="अन्य आम्दानी">
+            अन्य आम्दानी: <input class="form-control  nepaliFont"
+                                 type="text"
+                                 formControlName="businessOtherIncome"
+                                 name="अन्य आम्दानी">
         </div>
         <br>
 
@@ -363,26 +492,38 @@
         <h3>घरभाडाको विवरण</h3>
 
         <div class="form-group form-inline">
-            घरधनीको नाम: <input class="form-control ml-1 nepaliFont" type="text" formControlName="homeowner-name" name="घरधनीको नाम">
+            घरधनीको नाम: <input class="form-control ml-1 nepaliFont"
+                                type="text" formControlName="homeOwnerName"
+                                name="घरधनीको नाम">
             <span class="ml-2"></span>
-            फोन नं./मो.नं.:<input class="form-control ml-1 nepaliFont" type="text" formControlName="homeowner-phone" name="फोन नं./मो.नं.">
+            फोन नं./मो.नं.:<input class="form-control ml-1 nepaliFont" type="text"
+                                  formControlName="homeOwnerPhone"
+                                  name="फोन नं./मो.नं.">
         </div>
 
         <div class="form-group form-inline">
-            घरधनीसंग सम्बन्ध: <input class="form-control ml-1 nepaliFont" formControlName="relation-with-homeowner"
+            घरधनीसंग सम्बन्ध: <input class="form-control ml-1 nepaliFont"
+                                     formControlName="relationWithHomeowner"
                                      type="text" name="घरधनीसंग सम्बन्ध">
             <span class="m-lg-2"> घर भाडा मासिक रु.: </span>
-            <input class="form-control ml-1 nepaliFont" formControlName="home-rent-monthly" type="text" name="घर भाडा मासिक रु.">
+            <input class="form-control ml-1 nepaliFont"
+                   formControlName="homeRentMonthly" type="text"
+                   name="घर भाडा मासिक रु.">
         </div>
 
         <div class="form-group form-inline">
-            भाडामा दिएको घरको ठेगाना: <input class="form-control ml-1 nepaliFont" formControlName="home-address"
+            भाडामा दिएको घरको ठेगाना: <input class="form-control ml-1 nepaliFont"
+                                             formControlName="homeAddress"
                                              type="text" name="भाडामा दिएको घरको ठेगाना">
         </div>
 
         <div class="form-group">
-            घरभाडा सम्झौता: छ <input  type="radio"  formControlName="home-rent-agreement" name="घरभाडा सम्झौता" value="छ">
-            छैन <input  type="radio" name="घरभाडा सम्झौता" formControlName="home-rent-agreement" value="छैन" checked="checked">
+            घरभाडा सम्झौता: छ <input  type="radio"
+                                      formControlName="homeRentAgreement"
+                                      name="homeRentAgreement" value="छ">
+            छैन <input  type="radio" name="homeRentAgreement"
+                        formControlName="homeRentAgreement"
+                        value="छैन" checked="checked">
         </div>
         <br>
 
@@ -394,31 +535,41 @@
         <h3>१. भवन तथा जग्गा:</h3>
 
         <div class="form-group form-inline">
-            घर/जग्गा धनीको नाम: <input class="form-control ml-1 nepaliFont" type="text" formControlName="property-ownership-info"
+            घर/जग्गा धनीको नाम: <input class="form-control ml-1 nepaliFont"
+                                       type="text"
+                                       formControlName="propertyOwnershipInfo"
                                        name="घर/जग्गा धनीको नाम" >
             <span class="ml-3"></span>
-            घर/जग्गाको प्रकृति/अवस्था: <input class="form-control ml-1 nepaliFont" formControlName="home-land-type"
+            घर/जग्गाको प्रकृति/अवस्था: <input class="form-control ml-1 nepaliFont"
+                                              formControlName="homeLandType"
                                               type="text" name="घर/जग्गाको प्रकृति/अवस्था" >
         </div>
 
         <div class="form-group form-inline">
             <div class="d-flex justify-content-start">
-                ठेगाना: <input class="form-control ml-1 nepaliFont" formControlName="home-land-address"
+                ठेगाना: <input class="form-control ml-1 nepaliFont"
+                               formControlName="homeLandAddress"
                                type="text" name="ठेगाना" size="10">
             </div>
             <div class="d-flex justify-content-start ml-3">
-                घर/जग्गाको क्षेत्रफल: <input class="form-control ml-1 nepaliFont" formControlName="house-land-area"
-                                             type="text" name="घर/जग्गाको क्षेत्रफल" size="10">
+                घर/जग्गाको क्षेत्रफल: <input class="form-control ml-1 nepaliFont"
+                                             formControlName="homeLandArea"
+                                             type="text" name="घर/जग्गाको क्षेत्रफल"
+                                             size="10">
             </div>
             <div class="d-flex justify-content-start ml-3">
-                घर/जग्गाको कित्ता नं.: <input class="form-control ml-1 nepaliFont" formControlName="home-land-kitta-no"
-                                              type="text" name="घर/जग्गाको कित्ता नं" size="10">
+                घर/जग्गाको कित्ता नं.: <input class="form-control ml-1 nepaliFont"
+                                              formControlName="homeLandKittaNum"
+                                              type="text"
+                                              name="घर/जग्गाको कित्ता नं" size="10">
             </div>
         </div>
 
         <div class="form-group form-inline">
-            घर/जग्गाको अनुमानित मूल्य: <input class="form-control ml-1 nepaliFont" formControlName="home-land-estimated-price"
-                                              type="text" name="घर/जग्गाको अनुमानित मूल्य">
+            घर/जग्गाको अनुमानित मूल्य:
+            <input class="form-control ml-1 nepaliFont"
+                   formControlName="homeLandEstimatedPrice"
+                   type="text" name="घर/जग्गाको अनुमानित मूल्य">
         </div>
 
 
@@ -427,23 +578,29 @@
 
         <div class="form-group form-inline">
             <div class="d-flex justify-content-start">
-                सवारी साधनको किसिम: <input class="form-control ml-1 nepaliFont" formControlName="vehicle-type"
-                                           type="text" name="सवारी साधनको किसिम">
+                सवारी साधनको किसिम:
+                <input class="form-control ml-1 nepaliFont"
+                       formControlName="vehicleType"
+                       type="text" name="सवारी साधनको किसिम">
             </div>
             <div class="d-flex justify-content-start ml-3">
-                मोडेल: <input class="form-control ml-1 nepaliFont" formControlName="vehicle-model"
+                मोडेल: <input class="form-control ml-1 nepaliFont"
+                              formControlName="vehicleModel"
                               type="text" name="मोडेल">
             </div>
         </div>
 
         <div class="form-group form-inline">
             <div class="d-flex justify-content-start">
-                अनुमानित मूल्य: <input class="form-control ml-1 nepaliFont" formControlName="vehicle-estimated-price"
-                                       class="form-control ml-1" type="text" name="अनुमानित मूल्य">
+                अनुमानित मूल्य: <input class="form-control ml-1 nepaliFont"
+                                       formControlName="vehicleEstimatedPrice"
+                                       class="form-control ml-1" type="text"
+                                       name="अनुमानित मूल्य">
             </div>
 
             <div class="d-flex justify-content-start ml-3">
-                सवारी साधन दर्ता नं.: <input class="form-control ml-1 nepaliFont" formControlName="vehicle-regd-no"
+                सवारी साधन दर्ता नं.: <input class="form-control ml-1 nepaliFont"
+                                             formControlName="vehicleRegdNo"
                                              type="text" name="सवारी साधन दर्ता नं.">
             </div>
         </div>
@@ -453,26 +610,42 @@
         <h3>३. घरायसी सामानको विवरणः</h3>
 
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" formControlName="household-utensil-info"
-                   name="घरायसी सामानको विवरण" id="op1" value="कलर टि.भि."> कलर टि.भि. <br>
-            <input class="form-check-input" formControlName="household-utensil-info" type="checkbox"
+            <input class="form-check-input" type="checkbox"
+                   formControlName="householdUtensilInfo"
+                   name="घरायसी सामानको विवरण" id="op1"
+                   value="कलर टि.भि."> कलर टि.भि. <br>
+            <input class="form-check-input" formControlName="householdUtensilInfo"
+                   type="checkbox"
                    name="घरायसी सामानको विवरण" id="op2" value="फ्रिज"> फ्रिज <br>
-            <input class="form-check-input" formControlName="household-utensil-info" type="checkbox"
-                   name="घरायसी सामानको विवरण" id="op3" value="वासिङ्ग मेसिन"> वासिङ्ग मेसिन <br>
-            <input class="form-check-input" formControlName="household-utensil-info" type="checkbox"
-                   name="घरायसी सामानको विवरण" id="op4" value="अडियो सि.डि. प्लेयर"> अडियो सि.डि. प्लेयर <br>
-            <input class="form-check-input" formControlName="household-utensil-info" type="checkbox"
-                   name="घरायसी सामानको विवरण" id="op5" value="माइक्रो ओभन"> माइक्रो ओभन <br>
-            <input class="form-check-input" formControlName="household-utensil-info" type="checkbox"
+            <input class="form-check-input" formControlName="householdUtensilInfo"
+                   type="checkbox"
+                   name="घरायसी सामानको विवरण" id="op3" value="वासिङ्ग मेसिन"> वासिङ्ग मेसिन
+            <br>
+            <input class="form-check-input" formControlName="householdUtensilInfo"
+                   type="checkbox"
+                   name="घरायसी सामानको विवरण" id="op4" value="अडियो सि.डि. प्लेयर">
+            अडियो सि.डि. प्लेयर <br>
+            <input class="form-check-input" formControlName="householdUtensilInfo"
+                   type="checkbox"
+                   name="घरायसी सामानको विवरण" id="op5" value="माइक्रो ओभन"> माइक्रो ओभन
+            <br>
+            <input class="form-check-input" formControlName="householdUtensilInfo"
+                   type="checkbox"
                    name="घरायसी सामानको विवरण" id="op6" value="कम्प्युटर"> कम्प्युटर <br>
-            <input class="form-check-input" formControlName="household-utensil-info" type="checkbox"
+            <input class="form-check-input" formControlName="householdUtensilInfo"
+                   type="checkbox"
                    name="घरायसी सामानको विवरण" id="op7" value="ए.सी."> ए.सी. <br>
-            <input class="form-check-input" formControlName="household-utensil-info" type="checkbox"
-                   name="घरायसी सामानको विवरण" id="op8" value="भ्याकुम क्लिनर"> भ्याकुम क्लिनर <br>
-            <input class="form-check-input" formControlName="household-utensil-info" type="checkbox"
+            <input class="form-check-input" formControlName="householdUtensilInfo"
+                   type="checkbox"
+                   name="घरायसी सामानको विवरण" id="op8" value="भ्याकुम क्लिनर"> भ्याकुम क्लिनर
+            <br>
+            <input class="form-check-input" formControlName="householdUtensilInfo"
+                   type="checkbox"
                    name="घरायसी सामानको विवरण" id="op9" value="अन्य">
             <div class="form-group form-inline">
-                अन्य <input class="form-control ml-2 nepaliFont" formControlName="household-utensil-info" type="text" name="अन्य">
+                अन्य <input class="form-control ml-2 nepaliFont"
+                            formControlName="householdUtensilInfo"
+                            type="text" name="अन्य">
             </div>
             <br>
         </div>
@@ -483,46 +656,63 @@
         <h3>४. बैंक खाताको विवरण:</h3>
         <div class="form-group form-inline">
             <div class="d-flex justify-content-start">
-                क. बैंकको नाम: <input class="form-control ml-1 nepaliFont" formControlName="bank-name" type="text" name="बैंकको नाम" size="15">
+                क. बैंकको नाम: <input class="form-control ml-1 nepaliFont"
+                                      formControlName="bankName"
+                                      type="text" name="बैंकको नाम" size="15">
             </div>
             <div class="d-flex justify-content-start ml-3">
-                ख. खाता नं.: <input class="form-control ml-1 nepaliFont" type="text" name="खाता नं." formControlName="account-no" size="15">
+                ख. खाता नं.: <input class="form-control ml-1 nepaliFont"
+                                    type="text" name="खाता नं."
+                                    formControlName="accountNo" size="15">
             </div>
             <div class="d-flex justify-content-start ml-3">
-                ग. शाखा: <input class="form-control ml-1 nepaliFont" type="text" name="शाखा" formControlName="branch" size="15">
+                ग. शाखा: <input class="form-control ml-1 nepaliFont"
+                                type="text" name="शाखा"
+                                formControlName="branch" size="15">
             </div>
         </div>
 
         <div class="form-group form-inline">
             <div class="d-flex justify-content-start">
-                घ. खाताको किसिम: <input class="form-control ml-1 nepaliFont" type="text" formControlName="account-type"
+                घ. खाताको किसिम: <input class="form-control ml-1 nepaliFont"
+                                        type="text" formControlName="accountType"
                                         name="खाताको किसिम">
             </div>
             <div class="d-flex justify-content-start ml-3">
-                ङ. बैंक ब्यालेन्स/मिति: रु. <input class="form-control ml-1 nepaliFont" formControlName="bank-balance-with-date"
-                                                   type="text" name="बैंक ब्यालेन्स/मिति" placeholder=""/>
+                ङ. बैंक ब्यालेन्स/मिति: रु.
+                <input class="form-control ml-1 nepaliFont"
+                       formControlName="bankBalanceWithDate"
+                       type="text" name="बैंक ब्यालेन्स/मिति" placeholder=""/>
             </div>
         </div>
 
         <div class="form-inline">
             <div class="d-flex justify-content-start">
                 <div class="form-group">
-                    क्रेडिट कार्ड:<span class="ml-2"></span> छ <input class="mx-1" formControlName="credit-card"
-                                                                      type="radio" name="क्रेडिट कार्ड" value="yes"> छैन
-                    <input class="mx-1" type="radio" name="क्रेडिट कार्ड" formControlName="credit-card" value="no" checked="checked">
+                    क्रेडिट कार्ड:<span class="ml-2"></span> छ
+                    <input class="mx-1" formControlName="creditCard"
+                           type="radio" name="creditCard" value="yes"> छैन
+                    <input class="mx-1" type="radio" name="creditCard"
+                           formControlName="creditCard" value="no"
+                           checked="checked">
                 </div>
                 <div class="form-group form-inline ml-3">
-                    यदि भएमा सोको विवरण: <input class="form-control ml-1 nepaliFont" type="textarea" formControlName="credit-card-info"
+                    यदि भएमा सोको विवरण: <input class="form-control ml-1 nepaliFont"
+                                                type="textarea"
+                                                formControlName="creditCardInfo"
                                                 name="यदि भएमा सोको विवरण" size="30">
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            यस अघिको कारोवार: <span class="ml-2"></span> छ <input class="ml-1" formControlName="transaction-prev"
-                                                                  type="radio" name="यस अघिको कारोवार" value="छ">
+            यस अघिको कारोवार: <span class="ml-2"></span> छ
+            <input class="ml-1"
+              formControlName="transactionPrev"
+              type="radio" name="transactionPrevकारोवार" value="छ">
             <span class="ml-2"></span>
-            छैन <input class="ml-1" type="radio" name="यस अघिको कारोवार" value="छैन" formControlName="transaction-prev"
+            छैन <input class="ml-1" type="radio" name="transactionPrev"
+                       value="छैन" formControlName="transactionPrev"
                        checked="checked">
         </div>
 
@@ -531,22 +721,26 @@
         <div class="ml-5">
             <div class="d-flex justify-content-start">
                 <div class="form-group form-inline">
-                    १. कर्जा शिर्षक: <input class="form-control ml-1 nepaliFont" type="text" formControlName="loan-title"
+                    १. कर्जा शिर्षक: <input class="form-control ml-1 nepaliFont"
+                                            type="text" formControlName="loanTitle"
                                             name="कर्जा शिर्षक">
                 </div>
                 <div class="form-group form-inline ml-3">
-                    २. कर्जा प्रवाह मिति: <input class="form-control ml-1" formControlName="loan-provided-date"
-                                                 type="date" name="कर्जा प्रवाह मिति">
+                    २. कर्जा प्रवाह मिति: <input class="form-control ml-1"
+                                                 formControlName="loanProvidedDate"
+                                                 type="text" name="कर्जा प्रवाह मिति">
                 </div>
             </div>
 
             <div class="form-group form-inline">
                 <div class="d-flex justify-content-start">
-                    ३. कर्जा रकम: <input class="form-control ml-1 nepaliFont"  formControlName="loan-amount"
+                    ३. कर्जा रकम: <input class="form-control ml-1 nepaliFont"
+                                         formControlName="loanAmount"
                                          type="text" name="कर्जा रकम">
                 </div>
                 <div class="d-flex justify-content-start ml-4">
-                    ४. कर्जा अवधि: <input class="form-control ml-1 nepaliFont" formControlName="loan-duration"
+                    ४. कर्जा अवधि: <input class="form-control ml-1 nepaliFont"
+                                          formControlName="loanDuration"
                                           type="text" name="कर्जा अवधि">
                 </div>
             </div>
@@ -561,52 +755,64 @@
         <div class="row">
             <div class="col form-inline form-group">
                 <div class="d-flex justify-content-start">
-                    १. नाम: <input class="form-control ml-0.5 nepaliFont" formControlName="rec-per-name1"
+                    १. नाम: <input class="form-control ml-0.5 nepaliFont"
+                                   formControlName="recPerName1"
                                    type="text" name="नाम" size="15">
                 </div>
                 <div class="d-flex justify-content-start ml-1">
-                    नाताः <input class="form-control ml-0.5 nepaliFont"  formControlName="relation-rec-per1"
+                    नाताः <input class="form-control ml-0.5 nepaliFont"
+                                 formControlName="relationWithRecPer1"
                                  type="text" name="नाता" size="10">
                 </div>
                 <br>
                 <div class="d-flex justify-content-start ml-3 my-2">
-                    ठेगाना: <input class="form-control ml-1 nepaliFont"  formControlName="rec-per-add1"
+                    ठेगाना: <input class="form-control ml-1 nepaliFont"
+                                   formControlName="recPerAdd1"
                                    type="text" name="ठेगाना" size="35">
                 </div> <br>
                 <div class="d-flex justify-content-start ml-3">
-                    फोन नं.: <input class="form-control ml-1 nepaliFont"  formControlName="rec-per-ph1"
+                    फोन नं.: <input class="form-control ml-1 nepaliFont"
+                                    formControlName="recPerPhone1"
                                     type="text" name="फोन नं." size="10">
                 </div>
                 <div class="d-flex justify-content-start ml-3">
-                    मो.नं.: <input class="form-control ml-1 nepaliFont"  formControlName="rec-per-mob1"
+                    मो.नं.: <input class="form-control ml-1 nepaliFont"
+                                   formControlName="recPerMobile1"
                                    type="text" name="मो.नं." size="10">
                 </div>
             </div>
 
+            <!--recognized person 2-->
+
             <div class="col form-inline form-group">
                 <div class="d-flex justify-content-start">
-                    २. नाम: <input class="form-control ml-0.5 nepaliFont"  formControlName="rec-per-name2"
+                    २. नाम: <input class="form-control ml-0.5 nepaliFont"
+                                   formControlName="recPerName2"
                                    type="text" name="नाम" size="15">
                 </div>
 
                 <div class="d-flex justify-content-start ml-1">
-                    नाता: <input class="form-control ml-.5 nepaliFont"  formControlName="rec-per-rel2"
+                    नाता: <input class="form-control ml-.5 nepaliFont"
+                                 formControlName="relationWithRecPer2"
                                  type="text" name="नाता" size="10">
                 </div><br>
 
                 <div class="d-flex justify-content-start ml-3">
-                    ठेगाना: <input class="form-control ml-1 nepaliFont" formControlName="rec-per-add2"
+                    ठेगाना: <input class="form-control ml-1 nepaliFont"
+                                   formControlName="recPerAdd2"
                                    type="text" name="ठेगाना" size="35">
                 </div><br>
 
                 <div class="d-flex justify-content-start ml-3">
-                    फोन नं.: <input formControlName="rec-per-phone2"
-                                    class="form-control ml-1 nepaliFont" type="text" name="फोन नं." size="10">
+                    फोन नं.: <input formControlName="recPerPhone2"
+                                    class="form-control ml-1 nepaliFont"
+                                    type="text" name="फोन नं." size="10">
                 </div>
 
                 <div class="d-flex justify-content-start ml-3">
-                    मो.नं.: <input  formControlName="rec-per-mob2"
-                                    class="form-control ml-1 nepaliFont" type="text" name="मो.नं." size="10">
+                    मो.नं.: <input  formControlName="recPerMobile2"
+                                    class="form-control ml-1 nepaliFont"
+                                    type="text" name="मो.नं." size="10">
                 </div>
             </div>
         </div><br>
@@ -614,53 +820,65 @@
         <div class="row">
             <div class="col form-group form-inline">
                 <div class="d-flex justify-content-start">
-                    ३. नाम: <input  formControlName="rec-per-name3"
-                                    class="form-control ml-.5 nepaliFont" type="text" name="नाम" size="15">
+                    ३. नाम: <input  formControlName="recPerName3"
+                                    class="form-control ml-.5 nepaliFont"
+                                    type="text" name="नाम" size="15">
                 </div>
 
                 <div class="d-flex justify-content-start ml-1">
-                    नाताः <input class="form-control ml-.5 nepaliFont"  formControlName="rec-per-rel3"
+                    नाताः <input class="form-control ml-.5 nepaliFont"
+                                 formControlName="recPerRel3"
                                  type="text" name="नाता" size="10">
                 </div><br>
 
                 <div class="d-flex justify-content-start ml-3">
-                    ठेगाना: <input formControlName="rec-per-add3"
-                                   class="form-control ml-1 my-2 nepaliFont" type="text" name="ठेगाना" size="35"> <br>
+                    ठेगाना: <input formControlName="recPerAdd3"
+                                   class="form-control ml-1 my-2 nepaliFont"
+                                   type="text" name="ठेगाना" size="35"> <br>
                 </div>
 
                 <div class="d-flex justify-content-start ml-3">
-                    फोन नं.: <input  formControlName="rec-per-phone3"
-                                     class="form-control nepaliFont" type="text" name="फोन नं." size="10">
+                    फोन नं.: <input  formControlName="recPerPhone3"
+                                     class="form-control nepaliFont"
+                                     type="text" name="फोन नं." size="10">
                 </div>
                 <div class="d-flex justify-content-start ml-3">
-                    मो.नं.: <input formControlName="rec-per-mob3"
-                                   class="form-control nepaliFont" type="text" name="मो.नं." size="10">
+                    मो.नं.: <input formControlName="recPerMobile3"
+                                   class="form-control nepaliFont"
+                                   type="text" name="मो.नं." size="10">
                 </div>
             </div>
 
+            <!--recognized person 4-->
+
             <div class="col form-group form-inline">
                 <div class="d-flex justify-content-start">
-                    ४. नाम: <input  formControlName="rec-per-name4"
-                                    class="form-control ml-.5 nepaliFont" type="text" name="नाम" size="15">
+                    ४. नाम: <input  formControlName="recPerName4"
+                                    class="form-control ml-.5 nepaliFont"
+                                    type="text" name="नाम" size="15">
                 </div>
 
                 <div class="d-flex justify-content-start ml-1">
-                    नाताः <input  formControlName="rec-per-rel4"
-                                  class="form-control ml-.5 nepaliFont" type="text" name="नाता" size="10">
+                    नाताः <input  formControlName="recPerRel4"
+                                  class="form-control ml-.5 nepaliFont"
+                                  type="text" name="नाता" size="10">
                 </div><br>
 
                 <div class="d-flex justify-content-start ml-3">
-                    ठेगाना: <input  formControlName="rec-per-add4"
-                                    class="form-control ml-1 my-2 nepaliFont" type="text" name="ठेगाना" size="35"> <br>
+                    ठेगाना: <input  formControlName="recPerAdd4"
+                                    class="form-control ml-1 my-2 nepaliFont"
+                                    type="text" name="ठेगाना" size="35"> <br>
                 </div>
 
                 <div class="d-flex justify-content-start ml-3">
-                    फोन नं.: <input  formControlName="rec-per-phone4"
-                                     class="form-control nepaliFont" type="text" name="फोन नं." size="10">
+                    फोन नं.: <input  formControlName="recPerPhone4"
+                                     class="form-control nepaliFont"
+                                     type="text" name="फोन नं." size="10">
                 </div>
                 <div class="d-flex justify-content-start ml-3">
-                    मो.नं.: <input  formControlName="rec-per-mob4"
-                                    class="form-control nepaliFont" type="text" name="मो.नं." size="10">
+                    मो.नं.: <input  formControlName="recPerMobile4"
+                                    class="form-control nepaliFont"
+                                    type="text" name="मो.नं." size="10">
                 </div>
             </div>
         </div><br>
@@ -671,13 +889,14 @@
         <div class="row">
             <div class="col">
                 <strong> आवेदक बसोबास गरेको नक्सा: </strong> <br>
-                <input class="form-control-file" formControlName="applicant-add-map"
+                <input class="form-control-file" formControlName="applicantAddMap"
                        type="file" name="आवेदक बसोबास गरेको नक्सा">
             </div>
 
             <div class="col">
                 <strong> जमानतकर्ता बसोबास गरेको नक्सा: </strong>
-                <input class="form-control-file" type="file"  formControlName="jamanikarta-add-map"
+                <input class="form-control-file" type="file"
+                       formControlName="jamanikartaAddMap"
                        name="जमानतकर्ता बसोबास गरेको नक्सा">
             </div>
         </div><br><br>
@@ -709,22 +928,26 @@
 
         <div class="form-group form-inline">
             <strong>सवारी साधन/मेशिनको मोडल</strong>
-            <input class="ml-2 form-control nepaliFont" formControlName="vehicle-machine-model"
+            <input class="ml-2 form-control nepaliFont"
+                   formControlName="vehicleMachineModel"
                    type="text" name="सवारी साधन/मेशिनको मोडल" size="30">
         </div>
         <!-- </p> -->
         <div class="form-inline form-group">
             <strong>कर्जा रकम:</strong>
             <div class="ml-2">
-                रु. <input  formControlName="loan-amount2"
-                            class="form-control mr-1 nepaliFont" type="text" name="कर्जा रकम">|-<span class="ml-2"></span>
+                रु. <input  formControlName="loanAmount2"
+                            class="form-control mr-1 nepaliFont"
+                            type="text" name="कर्जा रकम">|-<span class="ml-2"></span>
                 अक्षरेपी <input  formControlName="aksherepi2"
-                                 class="form-control ml-1 nepaliFont" type="text" name="अक्षरेपी"> मात्र)
+                                 class="form-control ml-1 nepaliFont"
+                                 type="text" name="अक्षरेपी"> मात्र)
             </div>
         </div>
         <p>
             <strong>उद्वेश्य:</strong>
-            <span class="ml-4"></span> यो कर्जा उपरोक्त विवरणको दुई पाङ्ग्रे्रे्रे सवारी साधन (मोटरसाइकल/स्कुटर) खरिद गर्नका
+            <span class="ml-4"></span>
+            यो कर्जा उपरोक्त विवरणको दुई पाङ्ग्रे्रे्रे सवारी साधन (मोटरसाइकल/स्कुटर) खरिद गर्नका
             गरिएको हो ।
         </p>
 
@@ -735,7 +958,7 @@
             <!-- <div class="form-inline"> -->
             <strong>ब्याज दर:</strong>
             <div class="ml-5">
-                <input class="form-control nepaliFont" formControlName="interest-rate"
+                <input class="form-control nepaliFont" formControlName="interestRate"
                        type="text" name="ब्याज दर" size="2">
 
 
@@ -750,30 +973,43 @@
             <strong>भुक्तानी अवधि:</strong>
             <div class="ml-4">
                 कर्जा प्रवाह मिति देखि
-                <input  formControlName="years-from-loan-approval"
-                        class="form-control mx-1 nepaliFont" type="text" name="कर्जा प्रवाह मिति देखि" size="2">
+                <input  formControlName="yearsFromLoanApproval"
+                        class="form-control mx-1 nepaliFont" type="text"
+                        name="कर्जा प्रवाह मिति देखि" size="2">
                 वर्षको हुनेछ । (कर्जा भुक्तानी तालिका कर्जा प्रवाह गरेको मि गराइनेछ ।)
             </div>
         </div>
         <!--
     <div class="form-group form-inline">
-        <strong>कर्जा भुक्तानी:</strong><span class="ml-2"></span> कर्जाको भुक्तानी मासिक किस्तावन्दी ९भ्त्रगबतभम ःयलतजथि क्ष्लकतबििmभलत ूभ्ःक्ष्ू० को आधारमा प्रति महिनाको किस्ता रु. <input class="form-control mx-1" type="text" name="प्रति महिनाको किस्ता" size="15"> का दरले <input class="form-control mx-1" type="text" name="प्रति महिनाको किस्ता" size="15"> किस्तामा बुझाउनु पर्नेछ । कर्जाको कि धनी कम्पनीले उपलब्ध गराएको कर्जा भुक्तानी तालिकाको अवधि भित्रै अनिवार्य रुपमा बुझाउनु पर्नेछ रकम धनी कम्पनीले कर्जाको ब्याजदर परिवर्तन गरेको अवस्थामा सोही बमोजिम स्वतः परिवर्तन ह
+        <strong>कर्जा भुक्तानी:</strong><span class="ml-2"></span> कर्जाको भुक्तानी मासिक
+         किस्तावन्दी ९भ्त्रगबतभम ःयलतजथि क्ष्लकतबििmभलत ूभ्ःक्ष्ू० को आधारमा प्रति महिनाको किस्ता रु.
+         <input class="form-control mx-1" type="text" name="प्रति महिनाको किस्ता" size="15">
+         का दरले <input class="form-control mx-1" type="text" name="प्रति महिनाको किस्ता"
+          size="15"> किस्तामा बुझाउनु पर्नेछ । कर्जाको कि धनी कम्पनीले उपलब्ध गराएको कर्जा भुक्तानी तालिकाको
+           अवधि भित्रै अनिवार्य रुपमा बुझाउनु पर्नेछ रकम धनी कम्पनीले कर्जाको ब्याजदर परिवर्तन गरेको अवस्थामा
+           सोही बमोजिम स्वतः परिवर्तन ह
     </div> -->
 
         <div class="form-group form-inline">
             <strong>कर्जा भुक्तानी:</strong>
             <div class="ml-5">
                 <span class="ml-2"></span> कर्जाको भुक्तानी मासिक किस्तावन्दी ९भ्त्रगबतभम ःयलतजथि क्ष्लकतबििmभलत ूभ्ःक्ष्ू० को आधारमा प्रति महिनाको किस्ता रु.
-                <input  formControlName="premium-per-month"
-                        class="form-control mx-1 nepaliFont" type="text" name="प्रति महिनाको किस्ता" size="15"> का दरले
-                <input  formControlName="no-of-premium"
-                        class="form-control mx-1 nepaliFont" type="text" name="प्रति महिनाको किस्ता" size="15"> किस्तामा बुझाउनु पर्नेछ । कर्जाको कि धनी कम्पनीले
-                उपलब्ध गराएको कर्जा भुक्तानी तालिकाको अवधि भित्रै अनिवार्य रुपमा बुझाउनु पर्नेछ रकम धनी कम्पनीले कर्जाको ब्याजदर परिवर्तन गरेको अवस्थामा सोही बमोजिम स्वतः परिवर्तन ह
+                <input  formControlName="premiumPerMonth"
+                        class="form-control mx-1 nepaliFont" type="text"
+                        name="प्रति महिनाको किस्ता" size="15"> का दरले
+                <input  formControlName="numOfPremium"
+                        class="form-control mx-1 nepaliFont" type="text"
+                        name="प्रति महिनाको किस्ता" size="15">
+                किस्तामा बुझाउनु पर्नेछ । कर्जाको कि धनी कम्पनीले
+                उपलब्ध गराएको कर्जा भुक्तानी तालिकाको अवधि भित्रै अनिवार्य रुपमा बुझाउनु
+                पर्नेछ रकम धनी कम्पनीले कर्जाको ब्याजदर परिवर्तन गरेको अवस्थामा सोही बमोजिम स्वतः
+                परिवर्तन ह
             </div>
         </div>
 
         <p>
-            <strong>कर्जा भूक्तानी मिति:</strong> <span class="ml-2"> प्रत्येक अंग्रेजी महिनाको २० तारिखमा । </span>
+            <strong>कर्जा भूक्तानी मिति:</strong> <span class="ml-2"> प्रत्येक अंग्रेजी महिनाको २०
+            तारिखमा । </span>
         </p>
 
         <div class="form-inline form-group text-justify">
@@ -802,7 +1038,8 @@
         </div>
         <div class="form-group form-inline">
             <strong>ठेगाना:</strong> <span class="ml-2"></span>
-            <input  formControlName="address2" class="form-control nepaliFont" type="text" name="ठेगाना">
+            <input  formControlName="address2" class="form-control nepaliFont"
+                    type="text" name="ठेगाना">
         </div>
 
 
@@ -832,15 +1069,20 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td><input  formControlName="td-vehicle-model"
-                                    class="form-control nepaliFont" type="text" name="सवारी साधनको मोडल"></td>
-                        <td><input  formControlName="td-veh-regd-no"
-                                    class="form-control nepaliFont" type="text" name="सवारी साधन दर्ता नं."></td>
-                        <td><input formControlName="td-engine-no"
-                                   class="form-control nepaliFont" type="text" name="इन्जिन नं."></td>
-                        <td><input  formControlName="chasis-no"
-                                    class="form-control nepaliFont" type="text" name="च्यासिस नं."></td>
-                        <td><input formControlName="color" class="form-control nepaliFont" type="text" name="रंग"></td>
+                        <td><input  formControlName="tdVehicleModel"
+                                    class="form-control nepaliFont" type="text"
+                                    name="सवारी साधनको मोडल"></td>
+                        <td><input  formControlName="tdVehicleRegdNum"
+                                    class="form-control nepaliFont" type="text"
+                                    name="सवारी साधन दर्ता नं."></td>
+                        <td><input formControlName="tdEngineNum"
+                                   class="form-control nepaliFont" type="text"
+                                   name="इन्जिन नं."></td>
+                        <td><input  formControlName="chasisNum"
+                                    class="form-control nepaliFont" type="text"
+                                    name="च्यासिस नं."></td>
+                        <td><input formControlName="color" class="form-control nepaliFont"
+                                   type="text" name="रंग"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -890,14 +1132,18 @@
         <div class="form-inline">
             <div class="form-group">
                 <div class="d-flex justify-content-start">
-                    १) व्यक्तिगत जमानीकर्ताको नाम: <input formControlName="personal-jamanikarta-name"
-                                                          class="form-control ml-1" type="text" name="व्यक्तिगत जमानीकर्ताको नाम">
-                    <span class="ml-5"></span> दस्तखत: <input formControlName="sign1"
-                                                              class="form-control-file col-md-4 ml-1" type="file" name="दस्तखत">
+                    १) व्यक्तिगत जमानीकर्ताको नाम:
+                    <input formControlName="personalJamanikartaName"
+                           class="form-control ml-1" type="text"
+                           name="व्यक्तिगत जमानीकर्ताको नाम">
+                    <span class="ml-5"></span> दस्तखत:
+                    <input formControlName="sign1" class="form-control-file col-md-4 ml-1"
+                           type="file" name="दस्तखत">
                 </div>
             </div>
             <div class="form-group ml-3" >
-                मिति: <input class="form-control ml-1 my-2" formControlName="date2" type="date" name="मिति">
+                मिति: <input class="form-control ml-1 my-2" formControlName="date2"
+                             type="text" name="मिति">
 
             </div>
         </div>
@@ -905,13 +1151,18 @@
         <div class="form-inline">
             <div class="form-group">
                 <div class="d-flex justify-content-start">
-                    २) व्यक्तिगत जमानीकर्ताको नाम: <input class="form-control ml-1 nepaliFont" formControlName="personal-jamanikarta-name2"
-                                                          type="text" name="व्यक्तिगत जमानीकर्ताको नाम">
-                    <span class="ml-5"></span> दस्तखत: <input formControlName="sign2" class="form-control-file col-md-4 ml-1" type="file" name="दस्तखत">
+                    २) व्यक्तिगत जमानीकर्ताको नाम:
+                    <input class="form-control ml-1 nepaliFont"
+                           formControlName="personalJamanikartaName2"
+                           type="text" name="व्यक्तिगत जमानीकर्ताको नाम">
+                    <span class="ml-5"></span> दस्तखत:
+                    <input formControlName="sign2" class="form-control-file col-md-4 ml-1"
+                           type="file" name="दस्तखत">
                 </div>
             </div>
             <div class="form-group ml-3">
-                मिति: <input class="form-control ml-1 my-2" type="date" name="मिति" formControlName="date3">
+                मिति: <input class="form-control ml-1 my-2" type="text" name="मिति"
+                             formControlName="date3">
             </div>
         </div><br>
 
@@ -926,14 +1177,18 @@
 
         <div class="form-inline form-group row">
             <div class="col">
-                <input class="form-control-file mb-2" type="file" name="आवेदकको हस्ताक्षर" formControlName="applicant-sign">
+                <input class="form-control-file mb-2" type="file"
+                       name="आवेदकको हस्ताक्षर" formControlName="applicantSign">
                 आवेदकको हस्ताक्षरः <br>
-                नामः	<input class="form-control nepaliFont" type="text" name="नाम" formControlName="applicant-name">
+                नामः	<input class="form-control nepaliFont" type="text"
+                               name="नाम" formControlName="applicantName">
             </div>
             <div class="col">
-                <input class="form-control-file mb-2" type="file" name="जमानीकर्ता(हरु)को हस्ताक्षर" formControlName="sign3">
+                <input class="form-control-file mb-2" type="file"
+                       name="जमानीकर्ता(हरु)को हस्ताक्षर" formControlName="sign3">
                 जमानीकर्ता(हरु)को हस्ताक्षरः <br>
-                नामः	<input class="form-control nepaliFont" type="text" name="नाम" formControlName="jamanikarta-name">
+                नामः	<input class="form-control nepaliFont" type="text"
+                               name="नाम" formControlName="jamanikartaName">
             </div>
         </div>
         <br>
@@ -944,16 +1199,20 @@
         <h3>धनी कम्पनीको प्रयोजनको लागि मात्र</h3>
         <div class="row form-group form-inline mb-5">
             <div class="col">
-                <input class="form-control mb-2 nepaliFont" type="text" name="तयार पार्ने" formControlName="prepared-by"><br>
+                <input class="form-control mb-2 nepaliFont" type="text"
+                       name="तयार पार्ने" formControlName="preparedBy"><br>
                 तयार पार्ने <br><br>
-                मिति: <input class="form-control" type="date" name="मिति" formControlName="prepared-date">
+                मिति: <input class="form-control" type="text" name="मिति"
+                             formControlName="preparedDate">
             </div>
 
             <div class="col">
-                <input class="form-control mb-2 nepaliFont" type="text" name="स्वीकृत गर्ने" formControlName="approved-by"><br>
+                <input class="form-control mb-2 nepaliFont" type="text"
+                       name="स्वीकृत गर्ने" formControlName="approvedBy"><br>
                 स्वीकृत गर्ने
             </div>
 
         </div>
     </form>
 </div>
+<pre>{{bikeKarjaForm.value|json}}</pre>
