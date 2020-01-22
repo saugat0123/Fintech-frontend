@@ -14,9 +14,7 @@ export class PratigyaPatraComponent implements OnInit {
     @Input() customerId: number;
     @Input() offerLetterTypeId: number;
     offerform: FormGroup;
-    existingOfferLetter = false;
     spinner = false;
-    initialInfoPrint;
     constructor(private offerBuilder: FormBuilder) {
     }
 
