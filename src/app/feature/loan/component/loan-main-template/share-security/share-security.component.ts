@@ -134,7 +134,6 @@ export class ShareSecurityComponent implements OnInit {
   calculateShareFieldsValues(totalShareUnit , index) {
     const amountPerUnit = (this.shareSecurityForm.get('shareField') as FormArray).at(index).get('amountPerUnit').value;
     const shareType = (this.shareSecurityForm.get('shareField') as FormArray).at(index).get('shareType').value;
-    console.log(totalShareUnit , amountPerUnit);
     if (totalShareUnit) {
       (this.shareSecurityForm.get('shareField') as FormArray).at(index).patchValue({
         total: totalShareUnit * amountPerUnit,
@@ -153,7 +152,6 @@ export class ShareSecurityComponent implements OnInit {
     }
   findActiveShareRate() {
     this.shareService.getActiveShare().subscribe(value => {
-      console.log(value);
       this.activeNepseMaster = value.detail;
       if (this.shareSecurity === undefined) {
         this.savedActiveNepseMaster = value.detail;
