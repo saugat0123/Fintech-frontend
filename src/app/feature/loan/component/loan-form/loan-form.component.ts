@@ -505,6 +505,23 @@ export class LoanFormComponent implements OnInit {
     }
 
     nepaliFormTemplate() {
-        this.modalService.open(LoanMainNepaliTemplateComponent, {size: 'lg'});
+        const modalRef = this.modalService.open(LoanMainNepaliTemplateComponent,
+            {
+                size: 'xl',
+                backdrop: 'static'
+            });
+        modalRef.componentInstance.customerLoan = this.loanDocument;
+        modalRef.result
+        .then(
+            close => {
+                if (close instanceof Map) {
+                    this.loanDocument = (close as Map<string, any>).get('CustomerLoan');
+                    console.log(this.loanDocument);
+                }
+            },
+            dismiss => {
+                console.log(dismiss);
+            }
+        );
     }
 }
