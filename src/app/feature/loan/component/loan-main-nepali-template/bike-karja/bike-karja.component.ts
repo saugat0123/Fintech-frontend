@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-bike-karja',
@@ -12,11 +13,33 @@ export class BikeKarjaComponent implements OnInit {
   // applicantFullName: string;
   // applicantDob: string;
   //
+  bikeKarjaForm: FormGroup;
 
 
-  constructor() { }
+  constructor(
+      private formBuilder: FormBuilder) {
+
+  }
+
 
   ngOnInit() {
+    this.buildBikeKarjaForm();
   }
+
+  buildBikeKarjaForm() {
+    this.bikeKarjaForm = this.formBuilder.group({
+      date1: [undefined],
+      photo: [undefined],
+      proposalAmount: [undefined],
+      applicantFullName: [undefined],
+      applicantDob: [undefined],
+    /*
+    * placeholder for few radio buttons*/
+
+      applicant
+
+    });
+  }
+
 
 }
