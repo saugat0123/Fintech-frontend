@@ -31,7 +31,6 @@ export class ShareSecuritySummaryComponent implements OnInit {
 
     calculateTotalValues() {
         this.shareSecurityDatas.forEach(shareSecurityData => {
-          console.log(shareSecurityData);
           this.totalValue = this.totalValue + shareSecurityData.total;
             this.totalConsideredValue += shareSecurityData.consideredValue;
         });
