@@ -21,8 +21,8 @@
             <div *ngIf="!shareData">
               <p>No Content Found</p>
             </div>
-            <td>{{parsedData(shareData.shareData).promoterValue}}</td>
-            <td>{{parsedData(shareData.shareData).ordinaryValue}}</td>
+            <td>{{shareData.promoter}}</td>
+            <td>{{shareData.ordinary}}</td>
             <td>{{shareData.status}}</td>
             <td>{{shareData.createdAt | date}}</td>
           </tr>

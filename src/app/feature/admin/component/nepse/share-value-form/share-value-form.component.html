@@ -11,10 +11,10 @@
         <input class="form-control" disabled id="promoterShare" value="PromoterShare"></div>
       <div class="col-md-6">
         <label for="shareValue">Share Value(%)</label>
-        <input #promoter="ngModel" [ngClass]="{ 'is-invalid': shareValueForm.submitted && promoter.invalid }" [ngModel]="shareValuesModel.promoterValue"
+        <input #promoter="ngModel" [ngClass]="{ 'is-invalid': shareValueForm.submitted && promoter.invalid }" [(ngModel)]="nepseMaster.promoter"
                class="form-control"
                id="shareValue"
-               name="promoterValue" required type="number">
+               name="promoter" required type="number">
       </div>
     </div>
     <div class="row form-group">
@@ -23,10 +23,10 @@
         <input Value="OrdinaryShare" class="form-control" disabled id="ordinaryShare"></div>
       <div class="col-md-6">
         <label for="ordinaryValue">Share Value(%)</label>
-        <input #ordinary="ngModel" [ngClass]="{ 'is-invalid': shareValueForm.submitted && ordinary.invalid }" [ngModel]="shareValuesModel.ordinaryValue"
+        <input #ordinary="ngModel" [ngClass]="{ 'is-invalid': shareValueForm.submitted && ordinary.invalid }" [(ngModel)]="nepseMaster.ordinary"
                class="form-control"
                id="ordinaryValue"
-               name="ordinaryValue" required type="number">
+               name="ordinary" required type="number">
       </div>
     </div>
 
