@@ -11,12 +11,12 @@
             <nb-card-body>
                 <div class="row">
                   <div class="col-md-3">
-                    <label for="promoter"><b>Current Loan Promoter Rate</b></label>
+                    <label for="promoter"><b>Loan Promoter Percent</b></label>
                     <input class="form-control" id="promoter" [(ngModel)]="savedActiveNepseMaster.promoter" disabled>
                   </div>
 
                   <div class="col-md-3">
-                    <label for="ordinary"><b>Current Loan Ordinary Rate</b></label>
+                    <label for="ordinary"><b>Loan Ordinary Percent</b></label>
                     <input class="form-control" id="ordinary" [(ngModel)]="savedActiveNepseMaster.ordinary"  disabled>
                   </div>
                 </div>
@@ -63,7 +63,7 @@
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label for="total">Considered Value</label>
+                      <label for="consideredValue">Considered Value</label>
                       <input formControlName="consideredValue" name="total" id="consideredValue" class="form-control" type="number" step=".01" readonly>
                       </div>
                   </div>

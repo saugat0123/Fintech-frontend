@@ -162,12 +162,10 @@ export class ShareSecurityComponent implements OnInit {
   }
 
   calculateConsideredValue(index , shareType) {
-    console.log(shareType ,  ShareType.PROMOTER.toString() , this.savedActiveNepseMaster.ordinary);
     const activeNepse = shareType.toString() === ShareType.PROMOTER.toString() ?
         this.savedActiveNepseMaster.promoter : this.savedActiveNepseMaster.ordinary;
     const amountPerUnit = (this.shareSecurityForm.get('shareField') as FormArray).at(index).get('amountPerUnit').value;
     const totalShareUnit = (this.shareSecurityForm.get('shareField') as FormArray).at(index).get('totalShareUnit').value;
-    console.log(activeNepse , amountPerUnit , totalShareUnit , '---');
     return ((totalShareUnit * amountPerUnit) / 100) * activeNepse;
   }
 }

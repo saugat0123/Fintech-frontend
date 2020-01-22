@@ -13,6 +13,7 @@ import {NepseMaster} from '../../../../admin/modal/NepseMaster';
 export class ShareSecuritySummaryComponent implements OnInit {
     @Input() formData: ShareSecurity;
     shareSecurityDatas;
+     loanSharePercent: NepseMaster = new NepseMaster();
     totalConsideredValue = 0;
     totalValue = 0;
     securityDescription;
@@ -24,6 +25,7 @@ export class ShareSecuritySummaryComponent implements OnInit {
         const allData = JSON.parse(this.formData.data);
         this.shareSecurityDatas = allData.shareField;
         this.securityDescription = allData.securityOffered;
+        this.loanSharePercent = allData.loanShareRate;
         this.calculateTotalValues();
     }
 

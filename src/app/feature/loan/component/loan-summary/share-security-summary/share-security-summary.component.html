@@ -1,6 +1,6 @@
 <div class="row mt-4">
     <div class="col-md-12">
-        <p><strong>Share Security Detail</strong></p>
+        <p><strong>Share Security Detail</strong>(Promoter Percent: {{loanSharePercent.promoter}} , Ordinary Percent: {{loanSharePercent.ordinary}})</p>
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -19,14 +19,14 @@
                 <td>{{singleShareData?.companyName}}</td>
                 <td>{{singleShareData?.shareType}}</td>
                 <td>{{singleShareData?.totalShareUnit}}</td>
-                <td>{{singleShareData?.amountPerUnit}}</td>
-                <td>{{singleShareData?.total}}</td>
-                <td>{{singleShareData?.consideredValue}}</td>
+                <td>{{singleShareData?.amountPerUnit |currencyFormatter}}</td>
+                <td>{{singleShareData?.total |currencyFormatter}}</td>
+                <td>{{singleShareData?.consideredValue |currencyFormatter}}</td>
             </tr>
             <tr>
                 <th class="text-right" colspan="5">Total</th>
-                <th>{{totalValue}}</th>
-                <th>{{totalConsideredValue}}</th>
+                <th>{{totalValue |currencyFormatter}}</th>
+                <th>{{totalConsideredValue |currencyFormatter}}</th>
             </tr>
             <tr>
                 <th>Description</th>
