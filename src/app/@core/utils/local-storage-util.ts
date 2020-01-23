@@ -1,6 +1,7 @@
 import {ObjectUtil} from './ObjectUtil';
 import {CryptoJsUtil} from './crypto-js-util';
 import {environment} from '../../../environments/environment';
+import {ProductUtils} from '../../feature/admin/service/product-mode.service';
 
 export class LocalStorageUtil {
   /**
@@ -50,4 +51,5 @@ export class LocalStorage {
   roleId: string;
   productMode: string;
   branch: string;
+    productUtil: ProductUtils;
 }
