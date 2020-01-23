@@ -11,7 +11,8 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {DocumentService} from './document.service';
 import {Action} from '../../../../@core/Action';
-import {ProductModeService} from '../../service/product-mode.service';
+import {ProductModeService, ProductUtils} from '../../service/product-mode.service';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-document',
@@ -32,6 +33,8 @@ export class DocumentComponent implements OnInit {
     inactiveCount: number;
     documents: number;
     showEligibility = false;
+
+    productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
 
     constructor(

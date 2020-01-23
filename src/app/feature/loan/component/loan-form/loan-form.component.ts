@@ -37,6 +37,8 @@ import {VehicleSecurityComponent} from '../loan-main-template/vehicle-security/v
 import {ShareSecurityComponent} from '../loan-main-template/share-security/share-security.component';
 import {GroupComponent} from '../loan-main-template/group/group.component';
 import {LoanMainNepaliTemplateComponent} from '../loan-main-nepali-template/loan-main-nepali-template.component';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {ProductUtils} from '../../../admin/service/product-mode.service';
 
 @Component({
     selector: 'app-loan-form',
@@ -104,6 +106,8 @@ export class LoanFormComponent implements OnInit {
     currentNepDate;
     submitDisable = false;
     loanDocument: LoanDataHolder;
+
+    productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
     docStatusMakerList = [];
 
@@ -174,6 +178,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('productUtils', this.productUtils);
         this.docStatusForMaker();
         this.buildPriorityForm();
         this.buildDocStatusForm();
@@ -512,15 +517,15 @@ export class LoanFormComponent implements OnInit {
             });
         modalRef.componentInstance.customerLoan = this.loanDocument;
         modalRef.result
-        .then(
-            close => {
-                if (close instanceof Map) {
-                    this.loanDocument = (close as Map<string, any>).get('CustomerLoan');
+            .then(
+                close => {
+                    if (close instanceof Map) {
+                        this.loanDocument = (close as Map<string, any>).get('CustomerLoan');
+                    }
+                },
+                dismiss => {
+                    console.log(dismiss);
                 }
-            },
-            dismiss => {
-                console.log(dismiss);
-            }
-        );
+            );
     }
 }
