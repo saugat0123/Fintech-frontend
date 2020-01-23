@@ -1,35 +1,77 @@
-<nb-card>
-    <nb-card accent="info" status="danger">
-        <nb-card-header class="text-white bank-text-color"></nb-card-header>
-        <nb-card-body>
-            <nb-card>
-                <nb-card-body>
-                    <nb-stepper orientation="horizontal">
-                        <nb-step [label]="labelOne">
-                            <ng-template #labelOne>First step</ng-template>
+<nb-card accent="info" status="danger">
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-11">
+        <h4 class="text-white">नेपाली फारम</h4>
+      </div>
+      <div class="col-md-1">
+        <button (click)="onClose()" aria-label="Close" class="close cursor text-white"><span
+            aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-stepper #nepaliTemplateStepper [disableStepNavigation]="true" orientation="horizontal">
+      <nb-step [label]="labelCustomerInfoNepali">
+        <ng-template #labelCustomerInfoNepali>ग्राहक जानकारी</ng-template>
 
-                            <!--TODO add your nepali template component here-->
+        <app-customer-info-nepali #customerInfoNepaliComponent
+                                  [data]="customerLoan?.customerInfo?.nepaliDetail"></app-customer-info-nepali>
 
+<<<<<<< HEAD
 
                         </nb-step>
                         <nb-step [label]="labelTwo">
                             <ng-template #labelTwo>Second Step</ng-template>
                             <!--TODO add your nepali template component here-->
                         </nb-step>
+=======
+      </nb-step>
+      <nb-step [label]="labelTwo">
+        <ng-template #labelTwo>Second Step</ng-template>
+        <!--TODO add your nepali template component here-->
+      </nb-step>
+>>>>>>> master
 
-                        <nb-step [label]="labelThree">
-                            <ng-template #labelThree>Third Step</ng-template>
-                            <!--TODO add your nepali template component here-->
-                        </nb-step>
+      <nb-step [label]="labelThree">
+        <ng-template #labelThree>Third Step</ng-template>
+        <!--TODO add your nepali template component here-->
+      </nb-step>
 
+<<<<<<< HEAD
                         <nb-step [label]="labelForth">
                             <ng-template #labelForth>Fourth Step</ng-template>
                             <app-bike-karja></app-bike-karja>
                         </nb-step>
+=======
+      <nb-step [label]="labelForth">
+        <ng-template #labelForth>Fourth Step</ng-template>
+        <!--TODO add your nepali template component here-->
+      </nb-step>
+    </nb-stepper>
+>>>>>>> master
 
-                    </nb-stepper>
-                </nb-card-body>
-            </nb-card>
-        </nb-card-body>
-    </nb-card>
+    <hr class="bank-hr"/>
+    <div class="row">
+      <div class="col-md-6 text-left">
+        <button (click)="stepperPrevious()"
+                *ngIf="stepperButtonVisibility?.showPrevious" nbButton size="small"
+                status="primary"
+                type="button">अघिल्लो
+        </button>
+      </div>
+      <div class="col-md-6 text-right">
+        <button (click)="stepperNext()"
+                *ngIf="stepperButtonVisibility?.showNext"
+                nbButton size="small" status="primary"
+                type="button">अर्को
+        </button>
+        <button (click)="save()"
+                *ngIf="stepperButtonVisibility?.showSave"
+                nbButton size="small" status="success"
+                type="button">परिवर्तनहरू सुरक्षित गर्नुहोस
+        </button>
+      </div>
+    </div>
+  </nb-card-body>
 </nb-card>
