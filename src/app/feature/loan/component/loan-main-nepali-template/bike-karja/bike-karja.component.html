@@ -1,7 +1,7 @@
 <!-- author: noitanec -->
 
 <div class="container text-justify my-5" style="width:100%">
-    <form [formGroup]="bikeKarjaForm">
+    <form [formGroup]="bikeKarjaForm" >
         <div class="row">
             <div class="col-md-6"><img src="../../../../../../assets/img/logo.png" alt="logo" /></div>
             <div class="col-md-6 text-right">
@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col form-group form-inline">
                 <label for="मिति"> <strong>मिति:</strong></label>
-                <input class="form-control mx-2" type="date1" id="मिति"
+                <input class="form-control-sm mx-2 nepaliFont" type="text" id="मिति"
                        name="मिति" formControlName="date1" placeholder="मिति" />
             </div>
 
@@ -87,14 +87,15 @@
                            name="जन्म मिति"
                            placeholder="२०७२/१/१२" />
                 </div>
-
-                <select class="custom-select ml-2"  name="sex"
-                        formControlName="gender">
-                    <option value="पुरुष">पुरुष</option>
-                    <option value="महिला">महिला</option>
-                    <option value="अन्य">अन्य</option>
-                </select>
-
+                <div class="form-group mx-5">
+                    लिङ्गः
+                    <select class="custom-select ml-2"  name="sex"
+                            formControlName="gender">
+                        <option value="पुरुष">पुरुष</option>
+                        <option value="महिला">महिला</option>
+                        <option value="अन्य">अन्य</option>
+                    </select>
+                </div>
 
 
 <!--                        Radio button not used-->
@@ -503,7 +504,7 @@ formControlName="female" value="महिला"-->
 
         <div class="form-group form-inline">
             घरधनीसंग सम्बन्ध: <input class="form-control ml-1 nepaliFont"
-                                     formControlName="relationWithHomeowner"
+                                     formControlName="relationWithHomeOwner"
                                      type="text" name="घरधनीसंग सम्बन्ध">
             <span class="m-lg-2"> घर भाडा मासिक रु.: </span>
             <input class="form-control ml-1 nepaliFont"
@@ -709,7 +710,7 @@ formControlName="female" value="महिला"-->
             यस अघिको कारोवार: <span class="ml-2"></span> छ
             <input class="ml-1"
               formControlName="transactionPrev"
-              type="radio" name="transactionPrevकारोवार" value="छ">
+              type="radio" name="transactionPrev" value="छ">
             <span class="ml-2"></span>
             छैन <input class="ml-1" type="radio" name="transactionPrev"
                        value="छैन" formControlName="transactionPrev"
@@ -941,7 +942,7 @@ formControlName="female" value="महिला"-->
                             type="text" name="कर्जा रकम">|-<span class="ml-2"></span>
                 अक्षरेपी <input  formControlName="aksherepi2"
                                  class="form-control ml-1 nepaliFont"
-                                 type="text" name="अक्षरेपी"> मात्र)
+                                 type="text" name="aksherepi2"> मात्र)
             </div>
         </div>
         <p>
@@ -1212,6 +1213,9 @@ formControlName="female" value="महिला"-->
                 स्वीकृत गर्ने
             </div>
 
+            <div>
+                <button type="submit" class="btn btn-success pull-right"></button>
+            </div>
         </div>
     </form>
 </div>

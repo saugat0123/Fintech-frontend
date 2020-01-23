@@ -27,6 +27,8 @@ export class BikeKarjaComponent implements OnInit {
   }
 
   buildBikeKarjaForm() {
+
+    // pesonal info
     this.bikeKarjaForm = this.formBuilder.group({
 
       maritalStatus: [undefined],
@@ -64,6 +66,7 @@ export class BikeKarjaComponent implements OnInit {
       phoneNum: [undefined],
       mobileNum: [undefined],
       email: [undefined],
+      residencyType: [undefined],
 
     //  placeholder for basasthan ko prakar
 
@@ -86,13 +89,15 @@ export class BikeKarjaComponent implements OnInit {
       businessStartDate: [undefined],
       businessTotalInvestment: [undefined],
       incomeTaxCertification: [undefined],
+      incomeTaxCertifiedNum: [undefined],
       montlyKarobar: [undefined],
       businessIncomeMonthly: [undefined],
+
       businessOtherIncome: [undefined],
       homeOwnerName: [undefined],
       homeOwnerPhone: [undefined],
       relationWithHomeOwner: [undefined],
-      homeRentMontly: [undefined],
+      homeRentMonthly: [undefined],
       homeAddress: [undefined],
       homeRentAgreement: [undefined],
       propertyOwnershipInfo: [undefined],
@@ -146,7 +151,7 @@ export class BikeKarjaComponent implements OnInit {
       jamanikartaAddMap: [undefined],
       vehicleMachineModel: [undefined],
       loanAmount2: [undefined],
-      aksherepi: [undefined],
+      aksherepi2: [undefined],
 
     //  ब्याज दर
 
@@ -156,7 +161,7 @@ export class BikeKarjaComponent implements OnInit {
       numOfPremium: [undefined],
       address2: [undefined],
       tdVehicleModel: [undefined],
-      tdVechicleRedNum: [undefined],
+      tdVehicleRegdNum: [undefined],
       tdEngineNum: [undefined],
       chasisNum: [undefined],
       color: [undefined],
