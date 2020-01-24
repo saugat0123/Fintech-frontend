@@ -9,6 +9,8 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {LoanConfigService} from './loan-config.service';
 import {Router} from '@angular/router';
+import {ProductUtils} from '../../service/product-mode.service';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
     selector: 'app-loan-config',
@@ -32,6 +34,7 @@ export class LoanConfigComponent implements OnInit {
     loans: number;
     modalTemplate: any;
     tName;
+    productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
     constructor(
         private service: LoanConfigService,
