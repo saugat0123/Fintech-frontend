@@ -84,13 +84,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                     }, error => {
                         console.error(error);
                     });
-                    this.productModeService.getProductUtils().subscribe((response: any) => {
-                        storage.productUtil = response.detail;
-                        LocalStorageUtil.setStorage(storage);
 
-                    }, error => {
-                        console.error(error);
-                    });
                 },
                 error => {
                     this.spinner = false;

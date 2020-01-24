@@ -13,6 +13,7 @@ import {NotificationService} from '../notification/service/notification.service'
 import {ChangePasswordComponent} from '../change-password/change-password.component';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {PushNotificationsService} from '../../../@core/service/push-notification.service';
+import {ProductModeService} from '../../../feature/admin/service/product-mode.service';
 
 @Component({
     selector: 'app-header',
@@ -48,7 +49,8 @@ export class HeaderComponent implements OnInit {
                 private modalService: NgbModal,
                 private socketService: SocketService,
                 private notificationService: NotificationService,
-                private _pushNotificationService: PushNotificationsService) {
+                private _pushNotificationService: PushNotificationsService,
+                private productModeService: ProductModeService) {
 
         this.searchService.onSearchSubmit()
             .subscribe((searchData: any) => {
@@ -83,6 +85,7 @@ export class HeaderComponent implements OnInit {
 
         this.headerMenu();
         this.setupNotification();
+        this.getProductUtils();
     }
 
     toggleSidebar(): boolean {
@@ -127,6 +130,17 @@ export class HeaderComponent implements OnInit {
         this.socketService.initializeWebSocketConnection();
         this.notificationService.fetchNotifications();
         this.notificationService.notificationCount.subscribe((value => this.notificationCount = value));
+    }
+
+    getProductUtils() {
+        const storage = LocalStorageUtil.getStorage();
+        this.productModeService.getProductUtils().subscribe((response: any) => {
+            storage.productUtil = response.detail;
+            LocalStorageUtil.setStorage(storage);
+
+        }, error => {
+            console.error(error);
+        });
     }
 
 
