@@ -1,9 +1,9 @@
 <div class="container my-5">
-    <form>
+    <form [formGroup]="applicantFamilyInfo">
         <!-- <strong> -->
         <div class="row">
             <div class="col-md-4">
-                <img src="">
+                <img src="../../../../../../assets/img/logo.png">
             </div>
             <div class="col-md-8">
                 <u>आवेदक/धन जमानतकर्ताको पारिवारिक विवरण</u>
@@ -35,7 +35,9 @@
             </thead>
             <tbody>
             <tr>
+<!--                <div class="form-group">-->
                 <th scope="row">१</th>
+
                 <td><input class="form-control nepaliFont" type="text"
                            formControlName="name1"></td>
                 <td><input class="form-control nepaliFont" type="text"
@@ -48,6 +50,7 @@
                            formControlName="worksAt1"></td>
                 <td><input class="form-control nepaliFont" type="text"
                            formControlName="contact1"></td>
+<!--                </div>-->
             </tr>
             <tr>
                 <th scope="row">२</th>
@@ -66,7 +69,7 @@
             </tr>
             <tr>
                 <th scope="row">३</th>
-                <td><input class="form-contro nepaliFontl" type="text"
+                <td><input class="form-control nepaliFont" type="text"
                            formControlName="name3"></td>
                 <td><input class="form-control nepaliFont" type="text"
                            formControlName="address3"></td>
@@ -147,9 +150,9 @@
                            formControlName="address8"></td>
                 <td><input class="form-control nepaliFont" type="text"
                            formControlName="relation8"></td>
-                <td><input class=" nepaliFont" type="text"
+                <td><input class="form-control nepaliFont" type="text"
                            formControlName="occupation8"></td>
-                <td><input class=" nepaliFont" type="text"
+                <td><input class="form-control nepaliFont" type="text"
                            formControlName="worksAt8"></td>
                 <td><input class="form-control nepaliFont" type="text"
                            formControlName="contact8"></td>
@@ -180,23 +183,30 @@
                 <td><input class="form-control nepaliFont" type="text"
                            formControlName="worksAt10"></td>
                 <td><input class="form-control nepaliFont" type="text"
-                           formControlName="contact"></td>
+                           formControlName="contact10"></td>
             </tr>
             </tbody>
         </table>
 
+
         <!-- last section  -->
         <div class="float-right">
             <div class="form-group">
-                <input type="file" class="form-control-file" name="signature">
+                <input type="file" class="form-control-file" name="signature"
+                formControlName="signature">
                 हस्ताक्षर
             </div>
             <div class="form-group form-inline">
-                नाम:<input class="form-control form-control- ml-1 nepaliFont" type="text" formControlName="name">
+                नाम:<input class="form-control form-control- ml-1 nepaliFont"
+                           type="text" formControlName="name">
             </div>
             <div class="form-group form-inline">
-                मिति: <input class="form-control form-control-sm ml-1 nepaliFont" type="text" formControlName="date">
+                मिति: <input class="form-control form-control-sm ml-1 nepaliFont"
+                             type="text" formControlName="date">
             </div>
         </div>
     </form>
+    <br>
+    <br><br><br><br><br>
 </div>
+<pre>{{applicantFamilyInfo.value|json}}</pre>
