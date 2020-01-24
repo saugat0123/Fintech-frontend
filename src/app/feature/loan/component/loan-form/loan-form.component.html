@@ -40,10 +40,10 @@
                 </form>
             </div>
 
-            <div class="col-md-6">
+            <div *ngIf="productUtils.NEP_TEMPLATE" class="col-md-6">
                 <div class=" d-flex justify-content-end py-4">
                     <button (click)="nepaliFormTemplate()" class="btn btn-flat btn-outline-primary">
-                        नेपाली फाराम
+                        नेपाली फारम
                     </button>
                 </div>
             </div>

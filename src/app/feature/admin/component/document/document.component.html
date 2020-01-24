@@ -109,7 +109,8 @@
                         <div class="col-md-6 mb-4" *ngIf="loanCycle?.cycle !== 'Eligibility'">
                             <app-update-document [cycle]="loanCycle"></app-update-document>
                         </div>
-                        <div class="col-md-6 mb-4" *ngIf="loanCycle?.cycle === 'Eligibility' && showEligibility">
+                        <div *ngIf="loanCycle?.cycle === 'Eligibility' && productUtils.ELIGIBILITY"
+                             class="col-md-6 mb-4">
                             <app-update-document [cycle]="loanCycle"></app-update-document>
                         </div>
                     </ng-container>
