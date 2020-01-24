@@ -1,6 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {CustomerOfferLetter} from '../../../model/customer-offer-letter';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {DocStatus} from '../../../model/docStatus';
+import {OfferLetter} from '../../../../admin/modal/offerLetter';
+import {CustomerOfferLetterPath} from '../../../model/customer-offer-letter-path';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {CustomerOfferLetterService} from '../../../service/customer-offer-letter.service';
+import {ToastService} from '../../../../../@core/utils';
+import {Router} from '@angular/router';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-dhristi-bandhak',
@@ -9,16 +18,102 @@ import {CustomerOfferLetter} from '../../../model/customer-offer-letter';
 })
 export class DhristiBandhakComponent implements OnInit {
 
+    loanGroup: FormGroup;
+    spinner = false;
+    existingOfferLetter = false;
     @Input() loanDataHolder: LoanDataHolder;
     customerOfferLetter: CustomerOfferLetter;
     @Input() customerId: number;
     @Input() offerLetterTypeId: number;
-
-    constructor() {
-    }
+    // offerLetterTypeId = 2;  // 2 represents Success Offer Letter
+    // spinner = false;
+    // existingOfferLetter = false;
+    // initialInfoPrint;
+    constructor(
+        private loanBuilder: FormBuilder,
+        private customerOfferLetterService: CustomerOfferLetterService,
+        private toastService: ToastService,
+        private router: Router
+    ) {}
 
     ngOnInit() {
-
+        this.buildForm();
+        // this.fillForm();
+    }
+    buildForm() {
+        this.loanGroup = this.loanBuilder.group({
+            grandParent: [undefined],
+            parent: [undefined],
+            permanentDistrict: [undefined],
+            permanentMunicipalities: [undefined],
+            permanentWard: [undefined],
+            temporaryDistrict: [undefined],
+            temporaryMunicipalities: [undefined],
+            temporaryWard: [undefined],
+            age: [undefined],
+            guarantor: [undefined],
+            ministry: [undefined],
+            department: [undefined],
+            office: [undefined],
+            date: [undefined],
+            registrationNumber: [undefined],
+            companyDistrict: [undefined],
+            companyMunicipalities: [undefined],
+            number: [undefined],
+            company: [undefined],
+            guarantorGrandParent: [undefined],
+            guarantorParent: [undefined],
+            guarantorDistrict: [undefined],
+            guarantorMunicipalities: [undefined],
+            guarantorWard: [undefined],
+            guarantorAge: [undefined],
+            name: [undefined],
+            amountInNumber: [undefined],
+            amountInWord: [undefined],
+            a: [undefined],
+            b: [undefined],
+            c: [undefined],
+        });
     }
 
+    submit(): void {
+        this.spinner = true;
+        this.customerOfferLetter.docStatus = DocStatus.PENDING;
+        const customerLoan = new LoanDataHolder();
+        customerLoan.id = this.customerId;
+        this.customerOfferLetter.customerLoan = customerLoan;
+        if (this.existingOfferLetter) {
+            this.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
+                if (offerLetterPath.offerLetter.id === this.offerLetterTypeId) {
+                    offerLetterPath.initialInformation = JSON.stringify(this.loanGroup.value);
+                }
+            });
+        } else {
+            const offerLetter = new OfferLetter();
+            offerLetter.id = this.offerLetterTypeId;
+            const customerOfferLetterPathArray = this.customerOfferLetter.customerOfferLetterPath ?
+                this.customerOfferLetter.customerOfferLetterPath : [];
+            const customerOfferLetterPath = new CustomerOfferLetterPath();
+            customerOfferLetterPath.offerLetter = offerLetter;
+            customerOfferLetterPath.initialInformation = JSON.stringify(this.loanGroup.value);
+            customerOfferLetterPathArray.push(customerOfferLetterPath);
+            this.customerOfferLetter.customerOfferLetterPath = customerOfferLetterPathArray;
+        }
+
+        this.customerOfferLetterService.save(this.customerOfferLetter).subscribe(() => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Success Offer Letter'));
+            this.spinner = false;
+            this.router.navigateByUrl('/home/dashboard').then(value => {
+                if (value) {
+                    this.router.navigate(['/home/loan/offer-letter'], {
+                        queryParams: {customerId: this.customerId, }
+                    });
+                }
+            });
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Success Offer Letter'));
+            this.spinner = false;
+        });
+    }
 }
