@@ -63,7 +63,7 @@
                         <th>S.N</th>
                         <th>Loan Name</th>
                         <th>Templates</th>
-                        <th>Eligibility Status</th>
+                        <th *ngIf="productUtils.ELIGIBILITY">Eligibility Status</th>
                         <!--<th>Status</th>-->
                         <th>Action</th>
                     </tr>
@@ -91,7 +91,7 @@
                                 <option value="INACTIVE">INACTIVE</option>
                             </select>
                         </td>-->
-                        <td>
+                        <td *ngIf="productUtils.ELIGIBILITY">
                             <select [(ngModel)]="allList.enableEligibility"
                                     (change)="onChange(allList)">
                                 <option [value]=true>ENABLE</option>

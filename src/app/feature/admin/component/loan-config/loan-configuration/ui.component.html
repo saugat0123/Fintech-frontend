@@ -33,10 +33,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label><h4>Interest Rate</h4></label>
-                            <input type="number" class="form-control" name="interestRate" required placeholder="Interest rate"
+                            <input #interestRate="ngModel"
+                                   [ngClass]=" { 'is-invalid': loanConfigForm.submitted && interestRate.invalid }"
+                                   class="form-control" name="interestRate"
+                                   placeholder="Interest rate"
                                    [(ngModel)]="loanConfig.interestRate" app-positive-decimal-number
-                            #interestRate="ngModel"
-                            [ngClass]=" { 'is-invalid': loanConfigForm.submitted && interestRate.invalid }"/>
+                                   required
+                                   type="number"/>
                             <div *ngIf="loanConfigForm.submitted && interestRate.invalid" class="invalid-feedback">
                                 Invalid input
                             </div>
@@ -97,7 +100,7 @@
                             </nb-radio-group>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div *ngIf="productUtils.OFFER_LETTER" class="col-md-6">
                         <div class="form-group">
                             <label><strong>Offer Letter</strong></label>
                             <ng-select [items]="offerLetterList"
@@ -138,11 +141,13 @@
                                     <div class="row">
                                         <div class="col-md-4"
                                              *ngFor="let initialDocument of initialDocumentList; let documentIndex = index">
-                                                <nb-checkbox id="{{'initialDocument'+documentIndex}}" status="primary"
-                                                             (change)="updateDocument($event, initialDocument, this.finalInitialDocument)"
-                                                             [value]="initialDocument.checked">
-                                                    {{initialDocument.displayName}}
-                                                </nb-checkbox>
+                                            <nb-checkbox
+                                                    (change)="updateDocument($event, initialDocument, this.finalInitialDocument)"
+                                                    [value]="initialDocument.checked"
+                                                    id="{{'initialDocument'+documentIndex}}"
+                                                    status="primary">
+                                                {{initialDocument.displayName}}
+                                            </nb-checkbox>
                                         </div>
                                     </div>
                                 </nb-accordion-item-body>
@@ -196,13 +201,13 @@
                                 <nb-accordion-item-body>
                                     <div class="row">
                                         <div
-                                            *ngFor="let eligibilityDocument of eligibilityDocumentList; let documentIndex = index"
-                                            class="col-md-4">
+                                                *ngFor="let eligibilityDocument of eligibilityDocumentList; let documentIndex = index"
+                                                class="col-md-4">
                                             <nb-checkbox
-                                                (change)="updateDocument($event, eligibilityDocument, finalEligibilityDocument)"
-                                                [value]="eligibilityDocument.checked"
-                                                id="{{'eligibility'+documentIndex}}"
-                                                status="primary">
+                                                    (change)="updateDocument($event, eligibilityDocument, finalEligibilityDocument)"
+                                                    [value]="eligibilityDocument.checked"
+                                                    id="{{'eligibility'+documentIndex}}"
+                                                    status="primary">
                                                 <span>{{eligibilityDocument.displayName}}</span>
                                             </nb-checkbox>
                                         </div>
@@ -219,13 +224,13 @@
                                 <nb-accordion-item-body>
                                     <div class="row">
                                         <div
-                                            *ngFor="let enhanceDocument of enhanceDocumentList; let documentIndex = index"
-                                            class="col-md-4">
+                                                *ngFor="let enhanceDocument of enhanceDocumentList; let documentIndex = index"
+                                                class="col-md-4">
                                             <nb-checkbox
-                                                (change)="updateDocument($event, enhanceDocument, finalEnhanceDocument)"
-                                                [value]="enhanceDocument.checked"
-                                                id="{{'enhance'+documentIndex}}"
-                                                status="primary">
+                                                    (change)="updateDocument($event, enhanceDocument, finalEnhanceDocument)"
+                                                    [value]="enhanceDocument.checked"
+                                                    id="{{'enhance'+documentIndex}}"
+                                                    status="primary">
                                                 <span>{{enhanceDocument.displayName}}</span>
                                             </nb-checkbox>
                                         </div>
@@ -242,13 +247,13 @@
                                 <nb-accordion-item-body>
                                     <div class="row">
                                         <div
-                                            *ngFor="let partialDocument of partialSettlementDocumentList; let documentIndex = index"
-                                            class="col-md-4">
+                                                *ngFor="let partialDocument of partialSettlementDocumentList; let documentIndex = index"
+                                                class="col-md-4">
                                             <nb-checkbox
-                                                (change)="updateDocument($event, partialDocument, finalPartialSettlementDocument)"
-                                                [value]="partialDocument.checked"
-                                                id="{{'partial'+documentIndex}}"
-                                                status="primary">
+                                                    (change)="updateDocument($event, partialDocument, finalPartialSettlementDocument)"
+                                                    [value]="partialDocument.checked"
+                                                    id="{{'partial'+documentIndex}}"
+                                                    status="primary">
                                                 <span>{{partialDocument.displayName}}</span>
                                             </nb-checkbox>
                                         </div>
@@ -265,13 +270,13 @@
                                 <nb-accordion-item-body>
                                     <div class="row">
                                         <div
-                                            *ngFor="let fullDocument of fullSettlementDocumentList; let documentIndex = index"
-                                            class="col-md-4">
+                                                *ngFor="let fullDocument of fullSettlementDocumentList; let documentIndex = index"
+                                                class="col-md-4">
                                             <nb-checkbox
-                                                (change)="updateDocument($event, fullDocument, finalFullSettlementDocument)"
-                                                [value]="fullDocument.checked"
-                                                id="{{'full'+documentIndex}}"
-                                                status="primary">
+                                                    (change)="updateDocument($event, fullDocument, finalFullSettlementDocument)"
+                                                    [value]="fullDocument.checked"
+                                                    id="{{'full'+documentIndex}}"
+                                                    status="primary">
                                                 <span>{{fullDocument.displayName}}</span>
                                             </nb-checkbox>
                                         </div>
@@ -281,7 +286,7 @@
                         </nb-accordion>
                     </div>
                 </div>
-                </div>
+            </div>
             <div class="box-footer text-right">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
