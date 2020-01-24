@@ -63,10 +63,9 @@ import {KarjatamsukComponent} from './component/offer-letter/karjatamsuk/karjata
 import {ManjurinamaComponent} from './component/offer-letter/manjurinama/manjurinama.component';
 import {PratigyaPatraComponent} from './component/offer-letter/pratigya-patra/pratigya-patra.component';
 import {LoanMainNepaliTemplateComponent} from './component/loan-main-nepali-template/loan-main-nepali-template.component';
-import { FiscalYearModalComponent } from './component/loan-main-template/financial/fiscal-year-modal/fiscal-year-modal.component';
+import {FiscalYearModalComponent} from './component/loan-main-template/financial/fiscal-year-modal/fiscal-year-modal.component';
+import {CustomerInfoNepaliComponent} from './component/loan-main-nepali-template/customer-info-nepali/customer-info-nepali.component';
 import { BikeKarjaComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja.component';
-
-
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -117,14 +116,22 @@ const COMPONENTS = [
     KarjatamsukComponent,
     ManjurinamaComponent,
     PratigyaPatraComponent,
-    BikeKarjaComponent,
+    LoanMainNepaliTemplateComponent,
+    FiscalYearModalComponent,
+    CustomerInfoNepaliComponent,
+    BikeKarjaComponent
 ];
-const ENTRY_COMPONENTS = [ReadmoreModelComponent, FiscalYearModalComponent, LoanMainNepaliTemplateComponent];
+const ENTRY_COMPONENTS = [
+    ReadmoreModelComponent,
+    FiscalYearModalComponent,
+    LoanMainNepaliTemplateComponent,
+    CustomerInfoNepaliComponent
+];
 
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS, LoanMainNepaliTemplateComponent, FiscalYearModalComponent],
+    declarations: [...COMPONENTS],
     imports: [
         ThemeModule,
         CommonModule,
