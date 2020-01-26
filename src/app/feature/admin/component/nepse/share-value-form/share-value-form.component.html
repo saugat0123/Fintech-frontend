@@ -11,35 +11,31 @@
         <input class="form-control" disabled id="promoterShare" value="PromoterShare"></div>
       <div class="col-md-6">
         <label for="shareValue">Share Value(%)</label>
-        <input #promoter="ngModel" [ngClass]="{ 'is-invalid': shareValueForm.submitted && promoter.invalid }" [ngModel]="shareValuesModel.promoterValue"
+        <input #promoter="ngModel" [ngClass]="{ 'is-invalid': shareValueForm.submitted && promoter.invalid }" [(ngModel)]="nepseMaster.promoter"
                class="form-control"
                id="shareValue"
-               name="promoterValue" required type="number">
-        <span *ngIf="shareValueForm.submitted && promoter.invalid">
-        <p>promoter value required</p>
-      </span>
+               name="promoter" required type="number">
       </div>
     </div>
     <div class="row form-group">
       <div class="col-md-6">
-        <label for="promoterShare">Share Type</label>
+        <label for="ordinaryShare">Share Type</label>
         <input Value="OrdinaryShare" class="form-control" disabled id="ordinaryShare"></div>
       <div class="col-md-6">
         <label for="ordinaryValue">Share Value(%)</label>
-        <input #ordinary="ngModel" [ngClass]="{ 'is-invalid': shareValueForm.submitted && ordinary.invalid }" [ngModel]="shareValuesModel.ordinaryValue"
+        <input #ordinary="ngModel" [ngClass]="{ 'is-invalid': shareValueForm.submitted && ordinary.invalid }" [(ngModel)]="nepseMaster.ordinary"
                class="form-control"
                id="ordinaryValue"
-               name="ordinaryValue" required type="number">
-        <span *ngIf="shareValueForm.submitted && ordinary.invalid">
-        <p>ordinary value required</p>
-      </span>
+               name="ordinary" required type="number">
       </div>
     </div>
 
     <div class="modal-footer">
-      <button class="btn btn-primary" type="submit"><i
-          class="fa fa-save"></i>
+      <span *ngIf="!(ordinary.invalid)">
+         <button class="btn btn-primary" type="submit"><i
+             class="fa fa-save"></i>
       </button>
+      </span>
     </div>
   </form>
 </div>

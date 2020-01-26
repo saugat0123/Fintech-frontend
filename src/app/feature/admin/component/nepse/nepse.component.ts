@@ -109,7 +109,6 @@ export class NepseComponent implements OnInit {
     add() {
         const modalRef = this.modalService.open(NepseFormComponent);
         modalRef.componentInstance.model = new Nepse();
-
         ModalUtils.resolve(modalRef.result, NepseComponent.loadData, this);
     }
 }

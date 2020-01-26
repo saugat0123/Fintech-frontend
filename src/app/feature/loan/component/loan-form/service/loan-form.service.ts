@@ -4,6 +4,8 @@ import {BaseService} from '../../../../../@core/BaseService';
 import {LoanDataHolder} from '../../../model/loanData';
 import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
 import {Observable} from 'rxjs';
+import {CustomerRelative} from '../../../../admin/modal/customer-relative';
+import {Guarantors} from '../../../model/guarantors';
 
 
 @Injectable({
@@ -103,6 +105,23 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         const api = `${this.getApi()}/customer/${id}`;
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
+    }
+
+    public getLoanByCustomerKyc(customerRelative: CustomerRelative) {
+        const api = `${this.getApi()}/customer-kyc`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, customerRelative, {headers: req.header});
+    }
+
+    public getLoanOfCustomerAsGuarantor(guaranter: Guarantors): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/customer-guaranter`);
+        return this.http.post(req.url, guaranter, {headers: req.header});
+    }
+
+    public getCustomerFromCustomerLoan(searchObj: any, page: number = 1, size: number = 10) {
+        const api = `${this.getApi()}/customer-list?page=${page}&size=${size}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, searchObj, {headers: req.header});
     }
 
     protected getApi(): string {

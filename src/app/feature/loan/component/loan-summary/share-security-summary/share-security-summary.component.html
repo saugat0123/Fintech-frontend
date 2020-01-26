@@ -1,0 +1,38 @@
+<div class="row mt-4">
+    <div class="col-md-12">
+        <p><strong>Share Security Detail</strong>(Promoter Percent: {{loanSharePercent?.promoter}} , Ordinary Percent: {{loanSharePercent?.ordinary}})</p>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th> Sn</th>
+                <th> Name of Company</th>
+                <th> Share Type</th>
+                <th>Share Unit</th>
+                <th> Rate</th>
+                <th>Total Value</th>
+                <th>Considered Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let singleShareData of shareSecurityDatas; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{singleShareData?.companyName}}</td>
+                <td>{{singleShareData?.shareType}}</td>
+                <td>{{singleShareData?.totalShareUnit}}</td>
+                <td>{{singleShareData?.amountPerUnit |currencyFormatter}}</td>
+                <td>{{singleShareData?.total |currencyFormatter}}</td>
+                <td>{{singleShareData?.consideredValue |currencyFormatter}}</td>
+            </tr>
+            <tr>
+                <th class="text-right" colspan="5">Total</th>
+                <th>{{totalValue |currencyFormatter}}</th>
+                <th>{{totalConsideredValue |currencyFormatter}}</th>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <th colspan="6">{{securityDescription}}</th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

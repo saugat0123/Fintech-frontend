@@ -15,14 +15,4 @@ export namespace LoanType {
         );
     }
 
-    export function value(loanType: LoanType) {
-        if (loanType === LoanType.NEW_LOAN) {
-            return 'New Loan';
-        } else if (loanType === LoanType.RENEWED_LOAN) {
-            return 'Renewed Loan ';
-        } else if (loanType === LoanType.CLOSURE_LOAN) {
-            return 'Closure';
-        }
-    }
-
 }

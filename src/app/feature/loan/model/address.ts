@@ -5,4 +5,8 @@ export class Address {
     districtList: Array<District>;
     municipalityVdcList: Array<MunicipalityVdc>;
 
+    constructor(districtList = [] , municipalityVdcList = []) {
+        this.districtList = districtList;
+        this.municipalityVdcList = municipalityVdcList;
+    }
 }

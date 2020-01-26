@@ -7,8 +7,8 @@
       <th >Particulars</th>
       <th *ngFor="let year of fiscalYear; let j = index" >
         {{year}}
-        <div class="float-right">
-          <a (click)="removingFiscalYear(j)" data-toggle="tooltip"
+        <div *ngIf="j === (fiscalYear.length - 1)" class="float-right">
+          <a (click)="removingFiscalYear(year, j)" data-toggle="tooltip"
              data-placement="top">
             <em class="fa fa-ban" style="color:darkred;padding-left: 5px"></em>
           </a>

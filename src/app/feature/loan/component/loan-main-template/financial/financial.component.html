@@ -1,6 +1,6 @@
 <nb-card>
     <nb-card-body>
-        <form [formGroup]="financialForm" class="form-horizontal">
+        <form [formGroup]="financialForm" class="form-horizontal mb-2">
             <nb-card>
                 <nb-card-header>
                     <h3><strong>Income of Borrower</strong></h3>
@@ -14,37 +14,42 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="title"><strong>Income Source</strong></label><strong class="text-danger">*</strong>
+                                        <label class="title"><strong>Income Source</strong></label><strong
+                                            class="text-danger">*</strong>
                                         <input [ngClass]="{
                                'is-invalid': incomeOfBorrower.get('incomeSource').invalid && (incomeOfBorrower.get('incomeSource').dirty || incomeOfBorrower.get('incomeSource').touched),
                                 'is-valid': !incomeOfBorrower.get('incomeSource').invalid && (incomeOfBorrower.get('incomeSource').dirty || incomeOfBorrower.get('incomeSource').touched)
                                 }"
                                                class="form-control" formControlName="incomeSource"
                                                placeholder="Income source" type="text">
-                                        <span *ngIf="incomeOfBorrower.get('incomeSource').invalid" class="invalid-feedback">Income source required</span>
+                                        <span *ngIf="incomeOfBorrower.get('incomeSource').invalid"
+                                              class="invalid-feedback">Income source required</span>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="title"><strong>Organization</strong></label><strong class="text-danger">*</strong>
-                                        <input class="form-control" [ngClass]="{
+                                        <label class="title"><strong>Organization</strong></label><strong
+                                            class="text-danger">*</strong>
+                                        <input [ngClass]="{
                                'is-invalid': incomeOfBorrower.get('organization').invalid && (incomeOfBorrower.get('organization').dirty || incomeOfBorrower.get('organization').touched),
                                 'is-valid': !incomeOfBorrower.get('organization').invalid && (incomeOfBorrower.get('organization').dirty || incomeOfBorrower.get('organization').touched)
-                                }"
+                                }" class="form-control"
                                                formControlName="organization" placeholder="Organization"
                                                type="text">
-                                        <span *ngIf="incomeOfBorrower.get('organization').invalid" class="invalid-feedback">Organization required</span>
+                                        <span *ngIf="incomeOfBorrower.get('organization').invalid"
+                                              class="invalid-feedback">Organization required</span>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="title"><strong>Amount</strong></label><strong class="text-danger">*</strong>
-                                        <input (input)="totalAdditionInitialForm('incomeOfBorrower', 'totalIncome')" class="form-control" [ngClass]="{
+                                        <input (input)="totalAdditionInitialForm('incomeOfBorrower', 'totalIncome')"
+                                               [ngClass]="{
                                'is-invalid': incomeOfBorrower.get('amount').invalid && (incomeOfBorrower.get('amount').dirty || incomeOfBorrower.get('amount').touched),
                                 'is-valid': !incomeOfBorrower.get('amount').invalid && (incomeOfBorrower.get('amount').dirty || incomeOfBorrower.get('amount').touched)
-                                }"
+                                }" class="form-control"
                                                formControlName="amount" placeholder="Amount"
                                                type="text">
                                         <span *ngIf="incomeOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
@@ -53,11 +58,12 @@
 
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label class="title"><strong>Remarks</strong></label><strong class="text-danger">*</strong>
-                                        <input class="form-control" [ngClass]="{
+                                        <label class="title"><strong>Remarks</strong></label><strong
+                                            class="text-danger">*</strong>
+                                        <input [ngClass]="{
                                'is-invalid': incomeOfBorrower.get('remarks').invalid && (incomeOfBorrower.get('remarks').dirty || incomeOfBorrower.get('remarks').touched),
                                 'is-valid': !incomeOfBorrower.get('remarks').invalid && (incomeOfBorrower.get('remarks').dirty || incomeOfBorrower.get('remarks').touched)
-                                }"
+                                }" class="form-control"
                                                formControlName="remarks" placeholder="Remarks"
                                                type="text">
                                         <span *ngIf="incomeOfBorrower.get('remarks').invalid" class="invalid-feedback">Remarks required</span>
@@ -76,7 +82,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 pl-5">
-                            <label class="title"><strong>Total Income : Rs.{{financialForm.get('totalIncome').value | currencyFormatter}}</strong></label>
+                            <label class="title"><strong>Total Income :
+                                Rs.{{financialForm.get('totalIncome').value | currencyFormatter}}</strong></label>
                         </div>
                         <div class="col-md-6 text-right">
                             <input (click)="addIncomeOfBorrower()" class="btn btn-sm btn-flat btn-primary"
@@ -85,7 +92,6 @@
                     </div>
                 </nb-card-body>
             </nb-card>
-
 
             <nb-card>
                 <nb-card-header>
@@ -101,24 +107,28 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title"><strong>Particulars</strong><strong class="text-danger">*</strong></label>
-                                        <input class="form-control" [ngClass]="{
+                                        <label class="title"><strong>Particulars</strong><strong
+                                                class="text-danger">*</strong></label>
+                                        <input [ngClass]="{
                                'is-invalid': expensesOfBorrower.get('particulars').invalid && (expensesOfBorrower.get('particulars').dirty || expensesOfBorrower.get('particulars').touched),
                                 'is-valid': !expensesOfBorrower.get('particulars').invalid && (expensesOfBorrower.get('particulars').dirty || expensesOfBorrower.get('particulars').touched)
-                                }"
+                                }" class="form-control"
                                                formControlName="particulars" placeholder="Particulars"
                                                type="text">
-                                        <span *ngIf="expensesOfBorrower.get('particulars').invalid" class="invalid-feedback">Particulars required</span>
+                                        <span *ngIf="expensesOfBorrower.get('particulars').invalid"
+                                              class="invalid-feedback">Particulars required</span>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title"><strong>Amount</strong><strong class="text-danger">*</strong></label>
-                                        <input (input)="totalAdditionInitialForm('expensesOfBorrower', 'totalExpense')" class="form-control" [ngClass]="{
+                                        <label class="title"><strong>Amount</strong><strong
+                                                class="text-danger">*</strong></label>
+                                        <input (input)="totalAdditionInitialForm('expensesOfBorrower', 'totalExpense')"
+                                               [ngClass]="{
                                'is-invalid': expensesOfBorrower.get('amount').invalid && (expensesOfBorrower.get('amount').dirty || expensesOfBorrower.get('amount').touched),
                                 'is-valid': !expensesOfBorrower.get('amount').invalid && (expensesOfBorrower.get('amount').dirty || expensesOfBorrower.get('amount').touched)
-                                }"
+                                }" class="form-control"
                                                formControlName="amount" placeholder="Amount"
                                                type="text">
                                         <span *ngIf="expensesOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
@@ -127,14 +137,16 @@
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label class="title"><strong>Remarks</strong><strong class="text-danger">*</strong></label>
-                                        <input class="form-control" [ngClass]="{
+                                        <label class="title"><strong>Remarks</strong><strong
+                                                class="text-danger">*</strong></label>
+                                        <input [ngClass]="{
                                'is-invalid': expensesOfBorrower.get('remarks').invalid && (expensesOfBorrower.get('remarks').dirty || expensesOfBorrower.get('remarks').touched),
                                 'is-valid': !expensesOfBorrower.get('remarks').invalid && (expensesOfBorrower.get('remarks').dirty || expensesOfBorrower.get('remarks').touched)
-                                }"
+                                }" class="form-control"
                                                formControlName="remarks" placeholder="Remarks"
                                                type="text">
-                                        <span *ngIf="expensesOfBorrower.get('remarks').invalid" class="invalid-feedback">Remarks required</span>
+                                        <span *ngIf="expensesOfBorrower.get('remarks').invalid"
+                                              class="invalid-feedback">Remarks required</span>
                                     </div>
                                 </div>
 
@@ -150,7 +162,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 pl-5">
-                            <label class="title"><strong>Total Expense : Rs.{{financialForm.get('totalExpense').value | currencyFormatter}}</strong></label>
+                            <label class="title"><strong>Total Expense :
+                                Rs.{{financialForm.get('totalExpense').value | currencyFormatter}}</strong></label>
                         </div>
                         <div class="col-md-6 text-right">
                             <input (click)="addExpensesOfBorrower()" class="btn btn-sm btn-flat btn-primary"
@@ -160,63 +173,93 @@
 
                 </nb-card-body>
             </nb-card>
-
         </form>
-        <nb-card>
-            <nb-card-header>
-                <div class="row float-right mr-3">
-                    <div class="input-group">
-                        <input #yearValue class="form-control" nbInput placeholder="Year" type="text" required>
-                        <div class="input-group-append">
-                            <button (click)="addFiscalYear(yearValue.value)" class="mb-2" nbButton size="small">Add
-                            </button>
-                        </div>
-                    </div>
-                    <div *ngIf="yearValue.value === '' && addYear" class="small text-danger">Please enter a year!</div>
-                </div>
-            </nb-card-header>
-            <nb-card-body>
 
-                <nb-tabset class="mb-3" #currentTabSet fullWidth (changeTab)="changeActiveTab(currentTabSet['tabs'])">
+        <hr>
 
-                    <nb-tab tabTitle="Income Statement">
-                        <app-income-statement *ngIf="activeTab === 'Income Statement'"
-                                              (removeFiscalYear)="removeFiscalYear($event)"
-                                              [fiscalYear]="fiscalYear" [formData]="currentFormData"
-                                              #incomeStatement>
-                        </app-income-statement>
-                    </nb-tab>
+        <div class="row my-2">
+            <div class="col-md-12 text-right">
+                <button (click)="openFiscalYearModal()" class="mb-2" nbButton>Add Fiscal year</button>
+            </div>
+        </div>
 
-                    <nb-tab tabTitle="Balance Sheet">
-                        <app-balance-sheet *ngIf="activeTab === 'Balance Sheet'"
-                                           (removeFiscalYear)="removeFiscalYear($event)"
-                                           [fiscalYear]="fiscalYear"
-                                           [formData]="currentFormData" #balanceSheet>
-                        </app-balance-sheet>
-                    </nb-tab>
+        <hr>
 
-                    <nb-tab tabTitle="Cash Flow Statement">
-                        <app-cash-flow-statement *ngIf="activeTab === 'Cash Flow Statement'"
-                                                 (removeFiscalYear)="removeFiscalYear($event)"
-                                                 [fiscalYear]="fiscalYear"
-                                                 [formData]="currentFormData" #cashFlowStatement>
-                        </app-cash-flow-statement>
-                    </nb-tab>
+        <div *ngIf="auditorList.length > 0" class="row mb-4">
+            <div class="col-md-12">
+                <nb-card class="mark">
+                    <nb-card-body>
+                        <h3 class="mb-2">Financial Auditor Detail Information</h3>
+                        <table aria-describedby="auditor list table" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">S.N</th>
+                                <th scope="col">Audited</th>
+                                <th scope="col">Audit Firm</th>
+                                <th scope="col">Propriete/Partner</th>
+                                <th scope="col">Membership No.</th>
+                                <th scope="col">Certificate of Practice</th>
+                                <th scope="col">Class</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let auditor of auditorList; let i = index">
+                                <td><strong>{{i + 1}}</strong></td>
+                                <td>{{auditor['audited']}}</td>
+                                <td>{{auditor['auditFirm']}}</td>
+                                <td>{{auditor['proprietePartner']}}</td>
+                                <td>{{auditor['membershipNo']}}</td>
+                                <td>{{auditor['certificateOfPractice']}}</td>
+                                <td>{{auditor['class']}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </nb-card-body>
+                </nb-card>
+            </div>
+        </div>
 
-                    <nb-tab tabTitle="Key Indicators">
-                        <app-key-indicators *ngIf="activeTab === 'Key Indicators'"
-                                            (removeFiscalYear)="removeFiscalYear($event)"
-                                            [fiscalYear]="fiscalYear"
-                                            [formData]="currentFormData" #keyIndicators>
-                        </app-key-indicators>
-                    </nb-tab>
+        <nb-tabset #currentTabSet (changeTab)="changeActiveTab(currentTabSet['tabs'])" class="mb-4" fullWidth>
 
-                </nb-tabset>
+            <nb-tab class="px-0" tabTitle="Income Statement">
+                <app-income-statement #incomeStatement
+                                      (removeFiscalYear)="removeFiscalYear($event)"
+                                      *ngIf="activeTab === 'Income Statement'" [fiscalYear]="fiscalYear"
+                                      [formData]="currentFormData">
+                </app-income-statement>
+            </nb-tab>
 
-            </nb-card-body>
-        </nb-card>
-        <nb-card class="p-3">
-            <app-borrower-risk-rating [formDataForBrrEdit]="currentFormData['brr']" #brr></app-borrower-risk-rating>
-        </nb-card>
+            <nb-tab class="px-0" tabTitle="Balance Sheet">
+                <app-balance-sheet #balanceSheet
+                                   (removeFiscalYear)="removeFiscalYear($event)"
+                                   *ngIf="activeTab === 'Balance Sheet'"
+                                   [fiscalYear]="fiscalYear" [formData]="currentFormData">
+                </app-balance-sheet>
+            </nb-tab>
+
+            <nb-tab class="px-0" tabTitle="Cash Flow Statement">
+                <app-cash-flow-statement #cashFlowStatement
+                                         (removeFiscalYear)="removeFiscalYear($event)"
+                                         *ngIf="activeTab === 'Cash Flow Statement'"
+                                         [fiscalYear]="fiscalYear" [formData]="currentFormData">
+                </app-cash-flow-statement>
+            </nb-tab>
+
+            <nb-tab class="px-0" tabTitle="Key Indicators">
+                <app-key-indicators #keyIndicators
+                                    (removeFiscalYear)="removeFiscalYear($event)"
+                                    *ngIf="activeTab === 'Key Indicators'"
+                                    [fiscalYear]="fiscalYear" [formData]="currentFormData">
+                </app-key-indicators>
+            </nb-tab>
+        </nb-tabset>
+
+        <hr>
+
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <app-borrower-risk-rating #brr [formDataForBrrEdit]="currentFormData['brr']"></app-borrower-risk-rating>
+            </div>
+        </div>
     </nb-card-body>
 </nb-card>

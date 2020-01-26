@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
@@ -32,6 +32,13 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerDocumentComponent} from '../loan-main-template/customer-document/customer-document.component';
 import {DocStatus} from '../../model/docStatus';
 import {CustomerService} from '../../../customer/service/customer.service';
+import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
+import {VehicleSecurityComponent} from '../loan-main-template/vehicle-security/vehicle-security.component';
+import {ShareSecurityComponent} from '../loan-main-template/share-security/share-security.component';
+import {GroupComponent} from '../loan-main-template/group/group.component';
+import {LoanMainNepaliTemplateComponent} from '../loan-main-nepali-template/loan-main-nepali-template.component';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {ProductUtils} from '../../../admin/service/product-mode.service';
 
 @Component({
     selector: 'app-loan-form',
@@ -100,9 +107,14 @@ export class LoanFormComponent implements OnInit {
     submitDisable = false;
     loanDocument: LoanDataHolder;
 
+    productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+
     docStatusMakerList = [];
 
     showDocStatusDropDown = true;
+
+    @ViewChild('priorityFormNav', {static: false})
+    priorityFormNav: ElementRef;
 
     @ViewChild('basicInfo', {static: false})
     basicInfo: BasicInfoComponent;
@@ -136,6 +148,14 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('customerDocument', {static: false})
     customerDocument: CustomerDocumentComponent;
+    @ViewChild('group', {static: false})
+    group: GroupComponent;
+
+    @ViewChild('vehicleSecurity', {static: false})
+    vehicleSecurity: VehicleSecurityComponent;
+
+    @ViewChild('shareSecurity', {static: false})
+    shareSecurity: ShareSecurityComponent;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -152,11 +172,13 @@ export class LoanFormComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private formBuilder: FormBuilder,
         private customerService: CustomerService,
+        private scrollNavService: ScrollNavigationService
     ) {
 
     }
 
     ngOnInit() {
+        console.log('productUtils', this.productUtils);
         this.docStatusForMaker();
         this.buildPriorityForm();
         this.buildDocStatusForm();
@@ -281,7 +303,6 @@ export class LoanFormComponent implements OnInit {
                 this.selectedTab = templateListMember.title;
             }
         });
-        console.log(this.nextTabId.toString());
         this.nextButtonAction = false;
     }
 
@@ -327,6 +348,7 @@ export class LoanFormComponent implements OnInit {
 
     save() {
         if (this.priorityForm.invalid) {
+            this.scrollNavService.scrollNavigateTo(this.priorityFormNav);
             return;
         }
         this.nextButtonAction = true;
@@ -441,8 +463,7 @@ export class LoanFormComponent implements OnInit {
 
         if (name === 'Site Visit' && action) {
             this.siteVisit.onSubmit();
-            const siteVisitData = this.siteVisit.siteVisitData;
-            this.loanDocument.siteVisit = siteVisitData;
+            this.loanDocument.siteVisit = this.siteVisit.siteVisitData;
         }
         if (name === 'Security' && action) {
             this.security.onSubmit();
@@ -451,6 +472,19 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Credit Risk Grading' && action) {
             this.creditGrading.onSubmit();
             this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
+        }
+        if (name === 'Group' && action) {
+            this.group.onSubmit();
+            this.loanDocument.group = this.group.modelData;
+        }
+
+        if (name === 'Vehicle Security' && action) {
+            this.vehicleSecurity.onSubmit();
+            this.loanDocument.vehicleSecurity = this.vehicleSecurity.vehicleSecurity;
+        }
+        if (name === 'Share Security' && action) {
+            this.shareSecurity.onSubmit();
+            this.loanDocument.shareSecurity = this.shareSecurity.shareSecurityData;
         }
         return false;
 
@@ -473,5 +507,25 @@ export class LoanFormComponent implements OnInit {
         this.customerService.detail(this.id).subscribe((res: any) => {
             this.loanDocument.customerInfo = res.detail;
         });
+    }
+
+    nepaliFormTemplate() {
+        const modalRef = this.modalService.open(LoanMainNepaliTemplateComponent,
+            {
+                size: 'xl',
+                backdrop: 'static'
+            });
+        modalRef.componentInstance.customerLoan = this.loanDocument;
+        modalRef.result
+            .then(
+                close => {
+                    if (close instanceof Map) {
+                        this.loanDocument = (close as Map<string, any>).get('CustomerLoan');
+                    }
+                },
+                dismiss => {
+                    console.log(dismiss);
+                }
+            );
     }
 }

@@ -3,7 +3,7 @@ import {BaseService} from '../../../../@core/BaseService';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ApiUtils} from '../../../../@core/utils/api/ApiUtils';
-import {ShareForm} from '../../modal/shareForm';
+import {NepseMaster} from '../../modal/NepseMaster';
 import {Observable} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
@@ -24,15 +24,18 @@ export class NepseService extends BaseService<Nepse> {
         return this.http.post(req.url, excelData, {headers: req.header});
     }
 
-    public addShare(shareValue: ShareForm): Observable<any> {
+    public addShare(nepseMaster: NepseMaster): Observable<any> {
         const req = ApiUtils.getRequest(`${this.getApi()}/share`);
-        console.log(shareValue);
-        return this.http.post(req.url, shareValue, {headers: req.header});
+        return this.http.post(req.url, nepseMaster, {headers: req.header});
     }
 
-    public findAllShare(): Observable<any> {
+    public getActiveShare(): Observable<any> {
         const req = ApiUtils.getRequest(`${this.getApi()}/share`);
         return this.http.get(req.url, {headers: req.header});
+    }
+    public findAllNepseCompanyData(searchDto): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/nepse-list`);
+        return this.http.post(req.url, searchDto , {headers: req.header});
     }
 
 

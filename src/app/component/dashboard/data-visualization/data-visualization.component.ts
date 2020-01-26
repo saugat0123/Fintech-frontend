@@ -27,7 +27,7 @@ export class DataVisualizationComponent implements OnInit {
     selectedBranch = 'All Branches';
     view: any[];
     colorScheme = {
-        domain: ['#F45123', '#B523F4', '#10E9AE', '#2D23F4']
+        domain: ['#F45123', '#B523F4', '#10E9AE', '#2D23F4', '#ADD8E6', '#808000']
     };
     user: User = new User();
     roleAccess: string;
@@ -35,10 +35,23 @@ export class DataVisualizationComponent implements OnInit {
     accessAll: boolean;
     filterForm: FormGroup;
     workingWidth: number;
+    discussionProposedAmount = 0;
+    documentationProposedAmount = 0;
+    valuationProposedAmount = 0;
+    reviewProposedAmount = 0;
     pendingProposedAmount = 0;
     approvedProposedAmount = 0;
     rejectedProposedAmount = 0;
     closureProposedAmount = 0;
+
+    discussionFileCount = 0;
+    documentationFileCount = 0;
+    valuationFileCount = 0;
+    reviewFileCount = 0;
+    pendingFileCount = 0;
+    approvedFileCount = 0;
+    rejectedFileCount = 0;
+    closureFileCount = 0;
 
     constructor(
         private fb: FormBuilder,
@@ -109,6 +122,10 @@ export class DataVisualizationComponent implements OnInit {
     }
 
     private getSeperateProposedAmount() {
+        this.discussionProposedAmount = 0;
+        this.documentationProposedAmount = 0;
+        this.valuationProposedAmount = 0;
+        this.reviewProposedAmount = 0;
         this.pendingProposedAmount = 0;
         this.approvedProposedAmount = 0;
         this.rejectedProposedAmount = 0;
@@ -146,14 +163,31 @@ export class DataVisualizationComponent implements OnInit {
             );
     }
     private getSpecificProposedAmount (value) {
-        if (value.name === 'Pending') {
+
+        if (value.name === 'Discussion') {
+            this.discussionProposedAmount = this.pendingProposedAmount + value.value;
+            this.discussionFileCount = value.fileCount;
+        } else  if (value.name === 'Documentation') {
+            this.documentationProposedAmount = this.pendingProposedAmount + value.value;
+            this.documentationFileCount = value.fileCount;
+        } else if (value.name === 'Valuation') {
+            this.valuationProposedAmount = this.pendingProposedAmount + value.value;
+            this.valuationFileCount = value.fileCount;
+        } else if (value.name === 'Under Review') {
+            this.reviewProposedAmount = this.pendingProposedAmount + value.value;
+            this.reviewFileCount = value.fileCount;
+        } else if (value.name === 'Pending') {
             this.pendingProposedAmount = this.pendingProposedAmount + value.value;
+            this.pendingFileCount = value.fileCount;
         } else if (value.name === 'Approved') {
             this.approvedProposedAmount = this.approvedProposedAmount + value.value;
+            this.approvedFileCount = value.fileCount;
         } else if (value.name === 'Rejected') {
             this.rejectedProposedAmount = this.rejectedProposedAmount + value.value;
+            this.rejectedFileCount = value.fileCount;
         } else {
             this.closureProposedAmount = this.closureProposedAmount + value.value;
+            this.closureFileCount = value.fileCount;
         }
     }
 
