@@ -158,7 +158,7 @@ export class BranchFormComponent implements OnInit {
         this.getAddress(this.latitude, this.longitude);
     }
 
-    getAddress(latitude: number, longitude: number) {
+    getAddress(latitude: number, longitude: number ) {
         if (navigator.geolocation) {
             const geocoder = new google.maps.Geocoder();
             const latlng = new google.maps.LatLng(latitude, longitude);
