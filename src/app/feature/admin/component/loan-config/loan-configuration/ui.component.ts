@@ -13,7 +13,8 @@ import {OfferLetter} from '../../../modal/offerLetter';
 import {OfferLetterService} from '../offer-letter.service';
 import {Status} from '../../../../../@core/Status';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {ProductModeService} from '../../../service/product-mode.service';
+import {ProductModeService, ProductUtils} from '../../../service/product-mode.service';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 
 
 @Component({
@@ -50,6 +51,8 @@ export class UIComponent implements OnInit {
     selectedOfferLetterIdList: Array<number>;
     selectedOfferLetterList: Array<OfferLetter> = new Array<OfferLetter>();
     showEligibility = false;
+
+    productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
     constructor(
         private loanTemplateService: LoanTemplateService,
