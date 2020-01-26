@@ -33,6 +33,7 @@ export class BranchFormComponent implements OnInit {
     task: string;
     latitude = 27.732454;
     longitude = 85.291543;
+    name : string;
     markerLatitude = null;
     markerLongitude = null;
     infoWindowOpen = new FormControl(false);
