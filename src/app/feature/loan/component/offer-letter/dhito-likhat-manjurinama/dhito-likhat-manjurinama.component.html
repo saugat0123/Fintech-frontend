@@ -10,71 +10,88 @@
       मोरङ्ग जिल्ला विराटनगर उ.म.न.पा. वडा नं २१ स्थित रजिष्टर्ड कार्यालय रहि का.म.न.पा वडा नं ११
       त्रिपुरेश्वरमा शाखा कार्यालय रहेको एम.ए.डब्लु. इन्भेष्टमेन्ट प्रा.लि. (नेपाल राष्ट्र बैंकबाट
       हायर पर्चेज कर्जा कारोबार गर्न इजाजतपत्र प्राप्त) आगे लिखत गरी धितो सुरक्षण लेखि दिनेको नाम
-      <ng-container *ngFor="let customerDetail of  dhitoForm.get('customerDetail')['controls']; let index = index">
-        <li [formGroupName]="index" ]>
+      <ng-container *ngFor="let customerDetail of  dhitoForm.get('customerDetail')['controls']; let index = index" formArrayName="customerDetail">
+        <br>
+        <li [formGroupName]="index">
+          <div class="col-md-1 d-contents mr-3">
+            <span class="nepaliFont">{{index+1 | nepaliWord:'pretti' }}</span>)
+          </div>
       <input class="form-field form-control-sm nepaliFont"
-      formControlName="grandFathername"
-      name="grandFathername"
-      placeholder="grandFather/father-in-law"
+      formControlName="grandFatherName"
+      name="grandFatherName"
+      placeholder="हजुरबुवा÷ससुराको नाम "
       type="text"/> को.नाती/नातिनी/बुहारी
       <input class="form-field form-control-sm nepaliFont"
              formControlName="fatherName"
              name="fatherName"
-             placeholder="father/husband Name"
+             placeholder="पती÷बुवाो नाम"
              type="text"/>को
   छोरा/छोरी/पत्नी <input class="form-field form-control-sm nepaliFont"
                          formControlName="district"
                          name="district"
-                         placeholder="district"
+                         placeholder="जिल्ला"
                          type="text"/> जिल्ला <input class="form-field form-control-sm nepaliFont"
                                                      formControlName="municipality"
                                                      name="municipality"
-                                                     placeholder="municipality"
+                                                     placeholder="गा|वि|स|÷न|पा| ÷उ|म|न|पा| ÷म|न|पा|"
                                                      type="text"/>
   गा.वि.स./न.पा./उ.म.न.पा./म.न.पा. वडा.नं. <input class="form-field form-control-sm nepaliFont"
                                                   formControlName="wardNo"
                                                   name="wardNo"
-                                                  placeholder="wardNo"
+                                                  placeholder="वडा|नं"
                                                   type="text"/>घर भई
   हाल <input class="form-field form-control-sm nepaliFont"
              formControlName="currentDistrict"
              name="currentDistrict"
-             placeholder="currentDistrict"
+             placeholder="जिल्ला"
              type="text"/> जिल्ला <input class="form-field form-control-sm nepaliFont"
                                          formControlName="currentMunicipality"
                                          name="currentMunicipality"
-                                         placeholder="currentMunicipality"
+                                         placeholder="गा.|.वि|.स|.न|.पा|÷.उ|.म|.न|.पा|/.म|.न|.पा|"
                                          type="text"/>
       गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा.नं<input class="form-field form-control-sm nepaliFont"
                                                  formControlName="currentWardNo"
                                                  name="currentWardNo"
-                                                 placeholder="currentWardNo"
+                                                 placeholder="वडा.नं"
                                                  type="text"/>बस्नेवर्ष<input class="form-field form-control-sm nepaliFont"
                                                                               formControlName="customerAge"
                                                                               name="customerAge"
-                                                                              placeholder="customerAge"
+                                                                              placeholder="वर्ष"
                                                                               type="text"/>
       को/की श्री/श्रीमती/सुश्री<input class="form-field form-control-sm nepaliFont"
                                       formControlName="customerName"
                                       name="customerName"
-                                      placeholder="customerName"
+                                      placeholder="नाम"
                                       type="text"/>
       (ना.प्र.नं. <input class="form-field form-control-sm nepaliFont"
                          formControlName="citizenshipNo"
                          name="citizenshipNo"
-                         placeholder="citizenshipNo"
+                         placeholder="ना.प्र.नं."
                          type="text"/> जारी मिति <input class="form-field form-control-sm nepaliFont"
                                                         formControlName="citizenIssuedDate"
                                                         name="citizenIssuedDate"
-                                                        placeholder="citizenIssuedDate"
+                                                        placeholder="जारी मिति"
                                                         type="text"/>
           जि.प्र.का <input class="form-field form-control-sm nepaliFont"
                       formControlName="citizenIssuedDistrict"
                       name="citizenIssuedDistrict"
-                      placeholder="citizenIssuedDistrict"
+                      placeholder=" जि.प्र.का "
                       type="text"/>)
+          <div class="col-md-12 text-right">
+            <button
+                (click)="removeCustomerDetail(index)"
+                *ngIf="index > 0"
+                nbButton size="small"
+                status="primary">हटाउनुहोस्..
+            </button>
+          </div>
         </li>
       </ng-container>
+      <div class="row mr-1 mb-3">
+        <div class="col-md-12 text-right">
+          <button nbButton size="small" status="info" (click)="addCustomerDetail()">थप्नुहोस्..</button>
+        </div>
+      </div>
       ले माग गरेको बखत वा पटक पटक वा एकै पटक गरी र नवीकरण गर्नु परेमा सो समेत गर्न सक्ने गरी
       <input class="form-field form-control-sm nepaliFont"
              formControlName="loanName"
@@ -117,6 +134,15 @@
       त्रिपुरेश्वर, टेकु रोड, काठमाडौंमा बसी यो धितो लिखत लेखि लेखाई सही छाप गरी तपाई धनी प्रा. लि. लाई दिए“/दियौं ।
 
     </div>
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button nbButton status="success" type="submit" (click)="onSubmit()">Save</button>
+        </div>
+      </div>
     </form>
   </div>
 </div>
+<button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4" *ngIf="initialInfoPrint"
+        ngxPrint printSectionId="dhito-likha-print">Print
+</button>
+<app-dhito-likhat-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-dhito-likhat-print>
