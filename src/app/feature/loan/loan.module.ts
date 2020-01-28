@@ -65,6 +65,13 @@ import {PratigyaPatraComponent} from './component/offer-letter/pratigya-patra/pr
 import {LoanMainNepaliTemplateComponent} from './component/loan-main-nepali-template/loan-main-nepali-template.component';
 import {FiscalYearModalComponent} from './component/loan-main-template/financial/fiscal-year-modal/fiscal-year-modal.component';
 import {CustomerInfoNepaliComponent} from './component/loan-main-nepali-template/customer-info-nepali/customer-info-nepali.component';
+import { AllTemplateDetailsComponent } from './component/loan-summary/all-template-details/all-template-details.component';
+import { CompanyInfoDetailsComponent } from './component/loan-summary/all-template-details/company-info-details/company-info-details.component';
+import { CustomerDetailsInformationComponent } from './component/loan-summary/all-template-details/customer-details-information/customer-details-information.component';
+import { FinancialDetailsComponent } from './component/loan-summary/all-template-details/financial-details/financial-details.component';
+import { ProposalDetailsComponent } from './component/loan-summary/all-template-details/proposal-details/proposal-details.component';
+import { SiteVisitDetailsComponent } from './component/loan-summary/all-template-details/site-visit-details/site-visit-details.component';
+import { SecurityDetailsComponent } from './component/loan-summary/all-template-details/security-details/security-details.component';
 
 
 const COMPONENTS = [
@@ -118,7 +125,14 @@ const COMPONENTS = [
     PratigyaPatraComponent,
     LoanMainNepaliTemplateComponent,
     FiscalYearModalComponent,
-    CustomerInfoNepaliComponent
+    CustomerInfoNepaliComponent,
+    AllTemplateDetailsComponent,
+    CompanyInfoDetailsComponent,
+    CustomerDetailsInformationComponent,
+    FinancialDetailsComponent,
+    ProposalDetailsComponent,
+    SiteVisitDetailsComponent,
+    SecurityDetailsComponent
 ];
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,

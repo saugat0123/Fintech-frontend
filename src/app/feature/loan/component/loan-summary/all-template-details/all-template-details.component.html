@@ -1,0 +1,9 @@
+<nb-card>
+    <nb-card-body>
+        <app-customer-details-information [customerInfoData]="customerLoanData?.customerInfo"></app-customer-details-information>
+        <app-company-info-details [companyInfoData]="customerLoanData?.companyInfo"></app-company-info-details>
+        <app-security-details [securityData]="customerLoanData?.security"></app-security-details>
+        <app-proposal-details [proposalData]="customerLoanData?.proposal"></app-proposal-details>
+        <app-financial-details [financialData]="customerLoanData?.financial"></app-financial-details>
+    </nb-card-body>
+</nb-card>

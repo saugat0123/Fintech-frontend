@@ -316,4 +316,12 @@ export class LoanActionComponent implements OnInit {
         });
     }
 
+    detailedPrintAction() {
+        this.route.navigate(['/home/loan/detailed-summary'], {
+            queryParams: {
+                loanConfigId: this.loanConfigId,
+                customerId: this.id
+            }
+        });
+    }
 }
