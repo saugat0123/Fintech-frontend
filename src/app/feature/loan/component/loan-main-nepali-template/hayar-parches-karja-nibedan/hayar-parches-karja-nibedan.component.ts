@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import { FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-hayar-parches-karja-nibedan',
@@ -7,7 +7,9 @@ import {FormBuilder, FormGroup} from '@angular/forms';
     styleUrls: ['./hayar-parches-karja-nibedan.component.scss']
 })
 export class HayarParchesKarjaNibedanComponent implements OnInit {
-    form: FormGroup;
+    @Input() data: string;
+    hayarParchesKarjaInfo: FormGroup;
+    inputData: string;
 
     constructor(private formBuilder: FormBuilder) {
     }
@@ -16,8 +18,10 @@ export class HayarParchesKarjaNibedanComponent implements OnInit {
         this.formBuild();
     }
 
+
+
     formBuild(): void {
-        this.form = this.formBuilder.group({
+        this.hayarParchesKarjaInfo = this.formBuilder.group({
             /**
              * 0st column
              */
@@ -25,6 +29,8 @@ export class HayarParchesKarjaNibedanComponent implements OnInit {
             selectPronoun: [undefined],
             headerName: [undefined],
             selectPronoun1: [undefined],
+            selectPronoun2: [undefined],
+            selectPronoun3: [undefined],
 
             /**
              * 1st column
@@ -32,7 +38,7 @@ export class HayarParchesKarjaNibedanComponent implements OnInit {
             borrowMoney: [undefined],
             duration: [undefined],
             month: [undefined],
-            applicantName: [undefined],
+            applicanttName: [undefined],
             applicantAge: [undefined],
             applicantGender: [undefined],
 
@@ -152,8 +158,10 @@ export class HayarParchesKarjaNibedanComponent implements OnInit {
             /**
              * 6th column
              */
+            applicantSignature: [undefined],
             applicantsName: [undefined],
             applicantsDate: [undefined],
+            guarantorsSignature: [undefined],
             guarantorsName: [undefined],
             guarantorsDate: [undefined],
 
@@ -161,7 +169,7 @@ export class HayarParchesKarjaNibedanComponent implements OnInit {
     }
 
     submit() {
-
+        this.inputData = JSON.stringify(this.hayarParchesKarjaInfo.value);
     }
 
 }
