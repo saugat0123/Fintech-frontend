@@ -131,8 +131,10 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.businessSiteVisitDetails.visitedBy],
         conclusion: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.conclusion],
-        locationPreview: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.locationPreview],
+        locationPreview1: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.locationPreview1],
+        locationPreview2: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.locationPreview2],
         mapAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.mapAddress],
         findingsAndComments: [this.formDataForEdit === undefined ? ''
@@ -647,7 +649,8 @@ export class SiteVisitComponent implements OnInit {
     this.markerLongitude = this.longitude;
     (<FormGroup>this.siteVisitFormGroup
     .get('businessSiteVisitDetails'))
-    .get('locationPreview')
+    .get('locationPreview1')
+        .get('locationPreview2')
     .setValue(this.latitude + ',' + this.longitude);
     this.getAddress(this.latitude, this.longitude);
   }
@@ -691,7 +694,8 @@ export class SiteVisitComponent implements OnInit {
   findLocation() {
     const coordinate = (<FormGroup>this.siteVisitFormGroup
     .get('businessSiteVisitDetails'))
-    .get('locationPreview').value;
+    .get('locationPreview1').value
+    .get('locationPreview2').value;
     this.latLng = coordinate.split(',', 2);
     this.placeMaker(+this.latLng[0], +this.latLng[1]);
 
