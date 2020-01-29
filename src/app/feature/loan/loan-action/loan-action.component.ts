@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {LoanActionService} from './service/loan-action.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastService} from '../../../@core/utils';
 import {AlertService} from '../../../@theme/components/alert/alert.service';
@@ -22,6 +21,7 @@ import {LoanStage} from '../model/loanStage';
 import {DocAction} from '../model/docAction';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {ApprovalRoleHierarchyService} from '../approval/approval-role-hierarchy.service';
 
 
 @Component({
@@ -51,13 +51,14 @@ export class LoanActionComponent implements OnInit {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': 'Basic Y3Atc29sdXRpb246Y3Bzb2x1dGlvbjEyMyoj',
     });
-  falseCredential = false;
-  falseCredentialMessage = '';
+    falseCredential = false;
+    falseCredentialMessage = '';
+    roleId: number;
 
     constructor(
         private router: ActivatedRoute,
         private route: Router,
-        private loanActionService: LoanActionService,
+        private approvalRoleHierarchyService: ApprovalRoleHierarchyService,
         private formBuilder: FormBuilder,
         private alertService: AlertService,
         private toastService: ToastService,
@@ -89,6 +90,7 @@ export class LoanActionComponent implements OnInit {
         });
 
         const roleName: string = LocalStorageUtil.getStorage().roleName;
+        this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         const roleType: string = LocalStorageUtil.getStorage().roleType;
         if (roleName !== 'admin') {
             this.currentUserRoleType = roleType === RoleType.MAKER;
@@ -115,6 +117,7 @@ export class LoanActionComponent implements OnInit {
                 comment: null
             }
         );
+
         if (this.committeeRole && val === 1) {
             this.popUpTitle = 'Send Backward To ' + LocalStorageUtil.getStorage().roleName;
             const role = {
@@ -125,6 +128,7 @@ export class LoanActionComponent implements OnInit {
                     toRole: role
                 }
             );
+
             this.getUserList(role);
         }
         this.modalService.open(template);
@@ -132,11 +136,14 @@ export class LoanActionComponent implements OnInit {
 
     sendForwardList(template) {
         this.popUpTitle = 'Send Forward';
-        this.loanActionService.getSendForwardList().subscribe(
+        this.approvalRoleHierarchyService.getForwardRolesForRole(this.roleId, 'LOAN_TYPE', this.loanConfigId, 'LOAN', this.id).subscribe(
             (response: any) => {
                 this.sendForwardBackwardList = [];
+                console.log(response.detail);
+
                 this.sendForwardBackwardList = response.detail;
             });
+
         this.formAction.patchValue({
                 docAction: DocAction.value(DocAction.FORWARD),
                 documentStatus: DocStatus.PENDING,
@@ -147,7 +154,7 @@ export class LoanActionComponent implements OnInit {
     }
 
     onSubmit(templateLogin) {
-      this.falseCredential = false;
+        this.falseCredential = false;
         this.submitted = true;
         if (this.formAction.invalid) {
             return;
@@ -164,6 +171,7 @@ export class LoanActionComponent implements OnInit {
     }
 
     getUserList(roleId) {
+        console.log(roleId);
         this.userService.getUserListByRoleId(roleId.id).subscribe((response: any) => {
             this.userList = response.detail;
             if (this.userList.length === 1) {
@@ -189,19 +197,19 @@ export class LoanActionComponent implements OnInit {
         });
     }
 
-  onLogin(dataValue) {
-    const data: { email: string, password: string } = dataValue.value;
+    onLogin(dataValue) {
+        const data: { email: string, password: string } = dataValue.value;
         data.email = LocalStorageUtil.getStorage().username;
-    const requestBody = 'grant_type=password&username=' + data.email + '&password=' + data.password;
-    this.http.post(this.securityUrl, requestBody, {headers: this.headers})
+        const requestBody = 'grant_type=password&username=' + data.email + '&password=' + data.password;
+        this.http.post(this.securityUrl, requestBody, {headers: this.headers})
             .subscribe(
                 () => {
-                  this.onClose();
+                    this.onClose();
                     this.postAction();
                 },
                 error => {
-                  this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? '' : error.error.errorDescription;
-                  this.falseCredential = true;
+                    this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? '' : error.error.errorDescription;
+                    this.falseCredential = true;
                 }
             );
 

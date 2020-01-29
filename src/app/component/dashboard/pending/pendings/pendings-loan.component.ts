@@ -180,4 +180,8 @@ export class PendingsLoanComponent implements OnInit {
       }
     });
   }
+
+  configureRole(loanId: number) {
+    this.router.navigate(['home/approval-role-hierarchy', 'LOAN', loanId]);
+  }
 }
