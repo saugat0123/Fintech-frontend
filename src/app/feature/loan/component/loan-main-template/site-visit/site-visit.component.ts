@@ -113,7 +113,9 @@ export class SiteVisitComponent implements OnInit {
         nearBy: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
             : this.formDataForEdit.currentResidentDetails.nearBy)],
         ownerName: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.ownerName)]
+            : this.formDataForEdit.currentResidentDetails.ownerName)],
+        locationPreview: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
+            : this.formDataForEdit.currentResidentDetails.locationPreview)]
       }),
       businessSiteVisitDetails: this.formBuilder.group({
         officeAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
@@ -131,10 +133,8 @@ export class SiteVisitComponent implements OnInit {
             : this.formDataForEdit.businessSiteVisitDetails.visitedBy],
         conclusion: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.conclusion],
-        locationPreview1: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.locationPreview1],
-        locationPreview2: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.locationPreview2],
+        locationPreview: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
+            : this.formDataForEdit.businessSiteVisitDetails.locationPreview],
         mapAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.mapAddress],
         findingsAndComments: [this.formDataForEdit === undefined ? ''
@@ -649,9 +649,21 @@ export class SiteVisitComponent implements OnInit {
     this.markerLongitude = this.longitude;
     (<FormGroup>this.siteVisitFormGroup
     .get('businessSiteVisitDetails'))
-    .get('locationPreview1')
-        .get('locationPreview2')
+    .get('locationPreview')
     .setValue(this.latitude + ',' + this.longitude);
+    this.getAddress(this.latitude, this.longitude);
+  }
+  placeMaker1(latitude, longitude) {
+    this.infoWindowOpen.setValue('false');
+    this.zoom = 10;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.markerLatitude = this.latitude;
+    this.markerLongitude = this.longitude;
+    (<FormGroup>this.siteVisitFormGroup
+        .get('currentResidentDetails'))
+        .get('locationPreview')
+        .setValue(this.latitude + ',' + this.longitude);
     this.getAddress(this.latitude, this.longitude);
   }
 
@@ -694,12 +706,18 @@ export class SiteVisitComponent implements OnInit {
   findLocation() {
     const coordinate = (<FormGroup>this.siteVisitFormGroup
     .get('businessSiteVisitDetails'))
-    .get('locationPreview1').value
-    .get('locationPreview2').value;
+    .get('locationPreview').value;
     this.latLng = coordinate.split(',', 2);
     this.placeMaker(+this.latLng[0], +this.latLng[1]);
-
   }
+  findLocation1() {
+    const coordinate = (<FormGroup>this.siteVisitFormGroup
+        .get('currentResidentDetails'))
+        .get('locationPreview').value;
+    this.latLng = coordinate.split(',', 2);
+    this.placeMaker(+this.latLng[0], +this.latLng[1]);
+  }
+
 
   onSubmit() {
     if (!ObjectUtil.isEmpty(this.formValue)) {
