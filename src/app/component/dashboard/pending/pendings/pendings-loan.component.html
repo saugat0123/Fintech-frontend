@@ -112,7 +112,10 @@
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{user?.role?.roleName}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder.documentStatus}}</td>
                             <td>
-                                <a class="btn btn-default btn-sm" title="Configure Role" (click)="configureRole(loanDataHolder.loan.id)"><i class="fa fa-pen-alt"></i></a>
+                                <button (click)="configureRole(loanDataHolder.id)" nbButton size="small" status="primary" nbTooltip="Configure Approval Role Hierarchy">
+                                    <i class="fa fa-user-shield"></i>
+                                </button>
+<!--                                <a class="btn btn-default btn-sm" title="Configure Role" (click)="configureRole(loanDataHolder.loan.id)"><i class="fa fa-pen-alt"></i></a>-->
                             </td>
                         </tr>
                         </tbody>

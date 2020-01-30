@@ -2,7 +2,16 @@
     <div class="col-md-12">
         <nb-card>
             <nb-card-header>
-                Define Role Order <span class="pull-right btn btn-sm btn-default" title="Reset Role Orders" (click)="reset()"><i class="fa fa-retweet"></i></span>
+                <div class="row">
+                    <div class="col-md-8">Define Role Hierarchy for Approval Process</div>
+                    <div class="col-md-4">
+                        <div class="text-right">
+                            <button nbButton outline status="info" (click)="reset()" nbTooltip="Reset Role Hierarchy">
+                                <i class="fa fa-retweet"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </nb-card-header>
             <nb-card-body>
                 <div *ngIf="!length">
@@ -13,18 +22,15 @@
                         <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="defaultRoleHierarchies"
                              class="item-list" (cdkDropListDropped)="drop($event)">
                             <div class="item-box" *ngFor="let item of defaultRoleHierarchies;let i=index" cdkDrag>
-                                <div class="row">
-                                    <div class="col-md-1 item-draggable">{{i + 1}}</div>
-                                    <div class="col-md-10 item-draggable">{{item.role?.roleName}}</div>
-                                    <div class="col-md-1">
-                                    <span class="btn btn-sm btn-danger" (click)="removeItem(i)">
-                                        <i class="fa fa-eraser"></i>
-                                    </span>
-                                    </div>
-                                </div>
+                                <span class="item-draggable">{{i + 1}}</span>
+                                <span class="item-draggable">{{item.role?.roleName}}</span>
+                                <span>
+                                    <button nbButton outline status="danger" size="small" (click)="removeItem(i)" nbTooltip="Remove Role from Approval Hierarchy">
+                                        <i class="fa fa-trash-alt"></i>
+                                    </button>
+                                </span>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </nb-card-body>

@@ -43,7 +43,6 @@ export class ApprovalRoleHierarchyComponent implements OnInit {
 
             this.service.findAll(this.approvalType, this.refId).subscribe((response: any) => {
                 this.defaultRoleHierarchies = response.detail;
-                console.log(this.defaultRoleHierarchies);
                 this.length = this.defaultRoleHierarchies.length > 0;
                 this.approvalRoleHierarchies = this.defaultRoleHierarchies;
             });
@@ -65,8 +64,7 @@ export class ApprovalRoleHierarchyComponent implements OnInit {
 
         this.tempRoleOrders = event.container.data;
         for (let x = 0; x < this.tempRoleOrders.length; x++) {
-            const roleOrder = x + 1;
-            this.tempRoleOrders[x].roleOrder = roleOrder;
+            this.tempRoleOrders[x].roleOrder = x + 1;
             this.approvalRoleHierarchies.push(this.tempRoleOrders[x]);
             this.defaultRoleHierarchies = this.approvalRoleHierarchies;
         }
