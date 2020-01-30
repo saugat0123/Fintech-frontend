@@ -293,13 +293,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="box-header with-border">
-                    <h5 class="box-title">KYC</h5>
-                </div>
+
                 <div *ngIf="customerDetailField.showFormField">
+                    <div class="box-header with-border">
+                        <h5 class="box-title">KYC</h5>
+                    </div>
                     <div *ngFor="let relatives of basicInfo.get('customerRelatives')['controls']; let r = index"
                          formArrayName="customerRelatives">
                         <div [formGroupName]="r">
+
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
