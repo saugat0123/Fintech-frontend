@@ -2,7 +2,7 @@
     <nb-card-header>
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <div class="btn-group">
                         <button
                                 (click)="isFilterCollapsed = !isFilterCollapsed"
@@ -16,9 +16,13 @@
                                    class="pt-2 pl-4" [disabled]="!transferToggle">
                             Transferred
                         </nb-toggle>
+                        <nb-toggle (checkedChange)="onChangeShareToggle($event)"
+                                   [disabled]="!shareToggle" class="pt-2 pl-4">
+                            <small><b>Show Share Loan Exceeding Limit</b></small>
+                        </nb-toggle>
                     </div>
                 </div>
-                <div class="col-md-6 d-flex justify-content-end">
+                <div class="col-md-4 d-flex justify-content-end">
                     <button nbButton outline status="info"
                             (click)="getCsv()">
                         <i class="fa fa-download" aria-hidden="true"></i></button>

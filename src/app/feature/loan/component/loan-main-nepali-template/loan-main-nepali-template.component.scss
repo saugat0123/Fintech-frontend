@@ -1,0 +1,9 @@
+@import '../../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  nb-card {
+    nb-card-body {
+      padding: 2rem;
+    }
+  }
+}
