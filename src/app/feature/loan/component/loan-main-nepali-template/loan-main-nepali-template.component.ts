@@ -5,6 +5,7 @@ import {CustomerInfoNepaliComponent} from './customer-info-nepali/customer-info-
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse} from '../../../../@core/utils';
 import {ApplicantFamilyInfoComponent} from './applicant-family-info/applicant-family-info.component';
+import {Customer} from '../../../admin/modal/customer';
 // import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
 // import {NepaliTemplateType} from '../../../admin/modal/nepali-template-type.enum';
 
@@ -23,6 +24,7 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
     };
     @ViewChild('customerInfoNepaliComponent', {static: true}) customerInfoNepaliComponent: CustomerInfoNepaliComponent;
     @ViewChild('applicantFamilyInfoComponent', {static: true}) applicantFamilyInfoComponent: ApplicantFamilyInfoComponent;
+    customer: Customer = new Customer();
 
     constructor(private ngbActiveModal: NgbActiveModal) {
     }
@@ -49,7 +51,10 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
     save(): void {
         // Set CustomerInfoNepaliComponent data
         this.customerInfoNepaliComponent.onSubmit();
-        this.customerLoan.customerInfo.nepaliDetail = this.customerInfoNepaliComponent.finalData;
+        // console.log(this.customerLoan.customerInfo, 'customerInfo');
+        // console.log(this.customerInfoNepaliComponent.finalData);
+        // this.customerLoan.customerInfo.nepaliDetail = this.customerInfoNepaliComponent.finalData;
+        this.customer.nepaliDetail = this.customerInfoNepaliComponent.finalData;
         /**
          * TODO: Pass other nepali templates data as an array of `NepaliTemplateDataHolder` inside `loanDataHolder`
          * Your code would be something like:
@@ -63,13 +68,6 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
         // Set ApplicantFamilyInfoComponent data
         this.applicantFamilyInfoComponent.onSubmit();
         this.customerLoan.nepaliTemplates = this.applicantFamilyInfoComponent.data;
-
-
-        // const nepaliTemplates: Array<NepaliTemplateDataHolder> = new Array<NepaliTemplateDataHolder>(
-        //     {id: null, type: NepaliTemplateType.AABEDAK_FAMILY_BIBARAN,
-        //         data: this.applicantFamilyInfoComponent.finalData},
-        // );
-        // this.customerLoan.nepaliTemplates = nepaliTemplates;
 
 
         // Returns the customerLoan inside Map and handle it from Promise

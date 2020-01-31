@@ -9,7 +9,7 @@ import {NepaliTemplateType} from '../../../../admin/modal/nepali-template-type.e
   styleUrls: ['./applicant-family-info.component.scss']
 })
 export class ApplicantFamilyInfoComponent implements OnInit {
-  @Input() data;
+  @Input() data: NepaliTemplateDataHolder[];
   applicantFamilyInfo: FormGroup;
   // submitted: boolean = false;
   templateIndexInArray: number;
@@ -123,7 +123,11 @@ export class ApplicantFamilyInfoComponent implements OnInit {
 
   onSubmit(): void {
     // Form values assigned to array as JSON.
-    this.data[this.templateIndexInArray] = this.applicantFamilyInfo.value;
+    if (this.templateIndexInArray) {
+      this.data[this.templateIndexInArray] = this.applicantFamilyInfo.value;
+    } else {
+      this.data[0] = this.applicantFamilyInfo.value;
+    }
   }
 
   printPage() {
