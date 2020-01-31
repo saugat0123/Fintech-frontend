@@ -100,8 +100,14 @@
                         </td>
 
                         <td>
-                            <button nbButton status="info" size="small" (click)="edit(allList.id)" title="Edit">
+                            <button nbButton status="info" size="small" (click)="edit(allList.id)" nbTooltip="Edit">
                                 <i class="fa fa-edit"></i>
+                            </button>
+                            &nbsp;
+                            <button *ngIf="productUtils.LOAN_APPROVAL_HIERARCHY_LEVEL === 'LOAN_TYPE'"
+                                    (click)="configureRole(allList.id)" nbButton status="primary" size="small"
+                                    nbTooltip="Configure Approval Role Hierarchy">
+                                <i class="fa fa-user-shield"></i>
                             </button>
                         </td>
                     </tr>
