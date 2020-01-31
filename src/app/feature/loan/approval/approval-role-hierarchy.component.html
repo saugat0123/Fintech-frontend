@@ -25,7 +25,9 @@
                                 <span class="item-draggable">{{i + 1}}</span>
                                 <span class="item-draggable">{{item.role?.roleName}}</span>
                                 <span>
-                                    <button nbButton outline status="danger" size="small" (click)="removeItem(i)" nbTooltip="Remove Role from Approval Hierarchy">
+                                    <button nbButton outline status="danger" size="small" (click)="removeItem(i)"
+                                            *ngIf="item.role?.roleType !== 'MAKER'"
+                                            nbTooltip="Remove Role from Approval Hierarchy">
                                         <i class="fa fa-trash-alt"></i>
                                     </button>
                                 </span>

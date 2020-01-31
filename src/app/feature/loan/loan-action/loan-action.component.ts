@@ -136,7 +136,11 @@ export class LoanActionComponent implements OnInit {
 
     sendForwardList(template) {
         this.popUpTitle = 'Send Forward';
-        this.approvalRoleHierarchyService.getForwardRolesForRole(this.roleId, 'LOAN_TYPE', this.loanConfigId, 'LOAN', this.id).subscribe(
+
+        const approvalType = LocalStorageUtil.getStorage().productUtil.APPROVAL_HIERARCHY_LOAN;
+        const refId = approvalType === 'DEFAULT' ? 0 : approvalType === 'LOAN_TYPE' ? this.loanConfigId : this.id;
+
+        this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId).subscribe(
             (response: any) => {
                 this.sendForwardBackwardList = [];
                 console.log(response.detail);

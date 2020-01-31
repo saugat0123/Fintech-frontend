@@ -35,8 +35,20 @@ export class ApprovalRoleHierarchyService extends BaseService<ApprovalRoleHierar
         return this.http.get(req.url, {headers: req.header});
     }
 
+    public getForwardRolesForRoleWithType(roleId: number, type: string, refId: number): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/forward-roles/${roleId}/${type}/${refId}`);
+
+        return this.http.get(req.url, {headers: req.header});
+    }
+
     public getBackwardRolesForRole(roleId: number, type: string, typeId: number, ref: string, refId: number): Observable<any> {
         const req = ApiUtils.getRequest(`${this.getApi()}/backward-roles/${roleId}/${type}/${typeId}/${ref}/${refId}`);
+
+        return this.http.get(req.url, {headers: req.header});
+    }
+
+    public getBackwardRolesForRoleWithType(roleId: number, type: string, refId: number): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/backward-roles/${roleId}/${type}/${refId}`);
 
         return this.http.get(req.url, {headers: req.header});
     }

@@ -21,6 +21,7 @@ import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {ProductUtils} from '../../../../feature/admin/service/product-mode.service';
 
 @Component({
     selector: 'app-pendings',
@@ -50,6 +51,7 @@ export class PendingsLoanComponent implements OnInit {
     docStatus = DocStatus;
     docStatusMakerList = [];
     showDocStatusList = false;
+    productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
     constructor(
         private service: DmsLoanService,

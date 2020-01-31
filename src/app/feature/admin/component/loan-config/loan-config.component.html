@@ -104,7 +104,9 @@
                                 <i class="fa fa-edit"></i>
                             </button>
                             &nbsp;
-                            <button (click)="configureRole(allList.id)" nbButton status="primary" size="small" nbTooltip="Configure Approval Role Hierarchy">
+                            <button *ngIf="productUtils.APPROVAL_HIERARCHY_LOAN === 'LOAN_TYPE'"
+                                    (click)="configureRole(allList.id)" nbButton status="primary" size="small"
+                                    nbTooltip="Configure Approval Role Hierarchy">
                                 <i class="fa fa-user-shield"></i>
                             </button>
                         </td>
