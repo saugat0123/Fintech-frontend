@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                <div class="row">
+                    <div class="col-md-8">Define Role Hierarchy for Approval Process</div>
+                    <div class="col-md-4">
+                        <div class="text-right">
+                            <button nbButton outline status="info" (click)="reset()" nbTooltip="Reset Role Hierarchy">
+                                <i class="fa fa-retweet"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </nb-card-header>
+            <nb-card-body>
+                <div *ngIf="!length">
+                    <p>Roles are not created!</p>
+                </div>
+                <div *ngIf="length">
+                    <div class="drag-container">
+                        <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="defaultRoleHierarchies"
+                             class="item-list" (cdkDropListDropped)="drop($event)">
+                            <div class="item-box" *ngFor="let item of defaultRoleHierarchies;let i=index" cdkDrag>
+                                <span class="item-draggable">{{i + 1}}</span>
+                                <span class="item-draggable">{{item.role?.roleName}}</span>
+                                <span>
+                                    <button nbButton outline status="danger" size="small" (click)="removeItem(i)"
+                                            *ngIf="item.role?.roleType !== 'MAKER'"
+                                            nbTooltip="Remove Role from Approval Hierarchy">
+                                        <i class="fa fa-trash-alt"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nb-card-body>
+            <nb-card-footer *ngIf="length">
+                <button nbButton status="info" (click)="save()" [disabled]="isDisabled">
+                    <span *ngIf="spinner" class="spinner-border spinner-border-sm"></span>
+                    SAVE
+                </button>
+            </nb-card-footer>
+        </nb-card>
+    </div>
+</div>

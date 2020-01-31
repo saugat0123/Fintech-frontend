@@ -83,6 +83,7 @@ export class UserFormComponent implements OnInit {
             const b = {
                 id: this.tempBranch
             };
+
             this.finalBranchList.push(b);
         }
         if (this.selectedRole.roleAccess === RoleAccess.ALL) {
