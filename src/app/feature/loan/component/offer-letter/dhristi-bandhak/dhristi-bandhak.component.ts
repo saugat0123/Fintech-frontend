@@ -142,7 +142,7 @@ export class DhristiBandhakComponent implements OnInit {
     }
 
     this.customerOfferLetterService.save(this.customerOfferLetter).subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Success Offer Letter'));
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Dhristi-Bhandak Offer Letter'));
       this.spinner = false;
       this.router.navigateByUrl('/home/dashboard').then(value => {
         if (value) {
@@ -153,7 +153,7 @@ export class DhristiBandhakComponent implements OnInit {
       });
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Success Offer Letter'));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save  Dhristi-Bhandak Offer Letter'));
       this.spinner = false;
     });
   }
