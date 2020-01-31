@@ -12,6 +12,7 @@ export class CatalogueSearch {
     committee: string;
     companyName: string;
     docAction: string;
+    showShareLoanExcessingLimit: string;
 }
 
 @Injectable({
