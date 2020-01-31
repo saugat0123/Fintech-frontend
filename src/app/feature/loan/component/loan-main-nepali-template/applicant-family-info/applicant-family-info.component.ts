@@ -1,7 +1,8 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NepaliTemplateDataHolder} from '../../../model/nepali-template-data-holder';
 import {NepaliTemplateType} from '../../../../admin/modal/nepali-template-type.enum';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-applicant-family-info',
@@ -9,37 +10,21 @@ import {NepaliTemplateType} from '../../../../admin/modal/nepali-template-type.e
   styleUrls: ['./applicant-family-info.component.scss']
 })
 export class ApplicantFamilyInfoComponent implements OnInit {
-  @Input() data: NepaliTemplateDataHolder[];
-  applicantFamilyInfo: FormGroup;
-  // submitted: boolean = false;
-  templateIndexInArray: number;
-  // finalData: string;
+  @Input() nepaliTemplates: NepaliTemplateDataHolder[];
+  form: FormGroup;
+  templateIndexInArray: number = undefined;
 
   constructor(
       private formBuilder: FormBuilder,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.buildForm();
-    if (this.data !== undefined) {
-      for (let i = 0; i < this.data.length; i++) {
-        /* Check if data already exits. */
-        if (this.data[i].type === NepaliTemplateType.AABEDAK_FAMILY_BIBARAN) {
-          /* Data exists */
-          const parsedData = JSON.parse(this.data[i].data); // makes it Js object
-          this.applicantFamilyInfo.patchValue(parsedData);
-
-          this.templateIndexInArray = i;
-
-          break;
-        }
-      }
-
-    }
   }
 
   buildForm(): void {
-    this.applicantFamilyInfo = this.formBuilder.group({
+    this.form = this.formBuilder.group({
 
       name1: [undefined],
       address1: [undefined],
@@ -115,23 +100,29 @@ export class ApplicantFamilyInfoComponent implements OnInit {
       name: [undefined],
       date: [undefined],
     });
-    // if (!ObjectUtil.isEmpty(this.data)) {
-    //   const parsedData = JSON.parse(this.data);
-    //   this.applicantFamilyInfo.patchValue(parsedData);
-    // }
-  }
+    // In case of edit, patch parsed JSON data
+    if (!ObjectUtil.isEmpty(this.nepaliTemplates)) {
+      for (let i = 0; i < this.nepaliTemplates.length; i++) {
+        if (this.nepaliTemplates[i].type === NepaliTemplateType.getEnum(NepaliTemplateType.AABEDAK_FAMILY_BIBARAN)) {
+          const parsedData = JSON.parse(this.nepaliTemplates[i].data);
+          this.form.patchValue(parsedData);
+          this.templateIndexInArray = i;
+          break;
+        }
+      }
 
-  onSubmit(): void {
-    // Form values assigned to array as JSON.
-    if (this.templateIndexInArray) {
-      this.data[this.templateIndexInArray] = this.applicantFamilyInfo.value;
-    } else {
-      this.data[0] = this.applicantFamilyInfo.value;
     }
   }
 
-  printPage() {
-      window.print();
+  onSubmit(): void {
+    if (!ObjectUtil.isEmpty(this.templateIndexInArray)) {
+      this.nepaliTemplates[this.templateIndexInArray].data = JSON.stringify(this.form.value);
+    } else {
+      const newApplicantFamily = new NepaliTemplateDataHolder();
+      newApplicantFamily.type = NepaliTemplateType.getEnum(NepaliTemplateType.AABEDAK_FAMILY_BIBARAN);
+      newApplicantFamily.data = JSON.stringify(this.form.value);
+      this.nepaliTemplates.push(newApplicantFamily);
+    }
   }
 
 }
