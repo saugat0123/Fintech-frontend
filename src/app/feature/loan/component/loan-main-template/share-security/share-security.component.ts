@@ -6,6 +6,7 @@ import {ShareType} from '../../../model/ShareType';
 import {ShareSecurity} from '../../../../admin/modal/shareSecurity';
 import {CustomerShareData} from '../../../../admin/modal/CustomerShareData';
 import {NepseMaster} from '../../../../admin/modal/NepseMaster';
+import {ObjectUtil} from "../../../../../@core/utils/ObjectUtil";
 
 @Component({
   selector: 'app-share-security',
@@ -23,7 +24,6 @@ export class ShareSecurityComponent implements OnInit {
     activeNepseMaster: NepseMaster = new NepseMaster();
     savedActiveNepseMaster: NepseMaster = new NepseMaster();
   nepseList: Array<Nepse> = new Array<Nepse>();
-  companySelectMessage: Map<string, string> = new Map<string, string>();
   shareSecurityData: ShareSecurity = new ShareSecurity();
   search: any = {
     status: 'ACTIVE',
@@ -152,9 +152,11 @@ export class ShareSecurityComponent implements OnInit {
     }
   findActiveShareRate() {
     this.shareService.getActiveShare().subscribe(value => {
+      if (!ObjectUtil.isEmpty(value.detail)){
       this.activeNepseMaster = value.detail;
       if (this.shareSecurity === undefined) {
         this.savedActiveNepseMaster = value.detail;
+      }
       }
     });
   }

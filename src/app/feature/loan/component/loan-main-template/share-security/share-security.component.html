@@ -52,7 +52,6 @@
                     <div class="form-group">
                     <label for="shareRate">Rate of Each Unit</label>
                     <input formControlName="amountPerUnit" name="shareRate" type="number" id="shareRate" class="form-control" readonly (change)="calculateShareFieldsValues(totalShareUnit.value , shareFieldIndex)">
-                    <div class="text-danger">{{companySelectMessage.get(shareFieldIndex.toString())}}</div>
                     </div>
                   </div>
                   <div class="col-md-3">
