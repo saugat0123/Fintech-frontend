@@ -4,11 +4,11 @@ import {CustomerOfferLetter} from '../../../model/customer-offer-letter';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {DocStatus} from '../../../model/docStatus';
 import {OfferLetter} from '../../../../admin/modal/offerLetter';
-import {CustomerOfferLetterPath} from "../../../model/customer-offer-letter-path";
-import {Alert, AlertType} from "../../../../../@theme/model/Alert";
-import {Router} from "@angular/router";
-import {CustomerOfferLetterService} from "../../../service/customer-offer-letter.service";
-import {ToastService} from "../../../../../@core/utils";
+import {CustomerOfferLetterPath} from '../../../model/customer-offer-letter-path';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {Router} from '@angular/router';
+import {CustomerOfferLetterService} from '../../../service/customer-offer-letter.service';
+import {ToastService} from '../../../../../@core/utils';
 
 @Component({
     selector: 'app-karjatamsuk',
@@ -78,7 +78,7 @@ export class KarjatamsukComponent implements OnInit {
     });
   }
 
-    buildForm(){
+    buildForm() {
       this.form = this.formBuilder.group({
         customerDetail : this.formBuilder.array([]),
         letterAppliedDate: undefined,

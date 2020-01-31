@@ -66,6 +66,7 @@ import {LoanMainNepaliTemplateComponent} from './component/loan-main-nepali-temp
 import {FiscalYearModalComponent} from './component/loan-main-template/financial/fiscal-year-modal/fiscal-year-modal.component';
 import {CustomerInfoNepaliComponent} from './component/loan-main-nepali-template/customer-info-nepali/customer-info-nepali.component';
 import { DhitoLikhatPrintComponent } from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-print/dhito-likhat-print.component';
+import { ApplicantFamilyInfoComponent } from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info.component';
 import { KarjaTamsukPrintComponent } from './component/offer-letter/karjatamsuk/karja-tamsuk-print/karja-tamsuk-print.component';
 
 
@@ -120,7 +121,12 @@ const COMPONENTS = [
     PratigyaPatraComponent,
     LoanMainNepaliTemplateComponent,
     FiscalYearModalComponent,
-    CustomerInfoNepaliComponent
+    CustomerInfoNepaliComponent,
+    LoanMainNepaliTemplateComponent,
+    FiscalYearModalComponent,
+    DhitoLikhatPrintComponent,
+    ApplicantFamilyInfoComponent,
+    KarjaTamsukPrintComponent
 ];
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,
@@ -132,7 +138,7 @@ const ENTRY_COMPONENTS = [
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS, LoanMainNepaliTemplateComponent, FiscalYearModalComponent, DhitoLikhatPrintComponent, KarjaTamsukPrintComponent],
+    declarations: [...COMPONENTS],
     imports: [
         ThemeModule,
         CommonModule,
