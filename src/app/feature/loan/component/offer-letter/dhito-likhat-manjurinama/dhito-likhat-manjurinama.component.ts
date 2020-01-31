@@ -111,7 +111,7 @@ export class DhitoLikhatManjurinamaComponent implements OnInit {
       });
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Birth Mark Offer Letter'));
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Dhito Likhat Letter'));
       this.spinner = false;
     });
   }
