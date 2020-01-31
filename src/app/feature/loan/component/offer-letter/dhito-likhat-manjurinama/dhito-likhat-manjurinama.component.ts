@@ -18,6 +18,7 @@ import {Router} from '@angular/router';
 export class DhitoLikhatManjurinamaComponent implements OnInit {
 
     @Input() loanDataHolder: LoanDataHolder;
+  spinner = false;
   customerOfferLetter: CustomerOfferLetter = new CustomerOfferLetter()  ;
     @Input() customerId: number;
     @Input() offerLetterTypeId: number;
@@ -74,8 +75,8 @@ export class DhitoLikhatManjurinamaComponent implements OnInit {
     removeCustomerDetail(index) {
       (this.dhitoForm.get('customerDetail') as FormArray).removeAt(index);
     }
-  onSubmit(): void {/*
-    this.spinner = true;*/
+  onSubmit(): void {
+    this.spinner = true;
     this.customerOfferLetter.docStatus = DocStatus.PENDING;
     const customerLoan = new LoanDataHolder();
     customerLoan.id = this.customerId;
@@ -100,7 +101,7 @@ export class DhitoLikhatManjurinamaComponent implements OnInit {
     // TODO: Assign Supported Information in OfferLetter
     this.customerOfferLetterService.save(this.customerOfferLetter).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
-     /* this.spinner = false;*/
+      this.spinner = false;
       this.router.navigateByUrl('/home/dashboard').then(value => {
         if (value) {
           this.router.navigate(['/home/loan/offer-letter'], {
@@ -111,7 +112,7 @@ export class DhitoLikhatManjurinamaComponent implements OnInit {
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Birth Mark Offer Letter'));
-     /* this.spinner = false;*/
+      this.spinner = false;
     });
   }
 
