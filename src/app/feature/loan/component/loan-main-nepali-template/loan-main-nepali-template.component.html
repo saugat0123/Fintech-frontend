@@ -19,15 +19,19 @@
                                   [data]="customerLoan?.customerInfo?.nepaliDetail"></app-customer-info-nepali>
 
       </nb-step>
-      <nb-step [label]="labelTwo">
-        <ng-template #labelTwo>Second Step</ng-template>
-        <!--TODO add your nepali template component here-->
+      <nb-step [label]="labelHayarParchesKarjaNibedan">
+        <ng-template #labelHayarParchesKarjaNibedan>हायर पर्चेज कर्जाको निवेदन</ng-template>
+
+        <app-hayar-parches-karja-nibedan #hayarParchesKarjaNibedanComponent
+                             [karjaLoan]="customerLoan?.nepaliTemplates">
+
+        </app-hayar-parches-karja-nibedan>
+
       </nb-step>
 
       <nb-step [label]="labelThree">
         <ng-template #labelThree>Third Step</ng-template>
         <!--TODO add your nepali template component here-->
-        <app-hayar-parches-karja-nibedan></app-hayar-parches-karja-nibedan>
       </nb-step>
 
       <nb-step [label]="labelForth">

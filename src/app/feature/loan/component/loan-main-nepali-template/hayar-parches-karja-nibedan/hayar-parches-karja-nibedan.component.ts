@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NepaliTemplateDataHolder} from '../../../model/nepali-template-data-holder';
+import {NepaliTemplateType} from '../../../../admin/modal/nepali-template-type.enum';
 
 @Component({
     selector: 'app-hayar-parches-karja-nibedan',
@@ -7,30 +9,45 @@ import { FormBuilder, FormGroup} from '@angular/forms';
     styleUrls: ['./hayar-parches-karja-nibedan.component.scss']
 })
 export class HayarParchesKarjaNibedanComponent implements OnInit {
-    @Input() data: string;
+    @Input() karjaLoan: Array<NepaliTemplateDataHolder>;
     hayarParchesKarjaInfo: FormGroup;
-    inputData: string;
+    submitted = false;
+    finalData: string;
 
     constructor(private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
         this.formBuild();
+
+        if (this.karjaLoan !== undefined) {
+            for (let i = 0; i < this.karjaLoan.length; i++) {
+                if (this.karjaLoan[i].type === NepaliTemplateType.HIRE_PURCHASE_KARJA_BIKE) {
+                    const parsedData = JSON.parse(this.karjaLoan[i].data);
+                    this.hayarParchesKarjaInfo.patchValue(parsedData);
+                    break;
+                }
+            }
+        }
+
     }
-
-
+    get hayarParchesKarjaValid() {
+        return this.hayarParchesKarjaInfo.controls;
+    }
 
     formBuild(): void {
         this.hayarParchesKarjaInfo = this.formBuilder.group({
             /**
              * 0st column
              */
-            date: [undefined],
+            date: [undefined, Validators.required],
+            applicantPhoto: [undefined],
             selectPronoun: [undefined],
             headerName: [undefined],
             selectPronoun1: [undefined],
             selectPronoun2: [undefined],
             selectPronoun3: [undefined],
+            selectPronoun4: [undefined],
 
             /**
              * 1st column
@@ -158,6 +175,12 @@ export class HayarParchesKarjaNibedanComponent implements OnInit {
             /**
              * 6th column
              */
+            selectPronoun10: [undefined],
+            selectPronoun5: [undefined],
+            selectPronoun6: [undefined],
+            selectPronoun7: [undefined],
+            selectPronoun8: [undefined],
+            selectPronoun9: [undefined],
             applicantSignature: [undefined],
             applicantsName: [undefined],
             applicantsDate: [undefined],
@@ -168,8 +191,8 @@ export class HayarParchesKarjaNibedanComponent implements OnInit {
         });
     }
 
-    submit() {
-        this.inputData = JSON.stringify(this.hayarParchesKarjaInfo.value);
+    submit(): void {
+        this.finalData = JSON.stringify(this.hayarParchesKarjaInfo.value);
     }
 
 }

@@ -4,6 +4,7 @@ import {NbStepperComponent} from '@nebular/theme';
 import {CustomerInfoNepaliComponent} from './customer-info-nepali/customer-info-nepali.component';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse} from '../../../../@core/utils';
+import {HayarParchesKarjaNibedanComponent} from './hayar-parches-karja-nibedan/hayar-parches-karja-nibedan.component';
 
 @Component({
     selector: 'app-loan-main-nepali-template',
@@ -12,6 +13,7 @@ import {ModalResponse} from '../../../../@core/utils';
 })
 export class LoanMainNepaliTemplateComponent implements OnInit {
     @Input() customerLoan: LoanDataHolder;
+
     @ViewChild('nepaliTemplateStepper', {static: true}) nepaliTemplateStepper: NbStepperComponent;
     stepperButtonVisibility = {
         showPrevious: false,
@@ -19,6 +21,7 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
         showSave: false
     };
     @ViewChild('customerInfoNepaliComponent', {static: true}) customerInfoNepaliComponent: CustomerInfoNepaliComponent;
+    @ViewChild('hayarParchesKarjaNibedanComponent', {static: true}) hayarParchesKarjaNibedanComponent: HayarParchesKarjaNibedanComponent;
 
     constructor(private ngbActiveModal: NgbActiveModal) {
     }
@@ -46,7 +49,8 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
         // Set CustomerInfoNepaliComponent data
         this.customerInfoNepaliComponent.onSubmit();
         this.customerLoan.customerInfo.nepaliDetail = this.customerInfoNepaliComponent.finalData;
-        /**
+        this.customerLoan.nepaliTemplates = this.hayarParchesKarjaNibedanComponent.karjaLoan;
+         /**
          * TODO: Pass other nepali templates data as an array of `NepaliTemplateDataHolder` inside `loanDataHolder`
          * Your code would be something like:
          * const nepaliTemplates: Array<NepaliTemplateDataHolder> = new Array<NepaliTemplateDataHolder>();
