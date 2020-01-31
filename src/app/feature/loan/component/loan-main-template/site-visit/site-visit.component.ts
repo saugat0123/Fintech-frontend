@@ -113,7 +113,9 @@ export class SiteVisitComponent implements OnInit {
         nearBy: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
             : this.formDataForEdit.currentResidentDetails.nearBy)],
         ownerName: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.ownerName)]
+            : this.formDataForEdit.currentResidentDetails.ownerName)],
+        locationPreview: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
+            : this.formDataForEdit.currentResidentDetails.locationPreview)]
       }),
       businessSiteVisitDetails: this.formBuilder.group({
         officeAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
@@ -651,6 +653,19 @@ export class SiteVisitComponent implements OnInit {
     .setValue(this.latitude + ',' + this.longitude);
     this.getAddress(this.latitude, this.longitude);
   }
+  placeMaker1(latitude, longitude) {
+    this.infoWindowOpen.setValue('false');
+    this.zoom = 10;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.markerLatitude = this.latitude;
+    this.markerLongitude = this.longitude;
+    (<FormGroup>this.siteVisitFormGroup
+        .get('currentResidentDetails'))
+        .get('locationPreview')
+        .setValue(this.latitude + ',' + this.longitude);
+    this.getAddress(this.latitude, this.longitude);
+  }
 
   getAddress(latitude: number, longitude: number) {
     if (navigator.geolocation) {
@@ -694,8 +709,15 @@ export class SiteVisitComponent implements OnInit {
     .get('locationPreview').value;
     this.latLng = coordinate.split(',', 2);
     this.placeMaker(+this.latLng[0], +this.latLng[1]);
-
   }
+  findLocation1() {
+    const coordinate = (<FormGroup>this.siteVisitFormGroup
+        .get('currentResidentDetails'))
+        .get('locationPreview').value;
+    this.latLng = coordinate.split(',', 2);
+    this.placeMaker(+this.latLng[0], +this.latLng[1]);
+  }
+
 
   onSubmit() {
     if (!ObjectUtil.isEmpty(this.formValue)) {
