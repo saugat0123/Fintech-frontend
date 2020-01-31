@@ -4,6 +4,9 @@ import {NbStepperComponent} from '@nebular/theme';
 import {CustomerInfoNepaliComponent} from './customer-info-nepali/customer-info-nepali.component';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse} from '../../../../@core/utils';
+import {ApplicantFamilyInfoComponent} from './applicant-family-info/applicant-family-info.component';
+// import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
+// import {NepaliTemplateType} from '../../../admin/modal/nepali-template-type.enum';
 
 @Component({
     selector: 'app-loan-main-nepali-template',
@@ -19,6 +22,7 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
         showSave: false
     };
     @ViewChild('customerInfoNepaliComponent', {static: true}) customerInfoNepaliComponent: CustomerInfoNepaliComponent;
+    @ViewChild('applicantFamilyInfoComponent', {static: true}) applicantFamilyInfoComponent: ApplicantFamilyInfoComponent;
 
     constructor(private ngbActiveModal: NgbActiveModal) {
     }
@@ -55,6 +59,18 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
          * And, set the array into `LoanDataHolder`
          * this.customerLoan.nepaliTemplates = nepaliTemplates;
          */
+
+        // Set ApplicantFamilyInfoComponent data
+        this.applicantFamilyInfoComponent.onSubmit();
+        this.customerLoan.nepaliTemplates = this.applicantFamilyInfoComponent.data;
+
+
+        // const nepaliTemplates: Array<NepaliTemplateDataHolder> = new Array<NepaliTemplateDataHolder>(
+        //     {id: null, type: NepaliTemplateType.AABEDAK_FAMILY_BIBARAN,
+        //         data: this.applicantFamilyInfoComponent.finalData},
+        // );
+        // this.customerLoan.nepaliTemplates = nepaliTemplates;
+
 
         // Returns the customerLoan inside Map and handle it from Promise
         const map: Map<string, any> = new Map<string, any>();

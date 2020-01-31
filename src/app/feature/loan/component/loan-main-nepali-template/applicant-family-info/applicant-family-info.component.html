@@ -1,6 +1,6 @@
 <div class="container my-5">
-    <form [formGroup]="applicantFamilyInfo">
-        <!-- <strong> -->
+    <form (ngSubmit)="onSubmit()" [formGroup]="applicantFamilyInfo">
+
         <div class="row">
             <div class="col-md-4">
                 <img src="../../../../../../assets/img/logo.png">
@@ -89,7 +89,7 @@
                 <td><input class="form-control nepaliFont" type="text"
                            formControlName="address4"></td>
                 <td><input class="form-control nepaliFont" type="text"
-                           formControlName="relation3"></td>
+                           formControlName="relation4"></td>
                 <td><input class="form-control nepaliFont" type="text"
                            formControlName="occupation4"></td>
                 <td><input class="form-control nepaliFont" type="text"
@@ -192,8 +192,6 @@
         <!-- last section  -->
         <div class="float-right">
             <div class="form-group">
-                <input type="file" class="form-control-file" name="signature"
-                formControlName="signature">
                 हस्ताक्षर
             </div>
             <div class="form-group form-inline">
@@ -204,6 +202,8 @@
                 मिति: <input class="form-control form-control-sm ml-1 nepaliFont"
                              type="text" formControlName="date">
             </div>
+            <br>
+            <button type="button" class="btn btn-primary" (click)="printPage()">प्रिन्ट गर्नुहोस्</button>
         </div>
     </form>
     <br>

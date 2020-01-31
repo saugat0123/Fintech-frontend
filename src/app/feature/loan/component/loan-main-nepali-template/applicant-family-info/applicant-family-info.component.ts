@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {NepaliTemplateDataHolder} from '../../../model/nepali-template-data-holder';
+import {NepaliTemplateType} from '../../../../admin/modal/nepali-template-type.enum';
 
 @Component({
   selector: 'app-applicant-family-info',
@@ -7,8 +9,11 @@ import {FormBuilder, FormGroup} from "@angular/forms";
   styleUrls: ['./applicant-family-info.component.scss']
 })
 export class ApplicantFamilyInfoComponent implements OnInit {
+  @Input() data;
   applicantFamilyInfo: FormGroup;
-  finalData: string;
+  // submitted: boolean = false;
+  templateIndexInArray: number;
+  // finalData: string;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -16,6 +21,21 @@ export class ApplicantFamilyInfoComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (this.data !== undefined) {
+      for (let i = 0; i < this.data.length; i++) {
+        /* Check if data already exits. */
+        if (this.data[i].type === NepaliTemplateType.AABEDAK_FAMILY_BIBARAN) {
+          /* Data exists */
+          const parsedData = JSON.parse(this.data[i].data); // makes it Js object
+          this.applicantFamilyInfo.patchValue(parsedData);
+
+          this.templateIndexInArray = i;
+
+          break;
+        }
+      }
+
+    }
   }
 
   buildForm(): void {
@@ -95,8 +115,19 @@ export class ApplicantFamilyInfoComponent implements OnInit {
       name: [undefined],
       date: [undefined],
     });
-}
-  onSubmit(): void {
-    this.finalData = JSON.stringify(this.applicantFamilyInfo.value);
+    // if (!ObjectUtil.isEmpty(this.data)) {
+    //   const parsedData = JSON.parse(this.data);
+    //   this.applicantFamilyInfo.patchValue(parsedData);
+    // }
   }
+
+  onSubmit(): void {
+    // Form values assigned to array as JSON.
+    this.data[this.templateIndexInArray] = this.applicantFamilyInfo.value;
+  }
+
+  printPage() {
+      window.print();
+  }
+
 }

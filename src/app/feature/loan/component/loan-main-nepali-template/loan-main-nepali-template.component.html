@@ -25,8 +25,9 @@
       </nb-step>
 
       <nb-step [label]="labelThree">
-        <ng-template #labelThree>Third Step</ng-template>
-        <app-applicant-family-info></app-applicant-family-info>
+        <ng-template #labelThree>आवेदक/धन जमानतकर्ताको पारिवारिक विवरण</ng-template>
+        <app-applicant-family-info #applicantFamilyInfoComponent
+          [data]="customerLoan?.nepaliTemplates"></app-applicant-family-info>
       </nb-step>
 
       <nb-step [label]="labelForth">
