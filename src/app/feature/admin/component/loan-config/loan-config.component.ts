@@ -106,6 +106,10 @@ export class LoanConfigComponent implements OnInit {
         this.router.navigate(['home/admin/configLoan']);
     }
 
+    configureRole(loanConfigId: number) {
+        this.router.navigate(['home/approval-role-hierarchy', 'LOAN_TYPE', loanConfigId]);
+    }
+
 
     onChange(data) {
 

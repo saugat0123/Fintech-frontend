@@ -97,8 +97,8 @@
                                 name="toRole">
                             <option [value]="null" hidden>Select To</option>
                             <option *ngFor="let forwardBackward of sendForwardBackwardList"
-                                    [ngValue]="forwardBackward">
-                                {{forwardBackward.roleName}}
+                                    [ngValue]="forwardBackward.role">
+                                {{forwardBackward.role?.roleName}}
                             </option>
                         </select>
                     </div>
