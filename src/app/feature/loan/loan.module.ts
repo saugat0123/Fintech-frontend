@@ -66,6 +66,7 @@ import {LoanMainNepaliTemplateComponent} from './component/loan-main-nepali-temp
 import {FiscalYearModalComponent} from './component/loan-main-template/financial/fiscal-year-modal/fiscal-year-modal.component';
 import {CustomerInfoNepaliComponent} from './component/loan-main-nepali-template/customer-info-nepali/customer-info-nepali.component';
 import { DhitoLikhatPrintComponent } from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-print/dhito-likhat-print.component';
+import { KarjaTamsukPrintComponent } from './component/offer-letter/karjatamsuk/karja-tamsuk-print/karja-tamsuk-print.component';
 
 
 const COMPONENTS = [
@@ -131,7 +132,7 @@ const ENTRY_COMPONENTS = [
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS, LoanMainNepaliTemplateComponent, FiscalYearModalComponent, DhitoLikhatPrintComponent],
+    declarations: [...COMPONENTS, LoanMainNepaliTemplateComponent, FiscalYearModalComponent, DhitoLikhatPrintComponent, KarjaTamsukPrintComponent],
     imports: [
         ThemeModule,
         CommonModule,
