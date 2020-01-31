@@ -137,13 +137,12 @@ export class LoanActionComponent implements OnInit {
     sendForwardList(template) {
         this.popUpTitle = 'Send Forward';
 
-        const approvalType = LocalStorageUtil.getStorage().productUtil.APPROVAL_HIERARCHY_LOAN;
+        const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
         const refId = approvalType === 'DEFAULT' ? 0 : approvalType === 'LOAN_TYPE' ? this.loanConfigId : this.id;
 
         this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId).subscribe(
             (response: any) => {
                 this.sendForwardBackwardList = [];
-                console.log(response.detail);
 
                 this.sendForwardBackwardList = response.detail;
             });
@@ -175,7 +174,6 @@ export class LoanActionComponent implements OnInit {
     }
 
     getUserList(roleId) {
-        console.log(roleId);
         this.userService.getUserListByRoleId(roleId.id).subscribe((response: any) => {
             this.userList = response.detail;
             if (this.userList.length === 1) {

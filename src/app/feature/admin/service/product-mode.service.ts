@@ -52,5 +52,5 @@ export class ProductUtils {
     OFFER_LETTER: boolean;
     DMS: boolean;
     nepTemplate: boolean;
-    APPROVAL_HIERARCHY_LOAN: string;
+    LOAN_APPROVAL_HIERARCHY_LEVEL: string;
 }
