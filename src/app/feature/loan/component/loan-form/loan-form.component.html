@@ -110,6 +110,10 @@
                         <app-share-security #shareSecurity [shareSecurity]="loanDocument?.shareSecurity">
                         </app-share-security>
                     </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name == 'MAW Credit Risk Grading'">
+                        <app-maw-credit-risk-grading #mawCreditRiskGrading [mawCreditRiskGradingData]="loanDocument?.mawCreditRiskGrading">
+                        </app-maw-credit-risk-grading>
+                    </ng-template>
                 </ngb-tab>
             </ngb-tabset>
 
