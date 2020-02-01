@@ -21,21 +21,9 @@ export class BikeKarjaComponent implements OnInit {
 
   ngOnInit() {
     this.buildBikeKarjaForm();
-    // In case of edit
-    if (!ObjectUtil.isEmpty(this.nepaliTemplates)) {
-      for (let i = 0; i < this.nepaliTemplates.length; i++) {
-        if (this.nepaliTemplates[i].type === NepaliTemplateType.getEnum(NepaliTemplateType.HIRE_PURCHASE_KARJA_BIKE)) {
-          const parsedData = JSON.parse(this.nepaliTemplates[i].data);
-          this.bikeKarjaForm.patchValue(parsedData);
-          this.templateIndexInArray = i;
-          break;
-        }
-      }
-    }
   }
 
-  buildBikeKarjaForm() {
-
+  buildBikeKarjaForm(): void {
     this.bikeKarjaForm = this.formBuilder.group({
     // personal info
       maritalStatus: [undefined],
@@ -187,10 +175,23 @@ export class BikeKarjaComponent implements OnInit {
       approvedBy: [undefined],
 
     });
+    // In case of edit
+    if (!ObjectUtil.isEmpty(this.nepaliTemplates)) {
+      for (let i = 0; i < this.nepaliTemplates.length; i++) {
+        if (this.nepaliTemplates[i].type === NepaliTemplateType.getEnum(NepaliTemplateType.HIRE_PURCHASE_KARJA_BIKE)) {
+          const parsedData = JSON.parse(this.nepaliTemplates[i].data);
+          this.bikeKarjaForm.patchValue(parsedData);
+          this.templateIndexInArray = i;
+          break;
+        }
+      }
+    } else {
+      this.nepaliTemplates = [];
+    }
   }
 
   onSubmit() {
-    if (!ObjectUtil.isEmpty(this.nepaliTemplates)) {
+    if (!ObjectUtil.isEmpty(this.templateIndexInArray)) {
       this.nepaliTemplates[this.templateIndexInArray].data = JSON.stringify(this.bikeKarjaForm.value);
     } else {
       const newBikeKarja = new NepaliTemplateDataHolder();
