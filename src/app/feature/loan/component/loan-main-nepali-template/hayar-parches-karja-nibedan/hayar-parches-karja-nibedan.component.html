@@ -1,4 +1,4 @@
-<form (ngSubmit)="submit()" [formGroup]="hayarParchesKarjaInfo" class="form-horizontal nep">
+<form (ngSubmit)="onSubmit()" [formGroup]="hayarParchesKarjaInfo" class="form-horizontal nep">
 
     <!-- 0th Column-->
     <div class="row ">
@@ -24,7 +24,7 @@
             <div *ngIf="submitted && hayarParchesKarjaValid.date.invalid"
                  class="invalid-feedback">
               <span
-                      *ngIf="hayarParchesKarjaValid.date.errors.required">पआवश्यक छ</span>
+                      *ngIf="hayarParchesKarjaValid.date.errors.required">पआवश्यक छ </span>
             </div>
         </div>
 
@@ -1374,6 +1374,5 @@
                 </div>
             </div>
 </form>
-<pre>{{hayarParchesKarjaInfo.value|json}}</pre>
 
 

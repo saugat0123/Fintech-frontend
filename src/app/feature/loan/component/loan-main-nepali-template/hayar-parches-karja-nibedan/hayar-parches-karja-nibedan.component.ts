@@ -197,16 +197,15 @@ export class HayarParchesKarjaNibedanComponent implements OnInit {
         }
     }
 
-    submit(): void {
+    onSubmit(): void {
         if (!ObjectUtil.isEmpty(this.indexArrayTemplate)) {
             this.karjaLoan[this.indexArrayTemplate].data = JSON.stringify(this.hayarParchesKarjaInfo.value);
         } else {
-            const newHayarParchesKarja = new NepaliTemplateDataHolder();
-            newHayarParchesKarja.type = NepaliTemplateType.getEnum(NepaliTemplateType.HIRE_PURCHASE_KARJA_NIBEDAN);
-            newHayarParchesKarja.data = JSON.stringify(this.hayarParchesKarjaInfo.value);
-            this.karjaLoan.push(newHayarParchesKarja);
+            const parchesKarjaArray = new NepaliTemplateDataHolder();
+            parchesKarjaArray.type = NepaliTemplateType.getEnum(NepaliTemplateType.HIRE_PURCHASE_KARJA_NIBEDAN);
+            parchesKarjaArray.data = JSON.stringify(this.hayarParchesKarjaInfo.value);
+            this.karjaLoan.push(parchesKarjaArray);
 
         }
     }
-
 }

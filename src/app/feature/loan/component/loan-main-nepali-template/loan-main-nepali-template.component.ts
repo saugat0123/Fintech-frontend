@@ -53,13 +53,13 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
         this.customerInfoNepaliComponent.onSubmit();
         this.customer.nepaliDetail = this.customerInfoNepaliComponent.finalData;
 
-        // // Set ApplicantFamilyInfoComponent data
+        // Set ApplicantFamilyInfoComponent data
         this.applicantFamilyInfoComponent.onSubmit();
         this.customerLoan.nepaliTemplates = this.applicantFamilyInfoComponent.nepaliTemplates;
 
 
         // Set hayarParchesKarjaInfoComponent data
-        this.hayarParchesKarjaInfoComponent.submit();
+        this.hayarParchesKarjaInfoComponent.onSubmit();
         this.customerLoan.nepaliTemplates = this.hayarParchesKarjaInfoComponent.karjaLoan;
 
 
