@@ -33,4 +33,15 @@ export namespace OfferLetterConst {
         }
     }
 
+
+    export function keysEnum(offerLetter: string) {
+        let key = null;
+        Object.keys(OfferLetterConst).forEach(o => {
+            if (OfferLetterConst.value(OfferLetterConst[o]) === offerLetter) {
+                key = OfferLetterConst[o];
+            }
+        });
+        return key;
+    }
+
 }

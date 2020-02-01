@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {OfferLetterConst} from '../../model/offer-letter-const';
 
 @Component({
   selector: 'app-kararnama-print',
@@ -8,7 +9,10 @@ import {Component, Input, OnInit} from '@angular/core';
 export class KararnamaPrintComponent implements OnInit {
   @Input()
   letter: any;
-  constructor() { }
+  offerLetterConst = OfferLetterConst;
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
