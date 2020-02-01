@@ -1,175 +1,58 @@
-<div class="row" [nbSpinner]="spinner">
+<div class="row" id="kararnama-print">
   <div class="col-md-12" style="overflow-y: auto;height:500px">
     <div class="text-center">
-      <h4>करारनामा</h4>
+      <h3><b>करारनामा</b></h3>
     </div>
-    <form (ngSubmit)="onSubmit()" [formGroup]="form" class="nep">
+    <form class="nep">
       लिखितम् नेपाल सरकार उद्योग मन्त्रालय, कम्पनी रजिष्ट्रारको कार्यालय, त्रिपुरेश्वर काठमाडौंमा मिति
       २०६७÷०१÷०७ मा दर्ता नं. ७२३५८÷०६६÷०६७ जनाई दर्ता भई मोरङ्ग जिल्ला विराटनगर उ.म.न.पा. वडा नं २१
       स्थित रजिष्टर्ड कार्यालय रहि का.म.न.पा, वडा नं ११, त्रिपुरेश्वरमा शाखा कार्यालय रहेको यस
       एम.ए.डब्लु. इन्भेष्टमेन्ट प्रा.लि. (नेपाल राष्ट्र« बैंकबाट हायर पर्चेज कर्जा कारोबार गर्न
       इजाजतपत्र प्राप्त संस्था) को तर्फबाट अख्तियार प्राप्त व्यक्ति
-      <input class="form-field form-control-sm nepaliFont"
-             formControlName="authorityPerson"
-             name="authorityPerson"
-             placeholder="authorizedPerson"
-             type="text"/>
+      <strong class="nepaliFont"> {{letter['authorityPerson']}} </strong>
       (यस पछि करारनामामा
       आवश्यकता अनुसार “प्रथम पक्ष” भनिनेछ) र त्यस धन व्यहोर्ने ऋणीको नाम
-      <ng-container *ngFor="let customerDetail of  form.get('customerDetail')['controls']; let index = index" formArrayName="customerDetail">
+      <ng-container *ngFor="let singleCustomerDetail of letter['customerDetail']; let index = index">
         <br>
-        <li [formGroupName]="index">
+        <li>
           <div class="col-md-1 d-contents mr-3">
             <span class="nepaliFont">{{index+1 | nepaliWord:'pretti' }}</span>)
           </div>
-          <input class="form-field form-control-sm nepaliFont"
-                 formControlName="grandFatherName"
-                 name="grandFatherName"
-                 placeholder="हजुरबुवा÷ससुराको नाम "
-                 type="text"/> को.नाती/नातिनी/बुहारी
-          <input class="form-field form-control-sm nepaliFont"
-                 formControlName="fatherName"
-                 name="fatherName"
-                 placeholder="पती÷बुवाो नाम"
-                 type="text"/>को
+          <strong class="nepaliFont"> {{singleCustomerDetail['grandFatherName']}} </strong>  को.नाती/नातिनी/बुहारी
+          <strong class="nepaliFont"> {{singleCustomerDetail['fatherName']}} </strong> को
           छोरा/छोरी/पत्नी
-          <input class="form-field form-control-sm nepaliFont"
-                 formControlName="district"
-                 name="district"
-                 placeholder="जिल्ला"
-                 type="text"/> जिल्ला
-          <input class="form-field form-control-sm nepaliFont"
-                 formControlName="municipality"
-                 name="municipality"
-                 placeholder="गा|वि|स|÷न|पा| ÷उ|म|न|पा| ÷म|न|पा|"
-                 type="text"/>गा.वि.स./न.पा./उ.म.न.पा./म.न.पा.
-          <input class="form-field form-control-sm nepaliFont"
-                 formControlName="wardNo"
-                 name="wardNo"
-                 placeholder="वडा|नं"
-                 type="text"/>
-          स्थाई ठेगाना भई हाल <input class="form-field form-control-sm nepaliFont"
-                                     formControlName="currentDistrict"
-                                     name="currentDistrict"
-                                     placeholder="जिल्ला"
-                                     type="text"/> जिल्ला
-          <input class="form-field form-control-sm nepaliFont"
-                 formControlName="currentMunicipality"
-                 name="currentMunicipality"
-                 placeholder="गा.|.वि|.स|.न|.पा|÷.उ|.म|.न|.पा|/.म|.न|.पा|"
-                 type="text"/>
+          <strong class="nepaliFont"> {{singleCustomerDetail['district']}} </strong>  जिल्ला
+          <strong class="nepaliFont"> {{singleCustomerDetail['municipality']}} </strong> गा.वि.स./न.पा./उ.म.न.पा./म.न.पा.
+          <strong class="nepaliFont"> {{singleCustomerDetail['wardNo']}} </strong>
+          स्थाई ठेगाना भई हाल <strong class="nepaliFont"> {{singleCustomerDetail['currentDistrict']}} </strong>  जिल्ला
+          <strong class="nepaliFont"> {{singleCustomerDetail['currentMunicipality']}} </strong>
           गा.पा./न.पा./उ.म.न.पा./म.न.पा.
 
-          वडा.नं<input class="form-field form-control-sm nepaliFont"
-                       formControlName="currentWardNo"
-                       name="currentWardNo"
-                       placeholder="वडा.नं"
-                       type="text"/>बस्नेवर्ष<input class="form-field form-control-sm nepaliFont"
-                                                    formControlName="customerAge"
-                                                    name="customerAge"
-                                                    placeholder="वर्ष"
-                                                    type="text"/>को÷की
-          श्री/श्रीमती/सुश्री<input class="form-field form-control-sm nepaliFont"
-                                          formControlName="customerName"
-                                          name="customerName"
-                                          placeholder="नाम"
-                                          type="text"/>
-          (जिल्ला प्रशासन कार्यालय <input class="form-field form-control-sm nepaliFont"
-                                          formControlName="citizenIssuedDistrict"
-                                          name="citizenIssuedDistrict"
-                                          placeholder=" जि.प्र.का "
-                                          type="text"/>बाट
-          मिति <input class="form-field form-control-sm nepaliFont"
-                      formControlName="citizenShipIssuedDate"
-                      name="citizenShipIssuedDate"
-                      placeholder="जारी मिति"
-                      type="text"/> मा जारी
-          ना.प्र.नं<input class="form-field form-control-sm nepaliFont"
-                          formControlName="citizenshipNo"
-                          name="citizenshipNo"
-                          placeholder="ना.प्र.नं."
-                          type="text"/>
-          वा प्राइभेट फर्म रजिष्ट्रेशन ऐन, २०१४÷कम्पनी ऐन, २०६३ बमोजिम नेपाल सरकार <input class="form-field form-control-sm nepaliFont"
-                                                                                          formControlName="ministryName"
-                                                                                          name="ministryName"
-                                                                                          type="text"/>मन्त्रालय
-          <input class="form-field form-control-sm nepaliFont"
-                 formControlName="departmentName"
-                 name="departmentName"
-                 type="text"/>विभाग
-          <input class="form-field form-control-sm nepaliFont"
-                 formControlName="governmentOfficeName"
-                 name="governmentOfficeName"
-                 type="text"/>कार्यालयमा
-          िति <input class="form-field form-control-sm nepaliFont"
-                     formControlName="registrationDate"
-                     name="registrationDate"
-                     type="text"/>
-          . दर्ता नं. <input class="form-field form-control-sm nepaliFont"
-                             formControlName="registrationNo"
-                             name="registrationNo"
-                             type="text"/> रही दर्ता भएको
-          <input class="form-field form-control-sm nepaliFont"
-                                                                 formControlName="registrationDistrict"
-                                                                 name="registrationDistrict"
-                                                                 type="text"/>जिल्ला
-          <input class="form-field form-control-sm nepaliFont"
-                 formControlName="registrationMunicipality"
-                 name="registrationMunicipality"
-                 type="text"/>गा.वि.स.÷न.पा.÷उ.म.न.पा.÷म.न.पा.
-          वडा नं<input class="form-field form-control-sm nepaliFont"
-                       formControlName="registrationWardNo"
-                       name="registrationWardNo"
-                       type="text"/>
-          स्थित <input class="form-field form-control-sm nepaliFont"
-                       formControlName="companyName"
-                       name="companyName"
-                       type="text"/>
-          को तर्फबाट अख्तियार प्राप्त व्यक्ति <input class="form-field form-control-sm nepaliFont"
-                                                     formControlName="authorizedPerson"
-                                                     name="authorizedPerson"
-                                                     type="text"/> जिल्ला <input class="form-field form-control-sm nepaliFont"
-                                                                                 formControlName="authorizedPersonDistrict"
-                                                                                 name="authorizedPersonDistrict"
-                                                                                 type="text"/>
-          गा.पा.÷न.पा.÷उ.म.न.पा.÷म.न.पा. वडा नं. <input class="form-field form-control-sm nepaliFont"
-                                                        formControlName="authorizedPersonWardNo"
-                                                        name="authorizedPersonWardNo"
-                                                        type="text"/> बस्ने बर्ष <input class="form-field form-control-sm nepaliFont"
-                                                                                        formControlName="authorizedPersonAge"
-                                                                                        name="authorizedPersonAge"
-                                                                                        type="text"/> को÷की श्री÷सुश्री÷श्रीमती
-          <input class="form-field form-control-sm nepaliFont"
-                 formControlName="authorizedPersonName"
-                 name="authorizedPersonName"
-                 type="text"/>
-          (जिल्ला.प्रशासन.कार्यालय<input class="form-field form-control-sm nepaliFont"
-                                         formControlName="authorizedCitizenIssuedDistrict"
-                                         name="authorizedCitizenIssuedDistrict"
-                                         type="text"/>बाट मिति
-          <input class="form-field form-control-sm nepaliFont"
-                 formControlName="authorizedPersonCitizenIssuedDate"
-                 name="authorizedPersonCitizenIssuedDate"
-                 type="text"/> मा जारी
-          ना.प्र.नं <input class="form-field form-control-sm nepaliFont"
-                          formControlName="authorizedPersonCitizenNo"
-                          name="authorizedPersonCitizenNo"
-                          type="text"/>)
-          <div class="col-md-12 text-right">
-            <button
-                (click)="removeCustomerDetail(index)"
-                *ngIf="index > 0"
-                nbButton size="small"
-                status="primary" class="mt-3">हटाउनुहोस्..
-            </button>
-          </div>
+          वडा.नं<strong class="nepaliFont"> {{singleCustomerDetail['currentWardNo']}} </strong> बस्नेवर्ष
+          <strong class="nepaliFont"> {{singleCustomerDetail['customerAge']}} </strong> को÷की
+          श्री/श्रीमती/सुश्री<strong class="nepaliFont"> {{singleCustomerDetail['customerName']}} </strong>
+          (जिल्ला प्रशासन कार्यालय <strong class="nepaliFont"> {{singleCustomerDetail['citizenIssuedDistrict']}} </strong> बाट
+          मिति <strong class="nepaliFont"> {{singleCustomerDetail['citizenshipIssuedDate']}} </strong>  मा जारी
+          ना.प्र.नं<strong class="nepaliFont"> {{singleCustomerDetail['citizenshipNo']}} </strong>
+          वा प्राइभेट फर्म रजिष्ट्रेशन ऐन, २०१४÷कम्पनी ऐन, २०६३ बमोजिम नेपाल सरकार <strong class="nepaliFont"> {{singleCustomerDetail['ministryName']}} </strong> मन्त्रालय
+          <strong class="nepaliFont"> {{singleCustomerDetail['departmentName']}} </strong> विभाग
+          <strong class="nepaliFont"> {{singleCustomerDetail['governmentOfficeName']}} </strong> कार्यालयमा
+          िति <strong class="nepaliFont"> {{singleCustomerDetail['registrationDate']}} </strong>
+          . दर्ता नं. <strong class="nepaliFont"> {{singleCustomerDetail['registrationNo']}} </strong>  रही दर्ता भएको
+          <strong class="nepaliFont"> {{singleCustomerDetail['registrationDistrict']}} </strong> जिल्ला
+          <strong class="nepaliFont"> {{singleCustomerDetail['registrationMunicipality']}} </strong> गा.वि.स.÷न.पा.÷उ.म.न.पा.÷म.न.पा.
+          वडा नं<strong class="nepaliFont"> {{singleCustomerDetail['registrationWardNo']}} </strong>
+          स्थित <strong class="nepaliFont"> {{singleCustomerDetail['companyName']}} </strong>
+          को तर्फबाट अख्तियार प्राप्त व्यक्ति <strong class="nepaliFont"> {{singleCustomerDetail['authorizedPerson']}} </strong>
+          जिल्ला <strong class="nepaliFont"> {{singleCustomerDetail['authorizedPersonDistrict']}} </strong>
+          गा.पा.÷न.पा.÷उ.म.न.पा.÷म.न.पा. वडा नं. <strong class="nepaliFont"> {{singleCustomerDetail['authorizedPersonWardNo']}}
+        </strong>  बस्ने बर्ष <strong class="nepaliFont"> {{singleCustomerDetail['authorizedPersonAge']}} </strong>  को÷की श्री÷सुश्री÷श्रीमती
+          <strong class="nepaliFont"> {{singleCustomerDetail['authorizedPersonName']}} </strong>
+          (जिल्ला.प्रशासन.कार्यालय<strong class="nepaliFont"> {{singleCustomerDetail['authorizedCitizenIssuedDistrict']}} </strong> बाट मिति
+          <strong class="nepaliFont"> {{singleCustomerDetail['authorizedCitizenIssuedDate']}} </strong> मा जारी
+          ना.प्र.नं <strong class="nepaliFont"> {{singleCustomerDetail['authorizedPersonCitizenNO']}} </strong>)
         </li>
       </ng-container>
-      <div class="row mr-1 mb-3">
-        <div class="col-md-12 text-right">
-          <button nbButton size="small" status="info" (click)="addCustomerDetail()">थप्नुहोस्..</button>
-        </div>
-      </div>
       (यस पछि करारनामामा आवश्यकता
       अनुसार “द्वितीय पक्ष” भनिनेछ) का बीचमा प्रथम पक्षले द्वितीय पक्षलाई हायर पर्चेज कर्जाको व्यवस्था
       मिलाई शर्तहरुमा उल्लेख गरिए अनुसार गर्ने गरि तपसिलका सवारी साधन÷मेशिनरी÷उपकरण उपलब्ध गराउने
@@ -186,37 +69,14 @@
         हायर पर्चेज कर्जा अन्र्तरगत द्वितीय पक्षलाई उपलव्ध गराईने सवारी साधन÷मेशिनरी÷उपकरणको विवरण ः</li>
       <li>२. प्रथम पक्षले द्वितीय पक्षलाई हायर पर्चेज कर्जा लगानी गरि सवारी साधन÷मेशिनरी÷उपकरण धनी प्रथम
         पक्ष तथा ऋणी द्वितीय पक्ष हुने गरि वा प्रथम पक्षले अन्य बैंक तथा वित्तीय संस्थाबाट कर्जाको
-        व्यवस्था मिलाई सवारी धनी <input class="form-field form-control-sm nepaliFont"
-                                        formControlName="vehicleOwnerName"
-                                        name="vehicleOwnerName"
-                                        type="text"/> र प्रथम पक्ष
-        मार्फत द्वितीय पक्ष ऋणी जनाई लिएको रु <input class="form-field form-control-sm nepaliFont"
-                                                     formControlName="loanAmount"
-                                                     name="loanAmount"
-                                                     type="text"/>।– (अक्षरेपी
-        <input class="form-field form-control-sm nepaliFont"
-               formControlName="loanAmountInWord"
-               name="loanAmountInWord"
-               type="text"/>मात्र)
-        म द्वितीय पक्षले वार्षिक <input class="form-field form-control-sm nepaliFont"
-                                        formControlName="loanInterestRate"
-                                        name="loanInterestRate"
-                                        type="text"/> प्रतिशत ब्याज दरले हुन आउने मासिक किस्ता
-        रु<input class="form-field form-control-sm nepaliFont"
-                 formControlName="loanMonthlyTenure"
-                 name="loanMonthlyTenure"
-                 type="text"/>।– (अक्षरेपी
-        <input class="form-field form-control-sm nepaliFont"
-               formControlName="loanMonthlyTenureInWord"
-               name="loanMonthlyTenureInWord"
-               type="text"/>मात्र)
-        प्रत्येक अंग्रेजी महिनाको <input class="form-field form-control-sm nepaliFont"
-                                         formControlName="loanMonthlyTenureDate"
-                                         name="loanMonthlyTenureDate"
-                                         type="text"/> तारिख सम्ममा <input class="form-field form-control-sm nepaliFont"
-                                                                           formControlName="loanTenureYear"
-                                                                           name="loanTenureYear"
-                                                                           type="text"/> वर्ष÷महिना भित्र प्रथम
+        व्यवस्था मिलाई सवारी धनी <strong class="nepaliFont"> {{letter['vehicleOwnerName']}} </strong> र प्रथम पक्ष
+        मार्फत द्वितीय पक्ष ऋणी जनाई लिएको रु <strong class="nepaliFont"> {{letter['loanAmount']}} </strong>।– (अक्षरेपी
+        <strong class="nepaliFont"> {{letter['loanAmountInWord']}} </strong>>मात्र)
+        म द्वितीय पक्षले वार्षिक <strong class="nepaliFont"> {{letter['loanInterestRate']}} </strong> प्रतिशत ब्याज दरले हुन आउने मासिक किस्ता
+        रु<strong class="nepaliFont"> {{letter['loanMonthlyTenure']}} </strong>।– (अक्षरेपी
+        <strong class="nepaliFont"> {{letter['loanMonthlyTenureWord']}} </strong>मात्र)
+        प्रत्येक अंग्रेजी महिनाको <strong class="nepaliFont"> {{letter['loanMonthlyTenureDate']}} </strong> तारिख सम्ममा
+        <strong class="nepaliFont"> {{letter['loanMonthlyTenureYear']}} </strong> वर्ष÷महिना भित्र प्रथम
         पक्षको कार्यालय वा प्रथम पक्षले तोकिदिएको स्थानमा सम्पूर्ण कर्जा लगानी रकम भुक्तान गर्ने शर्त
         मञ्जुर गरी आजको मितिदेखि शर्त नं. १ मा उल्लेख गरिएको सवारी साधन÷मेशिनरी÷उपकरण जिम्मामा लिई भोगचलन
         गर्ने कुरा म द्वितीय पक्ष मञ्जुर गर्दछु । प्रथम पक्ष पनि द्वितीय पक्षले किस्ता भुक्तानी गर्दै गए</li>
@@ -257,10 +117,7 @@
       </li>
       <li>१०. यस करारनामाको बुँदा नं. ६,७ र ८ बमोजिम द्वितीय पक्षले तिर्नु पर्ने रकमहरु द्वितीय पक्षले नतिरी
         प्रथम पक्षले तिर्नुपर्ने परिस्थिति आईपरी तिरे बुझाएमा सो तिरे बुझाएको रकम साँवा र सोको बार्षिक
-        <input class="form-field form-control-sm nepaliFont"
-               formControlName="compensationPercent"
-               name="compensationPercent"
-               type="text"/> प्रतिशत ब्याजका दरले क्षतिपूर्ति समेत द्वितीय पक्षको चल अचल सम्पत्तिबाट प्रथम
+        <strong class="nepaliFont"> {{letter['compensationPercent']}} </strong> प्रतिशत ब्याजका दरले क्षतिपूर्ति समेत द्वितीय पक्षको चल अचल सम्पत्तिबाट प्रथम
         पक्षले असुल उपर गरी लिने शर्त मान्न हामी प्रथम र द्वितीय पक्ष मञ्जुर गर्दछौं ।</li>
       <li>११. हायर पर्चेज कर्जा अन्तर्गत म द्वितीय पक्षले उपभोग गरी आएको सवारी साधन÷मेशिनरी÷उपकरण आफै वा
         कर्मचारी, चालकले लापरबाही, हेलचेक्राई वा गैह्र कानूनी रुपमा प्रयोग गरी दुर्घटना हुन गएमा उक्त
@@ -307,53 +164,29 @@
         उलंघन गरी हुने क्षती र कसुर वापतमा सजायको भागीदार सवारी जिम्मा लिई भोगचलन गर्ने द्वितीय पक्षले नै
         आर्थिक र कानूनी दायित्व बहन गर्ने कुरामा मञ्जुर छु ।</li>
       <li>१९. द्वितीय पक्षले कर्जामा लिएको सवारी साधनको पुरै किस्ता रकम अग्रीम भुक्तानी गर्न चाहेमा भुक्तानी
-        हुन बाँकी रकमका<input class="form-field form-control-sm nepaliFont"
-                              formControlName="advancePaymentPercent"
-                              name="advancePaymentPercent"
-                              type="text"/>.% मात्र अग्रिम भुक्तानी शुल्क लिई द्वितीय पक्षको नाउँमा प्रथम पक्षले नामसारी
+        हुन बाँकी रकमका<strong class="nepaliFont"> {{letter['advancePaymentPercent']}} </strong>.% मात्र अग्रिम भुक्तानी शुल्क लिई द्वितीय पक्षको नाउँमा प्रथम पक्षले नामसारी
         गरिदिने शर्त मान्न हामी दुवै पक्ष मञ्जुर गर्दछौं ।</li>
       <li>२०. प्रथम पक्षको लगानी फिर्ता नहुँदै द्वितीय पक्षले सवारी साधन कुनै अर्को व्यक्तिलाई बेचबिखन वा
         कुनै किसिमले हक हस्तान्तरण गर्न चाहेमा त्यस्तो व्यक्तिलाई प्रथम पक्षले सक्षम ठानेको वा पत्याएको
         खण्डमा मात्र त्यसरी बेचबिखन वा हक हस्तान्तरण गर्ने लिखित स्वीकृति दिन सक्नेछ । प्रथम पक्षको
         स्वीकृति बिना भएको हक हस्तान्तरण बैध हुने छैन, साथै हक हस्तान्तरणबाट पाउने व्यक्तिले बाँकी रहेको
         रकममा प्रथम पक्षको नियमानुसार लाग्ने शुल्क तिर्नुपर्ने कुरामा हामी दुवै पक्षको मञ्जुरी छ ।</li>
-    <li>  २१. धितो लेखाईदिने श्री <input class="form-field form-control-sm nepaliFont"
-                                         formControlName="mortgagesName"
-                                         name="mortgagesName"
-                                         type="text"/> को नाउँमा रहेको
-      <input class="form-field form-control-sm nepaliFont"
-             formControlName="mortgagesLandDistrict"
-             name="mortgagesLandDistrict"
-             type="text"/>  जिल्ला,  <input class="form-field form-control-sm nepaliFont"
-                                            formControlName="mortgagesLandMunicipality"
-                                            name="mortgagesLandMunicipality"
-                                            type="text"/> न.पा.÷गा.वि.स., वडा नं. <input class="form-field form-control-sm nepaliFont"
-                                                                                         formControlName="mortgagesLandWardNo"
-                                                                                         name="mortgagesLandWardNo"
-                                                                                         type="text"/> स्थित कि.नं.
-      <input class="form-field form-control-sm nepaliFont"
-             formControlName="mortgagesLandNo"
-             name="mortgagesLandNo"
-             type="text"/>, क्षेत्रफल <input class="form-field form-control-sm nepaliFont"
-                                             formControlName="mortgagesLandArea"
-                                             name="mortgagesLandArea"
-                                             type="text"/> को जग्गा सुरक्षण वा धितो वापत लेखाईदिएको छु÷छौं
-      । यस करारनामा बमोजिम लेना रकम असुल उपर नहुँदा सम्म उपरोक्त उल्लेखित जग्गा÷घरजग्गा रोक्का राखिदिन
-      समेत द्वितीय पक्षले मञ्जुर गर्दछु ।</li>
+      <li>  २१. धितो लेखाईदिने श्री <strong class="nepaliFont"> {{letter['mortgagesName']}} </strong> को नाउँमा रहेको
+        <strong class="nepaliFont"> {{letter['mortgagesLandDistrict']}} </strong> जिल्ला,
+        <strong class="nepaliFont"> {{letter['mortgagesLandMunicipality']}} </strong> न.पा.÷गा.वि.स.,
+        वडा नं. <strong class="nepaliFont"> {{letter['mortgagesLandWardNo']}} </strong> स्थित कि.नं.
+        <strong class="nepaliFont"> {{letter['mortgagesLandNo']}} </strong>,
+        क्षेत्रफल <strong class="nepaliFont"> {{letter['mortgagesLandArea']}} </strong> को जग्गा सुरक्षण वा धितो वापत लेखाईदिएको छु÷छौं
+        । यस करारनामा बमोजिम लेना रकम असुल उपर नहुँदा सम्म उपरोक्त उल्लेखित जग्गा÷घरजग्गा रोक्का राखिदिन
+        समेत द्वितीय पक्षले मञ्जुर गर्दछु ।</li>
       <li> २२. यस करारनामा बमोजिम द्वितीय पक्षले कर्जामा लिई प्रयोग गरेको शर्त नं. १ बमोजिमको सवारी साधन
         सार्वजनिक भाडाका रुपमा चलाउने भएमा सम्बन्धित सरकारी निकायबाट रुट इजाजत–पत्र लिई चलाउनु पर्नेछ र
         सोको जानकारी द्वितीय पक्षले प्रथम पक्षलाई अनिवार्य रुपमा लिखित जानकारी दिनुपर्नेछ । यसरी सम्बन्धित
         सरकारी निकायबाट पटक–पटक लिएको रुट इजाजत–पत्र द्वितीय पक्षले परिवर्तन गर्न चाहेमा प्रथम पक्षको
         लिखित सहमति प्राप्त गरे पश्चात् मात्र त्यसरी परिवर्तन गर्न सक्नेछ । प्रथम पक्षको लिखित स्वीकृति
-        प्राप्त नगरी पहिले लिएको रुट इजाजत–पत्र परिवर्तन गरेमा रु <input class="form-field form-control-sm nepaliFont"
-                                                                         formControlName="licenseChangeCompensation"
-                                                                         name="licenseChangeCompensation"
-                                                                         type="text"/>।–
+        प्राप्त नगरी पहिले लिएको रुट इजाजत–पत्र परिवर्तन गरेमा रु <strong class="nepaliFont"> {{letter['licenseChangeCompensation']}} </strong>।–
         (अक्षरेपी
-        <input class="form-field form-control-sm nepaliFont"
-               formControlName="licenseChangeCompensationWord"
-               name="licenseChangeCompensationWord"
-               type="text"/>मात्र) क्षतिपूर्ति स्वरुप द्वितीय पक्षले प्रथम पक्षलाई तिर्नु
+        <strong class="nepaliFont"> {{letter['licenseChangeCompensationWord']}} </strong>मात्र) क्षतिपूर्ति स्वरुप द्वितीय पक्षले प्रथम पक्षलाई तिर्नु
         बुझाउनु पर्नेछ ।</li>
       <li>२३. प्रथम पक्षले द्वितीय पक्षलाई ऋण कर्जा वापत उपलब्ध गराएको रकमको हकमा उक्त रकम, उक्त रकममा
         लाग्ने ब्याज र अन्य शुल्कहरु प्रथम पक्षले समय समयमा निर्धारण गरे बमोजिम भुक्तानी गर्नका लागि
@@ -367,15 +200,6 @@
       <li>२६. यो करारनामा र यस सँग सम्बन्धीत कर्जा निवेदन, धनजमानी कागज समेतमा लेखिएको कुराहरुमा उक्त कागजात
         बमोजिम हुनेछ, नलेखिएको कुराहरुका हकमा प्रचलित कानुन बमोजिम हुने कुरामा हामी दुवै पक्ष मञ्जुर
         गर्दछौ ।</li>
-      <div class="row">
-        <div class="col-md-12 text-right">
-          <button nbButton status="success" type="submit">Save</button>
-        </div>
-      </div>
     </form>
   </div>
 </div>
-<button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4" *ngIf="initialInfoPrint"
-        ngxPrint printSectionId="kararnama-print">Print
-</button>
-<app-kararnama-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-kararnama-print>
