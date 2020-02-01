@@ -1,5 +1,6 @@
 <div class="row" [nbSpinner]="spinner">
-  <div class="col-md-12" style="overflow-y: auto;height:500px">
+  <div class="col-md-12 viewFull" id="{{offerLetterConst.KARJATAMSUK}}"
+       style="overflow-y: auto;height:500px">
     <div class="text-center">
       <h4>कर्जाको तमसुक</h4>
     </div>
@@ -219,13 +220,14 @@
 
       <div class="row">
         <div class="col-md-12 text-right">
+          <button *ngIf="initialInfoPrint" [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4"
+                  ngxPrint printSectionId="karjaTamsuk">Print
+          </button>
           <button nbButton status="success" type="submit">Save</button>
         </div>
       </div>
     </form>
   </div>
 </div>
-<button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4" *ngIf="initialInfoPrint"
-        ngxPrint printSectionId="karjaTamsuk">Print
-</button>
+
 <app-karja-tamsuk-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-karja-tamsuk-print>

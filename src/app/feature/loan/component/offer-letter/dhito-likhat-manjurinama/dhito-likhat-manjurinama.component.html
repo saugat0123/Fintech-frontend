@@ -1,6 +1,7 @@
 <div class="row form-group" [nbSpinner]="spinner">
-  <div class="col-md-12">
-    <form [formGroup]="dhitoForm" class="nep">
+    <div class="col-md-12 viewFull" id="{{offerLetterConst.DHITO_LIKHAT_MANJURINAMA}}"
+         style="overflow-y: auto;height:500px">
+        <form [formGroup]="dhitoForm" class="nep viewFull">
       <div class="text-center">
           <h4> धितो लिखत मञ्जुरीनामा</h4>
       </div>
@@ -133,13 +134,15 @@
       त्रिपुरेश्वर, टेकु रोड, काठमाडौंमा बसी यो धितो लिखत लेखि लेखाई सही छाप गरी तपाई धनी प्रा. लि. लाई दिए“/दियौं ।
       <div class="row">
         <div class="col-md-12 text-right">
+            <button *ngIf="initialInfoPrint" [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4"
+                    ngxPrint printSectionId="dhito-likha-print">Print
+            </button>
           <button nbButton status="success" type="submit" (click)="onSubmit()">Save</button>
         </div>
+
       </div>
     </form>
   </div>
 </div>
-<button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4" *ngIf="initialInfoPrint"
-        ngxPrint printSectionId="dhito-likha-print">Print
-</button>
+
 <app-dhito-likhat-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-dhito-likhat-print>

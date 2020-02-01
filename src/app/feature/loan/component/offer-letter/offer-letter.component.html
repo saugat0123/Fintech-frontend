@@ -62,7 +62,12 @@
                                     <span>{{list.name}}</span>
                                 </div>
                                 <div class="col-md-4 d-flex justify-content-end">
-                                   <span *ngIf="list.isPresent" style="color:darkgreen">
+                                      <span style="color:black">
+                                      <a (click)="showFullScreen(list.name)">
+                                        <i class="fa fa-expand px-2"></i>
+                                   </a>
+                                    </span>
+                                    <span *ngIf="list.isPresent" style="color:darkgreen">
                                      <input (change)="onFileChange($event)" class="hide-type"
                                             id="uploadOfferLetterInput"
                                             type="file">
@@ -96,7 +101,7 @@
                             <app-birth-mark-letter-nepali
                                     *ngIf="loanDataHolder && list.name === offerLetterConst.value(offerLetterConst.BIRTHMARK_LETTER)"
                                     [customerId]="customerId"
-                                    [loanDataHolder]="loanDataHolder">
+                                    [loanDataHolder]="loanDataHolder" id="{{offerLetterConst.BIRTHMARK_LETTER}}">
                             </app-birth-mark-letter-nepali>
                             <!-- CAD DOC FOR MAW --->
                             <app-dhito-likhat-manjurinama
@@ -153,7 +158,7 @@
                         <nb-accordion-item-body>
                             <app-offer-letter-upload *ngIf="loanDataHolder"
                                                      [customerId]="loanDataHolder.id"
-                                                     [customerOfferLetter]="loanDataHolder.customerOfferLetter"></app-offer-letter-upload>
+                                                     [customerOfferLetter]="loanDataHolder?.customerOfferLetter"></app-offer-letter-upload>
                         </nb-accordion-item-body>
                     </nb-accordion-item>
                 </nb-accordion>
