@@ -11,6 +11,7 @@ import {PendingLoanComponent} from '../component/dashboard/pending/pending-loan/
 import {PendingsLoanComponent} from '../component/dashboard/pending/pendings/pendings-loan.component';
 import {DataVisualizationComponent} from '../component/dashboard/data-visualization/data-visualization.component';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { JamaniBasnekoComponent } from './laon/component/loan-main-nepali-template/jamani-basneko/jamani-basneko.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
             DashboardComponent,
             PendingLoanComponent,
             PendingsLoanComponent,
-            DataVisualizationComponent
+            DataVisualizationComponent,
+            JamaniBasnekoComponent
         ],
         exports: [],
         providers: []

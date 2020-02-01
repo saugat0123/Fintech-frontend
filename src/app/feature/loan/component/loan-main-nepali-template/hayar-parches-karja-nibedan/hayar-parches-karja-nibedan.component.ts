@@ -192,7 +192,7 @@ export class HayarParchesKarjaNibedanComponent implements OnInit {
     }
 
     submit(): void {
-        this.finalData = JSON.stringify(this.hayarParchesKarjaInfo.value);
+        this.finalData = this.hayarParchesKarjaInfo.value;
     }
 
 }

@@ -5,6 +5,7 @@ import {CustomerInfoNepaliComponent} from './customer-info-nepali/customer-info-
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse} from '../../../../@core/utils';
 import {HayarParchesKarjaNibedanComponent} from './hayar-parches-karja-nibedan/hayar-parches-karja-nibedan.component';
+import {Customer} from '../../../admin/modal/customer';
 
 @Component({
     selector: 'app-loan-main-nepali-template',
@@ -22,11 +23,13 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
     };
     @ViewChild('customerInfoNepaliComponent', {static: true}) customerInfoNepaliComponent: CustomerInfoNepaliComponent;
     @ViewChild('hayarParchesKarjaNibedanComponent', {static: true}) hayarParchesKarjaNibedanComponent: HayarParchesKarjaNibedanComponent;
+    customer: Customer = new Customer();
 
     constructor(private ngbActiveModal: NgbActiveModal) {
     }
 
     ngOnInit() {
+
     }
 
     stepperPrevious(): void {
@@ -48,7 +51,7 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
     save(): void {
         // Set CustomerInfoNepaliComponent data
         this.customerInfoNepaliComponent.onSubmit();
-        this.customerLoan.customerInfo.nepaliDetail = this.customerInfoNepaliComponent.finalData;
+        this.customer.nepaliDetail = this.customerInfoNepaliComponent.finalData;
         this.customerLoan.nepaliTemplates = this.hayarParchesKarjaNibedanComponent.karjaLoan;
          /**
          * TODO: Pass other nepali templates data as an array of `NepaliTemplateDataHolder` inside `loanDataHolder`
