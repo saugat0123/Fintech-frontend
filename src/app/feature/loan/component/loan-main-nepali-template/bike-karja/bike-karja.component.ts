@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {NepaliTemplateDataHolder} from '../../../model/nepali-template-data-holder';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {NepaliTemplateType} from '../../../../admin/modal/nepali-template-type.enum';
 
 @Component({
   selector: 'app-bike-karja',
@@ -8,36 +11,35 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class BikeKarjaComponent implements OnInit {
 
-  // date1: string;
-  // proposalAmount: number;
-  // applicantFullName: string;
-  // applicantDob: string;
-  //
+  @Input() nepaliTemplates: NepaliTemplateDataHolder[];
   bikeKarjaForm: FormGroup;
-
+  templateIndexInArray: number = undefined;
 
   constructor(
       private formBuilder: FormBuilder) {
-
   }
-
 
   ngOnInit() {
     this.buildBikeKarjaForm();
+    // In case of edit
+    if (!ObjectUtil.isEmpty(this.nepaliTemplates)) {
+      for (let i = 0; i < this.nepaliTemplates.length; i++) {
+        if (this.nepaliTemplates[i].type === NepaliTemplateType.getEnum(NepaliTemplateType.HIRE_PURCHASE_KARJA_BIKE)) {
+          const parsedData = JSON.parse(this.nepaliTemplates[i].data);
+          this.bikeKarjaForm.patchValue(parsedData);
+          this.templateIndexInArray = i;
+          break;
+        }
+      }
+    }
   }
 
   buildBikeKarjaForm() {
 
-    // pesonal info
     this.bikeKarjaForm = this.formBuilder.group({
-
+    // personal info
       maritalStatus: [undefined],
       gender: [undefined],
-
-      // // gender: [undefined], used no more
-      // male: [undefined],
-      // female: [undefined],
-      // thirdsex: [undefined],
 
       date1: [undefined],
       photo: [undefined],
@@ -187,5 +189,14 @@ export class BikeKarjaComponent implements OnInit {
     });
   }
 
-
+  onSubmit() {
+    if (!ObjectUtil.isEmpty(this.nepaliTemplates)) {
+      this.nepaliTemplates[this.templateIndexInArray].data = JSON.stringify(this.bikeKarjaForm.value);
+    } else {
+      const newBikeKarja = new NepaliTemplateDataHolder();
+      newBikeKarja.type = NepaliTemplateType.getEnum(NepaliTemplateType.HIRE_PURCHASE_KARJA_BIKE);
+      newBikeKarja.data = JSON.stringify(this.bikeKarjaForm.value);
+      this.nepaliTemplates.push(newBikeKarja);
+    }
+  }
 }

@@ -6,6 +6,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse} from '../../../../@core/utils';
 import {ApplicantFamilyInfoComponent} from './applicant-family-info/applicant-family-info.component';
 import {Customer} from '../../../admin/modal/customer';
+import {BikeKarjaComponent} from './bike-karja/bike-karja.component';
 
 @Component({
     selector: 'app-loan-main-nepali-template',
@@ -22,6 +23,8 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
     };
     @ViewChild('customerInfoNepaliComponent', {static: true}) customerInfoNepaliComponent: CustomerInfoNepaliComponent;
     @ViewChild('applicantFamilyInfoComponent', {static: true}) applicantFamilyInfoComponent: ApplicantFamilyInfoComponent;
+    @ViewChild('bikeKarjaComponent', {static: true}) bikeKarjaComponent: BikeKarjaComponent;
+
     customer: Customer = new Customer();
 
     constructor(private ngbActiveModal: NgbActiveModal) {
@@ -55,6 +58,9 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
         this.applicantFamilyInfoComponent.onSubmit();
         this.customerLoan.nepaliTemplates = this.applicantFamilyInfoComponent.nepaliTemplates;
 
+        // Set BikeKarjaComponent data
+        this.bikeKarjaComponent.onSubmit();
+        this.customerLoan.nepaliTemplates = this.bikeKarjaComponent.nepaliTemplates;
 
         // Returns the customerLoan inside Map and handle it from Promise
         const map: Map<string, any> = new Map<string, any>();
