@@ -68,6 +68,7 @@ import {CustomerInfoNepaliComponent} from './component/loan-main-nepali-template
 import { DhitoLikhatPrintComponent } from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-print/dhito-likhat-print.component';
 import { ApplicantFamilyInfoComponent } from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info.component';
 import { KarjaTamsukPrintComponent } from './component/offer-letter/karjatamsuk/karja-tamsuk-print/karja-tamsuk-print.component';
+import { ManjurinamaLetterPrintComponent } from './component/offer-letter/manjurinama/manjurinama-letter-print/manjurinama-letter-print.component';
 
 
 const COMPONENTS = [
@@ -138,7 +139,7 @@ const ENTRY_COMPONENTS = [
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS],
+    declarations: [...COMPONENTS, ManjurinamaLetterPrintComponent],
     imports: [
         ThemeModule,
         CommonModule,

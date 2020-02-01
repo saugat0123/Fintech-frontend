@@ -22,7 +22,7 @@ export class ManjurinamaComponent implements OnInit {
     @Input() loanDataHolder: LoanDataHolder;
     customerOfferLetter: CustomerOfferLetter;
     @Input() customerId: number;
-    offerLetterTypeId = 1;  // 1 represents Birth Mark Letter
+    @Input() offerLetterTypeId: number;
     existingOfferLetter = false;
     spinner = false;
     initialInfoPrint;
@@ -59,6 +59,7 @@ export class ManjurinamaComponent implements OnInit {
             bibhag: [undefined],
             karyalaya: [undefined],
             dartaDate: [undefined],
+            dartaNo: [undefined],
             districtName: [undefined],
             vdcMunicipalityName: [undefined],
             wardNumber: [undefined],
@@ -66,7 +67,7 @@ export class ManjurinamaComponent implements OnInit {
             reason: [undefined],
             manjuriDate: [undefined],
             manjurinamaGiverName: [undefined],
-            anjurinamaGiverAddress: [undefined],
+            manjurinamaGiverAddress: [undefined],
             year: [undefined],
             month: [undefined],
             time: [undefined],

@@ -116,3 +116,8 @@
         </form>
     </div>
 </div>
+<button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4" *ngIf="initialInfoPrint"
+        ngxPrint printSectionId="manjurinamaId">Print
+</button>
+<app-birth-mark-letter-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-birth-mark-letter-print>
+
