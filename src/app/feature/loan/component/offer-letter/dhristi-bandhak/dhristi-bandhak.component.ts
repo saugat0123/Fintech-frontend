@@ -9,6 +9,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {CustomerOfferLetterService} from '../../../service/customer-offer-letter.service';
 import {ToastService} from '../../../../../@core/utils';
 import {Router} from '@angular/router';
+import {OfferLetterConst} from '../model/offer-letter-const';
 
 @Component({
   selector: 'app-dhristi-bandhak',
@@ -26,6 +27,7 @@ export class DhristiBandhakComponent implements OnInit {
   @Input() offerLetterTypeId: number;
   // offerLetterTypeId= 4;
   initialInfoPrint;
+  offerLetterConst = OfferLetterConst;
 
   constructor(
       private loanBuilder: FormBuilder,
@@ -147,7 +149,7 @@ export class DhristiBandhakComponent implements OnInit {
       this.router.navigateByUrl('/home/dashboard').then(value => {
         if (value) {
           this.router.navigate(['/home/loan/offer-letter'], {
-            queryParams: {customerId: this.customerId, }
+            queryParams: {customerId: this.customerId,}
           });
         }
       });

@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {OfferLetterConst} from '../../model/offer-letter-const';
 
 @Component({
   selector: 'app-dhristi-bandhak-print',
@@ -7,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class DhristiBandhakPrintComponent implements OnInit {
   @Input() loan: any;
+  offerLetterConst = OfferLetterConst;
 
   constructor() {
   }
