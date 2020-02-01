@@ -30,8 +30,9 @@
       </nb-step>
 
       <nb-step [label]="labelThree">
-        <ng-template #labelThree>Third Step</ng-template>
-        <!--TODO add your nepali template component here-->
+        <ng-template #labelThree>आवेदक/धन जमानतकर्ताको पारिवारिक विवरण</ng-template>
+        <app-applicant-family-info #applicantFamilyInfoComponent
+                                   [nepaliTemplates]="customerLoan?.nepaliTemplates"></app-applicant-family-info>
       </nb-step>
 
       <nb-step [label]="labelForth">

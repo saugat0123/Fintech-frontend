@@ -18,6 +18,7 @@ export class ProductModeService extends BaseService<ProductMode> {
 
     public isProductEnable(productName: string): boolean {
         const productMode: ProductMode[] = JSON.parse(LocalStorageUtil.getStorage().productMode);
+
         for (const pm of productMode) {
             if (pm.product === productName && pm.status === Status.ACTIVE) {
                 return true;
@@ -51,5 +52,5 @@ export class ProductUtils {
     OFFER_LETTER: boolean;
     DMS: boolean;
     nepTemplate: boolean;
-
+    LOAN_APPROVAL_HIERARCHY_LEVEL: string;
 }

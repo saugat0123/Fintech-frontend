@@ -11,7 +11,8 @@ import {PendingLoanComponent} from '../component/dashboard/pending/pending-loan/
 import {PendingsLoanComponent} from '../component/dashboard/pending/pendings/pendings-loan.component';
 import {DataVisualizationComponent} from '../component/dashboard/data-visualization/data-visualization.component';
 import {NgSelectModule} from '@ng-select/ng-select';
-import { JamaniBasnekoComponent } from './laon/component/loan-main-nepali-template/jamani-basneko/jamani-basneko.component';
+import {ApprovalRoleHierarchyComponent} from './loan/approval/approval-role-hierarchy.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { JamaniBasnekoComponent } from './laon/component/loan-main-nepali-templa
         NbSelectModule,
         NbDatepickerModule.forRoot(),
         ChartModule,
-        NgSelectModule
+        NgSelectModule,
+        DragDropModule
     ],
         declarations: [
             FeatureComponent,
@@ -31,7 +33,7 @@ import { JamaniBasnekoComponent } from './laon/component/loan-main-nepali-templa
             PendingLoanComponent,
             PendingsLoanComponent,
             DataVisualizationComponent,
-            JamaniBasnekoComponent
+            ApprovalRoleHierarchyComponent
         ],
         exports: [],
         providers: []
