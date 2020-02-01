@@ -6,6 +6,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse} from '../../../../@core/utils';
 import {ApplicantFamilyInfoComponent} from './applicant-family-info/applicant-family-info.component';
 import {Customer} from '../../../admin/modal/customer';
+import {HayarParchesKarjaNibedanComponent} from './hayar-parches-karja-nibedan/hayar-parches-karja-nibedan.component';
 
 @Component({
     selector: 'app-loan-main-nepali-template',
@@ -22,6 +23,7 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
     };
     @ViewChild('customerInfoNepaliComponent', {static: true}) customerInfoNepaliComponent: CustomerInfoNepaliComponent;
     @ViewChild('applicantFamilyInfoComponent', {static: true}) applicantFamilyInfoComponent: ApplicantFamilyInfoComponent;
+    @ViewChild('hayarParchesKarjaInfoComponent', {static: true}) hayarParchesKarjaInfoComponent: HayarParchesKarjaNibedanComponent;
     customer: Customer = new Customer();
 
     constructor(private ngbActiveModal: NgbActiveModal) {
@@ -51,9 +53,14 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
         this.customerInfoNepaliComponent.onSubmit();
         this.customer.nepaliDetail = this.customerInfoNepaliComponent.finalData;
 
-        // Set ApplicantFamilyInfoComponent data
+        // // Set ApplicantFamilyInfoComponent data
         this.applicantFamilyInfoComponent.onSubmit();
         this.customerLoan.nepaliTemplates = this.applicantFamilyInfoComponent.nepaliTemplates;
+
+
+        // Set hayarParchesKarjaInfoComponent data
+        this.hayarParchesKarjaInfoComponent.submit();
+        this.customerLoan.nepaliTemplates = this.hayarParchesKarjaInfoComponent.karjaLoan;
 
 
         // Returns the customerLoan inside Map and handle it from Promise

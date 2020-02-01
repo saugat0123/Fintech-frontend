@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NepaliTemplateDataHolder} from '../../../model/nepali-template-data-holder';
 import {NepaliTemplateType} from '../../../../admin/modal/nepali-template-type.enum';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-hayar-parches-karja-nibedan',
@@ -9,26 +10,16 @@ import {NepaliTemplateType} from '../../../../admin/modal/nepali-template-type.e
     styleUrls: ['./hayar-parches-karja-nibedan.component.scss']
 })
 export class HayarParchesKarjaNibedanComponent implements OnInit {
-    @Input() karjaLoan: Array<NepaliTemplateDataHolder>;
+    @Input() karjaLoan: NepaliTemplateDataHolder[];
     hayarParchesKarjaInfo: FormGroup;
     submitted = false;
-    finalData: string;
+    indexArrayTemplate: number = undefined;
 
     constructor(private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
         this.formBuild();
-
-        if (this.karjaLoan !== undefined) {
-            for (let i = 0; i < this.karjaLoan.length; i++) {
-                if (this.karjaLoan[i].type === NepaliTemplateType.HIRE_PURCHASE_KARJA_BIKE) {
-                    const parsedData = JSON.parse(this.karjaLoan[i].data);
-                    this.hayarParchesKarjaInfo.patchValue(parsedData);
-                    break;
-                }
-            }
-        }
 
     }
     get hayarParchesKarjaValid() {
@@ -189,10 +180,32 @@ export class HayarParchesKarjaNibedanComponent implements OnInit {
             guarantorsDate: [undefined],
 
         });
+
+        // In case of edit, patch parsed JSON data
+        if (!ObjectUtil.isEmpty(this.karjaLoan)) {
+            for (let i = 0; i < this.karjaLoan.length; i++) {
+                if (this.karjaLoan[i].type === NepaliTemplateType.getEnum(NepaliTemplateType.HIRE_PURCHASE_KARJA_NIBEDAN)) {
+                    const parsedData = JSON.parse(this.karjaLoan[i].data);
+                    this.hayarParchesKarjaInfo.patchValue(parsedData);
+                    this.indexArrayTemplate = i;
+                    break;
+                }
+            }
+
+        } else {
+            this.karjaLoan = [];
+        }
     }
 
     submit(): void {
-        this.finalData = this.hayarParchesKarjaInfo.value;
+        if (!ObjectUtil.isEmpty(this.indexArrayTemplate)) {
+            this.karjaLoan[this.indexArrayTemplate].data = JSON.stringify(this.hayarParchesKarjaInfo.value);
+        } else {
+            const newHayarParchesKarja = new NepaliTemplateDataHolder();
+            newHayarParchesKarja.type = NepaliTemplateType.getEnum(NepaliTemplateType.HIRE_PURCHASE_KARJA_NIBEDAN);
+            newHayarParchesKarja.data = JSON.stringify(this.hayarParchesKarjaInfo.value);
+            this.karjaLoan.push(newHayarParchesKarja);
+        }
     }
 
 }

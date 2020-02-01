@@ -69,6 +69,7 @@ import { DhitoLikhatPrintComponent } from './component/offer-letter/dhito-likhat
 import { ApplicantFamilyInfoComponent } from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info.component';
 import { KarjaTamsukPrintComponent } from './component/offer-letter/karjatamsuk/karja-tamsuk-print/karja-tamsuk-print.component';
 import { KararnamaPrintComponent } from './component/offer-letter/kararnama/kararnama-print/kararnama-print.component';
+import {HayarParchesKarjaNibedanComponent} from './component/loan-main-nepali-template/hayar-parches-karja-nibedan/hayar-parches-karja-nibedan.component';
 
 
 const COMPONENTS = [
@@ -128,7 +129,8 @@ const COMPONENTS = [
     DhitoLikhatPrintComponent,
     ApplicantFamilyInfoComponent,
     KarjaTamsukPrintComponent,
-    KararnamaPrintComponent
+    KararnamaPrintComponent,
+    HayarParchesKarjaNibedanComponent,
 ];
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,

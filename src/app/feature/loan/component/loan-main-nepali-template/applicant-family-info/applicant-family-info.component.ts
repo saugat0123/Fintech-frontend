@@ -112,6 +112,7 @@ export class ApplicantFamilyInfoComponent implements OnInit {
       }
 
     }
+
   }
 
   onSubmit(): void {
