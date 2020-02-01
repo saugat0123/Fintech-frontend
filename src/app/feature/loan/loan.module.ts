@@ -127,7 +127,8 @@ const COMPONENTS = [
     FiscalYearModalComponent,
     DhitoLikhatPrintComponent,
     ApplicantFamilyInfoComponent,
-    KarjaTamsukPrintComponent
+    KarjaTamsukPrintComponent,
+    KararnamaPrintComponent
 ];
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,
@@ -139,7 +140,7 @@ const ENTRY_COMPONENTS = [
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS, KararnamaPrintComponent],
+    declarations: [...COMPONENTS],
     imports: [
         ThemeModule,
         CommonModule,
