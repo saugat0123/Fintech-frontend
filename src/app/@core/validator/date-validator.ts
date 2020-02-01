@@ -15,7 +15,7 @@ export class DateValidator {
         const value = new Date(valueString);
         if (value > new Date()) {
             return {beforeToday: valueString};
-            return null;
         }
+        return null;
     }
 }
