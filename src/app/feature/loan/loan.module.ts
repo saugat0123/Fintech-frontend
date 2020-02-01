@@ -67,6 +67,7 @@ import {FiscalYearModalComponent} from './component/loan-main-template/financial
 import {CustomerInfoNepaliComponent} from './component/loan-main-nepali-template/customer-info-nepali/customer-info-nepali.component';
 import { DhitoLikhatPrintComponent } from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-print/dhito-likhat-print.component';
 import { ApplicantFamilyInfoComponent } from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info.component';
+import { KarjaTamsukPrintComponent } from './component/offer-letter/karjatamsuk/karja-tamsuk-print/karja-tamsuk-print.component';
 import { BikeKarjaComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja.component';
 
 const COMPONENTS = [
@@ -125,6 +126,7 @@ const COMPONENTS = [
     FiscalYearModalComponent,
     DhitoLikhatPrintComponent,
     ApplicantFamilyInfoComponent,
+    KarjaTamsukPrintComponent
     BikeKarjaComponent,
 ];
 const ENTRY_COMPONENTS = [
