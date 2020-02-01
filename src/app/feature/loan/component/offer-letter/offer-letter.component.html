@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="col-md-4 d-flex justify-content-end">
                                       <span style="color:black">
-                                      <a (click)="showFullScreen(list.name)">
+                                      <a (click)="showFullScreen(list.name)" title="full screen">
                                         <i class="fa fa-expand px-2"></i>
                                    </a>
                                     </span>
@@ -71,19 +71,19 @@
                                      <input (change)="onFileChange($event)" class="hide-type"
                                             id="uploadOfferLetterInput"
                                             type="file">
-                                     <a (click)="uploadOfferLetter(list.id,uploadModel)">
+                                     <a (click)="uploadOfferLetter(list.id,uploadModel)" title="upload {{list.name}}">
                                         <i class="fa fa-upload"></i>
                                    </a>
                                    </span>
                                     <span *ngIf="list.isPresent && list.uploadedUrl !==null" style="color:#007bff">
-                                      <a (click)="previewClick(list.uploadedUrl)">
+                                      <a (click)="previewClick(list.uploadedUrl)" title="view {{list.name}}">
                                         <i class="fa fa-eye px-2"></i>
                                    </a>
                                     </span>
-                                    <span *ngIf="list.isPresent" style="color:green">
+                                    <span *ngIf="list.isPresent" style="color:green" title="Status : Saved">
                                     <i class="fas fa-check-circle px-2"></i>
                                   </span>
-                                    <span *ngIf="!list.isPresent" style="color:red">
+                                    <span *ngIf="!list.isPresent" style="color:red" title="Status :Not Saved">
                                     <i class="fas fa-times-circle px-2"></i>
                                   </span>
 
