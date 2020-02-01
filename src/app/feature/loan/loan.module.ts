@@ -141,7 +141,7 @@ const ENTRY_COMPONENTS = [
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS],
+    declarations: [...COMPONENTS, DhristiBandhakPrintComponent],
     imports: [
         ThemeModule,
         CommonModule,
