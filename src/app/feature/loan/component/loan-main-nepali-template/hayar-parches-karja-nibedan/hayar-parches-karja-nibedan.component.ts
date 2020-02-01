@@ -205,6 +205,7 @@ export class HayarParchesKarjaNibedanComponent implements OnInit {
             newHayarParchesKarja.type = NepaliTemplateType.getEnum(NepaliTemplateType.HIRE_PURCHASE_KARJA_NIBEDAN);
             newHayarParchesKarja.data = JSON.stringify(this.hayarParchesKarjaInfo.value);
             this.karjaLoan.push(newHayarParchesKarja);
+
         }
     }
 
