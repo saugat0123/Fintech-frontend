@@ -404,15 +404,15 @@
             </li>
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <button *ngIf="initialInfoPrint" [useExistingCss]="true"
-                            class="btn btn-flat btn-lg btn-secondary m-4"
-                            ngxPrint printSectionId="kararnama-print">Print
-                    </button>
                     <button nbButton status="success" type="submit">Save</button>
                 </div>
             </div>
         </form>
+
     </div>
 </div>
-
+<button *ngIf="initialInfoPrint" [useExistingCss]="true"
+        class="btn btn-flat btn-lg btn-secondary m-4"
+        ngxPrint printSectionId="{{offerLetterConst.KARARNAMA}}Print}}">Print
+</button>
 <app-kararnama-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-kararnama-print>

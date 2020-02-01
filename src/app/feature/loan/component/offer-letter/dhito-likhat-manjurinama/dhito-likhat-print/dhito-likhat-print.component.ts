@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {OfferLetterConst} from '../../model/offer-letter-const';
 
 @Component({
   selector: 'app-dhito-likhat-print',
@@ -9,8 +10,10 @@ export class DhitoLikhatPrintComponent implements OnInit {
 
   @Input()
   letter: any;
+  offerLetterConst = OfferLetterConst;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

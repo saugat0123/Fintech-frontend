@@ -80,10 +80,13 @@
                                         <i class="fa fa-eye px-2"></i>
                                    </a>
                                     </span>
+                                    <span *ngIf="list.isPresent" class="px-2" title="Print {{list.name}}">
                                     <button [useExistingCss]="true"
-                                            ngxPrint printSectionId="{{offerLetterConst.keysEnum(list.name)}}">
-                                        <i class="fas fa-print px-2"></i>
+                                            class="btn btn-flat btn-sm btn-outline-info"
+                                            ngxPrint printSectionId="{{offerLetterConst.keysEnum(list.name)}}Print">
+                                        <i class="fas fa-print"></i>
                                     </button>
+                                    </span>
                                     <span *ngIf="list.isPresent" style="color:green" title="Status : Saved">
                                     <i class="fas fa-check-circle px-2"></i>
                                   </span>
