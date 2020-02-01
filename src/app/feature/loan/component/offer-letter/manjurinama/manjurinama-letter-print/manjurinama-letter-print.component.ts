@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-manjurinama-letter-print',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manjurinama-letter-print.component.scss']
 })
 export class ManjurinamaLetterPrintComponent implements OnInit {
-  letter: any;
+  @Input()
+  Letter: any;
 
   constructor() { }
 

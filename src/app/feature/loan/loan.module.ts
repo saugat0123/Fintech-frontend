@@ -128,6 +128,7 @@ const COMPONENTS = [
     FiscalYearModalComponent,
     DhitoLikhatPrintComponent,
     ApplicantFamilyInfoComponent,
+    ManjurinamaLetterPrintComponent,
     KarjaTamsukPrintComponent
 ];
 const ENTRY_COMPONENTS = [
