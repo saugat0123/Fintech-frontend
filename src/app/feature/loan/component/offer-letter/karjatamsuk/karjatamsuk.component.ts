@@ -157,7 +157,6 @@ export class KarjatamsukComponent implements OnInit {
             this.initialInfoPrint = initialInfo;
           }
         });
-        console.log(initialInfo);
         this.form.patchValue(initialInfo);
         initialInfo.customerDetail.forEach(data => {
           (this.form.get('customerDetail') as FormArray).push(
