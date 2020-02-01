@@ -5,10 +5,10 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {CustomerOfferLetterService} from '../../../service/customer-offer-letter.service';
 import {ToastService} from '../../../../../@core/utils';
-import {DocStatus} from "../../../model/docStatus";
-import {OfferLetter} from "../../../../admin/modal/offerLetter";
-import {CustomerOfferLetterPath} from "../../../model/customer-offer-letter-path";
-import {Alert, AlertType} from "../../../../../@theme/model/Alert";
+import {DocStatus} from '../../../model/docStatus';
+import {OfferLetter} from '../../../../admin/modal/offerLetter';
+import {CustomerOfferLetterPath} from '../../../model/customer-offer-letter-path';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
     selector: 'app-kararnama',
