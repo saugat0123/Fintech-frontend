@@ -11,7 +11,7 @@
     </div>
   </nb-card-header>
   <nb-card-body>
-    <nb-stepper #nepaliTemplateStepper [disableStepNavigation]="true" orientation="horizontal">
+    <nb-stepper #nepaliTemplateStepper [disableStepNavigation]="true" orientation="horizontal" [linear]="true">
       <nb-step [label]="labelCustomerInfoNepali">
         <ng-template #labelCustomerInfoNepali>ग्राहक जानकारी</ng-template>
 
@@ -20,8 +20,8 @@
 
       </nb-step>
       <nb-step [label]="labelTwo">
-        <ng-template #labelTwo>Second Step</ng-template>
-        <!--TODO add your nepali template component here-->
+        <ng-template #labelTwo>जमानी वस्नेको विवरण</ng-template>
+        <app-jamani-baseko #jamaniBasekoComponent [nepaliTemplates]="customerLoan?.nepaliTemplates"></app-jamani-baseko>
       </nb-step>
 
       <nb-step [label]="labelThree">
