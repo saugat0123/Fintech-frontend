@@ -1,15 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {CustomerOfferLetter} from '../../../model/customer-offer-letter';
-import {Alert, AlertType} from "../../../../../@theme/model/Alert";
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import {DocStatus} from "../../../model/docStatus";
-import {OfferLetter} from "../../../../admin/modal/offerLetter";
-import {CustomerOfferLetterPath} from "../../../model/customer-offer-letter-path";
-import {CustomerOfferLetterService} from "../../../service/customer-offer-letter.service";
-import {ToastService} from "../../../../../@core/utils";
-import {Router} from "@angular/router";
-import {OfferLetterConst} from "../model/offer-letter-const";
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {DocStatus} from '../../../model/docStatus';
+import {OfferLetter} from '../../../../admin/modal/offerLetter';
+import {CustomerOfferLetterPath} from '../../../model/customer-offer-letter-path';
+import {CustomerOfferLetterService} from '../../../service/customer-offer-letter.service';
+import {ToastService} from '../../../../../@core/utils';
+import {Router} from '@angular/router';
+import {OfferLetterConst} from '../model/offer-letter-const';
 
 @Component({
     selector: 'app-manjurinama',
