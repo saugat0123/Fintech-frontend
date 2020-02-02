@@ -55,6 +55,7 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
         this.applicantFamilyInfoComponent.onSubmit();
         this.customerLoan.nepaliTemplates = this.applicantFamilyInfoComponent.nepaliTemplates;
 
+        // Jamani Baseko Template
 
         // Returns the customerLoan inside Map and handle it from Promise
         const map: Map<string, any> = new Map<string, any>();
