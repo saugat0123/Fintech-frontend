@@ -5,6 +5,8 @@ import {CustomerInfoNepaliComponent} from './customer-info-nepali/customer-info-
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse} from '../../../../@core/utils';
 import {ApplicantFamilyInfoComponent} from './applicant-family-info/applicant-family-info.component';
+import {Customer} from '../../../admin/modal/customer';
+import {JamaniBasekoComponent} from './jamani-baseko/jamani-baseko.component';
 
 @Component({
     selector: 'app-loan-main-nepali-template',
@@ -21,6 +23,8 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
     };
     @ViewChild('customerInfoNepaliComponent', {static: true}) customerInfoNepaliComponent: CustomerInfoNepaliComponent;
     @ViewChild('applicantFamilyInfoComponent', {static: true}) applicantFamilyInfoComponent: ApplicantFamilyInfoComponent;
+    @ViewChild('jamaniBasekoComponent', {static: true}) jamaniBasekoComponent: JamaniBasekoComponent;
+    customer: Customer = new Customer();
 
     constructor(private ngbActiveModal: NgbActiveModal) {
     }
@@ -47,12 +51,15 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
     save(): void {
         // Set CustomerInfoNepaliComponent data
         this.customerInfoNepaliComponent.onSubmit();
-        this.customerLoan.customerInfo.nepaliDetail = this.customerInfoNepaliComponent.finalData;
+        this.customer.nepaliDetail = this.customerInfoNepaliComponent.finalData;
+
+        // Jamani Baseko Template
+        this.jamaniBasekoComponent.onSubmit();
+        this.customerLoan.nepaliTemplates = this.jamaniBasekoComponent.nepaliTemplates;
 
         // Set ApplicantFamilyInfoComponent data
         this.applicantFamilyInfoComponent.onSubmit();
         this.customerLoan.nepaliTemplates = this.applicantFamilyInfoComponent.nepaliTemplates;
-
 
         // Returns the customerLoan inside Map and handle it from Promise
         const map: Map<string, any> = new Map<string, any>();
