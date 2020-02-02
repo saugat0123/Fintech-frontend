@@ -68,7 +68,10 @@ import {CustomerInfoNepaliComponent} from './component/loan-main-nepali-template
 import { DhitoLikhatPrintComponent } from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-print/dhito-likhat-print.component';
 import { ApplicantFamilyInfoComponent } from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info.component';
 import { KarjaTamsukPrintComponent } from './component/offer-letter/karjatamsuk/karja-tamsuk-print/karja-tamsuk-print.component';
+import { KararnamaPrintComponent } from './component/offer-letter/kararnama/kararnama-print/kararnama-print.component';
+import { DhristiBandhakPrintComponent } from './component/offer-letter/dhristi-bandhak/dhristi-bandhak-print/dhristi-bandhak-print.component';
 import { BikeKarjaComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja.component';
+import { ApplicantFamilyInfoPrintComponent } from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info-print/applicant-family-info-print.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -127,6 +130,8 @@ const COMPONENTS = [
     DhitoLikhatPrintComponent,
     ApplicantFamilyInfoComponent,
     KarjaTamsukPrintComponent,
+    KararnamaPrintComponent,
+    KarjaTamsukPrintComponent,
     BikeKarjaComponent,
 ];
 const ENTRY_COMPONENTS = [
@@ -139,7 +144,7 @@ const ENTRY_COMPONENTS = [
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS],
+    declarations: [...COMPONENTS, DhristiBandhakPrintComponent, ApplicantFamilyInfoPrintComponent],
     imports: [
         ThemeModule,
         CommonModule,

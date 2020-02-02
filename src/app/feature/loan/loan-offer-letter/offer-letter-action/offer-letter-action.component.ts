@@ -84,12 +84,17 @@ export class OfferLetterActionComponent implements OnInit {
                 this.id = this.allId.customerId;
                 this.customerOfferLetterService.getByCustomerLoanId(this.id).subscribe(response => {
                     this.customerOfferLetter = response.detail;
-                    if (this.currentUserId.toString() === this.customerOfferLetter.createdBy.toString()) {
+                    if (this.customerOfferLetter !== undefined) {
+                        if (this.currentUserId.toString() === this.customerOfferLetter.createdBy.toString()) {
+                            this.isBackwardDisabled = true;
+                        }
+                        if (this.customerOfferLetter.docStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
+                            this.isForwardDisabled = true;
+                        }
+                    } else {
                         this.isBackwardDisabled = true;
+                        this.isApprovedDisabled = true;
                     }
-                  if (this.customerOfferLetter.docStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
-                    this.isForwardDisabled = true;
-                  }
                 }, error => {
 
                 });

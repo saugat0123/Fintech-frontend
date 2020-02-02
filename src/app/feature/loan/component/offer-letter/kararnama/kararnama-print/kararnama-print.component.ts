@@ -2,12 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {OfferLetterConst} from '../../model/offer-letter-const';
 
 @Component({
-  selector: 'app-dhito-likhat-print',
-  templateUrl: './dhito-likhat-print.component.html',
-  styleUrls: ['./dhito-likhat-print.component.scss']
+  selector: 'app-kararnama-print',
+  templateUrl: './kararnama-print.component.html',
+  styleUrls: ['./kararnama-print.component.scss']
 })
-export class DhitoLikhatPrintComponent implements OnInit {
-
+export class KararnamaPrintComponent implements OnInit {
   @Input()
   letter: any;
   offerLetterConst = OfferLetterConst;

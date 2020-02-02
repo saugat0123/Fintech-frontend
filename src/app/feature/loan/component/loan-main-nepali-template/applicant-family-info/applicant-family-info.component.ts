@@ -13,6 +13,7 @@ export class ApplicantFamilyInfoComponent implements OnInit {
   @Input() nepaliTemplates: NepaliTemplateDataHolder[];
   form: FormGroup;
   templateIndexInArray: number = undefined;
+  familyInfoPrint;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -100,6 +101,9 @@ export class ApplicantFamilyInfoComponent implements OnInit {
       name: [undefined],
       date: [undefined],
     });
+    this.familyInfoPrint = this.form.value;
+    this.setListenerForPrint();
+
     // In case of edit, patch parsed JSON data
     if (!ObjectUtil.isEmpty(this.nepaliTemplates)) {
       for (let i = 0; i < this.nepaliTemplates.length; i++) {
@@ -113,6 +117,12 @@ export class ApplicantFamilyInfoComponent implements OnInit {
     } else {
       this.nepaliTemplates = [];
     }
+  }
+
+  setListenerForPrint() {
+    this.form.valueChanges.subscribe(() => {
+      this.familyInfoPrint = this.form.getRawValue();
+    })
   }
 
   onSubmit(): void {

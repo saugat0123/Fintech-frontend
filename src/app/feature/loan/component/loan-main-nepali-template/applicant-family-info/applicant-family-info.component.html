@@ -214,4 +214,11 @@
       </div>
       <div class="clearfix"></div>
     </form>
+
+  <button class="btn btn-primary float-right" ngxPrint printSectionId="print-block"
+          [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss">प्रिन्ट गर्नुहोस्
+  </button>
+<app-applicant-family-info-print id="print-block" *ngIf="familyInfoPrint" [familyInfo]="familyInfoPrint" hidden>
+</app-applicant-family-info-print>
 </div>
+
