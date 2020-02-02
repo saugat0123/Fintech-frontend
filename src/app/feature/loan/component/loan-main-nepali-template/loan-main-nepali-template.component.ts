@@ -5,7 +5,6 @@ import {CustomerInfoNepaliComponent} from './customer-info-nepali/customer-info-
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse} from '../../../../@core/utils';
 import {ApplicantFamilyInfoComponent} from './applicant-family-info/applicant-family-info.component';
-import {Customer} from '../../../admin/modal/customer';
 import {HayarParchesKarjaNibedanComponent} from './hayar-parches-karja-nibedan/hayar-parches-karja-nibedan.component';
 
 @Component({
@@ -24,7 +23,6 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
     @ViewChild('customerInfoNepaliComponent', {static: true}) customerInfoNepaliComponent: CustomerInfoNepaliComponent;
     @ViewChild('applicantFamilyInfoComponent', {static: true}) applicantFamilyInfoComponent: ApplicantFamilyInfoComponent;
     @ViewChild('hayarParchesKarjaInfoComponent', {static: true}) hayarParchesKarjaInfoComponent: HayarParchesKarjaNibedanComponent;
-    customer: Customer = new Customer();
 
     constructor(private ngbActiveModal: NgbActiveModal) {
     }

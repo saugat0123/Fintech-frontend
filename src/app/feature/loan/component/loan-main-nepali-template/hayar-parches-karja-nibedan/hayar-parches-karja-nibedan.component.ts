@@ -191,9 +191,6 @@ export class HayarParchesKarjaNibedanComponent implements OnInit {
                     break;
                 }
             }
-
-        } else {
-            this.karjaLoan = [];
         }
     }
 
