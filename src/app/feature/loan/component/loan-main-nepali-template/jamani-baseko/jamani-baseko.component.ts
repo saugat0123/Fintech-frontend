@@ -13,6 +13,7 @@ export class JamaniBasekoComponent implements OnInit {
   @Input() nepaliTemplates: NepaliTemplateDataHolder[];
   form: FormGroup;
   templateIndexInArray: number = undefined;
+  initialInfoPrint;
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -60,6 +61,7 @@ export class JamaniBasekoComponent implements OnInit {
       for (let i = 0; i < this.nepaliTemplates.length; i++) {
         if (this.nepaliTemplates[i].type === NepaliTemplateType.getEnum(NepaliTemplateType.JAMANI_BASEKO)) {
           const parsedData = JSON.parse(this.nepaliTemplates[i].data);
+          this.initialInfoPrint = parsedData;
           this.form.patchValue(parsedData);
           parsedData.guarantorFamiliarPersons.forEach((value) => {
             console.log(value);

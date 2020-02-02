@@ -71,6 +71,7 @@ import { KarjaTamsukPrintComponent } from './component/offer-letter/karjatamsuk/
 import { KararnamaPrintComponent } from './component/offer-letter/kararnama/kararnama-print/kararnama-print.component';
 import { DhristiBandhakPrintComponent } from './component/offer-letter/dhristi-bandhak/dhristi-bandhak-print/dhristi-bandhak-print.component';
 import { JamaniBasekoComponent } from './component/loan-main-nepali-template/jamani-baseko/jamani-baseko.component';
+import { JamaniBasekoPrintComponent } from './component/loan-main-nepali-template/jamani-baseko/jamani-baseko-print/jamani-baseko-print.component';
 
 
 const COMPONENTS = [
@@ -143,7 +144,7 @@ const ENTRY_COMPONENTS = [
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS, DhristiBandhakPrintComponent],
+    declarations: [...COMPONENTS, DhristiBandhakPrintComponent, JamaniBasekoPrintComponent],
     imports: [
         ThemeModule,
         CommonModule,
