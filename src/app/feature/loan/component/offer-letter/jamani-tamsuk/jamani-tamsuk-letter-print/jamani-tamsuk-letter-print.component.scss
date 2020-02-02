@@ -5,3 +5,10 @@
   text-justify: inter-word;
   margin: 10px 70px;
 }
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
+  margin: 10px 70px;
+}
