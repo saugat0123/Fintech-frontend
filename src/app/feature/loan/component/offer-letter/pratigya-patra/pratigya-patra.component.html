@@ -46,8 +46,9 @@
     <div class="col-md-12" align="right">
         <button nbButton status="success" type="submit"  (click)="submit()">Save</button>
     </div>
-    <button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4" *ngIf="initialInfoPrint"
-            ngxPrint printSectionId="pratigya">Print
+    <button *ngIf="initialInfoPrint" [useExistingCss]="true"
+            class="btn btn-flat btn-lg btn-secondary m-4"
+            ngxPrint printSectionId="{{offerLetterConst.PRATIGYA_PATRA}}Print" style="float: right">Print
     </button>
     <app-pratigya-patra-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-pratigya-patra-print>
 

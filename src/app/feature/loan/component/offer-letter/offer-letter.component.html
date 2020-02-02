@@ -62,23 +62,36 @@
                                     <span>{{list.name}}</span>
                                 </div>
                                 <div class="col-md-4 d-flex justify-content-end">
-                                   <span *ngIf="list.isPresent" style="color:darkgreen">
+                                      <span style="color:black">
+                                      <a (click)="showFullScreen(list.name)" title="full screen">
+                                        <i class="fa fa-expand px-2"></i>
+                                   </a>
+                                    </span>
+                                    <span *ngIf="list.isPresent" style="color:darkgreen">
                                      <input (change)="onFileChange($event)" class="hide-type"
                                             id="uploadOfferLetterInput"
                                             type="file">
-                                     <a (click)="uploadOfferLetter(list.id,uploadModel)">
+                                     <a (click)="uploadOfferLetter(list.id,uploadModel)" title="upload {{list.name}}">
                                         <i class="fa fa-upload"></i>
                                    </a>
                                    </span>
                                     <span *ngIf="list.isPresent && list.uploadedUrl !==null" style="color:#007bff">
-                                      <a (click)="previewClick(list.uploadedUrl)">
+                                      <a (click)="previewClick(list.uploadedUrl)" title="view {{list.name}}">
                                         <i class="fa fa-eye px-2"></i>
                                    </a>
                                     </span>
-                                    <span *ngIf="list.isPresent" style="color:green">
+                                    <span *ngIf="list.isPresent" class="px-2" title="Print {{list.name}}">
+                                    <button [useExistingCss]="true"
+                                            class="btn btn-flat btn-sm btn-outline-info"
+                                            ngxPrint printSectionId="{{offerLetterConst.keysEnum(list.name)}}Print">
+                                        <i class="fas fa-print"></i>
+                                    </button>
+                                    </span>
+                                    <span *ngIf="list.isPresent" style="color:green" title="Status : Saved">
                                     <i class="fas fa-check-circle px-2"></i>
                                   </span>
-                                    <span *ngIf="!list.isPresent" style="color:red">
+
+                                    <span *ngIf="!list.isPresent" style="color:red" title="Status :Not Saved">
                                     <i class="fas fa-times-circle px-2"></i>
                                   </span>
 
@@ -96,7 +109,7 @@
                             <app-birth-mark-letter-nepali
                                     *ngIf="loanDataHolder && list.name === offerLetterConst.value(offerLetterConst.BIRTHMARK_LETTER)"
                                     [customerId]="customerId"
-                                    [loanDataHolder]="loanDataHolder">
+                                    [loanDataHolder]="loanDataHolder" id="{{offerLetterConst.BIRTHMARK_LETTER}}">
                             </app-birth-mark-letter-nepali>
                             <!-- CAD DOC FOR MAW --->
                             <app-dhito-likhat-manjurinama
@@ -153,7 +166,7 @@
                         <nb-accordion-item-body>
                             <app-offer-letter-upload *ngIf="loanDataHolder"
                                                      [customerId]="loanDataHolder.id"
-                                                     [customerOfferLetter]="loanDataHolder.customerOfferLetter"></app-offer-letter-upload>
+                                                     [customerOfferLetter]="loanDataHolder?.customerOfferLetter"></app-offer-letter-upload>
                         </nb-accordion-item-body>
                     </nb-accordion-item>
                 </nb-accordion>

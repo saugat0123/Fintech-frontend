@@ -4,6 +4,7 @@ import {NbStepperComponent} from '@nebular/theme';
 import {CustomerInfoNepaliComponent} from './customer-info-nepali/customer-info-nepali.component';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse} from '../../../../@core/utils';
+import {ApplicantFamilyInfoComponent} from './applicant-family-info/applicant-family-info.component';
 
 @Component({
     selector: 'app-loan-main-nepali-template',
@@ -19,6 +20,7 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
         showSave: false
     };
     @ViewChild('customerInfoNepaliComponent', {static: true}) customerInfoNepaliComponent: CustomerInfoNepaliComponent;
+    @ViewChild('applicantFamilyInfoComponent', {static: true}) applicantFamilyInfoComponent: ApplicantFamilyInfoComponent;
 
     constructor(private ngbActiveModal: NgbActiveModal) {
     }
@@ -46,15 +48,11 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
         // Set CustomerInfoNepaliComponent data
         this.customerInfoNepaliComponent.onSubmit();
         this.customerLoan.customerInfo.nepaliDetail = this.customerInfoNepaliComponent.finalData;
-        /**
-         * TODO: Pass other nepali templates data as an array of `NepaliTemplateDataHolder` inside `loanDataHolder`
-         * Your code would be something like:
-         * const nepaliTemplates: Array<NepaliTemplateDataHolder> = new Array<NepaliTemplateDataHolder>();
-         * Pass the data here inside the array.
-         *
-         * And, set the array into `LoanDataHolder`
-         * this.customerLoan.nepaliTemplates = nepaliTemplates;
-         */
+
+        // Set ApplicantFamilyInfoComponent data
+        this.applicantFamilyInfoComponent.onSubmit();
+        this.customerLoan.nepaliTemplates = this.applicantFamilyInfoComponent.nepaliTemplates;
+
 
         // Returns the customerLoan inside Map and handle it from Promise
         const map: Map<string, any> = new Map<string, any>();

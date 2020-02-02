@@ -9,6 +9,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {CustomerOfferLetterService} from '../../../service/customer-offer-letter.service';
 import {Router} from '@angular/router';
+import {OfferLetterConst} from '../model/offer-letter-const';
 
 @Component({
     selector: 'app-pratigya-patra',
@@ -22,6 +23,7 @@ export class PratigyaPatraComponent implements OnInit {
     @Input() offerLetterTypeId: number;
     offerForm: FormGroup;
     spinner = false;
+    offerLetterConst = OfferLetterConst;
     initialInfoPrint;
     existingOfferLetter = false;
     constructor(private offerBuilder: FormBuilder,
