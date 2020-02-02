@@ -32,13 +32,13 @@
       बस्नका लागि मन्जुर
       गर्दछु ।</p>
   </div>
-  <p>व्यक्तिगत विवरण:</p>
+
   <div class="row">
+    <h6><b>व्यक्तिगत विवरण:</b></h6>
     <p>
       नाम
       (देवनागरी)<input class="form-field form-control-sm nepaliFont" name="guarantorName" formControlName="guarantorName"
-                       type="text">
-      ल्बmभ ९भ्लन०स् .............................................................. जन्म
+                       type="text"> जन्म
       मितिः<input class="form-field form-control-sm nepaliFont" name="guarantorDOB" formControlName="guarantorDOB" type="text">
       उमेर <input class="form-field form-control-sm nepaliFont" name="guarantorAge" formControlName="guarantorAge" type="text">.
       नागरिकता नं.
@@ -59,6 +59,7 @@
       भएमा)<input class="form-field form-control-sm nepaliFont" name="guarantorPermanentAddress" formControlName="guarantorPermanentAddress"
                   type="text">
     </p>
+    <br>
     <p>हालको ठेगानाः जिल्ला <input class="form-field form-control-sm nepaliFont"
                                    name="guarantorCurrentDistrict" formControlName="guarantorCurrentDistrict"
                                    type="text"> गा.वि.स./न.पा./उ.म.न.पा./म.न.पा.
@@ -125,7 +126,7 @@
   </div>
     <div class="row">
       <div class="col-md-12 text-right">
-        <button nbButton size="small" status="info" (click)="addCustomerDetail()">थप्नुहोस्..</button>
+        <button nbButton size="small" status="info" (click)="addGuarantorFamiliarPersons()">थप्नुहोस्..</button>
       </div>
     </div>
   <br>

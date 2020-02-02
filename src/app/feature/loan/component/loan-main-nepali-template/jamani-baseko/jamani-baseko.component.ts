@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NepaliTemplateDataHolder} from '../../../model/nepali-template-data-holder';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {NepaliTemplateType} from '../../../../admin/modal/nepali-template-type.enum';
 
 @Component({
   selector: 'app-jamani-baseko',
@@ -10,6 +12,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 export class JamaniBasekoComponent implements OnInit {
   @Input() nepaliTemplates: NepaliTemplateDataHolder[];
   form: FormGroup;
+  templateIndexInArray: number = undefined;
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -51,13 +54,51 @@ export class JamaniBasekoComponent implements OnInit {
       guarantorFamilyName: [undefined],
       guarantorSchoolName: [undefined],
       guarantorGrade: [undefined],
-      guarantorFamiliarPersons: this.formBuilder.array([])
-
+      guarantorFamiliarPersons: this.formBuilder.array([]),
     });
-    this.addCustomerDetail();
+    if (!ObjectUtil.isEmpty(this.nepaliTemplates)) {
+      for (let i = 0; i < this.nepaliTemplates.length; i++) {
+        if (this.nepaliTemplates[i].type === NepaliTemplateType.getEnum(NepaliTemplateType.JAMANI_BASEKO)) {
+          const parsedData = JSON.parse(this.nepaliTemplates[i].data);
+          this.form.patchValue(parsedData);
+          parsedData.guarantorFamiliarPersons.forEach((value) => {
+            console.log(value);
+            (this.form.get('guarantorFamiliarPersons') as FormArray).push(
+                this.formBuilder.group({
+                  guarantorRelativeName: [value.guarantorRelativeName],
+                  guarantorRelativeAddress: [value.guarantorRelativeAddress],
+                  guarantorRelativePhone: [value.guarantorRelativePhone],
+                  guarantorRelativeMobNo: [value.guarantorRelativeMobNo]
+                })
+            );
+          });
+          this.templateIndexInArray = i;
+          break;
+        }
+      }
+
+    } else {
+      this.addGuarantorFamiliarPersons();
+    }
+  }
+  removeCustomerDetail(index) {
+    (this.form.get('guarantorFamiliarPersons') as FormArray).removeAt(index);
   }
 
-  addCustomerDetail() {
+  onSubmit(): void {
+    console.log(this.templateIndexInArray);
+    if (!ObjectUtil.isEmpty(this.templateIndexInArray)) {
+      this.nepaliTemplates[this.templateIndexInArray].data = JSON.stringify(this.form.value);
+    } else {
+      const jamaniBaseko = new NepaliTemplateDataHolder();
+      jamaniBaseko.type = NepaliTemplateType.getEnum(NepaliTemplateType.JAMANI_BASEKO);
+      jamaniBaseko.data = JSON.stringify(this.form.value);
+      this.nepaliTemplates.push(jamaniBaseko);
+    }
+    console.log(this.nepaliTemplates);
+  }
+
+  addGuarantorFamiliarPersons(): void {
     (this.form.get('guarantorFamiliarPersons') as FormArray).push(
         this.formBuilder.group({
           guarantorRelativeName: [undefined],
@@ -67,9 +108,5 @@ export class JamaniBasekoComponent implements OnInit {
         })
     );
 
-  }
-
-  removeCustomerDetail(index) {
-    (this.form.get('guarantorFamiliarPersons') as FormArray).removeAt(index);
   }
 }
