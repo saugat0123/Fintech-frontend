@@ -110,8 +110,6 @@ export class ApplicantFamilyInfoComponent implements OnInit {
           break;
         }
       }
-    } else {
-      this.nepaliTemplates = [];
     }
   }
 
