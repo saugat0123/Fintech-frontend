@@ -8,8 +8,6 @@ import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {Customer} from '../../../../admin/modal/customer';
 import {DateValidator} from '../../../../../@core/validator/date-validator';
-import {Occupation} from '../../../../admin/modal/occupation';
-import {IncomeSource} from '../../../../admin/modal/incomeSource';
 import {CustomerService} from '../../../../admin/service/customer.service';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
@@ -42,10 +40,6 @@ export class BasicInfoComponent implements OnInit {
     districtList: Array<District> = Array<District>();
     municipality: MunicipalityVdc = new MunicipalityVdc();
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-    relativesList: FormArray;
-
-    occupations = Occupation.enumObject();
-    incomeSources = IncomeSource.enumObject();
 
     constructor(
         private formBuilder: FormBuilder,

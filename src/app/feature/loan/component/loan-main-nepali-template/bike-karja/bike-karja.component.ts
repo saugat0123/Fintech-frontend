@@ -185,8 +185,6 @@ export class BikeKarjaComponent implements OnInit {
           break;
         }
       }
-    } else {
-      this.nepaliTemplates = [];
     }
   }
 
