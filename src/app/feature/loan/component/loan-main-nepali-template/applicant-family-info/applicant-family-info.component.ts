@@ -110,7 +110,6 @@ export class ApplicantFamilyInfoComponent implements OnInit {
           break;
         }
       }
-
     }
   }
 

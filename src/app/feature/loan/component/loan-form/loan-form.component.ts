@@ -39,6 +39,8 @@ import {GroupComponent} from '../loan-main-template/group/group.component';
 import {LoanMainNepaliTemplateComponent} from '../loan-main-nepali-template/loan-main-nepali-template.component';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ProductUtils} from '../../../admin/service/product-mode.service';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
 
 @Component({
     selector: 'app-loan-form',
@@ -510,6 +512,10 @@ export class LoanFormComponent implements OnInit {
     }
 
     nepaliFormTemplate() {
+        this.selectChild('Customer Info', true);    // initializes customer in loan
+        if (ObjectUtil.isEmpty(this.loanDocument.nepaliTemplates)) {
+            this.loanDocument.nepaliTemplates = new Array<NepaliTemplateDataHolder>();
+        }
         const modalRef = this.modalService.open(LoanMainNepaliTemplateComponent,
             {
                 size: 'xl',
