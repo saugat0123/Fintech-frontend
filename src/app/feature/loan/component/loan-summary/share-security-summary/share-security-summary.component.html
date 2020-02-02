@@ -1,6 +1,6 @@
 <div class="row mt-4">
     <div class="col-md-12">
-        <p><strong>Share Security Detail</strong>(Promoter Percent: {{loanSharePercent?.promoter}} , Ordinary Percent: {{loanSharePercent?.ordinary}})</p>
+        <p><strong>Share Security Detail</strong>(Promoter Percent: {{loanSharePercent == undefined? 0: loanSharePercent.promoter}} , Ordinary Percent: {{loanSharePercent == undefined? 0 : loanSharePercent.ordinary}})</p>
         <table class="table table-bordered">
             <thead>
             <tr>
