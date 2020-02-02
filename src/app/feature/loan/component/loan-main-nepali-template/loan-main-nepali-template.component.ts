@@ -51,7 +51,7 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
     save(): void {
         // Set CustomerInfoNepaliComponent data
         this.customerInfoNepaliComponent.onSubmit();
-        this.customer.nepaliDetail = this.customerInfoNepaliComponent.finalData;
+        this.customerLoan.customerInfo.nepaliDetail = this.customerInfoNepaliComponent.finalData;
 
         // Set ApplicantFamilyInfoComponent data
         this.applicantFamilyInfoComponent.onSubmit();

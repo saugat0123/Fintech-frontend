@@ -110,9 +110,7 @@ export class ApplicantFamilyInfoComponent implements OnInit {
           break;
         }
       }
-
     }
-
   }
 
   onSubmit(): void {
