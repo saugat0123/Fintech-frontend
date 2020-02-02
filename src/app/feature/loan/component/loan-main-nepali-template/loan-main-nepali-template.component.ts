@@ -5,7 +5,6 @@ import {CustomerInfoNepaliComponent} from './customer-info-nepali/customer-info-
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse} from '../../../../@core/utils';
 import {ApplicantFamilyInfoComponent} from './applicant-family-info/applicant-family-info.component';
-import {Customer} from '../../../admin/modal/customer';
 import {BikeKarjaComponent} from './bike-karja/bike-karja.component';
 
 @Component({
@@ -24,8 +23,6 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
     @ViewChild('customerInfoNepaliComponent', {static: true}) customerInfoNepaliComponent: CustomerInfoNepaliComponent;
     @ViewChild('applicantFamilyInfoComponent', {static: true}) applicantFamilyInfoComponent: ApplicantFamilyInfoComponent;
     @ViewChild('bikeKarjaComponent', {static: true}) bikeKarjaComponent: BikeKarjaComponent;
-
-    customer: Customer = new Customer();
 
     constructor(private ngbActiveModal: NgbActiveModal) {
     }
@@ -52,7 +49,7 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
     save(): void {
         // Set CustomerInfoNepaliComponent data
         this.customerInfoNepaliComponent.onSubmit();
-        this.customer.nepaliDetail = this.customerInfoNepaliComponent.finalData;
+        this.customerLoan.customerInfo.nepaliDetail = this.customerInfoNepaliComponent.finalData;
 
         // Set ApplicantFamilyInfoComponent data
         this.applicantFamilyInfoComponent.onSubmit();

@@ -9,6 +9,7 @@ import {DocStatus} from '../../../model/docStatus';
 import {OfferLetter} from '../../../../admin/modal/offerLetter';
 import {CustomerOfferLetterPath} from '../../../model/customer-offer-letter-path';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {OfferLetterConst} from '../model/offer-letter-const';
 
 @Component({
     selector: 'app-kararnama',
@@ -25,6 +26,7 @@ export class KararnamaComponent implements OnInit {
     customerOfferLetter: CustomerOfferLetter;
     @Input() customerId: number;
     @Input() offerLetterTypeId: number;
+    offerLetterConst = OfferLetterConst;
 
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
@@ -33,21 +35,23 @@ export class KararnamaComponent implements OnInit {
     }
 
     ngOnInit() {
-   this.buildForm();
-   this.fillForm();
+        this.buildForm();
+        this.fillForm();
     }
+
     removeCustomerDetail(index) {
         (this.form.get('customerDetail') as FormArray).removeAt(index);
     }
+
     buildForm() {
         this.form = this.formBuilder.group({
             authorityPerson: [undefined],
-            customerDetail : this.formBuilder.array([]),
+            customerDetail: this.formBuilder.array([]),
             vehicleOwnerName: [undefined],
-            loanAmount : [undefined],
-            loanAmountInWord : [undefined],
-            loanInterestRate : [undefined],
-            loanMonthlyTenure : [undefined],
+            loanAmount: [undefined],
+            loanAmountInWord: [undefined],
+            loanInterestRate: [undefined],
+            loanMonthlyTenure: [undefined],
             loanMonthlyTenureInWord: [undefined],
             loanMonthlyTenureDate: [undefined],
             loanTenureYear: [undefined],
@@ -63,22 +67,23 @@ export class KararnamaComponent implements OnInit {
             licenseChangeCompensationWord: [undefined],
         });
     }
+
     addCustomerDetail() {
         (this.form.get('customerDetail') as FormArray).push(
             this.formBuilder.group({
-                grandFatherName : [undefined],
-                fatherName : [undefined],
-                district : [undefined],
-                municipality : [undefined],
-                wardNo : [undefined],
+                grandFatherName: [undefined],
+                fatherName: [undefined],
+                district: [undefined],
+                municipality: [undefined],
+                wardNo: [undefined],
                 currentDistrict: [undefined],
-                currentMunicipality : [undefined],
-                currentWardNo : [undefined],
-                customerAge : [undefined],
-                customerName : [undefined],
+                currentMunicipality: [undefined],
+                currentWardNo: [undefined],
+                customerAge: [undefined],
+                customerName: [undefined],
                 citizenIssuedDistrict: [undefined],
-                citizenshipNo : [undefined],
-                citizenShipIssuedDate : [undefined],
+                citizenshipNo: [undefined],
+                citizenShipIssuedDate: [undefined],
                 ministryName: [undefined],
                 departmentName: [undefined],
                 governmentOfficeName: [undefined],
@@ -100,6 +105,7 @@ export class KararnamaComponent implements OnInit {
         );
 
     }
+
     onSubmit(): void {
         this.spinner = true;
         this.customerOfferLetter.docStatus = DocStatus.PENDING;
@@ -175,19 +181,19 @@ export class KararnamaComponent implements OnInit {
                 initialInfo.customerDetail.forEach(data => {
                     (this.form.get('customerDetail') as FormArray).push(
                         this.formBuilder.group({
-                            grandFatherName : [data.grandFatherName],
-                            fatherName : [data.fatherName],
-                            district : [data.district],
-                            municipality : [data.municipality],
-                            wardNo : [data.wardNo],
+                            grandFatherName: [data.grandFatherName],
+                            fatherName: [data.fatherName],
+                            district: [data.district],
+                            municipality: [data.municipality],
+                            wardNo: [data.wardNo],
                             currentDistrict: [data.currentDistrict],
-                            currentMunicipality : [data.currentMunicipality],
-                            currentWardNo : [data.currentWardNo],
-                            customerAge : [data.customerAge],
-                            customerName : [data.customerName],
+                            currentMunicipality: [data.currentMunicipality],
+                            currentWardNo: [data.currentWardNo],
+                            customerAge: [data.customerAge],
+                            customerName: [data.customerName],
                             citizenIssuedDistrict: [data.citizenIssuedDistrict],
-                            citizenshipNo : [data.citizenshipNo],
-                            citizenShipIssuedDate : [data.citizenShipIssuedDate],
+                            citizenshipNo: [data.citizenshipNo],
+                            citizenShipIssuedDate: [data.citizenShipIssuedDate],
                             ministryName: [data.ministryName],
                             departmentName: [data.departmentName],
                             governmentOfficeName: [data.governmentOfficeName],
