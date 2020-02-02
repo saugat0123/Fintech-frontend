@@ -1,3 +1,623 @@
 <nb-card>
+    <nb-card-header>
+        <h3><strong>Credit Risk Grading</strong></h3>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="mawCreditRiskGradingForm">
+            <table aria-describedby="MAW-Credit-Risk-grading-table"
+                   class="table table-condensed table-bordered table-responsive-md text-center">
+                <thead>
+                <tr>
+                    <th scope="col">Criteria</th>
+                    <th scope="col">Max score</th>
+                    <th scope="col">Parameter</th>
+                    <th scope="col">Score</th>
+                    <th scope="col">Actual point</th>
+                    <th scope="col">Negative point</th>
+                    <th scope="col">Net score</th>
+                    <th scope="col">Justification</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="8" class="text-left">
+                        <strong>1. Competency of Burrowers</strong>
+                    </td>
+                </tr>
 
+                <tr>
+                    <td><p>Reputation </p></td>
+                    <td><p>20 </p></td>
+                    <td class="text-left">
+                        <ul>
+                            <li>Unquestionable reputation/ Family background</li>
+                            <li>Persons without land ownership/No credible social affiliation</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>20</li>
+                            <li>0</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <input id="reputation20" type="radio" class="form-control-input"
+                               (change)="onChangePoints('CompetencyOfBurrowers', 'Reputation', 20, mawCreditRiskGradingForm.get('reputationNegativeScore').value)"
+                               value="20"
+                               [checked]="mawCreditRiskGradingForm.get('reputationGivenScore').value == 20"
+                               formControlName="reputationGivenScore"><br>
+                        <input id="reputation0" type="radio" class="form-control-input"
+                               (change)="onChangePoints('CompetencyOfBurrowers','Reputation', 0, mawCreditRiskGradingForm.get('reputationNegativeScore').value)"
+                               value="0"
+                               [checked]="mawCreditRiskGradingForm.get('reputationGivenScore').value == 0"
+                               formControlName="reputationGivenScore">
+                    </td>
+                    <td>
+                        <input class="form-control-input auto-width transparent-input"
+                               (change)="onChangePoints('CompetencyOfBurrowers', 'Reputation', mawCreditRiskGradingForm.get('reputationGivenScore').value, mawCreditRiskGradingForm.get('reputationNegativeScore').value)"
+                               formControlName="reputationNegativeScore"><br>
+                    </td>
+                    <td>{{mawCreditRiskGradingForm.get('reputationGivenScore').value - mawCreditRiskGradingForm.get('reputationNegativeScore').value}}</td>
+                    <td><textarea class="transparent-input w-100" formControlName="reputationJustification" rows="6"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td><p>Qualification of Key Person</p></td>
+                    <td><p>20 </p></td>
+                    <td class="text-left">
+                        <ul>
+                            <li>Professional Degree</li>
+                            <li>Master's/University degress</li>
+                            <li>Technical education / Intermediate</li>
+                            <li>Some Secondary Education</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let point of scoresArray">{{point}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let point of scoresArray; let i = index">
+                            <input id="qualificationOfKeyPerson{{i}}" type="radio" class="form-control-input"
+                                   (change) = "onChangePoints('CompetencyOfBurrowers', 'Qualification of Key Person', point, mawCreditRiskGradingForm.get('qualificationOfKeyPersonNegativeScore').value)"
+                                   [value] = "point"
+                                   [checked]="mawCreditRiskGradingForm.get('qualificationOfKeyPersonGivenScore').value == point"
+                                   formControlName="qualificationOfKeyPersonGivenScore"><br>
+                        </div>
+                    </td>
+                    <td>
+                        <input class="form-control-input transparent-input auto-width"
+                               (change)="onChangePoints('CompetencyOfBurrowers', 'Qualification of Key Person', mawCreditRiskGradingForm.get('qualificationOfKeyPersonGivenScore').value, mawCreditRiskGradingForm.get('qualificationOfKeyPersonNegativeScore').value)"
+                               formControlName="qualificationOfKeyPersonNegativeScore"><br>
+                    </td>
+                    <td>{{mawCreditRiskGradingForm.get('qualificationOfKeyPersonGivenScore').value - mawCreditRiskGradingForm.get('qualificationOfKeyPersonNegativeScore').value}}</td>
+                    <td><textarea class="transparent-input w-100" formControlName="qualificationOfKeyPersonJustification" rows="6"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td><p>Age of Borrowers/Key Person</p></td>
+                    <td><p>20</p></td>
+                    <td class="text-left">
+                        <ul>
+                            <li>Borrower is between 25 and 45 years of age</li>
+                            <li>Borrower is between 45-55</li>
+                            <li>Borrower is between 55-60 but joint applicant/guarantor is below 50</li>
+                            <li>Borrower is beyond 60 years</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let point of scoresArray">{{point}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let point of scoresArray; let i = index">
+                            <input id="ageOfBurrowersOrKeyPerson{{i}}" type="radio" class="form-control-input"
+                                   (change) = "onChangePoints('CompetencyOfBurrowers', 'Age of Borrowers/Key Person', point, mawCreditRiskGradingForm.get('ageOfBurrowersOrKeyPersonNegativeScore').value)"
+                                   [value] = "point"
+                                   [checked]="mawCreditRiskGradingForm.get('ageOfBurrowersOrKeyPersonGivenScore').value == point"
+                                   formControlName="ageOfBurrowersOrKeyPersonGivenScore"><br>
+                        </div>
+                    </td>
+                    <td>
+                        <input class="form-control-input transparent-input auto-width"
+                               (change)="onChangePoints('CompetencyOfBurrowers', 'Age of Borrowers/Key Person', mawCreditRiskGradingForm.get('ageOfBurrowersOrKeyPersonGivenScore').value, mawCreditRiskGradingForm.get('ageOfBurrowersOrKeyPersonNegativeScore').value)"
+                               formControlName="ageOfBurrowersOrKeyPersonNegativeScore"><br>
+                    </td>
+                    <td>{{mawCreditRiskGradingForm.get('ageOfBurrowersOrKeyPersonGivenScore').value - mawCreditRiskGradingForm.get('ageOfBurrowersOrKeyPersonNegativeScore').value}}</td>
+                    <td><textarea class="transparent-input w-100" formControlName="ageOfBurrowersOrKeyPersonJustification" rows="6"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td><p>Work Experience in similar business</p></td>
+                    <td><p>20 </p></td>
+                    <td class="text-left">
+                        <ul>
+                            <li>Over 10 years</li>
+                            <li>5-10 years</li>
+                            <li>upto 5 years</li>
+                            <li>Less than 2 years</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let point of scoresArray">{{point}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let point of scoresArray; let i = index">
+                            <input id="workExperienceInSimilarBusiness{{i}}" type="radio" class="form-control-input"
+                                   (change) = "onChangePoints('CompetencyOfBurrowers', 'Work Experience in similar business', point, mawCreditRiskGradingForm.get('workExperienceInSimilarBusinessNegativeScore').value)"
+                                   [value] = "point"
+                                   [checked]="mawCreditRiskGradingForm.get('workExperienceInSimilarBusinessGivenScore').value == point"
+                                   formControlName="workExperienceInSimilarBusinessGivenScore"><br>
+                        </div>
+                    </td>
+                    <td>
+                        <input class="form-control-input transparent-input auto-width"
+                               (change)="onChangePoints('CompetencyOfBurrowers', 'Work Experience in similar business', mawCreditRiskGradingForm.get('workExperienceInSimilarBusinessGivenScore').value, mawCreditRiskGradingForm.get('workExperienceInSimilarBusinessNegativeScore').value)"
+                               formControlName="workExperienceInSimilarBusinessNegativeScore"><br>
+                    </td>
+                    <td>{{mawCreditRiskGradingForm.get('workExperienceInSimilarBusinessGivenScore').value - mawCreditRiskGradingForm.get('workExperienceInSimilarBusinessNegativeScore').value}}</td>
+                    <td><textarea class="transparent-input w-100" formControlName="workExperienceInSimilarBusinessJustification" rows="6"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td><p>Net Worth</p></td>
+                    <td><p>20</p></td>
+                    <td class="text-left">
+                        <ul>
+                            <li>Above 3 times of limit</li>
+                            <li>2-3 times of limit</li>
+                            <li>1-2 times of limit</li>
+                            <li>Less than 1 times of limit</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let point of scoresArray">{{point}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let point of scoresArray; let i = index">
+                            <input id="netWorthGiven{{i}}" type="radio" class="form-control-input"
+                                   (change) = "onChangePoints('CompetencyOfBurrowers', 'Net Worth', point, mawCreditRiskGradingForm.get('netWorthNegativeScore').value)"
+                                   [value] = "point"
+                                   [checked]="mawCreditRiskGradingForm.get('netWorthGivenScore').value == point"
+                                   formControlName="netWorthGivenScore"><br>
+                        </div>
+                    </td>
+                    <td>
+                        <input class="form-control-input transparent-input auto-width"
+                               (change)="onChangePoints('CompetencyOfBurrowers', 'Net Worth', mawCreditRiskGradingForm.get('netWorthGivenScore').value, mawCreditRiskGradingForm.get('netWorthNegativeScore').value)"
+                               formControlName="netWorthNegativeScore"><br>
+                    </td>
+                    <td>{{mawCreditRiskGradingForm.get('netWorthGivenScore').value - mawCreditRiskGradingForm.get('netWorthNegativeScore').value}}</td>
+                    <td><textarea class="transparent-input w-100" formControlName="netWorthJustification" rows="6"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td colspan="7" class="text-right"><strong>Total for Competency of Burrowers</strong></td>
+                    <td><strong>{{mawCreditRiskGradingForm.get('totalCompetencyOfBurrowers').value}}</strong></td>
+                </tr>
+
+                <tr>
+                    <td colspan="8" class="text-left">
+                        <strong>2. Financial/Repayment source</strong>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><p>Debt Equity Ratio</p></td>
+                    <td><p>25</p></td>
+                    <td class="text-left">
+                        <ul>
+                            <li>DE < 50:50</li>
+                            <li>DE < 60:40</li>
+                            <li>DE < 70:30</li>
+                            <li>DE < 80:20</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let point of scoresArray">{{point}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let point of scoresArray; let i = index">
+                            <input id="debtEquityRatio{{i}}" type="radio" class="form-control-input"
+                                   (change) = "onChangePoints('FinancialSource', 'Debt Equity Ratio', point, mawCreditRiskGradingForm.get('debtEquityRatioNegativeScore').value)"
+                                   [value] = "point"
+                                   [checked]="mawCreditRiskGradingForm.get('debtEquityRatioGivenScore').value == point"
+                                   formControlName="debtEquityRatioGivenScore"><br>
+                        </div>
+                    </td>
+                    <td>
+                        <input class="form-control-input transparent-input auto-width"
+                               (change)="onChangePoints('FinancialSource', 'Debt Equity Ratio', mawCreditRiskGradingForm.get('debtEquityRatioGivenScore').value, mawCreditRiskGradingForm.get('debtEquityRatioNegativeScore').value)"
+                               formControlName="debtEquityRatioNegativeScore"><br>
+                    </td>
+                    <td>{{mawCreditRiskGradingForm.get('debtEquityRatioGivenScore').value - mawCreditRiskGradingForm.get('debtEquityRatioNegativeScore').value}}</td>
+                    <td><textarea class="transparent-input w-100" formControlName="debtEquityRatioJustification" rows="6"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td><p>Future Income Coverage Ratio</p></td>
+                    <td><p>25</p></td>
+                    <td class="text-left">
+                        <ul>
+                            <li>> than 3 Times</li>
+                            <li>>= 2 times</li>
+                            <li>>= 1.5 times</li>
+                            <li>Upto 1 times</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let point of scoresArray">{{point}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let point of scoresArray; let i = index">
+                            <input id="futureIncomeCoverageRatio{{i}}" type="radio" class="form-control-input"
+                                   (change) = "onChangePoints('FinancialSource', 'Future Income Coverage Ratio', point, mawCreditRiskGradingForm.get('futureIncomeCoverageRatioNegativeScore').value)"
+                                   [value] = "point"
+                                   [checked]="mawCreditRiskGradingForm.get('futureIncomeCoverageRatioGivenScore').value == point"
+                                   formControlName="futureIncomeCoverageRatioGivenScore"><br>
+                        </div>
+                    </td>
+                    <td>
+                        <input class="form-control-input transparent-input auto-width"
+                               (change)="onChangePoints('FinancialSource', 'Future Income Coverage Ratio', mawCreditRiskGradingForm.get('futureIncomeCoverageRatioGivenScore').value, mawCreditRiskGradingForm.get('futureIncomeCoverageRatioNegativeScore').value)"
+                               formControlName="futureIncomeCoverageRatioNegativeScore"><br>
+                    </td>
+                    <td>{{mawCreditRiskGradingForm.get('futureIncomeCoverageRatioGivenScore').value - mawCreditRiskGradingForm.get('futureIncomeCoverageRatioNegativeScore').value}}</td>
+                    <td><textarea class="transparent-input w-100" formControlName="futureIncomeCoverageRatioJustification" rows="6"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td><p>Present Income Ratio</p></td>
+                    <td><p>25</p></td>
+                    <td class="text-left">
+                        <ul>
+                            <li>Upto 1 times</li>
+                            <li>Upto 0.5 times</li>
+                            <li>Upto 0.25 times</li>
+                            <li>Less than 0.25 times</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let point of scoresArray">{{point}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let point of scoresArray; let i = index">
+                            <input id="presentIncomeRatio{{i}}" type="radio" class="form-control-input"
+                                   (change) = "onChangePoints('FinancialSource', 'Present Income Ratio', point, mawCreditRiskGradingForm.get('presentIncomeRatioNegativeScore').value)"
+                                   [value] = "point"
+                                   [checked]="mawCreditRiskGradingForm.get('presentIncomeRatioGivenScore').value == point"
+                                   formControlName="presentIncomeRatioGivenScore"><br>
+                        </div>
+                    </td>
+                    <td>
+                        <input class="form-control-input transparent-input auto-width"
+                               (change)="onChangePoints('FinancialSource', 'Present Income Ratio', mawCreditRiskGradingForm.get('presentIncomeRatioGivenScore').value, mawCreditRiskGradingForm.get('presentIncomeRatioNegativeScore').value)"
+                               formControlName="presentIncomeRatioNegativeScore"><br>
+                    </td>
+                    <td>{{mawCreditRiskGradingForm.get('presentIncomeRatioGivenScore').value - mawCreditRiskGradingForm.get('presentIncomeRatioNegativeScore').value}}</td>
+                    <td><textarea class="transparent-input w-100" formControlName="presentIncomeRatioJustification" rows="6"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td><p>Secondary Source of repayment</p></td>
+                    <td><p>25</p></td>
+                    <td class="text-left">
+                        <ul>
+                            <li>-- From Financial --</li>
+                            <li>-- From Financial --</li>
+                            <li>-- From Financial --</li>
+                            <li>-- From Financial --</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let point of scoresArray">{{point}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let point of scoresArray; let i = index">
+                            <input id="secondarySourceOfRepayment{{i}}" type="radio" class="form-control-input"
+                                   (change) = "onChangePoints('FinancialSource', 'Secondary Source of repayment', point, mawCreditRiskGradingForm.get('secondarySourceOfRepaymentNegativeScore').value)"
+                                   [value] = "point"
+                                   [checked]="mawCreditRiskGradingForm.get('secondarySourceOfRepaymentGivenScore').value == point"
+                                   formControlName="secondarySourceOfRepaymentGivenScore"><br>
+                        </div>
+                    </td>
+                    <td>
+                        <input class="form-control-input transparent-input auto-width"
+                               (change)="onChangePoints('FinancialSource', 'Secondary Source of repayment', mawCreditRiskGradingForm.get('secondarySourceOfRepaymentGivenScore').value, mawCreditRiskGradingForm.get('secondarySourceOfRepaymentNegativeScore').value)"
+                               formControlName="secondarySourceOfRepaymentNegativeScore"><br>
+                    </td>
+                    <td>{{mawCreditRiskGradingForm.get('secondarySourceOfRepaymentGivenScore').value - mawCreditRiskGradingForm.get('secondarySourceOfRepaymentNegativeScore').value}}</td>
+                    <td><textarea class="transparent-input w-100" formControlName="secondarySourceOfRepaymentJustification" rows="6"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td colspan="7" class="text-right"><strong>Total for Financial/Repayment source</strong></td>
+                    <td><strong>{{mawCreditRiskGradingForm.get('totalFinancialSource').value}}</strong></td>
+                </tr>
+
+                <tr>
+                    <td colspan="8" class="text-left">
+                        <strong>3. Security Realization</strong>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><p>Loan Tenure</p></td>
+                    <td><p>25</p></td>
+                    <td class="text-left">
+                        <ul>
+                            <li>3 Years</li>
+                            <li>4 Years</li>
+                            <li>5 Years</li>
+                            <li>> Than 5 years</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let point of scoresArray">{{point}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let point of scoresArray; let i = index">
+                            <input id="loanTenure{{i}}" type="radio" class="form-control-input"
+                                   (change) = "onChangePoints('SecurityRealization', 'Loan Tenure', point, mawCreditRiskGradingForm.get('loanTenureNegativeScore').value)"
+                                   [value] = "point"
+                                   [checked]="mawCreditRiskGradingForm.get('loanTenureGivenScore').value == point"
+                                   formControlName="loanTenureGivenScore"><br>
+                        </div>
+                    </td>
+                    <td>
+                        <input class="form-control-input transparent-input auto-width"
+                               (change)="onChangePoints('SecurityRealization', 'Loan Tenure', mawCreditRiskGradingForm.get('loanTenureGivenScore').value, mawCreditRiskGradingForm.get('loanTenureNegativeScore').value)"
+                               formControlName="loanTenureNegativeScore"><br>
+                    </td>
+                    <td>{{mawCreditRiskGradingForm.get('loanTenureGivenScore').value - mawCreditRiskGradingForm.get('loanTenureNegativeScore').value}}</td>
+                    <td><textarea class="transparent-input w-100" formControlName="loanTenureJustification" rows="6"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td><p>Security Location</p></td>
+                    <td><p>25</p></td>
+                    <td class="text-left">
+                        <ul>
+                            <li>Inner City/Commercial Value</li>
+                            <li>Suburbs/Residential Value</li>
+                            <li>Outskirts/VDC</li>
+                            <li>Agricultural Land</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let point of scoresArray">{{point}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let point of scoresArray; let i = index">
+                            <input id="securityLocation{{i}}" type="radio" class="form-control-input"
+                                   (change) = "onChangePoints('SecurityRealization', 'Security Location', point, mawCreditRiskGradingForm.get('securityLocationNegativeScore').value)"
+                                   [value] = "point"
+                                   [checked]="mawCreditRiskGradingForm.get('securityLocationGivenScore').value == point"
+                                   formControlName="securityLocationGivenScore"><br>
+                        </div>
+                    </td>
+                    <td>
+                        <input class="form-control-input transparent-input auto-width"
+                               (change)="onChangePoints('SecurityRealization', 'Security Location', mawCreditRiskGradingForm.get('securityLocationGivenScore').value, mawCreditRiskGradingForm.get('securityLocationNegativeScore').value)"
+                               formControlName="securityLocationNegativeScore"><br>
+                    </td>
+                    <td>{{mawCreditRiskGradingForm.get('securityLocationGivenScore').value - mawCreditRiskGradingForm.get('securityLocationNegativeScore').value}}</td>
+                    <td><textarea class="transparent-input w-100" formControlName="securityLocationJustification" rows="6"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td><p>Ownership</p></td>
+                    <td><p>25</p></td>
+                    <td class="text-left">
+                        <ul>
+                            <li>Singly owned by Applicant/Key Person</li>
+                            <li>Owned by loan Shareholder Guarantor</li>
+                            <li>Owned by Family Members of Shareholder/Owners</li>
+                            <li>Third Party ownership</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let point of scoresArray">{{point}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let point of scoresArray; let i = index">
+                            <input id="ownership{{i}}" type="radio" class="form-control-input"
+                                   (change) = "onChangePoints('SecurityRealization', 'Ownership', point, mawCreditRiskGradingForm.get('ownershipNegativeScore').value)"
+                                   [value] = "point"
+                                   [checked]="mawCreditRiskGradingForm.get('ownershipGivenScore').value == point"
+                                   formControlName="ownershipGivenScore"><br>
+                        </div>
+                    </td>
+                    <td>
+                        <input class="form-control-input transparent-input auto-width"
+                               (change)="onChangePoints('SecurityRealization', 'Ownership', mawCreditRiskGradingForm.get('ownershipGivenScore').value, mawCreditRiskGradingForm.get('ownershipNegativeScore').value)"
+                               formControlName="ownershipNegativeScore"><br>
+                    </td>
+                    <td>{{mawCreditRiskGradingForm.get('ownershipGivenScore').value - mawCreditRiskGradingForm.get('ownershipNegativeScore').value}}</td>
+                    <td><textarea class="transparent-input w-100" formControlName="ownershipJustification" rows="6"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td><p>Access to Land</p></td>
+                    <td><p>25</p></td>
+                    <td class="text-left">
+                        <ul>
+                            <li>Well defined pitched road according to road access requirements</li>
+                            <li>Fair Weathered but well defined as per road access requirements</li>
+                            <li>Road in blue print and on the field but road extension possibility in future</li>
+                            <li>Agricultural Land</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let point of scoresArray">{{point}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let point of scoresArray; let i = index">
+                            <input id="accessToLand{{i}}" type="radio" class="form-control-input"
+                                   (change) = "onChangePoints('SecurityRealization', 'Access to Land', point, mawCreditRiskGradingForm.get('accessToLandNegativeScore').value)"
+                                   [value] = "point"
+                                   [checked]="mawCreditRiskGradingForm.get('accessToLandGivenScore').value == point"
+                                   formControlName="accessToLandGivenScore"><br>
+                        </div>
+                    </td>
+                    <td>
+                        <input class="form-control-input transparent-input auto-width"
+                               (change)="onChangePoints('SecurityRealization', 'Access to Land', mawCreditRiskGradingForm.get('accessToLandGivenScore').value, mawCreditRiskGradingForm.get('accessToLandNegativeScore').value)"
+                               formControlName="accessToLandNegativeScore"><br>
+                    </td>
+                    <td>{{mawCreditRiskGradingForm.get('accessToLandGivenScore').value - mawCreditRiskGradingForm.get('accessToLandNegativeScore').value}}</td>
+                    <td><textarea class="transparent-input w-100" formControlName="accessToLandJustification" rows="6"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td colspan="7" class="text-right"><strong>Total for Security Realization</strong></td>
+                    <td><strong>{{mawCreditRiskGradingForm.get('totalSecurityRealization').value}}</strong></td>
+                </tr>
+
+                <tr>
+                    <td colspan="8" class="text-left">
+                        <strong>4. Conduct of Account </strong>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><p>a. Debt servicing track record (On Us)</p></td>
+                    <td><p>50</p></td>
+                    <td class="text-left">
+                        <ul>
+                            <li>Debt servicing within stipulated time frame</li>
+                            <li>Debt servicing within 15 days</li>
+                            <li>Debt servicing  requires followup but within 30 days</li>
+                            <li>Debt servicing  requires vigorous followup/Past 30 days/Entirely new credit customer</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let point of scoresArrayCoA">{{point}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let point of scoresArrayCoA; let i = index">
+                            <input id="debtServicingTrackRecordOn{{i}}" type="radio" class="form-control-input"
+                                   (change) = "onChangePoints('ConductOfAccount', 'a. Debt servicing track record (On Us)', point, mawCreditRiskGradingForm.get('debtServicingTrackRecordOnNegativeScore').value)"
+                                   [value] = "point"
+                                   [checked]="mawCreditRiskGradingForm.get('debtServicingTrackRecordOnGivenScore').value == point"
+                                   formControlName="debtServicingTrackRecordOnGivenScore"><br>
+                        </div>
+                    </td>
+                    <td>
+                        <input class="form-control-input transparent-input auto-width"
+                               (change)="onChangePoints('ConductOfAccount', 'a. Debt servicing track record (On Us)', mawCreditRiskGradingForm.get('debtServicingTrackRecordOnGivenScore').value, mawCreditRiskGradingForm.get('debtServicingTrackRecordOnNegativeScore').value)"
+                               formControlName="debtServicingTrackRecordOnNegativeScore"><br>
+                    </td>
+                    <td>{{mawCreditRiskGradingForm.get('debtServicingTrackRecordOnGivenScore').value - mawCreditRiskGradingForm.get('debtServicingTrackRecordOnNegativeScore').value}}</td>
+                    <td><textarea class="transparent-input w-100" formControlName="debtServicingTrackRecordOnJustification" rows="6"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td><p>b. Debt servicing track record (Off Us)</p></td>
+                    <td><p>50</p></td>
+                    <td class="text-left">
+                        <ul>
+                            <li>Debt servicing within stipulated time frame</li>
+                            <li>Debt servicing within 15 days</li>
+                            <li>Debt servicing within 30 days</li>
+                            <li>Payment overdue beyond 30 days</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let point of scoresArrayCoA">{{point}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let point of scoresArrayCoA; let i = index">
+                            <input id="debtServiceTrackRecordOff{{i}}" type="radio" class="form-control-input"
+                                   (change) = "onChangePoints('ConductOfAccount', 'b. Debt servicing track record (Off Us)', point, mawCreditRiskGradingForm.get('debtServiceTrackRecordOffNegativeScore').value)"
+                                   [value] = "point"
+                                   [checked]="mawCreditRiskGradingForm.get('debtServiceTrackRecordOffGivenScore').value == point"
+                                   formControlName="debtServiceTrackRecordOffGivenScore"><br>
+                        </div>
+                    </td>
+                    <td>
+                        <input class="form-control-input transparent-input auto-width"
+                               (change)="onChangePoints('ConductOfAccount', 'b. Debt servicing track record (Off Us)', mawCreditRiskGradingForm.get('debtServiceTrackRecordOffGivenScore').value, mawCreditRiskGradingForm.get('debtServiceTrackRecordOffNegativeScore').value)"
+                               formControlName="debtServiceTrackRecordOffNegativeScore"><br>
+                    </td>
+                    <td>{{mawCreditRiskGradingForm.get('debtServiceTrackRecordOffGivenScore').value - mawCreditRiskGradingForm.get('debtServiceTrackRecordOffNegativeScore').value}}</td>
+                    <td><textarea class="transparent-input w-100" formControlName="debtServiceTrackRecordOffJustification" rows="6"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td colspan="7" class="text-right"><strong>Total for Conduct of Account </strong></td>
+                    <td><strong>{{mawCreditRiskGradingForm.get('totalConductOfAccount').value}}</strong></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table aria-describedby="Final CRG Table" class="table table-condensed table-bordered table-responsive-md text-center">
+                <thead>
+                <tr>
+                    <th scope="col">Criteria</th>
+                    <th scope="col">Weight (W)</th>
+                    <th scope="col">Given Score (S)</th>
+                    <th scope="col">Weighted Score (WxS)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><strong>1. Competency Of Borrowers</strong></td>
+                    <td>25%</td>
+                    <td>{{mawCreditRiskGradingForm.get('totalCompetencyOfBurrowers').value}}</td>
+                    <td>{{mawCreditRiskGradingForm.get('weightedCompetencyOfBurrowers').value}}</td>
+                </tr>
+                <tr>
+                    <td><strong>2. Financial/Repayment Source</strong></td>
+                    <td>25%</td>
+                    <td>{{mawCreditRiskGradingForm.get('totalFinancialSource').value}}</td>
+                    <td>{{mawCreditRiskGradingForm.get('weightedFinancialSource').value}}</td>
+                </tr>
+                <tr>
+                    <td><strong>3. Security Realization</strong></td>
+                    <td>25%</td>
+                    <td>{{mawCreditRiskGradingForm.get('totalSecurityRealization').value}}</td>
+                    <td>{{mawCreditRiskGradingForm.get('weightedSecurityRealization').value}}</td>
+                </tr>
+                <tr>
+                    <td><strong>4. Conduct of Account</strong></td>
+                    <td>25%</td>
+                    <td>{{mawCreditRiskGradingForm.get('totalConductOfAccount').value}}</td>
+                    <td>{{mawCreditRiskGradingForm.get('weightedConductOfAccount').value}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-right"><strong>100%</strong></td>
+                    <td><strong>Credit Risk Score (CRS)</strong></td>
+                    <td><strong>{{mawCreditRiskGradingForm.get('creditRiskScore').value}}</strong></td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </nb-card-body>
 </nb-card>

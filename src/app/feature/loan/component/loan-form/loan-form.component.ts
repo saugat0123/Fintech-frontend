@@ -39,6 +39,7 @@ import {GroupComponent} from '../loan-main-template/group/group.component';
 import {LoanMainNepaliTemplateComponent} from '../loan-main-nepali-template/loan-main-nepali-template.component';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ProductUtils} from '../../../admin/service/product-mode.service';
+import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -137,6 +138,9 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('creditGrading', {static: false})
     creditGrading: CreditGradingComponent;
 
+    @ViewChild('mawCreditRiskGrading', {static: false})
+    mawCreditRiskGrading: MawCreditRiskGradingComponent;
+
     @ViewChild('financial', {static: false})
     financial: FinancialComponent;
 
@@ -148,6 +152,7 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('customerDocument', {static: false})
     customerDocument: CustomerDocumentComponent;
+
     @ViewChild('group', {static: false})
     group: GroupComponent;
 
@@ -472,6 +477,10 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Credit Risk Grading' && action) {
             this.creditGrading.onSubmit();
             this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
+        }
+        if (name === 'MAW Credit Risk Grading' && action) {
+            this.mawCreditRiskGrading.onSubmit();
+            this.loanDocument.mawCreditRiskGrading = this.mawCreditRiskGrading.mawCreditRiskGradingData;
         }
         if (name === 'Group' && action) {
             this.group.onSubmit();
