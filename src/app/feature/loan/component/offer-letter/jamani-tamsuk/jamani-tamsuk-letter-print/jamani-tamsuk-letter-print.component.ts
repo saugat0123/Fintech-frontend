@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-jamani-tamsuk-letter-print',
@@ -6,7 +6,8 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./jamani-tamsuk-letter-print.component.scss']
 })
 export class JamaniTamsukLetterPrintComponent implements OnInit {
-
+  @Input()
+  letter: any;
   constructor() { }
 
   ngOnInit() {
