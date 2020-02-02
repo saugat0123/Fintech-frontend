@@ -132,6 +132,7 @@ const COMPONENTS = [
     LoanMainNepaliTemplateComponent,
     FiscalYearModalComponent,
     DhitoLikhatPrintComponent,
+    PratigyaPatraPrintComponent,
     ApplicantFamilyInfoComponent,
     KarjaTamsukPrintComponent,
     KararnamaPrintComponent,
