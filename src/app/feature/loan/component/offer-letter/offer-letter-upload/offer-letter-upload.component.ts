@@ -25,11 +25,13 @@ export class OfferLetterUploadComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.customerOfferLetter.customerOfferLetterPath.forEach(customerOfferLetter => {
-      if (!this.uploadedOfferLetter.includes(customerOfferLetter.offerLetter.name)) {
-        this.uploadedOfferLetter.push(customerOfferLetter.offerLetter.name);
-      }
-    });
+    if (this.customerOfferLetter) {
+      this.customerOfferLetter.customerOfferLetterPath.forEach(customerOfferLetter => {
+        if (!this.uploadedOfferLetter.includes(customerOfferLetter.offerLetter.name)) {
+          this.uploadedOfferLetter.push(customerOfferLetter.offerLetter.name);
+        }
+      });
+    }
   }
 
   submitOfferLetter() {
