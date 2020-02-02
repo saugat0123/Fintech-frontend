@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {OfferLetterConst} from "../../model/offer-letter-const";
 
 @Component({
   selector: 'app-manjurinama-letter-print',
@@ -8,6 +9,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ManjurinamaLetterPrintComponent implements OnInit {
   @Input()
   Letter: any;
+  offerLetterConst = OfferLetterConst;
 
   constructor() { }
 

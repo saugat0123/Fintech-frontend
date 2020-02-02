@@ -118,8 +118,9 @@
     </div>
 </div>
 <div class="col-md-12">
-    <button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4" *ngIf="initialInfoPrint"
-            ngxPrint printSectionId="manjurinamaId" style="float: right">Print
+    <button *ngIf="initialInfoPrint" [useExistingCss]="true"
+            class="btn btn-flat btn-lg btn-secondary m-4"
+            ngxPrint printSectionId="{{offerLetterConst.MANJURINAMA}}Print" style="float: right">Print
     </button>
 </div>
     <app-manjurinama-letter-print *ngIf="initialInfoPrint" [Letter]="initialInfoPrint" hidden></app-manjurinama-letter-print>

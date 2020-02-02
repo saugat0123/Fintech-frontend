@@ -9,6 +9,7 @@ import {CustomerOfferLetterPath} from "../../../model/customer-offer-letter-path
 import {CustomerOfferLetterService} from "../../../service/customer-offer-letter.service";
 import {ToastService} from "../../../../../@core/utils";
 import {Router} from "@angular/router";
+import {OfferLetterConst} from "../model/offer-letter-const";
 
 @Component({
     selector: 'app-manjurinama',
@@ -23,6 +24,7 @@ export class ManjurinamaComponent implements OnInit {
     customerOfferLetter: CustomerOfferLetter;
     @Input() customerId: number;
     @Input() offerLetterTypeId: number;
+    offerLetterConst = OfferLetterConst;
     existingOfferLetter = false;
     spinner = false;
     initialInfoPrint;
