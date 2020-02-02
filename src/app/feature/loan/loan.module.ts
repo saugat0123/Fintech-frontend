@@ -74,6 +74,7 @@ import { ManjurinamaLetterPrintComponent } from './component/offer-letter/manjur
 import { JamaniBasekoComponent } from './component/loan-main-nepali-template/jamani-baseko/jamani-baseko.component';
 import { JamaniBasekoPrintComponent } from './component/loan-main-nepali-template/jamani-baseko/jamani-baseko-print/jamani-baseko-print.component';
 import { BikeKarjaComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja.component';
+import {HayarParchesKarjaNibedanComponent} from './component/loan-main-nepali-template/hayar-parches-karja-nibedan/hayar-parches-karja-nibedan.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -138,6 +139,7 @@ const COMPONENTS = [
     JamaniBasekoPrintComponent,
     DhristiBandhakPrintComponent,
     BikeKarjaComponent,
+    HayarParchesKarjaNibedanComponent,
 ];
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,
