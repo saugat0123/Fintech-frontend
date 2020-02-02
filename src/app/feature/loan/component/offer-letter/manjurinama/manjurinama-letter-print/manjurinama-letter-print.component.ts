@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {OfferLetterConst} from "../../model/offer-letter-const";
+import {OfferLetterConst} from '../../model/offer-letter-const';
 
 @Component({
   selector: 'app-manjurinama-letter-print',

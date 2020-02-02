@@ -69,7 +69,7 @@ export class KarjatamsukComponent implements OnInit {
             this.router.navigateByUrl('/home/dashboard').then(value => {
                 if (value) {
                     this.router.navigate(['/home/loan/offer-letter'], {
-                        queryParams: {customerId: this.customerId,}
+                        queryParams: {customerId: this.customerId, }
                     });
                 }
             });
