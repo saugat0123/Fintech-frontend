@@ -70,6 +70,7 @@ import { ApplicantFamilyInfoComponent } from './component/loan-main-nepali-templ
 import { KarjaTamsukPrintComponent } from './component/offer-letter/karjatamsuk/karja-tamsuk-print/karja-tamsuk-print.component';
 import { KararnamaPrintComponent } from './component/offer-letter/kararnama/kararnama-print/kararnama-print.component';
 import { DhristiBandhakPrintComponent } from './component/offer-letter/dhristi-bandhak/dhristi-bandhak-print/dhristi-bandhak-print.component';
+import { ManjurinamaLetterPrintComponent } from './component/offer-letter/manjurinama/manjurinama-letter-print/manjurinama-letter-print.component';
 
 
 const COMPONENTS = [
@@ -129,7 +130,8 @@ const COMPONENTS = [
     DhitoLikhatPrintComponent,
     ApplicantFamilyInfoComponent,
     KarjaTamsukPrintComponent,
-    KararnamaPrintComponent
+    KararnamaPrintComponent,
+    ManjurinamaLetterPrintComponent
 ];
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,
