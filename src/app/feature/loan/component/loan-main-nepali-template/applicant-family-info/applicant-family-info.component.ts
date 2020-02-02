@@ -122,7 +122,7 @@ export class ApplicantFamilyInfoComponent implements OnInit {
   setListenerForPrint() {
     this.form.valueChanges.subscribe(() => {
       this.familyInfoPrint = this.form.getRawValue();
-    })
+    });
   }
 
   onSubmit(): void {
