@@ -64,7 +64,6 @@ export class JamaniBasekoComponent implements OnInit {
           this.initialInfoPrint = parsedData;
           this.form.patchValue(parsedData);
           parsedData.guarantorFamiliarPersons.forEach((value) => {
-            console.log(value);
             (this.form.get('guarantorFamiliarPersons') as FormArray).push(
                 this.formBuilder.group({
                   guarantorRelativeName: [value.guarantorRelativeName],
@@ -88,7 +87,6 @@ export class JamaniBasekoComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.templateIndexInArray);
     if (!ObjectUtil.isEmpty(this.templateIndexInArray)) {
       this.nepaliTemplates[this.templateIndexInArray].data = JSON.stringify(this.form.value);
     } else {
@@ -97,7 +95,6 @@ export class JamaniBasekoComponent implements OnInit {
       jamaniBaseko.data = JSON.stringify(this.form.value);
       this.nepaliTemplates.push(jamaniBaseko);
     }
-    console.log(this.nepaliTemplates);
   }
 
   addGuarantorFamiliarPersons(): void {

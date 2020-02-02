@@ -73,7 +73,7 @@ import { DhristiBandhakPrintComponent } from './component/offer-letter/dhristi-b
 import { ManjurinamaLetterPrintComponent } from './component/offer-letter/manjurinama/manjurinama-letter-print/manjurinama-letter-print.component';
 import { JamaniBasekoComponent } from './component/loan-main-nepali-template/jamani-baseko/jamani-baseko.component';
 import { JamaniBasekoPrintComponent } from './component/loan-main-nepali-template/jamani-baseko/jamani-baseko-print/jamani-baseko-print.component';
-
+import { BikeKarjaComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -134,7 +134,10 @@ const COMPONENTS = [
     KarjaTamsukPrintComponent,
     KararnamaPrintComponent,
     ManjurinamaLetterPrintComponent,
-    JamaniBasekoComponent
+    JamaniBasekoComponent,
+    JamaniBasekoPrintComponent,
+    DhristiBandhakPrintComponent,
+    BikeKarjaComponent,
 ];
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,
@@ -146,7 +149,7 @@ const ENTRY_COMPONENTS = [
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS, DhristiBandhakPrintComponent, JamaniBasekoPrintComponent],
+    declarations: [...COMPONENTS],
     imports: [
         ThemeModule,
         CommonModule,

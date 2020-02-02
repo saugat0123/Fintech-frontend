@@ -30,9 +30,10 @@
                                    [nepaliTemplates]="customerLoan?.nepaliTemplates"></app-applicant-family-info>
       </nb-step>
 
-      <nb-step [label]="labelForth">
-        <ng-template #labelForth>Fourth Step</ng-template>
-        <!--TODO add your nepali template component here-->
+      <nb-step [label]="labelHayarPurchaseBikeKarjaNepali">
+        <ng-template #labelHayarPurchaseBikeKarjaNepali>हायर पर्चेज कर्जा आवेदन फाराम</ng-template>
+        <app-bike-karja #bikeKarjaComponent
+                        [nepaliTemplates]="customerLoan?.nepaliTemplates"></app-bike-karja>
       </nb-step>
     </nb-stepper>
 
