@@ -75,6 +75,8 @@ import { JamaniBasekoComponent } from './component/loan-main-nepali-template/jam
 import { JamaniBasekoPrintComponent } from './component/loan-main-nepali-template/jamani-baseko/jamani-baseko-print/jamani-baseko-print.component';
 import { BikeKarjaComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja.component';
 import {HayarParchesKarjaNibedanComponent} from './component/loan-main-nepali-template/hayar-parches-karja-nibedan/hayar-parches-karja-nibedan.component';
+import { MawCreditRiskGradingComponent } from './component/loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
+
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -140,6 +142,7 @@ const COMPONENTS = [
     DhristiBandhakPrintComponent,
     BikeKarjaComponent,
     HayarParchesKarjaNibedanComponent,
+    MawCreditRiskGradingComponent
 ];
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,
