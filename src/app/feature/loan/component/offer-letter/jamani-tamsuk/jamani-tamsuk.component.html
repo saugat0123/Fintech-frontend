@@ -14,8 +14,8 @@
                 वडा.नं <input class="form-field form-control-sm nepaliFont" formControlName="ward" type="text"/>
                 स्थाई ठेगाना भई हाल <input class="form-field form-control-sm nepaliFont"
                                            formControlName="applicantPermanentAddress" type="text"/>
-                जिल्ला <input class="form-field form-control-sm nepaliFont" formControlName="district" type="text"/>गा.पा./न.पा./उ.म.न.पा./म.न.पा.
-                वडा.नं <input class="form-field form-control-sm nepaliFont" formControlName="ward" type="number"/>
+                जिल्ला <input class="form-field form-control-sm nepaliFont" formControlName="districtOne" type="text"/>गा.पा./न.पा./उ.म.न.पा./म.न.पा.
+                वडा.नं <input class="form-field form-control-sm nepaliFont" formControlName="wardOne" type="number"/>
                 बस्ने.वर्ष <input class="form-field form-control-sm nepaliFont" formControlName="year" type="text"/>को
                 सुश्री/श्री/श्रीमती <input class="form-field form-control-sm nepaliFont"
                                            formControlName="applicantRelativeTwo" type="text"/>
@@ -31,27 +31,28 @@
                                                                formControlName="approve"
                                                                type="text"/>को/की
                 नाती/नातीनी/बुहारी
-                <input class="form-field form-control-sm nepaliFont" formControlName="applicantRelative" type="text"/>
+                <input class="form-field form-control-sm nepaliFont" formControlName="applicantRelativeThree" type="text"/>
                 को छोरा/छोरी/पत्नी
                 <input class="form-field form-control-sm nepaliFont" formControlName="family" type="text"/>जिल्ला <input
                     class="form-field form-control-sm nepaliFont"
-                    formControlName="district" type="text"/>
-                गा.वि.स./न.पा./उ.म.न.पा./म.न.पा. वडा नं <input class="form-field form-control-sm nepaliFont"
-                                                               formControlName="ward" type="text"/>स्थाई
+                    formControlName="districtTwo" type="text"/>
+                गा.वि.स./न.पा./उ.म.न.पा./म.न.पा.
+                वडा नं <input class="form-field form-control-sm nepaliFont"
+                                                               formControlName="wardTwo" type="text"/>स्थाई
                 ठेगाना भई हाल
                 <input class="form-field form-control-sm nepaliFont" formControlName="applicantPresentAddress" type="text"/> जिल्ला
-                <input class="form-field form-control-sm nepaliFont" formControlName="district" type="text"/>
-                गा.पा./ न.पा./उ.म.न.पा./म.न.पा. वडा नं <input class="form-field form-control-sm nepaliFont" formControlName="ward"
+                <input class="form-field form-control-sm nepaliFont" formControlName="districtThree" type="text"/>
+                गा.पा./ न.पा./उ.म.न.पा./म.न.पा. वडा नं <input class="form-field form-control-sm nepaliFont" formControlName="wardThree"
                                                               type="text"/>
-                बस्ने वर्ष <input class="form-field form-control-sm nepaliFont" formControlName="year" type="text"/>को
+                बस्ने वर्ष <input class="form-field form-control-sm nepaliFont" formControlName="yearOne" type="text"/>को
                 सुश्री/श्री/श्रीमती <input class="form-field form-control-sm nepaliFont"
-                                           formControlName="applicantRelativeTwo" type="text"/> (जिल्ला प्रशासन
-                कार्यालय <input class="form-field form-control-sm nepaliFont" formControlName="districtOffice"
+                                           formControlName="applicantRelativeFour" type="text"/> (जिल्ला प्रशासन
+                कार्यालय <input class="form-field form-control-sm nepaliFont" formControlName="districtOfficeOne"
                                 type="text"/>
-                बाट मिती <input class="form-field form-control-sm nepaliFont" formControlName="districtDate"
+                बाट मिती <input class="form-field form-control-sm nepaliFont" formControlName="districtDateOne"
                                 type="text"/>मा जारी
                 ना.प्र.प.नं <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="municipalityCerifiedNumber" type="text"/>रहेको) वा प्राइभेट फर्म
+                                   formControlName="municipalityCerifiedNumberOne" type="text"/>रहेको) वा प्राइभेट फर्म
                 रजिष्ट्रेशन ऐन, २०१४/कम्पनी ऐन २०६३
                 बमोजिम
                 नेपाल सरकार <input class="form-field form-control-sm nepaliFont" formControlName="governmentOfNepal"
@@ -62,8 +63,8 @@
                 मा दर्ता नं <input class="form-field form-control-sm nepaliFont" formControlName="registrationNo"
                                    type="text"/>रही दर्ता
                 भएको <input class="form-field form-control-sm nepaliFont" formControlName="name" type="text"/>
-                जिल्ला <input class="form-field form-control-sm nepaliFont" formControlName="district" type="text"/>गा.वि.स./न.पा./उ.म.न.पा./म.न.पा.
-                वडा नं <input class="form-field form-control-sm nepaliFont" formControlName="ward" type="number"/>
+                जिल्ला <input class="form-field form-control-sm nepaliFont" formControlName="districtFour" type="text"/>गा.वि.स./न.पा./उ.म.न.पा./म.न.पा.
+                वडा नं <input class="form-field form-control-sm nepaliFont" formControlName="wardFour" type="number"/>
                 स्थित <input class="form-field form-control-sm nepaliFont" formControlName="location" type="text"/>
                 (जसलाई यस लिखतमा
                 यस
@@ -113,7 +114,7 @@
         </form>
     </div>
 </div>
-<button *ngIf="initialInfoPrint" [useExistingCss]="true"class="btn btn-flat btn-lg btn-secondary m-4"
+<button *ngIf="initialInfoPrint" [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4" 
         ngxPrint printSectionId="JamaniId">Print
 </button>
 <app-jamani-tamsuk-letter-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-jamani-tamsuk-letter-print>

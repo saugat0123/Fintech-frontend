@@ -41,13 +41,24 @@ export class JamaniTamsukComponent implements OnInit {
     formBuild() {
         this.form = this.formBuilder.group({
             ward: [undefined],
+            wardOne: [undefined],
+            wardTwo: [undefined],
+            wardThree: [undefined],
+            wardFour: [undefined],
             district: [undefined],
+            districtOne: [undefined],
+            districtTwo: [undefined],
+            districtThree: [undefined],
+            districtFour: [undefined],
             family: [undefined],
             approve: [undefined],
             applicantName: [undefined],
             applicantPermanentAddress: [undefined],
             applicantPresentAddress: [undefined],
             applicantRelative: [undefined],
+            applicantRelativeTwo: [undefined],
+            applicantRelativeThree: [undefined],
+            applicantRelativeFour: [undefined],
             applicantFamily: [undefined],
             date: [undefined],
             governmentOfNepal: [undefined],
@@ -55,12 +66,15 @@ export class JamaniTamsukComponent implements OnInit {
             department: [undefined],
             registrationNo: [undefined],
             year: [undefined],
-            applicantRelativeTwo: [undefined],
+            yearOne: [undefined],
             municipalityCerifiedNumber: [undefined],
+            municipalityCerifiedNumberOne: [undefined],
             price: [undefined],
             letter: [undefined],
             districtDate: [undefined],
+            districtDateOne: [undefined],
             districtOffice: [undefined],
+            districtOfficeOne: [undefined],
             location: [undefined],
             name: [undefined]
         });
@@ -109,6 +123,7 @@ export class JamaniTamsukComponent implements OnInit {
     submit(): void {
         this.spinner = true;
         this.info = this.form.value;
+        this.logger(this.info);
         this.customerOfferLetter.docStatus = DocStatus.PENDING;
         const customerLoan = new LoanDataHolder();
         customerLoan.id = this.customerId;
@@ -147,5 +162,9 @@ export class JamaniTamsukComponent implements OnInit {
             this.spinner = false;
         });
 
+    }
+
+    logger(val) {
+        console.log(val);
     }
 }
