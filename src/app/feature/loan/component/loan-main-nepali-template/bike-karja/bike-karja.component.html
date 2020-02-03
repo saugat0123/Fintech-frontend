@@ -12,21 +12,28 @@
         <hr class="border-dark">
         <div class="text-center">
             <p><u><h2>हायर पर्चेज कर्जा आवेदन फाराम</h2></u></p>
-        </div><br><br>
-        <div class="row">
-            <div class="col form-group form-inline">
-                <label for="मिति"> <strong>मिति:</strong></label>
-                <input class="form-control form-control-sm mx-2 nepaliFont" type="text" id="मिति"
-                       name="मिति" formControlName="date1"/>
-            </div>
-            <div class="col form-group form-inline">
-                <input class="form-control-file" type="file" id="फोटो"
-                       name="फोटो" formControlName="photo" alt="फोटो" >
-            </div>
         </div>
         <br>
-        <p><strong>श्री एम.ए.डब्लु. इन्भेष्टमेन्ट प्रा. लि. <br>टेकु रोड, त्रिपुरेश्वर, काठमाडौं</strong></p><br>
-        <p><strong>महाशय,</strong></p>
+        <br>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="form-group form-inline">
+                    <strong>मिति:</strong>
+                    <input class="form-control form-control-sm mx-2 nepaliFont" type="text"
+                           formControlName="date1"/>
+                </div>
+                <br>
+                <p>
+                    <strong>श्री एम.ए.डब्लु. इन्भेष्टमेन्ट प्रा. लि. <br>टेकु रोड, त्रिपुरेश्वर, काठमाडौं</strong>
+                </p><br>
+                <p>
+                    <strong>महाशय,</strong>
+                </p>
+            </div>
+            <div class="col form-group form-inline">
+                <img src="../../../../../../assets/img/emptyPhotoFrame.JPG" class="photoFrame mr-2">
+            </div>
+        </div>
         <div class="ml-4">
             <div class="d-inline form-inline form-group">
                 म/हामी निम्न लिखित विवरण उल्लेख गरी तपाई धनी कम्पनी एम.ए.डब्लु. इन्भेष्टमेन्ट
@@ -231,7 +238,7 @@
         <h3>रोजगारीको विवरण</h3>
         <div class="form-group form-inline">
             पेशा:
-            <select class="form-control custom-select ml-2">
+            <select class="form-control custom-select ml-2" formControlName="occupation">
                 <option value="तलबी">तलबी</option>
                 <option value="स्वरोजगार">स्वरोजगार</option>
                 <option value="सेवा निवृत">सेवा निवृत</option>
@@ -466,7 +473,7 @@
             <div class="col-md-4 form-group form-inline">
                 अनुमानित मूल्य: <input class="form-control ml-1 nepaliFont"
                                        formControlName="vehicleEstimatedPrice"
-                                       class="form-control ml-1" type="text">
+                                       type="text">
             </div>
 
             <div class="col form-group form-inline">
@@ -926,11 +933,11 @@
                 <input formControlName="personalJamanikartaName"
                        class="form-control ml-1 nepaliFont" type="text">
             </div>
-            <div class="col-md-3 form-grou form-inline">
+            <div class="col-md-3 form-group form-inline">
                 दस्तखत:
             </div>
             <div class="col form-group form-inline">
-                मिति: <input class="form-control ml-1 my-2" formControlName="date2"
+                मिति: <input class="form-control ml-1 nepaliFont my-2" formControlName="date2"
                              type="text" size="15">
             </div>
         </div>
@@ -946,7 +953,7 @@
                 दस्तखत:
             </div>
             <div class="col form-group form-inline">
-                मिति: <input class="form-control ml-1 my-2" type="text"
+                मिति: <input class="form-control ml-1 my-2 nepaliFont" type="text"
                              formControlName="date3" size="15">
             </div>
         </div>
@@ -988,4 +995,11 @@
 
         </div>
     </form>
+
+    <button *ngIf="initialInfo"
+            class="btn btn-primary" ngxPrint printSectionId="print-block"
+            [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss">प्रिन्ट गर्नुहोस्
+    </button>
+    <app-bike-karja-print id="print-block" *ngIf="initialInfo" [form]="initialInfo" hidden>
+    </app-bike-karja-print>
 </div>
