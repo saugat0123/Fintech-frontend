@@ -1,22 +1,31 @@
 .nep {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
-  margin: 10px 70px;
+  margin: 10px 50px;
 }
-
-span{
-  margin: 0px 10px;
-  font-size: 28px;
-  text-decoration: underline;
+.form-field {
+  background: yellow;
+  margin: 0px 5px;
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+  &:focus {
+    outline: none;
+  }
 }
 
 li {
   list-style-type: none;
 }
+
+input::-webkit-input-placeholder {
+  font-size: 16px;
+}
+
 .logo-container {
   display: flex;
   width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
-  margin: 10px 70px;
+  margin: 10px 50px;
 }
