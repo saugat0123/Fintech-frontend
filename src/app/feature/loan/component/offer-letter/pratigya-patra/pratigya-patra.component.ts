@@ -27,7 +27,7 @@ export class PratigyaPatraComponent implements OnInit {
     initialInfoPrint;
     existingOfferLetter = false;
     constructor(private offerBuilder: FormBuilder,
-                private tService: ToastService,
+                private toastService: ToastService,
                 private OfferLetterService: CustomerOfferLetterService,
                 private router: Router) {
     }
@@ -61,12 +61,11 @@ export class PratigyaPatraComponent implements OnInit {
                     this.customerOfferLetter = response.detail;
                 }, error => {
                     console.error(error);
-                    this.tService.show(new Alert(AlertType.ERROR, 'Error loading Offer Letter'));
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Offer Letter'));
                 });
             } else {
                 this.customerOfferLetter = new CustomerOfferLetter();
             }
-            // (this.form.get('securityGuarantorRemaining') as FormArray).push(this.securityGuarantorRemainingFormGroup(null));
         } else {
             this.OfferLetterService.detail(this.loanDataHolder.customerOfferLetter.id).subscribe(response => {
                 this.customerOfferLetter = response.detail;
@@ -78,20 +77,9 @@ export class PratigyaPatraComponent implements OnInit {
                     }
                 });
                 this.offerForm.patchValue(initialInfo, {emitEvent: false});
-                // initialInfo.securityGuarantorRemaining.forEach(info => {
-                //     (this.form.get('securityGuarantorRemaining') as FormArray).push(
-                //         this.securityGuarantorRemainingFormGroup(
-                //             {
-                //                 name: info.name,
-                //                 amount: info.amount,
-                //                 amountInWords: info.amountInWords
-                //             }
-                //         )
-                //     );
-                // });
-            }, error => {
+                }, error => {
                 console.error(error);
-                this.tService.show(new Alert(AlertType.ERROR, 'Error loading Offer Letter'));
+                this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Offer Letter'));
             });
         }
         this.offerForm.valueChanges.subscribe((value) => {
@@ -123,7 +111,7 @@ export class PratigyaPatraComponent implements OnInit {
         }
 
         this.OfferLetterService.save(this.customerOfferLetter).subscribe(() => {
-            this.tService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
             this.spinner = false;
             this.router.navigateByUrl('/home/dashboard').then(value => {
                 if (value) {
@@ -134,7 +122,7 @@ export class PratigyaPatraComponent implements OnInit {
             });
         }, error => {
             console.error(error);
-            this.tService.show(new Alert(AlertType.ERROR, 'Failed to save Pratigya patra Offer Letter'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Pratigya patra Offer Letter'));
             this.spinner = false;
         });
     }
