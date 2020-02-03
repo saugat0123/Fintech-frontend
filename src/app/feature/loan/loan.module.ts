@@ -76,6 +76,7 @@ import { JamaniBasekoPrintComponent } from './component/loan-main-nepali-templat
 import { BikeKarjaComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja.component';
 import {HayarParchesKarjaNibedanComponent} from './component/loan-main-nepali-template/hayar-parches-karja-nibedan/hayar-parches-karja-nibedan.component';
 import { PratigyaPatraPrintComponent } from './component/offer-letter/pratigya-patra/pratigya-patra-print/pratigya-patra-print.component';
+import { MawCreditRiskGradingComponent } from './component/loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 
 
 const COMPONENTS = [
@@ -143,6 +144,7 @@ const COMPONENTS = [
     DhristiBandhakPrintComponent,
     BikeKarjaComponent,
     HayarParchesKarjaNibedanComponent,
+    MawCreditRiskGradingComponent
 ];
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,
