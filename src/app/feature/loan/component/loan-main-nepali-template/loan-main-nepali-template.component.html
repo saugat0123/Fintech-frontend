@@ -35,6 +35,14 @@
         <app-bike-karja #bikeKarjaComponent
                         [nepaliTemplates]="customerLoan?.nepaliTemplates"></app-bike-karja>
       </nb-step>
+
+      <nb-step [label]="labelHayarParchesKarjaNibedan">
+        <ng-template #labelHayarParchesKarjaNibedan>हायर पर्चेज कर्जाको निवेदन</ng-template>
+
+        <app-hayar-parches-karja-nibedan #hayarParchesKarjaInfoComponent
+                                         [karjaLoan]="customerLoan?.nepaliTemplates"></app-hayar-parches-karja-nibedan>
+
+      </nb-step>
     </nb-stepper>
 
     <hr class="bank-hr"/>
