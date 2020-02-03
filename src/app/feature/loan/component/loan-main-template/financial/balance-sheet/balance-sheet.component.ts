@@ -152,8 +152,9 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
         });
     }
 
-    removingFiscalYear(index) {
-        this.removeFiscalYear.next(index);
+    removingFiscalYear(fiscalYear, index) {
+        const removeParamsObject = {fiscalYear: fiscalYear, index: index};
+        this.removeFiscalYear.next(removeParamsObject);
     }
 
     // Formula implementation---

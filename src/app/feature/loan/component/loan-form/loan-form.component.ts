@@ -36,6 +36,13 @@ import {ScrollNavigationService} from '../../../../@core/service/baseservice/scr
 import {VehicleSecurityComponent} from '../loan-main-template/vehicle-security/vehicle-security.component';
 import {ShareSecurityComponent} from '../loan-main-template/share-security/share-security.component';
 import {GroupComponent} from '../loan-main-template/group/group.component';
+import {LoanMainNepaliTemplateComponent} from '../loan-main-nepali-template/loan-main-nepali-template.component';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {ProductUtils} from '../../../admin/service/product-mode.service';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
+import {Customer} from '../../../admin/modal/customer';
+import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -61,7 +68,6 @@ export class LoanFormComponent implements OnInit {
     ];
 
     customerId: number;
-    customerProfileId: number;
     id;
     selectedTab;
     nxtTab;
@@ -104,6 +110,8 @@ export class LoanFormComponent implements OnInit {
     submitDisable = false;
     loanDocument: LoanDataHolder;
 
+    productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+
     docStatusMakerList = [];
 
     showDocStatusDropDown = true;
@@ -132,6 +140,9 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('creditGrading', {static: false})
     creditGrading: CreditGradingComponent;
 
+    @ViewChild('mawCreditRiskGrading', {static: false})
+    mawCreditRiskGrading: MawCreditRiskGradingComponent;
+
     @ViewChild('financial', {static: false})
     financial: FinancialComponent;
 
@@ -143,6 +154,7 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('customerDocument', {static: false})
     customerDocument: CustomerDocumentComponent;
+
     @ViewChild('group', {static: false})
     group: GroupComponent;
 
@@ -173,6 +185,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('productUtils', this.productUtils);
         this.docStatusForMaker();
         this.buildPriorityForm();
         this.buildDocStatusForm();
@@ -467,6 +480,10 @@ export class LoanFormComponent implements OnInit {
             this.creditGrading.onSubmit();
             this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
         }
+        if (name === 'MAW Credit Risk Grading' && action) {
+            this.mawCreditRiskGrading.onSubmit();
+            this.loanDocument.mawCreditRiskGrading = this.mawCreditRiskGrading.mawCreditRiskGradingData;
+        }
         if (name === 'Group' && action) {
             this.group.onSubmit();
             this.loanDocument.group = this.group.modelData;
@@ -501,5 +518,31 @@ export class LoanFormComponent implements OnInit {
         this.customerService.detail(this.id).subscribe((res: any) => {
             this.loanDocument.customerInfo = res.detail;
         });
+    }
+
+    nepaliFormTemplate() {
+        if (ObjectUtil.isEmpty(this.loanDocument.customerInfo)) {
+            this.loanDocument.customerInfo = new Customer();
+        }
+        if (ObjectUtil.isEmpty(this.loanDocument.nepaliTemplates)) {
+            this.loanDocument.nepaliTemplates = new Array<NepaliTemplateDataHolder>();
+        }
+        const modalRef = this.modalService.open(LoanMainNepaliTemplateComponent,
+            {
+                size: 'xl',
+                backdrop: 'static'
+            });
+        modalRef.componentInstance.customerLoan = this.loanDocument;
+        modalRef.result
+            .then(
+                close => {
+                    if (close instanceof Map) {
+                        this.loanDocument = (close as Map<string, any>).get('CustomerLoan');
+                    }
+                },
+                dismiss => {
+                    console.log(dismiss);
+                }
+            );
     }
 }

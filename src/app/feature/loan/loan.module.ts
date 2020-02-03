@@ -53,8 +53,31 @@ import {GroupComponent} from './component/loan-main-template/group/group.compone
 import {GroupDetailComponent} from './component/loan-main-template/group/group-detail/group-detail.component';
 import {SecurityDetailComponent} from './component/loan-main-template/group/security-detail/security-detail.component';
 import {VehicleSecurityComponent} from './component/loan-main-template/vehicle-security/vehicle-security.component';
-import { ShareSecurityComponent } from './component/loan-main-template/share-security/share-security.component';
+import {ShareSecurityComponent} from './component/loan-main-template/share-security/share-security.component';
+import {ShareSecuritySummaryComponent} from './component/loan-summary/share-security-summary/share-security-summary.component';
+import {DhitoLikhatManjurinamaComponent} from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-manjurinama.component';
+import {DhristiBandhakComponent} from './component/offer-letter/dhristi-bandhak/dhristi-bandhak.component';
+import {JamaniTamsukComponent} from './component/offer-letter/jamani-tamsuk/jamani-tamsuk.component';
+import {KararnamaComponent} from './component/offer-letter/kararnama/kararnama.component';
+import {KarjatamsukComponent} from './component/offer-letter/karjatamsuk/karjatamsuk.component';
+import {ManjurinamaComponent} from './component/offer-letter/manjurinama/manjurinama.component';
+import {PratigyaPatraComponent} from './component/offer-letter/pratigya-patra/pratigya-patra.component';
+import {LoanMainNepaliTemplateComponent} from './component/loan-main-nepali-template/loan-main-nepali-template.component';
+import {FiscalYearModalComponent} from './component/loan-main-template/financial/fiscal-year-modal/fiscal-year-modal.component';
+import {CustomerInfoNepaliComponent} from './component/loan-main-nepali-template/customer-info-nepali/customer-info-nepali.component';
+import {DhitoLikhatPrintComponent} from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-print/dhito-likhat-print.component';
+import {ApplicantFamilyInfoComponent} from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info.component';
+import {KarjaTamsukPrintComponent} from './component/offer-letter/karjatamsuk/karja-tamsuk-print/karja-tamsuk-print.component';
+import {KararnamaPrintComponent} from './component/offer-letter/kararnama/kararnama-print/kararnama-print.component';
+import {DhristiBandhakPrintComponent} from './component/offer-letter/dhristi-bandhak/dhristi-bandhak-print/dhristi-bandhak-print.component';
+import {ManjurinamaLetterPrintComponent} from './component/offer-letter/manjurinama/manjurinama-letter-print/manjurinama-letter-print.component';
+import {JamaniBasekoComponent} from './component/loan-main-nepali-template/jamani-baseko/jamani-baseko.component';
+import {JamaniBasekoPrintComponent} from './component/loan-main-nepali-template/jamani-baseko/jamani-baseko-print/jamani-baseko-print.component';
+import {BikeKarjaComponent} from './component/loan-main-nepali-template/bike-karja/bike-karja.component';
+import {HayarParchesKarjaNibedanComponent} from './component/loan-main-nepali-template/hayar-parches-karja-nibedan/hayar-parches-karja-nibedan.component';
+import { MawCreditRiskGradingComponent } from './component/loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 
+import {JamaniTamsukLetterPrintComponent} from './component/offer-letter/jamani-tamsuk/jamani-tamsuk-letter-print/jamani-tamsuk-letter-print.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -96,14 +119,43 @@ const COMPONENTS = [
     GroupDetailComponent,
     SecurityDetailComponent,
     VehicleSecurityComponent,
-    ShareSecurityComponent
+    ShareSecurityComponent,
+    ShareSecuritySummaryComponent,
+    DhitoLikhatManjurinamaComponent,
+    DhristiBandhakComponent,
+    JamaniTamsukComponent,
+    KararnamaComponent,
+    KarjatamsukComponent,
+    ManjurinamaComponent,
+    PratigyaPatraComponent,
+    LoanMainNepaliTemplateComponent,
+    FiscalYearModalComponent,
+    CustomerInfoNepaliComponent,
+    LoanMainNepaliTemplateComponent,
+    FiscalYearModalComponent,
+    DhitoLikhatPrintComponent,
+    ApplicantFamilyInfoComponent,
+    KarjaTamsukPrintComponent,
+    KararnamaPrintComponent,
+    ManjurinamaLetterPrintComponent,
+    JamaniBasekoComponent,
+    JamaniBasekoPrintComponent,
+    DhristiBandhakPrintComponent,
+    BikeKarjaComponent,
+    HayarParchesKarjaNibedanComponent,
+    MawCreditRiskGradingComponent
 ];
-const ENTRY_COMPONENTS = [ReadmoreModelComponent];
+const ENTRY_COMPONENTS = [
+    ReadmoreModelComponent,
+    FiscalYearModalComponent,
+    LoanMainNepaliTemplateComponent,
+    CustomerInfoNepaliComponent
+];
 
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS],
+    declarations: [...COMPONENTS, JamaniTamsukLetterPrintComponent],
     imports: [
         ThemeModule,
         CommonModule,

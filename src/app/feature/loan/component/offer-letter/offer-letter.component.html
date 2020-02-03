@@ -1,184 +1,224 @@
 <nb-card style="height: 90%;overflow-y: auto">
-  <nb-card-header>
-    <app-offer-letter-action></app-offer-letter-action>
-  </nb-card-header>
-  <nb-card-body>
-    <div class="row">
-      <div class="col-md-12">
-        <nb-accordion [multi]="true">
-          <nb-accordion-item>
-            <nb-accordion-item-header>
-              Customer Information
-            </nb-accordion-item-header>
-            <nb-accordion-item-body>
-              <table class="table table-bordered table-striped text-center">
-                <thead>
-                <th scope="col">Name</th>
-                <th scope="col">Address</th>
-                <th scope="col">Citizenship Number</th>
-                <th scope="col">Citizenship Issued Date</th>
-                <th scope="col">Citizenship Issued Place</th>
-                <th scope="col">Contact Number</th>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
-                  <td>{{loanDataHolder?.customerInfo?.province?.name}},
-                    {{loanDataHolder?.customerInfo?.district?.name}},
-                    {{loanDataHolder?.customerInfo?.municipalities?.name}},
-                    {{loanDataHolder?.customerInfo?.street}},
-                    {{loanDataHolder?.customerInfo?.wardNumber}}
-                  </td>
-                  <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
-                  <td>{{loanDataHolder?.customerInfo?.citizenshipIssuedDate | date}}</td>
-                  <td>{{loanDataHolder?.customerInfo?.citizenshipIssuedPlace}}</td>
-                  <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-                </tr>
-                </tbody>
-              </table>
-              <table *ngIf="loanDataHolder?.customerInfo?.customerRelatives.length > 0"
-                     class="table table-bordered table-striped text-center">
-                <thead>
-                <th scope="col">Relation</th>
-                <th scope="col">Name</th>
-                </thead>
-                <tbody>
-                <ng-container
-                        *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
-                  <tr>
-                    <td>{{relative.customerRelation}}</td>
-                    <td>{{relative.customerRelativeName}}</td>
-                  </tr>
-                </ng-container>
-                </tbody>
-              </table>
-            </nb-accordion-item-body>
-          </nb-accordion-item>
-          <!--                    <nb-accordion-item>-->
-          <!--                        <nb-accordion-item-header>-->
-          <!--                            Birth Mark Letter-->
-          <!--                        </nb-accordion-item-header>-->
-          <!--                        <nb-accordion-item-body>-->
-          <!--                            <app-birth-mark-letter-nepali *ngIf="loanDataHolder"-->
-          <!--                                                          [customerId]="customerId"-->
-          <!--                                                          [loanDataHolder]="loanDataHolder"></app-birth-mark-letter-nepali>-->
-          <!--                        </nb-accordion-item-body>-->
-          <!--                    </nb-accordion-item>-->
+    <nb-card-header>
+        <app-offer-letter-action></app-offer-letter-action>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-12">
+                <nb-accordion [multi]="true">
+                    <nb-accordion-item>
+                        <nb-accordion-item-header>
+                            Customer Information
+                        </nb-accordion-item-header>
+                        <nb-accordion-item-body>
+                            <table class="table table-bordered table-striped text-center">
+                                <thead>
+                                <th scope="col">Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Citizenship Number</th>
+                                <th scope="col">Citizenship Issued Date</th>
+                                <th scope="col">Citizenship Issued Place</th>
+                                <th scope="col">Contact Number</th>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
+                                    <td>{{loanDataHolder?.customerInfo?.province?.name}},
+                                        {{loanDataHolder?.customerInfo?.district?.name}},
+                                        {{loanDataHolder?.customerInfo?.municipalities?.name}},
+                                        {{loanDataHolder?.customerInfo?.street}},
+                                        {{loanDataHolder?.customerInfo?.wardNumber}}
+                                    </td>
+                                    <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+                                    <td>{{loanDataHolder?.customerInfo?.citizenshipIssuedDate | date}}</td>
+                                    <td>{{loanDataHolder?.customerInfo?.citizenshipIssuedPlace}}</td>
+                                    <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table *ngIf="loanDataHolder?.customerInfo?.customerRelatives.length > 0"
+                                   class="table table-bordered table-striped text-center">
+                                <thead>
+                                <th scope="col">Relation</th>
+                                <th scope="col">Name</th>
+                                </thead>
+                                <tbody>
+                                <ng-container
+                                        *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
+                                    <tr>
+                                        <td>{{relative.customerRelation}}</td>
+                                        <td>{{relative.customerRelativeName}}</td>
+                                    </tr>
+                                </ng-container>
+                                </tbody>
+                            </table>
+                        </nb-accordion-item-body>
+                    </nb-accordion-item>
 
-          <!--                    <nb-accordion-item>-->
-          <!--                        <nb-accordion-item-header>-->
-          <!--                            Success Letter-->
-          <!--                        </nb-accordion-item-header>-->
-          <!--                        <nb-accordion-item-body>-->
-          <!--                            <app-success-offer-letter *ngIf="loanDataHolder"-->
-          <!--                                                      [customerId]="customerId"-->
-          <!--                                                      [loanDataHolder]="loanDataHolder"></app-success-offer-letter>-->
-          <!--                        </nb-accordion-item-body>-->
-          <!--                    </nb-accordion-item>-->
-
-
-          <nb-accordion-item *ngFor="let list of offerLetterList">
-            <nb-accordion-item-header>
-              <div class="row col-md-12">
-                <div class="col-md-8">
-                  <span>{{list.name}}</span>
-                </div>
-                <div class="col-md-4 d-flex justify-content-end">
-                                   <span *ngIf="list.isPresent" style="color:darkgreen">
+                    <nb-accordion-item *ngFor="let list of offerLetterList">
+                        <nb-accordion-item-header>
+                            <div class="row col-md-12">
+                                <div class="col-md-8">
+                                    <span>{{list.name}}</span>
+                                </div>
+                                <div class="col-md-4 d-flex justify-content-end">
+                                      <span style="color:black">
+                                      <a (click)="showFullScreen(list.name)" title="full screen">
+                                        <i class="fa fa-expand px-2"></i>
+                                   </a>
+                                    </span>
+                                    <span *ngIf="list.isPresent" style="color:darkgreen">
                                      <input (change)="onFileChange($event)" class="hide-type"
                                             id="uploadOfferLetterInput"
                                             type="file">
-                                     <a (click)="uploadOfferLetter(list.id,uploadModel)">
+                                     <a (click)="uploadOfferLetter(list.id,uploadModel)" title="upload {{list.name}}">
                                         <i class="fa fa-upload"></i>
                                    </a>
                                    </span>
-                  <span *ngIf="list.isPresent && list.uploadedUrl !==null" style="color:#007bff">
-                                      <a (click)="previewClick(list.uploadedUrl)">
+                                    <span *ngIf="list.isPresent && list.uploadedUrl !==null" style="color:#007bff">
+                                      <a (click)="previewClick(list.uploadedUrl)" title="view {{list.name}}">
                                         <i class="fa fa-eye px-2"></i>
                                    </a>
                                     </span>
-                  <span *ngIf="list.isPresent" style="color:green">
+                                    <span *ngIf="list.isPresent" class="px-2" title="Print {{list.name}}">
+                                    <button [useExistingCss]="true"
+                                            class="btn btn-flat btn-sm btn-outline-info"
+                                            ngxPrint printSectionId="{{offerLetterConst.keysEnum(list.name)}}Print">
+                                        <i class="fas fa-print"></i>
+                                    </button>
+                                    </span>
+                                    <span *ngIf="list.isPresent" style="color:green" title="Status : Saved">
                                     <i class="fas fa-check-circle px-2"></i>
                                   </span>
-                  <span *ngIf="!list.isPresent" style="color:red">
+
+                                    <span *ngIf="!list.isPresent" style="color:red" title="Status :Not Saved">
                                     <i class="fas fa-times-circle px-2"></i>
                                   </span>
 
 
-                </div>
-              </div>
-            </nb-accordion-item-header>
-            <nb-accordion-item-body>
-              <app-success-offer-letter *ngIf="loanDataHolder && list.name === 'Success Letter'"
-                                        [customerId]="customerId"
-                                        [loanDataHolder]="loanDataHolder"></app-success-offer-letter>
-              <app-birth-mark-letter-nepali *ngIf="loanDataHolder && list.name === 'Birth Mark Letter'"
-                                            [customerId]="customerId"
-                                            [loanDataHolder]="loanDataHolder"></app-birth-mark-letter-nepali>
+                                </div>
+                            </div>
+                        </nb-accordion-item-header>
+                        <nb-accordion-item-body>
+                            <app-success-offer-letter
+                                    *ngIf="loanDataHolder && list.name === offerLetterConst.value(offerLetterConst.SUCCESS_LETTER)"
+                                    [customerId]="customerId"
+                                    [loanDataHolder]="loanDataHolder">
+                            </app-success-offer-letter>
 
-            </nb-accordion-item-body>
-          </nb-accordion-item>
+                            <app-birth-mark-letter-nepali
+                                    *ngIf="loanDataHolder && list.name === offerLetterConst.value(offerLetterConst.BIRTHMARK_LETTER)"
+                                    [customerId]="customerId"
+                                    [loanDataHolder]="loanDataHolder" id="{{offerLetterConst.BIRTHMARK_LETTER}}">
+                            </app-birth-mark-letter-nepali>
+                            <!-- CAD DOC FOR MAW --->
+                            <app-dhito-likhat-manjurinama
+                                    *ngIf="loanDataHolder && list.name === offerLetterConst.value(offerLetterConst.DHITO_LIKHAT_MANJURINAMA)"
+                                    [customerId]="customerId"
+                                    [loanDataHolder]="loanDataHolder"
+                                    [offerLetterTypeId]="list.id"></app-dhito-likhat-manjurinama>
 
-          <nb-accordion-item>
-            <nb-accordion-item-header>
-              Upload Offer Letter Documents
-            </nb-accordion-item-header>
-            <nb-accordion-item-body>
-              <app-offer-letter-upload *ngIf="loanDataHolder"
-                                       [customerId]="loanDataHolder.id"
-                                       [customerOfferLetter]="loanDataHolder.customerOfferLetter"></app-offer-letter-upload>
-            </nb-accordion-item-body>
-          </nb-accordion-item>
-        </nb-accordion>
-      </div>
-    </div>
-  </nb-card-body>
+                            <app-dhristi-bandhak
+                                    *ngIf="loanDataHolder && list.name === offerLetterConst.value(offerLetterConst.DHRISTI_BANDHAK)"
+                                    [customerId]="customerId"
+                                    [loanDataHolder]="loanDataHolder"
+                                    [offerLetterTypeId]="list.id"></app-dhristi-bandhak>
+
+                            <app-jamani-tamsuk
+                                    *ngIf="loanDataHolder && list.name === offerLetterConst.value(offerLetterConst.JAMANI_TAMSUK)"
+                                    [customerId]="customerId"
+                                    [loanDataHolder]="loanDataHolder"
+                                    [offerLetterTypeId]="list.id"></app-jamani-tamsuk>
+
+                            <app-kararnama
+                                    *ngIf="loanDataHolder && list.name === offerLetterConst.value(offerLetterConst.KARARNAMA)"
+                                    [customerId]="customerId"
+                                    [loanDataHolder]="loanDataHolder"
+                                    [offerLetterTypeId]="list.id"></app-kararnama>
+
+                            <app-karjatamsuk
+                                    *ngIf="loanDataHolder && list.name === offerLetterConst.value(offerLetterConst.KARJATAMSUK)"
+                                    [customerId]="customerId"
+                                    [loanDataHolder]="loanDataHolder"
+                                    [offerLetterTypeId]="list.id"></app-karjatamsuk>
+
+                            <app-manjurinama
+                                    *ngIf="loanDataHolder && list.name === offerLetterConst.value(offerLetterConst.MANJURINAMA)"
+                                    [customerId]="customerId"
+                                    [loanDataHolder]="loanDataHolder"
+                                    [offerLetterTypeId]="list.id"></app-manjurinama>
+
+                            <app-pratigya-patra
+                                    *ngIf="loanDataHolder && list.name === offerLetterConst.value(offerLetterConst.MANJURINAMA)"
+                                    [customerId]="customerId"
+                                    [loanDataHolder]="loanDataHolder"
+                                    [offerLetterTypeId]="list.id"></app-pratigya-patra>
+
+                            <!-- CAD DOC FOR MAW --->
+
+                        </nb-accordion-item-body>
+                    </nb-accordion-item>
+
+                    <nb-accordion-item>
+                        <nb-accordion-item-header>
+                            Upload Offer Letter Documents
+                        </nb-accordion-item-header>
+                        <nb-accordion-item-body>
+                            <app-offer-letter-upload *ngIf="loanDataHolder"
+                                                     [customerId]="loanDataHolder.id"
+                                                     [customerOfferLetter]="loanDataHolder?.customerOfferLetter"></app-offer-letter-upload>
+                        </nb-accordion-item-body>
+                    </nb-accordion-item>
+                </nb-accordion>
+            </div>
+        </div>
+    </nb-card-body>
 </nb-card>
 
 <ng-template #uploadModel>
-  <div>
-    <div class="modal-content">
-      <div class="modal-header" style="display:block">
-        <a (click)="onClose()" aria-label="Close"
-           class="close cursor" data-dismiss="modal">
-          <span aria-hidden="true">×</span></a>
-        <h4 class="nav  navbar-right pull-left">Upload Offer Letter</h4>
-      </div>
-      <div class="col-md-12">
-
-        <div class="container">
-          <div class="row">
+    <div>
+        <div class="modal-content">
+            <div class="modal-header" style="display:block">
+                <a (click)="onClose()" aria-label="Close"
+                   class="close cursor" data-dismiss="modal">
+                    <span aria-hidden="true">×</span></a>
+                <h4 class="nav  navbar-right pull-left">Upload Offer Letter</h4>
+            </div>
             <div class="col-md-12">
-              <div class="form-group files">
-                <label>Upload Your File </label>
-                <input (change)="onFileChange($event)" class="form-control" multiple=""
-                       type="file">
-              </div>
-              <div (click)="previewClick(null)" *ngIf="preview"
-                   class="d-flex justify-content-center">
-                <button class="btn btn-primary btn-sm btn-flat"><span class="px-2">Preview</span>
-                </button>
-              </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group files">
+                                <label>Upload Your File </label>
+                                <input (change)="onFileChange($event)" class="form-control" multiple=""
+                                       type="file">
+                            </div>
+                            <div (click)="previewClick(null)" *ngIf="preview"
+                                 class="d-flex justify-content-center">
+                                <button class="btn btn-primary btn-sm btn-flat"><span class="px-2">Preview</span>
+                                </button>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <button (click)="onClose()" class="btn btn-danger  btn-flat fa-pull-left" type="submit">
+                        NO
+                    </button>
+                    <button (click)="submitOfferLetter()" class="btn btn-success float-right" type="submit"
+                    >YES
+                    </button>
+                </div>
+
 
             </div>
 
-
-          </div>
         </div>
-
-        <div class="d-flex justify-content-end">
-          <button (click)="onClose()" class="btn btn-danger  btn-flat fa-pull-left" type="submit">
-            NO
-          </button>
-          <button (click)="submitOfferLetter()" class="btn btn-success float-right" type="submit"
-          >YES
-          </button>
-        </div>
-
-
-      </div>
 
     </div>
-
-  </div>
 </ng-template>

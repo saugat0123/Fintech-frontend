@@ -8,6 +8,7 @@ import {Customer} from '../../../admin/modal/customer';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {LoanAmountType} from '../../model/loanAmountType';
 import {FetchLoan} from '../../model/fetchLoan';
+import {Guarantors} from '../../../loan/model/guarantors';
 
 
 @Component({
@@ -73,7 +74,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     }
 
 
-    getLoanOfCustomerAssociatedToByKYCAndSecurity() {
+    getLoanOfCustomerAssociatedToByKYC() {
         this.spinner = true;
         const customerRelative = new CustomerRelative();
         customerRelative.customerRelativeName = this.customer.customerName;
@@ -115,9 +116,40 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         }
         if (this.fetchType === this.fetchLoan.CUSTOMER_AS_KYC) {
             if (this.customer.id !== undefined) {
-                this.getLoanOfCustomerAssociatedToByKYCAndSecurity();
+                this.getLoanOfCustomerAssociatedToByKYC();
             }
         }
+        if (this.fetchType === this.fetchLoan.CUSTOMER_AS_GUARANTOR) {
+            if (this.customer.id !== undefined) {
+                this.getLoanByCustomerAsGuarantor();
+            }
+        }
+    }
+
+    getLoanByCustomerAsGuarantor() {
+        this.spinner = true;
+        const guarantor = new Guarantors();
+        guarantor.name = this.customer.customerName;
+        guarantor.citizenNumber = this.customer.citizenshipNumber;
+        guarantor.issuedYear = this.customer.citizenshipIssuedDate;
+        guarantor.district = this.customer.district;
+        guarantor.province = this.customer.province;
+        this.customerLoanService.getLoanOfCustomerAsGuarantor(guarantor).subscribe((res: any) => {
+            this.customerGroupLoanList = res.detail;
+            this.spinner = false;
+            this.totalProposedAmountByGuarantor = 0;
+            this.customerGroupLoanList.forEach((l) => {
+                if (l.proposal) {
+                    this.totalProposedAmountByGuarantor = this.totalProposedAmountByGuarantor + l.proposal.proposedLimit;
+                }
+
+            });
+            const loanAmountType = new LoanAmountType();
+            loanAmountType.type = this.fetchLoan.CUSTOMER_AS_GUARANTOR;
+            loanAmountType.value = this.totalProposedAmountByGuarantor;
+            this.messageToEmit.emit(loanAmountType);
+        });
+
     }
 
 }

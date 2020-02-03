@@ -68,15 +68,15 @@ import {AccountTypeConfigComponent} from './component/opening-account/config/acc
 import {AccountPurposeConfigComponent} from './component/opening-account/config/account-purpose-config/account-purpose-config.component';
 import {AccountTypeFormComponent} from './component/opening-account/config/account-type-config/account-type-form/account-type-form.component';
 import {AccountPurposeFormComponent} from './component/opening-account/config/account-purpose-config/account-purpose-form/account-purpose-form.component';
-import { InactiveValuatorCommentComponent } from './component/valuator/inactive-valuator-comment/inactive-valuator-comment.component';
+import {InactiveValuatorCommentComponent} from './component/valuator/inactive-valuator-comment/inactive-valuator-comment.component';
 import {PreferenceComponent} from './component/preference/preference.component';
 import {UserHistoryComponent} from './component/user/user-history/user-history.component';
-import { ShareValueFormComponent } from './component/nepse/share-value-form/share-value-form.component';
-import { ShareListComponent } from './component/nepse/share-list/share-list.component';
+import {ShareValueFormComponent} from './component/nepse/share-value-form/share-value-form.component';
+import {ShareListComponent} from './component/nepse/share-list/share-list.component';
 import {AgmCoreModule} from '@agm/core';
 import {environment} from '../../../environments/environment';
-import { BaseInterestComponent } from './component/base-interest/base-interest.component';
-import { BaseInterestFormComponent } from './component/base-interest/base-interest-form/base-interest-form.component';
+import {BaseInterestComponent} from './component/base-interest/base-interest.component';
+import {BaseInterestFormComponent} from './component/base-interest/base-interest-form/base-interest-form.component';
 
 @NgModule({
     declarations: [

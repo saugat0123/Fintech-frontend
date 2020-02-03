@@ -44,6 +44,15 @@ export class DataVisualizationComponent implements OnInit {
     rejectedProposedAmount = 0;
     closureProposedAmount = 0;
 
+    discussionFileCount = 0;
+    documentationFileCount = 0;
+    valuationFileCount = 0;
+    reviewFileCount = 0;
+    pendingFileCount = 0;
+    approvedFileCount = 0;
+    rejectedFileCount = 0;
+    closureFileCount = 0;
+
     constructor(
         private fb: FormBuilder,
         private loanFormService: LoanFormService,
@@ -113,6 +122,10 @@ export class DataVisualizationComponent implements OnInit {
     }
 
     private getSeperateProposedAmount() {
+        this.discussionProposedAmount = 0;
+        this.documentationProposedAmount = 0;
+        this.valuationProposedAmount = 0;
+        this.reviewProposedAmount = 0;
         this.pendingProposedAmount = 0;
         this.approvedProposedAmount = 0;
         this.rejectedProposedAmount = 0;
@@ -153,20 +166,28 @@ export class DataVisualizationComponent implements OnInit {
 
         if (value.name === 'Discussion') {
             this.discussionProposedAmount = this.pendingProposedAmount + value.value;
+            this.discussionFileCount = value.fileCount;
         } else  if (value.name === 'Documentation') {
             this.documentationProposedAmount = this.pendingProposedAmount + value.value;
+            this.documentationFileCount = value.fileCount;
         } else if (value.name === 'Valuation') {
             this.valuationProposedAmount = this.pendingProposedAmount + value.value;
+            this.valuationFileCount = value.fileCount;
         } else if (value.name === 'Under Review') {
             this.reviewProposedAmount = this.pendingProposedAmount + value.value;
+            this.reviewFileCount = value.fileCount;
         } else if (value.name === 'Pending') {
             this.pendingProposedAmount = this.pendingProposedAmount + value.value;
+            this.pendingFileCount = value.fileCount;
         } else if (value.name === 'Approved') {
             this.approvedProposedAmount = this.approvedProposedAmount + value.value;
+            this.approvedFileCount = value.fileCount;
         } else if (value.name === 'Rejected') {
             this.rejectedProposedAmount = this.rejectedProposedAmount + value.value;
+            this.rejectedFileCount = value.fileCount;
         } else {
             this.closureProposedAmount = this.closureProposedAmount + value.value;
+            this.closureFileCount = value.fileCount;
         }
     }
 
