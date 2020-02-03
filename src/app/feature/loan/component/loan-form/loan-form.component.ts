@@ -41,6 +41,7 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
+import {Customer} from '../../../admin/modal/customer';
 
 @Component({
     selector: 'app-loan-form',
@@ -66,7 +67,6 @@ export class LoanFormComponent implements OnInit {
     ];
 
     customerId: number;
-    customerProfileId: number;
     id;
     selectedTab;
     nxtTab;
@@ -399,7 +399,6 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Customer Info' && action) {
             if (this.basicInfo.basicInfo.invalid && this.nextButtonAction) {
                 this.basicInfo.submitted = true;
-                // TODO: Add Validations in Tabs
                 return true;
             }
             this.basicInfo.onSubmit();
@@ -512,7 +511,9 @@ export class LoanFormComponent implements OnInit {
     }
 
     nepaliFormTemplate() {
-        this.selectChild('Customer Info', true);    // initializes customer in loan
+        if (ObjectUtil.isEmpty(this.loanDocument.customerInfo)) {
+            this.loanDocument.customerInfo = new Customer();
+        }
         if (ObjectUtil.isEmpty(this.loanDocument.nepaliTemplates)) {
             this.loanDocument.nepaliTemplates = new Array<NepaliTemplateDataHolder>();
         }
