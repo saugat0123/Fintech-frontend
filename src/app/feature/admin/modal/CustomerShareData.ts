@@ -5,7 +5,7 @@ export class CustomerShareData {
     version: number;
     companyName: String;
     shareType: ShareType;
-    totalShareUnit: String;
+    totalShareUnit: number;
     amountPerUnit: String;
     companyCode: String;
 }
