@@ -78,6 +78,7 @@ import {HayarParchesKarjaNibedanComponent} from './component/loan-main-nepali-te
 import { MawCreditRiskGradingComponent } from './component/loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 
 import {JamaniTamsukLetterPrintComponent} from './component/offer-letter/jamani-tamsuk/jamani-tamsuk-letter-print/jamani-tamsuk-letter-print.component';
+import { ApplicantFamilyInfoPrintComponent } from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info-print/applicant-family-info-print.component';
 import { BikeKarjaPrintComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja-print/bike-karja-print.component';
 
 const COMPONENTS = [
@@ -144,7 +145,10 @@ const COMPONENTS = [
     DhristiBandhakPrintComponent,
     BikeKarjaComponent,
     HayarParchesKarjaNibedanComponent,
-    MawCreditRiskGradingComponent
+    MawCreditRiskGradingComponent,
+    JamaniTamsukLetterPrintComponent,
+    ApplicantFamilyInfoPrintComponent,
+    BikeKarjaPrintComponent
 ];
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,
@@ -156,7 +160,7 @@ const ENTRY_COMPONENTS = [
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS, JamaniTamsukLetterPrintComponent, BikeKarjaPrintComponent],
+    declarations: [...COMPONENTS],
     imports: [
         ThemeModule,
         CommonModule,
