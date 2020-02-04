@@ -105,7 +105,7 @@ export class ProposalComponent implements OnInit {
 
     onSubmit() {
         // Proposal Form Data--
-        if (this.formValue !== undefined) {
+        if (!ObjectUtil.isEmpty(this.formValue)) {
             this.proposalData = this.formValue;
         }
         this.proposalData.data = JSON.stringify(this.proposalForm.value);

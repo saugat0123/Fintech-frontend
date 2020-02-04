@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Cicl} from '../../../../admin/modal/cicl';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Insurance} from '../../../../admin/modal/insurance';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-cicl',
@@ -66,10 +67,10 @@ export class CiclComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.ciclValue !== undefined) {
+    if (!ObjectUtil.isEmpty(this.ciclValue)) {
       this.ciclList = this.ciclValue;
     }
-    if (this.insuranceValue !== undefined) {
+    if (!ObjectUtil.isEmpty(this.insuranceValue)) {
       this.insurance = this.insuranceValue;
     }
 
