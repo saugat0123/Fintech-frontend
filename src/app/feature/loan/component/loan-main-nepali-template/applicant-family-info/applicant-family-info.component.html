@@ -6,7 +6,7 @@
           <img src="../../../../../../assets/img/logo.png">
         </div>
         <div class="col-md-8">
-          <u>आवेदक/धन जमानतकर्ताको पारिवारिक विवरण</u>
+          <u><strongt>आवेदक/धन जमानतकर्ताको पारिवारिक विवरण</strongt>K</u>
         </div>
       </div>
 
@@ -215,10 +215,10 @@
       <div class="clearfix"></div>
     </form>
 
-  <button class="btn btn-primary float-right" ngxPrint printSectionId="print-block"
+  <button *ngIf="initialFamilyInfo" class="btn btn-primary float-right" ngxPrint printSectionId="print-block"
           [useExistingCss]="true" styleSheetFile="assets/css/printStyles.scss">प्रिन्ट गर्नुहोस्
   </button>
-<app-applicant-family-info-print id="print-block" *ngIf="familyInfoPrint" [familyInfo]="familyInfoPrint" hidden>
-</app-applicant-family-info-print>
+  <app-applicant-family-info-print id="print-block" *ngIf="initialFamilyInfo" [familyInfo]="initialFamilyInfo" hidden>
+  </app-applicant-family-info-print>
 </div>
 
