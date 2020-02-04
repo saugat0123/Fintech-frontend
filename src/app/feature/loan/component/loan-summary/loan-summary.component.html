@@ -5,7 +5,9 @@
                        [actionsList]="actionsList"
                        [id]="customerId"
                        [loanCategory]="loanCategory"
-                       [loanConfigId]="loanConfigId"></app-loan-action>
+                       [limitExceed]="loanDataHolder.limitExceed"
+                       [loanConfigId]="loanConfigId"
+      ></app-loan-action>
     </nb-card-header>
     <nb-card-body id="print-block">
       <div class="row text-success cursor disable-print" *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId">

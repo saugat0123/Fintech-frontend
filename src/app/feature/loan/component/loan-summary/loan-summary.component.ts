@@ -149,7 +149,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         (response: any) => {
 
           this.loanDataHolder = response.detail;
-
           // Setting financial data---
           if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
             this.financialData = this.loanDataHolder.financial;
