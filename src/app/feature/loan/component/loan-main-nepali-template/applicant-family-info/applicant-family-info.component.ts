@@ -13,6 +13,7 @@ export class ApplicantFamilyInfoComponent implements OnInit {
   @Input() nepaliTemplates: NepaliTemplateDataHolder[];
   form: FormGroup;
   templateIndexInArray: number = undefined;
+  initialFamilyInfo; // to check if data already exits for print button visibility
 
   constructor(
       private formBuilder: FormBuilder,
@@ -100,12 +101,14 @@ export class ApplicantFamilyInfoComponent implements OnInit {
       name: [undefined],
       date: [undefined],
     });
+
     // In case of edit, patch parsed JSON data
     if (!ObjectUtil.isEmpty(this.nepaliTemplates)) {
       for (let i = 0; i < this.nepaliTemplates.length; i++) {
         if (this.nepaliTemplates[i].type === NepaliTemplateType.getEnum(NepaliTemplateType.AABEDAK_FAMILY_BIBARAN)) {
           const parsedData = JSON.parse(this.nepaliTemplates[i].data);
           this.form.patchValue(parsedData);
+          this.initialFamilyInfo = parsedData;
           this.templateIndexInArray = i;
           break;
         }
