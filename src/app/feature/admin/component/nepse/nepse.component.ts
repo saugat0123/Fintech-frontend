@@ -32,9 +32,8 @@ export class NepseComponent implements OnInit {
     inactiveCount: number;
     nepses: number;
     permissions = [];
-    viewNepse = false;
-    addViewNepse = false;
-  status = Status;
+    status = Status;
+
     constructor(
         private service: NepseService,
         private permissionService: PermissionService,
@@ -73,19 +72,6 @@ export class NepseComponent implements OnInit {
             this.nepses = response.detail.nepses;
 
         });
-
-        this.permissionService.getPermissionOf('Nepse Company').subscribe((response: any) => {
-            this.permissions = response.detail;
-            for (let i = 0; this.permissions.length > i; i++) {
-                if (this.permissions[i].type === 'ADD NEPSE') {
-                    this.addViewNepse = true;
-                }
-                if (this.permissions[i].type === 'VIEW NEPSE') {
-                    NepseComponent.loadData(this);
-                    this.viewNepse = true;
-                }
-            }
-        });
     }
 
     changePage(page: number) {
@@ -100,7 +86,7 @@ export class NepseComponent implements OnInit {
 
     onSearchChange(searchValue: string) {
         this.search = {
-          'name': searchValue,
+            'name': searchValue,
         };
 
         NepseComponent.loadData(this);
