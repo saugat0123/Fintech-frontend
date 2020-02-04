@@ -61,4 +61,5 @@ export class LoanDataHolder {
     vehicleSecurity: VehicleSecurity;
     nepaliTemplates: Array<NepaliTemplateDataHolder>;
     mawCreditRiskGrading: MawCreditRiskGrading;
+    limitExceed: number;
 }
