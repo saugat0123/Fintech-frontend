@@ -36,6 +36,7 @@ export class LoanActionComponent implements OnInit {
     @Input() id: number;
     @Input() loanCategory: string;
     @Input() catalogueStatus = false;
+    @Input() limitExceed: number;
 
     @Input() actionsList: ActionModel;
     popUpTitle: string;
@@ -153,7 +154,12 @@ export class LoanActionComponent implements OnInit {
                 comment: null
             }
         );
-        this.modalService.open(template);
+        if (this.limitExceed !== 0) {
+            this.toastService.show(new Alert(AlertType.INFO, 'LOAN cannot be Forwarded due to insufficient collateral or Security Considered Value'));
+        } else {
+            this.modalService.open(template);
+        }
+
     }
 
     onSubmit(templateLogin) {
