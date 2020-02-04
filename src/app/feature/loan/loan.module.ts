@@ -79,6 +79,7 @@ import { PratigyaPatraPrintComponent } from './component/offer-letter/pratigya-p
 import { MawCreditRiskGradingComponent } from './component/loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 
 import {JamaniTamsukLetterPrintComponent} from './component/offer-letter/jamani-tamsuk/jamani-tamsuk-letter-print/jamani-tamsuk-letter-print.component';
+import { ApplicantFamilyInfoPrintComponent } from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info-print/applicant-family-info-print.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -157,7 +158,7 @@ const ENTRY_COMPONENTS = [
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS, JamaniTamsukLetterPrintComponent],
+    declarations: [...COMPONENTS, JamaniTamsukLetterPrintComponent, ApplicantFamilyInfoPrintComponent],
     imports: [
         ThemeModule,
         CommonModule,

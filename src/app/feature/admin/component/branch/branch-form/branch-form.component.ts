@@ -60,17 +60,15 @@ export class BranchFormComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    if (this.action === Action.UPDATE) {
-      this.findLocation(this.locationPreview.value);
-    }
     this.location.getProvince().subscribe((response: any) => {
       this.provinces = response.detail;
     });
-
-
     if (!ObjectUtil.isEmpty(this.model.province)) {
       this.getDistrictsById(this.model.province.id, null);
       this.getMunicipalitiesById(this.model.district.id, null);
+    }
+    if (this.action === Action.UPDATE) {
+      this.findLocation(this.locationPreview.value);
     }
   }
 
