@@ -15,5 +15,4 @@ export class PratigyaPatraPrintComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
