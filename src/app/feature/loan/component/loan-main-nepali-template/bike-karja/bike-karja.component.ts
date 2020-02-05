@@ -14,6 +14,8 @@ export class BikeKarjaComponent implements OnInit {
   @Input() nepaliTemplates: NepaliTemplateDataHolder[];
   bikeKarjaForm: FormGroup;
   templateIndexInArray: number = undefined;
+  initialInfo;
+  bikeKarjaPrint;
 
   constructor(
       private formBuilder: FormBuilder) {
@@ -175,12 +177,16 @@ export class BikeKarjaComponent implements OnInit {
       approvedBy: [undefined],
 
     });
+    // this.bikeKarjaPrint = this.bikeKarjaForm.value;
+    // this.setListenerForPrint();
+
     // In case of edit
     if (!ObjectUtil.isEmpty(this.nepaliTemplates)) {
       for (let i = 0; i < this.nepaliTemplates.length; i++) {
         if (this.nepaliTemplates[i].type === NepaliTemplateType.getEnum(NepaliTemplateType.HIRE_PURCHASE_KARJA_BIKE)) {
           const parsedData = JSON.parse(this.nepaliTemplates[i].data);
           this.bikeKarjaForm.patchValue(parsedData);
+          this.initialInfo = parsedData;
           this.templateIndexInArray = i;
           break;
         }
@@ -198,4 +204,10 @@ export class BikeKarjaComponent implements OnInit {
       this.nepaliTemplates.push(newBikeKarja);
     }
   }
+  //
+  // setListenerForPrint() {
+  //   this.bikeKarjaForm.valueChanges.subscribe(() => {
+  //     this.bikeKarjaPrint = this.bikeKarjaForm.getRawValue();
+  //   });
+  // }
 }
