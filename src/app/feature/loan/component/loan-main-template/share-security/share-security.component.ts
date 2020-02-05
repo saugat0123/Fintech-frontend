@@ -39,7 +39,7 @@ export class ShareSecurityComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.findActiveShareRate();
-    if (this.shareSecurity !== undefined) {
+    if (!ObjectUtil.isEmpty(this.shareSecurity)) {
         const shareSecurityAllData = JSON.parse(this.shareSecurity.data);
         this.shareSecurityData.id = this.shareSecurity.id;
         this.shareSecurityData.version = this.shareSecurity.version;

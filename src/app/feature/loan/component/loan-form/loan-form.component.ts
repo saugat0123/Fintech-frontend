@@ -42,6 +42,7 @@ import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
 import {Customer} from '../../../admin/modal/customer';
+import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -139,6 +140,9 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('creditGrading', {static: false})
     creditGrading: CreditGradingComponent;
 
+    @ViewChild('mawCreditRiskGrading', {static: false})
+    mawCreditRiskGrading: MawCreditRiskGradingComponent;
+
     @ViewChild('financial', {static: false})
     financial: FinancialComponent;
 
@@ -150,6 +154,7 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('customerDocument', {static: false})
     customerDocument: CustomerDocumentComponent;
+
     @ViewChild('group', {static: false})
     group: GroupComponent;
 
@@ -399,6 +404,7 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Customer Info' && action) {
             if (this.basicInfo.basicInfo.invalid && this.nextButtonAction) {
                 this.basicInfo.submitted = true;
+                // TODO: Add Validations in Tabs
                 return true;
             }
             this.basicInfo.onSubmit();
@@ -440,6 +446,14 @@ export class LoanFormComponent implements OnInit {
             }
             this.proposalDetail.onSubmit();
             this.loanDocument.proposal = this.proposalDetail.proposalData;
+
+            // TODO LIMIT EXCEED clause may vary as per requirement
+            if (this.loanDocument.proposal.proposedLimit > 0) {
+                this.loanDocument.limitExceed = 0;
+            } else {
+                this.loanDocument.proposal.proposedLimit = 0;
+                this.loanDocument.limitExceed = 1;
+            }
         }
 
         if (name === 'Customer Document' && action) {
@@ -473,6 +487,10 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Credit Risk Grading' && action) {
             this.creditGrading.onSubmit();
             this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
+        }
+        if (name === 'MAW Credit Risk Grading' && action) {
+            this.mawCreditRiskGrading.onSubmit();
+            this.loanDocument.mawCreditRiskGrading = this.mawCreditRiskGrading.mawCreditRiskGradingData;
         }
         if (name === 'Group' && action) {
             this.group.onSubmit();
