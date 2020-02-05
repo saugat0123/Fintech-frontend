@@ -75,7 +75,7 @@ export class CustomerDocumentComponent implements OnInit {
               this.initialDocuments = this.loanConfig.initial;
           }
 
-          if (this.loanDataHolder.customerDocument !== undefined) {
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.customerDocument)) {
             this.customerDocumentArray = this.loanDataHolder.customerDocument;
             this.customerDocumentArray.forEach((singleDoc, i) => {
               this.initialDocuments.forEach((initDoc, j) => {

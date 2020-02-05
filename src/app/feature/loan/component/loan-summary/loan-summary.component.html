@@ -1,14 +1,17 @@
 <section class="enable-print">
   <nb-card>
     <nb-card-header class="disable-print">
-      <app-loan-action [catalogueStatus]="catalogueStatus"
-                       [actionsList]="actionsList"
+      <app-loan-action [actionsList]="actionsList"
+                       [catalogueStatus]="catalogueStatus"
                        [id]="customerId"
+                       [limitExceed]="loanDataHolder.limitExceed"
                        [loanCategory]="loanCategory"
-                       [loanConfigId]="loanConfigId"></app-loan-action>
+                       [loanConfigId]="loanConfigId"
+      ></app-loan-action>
     </nb-card-header>
     <nb-card-body id="print-block">
-      <div class="row text-success cursor disable-print" *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId">
+      <div *ngIf="loanDataHolder?.parentId || loanDataHolder?.childId"
+           class="row text-success cursor disable-print">
         <div class="col-md-6 text-left">
           <a (click)="renewedOrCloseFrom(loanDataHolder?.parentId)" *ngIf="loanDataHolder?.parentId !=null"
              class="text-left">{{loanType[loanDataHolder.loanType]}} From <i class="p-1 fa fa-edit"></i></a>
@@ -18,7 +21,7 @@
              class="text-right">{{loanType[loanDataHolder.loanType]}} to <i class="p-1 fa fa-edit"></i></a>
         </div>
         <div class="col-md-12">
-          <hr />
+          <hr/>
         </div>
       </div>
       <div class="row">
@@ -46,10 +49,10 @@
                   for
                 </div>
                 <div
-                    class="report-header-sub-heading">
+                        class="report-header-sub-heading">
                   {{loanCategory === 'BUSINESS_TYPE' ?
-                    loanDataHolder?.companyInfo?.companyName
-                    : loanDataHolder?.customerInfo?.customerName}}
+                        loanDataHolder?.companyInfo?.companyName
+                        : loanDataHolder?.customerInfo?.customerName}}
                 </div>
                 <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch</div>
               </div>
@@ -110,11 +113,11 @@
       <div class="row">
         <div class="col-md-12">
           <p><strong>Details of {{loanCategory === 'BUSINESS_TYPE' ? 'Authorized Person'
-              : 'Borrower'}}</strong></p>
+                  : 'Borrower'}}</strong></p>
         </div>
         <div class="col-md-12">
           <table
-              class="table table-condensed table-bordered table-responsive-md disable-print text-center">
+                  class="table table-condensed table-bordered table-responsive-md disable-print text-center">
             <thead>
             <tr>
               <th>Name</th>
@@ -151,17 +154,17 @@
             </thead>
             <tbody>
             <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
-              <td >
+              <td>
                 {{relative.customerRelativeName}}
               </td>
 
-              <td >
+              <td>
                 {{relative.customerRelation}}
               </td>
-              <td >
+              <td>
                 {{relative.citizenshipNumber}}
               </td>
-              <td >
+              <td>
                 {{relative.citizenshipIssuedDate | date}}
               </td>
 
@@ -198,7 +201,7 @@
         </div>
         <div class="col-md-12">
           <table
-              class="table table-condensed table-bordered table-responsive-md disable-print text-center">
+                  class="table table-condensed table-bordered table-responsive-md disable-print text-center">
             <thead>
             <tr>
               <th>Name</th>
@@ -253,7 +256,7 @@
 
               <th>Loan Category</th>
               <td>{{loanDataHolder?.loanCategory === 'PERSONAL_TYPE' ? 'PERSONAL'
-                  : 'BUSINESS'}}</td>
+                      : 'BUSINESS'}}</td>
 
               <th>Proposed Limit</th>
               <td>{{dmsLoanFile?.proposedAmount
@@ -264,7 +267,7 @@
 
               <th>Tenure Duration In Month</th>
               <td>{{(dmsLoanFile?.tenureDuration
-                  || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
+                      || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
 
             </tr>
             <tr>
@@ -374,8 +377,8 @@
       <app-security-summary *ngIf="securitySummary" [formData]="securityData"></app-security-summary>
 
       <app-financial-summary *ngIf="financialSummary" [formData]="financialData"></app-financial-summary>
-        <app-share-security-summary *ngIf="shareSecuritySummary"
-                                    [formData]="shareSecurityData"></app-share-security-summary>
+      <app-share-security-summary *ngIf="shareSecuritySummary"
+                                  [formData]="shareSecurityData"></app-share-security-summary>
       <div class="row mt-3">
         <div class="col-md-12">
           <app-sitevist-summary-component *ngIf="siteVisitSummary"
@@ -391,20 +394,21 @@
             <tr>
               <th>S.N</th>
               <th>Document</th>
-                <th>Download
-                    <b (click)="downloadAllDocument(loanDataHolder?.customerDocument[0].documentPath)"
-                       class="float-right btn-link" style="cursor: pointer"> Download all
-                    </b>
-                </th>
+              <th>Download
+                <b (click)="downloadAllDocument(loanDataHolder?.customerDocument[0].documentPath)"
+                   class="float-right btn-link" style="cursor: pointer"> Download all
+                </b>
+              </th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let singleDoc of loanDataHolder?.customerDocument; let i = index">
               <td>{{i + 1}}</td>
               <td>{{singleDoc?.document?.name}}</td>
-              <td><i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
-                     aria-hidden="true" class="fa fa-download"
-                     style="cursor: pointer"></i>
+              <td>
+                <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
+                   aria-hidden="true" class="fa fa-download"
+                   style="cursor: pointer"></i>
               </td>
             </tr>
             </tbody>
@@ -417,7 +421,7 @@
         <div class="col-md-12">
           <p><strong>Authority Section</strong></p>
           <table
-              class="disable-print table table-condensed table-bordered table-responsive-md text-center">
+                  class="disable-print table table-condensed table-bordered table-responsive-md text-center">
             <thead>
             <tr>
               <th>S.N</th>
@@ -440,8 +444,8 @@
               <td class="text-justify">
                 <div class="cmt-height">
                   {{previousList?.comment?.length > 50 ?
-                    previousList?.comment?.substring(0, 49) :
-                    previousList?.comment}}
+                        previousList?.comment?.substring(0, 49) :
+                        previousList?.comment}}
                 </div>
                 <a (click)="open(previousList?.comment)"
                    *ngIf="previousList?.comment?.length > 50"
@@ -458,8 +462,8 @@
               <td class="text-justify">
                 <div class="cmt-height">
                   {{loanDataHolder?.currentStage?.comment?.length > 50 ?
-                    loanDataHolder?.currentStage?.comment?.substring(0, 49) :
-                    loanDataHolder?.currentStage?.comment}}
+                        loanDataHolder?.currentStage?.comment?.substring(0, 49) :
+                        loanDataHolder?.currentStage?.comment}}
                 </div>
                 <a (click)="open(loanDataHolder.currentStage.comment)"
                    *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
@@ -469,7 +473,7 @@
             </tbody>
           </table>
           <table
-              class="print-only table table-bordered text-center">
+                  class="print-only table table-bordered text-center">
             <thead>
             <tr>
               <th width="5%">S.N</th>
@@ -538,7 +542,7 @@
         </div>
         <div class="col-md-12">
           <table
-              class="disable-print table table-condensed table-bordered table-responsive-md text-center">
+                  class="disable-print table table-condensed table-bordered table-responsive-md text-center">
             <thead>
             <tr>
               <th>S.N</th>
@@ -561,8 +565,8 @@
               <td class="text-justify">
                 <div class="cmt-height">
                   {{previousList?.comment?.length > 50 ?
-                    previousList?.comment?.substring(0, 49) :
-                    previousList?.comment}}
+                        previousList?.comment?.substring(0, 49) :
+                        previousList?.comment}}
                 </div>
                 <a (click)="open(previousList?.comment)"
                    *ngIf="previousList?.comment?.length > 50"
@@ -579,9 +583,9 @@
               <td class="text-justify">
                 <div class="cmt-height">
                   {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length > 50 ?
-                    loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.substring(0, 49)
-                    :
-                    loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment}}
+                        loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.substring(0, 49)
+                        :
+                        loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment}}
                 </div>
                 <a (click)="open(loanDataHolder.customerOfferLetter?.offerLetterStage.comment)"
                    *ngIf="loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length > 50"
@@ -591,7 +595,7 @@
             </tbody>
           </table>
           <table
-              class="print-only table table-bordered text-center">
+                  class="print-only table table-bordered text-center">
             <thead>
             <tr>
               <th width="5%">S.N</th>
@@ -643,9 +647,9 @@
               <td>{{i + 1}}</td>
               <td>{{offerLetterDocument?.name}}</td>
               <td><i
-                  (click)="previewOfferLetterDocument(offerLetterDocument.url, offerLetterDocument.name)"
-                  aria-hidden="true" class="fa fa-eye"
-                  style="cursor: pointer"></i>
+                      (click)="previewOfferLetterDocument(offerLetterDocument.url, offerLetterDocument.name)"
+                      aria-hidden="true" class="fa fa-eye"
+                      style="cursor: pointer"></i>
               </td>
             </tr>
             </tbody>
