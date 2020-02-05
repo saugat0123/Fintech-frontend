@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {QuestionService} from '../../../../service/question.service';
 import {CreditRiskGrading} from '../../../../admin/modal/creditRiskGrading';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 
 @Component({
@@ -48,7 +49,7 @@ export class CreditGradingComponent implements OnInit {
 
   ngOnInit() {
     this.totalPointMapper = new Map<string, number>();
-    if (this.formData !== undefined) {
+    if (!ObjectUtil.isEmpty(this.formData)) {
       this.formDataForEdit = JSON.parse(this.formData.data);
     }
     if (this.formDataForEdit !== undefined) {
@@ -136,7 +137,7 @@ export class CreditGradingComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.formData !== undefined) {
+    if (!ObjectUtil.isEmpty(this.formData)) {
       this.creditRiskData = this.formData;
     }
     this.creditRiskData.data = JSON.stringify(this.creditRiskGrading.value);

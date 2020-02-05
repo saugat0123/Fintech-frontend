@@ -5,6 +5,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {LoanDataService} from '../../../service/loan-data.service';
 import {Customer} from '../../../../admin/modal/customer';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-kyc-info',
@@ -25,7 +26,7 @@ export class KycInfoComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.formValue !== undefined) {
+        if (!ObjectUtil.isEmpty(this.formValue)) {
             this.customer = this.formValue;
         }
         console.log(this.customer);
