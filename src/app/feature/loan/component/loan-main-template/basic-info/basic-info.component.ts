@@ -52,7 +52,7 @@ export class BasicInfoComponent implements OnInit {
     ngOnInit() {
         this.getProvince();
         this.formMaker();
-        if (this.formValue !== undefined) {
+        if (!ObjectUtil.isEmpty(this.formValue)) {
             if (this.formValue.customerId !== undefined) {
                 this.customerDetailField.showFormField = true;
             }
