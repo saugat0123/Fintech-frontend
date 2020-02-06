@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {CustomerOfferLetter} from '../../../model/customer-offer-letter';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {DocStatus} from '../../../model/docStatus';
 import {OfferLetter} from '../../../../admin/modal/offerLetter';
 import {CustomerOfferLetterPath} from '../../../model/customer-offer-letter-path';
@@ -144,7 +144,7 @@ export class ManjurinamaComponent implements OnInit {
         }
         // TODO: Assign Supported Information in OfferLetter
         this.customerOfferLetterService.save(this.customerOfferLetter).subscribe(() => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved manjurinama Offer Letter'));
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
             this.spinner = false;
             this.router.navigateByUrl('/home/dashboard').then(value => {
                 if (value) {
@@ -155,7 +155,7 @@ export class ManjurinamaComponent implements OnInit {
             });
         }, error => {
             console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save manjurinama letter'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Birth Mark Offer Letter'));
             this.spinner = false;
         });
     }
