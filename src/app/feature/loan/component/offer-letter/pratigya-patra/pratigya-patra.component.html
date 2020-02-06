@@ -1,5 +1,8 @@
+<div class="col-md-12 viewFull" id="{{offerLetterConst.PRATIGYA_PATRA}}"
+     style="overflow-y: auto;height:500px">
+    <form (ngSubmit)="submit()" [formGroup]="offerForm" class="nep viewFull">
+        <div class="text-center">
 
-    <form (ngSubmit)="submit()" [formGroup]="offerForm" class="nep">
 
 
 
@@ -40,7 +43,7 @@
                     असुल उपर गरी लिनु होला । मैले/हामीले ऋण नबुझाएका कारण यस धनी कम्पनीबाट लिएको कर्जाको लागि लेखिदिएको धितो, जेथा सो मिति पश्चात् जहिलेसुकै बिक्री गरी वा अन्य व्यवस्था गरी लेना असुल उपर गरी लिएमा समेत मेरो/हाम्रो मञ्जुरी छ भनी मेरो/हाम्रो
                     मनोमान राजीखुशीसँग यो प्रतिज्ञा पत्र, धनी कम्पनीको त्रिपुरेश्वर स्थित कार्यालयमा बसी लेखी तपाईं धनी कम्पनी एम.ए.डब्लु. इन्भेष्टमेन्ट प्रा.लि. लाई दिएँ/ियौं ।
 
-
+        </div>
 
         </form>
     <div class="col-md-12" align="right">
@@ -52,4 +55,5 @@
     </button>
     <app-pratigya-patra-print *ngIf="initialInfoPrint" [letter]="initialInfoPrint" hidden></app-pratigya-patra-print>
 
+</div>
 
