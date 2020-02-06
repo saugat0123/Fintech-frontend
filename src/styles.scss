@@ -9,8 +9,8 @@
 //$color-bank:#B82268;
 //$color-bank-dark:#085DA1;
 //Jyoti bikas bank
-$color-bank:#0265AC;
-$color-bank-dark:#D3A22C;
+$color-bank: #0265AC;
+$color-bank-dark: #D3A22C;
 
 .bank-hr {
   height: 1px;
@@ -56,4 +56,16 @@ $color-bank-dark:#D3A22C;
 
 .viewFull:fullscreen {
   background: white;
+}
+
+.advanced-pie-legend > .legend-items-container > .legend-items > .legend-item > .item-value {
+  margin-top: 0 !important;
+}
+
+.advanced-pie-legend > .legend-items-container > .legend-items > .legend-item > .item-label {
+  margin-top: 0 !important;
+}
+
+.advanced-pie-legend > .total-label {
+  margin-top: 20px !important;
 }
