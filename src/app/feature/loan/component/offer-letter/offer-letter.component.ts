@@ -10,6 +10,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {CustomerOfferLetterPath} from '../../model/customer-offer-letter-path';
 import {OfferLetterConst} from './model/offer-letter-const';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-offer-letter',
@@ -36,6 +37,7 @@ export class OfferLetterComponent implements OnInit {
         private toastService: ToastService,
         private customerOfferLetterService: CustomerOfferLetterService,
         private modalService: NgbModal,
+        private offerToast: ToastService,
     ) {
     }
 
@@ -43,8 +45,10 @@ export class OfferLetterComponent implements OnInit {
         this.customerId = Number(this.activatedRoute.snapshot.queryParamMap.get('customerId'));
         this.loanFormService.detail(this.customerId).subscribe((response: any) => {
             this.loanDataHolder = response.detail;
+            if (ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.nepaliDetail)) {
+                this.message();
+            }
             this.nepaliData = JSON.parse(this.loanDataHolder.customerInfo.nepaliDetail);
-            console.log(this.nepaliData);
             this.offerLetterList = this.loanDataHolder.loan.offerLetters;
             if (this.loanDataHolder.customerOfferLetter != null) {
                 this.customerOfferLetterPathList = this.loanDataHolder.customerOfferLetter.customerOfferLetterPath;
@@ -134,5 +138,9 @@ export class OfferLetterComponent implements OnInit {
         const el = document.getElementById(a);
         el.requestFullscreen();
 
+    }
+    message() {
+        const alert = new Alert(AlertType.INFO, 'नेपाली फारम भारिएको छैन');
+        this.offerToast.show(alert);
     }
 }
