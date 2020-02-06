@@ -27,6 +27,7 @@ export class OfferLetterComponent implements OnInit {
     customerOfferLetterPathList: Array<CustomerOfferLetterPath>;
     offerLetterConst = OfferLetterConst;
     fullScreenView = false;
+    nepaliData;
 
 
     constructor(
@@ -42,6 +43,8 @@ export class OfferLetterComponent implements OnInit {
         this.customerId = Number(this.activatedRoute.snapshot.queryParamMap.get('customerId'));
         this.loanFormService.detail(this.customerId).subscribe((response: any) => {
             this.loanDataHolder = response.detail;
+            this.nepaliData = JSON.parse(this.loanDataHolder.customerInfo.nepaliDetail);
+            console.log(this.nepaliData);
             this.offerLetterList = this.loanDataHolder.loan.offerLetters;
             if (this.loanDataHolder.customerOfferLetter != null) {
                 this.customerOfferLetterPathList = this.loanDataHolder.customerOfferLetter.customerOfferLetterPath;
