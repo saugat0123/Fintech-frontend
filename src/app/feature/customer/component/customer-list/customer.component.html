@@ -33,6 +33,11 @@
                                placeholder="Enter customer name">
                     </div>
 
+                    <div class="col-md-3 mb-3">
+                        <input class="form-control rounded" formControlName="district" id="district"
+                               placeholder="Enter the district">
+                    </div>
+
                 </div>
 
                 <div class="col-md-12 p-0">
@@ -84,5 +89,6 @@
         <!-- ===================table-pagination==================== -->
     </nb-card-body>
 
+    <pre>{{filterForm.value|json}}</pre>
 
 </nb-card>

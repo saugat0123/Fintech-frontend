@@ -58,6 +58,8 @@ export class CustomerComponent implements OnInit {
 
             companyName: [undefined],
             customerName: [undefined],
+            district: [undefined],
+
         });
     }
 
