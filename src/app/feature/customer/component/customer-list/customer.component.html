@@ -33,62 +33,6 @@
                                placeholder="Enter customer name">
                     </div>
 
-
-                    <div class="col-md-3">
-                        <select class="custom-select" formControlName="provinceId"
-                                (change)="getDistricts($event.target.value)">
-                            <option [value]="null" selected hidden>Province</option>
-                            <option *ngFor="let province of provinces"
-                                    value="{{province.id}}">
-                                {{province.name}}
-                        </select>
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <select class="custom-select" formControlName="districtId"
-                                (change)="getMunicipalities($event.target.value)">
-                            <option [value]="null" selected hidden>District</option>
-                            <option *ngFor="let district of districts"
-                                    value="{{district.id}}"
-                            >
-                                {{district.name}}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <select class="custom-select" formControlName="municipalityId">
-                            <option [value]="null" selected hidden>Municipality</option>
-                            <option *ngFor="let municipality of municipalities"
-                                    value="{{municipality.id}}">
-                                {{municipality.name}}
-                            </option>
-                        </select>
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <input id="startDate" [nbDatepicker]="startDate" class="form-control rounded"
-                               (change)="checkIfDateFiltration()" formControlName="startDate"
-                               placeholder="Enter Start Date" [ngClass]="{ 'is-invalid': !validStartDate }">
-                        <nb-datepicker #startDate></nb-datepicker>
-                        <div *ngIf="!validStartDate" class="invalid-feedback">Invalid start date</div>
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-                        <input id="endDate" [nbDatepicker]="endDate" class="form-control rounded"
-                               (change)="checkIfDateFiltration()" formControlName="endDate"
-                               placeholder="Enter End Date" [ngClass]="{ 'is-invalid': !validEndDate }">
-                        <nb-datepicker #endDate></nb-datepicker>
-                        <div *ngIf="!validEndDate" class="invalid-feedback">Invalid end date</div>
-                    </div>
-
-<!--                    <div class="col-md-3">-->
-<!--                        <input class="custom-select" formControlName="loanConfigId">-->
-<!--                        <option></option>-->
-<!--                    </div>-->
-
                 </div>
 
                 <div class="col-md-12 p-0">
@@ -140,6 +84,5 @@
         <!-- ===================table-pagination==================== -->
     </nb-card-body>
 
-    <pre>{{filterForm.value|json}}</pre>
 
 </nb-card>
