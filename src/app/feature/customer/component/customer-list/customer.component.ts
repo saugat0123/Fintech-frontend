@@ -8,6 +8,10 @@ import {Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {LoanType} from '../../../loan/model/loanType';
 import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
+import {Province} from '../../../admin/modal/province';
+import {AddressService} from '../../../../@core/service/baseservice/address.service';
+import {District} from '../../../admin/modal/district';
+import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
 
 @Component({
     selector: 'app-customer-component',
@@ -25,11 +29,23 @@ export class CustomerComponent implements OnInit {
     filterForm: FormGroup;
     loanType = LoanType;
 
+    district: District = new District();
+    province: Province = new Province();
+    municipality: MunicipalityVdc = new MunicipalityVdc();
+    districts: District[];
+    provinces: Province[];
+    municipalities: MunicipalityVdc[];
+
+    validStartDate = true;
+    validEndDate = true;
+
     constructor(private customerService: CustomerService,
                 private toastService: ToastService,
                 private customerLoanService: LoanFormService,
                 private router: Router,
-                private formBuilder: FormBuilder) {
+                private formBuilder: FormBuilder,
+                private location: AddressService
+    ) {
     }
 
     static loadData(other: CustomerComponent) {
@@ -51,6 +67,10 @@ export class CustomerComponent implements OnInit {
     ngOnInit() {
         this.buildFilterForm();
         CustomerComponent.loadData(this);
+
+        this.location.getProvince().subscribe((response: any) => {
+            this.provinces = response.detail;
+        });
     }
 
     buildFilterForm() {
@@ -58,7 +78,12 @@ export class CustomerComponent implements OnInit {
 
             companyName: [undefined],
             customerName: [undefined],
-            district: [undefined],
+            provinceId: [undefined],
+            districtId: [undefined],
+            municipalityId: [undefined],
+
+            startDate: [undefined],
+            endDate: [undefined]
 
         });
     }
@@ -80,6 +105,35 @@ export class CustomerComponent implements OnInit {
     }
 
     getCsv() {
+    }
+
+    getDistricts(provinceId) {
+        this.province.id = provinceId;
+        this.municipalities = [];
+        this.filterForm.controls['districtId'].setValue(null);
+        this.filterForm.controls['municipalityId'].setValue(null);
+
+        this.location.getDistrictByProvince(this.province).subscribe(
+            (response: any) => {
+                this.districts = response.detail;
+            }
+        );
+            console.log(this.districts);
+    }
+
+    getMunicipalities(districtId) {
+        this.filterForm.controls['municipalityId'].setValue(null);
+        this.district.id = districtId;
+        this.location.getMunicipalityVDCByDistrict(this.district).subscribe(
+            (response: any) => {
+                this.municipalities = response.detail;
+            }
+        );
+    }
+
+    checkIfDateFiltration() {
+        this.validStartDate = this.filterForm.get('startDate').valid;
+        this.validEndDate = this.filterForm.get('endDate').valid;
     }
 
 
