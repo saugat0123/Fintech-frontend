@@ -22,7 +22,6 @@ export class JamaniBasekoComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.customerInfoData) && !ObjectUtil.isEmpty(this.customerInfoData.nepaliDetail)) {
-      console.log(this.customerInfoData.nepaliDetail);
       this.form.get('borrowerName').patchValue((JSON.parse(this.customerInfoData.nepaliDetail).customerName));
     }
   }
