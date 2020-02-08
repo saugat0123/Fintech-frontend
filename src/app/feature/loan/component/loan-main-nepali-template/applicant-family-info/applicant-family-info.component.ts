@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {NepaliTemplateDataHolder} from '../../../model/nepali-template-data-holder';
 import {NepaliTemplateType} from '../../../../admin/modal/nepali-template-type.enum';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {Customer} from '../../../../admin/modal/customer';
 
 @Component({
   selector: 'app-applicant-family-info',

@@ -3,6 +3,7 @@ import {NepaliTemplateDataHolder} from '../../../model/nepali-template-data-hold
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NepaliTemplateType} from '../../../../admin/modal/nepali-template-type.enum';
+import {Customer} from '../../../../admin/modal/customer';
 
 @Component({
   selector: 'app-jamani-baseko',
@@ -11,6 +12,8 @@ import {NepaliTemplateType} from '../../../../admin/modal/nepali-template-type.e
 })
 export class JamaniBasekoComponent implements OnInit {
   @Input() nepaliTemplates: NepaliTemplateDataHolder[];
+  @Input() customerInfoData: Customer;
+
   form: FormGroup;
   templateIndexInArray: number = undefined;
   initialInfoPrint;
@@ -18,6 +21,10 @@ export class JamaniBasekoComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.customerInfoData) && !ObjectUtil.isEmpty(this.customerInfoData.nepaliDetail)) {
+      console.log(this.customerInfoData.nepaliDetail);
+      this.form.get('borrowerName').patchValue((JSON.parse(this.customerInfoData.nepaliDetail).customerName));
+    }
   }
 
 
