@@ -11,56 +11,110 @@
                             Customer Information
                         </nb-accordion-item-header>
                         <nb-accordion-item-body>
-                            <table class="table table-bordered table-striped text-center">
-                                <thead>
-                                <th scope="col">नाम </th>
-                                <th scope="col">ठेगाना </th>
-                                <th scope="col">नागरिक्ता नंबर </th>
-                                <th scope="col">नागरिक्ता जारी मिति </th>
-                                <th scope="col">नागरिक्ता जारी भएको स्थान </th>
-                                <th scope="col">संपर्क नंबर </th>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="nepaliFont">{{nepaliData?.customerName}}</td>
-                                    <td class="nepaliFont">{{nepaliData?.province}},
-                                        {{nepaliData?.district}},
-                                        {{nepaliData?.municipalities}},
-                                        {{nepaliData?.street}},
-                                        {{nepaliData?.wardNumber}}
-                                    </td>
-                                    <td class="nepaliFont">{{nepaliData?.citizenshipNumber}}</td>
-                                    <td class="nepaliFont">{{nepaliData?.citizenshipIssuedDate}}</td>
-                                    <td class="nepaliFont">{{nepaliData?.citizenshipIssuedPlace}}</td>
-                                    <td class="nepaliFont">{{nepaliData?.contactNumber}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <div><h6> के.वाई.सी</h6></div>
-                            <br>
-                            <table *ngIf="loanDataHolder?.customerInfo?.customerRelatives.length > 0"
-                                   class="table table-bordered table-striped text-center">
-                                <thead>
-                                <th scope="col">सम्बन्ध</th>
-                                <th scope="col">नाम</th>
-                                <th scope="col">नागरिकता नम्बर</th>
-                                <th scope="col">जारी स्थान</th>
-                                <th scope="col">जारी मिति</th>
-
-                                </thead>
-                                <tbody>
-                                <ng-container
-                                        *ngFor="let relative of nepaliData?.customerRelatives">
+                            <div *ngIf="checkNepaliData">
+                                <table class="table table-bordered table-striped text-center">
+                                    <thead>
+                                    <th scope="col">नाम</th>
+                                    <th scope="col">ठेगाना</th>
+                                    <th scope="col">नागरिक्ता नंबर</th>
+                                    <th scope="col">नागरिक्ता जारी मिति</th>
+                                    <th scope="col">नागरिक्ता जारी भएको स्थान</th>
+                                    <th scope="col">संपर्क नंबर</th>
+                                    </thead>
+                                    <tbody>
                                     <tr>
-                                        <td class="nepaliFont">{{relative.customerRelation}}</td>
-                                        <td class="nepaliFont">{{relative.customerRelativeName}}</td>
-                                        <td class="nepaliFont">{{relative.citizenshipNumber}}</td>
-                                        <td class="nepaliFont">{{relative.citizenshipIssuedPlace}}</td>
-                                        <td class="nepaliFont">{{relative.citizenshipIssuedDate}}</td>
+                                        <td class="nepaliFont">{{nepaliData?.customerName}}</td>
+                                        <td class="nepaliFont">{{nepaliData?.province}},
+                                            {{nepaliData?.district}},
+                                            {{nepaliData?.municipalities}},
+                                            {{nepaliData?.street}},
+                                            {{nepaliData?.wardNumber}}
+                                        </td>
+                                        <td class="nepaliFont">{{nepaliData?.citizenshipNumber}}</td>
+                                        <td class="nepaliFont">{{nepaliData?.citizenshipIssuedDate}}</td>
+                                        <td class="nepaliFont">{{nepaliData?.citizenshipIssuedPlace}}</td>
+                                        <td class="nepaliFont">{{nepaliData?.contactNumber}}</td>
                                     </tr>
-                                </ng-container>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                                <div><h6> के.वाई.सी</h6></div>
+                                <br>
+                                <table *ngIf="loanDataHolder?.customerInfo?.customerRelatives.length > 0"
+                                       class="table table-bordered table-striped text-center">
+                                    <thead>
+                                    <th scope="col">सम्बन्ध</th>
+                                    <th scope="col">नाम</th>
+                                    <th scope="col">नागरिकता नम्बर</th>
+                                    <th scope="col">जारी स्थान</th>
+                                    <th scope="col">जारी मिति</th>
+                                    </thead>
+                                    <tbody>
+                                    <ng-container
+                                        *ngFor="let relative of nepaliData?.customerRelatives">
+                                        <tr>
+                                            <td class="nepaliFont">{{relative.customerRelation}}</td>
+                                            <td class="nepaliFont">{{relative.customerRelativeName}}</td>
+                                            <td class="nepaliFont">{{relative.citizenshipNumber}}</td>
+                                            <td class="nepaliFont">{{relative.citizenshipIssuedPlace}}</td>
+                                            <td class="nepaliFont">{{relative.citizenshipIssuedDate}}</td>
+                                        </tr>
+                                    </ng-container>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div *ngIf="!checkNepaliData">
+                                <table class="table table-bordered table-striped text-center">
+                                    <thead>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Citizenship Number</th>
+                                    <th scope="col">Citizenship Issued Date</th>
+                                    <th scope="col">Citizenship Issued Place</th>
+                                    <th scope="col">Contact Number</th>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
+                                        <td>{{loanDataHolder?.customerInfo?.province?.name}},
+                                            {{loanDataHolder?.customerInfo?.district?.name}},
+                                            {{loanDataHolder?.customerInfo?.municipalities?.name}},
+                                            {{loanDataHolder?.customerInfo?.street}},
+                                            {{loanDataHolder?.customerInfo?.wardNumber}}
+                                        </td>
+                                        <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+                                        <td>{{loanDataHolder?.customerInfo?.citizenshipIssuedDate}}</td>
+                                        <td>{{loanDataHolder?.customerInfo?.citizenshipIssuedPlace}}</td>
+                                        <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div><h6>K.Y.C</h6></div>
+                                <br>
+                                <table
+                                    *ngIf="loanDataHolder?.customerInfo?.customerRelatives.length > 0"
+                                    class="table table-bordered table-striped text-center">
+                                    <thead>
+                                    <th scope="col">Relation</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Citizenship Number</th>
+                                    <th scope="col">Citizenship Issued Place</th>
+                                    <th scope="col">Citizenship Issued Date</th>
+                                    </thead>
+                                    <tbody>
+                                    <ng-container
+                                        *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
+                                        <tr>
+                                            <td>{{relative.customerRelation}}</td>
+                                            <td>{{relative.customerRelativeName}}</td>
+                                            <td>{{relative.citizenshipNumber}}</td>
+                                            <td>{{relative.citizenshipIssuedPlace}}</td>
+                                            <td>{{relative.citizenshipIssuedDate}}</td>
+                                        </tr>
+                                    </ng-container>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </nb-accordion-item-body>
                     </nb-accordion-item>
 

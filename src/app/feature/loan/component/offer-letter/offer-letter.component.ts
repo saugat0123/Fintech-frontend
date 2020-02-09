@@ -29,6 +29,7 @@ export class OfferLetterComponent implements OnInit {
     offerLetterConst = OfferLetterConst;
     fullScreenView = false;
     nepaliData;
+    checkNepaliData = true;
 
 
     constructor(
@@ -37,7 +38,6 @@ export class OfferLetterComponent implements OnInit {
         private toastService: ToastService,
         private customerOfferLetterService: CustomerOfferLetterService,
         private modalService: NgbModal,
-        private offerToast: ToastService,
     ) {
     }
 
@@ -46,9 +46,11 @@ export class OfferLetterComponent implements OnInit {
         this.loanFormService.detail(this.customerId).subscribe((response: any) => {
             this.loanDataHolder = response.detail;
             if (ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.nepaliDetail)) {
-                this.message();
+                this.alertNoNepaliForm();
+                this.checkNepaliData = false;
+            } else {
+                this.nepaliData = JSON.parse(this.loanDataHolder.customerInfo.nepaliDetail);
             }
-            this.nepaliData = JSON.parse(this.loanDataHolder.customerInfo.nepaliDetail);
             this.offerLetterList = this.loanDataHolder.loan.offerLetters;
             if (this.loanDataHolder.customerOfferLetter != null) {
                 this.customerOfferLetterPathList = this.loanDataHolder.customerOfferLetter.customerOfferLetterPath;
@@ -139,8 +141,9 @@ export class OfferLetterComponent implements OnInit {
         el.requestFullscreen();
 
     }
-    message() {
+
+    alertNoNepaliForm() {
         const alert = new Alert(AlertType.INFO, 'नेपाली फारम भारिएको छैन');
-        this.offerToast.show(alert);
+        this.toastService.show(alert);
     }
 }
