@@ -12,6 +12,8 @@ import {CustomerService} from '../../../../admin/service/customer.service';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CustomerAssociateComponent} from '../customer-associate/customer-associate.component';
 
 
 @Component({
@@ -30,7 +32,7 @@ export class BasicInfoComponent implements OnInit {
         isOldCustomer: false
     };
     customerSearchData = {
-        customerId: undefined
+        citizenshipNumber: undefined
     };
     customer: Customer = new Customer();
     customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
@@ -45,7 +47,8 @@ export class BasicInfoComponent implements OnInit {
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
         private customerService: CustomerService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private modalService: NgbModal
     ) {
     }
 
@@ -112,18 +115,19 @@ export class BasicInfoComponent implements OnInit {
 
     }
 
-    searchByCustomerId() {
-        const tempId = this.basicInfo.get('customerId').value;
+    searchByCustomerCitizen() {
+        const tempId = this.basicInfo.get('citizenshipNumber').value;
         this.customerDetailField.showFormField = true;
         if (tempId) {
-            this.customerSearchData.customerId = this.basicInfo.get('customerId').value;
-            this.customerService.getByCustomerId(this.customerSearchData.customerId).subscribe((customerResponse: any) => {
+            this.customerSearchData.citizenshipNumber = tempId;
+            this.customerService.getByCustomerByCitizenshipNo(this.customerSearchData.citizenshipNumber).
+            subscribe((customerResponse: any) => {
                 if (customerResponse.detail === undefined) {
                     this.getProvince();
                     this.customerDetailField.isOldCustomer = false;
-                    this.toastService.show(new Alert(AlertType.INFO, 'No Customer Found under provided Customer Id.'));
+                    this.toastService.show(new Alert(AlertType.INFO, 'No Customer Found under provided Citizenship No.'));
                     this.customer = new Customer();
-                    this.customer.customerId = tempId;
+                    this.customer.citizenshipNumber = tempId;
                     this.formMaker();
                     this.createRelativesArray();
                 } else {
@@ -137,7 +141,7 @@ export class BasicInfoComponent implements OnInit {
             this.customer = new Customer();
             this.formMaker();
             this.createRelativesArray();
-            this.toastService.show(new Alert(AlertType.INFO, 'No Customer Found under provided Customer Id.'));
+            this.toastService.show(new Alert(AlertType.INFO, 'No Customer Found under provided Customer Citizenship No.'));
         }
     }
 
@@ -241,5 +245,11 @@ export class BasicInfoComponent implements OnInit {
                     undefined : new Date(singleRelatives.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]]
             }));
         });
+    }
+
+    checkCustomer() {
+           const modalRef = this.modalService.open(CustomerAssociateComponent, {size: 'lg'});
+           console.log(this.basicInfo.value);
+           modalRef.componentInstance.model = this.customer;
     }
 }

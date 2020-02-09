@@ -80,6 +80,8 @@ import { MawCreditRiskGradingComponent } from './component/loan-main-template/ma
 import {JamaniTamsukLetterPrintComponent} from './component/offer-letter/jamani-tamsuk/jamani-tamsuk-letter-print/jamani-tamsuk-letter-print.component';
 import { ApplicantFamilyInfoPrintComponent } from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info-print/applicant-family-info-print.component';
 import { BikeKarjaPrintComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja-print/bike-karja-print.component';
+import { CustomerAssociateComponent } from './component/loan-main-template/customer-associate/customer-associate.component';
+import {CustomerModule} from "../customer/customer.module";
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -148,13 +150,15 @@ const COMPONENTS = [
     MawCreditRiskGradingComponent,
     JamaniTamsukLetterPrintComponent,
     ApplicantFamilyInfoPrintComponent,
-    BikeKarjaPrintComponent
+    BikeKarjaPrintComponent,
+    CustomerAssociateComponent
 ];
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,
     FiscalYearModalComponent,
     LoanMainNepaliTemplateComponent,
-    CustomerInfoNepaliComponent
+    CustomerInfoNepaliComponent,
+    CustomerAssociateComponent
 ];
 
 // @ts-ignore
@@ -175,7 +179,8 @@ const ENTRY_COMPONENTS = [
         CoreModule,
         AgmCoreModule.forRoot({
             apiKey: environment.GOOGLE_MAP_API_KEY
-        })
+        }),
+        CustomerModule
     ],
 
     providers: [
