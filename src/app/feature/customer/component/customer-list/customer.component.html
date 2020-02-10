@@ -27,19 +27,16 @@
             <form [formGroup]="filterForm">
                 <div class="row py-3">
 
-
                     <div class="col-md-3 mb-3">
                         <input class="form-control rounded" formControlName="customerName" id="customerName"
-                               placeholder="Enter customer name">
+                               placeholder="Enter customer name" nbInput>
                     </div>
 
-
                     <div class="col-md-3">
-                        <select class="custom-select" formControlName="provinceId"
-                                (change)="getDistricts($event.target.value)">
+                        <select class="custom-select" formControlName="provinceId" (change)="getDistricts($event.target.value)">
                             <option [value]="null" selected hidden>Province</option>
                             <option *ngFor="let province of provinces"
-                                    value="{{province.id}}">
+                                    value="{{province.id}}" >
                                 {{province.name}}
                         </select>
                     </div>
@@ -49,12 +46,12 @@
                                 (change)="getMunicipalities($event.target.value)">
                             <option [value]="null" selected hidden>District</option>
                             <option *ngFor="let district of districts"
-                                    value="{{district.id}}"
-                            >
+                                    value="{{district.id}}">
                                 {{district.name}}
                             </option>
                         </select>
                     </div>
+
                     <div class="col-md-3 mb-3">
                         <select class="custom-select" formControlName="municipalityId">
                             <option [value]="null" selected hidden>Municipality</option>
@@ -84,18 +81,43 @@
                         <div *ngIf="!validEndDate" class="invalid-feedback">Invalid end date</div>
                     </div>
 
-<!--                    <div class="col-md-3">-->
-<!--                        <input class="custom-select" formControlName="loanConfigId">-->
-<!--                        <option></option>-->
-<!--                    </div>-->
+                    <div class="col-md-3">
+                        <select class="custom-select" formControlName="loanConfigId">
+                            <option [value]="null" selected hidden>Select Loan Type</option>
+                            <option [value]="null">All Loan Type</option>
+                            <option *ngFor="let loanType of loanTypeList"
+                                    [value]="loanType.id"> {{loanType.name}}
+                            </option>
+                        </select>
+                    </div>
 
+                    <div class="col-md-3">
+                        <select class="custom-select" formControlName="loanCategory">
+                            <option [value]="null" selected hidden>Select Loan Category</option>
+                            <option value="BOTH_TYPE">BOTH</option>
+                            <option value="PERSONAL_TYPE">PERSONAL</option>
+                            <option value="BUSINESS_TYPE">BUSINESS</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="row py-3">
+                    <div class="col-md-3">
+                        <select class="custom-select" formControlName="loanStatus">
+                            <option [value]="null" selected hidden>Select loan status</option>
+                            <option value="INACTIVE">INACTIVE</option>
+                            <option value="ACTIVE">ACTIVE</option>
+                            <option value="DELETED">DELETED</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="col-md-12 p-0">
                     <button (click)="onSearch()" [disabled]="!filterForm.valid" class="mr-2" nbButton shape="rectangle"
                             status="info">Search
                     </button>
-                    <button nbButton shape="rectangle" status="danger" type="button">Clear
+                    <button nbButton shape="rectangle" status="danger" (click)="clear()" type="button">Clear
                     </button>
                 </div>
             </form>

@@ -4,6 +4,16 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../../@core/utils/api/ApiUtils';
 import {CustomerRelative} from '../../admin/modal/customer-relative';
+export class CustomerSearch {
+    customerName: string;
+    provinceId: number;
+    districtId: number;
+    municipalityId: number;
+    currentStageDate: string;
+    loanConfigId: number;
+    loanCategory: string;
+    loanStatus: string;
+}
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +22,9 @@ export class CustomerService extends BaseService<Object> {
 
 
     static API = 'v1/customer';
+
+    /*Instance for filter form data*/
+    search: CustomerSearch = new CustomerSearch();
 
     constructor(protected http: HttpClient) {
         super(http);
