@@ -1,8 +1,8 @@
-<nb-card size="large" accent="primary">
+<nb-card accent="primary">
     <nb-card-header class="text-center">
       <h6>Customer Association</h6>
     </nb-card-header>
-    <nb-card-body>
+    <nb-card-body *ngIf="model">
       <nb-card>
         <nb-card-header>
        <span class="d-flex justify-content-end text-success text-uppercase">
@@ -74,7 +74,9 @@
 
       </nb-card>
     </nb-card-body>
-    <nb-card-footer>
-
-    </nb-card-footer>
+  <nb-card-footer *ngIf="model === undefined">
+    <div class="text-center">
+      <p class="text-danger">Customer Name ,Citizenship Number and Citizenship IssueDate is required !</p>
+    </div>
+  </nb-card-footer>
   </nb-card>

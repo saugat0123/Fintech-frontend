@@ -9,7 +9,6 @@ import {LoanAmountType} from '../../../../customer/model/loanAmountType';
 })
 export class CustomerAssociateComponent implements OnInit {
   @Input() model;
-  msg;
   fetchLoan = FetchLoan;
 
   totalProposedAmountByKYC = 0;

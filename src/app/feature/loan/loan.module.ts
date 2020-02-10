@@ -82,7 +82,7 @@ import {JamaniTamsukLetterPrintComponent} from './component/offer-letter/jamani-
 import { ApplicantFamilyInfoPrintComponent } from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info-print/applicant-family-info-print.component';
 import { BikeKarjaPrintComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja-print/bike-karja-print.component';
 import { CustomerAssociateComponent } from './component/loan-main-template/customer-associate/customer-associate.component';
-import {CustomerModule} from "../customer/customer.module";
+import {CustomerModule} from '../customer/customer.module';
 
 const COMPONENTS = [
     LoanFormComponent,
