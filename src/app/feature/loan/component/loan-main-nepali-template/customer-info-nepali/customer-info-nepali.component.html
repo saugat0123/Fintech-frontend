@@ -9,7 +9,7 @@
           formControlName="customerName"
           id="customerName"
           placeholder="ग्राहक पूरा नाम"
-          type="text">
+          type="text" #customerName  (change)="setCustomerName(customerName.value)">
       <div *ngIf="submitted && customerInfoNepaliControls.customerName.invalid"
            class="invalid-feedback">
         <div *ngIf="customerInfoNepaliControls.customerName.errors.required">
@@ -211,7 +211,7 @@
   <div
       *ngFor="let relatives of customerInfoNepaliControls.customerRelatives['controls']; let i = index"
       formArrayName="customerRelatives">
-    <div [formGroupName]="i.toString()">
+    <div [formGroupName]="i.toString()" >
       <div class="row">
         <div class="col-md-2">
           <div class="form-group">
@@ -221,7 +221,7 @@
                 class="form-control nepaliFont"
                 formControlName="customerRelation"
                 id="customerRelation"
-                placeholder="सम्बन्ध" type="text">
+                placeholder="सम्बन्ध" type="text" #customerRelation (change)="setRelatives(customerRelation.value)">
             <div *ngIf="submitted && relatives.get('customerRelation').errors"
                  class="invalid-feedback">
               <div *ngIf="relatives.get('customerRelation').errors.required">सम्बन्ध आवश्यक छ</div>
@@ -236,7 +236,7 @@
                 class="form-control nepaliFont"
                 formControlName="customerRelativeName"
                 id="relationName"
-                placeholder="नाम" type="text">
+                placeholder="नाम" type="text" #customerRelativeName (change)="setRelatives(customerRelativeName.value)">
             <div *ngIf="submitted && relatives.get('customerRelativeName').errors"
                  class="invalid-feedback">
               <div *ngIf="relatives.get('customerRelativeName').errors.required">नाम आवश्यक छ</div>
@@ -251,7 +251,7 @@
                 class="form-control nepaliFont"
                 formControlName="citizenshipNumber"
                 id="citizenship"
-                placeholder="नागरिकता नम्बर" type="text">
+                placeholder="नागरिकता नम्बर" type="text" #citizenshipNumber (change)="setRelatives(citizenshipNumber.value)">
             <div *ngIf="submitted && relatives.get('citizenshipNumber').errors"
                  class="invalid-feedback">
               <div *ngIf="relatives.get('citizenshipNumber').errors.required">नागरिकता नम्बर आवश्यक
@@ -268,7 +268,7 @@
                 class="form-control nepaliFont"
                 formControlName="citizenshipIssuedPlace"
                 id="issuedLocation"
-                placeholder="जारी स्थान" type="text">
+                placeholder="जारी स्थान" type="text" #citizenshipIssuedPlace (change)="setRelatives(citizenshipIssuedPlace.value)">
             <div *ngIf="submitted && relatives.get('citizenshipIssuedPlace').errors"
                  class="invalid-feedback">
               <div *ngIf="relatives.get('citizenshipIssuedPlace').errors.required">जारी स्थान आवश्यक
@@ -285,7 +285,7 @@
                 class="form-control nepaliFont"
                 formControlName="citizenshipIssuedDate"
                 id="issuedDate"
-                placeholder="जारी मिति" type="text">
+                placeholder="जारी मिति" type="text" #citizenshipIssuedDate (change)="setRelatives(citizenshipIssuedDate.value)">
             <div *ngIf="submitted && relatives.get('citizenshipIssuedDate').errors"
                  class="invalid-feedback">अवैध जारी मिति
             </div>

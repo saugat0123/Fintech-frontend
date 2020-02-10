@@ -6,6 +6,7 @@ import {Injectable} from '@angular/core';
 export class BasicInfoService extends BaseService<any> {
     static API = 'v1/basicInfo';
 
+
     constructor(readonly http: HttpClient) {
         super(http);
     }

@@ -16,13 +16,15 @@
         <ng-template #labelCustomerInfoNepali>ग्राहक जानकारी</ng-template>
 
         <app-customer-info-nepali #customerInfoNepaliComponent
-                                  [data]="customerLoan?.customerInfo?.nepaliDetail"></app-customer-info-nepali>
+                                  [data]="customerLoan?.customerInfo?.nepaliDetail"
+        (onChangeValue)="changeMockValue($event)"></app-customer-info-nepali>
 
       </nb-step>
       <nb-step [label]="labelTwo">
         <ng-template #labelTwo>जमानी वस्नेको विवरण</ng-template>
         <app-jamani-baseko #jamaniBasekoComponent [nepaliTemplates]="customerLoan?.nepaliTemplates"
-                           [customerInfoData]="customerLoan?.customerInfo"></app-jamani-baseko>
+                           [customerInfoData]="customerLoan?.customerInfo"
+        [mock]="mockProperty"></app-jamani-baseko>
       </nb-step>
 
       <nb-step [label]="labelThree">

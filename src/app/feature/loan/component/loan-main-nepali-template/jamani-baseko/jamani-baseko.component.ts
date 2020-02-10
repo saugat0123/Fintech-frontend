@@ -1,29 +1,40 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {NepaliTemplateDataHolder} from '../../../model/nepali-template-data-holder';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NepaliTemplateType} from '../../../../admin/modal/nepali-template-type.enum';
 import {Customer} from '../../../../admin/modal/customer';
+import {BasicInfoService} from '../../../service/basic-info.service';
+import {LoanMainNepaliTemplateComponent} from '../loan-main-nepali-template.component';
+import {NepaliDataService} from '../../../service/nepali-data-service';
 
 @Component({
   selector: 'app-jamani-baseko',
   templateUrl: './jamani-baseko.component.html',
   styleUrls: ['./jamani-baseko.component.scss']
 })
-export class JamaniBasekoComponent implements OnInit {
+export class JamaniBasekoComponent implements OnInit, OnChanges{
+  @Input() mock;
   @Input() nepaliTemplates: NepaliTemplateDataHolder[];
   @Input() customerInfoData: Customer;
 
   form: FormGroup;
   templateIndexInArray: number = undefined;
   initialInfoPrint;
-  constructor(private formBuilder: FormBuilder) { }
+  customerName;
+  constructor(private formBuilder: FormBuilder,
+              private nepaliDataService: NepaliDataService) {
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    // this.getCustomername();
+    this.form.get('borrowerName').patchValue(changes.mock.currentValue);
+  }
 
   ngOnInit() {
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.customerInfoData) && !ObjectUtil.isEmpty(this.customerInfoData.nepaliDetail)) {
-      this.form.get('borrowerName').patchValue((JSON.parse(this.customerInfoData.nepaliDetail).customerName));
-    }
+    // if (!ObjectUtil.isEmpty(this.customerInfoData) && !ObjectUtil.isEmpty(this.customerInfoData.nepaliDetail)) {
+    //   this.form.get('borrowerName').patchValue((JSON.parse(this.customerInfoData.nepaliDetail).customerName));
+    // }
   }
 
 
@@ -114,4 +125,11 @@ export class JamaniBasekoComponent implements OnInit {
     );
 
   }
+
+   getCustomername() {
+      this.nepaliDataService.currentNameSubject$.subscribe(value => {
+        this.customerName = value;
+        this.form.get('borrowerName').patchValue(this.customerName);
+      });
+    }
 }

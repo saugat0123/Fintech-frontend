@@ -14,13 +14,13 @@
     <div class="offset-4 col-md-4 text-right">
       <div class="ml-lg-5">
         <img src="../../../../../../assets/img/emptyPhotoFrame.JPG" class="photoFrame mr-2">
-      <p>मिति <input class="form-field form-control-sm nepaliFont" name="appliedDate" formControlName="appliedDate" type="text"></p>
+      <p>मिति <input class="form-field form-control-sm nepaliFont" name="appliedDate" formControlName="appliedDate" type="text" (keyup)="getCustomername()"></p>
       </div>
       </div>
   </div>
   <div class="row">
     <p>
-      श्री<input class="form-field form-control-sm nepaliFont" name="borrowerName" formControlName="borrowerName" type="text">को
+      श्री<input #customerName class="form-field form-control-sm nepaliFont" name="borrowerName" formControlName="borrowerName" type="text">को
       अनुरोध वमोजिम सवारी
       साधन/मेशिनरी उपकरण खरीदका लागि निजलाई रु <input class="form-field form-control-sm nepaliFont" formControlName="loanAmount"
                                                       name="loanAmount" type="text">

@@ -1,7 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DateValidator} from '../../../../../@core/validator/date-validator';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {NepaliDataService} from '../../../service/nepali-data-service';
+
 
 @Component({
   selector: 'app-customer-info-nepali',
@@ -9,6 +11,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
   styleUrls: ['./customer-info-nepali.component.scss']
 })
 export class CustomerInfoNepaliComponent implements OnInit {
+  @Output() onChangeValue = new EventEmitter<any>();
   @Input() data: string;
   customerInfoNepali: FormGroup;
   submitted = false;
@@ -16,8 +19,13 @@ export class CustomerInfoNepaliComponent implements OnInit {
 
   constructor(
       private formBuilder: FormBuilder,
+      private nepaliDataService: NepaliDataService
   ) {
   }
+  // ngDoCheck(): void {
+  //   this.setCustomerName();
+  //   this.setRelatives();
+  // }
 
   get customerInfoNepaliControls() {
     return this.customerInfoNepali.controls;
@@ -25,6 +33,9 @@ export class CustomerInfoNepaliComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.customerInfoNepali.get('customerName').valueChanges.subscribe(value => {
+      this.onChangeValue.emit(value);
+    });
   }
 
   buildForm(): void {
@@ -85,5 +96,16 @@ export class CustomerInfoNepaliComponent implements OnInit {
   onSubmit(): void {
     this.finalData = JSON.stringify(this.customerInfoNepali.value);
   }
-
+   setCustomerName(name) {
+     this.nepaliDataService.currentNameSubject$.next(name);
+     this.nepaliDataService.currentNameSubject$.subscribe(value => {
+       // console.log(value);
+     });
+   }
+   setRelatives(val) {
+     this.nepaliDataService.relationSubject$.next(val);
+     this.nepaliDataService.relationSubject$.subscribe(value => {
+       // console.log(value);
+     });
+   }
 }

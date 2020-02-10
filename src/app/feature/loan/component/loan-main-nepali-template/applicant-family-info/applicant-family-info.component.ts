@@ -1,24 +1,29 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NepaliTemplateDataHolder} from '../../../model/nepali-template-data-holder';
 import {NepaliTemplateType} from '../../../../admin/modal/nepali-template-type.enum';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {Customer} from '../../../../admin/modal/customer';
+import {BasicInfoService} from '../../../service/basic-info.service';
+
 
 @Component({
   selector: 'app-applicant-family-info',
   templateUrl: './applicant-family-info.component.html',
   styleUrls: ['./applicant-family-info.component.scss']
 })
-export class ApplicantFamilyInfoComponent implements OnInit {
+export class ApplicantFamilyInfoComponent implements OnInit, DoCheck {
   @Input() nepaliTemplates: NepaliTemplateDataHolder[];
+  @Input() customerInfoData: Customer;
   form: FormGroup;
   templateIndexInArray: number = undefined;
   initialFamilyInfo; // to check if data already exits for print button visibility
 
   constructor(
       private formBuilder: FormBuilder,
-  ) {
+      private basicInfoService: BasicInfoService) {
+  }
+  ngDoCheck(): void {
   }
 
   ngOnInit() {
@@ -127,5 +132,11 @@ export class ApplicantFamilyInfoComponent implements OnInit {
       this.nepaliTemplates.push(newApplicantFamily);
     }
   }
+  // getRelatives() {
+  //   this.basicInfoService.relationSubject$.subscribe(value => {
+  //
+  //     this.form.get('name1').patchValue(value);
+  //   });
+  // }
 
 }

@@ -15,6 +15,7 @@ import {HayarParchesKarjaNibedanComponent} from './hayar-parches-karja-nibedan/h
     styleUrls: ['./loan-main-nepali-template.component.scss']
 })
 export class LoanMainNepaliTemplateComponent implements OnInit {
+    mockProperty;
     @Input() customerLoan: LoanDataHolder;
     @ViewChild('nepaliTemplateStepper', {static: true}) nepaliTemplateStepper: NbStepperComponent;
     stepperButtonVisibility = {
@@ -27,6 +28,8 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
     @ViewChild('jamaniBasekoComponent', {static: true}) jamaniBasekoComponent: JamaniBasekoComponent;
     @ViewChild('bikeKarjaComponent', {static: true}) bikeKarjaComponent: BikeKarjaComponent;
     @ViewChild('hayarParchesKarjaInfoComponent', {static: true}) hayarParchesKarjaInfoComponent: HayarParchesKarjaNibedanComponent;
+    // currentNameSubject$ = new BehaviorSubject('');
+    // relationSubject$ = new BehaviorSubject([]);
 
     constructor(private ngbActiveModal: NgbActiveModal) {
     }
@@ -78,7 +81,13 @@ export class LoanMainNepaliTemplateComponent implements OnInit {
         this.ngbActiveModal.close(map);
     }
 
+
+
     onClose() {
         this.ngbActiveModal.close(ModalResponse.CANCEL);
+    }
+
+    changeMockValue(value) {
+        this.mockProperty = value;
     }
 }
