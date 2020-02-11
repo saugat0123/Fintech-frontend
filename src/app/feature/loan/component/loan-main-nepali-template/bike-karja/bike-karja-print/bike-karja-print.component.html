@@ -128,7 +128,7 @@
             <strong class="nepaliFont ml-1">{{form['children']}}</strong> बालबालिका
         </div>
         <div class="col form-group form-inline">
-            <strong class="nepaliFont mr-1">{{form['other']}</strong>
+            <strong class="nepaliFont mr-1">{{form['other']}}</strong>
             अन्य  भए  उल्लेख  गर्ने
         </div>
     </div>
@@ -373,37 +373,51 @@
     <strong>३. घरायसी सामानको विवरणः</strong>
     <br>
     <div class="form-check">
-        <strong class="nepaliFont ml-1">{{form['householdUtensilInfo']}}</strong>
-        कलर टि.भि. <br>
-
-        <strong class="nepaliFont ml-1">{{form['householdUtensilInfo']}}</strong>
-         फ्रिज <br>
-
-        <strong class="nepaliFont ml-1">{{form['householdUtensilInfo']}}</strong>
+        <input class="form-check-input" type="checkbox"
+               *ngIf="form['householdUtensilInfo1']" checked> कलर टि.भि. <br>
+        <input class="form-check-input" type="checkbox"
+               *ngIf="form['householdUtensilInfo2']" checked> फ्रिज <br>
+        <input class="form-check-input" type="checkbox"
+               *ngIf="form['householdUtensilInfo3']" checked> वासिङ्ग मेसिन <br>
+        <input class="form-check-input" type="checkbox"
+               *ngIf="form['householdUtensilInfo4']" checked> अडियो सि.डि. प्लेयर <br>
+        <input class="form-check-input" type="checkbox"
+               *ngIf="form['householdUtensilInfo5']" checked>  माइक्रो ओभन <br>
+        <input class="form-check-input" type="checkbox"
+               *ngIf="form['householdUtensilInfo6']" checked> कम्प्युटर <br>
+        <input class="form-check-input" type="checkbox"
+               *ngIf="form['householdUtensilInfo7']" checked> ए.सी. <br>
+        <input class="form-check-input" type="checkbox"
+               *ngIf="form['householdUtensilInfo8']" checked> भ्याकुम क्लिनर <br>
+        <input class="form-check-input" type="checkbox"
+               *ngIf="form['householdUtensilInfo9']" checked>
+        अन्य:
+        <strong class="ml-1 nepaliFont">{{form['householdUtensilInfo10']}}</strong>
+        <!--
+        <strong class="ml-1">{{form['householdUtensilInfo3']}}</strong>
         वासिङ्ग मेसिन
         <br>
-        <strong class="nepaliFont ml-1">{{form['householdUtensilInfo']}}</strong>
+        <strong class="ml-1">{{form['householdUtensilInfo4']}}</strong>
         अडियो सि.डि. प्लेयर <br>
 
-        <strong class="nepaliFont ml-1">{{form['householdUtensilInfo']}}</strong>
+        <strong class="ml-1">{{form['householdUtensilInfo5']}}</strong>
         माइक्रो ओभन
         <br>
-        <strong class="nepaliFont ml-1">{{form['householdUtensilInfo']}}</strong>
+        <strong class="nepaliFont ml-1">{{form['householdUtensilInfo6']}}</strong>
         कम्प्युटर <br>
 
-        <strong class="nepaliFont ml-1">{{form['householdUtensilInfo']}}</strong>
+        <strong class="nepaliFont ml-1">{{form['householdUtensilInfo7']}}</strong>
         ए.सी. <br>
 
-        <strong class="nepaliFont ml-1">{{form['householdUtensilInfo']}}</strong>
-        भ्याकुम क्लिनर
-        <br>
+        <strong class="nepaliFont ml-1">{{form['householdUtensilInfo8']}}</strong>
+        भ्याकुम क्लिनर <br>
 
-        <strong class="nepaliFont ml-1">{{form['householdUtensilInfo']}}</strong>
+        <strong class="nepaliFont ml-1">{{form['householdUtensilInfo9']}}</strong>
 
         <div class="form-group form-inline">
-            अन्य <strong class="nepaliFont ml-1">{{form['householdUtensilInfo']}}</strong>
+            अन्य <strong class="nepaliFont ml-1">{{form['householdUtensilInfo10']}}</strong>
         </div>
-        <br>
+        <br>-->
     </div>
     <br>
     <!-- बैंक खाताको विवरण -->

@@ -102,7 +102,16 @@ export class BikeKarjaComponent implements OnInit {
       vehicleModel: [undefined],
       vehicleEstimatedPrice: [undefined],
       vehicleRegdNo: [undefined],
-      householdUtensilInfo: [undefined],
+      householdUtensilInfo1: [undefined],
+      householdUtensilInfo2: [undefined],
+      householdUtensilInfo3: [undefined],
+      householdUtensilInfo4: [undefined],
+      householdUtensilInfo5: [undefined],
+      householdUtensilInfo6: [undefined],
+      householdUtensilInfo7: [undefined],
+      householdUtensilInfo8: [undefined],
+      householdUtensilInfo9: [undefined],
+      householdUtensilInfo10: [undefined],
 
       // <!-- बैंक खाताको विवरण -->
 
@@ -177,8 +186,6 @@ export class BikeKarjaComponent implements OnInit {
       approvedBy: [undefined],
 
     });
-    // this.bikeKarjaPrint = this.bikeKarjaForm.value;
-    // this.setListenerForPrint();
 
     // In case of edit
     if (!ObjectUtil.isEmpty(this.nepaliTemplates)) {
@@ -204,10 +211,5 @@ export class BikeKarjaComponent implements OnInit {
       this.nepaliTemplates.push(newBikeKarja);
     }
   }
-  //
-  // setListenerForPrint() {
-  //   this.bikeKarjaForm.valueChanges.subscribe(() => {
-  //     this.bikeKarjaPrint = this.bikeKarjaForm.getRawValue();
-  //   });
-  // }
+
 }
