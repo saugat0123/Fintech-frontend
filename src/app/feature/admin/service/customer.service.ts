@@ -19,10 +19,10 @@ export class CustomerService extends BaseService<Customer> {
     return CustomerService.API;
   }
 
-  public getByCustomerId(customerId: String) {
-    const api = `${this.getApi()}/search`;
+    public getByCustomerByCitizenshipNo(citizenshipNumber: String) {
+        const api = `${this.getApi()}/citizenship-no?citizenshipNumber=${citizenshipNumber}`;
     const req = ApiUtils.getRequest(api);
 
-    return this.http.post(req.url, customerId, {headers: req.header});
+        return this.http.get(req.url, {headers: req.header});
   }
 }

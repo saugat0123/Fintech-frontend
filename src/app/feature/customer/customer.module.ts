@@ -9,6 +9,9 @@ import {CustomerGroupLoanComponent} from './component/customer-group-loan/custom
 
 @NgModule({
     declarations: [CustomerComponent, CustomerProfileComponent, CustomerGroupLoanComponent],
+    exports: [
+        CustomerGroupLoanComponent
+    ],
     imports: [
         CommonModule,
         CustomerRoutingModule,
