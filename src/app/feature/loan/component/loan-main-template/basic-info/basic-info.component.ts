@@ -120,7 +120,8 @@ export class BasicInfoComponent implements OnInit {
         this.customerDetailField.showFormField = true;
         if (tempId) {
             this.customerSearchData.citizenshipNumber = tempId;
-            this.customerService.getByCustomerByCitizenshipNo(this.customerSearchData.citizenshipNumber).subscribe((customerResponse: any) => {
+            this.customerService.getByCustomerByCitizenshipNo(this.customerSearchData.citizenshipNumber).
+            subscribe((customerResponse: any) => {
                 if (customerResponse.detail === undefined) {
                     this.getProvince();
                     this.customerDetailField.isOldCustomer = false;
@@ -249,13 +250,13 @@ export class BasicInfoComponent implements OnInit {
     checkCustomer() {
         const customerName = this.basicInfo.get('customerName').value;
         const citizenShipIssuedDate = this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
-        const citizenShipNo = this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipNumber').value;
+        const citizenShipNo =  this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipNumber').value;
         const modalRef = this.modalService.open(CustomerAssociateComponent, {size: 'lg'});
         if (ObjectUtil.isEmpty(customerName) || ObjectUtil.isEmpty(citizenShipIssuedDate
             || ObjectUtil.isEmpty(citizenShipNo))) {
             modalRef.componentInstance.model = undefined;
         } else {
-            modalRef.componentInstance.model = this.customer;
+           modalRef.componentInstance.model = this.customer;
         }
     }
 }

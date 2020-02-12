@@ -26,7 +26,7 @@
                     </div>
                     <div *ngIf="customerDetailField.showFormField" class="offset-5 col-md-3">
                         <label></label>
-                        <button (click)="checkCustomer()" class="mt-2 ml-lg-5" nbButton outline size="medium"
+                        <button (click)="checkCustomer()" nbButton size="medium" outline class="mt-2 ml-lg-5"
                                 status="info">Customer Association
                         </button>
                     </div>
@@ -205,10 +205,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <input
-                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerId.errors }"
-                                    class="form-control" formControlName="customerId"
-                                    id="customerID" name="customerId"
-                                    placeholder="8 alpha numeric customer ID" type="text">
+                                   [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerId.errors }"
+                                   class="form-control" formControlName="customerId"
+                                   id="customerID" name="customerId"
+                                   placeholder="8 alpha numeric customer ID" type="text">
                             <div *ngIf="(submitted) && basicInfoControls.customerId.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.customerId.errors.required">Customer ID is required
