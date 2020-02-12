@@ -12,13 +12,13 @@
                                        [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipNumber.errors }"
                                        class="form-control" formControlName="citizenshipNumber"
                                        id="citizenshipNumber" name="citizenshipNumber"
-                                       placeholder="8 alpha numeric customer ID" type="text">
+                                       placeholder="Customer Citizenship Number" type="text">
                                 <button (click)="searchByCustomerCitizen()" nbButton outline size="small"
                                         status="primary">Search
                                 </button>
-                                <div *ngIf="(submitted) && basicInfoControls.customerId.invalid"
+                                <div *ngIf="(submitted) && basicInfoControls.citizenshipNumber.invalid"
                                      class="invalid-feedback">
-                                    <div *ngIf="basicInfoControls.customerId.errors.required">Customer ID is required
+                                    <div *ngIf="basicInfoControls.citizenshipNumber.errors.required">Citizenship number is required
                                     </div>
                                 </div>
                             </div>
@@ -204,6 +204,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
+                            <label for="customerId"><strong>Customer ID</strong></label>
                             <input
                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerId.errors }"
                                    class="form-control" formControlName="customerId"
