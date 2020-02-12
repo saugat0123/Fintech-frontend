@@ -126,7 +126,7 @@ export class CustomerComponent implements OnInit {
             undefined : this.filterForm.get('municipalityId').value;
         /*check if both the startDate and endDate exists*/
         if (!ObjectUtil.isEmpty(this.filterForm.get('startDate').value && this.filterForm.get('endDate').value)) {
-            this.customerService.search.currentStageDate = JSON.stringify({
+            this.customerService.search.associatedDate = JSON.stringify({
                 'startDate': new Date(this.filterForm.get('startDate').value).toLocaleDateString(),
                 'endDate': new Date(this.filterForm.get('endDate').value).toLocaleDateString()
             });
@@ -177,7 +177,7 @@ export class CustomerComponent implements OnInit {
         this.districts = [];
         this.municipalities = [];
         this.buildFilterForm();
-        this.customerService.search.currentStageDate = undefined;
+        this.customerService.search.associatedDate = undefined;
         this.onSearch();
         this.isFilterCollapsed = true;
     }

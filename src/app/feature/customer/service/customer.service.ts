@@ -9,7 +9,7 @@ export class CustomerSearch {
     provinceId: number;
     districtId: number;
     municipalityId: number;
-    currentStageDate: string;
+    associatedDate: string;
     loanConfigId: number;
     loanCategory: string;
     loanStatus: string;
