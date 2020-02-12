@@ -6,23 +6,29 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="customerID"><strong>Customer Search From Citizenship ID</strong></label>
+                            <label for="citizenshipNumber"><strong>Customer Search From Citizenship Number</strong></label>
                             <div class="input-group mb-3">
-                                <input (change)="searchByCustomerId()"
-                                       [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerId.errors }"
-                                       class="form-control" formControlName="customerId"
-                                       id="customerID" name="customerId"
-                                       placeholder="8 alpha numeric customer ID" type="text">
-                                <button (click)="searchByCustomerId()" nbButton outline size="small"
+                                <input (change)="searchByCustomerCitizen()"
+                                       [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipNumber.errors }"
+                                       class="form-control" formControlName="citizenshipNumber"
+                                       id="citizenshipNumber" name="citizenshipNumber"
+                                       placeholder="Customer Citizenship Number" type="text">
+                                <button (click)="searchByCustomerCitizen()" nbButton outline size="small"
                                         status="primary">Search
                                 </button>
-                                <div *ngIf="(submitted) && basicInfoControls.customerId.invalid"
+                                <div *ngIf="(submitted) && basicInfoControls.citizenshipNumber.invalid"
                                      class="invalid-feedback">
-                                    <div *ngIf="basicInfoControls.customerId.errors.required">Customer ID is required
+                                    <div *ngIf="basicInfoControls.citizenshipNumber.errors.required">Citizenship number is required
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div *ngIf="customerDetailField.showFormField" class="offset-5 col-md-3">
+                        <label></label>
+                        <button (click)="checkCustomer()" nbButton size="medium" outline class="mt-2 ml-lg-5"
+                                status="info">Customer Association
+                        </button>
                     </div>
                 </div>
                 <div *ngIf="customerDetailField.showFormField" class="row">
@@ -198,15 +204,15 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="citizenshipNumber"><strong>Citizenship Number</strong></label>
-                            <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipNumber.errors }"
-                                   class="form-control" formControlName="citizenshipNumber"
-                                   id="citizenshipNumber" name="citizenshipNumber" placeholder="Citizenship Number"
-                                   type="text">
-                            <div *ngIf="(submitted) && basicInfoControls.citizenshipNumber.invalid"
+                            <label for="customerId"><strong>Customer ID</strong></label>
+                            <input
+                                   [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerId.errors }"
+                                   class="form-control" formControlName="customerId"
+                                   id="customerID" name="customerId"
+                                   placeholder="8 alpha numeric customer ID" type="text">
+                            <div *ngIf="(submitted) && basicInfoControls.customerId.invalid"
                                  class="invalid-feedback">
-                                <div *ngIf="basicInfoControls.citizenshipNumber.errors.required">Citizenship number is
-                                    required
+                                <div *ngIf="basicInfoControls.customerId.errors.required">Customer ID is required
                                 </div>
                             </div>
                         </div>
