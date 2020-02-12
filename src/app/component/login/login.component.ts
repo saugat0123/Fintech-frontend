@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                         storage.roleType = user.role.roleType;
                         storage.roleId = (user.role.id).toString();
                         LocalStorageUtil.setStorage(storage);
+                        this.getProductUtils(storage);
                         this.userService.getAuthenticatedUserBranches().subscribe((response: any) => {
                             storage.branch = response.detail;
                             LocalStorageUtil.setStorage(storage);
@@ -91,5 +92,15 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                     this.msg = 'INVALID USERNAME OR PASSWORD';
                 }
             );
+    }
+
+    getProductUtils(storage) {
+        this.productModeService.getProductUtils().subscribe((response: any) => {
+            storage.productUtil = response.detail;
+            LocalStorageUtil.setStorage(storage);
+
+        }, error => {
+            console.error(error);
+        });
     }
 }
