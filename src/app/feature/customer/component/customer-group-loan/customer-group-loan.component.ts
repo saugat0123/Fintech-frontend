@@ -9,6 +9,7 @@ import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {LoanAmountType} from '../../model/loanAmountType';
 import {FetchLoan} from '../../model/fetchLoan';
 import {Guarantors} from '../../../loan/model/guarantors';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -42,7 +43,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
     constructor(private router: Router,
                 private customerService: CustomerService,
-                private customerLoanService: LoanFormService) {
+                private customerLoanService: LoanFormService,
+                private modalService: NgbModal) {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -98,6 +100,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     }
 
     onClick(loanConfigId: number, customerId: number) {
+        this.modalService.dismissAll();
         this.router.navigate(['/home/loan/summary'], {
             queryParams: {
                 loanConfigId: loanConfigId,
