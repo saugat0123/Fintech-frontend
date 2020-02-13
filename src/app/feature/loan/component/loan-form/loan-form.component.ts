@@ -39,6 +39,10 @@ import {GroupComponent} from '../loan-main-template/group/group.component';
 import {LoanMainNepaliTemplateComponent} from '../loan-main-nepali-template/loan-main-nepali-template.component';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ProductUtils} from '../../../admin/service/product-mode.service';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
+import {Customer} from '../../../admin/modal/customer';
+import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -64,7 +68,6 @@ export class LoanFormComponent implements OnInit {
     ];
 
     customerId: number;
-    customerProfileId: number;
     id;
     selectedTab;
     nxtTab;
@@ -137,6 +140,9 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('creditGrading', {static: false})
     creditGrading: CreditGradingComponent;
 
+    @ViewChild('mawCreditRiskGrading', {static: false})
+    mawCreditRiskGrading: MawCreditRiskGradingComponent;
+
     @ViewChild('financial', {static: false})
     financial: FinancialComponent;
 
@@ -148,6 +154,7 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('customerDocument', {static: false})
     customerDocument: CustomerDocumentComponent;
+
     @ViewChild('group', {static: false})
     group: GroupComponent;
 
@@ -439,6 +446,14 @@ export class LoanFormComponent implements OnInit {
             }
             this.proposalDetail.onSubmit();
             this.loanDocument.proposal = this.proposalDetail.proposalData;
+
+            // TODO LIMIT EXCEED clause may vary as per requirement
+            if (this.loanDocument.proposal.proposedLimit > 0) {
+                this.loanDocument.limitExceed = 0;
+            } else {
+                this.loanDocument.proposal.proposedLimit = 0;
+                this.loanDocument.limitExceed = 1;
+            }
         }
 
         if (name === 'Customer Document' && action) {
@@ -472,6 +487,10 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Credit Risk Grading' && action) {
             this.creditGrading.onSubmit();
             this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
+        }
+        if (name === 'MAW Credit Risk Grading' && action) {
+            this.mawCreditRiskGrading.onSubmit();
+            this.loanDocument.mawCreditRiskGrading = this.mawCreditRiskGrading.mawCreditRiskGradingData;
         }
         if (name === 'Group' && action) {
             this.group.onSubmit();
@@ -510,6 +529,12 @@ export class LoanFormComponent implements OnInit {
     }
 
     nepaliFormTemplate() {
+        if (ObjectUtil.isEmpty(this.loanDocument.customerInfo)) {
+            this.loanDocument.customerInfo = new Customer();
+        }
+        if (ObjectUtil.isEmpty(this.loanDocument.nepaliTemplates)) {
+            this.loanDocument.nepaliTemplates = new Array<NepaliTemplateDataHolder>();
+        }
         const modalRef = this.modalService.open(LoanMainNepaliTemplateComponent,
             {
                 size: 'xl',

@@ -10,6 +10,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {DocStatus} from '../../../model/docStatus';
 import {OfferLetter} from '../../../../admin/modal/offerLetter';
 import {CustomerOfferLetterPath} from '../../../model/customer-offer-letter-path';
+import {OfferLetterConst} from '../model/offer-letter-const';
 
 @Component({
   selector: 'app-success-offer-letter',
@@ -26,6 +27,7 @@ export class SuccessOfferLetterComponent implements OnInit {
   existingOfferLetter = false;
   spinner = false;
   initialInfoPrint;
+    offerLetterConst = OfferLetterConst;
 
   constructor(
       private activatedRoute: ActivatedRoute,

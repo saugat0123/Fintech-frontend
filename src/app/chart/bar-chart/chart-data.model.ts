@@ -1,4 +1,4 @@
 export class ChartData {
-    private name: String;
-    private value: number;
+    name: String;
+    value: number;
 }

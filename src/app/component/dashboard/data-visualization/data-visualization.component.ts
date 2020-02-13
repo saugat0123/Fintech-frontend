@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { LoanFormService } from '../../../feature/loan/component/loan-form/service/loan-form.service';
-import { PieChart } from '../../../feature/admin/modal/pie-chart';
-import { BranchService } from '../../../feature/admin/component/branch/branch.service';
-import { Branch } from '../../../feature/admin/modal/branch';
-import { User } from '../../../feature/admin/modal/user';
-import { RoleAccess } from '../../../feature/admin/modal/role-access';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DatePipe } from '@angular/common';
-import { BarChart } from '../../../chart/bar-chart/bar-chart.model';
-import { BarChartService } from '../../../chart/bar-chart/bar-chart.service';
+import {Component, OnInit} from '@angular/core';
+import {LoanFormService} from '../../../feature/loan/component/loan-form/service/loan-form.service';
+import {PieChart} from '../../../feature/admin/modal/pie-chart';
+import {BranchService} from '../../../feature/admin/component/branch/branch.service';
+import {Branch} from '../../../feature/admin/modal/branch';
+import {User} from '../../../feature/admin/modal/user';
+import {RoleAccess} from '../../../feature/admin/modal/role-access';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {DatePipe} from '@angular/common';
+import {BarChart} from '../../../chart/bar-chart/bar-chart.model';
+import {BarChartService} from '../../../chart/bar-chart/bar-chart.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 
 @Component({
@@ -58,7 +58,8 @@ export class DataVisualizationComponent implements OnInit {
         private loanFormService: LoanFormService,
         private barChartService: BarChartService,
         private branchService: BranchService
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         this.findActiveRole();
@@ -118,7 +119,15 @@ export class DataVisualizationComponent implements OnInit {
 
     private getAdvancedPieChartDataByBranchId() {
         this.loanFormService.getLoanAmountByBranch(this.branchId, this.startDate, this.endDate)
-        .subscribe((response: any) => this.pieChart = response.detail, (error) => console.log(error));
+            .subscribe((response: any) => {
+                    this.pieChart = response.detail;
+                    this.pieChart.forEach(p => {
+                        if (p.value == null) {
+                            p.value = 0;
+                        }
+                    });
+                }
+                , (error) => console.log(error));
     }
 
     private getSeperateProposedAmount() {
@@ -162,12 +171,13 @@ export class DataVisualizationComponent implements OnInit {
                 }
             );
     }
-    private getSpecificProposedAmount (value) {
+
+    private getSpecificProposedAmount(value) {
 
         if (value.name === 'Discussion') {
             this.discussionProposedAmount = this.pendingProposedAmount + value.value;
             this.discussionFileCount = value.fileCount;
-        } else  if (value.name === 'Documentation') {
+        } else if (value.name === 'Documentation') {
             this.documentationProposedAmount = this.pendingProposedAmount + value.value;
             this.documentationFileCount = value.fileCount;
         } else if (value.name === 'Valuation') {
@@ -212,13 +222,27 @@ export class DataVisualizationComponent implements OnInit {
     private getAllData(): void {
         this.loanFormService.getProposedAmount(this.startDate, this.endDate).subscribe((response: any) => {
             this.pieChart = response.detail;
+            this.pieChart.forEach(p => {
+                if (p.value == null) {
+                    p.value = 0;
+                }
+            });
             this.selectedBranch = 'All branches';
         }, (error) => console.log(error));
     }
 
     private getBarChartData(): void {
         this.barChartService.getBarData(this.branchId, this.startDate, this.endDate)
-            .subscribe((response: any) => this.barChartData = response.detail);
+            .subscribe((response: any) => {
+                this.barChartData = response.detail;
+                this.barChartData.forEach(b => {
+                    b.series.forEach(s => {
+                        if (s.value == null) {
+                            s.value = 0;
+                        }
+                    });
+                });
+            });
     }
 
     private formateDate(date: string) {
@@ -226,7 +250,6 @@ export class DataVisualizationComponent implements OnInit {
         date = pipe.transform(new Date(date), 'MM/dd/yyyy');
         return date;
     }
-
 
 
 }

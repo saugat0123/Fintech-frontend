@@ -80,7 +80,7 @@ export class CompanyInfoComponent implements OnInit {
             }
         );
 
-        if (this.formValue === undefined) {
+        if (ObjectUtil.isEmpty(this.formValue)) {
             this.customerId = Number(this.activatedRoute.snapshot.queryParamMap.get('customerId'));
             if (this.customerId !== 0) {
                 this.loanFormService.detail(this.customerId).subscribe(

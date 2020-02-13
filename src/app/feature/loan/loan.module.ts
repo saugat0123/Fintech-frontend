@@ -65,6 +65,18 @@ import {PratigyaPatraComponent} from './component/offer-letter/pratigya-patra/pr
 import {LoanMainNepaliTemplateComponent} from './component/loan-main-nepali-template/loan-main-nepali-template.component';
 import {FiscalYearModalComponent} from './component/loan-main-template/financial/fiscal-year-modal/fiscal-year-modal.component';
 import {CustomerInfoNepaliComponent} from './component/loan-main-nepali-template/customer-info-nepali/customer-info-nepali.component';
+import {DhitoLikhatPrintComponent} from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-print/dhito-likhat-print.component';
+import {ApplicantFamilyInfoComponent} from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info.component';
+import {KarjaTamsukPrintComponent} from './component/offer-letter/karjatamsuk/karja-tamsuk-print/karja-tamsuk-print.component';
+import {KararnamaPrintComponent} from './component/offer-letter/kararnama/kararnama-print/kararnama-print.component';
+import {DhristiBandhakPrintComponent} from './component/offer-letter/dhristi-bandhak/dhristi-bandhak-print/dhristi-bandhak-print.component';
+import {ManjurinamaLetterPrintComponent} from './component/offer-letter/manjurinama/manjurinama-letter-print/manjurinama-letter-print.component';
+import {JamaniBasekoComponent} from './component/loan-main-nepali-template/jamani-baseko/jamani-baseko.component';
+import {JamaniBasekoPrintComponent} from './component/loan-main-nepali-template/jamani-baseko/jamani-baseko-print/jamani-baseko-print.component';
+import {BikeKarjaComponent} from './component/loan-main-nepali-template/bike-karja/bike-karja.component';
+import {HayarParchesKarjaNibedanComponent} from './component/loan-main-nepali-template/hayar-parches-karja-nibedan/hayar-parches-karja-nibedan.component';
+import { PratigyaPatraPrintComponent } from './component/offer-letter/pratigya-patra/pratigya-patra-print/pratigya-patra-print.component';
+import { MawCreditRiskGradingComponent } from './component/loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 import { AllTemplateDetailsComponent } from './component/loan-summary/all-template-details/all-template-details.component';
 import { CompanyInfoDetailsComponent } from './component/loan-summary/all-template-details/company-info-details/company-info-details.component';
 import { CustomerDetailsInformationComponent } from './component/loan-summary/all-template-details/customer-details-information/customer-details-information.component';
@@ -73,6 +85,11 @@ import { ProposalDetailsComponent } from './component/loan-summary/all-template-
 import { SiteVisitDetailsComponent } from './component/loan-summary/all-template-details/site-visit-details/site-visit-details.component';
 import { SecurityDetailsComponent } from './component/loan-summary/all-template-details/security-details/security-details.component';
 
+import {JamaniTamsukLetterPrintComponent} from './component/offer-letter/jamani-tamsuk/jamani-tamsuk-letter-print/jamani-tamsuk-letter-print.component';
+import { ApplicantFamilyInfoPrintComponent } from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info-print/applicant-family-info-print.component';
+import { BikeKarjaPrintComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja-print/bike-karja-print.component';
+import { CustomerAssociateComponent } from './component/loan-main-template/customer-associate/customer-associate.component';
+import {CustomerModule} from '../customer/customer.module';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -126,6 +143,25 @@ const COMPONENTS = [
     LoanMainNepaliTemplateComponent,
     FiscalYearModalComponent,
     CustomerInfoNepaliComponent,
+    LoanMainNepaliTemplateComponent,
+    FiscalYearModalComponent,
+    DhitoLikhatPrintComponent,
+    PratigyaPatraPrintComponent,
+    ApplicantFamilyInfoComponent,
+    KarjaTamsukPrintComponent,
+    KararnamaPrintComponent,
+    ManjurinamaLetterPrintComponent,
+    JamaniBasekoComponent,
+    JamaniBasekoPrintComponent,
+    DhristiBandhakPrintComponent,
+    BikeKarjaComponent,
+    HayarParchesKarjaNibedanComponent,
+    MawCreditRiskGradingComponent,
+    JamaniTamsukLetterPrintComponent,
+    ApplicantFamilyInfoPrintComponent,
+    BikeKarjaPrintComponent,
+    CustomerAssociateComponent
+    CustomerInfoNepaliComponent,
     AllTemplateDetailsComponent,
     CompanyInfoDetailsComponent,
     CustomerDetailsInformationComponent,
@@ -138,7 +174,8 @@ const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,
     FiscalYearModalComponent,
     LoanMainNepaliTemplateComponent,
-    CustomerInfoNepaliComponent
+    CustomerInfoNepaliComponent,
+    CustomerAssociateComponent
 ];
 
 // @ts-ignore
@@ -159,7 +196,8 @@ const ENTRY_COMPONENTS = [
         CoreModule,
         AgmCoreModule.forRoot({
             apiKey: environment.GOOGLE_MAP_API_KEY
-        })
+        }),
+        CustomerModule
     ],
 
     providers: [

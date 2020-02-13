@@ -42,6 +42,7 @@ export class CatalogueComponent implements OnInit {
     page = 1;
     spinner = false;
     transferToggle = false;
+    shareToggle = false;
     pageable: Pageable = new Pageable();
     age: number;
     docStatus = DocStatus;
@@ -86,6 +87,7 @@ export class CatalogueComponent implements OnInit {
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
             other.transferToggle = true;
+            other.shareToggle = true;
         }, error => {
             console.error(error);
             other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
@@ -150,7 +152,7 @@ export class CatalogueComponent implements OnInit {
         if (!this.redirected) {
             // reset filter object if not redirected from other component
             const resetSearch: CatalogueSearch = new CatalogueSearch();
-            resetSearch.documentStatus = DocStatus.value(DocStatus.PENDING);
+            // resetSearch.documentStatus = DocStatus.value(DocStatus.PENDING);
             this.catalogueService.search = resetSearch;
         }
         CatalogueComponent.loadData(this);
@@ -166,7 +168,8 @@ export class CatalogueComponent implements OnInit {
             endDate: [undefined],
             role: [undefined],
             customerName: [undefined],
-            companyName: [undefined]
+            companyName: [undefined],
+            showShareLoanExcessingLimit: [undefined]
         });
     }
 
@@ -262,6 +265,17 @@ export class CatalogueComponent implements OnInit {
             this.onSearch();
         } else {
             this.catalogueService.search.docAction = undefined;
+            this.onSearch();
+        }
+    }
+
+    onChangeShareToggle(event) {
+        this.shareToggle = false;
+        if (event) {
+            this.catalogueService.search.showShareLoanExcessingLimit = 'true';
+            this.onSearch();
+        } else {
+            this.catalogueService.search.showShareLoanExcessingLimit = undefined;
             this.onSearch();
         }
     }

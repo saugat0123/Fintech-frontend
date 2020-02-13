@@ -7,6 +7,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {ToastService} from '../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {MinimumAmountValidator} from '../../../../../@core/validator/minimum-amount-validator';
+import {BaseInterestService} from '../../../../admin/service/base-interest.service';
 
 @Component({
     selector: 'app-proposal',
@@ -29,7 +30,8 @@ export class ProposalComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
-                private toastService: ToastService) {
+                private toastService: ToastService,
+                private baseInterestService: BaseInterestService) {
     }
 
     ngOnInit() {
@@ -38,6 +40,8 @@ export class ProposalComponent implements OnInit {
             this.formDataForEdit = JSON.parse(this.formValue.data);
             this.proposalForm.setValue(this.formDataForEdit);
             this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
+        } else {
+            this.setActiveBaseRate();
         }
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
@@ -101,7 +105,7 @@ export class ProposalComponent implements OnInit {
 
     onSubmit() {
         // Proposal Form Data--
-        if (this.formValue !== undefined) {
+        if (!ObjectUtil.isEmpty(this.formValue)) {
             this.proposalData = this.formValue;
         }
         this.proposalData.data = JSON.stringify(this.proposalForm.value);
@@ -116,5 +120,9 @@ export class ProposalComponent implements OnInit {
         return this.proposalForm.controls;
     }
 
-
+    setActiveBaseRate() {
+   this.baseInterestService.getActiveBaseRate().subscribe(value => {
+       this.proposalForm.get('baseRate').setValue(value.detail.rate);
+   });
+    }
 }
