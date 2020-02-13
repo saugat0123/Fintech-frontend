@@ -26,6 +26,16 @@ export class PratigyaPatraComponent implements OnInit {
     offerLetterConst = OfferLetterConst;
     initialInfoPrint;
     existingOfferLetter = false;
+    customerinfo;
+    bikekarja = {
+        loanamount: String ,
+        companyno: String ,
+        companyname: String ,
+        loanamount2: String ,
+        customerName: String ,
+        interestamount: String ,
+        amountinword: String
+    };
     constructor(private offerBuilder: FormBuilder,
                 private toastService: ToastService,
                 private OfferLetterService: CustomerOfferLetterService,
@@ -35,6 +45,10 @@ export class PratigyaPatraComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         this.fillForm();
+        console.log(this.customerinfo);
+        this.customerinfo = JSON.parse(this.loanDataHolder.nepaliTemplates[2].data);
+        console.log(JSON.parse(this.loanDataHolder.nepaliTemplates[2].data));
+        this.setpratigyavalue();
     }
     buildForm() {
         this.offerForm = this.offerBuilder.group({
@@ -125,5 +139,18 @@ export class PratigyaPatraComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Pratigya patra Offer Letter'));
             this.spinner = false;
         });
-    }
+}
+    setpratigyavalue() {
+        this.bikekarja.loanamount = this.customerinfo.proposalAmount;
+        this.bikekarja.companyno = this.customerinfo.applicantCitizenshipNo;
+        this.bikekarja.companyname = this.customerinfo.applicantFullName;
+        this.bikekarja.loanamount2 = this.customerinfo.loanAmount2;
+        this.bikekarja.amountinword = this.customerinfo.aksherepi2;
+        this.bikekarja.interestamount = this.customerinfo.interestRate;
+        console.log(this.bikekarja.loanamount);
+        this.offerForm.valueChanges.subscribe(() => {
+            this.offerForm.patchValue(this.bikekarja, {emitEvent: false});
+        }
+            );
+}
 }
