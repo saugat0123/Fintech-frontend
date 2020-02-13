@@ -62,4 +62,5 @@ export class LoanDataHolder {
     nepaliTemplates: Array<NepaliTemplateDataHolder>;
     mawCreditRiskGrading: MawCreditRiskGrading;
     limitExceed: number;
+    loanRemarks: string;
 }

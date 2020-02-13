@@ -149,7 +149,6 @@ export class BasicInfoComponent implements OnInit {
         this.customer.title = this.basicInfo.get('title').value;
         this.customer.customerName = this.basicInfo.get('customerName').value;
         this.customer.customerId = this.basicInfo.get('customerId').value;
-        this.customer.accountNo = this.basicInfo.get('accountNo').value;
         this.customer.province = this.basicInfo.get('province').value;
         this.customer.district = this.basicInfo.get('district').value;
         this.customer.municipalities = this.basicInfo.get('municipalities').value;
@@ -192,7 +191,6 @@ export class BasicInfoComponent implements OnInit {
             title: [this.customer.title === undefined ? undefined : this.customer.title],
             customerName: [this.customer.customerName === undefined ? undefined : this.customer.customerName, Validators.required],
             customerId: [this.customer.customerId === undefined ? undefined : this.customer.customerId, Validators.required],
-            accountNo: [this.customer.accountNo === undefined ? undefined : this.customer.accountNo, Validators.required],
             province: [this.customer.province === null ? undefined : this.customer.province, Validators.required],
             district: [this.customer.district === null ? undefined : this.customer.district, Validators.required],
             municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities, Validators.required],
