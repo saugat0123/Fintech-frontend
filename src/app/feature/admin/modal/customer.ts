@@ -10,7 +10,6 @@ export class Customer {
     customerName: string;
     dob: Date;
     customerId: string;
-    accountNo: string;
     province: Province;
     district: District;
     municipalities: MunicipalityVdc;
