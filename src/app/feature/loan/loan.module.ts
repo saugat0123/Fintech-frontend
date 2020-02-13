@@ -160,7 +160,7 @@ const COMPONENTS = [
     JamaniTamsukLetterPrintComponent,
     ApplicantFamilyInfoPrintComponent,
     BikeKarjaPrintComponent,
-    CustomerAssociateComponent
+    CustomerAssociateComponent,
     CustomerInfoNepaliComponent,
     AllTemplateDetailsComponent,
     CompanyInfoDetailsComponent,
