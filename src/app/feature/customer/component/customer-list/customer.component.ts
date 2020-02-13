@@ -8,13 +8,6 @@ import {Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {LoanType} from '../../../loan/model/loanType';
 import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
-import {Province} from '../../../admin/modal/province';
-import {AddressService} from '../../../../@core/service/baseservice/address.service';
-import {District} from '../../../admin/modal/district';
-import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
-import {LoanConfig} from '../../../admin/modal/loan-config';
-import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
-import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-customer-component',
