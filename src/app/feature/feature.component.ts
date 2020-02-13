@@ -29,7 +29,6 @@ export class FeatureComponent implements OnInit {
     ngOnInit() {
         this.items = this.menuService.getMenus().subscribe(res => {
                 this.menus = [...res.detail];
-
                 if (LocalStorageUtil.getStorage().roleType === RoleType[RoleType.COMMITTEE]) {
                     const tempMenu = {
                         id: null,
@@ -39,8 +38,8 @@ export class FeatureComponent implements OnInit {
                     };
                     this.menus.push(tempMenu);
                 }
-                if (LocalStorageUtil.getStorage().roleType === RoleType[RoleType.MAKER]
-                    || ((LocalStorageUtil.getStorage().roleName === 'CAD'))) {
+                if ((LocalStorageUtil.getStorage().roleType === RoleType[RoleType.MAKER]
+                    || ((LocalStorageUtil.getStorage().roleName === 'CAD'))) && LocalStorageUtil.getStorage().productUtil.OFFER_LETTER) {
                     const temp1Menu = {
                         id: null,
                         title: 'Offer Letter',
@@ -62,5 +61,6 @@ export class FeatureComponent implements OnInit {
             }
         });
     }
+
 }
 
