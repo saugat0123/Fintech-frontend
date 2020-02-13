@@ -100,7 +100,6 @@ export class CustomerComponent implements OnInit {
             endDate: [undefined],
             loanConfigId: [undefined],
             loanCategory: [undefined],
-            loanStatus: [undefined]
         });
     }
 
@@ -135,8 +134,6 @@ export class CustomerComponent implements OnInit {
             undefined : this.filterForm.get('loanConfigId').value;
         this.customerService.search.loanCategory = ObjectUtil.isEmpty(this.filterForm.get('loanCategory').value) ?
             undefined : this.filterForm.get('loanCategory').value;
-        this.customerService.search.loanStatus = ObjectUtil.isEmpty(this.filterForm.get('loanStatus').value) ?
-            undefined : this.filterForm.get('loanStatus').value;
         CustomerComponent.loadData(this);
         console.log(this.customerService.search);
     }
