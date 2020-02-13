@@ -94,20 +94,8 @@
                     <div class="col-md-3">
                         <select class="custom-select" formControlName="loanCategory">
                             <option [value]="null" selected hidden>Select Loan Category</option>
-                            <option value="BOTH_TYPE">BOTH</option>
                             <option value="PERSONAL_TYPE">PERSONAL</option>
                             <option value="BUSINESS_TYPE">BUSINESS</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row py-3">
-                    <div class="col-md-3">
-                        <select class="custom-select" formControlName="loanStatus">
-                            <option [value]="null" selected hidden>Select loan status</option>
-                            <option value="INACTIVE">INACTIVE</option>
-                            <option value="ACTIVE">ACTIVE</option>
-                            <option value="DELETED">DELETED</option>
                         </select>
                     </div>
                 </div>
@@ -150,7 +138,6 @@
                 <td>{{model?.contactNumber || 'NA'}}</td>
                 <td>{{(model?.occupation) || 'NA'}}</td>
                 <td>{{(model?.createdAt|date) || 'NA'}}</td>
-
             </tr>
 
             </tbody>
