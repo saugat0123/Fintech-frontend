@@ -12,7 +12,6 @@ export class CustomerSearch {
     associatedDate: string;
     loanConfigId: number;
     loanCategory: string;
-    loanStatus: string;
 }
 
 @Injectable({
