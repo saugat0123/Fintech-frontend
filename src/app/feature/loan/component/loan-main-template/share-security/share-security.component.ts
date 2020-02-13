@@ -36,6 +36,13 @@ export class ShareSecurityComponent implements OnInit {
       private  shareService: NepseService) {
   }
 
+  get totalConsideredValue() {
+    let total = 0;
+    const array = this.shareSecurityForm.get('shareField') as FormArray;
+    array.controls.forEach(c => total += Number(c.get('consideredValue').value));
+    return total;
+  }
+
   ngOnInit() {
     this.buildForm();
     this.findActiveShareRate();

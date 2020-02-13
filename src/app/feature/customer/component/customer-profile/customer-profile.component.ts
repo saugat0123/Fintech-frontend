@@ -186,7 +186,6 @@ export class CustomerProfileComponent implements OnInit {
             profilePic: [this.customer.profilePic === undefined ? undefined : this.customer.profilePic],
             customerName: [this.customer.customerName === undefined ? undefined : this.customer.customerName, Validators.required],
             customerId: [this.customer.customerId === undefined ? undefined : this.customer.customerId, Validators.required],
-            accountNo: [this.customer.accountNo === undefined ? undefined : this.customer.accountNo, Validators.required],
             province: [this.customer.province === null ? undefined : this.customer.province, Validators.required],
             district: [this.customer.district === null ? undefined : this.customer.district, Validators.required],
             municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities, Validators.required],
