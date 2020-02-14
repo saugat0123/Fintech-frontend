@@ -26,6 +26,7 @@ export class PratigyaPatraComponent implements OnInit {
     offerLetterConst = OfferLetterConst;
     initialInfoPrint;
     existingOfferLetter = false;
+    customerinfo;
     constructor(private offerBuilder: FormBuilder,
                 private toastService: ToastService,
                 private OfferLetterService: CustomerOfferLetterService,
@@ -35,6 +36,8 @@ export class PratigyaPatraComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         this.fillForm();
+        this.customerinfo = JSON.parse(this.loanDataHolder.nepaliTemplates[2].data);
+        this.setpratigyavalue(this.customerinfo);
     }
     buildForm() {
         this.offerForm = this.offerBuilder.group({
@@ -125,5 +128,15 @@ export class PratigyaPatraComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Pratigya patra Offer Letter'));
             this.spinner = false;
         });
-    }
+}
+    setpratigyavalue(customerinfo) {
+        this.offerForm = this.offerBuilder.group({
+            loanamount: [customerinfo.proposalAmount] ,
+            companyno: [customerinfo.applicantCitizenshipNo] ,
+            companyname: [customerinfo.applicantFullName] ,
+            loanamount2: [customerinfo.loanAmount2],
+            interestamount: [customerinfo.interestRate] ,
+            amountinword: [customerinfo.aksherepi2],
+        });
+}
 }
