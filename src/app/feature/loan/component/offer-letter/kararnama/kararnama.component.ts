@@ -27,8 +27,9 @@ export class KararnamaComponent implements OnInit {
       loanAmount: String,
       loanAmountInWord: String,
     };
-
+    id =  0;
     customerInformation = {
+        id: Number,
         grandFatherName: String,
     fatherName: String,
     district: String,
@@ -73,7 +74,6 @@ export class KararnamaComponent implements OnInit {
         this.buildForm();
         this.fillForm();
         this.customerData = JSON.parse(this.loanDataHolder.nepaliTemplates[0].data);
-        // this.hamro = JSON.parse(this.loanDataHolder.nepaliTemplates[1].data);
         this.customers = JSON.parse(this.loanDataHolder.nepaliTemplates[2].data);
         this.application = JSON.parse(this.loanDataHolder.nepaliTemplates[3].data);
         this.customerInfo =  JSON.parse(this.loanDataHolder.customerInfo.nepaliDetail);
@@ -268,6 +268,7 @@ export class KararnamaComponent implements OnInit {
         const date = new Date(this.customerInfo.dob);
         const datepick = date.getFullYear();
         const currentdate = new Date(Date.now()).getFullYear();
+        this.customerInformation.id = this.id;
         this.customerInformation.customerName = this.customerInfo.customerName;
         this.customerInformation.district = this.customerInfo.district;
         this.customerInformation.municipality = this.customerInfo.municipalities;
@@ -284,14 +285,10 @@ export class KararnamaComponent implements OnInit {
         this.customerInformation.currentWardNo = this.application.tempWardNo;
         this.customerDetails.loanAmount = this.customerData.loanAmount;
         this.customerDetails.loanAmountInWord = this.customerData.loanAmountInWord;
-        const formArray = this.form.controls['customerDetail'] as FormArray;
+        // this.form.setControl('customerDetail', this.setExistingCustomer(this.arr));
         this.form.valueChanges.subscribe(() => {
             this.form.patchValue(this.customerDetails, {emitEvent: false});
-    });
+        });
         this.arr.push(this.customerInformation);
-
-        formArray.patchValue(this.arr);
-        console.log('Form Array', this.arr);
-        console.log('form value', formArray);
     }
 }
