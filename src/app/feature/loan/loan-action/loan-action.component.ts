@@ -38,6 +38,7 @@ export class LoanActionComponent implements OnInit {
     @Input() catalogueStatus = false;
     @Input() limitExceed: number;
     @Input() loanRemarks: string;
+    @Input() lowProposedLimit: boolean;
 
     @Input() actionsList: ActionModel;
     popUpTitle: string;
@@ -155,13 +156,17 @@ export class LoanActionComponent implements OnInit {
                 comment: null
             }
         );
+        if (this.lowProposedLimit) {
+            const parsedRemark = JSON.parse(this.loanRemarks);
+            this.toastService.show(new Alert(AlertType.INFO, parsedRemark.proposedLimit));
+            return;
+        }
         if (this.limitExceed !== 0) {
             const parsedRemark = JSON.parse(this.loanRemarks);
             this.toastService.show(new Alert(AlertType.INFO, parsedRemark.limitExceed));
-        } else {
-            this.modalService.open(template);
+            return;
         }
-
+        this.modalService.open(template);
     }
 
     onSubmit(templateLogin) {
