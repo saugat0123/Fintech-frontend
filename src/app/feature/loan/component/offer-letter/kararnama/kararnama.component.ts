@@ -21,13 +21,48 @@ export class KararnamaComponent implements OnInit {
     spinner = false;
     form: FormGroup;
     existingKaranama;
+    customerInfo;
     initialInfoPrint;
+    customerDetails = {
+      loanAmount: String,
+      loanAmountInWord: String,
+    };
+
+    customerInformation = {
+        grandFatherName: String,
+    fatherName: String,
+    district: String,
+    municipality: String,
+    wardNo: String,
+    currentDistrict: String,
+    currentMunicipality: String,
+    currentWardNo: String,
+    customerAge: Number,
+    customerName: String,
+    citizenIssuedDistrict: String,
+    citizenshipIssuedDate: String,
+    citizenshipNo: String,
+    // ministryName: String,
+    // departmentName: String,
+    // governmentOfficeName: String,
+    registrationDate: String,
+    // registrationNo: String,
+    // registrationDistrict: String,
+    // registrationMunicipality: String,
+    // registrationWardNo: String,
+    // companyName: String,
+    };
+    arr = [];
+    customerData;
+    hamro;
+    customers;
+    application;
+    datas;
     @Input() loanDataHolder: LoanDataHolder;
     customerOfferLetter: CustomerOfferLetter;
     @Input() customerId: number;
     @Input() offerLetterTypeId: number;
     offerLetterConst = OfferLetterConst;
-
     constructor(private formBuilder: FormBuilder,
                 private router: Router,
                 private customerOfferLetterService: CustomerOfferLetterService,
@@ -37,6 +72,12 @@ export class KararnamaComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         this.fillForm();
+        this.customerData = JSON.parse(this.loanDataHolder.nepaliTemplates[0].data);
+        // this.hamro = JSON.parse(this.loanDataHolder.nepaliTemplates[1].data);
+        this.customers = JSON.parse(this.loanDataHolder.nepaliTemplates[2].data);
+        this.application = JSON.parse(this.loanDataHolder.nepaliTemplates[3].data);
+        this.customerInfo =  JSON.parse(this.loanDataHolder.customerInfo.nepaliDetail);
+        this.setCustomer();
     }
 
     removeCustomerDetail(index) {
@@ -118,6 +159,7 @@ export class KararnamaComponent implements OnInit {
                     offerLetterPath.initialInformation = JSON.stringify(this.form.value);
                 }
             });
+            this.addCustomerDetail();
         } else {
             const offerLetter = new OfferLetter();
             offerLetter.id = this.offerLetterTypeId;
@@ -184,7 +226,7 @@ export class KararnamaComponent implements OnInit {
                             grandFatherName: [data.grandFatherName],
                             fatherName: [data.fatherName],
                             district: [data.district],
-                            municipality: [data.municipality],
+                            municipality: [data.district],
                             wardNo: [data.wardNo],
                             currentDistrict: [data.currentDistrict],
                             currentMunicipality: [data.currentMunicipality],
@@ -193,7 +235,7 @@ export class KararnamaComponent implements OnInit {
                             customerName: [data.customerName],
                             citizenIssuedDistrict: [data.citizenIssuedDistrict],
                             citizenshipNo: [data.citizenshipNo],
-                            citizenShipIssuedDate: [data.citizenShipIssuedDate],
+                            citizenShipIssuedDate: [data.citizenshipIssuedDate],
                             ministryName: [data.ministryName],
                             departmentName: [data.departmentName],
                             governmentOfficeName: [data.governmentOfficeName],
@@ -219,5 +261,37 @@ export class KararnamaComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Offer Letter'));
             });
         }
+
+    }
+
+    setCustomer() {
+        const date = new Date(this.customerInfo.dob);
+        const datepick = date.getFullYear();
+        const currentdate = new Date(Date.now()).getFullYear();
+        this.customerInformation.customerName = this.customerInfo.customerName;
+        this.customerInformation.district = this.customerInfo.district;
+        this.customerInformation.municipality = this.customerInfo.municipalities;
+        this.customerInformation.wardNo = this.customerInfo.wardNumber;
+        this.customerInformation.fatherName = this.customers.fatherName;
+        this.customerInformation.grandFatherName = this.customers.grandfatherName;
+        this.customerInformation.citizenIssuedDistrict = this.customers.citizenshipIssuedDistrict;
+        this.customerInformation.citizenshipIssuedDate = this.customerInfo.citizenshipIssuedDate;
+        this.customerInformation.citizenshipNo = this.customerInfo.citizenshipNumber;
+        this.customerInformation.registrationDate = this.customers.businessRegdDate;
+        this.customerInformation.customerAge = currentdate - datepick;
+        this.customerInformation.currentDistrict = this.application.tempDistrict;
+        this.customerInformation.currentMunicipality = this.application.tempMunicipality;
+        this.customerInformation.currentWardNo = this.application.tempWardNo;
+        this.customerDetails.loanAmount = this.customerData.loanAmount;
+        this.customerDetails.loanAmountInWord = this.customerData.loanAmountInWord;
+        const formArray = this.form.controls['customerDetail'] as FormArray;
+        this.form.valueChanges.subscribe(() => {
+            this.form.patchValue(this.customerDetails, {emitEvent: false});
+    });
+        this.arr.push(this.customerInformation);
+
+        formArray.patchValue(this.arr);
+        console.log('Form Array', this.arr);
+        console.log('form value', formArray);
     }
 }

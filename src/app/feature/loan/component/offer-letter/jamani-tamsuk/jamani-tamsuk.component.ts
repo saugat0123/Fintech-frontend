@@ -123,7 +123,6 @@ export class JamaniTamsukComponent implements OnInit {
     submit(): void {
         this.spinner = true;
         this.info = this.form.value;
-        this.logger(this.info);
         this.customerOfferLetter.docStatus = DocStatus.PENDING;
         const customerLoan = new LoanDataHolder();
         customerLoan.id = this.customerId;
@@ -162,9 +161,5 @@ export class JamaniTamsukComponent implements OnInit {
             this.spinner = false;
         });
 
-    }
-
-    logger(val) {
-        console.log(val);
     }
 }
