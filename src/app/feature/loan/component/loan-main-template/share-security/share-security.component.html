@@ -2,100 +2,123 @@
   <ng-container>
     <div class="tab-pane fade active show">
       <div class="form-group">
-      <div class="row">
-        <div class="col-md-12">
-          <nb-card>
-            <nb-card-header>
-              <h6 class="box-title title">Details of security offered and valuation amount</h6>
-           </nb-card-header>
-            <nb-card-body>
+        <div class="row">
+          <div class="col-md-12">
+            <nb-card>
+              <nb-card-header>
+                <h6 class="box-title title">Details of security offered and valuation amount</h6>
+              </nb-card-header>
+              <nb-card-body>
                 <div class="row">
                   <div class="col-md-3">
                     <label for="promoter"><b>Loan Promoter Percent</b></label>
-                    <input class="form-control" id="promoter" [(ngModel)]="savedActiveNepseMaster.promoter" disabled>
+                    <input [(ngModel)]="savedActiveNepseMaster.promoter" class="form-control"
+                           disabled id="promoter">
                   </div>
 
                   <div class="col-md-3">
                     <label for="ordinary"><b>Loan Ordinary Percent</b></label>
-                    <input class="form-control" id="ordinary" [(ngModel)]="savedActiveNepseMaster.ordinary"  disabled>
+                    <input [(ngModel)]="savedActiveNepseMaster.ordinary" class="form-control"
+                           disabled id="ordinary">
                   </div>
                 </div>
-              <br>
+                <br>
                 <form [formGroup]="shareSecurityForm">
-                <div *ngFor="let shareField of shareSecurityForm.get('shareField')['controls'];  let shareFieldIndex = index" formArrayName="shareField">
-                  <div [formGroupName]="shareFieldIndex">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                    <label for="companyName">Select Company Name :: Company Code</label>
-                <select formControlName="companyName" class="custom-select" id="companyName" name="companyName" (change)="setShareValueByCompany(shareFieldIndex)">
-                  <option [value]="null" selected disabled>--Select Company Name--</option>
-                    <option *ngFor="let nepse of nepseList" value="{{nepse.companyName }}">{{nepse.companyName}} :: {{nepse.companyCode}}</option>
-                </select></div>
-                </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                    <label for="shareType">Select Share Type</label>
-                      <input type="text" formControlName="shareType" class="form-control" id="shareType" name="shareType" readonly>
-                  </div>
-                  </div>
-              </div>
-                <div class="row">
-                  <div class="col-md-3">
-                    <div class="form-group">
-                    <label for="totalShareUnit">Number of Share Unit</label>
-                    <input #totalShareUnit formControlName="totalShareUnit" name="totalShareUnit" type="number" id="totalShareUnit" class="form-control"  (change)="calculateShareFieldsValues(totalShareUnit.value , shareFieldIndex)">
-                  </div>
-                  </div>
-
-                  <div class="col-md-3">
-                    <div class="form-group">
-                    <label for="shareRate">Rate of Each Unit</label>
-                    <input formControlName="amountPerUnit" name="shareRate" type="number" id="shareRate" class="form-control" readonly (change)="calculateShareFieldsValues(totalShareUnit.value , shareFieldIndex)">
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label for="total">Total</label>
-                      <input formControlName="total" name="total" id="total" class="form-control" type="number" readonly>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label for="consideredValue">Considered Value</label>
-                      <input formControlName="consideredValue" name="total" id="consideredValue" class="form-control" readonly>
+                  <div
+                      *ngFor="let shareField of shareSecurityForm.get('shareField')['controls'];  let shareFieldIndex = index"
+                      formArrayName="shareField">
+                    <div [formGroupName]="shareFieldIndex">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="companyName">Select Company Name :: Company Code</label>
+                            <select (change)="setShareValueByCompany(shareFieldIndex)" class="custom-select"
+                                    formControlName="companyName" id="companyName"
+                                    name="companyName">
+                              <option [value]="null" disabled selected>--Select Company Name--
+                              </option>
+                              <option *ngFor="let nepse of nepseList"
+                                      value="{{nepse.companyName }}">{{nepse.companyName}}
+                                :: {{nepse.companyCode}}</option>
+                            </select></div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="shareType">Select Share Type</label>
+                            <input class="form-control" formControlName="shareType" id="shareType"
+                                   name="shareType" readonly type="text">
+                          </div>
+                        </div>
                       </div>
-                  </div>
-                </div>
-                    <div class="float-right" *ngIf="shareFieldIndex>0">
-                      <button (click)="removeShareList(shareFieldIndex)"
-                              class="btn btn-sm btn-flat btn-danger">
-                        <em class="fa fa-trash bg-transparent"></em>
-                      </button>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label for="totalShareUnit">Number of Share Unit</label>
+                            <input #totalShareUnit (change)="calculateShareFieldsValues(totalShareUnit.value , shareFieldIndex)"
+                                   class="form-control" formControlName="totalShareUnit" id="totalShareUnit"
+                                   name="totalShareUnit"
+                                   type="number">
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label for="shareRate">Rate of Each Unit</label>
+                            <input (change)="calculateShareFieldsValues(totalShareUnit.value , shareFieldIndex)" class="form-control" formControlName="amountPerUnit"
+                                   id="shareRate" name="shareRate" readonly
+                                   type="number">
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label for="total">Total</label>
+                            <input class="form-control" formControlName="total" id="total"
+                                   name="total" readonly type="number">
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label for="consideredValue">Considered Value</label>
+                            <input class="form-control" formControlName="consideredValue"
+                                   id="consideredValue" name="total" readonly>
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="shareSecurityForm.get('shareField')['length'] > 1"
+                           class="d-flex justify-content-sm-end">
+                        <button (click)="removeShareList(shareFieldIndex)"
+                                class="btn btn-sm btn-flat btn-danger">
+                          <em class="fa fa-trash bg-transparent"></em>
+                        </button>
+                      </div>
+                      <hr/>
                     </div>
-                </div>
-                </div>
-                  <div class="float-right">
-                      <button (click)="addShareList()" class="btn btn-sm btn-flat btn-primary"><i
-                              class="fa fa-plus"></i></button>
                   </div>
-              </form>
-            </nb-card-body>
-          </nb-card>
+                  <div class="d-flex justify-content-end">
+                    <p class="font-weight-bolder">Total Considered
+                      Value: {{totalConsideredValue}}</p>
+                  </div>
+                  <div class="d-flex justify-content-end">
+                    <button (click)="addShareList()" class="btn btn-sm btn-flat btn-primary"><i
+                        class="fa fa-plus"></i></button>
+                  </div>
+                </form>
+              </nb-card-body>
+            </nb-card>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   </ng-container>
 </nb-card>
 <nb-card>
-    <nb-card-body>
-        <div class="row">
-            <div class="col-md-12">
-              <label for="securityOffered">Description/Details of secuirty offered</label>
-                    <textarea [(ngModel)]="securityOffered" class="form-control text-area" id="securityOffered"
-                              name="securityOffered">{{securityOffered}}</textarea>
-            </div>
-        </div>
-    </nb-card-body>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-md-12">
+        <label for="securityOffered">Description/Details of secuirty offered</label>
+        <textarea [(ngModel)]="securityOffered" class="form-control text-area" id="securityOffered"
+                  name="securityOffered">{{securityOffered}}</textarea>
+      </div>
+    </div>
+  </nb-card-body>
 </nb-card>

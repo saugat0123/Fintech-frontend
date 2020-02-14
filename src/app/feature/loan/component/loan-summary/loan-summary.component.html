@@ -5,8 +5,10 @@
                        [catalogueStatus]="catalogueStatus"
                        [id]="customerId"
                        [limitExceed]="loanDataHolder.limitExceed"
+                       [loanRemarks]="loanDataHolder?.loanRemarks"
                        [loanCategory]="loanCategory"
                        [loanConfigId]="loanConfigId"
+                       [lowProposedLimit]="loanDataHolder?.lowProposedLimit"
       ></app-loan-action>
     </nb-card-header>
     <nb-card-body id="print-block">
