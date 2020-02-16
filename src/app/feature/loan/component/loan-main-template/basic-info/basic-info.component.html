@@ -26,7 +26,7 @@
                     </div>
                     <div *ngIf="customerDetailField.showFormField" class="offset-5 col-md-3">
                         <label></label>
-                        <button (click)="checkCustomer()" class="mt-2 ml-lg-5" nbButton outline size="medium"
+                        <button (click)="checkCustomer()" nbButton size="medium" outline class="mt-2 ml-lg-5"
                                 status="info">Customer Association
                         </button>
                     </div>
@@ -212,8 +212,7 @@
                                    placeholder="8 alpha numeric customer ID" type="text">
                             <div *ngIf="(submitted) && basicInfoControls.customerId.invalid"
                                  class="invalid-feedback">
-                                <div *ngIf="basicInfoControls.citizenshipNumber.errors.required">Citizenship number is
-                                    required
+                                <div *ngIf="basicInfoControls.customerId.errors.required">Customer ID is required
                                 </div>
                             </div>
                         </div>

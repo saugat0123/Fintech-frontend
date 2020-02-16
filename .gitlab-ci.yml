@@ -8,7 +8,7 @@ build:
   script:
 #    - rm ./package-lock.json
     - npm install --quiet
-    - ./node_modules/@angular/cli/bin/ng build --prod
+    - node --max_old_space_size=8192  ./node_modules/@angular/cli/bin/ng build --prod
   artifacts:
     paths:
       - dist/
