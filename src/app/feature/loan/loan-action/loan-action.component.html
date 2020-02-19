@@ -125,7 +125,7 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button (click)="onSubmit(verify)" class="btn btn-primary" type="button"><i
+                    <button [disabled]="formAction.invalid" (click)="onSubmit(verify)" class="btn btn-primary" type="button"><i
                             class="fa fa-save"></i>
                     </button>
                 </div>
