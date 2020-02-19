@@ -283,10 +283,6 @@ export class LoanActionComponent implements OnInit {
 
     }
 
-    /*print() {
-        window.print();
-    }*/
-
     generateOfferLetter(templateUrl) {
         this.route.navigate([templateUrl], {queryParams: {customerId: this.id}});
     }
