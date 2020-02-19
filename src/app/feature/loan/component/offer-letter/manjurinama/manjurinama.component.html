@@ -1,7 +1,9 @@
 <div class="row" [nbSpinner]="spinner">
-    <div class="col-md-12" style="overflow-y: auto;height:500px">
-        <form (ngSubmit)="submit()" [formGroup]="formgroup" class="nep">
-            <div class="row form-group">
+            <div class="col-md-12 viewFull" id="{{offerLetterConst.MANJURINAMA}}"
+                 style="overflow-y: auto;height:500px">
+                <form (ngSubmit)="submit()" [formGroup]="formgroup" class="nep viewFull">
+                    <div class="text-center">
+                    <div class="row form-group">
                 <div class="col-md-12">
                     श्रीमान कार्यालय प्रमूख ज्यू
                     <div class="row">
@@ -114,7 +116,8 @@
                     <button nbButton status="success" type="submit">Save</button>
                 </div>
             </div>
-        </form>
+                    </div>
+                </form>
     </div>
 </div>
 <div class="col-md-12">
