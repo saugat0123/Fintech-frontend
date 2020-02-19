@@ -172,9 +172,6 @@ export class LoanActionComponent implements OnInit {
     }
 
     onSubmit(templateLogin) {
-        if (this.popUpTitle === 'Send Forward') {
-
-        }
         this.falseCredential = false;
         this.submitted = true;
         if (this.formAction.invalid) {
