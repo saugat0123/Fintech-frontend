@@ -37,6 +37,8 @@ export class LoanActionComponent implements OnInit {
     @Input() loanCategory: string;
     @Input() catalogueStatus = false;
     @Input() limitExceed: number;
+    @Input() loanRemarks: string;
+    @Input() lowProposedLimit: boolean;
 
     @Input() actionsList: ActionModel;
     popUpTitle: string;
@@ -110,6 +112,7 @@ export class LoanActionComponent implements OnInit {
     }
 
     sendBackwardList(template, val) {
+        this.changeToRoleValidity(false);
         this.popUpTitle = 'Send Backward';
 
         this.formAction.patchValue({
@@ -136,6 +139,7 @@ export class LoanActionComponent implements OnInit {
     }
 
     sendForwardList(template) {
+        this.changeToRoleValidity(true);
         this.popUpTitle = 'Send Forward';
 
         const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
@@ -154,12 +158,17 @@ export class LoanActionComponent implements OnInit {
                 comment: null
             }
         );
-        if (this.limitExceed !== 0) {
-            this.toastService.show(new Alert(AlertType.INFO, 'LOAN cannot be Forwarded due to insufficient collateral or Security Considered Value'));
-        } else {
-            this.modalService.open(template);
+        if (this.lowProposedLimit) {
+            const parsedRemark = JSON.parse(this.loanRemarks);
+            this.toastService.show(new Alert(AlertType.INFO, parsedRemark.proposedLimit));
+            return;
         }
-
+        if (this.limitExceed !== 0) {
+            const parsedRemark = JSON.parse(this.loanRemarks);
+            this.toastService.show(new Alert(AlertType.INFO, parsedRemark.limitExceed));
+            return;
+        }
+        this.modalService.open(template);
     }
 
     onSubmit(templateLogin) {
@@ -239,6 +248,7 @@ export class LoanActionComponent implements OnInit {
     }
 
     approved(template) {
+        this.changeToRoleValidity(false);
         this.popUpTitle = 'APPROVED';
         this.formAction.patchValue({
                 loanConfigId: this.loanConfigId,
@@ -254,6 +264,7 @@ export class LoanActionComponent implements OnInit {
     }
 
     closeReject(commentTemplate, value) {
+        this.changeToRoleValidity(false);
         this.popUpTitle = value;
         this.modalService.open(commentTemplate);
         let docAction = value;
@@ -275,10 +286,6 @@ export class LoanActionComponent implements OnInit {
 
 
     }
-
-    /*print() {
-        window.print();
-    }*/
 
     generateOfferLetter(templateUrl) {
         this.route.navigate([templateUrl], {queryParams: {customerId: this.id}});
@@ -330,6 +337,11 @@ export class LoanActionComponent implements OnInit {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
         });
+    }
+
+    private changeToRoleValidity(isForward: boolean): void {
+        this.formAction.get('toRole').setValidators(isForward ? [Validators.required] : []);
+        this.formAction.get('toRole').updateValueAndValidity();
     }
 
 }
