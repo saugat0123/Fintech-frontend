@@ -15,7 +15,6 @@ export class BikeKarjaComponent implements OnInit {
   bikeKarjaForm: FormGroup;
   templateIndexInArray: number = undefined;
   initialInfo;
-  bikeKarjaPrint;
 
   constructor(
       private formBuilder: FormBuilder) {
@@ -27,10 +26,8 @@ export class BikeKarjaComponent implements OnInit {
 
   buildBikeKarjaForm(): void {
     this.bikeKarjaForm = this.formBuilder.group({
-    // personal info
       maritalStatus: [undefined],
       gender: [undefined],
-
       date1: [undefined],
       photo: [undefined],
       proposalAmount: [undefined],
@@ -59,9 +56,6 @@ export class BikeKarjaComponent implements OnInit {
       mobileNum: [undefined],
       email: [undefined],
       residencyType: [undefined],
-
-    //  placeholder for basasthan ko prakar
-
       academicQualification: [undefined],
       occupation: [undefined],
       employersName: [undefined],
@@ -84,7 +78,6 @@ export class BikeKarjaComponent implements OnInit {
       incomeTaxCertifiedNum: [undefined],
       montlyKarobar: [undefined],
       businessIncomeMonthly: [undefined],
-
       businessOtherIncome: [undefined],
       homeOwnerName: [undefined],
       homeOwnerPhone: [undefined],
@@ -111,9 +104,6 @@ export class BikeKarjaComponent implements OnInit {
       ac: [undefined],
       vacuumCleaner: [undefined],
       otherItem: [undefined],
-
-      // <!-- बैंक खाताको विवरण -->
-
       bankName: [undefined],
       accountNo: [undefined],
       branch: [undefined],
@@ -146,15 +136,11 @@ export class BikeKarjaComponent implements OnInit {
       recPerAdd4: [undefined],
       recPerPhone4: [undefined],
       recPerMobile4: [undefined],
-
       applicantAddMap: [undefined],
       jamanikartaAddMap: [undefined],
       vehicleMachineModel: [undefined],
       loanAmount2: [undefined],
       aksherepi2: [undefined],
-
-    //  ब्याज दर
-
       interestRate: [undefined],
       yearsFromLoanApproval: [undefined],
       premiumPerMonth: [undefined],
@@ -165,17 +151,12 @@ export class BikeKarjaComponent implements OnInit {
       tdEngineNum: [undefined],
       chasisNum: [undefined],
       color: [undefined],
-
-      /* jamanikartaharu ko information*/
-
       personalJamanikartaName: [undefined],
       sign1: [undefined],
       date2: [undefined],
       personalJamanikartaName2: [undefined],
       sign2: [undefined],
       date3: [undefined],
-
-    //  ghosana section
       applicantSign: [undefined],
       applicantName: [undefined],
       sign3: [undefined],
@@ -183,7 +164,6 @@ export class BikeKarjaComponent implements OnInit {
       preparedBy: [undefined],
       preparedDate: [undefined],
       approvedBy: [undefined],
-
     });
 
     // In case of edit
