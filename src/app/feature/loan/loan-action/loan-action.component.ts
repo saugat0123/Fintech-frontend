@@ -22,6 +22,7 @@ import {DocAction} from '../model/docAction';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {ApprovalRoleHierarchyService} from '../approval/approval-role-hierarchy.service';
+import {LoanLimitFlag} from './model/loan-limit-flag';
 
 
 @Component({
@@ -36,9 +37,7 @@ export class LoanActionComponent implements OnInit {
     @Input() id: number;
     @Input() loanCategory: string;
     @Input() catalogueStatus = false;
-    @Input() limitExceed: number;
-    @Input() loanRemarks: string;
-    @Input() lowProposedLimit: boolean;
+    @Input() loanLimitFlag: LoanLimitFlag;
 
     @Input() actionsList: ActionModel;
     popUpTitle: string;
@@ -158,13 +157,13 @@ export class LoanActionComponent implements OnInit {
                 comment: null
             }
         );
-        if (this.lowProposedLimit) {
-            const parsedRemark = JSON.parse(this.loanRemarks);
+        if (this.loanLimitFlag.lowProposedLimit) {
+            const parsedRemark = JSON.parse(this.loanLimitFlag.loanRemarks);
             this.toastService.show(new Alert(AlertType.INFO, parsedRemark.proposedLimit));
             return;
         }
-        if (this.limitExceed !== 0) {
-            const parsedRemark = JSON.parse(this.loanRemarks);
+        if (this.loanLimitFlag.limitExceed !== 0) {
+            const parsedRemark = JSON.parse(this.loanLimitFlag.loanRemarks);
             this.toastService.show(new Alert(AlertType.INFO, parsedRemark.limitExceed));
             return;
         }
