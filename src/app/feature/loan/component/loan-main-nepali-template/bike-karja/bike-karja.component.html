@@ -142,7 +142,8 @@
             </div>
             <div class="col form-group form-inline">
                 <textarea class="form-control ml-3 mr-1 nepaliFont" rows="2"
-                          formControlName="other"></textarea> अन्य भए उल्लेख गर्ने
+                          formControlName="other">
+                </textarea> अन्य भए उल्लेख गर्ने
             </div>
         </div>
         <div class="row">
@@ -487,34 +488,25 @@
         <h3>३. घरायसी सामानको विवरणः</h3>
         <div class="form-check">
             <input class="form-check-input" type="checkbox"
-                   formControlName="householdUtensilInfo"
-                   name="घरायसी सामानको विवरण" id="op1"
-                   value="कलर टि.भि."> कलर टि.भि. <br>
-            <input class="form-check-input" formControlName="householdUtensilInfo"
-                   type="checkbox" id="op2" value="फ्रिज"> फ्रिज <br>
-            <input class="form-check-input" formControlName="householdUtensilInfo"
-                   type="checkbox" id="op3" value="वासिङ्ग मेसिन"> वासिङ्ग मेसिन
-            <br>
-            <input class="form-check-input" formControlName="householdUtensilInfo"
-                   type="checkbox" id="op4" value="अडियो सि.डि. प्लेयर">
-            अडियो सि.डि. प्लेयर <br>
-            <input class="form-check-input" formControlName="householdUtensilInfo"
-                   type="checkbox" id="op5" value="माइक्रो ओभन"> माइक्रो ओभन
-            <br>
-            <input class="form-check-input" formControlName="householdUtensilInfo"
-                   type="checkbox" id="op6" value="कम्प्युटर"> कम्प्युटर <br>
-            <input class="form-check-input" formControlName="householdUtensilInfo"
-                   type="checkbox" id="op7" value="ए.सी."> ए.सी. <br>
-            <input class="form-check-input" formControlName="householdUtensilInfo"
-                   type="checkbox" id="op8" value="भ्याकुम क्लिनर"> भ्याकुम क्लिनर
-            <br>
-            <input class="form-check-input" formControlName="householdUtensilInfo"
-                   type="checkbox"
-                   name="घरायसी सामानको विवरण" id="op9" value="अन्य">
+                   formControlName="colorTv"> कलर टि.भि. <br>
+            <input class="form-check-input" formControlName="refrigerator"
+                   type="checkbox"> फ्रिज <br>
+            <input class="form-check-input" formControlName="washingMachine"
+                   type="checkbox"> वासिङ्ग मेसिन <br>
+            <input class="form-check-input" formControlName="audioCdPlayer"
+                   type="checkbox"> अडियो सि.डि. प्लेयर <br>
+            <input class="form-check-input" formControlName="microOven"
+                   type="checkbox"> माइक्रो ओभन <br>
+            <input class="form-check-input" formControlName="computer"
+                   type="checkbox"> कम्प्युटर <br>
+            <input class="form-check-input" formControlName="ac"
+                   type="checkbox"> ए.सी. <br>
+            <input class="form-check-input" formControlName="vacuumCleaner"
+                   type="checkbox"> भ्याकुम क्लिनर <br><br>
+
             <div class="form-group form-inline">
-                अन्य <input class="form-control ml-2 nepaliFont"
-                            formControlName="householdUtensilInfo"
-                            type="text" name="अन्य">
+                अन्य: <input class="col-md-6 form-control ml-2 nepaliFont"
+                            formControlName="otherItem">
             </div>
             <br>
         </div>
