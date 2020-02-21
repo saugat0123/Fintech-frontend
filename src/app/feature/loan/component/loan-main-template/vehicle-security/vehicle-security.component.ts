@@ -100,18 +100,19 @@ export class VehicleSecurityComponent implements OnInit {
   onSubmit(): void {
     if (!ObjectUtil.isEmpty(this.vehicleSecurityValue)) {
       this.vehicleSecurity = this.vehicleSecurityValue;
-      this.vehicleSecurity.valuatorList = new Array<VehicleSecurityValuator>();
-      const formArray = this.vehicleSecurityForm.get('vehicleSecurityDetails') as FormArray;
-      formArray['controls'].forEach(c => {
-        const vehicleSecurityValuator = c.value;
-        const valuator = new Valuator();
+    }
+    this.vehicleSecurity.valuatorList = new Array<VehicleSecurityValuator>();
+    const formArray = this.vehicleSecurityForm.get('vehicleSecurityDetails') as FormArray;
+    formArray['controls'].forEach(c => {
+      const vehicleSecurityValuator = c.value;
+      let valuator: Valuator = null;
+      if (!ObjectUtil.isEmpty(c.get('valuator').value)) {
+        valuator = new Valuator();
         valuator.id = c.get('valuator').value;
         vehicleSecurityValuator.valuator = valuator;
-        if (!ObjectUtil.isEmpty(valuator.id)) {
-          this.vehicleSecurity.valuatorList.push(vehicleSecurityValuator);
-        }
-      });
-    }
+      }
+      this.vehicleSecurity.valuatorList.push(vehicleSecurityValuator);
+    });
   }
 
 }
