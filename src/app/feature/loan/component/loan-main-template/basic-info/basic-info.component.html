@@ -206,10 +206,10 @@
                         <div class="form-group">
                             <label for="customerId"><strong>Customer ID</strong></label>
                             <input
-                                   [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerId.errors }"
-                                   class="form-control" formControlName="customerId"
-                                   id="customerID" name="customerId"
-                                   placeholder="8 alpha numeric customer ID" type="text">
+                                [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerId.errors }"
+                                class="form-control" formControlName="customerId"
+                                id="customerID" name="customerId"
+                                placeholder="8 alpha numeric customer ID" type="text">
                             <div *ngIf="(submitted) && basicInfoControls.customerId.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.customerId.errors.required">Customer ID is required
@@ -285,6 +285,8 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div *ngIf="customerDetailField.showFormField">
                     <div *ngFor="let relatives of basicInfo.get('customerRelatives')['controls']; let i = index"
                          formArrayName="customerRelatives">
                         <div [formGroupName]="i">
