@@ -6,4 +6,8 @@ export class ObjectUtil {
   public static setUndefinedIfNull(input: any): any {
     return this.isEmpty(input) ? undefined : input;
   }
+
+  public static setInputOrElseNext(input: any, next: any): any {
+    return this.isEmpty(input) ? next : input;
+  }
 }
