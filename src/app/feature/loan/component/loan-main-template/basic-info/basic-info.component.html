@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="citizenshipNumber"><strong>Customer Search From Citizenship Number</strong></label>
+                            <label for="citizenshipNumber"><strong>Citizenship Number</strong></label>
                             <div class="input-group mb-3">
                                 <input (change)="searchByCustomerCitizen()"
                                        [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipNumber.errors }"
@@ -198,21 +198,6 @@
                                  class="invalid-feedback">
                                 <div *ngIf="basicInfoControls.contactNumber.errors.required">
                                     Contact Number number is required
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="customerId"><strong>Customer ID</strong></label>
-                            <input
-                                [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerId.errors }"
-                                class="form-control" formControlName="customerId"
-                                id="customerID" name="customerId"
-                                placeholder="8 alpha numeric customer ID" type="text">
-                            <div *ngIf="(submitted) && basicInfoControls.customerId.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="basicInfoControls.customerId.errors.required">Customer ID is required
                                 </div>
                             </div>
                         </div>
