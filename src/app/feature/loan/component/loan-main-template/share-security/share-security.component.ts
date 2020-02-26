@@ -2,11 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NepseService} from '../../../../admin/component/nepse/nepse.service';
 import {Nepse} from '../../../../admin/modal/nepse';
-import {ShareType} from '../../../model/ShareType';
 import {ShareSecurity} from '../../../../admin/modal/shareSecurity';
 import {CustomerShareData} from '../../../../admin/modal/CustomerShareData';
 import {NepseMaster} from '../../../../admin/modal/NepseMaster';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {ShareType} from '../../../model/ShareType';
 
 @Component({
   selector: 'app-share-security',
@@ -14,15 +14,10 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
   styleUrls: ['./share-security.component.scss']
 })
 export class ShareSecurityComponent implements OnInit {
-  @Input()
-  shareSecurity: ShareSecurity;
-    securityOffered: string;
-  shareSecurityForm: FormGroup;
+  @Input() shareSecurity: ShareSecurity;
+  form: FormGroup;
   shareType = ShareType;
-  shareDataForEdit = [];
-    customerShareData: Array<CustomerShareData> = new Array<CustomerShareData>();
-    activeNepseMaster: NepseMaster = new NepseMaster();
-    savedActiveNepseMaster: NepseMaster = new NepseMaster();
+  activeNepseMaster: NepseMaster = new NepseMaster();
   nepseList: Array<Nepse> = new Array<Nepse>();
   shareSecurityData: ShareSecurity = new ShareSecurity();
   search: any = {
@@ -30,149 +25,171 @@ export class ShareSecurityComponent implements OnInit {
     shareType: undefined,
     companyName: undefined
   };
+  submitted = false;
 
   constructor(
       private formBuilder: FormBuilder,
-      private  shareService: NepseService) {
+      private  shareService: NepseService
+  ) {
+  }
+
+  get shareField() {
+    return this.form.get('shareField') as FormArray;
   }
 
   get totalConsideredValue() {
     let total = 0;
-    const array = this.shareSecurityForm.get('shareField') as FormArray;
-    array.controls.forEach(c => total += Number(c.get('consideredValue').value));
+    this.shareField.controls.forEach(c => total += Number(c.get('consideredValue').value));
     return total;
   }
 
   ngOnInit() {
-    this.buildForm();
     this.findActiveShareRate();
-    if (!ObjectUtil.isEmpty(this.shareSecurity)) {
-        const shareSecurityAllData = JSON.parse(this.shareSecurity.data);
+    this.buildForm();
+    this.shareService.findAllNepseCompanyData(this.search).subscribe((list) => {
+      this.nepseList = list.detail;
+      // Important: Push the form only after nepse list is subscribed.
+      if (ObjectUtil.isEmpty(this.shareSecurity)) {
+        this.addShareList(new CustomerShareData());
+      } else {
         this.shareSecurityData.id = this.shareSecurity.id;
         this.shareSecurityData.version = this.shareSecurity.version;
-        this.shareDataForEdit = shareSecurityAllData.shareField;
-        this.customerShareData = this.shareSecurity.customerShareData;
-        this.securityOffered = shareSecurityAllData.securityOffered;
-        this.savedActiveNepseMaster = shareSecurityAllData.loanShareRate;
-      this.setShareData();
-    } else {
-      this.addShareList();
-    }
-    this.getNepseData();
+        this.shareSecurity.customerShareData.forEach(v => this.addShareList(v));
+      }
+    });
   }
 
-  onSubmit() {
-      const mergedData = {
-          shareField: this.shareSecurityForm.value.shareField,
-        securityOffered: this.securityOffered,
-        loanShareRate: this.savedActiveNepseMaster
-      };
-      this.shareSecurityData.data = JSON.stringify(mergedData);
-      this.shareSecurityData.customerShareData = this.patchFormDataForSave();
+  public onSubmit(): void {
+    this.form.get('loanShareRate').setValue(this.activeNepseMaster);
+    this.shareSecurityData.data = JSON.stringify(this.form.value);
+    this.shareSecurityData.customerShareData = this.getShareDataList();
   }
 
-  buildForm() {
-    this.shareSecurityForm = this.formBuilder.group({shareField: this.formBuilder.array([])});
-  }
-
-  addShareList() {
-    (this.shareSecurityForm.get('shareField') as FormArray).push(
-        this.formBuilder.group(
-            {
-              companyName: [undefined, Validators.required],
-              shareType: [undefined, Validators.required],
-              totalShareUnit: [0, Validators.required],
-              amountPerUnit: [0, Validators.required],
-              total: [0, Validators.required],
-              consideredValue: [0, Validators.required],
-              companyCode: [undefined]
-            }
-        )
+  public addShareList(data: CustomerShareData | null): void {
+    data = ObjectUtil.setInputOrElseNext(data, new CustomerShareData());
+    this.shareField.push(
+        this.formBuilder.group({
+          id: [
+            ObjectUtil.setUndefinedIfNull(data.id)
+          ],
+          version: [
+            ObjectUtil.setUndefinedIfNull(data.version)
+          ],
+          companyCode: [
+            ObjectUtil.setUndefinedIfNull(data.companyCode),
+            Validators.required
+          ],
+          companyName: [
+            ObjectUtil.setUndefinedIfNull(data.companyName),
+            Validators.required
+          ],
+          shareType: [
+            ObjectUtil.setUndefinedIfNull(data.shareType),
+            Validators.required
+          ],
+          totalShareUnit: [
+            ObjectUtil.setInputOrElseNext(data.totalShareUnit, 0),
+            Validators.required
+          ],
+          amountPerUnit: [
+            ObjectUtil.setInputOrElseNext(this.calculateAmountPerUnit(data.companyName), 0),
+            Validators.required
+          ],
+          total: [
+            ObjectUtil.setInputOrElseNext(this.calculateTotalShareAmount(data.companyName, data.totalShareUnit), 0),
+            Validators.required
+          ],
+          consideredValue: [
+            ObjectUtil.setInputOrElseNext(
+                this.calculateConsideredAmount(data.totalShareUnit, data.amountPerUnit, data.shareType),
+                0),
+            Validators.required
+          ],
+        })
     );
   }
 
-  setShareData() {
-      let index = 0;
-    this.shareDataForEdit.forEach((data) => {
-      (this.shareSecurityForm.get('shareField') as FormArray).push(
-          this.formBuilder.group({
-              id: [this.customerShareData[index].id],
-              version: [this.customerShareData[index].version],
-                companyName: [data.companyName],
-                shareType: [data.shareType],
-                totalShareUnit: [data.totalShareUnit],
-            amountPerUnit: [data.amountPerUnit],
-                total: [data.total],
-            companyCode: [data.companyCode],
-            consideredValue: [data.consideredValue]
-              }
-          )
-      );
-        index += 1;
-    });
+  public removeShareList(index: number): void {
+    this.shareField.removeAt(index);
   }
 
-  removeShareList(index) {
-    (this.shareSecurityForm.get('shareField') as FormArray).removeAt(index);
-  }
-
-  getNepseData() {
-    this.shareService.findAllNepseCompanyData(this.search).subscribe((list) => {
-      this.nepseList = list.detail;
-    });
-  }
-
-  setShareValueByCompany(index) {
-    const companyName = ((this.shareSecurityForm.get('shareField') as FormArray).at(index).get('companyName').value);
-    const totalShareUnit = (this.shareSecurityForm.get('shareField') as FormArray).at(index).get('totalShareUnit').value;
-    const matchedNepse = this.nepseList.filter(nepse => (nepse.companyName === companyName));
+  public setShareValueByCompany(index: number): void {
+    const companyName = this.shareField.at(index).get('companyName').value;
+    const totalShareUnit = this.shareField.at(index).get('totalShareUnit').value;
+    const matchedNepse = this.nepseList.filter(n => n.companyName === companyName);
     if (matchedNepse) {
-      (this.shareSecurityForm.get('shareField') as FormArray).at(index).patchValue({
-        shareType : matchedNepse[0].shareType,
+      this.shareField.at(index).patchValue({
+        shareType: matchedNepse[0].shareType,
         companyCode: matchedNepse[0].companyCode,
         amountPerUnit: matchedNepse[0].amountPerUnit,
-        total: totalShareUnit ? totalShareUnit * Number(matchedNepse[0].amountPerUnit) : 0,
-        consideredValue: totalShareUnit ? this.calculateConsideredValue(index , matchedNepse[0].shareType) : 0
-      });
-    }
-
-  }
-
-  calculateShareFieldsValues(totalShareUnit , index) {
-    const amountPerUnit = (this.shareSecurityForm.get('shareField') as FormArray).at(index).get('amountPerUnit').value;
-    const shareType = (this.shareSecurityForm.get('shareField') as FormArray).at(index).get('shareType').value;
-    if (totalShareUnit) {
-      (this.shareSecurityForm.get('shareField') as FormArray).at(index).patchValue({
-        total: totalShareUnit * amountPerUnit,
-        consideredValue: this.calculateConsideredValue(index , shareType)
+        total: this.calculateTotalShareAmount(companyName, totalShareUnit),
+        consideredValue: this.calculateConsideredAmount(
+            this.shareField.at(index).get('totalShareUnit').value,
+            this.shareField.at(index).get('amountPerUnit').value,
+            matchedNepse[0].shareType
+        )
       });
     }
   }
 
-    patchFormDataForSave() {
-        const currentFormArray: FormArray = (this.shareSecurityForm.get('shareField') as FormArray);
-        const customerShareDataList: Array<CustomerShareData> = [];
-        for (const c of currentFormArray.controls) {
-            customerShareDataList.push(c.value);
-        }
-        return customerShareDataList;
-    }
-  findActiveShareRate() {
-    this.shareService.getActiveShare().subscribe(value => {
-      if (!ObjectUtil.isEmpty(value.detail)) {
-      this.activeNepseMaster = value.detail;
-      if (this.shareSecurity === undefined) {
-        this.savedActiveNepseMaster = value.detail;
-      }
-      }
+  calculateShareFieldsValues(index: number) {
+    const totalShareUnit = this.shareField.at(index).get('totalShareUnit').value;
+    const amountPerUnit = this.shareField.at(index).get('amountPerUnit').value;
+    const shareType = this.shareField.at(index).get('shareType').value;
+    this.shareField.at(index).patchValue({
+      total: totalShareUnit * amountPerUnit,
+      consideredValue: this.calculateConsideredAmount(totalShareUnit, amountPerUnit, shareType)
     });
   }
 
-  calculateConsideredValue(index , shareType) {
-    const activeNepse = shareType.toString() === ShareType.PROMOTER.toString() ?
-        this.savedActiveNepseMaster.promoter : this.savedActiveNepseMaster.ordinary;
-    const amountPerUnit = (this.shareSecurityForm.get('shareField') as FormArray).at(index).get('amountPerUnit').value;
-    const totalShareUnit = (this.shareSecurityForm.get('shareField') as FormArray).at(index).get('totalShareUnit').value;
+  private calculateAmountPerUnit(companyName: string): number {
+    if (ObjectUtil.isEmpty(companyName)) {
+      return undefined;
+    }
+    const matchedNepse = this.nepseList.filter(n => n.companyName === companyName);
+    return Number(matchedNepse[0].amountPerUnit);
+  }
+
+  private calculateTotalShareAmount(companyName: string, totalShareUnit: number): number {
+    if (ObjectUtil.isEmpty(companyName)) {
+      return undefined;
+    }
+    const matchedNepse = this.nepseList.filter(n => n.companyName === companyName);
+    return totalShareUnit ? totalShareUnit * Number(matchedNepse[0].amountPerUnit) : 0;
+  }
+
+  private calculateConsideredAmount(totalShareUnit: number, amountPerUnit: number, shareType) {
+    if (ObjectUtil.isEmpty(shareType)) {
+      return undefined;
+    }
+    const activeNepse = shareType.toString() === ShareType.PROMOTER.toString()
+        ? this.activeNepseMaster.promoter : this.activeNepseMaster.ordinary;
     return ((totalShareUnit * amountPerUnit) / 100) * activeNepse;
+  }
+
+  private getShareDataList() {
+    const list: Array<CustomerShareData> = [];
+    this.shareField.controls.forEach(c => list.push(c.value));
+    return list;
+  }
+
+  private buildForm() {
+    this.form = this.formBuilder.group({
+      shareField: this.formBuilder.array([]),
+      securityOffered: undefined,
+      loanShareRate: undefined
+    });
+    if (!ObjectUtil.isEmpty(this.shareSecurity)) {
+      const data = JSON.parse(this.shareSecurity.data);
+      this.form.get('securityOffered').setValue(ObjectUtil.setUndefinedIfNull(data.securityOffered));
+    }
+  }
+
+  private findActiveShareRate() {
+    this.shareService.getActiveShare().subscribe(value => {
+      if (!ObjectUtil.isEmpty(value.detail)) {
+        this.activeNepseMaster = value.detail;
+      }
+    });
   }
 }

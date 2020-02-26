@@ -22,8 +22,6 @@ import {DocAction} from '../model/docAction';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {ApprovalRoleHierarchyService} from '../approval/approval-role-hierarchy.service';
-import {LoanLimitFlag} from './model/loan-limit-flag';
-
 
 @Component({
     selector: 'app-loan-action',
@@ -37,7 +35,8 @@ export class LoanActionComponent implements OnInit {
     @Input() id: number;
     @Input() loanCategory: string;
     @Input() catalogueStatus = false;
-    @Input() loanLimitFlag: LoanLimitFlag;
+    @Input() limitExceed: number;
+    @Input() loanRemarks: string;
 
     @Input() actionsList: ActionModel;
     popUpTitle: string;
@@ -157,14 +156,8 @@ export class LoanActionComponent implements OnInit {
                 comment: null
             }
         );
-        if (this.loanLimitFlag.lowProposedLimit) {
-            const parsedRemark = JSON.parse(this.loanLimitFlag.loanRemarks);
-            this.toastService.show(new Alert(AlertType.INFO, parsedRemark.proposedLimit));
-            return;
-        }
-        if (this.loanLimitFlag.limitExceed !== 0) {
-            const parsedRemark = JSON.parse(this.loanLimitFlag.loanRemarks);
-            this.toastService.show(new Alert(AlertType.INFO, parsedRemark.limitExceed));
+        if (this.limitExceed !== 0) {
+            this.toastService.show(new Alert(AlertType.INFO, this.loanRemarks));
             return;
         }
         this.modalService.open(template);
@@ -257,6 +250,10 @@ export class LoanActionComponent implements OnInit {
                 comment: null
             }
         );
+        if (this.limitExceed !== 0) {
+            this.toastService.show(new Alert(AlertType.INFO, this.loanRemarks));
+            return;
+        }
         this.modalService.open(template);
 
 

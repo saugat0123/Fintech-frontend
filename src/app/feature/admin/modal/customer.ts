@@ -5,11 +5,9 @@ import {Province} from './province';
 
 export class Customer {
     id: number;
-    title: string;
     profilePic: string;
     customerName: string;
     dob: Date;
-    customerId: string;
     province: Province;
     district: District;
     municipalities: MunicipalityVdc;
