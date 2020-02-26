@@ -502,6 +502,10 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.vehicleSecurity = this.vehicleSecurity.vehicleSecurity;
         }
         if (name === 'Share Security' && action) {
+            if (this.shareSecurity.form.invalid && this.nextButtonAction) {
+                this.shareSecurity.submitted = true;
+                return true;
+            }
             this.shareSecurity.onSubmit();
             this.loanDocument.shareSecurity = this.shareSecurity.shareSecurityData;
         }

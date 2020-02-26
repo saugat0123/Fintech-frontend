@@ -6,7 +6,8 @@
                        [id]="customerId"
                        [loanCategory]="loanCategory"
                        [loanConfigId]="loanConfigId"
-                       [loanLimitFlag]="loanLimitFlag"
+                       [limitExceed]="loanDataHolder?.limitExceed"
+                       [loanRemarks]="loanDataHolder?.loanRemarks"
       ></app-loan-action>
     </nb-card-header>
     <nb-card-body id="print-block">
