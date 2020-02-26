@@ -137,7 +137,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let model of loanDataHolderList;let i=index"
-
+                [nbPopoverTrigger]="model?.limitExceed ? nbTrigger.HINT : nbTrigger.NOOP"
+                [nbPopover]="model?.loanRemarks"
+                [ngStyle]="{'color': (model.limitExceed === 1) ? 'red': 'auto'}"
                 class="cursor">
                 <td (click)="onClick(model.loan.id,model.id)"
                     *ngIf="this.showBranch">{{model?.branch?.name}}</td>
@@ -148,7 +150,7 @@
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.loan?.name}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">
                     <span
-                            class="d-flex justify-content-end">{{model?.proposal?.proposedLimit | number}}</span>
+                        class="d-flex justify-content-end">{{model?.proposal?.proposedLimit | number}}</span>
                 </td>
                 <td (click)="onClick(model.loan.id,model.id)">{{loanType[model?.loanType]}}</td>
                 <td (click)="onClick(model.loan.id,model.id)">{{model?.documentStatus}}</td>

@@ -22,6 +22,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ProductUtils} from '../../../../feature/admin/service/product-mode.service';
+import {NbTrigger} from '@nebular/theme';
 
 @Component({
     selector: 'app-pendings',
@@ -52,6 +53,7 @@ export class PendingsLoanComponent implements OnInit {
     docStatusMakerList = [];
     showDocStatusList = false;
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+    nbTrigger = NbTrigger;
 
     constructor(
         private service: DmsLoanService,
