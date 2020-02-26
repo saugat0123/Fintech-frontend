@@ -63,5 +63,4 @@ export class LoanDataHolder {
     mawCreditRiskGrading: MawCreditRiskGrading;
     limitExceed: number;
     loanRemarks: string;
-    lowProposedLimit: boolean;
 }

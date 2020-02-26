@@ -26,7 +26,6 @@ import {DocAction} from '../../model/docAction';
 import {DocumentService} from '../../../admin/component/document/document.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
-import {LoanLimitFlag} from '../../loan-action/model/loan-limit-flag';
 
 @Component({
   selector: 'app-loan-summary',
@@ -86,7 +85,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   }[] = [];
   registeredOfferLetters: Array<String> = [];
   sortedList: Array<LoanStage>;
-  loanLimitFlag: LoanLimitFlag;
 
   constructor(
       private userService: UserService,
@@ -152,12 +150,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         (response: any) => {
 
           this.loanDataHolder = response.detail;
-
-          // loan flags
-          this.loanLimitFlag = new LoanLimitFlag();
-          this.loanLimitFlag.loanRemarks = this.loanDataHolder.loanRemarks;
-          this.loanLimitFlag.limitExceed = this.loanDataHolder.limitExceed;
-          this.loanLimitFlag.lowProposedLimit = this.loanDataHolder.lowProposedLimit;
 
           // Setting financial data---
           if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {

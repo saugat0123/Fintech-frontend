@@ -100,7 +100,7 @@ export class CustomerProfileComponent implements OnInit {
             (response: any) => {
                 this.provinceList = response.detail;
                 this.provinceList.forEach((province: Province) => {
-                    if (this.customer !== undefined && this.customer.customerId) {
+                    if (this.customer !== undefined) {
                         if (!ObjectUtil.isEmpty(this.customer.province)) {
                             if (province.id === this.customer.province.id) {
                                 this.basicForm.controls.province.setValue(province);
@@ -185,7 +185,6 @@ export class CustomerProfileComponent implements OnInit {
             id: [this.customer.id === undefined ? undefined : this.customer.id],
             profilePic: [this.customer.profilePic === undefined ? undefined : this.customer.profilePic],
             customerName: [this.customer.customerName === undefined ? undefined : this.customer.customerName, Validators.required],
-            customerId: [this.customer.customerId === undefined ? undefined : this.customer.customerId, Validators.required],
             province: [this.customer.province === null ? undefined : this.customer.province, Validators.required],
             district: [this.customer.district === null ? undefined : this.customer.district, Validators.required],
             municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities, Validators.required],

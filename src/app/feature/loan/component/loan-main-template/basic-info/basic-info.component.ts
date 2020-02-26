@@ -56,9 +56,7 @@ export class BasicInfoComponent implements OnInit {
         this.getProvince();
         this.formMaker();
         if (!ObjectUtil.isEmpty(this.formValue)) {
-            if (this.formValue.customerId !== undefined) {
-                this.customerDetailField.showFormField = true;
-            }
+            this.customerDetailField.showFormField = true;
             this.customer = this.formValue;
             this.formMaker();
             this.setRelatives(this.customer.customerRelatives);
@@ -146,9 +144,7 @@ export class BasicInfoComponent implements OnInit {
     }
 
     onSubmit() {
-        this.customer.title = this.basicInfo.get('title').value;
         this.customer.customerName = this.basicInfo.get('customerName').value;
-        this.customer.customerId = this.basicInfo.get('customerId').value;
         this.customer.province = this.basicInfo.get('province').value;
         this.customer.district = this.basicInfo.get('district').value;
         this.customer.municipalities = this.basicInfo.get('municipalities').value;
@@ -172,7 +168,7 @@ export class BasicInfoComponent implements OnInit {
             (response: any) => {
                 this.provinceList = response.detail;
                 this.provinceList.forEach((province: Province) => {
-                    if (this.customer !== undefined && this.customer.customerId) {
+                    if (this.customer !== undefined) {
                         if (!ObjectUtil.isEmpty(this.customer.province)) {
                             if (province.id === this.customer.province.id) {
                                 this.basicInfo.controls.province.setValue(province);
@@ -187,10 +183,7 @@ export class BasicInfoComponent implements OnInit {
 
     formMaker() {
         this.basicInfo = this.formBuilder.group({
-            // title not used in ui
-            title: [this.customer.title === undefined ? undefined : this.customer.title],
             customerName: [this.customer.customerName === undefined ? undefined : this.customer.customerName, Validators.required],
-            customerId: [this.customer.customerId === undefined ? undefined : this.customer.customerId, Validators.required],
             province: [this.customer.province === null ? undefined : this.customer.province, Validators.required],
             district: [this.customer.district === null ? undefined : this.customer.district, Validators.required],
             municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities, Validators.required],
