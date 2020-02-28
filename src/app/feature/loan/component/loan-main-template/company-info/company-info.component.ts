@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import {ActivatedRoute} from '@angular/router';
 
@@ -22,6 +22,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {CompanyInfoService} from '../../../../admin/service/company-info.service';
 import {ToastService} from '../../../../../@core/utils';
 import {BusinessType} from '../../../../admin/modal/businessType';
+import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.service';
 
 
 @Component({
@@ -31,6 +32,7 @@ import {BusinessType} from '../../../../admin/modal/businessType';
 })
 export class CompanyInfoComponent implements OnInit {
     @Input() formValue: CompanyInfo;
+    @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     companyInfoFormGroup: FormGroup;
     customerId;
@@ -57,6 +59,7 @@ export class CompanyInfoComponent implements OnInit {
     municipalityVdcList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
     addressList: Array<Address> = new Array<Address>();
     businessTypes = BusinessType.enumObject();
+    private isBlackListed: boolean;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -65,7 +68,8 @@ export class CompanyInfoComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private loanFormService: LoanFormService,
         private toastService: ToastService,
-        private companyInfoService: CompanyInfoService
+        private companyInfoService: CompanyInfoService,
+        private blackListService: BlacklistService
     ) {
 
     }
@@ -337,22 +341,33 @@ export class CompanyInfoComponent implements OnInit {
     searchByRegNO() {
         this.companySearch.registrationNumber = this.companyInfoFormGroup.get('registrationNumber').value;
         const regNo = this.companyInfoFormGroup.get('registrationNumber').value;
-            this.companyInfoService.getPaginationWithSearchObject(this.companySearch).subscribe((response: any) => {
-            if (response.detail.content <= 0) {
-                this.companyFormField.isOldCustomer = false;
+        this.blackListService.checkBlacklistByRef(regNo).subscribe((response: any) => {
+            this.isBlackListed = response.detail;
+            this.blackListStatusEmitter.emit(this.isBlackListed);
 
-                this.companyInfo = undefined;
-                this.buildForm();
-                this.companyInfoFormGroup.get('registrationNumber').patchValue(regNo);
-                this.toastService.show(new Alert(AlertType.INFO, 'No company  under given registration number.'));
+            if (this.isBlackListed) {
+                this.companyFormField.showFormField = false;
+                this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Company'));
             } else {
-                this.companyFormField.isOldCustomer = true;
-                this.companyInfo = response.detail.content[0];
-                this.buildForm();
-                this.setCompanyInfo(this.companyInfo);
+                this.companyFormField.showFormField = true;
+                this.companyInfoService.getPaginationWithSearchObject(this.companySearch).subscribe((data: any) => {
+                    if (data.detail.content <= 0) {
+                        this.companyFormField.isOldCustomer = false;
+
+                        this.companyInfo = undefined;
+                        this.buildForm();
+                        this.companyInfoFormGroup.get('registrationNumber').patchValue(regNo);
+                        this.toastService.show(new Alert(AlertType.INFO, 'No company  under given registration number.'));
+                    } else {
+                        this.companyFormField.isOldCustomer = true;
+                        this.companyInfo = data.detail.content[0];
+                        this.buildForm();
+                        this.setCompanyInfo(this.companyInfo);
+                    }
+                }, error => console.error(error));
+                this.companyFormField.showFormField = true;
             }
-        }, error => console.error(error));
-        this.companyFormField.showFormField = true;
+        });
     }
 
     onSubmit() {
