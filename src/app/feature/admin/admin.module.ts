@@ -77,6 +77,8 @@ import {AgmCoreModule} from '@agm/core';
 import {environment} from '../../../environments/environment';
 import {BaseInterestComponent} from './component/base-interest/base-interest.component';
 import {BaseInterestFormComponent} from './component/base-interest/base-interest-form/base-interest-form.component';
+import { BlacklistComponent } from './component/blacklist/blacklist.component';
+import { BlacklistFormComponent } from './component/blacklist/blacklist-form/blacklist-form.component';
 
 @NgModule({
     declarations: [
@@ -140,7 +142,9 @@ import {BaseInterestFormComponent} from './component/base-interest/base-interest
         ShareValueFormComponent,
         ShareListComponent,
         BaseInterestComponent,
-        BaseInterestFormComponent
+        BaseInterestFormComponent,
+        BlacklistComponent,
+        BlacklistFormComponent
 
         // SecurityComponent
     ],
@@ -185,7 +189,8 @@ import {BaseInterestFormComponent} from './component/base-interest/base-interest
         InactiveValuatorCommentComponent,
         UserHistoryComponent,
         ShareValueFormComponent,
-        BaseInterestFormComponent
+        BaseInterestFormComponent,
+        BlacklistFormComponent
     ]
 
 })

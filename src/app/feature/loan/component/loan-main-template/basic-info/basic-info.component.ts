@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
@@ -14,6 +14,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CustomerAssociateComponent} from '../customer-associate/customer-associate.component';
+import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.service';
 
 
 @Component({
@@ -23,6 +24,7 @@ import {CustomerAssociateComponent} from '../customer-associate/customer-associa
 })
 export class BasicInfoComponent implements OnInit {
     @Input() formValue: Customer;
+    @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     basicInfo: FormGroup;
     submitted = false;
@@ -42,13 +44,15 @@ export class BasicInfoComponent implements OnInit {
     districtList: Array<District> = Array<District>();
     municipality: MunicipalityVdc = new MunicipalityVdc();
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    private isBlackListed: boolean;
 
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
         private customerService: CustomerService,
         private toastService: ToastService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private blackListService: BlacklistService
     ) {
     }
 
@@ -115,32 +119,35 @@ export class BasicInfoComponent implements OnInit {
 
     searchByCustomerCitizen() {
         const tempId = this.basicInfo.get('citizenshipNumber').value;
-        this.customerDetailField.showFormField = true;
-        if (tempId) {
-            this.customerSearchData.citizenshipNumber = tempId;
-            this.customerService.getByCustomerByCitizenshipNo(this.customerSearchData.citizenshipNumber).
-            subscribe((customerResponse: any) => {
-                if (customerResponse.detail === undefined) {
-                    this.getProvince();
-                    this.customerDetailField.isOldCustomer = false;
-                    this.toastService.show(new Alert(AlertType.INFO, 'No Customer Found under provided Citizenship No.'));
-                    this.customer = new Customer();
-                    this.customer.citizenshipNumber = tempId;
-                    this.formMaker();
-                    this.createRelativesArray();
-                } else {
-                    this.getProvince();
-                    this.customer = customerResponse.detail;
-                    this.formMaker();
-                    this.setRelatives(this.customer.customerRelatives);
-                }
-            });
-        } else {
-            this.customer = new Customer();
-            this.formMaker();
-            this.createRelativesArray();
-            this.toastService.show(new Alert(AlertType.INFO, 'No Customer Found under provided Customer Citizenship No.'));
-        }
+        this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
+            this.isBlackListed = response.detail;
+            this.blackListStatusEmitter.emit(this.isBlackListed);
+
+            if (this.isBlackListed) {
+                this.customerDetailField.showFormField = false;
+                this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Customer'));
+            } else {
+                this.customerDetailField.showFormField = true;
+                this.customerSearchData.citizenshipNumber = tempId;
+                this.customerService.getByCustomerByCitizenshipNo(this.customerSearchData.citizenshipNumber)
+                    .subscribe((customerResponse: any) => {
+                        if (customerResponse.detail === undefined) {
+                            this.getProvince();
+                            this.customerDetailField.isOldCustomer = false;
+                            this.toastService.show(new Alert(AlertType.INFO, 'No Customer Found under provided Citizenship No.'));
+                            this.customer = new Customer();
+                            this.customer.citizenshipNumber = tempId;
+                            this.formMaker();
+                            this.createRelativesArray();
+                        } else {
+                            this.getProvince();
+                            this.customer = customerResponse.detail;
+                            this.formMaker();
+                            this.setRelatives(this.customer.customerRelatives);
+                        }
+                    });
+            }
+        });
     }
 
     onSubmit() {
