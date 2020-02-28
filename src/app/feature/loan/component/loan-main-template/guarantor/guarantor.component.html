@@ -109,7 +109,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong>Citizenship Number</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('citizenNumber').errors }"
+                                        <input (change)="checkBlackListByCitizenshipNo(guarantorDetails.get('citizenNumber').value, i)"
+                                               [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('citizenNumber').errors }"
                                                class="form-control form-control-sm-error rounded"
                                                formControlName="citizenNumber"
                                                id="citizenNumber"
