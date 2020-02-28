@@ -57,9 +57,9 @@
         <section *ngIf="loanDocument && templateList">
             <ngb-tabset #tabSet="ngbTabset" (tabChange)="tabChange($event, tabSet)">
                 <ngb-tab *ngFor="let allList of templateList; let i = index" [title]="allList.name"
-                         [id]="i.toString(10)">
+                         [id]="i.toString(10)" [disabled]="isBlackListed">
                     <ng-template ngbTabContent *ngIf="allList.name === 'Customer Info'">
-                        <app-basic-info [formValue]="loanDocument?.customerInfo" #basicInfo>
+                        <app-basic-info (blackListStatusEmitter)="getIsBlackListed($event)" [formValue]="loanDocument?.customerInfo" #basicInfo>
                         </app-basic-info>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Kyc Info'">
@@ -70,7 +70,7 @@
                         <app-dms-loan [loanDataHolder]="loanDocument" #dmsLoanFile></app-dms-loan>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Company Info'">
-                        <app-company-info [formValue]="loanDocument?.companyInfo" #companyInfo></app-company-info>
+                        <app-company-info (blackListStatusEmitter)="getIsBlackListed($event)" [formValue]="loanDocument?.companyInfo" #companyInfo></app-company-info>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Proposal'">
                         <app-proposal [formValue]="loadProposal()" #proposalInfo></app-proposal>
@@ -137,7 +137,7 @@
                             </button>
 
                             <button nbButton status="info"
-                                    (click)="save()" *ngIf="nextTabId === totalTabCount" [disabled]="submitDisable">
+                                    (click)="save()" *ngIf="nextTabId === totalTabCount" [disabled]="isBlackListed">
                                 Save
                             </button>
                         </div>

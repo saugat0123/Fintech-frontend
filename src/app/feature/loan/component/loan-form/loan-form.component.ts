@@ -116,6 +116,7 @@ export class LoanFormComponent implements OnInit {
     docStatusMakerList = [];
 
     showDocStatusDropDown = true;
+    isBlackListed = false;
 
     @ViewChild('priorityFormNav', {static: false})
     priorityFormNav: ElementRef;
@@ -565,5 +566,9 @@ export class LoanFormComponent implements OnInit {
                     console.log(dismiss);
                 }
             );
+    }
+
+    getIsBlackListed(isBlackListed: boolean) {
+        this.isBlackListed = isBlackListed;
     }
 }
