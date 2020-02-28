@@ -43,6 +43,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
 import {Customer} from '../../../admin/modal/customer';
 import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
+import {GuarantorComponent} from "../loan-main-template/guarantor/guarantor.component";
 
 @Component({
     selector: 'app-loan-form',
@@ -164,6 +165,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('shareSecurity', {static: false})
     shareSecurity: ShareSecurityComponent;
+
+    @ViewChild('guarantor', {static: false})
+    guarantorComponent: GuarantorComponent;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -496,6 +500,11 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Group' && action) {
             this.group.onSubmit();
             this.loanDocument.group = this.group.modelData;
+        }
+
+        if (name === 'Guarantor' && action) {
+            this.guarantorComponent.onSubmit();
+            this.loanDocument.guarantor = this.guarantorComponent.guarantorDetail;
         }
 
         if (name === 'Vehicle Security' && action) {

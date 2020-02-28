@@ -83,6 +83,7 @@ import { ApplicantFamilyInfoPrintComponent } from './component/loan-main-nepali-
 import { BikeKarjaPrintComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja-print/bike-karja-print.component';
 import { CustomerAssociateComponent } from './component/loan-main-template/customer-associate/customer-associate.component';
 import {CustomerModule} from '../customer/customer.module';
+import {GuarantorComponent} from "./component/loan-main-template/guarantor/guarantor.component";
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -153,7 +154,8 @@ const COMPONENTS = [
     JamaniTamsukLetterPrintComponent,
     ApplicantFamilyInfoPrintComponent,
     BikeKarjaPrintComponent,
-    CustomerAssociateComponent
+    CustomerAssociateComponent,
+    GuarantorComponent
 ];
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,
