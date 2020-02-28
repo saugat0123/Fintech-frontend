@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Province} from '../../../../admin/modal/province';
 import {District} from '../../../../admin/modal/district';
@@ -9,6 +9,8 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 import {GuarantorDetail} from '../../../model/guarantor-detail';
 import {ToastService} from '../../../../../@core/utils';
+import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.service';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 
 @Component({
   selector: 'app-guarantor',
@@ -17,6 +19,7 @@ import {ToastService} from '../../../../../@core/utils';
 })
 export class GuarantorComponent implements OnInit {
   @Input() guarantorDetailValue: GuarantorDetail;
+  @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   form: FormGroup;
   submitted = false;
   guarantorDetail: GuarantorDetail = new GuarantorDetail();
@@ -28,11 +31,13 @@ export class GuarantorComponent implements OnInit {
   municipality: MunicipalityVdc = new MunicipalityVdc();
   municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
   addressList: Array<Address> = new Array<Address>();
+  private isBlackListed: boolean;
 
   constructor(
       private formBuilder: FormBuilder,
       private addressServices: AddressService,
-      private toastService: ToastService
+      private toastService: ToastService,
+      private blackListService: BlacklistService
   ) {
   }
 
@@ -176,6 +181,18 @@ export class GuarantorComponent implements OnInit {
         guarantor.municipalities = municipalityVdc;
       }
       this.guarantorDetail.guarantorList.push(guarantor);
+    });
+  }
+
+  checkBlackListByCitizenshipNo(citizenshipNum, index) {
+    this.blackListService.checkBlacklistByRef(citizenshipNum).subscribe((response: any) => {
+      this.isBlackListed = response.detail;
+      this.blackListStatusEmitter.emit(this.isBlackListed);
+
+      if (this.isBlackListed) {
+        this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Guarantor'));
+        (this.form.get('guarantorDetails') as FormArray).controls[index].reset();
+      }
     });
   }
 }

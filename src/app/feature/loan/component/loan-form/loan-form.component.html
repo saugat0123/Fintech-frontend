@@ -107,7 +107,7 @@
                                               [vehicleSecurityValue]="loanDocument?.vehicleSecurity"></app-vehicle-security>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name == 'Guarantor'">
-                        <app-guarantor #guarantor [guarantorDetailValue]="loanDocument?.guarantor">
+                        <app-guarantor #guarantor (blackListStatusEmitter)="getIsBlackListed($event)" [guarantorDetailValue]="loanDocument?.guarantor">
                         </app-guarantor>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name == 'Share Security'">
