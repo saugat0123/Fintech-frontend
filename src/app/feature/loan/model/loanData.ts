@@ -22,6 +22,7 @@ import {ShareSecurity} from '../../admin/modal/shareSecurity';
 import {VehicleSecurity} from '../../admin/modal/vehicleSecurity';
 import {NepaliTemplateDataHolder} from './nepali-template-data-holder';
 import {MawCreditRiskGrading} from './MawCreditRiskGrading';
+import {GuarantorDetail} from "./guarantor-detail";
 
 export class LoanDataHolder {
     id: number;
@@ -40,6 +41,7 @@ export class LoanDataHolder {
     siteVisit: SiteVisit;
     financial: Financial;
     security: Security;
+    guarantor: GuarantorDetail;
     priority: Priority;
     createdAt: Date;
     previousList: LoanStage[] = [];

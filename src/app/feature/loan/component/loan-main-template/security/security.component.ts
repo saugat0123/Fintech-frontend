@@ -10,8 +10,8 @@ import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
 import {ValuatorService} from '../../../../admin/component/valuator/valuator.service';
 import {Proposal} from '../../../../admin/modal/proposal';
 import {Address} from '../../../model/address';
-import {Guarantors} from '../../../model/guarantors';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {Guarantor} from "../../../model/guarantor";
 
 
 @Component({
@@ -40,7 +40,7 @@ export class SecurityComponent implements OnInit {
     limit: number;
     proposalAllData;
     submitted: false;
-    guarantorsDetails: Guarantors = new Guarantors();
+    guarantorsDetails: Guarantor = new Guarantor();
 
     constructor(
         private formBuilder: FormBuilder ,
@@ -88,7 +88,7 @@ export class SecurityComponent implements OnInit {
         });
     }
 
-    setGuarantorsDetails(guarantorList: Array<Guarantors>): FormArray {
+    setGuarantorsDetails(guarantorList: Array<Guarantor>): FormArray {
         const details = this.guarantorsForm.get('guarantorsDetails') as FormArray;
         this.addressList = new Array<Address>(guarantorList.length);
         let guarantorIndex = 0;
@@ -193,7 +193,7 @@ export class SecurityComponent implements OnInit {
         this.securityData.guarantor = [];
         let guarantorIndex = 0;
         while (guarantorIndex < this.getGuarantor().length) {
-            const guarantor = new Guarantors();
+            const guarantor = new Guarantor();
             guarantor.id = this.getGuarantor()[guarantorIndex].id;
             guarantor.version = this.getGuarantor()[guarantorIndex].version;
             guarantor.name = this.getGuarantor()[guarantorIndex].name;

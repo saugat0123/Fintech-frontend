@@ -1,10 +1,11 @@
-import {Guarantors} from './guarantors';
+import {Guarantor} from "./guarantor";
+
 
 export class Security {
     id: number;
     version: number;
     data: string;
     valuatorId: number;
-    guarantor: Array<Guarantors>;
+    guarantor: Array<Guarantor>;
 
 }
