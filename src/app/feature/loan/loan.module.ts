@@ -83,7 +83,8 @@ import { ApplicantFamilyInfoPrintComponent } from './component/loan-main-nepali-
 import { BikeKarjaPrintComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja-print/bike-karja-print.component';
 import { CustomerAssociateComponent } from './component/loan-main-template/customer-associate/customer-associate.component';
 import {CustomerModule} from '../customer/customer.module';
-import {GuarantorComponent} from "./component/loan-main-template/guarantor/guarantor.component";
+import {GuarantorComponent} from './component/loan-main-template/guarantor/guarantor.component';
+import { InsuranceComponent } from './component/loan-main-template/insurance/insurance.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -168,7 +169,7 @@ const ENTRY_COMPONENTS = [
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS],
+    declarations: [...COMPONENTS, InsuranceComponent],
     imports: [
         ThemeModule,
         CommonModule,

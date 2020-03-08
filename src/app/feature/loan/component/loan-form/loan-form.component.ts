@@ -43,7 +43,8 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
 import {Customer} from '../../../admin/modal/customer';
 import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
-import {GuarantorComponent} from "../loan-main-template/guarantor/guarantor.component";
+import {GuarantorComponent} from '../loan-main-template/guarantor/guarantor.component';
+import {InsuranceComponent} from '../loan-main-template/insurance/insurance.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -168,6 +169,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('guarantor', {static: false})
     guarantorComponent: GuarantorComponent;
+
+    @ViewChild('insurance', {static: false})
+    insuranceComponent: InsuranceComponent;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -378,7 +382,12 @@ export class LoanFormComponent implements OnInit {
                 this.loanDocument = response.detail;
                 this.customerLoanId = this.loanDocument.id;
                 this.loanDocument = new LoanDataHolder();
-                this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}})
+                this.router.navigate(['/home/loan/summary'], {
+                    queryParams: {
+                        loanConfigId: this.id,
+                        customerId: this.customerLoanId
+                    }
+                })
                     .then(() => {
                         this.spinner.hide();
                     });
@@ -519,6 +528,16 @@ export class LoanFormComponent implements OnInit {
             this.shareSecurity.onSubmit();
             this.loanDocument.shareSecurity = this.shareSecurity.shareSecurityData;
         }
+
+        if (name === 'Insurance' && action) {
+            if (this.insuranceComponent.form.invalid && this.nextButtonAction) {
+                this.insuranceComponent.isSubmitted = true;
+                return true;
+            }
+            this.insuranceComponent.submit();
+            this.loanDocument.insurance = this.insuranceComponent.insurance;
+        }
+
         return false;
 
     }

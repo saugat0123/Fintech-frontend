@@ -1,0 +1,63 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <div class="form-group">
+                <label for="insuranceCompany"><strong>Insurance Company</strong></label>
+                <input class="form-control" formControlName="insuranceCompany" id="insuranceCompany"
+                       placeholder="Company Name"
+                       type="text">
+            </div>
+            <div class="row">
+                <div class="col form-group">
+                    <label for="insuredAmount"><strong>Insured Amount</strong></label>
+                    <input class="form-control" formControlName="insuredAmount" id="insuredAmount"
+                           placeholder="12,00,000"
+                           type="text">
+                </div>
+                <div class="col form-group">
+                    <label for="premiumAmount"><strong>Premium Amount</strong></label>
+                    <input class="form-control" formControlName="premiumAmount" id="premiumAmount"
+                           placeholder="12,00,000"
+                           type="text">
+                </div>
+
+                <div class="col form-group">
+                    <label for="issuedDate"><strong>Issued Date</strong></label>
+                    <input [nbDatepicker]="issuedDate"
+                           [ngClass]="{ 'is-invalid': (isSubmitted) && insuranceControls.issuedDate.errors}"
+                           class="form-control" formControlName="issuedDate"
+                           id="issuedDate" placeholder="03/04/2020"
+                           type="text">
+                    <nb-datepicker #issuedDate></nb-datepicker>
+                    <!--<div *ngIf="isSubmitted && insuranceControls.issuedDate.errors"
+                         class="invalid-feedback">
+                        <div *ngIf="insuranceControls.issuedDate.errors.required || insuranceControls.issuedDate.errors.beforeToday">
+                            Invalid issued date
+                        </div>
+                    </div>-->
+                </div>
+                <div class="col form-group">
+                    <label for="expiryDate"><strong>Expiry Date</strong></label>
+                    <input [nbDatepicker]="expiryDate"
+                           [ngClass]="{ 'is-invalid': (isSubmitted) && insuranceControls.expiryDate.errors}"
+                           class="form-control"
+                           formControlName="expiryDate"
+                           id="expiryDate" placeholder="03/04/2021"
+                           type="text">
+                    <nb-datepicker #expiryDate></nb-datepicker>
+               <!--     <div *ngIf="isSubmitted && insuranceControls.expiryDate.errors.required || insuranceControls.expiryDate
+                                .errors.beforeToday">
+                        Invalid expiry date
+                    </div>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="insurancePolicyType"><strong>Insurance Policy Type</strong></label>
+                <textarea class="form-control" formControlName="insurancePolicyType"
+                          id="insurancePolicyType"
+                          rows="4">
+                </textarea>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

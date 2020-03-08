@@ -118,6 +118,11 @@
                         <app-maw-credit-risk-grading #mawCreditRiskGrading [mawCreditRiskGradingData]="loanDocument?.mawCreditRiskGrading">
                         </app-maw-credit-risk-grading>
                     </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name == 'Insurance'">
+                        <app-insurance #insurance [insuranceDataFromModel]="loanDocument?.insurance">
+                        </app-insurance>
+                    </ng-template>
+
                 </ngb-tab>
             </ngb-tabset>
 
