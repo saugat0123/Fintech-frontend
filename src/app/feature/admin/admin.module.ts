@@ -79,6 +79,7 @@ import {BaseInterestComponent} from './component/base-interest/base-interest.com
 import {BaseInterestFormComponent} from './component/base-interest/base-interest-form/base-interest-form.component';
 import { BlacklistComponent } from './component/blacklist/blacklist.component';
 import { BlacklistFormComponent } from './component/blacklist/blacklist-form/blacklist-form.component';
+import { NotificationMasterComponent } from './component/notification-master/notification-master.component';
 
 @NgModule({
     declarations: [
@@ -144,7 +145,8 @@ import { BlacklistFormComponent } from './component/blacklist/blacklist-form/bla
         BaseInterestComponent,
         BaseInterestFormComponent,
         BlacklistComponent,
-        BlacklistFormComponent
+        BlacklistFormComponent,
+        NotificationMasterComponent
 
         // SecurityComponent
     ],

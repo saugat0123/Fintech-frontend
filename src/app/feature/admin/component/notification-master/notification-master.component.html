@@ -1,0 +1,27 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="form-group form-inline">
+                Insurance expiry notification before
+                <select class="form-control custom-select mx-2" formControlName="numOfDays">
+                    <option [value]="15">15</option>
+                    <option [value]="30">30</option>
+                    <option [value]="45" selected>45</option>
+                    <option [value]="60">60</option>
+                </select>
+                days.
+            </div>
+            <div>
+                <p class="text-muted">
+                    Default is <strong>45</strong> days.
+                </p>
+            </div>
+            <div class="ml-3">
+                <button type="submit" class="btn btn-success" (click)="submit()">
+                    Save
+                </button>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
+
