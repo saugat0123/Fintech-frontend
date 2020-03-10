@@ -50,4 +50,8 @@ export class InsuranceComponent implements OnInit {
         this.insurance.expiryDate = this.form.get('expiryDate').value;
         this.insurance.policyType = this.form.get('insurancePolicyType').value;
     }
+
+    returnIssuedDate() {
+        return (new Date(this.form.get('issuedDate').value));
+    }
 }
