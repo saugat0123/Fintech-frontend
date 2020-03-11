@@ -23,6 +23,7 @@ export class GuarantorComponent implements OnInit {
   form: FormGroup;
   submitted = false;
   guarantorDetail: GuarantorDetail = new GuarantorDetail();
+  displayEngDate = true;
 
   province: Province = new Province();
   provinceList: Array<Province> = new Array<Province>();
@@ -194,5 +195,9 @@ export class GuarantorComponent implements OnInit {
         (this.form.get('guarantorDetails') as FormArray).controls[index].reset();
       }
     });
+  }
+
+  showHideNep(value) {
+    this.displayEngDate = value !== 0;
   }
 }

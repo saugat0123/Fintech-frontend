@@ -1,3 +1,14 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-end">
+            <label class="checkbox-inline"><input (click)="selectDate(false)" checked
+                                                  name="nepEngDate"
+                                                  type="radio"><strong>AD</strong></label>
+            <label class="checkbox-inline px-4"><input (click)="selectDate(true)" name="nepEngDate"
+                                                       type="radio"><strong>BS</strong></label>
+        </div>
+    </div>
+</div>
 <div class="form-group">
     <form [formGroup]="securityForm">
         <!--START ROW-->
@@ -15,9 +26,13 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="title" for="valuatedDate">Valuated Date</label>
-                        <input [nbDatepicker]="valuatedDate" class="form-control rounded" formControlName="valuatedDate"
+                        <input *ngIf="englishDateSelected" [nbDatepicker]="valuatedDate" class="form-control rounded" formControlName="valuatedDate"
                                id="valuatedDate"
                                name="valuatedDate" nbInput placeholder="Valuated Date">
+                        <app-calendar
+                            (messageToEmit)="securityForm.get('valuatorDetails').get('valuatedDate').patchValue($event?.eDate)"
+                            *ngIf="!englishDateSelected"
+                            [ePreDate]="securityForm.get('valuatorDetails').get('valuatedDate').value"></app-calendar>
                         <nb-datepicker #valuatedDate></nb-datepicker>
                     </div>
                 </div>

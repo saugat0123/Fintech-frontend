@@ -19,6 +19,7 @@ export class SecurityInitialFormComponent implements OnInit {
     underConstructionChecked = false;
     formDataForEdit: Object;
     valuatorList = [];
+    englishDateSelected = true;
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService ) {
@@ -326,5 +327,8 @@ export class SecurityInitialFormComponent implements OnInit {
     message() {
         const alert = new Alert(AlertType.INFO, 'Enter valid proposal limit to select valuator');
         this.valuatorToast.show(alert);
+    }
+    selectDate(value) {
+        this.englishDateSelected = !value;
     }
 }

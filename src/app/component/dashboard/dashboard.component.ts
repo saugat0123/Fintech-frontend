@@ -111,6 +111,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
 
             this.branchCount = response.detail.branches;
         });
+        this.initCalendar();
     }
 
     selectLoan(template: TemplateRef<any>) {
@@ -139,5 +140,15 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     getLoanData() {
         this.route.navigate(['/home/loan/loanForm'], {queryParams: {loanId: this.loanType, customerId: this.customerId}});
 
+    }
+
+    initCalendar() {
+        const storage = LocalStorageUtil.getStorage();
+        if (!storage.calendar) {
+            this.userService.getCalendar().subscribe((message: any) => {
+                storage.calendar = message;
+                LocalStorageUtil.setStorage(storage);
+            });
+        }
     }
 }

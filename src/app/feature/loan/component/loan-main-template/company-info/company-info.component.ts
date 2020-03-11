@@ -35,6 +35,7 @@ export class CompanyInfoComponent implements OnInit {
     @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     companyInfoFormGroup: FormGroup;
+    englishDateSelected = true;
     customerId;
     submitted = false;
 
@@ -429,6 +430,10 @@ export class CompanyInfoComponent implements OnInit {
             proprietorsIndex++;
             this.companyInfo.proprietorsList.push(proprietors);
         }
+    }
+
+    selectDate(value) {
+        this.englishDateSelected = !value;
     }
 
 }

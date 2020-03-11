@@ -1,5 +1,15 @@
 <nb-card>
     <nb-card-body>
+        <!--    <button (click)="showHideNep()">NepDate</button>-->
+        <div *ngIf="customerDetailField.showFormField" class="col-md-12">
+            <div class="d-flex justify-content-end">
+                <label class="checkbox-inline"><input type="radio" name="nepEngDate"
+                                                      (click)="showHideNep(1)"
+                                                      checked><strong>AD</strong></label>
+                <label class="checkbox-inline px-4"><input type="radio" name="nepEngDate"
+                                                           (click)="showHideNep(0)"><strong>BS</strong></label>
+            </div>
+        </div>
         <div class="form-group">
             <form (ngSubmit)="onSubmit()" [formGroup]="basicInfo" class="form-horizontal">
                 <!-- START ROW -->
@@ -69,12 +79,14 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="dob"><strong>Date of birth</strong></label>
-                            <input [nbDatepicker]="dob"
+                            <input [nbDatepicker]="dob" *ngIf="displayEngDate"
                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.dob.errors }"
                                    class="form-control" formControlName="dob"
                                    id="dob"
                                    name="dob"
                                    placeholder="Customer Date of birth">
+                            <app-calendar [ePreDate]="basicInfo.get('dob').value" *ngIf="!displayEngDate"
+                                          (messageToEmit)="basicInfo.get('dob').patchValue($event?.eDate)"></app-calendar>
                             <nb-datepicker #dob></nb-datepicker>
                             <div *ngIf="submitted && basicInfoControls.dob.errors"
                                  class="invalid-feedback">

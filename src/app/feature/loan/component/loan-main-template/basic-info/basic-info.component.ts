@@ -28,6 +28,7 @@ export class BasicInfoComponent implements OnInit {
 
     basicInfo: FormGroup;
     submitted = false;
+    displayEngDate = true;
 
     customerDetailField = {
         showFormField: false,
@@ -256,5 +257,11 @@ export class BasicInfoComponent implements OnInit {
         } else {
            modalRef.componentInstance.model = this.customer;
         }
+    }
+
+
+    showHideNep(value) {
+        this.displayEngDate = value !== 0;
+
     }
 }

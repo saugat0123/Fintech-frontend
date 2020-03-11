@@ -5,6 +5,12 @@
                 <div>
                     <div class="row">
                         <div class="col-md-12">
+                            <div class="d-flex justify-content-end">
+                                <label class="checkbox-inline"><input checked name="nepEngDate" (click)="selectDate(false)"
+                                                                      type="radio"><strong>AD</strong></label>
+                                <label class="checkbox-inline px-4"><input name="nepEngDate" (click)="selectDate(true)"
+                                                                           type="radio"><strong>BS</strong></label>
+                            </div>
                             <h5>Company Information
                                 <small
                                     *ngIf="companyFormField.isOldCustomer" style="color:red;">
@@ -34,12 +40,15 @@
                         <div *ngIf="companyFormField.showFormField" class="col-md-4">
                             <div class="form-group">
                                 <label for="companyEstablishmentDate"><strong>Establishment Date</strong></label>
-                                <input [nbDatepicker]="establishmentPicker"
+                                <input *ngIf="englishDateSelected" [nbDatepicker]="establishmentPicker"
                                        [ngClass]="{ 'is-invalid':submitted && form.companyEstablishmentDate.errors}"
                                        class="form-control rounded"
                                        formControlName="companyEstablishmentDate"
                                        id="companyEstablishmentDate" placeholder="Enter Establishment Date"
                                        type="text"/>
+                                <app-calendar [ePreDate]="companyInfoFormGroup.get('companyEstablishmentDate').value" *ngIf="!englishDateSelected"
+                                              (messageToEmit)="companyInfoFormGroup.get('companyEstablishmentDate').patchValue($event?.eDate)"></app-calendar>
+
                                 <nb-datepicker #establishmentPicker></nb-datepicker>
                                 <div *ngIf="submitted && form.companyEstablishmentDate.errors"
                                      class="invalid-feedback">

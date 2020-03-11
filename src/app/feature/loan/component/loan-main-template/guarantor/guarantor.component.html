@@ -1,3 +1,12 @@
+<div class="col-md-12">
+    <div class="d-flex justify-content-end">
+        <label class="checkbox-inline"><input type="radio" name="nepEngDate"
+                                              (click)="showHideNep(1)"
+                                              checked><strong>AD</strong></label>
+        <label class="checkbox-inline px-4"><input type="radio" name="nepEngDate"
+                                                   (click)="showHideNep(0)"><strong>BS</strong></label>
+    </div>
+</div>
 <nb-card>
     <nb-card-header><h1>Guarantors Details</h1></nb-card-header>
     <nb-card-body>
@@ -129,6 +138,7 @@
                                     <div class="form-group">
                                         <label><strong>Citizenship Issued Date</strong></label>
                                         <input [nbDatepicker]="issuedYear"
+                                               *ngIf="displayEngDate"
                                                [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('issuedYear').errors }"
                                                class="form-control form-control-sm-error rounded"
                                                formControlName="issuedYear"
@@ -136,6 +146,11 @@
                                                name="citizenIssuedYear"
                                                placeholder="Citizenship Issued Date"
                                                type="text">
+                                        <app-calendar
+                                            [ePreDate]="guarantorDetails.get('issuedYear').value"
+                                            *ngIf="!displayEngDate"
+                                            (messageToEmit)="guarantorDetails.get('issuedYear').patchValue($event?.eDate)"></app-calendar>
+
                                         <nb-datepicker #issuedYear></nb-datepicker>
                                         <div *ngIf="(submitted) && guarantorDetails.get('issuedYear').invalid"
                                              class="invalid-feedback">
@@ -160,7 +175,7 @@
                                                name="citizenIssuedPlace"
                                                placeholder="Citizenship Issued Place"
                                                type="text"/>
-                                        <div *ngIf="(submitted) && guarantorDetails.get('issuedPlace').invalid"
+                                       <div *ngIf="(submitted) && guarantorDetails.get('issuedPlace').invalid"
                                              class="invalid-feedback">
                                             <div *ngIf="guarantorDetails.get('issuedPlace').errors.required">
                                                 Citizenship issued Place is required
