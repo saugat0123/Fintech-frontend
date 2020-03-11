@@ -15,6 +15,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CustomerAssociateComponent} from '../customer-associate/customer-associate.component';
 import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.service';
+import {CalendarType} from '../../../../../@core/model/calendar-type';
 
 
 @Component({
@@ -24,6 +25,7 @@ import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.
 })
 export class BasicInfoComponent implements OnInit {
     @Input() formValue: Customer;
+    @Input() calendarType: CalendarType;
     @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     basicInfo: FormGroup;
@@ -257,11 +259,5 @@ export class BasicInfoComponent implements OnInit {
         } else {
            modalRef.componentInstance.model = this.customer;
         }
-    }
-
-
-    showHideNep(value) {
-        this.displayEngDate = value !== 0;
-
     }
 }

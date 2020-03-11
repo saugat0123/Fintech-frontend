@@ -7,7 +7,7 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 @Component({
-  selector: 'app-calendar',
+  selector: ' app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })

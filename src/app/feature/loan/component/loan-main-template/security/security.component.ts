@@ -11,7 +11,8 @@ import {ValuatorService} from '../../../../admin/component/valuator/valuator.ser
 import {Proposal} from '../../../../admin/modal/proposal';
 import {Address} from '../../../model/address';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
-import {Guarantor} from "../../../model/guarantor";
+import {Guarantor} from '../../../model/guarantor';
+import {CalendarType} from '../../../../../@core/model/calendar-type';
 
 
 @Component({
@@ -22,6 +23,7 @@ import {Guarantor} from "../../../model/guarantor";
 export class SecurityComponent implements OnInit {
     @Input() securityValue: Security;
     @Input() proposalDataHolder: Proposal;
+    @Input() calendarType: CalendarType;
     @ViewChild('initialSecurity' , {static: false})
     initialSecurity: SecurityInitialFormComponent;
     securityData: Security = new Security();

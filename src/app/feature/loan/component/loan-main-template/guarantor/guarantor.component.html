@@ -1,10 +1,10 @@
 <div class="col-md-12">
     <div class="d-flex justify-content-end">
-        <label class="checkbox-inline"><input type="radio" name="nepEngDate"
-                                              (click)="showHideNep(1)"
-                                              checked><strong>AD</strong></label>
-        <label class="checkbox-inline px-4"><input type="radio" name="nepEngDate"
-                                                   (click)="showHideNep(0)"><strong>BS</strong></label>
+        <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
+                        name="guarantorCalendarType">
+            <nb-radio value="AD">AD</nb-radio>
+            <nb-radio value="BS">BS</nb-radio>
+        </nb-radio-group>
     </div>
 </div>
 <nb-card>
@@ -138,7 +138,7 @@
                                     <div class="form-group">
                                         <label><strong>Citizenship Issued Date</strong></label>
                                         <input [nbDatepicker]="issuedYear"
-                                               *ngIf="displayEngDate"
+                                               *ngIf="calendarType === 'AD'"
                                                [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('issuedYear').errors }"
                                                class="form-control form-control-sm-error rounded"
                                                formControlName="issuedYear"
@@ -147,9 +147,9 @@
                                                placeholder="Citizenship Issued Date"
                                                type="text">
                                         <app-calendar
-                                            [ePreDate]="guarantorDetails.get('issuedYear').value"
-                                            *ngIf="!displayEngDate"
-                                            (messageToEmit)="guarantorDetails.get('issuedYear').patchValue($event?.eDate)"></app-calendar>
+                                            [ePreDate]="form.get(['guarantorDetails', i, 'issuedYear']).value"
+                                            *ngIf="calendarType === 'BS'"
+                                            (messageToEmit)="form.get(['guarantorDetails', i, 'issuedYear']).patchValue($event?.eDate)"></app-calendar>
 
                                         <nb-datepicker #issuedYear></nb-datepicker>
                                         <div *ngIf="(submitted) && guarantorDetails.get('issuedYear').invalid"
