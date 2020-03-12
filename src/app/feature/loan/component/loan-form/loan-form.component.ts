@@ -44,6 +44,7 @@ import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder'
 import {Customer} from '../../../admin/modal/customer';
 import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 import {GuarantorComponent} from "../loan-main-template/guarantor/guarantor.component";
+import {CalendarType} from "../../../../@core/model/calendar-type";
 
 @Component({
     selector: 'app-loan-form',
@@ -114,6 +115,8 @@ export class LoanFormComponent implements OnInit {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
     docStatusMakerList = [];
+
+    calendarType: CalendarType = CalendarType.AD;
 
     showDocStatusDropDown = true;
     isBlackListed = false;

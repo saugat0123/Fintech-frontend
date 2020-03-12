@@ -13,6 +13,7 @@ import {DataVisualizationComponent} from '../component/dashboard/data-visualizat
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ApprovalRoleHierarchyComponent} from './loan/approval/approval-role-hierarchy.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {NepaliCalendarModule} from './nepali-calendar/nepali-calendar.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
         NbDatepickerModule.forRoot(),
         ChartModule,
         NgSelectModule,
-        DragDropModule
+        DragDropModule,
+        NepaliCalendarModule
     ],
         declarations: [
             FeatureComponent,

@@ -11,6 +11,7 @@ import {GuarantorDetail} from '../../../model/guarantor-detail';
 import {ToastService} from '../../../../../@core/utils';
 import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.service';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {CalendarType} from '../../../../../@core/model/calendar-type';
 
 @Component({
   selector: 'app-guarantor',
@@ -20,9 +21,11 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 export class GuarantorComponent implements OnInit {
   @Input() guarantorDetailValue: GuarantorDetail;
   @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() calendarType: CalendarType;
   form: FormGroup;
   submitted = false;
   guarantorDetail: GuarantorDetail = new GuarantorDetail();
+  displayEngDate = true;
 
   province: Province = new Province();
   provinceList: Array<Province> = new Array<Province>();
