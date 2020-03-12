@@ -223,10 +223,10 @@ export class BasicInfoComponent implements OnInit {
         relation.forEach((customerRelation) => {
             (this.basicInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
                 customerRelation: [{value: customerRelation, disabled: true}],
-                customerRelativeName: [undefined, Validators.compose([Validators.required])],
-                citizenshipNumber: [undefined, Validators.compose([Validators.required])],
-                citizenshipIssuedPlace: [undefined, Validators.compose([Validators.required])],
-                citizenshipIssuedDate: [undefined, Validators.compose([Validators.required, DateValidator.isValidBefore])]
+                customerRelativeName: [undefined],
+                citizenshipNumber: [undefined],
+                citizenshipIssuedPlace: [undefined],
+                citizenshipIssuedDate: [undefined]
             }));
         });
     }
@@ -239,11 +239,11 @@ export class BasicInfoComponent implements OnInit {
             relativesData.push(this.formBuilder.group({
                 customerRelation: (index > 2) ? [(customerRelative)] :
                     [({value: customerRelative, disabled: true}), Validators.required],
-                customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
-                citizenshipNumber: [singleRelatives.citizenshipNumber, Validators.required],
-                citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace, Validators.required],
+                customerRelativeName: [singleRelatives.customerRelativeName],
+                citizenshipNumber: [singleRelatives.citizenshipNumber],
+                citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
                 citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
-                    undefined : new Date(singleRelatives.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]]
+                    undefined : new Date(singleRelatives.citizenshipIssuedDate)]
             }));
         });
     }

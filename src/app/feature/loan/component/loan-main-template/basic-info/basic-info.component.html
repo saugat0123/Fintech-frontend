@@ -308,28 +308,16 @@
                                         <label for="relationName"><strong>Name</strong></label>
                                         <input class="form-control" formControlName="customerRelativeName"
                                                id="relationName"
-                                               [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelativeName').errors }"
-                                               placeholder="Name" type="text">
-                                        <div *ngIf="submitted && relatives.get('customerRelativeName').errors"
-                                             class="invalid-feedback">
-                                            <div *ngIf="relatives.get('customerRelativeName').errors.required">Name
-                                                is required
-                                            </div>
-                                        </div>
+                                                placeholder="Name" type="text">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="citizenship"><strong>CitizenshipNumber</strong></label>
                                         <input class="form-control" formControlName="citizenshipNumber"
-                                               id="citizenship"
-                                               [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipNumber').errors }"
-                                               placeholder="Citizenship Number" type="text">
+                                               id="citizenship"   placeholder="Citizenship Number" type="text">
                                         <div *ngIf="submitted && relatives.get('citizenshipNumber').errors"
                                              class="invalid-feedback">
-                                            <div *ngIf="relatives.get('citizenshipNumber').errors.required">Number
-                                                is required
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -338,13 +326,9 @@
                                         <label for="issuedLocation"><strong>Issued Place</strong></label>
                                         <input class="form-control" formControlName="citizenshipIssuedPlace"
                                                id="issuedLocation"
-                                               [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipIssuedPlace').errors }"
-                                               placeholder="Issued Place" type="text">
+                                              placeholder="Issued Place" type="text">
                                         <div *ngIf="submitted && relatives.get('citizenshipIssuedPlace').errors"
                                              class="invalid-feedback">
-                                            <div *ngIf="relatives.get('citizenshipIssuedPlace').errors.required">
-                                                Name is required
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
