@@ -20,6 +20,10 @@
                                    [disabled]="!shareToggle" class="pt-2 pl-4">
                             <small><b>Show Share Loan Exceeding Limit</b></small>
                         </nb-toggle>
+                        <nb-toggle (checkedChange)="onChangeInsuranceToggle($event)"
+                                   [disabled]="!insuranceToggle" class="pt-2 pl-4">
+                            <small><b>Insurance Expiry</b></small>
+                        </nb-toggle>
                     </div>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
@@ -133,6 +137,7 @@
                 <th *ngIf="transferDoc">Transfer</th>
                 <th>Created On</th>
                 <th>Action</th>
+                <th>Expiry Date</th>
             </tr>
             </thead>
             <tbody>
@@ -215,6 +220,7 @@
                         <p>NA</p>
                     </td>
                 </ng-template>
+                    <td>{{model?.insurance?.expiryDate}}</td>
 
             </tr>
             </tbody>
