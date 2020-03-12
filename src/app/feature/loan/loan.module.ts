@@ -84,6 +84,7 @@ import { BikeKarjaPrintComponent } from './component/loan-main-nepali-template/b
 import { CustomerAssociateComponent } from './component/loan-main-template/customer-associate/customer-associate.component';
 import {CustomerModule} from '../customer/customer.module';
 import {GuarantorComponent} from "./component/loan-main-template/guarantor/guarantor.component";
+import {NepaliCalendarModule} from "../nepali-calendar/nepali-calendar.module";
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -184,7 +185,8 @@ const ENTRY_COMPONENTS = [
         AgmCoreModule.forRoot({
             apiKey: environment.GOOGLE_MAP_API_KEY
         }),
-        CustomerModule
+        CustomerModule,
+        NepaliCalendarModule
     ],
 
     providers: [

@@ -23,6 +23,7 @@ import {CompanyInfoService} from '../../../../admin/service/company-info.service
 import {ToastService} from '../../../../../@core/utils';
 import {BusinessType} from '../../../../admin/modal/businessType';
 import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.service';
+import {CalendarType} from "../../../../../@core/model/calendar-type";
 
 
 @Component({
@@ -33,8 +34,10 @@ import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.
 export class CompanyInfoComponent implements OnInit {
     @Input() formValue: CompanyInfo;
     @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Input() calendarType: CalendarType;
 
     companyInfoFormGroup: FormGroup;
+    englishDateSelected = true;
     customerId;
     submitted = false;
 
@@ -429,6 +432,10 @@ export class CompanyInfoComponent implements OnInit {
             proprietorsIndex++;
             this.companyInfo.proprietorsList.push(proprietors);
         }
+    }
+
+    selectDate(value) {
+        this.englishDateSelected = !value;
     }
 
 }
