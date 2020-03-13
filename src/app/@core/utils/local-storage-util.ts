@@ -52,4 +52,5 @@ export class LocalStorage {
     productMode: string;
     branch: string;
     productUtil: ProductUtils;
+    calendar: any;
 }

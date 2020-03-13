@@ -1,3 +1,4 @@
+
 <div class="form-group">
     <form [formGroup]="securityForm">
         <!--START ROW-->
@@ -15,9 +16,13 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label class="title" for="valuatedDate">Valuated Date</label>
-                        <input [nbDatepicker]="valuatedDate" class="form-control rounded" formControlName="valuatedDate"
+                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="valuatedDate" class="form-control rounded" formControlName="valuatedDate"
                                id="valuatedDate"
                                name="valuatedDate" nbInput placeholder="Valuated Date">
+                        <app-calendar
+                            (messageToEmit)="securityForm.get('valuatorDetails').get('valuatedDate').patchValue($event?.eDate)"
+                            *ngIf="calendarType === 'BS'"
+                            [ePreDate]="securityForm.get('valuatorDetails').get('valuatedDate').value"></app-calendar>
                         <nb-datepicker #valuatedDate></nb-datepicker>
                     </div>
                 </div>

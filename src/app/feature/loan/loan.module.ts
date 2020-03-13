@@ -84,6 +84,7 @@ import { BikeKarjaPrintComponent } from './component/loan-main-nepali-template/b
 import { CustomerAssociateComponent } from './component/loan-main-template/customer-associate/customer-associate.component';
 import {CustomerModule} from '../customer/customer.module';
 import {GuarantorComponent} from './component/loan-main-template/guarantor/guarantor.component';
+import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import { InsuranceComponent } from './component/loan-main-template/insurance/insurance.component';
 
 const COMPONENTS = [
@@ -156,8 +157,10 @@ const COMPONENTS = [
     ApplicantFamilyInfoPrintComponent,
     BikeKarjaPrintComponent,
     CustomerAssociateComponent,
-    GuarantorComponent
+    GuarantorComponent,
+    InsuranceComponent
 ];
+
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,
     FiscalYearModalComponent,
@@ -169,7 +172,7 @@ const ENTRY_COMPONENTS = [
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS, InsuranceComponent],
+    declarations: [...COMPONENTS],
     imports: [
         ThemeModule,
         CommonModule,
@@ -185,7 +188,8 @@ const ENTRY_COMPONENTS = [
         AgmCoreModule.forRoot({
             apiKey: environment.GOOGLE_MAP_API_KEY
         }),
-        CustomerModule
+        CustomerModule,
+        NepaliCalendarModule
     ],
 
     providers: [

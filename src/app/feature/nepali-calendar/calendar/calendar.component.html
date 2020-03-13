@@ -1,0 +1,74 @@
+<select (click)="toggleDate()" class="form-control">
+  <option>{{nDateRespTonDate}}</option>
+</select>
+
+<div class="nep-calendar">
+  <div *ngIf="toggleShow" class="py-3">
+    <div class="col-md-12 bank-btn-color">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="d-flex justify-content-start"><small>{{eDateRespTonDate | date}}</small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex justify-content-end"><small>{{nDateRespTonDate}}</small></div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!displayYearShow">
+
+      <div class="month bank-btn-color">
+        <ul>
+          <li class="prev cursor" (click)="prevMnth()">&#10094;</li>
+          <li class="next cursor" (click)="nxtMnth()">&#10095;</li>
+          <li class="cursor">
+            {{selectedMonth}}<br>
+            <span style="font-size:18px" (click)="displayYear()">{{selectedYear}}</span>
+          </li>
+        </ul>
+      </div>
+
+      <ul class="weekdays">
+        <li *ngFor="let data of calendarDay">{{data}}</li>
+
+      </ul>
+
+      <ul class="days">
+        <li *ngFor="let data of daysInMonthListCustomCalendar"><span
+            (click)="selectedCalendar(data)" class="cursor"
+            [ngStyle]="{'padding':selectedDay === data ? '5px' : '2px' }"
+            [ngClass]="(selectedDay== data)?'bank-btn-color':'inactive'">{{data}}</span></li>
+
+        <!--  <li><span class="active">10</span></li>-->
+      </ul>
+    </div>
+    <div *ngIf="displayYearShow">
+
+      <div class="month bank-btn-color">
+        <ul>
+          <li class="prev cursor" (click)="paging('prev')" *ngIf="startIndex !== 0">&#10094;
+          </li>
+          <li class="next cursor" (click)="paging('next')" *ngIf="endIndexBtn">&#10095;</li>
+          <li class="cursor">
+            Year<br>
+            <span style="font-size:18px"
+                  (click)="displayYearShow = false">{{selectedYear}}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-12 year">
+
+        <div class="row py-3">
+          <div class="col-md-3 py-1" *ngFor="let data of calendarPageData">
+            <button class="btn  bank-btn-outline-primary "
+                    (click)="getMonthDaysByYearMonth(data.year)"
+                    [ngClass]="(selectedYear== data.year)?'bank-btn-color':'inactive'"
+            >{{data.year}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

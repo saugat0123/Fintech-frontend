@@ -44,6 +44,7 @@ import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder'
 import {Customer} from '../../../admin/modal/customer';
 import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 import {GuarantorComponent} from '../loan-main-template/guarantor/guarantor.component';
+import {CalendarType} from '../../../../@core/model/calendar-type';
 import {InsuranceComponent} from '../loan-main-template/insurance/insurance.component';
 
 @Component({
@@ -115,6 +116,8 @@ export class LoanFormComponent implements OnInit {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
     docStatusMakerList = [];
+
+    calendarType: CalendarType = CalendarType.AD;
 
     showDocStatusDropDown = true;
     isBlackListed = false;
@@ -382,12 +385,7 @@ export class LoanFormComponent implements OnInit {
                 this.loanDocument = response.detail;
                 this.customerLoanId = this.loanDocument.id;
                 this.loanDocument = new LoanDataHolder();
-                this.router.navigate(['/home/loan/summary'], {
-                    queryParams: {
-                        loanConfigId: this.id,
-                        customerId: this.customerLoanId
-                    }
-                })
+                this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}})
                     .then(() => {
                         this.spinner.hide();
                     });

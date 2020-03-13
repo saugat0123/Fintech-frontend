@@ -2,6 +2,7 @@ import {Component , Input , OnInit} from '@angular/core';
 import {FormArray , FormBuilder , FormGroup} from '@angular/forms';
 import {ToastService} from '../../../../../../@core/utils';
 import {Alert , AlertType} from '../../../../../../@theme/model/Alert';
+import {CalendarType} from '../../../../../../@core/model/calendar-type';
 
 @Component({
     selector: 'app-security-initial-form' ,
@@ -11,6 +12,7 @@ import {Alert , AlertType} from '../../../../../../@theme/model/Alert';
 export class SecurityInitialFormComponent implements OnInit {
     @Input() formData: string;
     @Input() name;
+    @Input() calendarType: CalendarType;
     selectedArray = [];
     securityForm: FormGroup;
     landSelected = false;
@@ -19,6 +21,7 @@ export class SecurityInitialFormComponent implements OnInit {
     underConstructionChecked = false;
     formDataForEdit: Object;
     valuatorList = [];
+    englishDateSelected = true;
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService ) {
@@ -326,5 +329,8 @@ export class SecurityInitialFormComponent implements OnInit {
     message() {
         const alert = new Alert(AlertType.INFO, 'Enter valid proposal limit to select valuator');
         this.valuatorToast.show(alert);
+    }
+    selectDate(value) {
+        this.englishDateSelected = !value;
     }
 }
