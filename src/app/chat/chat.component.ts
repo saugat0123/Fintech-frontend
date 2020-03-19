@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {UserService} from '../feature/admin/component/user/user.service';
 
 @Component({
     selector: 'app-chat',
@@ -8,11 +9,15 @@ import {Component, OnInit} from '@angular/core';
 export class ChatComponent implements OnInit {
     messages = [];
     showHideUser = false;
+    userList = [];
 
-    constructor() {
+    constructor(private userService: UserService) {
     }
 
     ngOnInit() {
+        this.userService.getUserForChat().subscribe((res: any) => {
+            this.userList = res.detail;
+        });
     }
 
     showHideUserList() {

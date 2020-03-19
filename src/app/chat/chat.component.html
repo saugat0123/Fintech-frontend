@@ -3,32 +3,18 @@
     <div *ngIf="showHideUser" class="user-list d-flex justify-content-end"
          style="height:200px;bottom:40px;z-index: 1000;position: fixed;overflow-y: auto;margin-bottom: 30px;width: 150px;">
         <nb-card>
-            <ul>
-                <li>Rujan Maharjan</li>
-                <li>Rujan Maharjan</li>
-                <li>Rujan Maharjan</li>
-                <li>Rujan Maharjan</li>
-                <li>Rujan Maharjan</li>
-                <li>Rujan Maharjan</li>
-                <li>Rujan Maharjan</li>
-                <li>Rujan Maharjan</li>
-                <li>Rujan Maharjan</li>
-                <li>Rujan Maharjan</li>
-                <li>Rujan Maharjan</li>
-                <li>Rujan Maharjan</li>
-                <li>Rujan Maharjan</li>
-                <li>Rujan Maharjan</li>
-                <li>Rujan Maharjan</li>
-                <li>Rujan Maharjan</li>
-
-
-            </ul>
+            <nb-card-header style="background-color: #1B3BAA;height: 50px;color: white">Chat</nb-card-header>
+            <nb-card-body>
+                <div *ngFor="let user of userList" class="row">
+                    <a> {{user.name}}</a>
+                </div>
+            </nb-card-body>
         </nb-card>
     </div>
 
 
     <div>
-        <button (click)="showHideUserList()" class="btn btn-flat btn-sm btn-primary">chat</button>
+        <button (click)="showHideUserList()" class="btn btn-flat btn-sm btn-primary">message</button>
     </div>
 </div>
 
