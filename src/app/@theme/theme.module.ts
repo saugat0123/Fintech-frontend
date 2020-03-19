@@ -66,8 +66,9 @@ import {ChangePasswordComponent} from './components/change-password/change-passw
 import {CKEditorModule} from 'ng2-ckeditor';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {NbEvaIconsModule} from '@nebular/eva-icons';
-import { OverlaySpinnerComponent } from './components/overlay-spinner/overlay-spinner.component';
-import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
+import {OverlaySpinnerComponent} from './components/overlay-spinner/overlay-spinner.component';
+import {DeleteModalComponent} from './components/delete-modal/delete-modal.component';
+import {ChatComponent} from '../chat/chat.component';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -109,7 +110,8 @@ const NB_MODULES = [
     NbCalendarKitModule,
     NbIconModule,
     NbToggleModule,
-    NbEvaIconsModule
+    NbEvaIconsModule,
+
 ];
 
 const COMPONENTS = [
@@ -127,7 +129,8 @@ const COMPONENTS = [
     MessageModalComponent,
     NotificationComponent,
     OverlaySpinnerComponent,
-    DeleteModalComponent
+    DeleteModalComponent,
+    ChatComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -136,7 +139,8 @@ const ENTRY_COMPONENTS = [
     ProfileComponent,
     ChangePasswordComponent,
     UpdateModalComponent,
-    DeleteModalComponent
+    DeleteModalComponent,
+    ChatComponent
 ];
 
 const PIPES = [
