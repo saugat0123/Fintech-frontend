@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from '../feature/admin/component/user/user.service';
+import {ChatService} from './chat.service';
 
 @Component({
     selector: 'app-chat',
@@ -9,15 +9,23 @@ import {UserService} from '../feature/admin/component/user/user.service';
 export class ChatComponent implements OnInit {
     messages = [];
     showHideUser = false;
+    showHideBot = false;
+    user;
     userList = [];
 
-    constructor(private userService: UserService) {
+    constructor(private chatService: ChatService) {
     }
 
     ngOnInit() {
-        this.userService.getUserForChat().subscribe((res: any) => {
+        this.chatService.getUserForChat().subscribe((res: any) => {
             this.userList = res.detail;
         });
+    }
+
+    openChatBot(user) {
+        console.log('r', user);
+        this.user = user;
+        this.showHideBot = true;
     }
 
     showHideUserList() {

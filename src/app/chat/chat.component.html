@@ -1,12 +1,14 @@
-<div style="z-index: 1000;position: fixed;bottom:20px;">
-
-    <div *ngIf="showHideUser" class="user-list d-flex justify-content-end"
-         style="height:200px;bottom:40px;z-index: 1000;position: fixed;overflow-y: auto;margin-bottom: 30px;width: 150px;">
+<div>
+    <app-bot *ngIf="showHideBot" [toUser]="user"></app-bot>
+    <div *ngIf="showHideUser"
+    >
         <nb-card>
-            <nb-card-header style="background-color: #1B3BAA;height: 50px;color: white">Chat</nb-card-header>
+            <nb-card-header style="background-color: #1B3BAA;height: 50px;color: white;width: 200px !important;">Chat
+            </nb-card-header>
             <nb-card-body>
-                <div *ngFor="let user of userList" class="row">
-                    <a> {{user.name}}</a>
+                <div (click)="openChatBot(user)" *ngFor="let user of userList" class="row user-list cursor">
+                    <span> {{user.name}}<sup><span>1
+                </span></sup></span>
                 </div>
             </nb-card-body>
         </nb-card>
@@ -14,7 +16,8 @@
 
 
     <div>
-        <button (click)="showHideUserList()" class="btn btn-flat btn-sm btn-primary">message</button>
+
+        <i (click)="showHideUserList()" aria-hidden="true" class="fas fa-comment-dots"></i>
     </div>
 </div>
 

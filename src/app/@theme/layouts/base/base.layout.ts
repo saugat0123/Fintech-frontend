@@ -23,7 +23,14 @@ import {StateService} from '../../../@core/utils';
 
             <nb-layout-column class="main-content">
                 <ng-content select="router-outlet"></ng-content>
-                <app-chat></app-chat>
+                <div class="col-md-12 chat">
+                    <div class="d-flex flex-row-reverse">
+                        <div class="p-2">
+                            <app-chat></app-chat>
+                        </div>
+                    </div>
+                </div>
+
             </nb-layout-column>
             <nb-layout-footer fixed>
 

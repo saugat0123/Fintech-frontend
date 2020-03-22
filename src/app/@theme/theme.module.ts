@@ -69,6 +69,7 @@ import {NbEvaIconsModule} from '@nebular/eva-icons';
 import {OverlaySpinnerComponent} from './components/overlay-spinner/overlay-spinner.component';
 import {DeleteModalComponent} from './components/delete-modal/delete-modal.component';
 import {ChatComponent} from '../chat/chat.component';
+import {BotComponent} from '../chat/bot/bot.component';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -130,7 +131,8 @@ const COMPONENTS = [
     NotificationComponent,
     OverlaySpinnerComponent,
     DeleteModalComponent,
-    ChatComponent
+    ChatComponent,
+    BotComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -140,7 +142,8 @@ const ENTRY_COMPONENTS = [
     ChangePasswordComponent,
     UpdateModalComponent,
     DeleteModalComponent,
-    ChatComponent
+    ChatComponent,
+    BotComponent
 ];
 
 const PIPES = [
