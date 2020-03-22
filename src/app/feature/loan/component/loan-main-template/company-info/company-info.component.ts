@@ -23,7 +23,7 @@ import {CompanyInfoService} from '../../../../admin/service/company-info.service
 import {ToastService} from '../../../../../@core/utils';
 import {BusinessType} from '../../../../admin/modal/businessType';
 import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.service';
-import {CalendarType} from "../../../../../@core/model/calendar-type";
+import {CalendarType} from '../../../../../@core/model/calendar-type';
 
 
 @Component({

@@ -1,4 +1,4 @@
-import {Guarantor} from "./guarantor";
+import {Guarantor} from './guarantor';
 
 
 export class Security {

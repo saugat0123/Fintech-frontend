@@ -63,8 +63,6 @@
                             <option [ngValue]="undefined" hidden>Approval Type</option>
                             <option value="PERSONAL_TYPE">PERSONAL</option>
                             <option value="BUSINESS_TYPE">BUSINESS</option>
-                            <option value="BOTH_TYPE">BOTH</option>
-
                         </select>
                         <div *ngIf="f.submitted && type.invalid" class="invalid-feedback">
                             <div *ngIf="type.errors.required">Type is required</div>
