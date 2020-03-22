@@ -9,7 +9,7 @@ import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {LoanAmountType} from '../../model/loanAmountType';
 import {FetchLoan} from '../../model/fetchLoan';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {Guarantor} from "../../../loan/model/guarantor";
+import {Guarantor} from '../../../loan/model/guarantor';
 
 
 @Component({
