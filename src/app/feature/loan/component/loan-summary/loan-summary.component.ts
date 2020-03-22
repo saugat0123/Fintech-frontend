@@ -74,7 +74,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     shareSecurityData: ShareSecurity = new ShareSecurity();
   financialSummary = false;
   siteVisitSummary = false;
-    shareSecuritySummary = false;
+  shareSecuritySummary = false;
   navigationSubscription;
   securitySummary = false;
   securityData: Object;
@@ -84,7 +84,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     url: string
   }[] = [];
   registeredOfferLetters: Array<String> = [];
-  sortedList: Array<LoanStage>;
 
   constructor(
       private userService: UserService,
@@ -175,28 +174,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             }
           this.loanCategory = this.loanDataHolder.loanCategory;
           this.currentIndex = this.loanDataHolder.previousList.length;
-          this.signatureList = this.loanDataHolder.distinctPreviousList;
-          this.sortedList = new Array<LoanStage>();
-          this.sortedList.push(...this.loanDataHolder.previousList, this.loanDataHolder.currentStage);
-          let lastBackwardIndex = 0;
-          this.sortedList.forEach((data, index) => {
-            if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)) {
-              lastBackwardIndex = index;
-            }
-          });
-          if (lastBackwardIndex !== 0) {
-            this.sortedList.splice(0, lastBackwardIndex);
-            if (this.sortedList.length === 1) {
-              this.sortedList.splice(0, 1);
-            }
-          }
-          const toUserIds = new Set<Number>();
-          this.sortedList.forEach(loanStage => toUserIds.add(loanStage.toUser.id));
-          this.sortedList.filter(loanStage => toUserIds.has(loanStage.toUser.id));
 
-          if (this.sortedList.length !== 0) {
-            this.sortedList.splice(0, 1);
-          }
+          this.signatureList = this.getSignatureList(new Array<LoanStage>
+          (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
+
           this.previousList = this.loanDataHolder.previousList;
           this.actionsList.approved = true;
           this.actionsList.sendForward = true;
@@ -390,6 +371,37 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     link.download = name;
     link.setAttribute('visibility', 'hidden');
     link.click();
+  }
+
+  /**
+   * Get array of loan stage for authority signature array.
+   *
+   * @param stages Array of loan stages that must include previous stages and current stage.
+   */
+  private getSignatureList(stages: Array<LoanStage>): Array<LoanStage> {
+    let lastBackwardIndex = 0;
+    stages.forEach((data, index) => {
+      if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)) {
+        lastBackwardIndex = index;
+      }
+    });
+    if (lastBackwardIndex !== 0) {
+      stages.splice(0, lastBackwardIndex + 1);
+    }
+    const signatureList = new Array<LoanStage>();
+    const addedStages = new Map<number, number>(); // KEY = loan stage from user id, value = array index
+    stages.forEach((loanStage, index) => {
+      if (loanStage.docAction.toString() !== DocAction.value(DocAction.TRANSFER)) {
+        if (addedStages.has(loanStage.fromUser.id)) {
+          signatureList[addedStages.get(loanStage.fromUser.id)] = loanStage;
+        } else {
+          signatureList.push(loanStage);
+          addedStages.set(loanStage.fromUser.id, index);
+        }
+      }
+    });
+
+    return signatureList;
   }
 }
 
