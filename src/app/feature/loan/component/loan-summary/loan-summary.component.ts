@@ -63,7 +63,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   actionsList: ActionModel = new ActionModel();
   catalogueStatus = false;
   RootUrl = ApiConfig.URL;
-  signatureList = [];
+  signatureList: Array<LoanStage> = new Array<LoanStage>();
   previousList: Array<LoanStage> = new Array<LoanStage>();
   currentDocAction = '';
   nepaliDate;
