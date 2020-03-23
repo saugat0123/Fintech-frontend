@@ -1,5 +1,11 @@
 <nb-card>
     <nb-card-body>
+        <div class="row">
+            <div class="col-md-12">
+                <p><strong>Details of {{customerLoanData?.loanCategory === 'BUSINESS_TYPE' ? 'Authorized Person'
+                    : 'Borrower'}}</strong></p>
+            </div>
+        </div>
         <app-customer-details-information [customerInfoData]="customerLoanData?.customerInfo"></app-customer-details-information>
         <app-company-info-details [companyInfoData]="customerLoanData?.companyInfo"></app-company-info-details>
         <app-security-details [securityData]="customerLoanData?.security"></app-security-details>
