@@ -448,6 +448,12 @@ export class FinancialComponent implements OnInit {
                 break;
             case 'Balance Sheet':
                 this.balanceSheet.ngOnDestroy();
+                break;
+            case 'Cash Flow Statement':
+                this.cashFlowStatement.ngOnDestroy();
+                break;
+            case 'Key Indicators':
+                this.keyIndicators.ngOnDestroy();
         }
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.financialData = this.formData;
