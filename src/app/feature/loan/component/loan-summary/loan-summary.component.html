@@ -377,7 +377,7 @@
 
       <app-security-summary *ngIf="securitySummary" [formData]="securityData"></app-security-summary>
 
-      <app-financial-summary *ngIf="financialSummary" [formData]="financialData"></app-financial-summary>
+      <app-financial-summary *ngIf="financialSummary" [formData]="financialData" [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
       <app-share-security-summary *ngIf="shareSecuritySummary"
                                   [formData]="shareSecurityData"></app-share-security-summary>
       <div class="row mt-3">

@@ -11,6 +11,7 @@ import {Financial} from '../../../model/financial';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FiscalYearModalComponent} from './fiscal-year-modal/fiscal-year-modal.component';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-financial',
@@ -24,6 +25,8 @@ export class FinancialComponent implements OnInit {
     @ViewChild('cashFlowStatement', {static: false}) cashFlowStatement: CashFlowStatementComponent;
     @ViewChild('keyIndicators', {static: false}) keyIndicators: KeyIndicatorsComponent;
     @Input() formData: Financial;
+
+    isBusinessLoan = false;
 
     fiscalYear = [];
     auditorList = [];
@@ -148,10 +151,16 @@ export class FinancialComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder,
                 private financialService: FinancialService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                private activatedRoute: ActivatedRoute) {
     }
 
     ngOnInit() {
+        this.activatedRoute.queryParams.subscribe( queryParams => {
+            if (queryParams.loanCategory === 'BUSINESS_TYPE') {
+                this.isBusinessLoan = true;
+            }
+        });
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.currentFormData = JSON.parse(this.formData.data);
@@ -165,9 +174,15 @@ export class FinancialComponent implements OnInit {
             this.financialForm.get('totalExpense').setValue(initialFormData.totalExpense);
             this.financialForm.get('netSaving').setValue(initialFormData.netSaving);
         } else {
-            const currentFormDataJson = JSON.stringify(currentFormData['default']);
-            this.currentFormData = JSON.parse(currentFormDataJson);
-            console.log(this.currentFormData);
+            if (this.isBusinessLoan) {
+                const currentFormDataJson = JSON.stringify(currentFormData['default']);
+                this.currentFormData = JSON.parse(currentFormDataJson);
+            } else {
+                this.currentFormData = {
+                    fiscalYear: [],
+                    initialForm: {}
+                };
+            }
 
             // functions for adding fields in initial Financial Form
             this.addIncomeOfBorrower();
@@ -438,9 +453,11 @@ export class FinancialComponent implements OnInit {
             this.financialData = this.formData;
         }
         this.currentFormData['fiscalYear'] = this.fiscalYear;
-        this.currentFormData['brr'] = this.brr.borrowerRiskRating.value;
         this.currentFormData['initialForm'] = this.financialForm.value;
-        this.currentFormData['auditorList'] = this.auditorList;
+        if (this.isBusinessLoan) {
+            this.currentFormData['brr'] = this.brr.borrowerRiskRating.value;
+            this.currentFormData['auditorList'] = this.auditorList;
+        }
         this.financialData.data = JSON.stringify(this.currentFormData);
     }
 }
