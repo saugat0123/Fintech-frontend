@@ -27,7 +27,7 @@ import {SocketService} from '../../../../@core/service/socket.service';
 import {CatalogueSearch, CatalogueService} from './catalogue.service';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
-
+import {NbTrigger} from '@nebular/theme';
 
 @Component({
     selector: 'app-catalogue',
@@ -63,6 +63,7 @@ export class CatalogueComponent implements OnInit {
     redirected = false;
     isFilterCollapsed = true;
     showBranch = true;
+    nbTrigger = NbTrigger;
 
     constructor(
         private branchService: BranchService,

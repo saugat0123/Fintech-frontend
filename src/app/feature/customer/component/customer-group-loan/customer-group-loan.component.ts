@@ -8,8 +8,8 @@ import {Customer} from '../../../admin/modal/customer';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {LoanAmountType} from '../../model/loanAmountType';
 import {FetchLoan} from '../../model/fetchLoan';
-import {Guarantors} from '../../../loan/model/guarantors';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Guarantor} from '../../../loan/model/guarantor';
 
 
 @Component({
@@ -131,7 +131,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
     getLoanByCustomerAsGuarantor() {
         this.spinner = true;
-        const guarantor = new Guarantors();
+        const guarantor = new Guarantor();
         guarantor.name = this.customer.customerName;
         guarantor.citizenNumber = this.customer.citizenshipNumber;
         guarantor.issuedYear = this.customer.citizenshipIssuedDate;

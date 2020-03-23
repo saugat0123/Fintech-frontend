@@ -4,10 +4,10 @@
       <app-loan-action [actionsList]="actionsList"
                        [catalogueStatus]="catalogueStatus"
                        [id]="customerId"
-                       [limitExceed]="loanDataHolder.limitExceed"
-                       [loanRemarks]="loanDataHolder?.loanRemarks"
                        [loanCategory]="loanCategory"
                        [loanConfigId]="loanConfigId"
+                       [limitExceed]="loanDataHolder?.limitExceed"
+                       [loanRemarks]="loanDataHolder?.loanRemarks"
       ></app-loan-action>
     </nb-card-header>
     <nb-card-body id="print-block">
@@ -510,11 +510,11 @@
         </div>
       </div>
 
-      <div class="row justify-content-between px-3" id="signatureDiv">
+      <div *ngIf="signatureList.length > 0" class="row justify-content-between px-3" id="signatureDiv">
         <div class="col-md-12 print-only">
           <p><strong>Approval Chain</strong></p>
         </div>
-        <div *ngFor="let previous of sortedList; let i=index;"
+        <div *ngFor="let previous of signatureList; let i=index;"
              class="col-md-3 padding-0-125">
           <div class="signature-block">
             <div class="text-center p-2 bg-light mb-2 ">

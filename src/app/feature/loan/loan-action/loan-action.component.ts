@@ -23,7 +23,6 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {ApprovalRoleHierarchyService} from '../approval/approval-role-hierarchy.service';
 
-
 @Component({
     selector: 'app-loan-action',
     templateUrl: './loan-action.component.html',
@@ -111,6 +110,7 @@ export class LoanActionComponent implements OnInit {
     }
 
     sendBackwardList(template, val) {
+        this.changeToRoleValidity(false);
         this.popUpTitle = 'Send Backward';
 
         this.formAction.patchValue({
@@ -137,6 +137,7 @@ export class LoanActionComponent implements OnInit {
     }
 
     sendForwardList(template) {
+        this.changeToRoleValidity(true);
         this.popUpTitle = 'Send Forward';
 
         const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
@@ -156,12 +157,10 @@ export class LoanActionComponent implements OnInit {
             }
         );
         if (this.limitExceed !== 0) {
-            const parsedRemark = JSON.parse(this.loanRemarks);
-            this.toastService.show(new Alert(AlertType.INFO, parsedRemark.limitExceed));
-        } else {
-            this.modalService.open(template);
+            this.toastService.show(new Alert(AlertType.INFO, this.loanRemarks));
+            return;
         }
-
+        this.modalService.open(template);
     }
 
     onSubmit(templateLogin) {
@@ -241,6 +240,7 @@ export class LoanActionComponent implements OnInit {
     }
 
     approved(template) {
+        this.changeToRoleValidity(false);
         this.popUpTitle = 'APPROVED';
         this.formAction.patchValue({
                 loanConfigId: this.loanConfigId,
@@ -250,12 +250,17 @@ export class LoanActionComponent implements OnInit {
                 comment: null
             }
         );
+        if (this.limitExceed !== 0) {
+            this.toastService.show(new Alert(AlertType.INFO, this.loanRemarks));
+            return;
+        }
         this.modalService.open(template);
 
 
     }
 
     closeReject(commentTemplate, value) {
+        this.changeToRoleValidity(false);
         this.popUpTitle = value;
         this.modalService.open(commentTemplate);
         let docAction = value;
@@ -277,10 +282,6 @@ export class LoanActionComponent implements OnInit {
 
 
     }
-
-    /*print() {
-        window.print();
-    }*/
 
     generateOfferLetter(templateUrl) {
         this.route.navigate([templateUrl], {queryParams: {customerId: this.id}});
@@ -334,12 +335,9 @@ export class LoanActionComponent implements OnInit {
         });
     }
 
-    detailedPrintAction() {
-        this.route.navigate(['/home/loan/detailed-summary'], {
-            queryParams: {
-                loanConfigId: this.loanConfigId,
-                customerId: this.id
-            }
-        });
+    private changeToRoleValidity(isForward: boolean): void {
+        this.formAction.get('toRole').setValidators(isForward ? [Validators.required] : []);
+        this.formAction.get('toRole').updateValueAndValidity();
     }
+
 }

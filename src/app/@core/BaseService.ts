@@ -124,6 +124,13 @@ export abstract class BaseService<T> {
         return this.http.post(req.url, searchObj, {headers: req.header});
     }
 
+    public getCalendar(): Observable<any> {
+        const api = `v1/calendar`;
+
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
 
     public set(obj: T): void {
         this.obj = obj;

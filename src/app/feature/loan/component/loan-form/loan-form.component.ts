@@ -43,6 +43,8 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
 import {Customer} from '../../../admin/modal/customer';
 import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
+import {GuarantorComponent} from '../loan-main-template/guarantor/guarantor.component';
+import {CalendarType} from '../../../../@core/model/calendar-type';
 
 @Component({
     selector: 'app-loan-form',
@@ -114,7 +116,10 @@ export class LoanFormComponent implements OnInit {
 
     docStatusMakerList = [];
 
+    calendarType: CalendarType = CalendarType.AD;
+
     showDocStatusDropDown = true;
+    isBlackListed = false;
 
     @ViewChild('priorityFormNav', {static: false})
     priorityFormNav: ElementRef;
@@ -163,6 +168,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('shareSecurity', {static: false})
     shareSecurity: ShareSecurityComponent;
+
+    @ViewChild('guarantor', {static: false})
+    guarantorComponent: GuarantorComponent;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -497,11 +505,20 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.group = this.group.modelData;
         }
 
+        if (name === 'Guarantor' && action) {
+            this.guarantorComponent.onSubmit();
+            this.loanDocument.guarantor = this.guarantorComponent.guarantorDetail;
+        }
+
         if (name === 'Vehicle Security' && action) {
             this.vehicleSecurity.onSubmit();
             this.loanDocument.vehicleSecurity = this.vehicleSecurity.vehicleSecurity;
         }
         if (name === 'Share Security' && action) {
+            if (this.shareSecurity.form.invalid && this.nextButtonAction) {
+                this.shareSecurity.submitted = true;
+                return true;
+            }
             this.shareSecurity.onSubmit();
             this.loanDocument.shareSecurity = this.shareSecurity.shareSecurityData;
         }
@@ -552,5 +569,9 @@ export class LoanFormComponent implements OnInit {
                     console.log(dismiss);
                 }
             );
+    }
+
+    getIsBlackListed(isBlackListed: boolean) {
+        this.isBlackListed = isBlackListed;
     }
 }

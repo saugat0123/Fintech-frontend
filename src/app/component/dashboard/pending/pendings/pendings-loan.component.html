@@ -95,14 +95,19 @@
                         </thead>
                         <tbody>
                         <tr
-                                *ngFor="let loanDataHolder of loanDataHolders; let i =index"
-                                class="cursor">
+                            *ngFor="let loanDataHolder of loanDataHolders; let i =index"
+                            [nbPopoverTrigger]="loanDataHolder?.limitExceed ? nbTrigger.HINT : nbTrigger.NOOP"
+                            [nbPopover]="loanDataHolder?.loanRemarks"
+                            [ngStyle]="{'color': (loanDataHolder.limitExceed === 1) ? 'red': 'auto'}"
+                            class="cursor">
                             <div *ngIf="!loanDataHolders.length > 0">
                                 <p>No Content Found</p>
                             </div>
-                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{i + 1}}</td>
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{i
+                            + 1}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.branch?.name}}</td>
-                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loanCategory === 'BUSINESS_TYPE' ?
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loanCategory
+                            === 'BUSINESS_TYPE' ?
                                 loanDataHolder?.companyInfo?.companyName
                                 : loanDataHolder?.customerInfo?.customerName}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.customerInfo?.contactNumber}}</td>

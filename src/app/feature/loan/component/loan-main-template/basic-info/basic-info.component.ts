@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
@@ -14,6 +14,8 @@ import {ToastService} from '../../../../../@core/utils';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CustomerAssociateComponent} from '../customer-associate/customer-associate.component';
+import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.service';
+import {CalendarType} from '../../../../../@core/model/calendar-type';
 
 
 @Component({
@@ -23,9 +25,12 @@ import {CustomerAssociateComponent} from '../customer-associate/customer-associa
 })
 export class BasicInfoComponent implements OnInit {
     @Input() formValue: Customer;
+    @Input() calendarType: CalendarType;
+    @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     basicInfo: FormGroup;
     submitted = false;
+    displayEngDate = true;
 
     customerDetailField = {
         showFormField: false,
@@ -42,13 +47,15 @@ export class BasicInfoComponent implements OnInit {
     districtList: Array<District> = Array<District>();
     municipality: MunicipalityVdc = new MunicipalityVdc();
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
+    private isBlackListed: boolean;
 
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
         private customerService: CustomerService,
         private toastService: ToastService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private blackListService: BlacklistService
     ) {
     }
 
@@ -56,9 +63,7 @@ export class BasicInfoComponent implements OnInit {
         this.getProvince();
         this.formMaker();
         if (!ObjectUtil.isEmpty(this.formValue)) {
-            if (this.formValue.customerId !== undefined) {
-                this.customerDetailField.showFormField = true;
-            }
+            this.customerDetailField.showFormField = true;
             this.customer = this.formValue;
             this.formMaker();
             this.setRelatives(this.customer.customerRelatives);
@@ -117,38 +122,39 @@ export class BasicInfoComponent implements OnInit {
 
     searchByCustomerCitizen() {
         const tempId = this.basicInfo.get('citizenshipNumber').value;
-        this.customerDetailField.showFormField = true;
-        if (tempId) {
-            this.customerSearchData.citizenshipNumber = tempId;
-            this.customerService.getByCustomerByCitizenshipNo(this.customerSearchData.citizenshipNumber).
-            subscribe((customerResponse: any) => {
-                if (customerResponse.detail === undefined) {
-                    this.getProvince();
-                    this.customerDetailField.isOldCustomer = false;
-                    this.toastService.show(new Alert(AlertType.INFO, 'No Customer Found under provided Citizenship No.'));
-                    this.customer = new Customer();
-                    this.customer.citizenshipNumber = tempId;
-                    this.formMaker();
-                    this.createRelativesArray();
-                } else {
-                    this.getProvince();
-                    this.customer = customerResponse.detail;
-                    this.formMaker();
-                    this.setRelatives(this.customer.customerRelatives);
-                }
-            });
-        } else {
-            this.customer = new Customer();
-            this.formMaker();
-            this.createRelativesArray();
-            this.toastService.show(new Alert(AlertType.INFO, 'No Customer Found under provided Customer Citizenship No.'));
-        }
+        this.blackListService.checkBlacklistByRef(tempId).subscribe((response: any) => {
+            this.isBlackListed = response.detail;
+            this.blackListStatusEmitter.emit(this.isBlackListed);
+
+            if (this.isBlackListed) {
+                this.customerDetailField.showFormField = false;
+                this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Customer'));
+            } else {
+                this.customerDetailField.showFormField = true;
+                this.customerSearchData.citizenshipNumber = tempId;
+                this.customerService.getByCustomerByCitizenshipNo(this.customerSearchData.citizenshipNumber)
+                    .subscribe((customerResponse: any) => {
+                        if (customerResponse.detail === undefined) {
+                            this.getProvince();
+                            this.customerDetailField.isOldCustomer = false;
+                            this.toastService.show(new Alert(AlertType.INFO, 'No Customer Found under provided Citizenship No.'));
+                            this.customer = new Customer();
+                            this.customer.citizenshipNumber = tempId;
+                            this.formMaker();
+                            this.createRelativesArray();
+                        } else {
+                            this.getProvince();
+                            this.customer = customerResponse.detail;
+                            this.formMaker();
+                            this.setRelatives(this.customer.customerRelatives);
+                        }
+                    });
+            }
+        });
     }
 
     onSubmit() {
-        this.customer.title = this.basicInfo.get('title').value;
         this.customer.customerName = this.basicInfo.get('customerName').value;
-        this.customer.customerId = this.basicInfo.get('customerId').value;
         this.customer.province = this.basicInfo.get('province').value;
         this.customer.district = this.basicInfo.get('district').value;
         this.customer.municipalities = this.basicInfo.get('municipalities').value;
@@ -172,7 +178,7 @@ export class BasicInfoComponent implements OnInit {
             (response: any) => {
                 this.provinceList = response.detail;
                 this.provinceList.forEach((province: Province) => {
-                    if (this.customer !== undefined && this.customer.customerId) {
+                    if (this.customer !== undefined) {
                         if (!ObjectUtil.isEmpty(this.customer.province)) {
                             if (province.id === this.customer.province.id) {
                                 this.basicInfo.controls.province.setValue(province);
@@ -187,10 +193,7 @@ export class BasicInfoComponent implements OnInit {
 
     formMaker() {
         this.basicInfo = this.formBuilder.group({
-            // title not used in ui
-            title: [this.customer.title === undefined ? undefined : this.customer.title],
             customerName: [this.customer.customerName === undefined ? undefined : this.customer.customerName, Validators.required],
-            customerId: [this.customer.customerId === undefined ? undefined : this.customer.customerId, Validators.required],
             province: [this.customer.province === null ? undefined : this.customer.province, Validators.required],
             district: [this.customer.district === null ? undefined : this.customer.district, Validators.required],
             municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities, Validators.required],
@@ -220,10 +223,10 @@ export class BasicInfoComponent implements OnInit {
         relation.forEach((customerRelation) => {
             (this.basicInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
                 customerRelation: [{value: customerRelation, disabled: true}],
-                customerRelativeName: [undefined, Validators.compose([Validators.required])],
-                citizenshipNumber: [undefined, Validators.compose([Validators.required])],
-                citizenshipIssuedPlace: [undefined, Validators.compose([Validators.required])],
-                citizenshipIssuedDate: [undefined, Validators.compose([Validators.required, DateValidator.isValidBefore])]
+                customerRelativeName: [undefined],
+                citizenshipNumber: [undefined],
+                citizenshipIssuedPlace: [undefined],
+                citizenshipIssuedDate: [undefined]
             }));
         });
     }
@@ -236,11 +239,11 @@ export class BasicInfoComponent implements OnInit {
             relativesData.push(this.formBuilder.group({
                 customerRelation: (index > 2) ? [(customerRelative)] :
                     [({value: customerRelative, disabled: true}), Validators.required],
-                customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
-                citizenshipNumber: [singleRelatives.citizenshipNumber, Validators.required],
-                citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace, Validators.required],
+                customerRelativeName: [singleRelatives.customerRelativeName],
+                citizenshipNumber: [singleRelatives.citizenshipNumber],
+                citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
                 citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
-                    undefined : new Date(singleRelatives.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]]
+                    undefined : new Date(singleRelatives.citizenshipIssuedDate)]
             }));
         });
     }

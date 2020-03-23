@@ -5,7 +5,8 @@ import {LoanDataHolder} from '../../../model/loanData';
 import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
 import {Observable} from 'rxjs';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
-import {Guarantors} from '../../../model/guarantors';
+import {Guarantor} from '../../../model/guarantor';
+
 
 
 @Injectable({
@@ -113,7 +114,7 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, customerRelative, {headers: req.header});
     }
 
-    public getLoanOfCustomerAsGuarantor(guaranter: Guarantors): Observable<any> {
+    public getLoanOfCustomerAsGuarantor(guaranter: Guarantor): Observable<any> {
         const req = ApiUtils.getRequest(`${this.getApi()}/customer-guaranter`);
         return this.http.post(req.url, guaranter, {headers: req.header});
     }

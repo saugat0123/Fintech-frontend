@@ -15,7 +15,6 @@ export class BikeKarjaComponent implements OnInit {
   bikeKarjaForm: FormGroup;
   templateIndexInArray: number = undefined;
   initialInfo;
-  bikeKarjaPrint;
 
   constructor(
       private formBuilder: FormBuilder) {
@@ -27,10 +26,8 @@ export class BikeKarjaComponent implements OnInit {
 
   buildBikeKarjaForm(): void {
     this.bikeKarjaForm = this.formBuilder.group({
-    // personal info
       maritalStatus: [undefined],
       gender: [undefined],
-
       date1: [undefined],
       photo: [undefined],
       proposalAmount: [undefined],
@@ -59,9 +56,6 @@ export class BikeKarjaComponent implements OnInit {
       mobileNum: [undefined],
       email: [undefined],
       residencyType: [undefined],
-
-    //  placeholder for basasthan ko prakar
-
       academicQualification: [undefined],
       occupation: [undefined],
       employersName: [undefined],
@@ -84,7 +78,6 @@ export class BikeKarjaComponent implements OnInit {
       incomeTaxCertifiedNum: [undefined],
       montlyKarobar: [undefined],
       businessIncomeMonthly: [undefined],
-
       businessOtherIncome: [undefined],
       homeOwnerName: [undefined],
       homeOwnerPhone: [undefined],
@@ -102,10 +95,15 @@ export class BikeKarjaComponent implements OnInit {
       vehicleModel: [undefined],
       vehicleEstimatedPrice: [undefined],
       vehicleRegdNo: [undefined],
-      householdUtensilInfo: [undefined],
-
-      // <!-- बैंक खाताको विवरण -->
-
+      colorTv: [undefined],
+      refrigerator: [undefined],
+      washingMachine: [undefined],
+      audioCdPlayer: [undefined],
+      microOven: [undefined],
+      computer: [undefined],
+      ac: [undefined],
+      vacuumCleaner: [undefined],
+      otherItem: [undefined],
       bankName: [undefined],
       accountNo: [undefined],
       branch: [undefined],
@@ -138,15 +136,11 @@ export class BikeKarjaComponent implements OnInit {
       recPerAdd4: [undefined],
       recPerPhone4: [undefined],
       recPerMobile4: [undefined],
-
       applicantAddMap: [undefined],
       jamanikartaAddMap: [undefined],
       vehicleMachineModel: [undefined],
       loanAmount2: [undefined],
       aksherepi2: [undefined],
-
-    //  ब्याज दर
-
       interestRate: [undefined],
       yearsFromLoanApproval: [undefined],
       premiumPerMonth: [undefined],
@@ -157,17 +151,12 @@ export class BikeKarjaComponent implements OnInit {
       tdEngineNum: [undefined],
       chasisNum: [undefined],
       color: [undefined],
-
-      /* jamanikartaharu ko information*/
-
       personalJamanikartaName: [undefined],
       sign1: [undefined],
       date2: [undefined],
       personalJamanikartaName2: [undefined],
       sign2: [undefined],
       date3: [undefined],
-
-    //  ghosana section
       applicantSign: [undefined],
       applicantName: [undefined],
       sign3: [undefined],
@@ -175,10 +164,7 @@ export class BikeKarjaComponent implements OnInit {
       preparedBy: [undefined],
       preparedDate: [undefined],
       approvedBy: [undefined],
-
     });
-    // this.bikeKarjaPrint = this.bikeKarjaForm.value;
-    // this.setListenerForPrint();
 
     // In case of edit
     if (!ObjectUtil.isEmpty(this.nepaliTemplates)) {
@@ -204,10 +190,5 @@ export class BikeKarjaComponent implements OnInit {
       this.nepaliTemplates.push(newBikeKarja);
     }
   }
-  //
-  // setListenerForPrint() {
-  //   this.bikeKarjaForm.valueChanges.subscribe(() => {
-  //     this.bikeKarjaPrint = this.bikeKarjaForm.getRawValue();
-  //   });
-  // }
+
 }

@@ -3,9 +3,11 @@ import {ShareType} from '../../loan/model/ShareType';
 export class CustomerShareData {
     id: number;
     version: number;
-    companyName: String;
+    companyCode: string;
+    companyName: string;
     shareType: ShareType;
     totalShareUnit: number;
-    amountPerUnit: String;
-    companyCode: String;
+    amountPerUnit: number;
+    total: number;
+    consideredValue: number;
 }

@@ -1,4 +1,4 @@
-<div class="row mt-3">
+<div class="row mt-3 ">
     <div class="col-md-12">
         <nb-card>
             <nb-card-header class="text-center">
@@ -6,28 +6,42 @@
             </nb-card-header>
             <nb-card-body>
                 <form [formGroup]="filterForm">
-                    <div class="row sb-row-custom">
-                        <div *ngIf="accessSpecific || accessAll" class="col-md-3">
-                            <select formControlName="branch" class="custom-select">
+                    <div class="form-group row">
+                        <div *ngIf="accessSpecific || accessAll" class="col-md-2">
+                            <select formControlName="branch" class="custom-select" (change)="updateDealer($event)">
                                 <option selected [value]="0">All Branches</option>
                                 <option *ngFor="let branch of branches" [value]="branch.id">{{branch.name}}
                                 </option>
                             </select>
                         </div>
+
                         <div class="col-md-2">
-                            <input [nbDatepicker]="startDatePicker" nbInput placeholder="Start Date"
-                                formControlName="startDate">
+                            <select formControlName="dealer" class="custom-select">
+                                <option selected [value]="0">Dealers</option>
+                                <option *ngFor="let dealer of dealers" [ngValue]="dealer.id">{{dealer.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <input [nbDatepicker]="startDatePicker"  placeholder="Start Date"
+                                formControlName="startDate" class="form-control">
                             <nb-datepicker #startDatePicker></nb-datepicker>
                         </div>
-                        <div class="col-md-2">
-                            <input [nbDatepicker]="endDatePicker" nbInput placeholder="End Date"
-                                formControlName="endDate">
+                        <div class="col-sm-2">
+                            <input [nbDatepicker]="endDatePicker"  placeholder="End Date"
+                                formControlName="endDate" size="small" class="form-control">
                             <nb-datepicker #endDatePicker></nb-datepicker>
                         </div>
-                        <div class="col-md-4 sb-filter-button-container">
-                            <button nbButton shape="rectangle" status="none" (click)="filter()">Apply Filter</button>
-                            <button nbButton shape="rectangle" status="none" (click)="reset()">Reset Filter</button>
-                        </div>
+                      <div class="col-sm-1">
+                        <button nbButton shape="rectangle" status="none" (click)="filter()">Filter</button>
+                      </div>
+                      <div class="col-sm-1">
+                        <button nbButton shape="rectangle" status="none" (click)="reset()">Reset</button>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+
                     </div>
                 </form>
                 <div class="row">
@@ -40,11 +54,14 @@
                             </ngx-charts-advanced-pie-chart>
                             <div class="row">
                                 <div class="col-md-4 ">
-                                    <nb-card class="card bg-info text-white" >
-                                        <div>
-                                            <label class="card-header bg-dark">
-                                                Discussion <mark class="text-info"><strong> {{discussionFileCount}}</strong></mark>
-                                            </label>
+                                    <nb-card class="card bg-info text-white " >
+                                        <div >
+                                            <a  (click)="resolveToCatalogue('discussion')">
+                                                <label class="card-header bg-dark cursor">
+                                                    Discussion <mark class="text-info"><strong> {{discussionFileCount}}</strong></mark>
+                                                </label>
+                                            </a>
+
                                             <div id="Discussion"  style="display: inline">
                                                 <strong>&nbsp;{{ discussionProposedAmount | currency: 'NRS '}}</strong>
                                             </div>
@@ -52,13 +69,15 @@
                                     </nb-card>
                                 </div>
                                 <div class="col-md-4 ">
-                                    <nb-card  class="card bg-info text-white"  >
+                                    <nb-card  class="card bg-info text-white "  >
                                         <div >
-                                            <label class="card-header bg-dark">
-                                                Documentation <mark class="text-info"><strong> {{documentationFileCount}}</strong></mark>
-                                            </label>
+                                            <a class="cursor" (click)="resolveToCatalogue('documentation')">
+                                                <label class="card-header bg-dark cursor">
+                                                    Documentation <mark class="text-info "><strong> {{documentationFileCount}}</strong></mark>
+                                                </label>
+                                            </a>
                                             <div id="documentationAmountApproved"  style="display: inline">
-                                                &nbsp;<strong>&nbsp;{{approvedProposedAmount | currency: 'NRS '}}</strong>
+                                                &nbsp;<strong>&nbsp;{{documentationProposedAmount | currency: 'NRS '}}</strong>
                                             </div>
                                         </div>
                                     </nb-card>
@@ -66,11 +85,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4 ">
-                                    <nb-card class="card bg-info text-white" >
-                                        <div >
-                                            <label class="card-header bg-dark">
-                                                Valuation <mark class="text-info"><strong> {{valuationFileCount}}</strong></mark>
-                                            </label>
+                                    <nb-card class="card bg-info text-white " >
+                                        <div>
+                                            <a class="cursor" (click)="resolveToCatalogue('valuation')">
+                                                <label class="card-header bg-dark cursor">
+                                                    Valuation <mark class="text-info"><strong> {{valuationFileCount}}</strong></mark>
+                                                </label>
+                                            </a>
+
                                             <div id="seperateAmountPending"  style="display: inline">
                                                 <strong>&nbsp; {{ valuationProposedAmount | currency: 'NRS '}}</strong>
                                             </div>
@@ -78,11 +100,14 @@
                                     </nb-card>
                                 </div>
                                 <div class="col-md-4 ">
-                                    <nb-card  class="card bg-info text-white"  >
+                                    <nb-card  class="card bg-info text-white "  >
                                         <div >
-                                            <label class="card-header bg-dark">
-                                                Under Review <mark class="text-info"><strong> {{valuationFileCount}}</strong></mark>
-                                            </label>
+                                            <a class="cursor" (click)="resolveToCatalogue('underReview')">
+                                                <label class="card-header bg-dark cursor">
+                                                    Under Review <mark class="text-info"><strong> {{valuationFileCount}}</strong></mark>
+                                                </label>
+                                            </a>
+
                                             <div id="seperateAmountApproved"  style="display: inline">
                                                 &nbsp;<strong>&nbsp;{{reviewProposedAmount | currency: 'NRS '}}</strong>
                                             </div>
@@ -92,11 +117,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4 ">
-                                    <nb-card class="  card bg-warning text-white" >
-                                        <div >
-                                            <label class="card-header bg-dark">
-                                                Pending <mark class="text-warning"><strong> {{pendingFileCount}}</strong></mark>
-                                            </label>
+                                    <nb-card class="  card bg-warning text-white " >
+                                        <div>
+                                            <a class="cursor" (click)="resolveToCatalogue('pending')">
+                                                <label class="card-header bg-dark cursor">
+                                                    Pending <mark class="text-warning"><strong> {{pendingFileCount}}</strong></mark>
+                                                </label>
+                                            </a>
                                             <div id="seperateAmountPending"  style="display: inline">
                                                 <strong>&nbsp;{{ pendingProposedAmount | currency: 'NRS '}}</strong>
                                             </div>
@@ -104,11 +131,14 @@
                                     </nb-card>
                                 </div>
                                 <div class="col-md-4 ">
-                                    <nb-card  class=" card bg-success text-white"  >
+                                    <nb-card  class=" card bg-success text-white "  >
                                         <div >
-                                            <label class="card-header bg-dark">
-                                                Approved <mark class="text-success"><strong> {{approvedFileCount}}</strong></mark>
-                                            </label>
+                                            <a class="cursor" (click)="resolveToCatalogue('approved')">
+                                                <label class="card-header bg-dark cursor">
+                                                    Approved <mark class="text-success cursor"><strong> {{approvedFileCount}}</strong></mark>
+                                                </label>
+                                            </a>
+
                                             <div id="seperateAmountApproved"  style="display: inline">
                                                 <strong>&nbsp;{{approvedProposedAmount | currency: 'NRS '}}</strong>
                                             </div>
@@ -118,11 +148,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4 ">
-                                    <nb-card  class=" card bg-danger text-white" >
+                                    <nb-card  class=" card bg-danger text-white " >
                                         <div >
-                                            <label class="card-header bg-dark">
-                                                Rejected <mark class="text-danger"><strong> {{rejectedFileCount}}</strong></mark>
-                                            </label>
+                                            <a class="cursor" (click)="resolveToCatalogue('rejected')">
+                                                <label class="card-header bg-dark cursor">
+                                                    Rejected <mark class="text-danger"><strong> {{rejectedFileCount}}</strong></mark>
+                                                </label>
+                                            </a>
                                             <div id="seperateAmountRejected"  style="display: inline">
                                                 &nbsp;<strong>&nbsp;{{rejectedProposedAmount | currency: 'NRS '}}</strong>
                                             </div>
@@ -130,11 +162,14 @@
                                     </nb-card>
                                 </div>
                                 <div class="col-md-4 ">
-                                    <nb-card  class=" bg-primary text-white align-self-center" >
+                                    <nb-card  class=" bg-primary text-white align-self-center " >
                                         <div >
-                                            <label class="card-header bg-dark">
-                                                Closed <mark class="text-primary"><strong> {{closureFileCount}}</strong></mark>
-                                            </label>
+                                            <a  (click)="resolveToCatalogue('closed')">
+                                                <label class="card-header bg-dark cursor">
+                                                    Closed <mark class="text-primary"><strong> {{closureFileCount}}</strong></mark>
+                                                </label>
+                                            </a>
+
                                             <div id="seperateAmountClosed"  style="display: inline" class="m-md-auto">
                                                 <strong>&nbsp;{{closureProposedAmount | currency: 'NRS '}}</strong>
                                             </div>
