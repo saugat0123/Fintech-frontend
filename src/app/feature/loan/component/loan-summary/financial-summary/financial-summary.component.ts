@@ -9,8 +9,11 @@ import {FinancialService} from '../../loan-main-template/financial/financial.ser
 })
 export class FinancialSummaryComponent implements OnInit {
   @Input() formData: Financial;
+  @Input() loanType: any;
 
   financialData: any;
+
+  isBusinessLoan = false;
 
   // Additional Summary Fields---
   totalDebtValueArray = [];
@@ -38,34 +41,38 @@ export class FinancialSummaryComponent implements OnInit {
   constructor(private financialService: FinancialService) { }
 
   ngOnInit() {
+    if (this.loanType === 'BUSINESS_TYPE') {
+      this.isBusinessLoan = true;
+    }
     if (this.formData !== undefined) {
       this.financialData = JSON.parse(this.formData.data);
-      this.setTotalDebtValue();
-      this.setDebtServiceCost();
+      if (this.isBusinessLoan) {
+        this.setTotalDebtValue();
+        this.setDebtServiceCost();
 
-      // Drawing power calculation projected years only--
-      this.financialData.fiscalYear.forEach( (singleYear, i) => {
-        if (singleYear.toUpperCase().includes('PROJECTED')) {
-          this.projectedYearsMap.set(i, singleYear);
-        }
-      });
+        // Drawing power calculation projected years only--
+        this.financialData.fiscalYear.forEach( (singleYear, i) => {
+          if (singleYear.toUpperCase().includes('PROJECTED')) {
+            this.projectedYearsMap.set(i, singleYear);
+          }
+        });
 
-      // Working Capital Loan Drawing power calculation---
-      this.getStockForDPC();
-      this.getAccountRecievableDPC();
-      this.getTotalCurrentAssetDPC();
-      this.getCreditorsForDPC();
-      this.getNtcaDPC();
-      this.getDrawingPowerWCP();
-      this.getLoanLimit();
-      this.getLoanToNtca();
+        // Working Capital Loan Drawing power calculation---
+        this.getStockForDPC();
+        this.getAccountRecievableDPC();
+        this.getTotalCurrentAssetDPC();
+        this.getCreditorsForDPC();
+        this.getNtcaDPC();
+        this.getDrawingPowerWCP();
+        this.getLoanLimit();
+        this.getLoanToNtca();
 
-      // Term Loan Drawing power calculation---
-      this.getTotalFixedAssets();
-      this.getDPTermLoan();
-      this.getTermLoan();
-      this.getDPCalculationTermLoan();
-
+        // Term Loan Drawing power calculation---
+        this.getTotalFixedAssets();
+        this.getDPTermLoan();
+        this.getTermLoan();
+        this.getDPCalculationTermLoan();
+      }
     }
   }
 

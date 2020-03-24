@@ -44,6 +44,7 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             this.setOtherAdjustment(incomeStatementFormData.otherAdjustment);
             this.setAccumulatedProfitBOrD(incomeStatementFormData.accumulatedProfitBOrD);
             this.setNetProfitTransferredToBalanceSheet(incomeStatementFormData.netProfitTransferredToBalanceSheet);
+            this.incomeStatementForm.get('justificationIncomeStatement').patchValue(incomeStatementFormData.justificationIncomeStatement);
         }
     }
 
@@ -128,7 +129,8 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             dividendOrDrawing: this.formBuilder.array([]),
             otherAdjustment: this.formBuilder.array([]),
             accumulatedProfitBOrD: this.formBuilder.array([]),
-            netProfitTransferredToBalanceSheet: this.formBuilder.array([])
+            netProfitTransferredToBalanceSheet: this.formBuilder.array([]),
+            justificationIncomeStatement: [undefined]
         });
     }
 
