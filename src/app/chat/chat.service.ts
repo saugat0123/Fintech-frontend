@@ -20,6 +20,12 @@ export class ChatService extends BaseService<Chat> {
         return this.http.get(req.url, {headers: req.header});
     }
 
+    public updateSeenChat(fromId: any): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/update-seen`);
+        return this.http.post(req.url, fromId, {headers: req.header});
+    }
+
+
     protected getApi(): string {
         return ChatService.API;
     }

@@ -2,8 +2,12 @@ export class Chat {
     fromUserId: string;
     toUserId: string;
     text: string;
-    date: Date;
+    sendDate: Date;
     reply: boolean;
-    user: any;
+    senderUser: any;
+    createdAt: any;
+    bothUser: string;
+    seenFlag: boolean;
+    newMsg: number;
 
 }

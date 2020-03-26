@@ -7,6 +7,7 @@ import {
     NbAccordionModule,
     NbActionsModule,
     NbAlertModule,
+    NbBadgeModule,
     NbButtonModule,
     NbCalendarKitModule,
     NbCalendarModule,
@@ -174,7 +175,7 @@ const NB_THEME_PROVIDERS = [
 ];
 
 @NgModule({
-    imports: [...BASE_MODULES, ...NB_MODULES, RouterModule, NgxSpinnerModule],
+    imports: [...BASE_MODULES, ...NB_MODULES, RouterModule, NgxSpinnerModule, NbBadgeModule],
     exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, NgxSpinnerModule],
     declarations: [...COMPONENTS, ...PIPES, ProfileComponent, ChangePasswordComponent],
     entryComponents: [...ENTRY_COMPONENTS],

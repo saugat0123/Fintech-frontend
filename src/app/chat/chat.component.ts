@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ChatService} from './chat.service';
+import {ChatSocketService} from './chat-socket.service';
 
 @Component({
     selector: 'app-chat',
@@ -12,25 +13,37 @@ export class ChatComponent implements OnInit {
     showHideBot = false;
     user;
     userList = [];
+    currentUserUnseenMsg = 0;
 
-    constructor(private chatService: ChatService) {
+    constructor(
+        private chatSocketService: ChatSocketService,
+        private chatService: ChatService) {
     }
 
     ngOnInit() {
+        this.chatSocketService.initializeWebSocketConnection();
+        this.currentUserUnseenMsg = this.chatSocketService.newMsgCount;
         this.chatService.getUserForChat().subscribe((res: any) => {
-            this.userList = res.detail;
+            this.userList = res.detail.userList;
+            this.currentUserUnseenMsg = res.detail.unseenMsg;
         });
     }
 
     openChatBot(user) {
-        console.log('r', user);
         this.user = user;
         this.showHideBot = true;
+        this.chatService.updateSeenChat(this.user.id.toString()).subscribe((res: any) => {
+            this.chatService.getUserForChat().subscribe((res: any) => {
+                this.userList = res.detail.userList;
+                this.currentUserUnseenMsg = res.detail.unseenMsg;
+            });
+        });
     }
 
     showHideUserList() {
         if (this.showHideUser) {
             this.showHideUser = false;
+            this.showHideBot = false;
         } else {
             this.showHideUser = true;
         }

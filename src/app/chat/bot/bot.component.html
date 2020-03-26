@@ -1,10 +1,74 @@
-<nb-chat [title]="toUser.name" size="medium" status="primary">
-    <nb-chat-message *ngFor="let message of messages"
-                     [avatar]="message.user.avatar"
-                     [date]="message.date"
-                     [message]="message.text"
-                     [reply]="message.reply"
-                     [sender]="message.user.name"></nb-chat-message>
-    <nb-chat-form (send)="sendMessage($event)">
-    </nb-chat-form>
-</nb-chat>
+<!--<nb-chat [title]="associateUser.name" size="small" status="primary" style="width: 300px !important;">-->
+<!--    <nb-chat-message *ngFor="let message of messages"-->
+<!--                     [avatar]="message.senderUser.avatar"-->
+<!--                     [date]="associateUser.id.toString() === message.fromUserId-->
+<!--                     || associateUser.id.toString() === message.toUserId? message.createdAt:message.createdAt"-->
+<!--                     [message]="message.text"-->
+<!--                     [reply]="message.reply"-->
+<!--                     [sender]="message.senderUser.name"></nb-chat-message>-->
+<!--    <nb-chat-form (send)="sendMessage($event)">-->
+<!--    </nb-chat-form>-->
+<!--</nb-chat>-->
+
+<nb-card style="width:300px!important;height:300px;">
+    <nb-card-header style="background-color: #0B1D72;color: white">
+        {{associateUser.name}}
+    </nb-card-header>
+    <nb-card-body class="chat-discussion" style="overflow-y: auto">
+        <div *ngFor="let message of messages">
+            <div *ngIf="associateUser.id.toString()=== message.fromUserId || associateUser.id.toString()=== message.toUserId">
+
+                <div>
+                    <span *ngIf="message.senderUser.id === currentUserId" class="px-4"
+                          style="font-size: 10px;"> {{message.createdAt | date}} </span>
+                    <div class="chat-message right">
+                        <div *ngIf="message.senderUser.id === currentUserId" class="message">
+                            <div class="row">
+                                <span style="font-size: 10px"> Rabindra Nath kumar shrestha </span>
+                            </div>
+                            <div class="message-content">
+                                <span style="text-align: justify">	{{message.text}}</span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <span *ngIf="message.senderUser.id !== currentUserId" class="px-4"
+                          style="font-size: 10px;"> {{message.createdAt | date}} </span>
+                    <div *ngIf="message.senderUser.id !== currentUserId" class="chat-message left">
+                        <img alt="" class="message-avatar" src="../assets/img/avatar.png">
+                        <div class="message">
+                            <div class="row">
+                                <span style="font-size: 10px"> {{message.senderUser.name}}</span>
+                            </div>
+                            <div class="message-content">
+                                <span style="text-align: justify">	{{message.text}}</span>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </nb-card-body>
+
+    <div style="height:50px">
+        <form [formGroup]="chatForm">
+            <div class="col-md-12">
+                <div>
+                    <textarea formControlName="message" name="message"></textarea>
+
+                    <button (click)="sendMessage(null)"
+                            class="btn bank-btn-color btn-sm btn-flat"><i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+</nb-card>
