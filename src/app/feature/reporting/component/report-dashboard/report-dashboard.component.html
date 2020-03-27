@@ -3,6 +3,15 @@
     Reporting Dashboard
   </nb-card-header>
   <nb-card-body>
-    <app-nrb-report></app-nrb-report>
+    <nb-accordion>
+      <nb-accordion-item #itemNRBReporting>
+        <nb-accordion-item-header>
+          NRB Reporting
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-nrb-report *ngIf="itemNRBReporting.expanded"></app-nrb-report>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
   </nb-card-body>
 </nb-card>
