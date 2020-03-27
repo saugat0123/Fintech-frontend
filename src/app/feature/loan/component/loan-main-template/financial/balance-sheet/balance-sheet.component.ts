@@ -41,6 +41,7 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
             this.setNetWorthCategory(balanceSheetFormData.netWorthCategory);
             this.setTotalLiabilitiesAndEquity(balanceSheetFormData.totalLiabilitiesAndEquity);
             this.setDifferenceBS(balanceSheetFormData.differenceBS);
+            this.balanceSheetForm.get('justificationBalanceSheet').patchValue(balanceSheetFormData.justificationBalanceSheet);
         }
     }
 
@@ -148,7 +149,8 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                 })
             ]),
             totalLiabilitiesAndEquity: this.formBuilder.array([]),
-            differenceBS: this.formBuilder.array([])
+            differenceBS: this.formBuilder.array([]),
+            justificationBalanceSheet: [undefined]
         });
     }
 

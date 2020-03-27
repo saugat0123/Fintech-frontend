@@ -51,7 +51,7 @@
                                 'is-valid': !incomeOfBorrower.get('amount').invalid && (incomeOfBorrower.get('amount').dirty || incomeOfBorrower.get('amount').touched)
                                 }" class="form-control"
                                                formControlName="amount" placeholder="Amount"
-                                               type="text">
+                                               type="number">
                                         <span *ngIf="incomeOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
                                     </div>
                                 </div>
@@ -130,7 +130,7 @@
                                 'is-valid': !expensesOfBorrower.get('amount').invalid && (expensesOfBorrower.get('amount').dirty || expensesOfBorrower.get('amount').touched)
                                 }" class="form-control"
                                                formControlName="amount" placeholder="Amount"
-                                               type="text">
+                                               type="number">
                                         <span *ngIf="expensesOfBorrower.get('amount').invalid" class="invalid-feedback">Amount required</span>
                                     </div>
                                 </div>
@@ -175,90 +175,91 @@
             </nb-card>
         </form>
 
-        <hr>
-
-        <div class="row my-2">
-            <div class="col-md-12 text-right">
-                <button (click)="openFiscalYearModal()" class="mb-2" nbButton>Add Fiscal year</button>
+        <div *ngIf="isBusinessLoan">
+            <hr>
+            <div class="row my-2">
+                <div class="col-md-12 text-right">
+                    <button (click)="openFiscalYearModal()" class="mb-2" nbButton>Add Fiscal year</button>
+                </div>
             </div>
-        </div>
 
-        <hr>
+            <hr>
 
-        <div *ngIf="auditorList.length > 0" class="row mb-4">
-            <div class="col-md-12">
-                <nb-card class="mark">
-                    <nb-card-body>
-                        <h3 class="mb-2">Financial Auditor Detail Information</h3>
-                        <table aria-describedby="auditor list table" class="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th scope="col">S.N</th>
-                                <th scope="col">Audited</th>
-                                <th scope="col">Audit Firm</th>
-                                <th scope="col">Propriete/Partner</th>
-                                <th scope="col">Membership No.</th>
-                                <th scope="col">Certificate of Practice</th>
-                                <th scope="col">Class</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr *ngFor="let auditor of auditorList; let i = index">
-                                <td><strong>{{i + 1}}</strong></td>
-                                <td>{{auditor['audited']}}</td>
-                                <td>{{auditor['auditFirm']}}</td>
-                                <td>{{auditor['proprietePartner']}}</td>
-                                <td>{{auditor['membershipNo']}}</td>
-                                <td>{{auditor['certificateOfPractice']}}</td>
-                                <td>{{auditor['class']}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </nb-card-body>
-                </nb-card>
+            <div *ngIf="auditorList.length > 0" class="row mb-4">
+                <div class="col-md-12">
+                    <nb-card class="mark">
+                        <nb-card-body>
+                            <h3 class="mb-2">Financial Auditor Detail Information</h3>
+                            <table aria-describedby="auditor list table" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">S.N</th>
+                                    <th scope="col">Audited</th>
+                                    <th scope="col">Audit Firm</th>
+                                    <th scope="col">Propriete/Partner</th>
+                                    <th scope="col">Membership No.</th>
+                                    <th scope="col">Certificate of Practice</th>
+                                    <th scope="col">Class</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let auditor of auditorList; let i = index">
+                                    <td><strong>{{i + 1}}</strong></td>
+                                    <td>{{auditor['audited']}}</td>
+                                    <td>{{auditor['auditFirm']}}</td>
+                                    <td>{{auditor['proprietePartner']}}</td>
+                                    <td>{{auditor['membershipNo']}}</td>
+                                    <td>{{auditor['certificateOfPractice']}}</td>
+                                    <td>{{auditor['class']}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </nb-card-body>
+                    </nb-card>
+                </div>
             </div>
-        </div>
 
-        <nb-tabset #currentTabSet (changeTab)="changeActiveTab(currentTabSet['tabs'])" class="mb-4" fullWidth>
+            <nb-tabset #currentTabSet (changeTab)="changeActiveTab(currentTabSet['tabs'])" class="mb-4" fullWidth>
 
-            <nb-tab class="px-0" tabTitle="Income Statement">
-                <app-income-statement #incomeStatement
-                                      (removeFiscalYear)="removeFiscalYear($event)"
-                                      *ngIf="activeTab === 'Income Statement'" [fiscalYear]="fiscalYear"
-                                      [formData]="currentFormData">
-                </app-income-statement>
-            </nb-tab>
+                <nb-tab class="px-0" tabTitle="Income Statement">
+                    <app-income-statement #incomeStatement
+                                          (removeFiscalYear)="removeFiscalYear($event)"
+                                          *ngIf="activeTab === 'Income Statement'" [fiscalYear]="fiscalYear"
+                                          [formData]="currentFormData">
+                    </app-income-statement>
+                </nb-tab>
 
-            <nb-tab class="px-0" tabTitle="Balance Sheet">
-                <app-balance-sheet #balanceSheet
-                                   (removeFiscalYear)="removeFiscalYear($event)"
-                                   *ngIf="activeTab === 'Balance Sheet'"
-                                   [fiscalYear]="fiscalYear" [formData]="currentFormData">
-                </app-balance-sheet>
-            </nb-tab>
+                <nb-tab class="px-0" tabTitle="Balance Sheet">
+                    <app-balance-sheet #balanceSheet
+                                       (removeFiscalYear)="removeFiscalYear($event)"
+                                       *ngIf="activeTab === 'Balance Sheet'"
+                                       [fiscalYear]="fiscalYear" [formData]="currentFormData">
+                    </app-balance-sheet>
+                </nb-tab>
 
-            <nb-tab class="px-0" tabTitle="Cash Flow Statement">
-                <app-cash-flow-statement #cashFlowStatement
-                                         (removeFiscalYear)="removeFiscalYear($event)"
-                                         *ngIf="activeTab === 'Cash Flow Statement'"
-                                         [fiscalYear]="fiscalYear" [formData]="currentFormData">
-                </app-cash-flow-statement>
-            </nb-tab>
+                <nb-tab class="px-0" tabTitle="Cash Flow Statement">
+                    <app-cash-flow-statement #cashFlowStatement
+                                             (removeFiscalYear)="removeFiscalYear($event)"
+                                             *ngIf="activeTab === 'Cash Flow Statement'"
+                                             [fiscalYear]="fiscalYear" [formData]="currentFormData">
+                    </app-cash-flow-statement>
+                </nb-tab>
 
-            <nb-tab class="px-0" tabTitle="Key Indicators">
-                <app-key-indicators #keyIndicators
-                                    (removeFiscalYear)="removeFiscalYear($event)"
-                                    *ngIf="activeTab === 'Key Indicators'"
-                                    [fiscalYear]="fiscalYear" [formData]="currentFormData">
-                </app-key-indicators>
-            </nb-tab>
-        </nb-tabset>
+                <nb-tab class="px-0" tabTitle="Key Indicators">
+                    <app-key-indicators #keyIndicators
+                                        (removeFiscalYear)="removeFiscalYear($event)"
+                                        *ngIf="activeTab === 'Key Indicators'"
+                                        [fiscalYear]="fiscalYear" [formData]="currentFormData">
+                    </app-key-indicators>
+                </nb-tab>
+            </nb-tabset>
 
-        <hr>
+            <hr>
 
-        <div class="row mb-2">
-            <div class="col-md-12">
-                <app-borrower-risk-rating #brr [formDataForBrrEdit]="currentFormData['brr']"></app-borrower-risk-rating>
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <app-borrower-risk-rating #brr [formDataForBrrEdit]="currentFormData['brr']"></app-borrower-risk-rating>
+                </div>
             </div>
         </div>
     </nb-card-body>
