@@ -1,0 +1,25 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-6">
+        NRB Reporting
+      </div>
+      <div class="col-md-6 text-right">
+        <button (click)="add(null)" nbButton outline status="success" title="Add">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-accordion>
+      <nb-accordion-item *ngFor="let report of reportingInfoList">
+        <nb-accordion-item-header>
+          <a (click)="add(report)" class="p-2 cursor"><i class="fa fa-edit"></i></a> {{report?.name}}
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </nb-card-body>
+</nb-card>
