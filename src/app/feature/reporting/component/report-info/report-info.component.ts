@@ -10,11 +10,11 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
-  selector: 'app-nrb-report',
-  templateUrl: './nrb-report.component.html',
-  styleUrls: ['./nrb-report.component.scss']
+  selector: 'app-report-info',
+  templateUrl: './report-info.component.html',
+  styleUrls: ['./report-info.component.scss']
 })
-export class NrbReportComponent implements OnInit {
+export class ReportInfoComponent implements OnInit {
   public reportingInfoList: Array<ReportingInfo> = new Array<ReportingInfo>();
   public isFilterCollapsed = true;
   private filterForm: FormGroup;
@@ -30,7 +30,7 @@ export class NrbReportComponent implements OnInit {
   ) {
   }
 
-  static loadData(other: NrbReportComponent) {
+  static loadData(other: ReportInfoComponent) {
     other.reportingInfoService.getAllWithSearch(other.search).subscribe((response: any) => {
       other.reportingInfoList = response.detail;
     }, error => {
@@ -40,7 +40,7 @@ export class NrbReportComponent implements OnInit {
   }
 
   ngOnInit() {
-    NrbReportComponent.loadData(this);
+    ReportInfoComponent.loadData(this);
     this.buildFilterForm();
   }
 
@@ -49,17 +49,17 @@ export class NrbReportComponent implements OnInit {
     ref.componentInstance.model = report || new ReportingInfo();
     ref.componentInstance.action = report ? Action.UPDATE : Action.ADD;
 
-    ModalUtils.resolve(ref.result, NrbReportComponent.loadData, this);
+    ModalUtils.resolve(ref.result, ReportInfoComponent.loadData, this);
   }
 
   public clear(): void {
     this.buildFilterForm();
-    NrbReportComponent.loadData(this);
+    ReportInfoComponent.loadData(this);
   }
 
   public onSearch(): void {
     this.search.name = ObjectUtil.setUndefinedIfNull(this.filterForm.get('name').value);
-    NrbReportComponent.loadData(this);
+    ReportInfoComponent.loadData(this);
   }
 
   private buildFilterForm(): void {
