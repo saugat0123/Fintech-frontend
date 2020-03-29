@@ -9,11 +9,11 @@ import {ModalResponse, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-nrb-report-form',
-  templateUrl: './nrb-report-form.component.html',
-  styleUrls: ['./nrb-report-form.component.scss']
+  selector: 'app-report-info-form',
+  templateUrl: './report-info-form.component.html',
+  styleUrls: ['./report-info-form.component.scss']
 })
-export class NrbReportFormComponent implements OnInit {
+export class ReportInfoFormComponent implements OnInit {
   @Input() model: ReportingInfo;
   @Input() action: Action;
 

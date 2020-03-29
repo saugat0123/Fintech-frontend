@@ -5,18 +5,18 @@ import {ReportingRoutingModule} from './reporting-routing.module';
 import {ReportDashboardComponent} from './component/report-dashboard/report-dashboard.component';
 import {ThemeModule} from '../../@theme/theme.module';
 import {ReportInfoComponent} from './component/report-info/report-info.component';
-import {NrbReportFormComponent} from './component/nrb-report-form/nrb-report-form.component';
+import {ReportInfoFormComponent} from './component/report-info-form/report-info-form.component';
 
 
 @NgModule({
-  declarations: [ReportDashboardComponent, ReportInfoComponent, NrbReportFormComponent],
+  declarations: [ReportDashboardComponent, ReportInfoComponent, ReportInfoFormComponent],
   imports: [
     CommonModule,
     ReportingRoutingModule,
     ThemeModule
   ],
   entryComponents: [
-    NrbReportFormComponent
+    ReportInfoFormComponent
   ]
 })
 export class ReportingModule {

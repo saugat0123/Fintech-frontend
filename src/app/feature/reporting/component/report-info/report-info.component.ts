@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NrbReportFormComponent} from '../nrb-report-form/nrb-report-form.component';
+import {ReportInfoFormComponent} from '../report-info-form/report-info-form.component';
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {ReportingInfo} from '../../../../@core/model/reporting-info';
 import {Action} from '../../../../@core/Action';
@@ -45,7 +45,7 @@ export class ReportInfoComponent implements OnInit {
   }
 
   public add(report: ReportingInfo) {
-    const ref = this.dialogService.open(NrbReportFormComponent, {size: 'lg', backdrop: 'static'});
+    const ref = this.dialogService.open(ReportInfoFormComponent, {size: 'lg', backdrop: 'static'});
     ref.componentInstance.model = report || new ReportingInfo();
     ref.componentInstance.action = report ? Action.UPDATE : Action.ADD;
 
