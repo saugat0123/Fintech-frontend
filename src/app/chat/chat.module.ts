@@ -5,16 +5,19 @@ import {BotComponent} from './bot/bot.component';
 import {NbBadgeModule, NbCardModule} from '@nebular/theme';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FilterPipe} from './filter.pipe';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import {ChatSpinnerComponent} from './chat-spinner/chat-spinner.component';
 
 
 @NgModule({
-    declarations: [ChatComponent, BotComponent, FilterPipe],
+    declarations: [ChatComponent, BotComponent, FilterPipe, ChatSpinnerComponent],
     imports: [
         CommonModule,
         NbCardModule,
         ReactiveFormsModule,
         FormsModule,
         NbBadgeModule,
+        InfiniteScrollModule
 
     ],
     exports: [

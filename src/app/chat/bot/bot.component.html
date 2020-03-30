@@ -10,51 +10,87 @@
 <!--    </nb-chat-form>-->
 <!--</nb-chat>-->
 
-<nb-card style="width:300px!important;height:300px;    margin-top: 55px;">
-    <nb-card-header style="background-color:#1B3BAA;color: white;height: 65px">
+<nb-card style="width:300px!important;height:400px;">
+    <nb-card-header class="bank-header-color" style="color: white;height: 65px">
         {{associateUser.name}}
         <div style="margin-top: -8px"><span style="font-size: 12px">{{associateUser.role.name}}</span></div>
     </nb-card-header>
-    <nb-card-body class="chat-discussion" style="overflow: auto; height: 300px;">
-        <div #msgList class="hide-scroll" style="overflow-y: scroll; height: 300px;overflow-x: hidden;">
-        <div *ngFor="let message of messages">
-            <div *ngIf="associateUser.id.toString()=== message.fromUserId || associateUser.id.toString()=== message.toUserId">
+    <nb-card-body class="chat-discussion cursor">
+        <div #msgList (scrolledUp)="onScrollUp()" [infiniteScrollDistance]="2"
+             [infiniteScrollThrottle]="50"
 
-                <div>
+             [infiniteScrollUpDistance]="1.5"
+             [scrollWindow]="false"
+             class="hide-scroll"
+             infinite-scroll
+             style="overflow-y: scroll; height: 350px;overflow-x: hidden;">
+
+            <app-chat-spinner *ngIf="spinner"></app-chat-spinner>
+
+            <div *ngFor="let message of messages">
+                <div *ngIf="associateUser.id.toString()=== message.fromUserId || associateUser.id.toString()=== message.toUserId"
+                >
+
+                    <div>
                     <span *ngIf="message.senderUser.id === currentUserId" class="px-4"
                           style="font-size: 10px;"> {{message.sendDate | date}} </span>
-                    <div class="chat-message left">
-                        <div *ngIf="message.senderUser.id === currentUserId" class="message bk-receiver">
-                            <div class="row">
-                                <span style="font-size: 10px"> You </span>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12" style="text-align: justify;">    {{message.text}}</div>
+                        <div class="chat-message left">
+                            <div *ngIf="message.senderUser.id === currentUserId" class="message bk-receiver">
+                                <div class="row">
+                                    <span style="font-size: 10px"> You </span>
+                                </div>
 
+                                <div class="col-md-12">
+                                    <div class="row"><span style="text-align: justify;">{{message.text}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                            <span class="d-flex justify-content-end"
+                                                  style="font-size: 10px;">
+                                                {{message.sendDate | date : 'shortTime'}}
+                                                <span *ngIf="message.seenFlag" style="padding-left:5px"><i
+                                                        class="fa fa-check-double"></i>
+                                                </span>
+                                            </span>
+
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <span *ngIf="message.senderUser.id !== currentUserId" class="px-4"
-                          style="font-size: 10px;"> {{message.sendDate | date}} </span>
-                    <div *ngIf="message.senderUser.id !== currentUserId" class="chat-message right">
-                        <img alt="" class="message-avatar" src="../assets/img/avatar.png">
-                        <div class="bk-sender">
-                            <div class="row">
-                                <span style="font-size: 10px"> {{message.senderUser.name}}</span>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12" style="text-align: justify;">    {{message.text}}</div>
+                        <span *ngIf="message.senderUser.id !== currentUserId" class="px-4"
+                              style="font-size: 10px;"> {{message.sendDate | date}} </span>
+                        <div *ngIf="message.senderUser.id !== currentUserId" class="chat-message right">
+                            <img alt="" class="message-avatar" src="../assets/img/avatar.png">
+                            <div class="bk-sender">
+                                <div class="row">
+                                    <span style="font-size: 10px"> {{message.senderUser.name}}</span>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row"><span style="text-align: justify;">{{message.text}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                            <span class="d-flex justify-content-end"
+                                                  style="font-size: 10px;">
+                                                {{message.sendDate | date : 'shortTime'}}
+                                            </span>
 
+                                    </div>
+
+                                </div>
                             </div>
+
                         </div>
 
+
                     </div>
-
-
                 </div>
+
             </div>
 
-        </div>
         </div>
 
     </nb-card-body>

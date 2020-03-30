@@ -25,7 +25,11 @@ export class BotComponent implements OnInit, OnChanges, AfterViewChecked, AfterV
     chat: Chat = new Chat();
     chatForm: FormGroup;
     showHideChat = true;
+    page = 1;
+    size = 20;
+    totalPages = 0;
     private currentUserId = LocalStorageUtil.getStorage().userId;
+    spinner = false;
 
     constructor(private _el: ElementRef,
                 private chatService: ChatService,
@@ -63,27 +67,41 @@ export class BotComponent implements OnInit, OnChanges, AfterViewChecked, AfterV
         this.chat.senderUser = JSON.stringify(this.chat.senderUser);
         this.chatService.save(this.chat).subscribe((response: any) => {
             this.chatForm.reset();
+            this.scrollToBottom();
         });
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         this.chatSocketService.messages = [];
-        this.chatService.getPaginationWithSearchObject(this.associateUser.id.toString(), 1, 100).subscribe((response: any) => {
+        this.getMessageList(this.size);
+    }
+
+    getMessageList(size) {
+        this.spinner = true;
+        this.chatService.getPaginationWithSearchObject(this.associateUser.id.toString(), 1, size).subscribe((response: any) => {
             this.messages = response.detail.content;
+            this.totalPages = response.detail.totalPages;
             this.messages.forEach(msg => {
                 msg.senderUser = JSON.parse(msg.senderUser);
-                // if (msg.fromUserId !== this.currentUserId) {
-                //     msg.reply = false;
-                // } else {
-                //     msg.senderUser.name = 'you';
-                // }
+
             });
             this.messages.sort((val1, val2) => {
                 return (val1.id - val2.id);
             });
             this.chatSocketService.messages = this.messages;
+            this.spinner = false;
         });
     }
+
+
+    onScrollUp() {
+        this.size = this.size + 20;
+        if (this.totalPages > 1) {
+            this.getMessageList(this.size);
+        }
+
+    }
+
 
     close() {
         this.showHideChat = false;

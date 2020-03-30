@@ -50,14 +50,7 @@ export class ChatSocketService {
     handleResult(message) {
         if (message.body) {
             const messageResult: Chat = JSON.parse(message.body);
-            console.log(messageResult);
             messageResult.senderUser = JSON.parse(messageResult.senderUser);
-            // if (messageResult.fromUserId !== this.currentUserId) {
-            //     messageResult.reply = false;
-            // } else {
-            //     messageResult.senderUser.name = 'you';
-            // }
-
             this.messages.push(messageResult);
             this.messages.forEach(msg => {
                 if ((messageResult.toUserId === msg.toUserId) || (messageResult.toUserId === msg.fromUserId)) {

@@ -27,6 +27,11 @@ $color-bank-dark: #D3A22C;
   color: #ffffff;
 }
 
+.bank-header-color {
+  background-color: $color-bank-dark;
+  color: #ffffff;
+}
+
 .d-contents {
   display: contents;
 }

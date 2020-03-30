@@ -34,7 +34,7 @@ export class ChatComponent implements OnInit {
         this.chatSocketService.initializeWebSocketConnection();
         this.chatSocketService.newMsgCount.subscribe((res) => {
             this.chat = res;
-            // this.currentUserUnseenMsg = this.currentUserUnseenMsg + 1;
+            this.currentUserUnseenMsg = this.currentUserUnseenMsg + 1;
         });
 
 
