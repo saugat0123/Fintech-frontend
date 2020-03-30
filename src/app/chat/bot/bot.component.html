@@ -10,41 +10,44 @@
 <!--    </nb-chat-form>-->
 <!--</nb-chat>-->
 
-<nb-card style="width:300px!important;height:300px;">
-    <nb-card-header style="background-color: #0B1D72;color: white">
+<nb-card style="width:300px!important;height:300px;    margin-top: 55px;">
+    <nb-card-header style="background-color:#1B3BAA;color: white;height: 65px">
         {{associateUser.name}}
+        <div style="margin-top: -8px"><span style="font-size: 12px">{{associateUser.role.name}}</span></div>
     </nb-card-header>
-    <nb-card-body class="chat-discussion" style="overflow-y: auto">
+    <nb-card-body class="chat-discussion" style="overflow: auto; height: 300px;">
+        <div #msgList class="hide-scroll" style="overflow-y: scroll; height: 300px;overflow-x: hidden;">
         <div *ngFor="let message of messages">
             <div *ngIf="associateUser.id.toString()=== message.fromUserId || associateUser.id.toString()=== message.toUserId">
 
                 <div>
                     <span *ngIf="message.senderUser.id === currentUserId" class="px-4"
-                          style="font-size: 10px;"> {{message.createdAt | date}} </span>
-                    <div class="chat-message right">
-                        <div *ngIf="message.senderUser.id === currentUserId" class="message">
+                          style="font-size: 10px;"> {{message.sendDate | date}} </span>
+                    <div class="chat-message left">
+                        <div *ngIf="message.senderUser.id === currentUserId" class="message bk-receiver">
                             <div class="row">
-                                <span style="font-size: 10px"> Rabindra Nath kumar shrestha </span>
+                                <span style="font-size: 10px"> You </span>
                             </div>
-                            <div class="message-content">
-                                <span style="text-align: justify">	{{message.text}}</span>
+                            <div class="row">
+                                <div class="col-md-12" style="text-align: justify;">    {{message.text}}</div>
 
                             </div>
                         </div>
                     </div>
                     <span *ngIf="message.senderUser.id !== currentUserId" class="px-4"
-                          style="font-size: 10px;"> {{message.createdAt | date}} </span>
-                    <div *ngIf="message.senderUser.id !== currentUserId" class="chat-message left">
+                          style="font-size: 10px;"> {{message.sendDate | date}} </span>
+                    <div *ngIf="message.senderUser.id !== currentUserId" class="chat-message right">
                         <img alt="" class="message-avatar" src="../assets/img/avatar.png">
-                        <div class="message">
+                        <div class="bk-sender">
                             <div class="row">
                                 <span style="font-size: 10px"> {{message.senderUser.name}}</span>
                             </div>
-                            <div class="message-content">
-                                <span style="text-align: justify">	{{message.text}}</span>
+                            <div class="row">
+                                <div class="col-md-12" style="text-align: justify;">    {{message.text}}</div>
 
                             </div>
                         </div>
+
                     </div>
 
 
@@ -52,23 +55,25 @@
             </div>
 
         </div>
-
+        </div>
 
     </nb-card-body>
 
-    <div style="height:50px">
-        <form [formGroup]="chatForm">
-            <div class="col-md-12">
-                <div>
-                    <textarea formControlName="message" name="message"></textarea>
 
-                    <button (click)="sendMessage(null)"
-                            class="btn bank-btn-color btn-sm btn-flat"><i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
+    <form [formGroup]="chatForm">
+        <div class="row">
+            <div class="panel-footer">
+
+                <textarea cols="0" formControlName="message" name="textMessage" rows="0"></textarea>
+
             </div>
-        </form>
+            <div class="sendBtn">
+                <button (click)="sendMessage(null)" class="btn btn-outline-primary btn-sm btn-flat"
+                        style="height: 100%;"><i class="fas fa-location-arrow px-2"></i>
+                </button>
+            </div>
+        </div>
 
+    </form>
 
-    </div>
 </nb-card>

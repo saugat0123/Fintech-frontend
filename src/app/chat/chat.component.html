@@ -1,15 +1,23 @@
 <div class="row">
     <app-bot *ngIf="showHideBot" [associateUser]="user"></app-bot>
     <div style="bottom:0;right:0 !important;margin-top:20%;">
-        <nb-card *ngIf="showHideUser">
+        <nb-card *ngIf="showHideUser" style="height:250px!important;overflow-y: auto">
             <nb-card-header style="background-color: #1B3BAA;height: 50px;color: white;width: 200px !important;">Chat
                 <a (click)="showHideUserList()" aria-label="Close" class="close cursor"
                    data-dismiss="modal">
                     <span aria-hidden="true">×</span></a></nb-card-header>
             <nb-card-body>
-                <div (click)="openChatBot(user)" *ngFor="let user of userList" class="row user-list cursor">
-                    <span> {{user.name}}<sup><span>1
-                </span></sup></span>
+                <div class="row" style="position: fixed">
+                    <input [(ngModel)]="searchText" class="form-control-sm" placeholder="search text goes here"/></div>
+                <hr>
+                <div class="py-2">
+                    <div (click)="openChatBot(user)" *ngFor="let user of userList | filter : searchText: 'name'"
+                         class="row user-list cursor" data-placement="top" data-toggle="tooltip"
+                         title="{{user.role.name}}">
+                    <span> {{user.name}}<span *ngIf="chat.fromUserId == user.id.toString() || user.isUnseenMsg != 0"
+                                              class="ml-2 badge badge-primary">!
+             </span></span>
+                    </div>
                 </div>
             </nb-card-body>
         </nb-card>

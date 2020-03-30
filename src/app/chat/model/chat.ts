@@ -1,4 +1,5 @@
 export class Chat {
+    id: number;
     fromUserId: string;
     toUserId: string;
     text: string;
@@ -9,5 +10,6 @@ export class Chat {
     bothUser: string;
     seenFlag: boolean;
     newMsg: number;
+    unSeenMsg: number;
 
 }

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ChatService} from './chat.service';
 import {ChatSocketService} from './chat-socket.service';
+import {Chat} from './model/chat';
+import {User} from '../feature/admin/modal/user';
 
 @Component({
     selector: 'app-chat',
@@ -8,12 +10,15 @@ import {ChatSocketService} from './chat-socket.service';
     styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
+
     messages = [];
     showHideUser = false;
     showHideBot = false;
-    user;
+    user: User = new User();
     userList = [];
     currentUserUnseenMsg = 0;
+    chat: Chat = new Chat();
+    searchText;
 
     constructor(
         private chatSocketService: ChatSocketService,
@@ -21,12 +26,18 @@ export class ChatComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.chatSocketService.initializeWebSocketConnection();
-        this.currentUserUnseenMsg = this.chatSocketService.newMsgCount;
+
         this.chatService.getUserForChat().subscribe((res: any) => {
             this.userList = res.detail.userList;
-            this.currentUserUnseenMsg = res.detail.unseenMsg;
+            this.currentUserUnseenMsg = res.detail.totalUnseenMsg;
         });
+        this.chatSocketService.initializeWebSocketConnection();
+        this.chatSocketService.newMsgCount.subscribe((res) => {
+            this.chat = res;
+            // this.currentUserUnseenMsg = this.currentUserUnseenMsg + 1;
+        });
+
+
     }
 
     openChatBot(user) {
@@ -35,7 +46,8 @@ export class ChatComponent implements OnInit {
         this.chatService.updateSeenChat(this.user.id.toString()).subscribe((res: any) => {
             this.chatService.getUserForChat().subscribe((res: any) => {
                 this.userList = res.detail.userList;
-                this.currentUserUnseenMsg = res.detail.unseenMsg;
+                this.chat = new Chat();
+                this.currentUserUnseenMsg = res.detail.totalUnseenMsg;
             });
         });
     }
@@ -48,5 +60,6 @@ export class ChatComponent implements OnInit {
             this.showHideUser = true;
         }
     }
+
 
 }
