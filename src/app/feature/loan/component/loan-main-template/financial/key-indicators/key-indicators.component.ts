@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
     templateUrl: './key-indicators.component.html',
     styleUrls: ['./key-indicators.component.scss']
 })
-export class KeyIndicatorsComponent implements OnInit {
+export class KeyIndicatorsComponent implements OnInit, OnDestroy {
     @Input() fiscalYear: Array<number>;
     @Input() formData;
     @Output() removeFiscalYear = new EventEmitter<any>();
@@ -46,6 +46,7 @@ export class KeyIndicatorsComponent implements OnInit {
             this.setAveragePaymentPeriod(keyIndicatorsData.averagePaymentPeriod);
             this.setNetOperatingCycle(keyIndicatorsData.netOperatingCycle);
             this.setNetWCBeforeBank(keyIndicatorsData.netWCBeforeBank);
+            this.keyIndicatorsForm.get('justificationKeyIndicators').patchValue(keyIndicatorsData.justificationKeyIndicators);
         }
     }
 
@@ -78,6 +79,7 @@ export class KeyIndicatorsComponent implements OnInit {
             averagePaymentPeriod: this.formBuilder.array([]),
             netOperatingCycle: this.formBuilder.array([]),
             netWCBeforeBank: this.formBuilder.array([]),
+            justificationKeyIndicators: [undefined]
         });
     }
 
@@ -438,4 +440,7 @@ export class KeyIndicatorsComponent implements OnInit {
         });
     }
 
+    ngOnDestroy(): void {
+        this.formData['keyIndicatorsData'].justificationKeyIndicators = this.keyIndicatorsForm.get('justificationKeyIndicators').value;
+    }
 }

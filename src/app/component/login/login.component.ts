@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {ApiConfig} from '../../@core/utils/api/ApiConfig';
 import {UserService} from '../../feature/admin/component/user/user.service';
 import {User} from '../../feature/admin/modal/user';
-import {ProductMode, ProductModeService} from '../../feature/admin/service/product-mode.service';
+import {ProductModeService, ProductUtils} from '../../feature/admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../@core/utils/local-storage-util';
 
 @Component({
@@ -45,62 +45,54 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
     login(datavalue) {
         this.spinner = true;
-        const data: { email: string, password: string } = datavalue.value;
-        const datas = 'grant_type=password&username=' + data.email + '&password=' + data.password;
+        const loginData: { email: string, password: string } = datavalue.value;
+        const datas = `grant_type=password&username=${loginData.email}&password=${loginData.password}`;
         this.http.post(this.securityUrl, datas, {headers: this.headers})
-            .subscribe(
-                // tslint:disable-next-line:no-shadowed-variable
-                (data: any) => {
-                    const storage = LocalStorageUtil.getStorage();
-                    storage.at = data.access_token;
-                    storage.rt = data.refresh_token;
-                    storage.ty = data.token_type;
-                    storage.et = data.expires_in;
+        .subscribe(async (loginResponse: any) => {
+                const storage = LocalStorageUtil.getStorage();
+                storage.at = loginResponse.access_token;
+                storage.rt = loginResponse.refresh_token;
+                storage.ty = loginResponse.token_type;
+                storage.et = loginResponse.expires_in;
+                LocalStorageUtil.setStorage(storage);
+
+                await this.userService.getLoggedInUser().toPromise().then((res: any) => {
+                    const user: User = res.detail;
+                    storage.userId = (user.id).toString();
+                    storage.username = user.username;
+                    storage.userFullName = user.name;
+                    storage.userProfilePicture = user.profilePicture;
+                    storage.roleAccess = user.role.roleAccess;
+                    storage.roleName = user.role.roleName;
+                    storage.roleType = user.role.roleType;
+                    storage.roleId = (user.role.id).toString();
                     LocalStorageUtil.setStorage(storage);
-
-                    this.userService.getLoggedInUser().subscribe((res: any) => {
-                        const user: User = res.detail;
-                        storage.userId = (user.id).toString();
-                        storage.username = user.username;
-                        storage.userFullName = user.name;
-                        storage.userProfilePicture = user.profilePicture;
-                        storage.roleAccess = user.role.roleAccess;
-                        storage.roleName = user.role.roleName;
-                        storage.roleType = user.role.roleType;
-                        storage.roleId = (user.role.id).toString();
-                        LocalStorageUtil.setStorage(storage);
-                        this.getProductUtils(storage);
-                        this.userService.getAuthenticatedUserBranches().subscribe((response: any) => {
-                            storage.branch = response.detail;
-                            LocalStorageUtil.setStorage(storage);
-                        });
-                        this.router.navigate(['/home/dashboard']);
-                    });
-
-                    this.productModeService.getAll().subscribe((response: any) => {
-                        const productMode: ProductMode[] = response.detail;
-                        console.log(response);
-                        storage.productMode = JSON.stringify(productMode);
-                        LocalStorageUtil.setStorage(storage);
-                    }, error => {
-                        console.error(error);
-                    });
-
-                },
-                error => {
-                    this.spinner = false;
-                    this.msg = 'INVALID USERNAME OR PASSWORD';
-                }
-            );
+                }, error => console.error(error));
+                await this.productModeService.getProductUtils().subscribe((response: any) => {
+                    storage.productUtil = response.detail;
+                    LocalStorageUtil.setStorage(storage);
+                }, error => {
+                    console.error(error);
+                });
+                await this.userService.getAuthenticatedUserBranches().toPromise().then((response: any) => {
+                    storage.branch = response.detail;
+                    LocalStorageUtil.setStorage(storage);
+                }, error => console.error(error));
+                await this.productModeService.getAll().toPromise().then((response: any) => {
+                    const productMode: ProductUtils = response.detail;
+                    console.log(response);
+                    storage.productMode = JSON.stringify(productMode);
+                    LocalStorageUtil.setStorage(storage);
+                }, error => {
+                    console.error(error);
+                });
+                this.router.navigate(['/home/dashboard']);
+            },
+            error => {
+                this.spinner = false;
+                this.msg = 'INVALID USERNAME OR PASSWORD';
+            }
+        );
     }
 
-    getProductUtils(storage) {
-        this.productModeService.getProductUtils().subscribe((response: any) => {
-            storage.productUtil = response.detail;
-            LocalStorageUtil.setStorage(storage);
-
-        }, error => {
-            console.error(error);
-        });
-    }
 }

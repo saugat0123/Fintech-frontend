@@ -5,7 +5,7 @@ import {LoanDataHolder} from '../../../model/loanData';
 import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
 import {Observable} from 'rxjs';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
-import {Guarantor} from "../../../model/guarantor";
+import {Guarantor} from '../../../model/guarantor';
 
 
 

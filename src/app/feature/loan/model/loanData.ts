@@ -22,7 +22,7 @@ import {ShareSecurity} from '../../admin/modal/shareSecurity';
 import {VehicleSecurity} from '../../admin/modal/vehicleSecurity';
 import {NepaliTemplateDataHolder} from './nepali-template-data-holder';
 import {MawCreditRiskGrading} from './MawCreditRiskGrading';
-import {GuarantorDetail} from "./guarantor-detail";
+import {GuarantorDetail} from './guarantor-detail';
 
 export class LoanDataHolder {
     id: number;

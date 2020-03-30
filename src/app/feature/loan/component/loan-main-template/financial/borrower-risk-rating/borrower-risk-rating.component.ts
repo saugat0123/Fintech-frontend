@@ -44,7 +44,9 @@ export class BorrowerRiskRatingComponent implements OnInit {
             repaymentSource: [this.formDataForBrrEdit === undefined ? undefined :
                 this.formDataForBrrEdit.repaymentSource, Validators.required],
             totalBrr: [this.formDataForBrrEdit === undefined ? undefined :
-                this.formDataForBrrEdit.totalBrr]
+                this.formDataForBrrEdit.totalBrr],
+            justification: [this.formDataForBrrEdit === undefined ? undefined :
+                this.formDataForBrrEdit.justification]
         });
 
         if (this.formDataForBrrEdit !== undefined) {

@@ -13,7 +13,6 @@ import {NotificationService} from '../notification/service/notification.service'
 import {ChangePasswordComponent} from '../change-password/change-password.component';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {PushNotificationsService} from '../../../@core/service/push-notification.service';
-import {ProductModeService} from '../../../feature/admin/service/product-mode.service';
 
 @Component({
     selector: 'app-header',
@@ -39,28 +38,29 @@ export class HeaderComponent implements OnInit {
 
     notificationCount;
 
-    constructor(private sidebarService: NbSidebarService,
-                private menuService: NbMenuService,
-                private userService: UserService,
-                private layoutService: LayoutService,
-                private themeService: NbThemeService,
-                private router: Router,
-                private searchService: NbSearchService,
-                private modalService: NgbModal,
-                private socketService: SocketService,
-                private notificationService: NotificationService,
-                private _pushNotificationService: PushNotificationsService,
-                private productModeService: ProductModeService) {
+    constructor(
+        private sidebarService: NbSidebarService,
+        private menuService: NbMenuService,
+        private userService: UserService,
+        private layoutService: LayoutService,
+        private themeService: NbThemeService,
+        private router: Router,
+        private searchService: NbSearchService,
+        private modalService: NgbModal,
+        private socketService: SocketService,
+        private notificationService: NotificationService,
+        private _pushNotificationService: PushNotificationsService
+    ) {
 
         this.searchService.onSearchSubmit()
-            .subscribe((searchData: any) => {
-                const modalRef = this.modalService.open(SearchResultComponent, {backdrop: 'static'});
-                modalRef.componentInstance.searchData = searchData.term;
-                modalRef.result.then(
-                    close => {
-                        if (close) {
-                            console.log(close);
-                            this.router.navigate(['/home/loan/summary'], {
+        .subscribe((searchData: any) => {
+            const modalRef = this.modalService.open(SearchResultComponent, {backdrop: 'static'});
+            modalRef.componentInstance.searchData = searchData.term;
+            modalRef.result.then(
+                close => {
+                    if (close) {
+                        console.log(close);
+                        this.router.navigate(['/home/loan/summary'], {
                                 queryParams: {
                                     loanConfigId: close.loanConfigId,
                                     customerId: close.customerId
@@ -85,7 +85,6 @@ export class HeaderComponent implements OnInit {
 
         this.headerMenu();
         this.setupNotification();
-        this.getProductUtils();
     }
 
     toggleSidebar(): boolean {
@@ -131,17 +130,5 @@ export class HeaderComponent implements OnInit {
         this.notificationService.fetchNotifications();
         this.notificationService.notificationCount.subscribe((value => this.notificationCount = value));
     }
-
-    getProductUtils() {
-        const storage = LocalStorageUtil.getStorage();
-        this.productModeService.getProductUtils().subscribe((response: any) => {
-            storage.productUtil = response.detail;
-            LocalStorageUtil.setStorage(storage);
-
-        }, error => {
-            console.error(error);
-        });
-    }
-
 
 }

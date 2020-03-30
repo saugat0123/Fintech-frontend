@@ -83,8 +83,8 @@ import { ApplicantFamilyInfoPrintComponent } from './component/loan-main-nepali-
 import { BikeKarjaPrintComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja-print/bike-karja-print.component';
 import { CustomerAssociateComponent } from './component/loan-main-template/customer-associate/customer-associate.component';
 import {CustomerModule} from '../customer/customer.module';
-import {GuarantorComponent} from "./component/loan-main-template/guarantor/guarantor.component";
-import {NepaliCalendarModule} from "../nepali-calendar/nepali-calendar.module";
+import {GuarantorComponent} from './component/loan-main-template/guarantor/guarantor.component';
+import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 
 const COMPONENTS = [
     LoanFormComponent,
