@@ -7,6 +7,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {ReportingInfoService} from '../../../../@core/service/reporting-info.service';
 import {ModalResponse, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {Status} from '../../../../@core/Status';
 
 @Component({
   selector: 'app-report-info-form',
@@ -44,7 +45,7 @@ export class ReportInfoFormComponent implements OnInit {
     }
     this.spinner = true;
     this.model = this.form.value as ReportingInfo;
-    this.reportingInfoService.save(this.model).subscribe(() => {
+    this.reportingInfoService.initialSave(this.model).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved report!'));
       this.model = new ReportingInfo();
       this.activeModal.close(ModalResponse.SUCCESS);
@@ -59,6 +60,7 @@ export class ReportInfoFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       id: [ObjectUtil.setUndefinedIfNull(this.model.id)],
       name: [ObjectUtil.setUndefinedIfNull(this.model.name), [Validators.required]],
+      status: [this.action === Action.ADD ? Status.ACTIVE : this.model.status],
       version: [ObjectUtil.setUndefinedIfNull(this.model.version)],
     });
   }

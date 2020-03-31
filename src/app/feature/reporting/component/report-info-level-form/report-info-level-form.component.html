@@ -1,0 +1,41 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="reportForm">
+  <div formArrayName="reportingInfoLevels" class="custom-left-border">
+    <div *ngFor="let level of reportingInfoLevels.controls; let i = index">
+      <div [formGroupName]="i.toString()">
+        <div class="row">
+          <div class="col-md-3 form-group">
+            <input formControlName="code" fullWidth nbInput placeholder="Code" type="text">
+          </div>
+          <div class="col-md-8 form-group">
+            <input formControlName="description" fullWidth nbInput placeholder="Description"
+                   type="text">
+          </div>
+          <div class="col-md-1 form-group d-flex justify-content-start">
+            <div class="p-1">
+              <button (click)="nestFormGroup(level.get('reportingInfoLevels'))"
+                      nbButton outline size="small" status="success" title="Categorize">
+                <i class="fa fa-sitemap"></i>
+              </button>
+            </div>
+            <div class="p-1">
+              <button (click)="addFormGroup(null, reportingInfoLevels, i + 1)" nbButton outline
+                      size="small" status="success" title="Add">
+                <i class="fa fa-angle-double-down"></i>
+              </button>
+            </div>
+            <div class="p-1">
+              <button (click)="removeFormGroup(i, reportingInfoLevels)"
+                      *ngIf="reportingInfoLevels.length > 1" nbButton outline
+                      size="small" status="danger" title="Remove"
+                      value="Delete">
+                <i class="fa fa-angle-double-up"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<pre>{{reportForm.value | json}}</pre>
+

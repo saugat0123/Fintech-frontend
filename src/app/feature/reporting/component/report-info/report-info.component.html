@@ -38,12 +38,14 @@
   </nb-card-header>
   <nb-card-body>
     <nb-accordion>
-      <nb-accordion-item *ngFor="let report of reportingInfoList">
+      <nb-accordion-item #itemReport *ngFor="let report of reportingInfoList">
         <nb-accordion-item-header>
           <a (click)="add(report)" class="p-2 cursor"><i
               class="fa fa-edit"></i></a> {{report?.name}}
         </nb-accordion-item-header>
         <nb-accordion-item-body>
+          <app-report-info-level-form *ngIf="itemReport.expanded"
+                                      [reportingInfo]="report"></app-report-info-level-form>
         </nb-accordion-item-body>
       </nb-accordion-item>
     </nb-accordion>
