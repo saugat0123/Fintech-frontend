@@ -16,7 +16,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 export class ReportInfoLevelFormComponent implements OnInit {
 
   @Input() reportingInfo: ReportingInfo;
-  private reportForm: FormGroup;
+  public reportForm: FormGroup;
   @Output() updateReport = new EventEmitter<boolean>(true);
 
   constructor(

@@ -17,7 +17,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 export class ReportInfoComponent implements OnInit {
   public reportingInfoList: Array<ReportingInfo> = new Array<ReportingInfo>();
   public isFilterCollapsed = true;
-  private filterForm: FormGroup;
+  public filterForm: FormGroup;
   private search = {
     name: undefined
   };
