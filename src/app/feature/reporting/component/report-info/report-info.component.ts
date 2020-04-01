@@ -31,12 +31,7 @@ export class ReportInfoComponent implements OnInit {
   }
 
   static loadData(other: ReportInfoComponent) {
-    other.reportingInfoService.getAllWithSearch(other.search).subscribe((response: any) => {
-      other.reportingInfoList = response.detail;
-    }, error => {
-      console.error(error);
-      other.toastService.show(new Alert(AlertType.ERROR, 'Failed to load reporting info'));
-    });
+    other.getReportingInfo();
   }
 
   ngOnInit() {
@@ -62,9 +57,24 @@ export class ReportInfoComponent implements OnInit {
     ReportInfoComponent.loadData(this);
   }
 
+  public refreshData($event: boolean) {
+    if ($event) {
+      this.getReportingInfo();
+    }
+  }
+
   private buildFilterForm(): void {
     this.filterForm = this.formBuilder.group({
       name: [undefined]
+    });
+  }
+
+  private getReportingInfo(): void {
+    this.reportingInfoService.getAllWithSearch(this.search).subscribe((response: any) => {
+      this.reportingInfoList = response.detail;
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load reporting info'));
     });
   }
 }

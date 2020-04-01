@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ReportingInfo} from '../../../../@core/model/reporting-info';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
@@ -17,6 +17,7 @@ export class ReportInfoLevelFormComponent implements OnInit {
 
   @Input() reportingInfo: ReportingInfo;
   private reportForm: FormGroup;
+  @Output() updateReport = new EventEmitter<boolean>(true);
 
   constructor(
       private formBuilder: FormBuilder,
@@ -37,6 +38,7 @@ export class ReportInfoLevelFormComponent implements OnInit {
     const reportingInfo = this.reportForm.value as ReportingInfo;
     this.reportingInfoService.save(reportingInfo).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved reporting info'));
+      this.updateReport.emit(true);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save reporting info'));

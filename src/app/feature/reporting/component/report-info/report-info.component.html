@@ -45,7 +45,9 @@
         </nb-accordion-item-header>
         <nb-accordion-item-body>
           <app-report-info-level-form *ngIf="itemReport.expanded"
-                                      [reportingInfo]="report"></app-report-info-level-form>
+                                      (updateReport)="refreshData($event)"
+                                      [reportingInfo]="report"
+          ></app-report-info-level-form>
         </nb-accordion-item-body>
       </nb-accordion-item>
     </nb-accordion>
