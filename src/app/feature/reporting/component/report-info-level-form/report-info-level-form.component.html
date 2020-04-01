@@ -1,31 +1,31 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="reportForm">
-  <div formArrayName="reportingInfoLevels" class="custom-left-border">
-    <div *ngFor="let level of reportingInfoLevels.controls; let i = index">
-      <div [formGroupName]="i.toString()">
+  <ng-template #recursiveTemplate let-arrays let-prefix="prefix">
+    <ng-container *ngFor="let item of arrays.controls; let i = index">
+      <div [formGroup]="reportForm.get(prefix + i)" class="mt-1">
         <div class="row">
-          <div class="col-md-3 form-group">
+          <div class="col-md-3">
             <input formControlName="code" fullWidth nbInput placeholder="Code" type="text">
           </div>
-          <div class="col-md-8 form-group">
+          <div class="col-md-8">
             <input formControlName="description" fullWidth nbInput placeholder="Description"
                    type="text">
           </div>
-          <div class="col-md-1 form-group d-flex justify-content-start">
+          <div class="col-md-1 d-flex justify-content-start">
             <div class="p-1">
-              <button (click)="nestFormGroup(level.get('reportingInfoLevels'))"
+              <button (click)="nestFormGroup(item.get('reportingInfoLevels'))"
                       nbButton outline size="small" status="success" title="Categorize">
                 <i class="fa fa-sitemap"></i>
               </button>
             </div>
             <div class="p-1">
-              <button (click)="addFormGroup(null, reportingInfoLevels, i + 1)" nbButton outline
+              <button (click)="addFormGroup(null, arrays, i + 1)" nbButton outline
                       size="small" status="success" title="Add">
                 <i class="fa fa-angle-double-down"></i>
               </button>
             </div>
             <div class="p-1">
-              <button (click)="removeFormGroup(i, reportingInfoLevels)"
-                      *ngIf="reportingInfoLevels.length > 1" nbButton outline
+              <button (click)="removeFormGroup(i, arrays)"
+                      *ngIf="arrays.length > 1" nbButton outline
                       size="small" status="danger" title="Remove"
                       value="Delete">
                 <i class="fa fa-angle-double-up"></i>
@@ -33,9 +33,13 @@
             </div>
           </div>
         </div>
+        <div *ngIf="item.get('reportingInfoLevels')?.controls?.length" class="custom-left-border">
+          <ng-container
+              *ngTemplateOutlet="recursiveTemplate; context:{ $implicit: item.get('reportingInfoLevels'), prefix: prefix + i + '.reportingInfoLevels.'  }"></ng-container>
+        </div>
       </div>
-    </div>
-  </div>
+    </ng-container>
+  </ng-template>
+  <ng-container
+      *ngTemplateOutlet="recursiveTemplate; context:{ $implicit: reportForm.get('reportingInfoLevels'), prefix: 'reportingInfoLevels.' }"></ng-container>
 </form>
-<pre>{{reportForm.value | json}}</pre>
-

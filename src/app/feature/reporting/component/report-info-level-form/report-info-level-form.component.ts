@@ -25,6 +25,49 @@ export class ReportInfoLevelFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    /*this.reportingInfo = JSON.parse('{\n' +
+        '    "name": "3.1 Industry / Sector",\n' +
+        '    "reportingInfoLevels": [\n' +
+        '        {\n' +
+        '            "code": "1",\n' +
+        '            "description": "Agricultural & Forest Related",\n' +
+        '            "reportingInfoLevels": [\n' +
+        '                {\n' +
+        '                    "code": "1.1",\n' +
+        '                    "description": "Crop and crop services"\n' +
+        '                },\n' +
+        '                {\n' +
+        '                    "code": "1.2",\n' +
+        '                    "description": "Vegetable"\n' +
+        '                }\n' +
+        '            ]\n' +
+        '        },\n' +
+        '        {\n' +
+        '            "code": "7",\n' +
+        '            "description": "Electricity, Gas and Water",\n' +
+        '            "reportingInfoLevels": [\n' +
+        '                {\n' +
+        '                    "code": "7.1",\n' +
+        '                    "description": "Electricty",\n' +
+        '                    "reportingInfoLevels": [\n' +
+        '                        {\n' +
+        '                            "code": "7.1.1",\n' +
+        '                            "description": "Hydropower"\n' +
+        '                        },\n' +
+        '                        {\n' +
+        '                            "code": "7.1.2",\n' +
+        '                            "description": "Renewal Power"\n' +
+        '                        }\n' +
+        '                    ]\n' +
+        '                },\n' +
+        '                {\n' +
+        '                    "code": "7.2",\n' +
+        '                    "description": "Other Power"\n' +
+        '                }\n' +
+        '            ]\n' +
+        '        }\n' +
+        '    ]\n' +
+        '}');*/
     this.buildReportForm();
   }
 
