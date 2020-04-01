@@ -4,6 +4,9 @@ import {ReportingInfo} from '../../../../@core/model/reporting-info';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {ReportingInfoLevel} from '../../../../@core/model/reporting-info-level';
 import {Status} from '../../../../@core/Status';
+import {ReportingInfoService} from '../../../../@core/service/reporting-info.service';
+import {ToastService} from '../../../../@core/utils';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
 @Component({
   selector: 'app-report-info-level-form',
@@ -16,7 +19,9 @@ export class ReportInfoLevelFormComponent implements OnInit {
   private reportForm: FormGroup;
 
   constructor(
-      private formBuilder: FormBuilder
+      private formBuilder: FormBuilder,
+      private reportingInfoService: ReportingInfoService,
+      private toastService: ToastService,
   ) {
   }
 
@@ -25,63 +30,36 @@ export class ReportInfoLevelFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*this.reportingInfo = JSON.parse('{\n' +
-        '    "name": "3.1 Industry / Sector",\n' +
-        '    "reportingInfoLevels": [\n' +
-        '        {\n' +
-        '            "code": "1",\n' +
-        '            "description": "Agricultural & Forest Related",\n' +
-        '            "reportingInfoLevels": [\n' +
-        '                {\n' +
-        '                    "code": "1.1",\n' +
-        '                    "description": "Crop and crop services"\n' +
-        '                },\n' +
-        '                {\n' +
-        '                    "code": "1.2",\n' +
-        '                    "description": "Vegetable"\n' +
-        '                }\n' +
-        '            ]\n' +
-        '        },\n' +
-        '        {\n' +
-        '            "code": "7",\n' +
-        '            "description": "Electricity, Gas and Water",\n' +
-        '            "reportingInfoLevels": [\n' +
-        '                {\n' +
-        '                    "code": "7.1",\n' +
-        '                    "description": "Electricty",\n' +
-        '                    "reportingInfoLevels": [\n' +
-        '                        {\n' +
-        '                            "code": "7.1.1",\n' +
-        '                            "description": "Hydropower"\n' +
-        '                        },\n' +
-        '                        {\n' +
-        '                            "code": "7.1.2",\n' +
-        '                            "description": "Renewal Power"\n' +
-        '                        }\n' +
-        '                    ]\n' +
-        '                },\n' +
-        '                {\n' +
-        '                    "code": "7.2",\n' +
-        '                    "description": "Other Power"\n' +
-        '                }\n' +
-        '            ]\n' +
-        '        }\n' +
-        '    ]\n' +
-        '}');*/
     this.buildReportForm();
   }
 
   public onSubmit(): void {
-
+    const reportingInfo = this.reportForm.value as ReportingInfo;
+    this.reportingInfoService.save(reportingInfo).subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved reporting info'));
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save reporting info'));
+    });
   }
 
   public addFormGroup(data: ReportingInfoLevel | null, formArray: FormArray, indexAt: number = -1): void {
     data = data ? data : new ReportingInfoLevel();
     const formGroup = this.formBuilder.group({
       id: [ObjectUtil.setUndefinedIfNull(data.id)],
-      code: [ObjectUtil.setUndefinedIfNull(data.code)],
-      description: [ObjectUtil.setUndefinedIfNull(data.description)],
-      status: [ObjectUtil.setInputOrElseNext(data.status, Status.ACTIVE)],
+      version: [ObjectUtil.setUndefinedIfNull(data.version)],
+      code: [
+        ObjectUtil.setUndefinedIfNull(data.code),
+        Validators.required
+      ],
+      description: [
+        ObjectUtil.setUndefinedIfNull(data.description),
+        Validators.required
+      ],
+      status: [
+        ObjectUtil.setInputOrElseNext(data.status, Status.ACTIVE),
+        Validators.required
+      ],
       reportingInfoLevels: this.formBuilder.array([]),
     });
     if (data.reportingInfoLevels && data.reportingInfoLevels.length > 0) {
@@ -100,6 +78,10 @@ export class ReportInfoLevelFormComponent implements OnInit {
 
   public nestFormGroup(reportingInfoLevels: AbstractControl | FormArray): void {
     this.addFormGroup(null, reportingInfoLevels as FormArray);
+  }
+
+  public countPrefix(prefix: string): number {
+    return (prefix.match(/reportingInfoLevels/g) || []).length;
   }
 
   private buildReportForm(): void {

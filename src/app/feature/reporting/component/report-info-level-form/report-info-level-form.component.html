@@ -4,29 +4,36 @@
       <div [formGroup]="reportForm.get(prefix + i)" class="mt-1">
         <div class="row">
           <div class="col-md-3">
-            <input formControlName="code" fullWidth nbInput placeholder="Code" type="text">
+            <input
+                [ngClass]="{ 'is-invalid': item.get('code').invalid && (item.get('code').dirty || item.get('code').touched)}"
+                class="form-control" formControlName="code" fullWidth nbInput placeholder="Code"
+                type="text">
           </div>
           <div class="col-md-8">
-            <input formControlName="description" fullWidth nbInput placeholder="Description"
-                   type="text">
+            <input
+                [ngClass]="{ 'is-invalid': item.get('description').invalid && (item.get('description').dirty || item.get('description').touched)}"
+                class="form-control" formControlName="description" fullWidth nbInput
+                placeholder="Description"
+                type="text">
           </div>
           <div class="col-md-1 d-flex justify-content-start">
             <div class="p-1">
               <button (click)="nestFormGroup(item.get('reportingInfoLevels'))"
-                      nbButton outline size="small" status="success" title="Categorize">
+                      nbButton outline size="small" status="success" title="Categorize"
+                      type="button">
                 <i class="fa fa-sitemap"></i>
               </button>
             </div>
             <div class="p-1">
               <button (click)="addFormGroup(null, arrays, i + 1)" nbButton outline
-                      size="small" status="success" title="Add">
+                      size="small" status="success" title="Add" type="button">
                 <i class="fa fa-angle-double-down"></i>
               </button>
             </div>
             <div class="p-1">
               <button (click)="removeFormGroup(i, arrays)"
-                      *ngIf="arrays.length > 1" nbButton outline
-                      size="small" status="danger" title="Remove"
+                      *ngIf="arrays.length > 1 || countPrefix(prefix) > 1" nbButton outline
+                      size="small" status="danger" title="Remove" type="button"
                       value="Delete">
                 <i class="fa fa-angle-double-up"></i>
               </button>
@@ -42,4 +49,10 @@
   </ng-template>
   <ng-container
       *ngTemplateOutlet="recursiveTemplate; context:{ $implicit: reportForm.get('reportingInfoLevels'), prefix: 'reportingInfoLevels.' }"></ng-container>
+
+  <hr/>
+  <button [disabled]="reportForm.invalid" nbButton outline status="success" title="Save"
+          type="submit">
+    <i class="fa fa-save"></i>
+  </button>
 </form>
