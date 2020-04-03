@@ -21,6 +21,8 @@ export class ReportingInfoTaggingComponent implements OnInit {
   private search = {
     name: undefined
   };
+  public savedReportTagsId = new Set<number>();
+  public finalReportingInfoLevels: Array<ReportingInfoLevel>;
   @ViewChild('reportingInfoTaggingFormComponent', {static: false})
   public taggingComponent: ReportingInfoTaggingFormComponent;
 
@@ -36,6 +38,7 @@ export class ReportingInfoTaggingComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.reportingInfoLevels.forEach(v => this.savedReportTagsId.add(v.id));
     this.getReportingInfo();
     this.buildFilterForm();
   }
@@ -66,4 +69,20 @@ export class ReportingInfoTaggingComponent implements OnInit {
     });
   }
 
+  public saveChanges($event: boolean) {
+    if ($event) {
+      this.savedReportTagsId = this.taggingComponent.savedReportTagsId;
+    }
+  }
+
+  public onSubmit(): void {
+    if (this.taggingComponent) {
+      this.taggingComponent.onSubmit();
+    }
+    this.finalReportingInfoLevels = Array.from(this.savedReportTagsId).map(v => {
+      const reportingInfoLevel = new ReportingInfoLevel();
+      reportingInfoLevel.id = v;
+      return reportingInfoLevel;
+    });
+  }
 }

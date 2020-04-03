@@ -44,10 +44,12 @@
           <span>{{report.name}}</span>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          <app-reporting-info-tagging-form #reportingInfoTaggingFormComponent
+          <app-reporting-info-tagging-form
+              #reportingInfoTaggingFormComponent
+              (saveChanges)="saveChanges($event)"
               *ngIf="itemReport.expanded"
               [report]="report"
-              [reportingInfoLevels]="reportingInfoLevels"></app-reporting-info-tagging-form>
+              [savedReportTagsId]="savedReportTagsId"></app-reporting-info-tagging-form>
         </nb-accordion-item-body>
       </nb-accordion-item>
     </nb-accordion>

@@ -527,8 +527,8 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.shareSecurity = this.shareSecurity.shareSecurityData;
         }
         if (name === 'Reporting Info' && action) {
-            this.reportingInfoTaggingComponent.taggingComponent.onSubmit();
-            this.loanDocument.reportingInfoLevels = this.reportingInfoTaggingComponent.taggingComponent.finalReportingInfoLevels;
+            this.reportingInfoTaggingComponent.onSubmit();
+            this.loanDocument.reportingInfoLevels = this.reportingInfoTaggingComponent.finalReportingInfoLevels;
         }
 
         return false;

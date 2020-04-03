@@ -7,26 +7,28 @@
     {{expandAllLevels ? 'Collapse' : 'Expand'}} All
   </button>
   <hr/>
-  <ng-template #recursiveTemplate let-levels>
-    <ng-container *ngFor="let level of levels">
-      <div class="mt-1">
-        <div class="row">
-          <div class="col-md-12">
-            <nb-checkbox #checkbox (checkedChange)="updateTagging($event, level?.id)"
-                         [checked]="reportingInfoLevelTags.has(level?.id)"
-                         status="primary">{{level?.code}} {{level?.description}}</nb-checkbox>
+  <form [formGroup]="tagForm">
+    <ng-template #recursiveTemplate let-arrays let-prefix="prefix">
+      <ng-container *ngFor="let item of arrays.controls; let i = index">
+        <div [formGroup]="tagForm.get(prefix + i)" class="mt-1">
+          <div class="row">
+            <div class="col-md-12">
+              <nb-checkbox #checkbox formControlName="checked" status="primary">
+                {{item.get('label').value}}
+              </nb-checkbox>
+            </div>
+          </div>
+          <div
+              *ngIf="item.get('reportingInfoLevels')?.controls?.length && (checkbox.checked || expandAllLevels)"
+              class="custom-left-border">
+            <ng-container
+                *ngTemplateOutlet="recursiveTemplate; context:{$implicit: item.get('reportingInfoLevels'), prefix: prefix + i + '.reportingInfoLevels.'}"></ng-container>
           </div>
         </div>
-        <div
-            *ngIf="level?.reportingInfoLevels?.length && (checkbox.checked || expandAllLevels)"
-            class="custom-left-border">
-          <ng-container
-              *ngTemplateOutlet="recursiveTemplate; context:{$implicit: level?.reportingInfoLevels}"></ng-container>
-        </div>
-      </div>
-    </ng-container>
-  </ng-template>
+      </ng-container>
+    </ng-template>
+  </form>
   <ng-container
-      *ngTemplateOutlet="recursiveTemplate; context:{$implicit: report?.reportingInfoLevels}"></ng-container>
+      *ngTemplateOutlet="recursiveTemplate; context:{$implicit: tagForm.get('reportingInfoLevels'), prefix: 'reportingInfoLevels.'}"></ng-container>
   <hr/>
 </ng-container>
