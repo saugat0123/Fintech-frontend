@@ -45,6 +45,7 @@ import {Customer} from '../../../admin/modal/customer';
 import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 import {GuarantorComponent} from '../loan-main-template/guarantor/guarantor.component';
 import {CalendarType} from '../../../../@core/model/calendar-type';
+import {ReportingInfoTaggingComponent} from '../loan-main-template/reporting-info-tagging/reporting-info-tagging.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -171,6 +172,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('guarantor', {static: false})
     guarantorComponent: GuarantorComponent;
+
+    @ViewChild('reportingInfoTagging', {static: false})
+    reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -522,8 +526,12 @@ export class LoanFormComponent implements OnInit {
             this.shareSecurity.onSubmit();
             this.loanDocument.shareSecurity = this.shareSecurity.shareSecurityData;
         }
-        return false;
+        if (name === 'Reporting Info' && action) {
+            this.reportingInfoTaggingComponent.onSubmit();
+            this.loanDocument.reportingInfoLevels = this.reportingInfoTaggingComponent.finalReportingInfoLevels;
+        }
 
+        return false;
     }
 
 
