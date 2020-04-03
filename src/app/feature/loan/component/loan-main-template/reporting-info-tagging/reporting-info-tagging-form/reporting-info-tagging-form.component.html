@@ -1,0 +1,32 @@
+<ng-container *ngIf="report?.reportingInfoLevels?.length < 1">
+  <p>No reporting tags available!!!</p>
+</ng-container>
+<ng-container *ngIf="report?.reportingInfoLevels?.length > 0">
+  <button (click)="expandAllLevels = !expandAllLevels" nbButton size="small"
+          status="{{expandAllLevels ? 'danger' : 'success'}}">
+    {{expandAllLevels ? 'Collapse' : 'Expand'}} All
+  </button>
+  <hr/>
+  <ng-template #recursiveTemplate let-levels>
+    <ng-container *ngFor="let level of levels">
+      <div class="mt-1">
+        <div class="row">
+          <div class="col-md-12">
+            <nb-checkbox #checkbox (checkedChange)="updateTagging($event, level?.id)"
+                         [checked]="reportingInfoLevelTags.has(level?.id)"
+                         status="primary">{{level?.code}} {{level?.description}}</nb-checkbox>
+          </div>
+        </div>
+        <div
+            *ngIf="level?.reportingInfoLevels?.length && (checkbox.checked || expandAllLevels)"
+            class="custom-left-border">
+          <ng-container
+              *ngTemplateOutlet="recursiveTemplate; context:{$implicit: level?.reportingInfoLevels}"></ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </ng-template>
+  <ng-container
+      *ngTemplateOutlet="recursiveTemplate; context:{$implicit: report?.reportingInfoLevels}"></ng-container>
+  <hr/>
+</ng-container>

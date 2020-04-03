@@ -6,7 +6,7 @@ import {ReportingInfoService} from '../../../../../@core/service/reporting-info.
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ToastService} from '../../../../../@core/utils';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {NbAccordionItemComponent} from '@nebular/theme';
+import {ReportingInfoTaggingFormComponent} from './reporting-info-tagging-form/reporting-info-tagging-form.component';
 
 @Component({
   selector: 'app-reporting-info-tagging',
@@ -15,17 +15,14 @@ import {NbAccordionItemComponent} from '@nebular/theme';
 })
 export class ReportingInfoTaggingComponent implements OnInit {
   @Input() public reportingInfoLevels: Array<ReportingInfoLevel>;
-  public finalReportingInfoLevels: Array<ReportingInfoLevel>;
   public reportingInfoList: Array<ReportingInfo> = new Array<ReportingInfo>();
   public isFilterCollapsed = true;
   public filterForm: FormGroup;
-  public expandAllLevels = false;
   private search = {
     name: undefined
   };
-  private reportingInfoLevelTags = new Set<number>();
-  @ViewChild('itemReport', {static: false})
-  itemReport: NbAccordionItemComponent;
+  @ViewChild('reportingInfoTaggingFormComponent', {static: false})
+  public taggingComponent: ReportingInfoTaggingFormComponent;
 
   constructor(
       private reportingInfoService: ReportingInfoService,
@@ -39,7 +36,6 @@ export class ReportingInfoTaggingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reportingInfoLevels.forEach(v => this.reportingInfoLevelTags.add(v.id));
     this.getReportingInfo();
     this.buildFilterForm();
   }
@@ -53,27 +49,6 @@ export class ReportingInfoTaggingComponent implements OnInit {
     this.isFilterCollapsed = true;
     this.buildFilterForm();
     ReportingInfoTaggingComponent.loadData(this);
-  }
-
-  public onSubmit(): void {
-    this.finalReportingInfoLevels = Array.from(this.reportingInfoLevelTags).map(v => {
-      const reportingInfoLevel = new ReportingInfoLevel();
-      reportingInfoLevel.id = v;
-      return reportingInfoLevel;
-    });
-  }
-
-  /**
-   * Updates report tagging.
-   * @param $event A checkbox status.
-   * @param id `ReportingInfoLevel` id.
-   */
-  public updateTagging($event: boolean, id: number): void {
-    if ($event) {
-      this.reportingInfoLevelTags.add(id);
-    } else {
-      // TODO Remove from parent and all children from SET
-    }
   }
 
   private getReportingInfo(): void {
