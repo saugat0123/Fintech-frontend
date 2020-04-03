@@ -37,6 +37,12 @@ export class ReportingInfoTaggingFormComponent implements OnInit, OnDestroy {
     this.saveChanges.emit(true);
   }
 
+  public reflectCheckedChange($event: boolean, formArray: FormArray): void {
+    if (!$event) {
+      this.uncheckChildren(formArray);
+    }
+  }
+
   private buildForm(): void {
     this.tagForm = this.formBuilder.group({
       reportingInfoLevels: this.formBuilder.array([])
@@ -73,6 +79,17 @@ export class ReportingInfoTaggingFormComponent implements OnInit, OnDestroy {
           if (control.get('reportingInfoLevels')) {
             this.addSelectedIds(control.get('reportingInfoLevels') as FormArray);
           }
+        }
+      });
+    }
+  }
+
+  private uncheckChildren(formArray: FormArray) {
+    if (formArray.controls.length > 0) {
+      formArray.controls.forEach(control => {
+        if (control instanceof FormGroup) {
+          control.get('checked').setValue(false);
+          this.uncheckChildren(control.get('reportingInfoLevels') as FormArray);
         }
       });
     }
