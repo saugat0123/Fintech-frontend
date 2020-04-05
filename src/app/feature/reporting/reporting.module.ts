@@ -7,12 +7,14 @@ import {ThemeModule} from '../../@theme/theme.module';
 import {ReportInfoComponent} from './component/report-info/report-info.component';
 import {ReportInfoFormComponent} from './component/report-info-form/report-info-form.component';
 import {ReportInfoLevelFormComponent} from './component/report-info-level-form/report-info-level-form.component';
+import {ReportSummaryComponent} from './component/report-summary/report-summary.component';
 
 const COMPONENTS = [
   ReportDashboardComponent,
   ReportInfoComponent,
   ReportInfoFormComponent,
   ReportInfoLevelFormComponent,
+  ReportSummaryComponent
 ];
 
 @NgModule({
@@ -21,6 +23,9 @@ const COMPONENTS = [
     CommonModule,
     ReportingRoutingModule,
     ThemeModule
+  ],
+  exports: [
+    ReportSummaryComponent
   ],
   entryComponents: [
     ReportInfoFormComponent

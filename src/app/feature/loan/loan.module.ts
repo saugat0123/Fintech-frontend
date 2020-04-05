@@ -87,6 +87,7 @@ import {GuarantorComponent} from './component/loan-main-template/guarantor/guara
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {ReportingInfoTaggingComponent} from './component/loan-main-template/reporting-info-tagging/reporting-info-tagging.component';
 import {ReportingInfoTaggingFormComponent} from './component/loan-main-template/reporting-info-tagging/reporting-info-tagging-form/reporting-info-tagging-form.component';
+import {ReportingModule} from '../reporting/reporting.module';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -190,7 +191,8 @@ const ENTRY_COMPONENTS = [
             apiKey: environment.GOOGLE_MAP_API_KEY
         }),
         CustomerModule,
-        NepaliCalendarModule
+        NepaliCalendarModule,
+        ReportingModule
     ],
 
     providers: [
