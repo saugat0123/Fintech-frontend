@@ -1,1 +1,24 @@
-<p>report-summary works!</p>
+<div class="row mt-3">
+  <div class="col-md-12">
+    <p><strong>Reporting Information</strong></p>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          <ng-container *ngFor="let report of reportingInfoSummary">
+            <tr>
+              <td class="font-weight-bold" colspan="2">{{report?.name}}</td>
+            </tr>
+            <tr class="font-weight-bold">
+              <td>Code</td>
+              <td>Description</td>
+            </tr>
+            <tr *ngFor="let level of report?.reportingInfoLevels">
+              <td>{{level?.code}}</td>
+              <td>{{level?.description}}</td>
+            </tr>
+          </ng-container>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
