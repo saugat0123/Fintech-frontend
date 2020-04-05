@@ -85,8 +85,6 @@ import {CustomerAssociateComponent} from './component/loan-main-template/custome
 import {CustomerModule} from '../customer/customer.module';
 import {GuarantorComponent} from './component/loan-main-template/guarantor/guarantor.component';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
-import {ReportingInfoTaggingComponent} from './component/loan-main-template/reporting-info-tagging/reporting-info-tagging.component';
-import {ReportingInfoTaggingFormComponent} from './component/loan-main-template/reporting-info-tagging/reporting-info-tagging-form/reporting-info-tagging-form.component';
 import {ReportingModule} from '../reporting/reporting.module';
 
 const COMPONENTS = [
@@ -160,8 +158,6 @@ const COMPONENTS = [
     BikeKarjaPrintComponent,
     CustomerAssociateComponent,
     GuarantorComponent,
-    ReportingInfoTaggingComponent,
-    ReportingInfoTaggingFormComponent
 ];
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BaseService} from '../BaseService';
-import {ReportingInfo} from '../model/reporting-info';
+import {ReportingInfo} from '../../feature/reporting/model/reporting-info';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../utils/api/ApiUtils';

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ReportingInfo} from '../../../../@core/model/reporting-info';
+import {ReportingInfo} from '../../model/reporting-info';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Action} from '../../../../@core/Action';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';

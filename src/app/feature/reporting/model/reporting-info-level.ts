@@ -1,5 +1,5 @@
-import {BaseEntity} from './base-entity';
-import {Status} from '../Status';
+import {BaseEntity} from '../../../@core/model/base-entity';
+import {Status} from '../../../@core/Status';
 
 export class ReportingInfoLevel extends BaseEntity {
   code: string;

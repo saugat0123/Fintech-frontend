@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {ReportingInfo} from '../../../../../../@core/model/reporting-info';
-import {ReportingInfoLevel} from '../../../../../../@core/model/reporting-info-level';
+import {ReportingInfo} from '../../model/reporting-info';
+import {ReportingInfoLevel} from '../../model/reporting-info-level';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({

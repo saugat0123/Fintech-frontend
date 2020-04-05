@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ReportingInfo} from '../../../../@core/model/reporting-info';
+import {ReportingInfo} from '../../model/reporting-info';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {ReportingInfoLevel} from '../../../../@core/model/reporting-info-level';
+import {ReportingInfoLevel} from '../../model/reporting-info-level';
 import {Status} from '../../../../@core/Status';
 import {ReportingInfoService} from '../../../../@core/service/reporting-info.service';
 import {ToastService} from '../../../../@core/utils';

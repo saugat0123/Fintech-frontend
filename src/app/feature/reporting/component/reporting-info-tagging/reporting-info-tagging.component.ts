@@ -1,12 +1,12 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {ReportingInfoLevel} from '../../../../../@core/model/reporting-info-level';
-import {ReportingInfo} from '../../../../../@core/model/reporting-info';
-import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {ReportingInfoService} from '../../../../../@core/service/reporting-info.service';
+import {ReportingInfoLevel} from '../../model/reporting-info-level';
+import {ReportingInfo} from '../../model/reporting-info';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {ReportingInfoService} from '../../../../@core/service/reporting-info.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {ToastService} from '../../../../../@core/utils';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {ReportingInfoTaggingFormComponent} from './reporting-info-tagging-form/reporting-info-tagging-form.component';
+import {ToastService} from '../../../../@core/utils';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {ReportingInfoTaggingFormComponent} from '../reporting-info-tagging-form/reporting-info-tagging-form.component';
 
 @Component({
   selector: 'app-reporting-info-tagging',

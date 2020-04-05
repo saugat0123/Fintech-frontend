@@ -23,7 +23,7 @@ import {VehicleSecurity} from '../../admin/modal/vehicleSecurity';
 import {NepaliTemplateDataHolder} from './nepali-template-data-holder';
 import {MawCreditRiskGrading} from './MawCreditRiskGrading';
 import {GuarantorDetail} from './guarantor-detail';
-import {ReportingInfoLevel} from '../../../@core/model/reporting-info-level';
+import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
 
 export class LoanDataHolder {
     id: number;

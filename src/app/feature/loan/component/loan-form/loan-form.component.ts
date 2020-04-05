@@ -45,7 +45,7 @@ import {Customer} from '../../../admin/modal/customer';
 import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 import {GuarantorComponent} from '../loan-main-template/guarantor/guarantor.component';
 import {CalendarType} from '../../../../@core/model/calendar-type';
-import {ReportingInfoTaggingComponent} from '../loan-main-template/reporting-info-tagging/reporting-info-tagging.component';
+import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 
 @Component({
     selector: 'app-loan-form',
