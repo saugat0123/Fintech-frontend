@@ -2,7 +2,7 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ReportingInfoLevel} from '../../model/reporting-info-level';
 import {ReportingInfo} from '../../model/reporting-info';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
-import {ReportingInfoService} from '../../../../@core/service/reporting-info.service';
+import {ReportingInfoService} from '../../service/reporting-info.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ToastService} from '../../../../@core/utils';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';

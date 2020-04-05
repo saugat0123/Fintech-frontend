@@ -4,7 +4,7 @@ import {ReportInfoFormComponent} from '../report-info-form/report-info-form.comp
 import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {ReportingInfo} from '../../model/reporting-info';
 import {Action} from '../../../../@core/Action';
-import {ReportingInfoService} from '../../../../@core/service/reporting-info.service';
+import {ReportingInfoService} from '../../service/reporting-info.service';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';

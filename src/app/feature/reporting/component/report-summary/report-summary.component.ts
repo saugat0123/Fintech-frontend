@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ReportingInfoService} from '../../../../@core/service/reporting-info.service';
+import {ReportingInfoService} from '../../service/reporting-info.service';
 import {ReportingInfo} from '../../model/reporting-info';
 import {ReportingInfoLevel} from '../../model/reporting-info-level';
 

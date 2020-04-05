@@ -4,7 +4,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Action} from '../../../../@core/Action';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {ReportingInfoService} from '../../../../@core/service/reporting-info.service';
+import {ReportingInfoService} from '../../service/reporting-info.service';
 import {ModalResponse, ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {Status} from '../../../../@core/Status';

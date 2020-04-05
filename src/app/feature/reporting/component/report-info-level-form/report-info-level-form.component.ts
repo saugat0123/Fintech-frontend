@@ -4,7 +4,7 @@ import {ReportingInfo} from '../../model/reporting-info';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {ReportingInfoLevel} from '../../model/reporting-info-level';
 import {Status} from '../../../../@core/Status';
-import {ReportingInfoService} from '../../../../@core/service/reporting-info.service';
+import {ReportingInfoService} from '../../service/reporting-info.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 
