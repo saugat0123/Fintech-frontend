@@ -12,6 +12,7 @@ export class ReportSummaryComponent implements OnInit {
   @Input() public reportingInfoLevels: Array<ReportingInfoLevel>;
   public reportingInfoSummary: Array<ReportingInfo> = new Array<ReportingInfo>();
   private savedReportTagsId: Set<number> = new Set<number>();
+  public layout: 'vertical' | 'horizontal' = 'horizontal';
 
   constructor(
       private reportingInfoService: ReportingInfoService,
