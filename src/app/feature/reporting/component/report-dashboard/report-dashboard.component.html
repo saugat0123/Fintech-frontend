@@ -1,0 +1,17 @@
+<nb-card>
+  <nb-card-header>
+    Reporting Dashboard
+  </nb-card-header>
+  <nb-card-body>
+    <nb-accordion>
+      <nb-accordion-item #itemNRBReporting>
+        <nb-accordion-item-header>
+          Reporting Information
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-report-info *ngIf="itemNRBReporting.expanded"></app-report-info>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </nb-card-body>
+</nb-card>
