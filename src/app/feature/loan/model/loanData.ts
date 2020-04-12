@@ -67,4 +67,5 @@ export class LoanDataHolder {
     reportingInfoLevels: Array<ReportingInfoLevel>;
     limitExceed: number;
     loanRemarks: string;
+    isInsuranceExpired: boolean;
 }

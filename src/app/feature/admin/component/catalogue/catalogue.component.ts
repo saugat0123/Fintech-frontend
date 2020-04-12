@@ -433,10 +433,10 @@ export class CatalogueComponent implements OnInit {
     onChangeInsuranceToggle(event) {
         this.insuranceToggle = false;
         if (event) {
-            this.catalogueService.search.showExpiringInsurance = 'true';
+            this.catalogueService.search.isInsuranceExpired = 'true';
             this.onSearch();
         } else {
-            this.catalogueService.search.showExpiringInsurance = undefined;
+            this.catalogueService.search.isInsuranceExpired = undefined;
             this.onSearch();
         }
     }
