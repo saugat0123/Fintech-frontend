@@ -1,0 +1,23 @@
+<nb-card>
+  <nb-card-body>
+    <form (ngSubmit)="submit()" [formGroup]="form">
+      <div class="form-group form-inline">
+        Insurance expiry notification before
+        <select class="form-control custom-select mx-2" formControlName="value">
+          <option [value]="15">15</option>
+          <option [value]="30">30</option>
+          <option [value]="45">45</option>
+          <option [value]="60">60</option>
+        </select>
+        days.
+      </div>
+      <div>
+        <p class="text-muted">
+          Default is <strong>{{default}}</strong> days.
+        </p>
+        <button class="btn btn-success" type="submit">Save</button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>
+
