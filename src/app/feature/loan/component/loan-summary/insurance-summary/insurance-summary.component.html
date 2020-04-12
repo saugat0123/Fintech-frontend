@@ -1,0 +1,31 @@
+<div class="row mt-4">
+  <div class="col-md-12">
+    <p><strong>Insurance Detail</strong></p>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Company</th>
+        <th>Insured Amount</th>
+        <th>Premium Amount</th>
+        <th>Issued Date</th>
+        <th>Expiry Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{insurance?.company}}</td>
+        <td>{{insurance?.insuredAmount | currencyFormatter}}</td>
+        <td>{{insurance?.premiumAmount | currencyFormatter}}</td>
+        <td>{{insurance?.issuedDate | date}}</td>
+        <td>{{insurance?.expiryDate | date}}</td>
+      </tr>
+      <tr>
+        <th colspan="5">Policy Type</th>
+      </tr>
+      <tr>
+        <td colspan="5">{{insurance?.policyType}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
