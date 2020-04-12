@@ -82,6 +82,13 @@ export abstract class BaseService<T> {
         return this.http.get(req.url, {headers: req.header});
     }
 
+    public getAllWithSearch(searchObj: any): Observable<any> {
+
+        const api = `${this.getApi()}/all`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, searchObj, {headers: req.header});
+    }
+
     public getPaginationWithSearch(search: string, page: number = 1, size: number = 20): Observable<any> {
         let api: string;
 

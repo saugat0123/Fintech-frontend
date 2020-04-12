@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
     templateUrl: './cash-flow-statement.component.html',
     styleUrls: ['./cash-flow-statement.component.scss']
 })
-export class CashFlowStatementComponent implements OnInit {
+export class CashFlowStatementComponent implements OnInit, OnDestroy {
     @Input() fiscalYear: Array<number>;
     @Input() formData;
     @Output() removeFiscalYear = new EventEmitter<any>();
@@ -50,6 +50,8 @@ export class CashFlowStatementComponent implements OnInit {
             this.setClosingCash(cashFlowStatementData.closingCash);
             this.setClosingBalance(cashFlowStatementData.closingBalance);
             this.setDifferenceCFS(cashFlowStatementData.differenceCFS);
+            this.cashFlowStatementForm.get('justificationCashFlowStatement')
+                .patchValue(cashFlowStatementData.justificationCashFlowStatement);
         }
     }
 
@@ -85,7 +87,8 @@ export class CashFlowStatementComponent implements OnInit {
             addOpeningBalance: this.formBuilder.array([]),
             closingCash: this.formBuilder.array([]),
             closingBalance: this.formBuilder.array([]),
-            differenceCFS: this.formBuilder.array([])
+            differenceCFS: this.formBuilder.array([]),
+            justificationCashFlowStatement: [undefined]
         });
     }
 
@@ -496,5 +499,9 @@ export class CashFlowStatementComponent implements OnInit {
                 })
             );
         });
+    }
+
+    ngOnDestroy(): void {
+        this.formData['cashFlowStatementData'].justificationCashFlowStatement = this.cashFlowStatementForm.get('justificationCashFlowStatement').value;
     }
 }

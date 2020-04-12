@@ -75,16 +75,17 @@ import {JamaniBasekoComponent} from './component/loan-main-nepali-template/jaman
 import {JamaniBasekoPrintComponent} from './component/loan-main-nepali-template/jamani-baseko/jamani-baseko-print/jamani-baseko-print.component';
 import {BikeKarjaComponent} from './component/loan-main-nepali-template/bike-karja/bike-karja.component';
 import {HayarParchesKarjaNibedanComponent} from './component/loan-main-nepali-template/hayar-parches-karja-nibedan/hayar-parches-karja-nibedan.component';
-import { PratigyaPatraPrintComponent } from './component/offer-letter/pratigya-patra/pratigya-patra-print/pratigya-patra-print.component';
-import { MawCreditRiskGradingComponent } from './component/loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
+import {PratigyaPatraPrintComponent} from './component/offer-letter/pratigya-patra/pratigya-patra-print/pratigya-patra-print.component';
+import {MawCreditRiskGradingComponent} from './component/loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 
 import {JamaniTamsukLetterPrintComponent} from './component/offer-letter/jamani-tamsuk/jamani-tamsuk-letter-print/jamani-tamsuk-letter-print.component';
-import { ApplicantFamilyInfoPrintComponent } from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info-print/applicant-family-info-print.component';
-import { BikeKarjaPrintComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja-print/bike-karja-print.component';
-import { CustomerAssociateComponent } from './component/loan-main-template/customer-associate/customer-associate.component';
+import {ApplicantFamilyInfoPrintComponent} from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info-print/applicant-family-info-print.component';
+import {BikeKarjaPrintComponent} from './component/loan-main-nepali-template/bike-karja/bike-karja-print/bike-karja-print.component';
+import {CustomerAssociateComponent} from './component/loan-main-template/customer-associate/customer-associate.component';
 import {CustomerModule} from '../customer/customer.module';
 import {GuarantorComponent} from './component/loan-main-template/guarantor/guarantor.component';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
+import {ReportingModule} from '../reporting/reporting.module';
 import { InsuranceComponent } from './component/loan-main-template/insurance/insurance.component';
 
 const COMPONENTS = [
@@ -189,7 +190,8 @@ const ENTRY_COMPONENTS = [
             apiKey: environment.GOOGLE_MAP_API_KEY
         }),
         CustomerModule,
-        NepaliCalendarModule
+        NepaliCalendarModule,
+        ReportingModule
     ],
 
     providers: [

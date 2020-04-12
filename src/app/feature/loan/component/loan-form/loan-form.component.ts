@@ -45,6 +45,7 @@ import {Customer} from '../../../admin/modal/customer';
 import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 import {GuarantorComponent} from '../loan-main-template/guarantor/guarantor.component';
 import {CalendarType} from '../../../../@core/model/calendar-type';
+import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {InsuranceComponent} from '../loan-main-template/insurance/insurance.component';
 
 @Component({
@@ -172,6 +173,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('guarantor', {static: false})
     guarantorComponent: GuarantorComponent;
+
+    @ViewChild('reportingInfoTagging', {static: false})
+    reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
 
     @ViewChild('insurance', {static: false})
     insuranceComponent: InsuranceComponent;
@@ -526,7 +530,10 @@ export class LoanFormComponent implements OnInit {
             this.shareSecurity.onSubmit();
             this.loanDocument.shareSecurity = this.shareSecurity.shareSecurityData;
         }
-
+        if (name === 'Reporting Info' && action) {
+            this.reportingInfoTaggingComponent.onSubmit();
+            this.loanDocument.reportingInfoLevels = this.reportingInfoTaggingComponent.finalReportingInfoLevels;
+        }
         if (name === 'Insurance' && action) {
             if (this.insuranceComponent.form.invalid && this.nextButtonAction) {
                 this.insuranceComponent.isSubmitted = true;
@@ -537,7 +544,6 @@ export class LoanFormComponent implements OnInit {
         }
 
         return false;
-
     }
 
 
