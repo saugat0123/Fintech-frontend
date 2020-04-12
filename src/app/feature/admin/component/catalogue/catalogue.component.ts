@@ -64,7 +64,7 @@ export class CatalogueComponent implements OnInit {
     isFilterCollapsed = true;
     showBranch = true;
     nbTrigger = NbTrigger;
-    private insuranceToggle = false;
+    public insuranceToggle = false;
 
     constructor(
         private branchService: BranchService,
