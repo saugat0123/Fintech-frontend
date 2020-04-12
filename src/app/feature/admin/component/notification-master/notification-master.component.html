@@ -1,0 +1,10 @@
+<nb-accordion>
+  <nb-accordion-item #itemInsurance>
+    <nb-accordion-item-header>Insurance Expiry</nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <app-insurance-expiry-notification
+          *ngIf="itemInsurance.expanded"></app-insurance-expiry-notification>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>
+

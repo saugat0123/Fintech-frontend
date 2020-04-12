@@ -64,6 +64,7 @@ export class CatalogueComponent implements OnInit {
     isFilterCollapsed = true;
     showBranch = true;
     nbTrigger = NbTrigger;
+    public insuranceToggle = false;
 
     constructor(
         private branchService: BranchService,
@@ -89,6 +90,7 @@ export class CatalogueComponent implements OnInit {
             other.spinner = false;
             other.transferToggle = true;
             other.shareToggle = true;
+            other.insuranceToggle = true;
         }, error => {
             console.error(error);
             other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
@@ -170,7 +172,8 @@ export class CatalogueComponent implements OnInit {
             role: [undefined],
             customerName: [undefined],
             companyName: [undefined],
-            showShareLoanExcessingLimit: [undefined]
+            showShareLoanExcessingLimit: [undefined],
+            showExpriringInsurance: [undefined]
         });
     }
 
@@ -427,4 +430,14 @@ export class CatalogueComponent implements OnInit {
         });
     }
 
+    onChangeInsuranceToggle(event) {
+        this.insuranceToggle = false;
+        if (event) {
+            this.catalogueService.search.isInsuranceExpired = 'true';
+            this.onSearch();
+        } else {
+            this.catalogueService.search.isInsuranceExpired = undefined;
+            this.onSearch();
+        }
+    }
 }
