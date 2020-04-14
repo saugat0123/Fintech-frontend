@@ -1,20 +1,41 @@
 <form (ngSubmit)="submit()" [formGroup]="form">
-
-  <table class="table table-bordered">
-    <thead>
-    <tr>
-      <th scope="col">S No.</th>
-      <th scope="col">Particulars</th>
-      <th scope="col">Default</th>
-    </tr>
-    </thead>
-    <tbody>
-    <ng-container formArrayName="masters">
-      <tr *ngFor="let group of form.get('masters')['controls']; let i = index;">
-        <ng-container [formGroupName]="i.toString()">
-          <td>{{i + 1}}</td>
-          <td>
-            <div class="form-group form-inline">
+  <ng-container *ngIf="layout === 'grid'">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th scope="col">S No.</th>
+        <th scope="col">Particulars</th>
+        <th scope="col">Default</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container formArrayName="masters">
+        <tr *ngFor="let group of form.get('masters')['controls']; let i = index;">
+          <ng-container [formGroupName]="i.toString()">
+            <td>{{i + 1}}</td>
+            <td>
+              <div class="form-group form-inline">
+                {{notificationTypeInfo.get(group.get('notificationKey').value).particular}}
+                <select class="form-control custom-select mx-2" formControlName="value">
+                  <option
+                      *ngFor="let n of notificationTypeInfo.get(group.get('notificationKey').value).options"
+                      [value]="n">{{n}}</option>
+                </select>
+                {{notificationTypeInfo.get(group.get('notificationKey').value).figureType}}.
+              </div>
+            </td>
+            <td>{{notificationTypeInfo.get(group.get('notificationKey').value).default}}
+              {{notificationTypeInfo.get(group.get('notificationKey').value).figureType}}</td>
+          </ng-container>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </ng-container>
+  <ng-container *ngIf="layout === 'block'" formArrayName="masters">
+    <div *ngFor="let group of form.get('masters')['controls']; let i = index;">
+      <div [formGroupName]="i.toString()">
+            <span class="form-group form-inline">
               {{notificationTypeInfo.get(group.get('notificationKey').value).particular}}
               <select class="form-control custom-select mx-2" formControlName="value">
                 <option
@@ -22,15 +43,12 @@
                     [value]="n">{{n}}</option>
               </select>
               {{notificationTypeInfo.get(group.get('notificationKey').value).figureType}}.
-            </div>
-          </td>
-          <td>{{notificationTypeInfo.get(group.get('notificationKey').value).default}}
-            {{notificationTypeInfo.get(group.get('notificationKey').value).figureType}}</td>
-        </ng-container>
-      </tr>
-    </ng-container>
-    </tbody>
-  </table>
+              Default is {{notificationTypeInfo.get(group.get('notificationKey').value).default}}
+              {{notificationTypeInfo.get(group.get('notificationKey').value).figureType}}
+            </span>
+      </div>
+    </div>
+  </ng-container>
   <hr/>
   <button class="btn btn-success" type="submit">Save</button>
 </form>

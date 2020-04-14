@@ -13,6 +13,7 @@ import {ToastService} from '../../../../@core/utils';
   styleUrls: ['./notification-master.component.scss']
 })
 export class NotificationMasterComponent implements OnInit {
+  public layout: 'block' | 'grid' = 'grid';
   public form: FormGroup;
   public notificationTypeInfo = new Map<NotificationMasterType, NotificationTypeInfo>([
     [NotificationMasterType.INSURANCE_EXPIRY_NOTIFY, {
