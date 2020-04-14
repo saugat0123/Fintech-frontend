@@ -1,10 +1,37 @@
-<nb-accordion>
-  <nb-accordion-item #itemInsurance>
-    <nb-accordion-item-header>Insurance Expiry</nb-accordion-item-header>
-    <nb-accordion-item-body>
-      <app-insurance-expiry-notification
-          *ngIf="itemInsurance.expanded"></app-insurance-expiry-notification>
-    </nb-accordion-item-body>
-  </nb-accordion-item>
-</nb-accordion>
+<form (ngSubmit)="submit()" [formGroup]="form">
+
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th scope="col">S No.</th>
+      <th scope="col">Particulars</th>
+      <th scope="col">Default</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container formArrayName="masters">
+      <tr *ngFor="let group of form.get('masters')['controls']; let i = index;">
+        <ng-container [formGroupName]="i.toString()">
+          <td>1</td>
+          <td>
+            <div class="form-group form-inline">
+              {{notificationTypeInfo.get(group.get('notificationKey').value).particular}}
+              <select class="form-control custom-select mx-2" formControlName="value">
+                <option
+                    *ngFor="let n of notificationTypeInfo.get(group.get('notificationKey').value).options"
+                    [value]="n">{{n}}</option>
+              </select>
+              {{notificationTypeInfo.get(group.get('notificationKey').value).figureType}}.
+            </div>
+          </td>
+          <td>{{notificationTypeInfo.get(group.get('notificationKey').value).default}}
+            {{notificationTypeInfo.get(group.get('notificationKey').value).figureType}}</td>
+        </ng-container>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+  <hr/>
+  <button class="btn btn-success" type="submit">Save</button>
+</form>
 
