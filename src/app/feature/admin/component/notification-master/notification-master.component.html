@@ -12,7 +12,7 @@
     <ng-container formArrayName="masters">
       <tr *ngFor="let group of form.get('masters')['controls']; let i = index;">
         <ng-container [formGroupName]="i.toString()">
-          <td>1</td>
+          <td>{{i + 1}}</td>
           <td>
             <div class="form-group form-inline">
               {{notificationTypeInfo.get(group.get('notificationKey').value).particular}}
