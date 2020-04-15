@@ -6,6 +6,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NotificationMasterType} from '../../../../@core/model/enum/NotificationMasterType';
 import {NotificationMasterService} from './notification-master.service';
 import {ToastService} from '../../../../@core/utils';
+import {Status} from '../../../../@core/Status';
 
 @Component({
   selector: 'app-notification-master',
@@ -13,7 +14,7 @@ import {ToastService} from '../../../../@core/utils';
   styleUrls: ['./notification-master.component.scss']
 })
 export class NotificationMasterComponent implements OnInit {
-  public layout: 'block' | 'grid' = 'grid';
+  public layout: 'block' | 'grid' = 'block';
   public form: FormGroup;
   public notificationTypeInfo = new Map<NotificationMasterType, NotificationTypeInfo>([
     [NotificationMasterType.INSURANCE_EXPIRY_NOTIFY, {
@@ -24,6 +25,7 @@ export class NotificationMasterComponent implements OnInit {
     }]
   ]);
   private notificationMasterList: Array<NotificationMaster> = new Array<NotificationMaster>();
+  public statusEnum = Status;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -66,11 +68,24 @@ export class NotificationMasterComponent implements OnInit {
         id: [ObjectUtil.setUndefinedIfNull(v.id)],
         notificationKey: [ObjectUtil.setUndefinedIfNull(NotificationMasterType[v.notificationKey])],
         value: [ObjectUtil.setUndefinedIfNull(v.value)],
+        status: [ObjectUtil.setUndefinedIfNull(v.status)],
         version: [ObjectUtil.setUndefinedIfNull(v.version)]
       }));
     });
   }
 
+  public updateStatus(id: number, $event: boolean): void {
+    const master = new NotificationMaster();
+    master.id = id;
+    master.status = $event ? Status.ACTIVE : Status.INACTIVE;
+    this.notificationMasterService.updateStatus(master).subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated!!!'));
+      this.getNotificationMaster();
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to update!!!'));
+    });
+  }
 }
 
 export interface NotificationTypeInfo {
