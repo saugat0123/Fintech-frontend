@@ -1,3 +1,9 @@
+<div class="d-flex justify-content-end">
+  <button (click)="layout = layout === 'block' ? 'grid' : 'block'" nbButton size="tiny">
+    {{layout === 'block' ? 'grid' : 'block' | titlecase}} view
+  </button>
+</div>
+<hr/>
 <form (ngSubmit)="submit()" [formGroup]="form">
   <ng-container *ngIf="layout === 'grid'">
     <table class="table table-bordered">
@@ -6,6 +12,7 @@
         <th scope="col">S No.</th>
         <th scope="col">Particulars</th>
         <th scope="col">Default</th>
+        <th scope="col">Status</th>
       </tr>
       </thead>
       <tbody>
@@ -26,6 +33,10 @@
             </td>
             <td>{{notificationTypeInfo.get(group.get('notificationKey').value).default}}
               {{notificationTypeInfo.get(group.get('notificationKey').value).figureType}}</td>
+            <td>
+              <nb-toggle (checkedChange)="updateStatus(group.get('id').value, $event)"
+                         [checked]="group.get('status').value === statusEnum.ACTIVE"></nb-toggle>
+            </td>
           </ng-container>
         </tr>
       </ng-container>
@@ -44,7 +55,15 @@
               </select>
               {{notificationTypeInfo.get(group.get('notificationKey').value).figureType}}.
               Default is {{notificationTypeInfo.get(group.get('notificationKey').value).default}}
-              {{notificationTypeInfo.get(group.get('notificationKey').value).figureType}}
+              {{notificationTypeInfo.get(group.get('notificationKey').value).figureType}}.
+              This setting is currently&nbsp;
+              <button
+                  (click)="updateStatus(group.get('id').value, !(group.get('status').value === statusEnum.ACTIVE))"
+                  nbButton
+                  size="tiny"
+                  status="{{group.get('status').value === statusEnum.ACTIVE ? 'success' : 'danger'}}}"
+                  type="button">
+              {{group.get('status').value}}</button>
             </span>
       </div>
     </div>
