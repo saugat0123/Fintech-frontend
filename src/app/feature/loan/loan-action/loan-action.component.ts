@@ -37,6 +37,7 @@ export class LoanActionComponent implements OnInit {
     @Input() catalogueStatus = false;
     @Input() limitExceed: number;
     @Input() loanRemarks: string;
+    @Input() isInsuranceExpired: boolean;
 
     @Input() actionsList: ActionModel;
     popUpTitle: string;
@@ -157,6 +158,10 @@ export class LoanActionComponent implements OnInit {
             }
         );
         if (this.limitExceed !== 0) {
+            this.toastService.show(new Alert(AlertType.INFO, this.loanRemarks));
+            return;
+        }
+        if (this.isInsuranceExpired) {
             this.toastService.show(new Alert(AlertType.INFO, this.loanRemarks));
             return;
         }

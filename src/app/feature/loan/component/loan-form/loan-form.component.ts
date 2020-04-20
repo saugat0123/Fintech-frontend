@@ -43,6 +43,9 @@ import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder'
 import {Customer} from '../../../admin/modal/customer';
 import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 import {GuarantorComponent} from '../loan-main-template/guarantor/guarantor.component';
+import {CalendarType} from '../../../../@core/model/calendar-type';
+import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
+import {InsuranceComponent} from '../loan-main-template/insurance/insurance.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -114,6 +117,8 @@ export class LoanFormComponent implements OnInit {
 
     docStatusMakerList = [];
 
+    calendarType: CalendarType = CalendarType.AD;
+
     showDocStatusDropDown = true;
     isBlackListed = false;
 
@@ -164,6 +169,12 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('guarantor', {static: false})
     guarantorComponent: GuarantorComponent;
+
+    @ViewChild('reportingInfoTagging', {static: false})
+    reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
+
+    @ViewChild('insurance', {static: false})
+    insuranceComponent: InsuranceComponent;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -511,8 +522,20 @@ export class LoanFormComponent implements OnInit {
             this.shareSecurity.onSubmit();
             this.loanDocument.shareSecurity = this.shareSecurity.shareSecurityData;
         }
-        return false;
+        if (name === 'Reporting Info' && action) {
+            this.reportingInfoTaggingComponent.onSubmit();
+            this.loanDocument.reportingInfoLevels = this.reportingInfoTaggingComponent.finalReportingInfoLevels;
+        }
+        if (name === 'Insurance' && action) {
+            if (this.insuranceComponent.form.invalid && this.nextButtonAction) {
+                this.insuranceComponent.isSubmitted = true;
+                return true;
+            }
+            this.insuranceComponent.submit();
+            this.loanDocument.insurance = this.insuranceComponent.insurance;
+        }
 
+        return false;
     }
 
 

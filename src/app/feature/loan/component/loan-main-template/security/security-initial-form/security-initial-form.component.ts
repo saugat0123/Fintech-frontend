@@ -2,6 +2,7 @@ import {Component , Input , OnInit} from '@angular/core';
 import {FormArray , FormBuilder , FormGroup} from '@angular/forms';
 import {ToastService} from '../../../../../../@core/utils';
 import {Alert , AlertType} from '../../../../../../@theme/model/Alert';
+import {CalendarType} from '../../../../../../@core/model/calendar-type';
 
 @Component({
     selector: 'app-security-initial-form' ,
@@ -11,6 +12,7 @@ import {Alert , AlertType} from '../../../../../../@theme/model/Alert';
 export class SecurityInitialFormComponent implements OnInit {
     @Input() formData: string;
     @Input() name;
+    @Input() calendarType: CalendarType;
     selectedArray = [];
     securityForm: FormGroup;
     landSelected = false;
@@ -19,6 +21,7 @@ export class SecurityInitialFormComponent implements OnInit {
     underConstructionChecked = false;
     formDataForEdit: Object;
     valuatorList = [];
+    englishDateSelected = true;
     vehicleSelected = false;
     submitted = false;
 
@@ -335,6 +338,51 @@ export class SecurityInitialFormComponent implements OnInit {
     message() {
         const alert = new Alert(AlertType.INFO, 'Enter valid proposal limit to select valuator');
         this.valuatorToast.show(alert);
+    }
+
+    selectDate(value) {
+        this.englishDateSelected = !value;
+    }
+
+    vehicleDetailsFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            model: [''],
+            registrationNumber: [''],
+            registrationDate: [''],
+            engineNumber: [''],
+            chassisNumber: [''],
+            valuationAmount: [''],
+            downPayment: [''],
+            loanExposure: [''],
+            showroomCommission: [''],
+        });
+    }
+
+    public addVehicleSecurity() {
+        (this.securityForm.get('vehicleDetails') as FormArray).push(this.vehicleDetailsFormGroup());
+    }
+
+    removeVehicleDetails(index: number) {
+        (this.securityForm.get('vehicleDetails') as FormArray).removeAt(index);
+    }
+
+    setVehicleDetails(currentData) {
+        const vehicleDetails = this.securityForm.get('vehicleDetails') as FormArray;
+        currentData.forEach(singleData => {
+            vehicleDetails.push(
+                this.formBuilder.group({
+                    model: [singleData.model],
+                    registrationNumber: [singleData.registrationNumber],
+                    registrationDate: [singleData.registrationDate],
+                    engineNumber: [singleData.engineNumber],
+                    chassisNumber: [singleData.chassisNumber],
+                    valuationAmount: [singleData.valuationAmount],
+                    downPayment: [singleData.downPayment],
+                    loanExposure: [singleData.loanExposure],
+                    showroomCommission: [singleData.showroomCommission],
+                })
+            );
+        });
     }
     vehicleDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
