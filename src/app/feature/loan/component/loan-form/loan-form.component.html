@@ -102,10 +102,6 @@
                         <app-group #group [groupValue]="loanDocument?.group"
                                    [proposalDataHolder]="loanDocument?.proposal"></app-group>
                     </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Vehicle Security'">
-                        <app-vehicle-security #vehicleSecurity
-                                              [vehicleSecurityValue]="loanDocument?.vehicleSecurity"></app-vehicle-security>
-                    </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name == 'Guarantor'">
                         <app-guarantor #guarantor (blackListStatusEmitter)="getIsBlackListed($event)" [guarantorDetailValue]="loanDocument?.guarantor">
                         </app-guarantor>

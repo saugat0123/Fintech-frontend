@@ -19,6 +19,8 @@ export class SecurityInitialFormComponent implements OnInit {
     underConstructionChecked = false;
     formDataForEdit: Object;
     valuatorList = [];
+    vehicleSelected = false;
+    submitted = false;
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService ) {
@@ -40,12 +42,15 @@ export class SecurityInitialFormComponent implements OnInit {
             this.setBuildingDetails(this.formDataForEdit['buildingDetails']);
             this.setBuildingUnderConstructions(this.formDataForEdit['buildingUnderConstructions']);
             this.setPlantDetails(this.formDataForEdit['plantDetails']);
+            this.setVehicleDetails(this.formDataForEdit['vehicleDetails']);
+
 
         } else {
             this.addMoreLand();
             this.addBuilding();
             this.addPlantandMachinery();
             this.addBuildingUnderConstructions();
+            this.addVehicleSecurity();
         }
     }
 
@@ -62,7 +67,8 @@ export class SecurityInitialFormComponent implements OnInit {
             landDetails: this.formBuilder.array([]) ,
             buildingDetails: this.formBuilder.array([]) ,
             buildingUnderConstructions: this.formBuilder.array([]) ,
-            plantDetails: this.formBuilder.array([])
+            plantDetails: this.formBuilder.array([]),
+            vehicleDetails: this.formBuilder.array([])
         });
     }
 
@@ -231,6 +237,9 @@ export class SecurityInitialFormComponent implements OnInit {
                 case 'LandSecurity' :
                     this.landSelected = true;
                     break;
+                case 'VehicleSecurity' :
+                    this.vehicleSelected = true;
+                    break;
                 case 'ApartmentSecurity' :
                     this.apartmentSelected = true;
                     break;
@@ -326,5 +335,45 @@ export class SecurityInitialFormComponent implements OnInit {
     message() {
         const alert = new Alert(AlertType.INFO, 'Enter valid proposal limit to select valuator');
         this.valuatorToast.show(alert);
+    }
+    vehicleDetailsFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            model: [''],
+            registrationNumber: [''],
+            registrationDate: [''],
+            engineNumber: [''],
+            chassisNumber: [''],
+            valuationAmount: [''],
+            downPayment: [''],
+            loanExposure: [''],
+            showroomCommission: [''],
+        });
+    }
+
+    public addVehicleSecurity() {
+        (this.securityForm.get('vehicleDetails') as FormArray).push(this.vehicleDetailsFormGroup());
+    }
+
+    removeVehicleDetails(index: number) {
+        (this.securityForm.get('vehicleDetails') as FormArray).removeAt(index);
+    }
+
+    setVehicleDetails(currentData) {
+        const vehicleDetails = this.securityForm.get('vehicleDetails') as FormArray;
+        currentData.forEach(singleData => {
+            vehicleDetails.push(
+                this.formBuilder.group({
+                    model: [singleData.model],
+                    registrationNumber: [singleData.registrationNumber],
+                    registrationDate: [singleData.registrationDate],
+                    engineNumber: [singleData.engineNumber],
+                    chassisNumber: [singleData.chassisNumber],
+                    valuationAmount: [singleData.valuationAmount],
+                    downPayment: [singleData.downPayment],
+                    loanExposure: [singleData.loanExposure],
+                    showroomCommission: [singleData.showroomCommission],
+                })
+            );
+        });
     }
 }

@@ -33,7 +33,6 @@ import {CustomerDocumentComponent} from '../loan-main-template/customer-document
 import {DocStatus} from '../../model/docStatus';
 import {CustomerService} from '../../../customer/service/customer.service';
 import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
-import {VehicleSecurityComponent} from '../loan-main-template/vehicle-security/vehicle-security.component';
 import {ShareSecurityComponent} from '../loan-main-template/share-security/share-security.component';
 import {GroupComponent} from '../loan-main-template/group/group.component';
 import {LoanMainNepaliTemplateComponent} from '../loan-main-nepali-template/loan-main-nepali-template.component';
@@ -43,7 +42,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
 import {Customer} from '../../../admin/modal/customer';
 import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
-import {GuarantorComponent} from "../loan-main-template/guarantor/guarantor.component";
+import {GuarantorComponent} from '../loan-main-template/guarantor/guarantor.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -159,9 +158,6 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('group', {static: false})
     group: GroupComponent;
-
-    @ViewChild('vehicleSecurity', {static: false})
-    vehicleSecurity: VehicleSecurityComponent;
 
     @ViewChild('shareSecurity', {static: false})
     shareSecurity: ShareSecurityComponent;
@@ -507,10 +503,6 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.guarantor = this.guarantorComponent.guarantorDetail;
         }
 
-        if (name === 'Vehicle Security' && action) {
-            this.vehicleSecurity.onSubmit();
-            this.loanDocument.vehicleSecurity = this.vehicleSecurity.vehicleSecurity;
-        }
         if (name === 'Share Security' && action) {
             if (this.shareSecurity.form.invalid && this.nextButtonAction) {
                 this.shareSecurity.submitted = true;

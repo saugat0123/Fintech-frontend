@@ -52,7 +52,6 @@ import {SitevistSummaryComponentComponent} from './component/loan-summary/sitevi
 import {GroupComponent} from './component/loan-main-template/group/group.component';
 import {GroupDetailComponent} from './component/loan-main-template/group/group-detail/group-detail.component';
 import {SecurityDetailComponent} from './component/loan-main-template/group/security-detail/security-detail.component';
-import {VehicleSecurityComponent} from './component/loan-main-template/vehicle-security/vehicle-security.component';
 import {ShareSecurityComponent} from './component/loan-main-template/share-security/share-security.component';
 import {ShareSecuritySummaryComponent} from './component/loan-summary/share-security-summary/share-security-summary.component';
 import {DhitoLikhatManjurinamaComponent} from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-manjurinama.component';
@@ -83,7 +82,7 @@ import { ApplicantFamilyInfoPrintComponent } from './component/loan-main-nepali-
 import { BikeKarjaPrintComponent } from './component/loan-main-nepali-template/bike-karja/bike-karja-print/bike-karja-print.component';
 import { CustomerAssociateComponent } from './component/loan-main-template/customer-associate/customer-associate.component';
 import {CustomerModule} from '../customer/customer.module';
-import {GuarantorComponent} from "./component/loan-main-template/guarantor/guarantor.component";
+import {GuarantorComponent} from './component/loan-main-template/guarantor/guarantor.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -124,7 +123,6 @@ const COMPONENTS = [
     GroupComponent,
     GroupDetailComponent,
     SecurityDetailComponent,
-    VehicleSecurityComponent,
     ShareSecurityComponent,
     ShareSecuritySummaryComponent,
     DhitoLikhatManjurinamaComponent,
