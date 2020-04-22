@@ -7,4 +7,5 @@ export class Insurance extends BaseEntity {
   issuedDate: Date;
   expiryDate: Date;
   policyType: string;
+  remarks: string;
 }

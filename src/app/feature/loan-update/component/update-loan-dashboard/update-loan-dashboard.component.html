@@ -1,0 +1,33 @@
+<nb-card>
+  <nb-card-header>
+    Loan Updates Dashboard
+  </nb-card-header>
+  <nb-card-body>
+    <p *ngIf="updatesRequired.length === 0">No information required to be updated.</p>
+    <div class="row">
+      <div class="col-md-11">
+        <nb-select [(ngModel)]="updateAction" fullWidth placeholder="Select Update Action">
+          <nb-option [value]="UPDATES.INSURANCE.name">{{UPDATES.INSURANCE.name}}</nb-option>
+        </nb-select>
+      </div>
+      <div class="col-md-1">
+        <button (click)="addAction()" nbButton type="button"><i class="fa fa-plus-circle"></i>
+        </button>
+      </div>
+    </div>
+    <br>
+    <nb-accordion *ngIf="updatesRequired.length > 0">
+      <nb-accordion-item #item *ngFor="let update of updatesRequired">
+        <nb-accordion-item-header>{{update}}</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-update-insurance
+              *ngIf="item.expanded && update === UPDATES.INSURANCE.name"
+              (updateEmitter)="subscribeUpdateEmitter($event)"
+              [customerLoanId]="customerLoan.id"
+              [insuranceDataFromModel]="customerLoan.insurance"
+              [updateExisting]="UPDATES.INSURANCE.updatingExisting"></app-update-insurance>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </nb-card-body>
+</nb-card>

@@ -47,6 +47,7 @@ import {GuarantorComponent} from '../loan-main-template/guarantor/guarantor.comp
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {InsuranceComponent} from '../loan-main-template/insurance/insurance.component';
+import {LoanFlag} from '../../../../@core/model/enum/loan-flag.enum';
 
 @Component({
     selector: 'app-loan-form',
@@ -465,10 +466,10 @@ export class LoanFormComponent implements OnInit {
 
             // TODO LIMIT EXCEED clause may vary as per requirement
             if (this.loanDocument.proposal.proposedLimit > 0) {
-                this.loanDocument.limitExceed = 0;
+                this.loanDocument.loanFlag = LoanFlag.NO_FLAG;
             } else {
                 this.loanDocument.proposal.proposedLimit = 0;
-                this.loanDocument.limitExceed = 1;
+                this.loanDocument.loanFlag = LoanFlag.ZERO_PROPOSAL_AMOUNT;
             }
         }
 

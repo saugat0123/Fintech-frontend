@@ -24,6 +24,7 @@ import {NepaliTemplateDataHolder} from './nepali-template-data-holder';
 import {MawCreditRiskGrading} from './MawCreditRiskGrading';
 import {GuarantorDetail} from './guarantor-detail';
 import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
+import {LoanFlag} from '../../../@core/model/enum/loan-flag.enum';
 
 export class LoanDataHolder {
     id: number;
@@ -65,7 +66,6 @@ export class LoanDataHolder {
     nepaliTemplates: Array<NepaliTemplateDataHolder>;
     mawCreditRiskGrading: MawCreditRiskGrading;
     reportingInfoLevels: Array<ReportingInfoLevel>;
-    limitExceed: number;
+    loanFlag: LoanFlag;
     loanRemarks: string;
-    isInsuranceExpired: boolean;
 }
