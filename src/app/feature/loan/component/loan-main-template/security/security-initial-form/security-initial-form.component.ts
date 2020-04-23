@@ -384,44 +384,4 @@ export class SecurityInitialFormComponent implements OnInit {
             );
         });
     }
-    vehicleDetailsFormGroup(): FormGroup {
-        return this.formBuilder.group({
-            model: [''],
-            registrationNumber: [''],
-            registrationDate: [''],
-            engineNumber: [''],
-            chassisNumber: [''],
-            valuationAmount: [''],
-            downPayment: [''],
-            loanExposure: [''],
-            showroomCommission: [''],
-        });
-    }
-
-    public addVehicleSecurity() {
-        (this.securityForm.get('vehicleDetails') as FormArray).push(this.vehicleDetailsFormGroup());
-    }
-
-    removeVehicleDetails(index: number) {
-        (this.securityForm.get('vehicleDetails') as FormArray).removeAt(index);
-    }
-
-    setVehicleDetails(currentData) {
-        const vehicleDetails = this.securityForm.get('vehicleDetails') as FormArray;
-        currentData.forEach(singleData => {
-            vehicleDetails.push(
-                this.formBuilder.group({
-                    model: [singleData.model],
-                    registrationNumber: [singleData.registrationNumber],
-                    registrationDate: [singleData.registrationDate],
-                    engineNumber: [singleData.engineNumber],
-                    chassisNumber: [singleData.chassisNumber],
-                    valuationAmount: [singleData.valuationAmount],
-                    downPayment: [singleData.downPayment],
-                    loanExposure: [singleData.loanExposure],
-                    showroomCommission: [singleData.showroomCommission],
-                })
-            );
-        });
-    }
 }
