@@ -35,6 +35,7 @@ export class InsuranceComponent implements OnInit {
         this.form = this.formBuilder.group({
             id: [ObjectUtil.setUndefinedIfNull(this.insurance.id)],
             version: [ObjectUtil.setUndefinedIfNull(this.insurance.version)],
+            createdBy: [ObjectUtil.setUndefinedIfNull(this.insurance.createdBy)],
             company: [ObjectUtil.setUndefinedIfNull(this.insurance.company)],
             insuredAmount: [ObjectUtil.setUndefinedIfNull(this.insurance.insuredAmount)],
             premiumAmount: [ObjectUtil.setUndefinedIfNull(this.insurance.premiumAmount)],
