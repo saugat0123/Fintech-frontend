@@ -52,7 +52,6 @@ import {SitevistSummaryComponentComponent} from './component/loan-summary/sitevi
 import {GroupComponent} from './component/loan-main-template/group/group.component';
 import {GroupDetailComponent} from './component/loan-main-template/group/group-detail/group-detail.component';
 import {SecurityDetailComponent} from './component/loan-main-template/group/security-detail/security-detail.component';
-import {VehicleSecurityComponent} from './component/loan-main-template/vehicle-security/vehicle-security.component';
 import {ShareSecurityComponent} from './component/loan-main-template/share-security/share-security.component';
 import {ShareSecuritySummaryComponent} from './component/loan-summary/share-security-summary/share-security-summary.component';
 import {DhitoLikhatManjurinamaComponent} from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-manjurinama.component';
@@ -128,7 +127,6 @@ const COMPONENTS = [
     GroupComponent,
     GroupDetailComponent,
     SecurityDetailComponent,
-    VehicleSecurityComponent,
     ShareSecurityComponent,
     ShareSecuritySummaryComponent,
     DhitoLikhatManjurinamaComponent,

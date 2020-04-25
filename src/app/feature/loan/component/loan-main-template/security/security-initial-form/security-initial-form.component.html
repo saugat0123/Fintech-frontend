@@ -54,6 +54,7 @@
                                [selected]="selectedArray"
                                multiple placeholder="Multiple Select">
                         <nb-option value="LandSecurity">Land Security</nb-option>
+                        <nb-option value="VehicleSecurity">Vehicle Security</nb-option>
                         <nb-option value="ApartmentSecurity">Apartment Security</nb-option>
                         <nb-option value="Land and Building Security">Land and Building Security</nb-option>
                         <nb-option value="PlantSecurity">Plant and Machinery Security</nb-option>
@@ -799,5 +800,140 @@
                        value="Add Plant and Machine"/>
             </div>
         </nb-card>
+        <nb-card [hidden]="!vehicleSelected" class="p-3">
+            <div class="box-header with-border">
+                <h2 class="box-title title">Vehicle Security</h2>
+            </div>
+            <div
+                *ngFor="let addMoreVehicle of securityForm.get('vehicleDetails')['controls']; let i = index"
+                class="font-weight-bold"
+                formArrayName="vehicleDetails">
+                <div [formGroupName]="i">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h5>{{i + 1}}) Details of Security Offered: Vehicle</h5>
+                        </div>
+                        <div *ngIf="securityForm.get('vehicleDetails')['length']>1"
+                             class="col-md-2 ">
+                            <button (click)="removeVehicleDetails(i)"
+                                    class="float-right btn tbn-sm btn-flat btn-danger" value="Delete">
+                                <em class="fa fa-trash" style="color: white;"></em>
+
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="model"><strong>Model</strong></label>
+                                <input
+                                    class="form-control" formControlName="model" id="model" name="model"
+                                    placeholder="Model"
+                                    type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="registrationNumber"><strong>Registration
+                                    Number</strong></label>
+                                <input
+                                    class="form-control" formControlName="registrationNumber"
+                                    id="registrationNumber"
+                                    name="registrationNumber" placeholder="Registration Number"
+                                    type="number">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="registrationDate"><strong>Registration
+                                    Date</strong></label>
+                                <input
+                                    [nbDatepicker]="registrationDate"
+                                    class="form-control" formControlName="registrationDate" fullWidth
+                                    id="registrationDate" name="registrationDate"
+                                    nbInput placeholder="Registration Date">
+                                <nb-datepicker #registrationDate></nb-datepicker>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="engineNumber"><strong>Engine Number</strong></label>
+                                <input
+                                    class="form-control" formControlName="engineNumber" id="engineNumber"
+                                    name="model"
+                                    placeholder="Engine Number" type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="chassisNumber"><strong>Chassis Number</strong></label>
+                                <input
+                                    class="form-control" formControlName="chassisNumber" id="chassisNumber"
+                                    name="chassisNumber"
+                                    placeholder="Chassis Number" type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="valuationAmount"><strong>Valuation
+                                    Amount</strong></label>
+                                <input
+                                    class="form-control" formControlName="valuationAmount" id="valuationAmount"
+                                    name="valuationAmount"
+                                    placeholder="Valuation Amount" type="number">
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="downPayment"><strong>Down Payment</strong></label>
+                                <input
+                                    class="form-control" formControlName="downPayment" id="downPayment"
+                                    name="downPayment"
+                                    placeholder="Down Payment" type="text">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="loanExposure"><strong>Loan Exposure(%)</strong></label>
+                                <input
+                                    class="form-control" formControlName="loanExposure" id="loanExposure"
+                                    name="loanExposure"
+                                    placeholder="Loan Exposure" type="number">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="showroomCommission"><strong>Showroom
+                                    Commission</strong></label>
+                                <input
+                                    class="form-control" formControlName="showroomCommission"
+                                    id="showroomCommission"
+                                    name="showroomCommission" placeholder="Showroom Commission"
+                                    type="number">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="text-right">
+                <input (click)="addVehicleSecurity()" class="btn btn-sm btn-flat btn-primary"
+                       type="button"
+                       value="Add More"/>
+            </div>
+        </nb-card>
+        <!-- Vehicle Security End -->
     </form>
 </div>
