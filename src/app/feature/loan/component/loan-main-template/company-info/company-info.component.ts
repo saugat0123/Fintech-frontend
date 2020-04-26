@@ -177,6 +177,10 @@ export class CompanyInfoComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus.panRegistrationDate)) ? undefined :
                 new Date(this.companyInfo.legalStatus.panRegistrationDate), [Validators.required, DateValidator.isValidBefore]],
 
+          registrationExpiryDate:  [(ObjectUtil.isEmpty(this.companyInfo)
+              || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
+              || ObjectUtil.isEmpty(this.companyInfo.legalStatus.registrationExpiryDate)) ? undefined :
+              new Date(this.companyInfo.legalStatus.registrationExpiryDate), [Validators.required]],
             // capital
             authorizedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
@@ -394,6 +398,8 @@ export class CompanyInfoComponent implements OnInit {
         this.legalStatus.panRegistrationOffice = this.companyInfoFormGroup.get('panRegistrationOffice').value;
         // this.legalStatus.panNumber = this.companyInfoFormGroup.get('panNumber').value;
         this.legalStatus.panRegistrationDate = this.companyInfoFormGroup.get('panRegistrationDate').value;
+        this.legalStatus.registrationExpiryDate = this.companyInfoFormGroup.get('registrationExpiryDate').value;
+
         this.companyInfo.legalStatus = this.legalStatus;
         // capital
         this.capital.authorizedCapital = this.companyInfoFormGroup.get('authorizedCapital').value;

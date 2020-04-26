@@ -210,27 +210,25 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="panRegistrationOffice"><strong>Pan Registration Office</strong></label>
-                            <input  *ngIf="calendarType === 'AD'" id="panRegistrationOffice" formControlName="panRegistrationOffice"
+                            <label for="panRegistrationOffice"><strong>PAN/VAT Registration Office</strong></label>
+                            <input  id="panRegistrationOffice" formControlName="panRegistrationOffice"
                                    name="panRegistrationOffice" type="text" class="form-control"
-                                   placeholder="Pan Registration Office"
+                                   placeholder="PAN/VAT Registration Office"
                                    [ngClass]="{ 'is-invalid': (submitted) && form.panRegistrationOffice.errors }">
-                            <app-calendar [ePreDate]="companyInfoFormGroup.get('panRegistrationDate').value" *ngIf="calendarType === 'BS'"
-                                          (messageToEmit)="companyInfoFormGroup.get('panRegistrationDate').patchValue($event?.eDate)"></app-calendar>
                             <div *ngIf="(submitted) && form.panRegistrationOffice.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="form.panRegistrationOffice.errors.required">
-                                    Pan Registration Office is required
+                                    PAN/VAT Registration Office is required
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="panRegistrationDate"><strong>Pan Registration Date</strong></label>
+                            <label for="panRegistrationDate"><strong>PAN/VAT Registration Date</strong></label>
                             <input *ngIf="calendarType === 'AD'" id="panRegistrationDate" formControlName="panRegistrationDate"
                                    [nbDatepicker]="panRegistrationDate" name="panRegistrationDate"
-                                   class="form-control" placeholder="Pan Registration Date"
+                                   class="form-control" placeholder="PAN/VAT Registration Date"
                                    [ngClass]="{ 'is-invalid':submitted && form.panRegistrationDate.errors}">
                             <app-calendar [ePreDate]="companyInfoFormGroup.get('panRegistrationDate').value" *ngIf="calendarType === 'BS'"
                                           (messageToEmit)="companyInfoFormGroup.get('panRegistrationDate').patchValue($event?.eDate)"></app-calendar>
@@ -238,13 +236,28 @@
                             <div *ngIf="submitted && form.panRegistrationDate.errors" class="invalid-feedback">
                                 <div *ngIf="form.panRegistrationDate.errors.required ||
                                 form.panRegistrationDate.errors.beforeToday">
-                                    Invalid Pan Registration Date
+                                    Invalid PAN/VAT Registration Date
+                                </div>
                                 </div>
                             </div>
                         </div>
+                  <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="registrationExpiryDate"><strong>PAN/VAT Registration  Expiry Date</strong></label>
+                    <input *ngIf="calendarType === 'AD'" id="registrationExpiryDate" formControlName="registrationExpiryDate"
+                           [nbDatepicker]="registrationExpiryDate" name="registrationExpiryDate"
+                           class="form-control" placeholder="PAN/VAT Registration Expiry Date"
+                           [ngClass]="{ 'is-invalid':submitted && form.registrationExpiryDate.errors}">
+                      <app-calendar [ePreDate]="companyInfoFormGroup.get('registrationExpiryDate').value" *ngIf="calendarType === 'BS'"
+                                    (messageToEmit)="companyInfoFormGroup.get('registrationExpiryDate').patchValue($event?.eDate)"></app-calendar>
+                    <nb-datepicker #registrationExpiryDate></nb-datepicker>
+                    <div *ngIf="submitted && form.registrationExpiryDate.errors" class="invalid-feedback">
+                      <div *ngIf="form.registrationExpiryDate.errors.required">
+                        PAN/VAT Registration Expiry Date is Required
+                      </div>
                     </div>
                 </div>
-
+                  </div></div>
                 <hr>
 
                 <div class="box-header with-border">
@@ -553,12 +566,12 @@
                     <h5 class="box-title">5. SWOT Analysis</h5>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label for="strength"><strong>Strength</strong></label>
-                            <input id="strength" formControlName="strength" name="strength" type="text"
-                                   class="form-control" placeholder="Strength"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.strength.errors }">
+                            <textarea id="strength" formControlName="strength" name="strength" type="text"
+                                   class="form-control" placeholder="Strength" rows="5"
+                                      [ngClass]="{ 'is-invalid': (submitted) && form.strength.errors }"></textarea>
                             <div *ngIf="(submitted) && form.strength.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="form.strength.errors.required">
@@ -567,12 +580,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label for="weakness"><strong>Weakness</strong></label>
-                            <input id="weakness" formControlName="weakness" name="weakness" type="text"
-                                   class="form-control" placeholder="Weakness"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.weakness.errors }">
+                            <textarea id="weakness" formControlName="weakness" name="weakness" type="text"
+                                   class="form-control" placeholder="Weakness" rows="5"
+                                      [ngClass]="{ 'is-invalid': (submitted) && form.weakness.errors }"></textarea>
                             <div *ngIf="(submitted) && form.weakness.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="form.weakness.errors.required">
@@ -581,12 +594,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label for="opportunity"><strong>Opportunity</strong></label>
-                            <input id="opportunity" formControlName="opportunity" name="opportunity" type="text"
-                                   class="form-control" placeholder="Opportunity"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.opportunity.errors }">
+                            <textarea id="opportunity" formControlName="opportunity" name="opportunity" type="text"
+                                   class="form-control" placeholder="Opportunity" rows="5"
+                                      [ngClass]="{ 'is-invalid': (submitted) && form.opportunity.errors }"></textarea>
                             <div *ngIf="(submitted) && form.opportunity.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="form.opportunity.errors.required">
@@ -595,12 +608,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label for="threats"><strong>Threats</strong></label>
-                            <input id="threats" formControlName="threats" name="threats" type="text"
-                                   class="form-control" placeholder="Threats"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.threats.errors }">
+                            <textarea id="threats" formControlName="threats" name="threats" type="text"
+                                   class="form-control" placeholder="Threats" rows="5"
+                                      [ngClass]="{ 'is-invalid': (submitted) && form.threats.errors }"></textarea>
                             <div *ngIf="(submitted) && form.threats.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="form.threats.errors.required">
