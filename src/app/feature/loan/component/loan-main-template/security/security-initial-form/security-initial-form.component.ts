@@ -234,7 +234,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
     change(arraySelected) {
         this.selectedArray = arraySelected;
-        this.landSelected = this.apartmentSelected = this.plantSelected = this.underConstructionChecked = false;
+        this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected = this.underConstructionChecked = false;
         arraySelected.forEach(selectedValue => {
             switch (selectedValue) {
                 case 'LandSecurity' :
