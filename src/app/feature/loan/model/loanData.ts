@@ -16,7 +16,6 @@ import {SiteVisit} from '../../admin/modal/siteVisit';
 import {CustomerDocuments} from './customerDocuments';
 import {CustomerOfferLetter} from './customer-offer-letter';
 import {CreditRiskGrading} from '../../admin/modal/creditRiskGrading';
-
 import {Group} from './group';
 import {ShareSecurity} from '../../admin/modal/shareSecurity';
 import {VehicleSecurity} from '../../admin/modal/vehicleSecurity';
@@ -24,7 +23,7 @@ import {NepaliTemplateDataHolder} from './nepali-template-data-holder';
 import {MawCreditRiskGrading} from './MawCreditRiskGrading';
 import {GuarantorDetail} from './guarantor-detail';
 import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
-import {LoanFlag} from '../../../@core/model/enum/loan-flag.enum';
+import {CustomerLoanFlag} from '../../../@core/model/customer-loan-flag';
 
 export class LoanDataHolder {
     id: number;
@@ -66,6 +65,5 @@ export class LoanDataHolder {
     nepaliTemplates: Array<NepaliTemplateDataHolder>;
     mawCreditRiskGrading: MawCreditRiskGrading;
     reportingInfoLevels: Array<ReportingInfoLevel>;
-    loanFlag: LoanFlag;
-    loanRemarks: string;
+    loanFlags: Array<CustomerLoanFlag>;
 }

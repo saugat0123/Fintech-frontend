@@ -52,11 +52,10 @@ export class CatalogueComponent implements OnInit {
     validStartDate = true;
     validEndDate = true;
     transferDoc = false;
-    roleType = false;
+    isMaker = false;
     roleAccess: string;
     accessSpecific: boolean;
     accessAll: boolean;
-    statusApproved = false;
     loanDataHolder: LoanDataHolder;
     transferUserList;
     formAction: FormGroup;
@@ -110,7 +109,7 @@ export class CatalogueComponent implements OnInit {
 
         this.roleAccess = LocalStorageUtil.getStorage().roleAccess;
         if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
-            this.roleType = true;
+            this.isMaker = true;
         }
         if (this.roleAccess === RoleAccess.SPECIFIC) {
             this.accessSpecific = true;
@@ -217,7 +216,6 @@ export class CatalogueComponent implements OnInit {
 
     onSearch() {
         this.tempLoanType = null;
-        this.statusApproved = this.filterForm.get('docStatus').value === 'APPROVED';
         this.catalogueService.search.branchIds = ObjectUtil.isEmpty(this.filterForm.get('branch').value) ? undefined :
             this.filterForm.get('branch').value;
         this.activatedRoute.queryParams.subscribe(

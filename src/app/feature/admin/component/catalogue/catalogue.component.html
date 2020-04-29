@@ -197,15 +197,17 @@
                         {{model?.createdAt | date}}
                     </div>
                 </td>
-                <td class="p-1" *ngIf='statusApproved === true && roleType && !model.isCloseRenew;else linkin'>
+                <td class="p-1" *ngIf='model.documentStatus === docStatus[docStatus.APPROVED] && isMaker && !model.isCloseRenew;else linkin'>
                     <select [(ngModel)]="tempLoanType" class="custom-select py-0"
                             (ngModelChange)="onChange(model,onActionChange)">
                         <option [value]="null" selected hidden>Select Type</option>
+                        <ng-container>
                         <option value="RENEWED_LOAN">Renew Loan</option>
                         <option value="CLOSURE_LOAN">Close Loan</option>
                         <option value="ENHANCED_LOAN">Enhance Loan</option>
                         <option value="PARTIAL_SETTLEMENT_LOAN">Partial Settle Loan</option>
                         <option value="FULL_SETTLEMENT_LOAN">Full Settle Loan</option>
+                        </ng-container>
                     </select>
                 </td>
                 <ng-template #linkin>
