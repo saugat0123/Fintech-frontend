@@ -22,6 +22,12 @@ export class NotificationMasterComponent implements OnInit {
       default: 30,
       figureType: 'days',
       options: [15, 30, 45, 60]
+    }],
+    [NotificationMasterType.COMPANY_REGISTRATION_EXPIRY_BEFORE, {
+      particular: 'Company registration expiry before',
+      default: 30,
+      figureType: 'days',
+      options: [15, 30, 45, 60]
     }]
   ]);
   private notificationMasterList: Array<NotificationMaster> = new Array<NotificationMaster>();
