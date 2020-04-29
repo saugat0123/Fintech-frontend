@@ -64,6 +64,19 @@ export class CatalogueComponent implements OnInit {
     showBranch = true;
     nbTrigger = NbTrigger;
     public insuranceToggle = false;
+    public typesDropdown: {
+        name: string,
+        value: string,
+        closeRenewFilter: boolean   // affected by loan close renew filter
+    }[] = [];
+    public typesPossibleDropdown: {name: string, value: string, closeRenewFilter: boolean}[] = [
+        {name: 'Update Loan', value: 'UPDATE_LOAN', closeRenewFilter: false},
+        {name: 'Renew Loan', value: 'RENEWED_LOAN', closeRenewFilter: true},
+        {name: 'Close Loan', value: 'CLOSURE_LOAN', closeRenewFilter: true},
+        {name: 'Enhance Loan', value: 'ENHANCED_LOAN', closeRenewFilter: true},
+        {name: 'Partial Settle Loan', value: 'PARTIAL_SETTLEMENT_LOAN', closeRenewFilter: true},
+        {name: 'Full Settle Loan', value: 'FULL_SETTLEMENT_LOAN', closeRenewFilter: true},
+    ];
 
     constructor(
         private branchService: BranchService,

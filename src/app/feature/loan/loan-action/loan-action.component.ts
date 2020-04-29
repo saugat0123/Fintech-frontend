@@ -35,9 +35,6 @@ export class LoanActionComponent implements OnInit {
     @Input() id: number;
     @Input() loanCategory: string;
     @Input() catalogueStatus = false;
-    @Input() limitExceed: number;
-    @Input() loanRemarks: string;
-    @Input() isInsuranceExpired: boolean;
 
     @Input() actionsList: ActionModel;
     popUpTitle: string;
@@ -157,14 +154,7 @@ export class LoanActionComponent implements OnInit {
                 comment: null
             }
         );
-        if (this.limitExceed !== 0) {
-            this.toastService.show(new Alert(AlertType.INFO, this.loanRemarks));
-            return;
-        }
-        if (this.isInsuranceExpired) {
-            this.toastService.show(new Alert(AlertType.INFO, this.loanRemarks));
-            return;
-        }
+        // TODO Block forward if flag exists
         this.modalService.open(template);
     }
 
@@ -255,10 +245,7 @@ export class LoanActionComponent implements OnInit {
                 comment: null
             }
         );
-        if (this.limitExceed !== 0) {
-            this.toastService.show(new Alert(AlertType.INFO, this.loanRemarks));
-            return;
-        }
+        // TODO Block approve if flag exists
         this.modalService.open(template);
 
 
