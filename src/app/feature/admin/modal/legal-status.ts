@@ -9,4 +9,5 @@ export class LegalStatus {
     panRegistrationOffice: string;
     // panNumber: string;
     panRegistrationDate: Date;
+    registrationExpiryDate: Date;
 }
