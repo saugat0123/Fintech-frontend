@@ -50,15 +50,18 @@
             <!--END ROW-->
             <div class="row">
                 <div class="col-md-3">
-                    <nb-select #combinedSecurityElement (selectedChange)="change(combinedSecurityElement.selected)"
-                               [selected]="selectedArray"
-                               multiple placeholder="Multiple Select">
-                        <nb-option value="LandSecurity">Land Security</nb-option>
-                        <nb-option value="VehicleSecurity">Vehicle Security</nb-option>
-                        <nb-option value="ApartmentSecurity">Apartment Security</nb-option>
-                        <nb-option value="Land and Building Security">Land and Building Security</nb-option>
-                        <nb-option value="PlantSecurity">Plant and Machinery Security</nb-option>
-                    </nb-select>
+                    <div class="form-group">
+                        <label>Choose Security Type</label>
+                        <nb-select #combinedSecurityElement (selectedChange)="change(combinedSecurityElement.selected)"
+                                   [selected]="selectedArray"
+                                   multiple placeholder="Multiple Select">
+                            <nb-option value="LandSecurity">Land Security</nb-option>
+                            <nb-option value="VehicleSecurity">Vehicle Security</nb-option>
+                            <nb-option value="ApartmentSecurity">Apartment Security</nb-option>
+                            <nb-option value="Land and Building Security">Land and Building Security</nb-option>
+                            <nb-option value="PlantSecurity">Plant and Machinery Security</nb-option>
+                        </nb-select>
+                    </div>
                 </div>
             </div>
             <hr>
@@ -176,7 +179,7 @@
                 </div>
             </div>
             <div class="box-header with-border">
-                <h2 class="box-title title">Building Details</h2>
+                <h2 class="box-title title">Apartment  Details</h2>
             </div>
             <div>
                 <div *ngFor="let building of securityForm.get('buildingDetails')['controls']; let i = index"
@@ -185,7 +188,7 @@
                     <div [formGroupName]="i">
                         <ng-template #apartment>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="buildingName">Building Name</label>
                                         <input class="form-control rounded" formControlName="buildingName"
@@ -194,7 +197,7 @@
                                                type="text"/>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="buildingDescription">Building
                                             Description</label>
@@ -205,7 +208,7 @@
                                                type="text"/>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
                                         <input class="form-control rounded" formControlName="buildArea"
@@ -214,7 +217,7 @@
                                                type="text"/>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="buildRate">Build Up Area Rate</label>
                                         <input class="form-control rounded" formControlName="buildRate"
@@ -224,7 +227,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="totalCost">Total Cost</label>
                                         <input class="form-control rounded" formControlName="totalCost"
@@ -233,12 +236,8 @@
                                                type="text"/>
                                     </div>
                                 </div>
-                            </div>
-                            <!--end of row-->
 
-                            <!--start of row-->
-                            <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="floorName">Floor Name</label>
                                         <input class="form-control rounded" formControlName="buildingName"
@@ -247,7 +246,7 @@
                                                type="text"/>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="valuationArea">Valuation Taken Area
                                             (Sq.ft)</label>
@@ -257,7 +256,7 @@
                                                type="text"/>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="ratePerSquareFeet">Rate per Square
                                             Feet</label>
@@ -268,7 +267,7 @@
                                                type="text"/>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="estimatedCost">Estimated Cost</label>
                                         <input class="form-control rounded" formControlName="estimatedCost"
@@ -277,9 +276,7 @@
                                                type="text"/>
                                     </div>
                                 </div>
-                            </div>
-                            <!--end of row-->
-                            <div class="row">
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="waterSupply">Water Supply</label>
@@ -313,35 +310,35 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="buildingTotalCost">Building Total
+                                        <label class="title" for="buildingTotalCost">Apartment Total
                                             Cost</label>
                                         <input class="form-control rounded"
                                                formControlName="buildingTotalCost"
                                                id="buildingTotalCost"
-                                               name="buildingTotalCost" placeholder="building total cost"
+                                               name="buildingTotalCost" placeholder="Apartment total cost"
                                                type="text"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="buildingFairMarketValue">Building Fair
+                                        <label class="title" for="buildingFairMarketValue">Apartment Fair
                                             Market
                                             Value</label>
                                         <input class="form-control rounded"
                                                formControlName="buildingFairMarketValue"
                                                id="buildingFairMarketValue"
-                                               name="buildingFairMarketValue" placeholder="building FMV"
+                                               name="buildingFairMarketValue" placeholder="Apartment FMV"
                                                type="text"/>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="buildingDistressValue">Building Distress
+                                        <label class="title" for="buildingDistressValue">Apartment Distress
                                             Value</label>
                                         <input class="form-control rounded"
                                                formControlName="buildingDistressValue"
                                                id="buildingDistressValue"
-                                               name="buildingDistressValue" placeholder="builidng DV"
+                                               name="buildingDistressValue" placeholder="Apartment DV"
                                                type="text"/>
                                     </div>
                                 </div>
@@ -362,16 +359,16 @@
             </div>
             <div class="text-right">
                 <input (click)="addBuilding()" class="btn btn-sm btn-flat btn-primary" type="button"
-                       value="Add Building"/>
+                       value="Add Apartment"/>
             </div>
 
             <div class="row">
                 <div class="form-group">
-                    <label class="title ml-3" for="buildingDetailsDescription">Building Details
+                    <label class="title ml-3" for="buildingDetailsDescription">Apartment Details
                         Description</label>
                     <textarea class="form-control ml-3 rounded" cols="95" formControlName="buildingDetailsDescription"
                               id="buildingDetailsDescription"
-                              placeholder="building Description"
+                              placeholder="Apartment Description"
                               rows="5"></textarea>
                 </div>
             </div>
@@ -382,12 +379,12 @@
                      formArrayName="buildingUnderConstructions">
                     <div [formGroupName]="i">
                         <div class="box-header with-border">
-                            <h2 class="box-title title">Building Details Before Completion</h2>
+                            <h2 class="box-title title">Apartment Details Before Completion</h2>
                         </div>
                         <div formGroupName="buildingDetailsBeforeCompletion">
                             <ng-template #build>
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="buildingName">Building Name</label>
                                             <input class="form-control rounded" formControlName="buildingName"
@@ -396,7 +393,7 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="buildingDescription">Building
                                                 Description</label>
@@ -407,7 +404,7 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
                                             <input class="form-control rounded" formControlName="buildArea"
@@ -416,7 +413,7 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="buildRate">Build Up Area Rate</label>
                                             <input class="form-control rounded" formControlName="buildRate"
@@ -426,7 +423,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="totalCost">Total Cost</label>
                                             <input class="form-control rounded" formControlName="totalCost"
@@ -435,12 +432,8 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-                                </div>
-                                <!--end of row-->
 
-                                <!--start of row-->
-                                <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="floorName">Floor Name</label>
                                             <input class="form-control rounded" formControlName="buildingName"
@@ -449,7 +442,7 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="valuationArea">Valuation Taken Area
                                                 (Sq.ft)</label>
@@ -459,7 +452,7 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="ratePerSquareFeet">Rate per Square
                                                 Feet</label>
@@ -469,7 +462,7 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="estimatedCost">Estimated Cost</label>
                                             <input class="form-control rounded" formControlName="estimatedCost"
@@ -478,9 +471,7 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-                                </div>
-                                <!--end of row-->
-                                <div class="row">
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="waterSupply">Water Supply</label>
@@ -513,32 +504,32 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="title" for="buildingTotalCost">Building Total Cost</label>
+                                            <label class="title" for="buildingTotalCost">Apartment Total Cost</label>
                                             <input class="form-control rounded" formControlName="buildingTotalCost"
                                                    id="tc"
-                                                   name="buildingTotalCost" placeholder="building total cost"
+                                                   name="buildingTotalCost" placeholder="Apartment total cost"
                                                    type="text"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="title" for="buildingFairMarketValue">Building Fair Market
+                                            <label class="title" for="buildingFairMarketValue">Apartment Fair Market
                                                 Value</label>
                                             <input class="form-control rounded"
                                                    formControlName="buildingFairMarketValue"
                                                    id="fmv"
-                                                   name="buildingFairMarketValue" placeholder="building FMV"
+                                                   name="buildingFairMarketValue" placeholder="Apartment FMV"
                                                    type="text"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="title" for="buildingDistressValue">Building Distress
+                                            <label class="title" for="buildingDistressValue">Apartment Distress
                                                 Value</label>
                                             <input class="form-control rounded"
                                                    formControlName="buildingDistressValue"
                                                    id="dv"
-                                                   name="buildingDistressValue" placeholder="builidng DV"
+                                                   name="buildingDistressValue" placeholder="Apartment DV"
                                                    type="text"/>
                                         </div>
                                     </div>
@@ -550,10 +541,10 @@
                         <hr>
 
                         <div class="box-header with-border">
-                            <h2 class="box-title title">Building Details After Completion</h2>
+                            <h2 class="box-title title">Apartment Details After Completion</h2>
                             <div formGroupName="buildingDetailsAfterCompletion">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="buildingName">Building Name</label>
                                             <input class="form-control rounded" formControlName="buildingName"
@@ -562,7 +553,7 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="buildingDescription">Building
                                                 Description</label>
@@ -573,7 +564,7 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
                                             <input class="form-control rounded" formControlName="buildArea"
@@ -582,7 +573,7 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="buildRate">Build Up Area Rate</label>
                                             <input class="form-control rounded" formControlName="buildRate"
@@ -592,7 +583,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="totalCost">Total Cost</label>
                                             <input class="form-control rounded" formControlName="totalCost"
@@ -601,12 +592,7 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-                                </div>
-                                <!--end of row-->
-
-                                <!--start of row-->
-                                <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="floorName">Floor Name</label>
                                             <input class="form-control rounded" formControlName="buildingName"
@@ -615,7 +601,7 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="valuationArea">Valuation Taken Area
                                                 (Sq.ft)</label>
@@ -625,7 +611,7 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="ratePerSquareFeet">Rate per Square
                                                 Feet</label>
@@ -635,7 +621,7 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="estimatedCost">Estimated Cost</label>
                                             <input class="form-control rounded" formControlName="estimatedCost"
@@ -644,9 +630,6 @@
                                                    type="text"/>
                                         </div>
                                     </div>
-                                </div>
-                                <!--end of row-->
-                                <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="waterSupply">Water Supply</label>
@@ -679,32 +662,32 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="title" for="buildingTotalCost">Building Total Cost</label>
+                                            <label class="title" for="buildingTotalCost">Apartment Total Cost</label>
                                             <input class="form-control rounded" formControlName="buildingTotalCost"
                                                    id="afterbuildTc"
-                                                   name="buildingTotalCost" placeholder="building total cost"
+                                                   name="buildingTotalCost" placeholder="Apartment total cost"
                                                    type="text"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="title" for="buildingFairMarketValue">Building Fair Market
+                                            <label class="title" for="buildingFairMarketValue">Apartment Fair Market
                                                 Value</label>
                                             <input class="form-control rounded"
                                                    formControlName="buildingFairMarketValue"
                                                    id="afterFMV"
-                                                   name="buildingFairMarketValue" placeholder="building FMV"
+                                                   name="buildingFairMarketValue" placeholder="Apartment FMV"
                                                    type="text"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="title" for="buildingDistressValue">Building Distress
+                                            <label class="title" for="buildingDistressValue">Apartment Distress
                                                 Value</label>
                                             <input class="form-control rounded"
                                                    formControlName="buildingDistressValue"
                                                    id="afterDV"
-                                                   name="buildingDistressValue" placeholder="builidng DV"
+                                                   name="buildingDistressValue" placeholder="Apartment DV"
                                                    type="text"/>
                                         </div>
                                     </div>
@@ -724,7 +707,7 @@
                 <div class="text-right">
                     <input (click)="addBuildingUnderConstructions()" class="btn btn-sm btn-flat btn-primary"
                            type="button"
-                           value="Add Building"/>
+                           value="Add Apartment"/>
                 </div>
             </div>
         </nb-card>
