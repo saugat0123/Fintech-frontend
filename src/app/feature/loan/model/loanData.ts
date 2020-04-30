@@ -18,7 +18,6 @@ import {CustomerOfferLetter} from './customer-offer-letter';
 import {CreditRiskGrading} from '../../admin/modal/creditRiskGrading';
 import {Group} from './group';
 import {ShareSecurity} from '../../admin/modal/shareSecurity';
-import {VehicleSecurity} from '../../admin/modal/vehicleSecurity';
 import {NepaliTemplateDataHolder} from './nepali-template-data-holder';
 import {MawCreditRiskGrading} from './MawCreditRiskGrading';
 import {GuarantorDetail} from './guarantor-detail';
@@ -61,7 +60,6 @@ export class LoanDataHolder {
     creditRiskGrading: CreditRiskGrading;
     group: Group;
     shareSecurity: ShareSecurity;
-    vehicleSecurity: VehicleSecurity;
     nepaliTemplates: Array<NepaliTemplateDataHolder>;
     mawCreditRiskGrading: MawCreditRiskGrading;
     reportingInfoLevels: Array<ReportingInfoLevel>;
