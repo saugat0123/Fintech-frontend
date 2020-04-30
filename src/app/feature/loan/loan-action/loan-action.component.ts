@@ -22,6 +22,7 @@ import {DocAction} from '../model/docAction';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {ApprovalRoleHierarchyService} from '../approval/approval-role-hierarchy.service';
+import {CustomerLoanFlag} from '../../../@core/model/customer-loan-flag';
 
 @Component({
     selector: 'app-loan-action',
@@ -35,7 +36,7 @@ export class LoanActionComponent implements OnInit {
     @Input() id: number;
     @Input() loanCategory: string;
     @Input() catalogueStatus = false;
-
+    @Input() loanFlags: CustomerLoanFlag[];
     @Input() actionsList: ActionModel;
     popUpTitle: string;
     currentUserRoleType = false;
@@ -135,6 +136,11 @@ export class LoanActionComponent implements OnInit {
     }
 
     sendForwardList(template) {
+        if (this.loanFlags && this.loanFlags.length > 0) {
+            this.loanFlags.sort((a, b) => a.order - b.order);
+            this.toastService.show(new Alert(AlertType.INFO, this.loanFlags[0].description));
+            return;
+        }
         this.changeToRoleValidity(true);
         this.popUpTitle = 'Send Forward';
 
@@ -154,7 +160,6 @@ export class LoanActionComponent implements OnInit {
                 comment: null
             }
         );
-        // TODO Block forward if flag exists
         this.modalService.open(template);
     }
 
@@ -235,6 +240,11 @@ export class LoanActionComponent implements OnInit {
     }
 
     approved(template) {
+        if (this.loanFlags && this.loanFlags.length > 0) {
+            this.loanFlags.sort((a, b) => a.order - b.order);
+            this.toastService.show(new Alert(AlertType.INFO, this.loanFlags[0].description));
+            return;
+        }
         this.changeToRoleValidity(false);
         this.popUpTitle = 'APPROVED';
         this.formAction.patchValue({
@@ -245,7 +255,6 @@ export class LoanActionComponent implements OnInit {
                 comment: null
             }
         );
-        // TODO Block approve if flag exists
         this.modalService.open(template);
 
 
