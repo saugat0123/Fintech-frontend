@@ -28,6 +28,7 @@ import {CatalogueSearch, CatalogueService} from './catalogue.service';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {NbTrigger} from '@nebular/theme';
+import {CustomerLoanFlag} from '../../../../@core/model/customer-loan-flag';
 
 @Component({
     selector: 'app-catalogue',
@@ -450,5 +451,10 @@ export class CatalogueComponent implements OnInit {
             this.catalogueService.search.isInsuranceExpired = undefined;
             this.onSearch();
         }
+    }
+
+    public getSortedLoanFlags(loanFlags: CustomerLoanFlag[]): CustomerLoanFlag[] {
+        loanFlags.sort((a, b) => a.order - b.order);
+        return loanFlags;
     }
 }
