@@ -458,14 +458,6 @@ export class LoanFormComponent implements OnInit {
             }
             this.proposalDetail.onSubmit();
             this.loanDocument.proposal = this.proposalDetail.proposalData;
-
-            // TODO LIMIT EXCEED clause may vary as per requirement
-            if (this.loanDocument.proposal.proposedLimit > 0) {
-                this.loanDocument.limitExceed = 0;
-            } else {
-                this.loanDocument.proposal.proposedLimit = 0;
-                this.loanDocument.limitExceed = 1;
-            }
         }
 
         if (name === 'Customer Document' && action) {

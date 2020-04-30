@@ -141,9 +141,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let model of loanDataHolderList;let i=index"
-                [nbPopoverTrigger]="model?.limitExceed ? nbTrigger.HINT : nbTrigger.NOOP"
-                [nbPopover]="model?.loanRemarks"
-                [ngStyle]="{'color': (model.limitExceed === 1) ? 'red': 'auto'}"
+                [nbPopoverTrigger]="model?.loanFlags?.length > 0 ? nbTrigger.HINT : nbTrigger.NOOP"
+                [nbPopover]="getSortedLoanFlags(model?.loanFlags)[0]?.description"
+                [ngStyle]="{'color': (model?.loanFlags?.length > 0) ? 'red': 'auto'}"
                 class="cursor">
                 <td (click)="onClick(model.loan.id,model.id)"
                     *ngIf="this.showBranch">{{model?.branch?.name}}</td>
@@ -197,15 +197,20 @@
                         {{model?.createdAt | date}}
                     </div>
                 </td>
-                <td class="p-1" *ngIf='statusApproved === true && roleType && !model.isCloseRenew;else linkin'>
+                <td *ngIf="isMaker && (model?.loanFlags?.length > 0 || (model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew)); else linkin">
                     <select [(ngModel)]="tempLoanType" class="custom-select py-0"
                             (ngModelChange)="onChange(model,onActionChange)">
                         <option [value]="null" selected hidden>Select Type</option>
-                        <option value="RENEWED_LOAN">Renew Loan</option>
-                        <option value="CLOSURE_LOAN">Close Loan</option>
-                        <option value="ENHANCED_LOAN">Enhance Loan</option>
-                        <option value="PARTIAL_SETTLEMENT_LOAN">Partial Settle Loan</option>
-                        <option value="FULL_SETTLEMENT_LOAN">Full Settle Loan</option>
+                        <ng-container *ngIf="model?.loanFlags?.length">
+                            <option value="UPDATE_LOAN_INFORMATION" [ngStyle]="{color: 'red'}">Update Loan Information</option>
+                        </ng-container>
+                        <ng-container *ngIf="model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew ">
+                            <option value="RENEWED_LOAN">Renew Loan</option>
+                            <option value="CLOSURE_LOAN">Close Loan</option>
+                            <option value="ENHANCED_LOAN">Enhance Loan</option>
+                            <option value="PARTIAL_SETTLEMENT_LOAN">Partial Settle Loan</option>
+                            <option value="FULL_SETTLEMENT_LOAN">Full Settle Loan</option>
+                        </ng-container>
                     </select>
                 </td>
                 <ng-template #linkin>

@@ -35,6 +35,10 @@ const routes: Routes = [
                 path: 'report',
                 loadChildren: () => import('./reporting/reporting.module').then(m => m.ReportingModule)
             },
+            {
+                path: 'update-loan',
+                loadChildren: () => import('./loan-update/loan-update.module').then(m => m.LoanUpdateModule)
+            },
             {path: '', redirectTo: 'dashboard'},
             {path: '**', redirectTo: 'dashboard'}
         ],
