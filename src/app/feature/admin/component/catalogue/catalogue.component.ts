@@ -375,6 +375,14 @@ export class CatalogueComponent implements OnInit {
     }
 
     onChange(data, onActionChange) {
+        if (this.tempLoanType === 'UPDATE_LOAN_INFORMATION') {
+            this.router.navigate(['/home/update-loan/dashboard'], {
+                queryParams: {
+                    id: data.id
+                }
+            });
+            return;
+        }
         this.loanDataHolder = data;
         this.modalService.open(onActionChange);
 
