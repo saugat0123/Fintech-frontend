@@ -25,6 +25,14 @@
       <tr>
         <td colspan="5">{{insurance?.policyType}}</td>
       </tr>
+      <ng-container *ngIf="insurance?.remarks?.length > 0">
+        <tr>
+          <th colspan="5">Remarks</th>
+        </tr>
+        <tr>
+          <td colspan="5">{{insurance?.remarks}}</td>
+        </tr>
+      </ng-container>
       </tbody>
     </table>
   </div>

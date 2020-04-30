@@ -75,7 +75,7 @@ export class UpdateInsuranceComponent implements OnInit {
       expiryDate: [this.insurance.expiryDate === undefined ? undefined : new Date(this.insurance.expiryDate)],
       policyType: [ObjectUtil.setUndefinedIfNull(this.insurance.policyType)],
       remarks: [
-        ObjectUtil.setUndefinedIfNull(this.insurance.remarks),
+        this.updateExisting ? ObjectUtil.setUndefinedIfNull(this.insurance.remarks) : undefined,
         this.updateExisting ? [Validators.required] : []
       ]
     });
