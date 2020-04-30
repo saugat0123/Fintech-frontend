@@ -1,0 +1,68 @@
+<nb-card>
+  <nb-card-header>
+    Loan Updates Dashboard
+  </nb-card-header>
+  <nb-card-body>
+    <p *ngIf="updatesRequired.length === 0">No information required to be updated.</p>
+    <div class="row">
+      <div class="col-md-11">
+        <nb-select [(ngModel)]="updateAction" fullWidth placeholder="Select Update Action">
+          <nb-option [value]="UPDATES.INSURANCE.name">{{UPDATES.INSURANCE.name}}</nb-option>
+        </nb-select>
+      </div>
+      <div class="col-md-1">
+        <button (click)="addAction()" nbButton type="button"><i class="fa fa-plus-circle"></i>
+        </button>
+      </div>
+    </div>
+    <br>
+    <div *ngIf="updatesRequired.length > 0" class="row">
+      <div *ngFor="let update of updatesRequired" class="col-md-4">
+        <fieldset class="border border-primary rounded p-2">
+          <legend class="w-auto text-center">{{update?.title}}</legend>
+          <div class="p-3">
+            <p [ngStyle]="{color: update?.updateExisting ? 'red' : 'black'}">{{update?.description}}</p>
+            <hr/>
+            <div [ngSwitch]="update?.title">
+              <ng-container *ngSwitchCase="UPDATES.INSURANCE.name">
+                <ng-container
+                    *ngTemplateOutlet="insuranceDetail; context: { $implicit: update?.loan?.insurance}"></ng-container>
+              </ng-container>
+            </div>
+            <div class="text-left">
+              <a [queryParams]="{loanId: this.customerLoanId, updateExisting: update.updateExisting}"
+                 [routerLink]="update.componentPath"
+                 nbButton size="small" title="Update"><i class="fas fa-edit"></i></a>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+<!-- place templates here separately for maintaining code brevity above -->
+<ng-template #insuranceDetail let-insurance>
+  <table class="table table-bordered">
+    <tr>
+      <th>Company</th>
+      <td>{{insurance?.company}}</td>
+    </tr>
+    <tr>
+      <th>Insured Amount</th>
+      <td>{{insurance?.insuredAmount}}</td>
+    </tr>
+    <tr>
+      <th>Premium Amount</th>
+      <td>{{insurance?.premiumAmount}}</td>
+    </tr>
+    <tr>
+      <th>Issued Date</th>
+      <td>{{insurance?.issuedDate | date}}</td>
+    </tr>
+    <tr>
+      <th>Expiry Date</th>
+      <td>{{insurance?.expiryDate | date}}</td>
+    </tr>
+  </table>
+</ng-template>
