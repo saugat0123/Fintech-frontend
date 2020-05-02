@@ -139,10 +139,31 @@
             </tr>
             </tbody>
           </table>
-
+          <table class="print-only table table-bordered text-center" id="print-borrower-table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Date Of Birth</th>
+              <th>Citizenship Number</th>
+              <th>Contact Number</th>
+              <th>Occupation</th>
+              <th>Income Source</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
+              <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
+              <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+              <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+              <td>{{loanDataHolder?.customerInfo?.occupation}}</td>
+              <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>
+            </tr>
+            </tbody>
+          </table>
           <p><strong>Family Details</strong></p>
           <table
-                  class="table table-condensed table-bordered table-responsive-md disable-print text-center">
+              class="table table-condensed table-bordered table-responsive-md text-center">
             <thead>
             <tr>
               <th>Name</th>
@@ -168,28 +189,6 @@
                 {{relative.citizenshipIssuedDate | date}}
               </td>
 
-            </tr>
-            </tbody>
-          </table>
-          <table class="print-only table table-bordered text-center" id="print-borrower-table">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Date Of Birth</th>
-              <th>Citizenship Number</th>
-              <th>Contact Number</th>
-              <th>Occupation</th>
-              <th>Income Source</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
-              <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
-              <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
-              <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-              <td>{{loanDataHolder?.customerInfo?.occupation}}</td>
-              <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>
             </tr>
             </tbody>
           </table>
