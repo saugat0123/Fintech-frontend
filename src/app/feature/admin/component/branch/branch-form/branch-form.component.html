@@ -106,9 +106,12 @@
                            formControlName="branchCode" name="branchCode"
                            id="branch_code"
                            placeholder="Branch Code"
-                           [ngClass]="{ 'is-invalid': submitted && branchFormControl.branchCode.errors }"/>
+                           [ngClass]="{ 'is-invalid': (submitted && branchFormControl.branchCode.errors) || !isBranchCodeValid}" (change)="getFromBranchCode(branchFormControl.branchCode.value)"/>
                     <div *ngIf="submitted && branchFormControl.branchCode.invalid" class="invalid-feedback">
                         Invalid Ward number!
+                    </div>
+                    <div *ngIf="!isBranchCodeValid" class="invalid-feedback">
+                        Invalid BranchCode!
                     </div>
                 </div>
                 <div class="col-md-4 ">
@@ -152,7 +155,7 @@
                     </agm-marker>
                 </agm-map>
             <nb-card-footer class="float-right">
-                <button nbButton (click)="onSubmit()" [disabled]="spinner" status="primary">
+                <button *ngIf="isBranchCodeValid" nbButton (click)="onSubmit()" [disabled]="spinner" status="primary">
                     <em class="fa fa-save"></em>
                 </button>
             </nb-card-footer>
