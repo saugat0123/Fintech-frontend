@@ -197,7 +197,7 @@
                         {{model?.createdAt | date}}
                     </div>
                 </td>
-                <td *ngIf="isMaker && (model?.loanFlags?.length > 0 || (model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew)); else linkin">
+                <td *ngIf="isMaker && ((model?.loanFlags?.length > 0 || model.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
                     <select [(ngModel)]="tempLoanType" class="custom-select py-0"
                             (ngModelChange)="onChange(model,onActionChange)">
                         <option [value]="null" selected hidden>Select Type</option>
