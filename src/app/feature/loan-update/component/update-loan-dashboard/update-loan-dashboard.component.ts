@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CustomerLoanFlagService} from '../../service/customer-loan-flag.service';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -37,7 +37,8 @@ export class UpdateLoanDashboardComponent implements OnInit {
       private activatedRoute: ActivatedRoute,
       private customerLoanFlagService: CustomerLoanFlagService,
       private toastService: ToastService,
-      private loanFormService: LoanFormService
+      private loanFormService: LoanFormService,
+      private router: Router
   ) {
   }
 
@@ -77,6 +78,11 @@ export class UpdateLoanDashboardComponent implements OnInit {
   private fetchData() {
     this.loanFormService.detail(this.customerLoanId).subscribe((response: any) => {
       this.customerLoan = response.detail;
+      if (this.customerLoan.isCloseRenew) {
+        this.toastService.show(new Alert(AlertType.INFO, 'You cannot update this loan!!!'));
+        this.router.navigate(['/home/admin/catalogue']);
+        return;
+      }
       this.updatesRequired.length = 0;
       this.customerLoan.loanFlags.forEach(flag => {
         switch (LoanFlag[flag.flag].toString()) {
