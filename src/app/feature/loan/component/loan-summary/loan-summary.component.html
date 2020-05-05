@@ -110,6 +110,34 @@
           </p>
         </div>
       </div>
+
+      <hr class="print-line disable-print">
+      <div *ngIf="creditRiskSummary" class="row disable-print">
+        <div class="col-md-6 mr-0 pr-0 text-right">
+          <app-gauge-chart [chartWidth]="300"
+                           [chartHeight]="180"
+                           [maxValue]="100"
+                           [obtainedValue]="creditRiskScore"></app-gauge-chart>
+        </div>
+        <div class="col-md-6 ml-0 gauge-label-padding">
+          <div class="vertical-line">
+            <div class="text-left pl-2">
+              Credit Risk Grade:
+              <span [class]="creditGradeStatusBadge"> {{creditRiskGrade | titlecase}}</span>
+              <span class="text-danger">
+                <em *ngIf="noComplianceLoan" class="fa fa-exclamation-triangle"> ( No compliance of
+                Covenants / Conditions )</em>
+              </span>
+            </div>
+            <br>
+            <div class="text-left pl-2">
+              Credit Risk Score:
+              <span><strong> {{ creditRiskScore }}</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-md-12">
           <p><strong>Details of {{loanCategory === 'BUSINESS_TYPE' ? 'Authorized Person'

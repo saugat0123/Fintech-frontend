@@ -84,8 +84,13 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     url: string
   }[] = [];
   registeredOfferLetters: Array<String> = [];
+    creditGradeStatusBadge;
+    creditRiskGrade;
+    creditRiskScore = 0;
+    noComplianceLoan = false;
+    creditRiskSummary = false;
 
-  constructor(
+    constructor(
       private userService: UserService,
       private loanFormService: LoanFormService,
       private loanActionService: LoanActionService,
@@ -161,7 +166,26 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.securityData = JSON.parse(this.loanDataHolder.security.data);
             this.securitySummary = true;
           }
-          // Setting SiteVisit data--
+
+            // Setting credit risk data---
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.creditRiskGrading)) {
+                this.creditRiskSummary = true;
+                const crgParsedData = JSON.parse(this.loanDataHolder.creditRiskGrading.data);
+                if (crgParsedData.complianceOfCovenants === 0) {
+                    this.noComplianceLoan = true;
+                }
+                this.creditRiskGrade = crgParsedData.grade;
+                this.creditRiskScore =  ObjectUtil.isEmpty(crgParsedData.totalPoint) ? 0 : crgParsedData.totalPoint;
+                if (this.creditRiskGrade === 'Superior' || this.creditRiskGrade === 'Good') {
+                    this.creditGradeStatusBadge = 'badge badge-success';
+                } else if (this.creditRiskGrade === 'Bad & Loss' || this.creditRiskGrade === 'Doubtful') {
+                    this.creditGradeStatusBadge = 'badge badge-danger';
+                } else {
+                    this.creditGradeStatusBadge = 'badge badge-warning';
+                }
+            }
+
+            // Setting SiteVisit data--
           if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
             this.siteVisitData = JSON.parse(this.loanDataHolder.siteVisit.data);
             this.siteVisitSummary = true;

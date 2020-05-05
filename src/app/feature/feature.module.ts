@@ -2,8 +2,6 @@ import {NgModule} from '@angular/core';
 import {NbAccordionModule, NbDatepickerModule, NbSelectModule} from '@nebular/theme';
 import {ThemeModule} from '../@theme/theme.module';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
-
-import {ChartModule} from './../chart/chart.module';
 import {FeatureRoutingModule} from './feature-routing.module';
 import {FeatureComponent} from './feature.component';
 import {DashboardComponent} from '../component/dashboard/dashboard.component';
@@ -24,7 +22,6 @@ import {NepaliCalendarModule} from './nepali-calendar/nepali-calendar.module';
         NgxChartsModule,
         NbSelectModule,
         NbDatepickerModule.forRoot(),
-        ChartModule,
         NgSelectModule,
         DragDropModule,
         NepaliCalendarModule
