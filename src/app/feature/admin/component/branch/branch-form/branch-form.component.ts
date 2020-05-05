@@ -38,6 +38,7 @@ export class BranchFormComponent implements OnInit {
   addressLabel = new FormControl('');
   zoom = 8;
   latLng: string[];
+  isBranchCodeValid = false;
 
 
   constructor(
@@ -66,6 +67,7 @@ export class BranchFormComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.model.province)) {
       this.getDistrictsById(this.model.province.id, null);
       this.getMunicipalitiesById(this.model.district.id, null);
+      this.isBranchCodeValid = true;
     }
     if (this.action === Action.UPDATE) {
       this.findLocation(this.locationPreview.value);
@@ -189,5 +191,18 @@ export class BranchFormComponent implements OnInit {
 
   onClose() {
     this.activeModal.dismiss('Dismiss');
+  }
+
+  getFromBranchCode(branchCode) {
+    const searchObject = {
+      'branchCode': branchCode
+    };
+    this.service.getPaginationWithSearchObject(searchObject, 1, 1).subscribe(value => {
+      if (value.detail.empty) {
+        this.isBranchCodeValid = true;
+      } else {
+        this.isBranchCodeValid = false;
+      }
+    });
   }
 }
