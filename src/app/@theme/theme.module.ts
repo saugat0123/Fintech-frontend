@@ -68,10 +68,11 @@ import {NgxSpinnerModule} from 'ngx-spinner';
 import {NbEvaIconsModule} from '@nebular/eva-icons';
 import { OverlaySpinnerComponent } from './components/overlay-spinner/overlay-spinner.component';
 import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
+import {ChartModule} from '../chart/chart.module';
 
 // import {NbSecurityModule} from '@nebular/security';
 
-const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule, CKEditorModule];
+const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule, CKEditorModule, ChartModule];
 
 const NB_MODULES = [
     NbCardModule,
