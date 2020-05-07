@@ -54,6 +54,14 @@
     margin-top: 5px;
   }
 
+  .vertical-line {
+    border-left: thick solid #414141;
+  }
+
+  .gauge-label-padding {
+    padding-top: 90px;
+  }
+
   @media print {
 
     nb-card {
