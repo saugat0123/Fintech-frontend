@@ -26,8 +26,6 @@ import {DocAction} from '../../model/docAction';
 import {DocumentService} from '../../../admin/component/document/document.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
-import {Guarantor} from "../../model/guarantor";
-
 @Component({
   selector: 'app-loan-summary',
   templateUrl: './loan-summary.component.html',
