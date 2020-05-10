@@ -1,0 +1,27 @@
+
+<div *ngIf="guarantorData" class="row mt-5">
+  <div class="col-md-12">
+    <p><strong>Guarantor Details</strong></p>
+    <table
+           class="table table-condensed table-bordered table-responsive-md text-center">
+      <thead>
+      <tr>
+        <th>S.N</th>
+        <th>Name</th>
+        <th>citizenNumber</th>
+        <th>Address</th>
+        <th>contactNumber</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let guarantor of guarantorData; let i= index">
+        <td>{{i + 1}}</td>
+        <td>{{guarantor?.name}}</td>
+        <td>{{guarantor?.citizenNumber}}</td>
+        <td>{{guarantor?.issuedPlace }},{{guarantor?.province?.name}},{{guarantor?.district?.name}}</td>
+        <td>{{guarantor?.contactNumber}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
