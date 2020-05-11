@@ -455,6 +455,64 @@
       </div>
       <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
 
+      <div class="row mt-3 disable-print">
+        <div class="col-md-12">
+          <p><strong>Authority Section</strong></p>
+          <table
+                  class="table table-condensed table-bordered table-responsive-md text-center">
+            <thead>
+            <tr>
+              <th>S.N</th>
+              <th>From User</th>
+              <th>From Position</th>
+              <th>To User</th>
+              <th>To Position</th>
+              <th>Status</th>
+              <th class="cmt-width">Remarks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{previousList?.fromUser?.name}}</td>
+              <td>{{previousList?.fromRole?.roleName}}</td>
+              <td>{{previousList?.toUser?.name}}</td>
+              <td>{{previousList?.toRole?.roleName}}</td>
+              <td>{{previousList?.docAction}}</td>
+              <td class="text-justify">
+                <div class="cmt-height">
+                  {{previousList?.comment?.length > 50 ?
+                        previousList?.comment?.substring(0, 49) :
+                        previousList?.comment}}
+                </div>
+                <a (click)="open(previousList?.comment)"
+                   *ngIf="previousList?.comment?.length > 50"
+                   class="justify-content-end read-margin">read more ....</a>
+              </td>
+            </tr>
+            <tr>
+              <td>{{currentIndex + 1}}</td>
+              <td>{{loanDataHolder?.currentStage?.fromUser?.name}}</td>
+              <td>{{loanDataHolder?.currentStage?.fromRole?.roleName}}</td>
+              <td>{{loanDataHolder?.currentStage?.toUser?.name}}</td>
+              <td>{{loanDataHolder?.currentStage?.toRole?.roleName}}</td>
+              <td>{{loanDataHolder?.currentStage?.docAction}}</td>
+              <td class="text-justify">
+                <div class="cmt-height">
+                  {{loanDataHolder?.currentStage?.comment?.length > 50 ?
+                        loanDataHolder?.currentStage?.comment?.substring(0, 49) :
+                        loanDataHolder?.currentStage?.comment}}
+                </div>
+                <a (click)="open(loanDataHolder.currentStage.comment)"
+                   *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
+                   class="justify-content-end read-margin">read more ....</a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div *ngIf="signatureList.length > 0" class="row justify-content-between px-3" id="signatureDiv">
         <div class="col-md-12 print-only">
           <p><strong>Approval Chain</strong></p>
