@@ -88,6 +88,7 @@ import {ReportingModule} from '../reporting/reporting.module';
 import {InsuranceComponent} from './component/loan-main-template/insurance/insurance.component';
 import {InsuranceSummaryComponent} from './component/loan-summary/insurance-summary/insurance-summary.component';
 import { GuarantorSummaryComponent } from './component/loan-summary/guarantor-summary/guarantor-summary.component';
+import { ProposalSummaryComponent } from './component/loan-summary/proposal-summary/proposal-summary.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -161,7 +162,8 @@ const COMPONENTS = [
     GuarantorComponent,
     InsuranceComponent,
     InsuranceSummaryComponent,
-    GuarantorSummaryComponent
+    GuarantorSummaryComponent,
+    ProposalSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [

@@ -70,11 +70,13 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   @ViewChild('print', { static: false }) print;
   businessType = BusinessType;
   financialData: Financial = new Financial();
-    shareSecurityData: ShareSecurity = new ShareSecurity();
+  shareSecurityData: ShareSecurity = new ShareSecurity();
+  proposalData;
   guarantorData = [];
   financialSummary = false;
   siteVisitSummary = false;
   shareSecuritySummary = false;
+  proposalSummary = false;
   navigationSubscription;
   securitySummary = false;
   securityData: Object;
@@ -195,6 +197,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           if (!ObjectUtil.isEmpty(this.loanDataHolder.guarantor)) {
             this.guarantorData = this.loanDataHolder.guarantor.guarantorList;
             this.checkGuarantorData = true;
+          }
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
+            this.proposalData = JSON.parse(this.loanDataHolder.proposal.data);
+            this.proposalSummary = true;
           }
 
             // setting share-secuirty data--

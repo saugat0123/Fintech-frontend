@@ -401,6 +401,8 @@
         </div>
       </div>
 
+      <app-proposal-summary *ngIf="proposalSummary"
+                            [proposal]="proposalData"></app-proposal-summary>
       <app-security-summary *ngIf="securitySummary"
                             [formData]="securityData"></app-security-summary>
 
