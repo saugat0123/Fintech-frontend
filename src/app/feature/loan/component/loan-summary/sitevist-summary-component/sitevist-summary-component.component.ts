@@ -8,15 +8,20 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 })
 export class SitevistSummaryComponentComponent implements OnInit {
     @Input() formData: Object;
+    @Input() loanType;
     currentResidentSummary = false;
     businessSiteVisitSummary = false;
     fixedAssetCollateralSummary = false;
     currentAssetsInspectionSummary = false;
+    isBusinessLoanType = false;
 
     constructor() {
     }
 
     ngOnInit() {
+        if (this.loanType === 'BUSINESS_TYPE') {
+            this.isBusinessLoanType = true;
+        }
         if (!ObjectUtil.isEmpty(this.formData)) {
             {
                 switch (this.formData['checkboxSelected']) {
