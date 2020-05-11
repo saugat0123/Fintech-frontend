@@ -75,6 +75,8 @@
                         <th>Plot No.</th>
                         <th>Area Format</th>
                         <th>Area</th>
+                        <th>FMV</th>
+                        <th>DV</th>
                     </tr>
                     <tr *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
                         <td>{{i+1}}</td>
@@ -83,6 +85,8 @@
                         <td>{{landDetails?.plotNumber}}</td>
                         <td>{{landDetails?.areaFormat}}</td>
                         <td>{{landDetails?.area}}</td>
+                        <td>Rs. {{landDetails?.marketValue |currencyFormatter}}</td>
+                        <td>Rs. {{landDetails?.distressValue |currencyFormatter}}</td>
                     </tr>
                     </thead>
                 </table>
@@ -104,6 +108,8 @@
                         <th>Build Area</th>
                         <th>Build Rate</th>
                         <th>Total Cost</th>
+                        <th>FMV</th>
+                        <th>DV</th>
                     </tr>
                     <tr *ngFor="let buildingDetails of formData['initialForm']['buildingDetails']; let i= index">
                         <td>{{i+1}}</td>
@@ -112,6 +118,8 @@
                         <td>{{buildingDetails?.buildArea}}</td>
                         <td>{{buildingDetails?.buildRate}}</td>
                         <td><strong>Rs. {{buildingDetails?.totalCost | currencyFormatter}}</strong></td>
+                        <td><strong>Rs. {{buildingDetails?.buildingFairMarketValue | currencyFormatter}}</strong></td>
+                        <td><strong>Rs. {{buildingDetails?.buildingDistressValue | currencyFormatter}}</strong></td>
                     </tr>
                     </thead>
                 </table>
