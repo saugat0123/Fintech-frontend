@@ -88,6 +88,7 @@ import {ReportingModule} from '../reporting/reporting.module';
 import {InsuranceComponent} from './component/loan-main-template/insurance/insurance.component';
 import {InsuranceSummaryComponent} from './component/loan-summary/insurance-summary/insurance-summary.component';
 import { GuarantorSummaryComponent } from './component/loan-summary/guarantor-summary/guarantor-summary.component';
+import { ProposalSummaryComponent } from './component/loan-summary/proposal-summary/proposal-summary.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -175,7 +176,7 @@ const ENTRY_COMPONENTS = [
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS],
+    declarations: [...COMPONENTS, ProposalSummaryComponent],
     imports: [
         ThemeModule,
         CommonModule,

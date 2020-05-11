@@ -1,0 +1,44 @@
+<div class="row mt-5">
+  <div class="col-md-12">
+    <p><strong>Proposal Details</strong></p>
+    <div class="row">
+      <div class="col-md-12">
+        <table
+            class="table table-condensed table-bordered table-responsive-md text-center">
+          <thead>
+          <tr>
+            <th>Proposed Limit</th>
+            <th>InterestRate</th>
+            <th>BaseRate</th>
+            <th>PremiumRate</th>
+            <th>ServiceCharge</th>
+            <th>TenureDuration</th>
+            <th>CIB Charge</th>
+            <th>RepaymentMode</th>
+            <th>Installment Amount</th>
+            <th>MoratoriumPeriod</th>
+            <th>PrepaymentCharge</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Rs. {{proposal?.proposedLimit | currencyFormatter}}</td>
+            <td>{{proposal?.interestRate}} %</td>
+            <td>{{proposal?.baseRate }} %</td>
+            <td>{{proposal?.premiumRateOnBaseRate}} %</td>
+            <td>{{proposal?.serviceChargeMethod === 'FLAT' ? ' NRs. '
+                : ''}}{{proposal?.serviceCharge | currencyFormatter}}{{proposal?.serviceChargeMethod
+            === 'PERECENTAGE' ? ' %' : ''}}</td>
+            <td>{{proposal?.tenureDurationInMonths}} month</td>
+            <td>Rs. {{proposal?.cibCharge}}</td>
+            <td>{{proposal?.repaymentMode}}</td>
+            <td>Rs. {{proposal?.installmentAmount | currencyFormatter}}</td>
+            <td>{{proposal?.moratoriumPeriod }}</td>
+            <td>Rs. {{proposal?.prepaymentCharge | currencyFormatter}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
