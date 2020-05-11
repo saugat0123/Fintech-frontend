@@ -137,6 +137,56 @@
           </div>
         </div>
       </div>
+      <div *ngIf="loanCategory === 'BUSINESS_TYPE'" class="row">
+        <div class="col-md-12">
+          <p><strong>Details of Company</strong></p>
+        </div>
+        <div class="col-md-12">
+          <table
+              class="table table-condensed table-bordered table-responsive-md disable-print text-center">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Establishment Date</th>
+              <th>PAN</th>
+              <th>Registration Number</th>
+              <th>Business Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>{{loanDataHolder?.companyInfo?.companyName}}</td>
+              <td>{{loanDataHolder?.companyInfo?.establishmentDate | date}}</td>
+              <td>{{loanDataHolder?.companyInfo?.panNumber}}</td>
+              <td>{{loanDataHolder?.companyInfo?.registrationNumber}}</td>
+              <td>{{businessType[loanDataHolder?.companyInfo?.businessType]}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <table class="print-only table table-bordered text-center" id="print-company-table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Establishment Date</th>
+              <th>PAN</th>
+              <th>Registration Number</th>
+              <th>Business Type</th>
+              <th>Key Person</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>{{loanDataHolder?.companyInfo?.companyName}}</td>
+              <td>{{loanDataHolder?.companyInfo?.establishmentDate | date}}</td>
+              <td>{{loanDataHolder?.companyInfo?.panNumber}}</td>
+              <td>{{loanDataHolder?.companyInfo?.registrationNumber}}</td>
+              <td>{{businessType[loanDataHolder?.companyInfo?.businessType]}}</td>
+              <td>{{loanDataHolder?.dmsLoanFile?.keyPersonName}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       <div class="row">
         <div class="col-md-12">
@@ -217,56 +267,6 @@
                 {{relative.citizenshipIssuedDate | date}}
               </td>
 
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div *ngIf="loanCategory === 'BUSINESS_TYPE'" class="row">
-        <div class="col-md-12">
-          <p><strong>Details of Company</strong></p>
-        </div>
-        <div class="col-md-12">
-          <table
-                  class="table table-condensed table-bordered table-responsive-md disable-print text-center">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Establishment Date</th>
-              <th>PAN</th>
-              <th>Registration Number</th>
-              <th>Business Type</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>{{loanDataHolder?.companyInfo?.companyName}}</td>
-              <td>{{loanDataHolder?.companyInfo?.establishmentDate | date}}</td>
-              <td>{{loanDataHolder?.companyInfo?.panNumber}}</td>
-              <td>{{loanDataHolder?.companyInfo?.registrationNumber}}</td>
-              <td>{{businessType[loanDataHolder?.companyInfo?.businessType]}}</td>
-            </tr>
-            </tbody>
-          </table>
-          <table class="print-only table table-bordered text-center" id="print-company-table">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Establishment Date</th>
-              <th>PAN</th>
-              <th>Registration Number</th>
-              <th>Business Type</th>
-              <th>Key Person</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>{{loanDataHolder?.companyInfo?.companyName}}</td>
-              <td>{{loanDataHolder?.companyInfo?.establishmentDate | date}}</td>
-              <td>{{loanDataHolder?.companyInfo?.panNumber}}</td>
-              <td>{{loanDataHolder?.companyInfo?.registrationNumber}}</td>
-              <td>{{businessType[loanDataHolder?.companyInfo?.businessType]}}</td>
-              <td>{{loanDataHolder?.dmsLoanFile?.keyPersonName}}</td>
             </tr>
             </tbody>
           </table>
