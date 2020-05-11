@@ -411,7 +411,7 @@
       <div class="row mt-3">
         <div class="col-md-12">
           <app-sitevist-summary-component *ngIf="siteVisitSummary"
-                                          [formData]="siteVisitData"></app-sitevist-summary-component>
+                                          [formData]="siteVisitData" [loanType]="loanDataHolder?.loanCategory"></app-sitevist-summary-component>
         </div>
       </div>
 
