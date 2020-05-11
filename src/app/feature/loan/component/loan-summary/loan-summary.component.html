@@ -598,40 +598,6 @@
             </tr>
             </tbody>
           </table>
-          <table
-                  class="print-only table table-bordered text-center">
-            <thead>
-            <tr>
-              <th width="5%">S.N</th>
-              <th width="5%">Date</th>
-              <th width="15%">From User</th>
-              <th width="5%">Status</th>
-              <th width="70%">Remarks</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let previousList of loanDataHolder?.customerOfferLetter?.previousList ; let i = index">
-              <td>{{i + 1}}</td>
-              <td>{{previousList?.lastModifiedAt}}</td>
-              <td>
-                {{previousList?.fromUser?.name}}
-                ({{previousList?.fromRole?.roleName}})
-              </td>
-              <td>{{previousList?.docAction}}</td>
-              <td class="text-justify">{{previousList?.comment}}</td>
-            </tr>
-            <tr>
-              <td>{{loanDataHolder?.customerOfferLetter?.previousList?.length + 1}}</td>
-              <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.lastModifiedAt}}</td>
-              <td>
-                {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromUser?.name}}
-                ({{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromRole?.roleName}})
-              </td>
-              <td>{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.docAction}}</td>
-              <td class="text-justify">{{loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment}}</td>
-            </tr>
-            </tbody>
-          </table>
         </div>
       </div>
 
