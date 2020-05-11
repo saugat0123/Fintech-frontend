@@ -162,7 +162,8 @@ const COMPONENTS = [
     GuarantorComponent,
     InsuranceComponent,
     InsuranceSummaryComponent,
-    GuarantorSummaryComponent
+    GuarantorSummaryComponent,
+    ProposalSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -176,7 +177,7 @@ const ENTRY_COMPONENTS = [
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS, ProposalSummaryComponent],
+    declarations: [...COMPONENTS],
     imports: [
         ThemeModule,
         CommonModule,
