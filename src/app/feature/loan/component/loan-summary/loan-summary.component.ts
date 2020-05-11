@@ -26,7 +26,6 @@ import {DocAction} from '../../model/docAction';
 import {DocumentService} from '../../../admin/component/document/document.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
-
 @Component({
   selector: 'app-loan-summary',
   templateUrl: './loan-summary.component.html',
@@ -72,6 +71,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   businessType = BusinessType;
   financialData: Financial = new Financial();
     shareSecurityData: ShareSecurity = new ShareSecurity();
+  guarantorData = [];
   financialSummary = false;
   siteVisitSummary = false;
   shareSecuritySummary = false;
@@ -79,6 +79,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   securitySummary = false;
   securityData: Object;
   siteVisitData: Object;
+  checkGuarantorData = false;
   offerLetterDocuments: {
     name: string,
     url: string
@@ -189,6 +190,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
             this.siteVisitData = JSON.parse(this.loanDataHolder.siteVisit.data);
             this.siteVisitSummary = true;
+          }
+
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.guarantor)) {
+            this.guarantorData = this.loanDataHolder.guarantor.guarantorList;
+            this.checkGuarantorData = true;
           }
 
             // setting share-secuirty data--
