@@ -28,7 +28,7 @@
             <td>{{proposal?.premiumRateOnBaseRate}} %</td>
             <td>{{proposal?.serviceChargeMethod === 'FLAT' ? ' NRs. '
                 : ''}}{{proposal?.serviceCharge | currencyFormatter}}{{proposal?.serviceChargeMethod
-            === 'PERECENTAGE' ? ' %' : ''}}</td>
+            === 'PERCENT' ? ' %' : ''}}</td>
             <td>{{proposal?.tenureDurationInMonths}} month</td>
             <td>Rs. {{proposal?.cibCharge}}</td>
             <td>{{proposal?.repaymentMode}}</td>
