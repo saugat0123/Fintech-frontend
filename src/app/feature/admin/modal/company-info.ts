@@ -4,12 +4,14 @@ import {Swot} from './swot';
 import {ManagementTeam} from './management-team';
 import {Proprietors} from './proprietors';
 import {BusinessType} from './businessType';
+import {Location} from './location';
 
 export class CompanyInfo {
     id: number;
     legalStatus: LegalStatus;
     capital: Capital;
     swot: Swot;
+    location: Location;
     managementTeamList: Array<ManagementTeam>;
     proprietorsList: Array<Proprietors>;
     companyName: string;
