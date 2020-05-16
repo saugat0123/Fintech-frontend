@@ -453,6 +453,7 @@ export class LoanFormComponent implements OnInit {
             }
             this.companyInfoComponent.onSubmit();
             this.loanDocument.companyInfo = this.companyInfoComponent.companyInfo;
+            console.log(this.loanDocument.companyInfo);
             this.loanDocument.customerInfo = this.companyInfoComponent.customer;
         }
         if (name === 'Kyc Info' && action) {

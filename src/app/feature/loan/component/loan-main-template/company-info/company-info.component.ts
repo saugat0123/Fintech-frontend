@@ -25,7 +25,8 @@ import {BusinessType} from '../../../../admin/modal/businessType';
 import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.service';
 import {CalendarType} from '../../../../../@core/model/calendar-type';
 import {Customer} from '../../../../admin/modal/customer';
-import {Location} from '../../../../admin/modal/location';
+import {CompanyLocations} from '../../../../admin/modal/companyLocations';
+import {stringify} from 'querystring';
 
 
 @Component({
@@ -58,7 +59,7 @@ export class CompanyInfoComponent implements OnInit {
   legalStatus: LegalStatus = new LegalStatus();
   capital: Capital = new Capital();
   swot: Swot = new Swot();
-  location: Location = new Location();
+  locations: CompanyLocations = new CompanyLocations();
   managementTeamList: Array<ManagementTeam> = new Array<ManagementTeam>();
   proprietors: Proprietors = new Proprietors();
   proprietorsList: Array<Proprietors> = new Array<Proprietors>();
@@ -262,11 +263,14 @@ export class CompanyInfoComponent implements OnInit {
           || ObjectUtil.isEmpty(this.basicInfo.municipalities)) ? undefined : this.basicInfo.municipalities],
       // Location
       houseNumber: [(ObjectUtil.isEmpty(this.companyInfo)
-          || ObjectUtil.isEmpty(this.companyInfo.location)) ? undefined : this.companyInfo.location.houseNumber, Validators.required],
+          || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.houseNumber,
+        Validators.required],
       streetName: [(ObjectUtil.isEmpty(this.companyInfo)
-          || ObjectUtil.isEmpty(this.companyInfo.location)) ? undefined : this.companyInfo.location.streetName, Validators.required],
+          || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.streetName,
+        Validators.required],
       address: [(ObjectUtil.isEmpty(this.companyInfo)
-          || ObjectUtil.isEmpty(this.companyInfo.location)) ? undefined : this.companyInfo.location.address, Validators.required],
+          || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.address,
+        Validators.required],
       // swot
       strength: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.strength, Validators.required],
@@ -499,6 +503,9 @@ export class CompanyInfoComponent implements OnInit {
     this.customer.province =  this.companyInfoFormGroup.get('contactProvince').value;
     this.customer.district = this.companyInfoFormGroup.get('contactDistrict').value;
     this.customer.municipalities = this.companyInfoFormGroup.get('contactMunicipalities').value;
+    this.customer.citizenshipNumber = JSON.parse(JSON.stringify(new Date()));
+
+    console.log(this.customer.citizenshipNumber);
     // const provinces = new Province();
     // provinces.id =  this.companyInfoFormGroup.get('contactProvince').value;
     // this.customer.province = provinces;
@@ -512,10 +519,10 @@ export class CompanyInfoComponent implements OnInit {
     console.log(this.customer.customerName, ' this.customer.customerName ');
 
     // location
-    this.location.address = this.companyInfoFormGroup.get('address').value;
-    this.location.houseNumber = this.companyInfoFormGroup.get('houseNumber').value;
-    this.location.streetName = this.companyInfoFormGroup.get('streetName').value;
-    this.companyInfo.location = this.location;
+    this.locations.address = this.companyInfoFormGroup.get('address').value;
+    this.locations.houseNumber = this.companyInfoFormGroup.get('houseNumber').value;
+    this.locations.streetName = this.companyInfoFormGroup.get('streetName').value;
+    this.companyInfo.companyLocations = this.locations;
 
 
     // proprietorsList
