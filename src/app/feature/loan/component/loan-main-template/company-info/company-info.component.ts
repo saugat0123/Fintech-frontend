@@ -249,6 +249,10 @@ export class CompanyInfoComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.customerInfo.version)) ? undefined : this.customerInfo.version],
             contactId: [(ObjectUtil.isEmpty(this.customerInfo)
                 || ObjectUtil.isEmpty(this.customerInfo.id)) ? undefined : this.customerInfo.id],
+            contactCitizenNumber: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.citizenshipNumber))
+                ? ('Blinded' + JSON.parse(JSON.stringify(new Date())) + new Date().getMilliseconds())
+                : this.customerInfo.citizenshipNumber],
             contactName: [(ObjectUtil.isEmpty(this.customerInfo)
                 || ObjectUtil.isEmpty(this.customerInfo.customerName)) ? undefined : this.customerInfo.customerName, Validators.required],
             contactEmail: [(ObjectUtil.isEmpty(this.customerInfo)
@@ -508,7 +512,7 @@ export class CompanyInfoComponent implements OnInit {
         this.customer.province =  this.companyInfoFormGroup.get('contactProvince').value;
         this.customer.district = this.companyInfoFormGroup.get('contactDistrict').value;
         this.customer.municipalities = this.companyInfoFormGroup.get('contactMunicipalities').value;
-        this.customer.citizenshipNumber = 'Blinded' + JSON.parse(JSON.stringify(new Date()));
+        this.customer.citizenshipNumber = this.companyInfoFormGroup.get('contactCitizenNumber').value;
 
         // location
         this.locations.id = this.companyInfoFormGroup.get('locationId').value;
