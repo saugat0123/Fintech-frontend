@@ -194,82 +194,108 @@
                   : 'Borrower'}}</strong></p>
         </div>
         <div class="col-md-12">
-          <table
-                  class="table table-condensed table-bordered table-responsive-md disable-print text-center">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Date Of Birth</th>
-              <th>Citizenship Number</th>
-              <th>Contact Number</th>
-              <th>Occupation</th>
-              <th>Income Source</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
-              <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
-              <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
-              <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-              <td>{{loanDataHolder?.customerInfo?.occupation}}</td>
-              <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>
-            </tr>
-            </tbody>
-          </table>
-          <table class="print-only table table-bordered text-center" id="print-borrower-table">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Date Of Birth</th>
-              <th>Citizenship Number</th>
-              <th>Contact Number</th>
-              <th>Occupation</th>
-              <th>Income Source</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
-              <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
-              <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
-              <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-              <td>{{loanDataHolder?.customerInfo?.occupation}}</td>
-              <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>
-            </tr>
-            </tbody>
-          </table>
-          <p><strong>Family Details</strong></p>
-          <table
-              class="table table-condensed table-bordered table-responsive-md text-center">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Relation Name</th>
-              <th>Citizenship no.</th>
-              <th>Citizenship Issued Date</th>
+          <div *ngIf="loanCategory === 'PERSONAL_TYPE'">
+            <table
+                class="table table-condensed table-bordered table-responsive-md disable-print text-center">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Date Of Birth</th>
+                <th>Citizenship Number</th>
+                <th>Contact Number</th>
+                <th>Occupation</th>
+                <th>Income Source</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
+                <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
+                <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                <td>{{loanDataHolder?.customerInfo?.occupation}}</td>
+                <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>
+              </tr>
+              </tbody>
+            </table>
+            <table class="print-only table table-bordered text-center" id="print-borrower-table">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Date Of Birth</th>
+                <th>Citizenship Number</th>
+                <th>Contact Number</th>
+                <th>Occupation</th>
+                <th>Income Source</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
+                <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>
+                <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
+                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                <td>{{loanDataHolder?.customerInfo?.occupation}}</td>
+                <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="loanCategory === 'BUSINESS_TYPE'">
+            <table
+                class="table table-condensed table-bordered table-responsive-md text-center">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Contact Number</th>
+                <th>Email</th>
+                <th>Address</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>
+                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                <td>{{loanDataHolder?.customerInfo?.email}}</td>
+                <td>{{loanDataHolder?.customerInfo?.province?.name}} ,{{loanDataHolder?.customerInfo?.district?.name}} ,{{ loanDataHolder?.customerInfo?.municipalities?.name}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="loanCategory === 'PERSONAL_TYPE'">
+            <p><strong>Family Details</strong></p>
+            <table
+                class="table table-condensed table-bordered table-responsive-md text-center">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Relation Name</th>
+                <th>Citizenship no.</th>
+                <th>Citizenship Issued Date</th>
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
-              <td>
-                {{relative.customerRelativeName}}
-              </td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let relative of loanDataHolder?.customerInfo?.customerRelatives">
+                <td>
+                  {{relative.customerRelativeName}}
+                </td>
 
-              <td>
-                {{relative.customerRelation}}
-              </td>
-              <td>
-                {{relative.citizenshipNumber}}
-              </td>
-              <td>
-                {{relative.citizenshipIssuedDate | date}}
-              </td>
+                <td>
+                  {{relative.customerRelation}}
+                </td>
+                <td>
+                  {{relative.citizenshipNumber}}
+                </td>
+                <td>
+                  {{relative.citizenshipIssuedDate | date}}
+                </td>
 
-            </tr>
-            </tbody>
-          </table>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
         </div>
       </div>
       <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
