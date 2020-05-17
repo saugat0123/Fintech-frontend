@@ -53,6 +53,7 @@ export class CompanyInfoComponent implements OnInit {
         registrationNumber: undefined
     };
     customer: Customer = new Customer();
+    customerInfo: Customer;
     companyInfo: CompanyInfo;
     legalStatus: LegalStatus = new LegalStatus();
     capital: Capital = new Capital();
@@ -83,15 +84,16 @@ export class CompanyInfoComponent implements OnInit {
 
     ngOnInit() {
         this.companyInfo = this.formValue;
+        this.customerInfo = this.basicInfo;
         this.buildForm();
 
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
                 this.provinceList.forEach((province: Province) => {
-                  if (this.basicInfo !== undefined) {
-                    if (!ObjectUtil.isEmpty(this.basicInfo.province)) {
-                      if (province.id === this.basicInfo.province.id) {
+                  if (this.customerInfo !== undefined) {
+                    if (!ObjectUtil.isEmpty(this.customerInfo.province)) {
+                      if (province.id === this.customerInfo.province.id) {
                         this.companyInfoFormGroup.controls.contactProvince.setValue(province);
                         this.getDistricts(province.id, null);
                       }
@@ -110,9 +112,9 @@ export class CompanyInfoComponent implements OnInit {
                             (responseProvince: any) => {
                                 this.provinceList = responseProvince.detail;
                                 this.provinceList.forEach((province: Province) => {
-                                  if (this.basicInfo !== undefined) {
-                                    if (!ObjectUtil.isEmpty(this.basicInfo.province)) {
-                                      if (province.id === this.basicInfo.province.id) {
+                                  if (this.customerInfo !== undefined) {
+                                    if (!ObjectUtil.isEmpty(this.customerInfo.province)) {
+                                      if (province.id === this.customerInfo.province.id) {
                                         this.companyInfoFormGroup.controls.contactProvince.setValue(province);
                                         this.getDistricts(province.id, null);
                                       }
@@ -243,22 +245,23 @@ export class CompanyInfoComponent implements OnInit {
                 this.proprietorsFormGroup()
             ]),
             // contact person
-            contactVersion: [(ObjectUtil.isEmpty(this.basicInfo)
-                || ObjectUtil.isEmpty(this.basicInfo.version)) ? undefined : this.basicInfo.version],
-            contactId: [(ObjectUtil.isEmpty(this.basicInfo)
-                || ObjectUtil.isEmpty(this.basicInfo.id)) ? undefined : this.basicInfo.id],
-            contactName: [(ObjectUtil.isEmpty(this.basicInfo)
-                || ObjectUtil.isEmpty(this.basicInfo.customerName)) ? undefined : this.basicInfo.customerName, Validators.required],
-            contactEmail: [(ObjectUtil.isEmpty(this.basicInfo)
-                || ObjectUtil.isEmpty(this.basicInfo.email)) ? undefined : this.basicInfo.email, Validators.required],
-            contactNumber: [(ObjectUtil.isEmpty(this.basicInfo)
-                || ObjectUtil.isEmpty(this.basicInfo.contactNumber)) ? undefined : this.basicInfo.contactNumber, Validators.required],
-            contactProvince: [(ObjectUtil.isEmpty(this.basicInfo)
-                || ObjectUtil.isEmpty(this.basicInfo.province)) ? undefined : this.basicInfo.province, Validators.required],
-            contactDistrict: [(ObjectUtil.isEmpty(this.basicInfo)
-                || ObjectUtil.isEmpty(this.basicInfo.district)) ? undefined : this.basicInfo.district, Validators.required],
-            contactMunicipalities: [(ObjectUtil.isEmpty(this.basicInfo)
-                || ObjectUtil.isEmpty(this.basicInfo.municipalities)) ? undefined : this.basicInfo.municipalities, Validators.required],
+            contactVersion: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.version)) ? undefined : this.customerInfo.version],
+            contactId: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.id)) ? undefined : this.customerInfo.id],
+            contactName: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.customerName)) ? undefined : this.customerInfo.customerName, Validators.required],
+            contactEmail: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.email)) ? undefined : this.customerInfo.email, Validators.required],
+            contactNumber: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.contactNumber)) ? undefined : this.customerInfo.contactNumber, Validators.required],
+            contactProvince: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.province)) ? undefined : this.customerInfo.province, Validators.required],
+            contactDistrict: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.district)) ? undefined : this.customerInfo.district, Validators.required],
+            contactMunicipalities: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.municipalities))
+                ? undefined : this.customerInfo.municipalities, Validators.required],
             // Location
             locationVersion: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.version],
@@ -384,9 +387,9 @@ export class CompanyInfoComponent implements OnInit {
             (response: any) => {
               this.districtList = response.detail;
               if (proprietorIndex == null) {
-                if (!ObjectUtil.isEmpty(this.basicInfo)) {
+                if (!ObjectUtil.isEmpty(this.customerInfo)) {
                 this.districtList.forEach(district => {
-                    if (!ObjectUtil.isEmpty(this.basicInfo['district']) && district.id === this.basicInfo.district.id) {
+                    if (!ObjectUtil.isEmpty(this.customerInfo['district']) && district.id === this.customerInfo.district.id) {
                         this.companyInfoFormGroup.controls.contactDistrict.setValue(district);
                         this.getMunicipalities(district.id, null);
                     }
@@ -409,9 +412,9 @@ export class CompanyInfoComponent implements OnInit {
             (response: any) => {
               this.municipalityVdcList = response.detail;
               if (proprietorIndex == null) {
-                if (!ObjectUtil.isEmpty(this.basicInfo)) {
+                if (!ObjectUtil.isEmpty(this.customerInfo)) {
                   this.municipalityVdcList.forEach(municipality => {
-                    if (!ObjectUtil.isEmpty(this.basicInfo.municipalities) && municipality.id === this.basicInfo.municipalities.id) {
+                    if (!ObjectUtil.isEmpty(this.customerInfo.municipalities) && municipality.id === this.customerInfo.municipalities.id) {
                         this.companyInfoFormGroup.controls.contactMunicipalities.setValue(municipality);
                     }
                 }); }
