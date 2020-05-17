@@ -24,6 +24,8 @@ import {ToastService} from '../../../../../@core/utils';
 import {BusinessType} from '../../../../admin/modal/businessType';
 import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.service';
 import {CalendarType} from '../../../../../@core/model/calendar-type';
+import {Customer} from '../../../../admin/modal/customer';
+import {CompanyLocations} from '../../../../admin/modal/companyLocations';
 
 
 @Component({
@@ -33,6 +35,7 @@ import {CalendarType} from '../../../../../@core/model/calendar-type';
 })
 export class CompanyInfoComponent implements OnInit {
     @Input() formValue: CompanyInfo;
+    @Input() basicInfo: Customer;
     @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Input() calendarType: CalendarType;
 
@@ -49,11 +52,13 @@ export class CompanyInfoComponent implements OnInit {
     companySearch = {
         registrationNumber: undefined
     };
-
+    customer: Customer = new Customer();
+    customerInfo: Customer;
     companyInfo: CompanyInfo;
     legalStatus: LegalStatus = new LegalStatus();
     capital: Capital = new Capital();
     swot: Swot = new Swot();
+    locations: CompanyLocations = new CompanyLocations();
     managementTeamList: Array<ManagementTeam> = new Array<ManagementTeam>();
     proprietors: Proprietors = new Proprietors();
     proprietorsList: Array<Proprietors> = new Array<Proprietors>();
@@ -79,13 +84,24 @@ export class CompanyInfoComponent implements OnInit {
 
     ngOnInit() {
         this.companyInfo = this.formValue;
+        this.customerInfo = this.basicInfo;
         this.buildForm();
 
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
-            }
-        );
+                this.provinceList.forEach((province: Province) => {
+                  if (this.customerInfo !== undefined) {
+                    if (!ObjectUtil.isEmpty(this.customerInfo.province)) {
+                      if (province.id === this.customerInfo.province.id) {
+                        this.companyInfoFormGroup.controls.contactProvince.setValue(province);
+                        this.getDistricts(province.id, null);
+                      }
+                    }
+                  }
+                });
+              }
+          );
 
         if (ObjectUtil.isEmpty(this.formValue)) {
             this.customerId = Number(this.activatedRoute.snapshot.queryParamMap.get('customerId'));
@@ -95,7 +111,17 @@ export class CompanyInfoComponent implements OnInit {
                         this.commonLocation.getProvince().subscribe(
                             (responseProvince: any) => {
                                 this.provinceList = responseProvince.detail;
+                                this.provinceList.forEach((province: Province) => {
+                                  if (this.customerInfo !== undefined) {
+                                    if (!ObjectUtil.isEmpty(this.customerInfo.province)) {
+                                      if (province.id === this.customerInfo.province.id) {
+                                        this.companyInfoFormGroup.controls.contactProvince.setValue(province);
+                                        this.getDistricts(province.id, null);
+                                      }
+                                    }
                             }
+                          });
+                        }
                         );
                         this.companyInfo = response.detail.companyInfo;
                         this.buildForm();
@@ -218,6 +244,42 @@ export class CompanyInfoComponent implements OnInit {
             proprietors: this.formBuilder.array([
                 this.proprietorsFormGroup()
             ]),
+            // contact person
+            contactVersion: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.version)) ? undefined : this.customerInfo.version],
+            contactId: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.id)) ? undefined : this.customerInfo.id],
+            contactCitizenNumber: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.citizenshipNumber))
+                ? ('Blinded' + JSON.parse(JSON.stringify(new Date())) + new Date().getMilliseconds())
+                : this.customerInfo.citizenshipNumber],
+            contactName: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.customerName)) ? undefined : this.customerInfo.customerName, Validators.required],
+            contactEmail: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.email)) ? undefined : this.customerInfo.email, Validators.required],
+            contactNumber: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.contactNumber)) ? undefined : this.customerInfo.contactNumber, Validators.required],
+            contactProvince: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.province)) ? undefined : this.customerInfo.province, Validators.required],
+            contactDistrict: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.district)) ? undefined : this.customerInfo.district, Validators.required],
+            contactMunicipalities: [(ObjectUtil.isEmpty(this.customerInfo)
+                || ObjectUtil.isEmpty(this.customerInfo.municipalities))
+                ? undefined : this.customerInfo.municipalities, Validators.required],
+            // Location
+            locationVersion: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.version],
+            locationId: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.id],
+            houseNumber: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.houseNumber,
+              Validators.required],
+            streetName: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.streetName,
+              Validators.required],
+            address: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.address,
+              Validators.required],
             // swot
             strength: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.strength, Validators.required],
@@ -327,8 +389,21 @@ export class CompanyInfoComponent implements OnInit {
         province.id = provinceId;
         this.commonLocation.getDistrictByProvince(province).subscribe(
             (response: any) => {
-                this.districtList = response.detail;
+              this.districtList = response.detail;
+              if (proprietorIndex == null) {
+                if (!ObjectUtil.isEmpty(this.customerInfo)) {
+                this.districtList.forEach(district => {
+                    if (!ObjectUtil.isEmpty(this.customerInfo['district']) && district.id === this.customerInfo.district.id) {
+                        this.companyInfoFormGroup.controls.contactDistrict.setValue(district);
+                        this.getMunicipalities(district.id, null);
+                    }
+                }); }
+
+              }
+              if (!ObjectUtil.isEmpty(proprietorIndex)) {
                 this.addressList[proprietorIndex].districtList = this.districtList;
+              }
+
             }
         );
     }
@@ -339,8 +414,18 @@ export class CompanyInfoComponent implements OnInit {
         district.id = districtId;
         this.commonLocation.getMunicipalityVDCByDistrict(district).subscribe(
             (response: any) => {
-                this.municipalityVdcList = response.detail;
+              this.municipalityVdcList = response.detail;
+              if (proprietorIndex == null) {
+                if (!ObjectUtil.isEmpty(this.customerInfo)) {
+                  this.municipalityVdcList.forEach(municipality => {
+                    if (!ObjectUtil.isEmpty(this.customerInfo.municipalities) && municipality.id === this.customerInfo.municipalities.id) {
+                        this.companyInfoFormGroup.controls.contactMunicipalities.setValue(municipality);
+                    }
+                }); }
+              }
+              if (!ObjectUtil.isEmpty(proprietorIndex)) {
                 this.addressList[proprietorIndex].municipalityVdcList = this.municipalityVdcList;
+              }
             }
         );
     }
@@ -418,6 +503,24 @@ export class CompanyInfoComponent implements OnInit {
         this.companyInfo.swot = this.swot;
         // management team list
         this.companyInfo.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
+        // contactPerson
+        this.customer.version = this.companyInfoFormGroup.get('contactVersion').value;
+        this.customer.id = this.companyInfoFormGroup.get('contactId').value;
+        this.customer.customerName = this.companyInfoFormGroup.get('contactName').value;
+        this.customer.email = this.companyInfoFormGroup.get('contactEmail').value;
+        this.customer.contactNumber = this.companyInfoFormGroup.get('contactNumber').value;
+        this.customer.province =  this.companyInfoFormGroup.get('contactProvince').value;
+        this.customer.district = this.companyInfoFormGroup.get('contactDistrict').value;
+        this.customer.municipalities = this.companyInfoFormGroup.get('contactMunicipalities').value;
+        this.customer.citizenshipNumber = this.companyInfoFormGroup.get('contactCitizenNumber').value;
+
+        // location
+        this.locations.id = this.companyInfoFormGroup.get('locationId').value;
+        this.locations.version = this.companyInfoFormGroup.get('locationVersion').value;
+        this.locations.address = this.companyInfoFormGroup.get('address').value;
+        this.locations.houseNumber = this.companyInfoFormGroup.get('houseNumber').value;
+        this.locations.streetName = this.companyInfoFormGroup.get('streetName').value;
+        this.companyInfo.companyLocations = this.locations;
         // proprietorsList
         this.companyInfo.proprietorsList = new Array<Proprietors>();
         let proprietorsIndex = 0;

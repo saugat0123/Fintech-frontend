@@ -287,6 +287,15 @@ export class LoanFormComponent implements OnInit {
                 });
             }
 
+            // Remove Customer Info Template for Business Loan Type
+            if (this.allId.loanCategory === 'BUSINESS_TYPE') {
+                this.templateList.forEach((value , i) => {
+                    if (value.name === 'Customer Info') {
+                        this.templateList.splice(i, 1);
+                    }
+                });
+            }
+
             this.loanTitle = response.detail.name;
             this.breadcrumbService.notify(response.detail.name);
             for (let i = 0; i < this.templateList.length; i++) {
@@ -444,6 +453,7 @@ export class LoanFormComponent implements OnInit {
             }
             this.companyInfoComponent.onSubmit();
             this.loanDocument.companyInfo = this.companyInfoComponent.companyInfo;
+            this.loanDocument.customerInfo = this.companyInfoComponent.customer;
         }
         if (name === 'Kyc Info' && action) {
             this.kycInfo.onSubmit();
