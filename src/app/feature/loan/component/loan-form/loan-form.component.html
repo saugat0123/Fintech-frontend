@@ -84,6 +84,7 @@
                     <ng-template ngbTabContent *ngIf="allList.name === 'Company Info'">
                         <app-company-info (blackListStatusEmitter)="getIsBlackListed($event)"
                                           [formValue]="loanDocument?.companyInfo" [calendarType]="calendarType"
+                                          [basicInfo]="loanDocument?.customerInfo"
                                           #companyInfo></app-company-info>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Proposal'">
