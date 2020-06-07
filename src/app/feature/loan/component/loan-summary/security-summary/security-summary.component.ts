@@ -12,6 +12,7 @@ export class SecuritySummaryComponent implements OnInit {
   landSelected = false;
   apartmentSelected = false;
   plantSelected = false;
+  vehicleSelected = false;
 
   constructor() {
   }
@@ -22,6 +23,9 @@ export class SecuritySummaryComponent implements OnInit {
         switch (selectedValue) {
           case 'LandSecurity' :
             this.landSelected = true;
+            break;
+          case 'VehicleSecurity' :
+            this.vehicleSelected = true;
             break;
           case 'ApartmentSecurity' :
             this.apartmentSelected = true;

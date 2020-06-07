@@ -111,7 +111,7 @@ export class CreditGradingComponent implements OnInit {
     if (this.totalPointMapper.size === 20) {
       let sum = 0;
       this.totalPointMapper.forEach(data => {
-        sum = sum + data;
+        sum = sum + Number(data);
       });
       this.totalPoints = sum;
       this.creditRiskGrading.get('totalPoint').patchValue(this.totalPoints);

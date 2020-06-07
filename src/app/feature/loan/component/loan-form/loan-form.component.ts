@@ -33,7 +33,6 @@ import {CustomerDocumentComponent} from '../loan-main-template/customer-document
 import {DocStatus} from '../../model/docStatus';
 import {CustomerService} from '../../../customer/service/customer.service';
 import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
-import {VehicleSecurityComponent} from '../loan-main-template/vehicle-security/vehicle-security.component';
 import {ShareSecurityComponent} from '../loan-main-template/share-security/share-security.component';
 import {GroupComponent} from '../loan-main-template/group/group.component';
 import {LoanMainNepaliTemplateComponent} from '../loan-main-nepali-template/loan-main-nepali-template.component';
@@ -45,6 +44,8 @@ import {Customer} from '../../../admin/modal/customer';
 import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 import {GuarantorComponent} from '../loan-main-template/guarantor/guarantor.component';
 import {CalendarType} from '../../../../@core/model/calendar-type';
+import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
+import {InsuranceComponent} from '../loan-main-template/insurance/insurance.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -163,14 +164,17 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('group', {static: false})
     group: GroupComponent;
 
-    @ViewChild('vehicleSecurity', {static: false})
-    vehicleSecurity: VehicleSecurityComponent;
-
     @ViewChild('shareSecurity', {static: false})
     shareSecurity: ShareSecurityComponent;
 
     @ViewChild('guarantor', {static: false})
     guarantorComponent: GuarantorComponent;
+
+    @ViewChild('reportingInfoTagging', {static: false})
+    reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
+
+    @ViewChild('insurance', {static: false})
+    insuranceComponent: InsuranceComponent;
 
     constructor(
         private loanDataService: LoanDataService,
@@ -279,6 +283,15 @@ export class LoanFormComponent implements OnInit {
                 this.templateList.forEach((value, index) => {
                     if (value.name === 'Company Info') {
                         this.templateList.splice(index, 1);
+                    }
+                });
+            }
+
+            // Remove Customer Info Template for Business Loan Type
+            if (this.allId.loanCategory === 'BUSINESS_TYPE') {
+                this.templateList.forEach((value , i) => {
+                    if (value.name === 'Customer Info') {
+                        this.templateList.splice(i, 1);
                     }
                 });
             }
@@ -440,6 +453,7 @@ export class LoanFormComponent implements OnInit {
             }
             this.companyInfoComponent.onSubmit();
             this.loanDocument.companyInfo = this.companyInfoComponent.companyInfo;
+            this.loanDocument.customerInfo = this.companyInfoComponent.customer;
         }
         if (name === 'Kyc Info' && action) {
             this.kycInfo.onSubmit();
@@ -454,14 +468,6 @@ export class LoanFormComponent implements OnInit {
             }
             this.proposalDetail.onSubmit();
             this.loanDocument.proposal = this.proposalDetail.proposalData;
-
-            // TODO LIMIT EXCEED clause may vary as per requirement
-            if (this.loanDocument.proposal.proposedLimit > 0) {
-                this.loanDocument.limitExceed = 0;
-            } else {
-                this.loanDocument.proposal.proposedLimit = 0;
-                this.loanDocument.limitExceed = 1;
-            }
         }
 
         if (name === 'Customer Document' && action) {
@@ -510,10 +516,6 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.guarantor = this.guarantorComponent.guarantorDetail;
         }
 
-        if (name === 'Vehicle Security' && action) {
-            this.vehicleSecurity.onSubmit();
-            this.loanDocument.vehicleSecurity = this.vehicleSecurity.vehicleSecurity;
-        }
         if (name === 'Share Security' && action) {
             if (this.shareSecurity.form.invalid && this.nextButtonAction) {
                 this.shareSecurity.submitted = true;
@@ -522,8 +524,20 @@ export class LoanFormComponent implements OnInit {
             this.shareSecurity.onSubmit();
             this.loanDocument.shareSecurity = this.shareSecurity.shareSecurityData;
         }
-        return false;
+        if (name === 'Reporting Info' && action) {
+            this.reportingInfoTaggingComponent.onSubmit();
+            this.loanDocument.reportingInfoLevels = this.reportingInfoTaggingComponent.finalReportingInfoLevels;
+        }
+        if (name === 'Insurance' && action) {
+            if (this.insuranceComponent.form.invalid && this.nextButtonAction) {
+                this.insuranceComponent.isSubmitted = true;
+                return true;
+            }
+            this.insuranceComponent.submit();
+            this.loanDocument.insurance = this.insuranceComponent.insurance;
+        }
 
+        return false;
     }
 
 

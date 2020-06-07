@@ -68,20 +68,24 @@
                 <ngb-tab *ngFor="let allList of templateList; let i = index" [title]="allList.name"
                          [id]="i.toString(10)" [disabled]="isBlackListed">
                     <ng-template ngbTabContent *ngIf="allList.name === 'Customer Info'">
-                        <app-basic-info (blackListStatusEmitter)="getIsBlackListed($event)" [formValue]="loanDocument?.customerInfo"
+                        <app-basic-info (blackListStatusEmitter)="getIsBlackListed($event)"
+                                        [formValue]="loanDocument?.customerInfo"
                                         [calendarType]="calendarType"
                                         #basicInfo>
                         </app-basic-info>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Kyc Info'">
-                        <app-kyc-info [formValue]="loanDocument?.customerInfo"  #kycInfo>
+                        <app-kyc-info [formValue]="loanDocument?.customerInfo" #kycInfo>
                         </app-kyc-info>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'General'">
                         <app-dms-loan [loanDataHolder]="loanDocument" #dmsLoanFile></app-dms-loan>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Company Info'">
-                        <app-company-info (blackListStatusEmitter)="getIsBlackListed($event)" [formValue]="loanDocument?.companyInfo" [calendarType]="calendarType" #companyInfo></app-company-info>
+                        <app-company-info (blackListStatusEmitter)="getIsBlackListed($event)"
+                                          [formValue]="loanDocument?.companyInfo" [calendarType]="calendarType"
+                                          [basicInfo]="loanDocument?.customerInfo"
+                                          #companyInfo></app-company-info>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Proposal'">
                         <app-proposal [formValue]="loadProposal()" #proposalInfo></app-proposal>
@@ -103,7 +107,9 @@
                         <app-site-visit #siteVisit [formValue]="loanDocument?.siteVisit"></app-site-visit>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Security'">
-                        <app-security #security [securityValue]="loanDocument?.security" [proposalDataHolder]="loanDocument?.proposal" [calendarType]="calendarType"></app-security>
+                        <app-security #security [securityValue]="loanDocument?.security"
+                                      [proposalDataHolder]="loanDocument?.proposal"
+                                      [calendarType]="calendarType"></app-security>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Customer Document'">
                         <app-customer-document #customerDocument
@@ -113,12 +119,9 @@
                         <app-group #group [groupValue]="loanDocument?.group"
                                    [proposalDataHolder]="loanDocument?.proposal"></app-group>
                     </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Vehicle Security'">
-                        <app-vehicle-security #vehicleSecurity
-                                              [vehicleSecurityValue]="loanDocument?.vehicleSecurity"></app-vehicle-security>
-                    </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name == 'Guarantor'">
-                        <app-guarantor #guarantor (blackListStatusEmitter)="getIsBlackListed($event)" [guarantorDetailValue]="loanDocument?.guarantor" [calendarType]="calendarType">
+                        <app-guarantor #guarantor (blackListStatusEmitter)="getIsBlackListed($event)"
+                                       [guarantorDetailValue]="loanDocument?.guarantor" [calendarType]="calendarType">
                         </app-guarantor>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name == 'Share Security'">
@@ -126,9 +129,19 @@
                         </app-share-security>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name == 'MAW Credit Risk Grading'">
-                        <app-maw-credit-risk-grading #mawCreditRiskGrading [mawCreditRiskGradingData]="loanDocument?.mawCreditRiskGrading">
+                        <app-maw-credit-risk-grading #mawCreditRiskGrading
+                                                     [mawCreditRiskGradingData]="loanDocument?.mawCreditRiskGrading">
                         </app-maw-credit-risk-grading>
                     </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name == 'Reporting Info'">
+                        <app-reporting-info-tagging #reportingInfoTagging [reportingInfoLevels]="loanDocument?.reportingInfoLevels">
+                        </app-reporting-info-tagging>
+                    </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name == 'Insurance'">
+                        <app-insurance #insurance [insuranceDataFromModel]="loanDocument?.insurance">
+                        </app-insurance>
+                    </ng-template>
+
                 </ngb-tab>
             </ngb-tabset>
 

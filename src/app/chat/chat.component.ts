@@ -43,7 +43,7 @@ export class ChatComponent implements OnInit {
     openChatBot(user) {
         this.user = user;
         this.showHideBot = true;
-        this.chatService.updateSeenChat(this.user.id.toString()).subscribe((res: any) => {
+        this.chatService.updateSeenChat(this.user.id.toString()).subscribe(() => {
             this.chatService.getUserForChat().subscribe((res: any) => {
                 this.userList = res.detail.userList;
                 this.chat = new Chat();

@@ -67,13 +67,14 @@ import {ChangePasswordComponent} from './components/change-password/change-passw
 import {CKEditorModule} from 'ng2-ckeditor';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {NbEvaIconsModule} from '@nebular/eva-icons';
-import {OverlaySpinnerComponent} from './components/overlay-spinner/overlay-spinner.component';
-import {DeleteModalComponent} from './components/delete-modal/delete-modal.component';
+import { OverlaySpinnerComponent } from './components/overlay-spinner/overlay-spinner.component';
+import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
+import {ChartModule} from '../chart/chart.module';
 import {ChatModule} from '../chat/chat.module';
 
 // import {NbSecurityModule} from '@nebular/security';
 
-const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule, CKEditorModule];
+const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule, CKEditorModule, ChartModule];
 
 const NB_MODULES = [
     NbCardModule,
@@ -112,7 +113,7 @@ const NB_MODULES = [
     NbIconModule,
     NbToggleModule,
     NbEvaIconsModule,
-    ChatModule
+    NbBadgeModule
 
 ];
 
@@ -173,7 +174,7 @@ const NB_THEME_PROVIDERS = [
 ];
 
 @NgModule({
-    imports: [...BASE_MODULES, ...NB_MODULES, RouterModule, NgxSpinnerModule, NbBadgeModule],
+    imports: [...BASE_MODULES, ...NB_MODULES, RouterModule, NgxSpinnerModule, ChatModule],
     exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, NgxSpinnerModule],
     declarations: [...COMPONENTS, ...PIPES, ProfileComponent, ChangePasswordComponent],
     entryComponents: [...ENTRY_COMPONENTS],

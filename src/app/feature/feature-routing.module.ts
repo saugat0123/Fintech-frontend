@@ -11,11 +11,34 @@ const routes: Routes = [
         children: [
             {path: 'status/:name', component: PendingsLoanComponent},
             {path: 'dashboard', component: DashboardComponent},
-            {path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)},
-            {path: 'memo', loadChildren: () => import('./memo/memo.module').then(m => m.MemoModule)},
-            {path: 'loan', loadChildren: () => import('./loan/loan.module').then(m => m.LoanModule)},
-            {path: 'customer', loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)},
-            {path: 'approval-role-hierarchy/:type/:refId', component: ApprovalRoleHierarchyComponent},
+            {
+                path: 'approval-role-hierarchy/:type/:refId',
+                component: ApprovalRoleHierarchyComponent
+            },
+            {
+                path: 'admin',
+                loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+            },
+            {
+                path: 'memo',
+                loadChildren: () => import('./memo/memo.module').then(m => m.MemoModule)
+            },
+            {
+                path: 'loan',
+                loadChildren: () => import('./loan/loan.module').then(m => m.LoanModule)
+            },
+            {
+                path: 'customer',
+                loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)
+            },
+            {
+                path: 'report',
+                loadChildren: () => import('./reporting/reporting.module').then(m => m.ReportingModule)
+            },
+            {
+                path: 'update-loan',
+                loadChildren: () => import('./loan-update/loan-update.module').then(m => m.LoanUpdateModule)
+            },
             {path: '', redirectTo: 'dashboard'},
             {path: '**', redirectTo: 'dashboard'}
         ],

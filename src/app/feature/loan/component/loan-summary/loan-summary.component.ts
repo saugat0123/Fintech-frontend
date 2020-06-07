@@ -26,7 +26,6 @@ import {DocAction} from '../../model/docAction';
 import {DocumentService} from '../../../admin/component/document/document.service';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
-
 @Component({
   selector: 'app-loan-summary',
   templateUrl: './loan-summary.component.html',
@@ -71,21 +70,30 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   @ViewChild('print', { static: false }) print;
   businessType = BusinessType;
   financialData: Financial = new Financial();
-    shareSecurityData: ShareSecurity = new ShareSecurity();
+  shareSecurityData: ShareSecurity = new ShareSecurity();
+  proposalData;
+  guarantorData = [];
   financialSummary = false;
   siteVisitSummary = false;
   shareSecuritySummary = false;
+  proposalSummary = false;
   navigationSubscription;
   securitySummary = false;
   securityData: Object;
   siteVisitData: Object;
+  checkGuarantorData = false;
   offerLetterDocuments: {
     name: string,
     url: string
   }[] = [];
   registeredOfferLetters: Array<String> = [];
+    creditGradeStatusBadge;
+    creditRiskGrade;
+    creditRiskScore = 0;
+    noComplianceLoan = false;
+    creditRiskSummary = false;
 
-  constructor(
+    constructor(
       private userService: UserService,
       private loanFormService: LoanFormService,
       private loanActionService: LoanActionService,
@@ -161,10 +169,38 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.securityData = JSON.parse(this.loanDataHolder.security.data);
             this.securitySummary = true;
           }
-          // Setting SiteVisit data--
+
+            // Setting credit risk data---
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.creditRiskGrading)) {
+                this.creditRiskSummary = true;
+                const crgParsedData = JSON.parse(this.loanDataHolder.creditRiskGrading.data);
+                if (crgParsedData.complianceOfCovenants === 0) {
+                    this.noComplianceLoan = true;
+                }
+                this.creditRiskGrade = crgParsedData.grade;
+                this.creditRiskScore =  ObjectUtil.isEmpty(crgParsedData.totalPoint) ? 0 : crgParsedData.totalPoint;
+                if (this.creditRiskGrade === 'Superior' || this.creditRiskGrade === 'Good') {
+                    this.creditGradeStatusBadge = 'badge badge-success';
+                } else if (this.creditRiskGrade === 'Bad & Loss' || this.creditRiskGrade === 'Doubtful') {
+                    this.creditGradeStatusBadge = 'badge badge-danger';
+                } else {
+                    this.creditGradeStatusBadge = 'badge badge-warning';
+                }
+            }
+
+            // Setting SiteVisit data--
           if (!ObjectUtil.isEmpty(this.loanDataHolder.siteVisit)) {
             this.siteVisitData = JSON.parse(this.loanDataHolder.siteVisit.data);
             this.siteVisitSummary = true;
+          }
+
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.guarantor)) {
+            this.guarantorData = this.loanDataHolder.guarantor.guarantorList;
+            this.checkGuarantorData = true;
+          }
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
+            this.proposalData = JSON.parse(this.loanDataHolder.proposal.data);
+            this.proposalSummary = true;
           }
 
             // setting share-secuirty data--

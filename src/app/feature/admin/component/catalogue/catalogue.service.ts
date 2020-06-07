@@ -13,6 +13,7 @@ export class CatalogueSearch {
     companyName: string;
     docAction: string;
     showShareLoanExcessingLimit: string;
+    isInsuranceExpired: string;
 }
 
 @Injectable({

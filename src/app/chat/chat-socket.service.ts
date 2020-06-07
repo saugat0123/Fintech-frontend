@@ -71,7 +71,7 @@ export class ChatSocketService {
                 const alert = new Alert(AlertType.INFO, 'Message from ' + messageResult.senderUser.name);
                 this.toastService.show(alert);
             }
-            ;
+
 
         }
     }

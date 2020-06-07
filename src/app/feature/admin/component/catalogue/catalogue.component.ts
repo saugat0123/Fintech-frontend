@@ -28,6 +28,7 @@ import {CatalogueSearch, CatalogueService} from './catalogue.service';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {NbTrigger} from '@nebular/theme';
+import {CustomerLoanFlag} from '../../../../@core/model/customer-loan-flag';
 
 @Component({
     selector: 'app-catalogue',
@@ -52,11 +53,10 @@ export class CatalogueComponent implements OnInit {
     validStartDate = true;
     validEndDate = true;
     transferDoc = false;
-    roleType = false;
+    isMaker = false;
     roleAccess: string;
     accessSpecific: boolean;
     accessAll: boolean;
-    statusApproved = false;
     loanDataHolder: LoanDataHolder;
     transferUserList;
     formAction: FormGroup;
@@ -64,6 +64,20 @@ export class CatalogueComponent implements OnInit {
     isFilterCollapsed = true;
     showBranch = true;
     nbTrigger = NbTrigger;
+    public insuranceToggle = false;
+    public typesDropdown: {
+        name: string,
+        value: string,
+        closeRenewFilter: boolean   // affected by loan close renew filter
+    }[] = [];
+    public typesPossibleDropdown: {name: string, value: string, closeRenewFilter: boolean}[] = [
+        {name: 'Update Loan', value: 'UPDATE_LOAN', closeRenewFilter: false},
+        {name: 'Renew Loan', value: 'RENEWED_LOAN', closeRenewFilter: true},
+        {name: 'Close Loan', value: 'CLOSURE_LOAN', closeRenewFilter: true},
+        {name: 'Enhance Loan', value: 'ENHANCED_LOAN', closeRenewFilter: true},
+        {name: 'Partial Settle Loan', value: 'PARTIAL_SETTLEMENT_LOAN', closeRenewFilter: true},
+        {name: 'Full Settle Loan', value: 'FULL_SETTLEMENT_LOAN', closeRenewFilter: true},
+    ];
 
     constructor(
         private branchService: BranchService,
@@ -89,6 +103,7 @@ export class CatalogueComponent implements OnInit {
             other.spinner = false;
             other.transferToggle = true;
             other.shareToggle = true;
+            other.insuranceToggle = true;
         }, error => {
             console.error(error);
             other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
@@ -108,7 +123,7 @@ export class CatalogueComponent implements OnInit {
 
         this.roleAccess = LocalStorageUtil.getStorage().roleAccess;
         if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
-            this.roleType = true;
+            this.isMaker = true;
         }
         if (this.roleAccess === RoleAccess.SPECIFIC) {
             this.accessSpecific = true;
@@ -170,7 +185,8 @@ export class CatalogueComponent implements OnInit {
             role: [undefined],
             customerName: [undefined],
             companyName: [undefined],
-            showShareLoanExcessingLimit: [undefined]
+            showShareLoanExcessingLimit: [undefined],
+            showExpriringInsurance: [undefined]
         });
     }
 
@@ -214,7 +230,6 @@ export class CatalogueComponent implements OnInit {
 
     onSearch() {
         this.tempLoanType = null;
-        this.statusApproved = this.filterForm.get('docStatus').value === 'APPROVED';
         this.catalogueService.search.branchIds = ObjectUtil.isEmpty(this.filterForm.get('branch').value) ? undefined :
             this.filterForm.get('branch').value;
         this.activatedRoute.queryParams.subscribe(
@@ -360,6 +375,14 @@ export class CatalogueComponent implements OnInit {
     }
 
     onChange(data, onActionChange) {
+        if (this.tempLoanType === 'UPDATE_LOAN_INFORMATION') {
+            this.router.navigate(['/home/update-loan/dashboard'], {
+                queryParams: {
+                    id: data.id
+                }
+            });
+            return;
+        }
         this.loanDataHolder = data;
         this.modalService.open(onActionChange);
 
@@ -427,4 +450,19 @@ export class CatalogueComponent implements OnInit {
         });
     }
 
+    onChangeInsuranceToggle(event) {
+        this.insuranceToggle = false;
+        if (event) {
+            this.catalogueService.search.isInsuranceExpired = 'true';
+            this.onSearch();
+        } else {
+            this.catalogueService.search.isInsuranceExpired = undefined;
+            this.onSearch();
+        }
+    }
+
+    public getSortedLoanFlags(loanFlags: CustomerLoanFlag[]): CustomerLoanFlag[] {
+        loanFlags.sort((a, b) => a.order - b.order);
+        return loanFlags;
+    }
 }
