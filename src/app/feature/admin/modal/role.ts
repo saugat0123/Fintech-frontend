@@ -7,4 +7,5 @@ export class Role {
     roleType: RoleType;
     roleAccess: string;
     version: number;
+    name: string;
 }
