@@ -7,6 +7,7 @@ import {
     NbAccordionModule,
     NbActionsModule,
     NbAlertModule,
+    NbBadgeModule,
     NbButtonModule,
     NbCalendarKitModule,
     NbCalendarModule,
@@ -69,6 +70,7 @@ import {NbEvaIconsModule} from '@nebular/eva-icons';
 import { OverlaySpinnerComponent } from './components/overlay-spinner/overlay-spinner.component';
 import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 import {ChartModule} from '../chart/chart.module';
+import {ChatModule} from '../chat/chat.module';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -110,7 +112,9 @@ const NB_MODULES = [
     NbCalendarKitModule,
     NbIconModule,
     NbToggleModule,
-    NbEvaIconsModule
+    NbEvaIconsModule,
+    NbBadgeModule
+
 ];
 
 const COMPONENTS = [
@@ -128,7 +132,8 @@ const COMPONENTS = [
     MessageModalComponent,
     NotificationComponent,
     OverlaySpinnerComponent,
-    DeleteModalComponent
+    DeleteModalComponent,
+
 ];
 
 const ENTRY_COMPONENTS = [
@@ -137,7 +142,8 @@ const ENTRY_COMPONENTS = [
     ProfileComponent,
     ChangePasswordComponent,
     UpdateModalComponent,
-    DeleteModalComponent
+    DeleteModalComponent,
+
 ];
 
 const PIPES = [
@@ -168,7 +174,7 @@ const NB_THEME_PROVIDERS = [
 ];
 
 @NgModule({
-    imports: [...BASE_MODULES, ...NB_MODULES, RouterModule, NgxSpinnerModule],
+    imports: [...BASE_MODULES, ...NB_MODULES, RouterModule, NgxSpinnerModule, ChatModule],
     exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, NgxSpinnerModule],
     declarations: [...COMPONENTS, ...PIPES, ProfileComponent, ChangePasswordComponent],
     entryComponents: [...ENTRY_COMPONENTS],
