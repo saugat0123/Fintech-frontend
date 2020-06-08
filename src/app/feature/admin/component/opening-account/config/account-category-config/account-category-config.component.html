@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12 col-sm-12 col-xs-12">
-    <app-icon-card title="Total Account Types" type="info" detail="{{totalAccountPurposes}}">
+    <app-icon-card title="Total Account Categories" type="info" detail="{{totalAccountCategories}}">
       <i class="fa fa-list"></i>
     </app-icon-card>
   </div>
@@ -35,7 +35,7 @@
                   <input fieldSize="medium" formControlName="name"
                          name="name"
                          nbInput
-                         placeholder="account type"
+                         placeholder="account category"
                          type="text">
                 </div>
               </div>
@@ -55,7 +55,8 @@
             <thead>
             <tr>
               <th>S.N</th>
-              <th>Account Purpose</th>
+              <th>Account Category</th>
+              <th>Account Type</th>
               <th *ngIf='editPermission'>Action</th>
             </tr>
             </thead>
@@ -66,6 +67,7 @@
               </div>
               <td>{{i + 1}}</td>
               <td>{{accountPurpose.name}}</td>
+              <td>{{accountPurpose?.accountType?.name}}</td>
               <td *ngIf='editPermission'>
                 <button
                     nbButton status="info"

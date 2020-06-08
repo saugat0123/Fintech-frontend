@@ -1,27 +1,27 @@
 import {Component, OnInit} from '@angular/core';
-import {AccountPurpose} from '../../../../modal/accountPurpose';
+import {AccountCategory} from '../../../../modal/accountCategory';
 import {Pageable} from '../../../../../../@core/service/baseservice/common-pageable';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {AccountPurposeService} from '../../service/account-purpose.service';
+import {AccountCategoryService} from '../../service/account-category.service';
 import {ModalUtils, ToastService} from '../../../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {PaginationUtils} from '../../../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
-import {AccountPurposeFormComponent} from './account-purpose-form/account-purpose-form.component';
+import {AccountCategoryFormComponent} from './account-category-form/account-category-form.component';
 import {Action} from '../../../../../../@core/Action';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-account-purpose-config',
-  templateUrl: './account-purpose-config.component.html',
-  styleUrls: ['./account-purpose-config.component.scss']
+  templateUrl: './account-category-config.component.html',
+  styleUrls: ['./account-category-config.component.scss']
 })
-export class AccountPurposeConfigComponent implements OnInit {
+export class AccountCategoryConfigComponent implements OnInit {
 
-  totalAccountPurposes = 0;
+  totalAccountCategories = 0;
   isFilterCollapsed = true;
-  accountPurposeList: Array<AccountPurpose> = new Array<AccountPurpose>();
+  accountPurposeList: Array<AccountCategory> = new Array<AccountCategory>();
   editPermission = false;
   spinner = false;
   pageable: Pageable = new Pageable();
@@ -33,22 +33,22 @@ export class AccountPurposeConfigComponent implements OnInit {
 
   constructor(
       private formBuilder: FormBuilder,
-      private accountPurposeService: AccountPurposeService,
+      private accountPurposeService: AccountCategoryService,
       private toastService: ToastService,
       private modalService: NgbModal
   ) {
   }
 
-  static loadData(other: AccountPurposeConfigComponent) {
+  static loadData(other: AccountCategoryConfigComponent) {
     other.spinner = true;
     other.accountPurposeService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
       other.accountPurposeList = response.detail.content;
-      other.totalAccountPurposes = response.detail.totalElements;
+      other.totalAccountCategories = response.detail.totalElements;
       other.pageable = PaginationUtils.getPageable(response.detail);
       other.spinner = false;
     }, error => {
       console.error(error);
-      other.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Account Purposes'));
+      other.toastService.show(new Alert(AlertType.ERROR, 'Unable to load Account Categories'));
       other.spinner = false;
     });
   }
@@ -56,37 +56,37 @@ export class AccountPurposeConfigComponent implements OnInit {
   ngOnInit() {
     this.editPermission = LocalStorageUtil.getStorage().roleName === 'admin';
     this.buildFilterForm();
-    AccountPurposeConfigComponent.loadData(this);
+    AccountCategoryConfigComponent.loadData(this);
   }
 
   add() {
-    const modalRef = this.modalService.open(AccountPurposeFormComponent, {
+    const modalRef = this.modalService.open(AccountCategoryFormComponent, {
       size: 'lg',
       backdrop: 'static'
     });
-    modalRef.componentInstance.model = new AccountPurpose();
+    modalRef.componentInstance.model = new AccountCategory();
     modalRef.componentInstance.action = Action.ADD;
-    ModalUtils.resolve(modalRef.result, AccountPurposeConfigComponent.loadData, this);
+    ModalUtils.resolve(modalRef.result, AccountCategoryConfigComponent.loadData, this);
   }
 
-  edit(accountType: AccountPurpose) {
-    const modalRef = this.modalService.open(AccountPurposeFormComponent, {
+  edit(accountType: AccountCategory) {
+    const modalRef = this.modalService.open(AccountCategoryFormComponent, {
       size: 'lg',
       backdrop: 'static'
     });
     modalRef.componentInstance.model = accountType;
     modalRef.componentInstance.action = Action.UPDATE;
-    ModalUtils.resolve(modalRef.result, AccountPurposeConfigComponent.loadData, this);
+    ModalUtils.resolve(modalRef.result, AccountCategoryConfigComponent.loadData, this);
   }
 
   changePage(page: number) {
     this.page = page;
-    AccountPurposeConfigComponent.loadData(this);
+    AccountCategoryConfigComponent.loadData(this);
   }
 
   onSearch() {
     this.search.name = ObjectUtil.isEmpty(this.filterForm.get('name').value) ? undefined : this.filterForm.get('name').value;
-    AccountPurposeConfigComponent.loadData(this);
+    AccountCategoryConfigComponent.loadData(this);
   }
 
   buildFilterForm() {

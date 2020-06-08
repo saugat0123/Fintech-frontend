@@ -16,8 +16,8 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AccountType} from '../../../modal/accountType';
-import {AccountPurpose} from '../../../modal/accountPurpose';
-import {AccountPurposeService} from '../service/account-purpose.service';
+import {AccountCategory} from '../../../modal/accountCategory';
+import {AccountCategoryService} from '../service/account-category.service';
 import {AccountTypeService} from '../service/account-type.service';
 import {AccountStatus} from '../../../modal/accountStatus';
 import {RoleType} from '../../../modal/roleType';
@@ -43,7 +43,7 @@ export class OpenOpeningComponentComponent implements OnInit {
     openingOccupationalDetails: OpeningOccupationalDetails = new OpeningOccupationalDetails();
     openingCustomerRelative: OpeningCustomerRelative = new OpeningCustomerRelative();
     branchList: Array<Branch> = new Array<Branch>();
-    accountPurposeList: Array<AccountPurpose> = new Array<AccountPurpose>();
+    accountPurposeList: Array<AccountCategory> = new Array<AccountCategory>();
     accountTypeList: Array<AccountType> = new Array<AccountType>();
     id = 0;
     isApproval = false;
@@ -61,7 +61,7 @@ export class OpenOpeningComponentComponent implements OnInit {
         private toastService: ToastService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private accountPurposeService: AccountPurposeService,
+        private accountPurposeService: AccountCategoryService,
         private accountTypeService: AccountTypeService
     ) {
     }
@@ -602,7 +602,7 @@ export class OpenOpeningComponentComponent implements OnInit {
         const accountType = new AccountType();
         accountType.id = this.openingAccount.get('accountType').value;
         this.openingForm.accountType = accountType;
-        const accountPurpose = new AccountPurpose();
+        const accountPurpose = new AccountCategory();
         accountPurpose.id = this.openingAccount.get('purposeOfAccount').value;
         this.account.purposeOfAccount = accountPurpose;
         this.account.currency = this.openingAccount.get('accountCurrency').value;

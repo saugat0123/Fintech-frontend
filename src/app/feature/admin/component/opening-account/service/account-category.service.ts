@@ -1,21 +1,21 @@
 import {Injectable} from '@angular/core';
 import {BaseService} from '../../../../../@core/BaseService';
 import {HttpClient} from '@angular/common/http';
-import {AccountPurpose} from '../../../modal/accountPurpose';
+import {AccountCategory} from '../../../modal/accountCategory';
 import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
 
 @Injectable({
     providedIn: 'root'
 })
-export class AccountPurposeService extends BaseService<AccountPurpose> {
-    static API = 'v1/accountPurpose';
+export class AccountCategoryService extends BaseService<AccountCategory> {
+    static API = 'v1/accountCategory';
 
     constructor(protected http: HttpClient) {
         super(http);
     }
 
     protected getApi(): string {
-        return AccountPurposeService.API;
+        return AccountCategoryService.API;
     }
 
     getAccountPurposeByAccountType(accountTypeId: number) {
