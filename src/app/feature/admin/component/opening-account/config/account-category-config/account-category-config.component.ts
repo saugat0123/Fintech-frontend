@@ -11,6 +11,7 @@ import {AccountCategoryFormComponent} from './account-category-form/account-cate
 import {Action} from '../../../../../../@core/Action';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util';
+import {AccountDocumentFormComponent} from './account-document-form/account-document-form.component';
 
 @Component({
   selector: 'app-account-purpose-config',
@@ -21,7 +22,7 @@ export class AccountCategoryConfigComponent implements OnInit {
 
   totalAccountCategories = 0;
   isFilterCollapsed = true;
-  accountPurposeList: Array<AccountCategory> = new Array<AccountCategory>();
+  accountCategoryList: Array<AccountCategory> = new Array<AccountCategory>();
   editPermission = false;
   spinner = false;
   pageable: Pageable = new Pageable();
@@ -42,7 +43,7 @@ export class AccountCategoryConfigComponent implements OnInit {
   static loadData(other: AccountCategoryConfigComponent) {
     other.spinner = true;
     other.accountPurposeService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe((response: any) => {
-      other.accountPurposeList = response.detail.content;
+      other.accountCategoryList = response.detail.content;
       other.totalAccountCategories = response.detail.totalElements;
       other.pageable = PaginationUtils.getPageable(response.detail);
       other.spinner = false;
@@ -69,13 +70,22 @@ export class AccountCategoryConfigComponent implements OnInit {
     ModalUtils.resolve(modalRef.result, AccountCategoryConfigComponent.loadData, this);
   }
 
-  edit(accountType: AccountCategory) {
+  edit(accountCategory: AccountCategory) {
     const modalRef = this.modalService.open(AccountCategoryFormComponent, {
       size: 'lg',
       backdrop: 'static'
     });
-    modalRef.componentInstance.model = accountType;
+    modalRef.componentInstance.model = accountCategory;
     modalRef.componentInstance.action = Action.UPDATE;
+    ModalUtils.resolve(modalRef.result, AccountCategoryConfigComponent.loadData, this);
+  }
+
+  document(accountCategory: AccountCategory) {
+    const modalRef = this.modalService.open(AccountDocumentFormComponent, {
+      size: 'lg',
+      backdrop: 'static'
+    });
+    modalRef.componentInstance.model = accountCategory;
     ModalUtils.resolve(modalRef.result, AccountCategoryConfigComponent.loadData, this);
   }
 

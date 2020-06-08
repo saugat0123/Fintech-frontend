@@ -80,6 +80,7 @@ import {BaseInterestFormComponent} from './component/base-interest/base-interest
 import {BlacklistComponent} from './component/blacklist/blacklist.component';
 import {BlacklistFormComponent} from './component/blacklist/blacklist-form/blacklist-form.component';
 import {NotificationMasterComponent} from './component/notification-master/notification-master.component';
+import {AccountDocumentFormComponent} from './component/opening-account/config/account-category-config/account-document-form/account-document-form.component';
 
 @NgModule({
     declarations: [
@@ -147,6 +148,7 @@ import {NotificationMasterComponent} from './component/notification-master/notif
         BlacklistComponent,
         BlacklistFormComponent,
         NotificationMasterComponent,
+        AccountDocumentFormComponent,
         // SecurityComponent
     ],
     imports: [
@@ -191,7 +193,8 @@ import {NotificationMasterComponent} from './component/notification-master/notif
         UserHistoryComponent,
         ShareValueFormComponent,
         BaseInterestFormComponent,
-        BlacklistFormComponent
+        BlacklistFormComponent,
+        AccountDocumentFormComponent
     ]
 
 })

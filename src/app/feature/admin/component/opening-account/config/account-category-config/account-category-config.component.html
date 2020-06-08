@@ -61,20 +61,28 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let accountPurpose of accountPurposeList; let i = index">
-              <div *ngIf="accountPurposeList?.length <= 0">
+            <tr *ngFor="let accountCategory of accountCategoryList; let i = index">
+              <div *ngIf="accountCategoryList?.length <= 0">
                 <p>No Content Found</p>
               </div>
               <td>{{i + 1}}</td>
-              <td>{{accountPurpose.name}}</td>
-              <td>{{accountPurpose?.accountType?.name}}</td>
+              <td>{{accountCategory.name}}</td>
+              <td>{{accountCategory?.accountType?.name}}</td>
               <td *ngIf='editPermission'>
                 <button
                     nbButton status="info"
                     size="small"
-                    (click)="edit(accountPurpose)"
+                    (click)="edit(accountCategory)"
                     title="Edit">
                   <i class="fa fa-edit"></i>
+                </button>
+                <button
+                    class="ml-1"
+                    nbButton status="info"
+                    size="small"
+                    (click)="document(accountCategory)"
+                    title="Documents">
+                  <i class="fa fa-file-import"></i>
                 </button>
               </td>
             </tr>

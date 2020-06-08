@@ -8,9 +8,9 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../../../@core/utils';
 import {CustomValidator} from '../../../../../../../@core/validator/custom-validator';
 import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
-import {ObjectUtil} from "../../../../../../../@core/utils/ObjectUtil";
-import {AccountType} from "../../../../../modal/accountType";
-import {AccountTypeService} from "../../../service/account-type.service";
+import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
+import {AccountType} from '../../../../../modal/accountType';
+import {AccountTypeService} from '../../../service/account-type.service';
 
 @Component({
   selector: 'app-account-purpose-form',
@@ -92,7 +92,7 @@ export class AccountCategoryFormComponent implements OnInit {
       case Action.UPDATE:
         this.model.name = this.modelForm.get('name').value;
         this.model.accountType = this.getAccountTypeById(this.modelForm.get('accountType').value);
-        this.service.update(this.model.id, this.modelForm.value)
+        this.service.update(this.model.id, this.model)
         .subscribe(
             () => {
               this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Account Purpose'));
@@ -116,7 +116,7 @@ export class AccountCategoryFormComponent implements OnInit {
     }
   }
 
-  private getAccountTypeById(id: number) {
+  private getAccountTypeById(id: number): AccountType {
     const accountType = new AccountType();
     accountType.id = id;
     return accountType;
