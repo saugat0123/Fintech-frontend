@@ -65,9 +65,9 @@ import {RoleEditComponent} from './component/role-permission/list-role/role-edit
 import {EligibilitySummaryComponent} from './component/eligibility/eligibility-summary/eligibility-summary.component';
 import {CoreModule} from '../../@core/core.module';
 import {AccountTypeConfigComponent} from './component/opening-account/config/account-type-config/account-type-config.component';
-import {AccountPurposeConfigComponent} from './component/opening-account/config/account-purpose-config/account-purpose-config.component';
+import {AccountCategoryConfigComponent} from './component/opening-account/config/account-category-config/account-category-config.component';
 import {AccountTypeFormComponent} from './component/opening-account/config/account-type-config/account-type-form/account-type-form.component';
-import {AccountPurposeFormComponent} from './component/opening-account/config/account-purpose-config/account-purpose-form/account-purpose-form.component';
+import {AccountCategoryFormComponent} from './component/opening-account/config/account-category-config/account-category-form/account-category-form.component';
 import {InactiveValuatorCommentComponent} from './component/valuator/inactive-valuator-comment/inactive-valuator-comment.component';
 import {PreferenceComponent} from './component/preference/preference.component';
 import {UserHistoryComponent} from './component/user/user-history/user-history.component';
@@ -80,6 +80,7 @@ import {BaseInterestFormComponent} from './component/base-interest/base-interest
 import {BlacklistComponent} from './component/blacklist/blacklist.component';
 import {BlacklistFormComponent} from './component/blacklist/blacklist-form/blacklist-form.component';
 import {NotificationMasterComponent} from './component/notification-master/notification-master.component';
+import {AccountDocumentFormComponent} from './component/opening-account/config/account-category-config/account-document-form/account-document-form.component';
 
 @NgModule({
     declarations: [
@@ -134,9 +135,9 @@ import {NotificationMasterComponent} from './component/notification-master/notif
         RoleEditComponent,
         EligibilitySummaryComponent,
         AccountTypeConfigComponent,
-        AccountPurposeConfigComponent,
+        AccountCategoryConfigComponent,
         AccountTypeFormComponent,
-        AccountPurposeFormComponent,
+        AccountCategoryFormComponent,
         InactiveValuatorCommentComponent,
         PreferenceComponent,
         UserHistoryComponent,
@@ -147,6 +148,7 @@ import {NotificationMasterComponent} from './component/notification-master/notif
         BlacklistComponent,
         BlacklistFormComponent,
         NotificationMasterComponent,
+        AccountDocumentFormComponent,
         // SecurityComponent
     ],
     imports: [
@@ -186,12 +188,13 @@ import {NotificationMasterComponent} from './component/notification-master/notif
         EligibilityDocumentViewComponent,
         RoleEditComponent,
         AccountTypeFormComponent,
-        AccountPurposeFormComponent,
+        AccountCategoryFormComponent,
         InactiveValuatorCommentComponent,
         UserHistoryComponent,
         ShareValueFormComponent,
         BaseInterestFormComponent,
-        BlacklistFormComponent
+        BlacklistFormComponent,
+        AccountDocumentFormComponent
     ]
 
 })

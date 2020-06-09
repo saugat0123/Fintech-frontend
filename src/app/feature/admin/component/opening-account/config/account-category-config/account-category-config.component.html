@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12 col-sm-12 col-xs-12">
-    <app-icon-card title="Total Account Types" type="info" detail="{{totalAccountPurposes}}">
+    <app-icon-card title="Total Account Categories" type="info" detail="{{totalAccountCategories}}">
       <i class="fa fa-list"></i>
     </app-icon-card>
   </div>
@@ -35,7 +35,7 @@
                   <input fieldSize="medium" formControlName="name"
                          name="name"
                          nbInput
-                         placeholder="account type"
+                         placeholder="account category"
                          type="text">
                 </div>
               </div>
@@ -55,24 +55,34 @@
             <thead>
             <tr>
               <th>S.N</th>
-              <th>Account Purpose</th>
+              <th>Account Category</th>
+              <th>Account Type</th>
               <th *ngIf='editPermission'>Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let accountPurpose of accountPurposeList; let i = index">
-              <div *ngIf="accountPurposeList?.length <= 0">
+            <tr *ngFor="let accountCategory of accountCategoryList; let i = index">
+              <div *ngIf="accountCategoryList?.length <= 0">
                 <p>No Content Found</p>
               </div>
               <td>{{i + 1}}</td>
-              <td>{{accountPurpose.name}}</td>
+              <td>{{accountCategory.name}}</td>
+              <td>{{accountCategory?.accountType?.name}}</td>
               <td *ngIf='editPermission'>
                 <button
                     nbButton status="info"
                     size="small"
-                    (click)="edit(accountPurpose)"
+                    (click)="edit(accountCategory)"
                     title="Edit">
                   <i class="fa fa-edit"></i>
+                </button>
+                <button
+                    class="ml-1"
+                    nbButton status="info"
+                    size="small"
+                    (click)="document(accountCategory)"
+                    title="Documents">
+                  <i class="fa fa-file-import"></i>
                 </button>
               </td>
             </tr>

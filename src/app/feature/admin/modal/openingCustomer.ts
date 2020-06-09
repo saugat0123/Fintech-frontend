@@ -1,8 +1,8 @@
 import {OpeningKyc} from './openingKyc';
+import {AccountOpeningDocument} from './accountOpeningDocument';
 
 export class OpeningCustomer {
   title: string;
-  imagePath: string;
   firstName: string;
   middleName: string;
   lastName: string;
@@ -35,26 +35,21 @@ export class OpeningCustomer {
   citizenNumber: string;
   citizenIssuedPlace: string;
   citizenIssuedDate: Date;
-  citizenImagePath: string;
   voterNumber: string;
   voterIssuedPlace: string;
   voterIssuedDate: Date;
-  voterImagePath: string;
   passportNumber: string;
   passportIssuedPlace: string;
   passportIssuedDate: Date;
   passportExpireDate: Date;
-  passportImagePath: string;
   licenseNumber: string;
   licenseIssuedPlace: string;
   licenseIssuedDate: string;
   licenseExpireDate: string;
-  licenseImagePath: string;
   idCardNumber: string;
   idCardIssueAuthority: string;
   idCardIssuedDate: Date;
   idCardExpireDate: Date;
-  idImagePath: string;
   visaIssueDate: Date;
   visaValidity: Date;
   salariedEmployedWith: string;
@@ -75,4 +70,5 @@ export class OpeningCustomer {
   residentialPermitOfForeign: boolean;
   residentialPermitOfForeignType: string;
   residentialPermitOfForeignCountryName: string;
+  documents: AccountOpeningDocument[];
 }
