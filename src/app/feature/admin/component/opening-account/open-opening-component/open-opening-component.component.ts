@@ -61,20 +61,19 @@ export class OpenOpeningComponentComponent implements OnInit {
         private toastService: ToastService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private accountPurposeService: AccountCategoryService,
+        private accountCategoryService: AccountCategoryService,
         private accountTypeService: AccountTypeService
     ) {
     }
 
-    // NOTE: remove only if account type and account purpose is not related
-    /*getAccountPurpose(accountTypeId: number) {
-        this.accountPurposeService.getAccountPurposeByAccountType(accountTypeId).subscribe((response: any) => {
+    getAccountPurpose(accountTypeId: number) {
+        this.accountCategoryService.getAccountPurposeByAccountType(accountTypeId).subscribe((response: any) => {
             this.accountPurposeList = response.detail;
         }, error => {
             console.log(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to loan Account Purpose'));
         });
-    }*/
+    }
 
     ngOnInit() {
         this.isApproval = LocalStorageUtil.getStorage().roleType === RoleType.APPROVAL &&
@@ -86,7 +85,7 @@ export class OpenOpeningComponentComponent implements OnInit {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Error loading Account Types.'));
         });
-        this.accountPurposeService.getAll().subscribe((response: any) => {
+        this.accountCategoryService.getAll().subscribe((response: any) => {
             this.accountPurposeList = response.detail;
         }, error => {
             console.error(error);
@@ -226,47 +225,16 @@ export class OpenOpeningComponentComponent implements OnInit {
             );
         }
         if (openingForm.openingAccount.openingCustomers.length > 0) {
+            const selectedAccountCategory = this.openingForm.openingAccount.purposeOfAccount;
             openingForm.openingAccount.openingCustomers.forEach((customer) => {
-                if (!ObjectUtil.isEmpty(customer.imagePath)) {
-                    this.documents.push(
-                        {
-                            name: `Applicant: ${customer.firstName} ${customer.lastName} Photo`,
-                            url: customer.imagePath
-                        }
-                    );
-                }
-                if (!ObjectUtil.isEmpty(customer.citizenImagePath)) {
-                    this.documents.push(
-                        {
-                            name: `Applicant: ${customer.firstName} ${customer.lastName} Citizenship`,
-                            url: customer.citizenImagePath
-                        }
-                    );
-                }
-                if (!ObjectUtil.isEmpty(customer.passportImagePath)) {
-                    this.documents.push(
-                        {
-                            name: `Applicant: ${customer.firstName} ${customer.lastName} Passport`,
-                            url: customer.passportImagePath
-                        }
-                    );
-                }
-                if (!ObjectUtil.isEmpty(customer.licenseImagePath)) {
-                    this.documents.push(
-                        {
-                            name: `Applicant: ${customer.firstName} ${customer.lastName} License`,
-                            url: customer.licenseImagePath
-                        }
-                    );
-                }
-                if (!ObjectUtil.isEmpty(customer.voterImagePath)) {
-                    this.documents.push(
-                        {
-                            name: `Applicant: ${customer.firstName} ${customer.lastName} Voter`,
-                            url: customer.voterImagePath
-                        }
-                    );
-                }
+                customer.documents.forEach(doc => {
+                    const docDetail = selectedAccountCategory.documents
+                    .filter(d => d.id === doc.documentId)[0];
+                    this.documents.push({
+                        name: `Applicant: ${customer.firstName} ${customer.lastName} ${docDetail.displayName}`,
+                        url: doc.path
+                    });
+                });
             });
         }
     }

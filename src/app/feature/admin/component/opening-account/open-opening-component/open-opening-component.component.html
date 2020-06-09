@@ -37,7 +37,7 @@
                       id="accountTypeList"
                       name="personalTypeOfAccount"
                       class="col-md-4 d-contents">
-                    <nb-radio
+                    <nb-radio (valueChange)="getAccountPurpose($event)"
                               *ngFor="let accountType of accountTypeList"
                               [value]="accountType.id">{{accountType.name}}</nb-radio>
                   </nb-radio-group>
@@ -46,12 +46,12 @@
             </div>
           </div>
           <div class="col-md-4 form-group">
-            <label for="purposeOfAccount">Purpose of Account</label>
+            <label for="purposeOfAccount">Account Category</label>
             <div class="row ml-2">
               <select class="custom-select"
                   formControlName="purposeOfAccount"
                   id="purposeOfAccount">
-                <option [ngValue]=null hidden>Select Account Purpose</option>
+                <option [ngValue]=null hidden>Select Account Category</option>
                 <option
                     *ngFor="let accountPurpose of accountPurposeList"
                     [ngValue]="accountPurpose.id">
