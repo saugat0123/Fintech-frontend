@@ -31,7 +31,7 @@ import {UserGuideComponent} from '../../@theme/components/user-guide/user-guide.
 import {EmailConfigurationComponent} from './component/email-configuration/email-configuration.component';
 import {EligibilitySummaryComponent} from './component/eligibility/eligibility-summary/eligibility-summary.component';
 import {AccountTypeConfigComponent} from './component/opening-account/config/account-type-config/account-type-config.component';
-import {AccountPurposeConfigComponent} from './component/opening-account/config/account-purpose-config/account-purpose-config.component';
+import {AccountCategoryConfigComponent} from './component/opening-account/config/account-category-config/account-category-config.component';
 import {PreferenceComponent} from './component/preference/preference.component';
 
 
@@ -76,7 +76,7 @@ export const adminRoutes: Routes = [
         path: 'openingAccountConfig',
         children: [
             {path: 'accountType', component: AccountTypeConfigComponent},
-            {path: 'accountPurpose', component: AccountPurposeConfigComponent}
+            {path: 'accountCategory', component: AccountCategoryConfigComponent}
         ]
     },
     {path: 'catalogue', component: CatalogueComponent},

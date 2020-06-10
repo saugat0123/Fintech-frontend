@@ -1,34 +1,38 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AccountPurpose} from '../../../../../modal/accountPurpose';
+import {AccountCategory} from '../../../../../modal/accountCategory';
 import {Action} from '../../../../../../../@core/Action';
 import {Violation} from '../../../../../../../@core/utils/modal/Violation';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AccountPurposeService} from '../../../service/account-purpose.service';
+import {AccountCategoryService} from '../../../service/account-category.service';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../../../@core/utils';
 import {CustomValidator} from '../../../../../../../@core/validator/custom-validator';
 import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
+import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
+import {AccountType} from '../../../../../modal/accountType';
+import {AccountTypeService} from '../../../service/account-type.service';
 
 @Component({
   selector: 'app-account-purpose-form',
-  templateUrl: './account-purpose-form.component.html',
-  styleUrls: ['./account-purpose-form.component.scss']
+  templateUrl: './account-category-form.component.html',
+  styleUrls: ['./account-category-form.component.scss']
 })
-export class AccountPurposeFormComponent implements OnInit {
+export class AccountCategoryFormComponent implements OnInit {
 
-  @Input() model: AccountPurpose;
-
+  @Input() model: AccountCategory;
   @Input() action: Action = Action.ADD;
 
   errors: Array<Violation>;
-
   modelForm: FormGroup;
+  accountTypeList: Array<AccountType>;
 
   constructor(
       private formBuilder: FormBuilder,
-      private service: AccountPurposeService,
+      private service: AccountCategoryService,
       private modalRef: NgbActiveModal,
-      private toastService: ToastService) {
+      private toastService: ToastService,
+      private accountTypeService: AccountTypeService
+  ) {
   }
 
   get name() {
@@ -36,14 +40,28 @@ export class AccountPurposeFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.accountTypeService.getAll().subscribe((r: any) => {
+      this.accountTypeList = r.detail;
+      console.log(this.accountTypeList);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load account types'));
+    });
     this.buildForm();
   }
 
   buildForm() {
     this.modelForm = this.formBuilder.group(
         {
-          id: [this.model.id === undefined ? '' : this.model.id],
-          name: [this.model.name === undefined ? '' : this.model.name, [Validators.required, CustomValidator.notEmpty]],
+          id: [ObjectUtil.setUndefinedIfNull(this.model.id)],
+          name: [
+            ObjectUtil.setUndefinedIfNull(this.model.name),
+            [Validators.required, CustomValidator.notEmpty]
+          ],
+          accountType: [
+              this.model.accountType === undefined ? undefined : this.model.accountType.id,
+              Validators.required
+          ]
         }
     );
   }
@@ -51,8 +69,9 @@ export class AccountPurposeFormComponent implements OnInit {
   save() {
     switch (this.action) {
       case Action.ADD:
-
-        this.service.save(this.modelForm.value).subscribe(
+        this.model = this.modelForm.value as AccountCategory;
+        this.model.accountType = this.getAccountTypeById(this.modelForm.get('accountType').value);
+        this.service.save(this.model).subscribe(
             () => {
 
               this.modalRef.close(ModalResponse.SUCCESS);
@@ -72,7 +91,8 @@ export class AccountPurposeFormComponent implements OnInit {
         break;
       case Action.UPDATE:
         this.model.name = this.modelForm.get('name').value;
-        this.service.update(this.model.id, this.modelForm.value)
+        this.model.accountType = this.getAccountTypeById(this.modelForm.get('accountType').value);
+        this.service.update(this.model.id, this.model)
         .subscribe(
             () => {
               this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Account Purpose'));
@@ -94,6 +114,12 @@ export class AccountPurposeFormComponent implements OnInit {
       default:
         console.log(`Invalid Action ${this.action}`);
     }
+  }
+
+  private getAccountTypeById(id: number): AccountType {
+    const accountType = new AccountType();
+    accountType.id = id;
+    return accountType;
   }
 
   close() {

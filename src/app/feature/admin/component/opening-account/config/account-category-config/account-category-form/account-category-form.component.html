@@ -1,0 +1,43 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{action}} Account Category</h4>
+  <button (click)="close()" aria-label="Close" class="close pull-right" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form (ngSubmit)="save()" [formGroup]="modelForm">
+  <div class="modal-body">
+
+    <app-validation-error [errors]="errors"></app-validation-error>
+
+    <div class="row">
+      <div class="col-md-12 form-group">
+        <label for="accountType">Account Type</label>
+        <ng-select [items]="accountTypeList"
+                   bindLabel="name"
+                   bindValue="id"
+                   formControlName="accountType"
+                   id="accountType"
+                   placeholder="Select Account Type">
+        </ng-select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 form-group">
+        <label for="name">Name</label>
+        <input class="form-control" formControlName="id" placeholder="id" type="hidden">
+        <input [ngClass]="{
+                                'is-invalid': name.invalid && (name.dirty || name.touched),
+                                'is-valid': !name.invalid && (name.dirty || name.touched)
+                                }" class="form-control" formControlName="name" id="name"
+               ngbAutofocus
+               placeholder="Name"
+               required
+               type="text">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="submit" [disabled]="!modelForm.valid">Save</button>
+  </div>
+</form>

@@ -1,10 +1,10 @@
 import {OpeningNominee} from './openingNominee';
 import {OpeningBeneficiary} from './openingBeneficiary';
 import {OpeningCustomer} from './openingCustomer';
-import {AccountPurpose} from './accountPurpose';
+import {AccountCategory} from './accountCategory';
 
 export class OpeningAccount {
-  purposeOfAccount: AccountPurpose;
+  purposeOfAccount: AccountCategory;
   currency: string;
   haveJoint: boolean;
   haveNominee: boolean;
