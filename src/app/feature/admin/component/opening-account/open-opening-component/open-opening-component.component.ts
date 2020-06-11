@@ -30,6 +30,8 @@ import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
     templateUrl: './open-opening-component.component.html',
     styleUrls: ['./open-opening-component.component.css']
 })
+
+// todo verify and remove function which is not needed
 export class OpenOpeningComponentComponent implements OnInit {
     title: string;
     requestedDate: string;
@@ -537,17 +539,19 @@ export class OpenOpeningComponentComponent implements OnInit {
         control.push(this.applicantOccupationDetailsFormGroup());
     }
 
-    onSubmit(status: string) {
-        this.openingForm.status = status;
-        this.setCustomers();
-        this.service.saveWithoutToken(this.openingForm).subscribe((response: any) => {
-                this.router.navigate(['home/admin/openingAccount']);
+    submitForm(action: string) {
+        const openingActionDto = {
+            'id' : this.openingAccount.get('id').value,
+            actionStatus: action,
+            openingCustomers:  this.getApplicantDetail()
+        };
+        this.service.postAccountOpeningAction(openingActionDto).subscribe(value => {
+            this.router.navigate(['home/admin/openingAccount']);
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved'));
-            }, error => {
-                console.error(error);
-                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Opening Form'));
-            }
-        );
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Opening Form'));
+        });
     }
 
     formatDate(sentDate): string {

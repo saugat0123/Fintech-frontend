@@ -26,10 +26,9 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="box box-primary">
-            <div class="box-header">
-                <div class="col-md-12">
-                    <div class="box-body">
+       <nb-card>
+           <nb-card-header></nb-card-header>
+           <nb-card-body>
                         <table id="add-branch-table" class="table  table-bordered table-hover ">
                             <thead>
                             <tr>
@@ -52,12 +51,12 @@
                                 <td (click)="onEdit(openingForm)">{{openingForm?.branch.name}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.accountType?.name}}</td>
                                 <td *ngIf="showAction">
-                                    <button nbButton status="success" size="xsmall"
-                                            (click)="updateStatus(openingForm, accountStatusType.APPROVAL)">
+                                    <button nbButton status="success" size="small"
+                                            (click)="updateStatus(openingForm, 'APPROVAL')">
                                         Approve
                                     </button>
-                                    <button nbButton status="danger" size="xsmall"
-                                            (click)="updateStatus(openingForm, accountStatusType.REJECTED)">
+                                    <button nbButton status="danger" size="small"
+                                            (click)="updateStatus(openingForm, 'REJECTED')">
                                         Reject
                                     </button>
                                 </td>
@@ -69,17 +68,7 @@
                         <app-paging *ngIf="!spinner" [pageable]="pageable"
                                     (changePage)="changePage($event)"></app-paging>
                         <!-- ===================table-pagination==================== -->
-                        <!-- /.box-body -->
-                        <!-- /.box -->
-
-                    </div>
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
-                <!-- ***************************update-modal********************************** -->
-
-                <!-- ***************************update-modal********************************** -->
-            </div>
-        </div>
+           </nb-card-body>
+       </nb-card>
     </div>
 </div>

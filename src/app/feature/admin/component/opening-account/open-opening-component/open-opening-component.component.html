@@ -1644,10 +1644,10 @@
 
       <!-- START ROW -->
       <div class="text-right">
-        <input (click)="onSubmit('APPROVAL')" *ngIf="showAction"
+        <input (click)="submitForm('APPROVAL')" *ngIf="showAction"
                class="btn btn-flat btn-lg btn-success m-4" type="button"
                value="Approve"/>
-        <input (click)="onSubmit('REJECTED')" *ngIf="showAction"
+        <input (click)="submitForm('REJECTED')" *ngIf="showAction"
                class="btn btn-flat btn-lg btn-danger m-4" type="button"
                value="Reject"/>
         <!--<button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4"
