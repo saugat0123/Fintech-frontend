@@ -92,7 +92,7 @@ export class OpeningAccountComponent implements OnInit {
             const openingActionDto = {
                 'id' : openingForm.id,
                 actionStatus: accountStatus,
-                email:  openingForm.openingAccount.openingCustomers[0].email
+                openingCustomers:  openingForm.openingAccount.openingCustomers
             };
             this.service.postAccountOpeningAction(openingActionDto).subscribe(value => {
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Account Request Status Changed!!!'));

@@ -543,7 +543,7 @@ export class OpenOpeningComponentComponent implements OnInit {
         const openingActionDto = {
             'id' : this.openingAccount.get('id').value,
             actionStatus: action,
-            email:  this.getApplicantDetail()[0].applicantEmail
+            openingCustomers:  this.getApplicantDetail()
         };
         this.service.postAccountOpeningAction(openingActionDto).subscribe(value => {
             this.router.navigate(['home/admin/openingAccount']);
