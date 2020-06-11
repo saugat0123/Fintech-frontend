@@ -85,11 +85,16 @@ export class OpeningAccountComponent implements OnInit {
         this.router.navigate(['home/admin/openOpeningAccount'], {queryParams: {openingFormId: openingForm.id}});
     }
 
-    updateStatus(openingForm: OpeningForm, accountStatus: AccountStatus) {
+    updateStatus(openingForm: OpeningForm, accountStatus) {
         this.service.detail(openingForm.id).subscribe((response: any) => {
             openingForm = response.detail;
             openingForm.status = AccountStatus.name(accountStatus);
-            this.service.update(openingForm.id, openingForm).subscribe((response1: any) => {
+            const openingActionDto = {
+                'id' : openingForm.id,
+                actionStatus: accountStatus,
+                email:  openingForm.openingAccount.openingCustomers[0].email
+            };
+            this.service.postAccountOpeningAction(openingActionDto).subscribe(value => {
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Account Request Status Changed!!!'));
                     OpeningAccountComponent.loadData(this);
                 }, error => {
