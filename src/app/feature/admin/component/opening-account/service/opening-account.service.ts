@@ -38,4 +38,9 @@ export class OpeningAccountService extends BaseService<OpeningForm> {
         return this.http.post(req.url, model, {headers: req.header});
     }
 
+    postAccountOpeningAction(actionData) {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/action`);
+        return this.http.post(req.url, actionData, {headers: req.header});
+    }
+
 }
