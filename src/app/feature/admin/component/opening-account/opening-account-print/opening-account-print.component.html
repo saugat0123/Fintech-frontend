@@ -1,8 +1,9 @@
-<nb-card id="formId" hidden>
-    <nb-card-header>
-        <div class="wizard-title text-center"><h1> {{openingForm?.accountType?.name}} Opening Account</h1></div>
+<nb-card id="account-opening-print" hidden>
+    <nb-card-header class="text-center">
+       <h1> {{openingForm?.accountType?.name}} Opening Account</h1>
     </nb-card-header>
     <nb-card-body>
+        <hr>
         <div class="form-group">
                 <input hidden="id" type="text"/>
                 <!-- START ROW -->
@@ -45,44 +46,45 @@
                 <!-- END ROW -->
                 <!-- START ROW -->
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <label for="jointAccountRadio"><strong>Joint Account:- </strong></label>
                         <span id="jointAccountRadio"> {{openingForm?.openingAccount?.haveJoint === true ? 'Yes' : 'No'}}</span>
                     </div>
                 </div>
                 <!-- END ROW -->
+            <hr>
                 <div *ngFor="let applicantDetail of openingForm?.openingAccount?.openingCustomers;
                   let applicantIndex = index">
                     <!-- START ROW -->
-                    <div class="row">
+                    <div class="row mt-3">
                         <div class="box-header with-border col-md-9">
-                            <h2 class="box-title title"><strong>Applicant {{applicantIndex + 1}} Details</strong></h2>
+                            <h4 class="box-title title"><strong>Applicant {{applicantIndex + 1}} Details</strong></h4>
                         </div>
                     </div>
                     <!-- END ROW -->
                     <!-- START ROW -->
-                    <div class="row">
+                    <div class="row mt-3">
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="customerTitle"><strong>Customer Title:- </strong></label>
+                                <label for="customerTitle"><strong>Title:- </strong></label>
                                 <span id="customerTitle"> {{applicantDetail?.title}}</span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="customerFirstName"><strong>Customer First Name:- </strong></label>
+                                <label for="customerFirstName"><strong>First Name:- </strong></label>
                                 <span id="customerFirstName"> {{applicantDetail?.firstName}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="customerMiddleName"><strong>Customer Middle Name:- </strong></label>
+                                <label for="customerMiddleName"><strong>Middle Name:- </strong></label>
                                 <span id="customerMiddleName"> {{applicantDetail?.middleName}}</span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="customerLastName"><strong>Customer Last Name:- </strong></label>
+                                <label for="customerLastName"><strong> Last Name:- </strong></label>
                                 <span id="customerLastName"> {{applicantDetail?.lastName}}</span>
                             </div>
                         </div>
@@ -93,14 +95,14 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantMaritalStatus">
-                                    <strong>Applicant's Marital Status:- </strong>
+                                    <strong> Marital Status:- </strong>
                                 </label>
                                 <span id="applicantMaritalStatus"> {{applicantDetail?.maritalStatus}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantGender"><strong>Applicant Gender:- </strong></label>
+                                <label for="applicantGender"><strong>Gender:- </strong></label>
                                 <span id="applicantGender"> {{applicantDetail?.gender}}</span>
                             </div>
                         </div>
@@ -115,14 +117,14 @@
                     </div>
                     <!-- END ROW -->
                     <div class="box-header with-border">
-                        <h4 class="box-title title"><strong>Permanent Address:- </strong></h4>
+                        <h5 class="box-title title"><strong>Permanent Address:- </strong></h5>
                     </div>
                     <!-- START ROW -->
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantPermanentProvince">
-                                    <strong>Applicant Permanent Province:- </strong>
+                                    <strong> Province:- </strong>
                                 </label>
                                 <span id="applicantPermanentProvince"> {{applicantDetail?.permanentProvince}}</span>
                             </div>
@@ -130,7 +132,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantPermanentDistrict">
-                                    <strong>Applicant Permanent District:- </strong>
+                                    <strong> District:- </strong>
                                 </label>
                                 <span id="applicantPermanentDistrict"> {{applicantDetail?.permanentDistrict}}</span>
                             </div>
@@ -138,7 +140,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantPermanentMunicipalityOrVDC">
-                                    <strong>Applicant Permanent Municipality/VDC:- </strong></label>
+                                    <strong> Municipality/VDC:- </strong></label>
                                 <span id="applicantPermanentMunicipalityOrVDC"> {{applicantDetail?.permanentMunicipality}}</span>
                             </div>
                         </div>
@@ -148,20 +150,20 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantPermanentWard"><strong>Applicant Permanent Ward:- </strong></label>
+                                <label for="applicantPermanentWard"><strong> Ward:- </strong></label>
                                 <span id="applicantPermanentWard"> {{applicantDetail?.permanentWard}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantPermanentStreet"><strong>Applicant Permanent Street:- </strong></label>
+                                <label for="applicantPermanentStreet"><strong> Street:- </strong></label>
                                 <span id="applicantPermanentStreet"> {{applicantDetail?.permanentStreet}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantPermanentHouseNo">
-                                    <strong>Applicant Permanent House Number:- </strong>
+                                    <strong>House Number:- </strong>
                                     <span id="applicantPermanentHouseNo"> {{applicantDetail?.permanentHouseNumber}}</span>
                                 </label>
                             </div>
@@ -169,26 +171,26 @@
                     </div>
                     <!-- END ROW -->
                     <div class="box-header with-border">
-                        <h4 class="box-title title"><strong>Present Address:- </strong></h4>
+                        <h5 class="box-title title"><strong>Present Address:- </strong></h5>
                     </div>
                     <!-- START ROW -->
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantPresentProvince"><strong>Applicant Present Province:- </strong></label>
+                                <label for="applicantPresentProvince"><strong>Province:- </strong></label>
                                 <span id="applicantPresentProvince"> {{applicantDetail?.presentProvince}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantPresentDistrict"><strong>Applicant Present District:- </strong></label>
+                                <label for="applicantPresentDistrict"><strong> District:- </strong></label>
                                 <span id="applicantPresentDistrict"> {{applicantDetail?.presentDistrict}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantPresentMunicipalityOrVDC">
-                                    <strong>Applicant Present Municipality/VDC:- </strong>
+                                    <strong> Municipality/VDC:- </strong>
                                 </label>
                                 <span id="applicantPresentMunicipalityOrVDC"> {{applicantDetail?.presentMunicipality}}</span>
                             </div>
@@ -199,40 +201,41 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantPresentWard"><strong>Applicant Present Ward:- </strong></label>
+                                <label for="applicantPresentWard"><strong> Present Ward:- </strong></label>
                                 <span id="applicantPresentWard"> {{applicantDetail?.presentWard}}</span>
                             </div>
                         </div><div class="col-md-4">
                         <div class="form-group">
-                            <label for="applicantPresentStreet"><strong>Applicant Present Street:- </strong></label>
+                            <label for="applicantPresentStreet"><strong>Street:- </strong></label>
                             <span id="applicantPresentStreet"> {{applicantDetail?.presentStreet}}</span>
                         </div>
                     </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantPresentHouseNo">
-                                    <strong>Applicant Present House Number:- </strong>
+                                    <strong> House Number:- </strong>
                                 </label>
                                 <span id="applicantPresentHouseNo"> {{applicantDetail?.presentHouseNumber}}</span>
                             </div>
                         </div>
                     </div>
                     <!-- END ROW -->
-                    <div class="box-header with-border">
+                    <hr>
+                    <div class="box-header with-border mb-3">
                         <h4 class="box-title title"><strong>In case of residing in Rented House:- </strong></h4>
                     </div>
                     <!-- START ROW -->
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="applicantLandLordName"><strong>Applicant Land Lord Name:- </strong></label>
+                                <label for="applicantLandLordName"><strong>Land Lord Name:- </strong></label>
                                 <span id="applicantLandLordName"> {{applicantDetail?.landLordName}}</span>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group float-right">
                                 <label for="applicantLandLordContactNumber">
-                                    <strong>Applicant Land Lord Contact Number:- </strong>
+                                    <strong>Land Lord Contact Number:- </strong>
                                 </label>
                                 <span id="applicantLandLordContactNumber"> {{applicantDetail?.landLordContactNo}}</span>
                             </div>
@@ -240,7 +243,7 @@
                     </div>
                     <!-- END ROW -->
                     <div class="box-header with-border">
-                        <h4 class="box-title title"><strong>Contact Number:- </strong></h4>
+                        <h5 class="box-title title"><strong>Contact Number:- </strong></h5>
                     </div>
                     <!-- START ROW -->
                     <div class="row">
@@ -274,10 +277,11 @@
                         </div>
                     </div>
                     <!-- END ROW -->
+                    <hr>
                     <div class="box-header with-border">
                         <h4 class="box-title title"><strong>Applicant Relative</strong></h4>
                     </div>
-                    <div class="border-bottom border-dark m-4 row">
+                    <div class="m-4 row">
 
                             <div class="col-md-6"
                                  *ngFor="let relative of applicantDetail?.kyc?.customerRelatives;
@@ -294,12 +298,12 @@
                             </div>-->
                         </div>
                     </div>
-
-                    <div class="box-header with-border">
+                    <hr>
+                    <div class="box-header">
                         <h4 class="box-title title"><strong>Applicant Identification</strong></h4>
                     </div>
                     <!-- START ROW -->
-                    <div class="row">
+                    <div class="row mt-3">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantNationality"><strong>Nationality:- </strong></label>
@@ -314,7 +318,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantPanNumber"><strong>Applicant PAN Number:- </strong></label>
+                                <label for="applicantPanNumber"><strong>PAN Number:- </strong></label>
                                 <span id="applicantPanNumber"> {{applicantDetail?.panNo}}</span>
                             </div>
                         </div>
@@ -328,7 +332,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantCitizenNumber"><strong>Applicant Citizen Number:- </strong></label>
+                                <label for="applicantCitizenNumber"><strong>Citizenship Number:- </strong></label>
                                 <span id="applicantCitizenNumber"> {{applicantDetail?.citizenNumber}}</span>
                             </div>
                         </div>
@@ -341,7 +345,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantCitizenIssuedDate">
-                                    <strong>Applicant Citizen Issued Date:- </strong>
+                                    <strong> Issued Date:- </strong>
                                 </label>
                                 <span id="applicantCitizenIssuedDate"> {{applicantDetail?.citizenIssuedDate | date}}</span>
                             </div>
@@ -357,7 +361,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="applicantPassportNumber"><strong>Applicant Passport Number:- </strong></label>
+                                <label for="applicantPassportNumber"><strong>Passport Number:- </strong></label>
                                 <span id="applicantPassportNumber"> {{applicantDetail?.passportNumber}}</span>
                             </div>
                         </div>
@@ -373,21 +377,22 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantPassportIssuedDate">
-                                    <strong>Applicant Passport Issued Date:- </strong></label>
+                                    <strong> Passport Issued Date:- </strong></label>
                                 <span id="applicantPassportIssuedDate"> {{applicantDetail?.passportIssuedDate | date}}</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="applicantPassportExpireDate">
-                                    <strong>Applicant Passport Expire Date:- </strong>
+                                    <strong> Passport Expire Date:- </strong>
                                 </label>
                                 <span id="applicantPassportExpireDate"> {{applicantDetail?.passportExpireDate | date}}</span>
                             </div>
                         </div>
                     </div>
                     <!-- END ROW -->
-                    <div class="box-header with-border">
+                    <hr>
+                    <div class="box-header with-border mb-3">
                         <h4 class="box-title title"><strong>Employment Details</strong></h4>
                     </div>
                     <!-- START ROW -->
@@ -414,10 +419,11 @@
                         </div>
                     </div>
                     <!-- END ROW -->
+                    <hr>
                     <div class="box-header with-border">
                         <h4 class="box-title title"><strong>Occupational Details</strong></h4>
                     </div>
-                    <div class="border-bottom border-dark m-4"
+                    <div class="m-4"
                          *ngFor="let occupation of applicantDetail?.kyc?.occupationalDetails;
                          let occupationIndex = index">
                         <!-- START ROW -->
@@ -501,7 +507,8 @@
                         </div>
                     </div>
                     <!-- END ROW -->
-                    <div class="box-header with-border">
+                    <hr>
+                    <div class="box-header with-border mb-3">
                         <h4 class="box-title title"><strong>Declarative</strong></h4>
                     </div>
                     <!-- START ROW -->
@@ -613,7 +620,7 @@
                 <!-- END ROW -->
                 <div [hidden]="openingForm?.openingAccount?.haveNominee !== true">
                     <div class="box-header with-border">
-                        <h3 class="box-title title"><strong>Applicant Nominee</strong></h3>
+                        <h4 class="box-title title"><strong>Applicant Nominee</strong></h4>
                     </div>
                     <!-- START ROW -->
                     <div class="row">
@@ -688,7 +695,7 @@
                 <!-- END ROW -->
                 <div [hidden]="openingForm?.openingAccount?.haveBeneficiary !== true">
                     <div class="box-header with-border">
-                        <h3 class="box-title title"><strong>Applicant Beneficiary Details</strong></h3>
+                        <h4 class="box-title title"><strong>Applicant Beneficiary Details</strong></h4>
                     </div>
                     <!-- START ROW -->
                     <div class="row">
@@ -752,8 +759,9 @@
                     </div>
                     <!-- END ROW -->
                 </div>
+            <hr>
                 <div class="box-header with-border">
-                    <h3 class="box-title title"><strong>Account Transaction Details</strong></h3>
+                    <h4 class="box-title title"><strong>Account Transaction Details</strong></h4>
                 </div>
                 <!-- START ROW -->
                 <div class="row">
@@ -775,7 +783,7 @@
                 <!-- END ROW -->
 
                 <div class="box-header with-border">
-                    <h3 class="box-title title"><strong>Service</strong></h3>
+                    <h4 class="box-title title"><strong>Service</strong></h4>
                 </div>
                 <!-- START ROW -->
                 <div class="row">
@@ -821,6 +829,7 @@
                     </div>
                 </div>
                 <!-- END ROW -->
+            <hr>
         </div>
     </nb-card-body>
 </nb-card>

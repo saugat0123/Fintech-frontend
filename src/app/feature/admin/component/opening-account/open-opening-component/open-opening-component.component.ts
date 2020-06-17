@@ -759,4 +759,8 @@ export class OpenOpeningComponentComponent implements OnInit {
         link.setAttribute('visibility', 'hidden');
         link.click();
     }
+
+    onBack() {
+        window.history.back();
+    }
 }
