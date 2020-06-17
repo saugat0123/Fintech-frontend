@@ -1,10 +1,21 @@
 <nb-card>
   <nb-card-header>
+    <div class="row">
+      <div class="col-md-2">
+        <button class="btn-primary float-left" (click)="onBack()"><nb-icon icon="arrow-back"></nb-icon></button>
+      </div>
+      <div class="offset-8 col-md-2">
+        <button [useExistingCss]="true" class="btn-sm btn-warning float-right"
+                ngxPrint printSectionId="account-opening-print">
+          PRINT<i class="col-md-1 fa fa-print"></i></button>
+      </div>
+    </div>
     <div class="wizard-title text-center"><h1>{{title}} Opening Account</h1></div>
     <hr/>
     <p class="text-right">Requested Date: {{requestedDate}}</p>
   </nb-card-header>
   <nb-card-body>
+    <div id="print-detail">
     <form [formGroup]="openingAccount" class="form-horizontal">
       <input formControlName="id" hidden type="text"/>
 
@@ -1650,13 +1661,10 @@
         <input (click)="submitForm('REJECTED')" *ngIf="showAction"
                class="btn btn-flat btn-lg btn-danger m-4" type="button"
                value="Reject"/>
-        <!--<button [useExistingCss]="true" class="btn btn-flat btn-lg btn-secondary m-4"
-                ngxPrint printSectionId="formId">Print
-        </button>-->
       </div>
       <!-- END ROW -->
     </form>
+    </div>
   </nb-card-body>
 </nb-card>
 <app-opening-account-print [openingForm]="openingForm"></app-opening-account-print>
-<!-- TODO Manage commented buttons -->
