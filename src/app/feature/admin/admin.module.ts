@@ -81,6 +81,7 @@ import {BlacklistComponent} from './component/blacklist/blacklist.component';
 import {BlacklistFormComponent} from './component/blacklist/blacklist-form/blacklist-form.component';
 import {NotificationMasterComponent} from './component/notification-master/notification-master.component';
 import {AccountDocumentFormComponent} from './component/opening-account/config/account-category-config/account-document-form/account-document-form.component';
+import { RemarkModalComponent } from './component/opening-account/remark-modal/remark-modal.component';
 
 @NgModule({
     declarations: [
@@ -149,6 +150,7 @@ import {AccountDocumentFormComponent} from './component/opening-account/config/a
         BlacklistFormComponent,
         NotificationMasterComponent,
         AccountDocumentFormComponent,
+        RemarkModalComponent
         // SecurityComponent
     ],
     imports: [
@@ -194,7 +196,8 @@ import {AccountDocumentFormComponent} from './component/opening-account/config/a
         ShareValueFormComponent,
         BaseInterestFormComponent,
         BlacklistFormComponent,
-        AccountDocumentFormComponent
+        AccountDocumentFormComponent,
+        RemarkModalComponent
     ]
 
 })

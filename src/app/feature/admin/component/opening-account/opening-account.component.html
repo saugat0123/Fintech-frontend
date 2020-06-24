@@ -37,6 +37,8 @@
                                 <th>Requested Date</th>
                                 <th>Branch</th>
                                 <th>Account Type</th>
+                                <th>Remark</th>
+                                <th>Last Follow Up</th>
                                 <th *ngIf="showAction">Action</th>
                             </tr>
                             </thead>
@@ -50,6 +52,8 @@
                                 <td (click)="onEdit(openingForm)">{{openingForm?.requestedDate | date}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.branch.name}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.accountType?.name}}</td>
+                                <td (click)="onEdit(openingForm)">{{openingForm?.remark ? openingForm?.remark : 'N/A'}}</td>
+                                <td (click)="onEdit(openingForm)">{{openingForm.lastFollowUp ? (openingForm?.lastFollowUp |date ) : 'N/A'}}</td>
                                 <td *ngIf="showAction">
                                     <button nbButton status="success" size="small"
                                             (click)="updateStatus(openingForm, 'APPROVAL')">
@@ -59,6 +63,7 @@
                                             (click)="updateStatus(openingForm, 'REJECTED')">
                                         Reject
                                     </button>
+                                    <button nbButton status="info" size="small" (click)="openRemarkModal(openingForm)">Remark</button>
                                 </td>
                             </tr>
                             </tbody>
