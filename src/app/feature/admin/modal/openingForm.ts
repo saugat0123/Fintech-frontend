@@ -11,4 +11,6 @@ export class OpeningForm {
   accountType: AccountType;
   openingAccount: OpeningAccount;
   status: string;
+  remark: string;
+  lastFollowUp: Date;
 }

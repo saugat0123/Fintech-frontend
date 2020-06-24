@@ -43,4 +43,9 @@ export class OpeningAccountService extends BaseService<OpeningForm> {
         return this.http.post(req.url, actionData, {headers: req.header});
     }
 
+    updateFormDataOnly(openingForm: OpeningForm) {
+        const req = ApiUtils.getRequest(`${this.getApi()}/update-form-data`);
+        return this.http.patch(req.url, openingForm, {headers: req.header});
+    }
+
 }
