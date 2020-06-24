@@ -37,8 +37,8 @@
                                 <th>Requested Date</th>
                                 <th>Branch</th>
                                 <th>Account Type</th>
-                                <th>Remark</th>
-                                <th>Last Follow Up</th>
+                                <th>Follow Up Remark</th>
+                                <th>Last Follow Up Date</th>
                                 <th *ngIf="showAction">Action</th>
                             </tr>
                             </thead>
@@ -63,7 +63,7 @@
                                             (click)="updateStatus(openingForm, 'REJECTED')">
                                         Reject
                                     </button>
-                                    <button nbButton status="info" size="small" (click)="openRemarkModal(openingForm)">Remark</button>
+                                    <button nbButton status="info" size="small" (click)="openRemarkModal(openingForm)">Follow Up</button>
                                 </td>
                             </tr>
                             </tbody>
