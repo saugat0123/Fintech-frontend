@@ -11,6 +11,7 @@ import {OpeningAccountService} from './service/opening-account.service';
 import {AccountStatus} from '../../modal/accountStatus';
 import {RoleType} from '../../modal/roleType';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {RemarkModalComponent} from './remark-modal/remark-modal.component';
 
 @Component({
     selector: 'app-opening-account',
@@ -39,7 +40,7 @@ export class OpeningAccountComponent implements OnInit {
         private modalService: NgbModal,
         private breadcrumbService: BreadcrumbService,
         private toastService: ToastService,
-        private router: Router
+        private router: Router,
     ) {
     }
 
@@ -108,5 +109,11 @@ export class OpeningAccountComponent implements OnInit {
         this.showAction = this.isApproval && (accountStatus === AccountStatus.NEW_REQUEST);
         this.searchObject.status = AccountStatus.name(accountStatus);
         OpeningAccountComponent.loadData(this);
+    }
+
+    openRemarkModal(openingForm) {
+       const modalRef = this.modalService.open(RemarkModalComponent);
+       modalRef.componentInstance.openingForm = openingForm;
+        modalRef.result.then(() => { OpeningAccountComponent.loadData(this); }, () => {});
     }
 }
