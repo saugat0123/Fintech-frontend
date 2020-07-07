@@ -48,6 +48,7 @@ export class BasicInfoComponent implements OnInit {
     municipality: MunicipalityVdc = new MunicipalityVdc();
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     private isBlackListed: boolean;
+    allDistrict: Array<District> = Array<District>();
 
     constructor(
         private formBuilder: FormBuilder,
@@ -61,6 +62,7 @@ export class BasicInfoComponent implements OnInit {
 
     ngOnInit() {
         this.getProvince();
+        this.getAllDistrict();
         this.formMaker();
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.customerDetailField.showFormField = true;
@@ -259,5 +261,11 @@ export class BasicInfoComponent implements OnInit {
         } else {
            modalRef.componentInstance.model = this.customer;
         }
+    }
+
+    private getAllDistrict() {
+        this.commonLocation.getAllDistrict().subscribe((response: any) => {
+            this.allDistrict = response.detail;
+        });
     }
 }

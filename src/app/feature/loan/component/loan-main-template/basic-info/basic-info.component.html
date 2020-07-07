@@ -215,19 +215,16 @@
                     <!-- START ROW -->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="citizenshipIssuedPlace"><strong>Issued Place</strong></label>
-                            <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipIssuedPlace.errors }"
-                                   class="form-control"
-                                   formControlName="citizenshipIssuedPlace" id="citizenshipIssuedPlace"
-                                   name="citizenshipIssuedPlace"
-                                   placeholder="Citizenship Issued Place"
-                                   type="text">
-                            <div *ngIf="(submitted) && basicInfoControls.citizenshipIssuedPlace.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="basicInfoControls.citizenshipIssuedPlace.errors.required">Issued Place is
-                                    required
-                                </div>
-                            </div>
+                            <label for="citizenshipIssuedPlace"><strong>Citizenship Issued District</strong></label>
+                            <ng-select [multiple]="false"
+                                       formControlName="citizenshipIssuedPlace"
+                                       id="citizenshipIssuedPlace"
+                                       [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipIssuedPlace.errors }"
+                                       placeholder="Select district">
+                                <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+                                    {{district?.name}}
+                                </ng-option>
+                            </ng-select>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -323,12 +320,21 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="issuedLocation"><strong>Issued Place</strong></label>
-                                        <input class="form-control" formControlName="citizenshipIssuedPlace"
-                                               id="issuedLocation"
-                                              placeholder="Issued Place" type="text">
+                                        <label for="issuedLocation"><strong>Issued District</strong></label>
+                                        <ng-select [multiple]="false"
+                                                   formControlName="citizenshipIssuedPlace"
+                                                   id="issuedLocation"
+                                                   [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipIssuedPlace').errors }"
+                                                   placeholder="Issued District">
+                                            <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+                                                {{district?.name}}
+                                            </ng-option>
+                                        </ng-select>
                                         <div *ngIf="submitted && relatives.get('citizenshipIssuedPlace').errors"
                                              class="invalid-feedback">
+                                            <div *ngIf="relatives.get('citizenshipIssuedPlace').errors.required">
+                                                Name is required
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

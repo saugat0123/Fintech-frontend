@@ -28,4 +28,9 @@ export class AddressService {
         const getUrl = ApiUtils.getRequest(`${AddressService.API}/municipalityVdcByDistrict`);
         return this.http.post(getUrl.url, district, {headers: getUrl.header});
     }
+
+    getAllDistrict() {
+        const getUrl = ApiUtils.getRequest(`${AddressService.API}/district`);
+        return this.http.get(getUrl.url, {headers: getUrl.header});
+    }
 }
