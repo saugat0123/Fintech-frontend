@@ -35,6 +35,7 @@ export class GuarantorComponent implements OnInit {
   municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
   addressList: Array<Address> = new Array<Address>();
   private isBlackListed: boolean;
+  allDistrict: Array<District> = new Array<District>();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -47,6 +48,7 @@ export class GuarantorComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.getProvince();
+    this.getAllDistrict();
   }
 
   buildForm() {
@@ -196,6 +198,12 @@ export class GuarantorComponent implements OnInit {
         this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Guarantor'));
         (this.form.get('guarantorDetails') as FormArray).controls[index].reset();
       }
+    });
+  }
+
+  private getAllDistrict() {
+    this.addressServices.getAllDistrict().subscribe((response: any) => {
+      this.allDistrict = response.detail;
     });
   }
 }
