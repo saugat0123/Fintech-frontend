@@ -30,7 +30,23 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><h4>Category</h4></label>
+                            <ng-select #category="ngModel" [items]="loanCategories"
+                                       [multiple]="false"
+                                       bindValue="value"
+                                       bindLabel="key"
+                                       [(ngModel)]="selectedLoanCategory"
+                                       name="category"
+                                       placeholder="Select category">
+                            </ng-select>
+                            <div *ngIf="loanConfigForm.submitted && category.invalid">
+                                <small class="text-danger">Invalid loan category</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label><h4>Interest Rate</h4></label>
                             <input #interestRate="ngModel"
