@@ -167,15 +167,16 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label><strong>Citizenship Issued Place</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('issuedPlace').errors }"
-                                               class="form-control form-control-sm-error rounded"
-                                               formControlName="issuedPlace"
-                                               id="citizenIssuedPlace"
-                                               name="citizenIssuedPlace"
-                                               placeholder="Citizenship Issued Place"
-                                               type="text"/>
-                                       <div *ngIf="(submitted) && guarantorDetails.get('issuedPlace').invalid"
+                                        <label><strong>Citizenship Issued District</strong></label>
+                                        <ng-select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('issuedPlace').errors }"
+                                                   [multiple]="false"
+                                                   formControlName="issuedPlace"
+                                                   placeholder="Select district">
+                                            <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+                                                {{district?.name}}
+                                            </ng-option>
+                                        </ng-select>
+                                        <div *ngIf="(submitted) && guarantorDetails.get('issuedPlace').invalid"
                                              class="invalid-feedback">
                                             <div *ngIf="guarantorDetails.get('issuedPlace').errors.required">
                                                 Citizenship issued Place is required
