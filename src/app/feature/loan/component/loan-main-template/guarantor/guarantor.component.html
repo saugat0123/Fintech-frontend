@@ -15,8 +15,7 @@
                 <!--START ROW-->
                 <div formArrayName="guarantorDetails">
                     <div
-                        *ngFor="let guarantorDetails of form.get('guarantorDetails')['controls']; let i = index"
-                        class="font-weight-bold">
+                        *ngFor="let guarantorDetails of form.get('guarantorDetails')['controls']; let i = index">
                         <div [formGroupName]="i">
                             <div class="row">
                                 <div class="col-md-10">
