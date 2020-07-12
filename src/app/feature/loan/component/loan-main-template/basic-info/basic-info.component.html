@@ -38,6 +38,34 @@
                         </button>
                     </div>
                 </div>
+                <div *ngIf="showMatchingTable">
+                    <div class="alert alert-success" role="alert">
+                        CUSTOMER WITH SAME CITIZENSHIP NO. FOUND. PLEASE VERIFY THE <strong>NAME, CITIZENSHIP NO.,
+                        ISSUED DISTRICT, ISSUED DATE</strong> BEFORE SELECTION.
+                    </div>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>S.N</th>
+                            <th>Name</th>
+                            <th>Citizenship Issued District</th>
+                            <th>Citizenship Issued Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let customer of customerList; let i = index;" class="cursor">
+                            <td (click)="onClick(i)">{{i + 1}}</td>
+                            <td (click)="onClick(i)">{{customer?.customerName}}</td>
+                            <td (click)="onClick(i)">{{customer?.citizenshipIssuedPlace}}</td>
+                            <td (click)="onClick(i)">{{customer?.citizenshipIssuedDate | date}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        <strong>This customer is not in the list. Continue as new cutomer</strong>
+                        <button class="ml-2" nbButton size="small" (click)="continueAsNew()"> Continue </button>
+                    </p>
+                </div>
                 <div *ngIf="customerDetailField.showFormField" class="row">
                     <div class="col-md-4">
                         <div class="form-group">

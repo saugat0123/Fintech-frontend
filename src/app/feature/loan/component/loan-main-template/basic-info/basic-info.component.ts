@@ -49,6 +49,8 @@ export class BasicInfoComponent implements OnInit {
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     private isBlackListed: boolean;
     allDistrict: Array<District> = Array<District>();
+    private customerList: Array<Customer> = new Array<Customer>();
+    private showMatchingTable: boolean;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -136,7 +138,7 @@ export class BasicInfoComponent implements OnInit {
                 this.customerSearchData.citizenshipNumber = tempId;
                 this.customerService.getByCustomerByCitizenshipNo(this.customerSearchData.citizenshipNumber)
                     .subscribe((customerResponse: any) => {
-                        if (customerResponse.detail === undefined) {
+                        if (customerResponse.detail.length === 0) {
                             this.getProvince();
                             this.customerDetailField.isOldCustomer = false;
                             this.toastService.show(new Alert(AlertType.INFO, 'No Customer Found under provided Citizenship No.'));
@@ -146,9 +148,17 @@ export class BasicInfoComponent implements OnInit {
                             this.createRelativesArray();
                         } else {
                             this.getProvince();
-                            this.customer = customerResponse.detail;
-                            this.formMaker();
-                            this.setRelatives(this.customer.customerRelatives);
+                            this.customerList = customerResponse.detail;
+                            if (this.customerList.length < 2) {
+                                this.customer = this.customerList[0];
+                                this.formMaker();
+                                this.setRelatives(this.customer.customerRelatives);
+                            } else {
+                                this.customerDetailField.showFormField = false;
+                                this.showMatchingTable = true;
+                                this.toastService.show(new Alert(AlertType.INFO, `${this.customerList.length}
+                                       customer found with same citizenship number`));
+                            }
                         }
                     });
             }
@@ -156,6 +166,8 @@ export class BasicInfoComponent implements OnInit {
     }
 
     onSubmit() {
+        this.customer.id = (this.customer.citizenshipIssuedPlace ===
+            this.basicInfo.get('citizenshipIssuedPlace').value) ? this.customer.id : undefined;
         this.customer.customerName = this.basicInfo.get('customerName').value;
         this.customer.province = this.basicInfo.get('province').value;
         this.customer.district = this.basicInfo.get('district').value;
@@ -268,4 +280,24 @@ export class BasicInfoComponent implements OnInit {
             this.allDistrict = response.detail;
         });
     }
+
+    onClick(i: number) {
+        this.getProvince();
+        this.showMatchingTable = false;
+        this.customerDetailField.showFormField = true;
+        this.customer = this.customerList[i];
+        this.formMaker();
+        this.setRelatives(this.customer.customerRelatives);
+    }
+
+    continueAsNew() {
+        this.getProvince();
+        this.customer = new Customer();
+        this.customer.citizenshipNumber = this.basicInfoControls.citizenshipNumber.value;
+        this.formMaker();
+        this.createRelativesArray();
+        this.customerDetailField.showFormField = true;
+        this.showMatchingTable = false;
+    }
+
 }
