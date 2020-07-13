@@ -32,7 +32,7 @@
                         </select>
                     </div>
                     <div class="col-md-1">
-                        <button nbButton status="primary" (click)="selectLoan(loanCategory)">
+                        <button nbButton status="primary" (click)="proceed()">
                             <i class="fa fa-arrow-right"></i>
                         </button>
                     </div>
@@ -58,29 +58,6 @@
     </div>
 </ng-template>
 
-<ng-template #loanCategory>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Loan Category</h4>
-        <a class="close pull-right cursor" aria-label="Close" (click)="onClose()">
-            <span aria-hidden="true">&times;</span>
-        </a>
-    </div>
-    <div class="modal-body">
-        <form (ngSubmit)="f.form.valid && newLoan()" #f="ngForm">
-            <div class="form-group">
-                <select class="custom-select" [(ngModel)]="businessOrPersonal" name="businessOrPersonal"
-                        #type="ngModel" [ngClass]="{ 'is-invalid': f.submitted && type.invalid }" required>
-                    <option [ngValue]="undefined" hidden>Loan Category</option>
-                    <option value="PERSONAL_TYPE">PERSONAL</option>
-                    <option value="BUSINESS_TYPE">BUSINESS</option>
-                </select>
-            </div>
-            <div class="col-md-12">
-                <button type="submit" class="btn btn-success float-right">Next</button>
-            </div>
-        </form>
-    </div>
-</ng-template>
 <div class="row" *ngIf="!roleName">
     <div class="col-md-11">
         <app-pending-loan></app-pending-loan>

@@ -13,6 +13,7 @@ import {User} from '../../feature/admin/modal/user';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {LocalStorageUtil} from '../../@core/utils/local-storage-util';
+import {LoanConfig} from '../../feature/admin/modal/loan-config';
 
 
 @Component({
@@ -114,10 +115,6 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         this.initCalendar();
     }
 
-    selectLoan(template: TemplateRef<any>) {
-        this.modalService.open(template);
-    }
-
     newLoan() {
         this.onClose();
         this.router.navigate(['/home/loan/loanForm'], {
@@ -150,5 +147,15 @@ export class DashboardComponent implements OnInit, AfterContentInit {
                 LocalStorageUtil.setStorage(storage);
             });
         }
+    }
+
+    proceed() {
+        this.setLoanCategory();
+        this.newLoan();
+    }
+
+    private setLoanCategory() {
+        const type = parseInt(this.loanType, 10);
+        this.businessOrPersonal =  (this.loanList.filter((loan: LoanConfig) => loan.id === type))[0].loanCategory;
     }
 }
