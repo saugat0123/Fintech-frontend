@@ -1,36 +1,12 @@
 <div class="row mt-3">
     <div class="col-md-12">
         <p><strong>Security Position</strong></p>
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center">
-                    <thead>
-                    <tr>
-                        <th class="text-center" colspan="4">Valuator Details</th>
-                    </tr>
-                    <tr>
-                        <th>Valuator</th>
-                        <th>Valuated Date</th>
-                        <th>Valuator Representative Name</th>
-                        <th>Staff Representative</th>
-                    </tr>
-                    <tr>
-                        <td>{{formData['initialForm']['valuatorDetails']['valuator']}}</td>
-                        <td>{{formData['initialForm']['valuatorDetails']['valuatedDate'] | date}}</td>
-                        <td>{{formData['initialForm']['valuatorDetails']['valuatorRepresentativeName']}}</td>
-                        <td>{{formData['initialForm']['valuatorDetails']['staffRepresentativeName']}}</td>
-
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-        </div>
         <div class="row" *ngIf= "vehicleSelected">
             <div class="col-md-12">
-                <table  class="table table-condensed table-bordered table-responsive-md text-center"  style="table-layout: fixed; width: 100%">
+                <table  class="table table-condensed table-bordered table-responsive-md text-center"  style="table-layout: fixed; width: 100%" *ngFor="let vehicleDetails of formData['initialForm']['vehicleDetails']; let i= index">
                 <thead>
                     <tr>
-                        <th colspan="9">Details of Security Offered: Vehicle</th>
+                        <th colspan="9">{{i+1}}.Details of Security Offered: Vehicle</th>
                     </tr>
                     <tr>
                         <th>S.N</th>
@@ -42,10 +18,9 @@
                         <th>Registration Date</th>
                         <th>Engine Number</th>
                         <th>Chassis Number</th>
-                        <th>Showroom Commission</th>
 
                     </tr>
-                    <tr *ngFor="let vehicleDetails of formData['initialForm']['vehicleDetails']; let i= index">
+                    <tr>
                         <td>{{i+1}}</td>
                         <td>{{vehicleDetails?.model}}</td>
                         <td>{{vehicleDetails?.valuationAmount}}</td>
@@ -55,18 +30,33 @@
                         <td>{{vehicleDetails?.registrationDate}}</td>
                         <td>{{vehicleDetails?.engineNumber}}</td>
                         <td>{{vehicleDetails?.chassisNumber}}</td>
-                        <td>{{vehicleDetails?.showroomCommission}}</td>
                     </tr>
                     </thead>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Showroom Commission</th>
+                        <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
+                        <th>Valautor Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td></td>
+                        <td>{{vehicleDetails?.showroomCommission}}</td>
+                        <td *ngIf="formData['otherBranchcheck']">{{vehicleDetails?.vehicalBranch?.name}}</td>
+                        <td>{{vehicleDetails?.vehicalValuator?.name}}</td>
+                    </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
         <div class="row" *ngIf= "landSelected">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center">
+                <table class="table table-condensed table-bordered table-responsive-md text-center" *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
                     <thead>
                     <tr>
-                        <th class="text-center" colspan="6">Land Security Details</th>
+                        <th class="text-center" colspan="8">{{i+1}}.Land Security Details</th>
                     </tr>
                     <tr>
                         <th>S.N</th>
@@ -78,7 +68,7 @@
                         <th>FMV</th>
                         <th>DV</th>
                     </tr>
-                    <tr *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
+                    <tr>
                         <td>{{i+1}}</td>
                         <td>{{landDetails?.owner}}</td>
                         <td>{{landDetails?.location}}</td>
@@ -89,6 +79,19 @@
                         <td>Rs. {{landDetails?.distressValue |currencyFormatter}}</td>
                     </tr>
                     </thead>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
+                        <th>Valautor Name</th>                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td></td>
+                        <td *ngIf="formData['otherBranchcheck']">{{landDetails?.landBranch?.name}}</td>
+                        <td>{{landDetails?.landValuator?.name}}</td>
+                    </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -96,10 +99,10 @@
 <!--        buildingDetails-->
         <div class="row" *ngIf= "apartmentSelected">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center">
+                <table class="table table-condensed table-bordered table-responsive-md text-center"  *ngFor="let buildingDetails of formData['initialForm']['buildingDetails']; let i= index">
                     <thead>
                     <tr>
-                        <th class="text-center" colspan="6">Building Security Details</th>
+                        <th class="text-center" colspan="8">{{i+1}}.Building Security Details</th>
                     </tr>
                     <tr>
                         <th>S.N</th>
@@ -111,7 +114,7 @@
                         <th>FMV</th>
                         <th>DV</th>
                     </tr>
-                    <tr *ngFor="let buildingDetails of formData['initialForm']['buildingDetails']; let i= index">
+                    <tr>
                         <td>{{i+1}}</td>
                         <td>{{buildingDetails?.buildingName}}</td>
                         <td>{{buildingDetails?.buildingDescription}}</td>
@@ -122,6 +125,20 @@
                         <td><strong>Rs. {{buildingDetails?.buildingDistressValue | currencyFormatter}}</strong></td>
                     </tr>
                     </thead>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
+                        <th>Valautor Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td></td>
+                        <td *ngIf="formData['otherBranchcheck']">{{buildingDetails?.apartmentBranch?.name}}</td>
+                        <td>{{buildingDetails?.ApartmentValuator?.name}}</td>
+                    </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -186,7 +203,7 @@
                 <table class="table table-condensed table-bordered table-responsive-md text-center">
                     <thead>
                     <tr>
-                        <th class="text-center" colspan="5">Plant and Machinery Details Security</th>
+                        <th class="text-center" colspan="7">Plant and Machinery Details Security</th>
                     </tr>
                     <tr>
                         <th>S.N</th>
@@ -194,7 +211,8 @@
                         <th>Quotation</th>
                         <th>Supplier</th>
                         <th>Downpay</th>
-
+                        <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
+                        <th>Valautor Name</th>
                     </tr>
                     <tr *ngFor="let plantDetails of formData['initialForm']['plantDetails']; let i= index">
                         <td>{{i+1}}</td>
@@ -202,7 +220,8 @@
                         <td>{{plantDetails?.quotation}}</td>
                         <td>{{plantDetails?.supplier}}</td>
                         <td>{{plantDetails?.downPay}}</td>
-
+                        <td *ngIf="formData['otherBranchcheck']">{{plantDetails?.plantBranch?.name}}</td>
+                        <td>{{plantDetails?.plantMachineryValuator?.name}}</td>
                     </tr>
                     </thead>
                 </table>
