@@ -2,51 +2,7 @@
 <div class="form-group">
     <form [formGroup]="securityForm">
         <!--START ROW-->
-        <div class="font-weight-bold" formGroupName="valuatorDetails">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="title " for="valuator">Valuator</label>
-                        <select class="custom-select" formControlName="valuator" id="valuator" name="valuator">
-                            <option  [ngValue]="null" hidden>Select valuator</option>
-                            <option *ngFor="let name of valuatorList" [ngValue]="name.id">{{name.name}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="title" for="valuatedDate">Valuated Date</label>
-                        <input *ngIf="calendarType === 'AD'" [nbDatepicker]="valuatedDate" class="form-control rounded" formControlName="valuatedDate"
-                               id="valuatedDate"
-                               name="valuatedDate" nbInput placeholder="Valuated Date">
-                        <app-calendar
-                            (messageToEmit)="securityForm.get('valuatorDetails').get('valuatedDate').patchValue($event?.eDate)"
-                            *ngIf="calendarType === 'BS'"
-                            [ePreDate]="securityForm.get('valuatorDetails').get('valuatedDate').value"></app-calendar>
-                        <nb-datepicker #valuatedDate></nb-datepicker>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="title" for="representativeName">Valuator Representative
-                            Name</label>
-                        <input class="form-control rounded" formControlName="valuatorRepresentativeName"
-                               id="representativeName"
-                               name="representativeName" placeholder="Valuator Representative Name"
-                               type="text"/>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="title" for="staffRepresentativeName">Staff Representative
-                            Name</label>
-                        <input class="form-control rounded" formControlName="staffRepresentativeName"
-                               id="staffRepresentativeName"
-                               name="staffRepresentativeName" placeholder="Staff Representative Name"
-                               type="text"/>
-                    </div>
-                </div>
-            </div>
+        <div class="font-weight-bold" >
             <!--END ROW-->
             <div class="row">
                 <div class="col-md-3">
@@ -66,6 +22,9 @@
             </div>
             <hr>
         </div>
+        <nb-checkbox (change)="otherBranch($event.target.checked)"
+                     [checked]="otherBranchcheck">Property on another branch location
+        </nb-checkbox>
         <!--Land Security-->
         <nb-card [hidden]="!landSelected" class="p-3">
             <div class="box-header with-border">
@@ -138,6 +97,70 @@
                                 <input class="form-control rounded" formControlName="distressValue"
                                        id="distressValue"
                                        name="distressValue" placeholder="distress value"
+                                       type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div *ngIf="otherBranchcheck">
+                                <div class="form-group">
+                                    <label>Select Branch</label>
+                                    <ng-select
+                                        (change)="valuator(securityForm.get(['landDetails',i,'landBranch']).value.id,'land',i)"
+                                        [multiple]="false"
+                                        bindLabel="name"
+                                        formControlName="landBranch"
+                                        placeholder="Select Branch">
+                                        <ng-option *ngFor="let branch of branchLists"
+                                                   [value]="branch">{{branch.name}}</ng-option>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Valuator Name</label>
+                                <ng-select [multiple]="false"
+                                           bindLabel="name"
+                                           placeholder="Select Valuator"
+                                           formControlName="landValuator" (click)="valuator(null,'land',i)">
+                                    <ng-option *ngFor="let valuator of securityValuator.landValuator[i]" [value]="valuator">{{valuator.name}}</ng-option>
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="landValuatorDate">Valuated Date</label>
+                                <input *ngIf="calendarType === 'AD'" class="form-control rounded" formControlName="landValuatorDate"
+                                       id="landValuatorDate"
+                                       name="landValuatorDate" placeholder="Valuated Date"
+                                       [nbDatepicker]="landValuatorDate"
+                                       type="text"/>
+                              <app-calendar
+                                  (messageToEmit)="securityForm.get(['landDetails',i,'landValuatorDate']).patchValue($event?.eDate)"
+                                  *ngIf="calendarType === 'BS'"
+                                  [ePreDate]="securityForm.get(['landDetails',i,'landValuatorDate']).value"></app-calendar>
+                              <nb-datepicker #landValuatorDate></nb-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="landValuatorRepresentative">Valuator Representative Name</label>
+                                <input class="form-control rounded" formControlName="landValuatorRepresentative"
+                                       id="landValuatorRepresentative"
+                                       name="landValuatorRepresentative" placeholder="Valuator Representative Name"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="landStaffRepresentativeName">Staff Representative Name</label>
+                                <input class="form-control rounded" formControlName="landStaffRepresentativeName"
+                                       id="landStaffRepresentativeName"
+                                       name="landStaffRepresentativeName" placeholder="Staff Representative Name"
                                        type="text"/>
                             </div>
                         </div>
@@ -339,6 +362,70 @@
                                                formControlName="buildingDistressValue"
                                                id="buildingDistressValue"
                                                name="buildingDistressValue" placeholder="Apartment DV"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div *ngIf="otherBranchcheck">
+                                        <div class="form-group">
+                                            <label>Select Branch</label>
+                                            <ng-select
+                                                (change)="valuator(securityForm.get(['buildingDetails',i,'apartmentBranch']).value.id,'apartment',i)"
+                                                [multiple]="false"
+                                                bindLabel="name"
+                                                formControlName="apartmentBranch"
+                                                placeholder="Select Branch">
+                                                <ng-option *ngFor="let branch of branchLists"
+                                                           [value]="branch">{{branch.name}}</ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Valuator Name</label>
+                                        <ng-select [multiple]="false"
+                                                   bindLabel="name"
+                                                   placeholder="Select Valuator"
+                                                   formControlName="ApartmentValuator" (click)="valuator(null,'apartment',i)">
+                                            <ng-option *ngFor="let valuator of securityValuator.apartmentValuator[i]" [value]="valuator">{{valuator.name}}</ng-option>
+                                        </ng-select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="ApartmentValuatorDate">Valuated Date</label>
+                                        <input *ngIf="calendarType === 'AD'" class="form-control rounded" formControlName="ApartmentValuatorDate"
+                                               id="ApartmentValuatorDate"
+                                               name="ApartmentValuatorDate" placeholder="Valuated Date"
+                                               [nbDatepicker]="ApartmentValuatorDate"
+                                               type="text"/>
+                                        <app-calendar
+                                            (messageToEmit)="securityForm.get(['buildingDetails',i,'ApartmentValuatorDate']).patchValue($event?.eDate)"
+                                            *ngIf="calendarType === 'BS'"
+                                            [ePreDate]="securityForm.get(['buildingDetails',i,'ApartmentValuatorDate']).value"></app-calendar>
+                                        <nb-datepicker #ApartmentValuatorDate></nb-datepicker>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="ApartmentValuatorRepresentative">Valuator Representative Name</label>
+                                        <input class="form-control rounded" formControlName="ApartmentValuatorRepresentative"
+                                               id="ApartmentValuatorRepresentative"
+                                               name="ApartmentValuatorRepresentative" placeholder="Valuator Representative Name"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="ApartmentStaffRepresentativeName">Staff Representative Name</label>
+                                        <input class="form-control rounded" formControlName="ApartmentStaffRepresentativeName"
+                                               id="ApartmentStaffRepresentativeName"
+                                               name="ApartmentStaffRepresentativeName" placeholder="Staff Representative Name"
                                                type="text"/>
                                     </div>
                                 </div>
@@ -768,6 +855,71 @@
                                        type="text"/>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div *ngIf="otherBranchcheck">
+                                <div class="form-group">
+                                    <label>Select Branch</label>
+                                    <ng-select
+                                        (change)="valuator(securityForm.get(['plantDetails',i,'plantBranch']).value.id,'plant',i)"
+                                        [multiple]="false"
+                                        bindLabel="name"
+                                        formControlName="plantBranch"
+                                        placeholder="Select Branch">
+                                        <ng-option *ngFor="let branch of branchLists"
+                                                   [value]="branch">{{branch.name}}</ng-option>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Valuator Name</label>
+                                <ng-select [multiple]="false"
+                                           bindLabel="name"
+                                           placeholder="Select Valuator"
+                                           formControlName="plantMachineryValuator" (click)="valuator(null,'plant',i)">
+                                    <ng-option *ngFor="let valuator of securityValuator.plantValuator[i]" [value]="valuator">{{valuator.name}}</ng-option>
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="plantMachineryValuatorDate">Valuated Date</label>
+                                <input *ngIf="calendarType === 'AD'" class="form-control rounded" formControlName="plantMachineryValuatorDate"
+                                       id="plantMachineryValuatorDate"
+                                       name="plantMachineryValuatorDate" placeholder="Valuated Date"
+                                       [nbDatepicker]="plantMachineryValuatorDate"
+                                       type="text"/>
+                                <app-calendar
+                                    (messageToEmit)="securityForm.get(['plantDetails',i,'plantMachineryValuatorDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['plantDetails',i,'plantMachineryValuatorDate']).value"></app-calendar>
+                                <nb-datepicker #plantMachineryValuatorDate></nb-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="plantMachineryValuatorRepresentative">Valuator Representative Name</label>
+                                <input class="form-control rounded" formControlName="plantMachineryValuatorRepresentative"
+                                       id="plantMachineryValuatorRepresentative"
+                                       name="plantMachineryValuatorRepresentative" placeholder="Valuator Representative Name"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="plantMachineryStaffRepresentativeName">Staff Representative Name</label>
+                                <input class="form-control rounded" formControlName="plantMachineryStaffRepresentativeName"
+                                       id="plantMachineryStaffRepresentativeName"
+                                       name="plantMachineryStaffRepresentativeName" placeholder="Staff Representative Name"
+                                       type="text"/>
+                            </div>
+                        </div>
+
                         <div *ngIf="securityForm.get('plantDetails')['length'] > 1" class="col-md-1 pt-4">
                             <input (click)="removePlantDetails(i)"
                                    class="align-self-end btn btn-sm btn-danger btn-primary"
@@ -905,6 +1057,70 @@
                                     id="showroomCommission"
                                     name="showroomCommission" placeholder="Showroom Commission"
                                     type="number">
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div *ngIf="otherBranchcheck">
+                                    <div class="form-group">
+                                        <label>Select Branch</label>
+                                        <ng-select
+                                            (change)="valuator(securityForm.get(['vehicleDetails',i,'vehicalBranch']).value.id,'vehicle',i)"
+                                            [multiple]="false"
+                                            bindLabel="name"
+                                            formControlName="vehicalBranch"
+                                            placeholder="Select Branch">
+                                            <ng-option *ngFor="let branch of branchLists"
+                                                       [value]="branch">{{branch.name}}</ng-option>
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Valuator Name</label>
+                                <ng-select [multiple]="false"
+                                           bindLabel="name"
+                                           placeholder="Select Valuator"
+                                           formControlName="vehicalValuator" (click)="valuator(null,'vehicle',i)">
+                                    <ng-option *ngFor="let valuator of securityValuator.vehicalValuator[i]" [value]="valuator">{{valuator.name}}</ng-option>
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="vehicalValuatorDate">Valuated Date</label>
+                                <input *ngIf="calendarType === 'AD'" class="form-control rounded" formControlName="vehicalValuatorDate"
+                                       id="vehicalValuatorDate"
+                                       name="vehicalValuatorDate" placeholder="Valuated Date"
+                                       [nbDatepicker]="vehicalValuatorDate"
+                                       type="text"/>
+                                <app-calendar
+                                    (messageToEmit)="securityForm.get(['vehicleDetails',i,'vehicalValuatorDate']).patchValue($event?.eDate)"
+                                    *ngIf="calendarType === 'BS'"
+                                    [ePreDate]="securityForm.get(['vehicleDetails',i,'vehicalValuatorDate']).value"></app-calendar>
+                                <nb-datepicker #vehicalValuatorDate></nb-datepicker>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="vehicalValuatorRepresentative">Valuator Representative Name</label>
+                                <input class="form-control rounded" formControlName="vehicalValuatorRepresentative"
+                                       id="vehicalValuatorRepresentative"
+                                       name="vehicalValuatorRepresentative" placeholder="Valuator Representative Name"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="vehicalStaffRepresentativeName">Staff Representative Name</label>
+                                <input class="form-control rounded" formControlName="vehicalStaffRepresentativeName"
+                                       id="vehicalStaffRepresentativeName"
+                                       name="vehicalStaffRepresentativeName" placeholder="Staff Representative Name"
+                                       type="text"/>
                             </div>
                         </div>
                     </div>

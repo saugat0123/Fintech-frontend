@@ -188,10 +188,10 @@ export class SecurityComponent implements OnInit {
             initialForm: this.initialSecurity.securityForm.value ,
             selectedArray: this.initialSecurity.selectedArray ,
             underConstructionChecked: this.initialSecurity.underConstructionChecked ,
+            otherBranchcheck: this.initialSecurity.otherBranchcheck,
             guarantorsForm: this.guarantorsForm.value
         };
         this.securityData.data = JSON.stringify(mergedForm);
-        this.securityData.valuatorId = this.initialSecurity.securityForm.get('valuatorDetails').value.valuator;
         this.securityData.guarantor = [];
         let guarantorIndex = 0;
         while (guarantorIndex < this.getGuarantor().length) {
