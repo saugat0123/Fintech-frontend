@@ -29,8 +29,8 @@
                         <label for="configureRole">Configure Permissions for Role</label>
                         <select (change)="roleChanged($event.target.value)" class="form-control"
                                 id="configureRole">
-                            <option>---Select Role---</option>
-                            <option *ngFor="let role of roleList" value="{{role.id}}">{{role.roleName}}</option>
+                            <option [ngValue]="null" hidden>---Select Role---</option>
+                            <option *ngFor="let role of roleList" value="{{role.id}}" [selected]="role.id == roleId">{{role.roleName}}</option>
                         </select>
                     </div>
                     <div class="col-md-9 d-flex justify-content-end">
