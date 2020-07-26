@@ -109,7 +109,8 @@
                     <ng-template ngbTabContent *ngIf="allList.name === 'Security'">
                         <app-security #security [securityValue]="loanDocument?.security"
                                       [proposalDataHolder]="loanDocument?.proposal"
-                                      [calendarType]="calendarType"></app-security>
+                                      [calendarType]="calendarType"
+                                      [loanTag]="loanTag"></app-security>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Customer Document'">
                         <app-customer-document #customerDocument

@@ -176,6 +176,8 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('insurance', {static: false})
     insuranceComponent: InsuranceComponent;
 
+    loanTag: string;
+
     constructor(
         private loanDataService: LoanDataService,
         private dmsLoanService: DmsLoanService,
@@ -297,6 +299,7 @@ export class LoanFormComponent implements OnInit {
             }
 
             this.loanTitle = response.detail.name;
+            this.loanTag = response.detail.loanTag;
             this.breadcrumbService.notify(response.detail.name);
             for (let i = 0; i < this.templateList.length; i++) {
                 this.templateList[i].active = false;
