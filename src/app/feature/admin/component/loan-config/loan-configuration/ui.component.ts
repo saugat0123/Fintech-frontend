@@ -16,6 +16,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {ProductModeService, ProductUtils} from '../../../service/product-mode.service';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {LoanCategory} from '../../../../loan/model/loan-category';
+import {LoanTag} from '../../../../loan/model/loanTag';
 
 
 @Component({
@@ -56,6 +57,8 @@ export class UIComponent implements OnInit {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
     loanCategories = LoanCategory.enumObject();
     selectedLoanCategory: string;
+    loanTagList = LoanTag.enumObject();
+    selectedLoanTag = LoanTag.getKeyByValue(LoanTag.GENERAL);
 
     constructor(
         private loanTemplateService: LoanTemplateService,
@@ -87,6 +90,7 @@ export class UIComponent implements OnInit {
             if (other.id !== undefined && other.id !== 0) {
                 other.service.detail(other.id).subscribe((res: any) => {
                     other.loanConfig = res.detail;
+                    other.selectedLoanTag = other.loanConfig.loanTag;
                     other.selectedOfferLetterIdList = new Array<number>();
                     other.loanConfig.offerLetters.forEach(selectedOfferLetter => {
                         other.selectedOfferLetterIdList.push(selectedOfferLetter.id);
@@ -300,6 +304,8 @@ export class UIComponent implements OnInit {
         this.loanConfig.fullSettlement = this.finalFullSettlementDocument;
         this.loanConfig.offerLetters = this.selectedOfferLetterList;
         this.loanConfig.loanCategory = this.selectedLoanCategory;
+        this.loanConfig.loanTag = this.selectedLoanTag;
+
         this.service.save(this.loanConfig).subscribe(() => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Loan Config!'));
                 this.loanConfig = new LoanConfig();

@@ -26,4 +26,5 @@ export class LoanConfig {
     enableEligibility: boolean;
     minimumProposedAmount: number;
     loanCategory: string;
+    loanTag: string;
 }
