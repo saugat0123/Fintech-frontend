@@ -25,7 +25,6 @@ export class DataVisualizationComponent implements OnInit {
   barChartData: Array<BarChart> = new Array<BarChart>();
   branches: Branch[] = [];
   branchId = 0;
-  dealerId = 0;
   userBranchId;
   startDate = '';
   endDate = '';
@@ -57,7 +56,6 @@ export class DataVisualizationComponent implements OnInit {
   approvedFileCount = 0;
   rejectedFileCount = 0;
   closureFileCount = 0;
-  dealers = [];
 
   constructor(
       private fb: FormBuilder,
@@ -83,7 +81,6 @@ export class DataVisualizationComponent implements OnInit {
     this.branchId = Number(this.filterForm.get('branch').value);
     this.startDate = this.filterForm.get('startDate').value;
     this.endDate = this.filterForm.get('endDate').value;
-    this.dealerId = Number(this.filterForm.get('dealer').value);
     if (this.startDate !== '') {
       this.startDate = this.formateDate(this.startDate);
     }
@@ -92,12 +89,7 @@ export class DataVisualizationComponent implements OnInit {
     }
     this.updateSelectedBranch();
     if (this.branchId === 0) {
-      if (this.dealerId === 0) {
         this.getAllData();
-      } else {
-        this.branchId = this.userBranchId;
-        this.getAdvancedPieChartDataByBranchId();
-      }
     } else {
       this.getAdvancedPieChartDataByBranchId();
     }
@@ -109,7 +101,6 @@ export class DataVisualizationComponent implements OnInit {
     this.branchId = 0;
     this.filterForm = this.fb.group({
       branch: [this.branchId, Validators.compose([Validators.required])],
-      dealer: [0],
       startDate: [''],
       endDate: ['']
     });
@@ -300,12 +291,4 @@ export class DataVisualizationComponent implements OnInit {
     });
   }
 
-  private updateDealer(event) {
-    const branch: any  =  this.branches.filter(value => {
-     return value.id === event.target.value;
-   });
-    if (branch.length > 0) {
-      this.dealers =  branch[0].dealers;
-    }
-  }
 }
