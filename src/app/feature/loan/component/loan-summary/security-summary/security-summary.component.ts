@@ -13,6 +13,8 @@ export class SecuritySummaryComponent implements OnInit {
   apartmentSelected = false;
   plantSelected = false;
   vehicleSelected = false;
+  depositSelected = false;
+  totalAmount = 0;
 
   constructor() {
   }
@@ -35,8 +37,22 @@ export class SecuritySummaryComponent implements OnInit {
             break;
           case 'PlantSecurity' :
             this.plantSelected = true;
+            break;
+          case 'FixedDeposit':
+            this.depositSelected = true;
         }
       });
     }
+
+    if (this.depositSelected) {
+      this.calculateTotal();
+    }
+  }
+
+  calculateTotal() {
+    const depositList = this.formData['initialForm']['fixedDepositDetails'];
+    depositList.forEach(deposit => {
+      this.totalAmount += deposit.amount;
+    });
   }
 }

@@ -208,6 +208,39 @@
                 </table>
             </div>
         </div>
+        <div *ngIf="depositSelected" class="row">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-responsive-md text-center">
+                    <thead>
+                    <tr>
+                        <th class="text-center" colspan="7">Fixed Deposit Receipt Details</th>
+                    </tr>
+                    <tr>
+                        <th>S.N</th>
+                        <th>FD Receipt Number</th>
+                        <th>Amount</th>
+                        <th>Expiry Date</th>
+                        <th>Coupon Rate</th>
+                        <th>Beneficiary</th>
+                        <th>Remarks</th>
+                    </tr>
+                    <tr *ngFor="let depositDetails of formData['initialForm']['fixedDepositDetails']; let i= index">
+                        <td>{{i + 1}}</td>
+                        <td>{{depositDetails?.receiptNumber}}</td>
+                        <td>{{depositDetails?.amount}}</td>
+                        <td>{{depositDetails?.expiryDate | date}}</td>
+                        <td>{{depositDetails?.couponRate}}</td>
+                        <td>{{depositDetails?.beneficiary}}</td>
+                        <td>{{depositDetails?.remarks}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Total</td>
+                        <td colspan="5" class="text-left">{{totalAmount}}</td>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
         <!--        guarantors details-->
         <div class="row">
             <div class="col-md-12">
