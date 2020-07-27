@@ -11,11 +11,9 @@
                         <nb-select #combinedSecurityElement (selectedChange)="change(combinedSecurityElement.selected)"
                                    [selected]="selectedArray"
                                    multiple placeholder="Multiple Select">
-                            <nb-option value="LandSecurity">Land Security</nb-option>
-                            <nb-option value="VehicleSecurity">Vehicle Security</nb-option>
-                            <nb-option value="ApartmentSecurity">Apartment Security</nb-option>
-                            <nb-option value="Land and Building Security">Land and Building Security</nb-option>
-                            <nb-option value="PlantSecurity">Plant and Machinery Security</nb-option>
+                            <nb-option *ngFor="let type of getSecurities()" [value]="type?.key">
+                                {{type?.value}}
+                            </nb-option>
                         </nb-select>
                     </div>
                 </div>
@@ -935,6 +933,7 @@
                        value="Add Plant and Machine"/>
             </div>
         </nb-card>
+        <!-- Vehicle Security -->
         <nb-card [hidden]="!vehicleSelected" class="p-3">
             <div class="box-header with-border">
                 <h2 class="box-title title">Vehicle Security</h2>
@@ -1133,6 +1132,78 @@
                        value="Add More"/>
             </div>
         </nb-card>
-        <!-- Vehicle Security End -->
+        <!-- Fixed Deposit Receipt -->
+        <nb-card [hidden]="!depositSelected" class="p-3">
+            <div class="box-header with-border">
+                <h2 class="box-title title">Fixed Deposit Receipt</h2>
+            </div>
+            <div *ngFor="let deposit of securityForm.get('fixedDepositDetails')['controls']; let i = index"
+                 class="font-weight-bold"
+                 formArrayName="fixedDepositDetails">
+                <div [formGroupName]="i">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                            <div *ngIf="i > 0" class="float-right">
+                                <input (click)="removeFixedDeposit(i)" class="btn btn-sm btn-flat btn-danger"
+                                       type=button value="Delete"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">FD Receipt Number<strong></strong></label>
+                                <input class="form-control" formControlName="receiptNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Amount<strong></strong></label>
+                                <input class="form-control" formControlName="amount" type="number">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Expiry Date<strong></strong></label>
+                                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="expiryDate"
+                                       class="form-control rounded" formControlName="expiryDate"
+                                       nbInput placeholder="Expiry Date">
+                                <app-calendar (messageToEmit)="securityForm.get('fixedDepositDetails').get('expiryDate').patchValue($event?.eDate)"
+                                              *ngIf="calendarType === 'BS'"
+                                              [ePreDate]="securityForm.get('fixedDepositDetails').get('expiryDate').value"></app-calendar>
+                                <nb-datepicker #expiryDate></nb-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Coupon Rate<strong></strong></label>
+                                <input class="form-control" formControlName="couponRate" type="number">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Beneficiary<strong></strong></label>
+                                <input class="form-control" formControlName="beneficiary">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title">Remarks<strong></strong></label>
+                                <input class="form-control" formControlName="remarks">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-right">
+                <input (click)="addFixedDeposit()" class="btn btn-sm btn-flat btn-primary"
+                       type="button"
+                       value="Add More"/>
+            </div>
+        </nb-card>
     </form>
 </div>

@@ -7,6 +7,7 @@ import {ValuatorService} from '../../../../../admin/component/valuator/valuator.
 import {BranchService} from '../../../../../admin/component/branch/branch.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {SecurityValuator} from '../../../../model/securityValuator';
+import {LoanTag} from '../../../../model/loanTag';
 
 @Component({
     selector: 'app-security-initial-form' ,
@@ -17,6 +18,8 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() formData: string;
     @Input() name;
     @Input() calendarType: CalendarType;
+    @Input() loanTag: string;
+
     selectedArray = [];
     securityForm: FormGroup;
     landSelected = false;
@@ -31,6 +34,17 @@ export class SecurityInitialFormComponent implements OnInit {
     branchLists;
     securityValuator: SecurityValuator =  new SecurityValuator();
     otherBranchcheck = false;
+    depositSelected = false;
+    isFixedDeposit = false;
+
+    securityTypes = [
+        {key: 'LandSecurity', value: 'Land Security'},
+        {key: 'VehicleSecurity', value: 'Vehicle Security'},
+        {key: 'ApartmentSecurity', value: 'Apartment Security'},
+        {key: 'Land and Building Security', value: 'Land and Building Security'},
+        {key: 'PlantSecurity', value: 'Plant and Machinery Security'},
+        {key: 'FixedDeposit', value: 'Fixed Deposit Receipt'},
+    ];
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -42,6 +56,7 @@ export class SecurityInitialFormComponent implements OnInit {
         this.buildForm();
         this.valuatorList = this.name;
         this.branchList();
+        this.checkFixDeposit();
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
@@ -55,14 +70,14 @@ export class SecurityInitialFormComponent implements OnInit {
             this.setBuildingUnderConstructions(this.formDataForEdit['buildingUnderConstructions']);
             this.setPlantDetails(this.formDataForEdit['plantDetails']);
             this.setVehicleDetails(this.formDataForEdit['vehicleDetails']);
-
-
+            this.setFixedDepositDetails(this.formDataForEdit['fixedDepositDetails']);
         } else {
             this.addMoreLand();
             this.addBuilding();
             this.addPlantandMachinery();
             this.addBuildingUnderConstructions();
             this.addVehicleSecurity();
+            this.addFixedDeposit();
         }
     }
 
@@ -74,7 +89,8 @@ export class SecurityInitialFormComponent implements OnInit {
             buildingDetails: this.formBuilder.array([]),
             buildingUnderConstructions: this.formBuilder.array([]),
             plantDetails: this.formBuilder.array([]),
-            vehicleDetails: this.formBuilder.array([])
+            vehicleDetails: this.formBuilder.array([]),
+            fixedDepositDetails: this.formBuilder.array([])
         });
     }
 
@@ -306,7 +322,8 @@ export class SecurityInitialFormComponent implements OnInit {
 
     change(arraySelected) {
         this.selectedArray = arraySelected;
-        this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected = this.underConstructionChecked = false;
+        this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected
+            = this.underConstructionChecked = this.depositSelected = false;
         arraySelected.forEach(selectedValue => {
             switch (selectedValue) {
                 case 'LandSecurity' :
@@ -323,6 +340,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     break;
                 case 'PlantSecurity' :
                     this.plantSelected = true;
+                    break;
+                case 'FixedDeposit':
+                    this.depositSelected = true;
             }
         });
     }
@@ -487,5 +507,53 @@ export class SecurityInitialFormComponent implements OnInit {
                 })
             );
         });
+    }
+
+    fixedDepositFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            receiptNumber: [''],
+            amount: [''],
+            expiryDate: [''],
+            couponRate: [''],
+            beneficiary: [''],
+            remarks: ['']
+        });
+    }
+
+    addFixedDeposit() {
+        (this.securityForm.get('fixedDepositDetails') as FormArray).push(this.fixedDepositFormGroup());
+    }
+
+    removeFixedDeposit(index: number) {
+        (this.securityForm.get('fixedDepositDetails') as FormArray).removeAt(index);
+    }
+
+    setFixedDepositDetails(details) {
+        const depositDetails = this.securityForm.get('fixedDepositDetails') as FormArray;
+        details.forEach(deposit => {
+            depositDetails.push(
+                this.formBuilder.group({
+                    receiptNumber: [deposit.receiptNumber],
+                    amount: [deposit.amount],
+                    expiryDate: [deposit.expiryDate],
+                    couponRate: [deposit.couponRate],
+                    beneficiary: [deposit.beneficiary],
+                    remarks: [deposit.remarks]
+                })
+            );
+        });
+    }
+
+    checkFixDeposit() {
+        if (this.loanTag === LoanTag.getKeyByValue('FIXED DEPOSIT')) {
+            this.isFixedDeposit = true;
+        }
+    }
+
+    getSecurities() {
+        if (this.isFixedDeposit) {
+            return this.securityTypes.filter(type => type.key === 'FixedDeposit');
+        }
+        return this.securityTypes;
     }
 }

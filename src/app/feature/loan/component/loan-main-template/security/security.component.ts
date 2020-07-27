@@ -24,6 +24,8 @@ export class SecurityComponent implements OnInit {
     @Input() securityValue: Security;
     @Input() proposalDataHolder: Proposal;
     @Input() calendarType: CalendarType;
+    @Input() loanTag: string;
+
     @ViewChild('initialSecurity' , {static: false})
     initialSecurity: SecurityInitialFormComponent;
     securityData: Security = new Security();
