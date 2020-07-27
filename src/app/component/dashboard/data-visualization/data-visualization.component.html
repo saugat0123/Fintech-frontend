@@ -8,17 +8,9 @@
                 <form [formGroup]="filterForm">
                     <div class="form-group row">
                         <div *ngIf="accessSpecific || accessAll" class="col-md-2">
-                            <select formControlName="branch" class="custom-select" (change)="updateDealer($event)">
+                            <select formControlName="branch" class="custom-select">
                                 <option selected [value]="0">All Branches</option>
                                 <option *ngFor="let branch of branches" [value]="branch.id">{{branch.name}}
-                                </option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-2">
-                            <select formControlName="dealer" class="custom-select">
-                                <option selected [value]="0">Dealers</option>
-                                <option *ngFor="let dealer of dealers" [ngValue]="dealer.id">{{dealer.name}}
                                 </option>
                             </select>
                         </div>
