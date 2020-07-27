@@ -11,12 +11,9 @@
                         <nb-select #combinedSecurityElement (selectedChange)="change(combinedSecurityElement.selected)"
                                    [selected]="selectedArray"
                                    multiple placeholder="Multiple Select">
-                            <nb-option value="LandSecurity" [disabled]="isFixedDeposit">Land Security</nb-option>
-                            <nb-option value="VehicleSecurity" [disabled]="isFixedDeposit">Vehicle Security</nb-option>
-                            <nb-option value="ApartmentSecurity" [disabled]="isFixedDeposit">Apartment Security</nb-option>
-                            <nb-option value="Land and Building Security" [disabled]="isFixedDeposit">Land and Building Security</nb-option>
-                            <nb-option value="PlantSecurity" [disabled]="isFixedDeposit">Plant and Machinery Security</nb-option>
-                            <nb-option value="FixedDeposit">Fixed Deposit Receipt</nb-option>
+                            <nb-option *ngFor="let type of getSecurities()" [value]="type?.key">
+                                {{type?.value}}
+                            </nb-option>
                         </nb-select>
                     </div>
                 </div>

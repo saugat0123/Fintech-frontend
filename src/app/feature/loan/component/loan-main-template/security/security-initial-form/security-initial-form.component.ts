@@ -37,6 +37,15 @@ export class SecurityInitialFormComponent implements OnInit {
     depositSelected = false;
     isFixedDeposit = false;
 
+    securityTypes = [
+        {key: 'LandSecurity', value: 'Land Security'},
+        {key: 'VehicleSecurity', value: 'Vehicle Security'},
+        {key: 'ApartmentSecurity', value: 'Apartment Security'},
+        {key: 'Land and Building Security', value: 'Land and Building Security'},
+        {key: 'PlantSecurity', value: 'Plant and Machinery Security'},
+        {key: 'FixedDeposit', value: 'Fixed Deposit Receipt'},
+    ];
+
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
                 private valuatorService: ValuatorService,
@@ -539,5 +548,12 @@ export class SecurityInitialFormComponent implements OnInit {
         if (this.loanTag === LoanTag.getKeyByValue('FIXED DEPOSIT')) {
             this.isFixedDeposit = true;
         }
+    }
+
+    getSecurities() {
+        if (this.isFixedDeposit) {
+            return this.securityTypes.filter(type => type.key === 'FixedDeposit');
+        }
+        return this.securityTypes;
     }
 }
