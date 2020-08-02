@@ -89,6 +89,7 @@ import {InsuranceComponent} from './component/loan-main-template/insurance/insur
 import {InsuranceSummaryComponent} from './component/loan-summary/insurance-summary/insurance-summary.component';
 import { GuarantorSummaryComponent } from './component/loan-summary/guarantor-summary/guarantor-summary.component';
 import { ProposalSummaryComponent } from './component/loan-summary/proposal-summary/proposal-summary.component';
+import { CreditRiskGradingAlphaComponent } from './component/loan-main-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -177,7 +178,7 @@ const ENTRY_COMPONENTS = [
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS],
+    declarations: [...COMPONENTS, CreditRiskGradingAlphaComponent],
     imports: [
         ThemeModule,
         CommonModule,

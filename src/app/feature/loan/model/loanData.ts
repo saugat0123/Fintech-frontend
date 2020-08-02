@@ -23,6 +23,7 @@ import {MawCreditRiskGrading} from './MawCreditRiskGrading';
 import {GuarantorDetail} from './guarantor-detail';
 import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
 import {CustomerLoanFlag} from '../../../@core/model/customer-loan-flag';
+import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
 
 export class LoanDataHolder {
     id: number;
@@ -58,6 +59,7 @@ export class LoanDataHolder {
     offerLetterStat: number;
     uploadedOfferLetterStat: number;
     creditRiskGrading: CreditRiskGrading;
+    creditRiskGradingAlpha: CreditRiskGradingAlpha;
     group: Group;
     shareSecurity: ShareSecurity;
     nepaliTemplates: Array<NepaliTemplateDataHolder>;
