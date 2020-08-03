@@ -6,4 +6,6 @@ export class AccountCategory {
     name: string;
     accountType: AccountType;
     documents: Array<Document>;
+    interestRate: number;
+    minimumBalance: number;
 }
