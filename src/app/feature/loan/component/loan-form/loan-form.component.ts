@@ -46,6 +46,7 @@ import {GuarantorComponent} from '../loan-main-template/guarantor/guarantor.comp
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {InsuranceComponent} from '../loan-main-template/insurance/insurance.component';
+import {CreditRiskGradingAlphaComponent} from '../loan-main-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -145,6 +146,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('creditGrading', {static: false})
     creditGrading: CreditGradingComponent;
+
+    @ViewChild('creditRiskGradingAlpha', {static: false})
+    creditRiskGradingAlpha: CreditRiskGradingAlphaComponent;
 
     @ViewChild('mawCreditRiskGrading', {static: false})
     mawCreditRiskGrading: MawCreditRiskGradingComponent;
@@ -504,6 +508,10 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Credit Risk Grading' && action) {
             this.creditGrading.onSubmit();
             this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
+        }
+        if (name === 'Credit Risk Grading - Alpha' && action) {
+            this.creditRiskGradingAlpha.onSubmit();
+            this.loanDocument.creditRiskGradingAlpha = this.creditRiskGradingAlpha.creditRiskData;
         }
         if (name === 'MAW Credit Risk Grading' && action) {
             this.mawCreditRiskGrading.onSubmit();

@@ -116,6 +116,7 @@
         <div class="col-md-6 mr-0 pr-0 text-right">
           <app-gauge-chart [chartWidth]="300"
                            [chartHeight]="180"
+                           gaugeIdentifier="crg-manual"
                            [maxValue]="100"
                            [obtainedValue]="creditRiskScore"></app-gauge-chart>
         </div>
@@ -137,6 +138,35 @@
           </div>
         </div>
       </div>
+
+      <hr class="print-line disable-print">
+      <div *ngIf="creditRiskAlphaSummary" class="row disable-print">
+        <div class="col-md-6 mr-0 pr-0 text-right">
+          <app-gauge-chart [chartWidth]="300"
+                           gaugeIdentifier="crg-alpha"
+                           [chartHeight]="180"
+                           [maxValue]="100"
+                           [obtainedValue]="creditRiskAlphaScore"></app-gauge-chart>
+        </div>
+        <div class="col-md-6 ml-0 gauge-label-padding">
+          <div class="vertical-line">
+            <div class="text-left pl-2">
+              Credit Risk Grade (Alpha):
+              <span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha | titlecase}}</span>
+              <span class="text-danger">
+                <em *ngIf="noComplianceLoanAlpha" class="fa fa-exclamation-triangle"> ( No compliance of
+                Covenants / Conditions )</em>
+              </span>
+            </div>
+            <br>
+            <div class="text-left pl-2">
+              Credit Risk Score (Alpha):
+              <span><strong> {{ creditRiskAlphaScore }}</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div *ngIf="loanCategory === 'BUSINESS_TYPE'" class="row">
         <div class="col-md-12">
           <p><strong>Details of Company</strong></p>
