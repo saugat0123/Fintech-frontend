@@ -36,6 +36,28 @@
                type="text">
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-12 form-group">
+        <label for="interestRate">Interest Rate</label>
+        <input [ngClass]="{
+                                'is-invalid': interestRate.invalid && (interestRate.dirty || interestRate.touched),
+                                'is-valid': !interestRate.invalid && (interestRate.dirty || interestRate.touched)
+                                }"
+               class="form-control" formControlName="interestRate" id="interestRate"
+               placeholder="Interest Rate" type="number">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 form-group">
+        <label for="minimumBalance">Minimum Balance</label>
+        <input [ngClass]="{
+                                'is-invalid': minimumBalance.invalid && (minimumBalance.dirty || minimumBalance.touched),
+                                'is-valid': !minimumBalance.invalid && (minimumBalance.dirty || minimumBalance.touched)
+                                }"
+               class="form-control" formControlName="minimumBalance" id="minimumBalance"
+               placeholder="Minimum Balance" type="number">
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
     <button class="btn btn-primary" type="submit" [disabled]="!modelForm.valid">Save</button>

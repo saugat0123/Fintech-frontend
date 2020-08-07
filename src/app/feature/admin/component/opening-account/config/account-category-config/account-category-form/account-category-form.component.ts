@@ -39,6 +39,14 @@ export class AccountCategoryFormComponent implements OnInit {
     return this.modelForm.get('name');
   }
 
+  get interestRate() {
+    return this.modelForm.get('interestRate');
+  }
+
+  get minimumBalance() {
+    return this.modelForm.get('minimumBalance');
+  }
+
   ngOnInit(): void {
     this.accountTypeService.getAll().subscribe((r: any) => {
       this.accountTypeList = r.detail;
@@ -59,8 +67,19 @@ export class AccountCategoryFormComponent implements OnInit {
             [Validators.required, CustomValidator.notEmpty]
           ],
           accountType: [
-              this.model.accountType === undefined ? undefined : this.model.accountType.id,
-              Validators.required
+            ObjectUtil.isEmpty(this.model.accountType) ? undefined : this.model.accountType.id,
+            Validators.required
+          ],
+          interestRate: [
+            ObjectUtil.setUndefinedIfNull(this.model.interestRate),
+            Validators.required
+          ],
+          minimumBalance: [
+            ObjectUtil.setUndefinedIfNull(this.model.minimumBalance),
+            Validators.required
+          ],
+          documents: [
+            ObjectUtil.setUndefinedIfNull(this.model.documents)
           ]
         }
     );
@@ -90,7 +109,7 @@ export class AccountCategoryFormComponent implements OnInit {
         );
         break;
       case Action.UPDATE:
-        this.model.name = this.modelForm.get('name').value;
+        this.model = this.modelForm.value as AccountCategory;
         this.model.accountType = this.getAccountTypeById(this.modelForm.get('accountType').value);
         this.service.update(this.model.id, this.model)
         .subscribe(

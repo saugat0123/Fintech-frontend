@@ -50,7 +50,7 @@ export class BasicInfoComponent implements OnInit {
     private isBlackListed: boolean;
     allDistrict: Array<District> = Array<District>();
     private customerList: Array<Customer> = new Array<Customer>();
-    private showMatchingTable: boolean;
+    public showMatchingTable: boolean;
 
     constructor(
         private formBuilder: FormBuilder,
