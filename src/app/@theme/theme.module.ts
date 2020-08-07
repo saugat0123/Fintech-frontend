@@ -38,7 +38,7 @@ import {
     NbToggleModule,
     NbTooltipModule,
     NbUserModule,
-    NbWindowModule,
+    NbWindowModule
 } from '@nebular/theme';
 
 import {
