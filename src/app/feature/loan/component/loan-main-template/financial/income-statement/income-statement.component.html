@@ -391,7 +391,7 @@
       <td *ngFor="let amount of incomeStatementForm.get('accumulatedProfitBOrD')['controls']; let j = index"
           formArrayName="accumulatedProfitBOrD" scope="col">
         <div [formGroupName]="j" class="text-center">
-          <input (input)="onValueChange('accumulatedProfitBOrD', j)"
+          <input [readOnly]="j != 0" (input)="onValueChange('accumulatedProfitBOrD', j)"
                  (change)="checkForLatterFiscalYearChanges(j)"
                  formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
         </div>
