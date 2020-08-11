@@ -371,7 +371,7 @@
       <td *ngFor="let amount of category.get('amount')['controls']; let o = index"
           formArrayName="amount">
         <div [formGroupName]="o" class="text-center">
-          <input (input)="onValueChange('netWorth', o)"
+          <input [readonly]="i == 1" (input)="onValueChange('netWorth', o)"
                  (change)="checkForLatterFiscalYearChanges(o)"
                  class="text-center" type="number" formControlName="value" style="border: none; outline: none;" value="0">
         </div>
