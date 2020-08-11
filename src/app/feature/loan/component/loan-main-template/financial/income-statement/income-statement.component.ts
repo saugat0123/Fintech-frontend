@@ -370,6 +370,20 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
             + Number(keyIndicators.averageCollectionPeriod[index].value) - Number(keyIndicators.averagePaymentPeriod[index].value);
     }
 
+    checkForLatterFiscalYearChanges(index: number) {
+        if (this.fiscalYear.length - 1 > index) {
+            const subsequentYearsIndexArray = [];
+            this.fiscalYear.forEach( (value, i) => {
+                if (i > index) {
+                    subsequentYearsIndexArray.push(i);
+                }
+            });
+            subsequentYearsIndexArray.forEach( currentIndex => {
+                this.onValueChange(undefined, currentIndex);
+            });
+        }
+    }
+
     // Adding and deleting fields
     // Total Sales Revenue Sub Category--
     addSubCategoryTotalSales(name) {

@@ -44,6 +44,7 @@
           formArrayName="amount">
         <div [formGroupName]="o" class="text-center">
           <input (input)="onValueChange('totalSalesRevenue', o)"
+                 (change)="checkForLatterFiscalYearChanges(o)"
                  class="text-center" type="number" formControlName="value" style="border: none; outline: none;" value="0">
         </div>
       </td>
@@ -89,6 +90,7 @@
           formArrayName="amount">
         <div [formGroupName]="o" class="text-center">
           <input (input)="onValueChange('costOfGoodsSold', o)"
+                 (change)="checkForLatterFiscalYearChanges(o)"
                  formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
         </div>
       </td>
@@ -147,6 +149,7 @@
           formArrayName="amount">
         <div [formGroupName]="o" class="text-center">
           <input (input)="onValueChange('operatingExpenses', o)"
+                 (change)="checkForLatterFiscalYearChanges(o)"
                  formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
         </div>
       </td>
@@ -205,6 +208,7 @@
           formArrayName="amount">
         <div [formGroupName]="o" class="text-center">
           <input (input)="onValueChange('interestExpenses', o)"
+                 (change)="checkForLatterFiscalYearChanges(o)"
                  formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
         </div>
       </td>
@@ -250,6 +254,7 @@
           formArrayName="amount">
         <div [formGroupName]="o" class="text-center">
           <input (input)="onValueChange('nonOperatingIncomeOrExpenses', o)"
+                 (change)="checkForLatterFiscalYearChanges(o)"
                  formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
         </div>
       </td>
@@ -329,6 +334,7 @@
           formArrayName="amount">
         <div [formGroupName]="o" class="text-center">
           <input (input)="onValueChange('taxes', o)"
+                 (change)="checkForLatterFiscalYearChanges(o)"
                  formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
         </div>
       </td>
@@ -355,7 +361,9 @@
       <td *ngFor="let amount of incomeStatementForm.get('dividendOrDrawing')['controls']; let j = index"
           formArrayName="dividendOrDrawing" scope="col">
         <div [formGroupName]="j" class="text-center">
-          <input (input)="onValueChange('dividendOrDrawing', j)" formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
+          <input (input)="onValueChange('dividendOrDrawing', j)"
+                 (change)="checkForLatterFiscalYearChanges(j)"
+                 formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
         </div>
       </td>
     </tr>
@@ -368,7 +376,9 @@
       <td *ngFor="let amount of incomeStatementForm.get('otherAdjustment')['controls']; let j = index"
           formArrayName="otherAdjustment" scope="col">
         <div [formGroupName]="j" class="text-center">
-          <input (input)="onValueChange('otherAdjustment', j)" formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
+          <input (input)="onValueChange('otherAdjustment', j)"
+                 (change)="checkForLatterFiscalYearChanges(j)"
+                 formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
         </div>
       </td>
     </tr>
@@ -381,7 +391,9 @@
       <td *ngFor="let amount of incomeStatementForm.get('accumulatedProfitBOrD')['controls']; let j = index"
           formArrayName="accumulatedProfitBOrD" scope="col">
         <div [formGroupName]="j" class="text-center">
-          <input (input)="onValueChange('accumulatedProfitBOrD', j)" formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
+          <input (input)="onValueChange('accumulatedProfitBOrD', j)"
+                 (change)="checkForLatterFiscalYearChanges(j)"
+                 formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
         </div>
       </td>
     </tr>
