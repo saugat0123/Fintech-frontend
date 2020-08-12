@@ -455,6 +455,20 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
                 .get('currentLiabilitiesCategory'), 'Security Deposits', index));
     }
 
+    checkForLatterFiscalYearChanges(index: number) {
+        if (this.fiscalYear.length - 1 > index) {
+            const subsequentYearsIndexArray = [];
+            this.fiscalYear.forEach( (value, i) => {
+                if (i > index) {
+                    subsequentYearsIndexArray.push(i);
+                }
+            });
+            subsequentYearsIndexArray.forEach( currentIndex => {
+                this.onValueChange(undefined, currentIndex);
+            });
+        }
+    }
+
     // Adding and deleting fields---
     // Current Assets Category
     addCurrentAssetsCategory(name) {
