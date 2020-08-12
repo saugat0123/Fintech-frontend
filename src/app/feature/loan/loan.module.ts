@@ -185,7 +185,6 @@ const ENTRY_COMPONENTS = [
         FormsModule,
         NgbPaginationModule,
         ReactiveFormsModule,
-        ReactiveFormsModule,
         NgSelectModule,
         NbDatepickerModule,
         NgxPrintModule,
