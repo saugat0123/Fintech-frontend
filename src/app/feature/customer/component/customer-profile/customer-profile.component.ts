@@ -31,6 +31,7 @@ export class CustomerProfileComponent implements OnInit {
     loanType = LoanType;
     loanList = [];
     spinner = false;
+    submitted = false;
     formData: FormData = new FormData();
     restUrl = ApiConfig.URL;
     applyForm = {
@@ -79,6 +80,7 @@ export class CustomerProfileComponent implements OnInit {
         });
     }
 
+
     ngOnInit() {
         this.id = this.route.snapshot.params.id;
         this.customerService.detail(this.id).subscribe((res: any) => {
@@ -93,6 +95,9 @@ export class CustomerProfileComponent implements OnInit {
         this.loanConfigService.getAll().subscribe((response: any) => {
             this.loanList = response.detail;
         });
+    }
+    get basicFormControl() {
+        return this.basicForm.controls;
     }
 
     getProvince() {
@@ -112,6 +117,7 @@ export class CustomerProfileComponent implements OnInit {
             }
         );
     }
+
 
 
     openSelectLoanTemplate(template: TemplateRef<any>) {
@@ -196,15 +202,15 @@ export class CustomerProfileComponent implements OnInit {
             initialRelationDate: [this.customer.initialRelationDate === undefined ? undefined :
                 new Date(this.customer.initialRelationDate)],
             citizenshipNumber: [this.customer.citizenshipNumber === undefined ? undefined : this.customer.citizenshipNumber
-                , Validators.required],
-            citizenshipIssuedPlace: [this.customer.citizenshipIssuedPlace === undefined ? undefined : this.customer.citizenshipIssuedPlace,
-                Validators.required],
+                ],
+            citizenshipIssuedPlace: [this.customer.citizenshipIssuedPlace === undefined ? undefined : this.customer.citizenshipIssuedPlace
+              ],
             citizenshipIssuedDate: [ObjectUtil.isEmpty(this.customer.citizenshipIssuedDate) ? undefined :
-                new Date(this.customer.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]],
+                new Date(this.customer.citizenshipIssuedDate)],
             dob: [ObjectUtil.isEmpty(this.customer.dob) ? undefined :
                 new Date(this.customer.dob), [Validators.required, DateValidator.isValidBefore]],
-            occupation: [this.customer.occupation === undefined ? undefined : this.customer.occupation, [Validators.required]],
-            incomeSource: [this.customer.incomeSource === undefined ? undefined : this.customer.incomeSource, [Validators.required]],
+            occupation: [this.customer.occupation === undefined ? undefined : this.customer.occupation],
+            incomeSource: [this.customer.incomeSource === undefined ? undefined : this.customer.incomeSource],
             customerRelatives: this.formBuilder.array([]),
             version: [this.customer.version === undefined ? undefined : this.customer.version],
         });
@@ -215,10 +221,10 @@ export class CustomerProfileComponent implements OnInit {
         relation.forEach((customerRelation) => {
             (this.basicForm.get('customerRelatives') as FormArray).push(this.formBuilder.group({
                 customerRelation: [{value: customerRelation, disabled: true}],
-                customerRelativeName: [undefined, Validators.compose([Validators.required])],
-                citizenshipNumber: [undefined, Validators.compose([Validators.required])],
-                citizenshipIssuedPlace: [undefined, Validators.compose([Validators.required])],
-                citizenshipIssuedDate: [undefined, Validators.compose([Validators.required, DateValidator.isValidBefore])]
+                customerRelativeName: [undefined],
+                citizenshipNumber: [undefined],
+                citizenshipIssuedPlace: [undefined],
+                citizenshipIssuedDate: [undefined]
             }));
         });
     }
@@ -230,12 +236,12 @@ export class CustomerProfileComponent implements OnInit {
             // Increase index number with increase in static relatives---
             relativesData.push(this.formBuilder.group({
                 customerRelation: (index > 2) ? [(customerRelative)] :
-                    [({value: customerRelative, disabled: true}), Validators.required],
-                customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
-                citizenshipNumber: [singleRelatives.citizenshipNumber, Validators.required],
-                citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace, Validators.required],
+                    [({value: customerRelative, disabled: true})],
+                customerRelativeName: [singleRelatives.customerRelativeName],
+                citizenshipNumber: [singleRelatives.citizenshipNumber],
+                citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
                 citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
-                    undefined : new Date(singleRelatives.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]]
+                    undefined : new Date(singleRelatives.citizenshipIssuedDate)]
             }));
         });
     }
@@ -269,6 +275,10 @@ export class CustomerProfileComponent implements OnInit {
     }
 
     saveBasic() {
+        this.submitted = true;
+        if (this.basicForm.invalid){
+            return;
+        }
         this.customerService.save(this.basicForm.value).subscribe((res: any) => {
             this.customer = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));

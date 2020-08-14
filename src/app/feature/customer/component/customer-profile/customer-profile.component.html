@@ -42,58 +42,105 @@
 
             <div *ngIf="isEdited" class="col-md-8 mt-3 py-4">
                 <form [formGroup]="basicForm">
-                    <div class="row form-inline">
-                        <span> <b>Name :</b> <input formControlName="customerName" placeholder="name"
-                                                    type="text"></span></div>
+                    <div class="row form-inline ">
+                        <div> <b>Name :</b> <input formControlName="customerName" placeholder="name"
+                                                    type="text"
+                                                    id="customerName"
+                                                    class="form-control"
+                                                    [ngClass]="{'is-invalid':(submitted) && basicFormControl.customerName?.errors}"/>
+
+                        </div>
+
+                        <div *ngIf="(submitted) && basicFormControl.customerName?.invalid " class="alert-danger">
+                            <div *ngIf=" basicFormControl.customerName?.errors.required">
+                                Name is required!
+                            </div>
+
+                        </div>
+                    </div>
+
                     <div class="row form-inline">
                         <span> <b>Date Of Birth :</b>      <input [nbDatepicker]="dob"
                                                                   class="form-control" formControlName="dob"
                                                                   id="dob"
                                                                   name="dob"
-                                                                  placeholder="Customer Date of birth">
-                         <nb-datepicker #dob></nb-datepicker></span></div>
+                                                                  placeholder="Customer Date of birth"
+                                                                  [ngClass]="{'is-invalid': (submitted) && basicFormControl.dob?.errors}">
+                         <nb-datepicker #dob></nb-datepicker></span>
+                        <div *ngIf="(submitted) && basicFormControl.dob?.invalid" class="alert-danger">
+                            Invalid date of birth!
+                        </div>
+                    </div>
 
                     <div class="row">
                     <span> <b>Address :</b> <select (change)="getDistricts(this.basicForm.get('province').value)"
                                                     formControlName="province"
                                                     id="province"
-                                                    name="province">
+                                                    name="province"
+                                                    [ngClass]="{'is-invalid': (submitted) && basicFormControl.province?.errors}">
                                 <option [value]="null" hidden>Select Province</option>
                                 <option *ngFor="let provinceVal of provinceList" [ngValue]="provinceVal"
                                         [selected]="provinceVal.id === province?.id">
                                     {{provinceVal.name}}
                             </select>
+                        <div *ngIf="(submitted) && basicFormControl.province?.invalid" class="alert-danger">
+                            province is required!
+                        </div>
                         <select (change)="getMunicipalities(this.basicForm.get('district').value)"
                                 formControlName="district"
                                 id="district"
-                                name="district">
+                                name="district"
+                                [ngClass]="{'is-invalid': (submitted) && basicFormControl.district?.errors}">
                                 <option [ngValue]="null" hidden>Select District</option>
                                 <option *ngFor="let districtVal of districtList" [ngValue]="districtVal"
                                         [selected]="districtVal.id === district?.id">{{districtVal.name}}
 
                                 </option>
                             </select>
+                        <div *ngIf="(submitted) && basicFormControl.district?.invalid" class="alert-danger">
+                            district is required!
+                        </div>
                            <select formControlName="municipalities"
                                    id="municipality"
-                                   name="municipality">
+                                   name="municipality"
+                                   [ngClass]="{'is-invalid': (submitted) && basicFormControl.municipalities?.errors}">
                                 <option [ngValue]="null" hidden>Select Municipality</option>
                                 <option *ngFor="let municipalityVal of municipalitiesList" [ngValue]="municipalityVal"
                                         [selected]="municipalityVal.id === municipality?.id">
                                     {{municipalityVal.name}}
                                 </option>
                             </select>
+                        <div *ngIf="(submitted) && basicFormControl.municipalities?.invalid" class="alert-danger">
+                            municipality is required!
+                        </div>
                         <input formControlName="street" placeholder="street Address"
-                               type="text">
+                               type="text"
+                               [ngClass]="{'is-invalid': (submitted) && basicFormControl.street?.errors}">
+                        <div *ngIf="(submitted) && basicFormControl.street?.invalid" class="alert-danger">
+                            street is required!
+                        </div>
                              <input formControlName="wardNumber" placeholder="ward no."
-                                    type="text" width="20px">
+                                    type="text" width="20px"
+                                    [ngClass]="{'is-invalid': (submitted) && basicFormControl.wardNumber?.errors}">
+                        <div *ngIf="(submitted) && basicFormControl.wardNumber?.invalid" class="alert-danger">
+                            wardNumber is required!
+                        </div>
 
                       </span></div>
                     <div class="row">
                         <span> <b>Email :</b>   <input formControlName="email" placeholder="name"
-                                                       type="text"></span></div>
+                                                       type="text"
+                                                       [ngClass]="{'is-invalid': (submitted) && basicFormControl.email?.errors}">
+                        <div *ngIf="(submitted) && basicFormControl.email?.invalid" class="alert-danger">
+                            email is required!
+                        </div></span></div>
                     <div class="row">
                         <span> <b>Contact :</b>   <input formControlName="contactNumber" placeholder="name"
-                                                         type="text"></span></div>
+                                                         type="text"
+                                                         [ngClass]="{'is-invalid': (submitted) && basicFormControl.contactNumber?.errors}">
+                        <div *ngIf="(submitted) && basicFormControl.contactNumber?.invalid" class="alert-danger">
+                            contact Number is required!
+                        </div></span></div>
                 </form>
 
             </div>
