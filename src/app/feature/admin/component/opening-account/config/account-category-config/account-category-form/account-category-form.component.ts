@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AccountCategory} from '../../../../../modal/accountCategory';
 import {Action} from '../../../../../../../@core/Action';
 import {Violation} from '../../../../../../../@core/utils/modal/Violation';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AccountCategoryService} from '../../../service/account-category.service';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalResponse, ToastService} from '../../../../../../../@core/utils';
@@ -29,7 +29,7 @@ export class AccountCategoryFormComponent implements OnInit {
   constructor(
       private formBuilder: FormBuilder,
       private service: AccountCategoryService,
-      private modalRef: NgbActiveModal,
+      public modalRef: NgbActiveModal,
       private toastService: ToastService,
       private accountTypeService: AccountTypeService
   ) {
@@ -39,18 +39,9 @@ export class AccountCategoryFormComponent implements OnInit {
     return this.modelForm.get('name');
   }
 
-  get interestRate() {
-    return this.modelForm.get('interestRate');
-  }
-
-  get minimumBalance() {
-    return this.modelForm.get('minimumBalance');
-  }
-
   ngOnInit(): void {
     this.accountTypeService.getAll().subscribe((r: any) => {
       this.accountTypeList = r.detail;
-      console.log(this.accountTypeList);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load account types'));
@@ -58,38 +49,12 @@ export class AccountCategoryFormComponent implements OnInit {
     this.buildForm();
   }
 
-  buildForm() {
-    this.modelForm = this.formBuilder.group(
-        {
-          id: [ObjectUtil.setUndefinedIfNull(this.model.id)],
-          name: [
-            ObjectUtil.setUndefinedIfNull(this.model.name),
-            [Validators.required, CustomValidator.notEmpty]
-          ],
-          accountType: [
-            ObjectUtil.isEmpty(this.model.accountType) ? undefined : this.model.accountType.id,
-            Validators.required
-          ],
-          interestRate: [
-            ObjectUtil.setUndefinedIfNull(this.model.interestRate),
-            Validators.required
-          ],
-          minimumBalance: [
-            ObjectUtil.setUndefinedIfNull(this.model.minimumBalance),
-            Validators.required
-          ],
-          documents: [
-            ObjectUtil.setUndefinedIfNull(this.model.documents)
-          ]
-        }
-    );
-  }
-
-  save() {
+  public save() {
     switch (this.action) {
       case Action.ADD:
         this.model = this.modelForm.value as AccountCategory;
         this.model.accountType = this.getAccountTypeById(this.modelForm.get('accountType').value);
+        this.model.additionalInformation = JSON.stringify(this.modelForm.get('additionalInformation').value);
         this.service.save(this.model).subscribe(
             () => {
 
@@ -111,6 +76,7 @@ export class AccountCategoryFormComponent implements OnInit {
       case Action.UPDATE:
         this.model = this.modelForm.value as AccountCategory;
         this.model.accountType = this.getAccountTypeById(this.modelForm.get('accountType').value);
+        this.model.additionalInformation = JSON.stringify(this.modelForm.get('additionalInformation').value);
         this.service.update(this.model.id, this.model)
         .subscribe(
             () => {
@@ -135,14 +101,61 @@ export class AccountCategoryFormComponent implements OnInit {
     }
   }
 
+  public addFeature() {
+    (this.modelForm.get(['additionalInformation', 'features']) as FormArray).push(this.getFeatureGroup());
+  }
+
+  public getFeatureGroup() {
+    return this.formBuilder.group({
+      particular: [undefined, [Validators.required]],
+      remark: [undefined, [Validators.required]],
+    });
+  }
+
+  public addNote() {
+    (this.modelForm.get(['additionalInformation', 'notes']) as FormArray).push(this.formBuilder.control('', [Validators.required]));
+  }
+
+  public deleteFromFormArray(array: FormArray | AbstractControl, index: number) {
+    (array as FormArray).removeAt(index);
+  }
+
   private getAccountTypeById(id: number): AccountType {
     const accountType = new AccountType();
     accountType.id = id;
     return accountType;
   }
 
-  close() {
-    this.modalRef.dismiss();
+  private buildForm() {
+    this.modelForm = this.formBuilder.group(
+        {
+          id: [ObjectUtil.setUndefinedIfNull(this.model.id)],
+          name: [
+            ObjectUtil.setUndefinedIfNull(this.model.name),
+            [Validators.required, CustomValidator.notEmpty]
+          ],
+          accountType: [
+            ObjectUtil.isEmpty(this.model.accountType) ? undefined : this.model.accountType.id,
+            Validators.required
+          ],
+          documents: [
+            ObjectUtil.setUndefinedIfNull(this.model.documents)
+          ],
+          additionalInformation: this.formBuilder.group({
+            features: this.formBuilder.array([]),
+            notes: this.formBuilder.array([]),
+          })
+        }
+    );
+    if (!ObjectUtil.isEmpty(this.model.additionalInformation)) {
+      const parsedData = JSON.parse(this.model.additionalInformation);
+      for (let i = 0; i < parsedData.features.length; i++) {
+        this.addFeature();
+      }
+      for (let i = 0; i < parsedData.notes.length; i++) {
+        this.addNote();
+      }
+      this.modelForm.get('additionalInformation').patchValue(parsedData);
+    }
   }
-
 }
