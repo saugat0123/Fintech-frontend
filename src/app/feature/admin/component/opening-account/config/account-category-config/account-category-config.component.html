@@ -57,8 +57,6 @@
               <th>S.N</th>
               <th>Account Category</th>
               <th>Account Type</th>
-              <th>Interest Rate</th>
-              <th>Minimum Balance</th>
               <th *ngIf='editPermission'>Action</th>
             </tr>
             </thead>
@@ -70,8 +68,6 @@
               <td>{{i + 1}}</td>
               <td>{{accountCategory.name}}</td>
               <td>{{accountCategory?.accountType?.name}}</td>
-              <td>{{accountCategory?.interestRate}}</td>
-              <td>{{accountCategory?.minimumBalance}}</td>
               <td *ngIf='editPermission'>
                 <button
                     nbButton status="info"
