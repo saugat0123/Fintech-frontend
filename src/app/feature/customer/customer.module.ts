@@ -8,14 +8,16 @@ import {CustomerGroupLoanComponent} from './component/customer-group-loan/custom
 import {CustomerFormComponent} from './component/individual-customer-form/customer-form.component';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {NbDatepickerModule, NbDialogModule} from '@nebular/theme';
-import { KycFormComponent } from './component/individual-customer-form/kyc-form/kyc-form.component';
+import {KycFormComponent} from './component/individual-customer-form/kyc-form/kyc-form.component';
+import {CustomerLoanInformationComponent} from './component/customer-loan-information/customer-loan-information.component';
 
 
 @NgModule({
-  declarations: [CustomerComponent, CustomerProfileComponent, CustomerGroupLoanComponent, CustomerFormComponent, KycFormComponent],
+  // tslint:disable-next-line:max-line-length
+  declarations: [CustomerComponent, CustomerProfileComponent, CustomerGroupLoanComponent, CustomerFormComponent, KycFormComponent, CustomerLoanInformationComponent],
   exports: [
     CustomerGroupLoanComponent
   ],
@@ -29,7 +31,8 @@ import { KycFormComponent } from './component/individual-customer-form/kyc-form/
     NgSelectModule,
     NbDatepickerModule,
     NepaliCalendarModule,
-    NbDialogModule.forRoot()
+    NbDialogModule.forRoot(),
+
 
   ],
   entryComponents: [CustomerFormComponent]

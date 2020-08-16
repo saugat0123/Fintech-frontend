@@ -205,6 +205,9 @@ const ENTRY_COMPONENTS = [
 
     entryComponents: [...ENTRY_COMPONENTS],
 
+    exports: [
+        FinancialComponent
+    ]
 })
 export class LoanModule {
 }
