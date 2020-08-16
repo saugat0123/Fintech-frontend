@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {NbDialogService} from '@nebular/theme';
+import {SiteVisitComponent} from '../../../loan-information-template/site-visit/site-visit.component';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerLoanInformationComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('siteVisit', {static: false})
+  siteVisit: SiteVisitComponent;
+
+  constructor(private dialogService: NbDialogService, ) {
+  }
 
   ngOnInit() {
   }
 
+  saveSiteVisit(event) {
+    console.log(event);
+  }
 }

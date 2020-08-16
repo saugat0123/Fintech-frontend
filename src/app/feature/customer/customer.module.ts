@@ -13,11 +13,20 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {NbDatepickerModule, NbDialogModule} from '@nebular/theme';
 import {KycFormComponent} from './component/individual-customer-form/kyc-form/kyc-form.component';
 import {CustomerLoanInformationComponent} from './component/customer-loan-information/customer-loan-information.component';
+import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 
+const COMPONENTS = [
+  CustomerComponent,
+  CustomerProfileComponent,
+  CustomerGroupLoanComponent,
+  CustomerFormComponent,
+  KycFormComponent,
+  CustomerLoanInformationComponent
+];
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
-  declarations: [CustomerComponent, CustomerProfileComponent, CustomerGroupLoanComponent, CustomerFormComponent, KycFormComponent, CustomerLoanInformationComponent],
+  declarations: [...COMPONENTS],
   exports: [
     CustomerGroupLoanComponent
   ],
@@ -32,6 +41,7 @@ import {CustomerLoanInformationComponent} from './component/customer-loan-inform
     NbDatepickerModule,
     NepaliCalendarModule,
     NbDialogModule.forRoot(),
+    LoanInformationTemplateModule
 
 
   ],

@@ -25,7 +25,7 @@ import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DatePipe} from '@angular/common';
 import {CreditGradingComponent} from '../loan-main-template/credit-grading/credit-grading.component';
-import {SiteVisitComponent} from '../loan-main-template/site-visit/site-visit.component';
+import {SiteVisitComponent} from '../../../loan-information-template/site-visit/site-visit.component';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {SecurityComponent} from '../loan-main-template/security/security.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
