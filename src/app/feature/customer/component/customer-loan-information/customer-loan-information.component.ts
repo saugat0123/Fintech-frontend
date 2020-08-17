@@ -1,6 +1,13 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {NbDialogService} from '@nebular/theme';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {SiteVisitComponent} from '../../../loan-information-template/site-visit/site-visit.component';
+import {TemplateName} from '../../model/templateName';
+import {CustomerInfoService} from '../../service/customer-info.service';
+import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {ToastService} from '../../../../@core/utils';
+// @ts-ignore
+import {CustomerInfoData} from '../../../loan/model/customerInfoData';
+import {SiteVisit} from '../../../admin/modal/siteVisit';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -9,16 +16,32 @@ import {SiteVisitComponent} from '../../../loan-information-template/site-visit/
 })
 export class CustomerLoanInformationComponent implements OnInit {
 
+  @Input() id: number;
+  @Input() customerInfo: CustomerInfoData;
+  s = new SiteVisit();
   @ViewChild('siteVisit', {static: false})
   siteVisit: SiteVisitComponent;
 
-  constructor(private dialogService: NbDialogService, ) {
+  constructor(private toastService: ToastService, private customerInfoService: CustomerInfoService) {
   }
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.customerInfo.siteVisit)) {
+      this.s = this.customerInfo.siteVisit;
+    }
+
   }
 
   saveSiteVisit(event) {
-    console.log(event);
+    this.s.data = event;
+    this.customerInfoService.saveLoanInfo(this.s, this.id, TemplateName.SITE_VISIT).subscribe((response: any) => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved site visit!'));
+
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save site visit!'));
+    });
+
+
   }
 }

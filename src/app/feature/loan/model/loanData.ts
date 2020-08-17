@@ -23,12 +23,14 @@ import {MawCreditRiskGrading} from './MawCreditRiskGrading';
 import {GuarantorDetail} from './guarantor-detail';
 import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
 import {CustomerLoanFlag} from '../../../@core/model/customer-loan-flag';
+import {CustomerInfoData} from './customerInfoData';
+
 
 export class LoanDataHolder {
   id: number;
   branch: Branch;
   loanCategory: any;
-  loanHolder: LoanHolder;
+  loanHolder: CustomerInfoData;
   customerInfo: Customer;
   companyInfo: CompanyInfo;
   dmsLoanFile: DmsLoanFile;
@@ -67,6 +69,4 @@ export class LoanDataHolder {
   loanFlags: Array<CustomerLoanFlag>;
 }
 
-export class LoanHolder {
-  id: number;
-}
+

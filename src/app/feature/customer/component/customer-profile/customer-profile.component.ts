@@ -21,6 +21,10 @@ import {FetchLoan} from '../../model/fetchLoan';
 import {LoanAmountType} from '../../model/loanAmountType';
 import {LoanCategory} from '../../../loan/model/loan-category';
 import {CustomerType} from '../../model/customerType';
+import {CustomerInfoService} from '../../service/customer-info.service';
+// @ts-ignore
+import {CustomerInfoData} from '../../../loan/model/customerInfoData';
+
 
 @Component({
   selector: 'app-customer-profile',
@@ -29,6 +33,7 @@ import {CustomerType} from '../../model/customerType';
 })
 export class CustomerProfileComponent implements OnInit {
   id: number;
+  customerInfoId: number;
   customer: Customer = new Customer();
   loanType = LoanType;
   loanList = [];
@@ -60,10 +65,11 @@ export class CustomerProfileComponent implements OnInit {
   paramProp: any;
   filterLoanCat = LoanCategory.BUSINESS;
   isIndividual = false;
-
+  customerInfo = new CustomerInfoData();
 
   constructor(private route: ActivatedRoute,
               private customerService: CustomerService,
+              private customerInfoService: CustomerInfoService,
               private customerLoanService: LoanFormService,
               private toastService: ToastService,
               private router: Router,
@@ -93,6 +99,8 @@ export class CustomerProfileComponent implements OnInit {
             customerInfoId: null
           };
           this.paramProp = paramsValue;
+          this.customerInfoId = this.paramProp.customerInfoId;
+          this.getCustomerInfo();
         });
     if (CustomerType.INDIVIDUAL === CustomerType[this.paramProp.customerType]) {
       this.filterLoanCat = LoanCategory.PERSONAL;
@@ -110,6 +118,12 @@ export class CustomerProfileComponent implements OnInit {
 
     this.loanConfigService.getAllByLoanCategory(this.filterLoanCat).subscribe((response: any) => {
       this.loanList = response.detail;
+    });
+  }
+
+  getCustomerInfo() {
+    this.customerInfoService.detail(this.customerInfoId).subscribe((res: any) => {
+      this.customerInfo = res.detail;
     });
   }
 

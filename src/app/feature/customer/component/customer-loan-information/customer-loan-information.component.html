@@ -12,17 +12,17 @@
           </div>
           <div class="col-md-4 d-flex justify-content-end">
                                       <span style="color:black">
-                                      <a  title="full screen">
+                                      <a title="full screen">
                                         <i class="fa fa-expand px-2"></i>
                                    </a>
                                     </span>
 
 
-            <span  style="color:green" title="Status : Saved">
+            <span style="color:green" title="Status : Saved">
                                     <i class="fas fa-check-circle px-2"></i>
                                   </span>
 
-            <span  style="color:red" title="Status :Not Saved">
+            <span style="color:red" title="Status :Not Saved">
                                     <i class="fas fa-times-circle px-2"></i>
                                   </span>
 
@@ -31,7 +31,9 @@
         </div>
       </nb-accordion-item-header>
       <nb-accordion-item-body>
-        <app-site-visit #siteVisit [fromProfile]="true" (siteVisitDataEmitter)="saveSiteVisit($event)"></app-site-visit>
+        <app-site-visit #siteVisit [fromProfile]="true"
+                        (siteVisitDataEmitter)="saveSiteVisit($event)"
+                        [formValue]="customerInfo?.siteVisit"></app-site-visit>
 
       </nb-accordion-item-body>
     </nb-accordion-item>

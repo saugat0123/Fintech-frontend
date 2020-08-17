@@ -3,7 +3,7 @@ import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
 import {NgbModal, NgbTabChangeEvent, NgbTabset} from '@ng-bootstrap/ng-bootstrap';
-import {LoanDataHolder, LoanHolder} from '../../model/loanData';
+import {LoanDataHolder} from '../../model/loanData';
 import {BreadcrumbService} from '../../../../@theme/components/breadcrum/breadcrumb.service';
 
 import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-service';
@@ -46,6 +46,7 @@ import {GuarantorComponent} from '../loan-main-template/guarantor/guarantor.comp
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {InsuranceComponent} from '../loan-main-template/insurance/insurance.component';
+import {CustomerInfoData} from '../../model/customerInfoData';
 
 @Component({
   selector: 'app-loan-form',
@@ -177,7 +178,7 @@ export class LoanFormComponent implements OnInit {
   insuranceComponent: InsuranceComponent;
 
   loanTag: string;
-  loanHolder = new LoanHolder();
+  loanHolder = new CustomerInfoData();
 
   constructor(
       private loanDataService: LoanDataService,
