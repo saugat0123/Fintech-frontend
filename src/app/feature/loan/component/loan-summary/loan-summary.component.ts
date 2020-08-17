@@ -87,11 +87,20 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     url: string
   }[] = [];
   registeredOfferLetters: Array<String> = [];
+
+    // Credit risk variables ---
     creditGradeStatusBadge;
     creditRiskGrade;
     creditRiskScore = 0;
     noComplianceLoan = false;
     creditRiskSummary = false;
+
+    // credit risk alpha variables --
+    creditGradeAlphaStatusBadge;
+    creditRiskGradeAlpha;
+    creditRiskAlphaScore = 0;
+    noComplianceLoanAlpha = false;
+    creditRiskAlphaSummary = false;
 
     constructor(
       private userService: UserService,
@@ -185,6 +194,24 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     this.creditGradeStatusBadge = 'badge badge-danger';
                 } else {
                     this.creditGradeStatusBadge = 'badge badge-warning';
+                }
+            }
+
+            // Setting credit risk alpha data---
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.creditRiskGradingAlpha)) {
+                this.creditRiskAlphaSummary = true;
+                const crgParsedData = JSON.parse(this.loanDataHolder.creditRiskGradingAlpha.data);
+                if (crgParsedData.complianceOfCovenants === 0) {
+                    this.noComplianceLoanAlpha = true;
+                }
+                this.creditRiskGradeAlpha = crgParsedData.grade;
+                this.creditRiskAlphaScore =  ObjectUtil.isEmpty(crgParsedData.totalPoint) ? 0 : crgParsedData.totalPoint;
+                if (this.creditRiskGradeAlpha === 'Superior' || this.creditRiskGradeAlpha === 'Good') {
+                    this.creditGradeAlphaStatusBadge = 'badge badge-success';
+                } else if (this.creditRiskGradeAlpha === 'Bad & Loss' || this.creditRiskGradeAlpha === 'Doubtful') {
+                    this.creditGradeAlphaStatusBadge = 'badge badge-danger';
+                } else {
+                    this.creditGradeAlphaStatusBadge = 'badge badge-warning';
                 }
             }
 

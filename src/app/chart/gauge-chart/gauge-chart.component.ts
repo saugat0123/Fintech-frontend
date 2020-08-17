@@ -1,16 +1,17 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import * as d3 from 'd3';
 
 @Component({
   selector: 'app-gauge-chart',
   template: `
-        <div id="power-gauge"></div>`
+        <div [id]="gaugeIdentifier"></div>`
 })
-export class GaugeChartComponent implements OnChanges {
+export class GaugeChartComponent implements AfterViewInit, OnChanges {
   @Input() maxValue: number;
   @Input() obtainedValue: number;
   @Input() chartWidth: number;
   @Input() chartHeight: number;
+  @Input() gaugeIdentifier: string;
   gaugeMap = {};
   powerGauge;
 
@@ -20,6 +21,10 @@ export class GaugeChartComponent implements OnChanges {
     } else {
       this.powerGauge['update'](this.obtainedValue);
     }
+  }
+
+  ngAfterViewInit() {
+    this.draw();
   }
 
   draw() {
@@ -185,7 +190,7 @@ export class GaugeChartComponent implements OnChanges {
       return self.gaugeMap;
     };
 
-    this.powerGauge = gauge('#power-gauge', {
+    this.powerGauge = gauge(`#${this.gaugeIdentifier}`, {
       size: this.chartWidth,
       clipWidth: this.chartWidth,
       clipHeight: this.chartHeight,
