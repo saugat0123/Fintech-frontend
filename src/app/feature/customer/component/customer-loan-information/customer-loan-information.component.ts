@@ -8,6 +8,8 @@ import {ToastService} from '../../../../@core/utils';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {SiteVisit} from '../../../admin/modal/siteVisit';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {Security} from '../../../loan/model/security';
+import {CalendarType} from '../../../../@core/model/calendar-type';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -19,8 +21,11 @@ export class CustomerLoanInformationComponent implements OnInit {
   @Input() id: number;
   @Input() customerInfo: CustomerInfoData;
   s = new SiteVisit();
+  security = new Security();
   @ViewChild('siteVisit', {static: false})
   siteVisit: SiteVisitComponent;
+  calendarType: CalendarType = CalendarType.AD;
+
 
   constructor(private toastService: ToastService, private customerInfoService: CustomerInfoService) {
   }
@@ -40,6 +45,19 @@ export class CustomerLoanInformationComponent implements OnInit {
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save site visit!'));
+    });
+
+
+  }
+
+  saveSecurity(event) {
+    this.security.data = event;
+    this.customerInfoService.saveLoanInfo(this.security, this.id, TemplateName.SECURITY).subscribe((response: any) => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
+
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Security Data!'));
     });
 
 

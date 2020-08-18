@@ -38,4 +38,38 @@
       </nb-accordion-item-body>
     </nb-accordion-item>
   </nb-accordion>
+  <nb-accordion>
+    <nb-accordion-item>
+      <nb-accordion-item-header>
+        <div class="row col-md-12">
+          <div class="col-md-8">
+            <span>Security</span>
+          </div>
+          <div class="col-md-4 d-flex justify-content-end">
+                                      <span style="color:black">
+                                      <a title="full screen">
+                                        <i class="fa fa-expand px-2"></i>
+                                   </a>
+                                    </span>
+
+
+            <span style="color:green" title="Status : Saved">
+                                    <i class="fas fa-check-circle px-2"></i>
+                                  </span>
+
+            <span style="color:red" title="Status :Not Saved">
+                                    <i class="fas fa-times-circle px-2"></i>
+                                  </span>
+          </div>
+        </div>
+      </nb-accordion-item-header>
+      <nb-accordion-item-body>
+        <app-security (securityDataEmitter)="saveSecurity($event)"
+                      [calendarType]="calendarType"
+                      [fromProfile]="true"
+                      [securityValue]="customerInfo?.security"></app-security>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+  </nb-accordion>
+
 </nb-card>

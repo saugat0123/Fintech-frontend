@@ -1,18 +1,18 @@
-import {Component , Input , OnInit , ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormArray , FormBuilder , FormGroup , Validators} from '@angular/forms';
 import {SecurityInitialFormComponent} from './security-initial-form/security-initial-form.component';
-import {Security} from '../../../model/security';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {AddressService} from '../../../../../@core/service/baseservice/address.service';
-import {Province} from '../../../../admin/modal/province';
-import {District} from '../../../../admin/modal/district';
-import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
-import {ValuatorService} from '../../../../admin/component/valuator/valuator.service';
-import {Proposal} from '../../../../admin/modal/proposal';
-import {Address} from '../../../model/address';
-import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
-import {Guarantor} from '../../../model/guarantor';
-import {CalendarType} from '../../../../../@core/model/calendar-type';
+import {Security} from '../../loan/model/security';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {AddressService} from '../../../@core/service/baseservice/address.service';
+import {Province} from '../../admin/modal/province';
+import {District} from '../../admin/modal/district';
+import {MunicipalityVdc} from '../../admin/modal/municipality_VDC';
+import {ValuatorService} from '../../admin/component/valuator/valuator.service';
+import {Proposal} from '../../admin/modal/proposal';
+import {Address} from '../../loan/model/address';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {Guarantor} from '../../loan/model/guarantor';
+import {CalendarType} from '../../../@core/model/calendar-type';
 
 
 @Component({
@@ -25,6 +25,8 @@ export class SecurityComponent implements OnInit {
     @Input() proposalDataHolder: Proposal;
     @Input() calendarType: CalendarType;
     @Input() loanTag: string;
+    @Output() securityDataEmitter = new EventEmitter();
+    @Input() fromProfile;
 
     @ViewChild('initialSecurity' , {static: false})
     initialSecurity: SecurityInitialFormComponent;
@@ -222,5 +224,6 @@ export class SecurityComponent implements OnInit {
             guarantorIndex++;
             this.securityData.guarantor.push(guarantor);
         }
+        this.securityDataEmitter.emit(this.securityData.data);
     }
 }

@@ -1,13 +1,13 @@
 import {Component , Input , OnInit} from '@angular/core';
 import {FormArray , FormBuilder , FormGroup} from '@angular/forms';
-import {ToastService} from '../../../../../../@core/utils';
-import {CalendarType} from '../../../../../../@core/model/calendar-type';
-import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util';
-import {ValuatorService} from '../../../../../admin/component/valuator/valuator.service';
-import {BranchService} from '../../../../../admin/component/branch/branch.service';
-import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {SecurityValuator} from '../../../../model/securityValuator';
-import {LoanTag} from '../../../../model/loanTag';
+import {ToastService} from '../../../../@core/utils';
+import {CalendarType} from '../../../../@core/model/calendar-type';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {ValuatorService} from '../../../admin/component/valuator/valuator.service';
+import {BranchService} from '../../../admin/component/branch/branch.service';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {SecurityValuator} from '../../../loan/model/securityValuator';
+import {LoanTag} from '../../../loan/model/loanTag';
 
 @Component({
     selector: 'app-security-initial-form' ,

@@ -9,15 +9,22 @@ import {NbDatepickerModule, NbDialogModule} from '@nebular/theme';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {AgmCoreModule} from '@agm/core';
 import {environment} from '../../../environments/environment';
+import {SecurityComponent} from './security/security.component';
+import {SecurityInitialFormComponent} from './security/security-initial-form/security-initial-form.component';
 
 const COMPONENTS = [
   SiteVisitComponent,
+  SecurityComponent,
+  SecurityInitialFormComponent
 ];
 
 @NgModule({
   declarations: [...COMPONENTS],
   exports: [
-    SiteVisitComponent
+    SiteVisitComponent,
+    SecurityComponent,
+    SecurityInitialFormComponent
+
   ],
   entryComponents: [...COMPONENTS],
   imports: [

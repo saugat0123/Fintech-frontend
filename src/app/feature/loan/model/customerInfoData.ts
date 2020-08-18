@@ -1,4 +1,5 @@
 import {SiteVisit} from '../../admin/modal/siteVisit';
+import {Security} from './security';
 
 export class CustomerInfoData {
   id: number;
@@ -14,5 +15,6 @@ export class CustomerInfoData {
   isBlacklist: boolean;
   siteVisit: SiteVisit;
   version: number;
+  security: Security;
 
 }

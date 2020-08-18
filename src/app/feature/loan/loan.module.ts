@@ -10,7 +10,7 @@ import {CompanyInfoComponent} from './component/loan-main-template/company-info/
 import {KycInfoComponent} from './component/loan-main-template/kyc-info/kyc-info.component';
 import {DmsLoanFileComponent} from './component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {SecurityComponent} from './component/loan-main-template/security/security.component';
+// import {SecurityComponent} from './component/loan-main-template/security/security.component';
 import {NbDatepickerModule} from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
 import {LoanActionComponent} from './loan-action/loan-action.component';
@@ -40,7 +40,6 @@ import {InitialFormComponent} from './component/loan-main-template/financial/ini
 import {LoanPullComponent} from './component/loan-pull/loan-pull.component';
 import {FinancialSummaryComponent} from './component/loan-summary/financial-summary/financial-summary.component';
 // tslint:disable-next-line:max-line-length
-import {SecurityInitialFormComponent} from './component/loan-main-template/security/security-initial-form/security-initial-form.component';
 import {SecuritySummaryComponent} from './component/loan-summary/security-summary/security-summary.component';
 import {CustomerDocumentComponent} from './component/loan-main-template/customer-document/customer-document.component';
 
@@ -98,7 +97,6 @@ const COMPONENTS = [
     CompanyInfoComponent,
     KycInfoComponent,
     DmsLoanFileComponent,
-    SecurityComponent,
     LoanActionComponent,
     LoanSummaryComponent,
     BirthMarkLetterNepaliComponent,
@@ -113,7 +111,6 @@ const COMPONENTS = [
     CreditGradingComponent,
 
     LoanPullComponent,
-    SecurityInitialFormComponent,
     SecuritySummaryComponent,
     IncomeStatementComponent,
     BalanceSheetComponent,

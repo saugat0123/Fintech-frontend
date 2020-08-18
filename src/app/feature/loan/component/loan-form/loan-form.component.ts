@@ -27,7 +27,7 @@ import {DatePipe} from '@angular/common';
 import {CreditGradingComponent} from '../loan-main-template/credit-grading/credit-grading.component';
 import {SiteVisitComponent} from '../../../loan-information-template/site-visit/site-visit.component';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {SecurityComponent} from '../loan-main-template/security/security.component';
+import {SecurityComponent} from '../../../loan-information-template/security/security.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerDocumentComponent} from '../loan-main-template/customer-document/customer-document.component';
 import {DocStatus} from '../../model/docStatus';
