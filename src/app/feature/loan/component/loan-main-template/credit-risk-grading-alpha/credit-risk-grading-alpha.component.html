@@ -80,7 +80,7 @@
                                                 <tr>
                                                     <td class="fixed-width-td-title">
                                                         <p class="my-2 text-right">
-                                                            <strong>Fiscal years <em class="fa fa-caret-right"></em></strong>
+                                                            <strong>Fiscal years / Points <em class="fa fa-caret-right"></em></strong>
                                                         </p>
                                                     </td>
                                                     <td *ngFor="let fiscalYear of fiscalYearArray; let i = index"
@@ -94,7 +94,6 @@
                                                         <strong class="text-danger"><em class="fa fa-info-circle"><i> Please enter the necessary financial data (within Financial section) for automated
                                                             evaluation </i></em></strong>
                                                     </td>
-                                                    <td class="fixed-width-td-obtained-score">Score Obtained</td>
                                                 </tr>
 
                                                 <tr>
@@ -108,13 +107,13 @@
                                                         <p>
                                                             <strong>
                                                                 {{financialParsedData?.keyIndicatorsData?.debtEquityRatioOverall[i]?.value / 100 | number : '1.2-2'}}
+                                                                | {{financialTotalMapsArray[i].get('leverage')}}
                                                             </strong>
                                                         </p>
                                                     </td>
                                                     <td *ngIf="fiscalYearArray.length === 0">
                                                         <strong class="text-danger">--</strong>
                                                     </td>
-                                                    <td class="fixed-width-td-obtained-score">{{creditRiskGrading.get('leverage').value === undefined ? '' : creditRiskGrading.get('leverage').value}}</td>
                                                 </tr>
 
                                                 <tr>
@@ -128,13 +127,13 @@
                                                         <p>
                                                             <strong>
                                                                 {{financialParsedData?.keyIndicatorsData?.currentRatio[i]?.value | number : '1.2-2'}}
+                                                                | {{financialTotalMapsArray[i].get('liquidity')}}
                                                             </strong>
                                                         </p>
                                                     </td>
                                                     <td *ngIf="fiscalYearArray.length === 0">
                                                         <strong class="text-danger">--</strong>
                                                     </td>
-                                                    <td>{{creditRiskGrading.get('liquidity').value === undefined ? '' : creditRiskGrading.get('liquidity').value}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-left fixed-width-td-title">
@@ -147,14 +146,12 @@
                                                                 {{((financialParsedData?.incomeStatementData?.operatingProfit[i]?.value) * 100)
                                                             /(financialParsedData?.incomeStatementData?.totalSalesSubCategory[0].amount[i]?.value)
                                                                 | number: '1.2-2'}}%
+                                                                | {{financialTotalMapsArray[i].get('profit')}}
                                                             </strong>
                                                         </p>
                                                     </td>
                                                     <td *ngIf="fiscalYearArray.length === 0">
                                                         <strong class="text-danger">--</strong>
-                                                    </td>
-                                                    <td>
-                                                        {{creditRiskGrading.get('profit').value === undefined ? '' : creditRiskGrading.get('profit').value}}
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -166,13 +163,13 @@
                                                         <p>
                                                             <strong>
                                                                 {{financialParsedData?.keyIndicatorsData?.interestCoverageRatio[i]?.value | number : '1.2-2'}}
+                                                                | {{financialTotalMapsArray[i].get('coverage')}}
                                                             </strong>
                                                         </p>
                                                     </td>
                                                     <td *ngIf="fiscalYearArray.length === 0">
                                                         <strong class="text-danger">--</strong>
                                                     </td>
-                                                    <td>{{creditRiskGrading.get('coverage').value === undefined ? '' : creditRiskGrading.get('coverage').value}}</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -276,7 +273,7 @@
                                                 <input id="businessOutlook" type="radio" class="form-control-input"
                                                        (change)="onChangeOption('businessOutlook', bok)"
                                                        [value]="bok"
-                                                       [checked]="totalPointMapper.get('businessOutlook') === bok"
+                                                       [checked]="nonFinancialTotalMap.get('businessOutlook') === bok"
                                                        formControlName="businessOutlook"><br>
                                             </div>
                                         </td>
@@ -309,7 +306,7 @@
                                                 <input id="industryGrowth" type="radio" class="form-control-input"
                                                        (change)="onChangeOption('industryGrowth', ig)"
                                                        [value]="ig"
-                                                       [checked]="totalPointMapper.get('industryGrowth') === ig"
+                                                       [checked]="nonFinancialTotalMap.get('industryGrowth') === ig"
                                                        formControlName="industryGrowth"><br>
                                             </div>
                                         </td>
@@ -345,7 +342,7 @@
                                                 <input id="marketCompetition" type="radio" class="form-control-input"
                                                        (change)="onChangeOption('marketCompetition', market)"
                                                        [value]="market"
-                                                       [checked]="totalPointMapper.get('marketCompetition') === market"
+                                                       [checked]="nonFinancialTotalMap.get('marketCompetition') === market"
                                                        formControlName="marketCompetition"><br>
                                             </div>
                                         </td>
@@ -379,7 +376,7 @@
                                                 <input id="entryExitBarriers" type="radio" class="form-control-input"
                                                        (change)="onChangeOption('entryExitBarriers', barriers)"
                                                        [value]="barriers"
-                                                       [checked]="totalPointMapper.get('entryExitBarriers') === barriers"
+                                                       [checked]="nonFinancialTotalMap.get('entryExitBarriers') === barriers"
                                                        formControlName="entryExitBarriers"><br>
                                             </div>
                                         </td>
@@ -434,7 +431,7 @@
                                                 <input id="experience" type="radio" class="form-control-input"
                                                        (change)="onChangeOption('experience', exp)"
                                                        [value]="exp"
-                                                       [checked]="totalPointMapper.get('experience') === exp"
+                                                       [checked]="nonFinancialTotalMap.get('experience') === exp"
                                                        formControlName="experience"><br>
                                             </div>
                                         </td>
@@ -471,7 +468,7 @@
                                                 <input id="secondLineSuccession" type="radio" class="form-control-input"
                                                        (change)="onChangeOption('secondLineSuccession', secondSuccession)"
                                                        [value]="secondSuccession"
-                                                       [checked]="totalPointMapper.get('secondLineSuccession') === secondSuccession"
+                                                       [checked]="nonFinancialTotalMap.get('secondLineSuccession') === secondSuccession"
                                                        formControlName="secondLineSuccession"><br>
                                             </div>
                                         </td>
@@ -505,7 +502,7 @@
                                                 <input id="teamWork" type="radio" class="form-control-input"
                                                        (change)="onChangeOption('teamWork', tw)"
                                                        [value]="tw"
-                                                       [checked]="totalPointMapper.get('teamWork') === tw"
+                                                       [checked]="nonFinancialTotalMap.get('teamWork') === tw"
                                                        formControlName="teamWork"><br>
                                             </div>
                                         </td>
@@ -565,7 +562,7 @@
                                                 <input id="securityCoverage" type="radio" class="form-control-input"
                                                        (change)="onChangeOption('securityCoverage', sc)"
                                                        [value]="sc"
-                                                       [checked]="totalPointMapper.get('securityCoverage') === sc"
+                                                       [checked]="nonFinancialTotalMap.get('securityCoverage') === sc"
                                                        formControlName="securityCoverage"><br>
                                             </div>
                                         </td>
@@ -609,7 +606,7 @@
                                                 <input id="collateralCoverage" type="radio" class="form-control-input"
                                                        (change)="onChangeOption('collateralCoverage', cc)"
                                                        [value]="cc"
-                                                       [checked]="totalPointMapper.get('collateralCoverage') === cc"
+                                                       [checked]="nonFinancialTotalMap.get('collateralCoverage') === cc"
                                                        formControlName="collateralCoverage"><br>
                                             </div>
                                         </td>
@@ -650,7 +647,7 @@
                                                 <input id="support" type="radio" class="form-control-input"
                                                        (change)="onChangeOption('support', spt)"
                                                        [value]="spt"
-                                                       [checked]="totalPointMapper.get('support') === spt"
+                                                       [checked]="nonFinancialTotalMap.get('support') === spt"
                                                        formControlName="support"><br>
                                             </div>
                                         </td>
@@ -716,7 +713,7 @@
                                                 <input id="accountConduct" type="radio" class="form-control-input"
                                                        (change)="onChangeOption('accountConduct', ac)"
                                                        [value]="ac"
-                                                       [checked]="totalPointMapper.get('accountConduct') === ac"
+                                                       [checked]="nonFinancialTotalMap.get('accountConduct') === ac"
                                                        formControlName="accountConduct"><br>
                                             </div>
                                         </td>
@@ -749,7 +746,7 @@
                                                 <input id="utilizationOfLimit" type="radio" class="form-control-input"
                                                        (change)="onChangeOption('utilizationOfLimit', ul)"
                                                        [value]="ul"
-                                                       [checked]="totalPointMapper.get('utilizationOfLimit') === ul"
+                                                       [checked]="nonFinancialTotalMap.get('utilizationOfLimit') === ul"
                                                        formControlName="utilizationOfLimit"><br>
                                             </div>
                                         </td>
@@ -781,7 +778,7 @@
                                                 <input id="complianceOfCovenants" type="radio" class="form-control-input"
                                                        (change)="onChangeOption('complianceOfCovenants', coc)"
                                                        [value]="coc"
-                                                       [checked]="totalPointMapper.get('complianceOfCovenants') === coc"
+                                                       [checked]="nonFinancialTotalMap.get('complianceOfCovenants') === coc"
                                                        formControlName="complianceOfCovenants"><br>
                                             </div>
                                         </td>
@@ -821,23 +818,45 @@
                                                 <input id="personalDeposits" type="radio" class="form-control-input"
                                                        (change)="onChangeOption('personalDeposits', pd)"
                                                        [value]="pd"
-                                                       [checked]="totalPointMapper.get('personalDeposits') === pd"
+                                                       [checked]="nonFinancialTotalMap.get('personalDeposits') === pd"
                                                        formControlName="personalDeposits"><br>
                                             </div>
                                         </td>
                                         <td class="text-center">{{creditRiskGrading.get('personalDeposits').value === undefined ? '' : creditRiskGrading.get('personalDeposits').value}}</td>
                                     </tr>
-
-                                    <!--Grading section-->
-                                    <tr>
-                                        <td colspan="2"><b>Grading:</b> {{grading === undefined ? '' : grading}}</td>
-                                        <th colspan="2" class="text-center">Total Score:</th>
-                                        <td>{{totalPoints === undefined ? '' : totalPoints}}</td>
-                                    </tr>
-
                                     </tbody>
                                 </table>
                             </form>
+
+                            <!--Grading section-->
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th colspan="2">
+                                        Fiscal years
+                                    </th>
+                                    <th colspan="2">
+                                        Total points obtained
+                                    </th>
+                                    <th>
+                                        Grade
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let singleYear of fiscalYearArray; let fyi = index">
+                                    <td colspan="2">
+                                        <strong>{{singleYear}}</strong>
+                                    </td>
+                                    <th colspan="2">
+                                        <strong>{{totalPointsArray[fyi]}}</strong>
+                                    </th>
+                                    <td>
+                                        <strong>{{gradesArray[fyi]}}</strong>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
