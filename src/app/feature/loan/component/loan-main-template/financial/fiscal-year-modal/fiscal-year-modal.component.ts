@@ -10,6 +10,38 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 })
 export class FiscalYearModalComponent implements OnInit {
     financialStatementList = ['Projected', 'Provisional', 'Audited'];
+    fiscalYearsArray = [
+        '2070/2071',
+        '2071/2072',
+        '2072/2073',
+        '2073/2074',
+        '2074/2075',
+        '2075/2076',
+        '2076/2077',
+        '2077/2078',
+        '2078/2079',
+        '2079/2080',
+        '2080/2081',
+        '2081/2082',
+        '2082/2083',
+        '2083/2084',
+        '2084/2085',
+        '2085/2086',
+        '2086/2087',
+        '2087/2088',
+        '2088/2089',
+        '2089/2090',
+        '2090/2091',
+        '2091/2092',
+        '2092/2093',
+        '2093/2094',
+        '2094/2095',
+        '2095/2096',
+        '2096/2097',
+        '2097/2098',
+        '2098/2099',
+        '2099/2100'
+    ];
     financialStatementForm: FormGroup;
 
     spinner = false;

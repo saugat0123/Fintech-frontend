@@ -18,6 +18,13 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
 
   crgData: CreditRiskGradingAlpha;
 
+  financialTotalMapsArray = [];
+
+  totalPointsArray = [];
+  gradesArray = [];
+
+  nonFinancialTotalMap = new Map<string, number>();
+
   // Financial data--
   financialParsedData: any;
   fiscalYearArray = [];
@@ -55,9 +62,6 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   complianceOfCovenants = [1, 0];
   personalDeposits = [1, 0];
 
-  totalPointMapper: Map<string, number>;
-  totalPoints = 0;
-  grading: string;
   formDataForEdit;
 
   constructor(
@@ -67,44 +71,46 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.totalPointMapper = new Map<string, number>();
+    if (!ObjectUtil.isEmpty(this.loanData.financial)) {
+      this.financialParsedData = JSON.parse(this.loanData.financial.data);
+      this.fiscalYearArray = this.financialParsedData.fiscalYear;
+      if (this.fiscalYearArray.length > 0) {
+        this.recentFiscalYearIndex = this.fiscalYearArray.length - 1;
+        this.fiscalYearArray.forEach( (value, index) => {
+          const map = new Map<string, number>();
+          this.setFinancialScore(map, index);
+        });
+      }
+    }
+
+    // Replace with existing data --
     if (!ObjectUtil.isEmpty(this.loanData.creditRiskGradingAlpha)) {
       this.crgData = this.loanData.creditRiskGradingAlpha;
       this.formDataForEdit = JSON.parse(this.crgData.data);
     }
     this.buildForm();
     if (this.formDataForEdit !== undefined) {
-      this.totalPoints = this.formDataForEdit.totalPoint;
-      this.grading = this.formDataForEdit.grade;
-      this.totalPointMapper.set('leverage', this.formDataForEdit.leverage);
-      this.totalPointMapper.set('liquidity', this.formDataForEdit.liquidity);
-      this.totalPointMapper.set('profit', this.formDataForEdit.profit);
-      this.totalPointMapper.set('coverage', this.formDataForEdit.coverage);
-      this.totalPointMapper.set('sizeOfBusiness', this.formDataForEdit.sizeOfBusiness);
-      this.totalPointMapper.set('ageOfBusiness', this.formDataForEdit.ageOfBusiness);
-      this.totalPointMapper.set('businessOutlook', this.formDataForEdit.businessOutlook);
-      this.totalPointMapper.set('industryGrowth', this.formDataForEdit.industryGrowth);
-      this.totalPointMapper.set('marketCompetition', this.formDataForEdit.marketCompetition);
-      this.totalPointMapper.set('entryExitBarriers', this.formDataForEdit.entryExitBarriers);
-      this.totalPointMapper.set('experience', this.formDataForEdit.experience);
-      this.totalPointMapper.set('secondLineSuccession', this.formDataForEdit.secondLineSuccession);
-      this.totalPointMapper.set('teamWork', this.formDataForEdit.teamWork);
-      this.totalPointMapper.set('securityCoverage', this.formDataForEdit.securityCoverage);
-      this.totalPointMapper.set('collateralCoverage', this.formDataForEdit.collateralCoverage);
-      this.totalPointMapper.set('support', this.formDataForEdit.support);
-      this.totalPointMapper.set('accountConduct', this.formDataForEdit.accountConduct);
-      this.totalPointMapper.set('utilizationOfLimit', this.formDataForEdit.utilizationOfLimit);
-      this.totalPointMapper.set('complianceOfCovenants', this.formDataForEdit.complianceOfCovenants);
-      this.totalPointMapper.set('personalDeposits', this.formDataForEdit.personalDeposits);
+      this.nonFinancialTotalMap.set('sizeOfBusiness', this.formDataForEdit.sizeOfBusiness);
+      this.nonFinancialTotalMap.set('ageOfBusiness', this.formDataForEdit.ageOfBusiness);
+      this.nonFinancialTotalMap.set('businessOutlook', this.formDataForEdit.businessOutlook);
+      this.nonFinancialTotalMap.set('industryGrowth', this.formDataForEdit.industryGrowth);
+      this.nonFinancialTotalMap.set('marketCompetition', this.formDataForEdit.marketCompetition);
+      this.nonFinancialTotalMap.set('entryExitBarriers', this.formDataForEdit.entryExitBarriers);
+      this.nonFinancialTotalMap.set('experience', this.formDataForEdit.experience);
+      this.nonFinancialTotalMap.set('secondLineSuccession', this.formDataForEdit.secondLineSuccession);
+      this.nonFinancialTotalMap.set('teamWork', this.formDataForEdit.teamWork);
+      this.nonFinancialTotalMap.set('securityCoverage', this.formDataForEdit.securityCoverage);
+      this.nonFinancialTotalMap.set('collateralCoverage', this.formDataForEdit.collateralCoverage);
+      this.nonFinancialTotalMap.set('support', this.formDataForEdit.support);
+      this.nonFinancialTotalMap.set('accountConduct', this.formDataForEdit.accountConduct);
+      this.nonFinancialTotalMap.set('utilizationOfLimit', this.formDataForEdit.utilizationOfLimit);
+      this.nonFinancialTotalMap.set('complianceOfCovenants', this.formDataForEdit.complianceOfCovenants);
+      this.nonFinancialTotalMap.set('personalDeposits', this.formDataForEdit.personalDeposits);
+      this.onChangeOption();
     }
-    if (!ObjectUtil.isEmpty(this.loanData.financial)) {
-      this.financialParsedData = JSON.parse(this.loanData.financial.data);
-      this.fiscalYearArray = this.financialParsedData.fiscalYear;
-      if (this.fiscalYearArray.length > 0) {
-        this.recentFiscalYearIndex = this.fiscalYearArray.length - 1;
-        this.setFinancialScore();
-        this.setSizeOfBusiness();
-      }
+    if (this.fiscalYearArray.length > 0) {
+      // enclosed within the same condition twice because size of business requires building of form group--
+      this.setSizeOfBusiness(this.recentFiscalYearIndex);
     }
     if (!ObjectUtil.isEmpty(this.loanData.companyInfo)
         && !ObjectUtil.isEmpty(this.loanData.companyInfo.establishmentDate)) {
@@ -115,28 +121,27 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
 
   buildForm() {
     this.creditRiskGrading = this.formBuilder.group({
-      leverage: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.leverage, [Validators.required]],
-      liquidity: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.liquidity, [Validators.required]],
-      profit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.profit, [Validators.required]],
-      coverage: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.coverage, [Validators.required]],
-      sizeOfBusiness: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.sizeOfBusiness, [Validators.required]],
-      ageOfBusiness: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.ageOfBusiness, [Validators.required]],
-      businessOutlook: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessOutlook, [Validators.required]],
-      industryGrowth: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.industryGrowth, [Validators.required]],
-      marketCompetition: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.marketCompetition, [Validators.required]],
-      entryExitBarriers: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.entryExitBarriers, [Validators.required]],
-      experience: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.experience, [Validators.required]],
-      secondLineSuccession: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.secondLineSuccession, [Validators.required]],
-      teamWork: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.teamWork, [Validators.required]],
-      securityCoverage: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.securityCoverage, [Validators.required]],
-      collateralCoverage: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.collateralCoverage, [Validators.required]],
-      support: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.support, [Validators.required]],
-      accountConduct: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.accountConduct, [Validators.required]],
-      utilizationOfLimit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.utilizationOfLimit, [Validators.required]],
-      complianceOfCovenants: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.complianceOfCovenants, [Validators.required]],
-      personalDeposits: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.personalDeposits, [Validators.required]],
-      totalPoint: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.totalPoints],
-      grade: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.grading]
+      sizeOfBusiness: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.sizeOfBusiness, [Validators.required]],
+      ageOfBusiness: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.ageOfBusiness, [Validators.required]],
+      businessOutlook: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.businessOutlook, [Validators.required]],
+      industryGrowth: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.industryGrowth, [Validators.required]],
+      marketCompetition: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.marketCompetition, [Validators.required]],
+      entryExitBarriers: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.entryExitBarriers, [Validators.required]],
+      experience: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.experience, [Validators.required]],
+      secondLineSuccession:
+          [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.secondLineSuccession, [Validators.required]],
+      teamWork: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.teamWork, [Validators.required]],
+      securityCoverage: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.securityCoverage, [Validators.required]],
+      collateralCoverage: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.collateralCoverage, [Validators.required]],
+      support: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.support, [Validators.required]],
+      accountConduct: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.accountConduct, [Validators.required]],
+      utilizationOfLimit: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.utilizationOfLimit, [Validators.required]],
+      complianceOfCovenants:
+          [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.complianceOfCovenants, [Validators.required]],
+      personalDeposits: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.personalDeposits, [Validators.required]],
+      totalPointsArray: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.totalPoints],
+      gradesArray: [this.formDataForEdit === undefined ? undefined : this.formDataForEdit.grading],
+      fiscalYearArray: undefined
     });
   }
 
@@ -160,140 +165,153 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     return age;
   }
 
-  onChangeOption(field, point) {
-    this.totalPointMapper.set(field, point);
-    if (this.totalPointMapper.size === 20) {
-      let sum = 0;
-      this.totalPointMapper.forEach(data => {
-        sum = sum + Number(data);
+  onChangeOption(field?, point?) {
+    if (field !== undefined) {
+      this.nonFinancialTotalMap.set(field, point);
+    }
+    if (this.nonFinancialTotalMap.size === 16) {
+      this.totalPointsArray = [];
+      this.gradesArray = [];
+      let nonFinancialTotal = 0;
+      this.nonFinancialTotalMap.forEach(data => {
+        nonFinancialTotal = nonFinancialTotal + Number(data);
       });
-      this.totalPoints = sum;
-      this.creditRiskGrading.get('totalPoint').patchValue(this.totalPoints);
-      if (this.totalPoints === 100) {
-        this.grading = 'Superior';
-      } else if (this.totalPoints >= 85) {
-        this.grading = 'Good';
-      } else if (this.totalPoints >= 75 && this.totalPoints < 85) {
-        this.grading = 'Acceptable';
-      } else if (this.totalPoints >= 65 && this.totalPoints < 75) {
-        this.grading = 'Marginal/Watchlist';
-      } else if (this.totalPoints >= 55 && this.totalPoints < 65) {
-        this.grading = 'Special Mention';
-      } else if (this.totalPoints >= 45 && this.totalPoints < 55) {
-        this.grading = 'Substandard';
-      } else if (this.totalPoints >= 35 && this.totalPoints < 45) {
-        this.grading = 'Doubtful';
-      } else if (this.totalPoints <= 35) {
-        this.grading = 'Bad & Loss';
-      }
-      this.creditRiskGrading.get('grade').patchValue(this.grading);
+
+      // Calculating total for each year --
+      this.financialTotalMapsArray.forEach( (map, index) => {
+        let singleFiscalYearTotal = 0;
+        map.forEach( (value: number) => {
+          singleFiscalYearTotal = singleFiscalYearTotal + value;
+        });
+        const totalPointForSingleYear = singleFiscalYearTotal + nonFinancialTotal;
+        this.totalPointsArray.push(totalPointForSingleYear);
+        this.gradesArray.push(this.calculateGrade(totalPointForSingleYear));
+      });
+      this.creditRiskGrading.get('totalPointsArray').patchValue(this.totalPointsArray);
+      this.creditRiskGrading.get('gradesArray').patchValue(this.gradesArray);
     }
   }
 
-  setFinancialScore() {
+  calculateGrade(totalPoints) {
+    let grading = 'None';
+    if (totalPoints === 100) {
+      grading = 'Superior';
+    } else if (totalPoints >= 85) {
+      grading = 'Good';
+    } else if (totalPoints >= 75 && totalPoints < 85) {
+      grading = 'Acceptable';
+    } else if (totalPoints >= 65 && totalPoints < 75) {
+      grading = 'Marginal/Watchlist';
+    } else if (totalPoints >= 55 && totalPoints < 65) {
+      grading = 'Special Mention';
+    } else if (totalPoints >= 45 && totalPoints < 55) {
+      grading = 'Substandard';
+    } else if (totalPoints >= 35 && totalPoints < 45) {
+      grading = 'Doubtful';
+    } else if (totalPoints <= 35) {
+      grading = 'Bad & Loss';
+    }
+    return grading;
+  }
+
+  setFinancialScore(map, fiscalYearIndex) {
     this.debtEquityRatioOverall =
-        Number(this.financialParsedData.keyIndicatorsData.debtEquityRatioOverall[this.recentFiscalYearIndex].value) / 100;
-    this.currentRatio = Number(this.financialParsedData.keyIndicatorsData.currentRatio[this.recentFiscalYearIndex].value);
+        Number(this.financialParsedData.keyIndicatorsData.debtEquityRatioOverall[fiscalYearIndex].value) / 100;
+    this.currentRatio = Number(this.financialParsedData.keyIndicatorsData.currentRatio[fiscalYearIndex].value);
     this.operatingMarginProfit =
-        (Number(this.financialParsedData.incomeStatementData.operatingProfit[this.recentFiscalYearIndex].value) * 100)
-        / Number(this.financialParsedData.incomeStatementData.totalSalesSubCategory[0].amount[this.recentFiscalYearIndex].value);
-    this.interestCoverageRatio = Number(this.financialParsedData.keyIndicatorsData.interestCoverageRatio[this.recentFiscalYearIndex].value);
+        (Number(this.financialParsedData.incomeStatementData.operatingProfit[fiscalYearIndex].value) * 100)
+        / Number(this.financialParsedData.incomeStatementData.totalSalesSubCategory[0].amount[fiscalYearIndex].value);
+    this.interestCoverageRatio = Number(this.financialParsedData.keyIndicatorsData.interestCoverageRatio[fiscalYearIndex].value);
 
     if (this.debtEquityRatioOverall < 0.25) {
-      this.setDebtEquityRatioOverall(5);
+      this.setDebtEquityRatioOverall(map, 5);
     } else if (this.debtEquityRatioOverall >= 0.25 && this.debtEquityRatioOverall <= 0.50) {
-      this.setDebtEquityRatioOverall(4);
+      this.setDebtEquityRatioOverall(map, 4);
     } else if (this.debtEquityRatioOverall >= 0.51 && this.debtEquityRatioOverall <= 1.25) {
-      this.setDebtEquityRatioOverall(3);
+      this.setDebtEquityRatioOverall(map, 3);
     } else if (this.debtEquityRatioOverall >= 1.26 && this.debtEquityRatioOverall <= 2.00) {
-      this.setDebtEquityRatioOverall(2);
+      this.setDebtEquityRatioOverall(map, 2);
     } else if (this.debtEquityRatioOverall >= 2.01 && this.debtEquityRatioOverall <= 2.75) {
-      this.setDebtEquityRatioOverall(1);
+      this.setDebtEquityRatioOverall(map, 1);
     } else if (this.debtEquityRatioOverall > 2.75) {
-      this.setDebtEquityRatioOverall(0);
+      this.setDebtEquityRatioOverall(map, 0);
     }
 
     if (this.currentRatio > 2.74) {
-      this.setCurrentRatio(10);
+      this.setCurrentRatio(map, 10);
     } else if (this.currentRatio >= 2.50 && this.currentRatio <= 2.74) {
-      this.setCurrentRatio(9);
+      this.setCurrentRatio(map, 9);
     } else if (this.currentRatio >= 2.00 && this.currentRatio <= 2.49) {
-      this.setCurrentRatio(8);
+      this.setCurrentRatio(map, 8);
     } else if (this.currentRatio >= 1.50 && this.currentRatio <= 1.99) {
-      this.setCurrentRatio(7);
+      this.setCurrentRatio(map, 7);
     } else if (this.currentRatio >= 1.10 && this.currentRatio <= 1.49) {
-      this.setCurrentRatio(6);
+      this.setCurrentRatio(map, 6);
     } else if (this.currentRatio >= 0.90 && this.currentRatio <= 1.09) {
-      this.setCurrentRatio(5);
+      this.setCurrentRatio(map, 5);
     } else if (this.currentRatio >= 0.80 && this.currentRatio <= 0.89) {
-      this.setCurrentRatio(4);
+      this.setCurrentRatio(map, 4);
     } else if (this.currentRatio >= 0.70 && this.currentRatio <= 0.79) {
-      this.setCurrentRatio(3);
+      this.setCurrentRatio(map, 3);
     } else if (this.currentRatio < 0.70) {
-      this.setCurrentRatio(0);
+      this.setCurrentRatio(map, 0);
     }
 
     if (this.operatingMarginProfit > 25) {
-      this.setOperatingMarginProfit(10);
+      this.setOperatingMarginProfit(map, 10);
     } else if (this.operatingMarginProfit >= 20 && this.operatingMarginProfit <= 24) {
-      this.setOperatingMarginProfit(9);
+      this.setOperatingMarginProfit(map, 9);
     } else if (this.operatingMarginProfit >= 15 && this.operatingMarginProfit <= 19) {
-      this.setOperatingMarginProfit(8);
+      this.setOperatingMarginProfit(map, 8);
     } else if (this.operatingMarginProfit >= 10 && this.operatingMarginProfit <= 14) {
-      this.setOperatingMarginProfit(7);
+      this.setOperatingMarginProfit(map, 7);
     } else if (this.operatingMarginProfit >= 7 && this.operatingMarginProfit <= 9) {
-      this.setOperatingMarginProfit(6);
+      this.setOperatingMarginProfit(map, 6);
     } else if (this.operatingMarginProfit >= 4 && this.operatingMarginProfit <= 6) {
-      this.setOperatingMarginProfit(5);
+      this.setOperatingMarginProfit(map, 5);
     } else if (this.operatingMarginProfit >= 1 && this.operatingMarginProfit <= 3) {
-      this.setOperatingMarginProfit(3);
+      this.setOperatingMarginProfit(map, 3);
     } else if (this.operatingMarginProfit < 1) {
-      this.setOperatingMarginProfit(0);
+      this.setOperatingMarginProfit(map, 0);
     } else {
-      this.setOperatingMarginProfit(0);
+      this.setOperatingMarginProfit(map, 0);
     }
 
     if (this.interestCoverageRatio > 2.00) {
-      this.setInterestCoverageRatio(5);
+      this.setInterestCoverageRatio(map, 5);
     } else if (this.interestCoverageRatio >= 1.51 && this.interestCoverageRatio <= 2) {
-      this.setInterestCoverageRatio(4);
+      this.setInterestCoverageRatio(map, 4);
     } else if (this.interestCoverageRatio >= 1.25 && this.interestCoverageRatio <= 1.50) {
-      this.setInterestCoverageRatio(3);
+      this.setInterestCoverageRatio(map, 3);
     } else if (this.interestCoverageRatio >= 1 && this.interestCoverageRatio <= 1.24) {
-      this.setInterestCoverageRatio(2);
+      this.setInterestCoverageRatio(map, 2);
     } else if (this.interestCoverageRatio < 1) {
-      this.setInterestCoverageRatio(0);
+      this.setInterestCoverageRatio(map, 0);
     }
+
+    this.financialTotalMapsArray.push(map);
   }
 
-  setDebtEquityRatioOverall(points) {
-    this.totalPointMapper.set('leverage', points);
-    this.creditRiskGrading.get('leverage').patchValue(points);
-    this.onChangeOption('leverage', points);
+  setDebtEquityRatioOverall(map, points) {
+    map.set('leverage', points);
   }
 
-  setCurrentRatio(points) {
-    this.totalPointMapper.set('liquidity', points);
-    this.creditRiskGrading.get('liquidity').patchValue(points);
-    this.onChangeOption('liquidity', points);
+  setCurrentRatio(map, points) {
+    map.set('liquidity', points);
   }
 
-  setOperatingMarginProfit(points) {
-    this.totalPointMapper.set('profit', points);
-    this.creditRiskGrading.get('profit').patchValue(points);
-    this.onChangeOption('profit', points);
+  setOperatingMarginProfit(map, points) {
+    map.set('profit', points);
   }
 
-  setInterestCoverageRatio(points) {
-    this.totalPointMapper.set('coverage', points);
-    this.creditRiskGrading.get('coverage').patchValue(points);
-    this.onChangeOption('coverage', points);
+  setInterestCoverageRatio(map, points) {
+    map.set('coverage', points);
   }
 
   // Size of business automated evaluation--
-  setSizeOfBusiness() {
+  setSizeOfBusiness(fiscalYearIndex) {
     const sizeOfBusinessValue =
-        Number(this.financialParsedData.incomeStatementData.totalSalesSubCategory[0].amount[this.recentFiscalYearIndex].value);
+        Number(this.financialParsedData.incomeStatementData.totalSalesSubCategory[0].amount[fiscalYearIndex].value);
     if (sizeOfBusinessValue > 15000000) {
       this.changeSizeOfBusinessPoints(3);
     } else if (sizeOfBusinessValue >= 10000000 && sizeOfBusinessValue <= 15000000) {
@@ -306,7 +324,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   changeSizeOfBusinessPoints(points) {
-    this.totalPointMapper.set('sizeOfBusiness', points);
+    this.nonFinancialTotalMap.set('sizeOfBusiness', points);
     this.creditRiskGrading.get('sizeOfBusiness').patchValue(points);
     this.onChangeOption('sizeOfBusiness', points);
   }
@@ -323,7 +341,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   changeAgeOfBusinessPoints(points) {
-    this.totalPointMapper.set('ageOfBusiness', points);
+    this.nonFinancialTotalMap.set('ageOfBusiness', points);
     this.creditRiskGrading.get('ageOfBusiness').patchValue(points);
     this.onChangeOption('ageOfBusiness', points);
   }
@@ -332,6 +350,7 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanData.creditRiskGradingAlpha)) {
       this.creditRiskData = this.crgData;
     }
+    this.creditRiskGrading.get('fiscalYearArray').patchValue(this.fiscalYearArray);
     this.creditRiskData.data = JSON.stringify(this.creditRiskGrading.value);
   }
 }
