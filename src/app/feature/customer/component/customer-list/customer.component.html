@@ -1,88 +1,127 @@
 <nb-card>
-    <nb-card-header>
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="btn-group">
-                        <button
-                                (click)="isFilterCollapsed = !isFilterCollapsed"
-                                [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
-                                nbButton
-                                shape="rectangle"
-                                status="primary">
-                            <em class="fa fa-filter"> Filter</em>
-                        </button>
+  <nb-card-header>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="btn-group">
+            <button
+                (click)="isFilterCollapsed = !isFilterCollapsed"
+                [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+                nbButton
+                shape="rectangle"
+                status="primary">
+              <em class="fa fa-filter"> Filter</em>
+            </button>
 
-                    </div>
-                </div>
-                <div class="col-md-6 d-flex justify-content-end">
-                    <button (click)="getCsv()" nbButton outline
-                            status="info">
-                        <i aria-hidden="true" class="fa fa-download"></i></button>
-                </div>
-            </div>
+          </div>
+        </div>
+        <div class="col-md-6 d-flex justify-content-end">
+          <button nbButton outline status="success" class="mr-2" (click)="openTemplate(chooseCusType)">
+            <i class="fa fa-plus"></i>
+          </button>
+          <button (click)="getCsv()" nbButton outline
+                  status="info">
+            <i aria-hidden="true" class="fa fa-download"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">
+      <form [formGroup]="filterForm">
+        <div class="row py-3">
+
+
+          <div class="col-md-3 mb-3">
+            <input class="form-control rounded" formControlName="name" id="customerName"
+                   placeholder="Enter customer name">
+          </div>
+
         </div>
 
-        <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">
-            <form [formGroup]="filterForm">
-                <div class="row py-3">
-
-
-                    <div class="col-md-3 mb-3">
-                        <input class="form-control rounded" formControlName="customerName" id="customerName"
-                               placeholder="Enter customer name">
-                    </div>
-
-                </div>
-
-                <div class="col-md-12 p-0">
-                    <button (click)="onSearch()" [disabled]="!filterForm.valid" class="mr-2" nbButton shape="rectangle"
-                            status="info">Search
-                    </button>
-                    <button nbButton shape="rectangle" status="danger" type="button">Clear
-                    </button>
-                </div>
-            </form>
+        <div class="col-md-12 p-0">
+          <button (click)="onSearch()" [disabled]="!filterForm.valid" class="mr-2" nbButton
+                  shape="rectangle"
+                  status="info">Search
+          </button>
+          <button nbButton shape="rectangle" status="danger" type="button">Clear
+          </button>
         </div>
+      </form>
+    </div>
 
-    </nb-card-header>
-    <nb-card-body>
-        <br>
-        <table class="table table-bordered table-hover " id="add-branch-table">
-            <thead>
-            <tr>
-                <th>Customer Name</th>
-                <th>Date of birth</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Contact No</th>
-                <th>Occupation</th>
-                <th>Associated Since</th>
+  </nb-card-header>
+  <nb-card-body>
+    <br>
+    <table class="table table-bordered table-hover " id="add-branch-table">
+      <thead>
+      <tr>
+        <th>Customer Name</th>
+        <th>Customer Type</th>
+
+        <th>ID Type</th>
+        <th>ID Number</th>
+        <th>ID Issue Place</th>
+        <th>Email</th>
+        <th>Contact No</th>
+
+        <th>Associated Since</th>
 
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr (click)="customerProfile(model.id)" *ngFor="let model of customerList;let i=index">
-                <td>{{model?.customerName}}</td>
-                <td>{{model?.dob | date}}</td>
-                <td>{{model?.email || 'NA'}}</td>
-                <td>{{model?.province?.name}}, {{model?.district?.name}}
-                    , {{model?.municipalities?.name}}, {{model?.street}},
-                    {{model?.wardNumber}}</td>
-                <td>{{model?.contactNumber || 'NA'}}</td>
-                <td>{{(model?.occupation) || 'NA'}}</td>
-                <td>{{(model?.createdAt|date) || 'NA'}}</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr (click)="customerProfile(model.associateId,model.id,model.customerType)"
+          *ngFor="let model of customerList;let i=index" class="cursor">
+        <td>{{model?.name}}</td>
+        <td>{{model?.customerType}}</td>
+        <td>{{model?.idType || 'NA'}}</td>
+        <td>{{model?.idNumber || 'NA'}}</td>
+        <td>{{model?.idRegPlace || 'NA'}}</td>
+        <td>{{model?.email || 'NA'}}</td>
 
-            </tr>
+        <td>{{model?.contactNo || 'NA'}}</td>
+        <td>{{(model?.createdAt|date) || 'NA'}}</td>
 
-            </tbody>
-        </table>
-        <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
-        <!-- ===================table-pagination==================== -->
-        <app-paging (changePage)="changePage($event)" *ngIf="!spinner" [pageable]="pageable"></app-paging>
-        <!-- ===================table-pagination==================== -->
-    </nb-card-body>
+      </tr>
+
+      </tbody>
+    </table>
+    <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
+    <!-- ===================table-pagination==================== -->
+    <app-paging (changePage)="changePage($event)" *ngIf="!spinner"
+                [pageable]="pageable"></app-paging>
+    <!-- ===================table-pagination==================== -->
+  </nb-card-body>
 
 
 </nb-card>
+
+<ng-template #chooseCusType>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Choose Customer Type</h4>
+    <a (click)="onClose()" aria-label="Close" class="close pull-right cursor">
+      <span aria-hidden="true">&times;</span>
+    </a>
+  </div>
+  <div class="modal-body">
+
+      <div class="col-md-12 row">
+
+        <div class="col-md-8">
+          <select [(ngModel)]="customerType" class="form-control rounded">
+            <option [ngValue]="undefined" hidden> select Customer Type</option>
+            <option value="COMPANY">COMPANY</option>
+            <option value="INDIVIDUAL">INDIVIDUAL</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="col-md-12 py-2">
+        <button class="btn btn-success float-right" (click)="getForm()"
+        >Next
+        </button>
+      </div>
+
+  </div>
+</ng-template>

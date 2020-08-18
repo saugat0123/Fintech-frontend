@@ -30,7 +30,7 @@ import {CreditGradingComponent} from './component/loan-main-template/credit-grad
 import {CoreModule} from '../../@core/core.module';
 import {BorrowerRiskRatingComponent} from './component/loan-main-template/financial/borrower-risk-rating/borrower-risk-rating.component';
 import {environment} from '../../../environments/environment';
-import {SiteVisitComponent} from './component/loan-main-template/site-visit/site-visit.component';
+
 import {AgmCoreModule} from '@agm/core';
 import {IncomeStatementComponent} from './component/loan-main-template/financial/income-statement/income-statement.component';
 import {BalanceSheetComponent} from './component/loan-main-template/financial/balance-sheet/balance-sheet.component';
@@ -90,6 +90,7 @@ import {InsuranceSummaryComponent} from './component/loan-summary/insurance-summ
 import { GuarantorSummaryComponent } from './component/loan-summary/guarantor-summary/guarantor-summary.component';
 import { ProposalSummaryComponent } from './component/loan-summary/proposal-summary/proposal-summary.component';
 import { CreditRiskGradingAlphaComponent } from './component/loan-main-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
+import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -110,7 +111,7 @@ const COMPONENTS = [
     CiclComponent,
     ReadmoreModelComponent,
     CreditGradingComponent,
-    SiteVisitComponent,
+
     LoanPullComponent,
     SecurityInitialFormComponent,
     SecuritySummaryComponent,
@@ -187,7 +188,6 @@ const ENTRY_COMPONENTS = [
         FormsModule,
         NgbPaginationModule,
         ReactiveFormsModule,
-        ReactiveFormsModule,
         NgSelectModule,
         NbDatepickerModule,
         NgxPrintModule,
@@ -197,7 +197,8 @@ const ENTRY_COMPONENTS = [
         }),
         CustomerModule,
         NepaliCalendarModule,
-        ReportingModule
+        ReportingModule,
+        LoanInformationTemplateModule
     ],
 
     providers: [

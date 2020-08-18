@@ -1,8 +1,7 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {SiteVisit} from '../../../../admin/modal/siteVisit';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {SiteVisit} from '../../admin/modal/siteVisit';
 
 
 declare let google: any;
@@ -14,6 +13,8 @@ declare let google: any;
 })
 export class SiteVisitComponent implements OnInit {
   @Input() formValue: SiteVisit;
+  @Input() fromProfile: boolean;
+  @Output() siteVisitDataEmitter = new EventEmitter();
   siteVisitData: SiteVisit = new SiteVisit();
   siteVisitFormGroup: FormGroup;
   currentResidentForm = false;
@@ -29,7 +30,8 @@ export class SiteVisitComponent implements OnInit {
   zoom = 8;
   latLng: string[];
   formDataForEdit;
-    currentResident = false;
+  currentResident = false;
+
   constructor(private formBuilder: FormBuilder) {
   }
 
@@ -653,6 +655,7 @@ export class SiteVisitComponent implements OnInit {
     .setValue(this.latitude + ',' + this.longitude);
     this.getAddress(this.latitude, this.longitude);
   }
+
   placeMaker1(latitude, longitude) {
     this.infoWindowOpen.setValue('false');
     this.zoom = 10;
@@ -661,9 +664,9 @@ export class SiteVisitComponent implements OnInit {
     this.markerLatitude = this.latitude;
     this.markerLongitude = this.longitude;
     (<FormGroup>this.siteVisitFormGroup
-        .get('currentResidentDetails'))
-        .get('locationPreview')
-        .setValue(this.latitude + ',' + this.longitude);
+    .get('currentResidentDetails'))
+    .get('locationPreview')
+    .setValue(this.latitude + ',' + this.longitude);
     this.getAddress(this.latitude, this.longitude);
   }
 
@@ -710,10 +713,11 @@ export class SiteVisitComponent implements OnInit {
     this.latLng = coordinate.split(',', 2);
     this.placeMaker(+this.latLng[0], +this.latLng[1]);
   }
+
   findLocation1() {
     const coordinate = (<FormGroup>this.siteVisitFormGroup
-        .get('currentResidentDetails'))
-        .get('locationPreview').value;
+    .get('currentResidentDetails'))
+    .get('locationPreview').value;
     this.latLng = coordinate.split(',', 2);
     this.placeMaker(+this.latLng[0], +this.latLng[1]);
   }
@@ -724,6 +728,7 @@ export class SiteVisitComponent implements OnInit {
       this.siteVisitData = this.formValue;
     }
     this.siteVisitData.data = JSON.stringify(this.siteVisitFormGroup.value);
+    this.siteVisitDataEmitter.emit(this.siteVisitData.data);
   }
 
   onChangeValue(childFormControlName: string, totalFormControlName: string) {

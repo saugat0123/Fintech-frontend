@@ -8,77 +8,103 @@ import {Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {LoanType} from '../../../loan/model/loanType';
 import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CustomerFormComponent} from '../individual-customer-form/customer-form.component';
+import {NbDialogService} from '@nebular/theme';
+import {CustomerInfoService} from '../../service/customer-info.service';
+import {CustomerType} from '../../model/customerType';
 
 @Component({
-    selector: 'app-customer-component',
-    templateUrl: './customer.component.html',
-    styleUrls: ['./customer.component.scss']
+  selector: 'app-customer-component',
+  templateUrl: './customer.component.html',
+  styleUrls: ['./customer.component.scss']
 })
 export class CustomerComponent implements OnInit {
 
-    page = 1;
-    spinner = false;
-    search = {};
-    customerList = [];
-    pageable: Pageable = new Pageable();
-    isFilterCollapsed = true;
-    filterForm: FormGroup;
-    loanType = LoanType;
+  page = 1;
+  spinner = false;
+  search = {};
+  customerList = [];
+  pageable: Pageable = new Pageable();
+  isFilterCollapsed = true;
+  filterForm: FormGroup;
+  loanType = LoanType;
+  customerType;
 
-    constructor(private customerService: CustomerService,
-                private toastService: ToastService,
-                private customerLoanService: LoanFormService,
-                private router: Router,
-                private formBuilder: FormBuilder) {
+  constructor(private customerService: CustomerService,
+              private toastService: ToastService,
+              private modalService: NgbModal,
+              private dialogService: NbDialogService,
+              private customerLoanService: LoanFormService,
+              private router: Router,
+              private formBuilder: FormBuilder,
+              private customerInfoService: CustomerInfoService,
+  ) {
+  }
+
+  static loadData(other: CustomerComponent) {
+    other.spinner = true;
+    other.customerInfoService.getPaginationWithSearchObject(other.filterForm.value, other.page, 10).subscribe((response: any) => {
+      other.customerList = response.detail.content;
+      other.pageable = PaginationUtils.getPageable(response.detail);
+      other.spinner = false;
+
+    }, error => {
+      console.error(error);
+      other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Customer!'));
+      other.spinner = false;
+
+    });
+
+  }
+
+  ngOnInit() {
+    this.buildFilterForm();
+    CustomerComponent.loadData(this);
+  }
+
+  buildFilterForm() {
+    this.filterForm = this.formBuilder.group({
+
+      name: [undefined],
+
+
+    });
+  }
+
+
+  changePage(page: number) {
+    this.page = page;
+    CustomerComponent.loadData(this);
+  }
+
+  customerProfile(associateId, id, customerType) {
+
+    this.router.navigate(['/home/customer/profile/' + associateId], {queryParams: {customerType: customerType, customerInfoId: id}});
+  }
+
+  onSearch() {
+    CustomerComponent.loadData(this);
+
+  }
+
+  getCsv() {
+  }
+
+  getForm() {
+    this.onClose();
+    if (CustomerType.INDIVIDUAL === CustomerType[this.customerType]) {
+      this.dialogService.open(CustomerFormComponent).onClose.subscribe(res => CustomerComponent.loadData(this));
     }
+  }
 
-    static loadData(other: CustomerComponent) {
-        other.spinner = true;
-        other.customerLoanService.getCustomerFromCustomerLoan(other.filterForm.value, other.page, 10).subscribe((response: any) => {
-            other.customerList = response.detail.content;
-            other.pageable = PaginationUtils.getPageable(response.detail);
-            other.spinner = false;
+  openTemplate(template) {
+    this.modalService.open(template);
+  }
 
-        }, error => {
-            console.error(error);
-            other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Customer!'));
-            other.spinner = false;
-
-        });
-
-    }
-
-    ngOnInit() {
-        this.buildFilterForm();
-        CustomerComponent.loadData(this);
-    }
-
-    buildFilterForm() {
-        this.filterForm = this.formBuilder.group({
-
-            companyName: [undefined],
-            customerName: [undefined],
-        });
-    }
-
-
-    changePage(page: number) {
-        this.page = page;
-        CustomerComponent.loadData(this);
-    }
-
-    customerProfile(id) {
-
-        this.router.navigate(['/home/customer/profile/' + id]);
-    }
-
-    onSearch() {
-        CustomerComponent.loadData(this);
-
-    }
-
-    getCsv() {
-    }
+  onClose() {
+    this.modalService.dismissAll();
+  }
 
 
 }
