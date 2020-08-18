@@ -1,6 +1,6 @@
 <div class="modal-header">
   <h4 class="modal-title pull-left">{{action}} Account Category</h4>
-  <button (click)="close()" aria-label="Close" class="close pull-right" type="button">
+  <button (click)="modalRef.dismiss()" aria-label="Close" class="close pull-right" type="button">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -38,24 +38,69 @@
     </div>
     <div class="row">
       <div class="col-md-12 form-group">
-        <label for="interestRate">Interest Rate</label>
-        <input [ngClass]="{
-                                'is-invalid': interestRate.invalid && (interestRate.dirty || interestRate.touched),
-                                'is-valid': !interestRate.invalid && (interestRate.dirty || interestRate.touched)
-                                }"
-               class="form-control" formControlName="interestRate" id="interestRate"
-               placeholder="Interest Rate" type="number">
+        <label for="features">Features</label>
+        <div id="features">
+          <div
+              *ngFor="let feature of modelForm.get(['additionalInformation', 'features'])['controls']; let i = index  "
+              [formGroup]="feature" class="row pb-2">
+            <div class="col-md-5">
+              <input [ngClass]="{
+                                'is-invalid': feature.get('particular').invalid && (feature.get('particular').dirty || feature.get('particular').touched),
+                                'is-valid': !feature.get('particular').invalid && (feature.get('particular').dirty || feature.get('particular').touched)
+                                }" class="form-control" formControlName="particular" fullWidth
+                     nbInput placeholder="Eg: Minimum Balance">
+            </div>
+            <div class="col-md-6">
+              <input [ngClass]="{
+                                'is-invalid': feature.get('remark').invalid && (feature.get('remark').dirty || feature.get('remark').touched),
+                                'is-valid': !feature.get('remark').invalid && (feature.get('remark').dirty || feature.get('remark').touched)
+                                }" class="form-control" formControlName="remark" fullWidth
+                     nbInput placeholder="Zero (0)">
+            </div>
+            <div class="col-md-1">
+              <button (click)="deleteFromFormArray(modelForm.get(['additionalInformation', 'features']), i)" nbButton size="small" type="button">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <hr/>
+          <div class="text-right">
+            <button (click)="addFeature()" nbButton size="small" type="button">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
+    <hr/>
     <div class="row">
       <div class="col-md-12 form-group">
-        <label for="minimumBalance">Minimum Balance</label>
-        <input [ngClass]="{
-                                'is-invalid': minimumBalance.invalid && (minimumBalance.dirty || minimumBalance.touched),
-                                'is-valid': !minimumBalance.invalid && (minimumBalance.dirty || minimumBalance.touched)
-                                }"
-               class="form-control" formControlName="minimumBalance" id="minimumBalance"
-               placeholder="Minimum Balance" type="number">
+        <label for="features">Notes</label>
+        <div id="notes">
+          <div
+              *ngFor="let note of modelForm.get(['additionalInformation', 'notes'])['controls']; let i = index"
+              class="row pb-2">
+            <div class="col-md-11">
+              <input [formControl]="note" [ngClass]="{
+                                'is-invalid': note.invalid && (note.dirty || note.touched),
+                                'is-valid': !note.invalid && (note.dirty || note.touched)
+                                }" class="form-control" fullWidth
+                     nbInput
+                     placeholder="Eg: 25% waiver on Good For Payment Cheque">
+            </div>
+            <div class="col-md-1">
+              <button (click)="deleteFromFormArray(modelForm.get(['additionalInformation', 'notes']), i)" nbButton size="small" type="button">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <hr/>
+          <div class="text-right">
+            <button (click)="addNote()" nbButton size="small" type="button">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
