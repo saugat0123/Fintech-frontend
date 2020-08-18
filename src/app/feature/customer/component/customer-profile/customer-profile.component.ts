@@ -65,7 +65,7 @@ export class CustomerProfileComponent implements OnInit {
   paramProp: any;
   filterLoanCat = LoanCategory.BUSINESS;
   isIndividual = false;
-  customerInfo = new CustomerInfoData();
+  customerInfo: CustomerInfoData;
 
   constructor(private route: ActivatedRoute,
               private customerService: CustomerService,
@@ -122,9 +122,20 @@ export class CustomerProfileComponent implements OnInit {
   }
 
   getCustomerInfo() {
+    this.spinner = true;
     this.customerInfoService.detail(this.customerInfoId).subscribe((res: any) => {
       this.customerInfo = res.detail;
+      this.spinner = false;
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load customer information'));
+      this.spinner = false;
     });
+  }
+
+  public refreshCustomerInfo(): void {
+    this.customerInfo = undefined;
+    this.getCustomerInfo();
   }
 
   getProvince() {

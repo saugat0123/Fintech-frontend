@@ -876,8 +876,8 @@
                     </div>
                 </div>
             </div>
-            <div class="py-4 d-flex justify-content-end" *ngIf="fromProfile">
-                <button nbButton (click)="onSubmit()">save</button>
+            <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+                <button (click)="onSubmit()" nbButton type="button">save</button>
             </div>
         </form>
     </nb-card-body>

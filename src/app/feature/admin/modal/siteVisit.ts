@@ -1,5 +1,5 @@
-export class SiteVisit {
-  id: number;
-  data: string;
-  version: number;
+import {BaseEntity} from '../../../@core/model/base-entity';
+
+export class SiteVisit extends BaseEntity {
+  data?: string;
 }
