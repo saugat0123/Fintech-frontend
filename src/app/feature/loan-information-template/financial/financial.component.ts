@@ -7,11 +7,11 @@ import {CashFlowStatementComponent} from './cash-flow-statement/cash-flow-statem
 import {KeyIndicatorsComponent} from './key-indicators/key-indicators.component';
 import * as currentFormData from './financial.json';
 import {FinancialService} from './financial.service';
-import {Financial} from '../../../model/financial';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FiscalYearModalComponent} from './fiscal-year-modal/fiscal-year-modal.component';
 import {ActivatedRoute} from '@angular/router';
+import {Financial} from '../../loan/model/financial';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-financial',

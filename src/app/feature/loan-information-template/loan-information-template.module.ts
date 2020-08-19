@@ -9,16 +9,32 @@ import {NbDatepickerModule, NbDialogModule} from '@nebular/theme';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {AgmCoreModule} from '@agm/core';
 import {environment} from '../../../environments/environment';
+import {FinancialComponent} from './financial/financial.component';
+import {BorrowerRiskRatingComponent} from './financial/borrower-risk-rating/borrower-risk-rating.component';
+import {IncomeStatementComponent} from './financial/income-statement/income-statement.component';
+import {BalanceSheetComponent} from './financial/balance-sheet/balance-sheet.component';
+import {CashFlowStatementComponent} from './financial/cash-flow-statement/cash-flow-statement.component';
+import {KeyIndicatorsComponent} from './financial/key-indicators/key-indicators.component';
+import {InitialFormComponent} from './financial/initial-form/initial-form.component';
+import {FiscalYearModalComponent} from './financial/fiscal-year-modal/fiscal-year-modal.component';
+import {CoreModule} from '../../@core/core.module';
 
 const COMPONENTS = [
   SiteVisitComponent,
+  // Financial components--
+  FinancialComponent,
+  BorrowerRiskRatingComponent,
+  IncomeStatementComponent,
+  BalanceSheetComponent,
+  CashFlowStatementComponent,
+  KeyIndicatorsComponent,
+  InitialFormComponent,
+  FiscalYearModalComponent,
 ];
 
 @NgModule({
   declarations: [...COMPONENTS],
-  exports: [
-    SiteVisitComponent
-  ],
+  exports: [...COMPONENTS],
   entryComponents: [...COMPONENTS],
   imports: [
     CommonModule,
@@ -33,6 +49,7 @@ const COMPONENTS = [
     AgmCoreModule.forRoot({
       apiKey: environment.GOOGLE_MAP_API_KEY
     }),
+    CoreModule,
   ]
 })
 export class LoanInformationTemplateModule {
