@@ -70,7 +70,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr (click)="customerProfile(model.associateId,model.id,model.customerType)" *ngFor="let model of customerList;let i=index">
+      <tr (click)="customerProfile(model.associateId,model.id,model.customerType)"
+          *ngFor="let model of customerList;let i=index" class="cursor">
         <td>{{model?.name}}</td>
         <td>{{model?.customerType}}</td>
         <td>{{model?.idType || 'NA'}}</td>

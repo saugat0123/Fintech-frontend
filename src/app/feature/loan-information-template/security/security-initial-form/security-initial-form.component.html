@@ -1169,9 +1169,9 @@
                                 <input *ngIf="calendarType === 'AD'" [nbDatepicker]="expiryDate"
                                        class="form-control rounded" formControlName="expiryDate"
                                        nbInput placeholder="Expiry Date">
-                                <app-calendar (messageToEmit)="securityForm.get('fixedDepositDetails').get('expiryDate').patchValue($event?.eDate)"
+                                <app-calendar (messageToEmit)="securityForm.get(['fixedDepositDetails',i,'expiryDate']).patchValue($event?.eDate)"
                                               *ngIf="calendarType === 'BS'"
-                                              [ePreDate]="securityForm.get('fixedDepositDetails').get('expiryDate').value"></app-calendar>
+                                              [ePreDate]="securityForm.get(['fixedDepositDetails',i,'expiryDate']).value"></app-calendar>
                                 <nb-datepicker #expiryDate></nb-datepicker>
                             </div>
                         </div>

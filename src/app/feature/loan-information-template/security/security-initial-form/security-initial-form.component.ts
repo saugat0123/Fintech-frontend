@@ -16,7 +16,6 @@ import {LoanTag} from '../../../loan/model/loanTag';
 })
 export class SecurityInitialFormComponent implements OnInit {
     @Input() formData: string;
-    @Input() name;
     @Input() calendarType: CalendarType;
     @Input() loanTag: string;
 
@@ -54,7 +53,6 @@ export class SecurityInitialFormComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.valuatorList = this.name;
         this.branchList();
         this.checkFixDeposit();
         if (this.formData !== undefined) {

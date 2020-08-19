@@ -225,7 +225,6 @@ export class LoanFormComponent implements OnInit {
           this.loan.id = this.id;
           this.customerId = this.allId.customerId;
           this.loanHolder.id = this.allId.customerInfoId;
-
           if (!ObjectUtil.isEmpty(this.allId.customerProfileId)) {
             this.getCustomerInfo(this.allId.customerProfileId);
           }

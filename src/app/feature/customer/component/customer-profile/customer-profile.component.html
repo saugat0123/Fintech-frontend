@@ -1,54 +1,57 @@
-<nb-card>
-  <div class="container bg-light mb-3">
-    <div class="row">
-      <a (click)="editCustomer(1)" *ngIf="!isEdited" class="p-2 cursor table-hover"><i
-          class="fa fa-edit"></i></a>
-      <div class=" row col-md-3 m-4">
-        <div class="profile-img">
-
-          <label class="container" for="file-input">
-            <img *ngIf="customer.profilePic !==null " class="image"
-                 src="{{restUrl+'/'+customer.profilePic}}"/>
-            <div *ngIf="customer.profilePic == null || customer.profilePic == undefined"
-                 class="bg-info no-img">
-              <div>
-                <span class="text">NA</span>
-              </div>
-
-            </div>
-
-          </label>
-
-          <input (change)="profileUploader($event)" hidden id="file-input" type="file"/>
-          <!--                    <span *ngIf="fileUploadError == true" style="color:red;">File Upload Failed</span>-->
+<nb-card [nbSpinner]="spinner" accent="primary">
+  <nb-card-body>
+    <div class="bg-light mb-3">
+      <div class="row">
+        <div class="col">
+          <a (click)="editCustomer(1)" *ngIf="!isEdited" class="p-2 cursor"><i
+              class="fa fa-edit"></i></a>
         </div>
       </div>
-      <div *ngIf="!isEdited" class="col-md-6 mt-3 py-4">
+      <div class="p-5 row">
+        <div class="d-flex col-md-3">
+          <div class="profile-img">
+            <label class="container" for="file-input">
+              <img *ngIf="customer.profilePic !==null " class="image"
+                   src="{{restUrl+'/'+customer.profilePic}}"/>
+              <div *ngIf="customer.profilePic == null || customer.profilePic == undefined"
+                   class="bg-info no-img">
+                <div>
+                  <span class="text">NA</span>
+                </div>
 
-        <div class="row">
-          <span> <b>Name :</b> {{customer.customerName}}</span></div>
-        <div class="row">
-          <span> <b>Date Of Birth :</b> {{customer.dob | date}}</span></div>
+              </div>
 
-        <div class="row">
+            </label>
+
+            <input (change)="profileUploader($event)" hidden id="file-input" type="file"/>
+            <!--<span *ngIf="fileUploadError == true" style="color:red;">File Upload Failed</span>-->
+          </div>
+        </div>
+        <div *ngIf="!isEdited" class="col-md-9 mt-3 py-4">
+
+          <div class="row">
+            <span> <b>Name :</b> {{customer.customerName}}</span></div>
+          <div class="row">
+            <span> <b>Date Of Birth :</b> {{customer.dob | date}}</span></div>
+
+          <div class="row">
                     <span> <b>Address :</b> {{customer?.province?.name}}
                       , {{customer?.district?.name}}
                       , {{customer?.municipalities?.name}}, {{customer?.street}},
                       {{customer?.wardNumber}}</span></div>
-        <div class="row">
-          <span> <b>Email :</b> {{customer.email }}</span></div>
-        <div class="row">
-          <span> <b>Contact :</b> {{customer.contactNumber }}</span></div>
+          <div class="row">
+            <span> <b>Email :</b> {{customer.email }}</span></div>
+          <div class="row">
+            <span> <b>Contact :</b> {{customer.contactNumber }}</span></div>
 
-      </div>
-
-      <div *ngIf="isEdited" class="col-md-8 mt-3 py-4">
-        <form [formGroup]="basicForm">
-          <div class="row form-inline">
+        </div>
+        <div *ngIf="isEdited" class="col-md-9 mt-3 py-4">
+          <form [formGroup]="basicForm">
+            <div class="row form-inline">
                         <span> <b>Name :</b> <input formControlName="customerName"
                                                     placeholder="name"
                                                     type="text"></span></div>
-          <div class="row form-inline">
+            <div class="row form-inline">
                         <span> <b>Date Of Birth :</b>      <input [nbDatepicker]="dob"
                                                                   class="form-control"
                                                                   formControlName="dob"
@@ -57,7 +60,7 @@
                                                                   placeholder="Customer Date of birth">
                          <nb-datepicker #dob></nb-datepicker></span></div>
 
-          <div class="row">
+            <div class="row">
                     <span> <b>Address :</b> <select
                         (change)="getDistricts(this.basicForm.get('province').value)"
                         formControlName="province"
@@ -96,188 +99,174 @@
                                     type="text" width="20px">
 
                       </span></div>
-          <div class="row">
+            <div class="row">
                         <span> <b>Email :</b>   <input formControlName="email" placeholder="name"
                                                        type="text"></span></div>
-          <div class="row">
+            <div class="row">
                         <span> <b>Contact :</b>   <input formControlName="contactNumber"
                                                          placeholder="name"
                                                          type="text"></span></div>
-        </form>
+          </form>
 
+        </div>
       </div>
-      <div class="col-md-2 py-2">
-
-      </div>
-    </div>
-    <div class="d-flex justify-content-end">
-      <div class="row">
-        <button (click)="editCustomer(0)" *ngIf="isEdited" class="btn btn-danger">cancel</button>
+      <div class="row justify-content-end">
+        <button (click)="editCustomer(0)" *ngIf="isEdited" nbButton size="small"
+                status="warning" type="button">Cancel
+        </button>
         <div class="px-2">
-          <button (click)="saveBasic()" *ngIf="isEdited"
-                  class="btn btn-primary btn-flat">save
+          <button (click)="saveBasic()" *ngIf="isEdited" nbButton size="small"
+                  status="danger" type="button">Save
           </button>
         </div>
         <div class="px-2">
           <button (click)="openSelectLoanTemplate(loanListTemplate)" *ngIf="!isEdited"
-                  class="btn btn-primary btn-flat">Apply Loan
+                  nbButton size="small" type="button">Apply Loan
           </button>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="container">
-
-    <div class="col-md-12">
-      <div class="row">
-
-        <div class="col-md-8">
-          <div class="col-md-12"><span
-              class="d-flex justify-content-end text-success text-uppercase"><b>  Aggregated Amount
-                                : {{totalProposalAmount |number}}</b></span></div>
-          <nb-card>
-            <nb-card-header>
-              Loan History
-              <div class="float-right" nbTooltip="">Total Loan Amount
-                : {{totalLoanProposedAmount | number}}
-              </div>
-            </nb-card-header>
-            <nb-card-body>
-              <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
-                                       [fetchType]="fetchLoan.CUSTOMER_LOAN"
-                                       [formValue]="customer"></app-customer-group-loan>
-            </nb-card-body>
-          </nb-card>
-
-
-          <nb-card>
-            <nb-card-header>
-              Customer Groups
-              <div class="float-right" nbTooltip="">Total Group Amount
-                : {{totalGroupAmount | number}}
-              </div>
-            </nb-card-header>
-            <nb-card-body>
-              <nb-accordion>
-                <nb-accordion-item>
-                  <nb-accordion-item-header>
-                    <div class="row col-md-12">
-                      <div class="col-md-6">
-                        <span>KYC</span>
-                      </div>
-                      <div class="col-md-6 d-flex justify-content-end">
-                        Total Amount :  {{(totalProposedAmountByKYC | number)}}
-                      </div>
-                    </div>
-                  </nb-accordion-item-header>
-                  <nb-accordion-item-body>
-                    <app-customer-group-loan
-                        (messageToEmit)="getTotalLoanAmount($event)"
-                        [fetchType]="fetchLoan.CUSTOMER_AS_KYC"
-                        [formValue]="customer"></app-customer-group-loan>
-
-                  </nb-accordion-item-body>
-                </nb-accordion-item>
-                <nb-accordion-item>
-                  <nb-accordion-item-header>
-                    <div class="row col-md-12">
-                      <div class="col-md-6">
-                        <span>SECURITY</span>
-                      </div>
-                      <div class="col-md-6 d-flex justify-content-end">
-                        Total Amount :  {{(totalProposedAmountByGuarantor | number)}}
-                      </div>
-                    </div>
-                  </nb-accordion-item-header>
-                  <nb-accordion-item-body>
-                    <app-customer-group-loan
-                        (messageToEmit)="getTotalLoanAmount($event)"
-                        [fetchType]="fetchLoan.CUSTOMER_AS_GUARANTOR"
-                        [formValue]="customer"></app-customer-group-loan>
-                  </nb-accordion-item-body>
-                </nb-accordion-item>
-              </nb-accordion>
-
-
-            </nb-card-body>
-
-          </nb-card>
-
-
+    <div class="row">
+      <div class="col-md-8">
+        <div class="d-block mb-3">
+          <span class="d-flex justify-content-end text-success text-uppercase">
+            <b>Aggregated Amount : {{totalProposalAmount |number}}</b>
+          </span>
         </div>
-
-        <div class="col-md-4">
-
-          <div class="row bg-transparent">
-
-            <div class="col-md-12 d-flex justify-content-center bg-primary"><h3 class="text-white">
-              KYC</h3></div>
-            <a (click)="openTemplate(kycUpdate)">update kyc</a>
-            <div class="col-md-12 py-2">
-              <div (click)="checkKycLoan(customerRelative)"
-                   *ngFor="let customerRelative of customer.customerRelatives" class="cursor">
-
-                <div class="row">
-                  <div class="col-md-5">
-                    <span> <b>Name</b></span></div>
-                  <div class="col-md-1">
-                    <span> <b>:</b></span></div>
-                  <div class="col-md-5">{{customerRelative.customerRelativeName}}</div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-5">
-                    <span> <b>Relation</b></span></div>
-                  <div class="col-md-1">
-                    <span> <b>:</b></span></div>
-                  <div class="col-md-5">{{customerRelative.customerRelation}}</div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-5">
-                    <span> <b>Citizenship no</b></span></div>
-                  <div class="col-md-1">
-                    <span> <b>:</b></span></div>
-                  <div class="col-md-5">{{customerRelative.citizenshipNumber}}</div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-5">
-                    <span> <b>Issued Place</b></span></div>
-                  <div class="col-md-1">
-                    <span> <b>:</b></span></div>
-                  <div class="col-md-5">{{customerRelative.citizenshipIssuedPlace}}</div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-5">
-                    <span> <b>Issued Date</b></span></div>
-                  <div class="col-md-1">
-                    <span> <b>:</b></span></div>
-                  <div class="col-md-5">{{customerRelative.citizenshipIssuedDate | date}}</div>
-                </div>
-
-                <hr>
-
-
-              </div>
+        <nb-card accent="primary">
+          <nb-card-header>
+            Loan History
+            <div class="float-right" nbTooltip="">Total Loan Amount
+              : {{totalLoanProposedAmount | number}}
             </div>
-          </div>
-        </div>
+          </nb-card-header>
+          <nb-card-body>
+            <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
+                                     [fetchType]="fetchLoan.CUSTOMER_LOAN"
+                                     [formValue]="customer"></app-customer-group-loan>
+          </nb-card-body>
+        </nb-card>
+        <nb-card accent="primary">
+          <nb-card-header>
+            Customer Groups
+            <div class="float-right" nbTooltip="{{totalGroupAmount | number}}">Total Group Amount
+              : {{totalGroupAmount | number}}
+            </div>
+          </nb-card-header>
+          <nb-card-body>
+            <nb-accordion>
+              <nb-accordion-item>
+                <nb-accordion-item-header>
+                  <div class="row col-md-12">
+                    <div class="col-md-6">
+                      <span>KYC</span>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end">
+                      Total Amount :  {{(totalProposedAmountByKYC | number)}}
+                    </div>
+                  </div>
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <app-customer-group-loan
+                      (messageToEmit)="getTotalLoanAmount($event)"
+                      [fetchType]="fetchLoan.CUSTOMER_AS_KYC"
+                      [formValue]="customer"></app-customer-group-loan>
 
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+              <nb-accordion-item>
+                <nb-accordion-item-header>
+                  <div class="row col-md-12">
+                    <div class="col-md-6">
+                      <span>SECURITY</span>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end">
+                      Total Amount :  {{(totalProposedAmountByGuarantor | number)}}
+                    </div>
+                  </div>
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <app-customer-group-loan
+                      (messageToEmit)="getTotalLoanAmount($event)"
+                      [fetchType]="fetchLoan.CUSTOMER_AS_GUARANTOR"
+                      [formValue]="customer"></app-customer-group-loan>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+            </nb-accordion>
+
+
+          </nb-card-body>
+
+        </nb-card>
+      </div>
+      <div class="col-md-4">
+        <nb-card accent="primary">
+          <nb-card-header>KYC</nb-card-header>
+          <nb-card-body>
+            <button (click)="openTemplate(kycUpdate)" nbButton size="tiny">Update KYC</button>
+            <hr/>
+            <div (click)="checkKycLoan(customerRelative)"
+                 *ngFor="let customerRelative of customer.customerRelatives" class="cursor">
+
+              <div class="row">
+                <div class="col-md-5">
+                  <span> <b>Name</b></span></div>
+                <div class="col-md-1">
+                  <span> <b>:</b></span></div>
+                <div class="col-md-5">{{customerRelative.customerRelativeName}}</div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-5">
+                  <span> <b>Relation</b></span></div>
+                <div class="col-md-1">
+                  <span> <b>:</b></span></div>
+                <div class="col-md-5">{{customerRelative.customerRelation}}</div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-5">
+                  <span> <b>Citizenship no</b></span></div>
+                <div class="col-md-1">
+                  <span> <b>:</b></span></div>
+                <div class="col-md-5">{{customerRelative.citizenshipNumber}}</div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-5">
+                  <span> <b>Issued Place</b></span></div>
+                <div class="col-md-1">
+                  <span> <b>:</b></span></div>
+                <div class="col-md-5">{{customerRelative.citizenshipIssuedPlace}}</div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-5">
+                  <span> <b>Issued Date</b></span></div>
+                <div class="col-md-1">
+                  <span> <b>:</b></span></div>
+                <div class="col-md-5">{{customerRelative.citizenshipIssuedDate | date}}</div>
+              </div>
+
+              <hr>
+
+
+            </div>
+          </nb-card-body>
+        </nb-card>
       </div>
     </div>
-
-    <!--    customer loan information -->
-    <div class="col-md-12">
-      <app-customer-loan-information
-          [id]="customerInfoId" [customerInfo]="customerInfo"></app-customer-loan-information>
+    <div class="row">
+      <div class="col-md-12">
+        <app-customer-loan-information
+            (triggerCustomerRefresh)="refreshCustomerInfo()"
+            *ngIf="customerInfo"
+            [customerInfoId]="customerInfoId"
+            [customerInfo]="customerInfo"></app-customer-loan-information>
+      </div>
     </div>
-    <!--    customer loan information -->
-  </div>
-
-  <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
+  </nb-card-body>
 </nb-card>
 
 <ng-template #loanListTemplate>
@@ -318,6 +307,3 @@
 <ng-template #kycUpdate>
   <app-kyc-form [kycRelative]="customer?.customerRelatives"></app-kyc-form>
 </ng-template>
-
-
-

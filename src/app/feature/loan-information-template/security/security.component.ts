@@ -7,10 +7,7 @@ import {AddressService} from '../../../@core/service/baseservice/address.service
 import {Province} from '../../admin/modal/province';
 import {District} from '../../admin/modal/district';
 import {MunicipalityVdc} from '../../admin/modal/municipality_VDC';
-import {ValuatorService} from '../../admin/component/valuator/valuator.service';
-import {Proposal} from '../../admin/modal/proposal';
 import {Address} from '../../loan/model/address';
-import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {Guarantor} from '../../loan/model/guarantor';
 import {CalendarType} from '../../../@core/model/calendar-type';
 
@@ -22,7 +19,6 @@ import {CalendarType} from '../../../@core/model/calendar-type';
 })
 export class SecurityComponent implements OnInit {
     @Input() securityValue: Security;
-    @Input() proposalDataHolder: Proposal;
     @Input() calendarType: CalendarType;
     @Input() loanTag: string;
     @Output() securityDataEmitter = new EventEmitter();
@@ -41,17 +37,13 @@ export class SecurityComponent implements OnInit {
     municipality: MunicipalityVdc = new MunicipalityVdc();
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     addressList: Array<Address> = new Array<Address>();
-    valuatorByBranch = [];
-    valuatorName = [];
     limit: number;
-    proposalAllData;
     submitted: false;
     guarantorsDetails: Guarantor = new Guarantor();
 
     constructor(
         private formBuilder: FormBuilder ,
         private addressServices: AddressService ,
-        private valuatorService: ValuatorService ,
     ) {
     }
 
@@ -66,26 +58,8 @@ export class SecurityComponent implements OnInit {
             this.addGuarantorsDetails();
             this.initialSecurityValue = undefined;
         }
-        if (!ObjectUtil.isEmpty(this.proposalDataHolder)) {
-            this.proposalAllData = JSON.parse(this.proposalDataHolder.data);
-        }
-        const valuatorSearch = {
-            'branchIds': LocalStorageUtil.getStorage().branch
-        };
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-            this.valuatorByBranch = res.detail;
-            if (this.proposalAllData !== undefined) {
-                this.limit = this.proposalAllData.proposedLimit;
-                this.valuatorByBranch.forEach((value) => {
-                    if ((Number(value.minAmount) <= Number(this.limit)) && (Number(value.maxAmount) >= Number(this.limit))) {
-                        const valuatorList = {id: value.id , name: value.name};
-                        this.valuatorName.push(valuatorList);
-                    } else {
-                        console.log('enter proposal limit');
-                    }
-                });
-            }
-        });
+
+
     }
 
     buildForm() {
