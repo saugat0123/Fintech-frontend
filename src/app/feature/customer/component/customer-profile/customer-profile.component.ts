@@ -46,6 +46,7 @@ export class CustomerProfileComponent implements OnInit {
   };
   mySubscription: any;
   isEdited = false;
+  edited = false;
   basicForm: FormGroup;
   customerRelatives: Array<CustomerRelative> = new Array<CustomerRelative>();
   province: Province = new Province();
@@ -199,7 +200,9 @@ export class CustomerProfileComponent implements OnInit {
 
   editCustomer(val) {
     this.isEdited = val === 1;
-
+  }
+  editKyc(val) {
+    this.edited = val === 1;
   }
 
   profileUploader(event) {
@@ -255,14 +258,14 @@ export class CustomerProfileComponent implements OnInit {
   }
 
   createRelativesArray() {
-    const relation = ['Grand Father', 'Father', 'Spouse'];
+    const relation = ['Grand Father', 'Father'];
     relation.forEach((customerRelation) => {
       (this.basicForm.get('customerRelatives') as FormArray).push(this.formBuilder.group({
         customerRelation: [{value: customerRelation, disabled: true}],
-        customerRelativeName: [undefined, Validators.compose([Validators.required])],
-        citizenshipNumber: [undefined, Validators.compose([Validators.required])],
-        citizenshipIssuedPlace: [undefined, Validators.compose([Validators.required])],
-        citizenshipIssuedDate: [undefined, Validators.compose([Validators.required, DateValidator.isValidBefore])]
+        customerRelativeName: [undefined, Validators.required],
+        citizenshipNumber: [undefined, Validators.required],
+        citizenshipIssuedPlace: [undefined],
+        citizenshipIssuedDate: [undefined]
       }));
     });
   }
@@ -273,7 +276,7 @@ export class CustomerProfileComponent implements OnInit {
       const customerRelative = singleRelatives.customerRelation;
       // Increase index number with increase in static relatives---
       relativesData.push(this.formBuilder.group({
-        customerRelation: (index > 2) ? [(customerRelative)] :
+        customerRelation: (index > 1) ? [(customerRelative)] :
             [({value: customerRelative, disabled: true}), Validators.required],
         customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
         citizenshipNumber: [singleRelatives.citizenshipNumber, Validators.required],
@@ -283,6 +286,7 @@ export class CustomerProfileComponent implements OnInit {
       }));
     });
   }
+
 
   getDistricts(province: Province) {
     this.commonLocation.getDistrictByProvince(province).subscribe(
@@ -317,9 +321,20 @@ export class CustomerProfileComponent implements OnInit {
       this.customer = res.detail;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
       this.isEdited = false;
+      this.edited = false;
       this.customerBasicFormBuilder();
       this.getProvince();
       this.setRelatives(this.customer.customerRelatives);
+    }, error => {
+      this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+    });
+  }
+
+  saveKyc() {
+    this.customerService.save(this.basicForm.value).subscribe((res: any) => {
+      this.customer = res.detail;
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
+      this.edited = false;
     }, error => {
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
     });

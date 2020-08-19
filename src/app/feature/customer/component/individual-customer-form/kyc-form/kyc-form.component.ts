@@ -44,10 +44,11 @@ export class KycFormComponent implements OnInit {
 
 
   onSubmit() {
+    this.kycRelative = this.kycInfo.get('customerRelatives').value;
+    console.log(this.kycRelative);
 
-    this.customerService.save(this.kycInfo.value).subscribe((res: any) => {
-      this.customer = res.detail;
-      console.log(this.customer);
+    this.customerService.saveAny(this.kycInfo.get('customerRelatives').value).subscribe((res: any) => {
+      console.log(res);
     });
   }
   createRelativesArray() {
