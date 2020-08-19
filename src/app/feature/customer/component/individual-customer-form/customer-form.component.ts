@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Injectable, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Customer} from '../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
@@ -17,12 +17,12 @@ import {CustomerAssociateComponent} from '../../../loan/component/loan-main-temp
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {SecurityInitialFormComponent} from '../../../loan/component/loan-main-template/security/security-initial-form/security-initial-form.component';
 
-
 @Component({
   selector: 'app-customer-form',
   templateUrl: './customer-form.component.html',
   styleUrls: ['./customer-form.component.scss']
 })
+
 export class CustomerFormComponent implements OnInit {
 
   @Input() formValue: Customer;
