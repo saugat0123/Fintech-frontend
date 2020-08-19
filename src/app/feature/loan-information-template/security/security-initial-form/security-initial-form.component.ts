@@ -533,7 +533,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.formBuilder.group({
                     receiptNumber: [deposit.receiptNumber],
                     amount: [deposit.amount],
-                    expiryDate: [deposit.expiryDate],
+                    expiryDate: [new Date(deposit.expiryDate)],
                     couponRate: [deposit.couponRate],
                     beneficiary: [deposit.beneficiary],
                     remarks: [deposit.remarks]
