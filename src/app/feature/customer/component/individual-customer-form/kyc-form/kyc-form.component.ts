@@ -1,5 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {Customer} from '../../../../admin/modal/customer';
+import {LoanDataService} from '../../../../loan/service/loan-data.service';
+import {CustomerService} from '../../../service/customer.service';
+
+
 
 @Component({
   selector: 'app-kyc-form',
@@ -9,13 +15,51 @@ import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 export class KycFormComponent implements OnInit {
 
   @Input()
-  kycRelative: Array<CustomerRelative>;
+  kycRelative: Array<CustomerRelative> ;
 
-  constructor() {
+  kycInfo: FormGroup;
+
+
+  customer: Customer = new Customer();
+
+  constructor(
+      private formBuilder: FormBuilder,
+      private customerService: CustomerService,
+      private loanDataService: LoanDataService
+  ) {
   }
 
   ngOnInit() {
-    console.log(this.kycRelative);
+    this.buildForm();
+    this.createRelativesArray();
+
   }
+  buildForm() {
+    this.kycInfo =  this.formBuilder.group({
+
+      customerRelatives: this.formBuilder.array([])
+    });
+
+  }
+
+
+  onSubmit() {
+
+    this.customerService.save(this.kycInfo.value).subscribe((res: any) => {
+      this.customer = res.detail;
+      console.log(this.customer);
+    });
+  }
+  createRelativesArray() {
+    (this.kycInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
+      customerRelation: [undefined],
+      customerRelativeName: [undefined],
+      citizenshipNumber: [undefined],
+      citizenshipIssuedPlace: [undefined],
+      citizenshipIssuedDate: [undefined]
+    }));
+
+  }
+
 
 }

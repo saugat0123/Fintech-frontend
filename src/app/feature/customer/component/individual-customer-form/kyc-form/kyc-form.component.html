@@ -1,18 +1,76 @@
-<div class="row">
-<div class="col-md-6">
-  <div class="form-group">
-    <label><strong>Relation</strong></label>
-    <input class="form-control"
-           placeholder="Relation" type="text">
+<div [formGroup]="kycInfo">
+
+  <div *ngFor="let relatives of kycInfo.get('customerRelatives')['controls']; let i = index"
+       formArrayName="customerRelatives">
+    <div [formGroupName]="i">
+      <div class="form">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="relativeName{{i}}"><strong>Name</strong></label>
+                <input class="form-control"
+                       id="relativeName{{i}}"
+                       formControlName="customerRelativeName"
+                       placeholder="name" type="text">
+
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="relation{{i}}"><strong>Relation</strong></label>
+                <input class="form-control"
+                       id="relation{{i}}"
+                       formControlName="customerRelation"
+                       placeholder="Relation" type="text">
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="citizen{{i}}"><strong>Citizenship Number</strong></label>
+                <input class="form-control"
+                       id="citizen{{i}}"
+                       formControlName="citizenshipNumber"
+                       placeholder="citizenship no" type="text">
+
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="place{{i}}"><strong>Issued place</strong></label>
+                <input class="form-control"
+                       id="place{{i}}"
+                       formControlName="citizenshipIssuedPlace"
+                       placeholder="issued place" type="text">
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="date{{i}}"><strong>Issued Date</strong></label>
+                <input class="form-control"
+                       id="date{{i}}"
+                       formControlName="citizenshipIssuedDate"
+                       placeholder="issued date" type="text">
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
 
   </div>
-</div>
-<div class="col-md-6">
-  <div class="form-group">
-    <label><strong>Citizenship Number</strong></label>
-    <input class="form-control"
-           placeholder="Relation" type="text">
 
-  </div>
 </div>
+<div class="d-flex justify-content-end">
+  <button nbButton (click)="onSubmit()">save</button>
 </div>

@@ -45,12 +45,12 @@
             <div class="form-group">
               <label for="customerNameForm"><strong>Customer Name</strong></label>
               <input
-                  [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerName.errors }"
-                  class="form-control form-control-sm-error rounded" formControlName="customerName"
-                  id="customerNameForm"
-                  name="customerName"
-                  placeholder="Applicant's Full Name"
-                  type="text">
+                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.customerName.errors }"
+                      class="form-control form-control-sm-error rounded" formControlName="customerName"
+                      id="customerNameForm"
+                      name="customerName"
+                      placeholder="Applicant's Full Name"
+                      type="text">
               <div *ngIf="(submitted) && basicInfoControls.customerName.invalid"
                    class="invalid-feedback">
                 <div *ngIf="basicInfoControls.customerName.errors.required">Customer name is
@@ -94,7 +94,7 @@
               <div *ngIf="submitted && basicInfoControls.dob.errors"
                    class="invalid-feedback">
                 <div
-                    *ngIf="basicInfoControls.dob.errors.required || basicInfoControls.dob.errors.beforeToday">
+                        *ngIf="basicInfoControls.dob.errors.required || basicInfoControls.dob.errors.beforeToday">
                   Invalid date of birth
                 </div>
               </div>
@@ -139,7 +139,7 @@
               <div *ngIf="(submitted) &&  basicInfoControls.district.invalid"
                    class="invalid-feedback">
                 <span
-                    *ngIf="basicInfoControls.district.errors.required">Municipality is required</span>
+                        *ngIf="basicInfoControls.district.errors.required">district is required</span>
               </div>
             </div>
           </div>
@@ -147,10 +147,10 @@
             <div class="form-group">
               <label for="municipality"><strong>Municipalities or VDC</strong></label>
               <select
-                  [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.municipalities.errors }"
-                  class="custom-select" formControlName="municipalities"
-                  id="municipality"
-                  name="municipality">
+                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.municipalities.errors }"
+                      class="custom-select" formControlName="municipalities"
+                      id="municipality"
+                      name="municipality">
                 <option [ngValue]="null" hidden>Select Municipality</option>
                 <option *ngFor="let municipalityVal of municipalitiesList"
                         [ngValue]="municipalityVal"
@@ -161,7 +161,7 @@
               <div *ngIf="(submitted) && basicInfoControls.municipalities.invalid"
                    class="invalid-feedback">
                 <span
-                    *ngIf="basicInfoControls.municipalities.errors.required">Province is required</span>
+                        *ngIf="basicInfoControls.municipalities.errors.required"> Municipalities/VDCs required</span>
               </div>
             </div>
           </div>
@@ -183,10 +183,10 @@
             <div class="form-group">
               <label for="wardNumber"><strong>Ward Number</strong></label>
               <input
-                  [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.wardNumber.errors }"
-                  class="form-control" formControlName="wardNumber" id="wardNumber"
-                  name="wardNumber" placeholder="Ward Number"
-                  type="text">
+                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.wardNumber.errors }"
+                      class="form-control" formControlName="wardNumber" id="wardNumber"
+                      name="wardNumber" placeholder="Ward Number"
+                      type="text">
               <div *ngIf="(submitted) && basicInfoControls.wardNumber.invalid"
                    class="invalid-feedback">
                 <div *ngIf="basicInfoControls.wardNumber.errors.required">
@@ -214,11 +214,11 @@
             <div class="form-group">
               <label for="contactNumber"><strong>Contact Number</strong></label>
               <input
-                  [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.contactNumber.errors }"
-                  class="form-control" formControlName="contactNumber" id="contactNumber"
-                  name="contactNumber"
-                  placeholder="Contact number"
-                  type="text">
+                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.contactNumber.errors }"
+                      class="form-control" formControlName="contactNumber" id="contactNumber"
+                      name="contactNumber"
+                      placeholder="Contact number"
+                      type="text">
               <div *ngIf="(submitted) && basicInfoControls.contactNumber.invalid"
                    class="invalid-feedback">
                 <div *ngIf="basicInfoControls.contactNumber.errors.required">
@@ -232,10 +232,10 @@
             <div class="form-group">
               <label for="wardNumber"><strong>Citizenship Number</strong></label>
               <input
-                  [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipNumber.errors }"
-                  class="form-control" formControlName="citizenshipNumber" id="citizenshipNumber"
-                  name="citizenshipNumber" placeholder="citizenship Number"
-                  type="text">
+                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipNumber.errors }"
+                      class="form-control" formControlName="citizenshipNumber" id="citizenshipNumber"
+                      name="citizenshipNumber" placeholder="citizenship Number"
+                      type="text">
               <div *ngIf="(submitted) && basicInfoControls.citizenshipNumber.invalid"
                    class="invalid-feedback">
                 <div *ngIf="basicInfoControls.citizenshipNumber.errors.required">
@@ -258,6 +258,12 @@
                   {{district?.name}}
                 </ng-option>
               </ng-select>
+              <div *ngIf="(submitted) && basicInfoControls.citizenshipIssuedPlace.invalid"
+                   class="alert-danger">
+                <span *ngIf="basicInfoControls.citizenshipIssuedPlace.errors.required">
+                  citizenship issued district is required
+                </span>
+              </div>
             </div>
           </div>
           <div class="col-md-4">
@@ -276,7 +282,7 @@
               <div *ngIf="submitted && basicInfoControls.citizenshipIssuedDate.errors"
                    class="invalid-feedback">
                 <div
-                    *ngIf="basicInfoControls.citizenshipIssuedDate.errors.required || basicInfoControls.citizenshipIssuedDate.errors.beforeToday">
+                        *ngIf="basicInfoControls.citizenshipIssuedDate.errors.required || basicInfoControls.citizenshipIssuedDate.errors.beforeToday">
                   Invalid Registration Date
                 </div>
               </div>
@@ -286,11 +292,11 @@
             <div class="form-group">
               <label for="occupation"><strong>Occupation</strong></label>
               <input
-                  [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.occupation.errors }"
-                  class="form-control"
-                  formControlName="occupation" id="occupation" name="occupation"
-                  placeholder="Occupation"
-                  type="text">
+                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.occupation.errors }"
+                      class="form-control"
+                      formControlName="occupation" id="occupation" name="occupation"
+                      placeholder="Occupation"
+                      type="text">
               <div *ngIf="submitted && basicInfoControls.occupation.errors"
                    class="invalid-feedback">
                 <div *ngIf="basicInfoControls.occupation.errors.required">Occupation is required
@@ -304,11 +310,11 @@
             <div class="form-group">
               <label for="incomeSource"><strong>Income Source</strong></label>
               <input
-                  [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.incomeSource.errors }"
-                  class="form-control"
-                  formControlName="incomeSource" id="incomeSource" name="incomeSource"
-                  placeholder="incomeSource"
-                  type="text">
+                      [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.incomeSource.errors }"
+                      class="form-control"
+                      formControlName="incomeSource" id="incomeSource" name="incomeSource"
+                      placeholder="incomeSource"
+                      type="text">
               <div *ngIf="submitted && basicInfoControls.incomeSource.errors"
                    class="invalid-feedback">
                 <div *ngIf="basicInfoControls.incomeSource.errors.required">Income Source is
@@ -320,8 +326,8 @@
         </div>
         <div>
           <div
-              *ngFor="let relatives of basicInfo.get('customerRelatives')['controls']; let i = index"
-              formArrayName="customerRelatives">
+                  *ngFor="let relatives of basicInfo.get('customerRelatives')['controls']; let i = index"
+                  formArrayName="customerRelatives">
             <div [formGroupName]="i">
               <div class="row">
                 <div class="col-md-2">
@@ -333,7 +339,7 @@
                            placeholder="Relation" type="text">
                     <div *ngIf="submitted && relatives.get('customerRelation').errors"
                          class="invalid-feedback">
-                      <div *ngIf="relatives.get('customerRelation').errors.required">Relation
+                      <div *ngIf="relatives.get('customerRelation').errors?.required">Relation
                         is required
                       </div>
                     </div>
@@ -343,17 +349,24 @@
                   <div class="form-group">
                     <label for="relationName{{i}}"><strong>Name</strong></label>
                     <input class="form-control" formControlName="customerRelativeName"
+                           [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelativeName').errors }"
                            id="relationName{{i}}"
                            placeholder="Name" type="text">
+                    <div *ngIf="submitted && relatives.get('customerRelativeName').errors"
+                         class="invalid-feedback">
+                      Name is required!
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-2">
                   <div class="form-group">
                     <label for="citizenship{{i}}"><strong>CitizenshipNumber</strong></label>
                     <input class="form-control" formControlName="citizenshipNumber"
+                           [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipNumber').errors }"
                            id="citizenship{{i}}" placeholder="Citizenship Number" type="text">
                     <div *ngIf="submitted && relatives.get('citizenshipNumber').errors"
                          class="invalid-feedback">
+                      citizenship Number is required!
                     </div>
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Customer} from '../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
@@ -15,6 +15,8 @@ import {DateValidator} from '../../../../@core/validator/date-validator';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {CustomerAssociateComponent} from '../../../loan/component/loan-main-template/customer-associate/customer-associate.component';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {SecurityInitialFormComponent} from "../../../loan/component/loan-main-template/security/security-initial-form/security-initial-form.component";
+
 
 @Component({
   selector: 'app-customer-form',
@@ -26,6 +28,7 @@ export class CustomerFormComponent implements OnInit {
   @Input() formValue: Customer;
   calendarType = 'AD';
   @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+
 
   basicInfo: FormGroup;
   submitted = false;
@@ -83,8 +86,8 @@ export class CustomerFormComponent implements OnInit {
           customerRelation: [undefined, Validators.required],
           customerRelativeName: [undefined, Validators.compose([Validators.required])],
           citizenshipNumber: [undefined, Validators.compose([Validators.required])],
-          citizenshipIssuedPlace: [undefined, Validators.compose([Validators.required])],
-          citizenshipIssuedDate: [undefined, Validators.compose([Validators.required, DateValidator.isValidBefore])]
+          citizenshipIssuedPlace: [undefined],
+          citizenshipIssuedDate: [undefined]
         })
     );
   }
@@ -138,35 +141,39 @@ export class CustomerFormComponent implements OnInit {
         this.customerDetailField.showFormField = true;
         this.customerSearchData.citizenshipNumber = tempId;
         this.customerService.getByCustomerByCitizenshipNo(this.customerSearchData.citizenshipNumber)
-        .subscribe((customerResponse: any) => {
-          if (customerResponse.detail.length === 0) {
-            this.getProvince();
-            this.customerDetailField.isOldCustomer = false;
-            this.toastService.show(new Alert(AlertType.INFO, 'No Customer Found under provided Citizenship No.'));
-            this.customer = new Customer();
-            this.customer.citizenshipNumber = tempId;
-            this.formMaker();
-            this.createRelativesArray();
-          } else {
-            this.getProvince();
-            this.customerList = customerResponse.detail;
-            if (this.customerList.length < 2) {
-              this.customer = this.customerList[0];
-              this.formMaker();
-              this.setRelatives(this.customer.customerRelatives);
-            } else {
-              this.customerDetailField.showFormField = false;
-              this.showMatchingTable = true;
-              this.toastService.show(new Alert(AlertType.INFO, `${this.customerList.length}
+            .subscribe((customerResponse: any) => {
+              if (customerResponse.detail.length === 0) {
+                this.getProvince();
+                this.customerDetailField.isOldCustomer = false;
+                this.toastService.show(new Alert(AlertType.INFO, 'No Customer Found under provided Citizenship No.'));
+                this.customer = new Customer();
+                this.customer.citizenshipNumber = tempId;
+                this.formMaker();
+                this.createRelativesArray();
+              } else {
+                this.getProvince();
+                this.customerList = customerResponse.detail;
+                if (this.customerList.length < 2) {
+                  this.customer = this.customerList[0];
+                  this.formMaker();
+                  this.setRelatives(this.customer.customerRelatives);
+                } else {
+                  this.customerDetailField.showFormField = false;
+                  this.showMatchingTable = true;
+                  this.toastService.show(new Alert(AlertType.INFO, `${this.customerList.length}
                                        customer found with same citizenship number`));
-            }
-          }
-        });
+                }
+              }
+            });
       }
     });
   }
 
   onSubmit() {
+    this.submitted = true;
+    if (this.basicInfo.invalid){
+      return;
+    }
 
     this.customer.id = (this.customer.citizenshipIssuedPlace ===
         this.basicInfo.get('citizenshipIssuedPlace').value) ? this.customer.id : undefined;
@@ -240,12 +247,12 @@ export class CustomerFormComponent implements OnInit {
   }
 
   createRelativesArray() {
-    const relation = ['Grand Father', 'Father', 'Spouse'];
+    const relation = ['Grand Father', 'Father'];
     relation.forEach((customerRelation) => {
       (this.basicInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
         customerRelation: [{value: customerRelation, disabled: true}],
-        customerRelativeName: [undefined],
-        citizenshipNumber: [undefined],
+        customerRelativeName: [undefined, Validators.required],
+        citizenshipNumber: [undefined, Validators.required],
         citizenshipIssuedPlace: [undefined],
         citizenshipIssuedDate: [undefined]
       }));
@@ -260,8 +267,8 @@ export class CustomerFormComponent implements OnInit {
       relativesData.push(this.formBuilder.group({
         customerRelation: (index > 2) ? [(customerRelative)] :
             [({value: customerRelative, disabled: true}), Validators.required],
-        customerRelativeName: [singleRelatives.customerRelativeName],
-        citizenshipNumber: [singleRelatives.citizenshipNumber],
+        customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
+        citizenshipNumber: [singleRelatives.citizenshipNumber, Validators.required],
         citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
         citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
             undefined : new Date(singleRelatives.citizenshipIssuedDate)]
