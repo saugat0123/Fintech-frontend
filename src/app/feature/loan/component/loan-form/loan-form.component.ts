@@ -25,7 +25,7 @@ import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DatePipe} from '@angular/common';
 import {CreditGradingComponent} from '../loan-main-template/credit-grading/credit-grading.component';
-import {SiteVisitComponent} from '../loan-main-template/site-visit/site-visit.component';
+import {SiteVisitComponent} from '../../../loan-information-template/site-visit/site-visit.component';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {SecurityComponent} from '../loan-main-template/security/security.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -47,6 +47,7 @@ import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {InsuranceComponent} from '../loan-main-template/insurance/insurance.component';
 import {CreditRiskGradingAlphaComponent} from '../loan-main-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
+import {CustomerInfoData} from '../../model/customerInfoData';
 
 @Component({
     selector: 'app-loan-form',
@@ -180,7 +181,8 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('insurance', {static: false})
     insuranceComponent: InsuranceComponent;
 
-    loanTag: string;
+  loanTag: string;
+  loanHolder = new CustomerInfoData();
 
     constructor(
         private loanDataService: LoanDataService,
@@ -202,59 +204,65 @@ export class LoanFormComponent implements OnInit {
 
     }
 
-    ngOnInit() {
-        console.log('productUtils', this.productUtils);
-        this.docStatusForMaker();
-        this.buildPriorityForm();
-        this.buildDocStatusForm();
-        this.activatedRoute.queryParams.subscribe(
-            (paramsValue: Params) => {
-                this.allId = {
-                    loanId: null,
-                    customerId: null,
-                    loanCategory: null,
-                    customerProfileId: null
-                };
+  ngOnInit() {
+    console.log('productUtils', this.productUtils);
+    this.docStatusForMaker();
+    this.buildPriorityForm();
+    this.buildDocStatusForm();
+    this.activatedRoute.queryParams.subscribe(
+        (paramsValue: Params) => {
+          this.allId = {
+            loanId: null,
+            customerId: null,
+            loanCategory: null,
+            customerProfileId: null,
+            customerType: null,
+            customerInfoId: null,
+          };
 
-                this.allId = paramsValue;
-                this.id = this.allId.loanId;
-                this.loan.id = this.id;
-                this.customerId = this.allId.customerId;
-                if (this.allId.customerProfileId !== undefined) {
-                    this.getCustomerInfo();
+          this.allId = paramsValue;
+          this.id = this.allId.loanId;
+          this.loan.id = this.id;
+          this.customerId = this.allId.customerId;
+          this.loanHolder.id = this.allId.customerInfoId;
+
+          if (!ObjectUtil.isEmpty(this.allId.customerProfileId)) {
+            this.getCustomerInfo(this.allId.customerProfileId);
+          }
+          if (this.customerId !== undefined) {
+            this.loanFormService.detail(this.customerId).subscribe(
+                (response: any) => {
+                  this.loanFile = response.detail.dmsLoanFile;
+                  this.loanDocument = response.detail;
+                  this.loanDocument.id = response.detail.id;
+                  this.submitDisable = false;
+                  this.priorityForm.get('priority').patchValue(this.loanDocument.priority);
+                  if (this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION) ||
+                      this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DOCUMENTATION) ||
+                      this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.VALUATION) ||
+                      this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.UNDER_REVIEW)) {
+                    this.showDocStatusDropDown = true;
+                  } else {
+                    this.showDocStatusDropDown = false;
+                  }
+                  this.docStatusForm.get('documentStatus').patchValue(this.loanDocument.documentStatus);
                 }
-                if (this.customerId !== undefined) {
-                    this.loanFormService.detail(this.customerId).subscribe(
-                        (response: any) => {
-                            this.loanFile = response.detail.dmsLoanFile;
-                            this.loanDocument = response.detail;
-                            this.loanDocument.id = response.detail.id;
-                            this.submitDisable = false;
-                            this.priorityForm.get('priority').patchValue(this.loanDocument.priority);
-                            if (this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION) ||
-                                this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DOCUMENTATION) ||
-                                this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.VALUATION) ||
-                                this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.UNDER_REVIEW)) {
-                                this.showDocStatusDropDown = true;
-                            } else {
-                                this.showDocStatusDropDown = false;
-                            }
-                            this.docStatusForm.get('documentStatus').patchValue(this.loanDocument.documentStatus);
-                        }
-                    );
-                } else {
-                    this.loanDocument = new LoanDataHolder();
-                    this.loanFile = new DmsLoanFile();
-                    this.docStatusForm.get('documentStatus').patchValue(DocStatus.value(DocStatus.DISCUSSION));
-                }
-            });
-        this.dateService.getDateInNepali(this.datePipe.transform(new Date(), 'yyyy-MM-dd')).subscribe((response: any) => {
-            this.currentNepDate = response.detail;
+            );
+          } else {
+            this.loanDocument = new LoanDataHolder();
+            this.loanFile = new DmsLoanFile();
+            this.docStatusForm.get('documentStatus').patchValue(DocStatus.value(DocStatus.DISCUSSION));
+          }
         });
+    this.dateService.getDateInNepali(this.datePipe.transform(new Date(), 'yyyy-MM-dd')).subscribe((response: any) => {
+      this.currentNepDate = response.detail;
+    });
 
-        this.populateTemplate();
-        this.loading = false;
-    }
+    this.populateTemplate();
+    this.loading = false;
+    this.loanDocument.loanHolder = this.loanHolder;
+    this.loanDocument.loanCategory = this.allId.loanCategory;
+  }
 
     docStatusForMaker() {
         DocStatus.values().forEach((value) => {
@@ -564,11 +572,11 @@ export class LoanFormComponent implements OnInit {
         }
     }
 
-    getCustomerInfo() {
-        this.customerService.detail(this.id).subscribe((res: any) => {
-            this.loanDocument.customerInfo = res.detail;
-        });
-    }
+  getCustomerInfo(id) {
+    this.customerService.detail(id).subscribe((res: any) => {
+      this.loanDocument.customerInfo = res.detail;
+    });
+  }
 
     nepaliFormTemplate() {
         if (ObjectUtil.isEmpty(this.loanDocument.customerInfo)) {
