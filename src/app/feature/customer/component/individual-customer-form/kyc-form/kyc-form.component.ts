@@ -2,15 +2,11 @@ import {Component, Inject, Input, OnInit} from '@angular/core';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Customer} from '../../../../admin/modal/customer';
-import {LoanDataService} from '../../../../loan/service/loan-data.service';
 import {CustomerService} from '../../../service/customer.service';
 import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
-import {CustomerFormComponent} from '../customer-form.component';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {DateValidator} from '../../../../../@core/validator/date-validator';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 
 
@@ -22,6 +18,8 @@ import {NbDialogRef, NbDialogService} from '@nebular/theme';
 })
 export class KycFormComponent implements OnInit {
   id: number;
+
+  isEdited = false;
 
   @Input()
   kycRelative: Array<CustomerRelative> ;
@@ -45,83 +43,38 @@ export class KycFormComponent implements OnInit {
       private customerService: CustomerService,
       private loanformService: LoanFormService,
       private toastService: ToastService,
+      private router: Router,
       private dialogService: NbDialogService
   ) {
   }
 
   ngOnInit() {
+    this.editCustomer(1);
     this.buildForm();
     this.createRelativesArray();
     console.log(this.customer);
-    // this.id = this.route.snapshot.params.id;
-    // this.customerService.detail(this.id).subscribe((res: any) => {
-    //   this.customer = res.detail;
-    //   console.log(res.detail.customerRelatives);
-    //   console.log(this.customer);
-    // });
   }
   buildForm() {
     this.kycInfo =  this.formBuilder.group({
-      id: [this.customer.id === undefined ? undefined : this.customer.id],
-      profilePic: [this.customer.profilePic === undefined ? undefined : this.customer.profilePic],
-      customerName: [this.customer.customerName === undefined ? undefined : this.customer.customerName, Validators.required],
-      province: [this.customer.province === null ? undefined : this.customer.province, Validators.required],
-      district: [this.customer.district === null ? undefined : this.customer.district, Validators.required],
-      municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities, Validators.required],
-      street: [this.customer.street === null ? undefined : this.customer.street, Validators.required],
-      wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
-      contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, Validators.required],
-      email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.required],
-      // initial Relation Date not used in ui
-      initialRelationDate: [this.customer.initialRelationDate === undefined ? undefined :
-          new Date(this.customer.initialRelationDate)],
-      citizenshipNumber: [this.customer.citizenshipNumber === undefined ? undefined : this.customer.citizenshipNumber
-        , Validators.required],
-      citizenshipIssuedPlace: [this.customer.citizenshipIssuedPlace === undefined ? undefined : this.customer.citizenshipIssuedPlace,
-        Validators.required],
-      citizenshipIssuedDate: [ObjectUtil.isEmpty(this.customer.citizenshipIssuedDate) ? undefined :
-          new Date(this.customer.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]],
-      dob: [ObjectUtil.isEmpty(this.customer.dob) ? undefined :
-          new Date(this.customer.dob), [Validators.required, DateValidator.isValidBefore]],
-      occupation: [this.customer.occupation === undefined ? undefined : this.customer.occupation, [Validators.required]],
-      incomeSource: [this.customer.incomeSource === undefined ? undefined : this.customer.incomeSource, [Validators.required]],
-      customerRelatives: this.formBuilder.array([]),
-      version: [this.customer.version === undefined ? undefined : this.customer.version],
+      customerRelatives: this.formBuilder.array([])
     });
 
   }
 
 
   onSubmit() {
-    this.customer.id = (this.customer.citizenshipIssuedPlace ===
-        this.kycInfo.get('citizenshipIssuedPlace').value) ? this.customer.id : undefined;
-    this.customer.customerName = this.kycInfo.get('customerName').value;
-    this.customer.province = this.kycInfo.get('province').value;
-    this.customer.district = this.kycInfo.get('district').value;
-    this.customer.municipalities = this.kycInfo.get('municipalities').value;
-    this.customer.street = this.kycInfo.get('street').value;
-    this.customer.wardNumber = this.kycInfo.get('wardNumber').value;
-    this.customer.contactNumber = this.kycInfo.get('contactNumber').value;
-    this.customer.email = this.kycInfo.get('email').value;
-    this.customer.dob = this.kycInfo.get('dob').value;
-    this.customer.initialRelationDate = this.kycInfo.get('initialRelationDate').value;
-    this.customer.citizenshipNumber = this.kycInfo.get('citizenshipNumber').value;
-    this.customer.citizenshipIssuedPlace = this.kycInfo.get('citizenshipIssuedPlace').value;
-    this.customer.citizenshipIssuedDate = this.kycInfo.get('citizenshipIssuedDate').value;
-    this.customer.occupation = this.kycInfo.get('occupation').value;
-    this.customer.incomeSource = this.kycInfo.get('incomeSource').value;
     this.kycRelative.push(this.kycInfo.get('customerRelatives')['controls'][0].value);
     this.customer.customerRelatives = this.kycRelative;
     console.log(this.customer.customerRelatives);
 
     this.customerService.save(this.customer).subscribe(response => {
-      this.customer.customerRelatives = response.detail;
+      this.customer = response.detail;
       console.log(response.detail.customerRelatives);
       console.log(this.customer);
+      this.isEdited = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
-      this.buildForm();
     });
-    this.edited = false;
+    this.editCustomer(0);
   }
   createRelativesArray() {
     (this.kycInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
@@ -132,6 +85,9 @@ export class KycFormComponent implements OnInit {
       citizenshipIssuedDate: [undefined]
     }));
 
+  }
+  editCustomer(val) {
+    this.isEdited = val === 1;
   }
 
 
