@@ -32,7 +32,7 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
   styleUrls: ['./customer-profile.component.scss']
 })
 export class CustomerProfileComponent implements OnInit {
-  id: number;
+  associateId: number;
   customerInfoId: number;
   customer: Customer = new Customer();
   loanType = LoanType;
@@ -91,7 +91,7 @@ export class CustomerProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.id = this.route.snapshot.params.id;
+    this.associateId = this.route.snapshot.params.id;
     this.activatedRoute.queryParams.subscribe(
         (paramsValue: Params) => {
           this.paramProp = {
@@ -106,7 +106,7 @@ export class CustomerProfileComponent implements OnInit {
       this.filterLoanCat = LoanCategory.PERSONAL;
       this.isIndividual = true;
     }
-    this.customerService.detail(this.id).subscribe((res: any) => {
+    this.customerService.detail(this.associateId).subscribe((res: any) => {
       this.customer = res.detail;
       this.customerBasicFormBuilder();
       this.getProvince();
@@ -178,7 +178,7 @@ export class CustomerProfileComponent implements OnInit {
         loanId: this.applyForm.loanId,
         customerInfoId: this.paramProp.customerInfoId,
         customerType: this.paramProp.customerType,
-        customerProfileId: this.id,
+        customerProfileId: this.associateId,
         loanCategory: loanCategory
       }
     });
@@ -331,7 +331,7 @@ export class CustomerProfileComponent implements OnInit {
       this.customer = response.detail;
       if (this.customer !== null) {
         this.router.navigate(['/home/customer/profile/' + this.customer.id]);
-        this.id = this.customer.id;
+        this.associateId = this.customer.id;
       }
     }, error => {
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
