@@ -16,7 +16,6 @@ import {ThemeModule} from '../../@theme/theme.module';
 import {LoanActionComponent} from './loan-action/loan-action.component';
 import {LoanFormService} from './component/loan-form/service/loan-form.service';
 import {LoanSummaryComponent} from './component/loan-summary/loan-summary.component';
-import {FinancialComponent} from './component/loan-main-template/financial/financial.component';
 import {BirthMarkLetterNepaliComponent} from './component/offer-letter/birth-mark-letter/birth-mark-letter-nepali.component';
 // tslint:disable-next-line:max-line-length
 import {BirthMarkLetterPrintComponent} from './component/offer-letter/birth-mark-letter/birth-mark-letter-print/birth-mark-letter-print.component';
@@ -28,15 +27,9 @@ import {CiclComponent} from './component/loan-main-template/cicl/cicl.component'
 import {ReadmoreModelComponent} from './component/readmore-model/readmore-model.component';
 import {CreditGradingComponent} from './component/loan-main-template/credit-grading/credit-grading.component';
 import {CoreModule} from '../../@core/core.module';
-import {BorrowerRiskRatingComponent} from './component/loan-main-template/financial/borrower-risk-rating/borrower-risk-rating.component';
 import {environment} from '../../../environments/environment';
 
 import {AgmCoreModule} from '@agm/core';
-import {IncomeStatementComponent} from './component/loan-main-template/financial/income-statement/income-statement.component';
-import {BalanceSheetComponent} from './component/loan-main-template/financial/balance-sheet/balance-sheet.component';
-import {CashFlowStatementComponent} from './component/loan-main-template/financial/cash-flow-statement/cash-flow-statement.component';
-import {KeyIndicatorsComponent} from './component/loan-main-template/financial/key-indicators/key-indicators.component';
-import {InitialFormComponent} from './component/loan-main-template/financial/initial-form/initial-form.component';
 import {LoanPullComponent} from './component/loan-pull/loan-pull.component';
 import {FinancialSummaryComponent} from './component/loan-summary/financial-summary/financial-summary.component';
 // tslint:disable-next-line:max-line-length
@@ -62,7 +55,6 @@ import {KarjatamsukComponent} from './component/offer-letter/karjatamsuk/karjata
 import {ManjurinamaComponent} from './component/offer-letter/manjurinama/manjurinama.component';
 import {PratigyaPatraComponent} from './component/offer-letter/pratigya-patra/pratigya-patra.component';
 import {LoanMainNepaliTemplateComponent} from './component/loan-main-nepali-template/loan-main-nepali-template.component';
-import {FiscalYearModalComponent} from './component/loan-main-template/financial/fiscal-year-modal/fiscal-year-modal.component';
 import {CustomerInfoNepaliComponent} from './component/loan-main-nepali-template/customer-info-nepali/customer-info-nepali.component';
 import {DhitoLikhatPrintComponent} from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-print/dhito-likhat-print.component';
 import {ApplicantFamilyInfoComponent} from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info.component';
@@ -106,8 +98,6 @@ const COMPONENTS = [
     BirthMarkLetterPrintComponent,
     SuccessOfferLetterComponent,
     SuccessOfferLetterPrintComponent,
-    FinancialComponent,
-    BorrowerRiskRatingComponent,
     CiclComponent,
     ReadmoreModelComponent,
     CreditGradingComponent,
@@ -115,11 +105,6 @@ const COMPONENTS = [
     LoanPullComponent,
     SecurityInitialFormComponent,
     SecuritySummaryComponent,
-    IncomeStatementComponent,
-    BalanceSheetComponent,
-    CashFlowStatementComponent,
-    KeyIndicatorsComponent,
-    InitialFormComponent,
     FinancialSummaryComponent,
     CustomerDocumentComponent,
     FinancialSummaryComponent,
@@ -141,10 +126,8 @@ const COMPONENTS = [
     ManjurinamaComponent,
     PratigyaPatraComponent,
     LoanMainNepaliTemplateComponent,
-    FiscalYearModalComponent,
     CustomerInfoNepaliComponent,
     LoanMainNepaliTemplateComponent,
-    FiscalYearModalComponent,
     DhitoLikhatPrintComponent,
     PratigyaPatraPrintComponent,
     ApplicantFamilyInfoComponent,
@@ -171,7 +154,6 @@ const COMPONENTS = [
 
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,
-    FiscalYearModalComponent,
     LoanMainNepaliTemplateComponent,
     CustomerInfoNepaliComponent,
     CustomerAssociateComponent
