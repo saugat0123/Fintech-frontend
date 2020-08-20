@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CompanyInfo} from '../../../admin/modal/company-info';
 import {Customer} from '../../../admin/modal/customer';
-import {CalendarType} from '../../../../@core/model/calendar-type';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LegalStatus} from '../../../admin/modal/legal-status';
 import {Capital} from '../../../admin/modal/capital';
@@ -25,7 +24,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {DateValidator} from '../../../../@core/validator/date-validator';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {NbDialogRef} from '@nebular/theme';
-import {LoanDataHolder} from '../../../loan/model/loanData';
+import {ContactPerson} from '../../../admin/modal/contact-person';
 
 @Component({
     selector: 'app-company-form',
@@ -34,7 +33,6 @@ import {LoanDataHolder} from '../../../loan/model/loanData';
 })
 export class CompanyFormComponent implements OnInit {
     @Input() formValue: CompanyInfo;
-    @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     calendarType = 'AD';
     companyInfoFormGroup: FormGroup;
@@ -65,6 +63,7 @@ export class CompanyFormComponent implements OnInit {
     municipalityVdcList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
     addressList: Array<Address> = new Array<Address>();
     businessTypes = BusinessType.enumObject();
+    contactPerson: ContactPerson = new ContactPerson();
     private isBlackListed: boolean;
 
     constructor(
@@ -77,7 +76,6 @@ export class CompanyFormComponent implements OnInit {
         private companyInfoService: CompanyInfoService,
         private blackListService: BlacklistService,
         protected ref: NbDialogRef<CompanyFormComponent>,
-        private router: Router
     ) {
 
     }
@@ -244,27 +242,30 @@ export class CompanyFormComponent implements OnInit {
                 this.proprietorsFormGroup()
             ]),
             // contact person
-            contactVersion: [(ObjectUtil.isEmpty(this.customerInfo)
-                || ObjectUtil.isEmpty(this.customerInfo.version)) ? undefined : this.customerInfo.version],
-            contactId: [(ObjectUtil.isEmpty(this.customerInfo)
-                || ObjectUtil.isEmpty(this.customerInfo.id)) ? undefined : this.customerInfo.id],
-            contactCitizenNumber: [(ObjectUtil.isEmpty(this.customerInfo)
-                || ObjectUtil.isEmpty(this.customerInfo.citizenshipNumber))
-                ? ('Blinded' + JSON.parse(JSON.stringify(new Date())) + new Date().getMilliseconds())
-                : this.customerInfo.citizenshipNumber],
-            contactName: [(ObjectUtil.isEmpty(this.customerInfo)
-                || ObjectUtil.isEmpty(this.customerInfo.customerName)) ? undefined : this.customerInfo.customerName, Validators.required],
-            contactEmail: [(ObjectUtil.isEmpty(this.customerInfo)
-                || ObjectUtil.isEmpty(this.customerInfo.email)) ? undefined : this.customerInfo.email, Validators.required],
-            contactNumber: [(ObjectUtil.isEmpty(this.customerInfo)
-                || ObjectUtil.isEmpty(this.customerInfo.contactNumber)) ? undefined : this.customerInfo.contactNumber, Validators.required],
-            contactProvince: [(ObjectUtil.isEmpty(this.customerInfo)
-                || ObjectUtil.isEmpty(this.customerInfo.province)) ? undefined : this.customerInfo.province, Validators.required],
-            contactDistrict: [(ObjectUtil.isEmpty(this.customerInfo)
-                || ObjectUtil.isEmpty(this.customerInfo.district)) ? undefined : this.customerInfo.district, Validators.required],
-            contactMunicipalities: [(ObjectUtil.isEmpty(this.customerInfo)
-                || ObjectUtil.isEmpty(this.customerInfo.municipalities))
-                ? undefined : this.customerInfo.municipalities, Validators.required],
+            contactVersion: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
+                this.companyInfo.contactPerson.version],
+            contactId: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
+                this.companyInfo.contactPerson.id],
+            contactName: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
+                this.companyInfo.contactPerson.name, Validators.required],
+            contactEmail: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
+                this.companyInfo.contactPerson.email, Validators.required],
+            contactNumber: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
+                this.companyInfo.contactPerson.contactNumber, Validators.required],
+            contactProvince: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
+                this.companyInfo.contactPerson.province, Validators.required],
+            contactDistrict: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
+                this.companyInfo.contactPerson.district, Validators.required],
+            contactMunicipalities: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
+                this.companyInfo.contactPerson.municipalityVdc, Validators.required],
             // Location
             locationVersion: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.version],
@@ -437,7 +438,6 @@ export class CompanyFormComponent implements OnInit {
         const regNo = this.companyInfoFormGroup.get('registrationNumber').value;
         this.blackListService.checkBlacklistByRef(regNo).subscribe((response: any) => {
             this.isBlackListed = response.detail;
-            this.blackListStatusEmitter.emit(this.isBlackListed);
 
             if (this.isBlackListed) {
                 this.companyFormField.showFormField = false;
@@ -506,15 +506,15 @@ export class CompanyFormComponent implements OnInit {
         // management team list
         this.companyInfo.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
         // contactPerson
-        this.customer.version = this.companyInfoFormGroup.get('contactVersion').value;
-        this.customer.id = this.companyInfoFormGroup.get('contactId').value;
-        this.customer.customerName = this.companyInfoFormGroup.get('contactName').value;
-        this.customer.email = this.companyInfoFormGroup.get('contactEmail').value;
-        this.customer.contactNumber = this.companyInfoFormGroup.get('contactNumber').value;
-        this.customer.province = this.companyInfoFormGroup.get('contactProvince').value;
-        this.customer.district = this.companyInfoFormGroup.get('contactDistrict').value;
-        this.customer.municipalities = this.companyInfoFormGroup.get('contactMunicipalities').value;
-        this.customer.citizenshipNumber = this.companyInfoFormGroup.get('contactCitizenNumber').value;
+        this.contactPerson.version = this.companyInfoFormGroup.get('contactVersion').value;
+        this.contactPerson.id = this.companyInfoFormGroup.get('contactId').value;
+        this.contactPerson.name = this.companyInfoFormGroup.get('contactName').value;
+        this.contactPerson.email = this.companyInfoFormGroup.get('contactEmail').value;
+        this.contactPerson.contactNumber = this.companyInfoFormGroup.get('contactNumber').value;
+        this.contactPerson.province = this.companyInfoFormGroup.get('contactProvince').value;
+        this.contactPerson.district = this.companyInfoFormGroup.get('contactDistrict').value;
+        this.contactPerson.municipalityVdc = this.companyInfoFormGroup.get('contactMunicipalities').value;
+        this.companyInfo.contactPerson = this.contactPerson;
 
         // location
         this.locations.id = this.companyInfoFormGroup.get('locationId').value;
@@ -546,8 +546,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfoService.save(this.companyInfo).subscribe((response: any) => {
             this.close();
             this.toastService.show(new Alert(AlertType.SUCCESS, `Company Saved Successfully`));
-            }, error => {
-            // this.spinner.hide();
+        }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, `Error saving Company: ${error.error.message}`));
         });

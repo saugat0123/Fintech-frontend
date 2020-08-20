@@ -16,7 +16,7 @@
     </nb-card-header>
     <nb-card-body>
         <div class="form-group">
-            <form (ngSubmit)="onSubmit()" [formGroup]="companyInfoFormGroup" class="form-horizontal">
+            <form [formGroup]="companyInfoFormGroup" class="form-horizontal">
                 <div>
                     <div class="row">
                         <div *ngIf="companyFormField.showFormField" class="col-md-4">
