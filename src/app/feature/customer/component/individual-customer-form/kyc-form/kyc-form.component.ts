@@ -65,13 +65,14 @@ export class KycFormComponent implements OnInit {
 
 
   onSubmit() {
-    this.customer.customerRelatives.push(this.kycInfo.get('customerRelatives').value);
-    console.log(this.customer.customerRelatives);
+    this.kycRelative = this.kycInfo.get('customerRelatives').value;
+    this.customer.customerRelatives = this.kycRelative;
 
     this.customerService.save(this.customer).subscribe(res => {
-      console.log(res.detail);
-      this.kycRelative.push(res.detail);
-      console.log(this.kycRelative);
+      console.log(res.detail.customerRelatives);
+      this.kycRelative.push(res.detail.customerRelatives);
+      this.customer.customerRelatives = this.kycRelative;
+      console.log(this.customer);
       this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
       this.buildForm();
     }, error => {
