@@ -1,4 +1,5 @@
 import {SiteVisit} from '../../admin/modal/siteVisit';
+import {Financial} from './financial';
 
 export class CustomerInfoData {
   id: number;
@@ -13,6 +14,7 @@ export class CustomerInfoData {
   associateId: number;
   isBlacklist: boolean;
   siteVisit: SiteVisit;
+  financial: Financial;
   version: number;
 
 }

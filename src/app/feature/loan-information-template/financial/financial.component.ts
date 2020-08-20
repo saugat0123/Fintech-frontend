@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, QueryList, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BorrowerRiskRatingComponent} from './borrower-risk-rating/borrower-risk-rating.component';
 import {IncomeStatementComponent} from './income-statement/income-statement.component';
@@ -25,8 +25,10 @@ export class FinancialComponent implements OnInit {
     @ViewChild('cashFlowStatement', {static: false}) cashFlowStatement: CashFlowStatementComponent;
     @ViewChild('keyIndicators', {static: false}) keyIndicators: KeyIndicatorsComponent;
     @Input() formData: Financial;
+    @Input() fromProfile: boolean;
+    @Output() financialDataEmitter = new EventEmitter();
 
-    isBusinessLoan = false;
+    isBusinessLoan = true; // SHOULD BE CHANGED
 
     fiscalYear = [];
     auditorList = [];
@@ -465,5 +467,6 @@ export class FinancialComponent implements OnInit {
             this.currentFormData['auditorList'] = this.auditorList;
         }
         this.financialData.data = JSON.stringify(this.currentFormData);
+        this.financialDataEmitter.emit(this.financialData.data);
     }
 }
