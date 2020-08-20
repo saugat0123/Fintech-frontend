@@ -34,6 +34,7 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 export class CustomerProfileComponent implements OnInit {
   associateId: number;
   customerInfoId: number;
+  calendarType = 'AD';
   customer: Customer = new Customer();
   loanType = LoanType;
   loanList = [];
@@ -276,13 +277,12 @@ export class CustomerProfileComponent implements OnInit {
       const customerRelative = singleRelatives.customerRelation;
       // Increase index number with increase in static relatives---
       relativesData.push(this.formBuilder.group({
-        customerRelation: (index > 1) ? [(customerRelative)] :
-            [({value: customerRelative, disabled: true}), Validators.required],
-        customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
-        citizenshipNumber: [singleRelatives.citizenshipNumber, Validators.required],
-        citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace, Validators.required],
+        customerRelation: [singleRelatives.customerRelation],
+        customerRelativeName: [singleRelatives.customerRelativeName],
+        citizenshipNumber: [singleRelatives.citizenshipNumber],
+        citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
         citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
-            undefined : new Date(singleRelatives.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]]
+            undefined : new Date(singleRelatives.citizenshipIssuedDate)]
       }));
     });
   }

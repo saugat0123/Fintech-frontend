@@ -55,9 +55,17 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label ><strong>Issued Date</strong></label>
-                    <input class="form-control"
+                    <input *ngIf="calendarType === 'AD'" nbInput
+                           [nbDatepicker]="relationCitizenIssueDate"
+                           class="form-control"
                            formControlName="citizenshipIssuedDate"
-                           placeholder="issued date" type="text">
+                           [ngClass]="{ 'is-invalid':  relatives.get('citizenshipIssuedDate').errors }"
+                           placeholder="08/19/2020">
+                    <app-calendar [ePreDate]="relatives.get('citizenshipIssuedDate').value"
+                                  *ngIf="calendarType === 'BS'"
+                                  (messageToEmit)="relatives.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>
+
+                    <nb-datepicker #relationCitizenIssueDate></nb-datepicker>
 
                   </div>
                 </div>

@@ -320,10 +320,17 @@
                                         <span> <b>Issued Date</b></span></div>
                                     <div class="col-md-1">
                                         <span> <b>:</b></span></div>
-                                    <div class="col-md-5"><input class="form-control"
-                                                                 id="citizenshipIssuedDate"
+                                    <div class="col-md-5"><input *ngIf="calendarType === 'AD'" nbInput
+                                                                 [nbDatepicker]="relationCitizenIssueDate"
+                                                                 class="form-control"
                                                                  formControlName="citizenshipIssuedDate"
-                                                                 placeholder="issued date" type="text"></div>
+                                                                 [ngClass]="{ 'is-invalid':relatives.get('citizenshipIssuedDate').errors }"
+                                                                 placeholder="08/19/2020">
+                                        <app-calendar [ePreDate]="relatives.get('citizenshipIssuedDate').value"
+                                                      *ngIf="calendarType === 'BS'"
+                                                      (messageToEmit)="relatives.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>
+
+                                        <nb-datepicker #relationCitizenIssueDate></nb-datepicker></div>
                                 </div>
                                 </div>
 
@@ -396,5 +403,6 @@
 </ng-template>
 
 <ng-template #kycUpdate>
-    <app-kyc-form [kycRelative]="customer?.customerRelatives"></app-kyc-form>
+    <app-kyc-form [kycRelative]="customer?.customerRelatives"
+    [customer]="customer"></app-kyc-form>
 </ng-template>
