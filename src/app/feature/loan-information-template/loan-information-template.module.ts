@@ -18,6 +18,8 @@ import {KeyIndicatorsComponent} from './financial/key-indicators/key-indicators.
 import {InitialFormComponent} from './financial/initial-form/initial-form.component';
 import {FiscalYearModalComponent} from './financial/fiscal-year-modal/fiscal-year-modal.component';
 import {CoreModule} from '../../@core/core.module';
+import {SecurityComponent} from './security/security.component';
+import {SecurityInitialFormComponent} from './security/security-initial-form/security-initial-form.component';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -30,6 +32,8 @@ const COMPONENTS = [
   KeyIndicatorsComponent,
   InitialFormComponent,
   FiscalYearModalComponent,
+  SecurityComponent,
+  SecurityInitialFormComponent
 ];
 
 @NgModule({

@@ -6,6 +6,7 @@ export class Security {
     version: number;
     data: string;
     valuatorId: number;
+    share;
     guarantor: Array<Guarantor>;
 
 }
