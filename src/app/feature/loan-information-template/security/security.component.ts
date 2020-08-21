@@ -10,6 +10,7 @@ import {MunicipalityVdc} from '../../admin/modal/municipality_VDC';
 import {Address} from '../../loan/model/address';
 import {Guarantor} from '../../loan/model/guarantor';
 import {CalendarType} from '../../../@core/model/calendar-type';
+import {ShareSecurity} from '../../admin/modal/shareSecurity';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class SecurityComponent implements OnInit {
     @Input() loanTag: string;
     @Output() securityDataEmitter = new EventEmitter();
     @Input() fromProfile;
+    @Input() shareSecurity: ShareSecurity;
 
     @ViewChild('initialSecurity' , {static: false})
     initialSecurity: SecurityInitialFormComponent;
@@ -40,6 +42,7 @@ export class SecurityComponent implements OnInit {
     limit: number;
     submitted: false;
     guarantorsDetails: Guarantor = new Guarantor();
+    shareSecurityData: ShareSecurity = new ShareSecurity();
 
     constructor(
         private formBuilder: FormBuilder ,

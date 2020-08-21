@@ -1,6 +1,7 @@
 export enum LoanTag {
     GENERAL = 'GENERAL',
-    FIXED_DEPOSIT = 'FIXED DEPOSIT'
+    FIXED_DEPOSIT = 'FIXED DEPOSIT',
+    SHARE_SECURITY = 'SHARE SECURITY'
 }
 
 export namespace LoanTag {

@@ -109,7 +109,8 @@
                     <ng-template ngbTabContent *ngIf="allList.name === 'Security'">
                         <app-security #security [securityValue]="loanDocument?.security"
                                       [calendarType]="calendarType"
-                                      [loanTag]="loanTag"></app-security>
+                                      [loanTag]="loanTag"
+                                      [shareSecurity]="loanDocument?.shareSecurity"></app-security>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Customer Document'">
                         <app-customer-document #customerDocument
@@ -123,10 +124,6 @@
                         <app-guarantor #guarantor (blackListStatusEmitter)="getIsBlackListed($event)"
                                        [guarantorDetailValue]="loanDocument?.guarantor" [calendarType]="calendarType">
                         </app-guarantor>
-                    </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name == 'Share Security'">
-                        <app-share-security #shareSecurity [shareSecurity]="loanDocument?.shareSecurity">
-                        </app-share-security>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name == 'MAW Credit Risk Grading'">
                         <app-maw-credit-risk-grading #mawCreditRiskGrading

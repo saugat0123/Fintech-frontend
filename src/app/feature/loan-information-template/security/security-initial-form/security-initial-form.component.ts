@@ -1,5 +1,5 @@
 import {Component , Input , OnInit} from '@angular/core';
-import {FormArray , FormBuilder , FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastService} from '../../../../@core/utils';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
@@ -8,6 +8,13 @@ import {BranchService} from '../../../admin/component/branch/branch.service';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {SecurityValuator} from '../../../loan/model/securityValuator';
 import {LoanTag} from '../../../loan/model/loanTag';
+import {NepseMaster} from '../../../admin/modal/NepseMaster';
+import {Nepse} from '../../../admin/modal/nepse';
+import {ShareType} from '../../../loan/model/ShareType';
+import {CustomerShareData} from '../../../admin/modal/CustomerShareData';
+import {NepseService} from '../../../admin/component/nepse/nepse.service';
+import {ShareSecurity} from '../../../admin/modal/shareSecurity';
+
 
 @Component({
     selector: 'app-security-initial-form' ,
@@ -18,6 +25,7 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() formData: string;
     @Input() calendarType: CalendarType;
     @Input() loanTag: string;
+    @Input() shareSecurity;
 
     selectedArray = [];
     securityForm: FormGroup;
@@ -35,6 +43,7 @@ export class SecurityInitialFormComponent implements OnInit {
     otherBranchcheck = false;
     depositSelected = false;
     isFixedDeposit = false;
+    shareSelected = false;
 
     securityTypes = [
         {key: 'LandSecurity', value: 'Land Security'},
@@ -43,18 +52,37 @@ export class SecurityInitialFormComponent implements OnInit {
         {key: 'Land and Building Security', value: 'Land and Building Security'},
         {key: 'PlantSecurity', value: 'Plant and Machinery Security'},
         {key: 'FixedDeposit', value: 'Fixed Deposit Receipt'},
+        {key: 'ShareSecurity', value: 'Share Security'}
     ];
+
+    shareType = ShareType;
+    activeNepseMaster: NepseMaster = new NepseMaster();
+    nepseList: Array<Nepse> = new Array<Nepse>();
+    search: any = {
+        status: 'ACTIVE',
+        shareType: undefined,
+        companyName: undefined
+    };
+    isShareSecurity = false;
+    shareSecurityForm: FormGroup;
+    shareSecurityData: ShareSecurity = new ShareSecurity();
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
                 private valuatorService: ValuatorService,
-                private branchService: BranchService) {
+                private branchService: BranchService,
+                private shareService: NepseService) {
     }
 
     ngOnInit() {
+        this.shareService.findAllNepseCompanyData(this.search).subscribe((list) => {
+            this.nepseList = list.detail;
+        });
+        this.findActiveShareRate();
         this.buildForm();
         this.branchList();
-        this.checkFixDeposit();
+        this.checkLoanTags();
+
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
@@ -77,6 +105,15 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addVehicleSecurity();
             this.addFixedDeposit();
         }
+
+        if (ObjectUtil.isEmpty(this.shareSecurity)) {
+            this.addShareSecurity();
+        } else {
+            this.shareSecurityData.id = this.shareSecurity.id;
+            this.shareSecurityData.version = this.shareSecurity.version;
+
+            this.setShareSecurityDetails(this.shareSecurity);
+        }
     }
 
     buildForm() {
@@ -90,6 +127,18 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicleDetails: this.formBuilder.array([]),
             fixedDepositDetails: this.formBuilder.array([])
         });
+        this.buildShareSecurityForm();
+    }
+
+    buildShareSecurityForm() {
+        this.shareSecurityForm = this.formBuilder.group({
+            shareSecurityDetails: this.formBuilder.array([]),
+            securityOffered: undefined,
+            loanShareRate: undefined
+        });
+        if (!ObjectUtil.isEmpty(this.shareSecurity)) {
+            this.shareSecurityForm.get('securityOffered').patchValue(JSON.parse(this.shareSecurity.data)['securityOffered']);
+        }
     }
 
     valuator(branchId, type: string, index: number) {
@@ -321,7 +370,7 @@ export class SecurityInitialFormComponent implements OnInit {
     change(arraySelected) {
         this.selectedArray = arraySelected;
         this.landSelected = this.vehicleSelected = this.apartmentSelected = this.plantSelected
-            = this.underConstructionChecked = this.depositSelected = false;
+            = this.underConstructionChecked = this.depositSelected = this.shareSelected = false;
         arraySelected.forEach(selectedValue => {
             switch (selectedValue) {
                 case 'LandSecurity' :
@@ -341,6 +390,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     break;
                 case 'FixedDeposit':
                     this.depositSelected = true;
+                    break;
+                case 'ShareSecurity':
+                    this.shareSelected = true;
             }
         });
     }
@@ -546,16 +598,135 @@ export class SecurityInitialFormComponent implements OnInit {
         }
     }
 
-    checkFixDeposit() {
+    checkLoanTags() {
         if (this.loanTag === LoanTag.getKeyByValue('FIXED DEPOSIT')) {
             this.isFixedDeposit = true;
+        } else if (this.loanTag === LoanTag.getKeyByValue('SHARE SECURITY')) {
+            this.isShareSecurity = true;
         }
     }
 
     getSecurities() {
         if (this.isFixedDeposit) {
             return this.securityTypes.filter(type => type.key === 'FixedDeposit');
+        } else if (this.isShareSecurity) {
+            return this.securityTypes.filter(type => type.key === 'ShareSecurity');
         }
         return this.securityTypes;
+    }
+
+    setShareValueByCompany(index: number) {
+        const companyName = this.shareField.at(index).get('companyName').value;
+        const totalShareUnit = this.shareField.at(index).get('totalShareUnit').value;
+        const matchedNepse = this.nepseList.filter(n => n.companyName === companyName);
+        if (matchedNepse) {
+            this.shareField.at(index).patchValue({
+                shareType: matchedNepse[0].shareType,
+                companyCode: matchedNepse[0].companyCode,
+                amountPerUnit: matchedNepse[0].amountPerUnit,
+                total: this.calculateTotalShareAmount(companyName, totalShareUnit),
+                consideredValue: this.calculateConsideredAmount(
+                    this.shareField.at(index).get('totalShareUnit').value,
+                    this.shareField.at(index).get('amountPerUnit').value,
+                    matchedNepse[0].shareType
+                )
+            });
+        }
+    }
+
+    private calculateTotalShareAmount(companyName: string, totalShareUnit: number): number {
+        if (ObjectUtil.isEmpty(companyName)) {
+            return undefined;
+        }
+        const matchedNepse = this.nepseList.filter(n => n.companyName === companyName);
+        return totalShareUnit ? totalShareUnit * Number(matchedNepse[0].amountPerUnit) : 0;
+    }
+
+    private calculateConsideredAmount(totalShareUnit: number, amountPerUnit: number, shareType) {
+        if (ObjectUtil.isEmpty(shareType)) {
+            return undefined;
+        }
+        const activeNepse = shareType === ShareType.PROMOTER ? this.activeNepseMaster.promoter :
+            this.activeNepseMaster.ordinary;
+        return ((totalShareUnit * amountPerUnit) / 100) * activeNepse;
+    }
+
+    calculateShareFieldsValues(index: number) {
+        const totalShareUnit = this.shareField.at(index).get('totalShareUnit').value;
+        const amountPerUnit = this.shareField.at(index).get('amountPerUnit').value;
+        const shareType = this.shareField.at(index).get('shareType').value;
+        this.shareField.at(index).patchValue({
+            total: totalShareUnit * amountPerUnit,
+            consideredValue: this.calculateConsideredAmount(totalShareUnit, amountPerUnit, shareType)
+        });
+    }
+
+    get totalConsideredValue() {
+        let total = 0;
+        this.shareField.controls.forEach(c => total += Number(c.get('consideredValue').value));
+        return total;
+    }
+
+    get shareField() {
+        return this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
+    }
+
+    public removeShareList(index: number): void {
+        this.shareField.removeAt(index);
+    }
+
+    private findActiveShareRate() {
+        this.shareService.getActiveShare().subscribe(value => {
+            if (!ObjectUtil.isEmpty(value.detail)) {
+                this.activeNepseMaster = value.detail;
+            }
+        });
+    }
+
+    private setShareSecurityDetails(details) {
+        const shareDetails = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
+        const shareFields = (JSON.parse(details.data))['shareSecurityDetails'];
+        shareFields.forEach(share => {
+            shareDetails.push(
+                this.formBuilder.group({
+                    companyName: [share.companyName],
+                    shareType: [share.shareType],
+                    totalShareUnit: [share.totalShareUnit],
+                    amountPerUnit: [share.amountPerUnit],
+                    total: [share.total],
+                    consideredValue: [share.consideredValue]
+                })
+            );
+        });
+    }
+
+    shareSecurityFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            id: undefined,
+            version: undefined,
+            companyName: [''],
+            shareType: undefined,
+            totalShareUnit: [''],
+            amountPerUnit: [''],
+            total: [''],
+            consideredValue: ['']
+        });
+    }
+
+    addShareSecurity() {
+        this.shareField.push(this.shareSecurityFormGroup());
+    }
+
+    submit() {
+        this.shareSecurityForm.get('loanShareRate').setValue(this.activeNepseMaster);
+        this.shareSecurityData.data = JSON.stringify(this.shareSecurityForm.value);
+        this.shareSecurityData.customerShareData = this.getShareDataList();
+
+    }
+
+    private getShareDataList() {
+        const list: Array<CustomerShareData> = [];
+        this.shareField.controls.forEach(c => list.push(c.value));
+        return list;
     }
 }

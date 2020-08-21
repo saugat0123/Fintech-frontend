@@ -33,7 +33,6 @@ import {CustomerDocumentComponent} from '../loan-main-template/customer-document
 import {DocStatus} from '../../model/docStatus';
 import {CustomerService} from '../../../customer/service/customer.service';
 import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
-import {ShareSecurityComponent} from '../loan-main-template/share-security/share-security.component';
 import {GroupComponent} from '../loan-main-template/group/group.component';
 import {LoanMainNepaliTemplateComponent} from '../loan-main-nepali-template/loan-main-nepali-template.component';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
@@ -168,9 +167,6 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('group', {static: false})
     group: GroupComponent;
-
-    @ViewChild('shareSecurity', {static: false})
-    shareSecurity: ShareSecurityComponent;
 
     @ViewChild('guarantor', {static: false})
     guarantorComponent: GuarantorComponent;
@@ -511,6 +507,7 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Security' && action) {
             this.security.onSubmit();
             this.loanDocument.security = this.security.securityData;
+            this.loanDocument.shareSecurity = this.security.shareSecurityData;
         }
         if (name === 'Credit Risk Grading' && action) {
             this.creditGrading.onSubmit();
