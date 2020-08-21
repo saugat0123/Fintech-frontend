@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, QueryList, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BorrowerRiskRatingComponent} from './borrower-risk-rating/borrower-risk-rating.component';
 import {IncomeStatementComponent} from './income-statement/income-statement.component';
@@ -7,11 +7,11 @@ import {CashFlowStatementComponent} from './cash-flow-statement/cash-flow-statem
 import {KeyIndicatorsComponent} from './key-indicators/key-indicators.component';
 import * as currentFormData from './financial.json';
 import {FinancialService} from './financial.service';
-import {Financial} from '../../../model/financial';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FiscalYearModalComponent} from './fiscal-year-modal/fiscal-year-modal.component';
 import {ActivatedRoute} from '@angular/router';
+import {Financial} from '../../loan/model/financial';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-financial',
@@ -25,8 +25,10 @@ export class FinancialComponent implements OnInit {
     @ViewChild('cashFlowStatement', {static: false}) cashFlowStatement: CashFlowStatementComponent;
     @ViewChild('keyIndicators', {static: false}) keyIndicators: KeyIndicatorsComponent;
     @Input() formData: Financial;
+    @Input() fromProfile: boolean;
+    @Output() financialDataEmitter = new EventEmitter();
 
-    isBusinessLoan = false;
+    isBusinessLoan = true; // SHOULD BE CHANGED
 
     fiscalYear = [];
     auditorList = [];
@@ -465,5 +467,6 @@ export class FinancialComponent implements OnInit {
             this.currentFormData['auditorList'] = this.auditorList;
         }
         this.financialData.data = JSON.stringify(this.currentFormData);
+        this.financialDataEmitter.emit(this.financialData.data);
     }
 }
