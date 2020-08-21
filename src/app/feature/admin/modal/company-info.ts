@@ -5,6 +5,7 @@ import {ManagementTeam} from './management-team';
 import {Proprietors} from './proprietors';
 import {BusinessType} from './businessType';
 import {CompanyLocations} from './companyLocations';
+import {ContactPerson} from './contact-person';
 
 export class CompanyInfo {
     id: number;
@@ -20,4 +21,5 @@ export class CompanyInfo {
     establishmentDate: Date;
     businessType: BusinessType;
     panNumber: string;
+    contactPerson: ContactPerson;
 }
