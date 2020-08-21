@@ -32,10 +32,6 @@
                           [fromProfile]="true"></app-site-visit>
         </nb-accordion-item-body>
       </nb-accordion-item>
-    </nb-accordion>
-  </nb-card-body>
-  <nb-card-body>
-    <nb-accordion>
       <nb-accordion-item #itemSecurity>
         <nb-accordion-item-header>
           <div class="row col-md-12">
@@ -60,9 +56,12 @@
                         (securityDataEmitter)="saveSecurity($event)"
                         [calendarType]="calendarType"
                         [fromProfile]="true"
-                        [securityValue]="customerInfo?.security"></app-security>
+                        [securityValue]="customerInfo?.security"
+                        [shareSecurity]="customerInfo?.shareSecurity"></app-security>
         </nb-accordion-item-body>
       </nb-accordion-item>
+
     </nb-accordion>
   </nb-card-body>
+
 </nb-card>

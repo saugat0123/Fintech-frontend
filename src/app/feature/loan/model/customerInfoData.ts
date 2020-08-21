@@ -16,5 +16,6 @@ export class CustomerInfoData {
   siteVisit: SiteVisit;
   version: number;
   security: Security;
+  shareSecurity;
 
 }

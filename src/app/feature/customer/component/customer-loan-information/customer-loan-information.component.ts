@@ -10,6 +10,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NbAccordionItemComponent} from '@nebular/theme';
 import {Security} from '../../../loan/model/security';
 import {CalendarType} from '../../../../@core/model/calendar-type';
+import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -30,6 +31,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   calendarType: CalendarType = CalendarType.AD;
   private siteVisit: SiteVisit;
   private  security: Security;
+  private  shareSecurity: ShareSecurity;
 
   constructor(
       private toastService: ToastService,
@@ -38,7 +40,6 @@ export class CustomerLoanInformationComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.customerInfo);
     if (!ObjectUtil.isEmpty(this.customerInfo.siteVisit)) {
       this.siteVisit = this.customerInfo.siteVisit;
     }
@@ -63,20 +64,35 @@ export class CustomerLoanInformationComponent implements OnInit {
     });
   }
 
-  public saveSecurity(data: string) {
+  public saveSecurity(data: Security) {
     if (ObjectUtil.isEmpty(this.security)) {
       this.security = new Security();
     }
-    this.security.data = data;
-    this.customerInfoService.saveLoanInfo(this.security, this.customerInfoId, TemplateName.SECURITY)
-    .subscribe(() => {
-      this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
-      this.itemSecurity.close();
-      this.triggerCustomerRefresh.emit(true);
-    }, error => {
-      console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Security Data!'));
-    });
-  }
-
+    if (!ObjectUtil.isEmpty(data)) {
+      this.security.data = data.data;
+      this.customerInfoService.saveLoanInfo(this.security, this.customerInfoId, TemplateName.SECURITY)
+      .subscribe(() => {
+        this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Security Data!'));
+        if (!ObjectUtil.isEmpty(data.share)) {
+          this.saveShare(data);
+        } else {
+          this.triggerCustomerRefresh.emit(true);
+          this.itemSecurity.close();
+        }
+      }, error => {
+        console.error(error);
+        this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Security Data!'));
+      });
+    }}
+    saveShare(data) {
+      this.shareSecurity = data.share;
+      this.customerInfoService.saveLoanInfo(this.shareSecurity, this.customerInfoId, TemplateName.SHARE_SECURITY)
+      .subscribe(() => {
+        this.itemSecurity.close();
+        this.triggerCustomerRefresh.emit(true);
+      }, error => {
+        console.error(error);
+        this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Share Security!'));
+      });
+    }
 }

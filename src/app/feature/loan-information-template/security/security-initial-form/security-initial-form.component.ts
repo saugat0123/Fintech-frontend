@@ -511,7 +511,7 @@ export class SecurityInitialFormComponent implements OnInit {
         return this.formBuilder.group({
             receiptNumber: [''],
             amount: [''],
-            expiryDate: [''],
+            expiryDate: undefined,
             couponRate: [''],
             beneficiary: [''],
             remarks: ['']
@@ -527,6 +527,7 @@ export class SecurityInitialFormComponent implements OnInit {
     }
 
     setFixedDepositDetails(details) {
+        if (!ObjectUtil.isEmpty(details)) {
         const depositDetails = this.securityForm.get('fixedDepositDetails') as FormArray;
         details.forEach(deposit => {
             depositDetails.push(
@@ -540,6 +541,9 @@ export class SecurityInitialFormComponent implements OnInit {
                 })
             );
         });
+        } else {
+            this.addFixedDeposit();
+        }
     }
 
     checkFixDeposit() {

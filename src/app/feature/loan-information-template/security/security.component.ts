@@ -60,6 +60,7 @@ export class SecurityComponent implements OnInit {
         }
 
 
+
     }
 
     buildForm() {
@@ -162,6 +163,7 @@ export class SecurityComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityData = this.securityValue;
         }
+        this.initialSecurity.submit();
         const mergedForm = {
             initialForm: this.initialSecurity.securityForm.value ,
             selectedArray: this.initialSecurity.selectedArray ,
@@ -171,6 +173,9 @@ export class SecurityComponent implements OnInit {
         };
         this.securityData.data = JSON.stringify(mergedForm);
         this.securityData.guarantor = [];
+        this.shareSecurityData = this.initialSecurity.shareSecurityData;
+        this.securityData.share = this.shareSecurityData;
+
         let guarantorIndex = 0;
         while (guarantorIndex < this.getGuarantor().length) {
             const guarantor = new Guarantor();
@@ -198,6 +203,6 @@ export class SecurityComponent implements OnInit {
             guarantorIndex++;
             this.securityData.guarantor.push(guarantor);
         }
-        this.securityDataEmitter.emit(this.securityData.data);
+        this.securityDataEmitter.emit(this.securityData);
     }
 }
