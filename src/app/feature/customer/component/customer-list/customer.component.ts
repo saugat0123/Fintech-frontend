@@ -13,6 +13,7 @@ import {CustomerFormComponent} from '../individual-customer-form/customer-form.c
 import {NbDialogService} from '@nebular/theme';
 import {CustomerInfoService} from '../../service/customer-info.service';
 import {CustomerType} from '../../model/customerType';
+import {CompanyFormComponent} from '../company-form/company-form.component';
 
 @Component({
   selector: 'app-customer-component',
@@ -95,6 +96,8 @@ export class CustomerComponent implements OnInit {
     this.onClose();
     if (CustomerType.INDIVIDUAL === CustomerType[this.customerType]) {
       this.dialogService.open(CustomerFormComponent).onClose.subscribe(res => CustomerComponent.loadData(this));
+    } else if (CustomerType.COMPANY === CustomerType[this.customerType]) {
+      this.dialogService.open(CompanyFormComponent).onClose.subscribe(res => CustomerComponent.loadData(this));
     }
   }
 

@@ -86,7 +86,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     name: string,
     url: string
   }[] = [];
-  registeredOfferLetters: Array<String> = [];
+  registeredOfferLetters: Array<string> = [];
 
     // Credit risk variables ---
     creditGradeStatusBadge;
@@ -101,6 +101,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     creditRiskAlphaScore = 0;
     noComplianceLoanAlpha = false;
     creditRiskAlphaSummary = false;
+    alphaFiscalYearArray = [];
+    creditRiskGradeAlphaArray = [];
+    creditRiskAlphaScoreArray = [];
+    selectedAlphaCrgIndex = 0;
 
     constructor(
       private userService: UserService,
@@ -201,18 +205,16 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             if (!ObjectUtil.isEmpty(this.loanDataHolder.creditRiskGradingAlpha)) {
                 this.creditRiskAlphaSummary = true;
                 const crgParsedData = JSON.parse(this.loanDataHolder.creditRiskGradingAlpha.data);
+                this.alphaFiscalYearArray = crgParsedData.fiscalYearArray;
+                if (this.alphaFiscalYearArray.length > 0) {
+                    this.selectedAlphaCrgIndex = this.alphaFiscalYearArray.length - 1;
+                }
                 if (crgParsedData.complianceOfCovenants === 0) {
                     this.noComplianceLoanAlpha = true;
                 }
-                this.creditRiskGradeAlpha = crgParsedData.grade;
-                this.creditRiskAlphaScore =  ObjectUtil.isEmpty(crgParsedData.totalPoint) ? 0 : crgParsedData.totalPoint;
-                if (this.creditRiskGradeAlpha === 'Superior' || this.creditRiskGradeAlpha === 'Good') {
-                    this.creditGradeAlphaStatusBadge = 'badge badge-success';
-                } else if (this.creditRiskGradeAlpha === 'Bad & Loss' || this.creditRiskGradeAlpha === 'Doubtful') {
-                    this.creditGradeAlphaStatusBadge = 'badge badge-danger';
-                } else {
-                    this.creditGradeAlphaStatusBadge = 'badge badge-warning';
-                }
+                this.creditRiskGradeAlphaArray = crgParsedData.gradesArray;
+                this.creditRiskAlphaScoreArray = crgParsedData.totalPointsArray;
+                this.changeFiscalYearForAlpha(this.selectedAlphaCrgIndex);
             }
 
             // Setting SiteVisit data--
@@ -466,5 +468,23 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     return signatureList;
   }
+
+    /**
+     * Changes Acting Fiscal year for Alpha CRG.
+     *
+     * @param $event Change event of nb-select.
+     */
+    public changeFiscalYearForAlpha($event: number) {
+        this.creditRiskAlphaScore =  ObjectUtil.isEmpty(this.creditRiskAlphaScoreArray[$event]) ? 0
+            : this.creditRiskAlphaScoreArray[$event];
+        this.creditRiskGradeAlpha = this.creditRiskGradeAlphaArray[$event];
+        if (this.creditRiskGradeAlpha === 'Superior' || this.creditRiskGradeAlpha === 'Good') {
+            this.creditGradeAlphaStatusBadge = 'badge badge-success';
+        } else if (this.creditRiskGradeAlpha === 'Bad & Loss' || this.creditRiskGradeAlpha === 'Doubtful') {
+            this.creditGradeAlphaStatusBadge = 'badge badge-danger';
+        } else {
+            this.creditGradeAlphaStatusBadge = 'badge badge-warning';
+        }
+    }
 }
 
