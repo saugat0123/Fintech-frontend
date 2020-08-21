@@ -29,7 +29,7 @@ export class KycFormComponent implements OnInit {
   displayEngDate = true;
 
   @Input()
-  customer: Customer = new Customer();
+  customer: Customer ;
 
   kycInfo: FormGroup;
   data: object;
@@ -53,7 +53,6 @@ export class KycFormComponent implements OnInit {
     this.editCustomer(1);
     this.buildForm();
     this.createRelativesArray();
-    console.log(this.customer);
   }
   buildForm() {
     this.kycInfo =  this.formBuilder.group({
@@ -65,15 +64,11 @@ export class KycFormComponent implements OnInit {
 
   onSubmit() {
     this.spinner = true;
-    console.log(this.kycInfo.get('customerRelatives').value);
     this.kycRelative.push(this.kycInfo.get('customerRelatives')['controls'][0].value);
     this.customer.customerRelatives = this.kycRelative;
-    console.log(this.customer.customerRelatives);
 
     this.customerService.save(this.customer).subscribe(response => {
       this.customer = response.detail;
-      console.log(response.detail.customerRelatives);
-      console.log(this.customer);
       this.isEdited = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
     });
@@ -85,7 +80,8 @@ export class KycFormComponent implements OnInit {
       customerRelativeName: [undefined],
       citizenshipNumber: [undefined],
       citizenshipIssuedPlace: [undefined],
-      citizenshipIssuedDate: [undefined]
+      citizenshipIssuedDate: [undefined],
+      version: [undefined]
     }));
 
   }

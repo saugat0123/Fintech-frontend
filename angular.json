@@ -149,5 +149,8 @@
       }
     }
   },
-  "defaultProject": "sb-frontend"
+  "defaultProject": "sb-frontend",
+  "cli": {
+    "analytics": false
+  }
 }

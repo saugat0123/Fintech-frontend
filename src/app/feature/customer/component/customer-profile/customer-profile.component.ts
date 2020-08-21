@@ -24,6 +24,7 @@ import {CustomerType} from '../../model/customerType';
 import {CustomerInfoService} from '../../service/customer-info.service';
 // @ts-ignore
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
+import {LoanDataHolder} from "../../../loan/model/loanData";
 
 
 @Component({
@@ -35,6 +36,7 @@ export class CustomerProfileComponent implements OnInit {
   associateId: number;
   customerInfoId: number;
   calendarType = 'AD';
+  loanData : LoanDataHolder;
   customer: Customer = new Customer();
   loanType = LoanType;
   loanList = [];

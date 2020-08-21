@@ -1,5 +1,5 @@
 
-<nb-card class="m-0" accent="primary" [nbSpinner]="spinner"
+<nb-card *ngIf="isEdited" class="m-0" accent="primary" [nbSpinner]="spinner"
          nbSpinnerStatus="primary"
          nbSpinnerSize="giant">
     <nb-card-header>

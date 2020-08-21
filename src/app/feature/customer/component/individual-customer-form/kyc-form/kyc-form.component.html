@@ -1,4 +1,4 @@
-<nb-card class="m-0" accent="primary" [nbSpinner]="spinner"
+<nb-card *ngIf="isEdited" class="m-0" accent="primary" [nbSpinner]="spinner"
          nbSpinnerStatus="primary"
          nbSpinnerSize="giant">
     <nb-card-header>
@@ -15,7 +15,7 @@
             <div *ngFor="let relatives of kycInfo.get('customerRelatives')['controls']; let i = index"
                  formArrayName="customerRelatives">
                 <div [formGroupName]="i">
-                    <div class="form">
+                    <div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
