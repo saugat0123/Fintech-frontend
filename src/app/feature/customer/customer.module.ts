@@ -22,12 +22,13 @@ const COMPONENTS = [
   CustomerGroupLoanComponent,
   CustomerFormComponent,
   KycFormComponent,
-  CustomerLoanInformationComponent
+  CustomerLoanInformationComponent,
+  KycEditComponent
 ];
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
-  declarations: [...COMPONENTS, KycEditComponent],
+  declarations: [...COMPONENTS],
   exports: [
     CustomerGroupLoanComponent
   ],

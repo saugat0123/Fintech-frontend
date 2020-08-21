@@ -54,7 +54,7 @@ export class KycEditComponent implements OnInit {
   ngOnInit() {
     this.editCustomer(1);
     this.buildForm();
-    this.setRelatives(this.kycRelative);
+    this.setRelatives(this.customer.customerRelatives);
   }
   buildForm() {
     this.kycForm =  this.formBuilder.group({
