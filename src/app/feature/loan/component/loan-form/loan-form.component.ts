@@ -577,6 +577,8 @@ export class LoanFormComponent implements OnInit {
         this.loanHolder = infoResponse.detail;
         this.loanDocument.siteVisit = this.loanHolder.siteVisit;
         this.loanDocument.financial = this.loanHolder.financial;
+        this.loanDocument.security = this.loanHolder.security;
+        this.loanDocument.shareSecurity = this.loanHolder.shareSecurity;
       }, error => {
         console.error(error);
         this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load customer info'));
