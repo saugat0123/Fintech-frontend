@@ -14,6 +14,7 @@ import {NbDatepickerModule, NbDialogModule} from '@nebular/theme';
 import {KycFormComponent} from './component/individual-customer-form/kyc-form/kyc-form.component';
 import {CustomerLoanInformationComponent} from './component/customer-loan-information/customer-loan-information.component';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
+import { KycEditComponent } from './component/individual-customer-form/kyc-edit/kyc-edit.component';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -26,7 +27,7 @@ const COMPONENTS = [
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
-  declarations: [...COMPONENTS],
+  declarations: [...COMPONENTS, KycEditComponent],
   exports: [
     CustomerGroupLoanComponent
   ],

@@ -202,15 +202,22 @@
             </div>
             <div *ngIf="!edited" class="col-md-4">
                 <nb-card accent="primary">
-                    <nb-card-header>KYC</nb-card-header>
-                    <a (click)="editKyc(1)" *ngIf="!isEdited" class="p-2 cursor"><i
-                            class="fa fa-edit"></i></a>
+                    <nb-card-header>
+                        <div class="row justify-content-lg-start">
+                            <div class="col-md-6">KYC</div>
+                            <div class="col-md-6 ">
+                                <div class="px-2 text-right">
+                                    <a (click)="openTemplate(kycEdit)" *ngIf="!isEdited" class="p-2 cursor"><i
+                                            class="fa fa-edit"></i></a>
+                                    <a (click)="openTemplate(kycUpdate)" nbButton size="tiny">+</a>
+                                </div>
+                            </div>
+                        </div>
+                    </nb-card-header>
+
                     <nb-card-body>
-                        <button (click)="openTemplate(kycUpdate)" nbButton size="tiny">Update KYC</button>
-                        <hr/>
                         <div (click)="checkKycLoan(customerRelative)"
                              *ngFor="let customerRelative of customer.customerRelatives" class="cursor">
-
                             <div class="row">
                                 <div class="col-md-5">
                                     <span> <b>Name</b></span></div>
@@ -259,101 +266,7 @@
                 </nb-card>
             </div>
 
-            <div *ngIf="edited" class="col-md-4">
-                <nb-card accent="primary">
-                    <nb-card-header>KYC</nb-card-header>
 
-                    <nb-card-body>
-                        <hr/>
-                        <div [formGroup]="basicForm">
-                            <div
-                                    *ngFor="let relatives of basicForm.get('customerRelatives')['controls']; let i = index"
-                                    formArrayName="customerRelatives" class="cursor">
-                                <div [formGroupName]="i">
-
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <span> <b>Name</b></span></div>
-                                    <div class="col-md-1">
-                                        <span> <b>:</b></span></div>
-                                    <div class="col-md-5"><input class="form-control"
-                                                                 id="customerRelativeName"
-                                                                 formControlName="customerRelativeName"
-                                                                 placeholder="name" type="text"></div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <span> <b>Relation</b></span></div>
-                                    <div class="col-md-1">
-                                        <span> <b>:</b></span></div>
-                                    <div class="col-md-5"><input class="form-control"
-                                                                 id="customerRelation"
-                                                                 formControlName="customerRelation"
-                                                                 placeholder="Relation" type="text"></div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <span> <b>Citizenship no</b></span></div>
-                                    <div class="col-md-1">
-                                        <span> <b>:</b></span></div>
-                                    <div class="col-md-5"><input class="form-control"
-                                                                 id="citizenshipNumber"
-                                                                 formControlName="citizenshipNumber"
-                                                                 placeholder="citizenship no" type="text"></div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <span> <b>Issued Place</b></span></div>
-                                    <div class="col-md-1">
-                                        <span> <b>:</b></span></div>
-                                    <div class="col-md-5"><input class="form-control"
-                                                                 id="citizenshipIssuedPlace"
-                                                                 formControlName="citizenshipIssuedPlace"
-                                                                 placeholder="issued place" type="text"></div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <span> <b>Issued Date</b></span></div>
-                                    <div class="col-md-1">
-                                        <span> <b>:</b></span></div>
-                                    <div class="col-md-5"><input *ngIf="calendarType === 'AD'" nbInput
-                                                                 [nbDatepicker]="relationCitizenIssueDate"
-                                                                 class="form-control"
-                                                                 formControlName="citizenshipIssuedDate"
-                                                                 [ngClass]="{ 'is-invalid':relatives.get('citizenshipIssuedDate').errors }"
-                                                                 placeholder="08/19/2020">
-                                        <app-calendar [ePreDate]="relatives.get('citizenshipIssuedDate').value"
-                                                      *ngIf="calendarType === 'BS'"
-                                                      (messageToEmit)="relatives.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>
-
-                                        <nb-datepicker #relationCitizenIssueDate></nb-datepicker></div>
-                                </div>
-                                </div>
-
-                                <hr>
-
-
-                            </div>
-                        </div>
-                    </nb-card-body>
-                    <div class="row justify-content-end">
-                    <div class="px-2 text-right">
-                        <a (click)="editKyc(0)" *ngIf="edited" nbButton size="small"
-                           status="warning" type="button">Cancel
-                        </a>
-                    </div>
-                        <div class="px-2">
-                            <a (click)="saveKyc()" *ngIf="edited" nbButton size="small"
-                                    status="danger" type="button">Save
-                            </a>
-                        </div>
-                    </div>
-                </nb-card>
-            </div>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -404,5 +317,9 @@
 
 <ng-template #kycUpdate>
     <app-kyc-form [kycRelative]="customer?.customerRelatives"
-    [customer]="customer"></app-kyc-form>
+                  [customer]="customer"></app-kyc-form>
+</ng-template>
+<ng-template #kycEdit>
+    <app-kyc-edit [kycRelative]="customer?.customerRelatives"
+                  [customer]="customer"></app-kyc-edit>
 </ng-template>

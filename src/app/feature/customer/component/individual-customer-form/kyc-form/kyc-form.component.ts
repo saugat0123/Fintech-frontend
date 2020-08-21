@@ -20,6 +20,7 @@ export class KycFormComponent implements OnInit {
   id: number;
 
   isEdited = false;
+  spinner = false;
 
   @Input()
   kycRelative: Array<CustomerRelative> ;
@@ -63,6 +64,8 @@ export class KycFormComponent implements OnInit {
 
 
   onSubmit() {
+    this.spinner = true;
+    console.log(this.kycInfo.get('customerRelatives').value);
     this.kycRelative.push(this.kycInfo.get('customerRelatives')['controls'][0].value);
     this.customer.customerRelatives = this.kycRelative;
     console.log(this.customer.customerRelatives);
