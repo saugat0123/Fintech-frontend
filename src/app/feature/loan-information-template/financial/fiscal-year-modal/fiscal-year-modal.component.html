@@ -26,14 +26,12 @@
                     </div>
                 </div>
                 <div class="col-md-12 mb-2">
-                    <label for="fiscalYear">Fiscal year</label>
-                    <input id="fiscalYear" class="form-control" formControlName="fiscalYear" placeholder="(YYYY/YYYY)"
-                           [ngClass]="{'is-invalid': financialStatementFormControl.fiscalYear.invalid
-                           && (financialStatementFormControl.fiscalYear.dirty ||
-                                financialStatementFormControl.fiscalYear.touched)}">
-                    <div *ngIf="financialStatementFormControl.fiscalYear.invalid" class="invalid-feedback">
-                        Invalid Fiscal year!
-                    </div>
+                    <label>Fiscal year</label>
+                    <ng-select [items]="fiscalYearsArray"
+                               [appendTo]="'body'"
+                                placeholder="Select fiscal year"
+                                formControlName="fiscalYear">
+                    </ng-select>
                 </div>
             </div>
             <nb-card *ngIf="showAuditorDetailsForm" accent="primary" class="mb-0">

@@ -19,7 +19,6 @@ import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.componen
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
 import {ProposalComponent} from '../loan-main-template/proposal/proposal.component';
 import {Proposal} from '../../../admin/modal/proposal';
-import {FinancialComponent} from '../loan-main-template/financial/financial.component';
 import {CiclComponent} from '../loan-main-template/cicl/cicl.component';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -47,6 +46,8 @@ import {ReportingInfoTaggingComponent} from '../../../reporting/component/report
 import {InsuranceComponent} from '../loan-main-template/insurance/insurance.component';
 import {CreditRiskGradingAlphaComponent} from '../loan-main-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {CustomerInfoData} from '../../model/customerInfoData';
+import {CustomerInfoService} from '../../../customer/service/customer-info.service';
+import {FinancialComponent} from '../../../loan-information-template/financial/financial.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -195,7 +196,8 @@ export class LoanFormComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private formBuilder: FormBuilder,
         private customerService: CustomerService,
-        private scrollNavService: ScrollNavigationService
+        private scrollNavService: ScrollNavigationService,
+        private customerInfoService: CustomerInfoService
     ) {
 
     }
@@ -211,9 +213,9 @@ export class LoanFormComponent implements OnInit {
             loanId: null,
             customerId: null,
             loanCategory: null,
-            customerProfileId: null,
+            customerProfileId: null,  // CustomerInfo->associateId
             customerType: null,
-            customerInfoId: null,
+            customerInfoId: null,   // CustomerInfo->id
           };
 
           this.allId = paramsValue;
@@ -223,6 +225,9 @@ export class LoanFormComponent implements OnInit {
           this.loanHolder.id = this.allId.customerInfoId;
           if (!ObjectUtil.isEmpty(this.allId.customerProfileId)) {
             this.getCustomerInfo(this.allId.customerProfileId);
+          }
+          if (!ObjectUtil.isEmpty(this.allId.customerInfoId)) {
+            this.getTemplateInfoFromCustomerInfo();
           }
           if (this.customerId !== undefined) {
             this.loanFormService.detail(this.customerId).subscribe(
@@ -565,6 +570,18 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.customerInfo = res.detail;
     });
   }
+
+    getTemplateInfoFromCustomerInfo() {
+      this.customerInfoService.detail(this.allId.customerInfoId)
+      .subscribe((infoResponse) => {
+        this.loanHolder = infoResponse.detail;
+        this.loanDocument.siteVisit = this.loanHolder.siteVisit;
+        this.loanDocument.financial = this.loanHolder.financial;
+      }, error => {
+        console.error(error);
+        this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load customer info'));
+      });
+    }
 
     nepaliFormTemplate() {
         if (ObjectUtil.isEmpty(this.loanDocument.customerInfo)) {

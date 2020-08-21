@@ -8,6 +8,8 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {SiteVisit} from '../../../admin/modal/siteVisit';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NbAccordionItemComponent} from '@nebular/theme';
+import {Financial} from '../../../loan/model/financial';
+import {FinancialComponent} from '../../../loan-information-template/financial/financial.component';
 import {Security} from '../../../loan/model/security';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
@@ -25,11 +27,16 @@ export class CustomerLoanInformationComponent implements OnInit {
   public siteVisitComponent: SiteVisitComponent;
   @ViewChild('itemSiteVisit', {static: false})
   private itemSiteVisit: NbAccordionItemComponent;
+  @ViewChild('financialComponent', {static: false})
+  public financialComponent: FinancialComponent;
+  @ViewChild('itemFinancial', {static: false})
+  private itemFinancial: NbAccordionItemComponent;
   @ViewChild('itemSecurity', {static: false})
   private itemSecurity: NbAccordionItemComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType = CalendarType.AD;
   private siteVisit: SiteVisit;
+  financial: Financial;
   private  security: Security;
   private  shareSecurity: ShareSecurity;
 
@@ -42,6 +49,9 @@ export class CustomerLoanInformationComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.customerInfo.siteVisit)) {
       this.siteVisit = this.customerInfo.siteVisit;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.financial)) {
+      this.financial = this.customerInfo.financial;
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
       this.security = this.customerInfo.security;
@@ -62,6 +72,22 @@ export class CustomerLoanInformationComponent implements OnInit {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save site visit!'));
     });
+  }
+
+  saveFinancial(data: any) {
+    if (ObjectUtil.isEmpty(this.financial)) {
+      this.financial = new Financial();
+    }
+    this.financial.data = data;
+    this.customerInfoService.saveLoanInfo(this.financial, this.customerInfoId, TemplateName.FINANCIAL)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Financial!'));
+          this.itemSiteVisit.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Financial!'));
+        });
   }
 
   public saveSecurity(data: Security) {

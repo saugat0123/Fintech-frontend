@@ -2,7 +2,8 @@
     <nb-card-body>
         <!--    <button (click)="showHideNep()">NepDate</button>-->
         <div class="d-flex justify-content-end">
-            <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex" name="basicInfoCalendarType">
+            <nb-radio-group [(ngModel)]="calendarType" [disabled]="basicInfo.disabled"
+                            class="d-inline-flex" name="basicInfoCalendarType">
                 <nb-radio value="AD">AD</nb-radio>
                 <nb-radio value="BS">BS</nb-radio>
             </nb-radio-group>
@@ -20,7 +21,9 @@
                                        class="form-control" formControlName="citizenshipNumber"
                                        id="citizenshipNumber" name="citizenshipNumber"
                                        placeholder="Customer Citizenship Number" type="text">
-                                <button (click)="searchByCustomerCitizen()" nbButton outline size="small"
+                                <button (click)="searchByCustomerCitizen()"
+                                        [attr.disabled]="basicInfo.disabled"
+                                        nbButton outline size="small"
                                         status="primary">Search
                                 </button>
                                 <div *ngIf="(submitted) && basicInfoControls.citizenshipNumber.invalid"
@@ -395,10 +398,11 @@
                         </div>
                     </div>
                 </div>
-                        <div class="text-right">
-                            <input (click)="addRelatives()" class="btn btn-sm btn-flat btn-primary"
-                                   type="button" value="Add More"/>
-                        </div>
+                <div class="text-right">
+                    <input (click)="addRelatives()" [disabled]="basicInfo.disabled"
+                           class="btn btn-sm btn-flat btn-primary"
+                           type="button" value="Add More"/>
+                </div>
                     <!-- END ROW -->
             </form>
         </div>
