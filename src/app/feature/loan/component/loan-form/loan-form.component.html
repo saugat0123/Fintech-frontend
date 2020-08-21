@@ -71,6 +71,7 @@
                         <app-basic-info (blackListStatusEmitter)="getIsBlackListed($event)"
                                         [formValue]="loanDocument?.customerInfo"
                                         [calendarType]="calendarType"
+                                        [disableForm]="allId?.customerProfileId"
                                         #basicInfo>
                         </app-basic-info>
                     </ng-template>
