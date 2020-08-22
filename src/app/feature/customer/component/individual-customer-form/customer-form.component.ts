@@ -87,7 +87,8 @@ export class CustomerFormComponent implements OnInit {
           customerRelativeName: [undefined, Validators.compose([Validators.required])],
           citizenshipNumber: [undefined, Validators.compose([Validators.required])],
           citizenshipIssuedPlace: [undefined],
-          citizenshipIssuedDate: [undefined]
+          citizenshipIssuedDate: [undefined],
+          version: [0]
         })
     );
   }
@@ -192,6 +193,7 @@ export class CustomerFormComponent implements OnInit {
     this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
     this.customer.occupation = this.basicInfo.get('occupation').value;
     this.customer.incomeSource = this.basicInfo.get('incomeSource').value;
+    this.customer.version = this.basicInfo.get('version').value;
     const rawFromValue = this.basicInfo.getRawValue();
     this.customer.customerRelatives = rawFromValue.customerRelatives;
 
@@ -241,6 +243,7 @@ export class CustomerFormComponent implements OnInit {
       dob: [ObjectUtil.isEmpty(this.customer.dob) ? undefined :
           new Date(this.customer.dob), [Validators.required, DateValidator.isValidBefore]],
       occupation: [this.customer.occupation === undefined ? undefined : this.customer.occupation, [Validators.required]],
+      version: [this.customer.version === undefined ? undefined : this.customer.version],
       incomeSource: [this.customer.incomeSource === undefined ? undefined : this.customer.incomeSource, [Validators.required]],
       customerRelatives: this.formBuilder.array([])
     });
@@ -254,7 +257,8 @@ export class CustomerFormComponent implements OnInit {
         customerRelativeName: [undefined, Validators.required],
         citizenshipNumber: [undefined, Validators.required],
         citizenshipIssuedPlace: [undefined],
-        citizenshipIssuedDate: [undefined]
+        citizenshipIssuedDate: [undefined],
+        version:[0]
       }));
     });
   }
@@ -268,6 +272,7 @@ export class CustomerFormComponent implements OnInit {
         customerRelation: (index > 1) ? [(customerRelative)] :
             [({value: customerRelative, disabled: true}), Validators.required],
         customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
+        version: [singleRelatives.version === undefined ? undefined : singleRelatives.version],
         citizenshipNumber: [singleRelatives.citizenshipNumber, Validators.required],
         citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
         citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?

@@ -8,6 +8,7 @@ import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {ToastService} from '../../../../../@core/utils';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {CustomerRelativeService} from "../../../service/customer-relative.service";
 
 
 
@@ -44,6 +45,7 @@ export class KycFormComponent implements OnInit {
       private customerService: CustomerService,
       private loanformService: LoanFormService,
       private toastService: ToastService,
+      private customerRelativeService: CustomerRelativeService,
       private router: Router,
       private dialogService: NbDialogService
   ) {
@@ -51,6 +53,7 @@ export class KycFormComponent implements OnInit {
 
   ngOnInit() {
     this.editCustomer(1);
+    console.log(this.customer.customerRelatives['version']);
     this.buildForm();
     this.createRelativesArray();
   }
@@ -67,7 +70,7 @@ export class KycFormComponent implements OnInit {
     this.kycRelative.push(this.kycInfo.get('customerRelatives')['controls'][0].value);
     this.customer.customerRelatives = this.kycRelative;
 
-    this.customerService.save(this.customer).subscribe(response => {
+    this.customerRelativeService.update(this.customer.id, this.customer.customerRelatives).subscribe(response => {
       this.customer = response.detail;
       this.isEdited = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
@@ -81,7 +84,7 @@ export class KycFormComponent implements OnInit {
       citizenshipNumber: [undefined],
       citizenshipIssuedPlace: [undefined],
       citizenshipIssuedDate: [undefined],
-      version: [undefined]
+      version: [0]
     }));
 
   }
