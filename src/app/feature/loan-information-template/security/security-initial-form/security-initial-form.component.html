@@ -211,7 +211,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="buildingName">Building Name</label>
+                                        <label class="title" for="buildingName">Apartment Name</label>
                                         <input class="form-control rounded" formControlName="buildingName"
                                                id="buildingName"
                                                name="buildingName" placeholder="name of building"
@@ -220,7 +220,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="buildingDescription">Building
+                                        <label class="title" for="buildingDescription">Apartment
                                             Description</label>
                                         <input class="form-control rounded"
                                                formControlName="buildingDescription"
@@ -471,7 +471,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="title" for="buildingName">Building Name</label>
+                                            <label class="title" for="buildingName">Apartment Name</label>
                                             <input class="form-control rounded" formControlName="buildingName"
                                                    id="bname"
                                                    name="buildingName" placeholder="name of building"
@@ -480,7 +480,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="title" for="buildingDescription">Building
+                                            <label class="title" for="buildingDescription">Apartment
                                                 Description</label>
                                             <input class="form-control rounded"
                                                    formControlName="buildingDescription"
@@ -631,7 +631,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="title" for="buildingName">Building Name</label>
+                                            <label class="title" for="buildingName">Apartment Name</label>
                                             <input class="form-control rounded" formControlName="buildingName"
                                                    id="afterName"
                                                    name="buildingName" placeholder="name of building"
@@ -640,7 +640,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="title" for="buildingDescription">Building
+                                            <label class="title" for="buildingDescription">Apartment
                                                 Description</label>
                                             <input class="form-control rounded"
                                                    formControlName="buildingDescription"
@@ -810,7 +810,6 @@
                             <div class="form-group">
                                 <label class="title" for="model">Model No.</label>
                                 <input class="form-control rounded" formControlName="model"
-                                       id="model"
                                        name="model" placeholder="Model No."
                                        type="text"/>
                             </div>
@@ -1169,9 +1168,9 @@
                                 <input *ngIf="calendarType === 'AD'" [nbDatepicker]="expiryDate"
                                        class="form-control rounded" formControlName="expiryDate"
                                        nbInput placeholder="Expiry Date">
-                                <app-calendar (messageToEmit)="securityForm.get('fixedDepositDetails').get('expiryDate').patchValue($event?.eDate)"
-                                              *ngIf="calendarType === 'BS'"
-                                              [ePreDate]="securityForm.get('fixedDepositDetails').get('expiryDate').value"></app-calendar>
+                                <app-calendar *ngIf="calendarType === 'BS'"
+                                              (messageToEmit)="securityForm.get(['fixedDepositDetails',i,'expiryDate']).patchValue($event?.eDate)"
+                                              [ePreDate]="securityForm.get(['fixedDepositDetails',i,'expiryDate']).value"></app-calendar>
                                 <nb-datepicker #expiryDate></nb-datepicker>
                             </div>
                         </div>
@@ -1204,6 +1203,139 @@
                        type="button"
                        value="Add More"/>
             </div>
+        </nb-card>
+
+        <!-- Share Security -->
+        <nb-card [hidden]="!shareSelected" class="p-3" [formGroup]="shareSecurityForm">
+            <nb-card-header>
+                <h6 class="box-title title">Details of security offered and valuation amount</h6>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="promoter"><b>Loan Promoter Percent</b></label>
+                        <input [(ngModel)]="activeNepseMaster.promoter"
+                               [ngModelOptions]="{standalone: true}" class="form-control"
+                               disabled id="promoter">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="ordinary"><b>Loan Ordinary Percent</b></label>
+                        <input [(ngModel)]="activeNepseMaster.ordinary"
+                               [ngModelOptions]="{standalone: true}" class="form-control"
+                               disabled id="ordinary">
+                    </div>
+                </div>
+                <br>
+                <div
+                        *ngFor="let shareField of shareSecurityForm.get('shareSecurityDetails')['controls'];  let shareFieldIndex = index"
+                        formArrayName="shareSecurityDetails">
+                    <div [formGroupName]="shareFieldIndex">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="companyName">Select Company Name :: Company Code</label>
+                                    <select (change)="setShareValueByCompany(shareFieldIndex)"
+                                            [ngClass]="{ 'is-invalid': (submitted) && shareField.get('companyName').errors }"
+                                            class="custom-select"
+                                            formControlName="companyName" id="companyName"
+                                            name="companyName">
+                                        <option [value]="null" disabled selected>--Select Company Name--
+                                        </option>
+                                        <option *ngFor="let nepse of nepseList"
+                                                value="{{nepse.companyName }}">{{nepse.companyName}}
+                                            :: {{nepse.companyCode}}</option>
+                                    </select>
+                                    <div *ngIf="submitted && shareField.get('companyName').errors"
+                                         class="invalid-feedback">
+                                        <div *ngIf="shareField.get('companyName').errors.required">
+                                            Company name is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="shareType">Select Share Type</label>
+                                    <input class="form-control" formControlName="shareType" id="shareType"
+                                           name="shareType" readonly type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="totalShareUnit">Number of Share Unit</label>
+                                    <input (change)="calculateShareFieldsValues(shareFieldIndex)"
+                                           [ngClass]="{ 'is-invalid': (submitted) && shareField.get('totalShareUnit').errors }"
+                                           class="form-control" formControlName="totalShareUnit"
+                                           id="totalShareUnit"
+                                           name="totalShareUnit"
+                                           type="number">
+                                    <div *ngIf="submitted && shareField.get('totalShareUnit').errors"
+                                         class="invalid-feedback">
+                                        <div *ngIf="shareField.get('totalShareUnit').errors.required">
+                                            No. of share unit is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="shareRate">Rate of Each Unit</label>
+                                    <input
+                                            (change)="calculateShareFieldsValues(shareFieldIndex)"
+                                            class="form-control" formControlName="amountPerUnit"
+                                            id="shareRate" name="shareRate" readonly
+                                            type="number">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="total">Total</label>
+                                    <input class="form-control" formControlName="total" id="total"
+                                           name="total" readonly type="number">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="consideredValue">Considered Value</label>
+                                    <input class="form-control" formControlName="consideredValue"
+                                           id="consideredValue" name="total" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="shareSecurityForm.get('shareSecurityDetails')['length'] > 1"
+                             class="d-flex justify-content-sm-end">
+                            <button (click)="removeShareList(shareFieldIndex)"
+                                    class="btn btn-sm btn-flat btn-danger">
+                                <em class="fa fa-trash bg-transparent"></em>
+                            </button>
+                        </div>
+                        <hr/>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-sm-end">
+                    <p class="font-weight-bolder">Total Considered
+                        Value: {{totalConsideredValue}}</p>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button (click)="addShareSecurity()" class="btn btn-sm btn-flat btn-primary"><i
+                            class="fa fa-plus"></i></button>
+                </div>
+            </nb-card-body>
+            <nb-card>
+                <nb-card-body>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="securityOffered">Description/Details of security offered</label>
+                            <textarea class="form-control text-area" formControlName="securityOffered"
+                                      id="securityOffered"></textarea>
+                        </div>
+                    </div>
+                </nb-card-body>
+            </nb-card>
         </nb-card>
     </form>
 </div>

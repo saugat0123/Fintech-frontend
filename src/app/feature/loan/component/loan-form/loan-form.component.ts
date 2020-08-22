@@ -26,13 +26,12 @@ import {DatePipe} from '@angular/common';
 import {CreditGradingComponent} from '../loan-main-template/credit-grading/credit-grading.component';
 import {SiteVisitComponent} from '../../../loan-information-template/site-visit/site-visit.component';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {SecurityComponent} from '../loan-main-template/security/security.component';
+import {SecurityComponent} from '../../../loan-information-template/security/security.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerDocumentComponent} from '../loan-main-template/customer-document/customer-document.component';
 import {DocStatus} from '../../model/docStatus';
 import {CustomerService} from '../../../customer/service/customer.service';
 import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
-import {ShareSecurityComponent} from '../loan-main-template/share-security/share-security.component';
 import {GroupComponent} from '../loan-main-template/group/group.component';
 import {LoanMainNepaliTemplateComponent} from '../loan-main-nepali-template/loan-main-nepali-template.component';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
@@ -170,9 +169,6 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('group', {static: false})
     group: GroupComponent;
 
-    @ViewChild('shareSecurity', {static: false})
-    shareSecurity: ShareSecurityComponent;
-
     @ViewChild('guarantor', {static: false})
     guarantorComponent: GuarantorComponent;
 
@@ -227,7 +223,6 @@ export class LoanFormComponent implements OnInit {
           this.loan.id = this.id;
           this.customerId = this.allId.customerId;
           this.loanHolder.id = this.allId.customerInfoId;
-
           if (!ObjectUtil.isEmpty(this.allId.customerProfileId)) {
             this.getCustomerInfo(this.allId.customerProfileId);
           }
@@ -517,6 +512,7 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Security' && action) {
             this.security.onSubmit();
             this.loanDocument.security = this.security.securityData;
+            this.loanDocument.shareSecurity = this.security.shareSecurityData;
         }
         if (name === 'Credit Risk Grading' && action) {
             this.creditGrading.onSubmit();
@@ -540,14 +536,6 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.guarantor = this.guarantorComponent.guarantorDetail;
         }
 
-        if (name === 'Share Security' && action) {
-            if (this.shareSecurity.form.invalid && this.nextButtonAction) {
-                this.shareSecurity.submitted = true;
-                return true;
-            }
-            this.shareSecurity.onSubmit();
-            this.loanDocument.shareSecurity = this.shareSecurity.shareSecurityData;
-        }
         if (name === 'Reporting Info' && action) {
             this.reportingInfoTaggingComponent.onSubmit();
             this.loanDocument.reportingInfoLevels = this.reportingInfoTaggingComponent.finalReportingInfoLevels;
@@ -589,6 +577,8 @@ export class LoanFormComponent implements OnInit {
         this.loanHolder = infoResponse.detail;
         this.loanDocument.siteVisit = this.loanHolder.siteVisit;
         this.loanDocument.financial = this.loanHolder.financial;
+        this.loanDocument.security = this.loanHolder.security;
+        this.loanDocument.shareSecurity = this.loanHolder.shareSecurity;
       }, error => {
         console.error(error);
         this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load customer info'));

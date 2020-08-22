@@ -1,18 +1,16 @@
-import {Component , Input , OnInit , ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormArray , FormBuilder , FormGroup , Validators} from '@angular/forms';
 import {SecurityInitialFormComponent} from './security-initial-form/security-initial-form.component';
-import {Security} from '../../../model/security';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {AddressService} from '../../../../../@core/service/baseservice/address.service';
-import {Province} from '../../../../admin/modal/province';
-import {District} from '../../../../admin/modal/district';
-import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
-import {ValuatorService} from '../../../../admin/component/valuator/valuator.service';
-import {Proposal} from '../../../../admin/modal/proposal';
-import {Address} from '../../../model/address';
-import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
-import {Guarantor} from '../../../model/guarantor';
-import {CalendarType} from '../../../../../@core/model/calendar-type';
+import {Security} from '../../loan/model/security';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {AddressService} from '../../../@core/service/baseservice/address.service';
+import {Province} from '../../admin/modal/province';
+import {District} from '../../admin/modal/district';
+import {MunicipalityVdc} from '../../admin/modal/municipality_VDC';
+import {Address} from '../../loan/model/address';
+import {Guarantor} from '../../loan/model/guarantor';
+import {CalendarType} from '../../../@core/model/calendar-type';
+import {ShareSecurity} from '../../admin/modal/shareSecurity';
 
 
 @Component({
@@ -22,9 +20,11 @@ import {CalendarType} from '../../../../../@core/model/calendar-type';
 })
 export class SecurityComponent implements OnInit {
     @Input() securityValue: Security;
-    @Input() proposalDataHolder: Proposal;
     @Input() calendarType: CalendarType;
     @Input() loanTag: string;
+    @Output() securityDataEmitter = new EventEmitter();
+    @Input() fromProfile;
+    @Input() shareSecurity: ShareSecurity;
 
     @ViewChild('initialSecurity' , {static: false})
     initialSecurity: SecurityInitialFormComponent;
@@ -39,17 +39,14 @@ export class SecurityComponent implements OnInit {
     municipality: MunicipalityVdc = new MunicipalityVdc();
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     addressList: Array<Address> = new Array<Address>();
-    valuatorByBranch = [];
-    valuatorName = [];
     limit: number;
-    proposalAllData;
     submitted: false;
     guarantorsDetails: Guarantor = new Guarantor();
+    shareSecurityData: ShareSecurity = new ShareSecurity();
 
     constructor(
         private formBuilder: FormBuilder ,
         private addressServices: AddressService ,
-        private valuatorService: ValuatorService ,
     ) {
     }
 
@@ -64,26 +61,9 @@ export class SecurityComponent implements OnInit {
             this.addGuarantorsDetails();
             this.initialSecurityValue = undefined;
         }
-        if (!ObjectUtil.isEmpty(this.proposalDataHolder)) {
-            this.proposalAllData = JSON.parse(this.proposalDataHolder.data);
-        }
-        const valuatorSearch = {
-            'branchIds': LocalStorageUtil.getStorage().branch
-        };
-        this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-            this.valuatorByBranch = res.detail;
-            if (this.proposalAllData !== undefined) {
-                this.limit = this.proposalAllData.proposedLimit;
-                this.valuatorByBranch.forEach((value) => {
-                    if ((Number(value.minAmount) <= Number(this.limit)) && (Number(value.maxAmount) >= Number(this.limit))) {
-                        const valuatorList = {id: value.id , name: value.name};
-                        this.valuatorName.push(valuatorList);
-                    } else {
-                        console.log('enter proposal limit');
-                    }
-                });
-            }
-        });
+
+
+
     }
 
     buildForm() {
@@ -186,6 +166,7 @@ export class SecurityComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityData = this.securityValue;
         }
+        this.initialSecurity.submit();
         const mergedForm = {
             initialForm: this.initialSecurity.securityForm.value ,
             selectedArray: this.initialSecurity.selectedArray ,
@@ -195,6 +176,9 @@ export class SecurityComponent implements OnInit {
         };
         this.securityData.data = JSON.stringify(mergedForm);
         this.securityData.guarantor = [];
+        this.shareSecurityData = this.initialSecurity.shareSecurityData;
+        this.securityData.share = this.shareSecurityData;
+
         let guarantorIndex = 0;
         while (guarantorIndex < this.getGuarantor().length) {
             const guarantor = new Guarantor();
@@ -222,5 +206,6 @@ export class SecurityComponent implements OnInit {
             guarantorIndex++;
             this.securityData.guarantor.push(guarantor);
         }
+        this.securityDataEmitter.emit(this.securityData);
     }
 }

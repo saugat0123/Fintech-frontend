@@ -10,7 +10,7 @@ import {CompanyInfoComponent} from './component/loan-main-template/company-info/
 import {KycInfoComponent} from './component/loan-main-template/kyc-info/kyc-info.component';
 import {DmsLoanFileComponent} from './component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {SecurityComponent} from './component/loan-main-template/security/security.component';
+// import {SecurityComponent} from './component/loan-main-template/security/security.component';
 import {NbDatepickerModule} from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
 import {LoanActionComponent} from './loan-action/loan-action.component';
@@ -33,7 +33,6 @@ import {AgmCoreModule} from '@agm/core';
 import {LoanPullComponent} from './component/loan-pull/loan-pull.component';
 import {FinancialSummaryComponent} from './component/loan-summary/financial-summary/financial-summary.component';
 // tslint:disable-next-line:max-line-length
-import {SecurityInitialFormComponent} from './component/loan-main-template/security/security-initial-form/security-initial-form.component';
 import {SecuritySummaryComponent} from './component/loan-summary/security-summary/security-summary.component';
 import {CustomerDocumentComponent} from './component/loan-main-template/customer-document/customer-document.component';
 
@@ -45,8 +44,6 @@ import {SitevistSummaryComponentComponent} from './component/loan-summary/sitevi
 import {GroupComponent} from './component/loan-main-template/group/group.component';
 import {GroupDetailComponent} from './component/loan-main-template/group/group-detail/group-detail.component';
 import {SecurityDetailComponent} from './component/loan-main-template/group/security-detail/security-detail.component';
-import {ShareSecurityComponent} from './component/loan-main-template/share-security/share-security.component';
-import {ShareSecuritySummaryComponent} from './component/loan-summary/share-security-summary/share-security-summary.component';
 import {DhitoLikhatManjurinamaComponent} from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-manjurinama.component';
 import {DhristiBandhakComponent} from './component/offer-letter/dhristi-bandhak/dhristi-bandhak.component';
 import {JamaniTamsukComponent} from './component/offer-letter/jamani-tamsuk/jamani-tamsuk.component';
@@ -90,7 +87,6 @@ const COMPONENTS = [
     CompanyInfoComponent,
     KycInfoComponent,
     DmsLoanFileComponent,
-    SecurityComponent,
     LoanActionComponent,
     LoanSummaryComponent,
     BirthMarkLetterNepaliComponent,
@@ -103,7 +99,6 @@ const COMPONENTS = [
     CreditGradingComponent,
 
     LoanPullComponent,
-    SecurityInitialFormComponent,
     SecuritySummaryComponent,
     FinancialSummaryComponent,
     CustomerDocumentComponent,
@@ -116,8 +111,6 @@ const COMPONENTS = [
     GroupComponent,
     GroupDetailComponent,
     SecurityDetailComponent,
-    ShareSecurityComponent,
-    ShareSecuritySummaryComponent,
     DhitoLikhatManjurinamaComponent,
     DhristiBandhakComponent,
     JamaniTamsukComponent,
