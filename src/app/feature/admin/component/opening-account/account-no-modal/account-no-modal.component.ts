@@ -12,7 +12,7 @@ import {environment} from '../../../../../../environments/environment';
   styleUrls: ['./account-no-modal.component.scss']
 })
 export class AccountNumberModalComponent implements OnInit {
-  @Input() openingForm: OpeningForm;
+  @Input() openingForm: any;
   accountNumber;
   isFeatureEnable = environment.enablePreAddingAccountNumber;
   requestValue = {

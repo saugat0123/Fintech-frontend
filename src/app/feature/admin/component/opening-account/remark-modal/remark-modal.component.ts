@@ -15,7 +15,7 @@ import {UserService} from '../../user/user.service';
   styles: ['']
 })
 export class RemarkModalComponent implements OnInit {
-  @Input() openingForm: OpeningForm;
+  @Input() openingForm: any;
   @Input() action: string;
 
   requestValue = {
