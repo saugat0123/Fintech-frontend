@@ -24,6 +24,9 @@ import {RoleType} from '../../../modal/roleType';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {AccountNumberModalComponent} from '../account-no-modal/account-no-modal.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {RemarkModalComponent} from '../remark-modal/remark-modal.component';
 
 @Component({
     selector: 'app-open-opening-component',
