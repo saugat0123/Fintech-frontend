@@ -54,7 +54,6 @@ export class KycEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.customer.customerRelatives['version']);
     this.editCustomer(1);
     this.buildForm();
     this.setRelatives(this.customer.customerRelatives);
@@ -91,8 +90,8 @@ export class KycEditComponent implements OnInit {
 
     const rawFromValue = this.kycForm.getRawValue();
     this.customer.customerRelatives = rawFromValue.customerRelatives;
-    this.customerRelativeService.update(this.customer.id, this.customer.customerRelatives).subscribe((res: any) => {
-      this.customer.customerRelatives = res.detail;
+    this.customerService.save(this.customer).subscribe((res: any) => {
+      this.customer = res.detail;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
       this.edited = false;
     }, error => {

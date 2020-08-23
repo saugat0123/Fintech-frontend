@@ -53,7 +53,6 @@ export class KycFormComponent implements OnInit {
 
   ngOnInit() {
     this.editCustomer(1);
-    console.log(this.customer.customerRelatives['version']);
     this.buildForm();
     this.createRelativesArray();
   }
@@ -70,7 +69,7 @@ export class KycFormComponent implements OnInit {
     this.kycRelative.push(this.kycInfo.get('customerRelatives')['controls'][0].value);
     this.customer.customerRelatives = this.kycRelative;
 
-    this.customerRelativeService.update(this.customer.id, this.customer.customerRelatives).subscribe(response => {
+    this.customerService.save( this.customer).subscribe(response => {
       this.customer = response.detail;
       this.isEdited = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
@@ -84,7 +83,8 @@ export class KycFormComponent implements OnInit {
       citizenshipNumber: [undefined],
       citizenshipIssuedPlace: [undefined],
       citizenshipIssuedDate: [undefined],
-      version: [0]
+      version: [undefined]
+
     }));
 
   }
