@@ -52,7 +52,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   private  security: Security;
   private  shareSecurity: ShareSecurity;
   private guarantors: GuarantorDetail;
-  private  insurance: Insurance;
+  public insurance: Insurance;
 
   constructor(
       private toastService: ToastService,
