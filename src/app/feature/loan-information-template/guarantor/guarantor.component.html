@@ -269,4 +269,9 @@
             </form>
         </div>
     </nb-card-body>
+    <nb-card-footer>
+        <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+            <button (click)="onSubmit()" nbButton type="button">save</button>
+        </div>
+    </nb-card-footer>
 </nb-card>
