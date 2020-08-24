@@ -21,6 +21,7 @@ import {CoreModule} from '../../@core/core.module';
 import {SecurityComponent} from './security/security.component';
 import {SecurityInitialFormComponent} from './security/security-initial-form/security-initial-form.component';
 import {GuarantorComponent} from './guarantor/guarantor.component';
+import {InsuranceComponent} from './insurance/insurance.component';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -35,7 +36,8 @@ const COMPONENTS = [
   FiscalYearModalComponent,
   SecurityComponent,
   SecurityInitialFormComponent,
-  GuarantorComponent
+  GuarantorComponent,
+    InsuranceComponent
 ];
 
 @NgModule({
