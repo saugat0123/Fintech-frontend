@@ -1,17 +1,17 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Province} from '../../../../admin/modal/province';
-import {District} from '../../../../admin/modal/district';
-import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
-import {Guarantor} from '../../../model/guarantor';
-import {Address} from '../../../model/address';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {AddressService} from '../../../../../@core/service/baseservice/address.service';
-import {GuarantorDetail} from '../../../model/guarantor-detail';
-import {ToastService} from '../../../../../@core/utils';
-import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.service';
-import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {CalendarType} from '../../../../../@core/model/calendar-type';
+import {GuarantorDetail} from '../../loan/model/guarantor-detail';
+import {CalendarType} from '../../../@core/model/calendar-type';
+import {Province} from '../../admin/modal/province';
+import {District} from '../../admin/modal/district';
+import {MunicipalityVdc} from '../../admin/modal/municipality_VDC';
+import {Address} from '../../loan/model/address';
+import {AddressService} from '../../../@core/service/baseservice/address.service';
+import {ToastService} from '../../../@core/utils';
+import {BlacklistService} from '../../admin/component/blacklist/blacklist.service';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {Guarantor} from '../../loan/model/guarantor';
+import {Alert, AlertType} from '../../../@theme/model/Alert';
 
 @Component({
   selector: 'app-guarantor',
@@ -22,6 +22,9 @@ export class GuarantorComponent implements OnInit {
   @Input() guarantorDetailValue: GuarantorDetail;
   @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() calendarType: CalendarType;
+  @Output() guarantorDataEmitter = new EventEmitter();
+  @Input() fromProfile: boolean;
+
   form: FormGroup;
   submitted = false;
   guarantorDetail: GuarantorDetail = new GuarantorDetail();
@@ -187,6 +190,7 @@ export class GuarantorComponent implements OnInit {
       }
       this.guarantorDetail.guarantorList.push(guarantor);
     });
+    this.guarantorDataEmitter.emit(this.guarantorDetail);
   }
 
   checkBlackListByCitizenshipNo(citizenshipNum, index) {

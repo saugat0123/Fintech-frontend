@@ -40,7 +40,6 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
 import {Customer} from '../../../admin/modal/customer';
 import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
-import {GuarantorComponent} from '../loan-main-template/guarantor/guarantor.component';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {InsuranceComponent} from '../loan-main-template/insurance/insurance.component';
@@ -48,6 +47,7 @@ import {CreditRiskGradingAlphaComponent} from '../loan-main-template/credit-risk
 import {CustomerInfoData} from '../../model/customerInfoData';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
 import {FinancialComponent} from '../../../loan-information-template/financial/financial.component';
+import {GuarantorComponent} from '../../../loan-information-template/guarantor/guarantor.component';
 
 @Component({
     selector: 'app-loan-form',
