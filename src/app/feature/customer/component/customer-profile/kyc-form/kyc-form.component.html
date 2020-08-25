@@ -1,0 +1,113 @@
+
+<nb-card class="m-0" accent="primary" [nbSpinner]="spinner"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="giant">
+  <nb-card-header>
+    <a (click)="onClose()" aria-label="Close" class="close cursor"
+       data-dismiss="modal">
+      <span aria-hidden="true">×</span></a>
+    <h4 class="modal-title pull-left"> KYC Detail</h4>
+  </nb-card-header>
+
+  <nb-card-body>
+    <div [formGroup]="kycInfo">
+      <div *ngFor="let relatives of kycInfo.get('customerRelatives')['controls']; let i = index"
+           formArrayName="customerRelatives">
+        <div [formGroupName]="i">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="customerRelation"><strong>Relation</strong></label>
+                <input class="form-control" formControlName="customerRelation"
+                       id="customerRelation"
+                       [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelation').errors }"
+                       placeholder="Relation" type="text">
+                <div *ngIf="submitted && relatives.get('customerRelation').errors"
+                     class="invalid-feedback">
+                  <div *ngIf="relatives.get('customerRelation').errors.required">Relation
+                    is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="relationName"><strong>Name</strong></label>
+                <input class="form-control" formControlName="customerRelativeName"
+                       id="relationName"
+                       placeholder="Name" type="text">
+                <div *ngIf="submitted && relatives.get('customerRelativeName').errors"
+                     class="invalid-feedback">
+                  Citizenship number is required
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="citizenship"><strong>CitizenshipNumber</strong></label>
+                <input class="form-control" formControlName="citizenshipNumber"
+                       id="citizenship"   placeholder="Citizenship Number" type="text">
+                <div *ngIf="submitted && relatives.get('citizenshipNumber').errors"
+                     class="invalid-feedback">
+                  Citizenship number is required
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="issuedLocation"><strong>Issued District</strong></label>
+                <ng-select [multiple]="false"
+                           [appendTo]="'body'"
+                           formControlName="citizenshipIssuedPlace"
+                           id="issuedLocation"
+                           [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipIssuedPlace').errors }"
+                           placeholder="Issued District">
+                  <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+                    {{district?.name}}
+                  </ng-option>
+                </ng-select>
+                <div *ngIf="submitted && relatives.get('citizenshipIssuedPlace').errors"
+                     class="invalid-feedback">
+                  <div *ngIf="relatives.get('citizenshipIssuedPlace').errors.required">
+                    issue place is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="issuedDate"><strong>Issued Date</strong></label>
+               <div class="input-group">
+                 <input nbInput [nbDatepicker]="relationCitizenIssueDate"
+                        class="form-control"
+                        formControlName="citizenshipIssuedDate"
+                        [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipIssuedDate').errors }"
+                      id="issuedDate" placeholder="Issued Date">
+                 <div *ngIf="i > 1">
+                   <button  (click)="removeRelatives(i)"
+                            class="ml-2 mt-1 btn-danger btn-sm btn-flat"><em class="fa fa-trash bg-transparent"></em>
+                   </button>
+                 </div>
+                 <nb-datepicker #relationCitizenIssueDate></nb-datepicker>
+                 <div *ngIf="submitted && relatives.get('citizenshipIssuedDate').errors"
+                      class="invalid-feedback">
+                   Invalid Issued Date!
+                 </div>
+               </div>
+              </div>
+            </div>
+       <!--     <button (click)="addKyc()" nbButton status="primary" class="float-right"><nb-icon icon="plus-outline"></nb-icon></button>
+        -->
+          </div>
+        </div>
+      </div>
+      <button (click)="addKyc()"
+              class="btn btn-primary btn-sm float-right "
+              size="tiny">Add more</button>
+    </div>
+  </nb-card-body>
+  <nb-card-footer >
+      <button (click)="onSubmit()" nbButton status="primary" style="cursor: pointer" type="submit"><i class="fa fa-save"></i>
+      </button>
+  </nb-card-footer>
+</nb-card>

@@ -207,9 +207,9 @@
                             <div class="col-md-6">KYC</div>
                             <div class="col-md-6 ">
                                 <div class="px-2 text-right">
-                                    <a (click)="openTemplate(kycEdit)" *ngIf="!isEdited" class="p-2 cursor"><i
+                                    <a (click)="openKycModal()" *ngIf="!isEdited" class="p-2 cursor"><i
                                             class="fa fa-edit"></i></a>
-                                    <a (click)="openTemplate(kycUpdate)" nbButton size="tiny">+</a>
+                                    <a (click)="openKycModal()" nbButton size="tiny">+</a>
                                 </div>
                             </div>
                         </div>
@@ -313,13 +313,4 @@
         </form>
     </div>
 
-</ng-template>
-
-<ng-template #kycUpdate>
-    <app-kyc-form [kycRelative]="customer?.customerRelatives"
-                  [customer]="customer"></app-kyc-form>
-</ng-template>
-<ng-template #kycEdit>
-    <app-kyc-edit [kycRelative]="customer?.customerRelatives"
-                  [customer]="customer"></app-kyc-edit>
 </ng-template>

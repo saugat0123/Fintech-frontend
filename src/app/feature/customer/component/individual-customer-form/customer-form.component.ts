@@ -15,7 +15,6 @@ import {DateValidator} from '../../../../@core/validator/date-validator';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {CustomerAssociateComponent} from '../../../loan/component/loan-main-template/customer-associate/customer-associate.component';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
-import {SecurityInitialFormComponent} from '../../../loan/component/loan-main-template/security/security-initial-form/security-initial-form.component';
 
 @Component({
   selector: 'app-customer-form',

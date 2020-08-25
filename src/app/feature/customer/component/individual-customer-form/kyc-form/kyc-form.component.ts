@@ -9,6 +9,7 @@ import {ToastService} from '../../../../../@core/utils';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {CustomerRelativeService} from "../../../service/customer-relative.service";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 
 
@@ -17,7 +18,7 @@ import {CustomerRelativeService} from "../../../service/customer-relative.servic
   templateUrl: './kyc-form.component.html',
   styleUrls: ['./kyc-form.component.scss']
 })
-export class KycFormComponent implements OnInit {
+export class KycFormComponentd implements OnInit {
   id: number;
 
   isEdited = false;
@@ -47,7 +48,7 @@ export class KycFormComponent implements OnInit {
       private toastService: ToastService,
       private customerRelativeService: CustomerRelativeService,
       private router: Router,
-      private dialogService: NbDialogService
+      private ngbActiveModal: NgbActiveModal
   ) {
   }
 
@@ -89,7 +90,8 @@ export class KycFormComponent implements OnInit {
 
   }
   editCustomer(val) {
-    this.isEdited = val === 1;
+    /*this.isEdited = val === 1;*/
+    this.ngbActiveModal.dismiss();
   }
 
 

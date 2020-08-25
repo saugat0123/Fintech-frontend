@@ -11,25 +11,25 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {NbDatepickerModule, NbDialogModule} from '@nebular/theme';
-import {KycFormComponent} from './component/individual-customer-form/kyc-form/kyc-form.component';
 import {CustomerLoanInformationComponent} from './component/customer-loan-information/customer-loan-information.component';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import { KycEditComponent } from './component/individual-customer-form/kyc-edit/kyc-edit.component';
 import { CompanyFormComponent } from './component/company-form/company-form.component';
+import {KycFormComponent} from './component/customer-profile/kyc-form/kyc-form.component';
 
 const COMPONENTS = [
   CustomerComponent,
   CustomerProfileComponent,
   CustomerGroupLoanComponent,
   CustomerFormComponent,
-  KycFormComponent,
   CustomerLoanInformationComponent,
-  KycEditComponent
+  KycEditComponent,
+  KycFormComponent
 ];
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
-  declarations: [...COMPONENTS, CompanyFormComponent, ],
+  declarations: [...COMPONENTS, CompanyFormComponent, KycFormComponent, ],
   exports: [
     CustomerGroupLoanComponent
   ],
@@ -50,7 +50,9 @@ const COMPONENTS = [
   ],
   entryComponents: [
       CustomerFormComponent,
-      CompanyFormComponent
+      CompanyFormComponent,
+      KycFormComponent,
+      KycEditComponent
   ]
 })
 export class CustomerModule {

@@ -1,7 +1,7 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
 import {CustomerService} from '../../service/customer.service';
-import {ToastService} from '../../../../@core/utils';
+import {ModalUtils, ToastService} from '../../../../@core/utils';
 import {Customer} from '../../../admin/modal/customer';
 import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
 import {LoanType} from '../../../loan/model/loanType';
@@ -24,7 +24,9 @@ import {CustomerType} from '../../model/customerType';
 import {CustomerInfoService} from '../../service/customer-info.service';
 // @ts-ignore
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
-import {LoanDataHolder} from "../../../loan/model/loanData";
+import {LoanDataHolder} from '../../../loan/model/loanData';
+import {KycFormComponent} from './kyc-form/kyc-form.component';
+import {NbDialogService} from '@nebular/theme';
 
 
 @Component({
@@ -36,7 +38,7 @@ export class CustomerProfileComponent implements OnInit {
   associateId: number;
   customerInfoId: number;
   calendarType = 'AD';
-  loanData : LoanDataHolder;
+  loanData: LoanDataHolder;
   customer: Customer = new Customer();
   loanType = LoanType;
   loanList = [];
@@ -81,7 +83,8 @@ export class CustomerProfileComponent implements OnInit {
               private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
               private commonLocation: AddressService,
-              private activatedRoute: ActivatedRoute, ) {
+              private activatedRoute: ActivatedRoute,
+              private dialogService: NbDialogService) {
 
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
@@ -204,9 +207,6 @@ export class CustomerProfileComponent implements OnInit {
   editCustomer(val) {
     this.isEdited = val === 1;
   }
-  editKyc(val) {
-    this.edited = val === 1;
-  }
 
   profileUploader(event) {
     const file = event.target.files[0];
@@ -323,7 +323,6 @@ export class CustomerProfileComponent implements OnInit {
       this.customer = res.detail;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
       this.isEdited = false;
-      this.edited = false;
       this.customerBasicFormBuilder();
       this.getProvince();
       this.setRelatives(this.customer.customerRelatives);
@@ -331,17 +330,6 @@ export class CustomerProfileComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
     });
   }
-
-  saveKyc() {
-    this.customerService.save(this.basicForm.value).subscribe((res: any) => {
-      this.customer = res.detail;
-      this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
-      this.edited = false;
-    }, error => {
-      this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-    });
-  }
-
   checkKycLoan(customerRelative: CustomerRelative) {
 
     this.customerService.getCustomerIdOfRelative(customerRelative).subscribe((response: any) => {
@@ -371,7 +359,12 @@ export class CustomerProfileComponent implements OnInit {
     this.totalProposalAmount = this.totalProposedAmountByGuarantor + this.totalProposedAmountByKYC + this.totalLoanProposedAmount;
   }
 
-  openTemplate(template) {
-    this.modalService.open(template, {size: 'lg'});
+  openKycModal() {
+    const customer = this.customer;
+    this.dialogService.open(KycFormComponent, {context: {customer}}).onClose.subscribe(res => {
+     if (!ObjectUtil.isEmpty(res)) {
+       this.ngOnInit();
+     }
+   });
   }
 }
