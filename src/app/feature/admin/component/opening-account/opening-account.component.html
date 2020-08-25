@@ -34,13 +34,11 @@
                             <tr>
                                 <th>S.N</th>
                                 <th>Account Holder Name</th>
-                                <th *ngIf="searchObject?.status === 'APPROVAL'">Account No.</th>
                                 <th>Requested Date</th>
                                 <th>Branch</th>
                                 <th>Account Type</th>
-                                <th>{{searchObject?.status === 'REJECTED' ? 'Reject' : 'Follow Up'}} Remark</th>
-                                <th>{{searchObject?.status === 'REJECTED' ? 'Rejected' : 'Last Follow Up'}} Date</th>
-                                <th>{{searchObject?.status === 'REJECTED' ? 'Rejected' : 'Follow Up'}} By</th>
+                                <th>Follow Up Remark</th>
+                                <th>Last Follow Up Date</th>
                                 <th *ngIf="showAction">Action</th>
                             </tr>
                             </thead>
@@ -51,15 +49,11 @@
                                 </div>
                                 <td>{{(pageable.number - 1) * pageable.size + i + 1}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.fullName}}</td>
-                                <td (click)="onEdit(openingForm)"
-                                    *ngIf="searchObject?.status === 'APPROVAL'">{{openingForm?.accountNumber
-                                    ? openingForm.accountNumber : 'N/A'}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.requestedDate | date}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.branch.name}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.accountType?.name}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm?.remark ? openingForm?.remark : 'N/A'}}</td>
                                 <td (click)="onEdit(openingForm)">{{openingForm.lastFollowUp ? (openingForm?.lastFollowUp |date ) : 'N/A'}}</td>
-                                <td (click)="onEdit(openingForm)">{{openingForm.lastFollowUpBy ? (openingForm?.lastFollowUpBy?.username + '(' + openingForm?.lastFollowUpBy?.name + ')' ) : 'N/A'}}</td>
                                 <td *ngIf="showAction">
                                     <button nbButton status="success" size="small"
                                             (click)="updateStatus(openingForm, 'APPROVAL')">

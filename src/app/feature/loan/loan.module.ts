@@ -10,11 +10,13 @@ import {CompanyInfoComponent} from './component/loan-main-template/company-info/
 import {KycInfoComponent} from './component/loan-main-template/kyc-info/kyc-info.component';
 import {DmsLoanFileComponent} from './component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {SecurityComponent} from './component/loan-main-template/security/security.component';
 import {NbDatepickerModule} from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
 import {LoanActionComponent} from './loan-action/loan-action.component';
 import {LoanFormService} from './component/loan-form/service/loan-form.service';
 import {LoanSummaryComponent} from './component/loan-summary/loan-summary.component';
+import {FinancialComponent} from './component/loan-main-template/financial/financial.component';
 import {BirthMarkLetterNepaliComponent} from './component/offer-letter/birth-mark-letter/birth-mark-letter-nepali.component';
 // tslint:disable-next-line:max-line-length
 import {BirthMarkLetterPrintComponent} from './component/offer-letter/birth-mark-letter/birth-mark-letter-print/birth-mark-letter-print.component';
@@ -26,14 +28,21 @@ import {CiclComponent} from './component/loan-main-template/cicl/cicl.component'
 import {ReadmoreModelComponent} from './component/readmore-model/readmore-model.component';
 import {CreditGradingComponent} from './component/loan-main-template/credit-grading/credit-grading.component';
 import {CoreModule} from '../../@core/core.module';
+import {BorrowerRiskRatingComponent} from './component/loan-main-template/financial/borrower-risk-rating/borrower-risk-rating.component';
 import {environment} from '../../../environments/environment';
-
+import {SiteVisitComponent} from './component/loan-main-template/site-visit/site-visit.component';
 import {AgmCoreModule} from '@agm/core';
+import {IncomeStatementComponent} from './component/loan-main-template/financial/income-statement/income-statement.component';
+import {BalanceSheetComponent} from './component/loan-main-template/financial/balance-sheet/balance-sheet.component';
+import {CashFlowStatementComponent} from './component/loan-main-template/financial/cash-flow-statement/cash-flow-statement.component';
+import {KeyIndicatorsComponent} from './component/loan-main-template/financial/key-indicators/key-indicators.component';
+import {InitialFormComponent} from './component/loan-main-template/financial/initial-form/initial-form.component';
 import {LoanPullComponent} from './component/loan-pull/loan-pull.component';
 import {FinancialSummaryComponent} from './component/loan-summary/financial-summary/financial-summary.component';
 // tslint:disable-next-line:max-line-length
+import {SecurityInitialFormComponent} from './component/loan-main-template/security/security-initial-form/security-initial-form.component';
 import {SecuritySummaryComponent} from './component/loan-summary/security-summary/security-summary.component';
-import {CustomerLoanDocumentComponent} from '../loan-information-template/customer-loan-document/customer-loan-document.component';
+import {CustomerDocumentComponent} from './component/loan-main-template/customer-document/customer-document.component';
 
 import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.component';
 import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-action/offer-letter-action.component';
@@ -43,6 +52,8 @@ import {SitevistSummaryComponentComponent} from './component/loan-summary/sitevi
 import {GroupComponent} from './component/loan-main-template/group/group.component';
 import {GroupDetailComponent} from './component/loan-main-template/group/group-detail/group-detail.component';
 import {SecurityDetailComponent} from './component/loan-main-template/group/security-detail/security-detail.component';
+import {ShareSecurityComponent} from './component/loan-main-template/share-security/share-security.component';
+import {ShareSecuritySummaryComponent} from './component/loan-summary/share-security-summary/share-security-summary.component';
 import {DhitoLikhatManjurinamaComponent} from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-manjurinama.component';
 import {DhristiBandhakComponent} from './component/offer-letter/dhristi-bandhak/dhristi-bandhak.component';
 import {JamaniTamsukComponent} from './component/offer-letter/jamani-tamsuk/jamani-tamsuk.component';
@@ -51,6 +62,7 @@ import {KarjatamsukComponent} from './component/offer-letter/karjatamsuk/karjata
 import {ManjurinamaComponent} from './component/offer-letter/manjurinama/manjurinama.component';
 import {PratigyaPatraComponent} from './component/offer-letter/pratigya-patra/pratigya-patra.component';
 import {LoanMainNepaliTemplateComponent} from './component/loan-main-nepali-template/loan-main-nepali-template.component';
+import {FiscalYearModalComponent} from './component/loan-main-template/financial/fiscal-year-modal/fiscal-year-modal.component';
 import {CustomerInfoNepaliComponent} from './component/loan-main-nepali-template/customer-info-nepali/customer-info-nepali.component';
 import {DhitoLikhatPrintComponent} from './component/offer-letter/dhito-likhat-manjurinama/dhito-likhat-print/dhito-likhat-print.component';
 import {ApplicantFamilyInfoComponent} from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info.component';
@@ -70,13 +82,14 @@ import {ApplicantFamilyInfoPrintComponent} from './component/loan-main-nepali-te
 import {BikeKarjaPrintComponent} from './component/loan-main-nepali-template/bike-karja/bike-karja-print/bike-karja-print.component';
 import {CustomerAssociateComponent} from './component/loan-main-template/customer-associate/customer-associate.component';
 import {CustomerModule} from '../customer/customer.module';
+import {GuarantorComponent} from './component/loan-main-template/guarantor/guarantor.component';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {ReportingModule} from '../reporting/reporting.module';
+import {InsuranceComponent} from './component/loan-main-template/insurance/insurance.component';
 import {InsuranceSummaryComponent} from './component/loan-summary/insurance-summary/insurance-summary.component';
 import { GuarantorSummaryComponent } from './component/loan-summary/guarantor-summary/guarantor-summary.component';
 import { ProposalSummaryComponent } from './component/loan-summary/proposal-summary/proposal-summary.component';
 import { CreditRiskGradingAlphaComponent } from './component/loan-main-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
-import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -84,6 +97,7 @@ const COMPONENTS = [
     CompanyInfoComponent,
     KycInfoComponent,
     DmsLoanFileComponent,
+    SecurityComponent,
     LoanActionComponent,
     LoanSummaryComponent,
     BirthMarkLetterNepaliComponent,
@@ -91,14 +105,22 @@ const COMPONENTS = [
     BirthMarkLetterPrintComponent,
     SuccessOfferLetterComponent,
     SuccessOfferLetterPrintComponent,
+    FinancialComponent,
+    BorrowerRiskRatingComponent,
     CiclComponent,
     ReadmoreModelComponent,
     CreditGradingComponent,
-
+    SiteVisitComponent,
     LoanPullComponent,
+    SecurityInitialFormComponent,
     SecuritySummaryComponent,
+    IncomeStatementComponent,
+    BalanceSheetComponent,
+    CashFlowStatementComponent,
+    KeyIndicatorsComponent,
+    InitialFormComponent,
     FinancialSummaryComponent,
-
+    CustomerDocumentComponent,
     FinancialSummaryComponent,
     LoanOfferLetterComponent,
     OfferLetterActionComponent,
@@ -108,6 +130,8 @@ const COMPONENTS = [
     GroupComponent,
     GroupDetailComponent,
     SecurityDetailComponent,
+    ShareSecurityComponent,
+    ShareSecuritySummaryComponent,
     DhitoLikhatManjurinamaComponent,
     DhristiBandhakComponent,
     JamaniTamsukComponent,
@@ -116,8 +140,10 @@ const COMPONENTS = [
     ManjurinamaComponent,
     PratigyaPatraComponent,
     LoanMainNepaliTemplateComponent,
+    FiscalYearModalComponent,
     CustomerInfoNepaliComponent,
     LoanMainNepaliTemplateComponent,
+    FiscalYearModalComponent,
     DhitoLikhatPrintComponent,
     PratigyaPatraPrintComponent,
     ApplicantFamilyInfoComponent,
@@ -134,6 +160,8 @@ const COMPONENTS = [
     ApplicantFamilyInfoPrintComponent,
     BikeKarjaPrintComponent,
     CustomerAssociateComponent,
+    GuarantorComponent,
+    InsuranceComponent,
     InsuranceSummaryComponent,
     GuarantorSummaryComponent,
     ProposalSummaryComponent,
@@ -142,6 +170,7 @@ const COMPONENTS = [
 
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,
+    FiscalYearModalComponent,
     LoanMainNepaliTemplateComponent,
     CustomerInfoNepaliComponent,
     CustomerAssociateComponent
@@ -158,6 +187,7 @@ const ENTRY_COMPONENTS = [
         FormsModule,
         NgbPaginationModule,
         ReactiveFormsModule,
+        ReactiveFormsModule,
         NgSelectModule,
         NbDatepickerModule,
         NgxPrintModule,
@@ -167,8 +197,7 @@ const ENTRY_COMPONENTS = [
         }),
         CustomerModule,
         NepaliCalendarModule,
-        ReportingModule,
-        LoanInformationTemplateModule
+        ReportingModule
     ],
 
     providers: [

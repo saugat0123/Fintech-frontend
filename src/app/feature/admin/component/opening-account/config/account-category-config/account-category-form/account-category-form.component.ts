@@ -36,7 +36,6 @@ export class AccountCategoryFormComponent implements OnInit {
   }
 
   get name() {
-    console.log(this.modelForm);
     return this.modelForm.get('name');
   }
 

@@ -1,5 +1,5 @@
-import {BaseEntity} from '../../../@core/model/base-entity';
-
-export class Financial extends BaseEntity {
-  data?: string;
+export class Financial {
+  id: number;
+  data: string;
+  version: number;
 }

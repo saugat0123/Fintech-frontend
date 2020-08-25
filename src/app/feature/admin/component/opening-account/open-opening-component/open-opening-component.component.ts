@@ -24,9 +24,6 @@ import {RoleType} from '../../../modal/roleType';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
-import {AccountNumberModalComponent} from '../account-no-modal/account-no-modal.component';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {RemarkModalComponent} from '../remark-modal/remark-modal.component';
 
 @Component({
     selector: 'app-open-opening-component',
@@ -37,7 +34,6 @@ import {RemarkModalComponent} from '../remark-modal/remark-modal.component';
 // todo verify and remove function which is not needed
 export class OpenOpeningComponentComponent implements OnInit {
     title: string;
-    restUrl = ApiConfig.URL;
     requestedDate: string;
     openingAccount: FormGroup;
     account: OpeningAccount = new OpeningAccount();
@@ -68,8 +64,7 @@ export class OpenOpeningComponentComponent implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private accountCategoryService: AccountCategoryService,
-        private accountTypeService: AccountTypeService,
-        private modalService: NgbModal,
+        private accountTypeService: AccountTypeService
     ) {
     }
 
@@ -177,7 +172,7 @@ export class OpenOpeningComponentComponent implements OnInit {
             applicantDetail: this.formBuilder.array([
                 this.applicantDetailFormGroup()
             ]),
-            annualTurnOver: openingForm.openingAccount.annualTransactionNumber,
+            annualTurnOver: openingForm.openingAccount.annualTurnover,
             annualTransaction: openingForm.openingAccount.annualTransaction,
             // Nominee
             nomineeRadio: openingForm.openingAccount.haveNominee + '',
@@ -500,7 +495,7 @@ export class OpenOpeningComponentComponent implements OnInit {
 
     addApplicantRelative(applicantIndex) {
         const control = (this.openingAccount.controls['applicantDetail'] as FormArray)
-        .at(applicantIndex).get('applicantRelative') as FormArray;
+            .at(applicantIndex).get('applicantRelative') as FormArray;
         control.push(this.applicantRelativeFormGroup());
     }
 
@@ -540,37 +535,16 @@ export class OpenOpeningComponentComponent implements OnInit {
 
     addApplicantOccupationDetails(applicantIndex) {
         const control = (this.openingAccount.controls['applicantDetail'] as FormArray)
-        .at(applicantIndex).get('occupationDetails') as FormArray;
+            .at(applicantIndex).get('occupationDetails') as FormArray;
         control.push(this.applicantOccupationDetailsFormGroup());
     }
 
     submitForm(action: string) {
         const openingActionDto = {
-            'id': this.id,
+            'id' : this.openingAccount.get('id').value,
             actionStatus: action,
-            openingCustomers: this.getApplicantDetail()
+            openingCustomers:  this.getApplicantDetail()
         };
-        if (action === 'APPROVAL') {
-            const modalRef = this.modalService.open(AccountNumberModalComponent);
-            modalRef.componentInstance.openingForm = openingActionDto.openingCustomers;
-            modalRef.componentInstance.openingForm.id = this.id;
-            modalRef.result.then(() => {
-                this.updateForm(openingActionDto);
-            }, () => {
-            });
-        } else if (action === 'REJECTED') {
-            const modalRef = this.modalService.open(RemarkModalComponent);
-            modalRef.componentInstance.openingForm = openingActionDto.openingCustomers;
-            modalRef.componentInstance.openingForm.id = this.id;
-            modalRef.componentInstance.action = 'Reject';
-            modalRef.result.then(() => {
-                this.updateForm(openingActionDto);
-            }, () => {
-            });
-        }
-    }
-
-    updateForm(openingActionDto) {
         this.service.postAccountOpeningAction(openingActionDto).subscribe(value => {
             this.router.navigate(['home/admin/openingAccount']);
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved'));
@@ -732,7 +706,7 @@ export class OpenOpeningComponentComponent implements OnInit {
             this.account.openingCustomers.push(this.openingCustomer);
         }
         // Account Transaction Details
-        this.account.annualTransactionNumber = this.openingAccount.get('annualTurnOver').value;
+        this.account.annualTurnover = this.openingAccount.get('annualTurnOver').value;
         this.account.annualTransaction = this.openingAccount.get('annualTransaction').value;
         // Beneficiary Details
         this.account.haveBeneficiary = this.openingAccount.get('beneficiaryRadio').value;

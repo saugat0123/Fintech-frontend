@@ -12,8 +12,8 @@ export class OpeningAccount {
   nominee: OpeningNominee;
   beneficiary: OpeningBeneficiary;
   openingCustomers: Array<OpeningCustomer>;
-  annualTransactionNumber: string;
-  annualTransaction: string;
+  annualTurnover: number;
+  annualTransaction: number;
   internetBanking: boolean;
   mobileBanking: boolean;
   debitCard: boolean;

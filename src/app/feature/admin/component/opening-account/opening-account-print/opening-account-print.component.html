@@ -1,19 +1,11 @@
 <nb-card id="account-opening-print" hidden>
-    <nb-card-header>
-     <div class="row d-flex justify-content-center">
-         <h1> {{openingForm?.accountType?.name}} Opening Account</h1>
-     </div>
-        <div class="row">
-            <div class="offset-9 col-md-3">
-                <div class="col form-group form-inline">
-                    <img [src]="restUrl + '/' + openingForm.customerPhotoPath" class="photoFrame">
-                </div>
-            </div>
-        </div>
+    <nb-card-header class="text-center">
+       <h1> {{openingForm?.accountType?.name}} Opening Account</h1>
     </nb-card-header>
     <nb-card-body>
+        <hr>
         <div class="form-group">
-                <input hidden="hidden" type="text"/>
+                <input hidden="id" type="text"/>
                 <!-- START ROW -->
                 <div class="row form-group">
                     <div class="col-md-8">
@@ -775,14 +767,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="annualTurnOver"><strong>Estimated Number of Annual Transaction In Account:-</strong></label>
-                            <span id="annualTurnOver"> {{openingForm?.openingAccount?.annualTransactionNumber}}</span>
+                            <label for="annualTurnOver"><strong>Expected Annual Turnover In Account:- </strong></label>
+                            <span id="annualTurnOver"> {{openingForm?.openingAccount?.annualTurnover}}</span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="annualTransaction">
-                                <strong>Expected Annual Transaction Amount In Account:- :- </strong>
+                                <strong>Estimated Number of Annual Transaction In Account:- </strong>
                             </label>
                             <span id="annualTransaction"> {{openingForm?.openingAccount?.annualTransaction}}</span>
                         </div>

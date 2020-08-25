@@ -2,8 +2,6 @@
 @import '~@nebular/theme/styles/theming';
 // @nebular out of the box themes
 @import '~@nebular/theme/styles/themes/default';
-// bank color theme
-@import "src/styles";
 
 $nb-enable-css-custom-properties: true;
 
@@ -54,8 +52,6 @@ $nb-themes: nb-register-theme((
         color-danger-700: #780951,
         color-danger-800: #61054A,
         color-danger-900: #500344,
-        scrollbar-width: 10px,
-        scrollbar-color: $color-bank,
   /** theme color end */
         layout-padding-top:
 
