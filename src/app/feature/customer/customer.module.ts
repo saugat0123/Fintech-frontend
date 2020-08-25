@@ -15,6 +15,7 @@ import {KycFormComponent} from './component/individual-customer-form/kyc-form/ky
 import {CustomerLoanInformationComponent} from './component/customer-loan-information/customer-loan-information.component';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import { CompanyFormComponent } from './component/company-form/company-form.component';
+import { CustomerDocComponent } from './component/customer-doc-management/customer-doc.component';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -27,7 +28,7 @@ const COMPONENTS = [
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
-  declarations: [...COMPONENTS, CompanyFormComponent, ],
+  declarations: [...COMPONENTS, CompanyFormComponent, CustomerDocComponent, ],
   exports: [
     CustomerGroupLoanComponent
   ],

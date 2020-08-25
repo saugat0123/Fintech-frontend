@@ -28,7 +28,7 @@ import {SiteVisitComponent} from '../../../loan-information-template/site-visit/
 import {NgxSpinnerService} from 'ngx-spinner';
 import {SecurityComponent} from '../../../loan-information-template/security/security.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CustomerDocumentComponent} from '../loan-main-template/customer-document/customer-document.component';
+import {CustomerLoanDocumentComponent} from '../../../loan-information-template/customer-loan-document/customer-loan-document.component';
 import {DocStatus} from '../../model/docStatus';
 import {CustomerService} from '../../../customer/service/customer.service';
 import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
@@ -164,7 +164,7 @@ export class LoanFormComponent implements OnInit {
     security: SecurityComponent;
 
     @ViewChild('customerDocument', {static: false})
-    customerDocument: CustomerDocumentComponent;
+    customerDocument: CustomerLoanDocumentComponent;
 
     @ViewChild('group', {static: false})
     group: GroupComponent;
