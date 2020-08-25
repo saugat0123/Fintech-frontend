@@ -5,17 +5,52 @@ import {CustomerRoutingModule} from './customer-routing.module';
 import {ThemeModule} from '../../@theme/theme.module';
 import {CustomerProfileComponent} from './component/customer-profile/customer-profile.component';
 import {CustomerGroupLoanComponent} from './component/customer-group-loan/customer-group-loan.component';
+import {CustomerFormComponent} from './component/individual-customer-form/customer-form.component';
+import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {NbDatepickerModule, NbDialogModule} from '@nebular/theme';
+import {CustomerLoanInformationComponent} from './component/customer-loan-information/customer-loan-information.component';
+import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
+import { CompanyFormComponent } from './component/company-form/company-form.component';
+import { CustomerDocComponent } from './component/customer-doc-management/customer-doc.component';
+import {KycFormComponent} from './component/customer-profile/kyc-form/kyc-form.component';
 
+const COMPONENTS = [
+  CustomerComponent,
+  CustomerProfileComponent,
+  CustomerGroupLoanComponent,
+  CustomerFormComponent,
+  KycFormComponent,
+  CustomerLoanInformationComponent
+];
 
 @NgModule({
-  declarations: [CustomerComponent, CustomerProfileComponent, CustomerGroupLoanComponent],
+  // tslint:disable-next-line:max-line-length
+  declarations: [...COMPONENTS, CompanyFormComponent, CustomerDocComponent, ],
   exports: [
     CustomerGroupLoanComponent
   ],
   imports: [
     CommonModule,
     CustomerRoutingModule,
-    ThemeModule
+    ThemeModule,
+    FormsModule,
+    NgbPaginationModule,
+    ReactiveFormsModule,
+    NgSelectModule,
+    NbDatepickerModule,
+    NepaliCalendarModule,
+    NbDialogModule.forRoot(),
+    LoanInformationTemplateModule
+
+
+  ],
+  entryComponents: [
+      CustomerFormComponent,
+      CompanyFormComponent,
+      KycFormComponent
   ]
 })
 export class CustomerModule {

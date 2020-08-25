@@ -1,0 +1,28 @@
+<nb-card>
+    <nb-card-header><h1>Security</h1>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
+                                name="securityInitialInfoCalendarType">
+                    <nb-radio value="AD">AD</nb-radio>
+                    <nb-radio value="BS">BS</nb-radio>
+                </nb-radio-group>
+            </div>
+        </div></nb-card-header>
+    <div class="d-flex justify-content-end">
+    </div>
+    <nb-card-body>
+        <div class="container" id="security">
+            <div class="form-group">
+                <app-security-initial-form #initialSecurity
+                                           [formData]="initialSecurityValue"
+                                           [calendarType]="calendarType"
+                                           [loanTag]="loanTag"
+                                           [shareSecurity]="shareSecurity"></app-security-initial-form>
+            </div>
+        </div>
+    </nb-card-body>
+    <div class="py-4 d-flex justify-content-end" *ngIf="fromProfile">
+        <button nbButton (click)="onSubmit()">save</button>
+    </div>
+</nb-card>

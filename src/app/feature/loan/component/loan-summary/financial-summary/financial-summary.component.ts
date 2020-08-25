@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Financial} from '../../../model/financial';
-import {FinancialService} from '../../loan-main-template/financial/financial.service';
+import {FinancialService} from '../../../../loan-information-template/financial/financial.service';
 
 @Component({
   selector: 'app-financial-summary',
