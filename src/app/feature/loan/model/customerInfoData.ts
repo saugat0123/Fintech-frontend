@@ -2,6 +2,7 @@ import {SiteVisit} from '../../admin/modal/siteVisit';
 import {Financial} from './financial';
 import {Security} from './security';
 import {GuarantorDetail} from './guarantor-detail';
+import {Insurance} from '../../admin/modal/insurance';
 
 export class CustomerInfoData {
   id: number;
@@ -21,5 +22,6 @@ export class CustomerInfoData {
   security: Security;
   shareSecurity;
   guarantors: GuarantorDetail;
+  insurance: Insurance;
 
 }

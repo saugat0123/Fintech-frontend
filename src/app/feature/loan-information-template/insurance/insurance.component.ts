@@ -1,7 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Insurance} from '../../../../admin/modal/insurance';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {Insurance} from '../../admin/modal/insurance';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-insurance',
@@ -10,7 +11,8 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 })
 export class InsuranceComponent implements OnInit {
     @Input() insuranceDataFromModel: Insurance;
-
+    @Input() fromProfile;
+    @Output() insuranceDataEmitter = new EventEmitter();
     form: FormGroup;
     isSubmitted = false;
     insurance: Insurance = new Insurance();
@@ -41,11 +43,15 @@ export class InsuranceComponent implements OnInit {
             issuedDate: [this.insurance.issuedDate === undefined ? undefined : new Date(this.insurance.issuedDate)],
             expiryDate: [this.insurance.expiryDate === undefined ? undefined : new Date(this.insurance.expiryDate)],
             policyType: [ObjectUtil.setUndefinedIfNull(this.insurance.policyType)],
+            policyNumber: [ObjectUtil.setUndefinedIfNull(this.insurance.policyNumber)]
         });
     }
 
     submit() {
         this.insurance = this.form.value as Insurance;
+        this.insurance.issuedDate = new Date(this.form.get('issuedDate').value);
+        this.insurance.expiryDate = new Date(this.form.get('expiryDate').value);
+        this.insuranceDataEmitter.emit(this.insurance);
     }
 
     returnIssuedDate() {
