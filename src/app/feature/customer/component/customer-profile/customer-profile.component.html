@@ -202,13 +202,21 @@
       </div>
       <div class="col-md-4">
         <nb-card accent="primary">
-          <nb-card-header>KYC</nb-card-header>
+                    <nb-card-header>
+                        <div class="row justify-content-lg-start">
+                            <div class="col-md-6">KYC</div>
+                            <div class="col-md-6 ">
+                                <div class="px-2 text-right">
+                                    <a  (click)="openKycModal()"  class="p-2 cursor"><i
+                                            class="fa fa-edit"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </nb-card-header>
+
           <nb-card-body>
-            <button (click)="openTemplate(kycUpdate)" nbButton size="tiny">Update KYC</button>
-            <hr/>
             <div (click)="checkKycLoan(customerRelative)"
                  *ngFor="let customerRelative of customer.customerRelatives" class="cursor">
-
               <div class="row">
                 <div class="col-md-5">
                   <span> <b>Name</b></span></div>
@@ -302,8 +310,4 @@
     </form>
   </div>
 
-</ng-template>
-
-<ng-template #kycUpdate>
-  <app-kyc-form [kycRelative]="customer?.customerRelatives"></app-kyc-form>
 </ng-template>

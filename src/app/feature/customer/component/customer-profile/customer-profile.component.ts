@@ -112,7 +112,6 @@ export class CustomerProfileComponent implements OnInit {
       this.getProvince();
       this.setRelatives(this.customer.customerRelatives);
 
-
     });
 
 
