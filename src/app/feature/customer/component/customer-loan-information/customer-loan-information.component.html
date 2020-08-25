@@ -103,6 +103,31 @@
                          [guarantorDetailValue]="customerInfo?.guarantors"></app-guarantor>
         </nb-accordion-item-body>
       </nb-accordion-item>
+      <nb-accordion-item #itemInsurance>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>INSURANCE</span>
+            </div>
+            <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="insurance" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+              <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!insurance" class="fas fa-times-circle px-2"></em>
+              </span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-insurance
+                         (insuranceDataEmitter)="saveInsurance($event)"
+                         *ngIf="itemInsurance.expanded"
+                         [insuranceDataFromModel]="customerInfo?.insurance"
+                         [fromProfile]="true"></app-insurance>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
     </nb-accordion>
   </nb-card-body>
 </nb-card>

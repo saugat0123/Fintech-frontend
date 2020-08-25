@@ -42,7 +42,7 @@ import {Customer} from '../../../admin/modal/customer';
 import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
-import {InsuranceComponent} from '../loan-main-template/insurance/insurance.component';
+import {InsuranceComponent} from '../../../loan-information-template/insurance/insurance.component';
 import {CreditRiskGradingAlphaComponent} from '../loan-main-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {CustomerInfoData} from '../../model/customerInfoData';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
@@ -579,6 +579,7 @@ export class LoanFormComponent implements OnInit {
         this.loanDocument.financial = this.loanHolder.financial;
         this.loanDocument.security = this.loanHolder.security;
         this.loanDocument.shareSecurity = this.loanHolder.shareSecurity;
+        this.loanDocument.insurance = this.loanHolder.insurance;
       }, error => {
         console.error(error);
         this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load customer info'));

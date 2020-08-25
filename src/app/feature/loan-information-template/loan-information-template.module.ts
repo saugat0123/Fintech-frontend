@@ -21,6 +21,7 @@ import {CoreModule} from '../../@core/core.module';
 import {SecurityComponent} from './security/security.component';
 import {SecurityInitialFormComponent} from './security/security-initial-form/security-initial-form.component';
 import {GuarantorComponent} from './guarantor/guarantor.component';
+import {InsuranceComponent} from './insurance/insurance.component';
 import {CustomerLoanDocumentComponent} from './customer-loan-document/customer-loan-document.component';
 
 const COMPONENTS = [
@@ -36,6 +37,8 @@ const COMPONENTS = [
   FiscalYearModalComponent,
   SecurityComponent,
   SecurityInitialFormComponent,
+  GuarantorComponent,
+    InsuranceComponent
   GuarantorComponent,
   CustomerLoanDocumentComponent,
 ];

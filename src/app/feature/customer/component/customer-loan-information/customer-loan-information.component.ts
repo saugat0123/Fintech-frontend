@@ -15,6 +15,7 @@ import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {GuarantorComponent} from '../../../loan-information-template/guarantor/guarantor.component';
+import {Insurance} from '../../../admin/modal/insurance';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -42,6 +43,8 @@ export class CustomerLoanInformationComponent implements OnInit {
   @ViewChild('itemGuarantor', {static: false})
   private itemGuarantor: NbAccordionItemComponent;
 
+  @ViewChild('itemInsurance', {static: false})
+  private  itemInsurance: NbAccordionItemComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType = CalendarType.AD;
   private siteVisit: SiteVisit;
@@ -49,6 +52,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   private  security: Security;
   private  shareSecurity: ShareSecurity;
   private guarantors: GuarantorDetail;
+  public insurance: Insurance;
 
   constructor(
       private toastService: ToastService,
@@ -65,6 +69,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
       this.security = this.customerInfo.security;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.insurance)) {
+      this.insurance = this.customerInfo.insurance;
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
       this.guarantors = this.customerInfo.guarantors;
@@ -150,4 +157,20 @@ export class CustomerLoanInformationComponent implements OnInit {
           this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Guarantor !'));
     });
   }
+
+    public saveInsurance(data: Insurance) {
+      if (ObjectUtil.isEmpty(this.insurance)) {
+        this.insurance = new Insurance();
+      }
+      this.insurance = data;
+      this.customerInfoService.saveLoanInfo(this.insurance, this.customerInfoId, TemplateName.INSURANCE)
+      .subscribe(() => {
+        this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Insurance!'));
+        this.itemInsurance.close();
+        this.triggerCustomerRefresh.emit(true);
+      }, error => {
+        console.error(error);
+        this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Insurance!'));
+      });
+    }
 }
