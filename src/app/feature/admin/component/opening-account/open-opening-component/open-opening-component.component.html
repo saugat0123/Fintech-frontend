@@ -12,13 +12,6 @@
     </div>
     <div class="wizard-title text-center"><h1>{{title}} Opening Account</h1></div>
     <hr/>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="float-right">
-          <img [src]="restUrl + '/' + openingForm.customerPhotoPath" alt="customer photo" class="profile_frame mr-4">
-        </div>
-      </div>
-    </div>
     <p class="text-right">Requested Date: {{requestedDate}}</p>
   </nb-card-header>
   <nb-card-body>
@@ -1518,7 +1511,8 @@
       <!-- START ROW -->
       <div class="row">
         <div class="col-md-6 form-group">
-          <label for="annualTurnOver"><strong>Estimated Number of Annual Transaction In Account</strong></label>
+          <label for="annualTurnOver"><strong>Expected Annual Turnover In
+            Account</strong></label>
           <input class="form-control form-control-error rounded"
                  formControlName="annualTurnOver"
                  id="annualTurnOver"
@@ -1527,7 +1521,7 @@
         </div>
         <div class="col-md-6 form-group">
           <label for="annualTransaction">
-            <strong>Estimated Number of Annual Transaction Amount In Account</strong>
+            <strong>Estimated Number of Annual Transaction In Account</strong>
           </label>
           <input class="form-control form-control-error rounded"
                  formControlName="annualTransaction" id="annualTransaction"

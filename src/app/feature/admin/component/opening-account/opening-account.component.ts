@@ -12,7 +12,6 @@ import {AccountStatus} from '../../modal/accountStatus';
 import {RoleType} from '../../modal/roleType';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {RemarkModalComponent} from './remark-modal/remark-modal.component';
-import {AccountNumberModalComponent} from './account-no-modal/account-no-modal.component';
 
 @Component({
     selector: 'app-opening-account',
@@ -60,7 +59,7 @@ export class OpeningAccountComponent implements OnInit {
         other.service.getPaginationWithSearchObject(other.searchObject, other.page, 10)
         .subscribe((response: any) => {
                 other.openingForms = response.detail.content;
-            other.pageable = PaginationUtils.getPageable(response.detail);
+                other.pageable = PaginationUtils.getPageable(response.detail);
                 other.spinner = false;
             }, error => {
                 console.log(error);
@@ -88,26 +87,13 @@ export class OpeningAccountComponent implements OnInit {
     }
 
     updateStatus(openingForm: OpeningForm, accountStatus) {
-        if (accountStatus === 'APPROVAL') {
-            const modalRef = this.modalService.open(AccountNumberModalComponent);
-            modalRef.componentInstance.openingForm = openingForm;
-            modalRef.result.then(() => { this.updateForm(openingForm, accountStatus); }, () => {});
-        } else if (accountStatus === 'REJECTED') {
-            const modalRef = this.modalService.open(RemarkModalComponent);
-            modalRef.componentInstance.openingForm = openingForm;
-            modalRef.componentInstance.action = 'Reject';
-            modalRef.result.then(() => {this.updateForm(openingForm, accountStatus); }, () => {});
-        }
-    }
-
-    updateForm(openingForm: OpeningForm, accountStatus) {
         this.service.detail(openingForm.id).subscribe((response: any) => {
             openingForm = response.detail;
             openingForm.status = AccountStatus.name(accountStatus);
             const openingActionDto = {
-                'id': openingForm.id,
+                'id' : openingForm.id,
                 actionStatus: accountStatus,
-                openingCustomers: openingForm.openingAccount.openingCustomers
+                openingCustomers:  openingForm.openingAccount.openingCustomers
             };
             this.service.postAccountOpeningAction(openingActionDto).subscribe(value => {
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Account Request Status Changed!!!'));
@@ -128,7 +114,6 @@ export class OpeningAccountComponent implements OnInit {
     openRemarkModal(openingForm) {
        const modalRef = this.modalService.open(RemarkModalComponent);
        modalRef.componentInstance.openingForm = openingForm;
-       modalRef.componentInstance.action = 'Follow Up';
-       modalRef.result.then(() => { OpeningAccountComponent.loadData(this); }, () => {});
+        modalRef.result.then(() => { OpeningAccountComponent.loadData(this); }, () => {});
     }
 }

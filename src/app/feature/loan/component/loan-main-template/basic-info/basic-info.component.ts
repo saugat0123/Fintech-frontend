@@ -26,7 +26,6 @@ import {CalendarType} from '../../../../../@core/model/calendar-type';
 export class BasicInfoComponent implements OnInit {
     @Input() formValue: Customer;
     @Input() calendarType: CalendarType;
-    @Input() disableForm: boolean;
     @Output() blackListStatusEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     basicInfo: FormGroup;
@@ -74,10 +73,6 @@ export class BasicInfoComponent implements OnInit {
             this.setRelatives(this.customer.customerRelatives);
         } else {
             this.createRelativesArray();
-        }
-        // disable all form controls
-        if (this.disableForm) {
-            this.basicInfo.disable();
         }
     }
 

@@ -1,7 +1,7 @@
+
 import {OpeningAccount} from './openingAccount';
 import {Branch} from './branch';
 import {AccountType} from './accountType';
-import {User} from './user';
 
 export class OpeningForm {
   id: number;
@@ -13,7 +13,4 @@ export class OpeningForm {
   status: string;
   remark: string;
   lastFollowUp: Date;
-  lastFollowUpBy: User;
-  accountNumber: string;
-  customerPhotoPath: string;
 }

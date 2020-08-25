@@ -163,7 +163,7 @@ export class CalendarComponent implements OnInit {
     this.selectedDay = value;
     this.getEnglishDate();
     this.emitValue();
-   this.toggleDate();
+
   }
 
   getEnglishDate() {

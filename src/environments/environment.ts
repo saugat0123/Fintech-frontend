@@ -1,25 +1,13 @@
 // This file can be replaced during build by using the `fweileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-/**
- This file can be replaced during build by using the `fileReplacements` array.
- `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
- The list of file replacements can be found in `angular.json`.
 
- this environment file is run in default run. So place your current active config in this file.
-
- command to build client related product:
- ng build --configuration= 'client name'
-
- active client name in current repo: 'srdb' , 'tinau'
- */
 export const environment = {
   production: false,
   client: 'Sb solutions Ltd',
   GOOGLE_MAP_API_KEY: 'AIzaSyDKERYllGf5BfVR_c_45nqHVkbHoPgXPDA',
   LOCAL_STORAGE_KEY: 'QP\'`0tWfyBni^(*rv0gB].ck$s@z(/',
-  LOCAL_STORAGE_NAME: 'SBSolutionsLAS',
-  enablePreAddingAccountNumber: true
+  LOCAL_STORAGE_NAME: 'SBSolutionsLAS'
 };
 
 /*
