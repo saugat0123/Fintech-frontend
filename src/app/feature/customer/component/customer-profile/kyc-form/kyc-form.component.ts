@@ -109,13 +109,16 @@ export class KycFormComponent implements OnInit {
     if (this.kycInfo.invalid) {
       return;
     }
+    this.spinner = true;
     const rawFromValue = this.kycInfo.getRawValue();
     this.customer.customerRelatives = rawFromValue.customerRelatives;
     this.customerService.save( this.customer).subscribe(response => {
       this.customer = response.detail;
+      this.spinner = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
       this.dialogRef.close(ModalResponse.SUCCESS);
     } , res => {
+      this.spinner = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, res.error.message));
       this.dialogRef.close();
     });
