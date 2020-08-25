@@ -57,7 +57,6 @@ export class CustomerProfileComponent implements OnInit {
   districtList: Array<District> = Array<District>();
   municipality: MunicipalityVdc = new MunicipalityVdc();
   municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-  routeLoanForm = false;
 
   totalProposedAmountByKYC = 0;
   totalProposedAmountByGuarantor = 0;
