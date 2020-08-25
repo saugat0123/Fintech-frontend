@@ -33,7 +33,7 @@ import {LoanPullComponent} from './component/loan-pull/loan-pull.component';
 import {FinancialSummaryComponent} from './component/loan-summary/financial-summary/financial-summary.component';
 // tslint:disable-next-line:max-line-length
 import {SecuritySummaryComponent} from './component/loan-summary/security-summary/security-summary.component';
-import {CustomerDocumentComponent} from './component/loan-main-template/customer-document/customer-document.component';
+import {CustomerLoanDocumentComponent} from '../loan-information-template/customer-loan-document/customer-loan-document.component';
 
 import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.component';
 import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-action/offer-letter-action.component';
@@ -98,7 +98,7 @@ const COMPONENTS = [
     LoanPullComponent,
     SecuritySummaryComponent,
     FinancialSummaryComponent,
-    CustomerDocumentComponent,
+
     FinancialSummaryComponent,
     LoanOfferLetterComponent,
     OfferLetterActionComponent,
