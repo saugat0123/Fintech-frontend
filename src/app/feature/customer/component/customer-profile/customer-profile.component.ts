@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {AfterContentInit, Component, OnInit, TemplateRef} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
 import {CustomerService} from '../../service/customer.service';
 import {ToastService} from '../../../../@core/utils';
@@ -24,6 +24,7 @@ import {CustomerType} from '../../model/customerType';
 import {CustomerInfoService} from '../../service/customer-info.service';
 // @ts-ignore
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 
 @Component({
@@ -31,7 +32,7 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
   templateUrl: './customer-profile.component.html',
   styleUrls: ['./customer-profile.component.scss']
 })
-export class CustomerProfileComponent implements OnInit {
+export class CustomerProfileComponent implements OnInit, AfterContentInit {
   associateId: number;
   customerInfoId: number;
   customer: Customer = new Customer();
@@ -66,6 +67,7 @@ export class CustomerProfileComponent implements OnInit {
   filterLoanCat = LoanCategory.BUSINESS;
   isIndividual = false;
   customerInfo: CustomerInfoData;
+  maker = false;
 
   constructor(private route: ActivatedRoute,
               private customerService: CustomerService,
@@ -119,6 +121,13 @@ export class CustomerProfileComponent implements OnInit {
     this.loanConfigService.getAllByLoanCategory(this.filterLoanCat).subscribe((response: any) => {
       this.loanList = response.detail;
     });
+  }
+
+  ngAfterContentInit(): void {
+   const roleType = LocalStorageUtil.getStorage().roleType;
+   if (roleType === 'MAKER') {
+     this.maker = true;
+   }
   }
 
   getCustomerInfo() {
