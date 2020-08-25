@@ -1,22 +1,23 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Document} from '../../../../admin/modal/document';
-import {LoanType} from '../../../model/loanType';
-import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
+import {Document} from '../../admin/modal/document';
+import {LoanType} from '../../loan/model/loanType';
+import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {ActivatedRoute, Params} from '@angular/router';
-import {LoanConfig} from '../../../../admin/modal/loan-config';
-import {LoanDataHolder} from '../../../model/loanData';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {ToastService} from '../../../../../@core/utils';
-import {LoanFormService} from '../../loan-form/service/loan-form.service';
-import {CustomerDocuments} from '../../../model/customerDocuments';
+import {LoanConfig} from '../../admin/modal/loan-config';
+import {LoanDataHolder} from '../../loan/model/loanData';
+
+import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {ToastService} from '../../../@core/utils';
+import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
+import {CustomerDocuments} from '../../loan/model/customerDocuments';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 @Component({
-  selector: 'app-customer-document',
-  templateUrl: './customer-document.component.html',
-  styleUrls: ['./customer-document.component.scss']
+  selector: 'app-customer-loan-document',
+  templateUrl: './customer-loan-document.component.html',
+  styleUrls: ['./customer-loan-document.component.scss']
 })
-export class CustomerDocumentComponent implements OnInit {
+export class CustomerLoanDocumentComponent implements OnInit {
   public static FILE_SIZE_5MB = 5242880;
   public static FILE_SIZE_10MB = 10485760;
   @Input() loanDataHolder: LoanDataHolder;
@@ -35,9 +36,11 @@ export class CustomerDocumentComponent implements OnInit {
   constructor(private loanConfigService: LoanConfigService,
               private toastService: ToastService,
               private activatedRoute: ActivatedRoute,
-              private loanFormService: LoanFormService) { }
+              private loanFormService: LoanFormService) {
+  }
 
   ngOnInit() {
+    let loanId = null;
     this.activatedRoute.queryParams.subscribe(
         (paramsValue: Params) => {
           this.paramProperties = {
@@ -46,9 +49,14 @@ export class CustomerDocumentComponent implements OnInit {
             loanCategory: null
           };
           this.paramProperties = paramsValue;
+          loanId = this.paramProperties.loanId;
+          if (ObjectUtil.isEmpty(this.paramProperties.loanId) || (!ObjectUtil.isEmpty(this.loanDataHolder.loan))) {
+            loanId = this.loanDataHolder.loan.id;
+          }
         });
 
-    this.loanConfigService.detail(this.paramProperties.loanId).subscribe(
+
+    this.loanConfigService.detail(loanId).subscribe(
         (response: any) => {
           this.loanConfig = response.detail;
           this.loanName = this.loanConfig.name;
@@ -95,7 +103,7 @@ export class CustomerDocumentComponent implements OnInit {
 
   documentUploader(event, documentName: string, documentId, index: number) {
     const file = event.target.files[0];
-    if (file.size > CustomerDocumentComponent.FILE_SIZE_5MB) {
+    if (file.size > CustomerLoanDocumentComponent.FILE_SIZE_5MB) {
       this.errorMessage = 'Maximum File Size Exceeds for  ' + documentName;
       (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '';
     } else if (ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.citizenshipNumber)) {

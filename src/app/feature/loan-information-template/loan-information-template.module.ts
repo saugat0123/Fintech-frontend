@@ -22,6 +22,7 @@ import {SecurityComponent} from './security/security.component';
 import {SecurityInitialFormComponent} from './security/security-initial-form/security-initial-form.component';
 import {GuarantorComponent} from './guarantor/guarantor.component';
 import {InsuranceComponent} from './insurance/insurance.component';
+import {CustomerLoanDocumentComponent} from './customer-loan-document/customer-loan-document.component';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -37,7 +38,8 @@ const COMPONENTS = [
   SecurityComponent,
   SecurityInitialFormComponent,
   GuarantorComponent,
-    InsuranceComponent
+  InsuranceComponent,
+  CustomerLoanDocumentComponent,
 ];
 
 @NgModule({

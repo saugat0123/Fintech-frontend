@@ -144,6 +144,7 @@
           <nb-card-body>
             <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
                                      [fetchType]="fetchLoan.CUSTOMER_LOAN"
+                                     [customerInfo]="customerInfo" *ngIf="customerInfo"
                                      [formValue]="customer"></app-customer-group-loan>
           </nb-card-body>
         </nb-card>
@@ -168,10 +169,11 @@
                   </div>
                 </nb-accordion-item-header>
                 <nb-accordion-item-body>
-                  <app-customer-group-loan
-                      (messageToEmit)="getTotalLoanAmount($event)"
-                      [fetchType]="fetchLoan.CUSTOMER_AS_KYC"
-                      [formValue]="customer"></app-customer-group-loan>
+<!--                  <app-customer-group-loan-->
+<!--                      (messageToEmit)="getTotalLoanAmount($event)"-->
+<!--                      [fetchType]="fetchLoan.CUSTOMER_AS_KYC"-->
+<!--                      [customerInfo]="customerInfo" *ngIf="customerInfo"-->
+<!--                      [formValue]="customer"></app-customer-group-loan>-->
 
                 </nb-accordion-item-body>
               </nb-accordion-item>
@@ -187,10 +189,11 @@
                   </div>
                 </nb-accordion-item-header>
                 <nb-accordion-item-body>
-                  <app-customer-group-loan
-                      (messageToEmit)="getTotalLoanAmount($event)"
-                      [fetchType]="fetchLoan.CUSTOMER_AS_GUARANTOR"
-                      [formValue]="customer"></app-customer-group-loan>
+<!--                  <app-customer-group-loan-->
+<!--                      (messageToEmit)="getTotalLoanAmount($event)"-->
+<!--                      [fetchType]="fetchLoan.CUSTOMER_AS_GUARANTOR"-->
+<!--                      [customerInfo]="customerInfo" *ngIf="customerInfo"-->
+<!--                      [formValue]="customer"></app-customer-group-loan>-->
                 </nb-accordion-item-body>
               </nb-accordion-item>
             </nb-accordion>
@@ -272,6 +275,11 @@
             *ngIf="customerInfo"
             [customerInfoId]="customerInfoId"
             [customerInfo]="customerInfo"></app-customer-loan-information>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+     <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo"></app-customer-doc>
       </div>
     </div>
   </nb-card-body>
