@@ -38,8 +38,7 @@ const COMPONENTS = [
   SecurityComponent,
   SecurityInitialFormComponent,
   GuarantorComponent,
-    InsuranceComponent
-  GuarantorComponent,
+  InsuranceComponent,
   CustomerLoanDocumentComponent,
 ];
 
