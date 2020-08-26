@@ -84,6 +84,7 @@ export class CustomerComponent implements OnInit {
     CustomerComponent.loadData(this);
   }
 
+  /* associate id is customer or company id*/
   customerProfile(associateId, id, customerType) {
 
     this.router.navigate(['/home/customer/profile/' + associateId], {queryParams: {customerType: customerType, customerInfoId: id}});
