@@ -5,6 +5,6 @@ export class CustomerGeneralDocument {
   document: Document;
   docPath: string;
   customerInfo: CustomerInfoData;
-
+  version: number;
 
 }
