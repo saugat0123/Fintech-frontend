@@ -176,9 +176,14 @@ export class SecurityComponent implements OnInit {
         };
         this.securityData.data = JSON.stringify(mergedForm);
         this.securityData.guarantor = [];
-        this.shareSecurityData = this.initialSecurity.shareSecurityData;
-        this.securityData.share = this.shareSecurityData;
-
+        this.initialSecurity.selectedArray.forEach((selected) => {
+            if (selected === 'ShareSecurity') {
+                this.shareSecurityData = this.initialSecurity.shareSecurityData;
+                this.securityData.share = this.shareSecurityData;
+            } else {
+                this.securityData.share = undefined;
+            }
+        });
         let guarantorIndex = 0;
         while (guarantorIndex < this.getGuarantor().length) {
             const guarantor = new Guarantor();
@@ -206,6 +211,7 @@ export class SecurityComponent implements OnInit {
             guarantorIndex++;
             this.securityData.guarantor.push(guarantor);
         }
+        console.log(this.securityData, 'll');
         this.securityDataEmitter.emit(this.securityData);
     }
 }
