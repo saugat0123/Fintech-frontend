@@ -105,23 +105,17 @@
   </div>
   <div class="modal-body">
 
-      <div class="col-md-12 row">
-
-        <div class="col-md-8">
-          <select [(ngModel)]="customerType" class="form-control rounded">
-            <option [ngValue]="undefined" hidden> select Customer Type</option>
-            <option value="COMPANY">COMPANY</option>
-            <option value="INDIVIDUAL">INDIVIDUAL</option>
-          </select>
+      <div class="row">
+        <div class="col-md-12">
+          <ng-select [(ngModel)]="customerType" placeholder="select Customer Type">
+            <ng-option value="COMPANY">COMPANY</ng-option>
+            <ng-option value="INDIVIDUAL">INDIVIDUAL</ng-option>
+          </ng-select>
         </div>
-
       </div>
-
-      <div class="col-md-12 py-2">
-        <button class="btn btn-success float-right" (click)="getForm()"
-        >Next
-        </button>
-      </div>
-
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success float-right" (click)="getForm()">Next
+    </button>
   </div>
 </ng-template>
