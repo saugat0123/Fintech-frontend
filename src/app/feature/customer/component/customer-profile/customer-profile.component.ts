@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {AfterContentInit, Component, OnInit, TemplateRef} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
 import {CustomerService} from '../../service/customer.service';
 import {ToastService} from '../../../../@core/utils';
@@ -27,6 +27,7 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {KycFormComponent} from './kyc-form/kyc-form.component';
 import {NbDialogService} from '@nebular/theme';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 
 @Component({
@@ -34,7 +35,7 @@ import {NbDialogService} from '@nebular/theme';
   templateUrl: './customer-profile.component.html',
   styleUrls: ['./customer-profile.component.scss']
 })
-export class CustomerProfileComponent implements OnInit {
+export class CustomerProfileComponent implements OnInit, AfterContentInit {
   associateId: number;
   customerInfoId: number;
   customer: Customer = new Customer();
@@ -68,6 +69,7 @@ export class CustomerProfileComponent implements OnInit {
   filterLoanCat = LoanCategory.BUSINESS;
   isIndividual = false;
   customerInfo: CustomerInfoData;
+  maker = false;
 
   constructor(private route: ActivatedRoute,
               private customerService: CustomerService,
@@ -121,6 +123,13 @@ export class CustomerProfileComponent implements OnInit {
     this.loanConfigService.getAllByLoanCategory(this.filterLoanCat).subscribe((response: any) => {
       this.loanList = response.detail;
     });
+  }
+
+  ngAfterContentInit(): void {
+   const roleType = LocalStorageUtil.getStorage().roleType;
+   if (roleType === 'MAKER') {
+     this.maker = true;
+   }
   }
 
   getCustomerInfo() {

@@ -512,7 +512,13 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Security' && action) {
             this.security.onSubmit();
             this.loanDocument.security = this.security.securityData;
-            this.loanDocument.shareSecurity = this.security.shareSecurityData;
+            this.security.initialSecurity.selectedArray.forEach((selected) => {
+              if (selected === 'ShareSecurity') {
+                this.loanDocument.shareSecurity = this.security.shareSecurityData;
+              } else {
+                this.loanDocument.shareSecurity = undefined;
+              }
+            });
         }
         if (name === 'Credit Risk Grading' && action) {
             this.creditGrading.onSubmit();
