@@ -3,6 +3,8 @@ import {Financial} from './financial';
 import {Security} from './security';
 import {GuarantorDetail} from './guarantor-detail';
 import {Insurance} from '../../admin/modal/insurance';
+import {Document} from '../../admin/modal/document';
+import {CustomerGeneralDocument} from '../../customer/model/customerGeneralDocument';
 
 export class CustomerInfoData {
   id: number;
@@ -23,5 +25,6 @@ export class CustomerInfoData {
   shareSecurity;
   guarantors: GuarantorDetail;
   insurance: Insurance;
+  customerGeneralDocuments: Array<CustomerGeneralDocument>;
 
 }
