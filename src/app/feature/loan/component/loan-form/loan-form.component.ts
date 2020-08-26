@@ -28,7 +28,7 @@ import {SiteVisitComponent} from '../../../loan-information-template/site-visit/
 import {NgxSpinnerService} from 'ngx-spinner';
 import {SecurityComponent} from '../../../loan-information-template/security/security.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CustomerDocumentComponent} from '../loan-main-template/customer-document/customer-document.component';
+import {CustomerLoanDocumentComponent} from '../../../loan-information-template/customer-loan-document/customer-loan-document.component';
 import {DocStatus} from '../../model/docStatus';
 import {CustomerService} from '../../../customer/service/customer.service';
 import {ScrollNavigationService} from '../../../../@core/service/baseservice/scroll-navigation.service';
@@ -40,14 +40,14 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
 import {Customer} from '../../../admin/modal/customer';
 import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
-import {GuarantorComponent} from '../loan-main-template/guarantor/guarantor.component';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
-import {InsuranceComponent} from '../loan-main-template/insurance/insurance.component';
+import {InsuranceComponent} from '../../../loan-information-template/insurance/insurance.component';
 import {CreditRiskGradingAlphaComponent} from '../loan-main-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {CustomerInfoData} from '../../model/customerInfoData';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
 import {FinancialComponent} from '../../../loan-information-template/financial/financial.component';
+import {GuarantorComponent} from '../../../loan-information-template/guarantor/guarantor.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -164,7 +164,7 @@ export class LoanFormComponent implements OnInit {
     security: SecurityComponent;
 
     @ViewChild('customerDocument', {static: false})
-    customerDocument: CustomerDocumentComponent;
+    customerDocument: CustomerLoanDocumentComponent;
 
     @ViewChild('group', {static: false})
     group: GroupComponent;
@@ -512,7 +512,13 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Security' && action) {
             this.security.onSubmit();
             this.loanDocument.security = this.security.securityData;
-            this.loanDocument.shareSecurity = this.security.shareSecurityData;
+            this.security.initialSecurity.selectedArray.forEach((selected) => {
+              if (selected === 'ShareSecurity') {
+                this.loanDocument.shareSecurity = this.security.shareSecurityData;
+              } else {
+                this.loanDocument.shareSecurity = undefined;
+              }
+            });
         }
         if (name === 'Credit Risk Grading' && action) {
             this.creditGrading.onSubmit();
@@ -579,6 +585,7 @@ export class LoanFormComponent implements OnInit {
         this.loanDocument.financial = this.loanHolder.financial;
         this.loanDocument.security = this.loanHolder.security;
         this.loanDocument.shareSecurity = this.loanHolder.shareSecurity;
+        this.loanDocument.insurance = this.loanHolder.insurance;
       }, error => {
         console.error(error);
         this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load customer info'));

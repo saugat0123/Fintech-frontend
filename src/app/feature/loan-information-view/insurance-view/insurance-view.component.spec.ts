@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { KycFormComponent } from './kyc-form.component';
+import { InsuranceViewComponent } from './insurance-view.component';
 
-describe('KycFormComponent', () => {
-  let component: KycFormComponent;
-  let fixture: ComponentFixture<KycFormComponent>;
+describe('InsuranceViewComponent', () => {
+  let component: InsuranceViewComponent;
+  let fixture: ComponentFixture<InsuranceViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ KycFormComponent ]
+      declarations: [ InsuranceViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(KycFormComponent);
+    fixture = TestBed.createComponent(InsuranceViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

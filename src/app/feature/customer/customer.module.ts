@@ -11,12 +11,15 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {NbDatepickerModule, NbDialogModule} from '@nebular/theme';
-import {KycFormComponent} from './component/individual-customer-form/kyc-form/kyc-form.component';
 import {CustomerLoanInformationComponent} from './component/customer-loan-information/customer-loan-information.component';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import { CompanyFormComponent } from './component/company-form/company-form.component';
 import { CompanyProfileComponent } from './component/company-profile/company-profile.component';
 import { CompanyProfileAdditionalInformationComponent } from './component/company-profile/company-profile-additional-information/company-profile-additional-information.component';
+import { CustomerDocComponent } from './component/customer-doc-management/customer-doc.component';
+import { KycFormComponent } from './component/customer-profile/kyc-form/kyc-form.component';
+import { CustomerLoanInformationViewComponent } from './component/customer-loan-information-view/customer-loan-information-view.component';
+import { LoanInformationViewModule } from '../loan-information-view/loan-information-view.module';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -28,6 +31,8 @@ const COMPONENTS = [
   CompanyProfileAdditionalInformationComponent,
   CompanyFormComponent,
   CustomerLoanInformationComponent,
+  CustomerDocComponent,
+  CustomerLoanInformationViewComponent,
 ];
 
 @NgModule({
@@ -46,11 +51,13 @@ const COMPONENTS = [
     NbDatepickerModule,
     NepaliCalendarModule,
     NbDialogModule.forRoot(),
-    LoanInformationTemplateModule
+    LoanInformationTemplateModule,
+    LoanInformationViewModule
   ],
   entryComponents: [
       CustomerFormComponent,
-      CompanyFormComponent
+      CompanyFormComponent,
+      KycFormComponent
   ]
 })
 export class CustomerModule {

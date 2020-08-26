@@ -139,7 +139,7 @@
               <div *ngIf="(submitted) &&  basicInfoControls.district.invalid"
                    class="invalid-feedback">
                 <span
-                    *ngIf="basicInfoControls.district.errors.required">Municipality is required</span>
+                    *ngIf="basicInfoControls.district.errors.required">district is required</span>
               </div>
             </div>
           </div>
@@ -161,7 +161,7 @@
               <div *ngIf="(submitted) && basicInfoControls.municipalities.invalid"
                    class="invalid-feedback">
                 <span
-                    *ngIf="basicInfoControls.municipalities.errors.required">Province is required</span>
+                    *ngIf="basicInfoControls.municipalities.errors.required"> Municipalities/VDCs required</span>
               </div>
             </div>
           </div>
@@ -258,6 +258,12 @@
                   {{district?.name}}
                 </ng-option>
               </ng-select>
+              <div *ngIf="(submitted) && basicInfoControls.citizenshipIssuedPlace.invalid"
+                   class="invalid-feedback">
+                <span *ngIf="basicInfoControls.citizenshipIssuedPlace.errors.required">
+                  citizenship issued district is required
+                </span>
+              </div>
             </div>
           </div>
           <div class="col-md-4">
@@ -333,7 +339,7 @@
                            placeholder="Relation" type="text">
                     <div *ngIf="submitted && relatives.get('customerRelation').errors"
                          class="invalid-feedback">
-                      <div *ngIf="relatives.get('customerRelation').errors.required">Relation
+                      <div *ngIf="relatives.get('customerRelation').errors?.required">Relation
                         is required
                       </div>
                     </div>
@@ -343,17 +349,24 @@
                   <div class="form-group">
                     <label for="relationName{{i}}"><strong>Name</strong></label>
                     <input class="form-control" formControlName="customerRelativeName"
+                           [ngClass]="{ 'is-invalid': (submitted) && relatives.get('customerRelativeName').errors }"
                            id="relationName{{i}}"
                            placeholder="Name" type="text">
+                    <div *ngIf="submitted && relatives.get('customerRelativeName').errors"
+                         class="invalid-feedback">
+                      Name is required!
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-2">
                   <div class="form-group">
                     <label for="citizenship{{i}}"><strong>CitizenshipNumber</strong></label>
                     <input class="form-control" formControlName="citizenshipNumber"
+                           [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipNumber').errors }"
                            id="citizenship{{i}}" placeholder="Citizenship Number" type="text">
                     <div *ngIf="submitted && relatives.get('citizenshipNumber').errors"
                          class="invalid-feedback">
+                      citizenship Number is required!
                     </div>
                   </div>
                 </div>
@@ -369,12 +382,10 @@
                         {{district?.name}}
                       </ng-option>
                     </ng-select>
-                    <div *ngIf="submitted && relatives.get('citizenshipIssuedPlace').errors"
-                         class="invalid-feedback">
-                      <div *ngIf="relatives.get('citizenshipIssuedPlace').errors.required">
-                        Name is required
+                      <div *ngIf="submitted && relatives.get('citizenshipIssuedPlace').errors"
+                           class="invalid-feedback">
+                        citizenship Number is required!
                       </div>
-                    </div>
                   </div>
                 </div>
                 <div class="col-md-2">

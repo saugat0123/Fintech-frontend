@@ -38,7 +38,9 @@ export class ReportingInfoTaggingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reportingInfoLevels.forEach(v => this.savedReportTagsId.add(v.id));
+    if (this.reportingInfoLevels) {
+      this.reportingInfoLevels.forEach(v => this.savedReportTagsId.add(v.id));
+    }
     this.getReportingInfo();
     this.buildFilterForm();
   }

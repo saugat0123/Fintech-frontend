@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {OpeningForm} from '../../../modal/openingForm';
+import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 
 @Component({
   selector: 'app-opening-account-print',
@@ -9,6 +10,7 @@ import {OpeningForm} from '../../../modal/openingForm';
 export class OpeningAccountPrintComponent implements OnInit {
   @Input()
   openingForm: OpeningForm = new OpeningForm();
+  restUrl = ApiConfig.URL;
 
   constructor() {
   }

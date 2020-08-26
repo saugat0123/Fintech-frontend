@@ -1,6 +1,15 @@
 <nb-card>
     <nb-card-body>
         <form [formGroup]="form" (ngSubmit)="submit()">
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label for="insuranceCompany"><strong>Policy Number</strong></label>
+                    <input class="form-control" formControlName="policyNumber" id="policyNumber"
+                           placeholder="Policy Number"
+                           type="text">
+                </div>
+            </div>
+
             <div class="form-group">
                 <label for="insuranceCompany"><strong>Insurance Company</strong></label>
                 <input class="form-control" formControlName="company" id="insuranceCompany"
@@ -47,6 +56,9 @@
                           id="policyType"
                           rows="4">
                 </textarea>
+            </div>
+            <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+                <button (click)="submit()" nbButton type="button">save</button>
             </div>
         </form>
     </nb-card-body>

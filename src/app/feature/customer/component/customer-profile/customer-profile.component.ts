@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {AfterContentInit, Component, OnInit, TemplateRef} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
 import {CustomerService} from '../../service/customer.service';
 import {ToastService} from '../../../../@core/utils';
@@ -24,6 +24,10 @@ import {CustomerType} from '../../model/customerType';
 import {CustomerInfoService} from '../../service/customer-info.service';
 // @ts-ignore
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
+import {LoanDataHolder} from '../../../loan/model/loanData';
+import {KycFormComponent} from './kyc-form/kyc-form.component';
+import {NbDialogService} from '@nebular/theme';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 
 @Component({
@@ -31,7 +35,7 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
   templateUrl: './customer-profile.component.html',
   styleUrls: ['./customer-profile.component.scss']
 })
-export class CustomerProfileComponent implements OnInit {
+export class CustomerProfileComponent implements OnInit, AfterContentInit {
   associateId: number;
   customerInfoId: number;
   customer: Customer = new Customer();
@@ -54,7 +58,6 @@ export class CustomerProfileComponent implements OnInit {
   districtList: Array<District> = Array<District>();
   municipality: MunicipalityVdc = new MunicipalityVdc();
   municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-  routeLoanForm = false;
 
   totalProposedAmountByKYC = 0;
   totalProposedAmountByGuarantor = 0;
@@ -66,6 +69,7 @@ export class CustomerProfileComponent implements OnInit {
   filterLoanCat = LoanCategory.BUSINESS;
   isIndividual = false;
   customerInfo: CustomerInfoData;
+  maker = false;
 
   constructor(private route: ActivatedRoute,
               private customerService: CustomerService,
@@ -77,7 +81,8 @@ export class CustomerProfileComponent implements OnInit {
               private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
               private commonLocation: AddressService,
-              private activatedRoute: ActivatedRoute, ) {
+              private activatedRoute: ActivatedRoute,
+              private dialogService: NbDialogService) {
 
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
@@ -117,6 +122,13 @@ export class CustomerProfileComponent implements OnInit {
     this.loanConfigService.getAllByLoanCategory(this.filterLoanCat).subscribe((response: any) => {
       this.loanList = response.detail;
     });
+  }
+
+  ngAfterContentInit(): void {
+   const roleType = LocalStorageUtil.getStorage().roleType;
+   if (roleType === 'MAKER') {
+     this.maker = true;
+   }
   }
 
   getCustomerInfo() {
@@ -252,7 +264,7 @@ export class CustomerProfileComponent implements OnInit {
   }
 
   createRelativesArray() {
-    const relation = ['Grand Father', 'Father', 'Spouse'];
+    const relation = ['Grand Father', 'Father'];
     relation.forEach((customerRelation) => {
       (this.basicForm.get('customerRelatives') as FormArray).push(this.formBuilder.group({
         customerRelation: [{value: customerRelation, disabled: true}],
@@ -270,11 +282,10 @@ export class CustomerProfileComponent implements OnInit {
       const customerRelative = singleRelatives.customerRelation;
       // Increase index number with increase in static relatives---
       relativesData.push(this.formBuilder.group({
-        customerRelation: (index > 2) ? [(customerRelative)] :
-            [({value: customerRelative, disabled: true}), Validators.required],
-        customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
-        citizenshipNumber: [singleRelatives.citizenshipNumber, Validators.required],
-        citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace, Validators.required],
+        customerRelation: [singleRelatives.customerRelation],
+        customerRelativeName: [singleRelatives.customerRelativeName],
+        citizenshipNumber: [singleRelatives.citizenshipNumber],
+        citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
         citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
             undefined : new Date(singleRelatives.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]]
       }));
@@ -349,7 +360,12 @@ export class CustomerProfileComponent implements OnInit {
     this.totalProposalAmount = this.totalProposedAmountByGuarantor + this.totalProposedAmountByKYC + this.totalLoanProposedAmount;
   }
 
-  openTemplate(template) {
-    this.modalService.open(template, {size: 'lg'});
+  openKycModal() {
+    const customer = this.customer;
+    this.dialogService.open(KycFormComponent, {context: {customer}}).onClose.subscribe(res => {
+     if (!ObjectUtil.isEmpty(res)) {
+       this.ngOnInit();
+     }
+   });
   }
 }

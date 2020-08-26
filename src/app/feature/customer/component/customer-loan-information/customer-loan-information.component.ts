@@ -13,6 +13,9 @@ import {FinancialComponent} from '../../../loan-information-template/financial/f
 import {Security} from '../../../loan/model/security';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
+import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
+import {GuarantorComponent} from '../../../loan-information-template/guarantor/guarantor.component';
+import {Insurance} from '../../../admin/modal/insurance';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -23,6 +26,7 @@ export class CustomerLoanInformationComponent implements OnInit {
 
   @Input() public customerInfoId: number;
   @Input() public customerInfo: CustomerInfoData;
+
   @ViewChild('siteVisitComponent', {static: false})
   public siteVisitComponent: SiteVisitComponent;
   @ViewChild('itemSiteVisit', {static: false})
@@ -33,12 +37,22 @@ export class CustomerLoanInformationComponent implements OnInit {
   private itemFinancial: NbAccordionItemComponent;
   @ViewChild('itemSecurity', {static: false})
   private itemSecurity: NbAccordionItemComponent;
+
+  @ViewChild('guarantorComponent', {static: false})
+  public guarantorComponent: GuarantorComponent;
+  @ViewChild('itemGuarantor', {static: false})
+  private itemGuarantor: NbAccordionItemComponent;
+
+  @ViewChild('itemInsurance', {static: false})
+  private  itemInsurance: NbAccordionItemComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType = CalendarType.AD;
   private siteVisit: SiteVisit;
   financial: Financial;
   private  security: Security;
   private  shareSecurity: ShareSecurity;
+  private guarantors: GuarantorDetail;
+  public insurance: Insurance;
 
   constructor(
       private toastService: ToastService,
@@ -55,6 +69,12 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
       this.security = this.customerInfo.security;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.insurance)) {
+      this.insurance = this.customerInfo.insurance;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
+      this.guarantors = this.customerInfo.guarantors;
     }
   }
 
@@ -119,6 +139,38 @@ export class CustomerLoanInformationComponent implements OnInit {
       }, error => {
         console.error(error);
         this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Share Security!'));
+      });
+    }
+
+  saveGuarantor(data: GuarantorDetail) {
+    if (ObjectUtil.isEmpty(this.guarantors)) {
+      this.guarantors = new GuarantorDetail();
+    }
+    this.guarantors = data;
+    this.customerInfoService.saveLoanInfo(this.guarantors, this.customerInfoId, TemplateName.GUARANTOR)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, 'Guarantor saved successfully !'));
+          this.itemGuarantor.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Guarantor !'));
+    });
+  }
+
+    public saveInsurance(data: Insurance) {
+      if (ObjectUtil.isEmpty(this.insurance)) {
+        this.insurance = new Insurance();
+      }
+      this.insurance = data;
+      this.customerInfoService.saveLoanInfo(this.insurance, this.customerInfoId, TemplateName.INSURANCE)
+      .subscribe(() => {
+        this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Insurance!'));
+        this.itemInsurance.close();
+        this.triggerCustomerRefresh.emit(true);
+      }, error => {
+        console.error(error);
+        this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Insurance!'));
       });
     }
 }

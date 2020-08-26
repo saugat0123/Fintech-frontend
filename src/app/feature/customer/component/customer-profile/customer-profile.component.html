@@ -144,6 +144,7 @@
           <nb-card-body>
             <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
                                      [fetchType]="fetchLoan.CUSTOMER_LOAN"
+                                     [customerInfo]="customerInfo" *ngIf="customerInfo"
                                      [formValue]="customer"></app-customer-group-loan>
           </nb-card-body>
         </nb-card>
@@ -168,10 +169,11 @@
                   </div>
                 </nb-accordion-item-header>
                 <nb-accordion-item-body>
-                  <app-customer-group-loan
-                      (messageToEmit)="getTotalLoanAmount($event)"
-                      [fetchType]="fetchLoan.CUSTOMER_AS_KYC"
-                      [formValue]="customer"></app-customer-group-loan>
+<!--                  <app-customer-group-loan-->
+<!--                      (messageToEmit)="getTotalLoanAmount($event)"-->
+<!--                      [fetchType]="fetchLoan.CUSTOMER_AS_KYC"-->
+<!--                      [customerInfo]="customerInfo" *ngIf="customerInfo"-->
+<!--                      [formValue]="customer"></app-customer-group-loan>-->
 
                 </nb-accordion-item-body>
               </nb-accordion-item>
@@ -187,10 +189,11 @@
                   </div>
                 </nb-accordion-item-header>
                 <nb-accordion-item-body>
-                  <app-customer-group-loan
-                      (messageToEmit)="getTotalLoanAmount($event)"
-                      [fetchType]="fetchLoan.CUSTOMER_AS_GUARANTOR"
-                      [formValue]="customer"></app-customer-group-loan>
+<!--                  <app-customer-group-loan-->
+<!--                      (messageToEmit)="getTotalLoanAmount($event)"-->
+<!--                      [fetchType]="fetchLoan.CUSTOMER_AS_GUARANTOR"-->
+<!--                      [customerInfo]="customerInfo" *ngIf="customerInfo"-->
+<!--                      [formValue]="customer"></app-customer-group-loan>-->
                 </nb-accordion-item-body>
               </nb-accordion-item>
             </nb-accordion>
@@ -202,13 +205,21 @@
       </div>
       <div class="col-md-4">
         <nb-card accent="primary">
-          <nb-card-header>KYC</nb-card-header>
+                    <nb-card-header>
+                        <div class="row justify-content-lg-start">
+                            <div class="col-md-6">KYC</div>
+                            <div class="col-md-6 ">
+                                <div class="px-2 text-right">
+                                    <a  (click)="openKycModal()"  class="p-2 cursor"><i
+                                            class="fa fa-edit"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </nb-card-header>
+
           <nb-card-body>
-            <button (click)="openTemplate(kycUpdate)" nbButton size="tiny">Update KYC</button>
-            <hr/>
             <div (click)="checkKycLoan(customerRelative)"
                  *ngFor="let customerRelative of customer.customerRelatives" class="cursor">
-
               <div class="row">
                 <div class="col-md-5">
                   <span> <b>Name</b></span></div>
@@ -261,9 +272,15 @@
       <div class="col-md-12">
         <app-customer-loan-information
             (triggerCustomerRefresh)="refreshCustomerInfo()"
-            *ngIf="customerInfo"
+            *ngIf="customerInfo && maker"
             [customerInfoId]="customerInfoId"
             [customerInfo]="customerInfo"></app-customer-loan-information>
+        <app-customer-loan-information-view *ngIf="!maker" [customerInfo]="customerInfo" ></app-customer-loan-information-view>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+     <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo"></app-customer-doc>
       </div>
     </div>
   </nb-card-body>
@@ -302,8 +319,4 @@
     </form>
   </div>
 
-</ng-template>
-
-<ng-template #kycUpdate>
-  <app-kyc-form [kycRelative]="customer?.customerRelatives"></app-kyc-form>
 </ng-template>

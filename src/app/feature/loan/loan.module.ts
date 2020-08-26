@@ -10,7 +10,6 @@ import {CompanyInfoComponent} from './component/loan-main-template/company-info/
 import {KycInfoComponent} from './component/loan-main-template/kyc-info/kyc-info.component';
 import {DmsLoanFileComponent} from './component/loan-main-template/dms-loan-file/dms-loan-file.component';
 import {NgSelectModule} from '@ng-select/ng-select';
-// import {SecurityComponent} from './component/loan-main-template/security/security.component';
 import {NbDatepickerModule} from '@nebular/theme';
 import {ThemeModule} from '../../@theme/theme.module';
 import {LoanActionComponent} from './loan-action/loan-action.component';
@@ -34,7 +33,7 @@ import {LoanPullComponent} from './component/loan-pull/loan-pull.component';
 import {FinancialSummaryComponent} from './component/loan-summary/financial-summary/financial-summary.component';
 // tslint:disable-next-line:max-line-length
 import {SecuritySummaryComponent} from './component/loan-summary/security-summary/security-summary.component';
-import {CustomerDocumentComponent} from './component/loan-main-template/customer-document/customer-document.component';
+import {CustomerLoanDocumentComponent} from '../loan-information-template/customer-loan-document/customer-loan-document.component';
 
 import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.component';
 import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-action/offer-letter-action.component';
@@ -71,10 +70,8 @@ import {ApplicantFamilyInfoPrintComponent} from './component/loan-main-nepali-te
 import {BikeKarjaPrintComponent} from './component/loan-main-nepali-template/bike-karja/bike-karja-print/bike-karja-print.component';
 import {CustomerAssociateComponent} from './component/loan-main-template/customer-associate/customer-associate.component';
 import {CustomerModule} from '../customer/customer.module';
-import {GuarantorComponent} from './component/loan-main-template/guarantor/guarantor.component';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {ReportingModule} from '../reporting/reporting.module';
-import {InsuranceComponent} from './component/loan-main-template/insurance/insurance.component';
 import {InsuranceSummaryComponent} from './component/loan-summary/insurance-summary/insurance-summary.component';
 import { GuarantorSummaryComponent } from './component/loan-summary/guarantor-summary/guarantor-summary.component';
 import { ProposalSummaryComponent } from './component/loan-summary/proposal-summary/proposal-summary.component';
@@ -101,7 +98,7 @@ const COMPONENTS = [
     LoanPullComponent,
     SecuritySummaryComponent,
     FinancialSummaryComponent,
-    CustomerDocumentComponent,
+
     FinancialSummaryComponent,
     LoanOfferLetterComponent,
     OfferLetterActionComponent,
@@ -137,8 +134,6 @@ const COMPONENTS = [
     ApplicantFamilyInfoPrintComponent,
     BikeKarjaPrintComponent,
     CustomerAssociateComponent,
-    GuarantorComponent,
-    InsuranceComponent,
     InsuranceSummaryComponent,
     GuarantorSummaryComponent,
     ProposalSummaryComponent,
