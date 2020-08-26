@@ -11,11 +11,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {NbDatepickerModule, NbDialogModule} from '@nebular/theme';
-import {KycFormComponent} from './component/individual-customer-form/kyc-form/kyc-form.component';
 import {CustomerLoanInformationComponent} from './component/customer-loan-information/customer-loan-information.component';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import { CompanyFormComponent } from './component/company-form/company-form.component';
 import { CustomerDocComponent } from './component/customer-doc-management/customer-doc.component';
+import {KycFormComponent} from './component/customer-profile/kyc-form/kyc-form.component';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -49,7 +49,8 @@ const COMPONENTS = [
   ],
   entryComponents: [
       CustomerFormComponent,
-      CompanyFormComponent
+      CompanyFormComponent,
+      KycFormComponent
   ]
 })
 export class CustomerModule {
