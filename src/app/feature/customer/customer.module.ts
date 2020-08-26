@@ -15,6 +15,8 @@ import {KycFormComponent} from './component/individual-customer-form/kyc-form/ky
 import {CustomerLoanInformationComponent} from './component/customer-loan-information/customer-loan-information.component';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import { CompanyFormComponent } from './component/company-form/company-form.component';
+import { CompanyProfileComponent } from './component/company-profile/company-profile.component';
+import { CompanyProfileAdditionalInformationComponent } from './component/company-profile/company-profile-additional-information/company-profile-additional-information.component';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -22,12 +24,14 @@ const COMPONENTS = [
   CustomerGroupLoanComponent,
   CustomerFormComponent,
   KycFormComponent,
-  CustomerLoanInformationComponent
+  CompanyProfileComponent,
+  CompanyProfileAdditionalInformationComponent,
+  CompanyFormComponent,
+  CustomerLoanInformationComponent,
 ];
 
 @NgModule({
-  // tslint:disable-next-line:max-line-length
-  declarations: [...COMPONENTS, CompanyFormComponent, ],
+  declarations: [...COMPONENTS],
   exports: [
     CustomerGroupLoanComponent
   ],
@@ -43,8 +47,6 @@ const COMPONENTS = [
     NepaliCalendarModule,
     NbDialogModule.forRoot(),
     LoanInformationTemplateModule
-
-
   ],
   entryComponents: [
       CustomerFormComponent,

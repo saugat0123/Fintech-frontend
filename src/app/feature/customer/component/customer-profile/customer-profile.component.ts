@@ -111,8 +111,6 @@ export class CustomerProfileComponent implements OnInit {
       this.customerBasicFormBuilder();
       this.getProvince();
       this.setRelatives(this.customer.customerRelatives);
-
-
     });
 
 
@@ -199,7 +197,6 @@ export class CustomerProfileComponent implements OnInit {
 
   editCustomer(val) {
     this.isEdited = val === 1;
-
   }
 
   profileUploader(event) {
