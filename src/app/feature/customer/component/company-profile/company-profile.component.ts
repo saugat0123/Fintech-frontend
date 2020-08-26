@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {CompanyInfo} from '../../../admin/modal/company-info';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {ToastService} from '../../../../@core/utils';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {CustomerInfoService} from '../../service/customer-info.service';
+import {CustomerType} from '../../model/customerType';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
+import {LoanCategory} from '../../../loan/model/loan-category';
 
 @Component({
   selector: 'app-company-profile',
@@ -18,6 +22,13 @@ export class CompanyProfileComponent implements OnInit {
   customerInfoId;
   spinner = false;
   isEdited = false;
+  paramProp: any;
+  applyForm = {
+    loanId: undefined,
+    customerProfileId: undefined
+  };
+  loanList = [];
+  filterLoanCat = LoanCategory.BUSINESS;
 
   totalProposalAmount = 0;
   totalLoanProposedAmount = 0;
@@ -25,13 +36,20 @@ export class CompanyProfileComponent implements OnInit {
   constructor(private companyInfoService: CompanyInfoService,
               private customerInfoService: CustomerInfoService,
               private toastService: ToastService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
+              private modalService: NgbModal,
+              private loanConfigService: LoanConfigService) { }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((paramObject: Params) => {
       this.customerInfoId = paramObject.id;
-      this.getCompanyInfo(paramObject.companyInfoId);
+      this.paramProp = paramObject;
+      this.getCompanyInfo(this.paramProp.companyInfoId);
       this.getCustomerInfo(this.customerInfoId);
+    });
+    this.loanConfigService.getAllByLoanCategory(this.filterLoanCat).subscribe((response: any) => {
+      this.loanList = response.detail;
     });
   }
 
@@ -59,11 +77,34 @@ export class CompanyProfileComponent implements OnInit {
     });
   }
 
-  editCompany() {
+  onClose() {
+    this.modalService.dismissAll();
+  }
+
+  openLoanForm() {
+    this.onClose();
+    this.spinner = true;
+    let loanCategory = 'BUSINESS_TYPE';
+    if (CustomerType.INDIVIDUAL === CustomerType[this.paramProp.customerType]) {
+      loanCategory = 'PERSONAL_TYPE';
+    }
+    this.router.navigate(['/home/loan/loanForm'], {
+      queryParams: {
+        loanId: this.applyForm.loanId,
+        customerInfoId: this.paramProp.id,
+        customerType: this.paramProp.customerType,
+        customerProfileId: this.paramProp.companyInfoId,
+        loanCategory: loanCategory
+      }
+    });
   }
 
   public refreshCustomerInfo(): void {
     this.customerInfo = undefined;
     this.getCustomerInfo(this.customerInfoId);
+  }
+
+  openSelectLoanTemplate(template: TemplateRef<any>) {
+    this.modalService.open(template);
   }
 }

@@ -333,8 +333,6 @@ export class CustomerProfileComponent implements OnInit {
     }, error => {
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
     });
-
-
   }
 
   getTotalLoanAmount(value: LoanAmountType) {
