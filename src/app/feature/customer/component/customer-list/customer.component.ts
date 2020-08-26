@@ -14,6 +14,8 @@ import {NbDialogService} from '@nebular/theme';
 import {CustomerInfoService} from '../../service/customer-info.service';
 import {CustomerType} from '../../model/customerType';
 import {CompanyFormComponent} from '../company-form/company-form.component';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {RoleType} from '../../../admin/modal/roleType';
 
 @Component({
   selector: 'app-customer-component',
@@ -31,6 +33,7 @@ export class CustomerComponent implements OnInit {
   filterForm: FormGroup;
   loanType = LoanType;
   customerType;
+  currentRoleTypeMaker = false;
 
   constructor(private customerService: CustomerService,
               private toastService: ToastService,
@@ -62,6 +65,8 @@ export class CustomerComponent implements OnInit {
   ngOnInit() {
     this.buildFilterForm();
     CustomerComponent.loadData(this);
+    const roleType: string = LocalStorageUtil.getStorage().roleType;
+    this.currentRoleTypeMaker = roleType === RoleType.MAKER;
   }
 
   buildFilterForm() {
