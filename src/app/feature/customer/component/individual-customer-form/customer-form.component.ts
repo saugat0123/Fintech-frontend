@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Injectable, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Customer} from '../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
@@ -169,7 +169,7 @@ export class CustomerFormComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if (this.basicInfo.invalid){
+    if (this.basicInfo.invalid) {
       return;
     }
     this.customer.id = (this.customer.citizenshipIssuedPlace ===
@@ -194,9 +194,11 @@ export class CustomerFormComponent implements OnInit {
     this.customer.customerRelatives = rawFromValue.customerRelatives;
 
     this.customerService.save(this.customer).subscribe(res => {
-      console.log(res);
-    });
-    this.close();
+      this.close();
+    }, error =>
+        this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
+
+
   }
 
   getProvince() {
@@ -252,9 +254,9 @@ export class CustomerFormComponent implements OnInit {
         customerRelation: [{value: customerRelation, disabled: true}],
         customerRelativeName: [undefined, Validators.required],
         citizenshipNumber: [undefined, Validators.required],
-        citizenshipIssuedPlace: [undefined , Validators.required],
-        citizenshipIssuedDate: [undefined  , Validators.required],
-        version:[undefined]
+        citizenshipIssuedPlace: [undefined, Validators.required],
+        citizenshipIssuedDate: [undefined, Validators.required],
+        version: [undefined]
       }));
     });
   }
