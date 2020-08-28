@@ -40,7 +40,6 @@ export class GroupTaggingComponent implements OnInit {
     other.spinner = true;
     other.customerGroupService.getPaginationWithSearchObject(other.searchObj, other.page, other.size).subscribe(response => {
       other.customerGroups = response.detail.content;
-      console.log(other.customerGroups);
       other.totalPages = response.detail.totalPages;
       other.pageNo = response.detail.pageable.pageNumber + 2;
     });
@@ -48,7 +47,6 @@ export class GroupTaggingComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.customerData);
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.customerData.customerGroup)) {
       this.setValue(this.customerData.customerGroup);
@@ -57,7 +55,6 @@ export class GroupTaggingComponent implements OnInit {
   }
 
   onScrollDown() {
-    console.log('load');
     GroupTaggingComponent.loadData(this);
   }
 

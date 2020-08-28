@@ -29,6 +29,7 @@ export class CustomerFormComponent implements OnInit {
 
   basicInfo: FormGroup;
   submitted = false;
+  spinner = false;
   displayEngDate = true;
 
   customerDetailField = {
@@ -169,6 +170,7 @@ export class CustomerFormComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.spinner = true;
     if (this.basicInfo.invalid) {
       return;
     }
@@ -194,9 +196,12 @@ export class CustomerFormComponent implements OnInit {
     this.customer.customerRelatives = rawFromValue.customerRelatives;
 
     this.customerService.save(this.customer).subscribe(res => {
+      this.spinner = false;
       this.close();
-    }, error =>
-        this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
+    }, res => {
+      this.spinner = false;
+      this.toastService.show(new Alert(AlertType.ERROR, res.error.message))
+    });
 
 
   }
