@@ -1,0 +1,154 @@
+<div>
+    <h5>Legal Status</h5>
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Corporate Structure :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.legalStatus?.corporateStructure}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Registered Office :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.legalStatus?.registeredOffice}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Registered Under Act :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.legalStatus?.registeredUnderAct}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Registration Date :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.legalStatus?.registrationDate | date}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>PAN/VAT Reg. Office :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.legalStatus?.panRegistrationOffice | date}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>PAN/VAT Reg. Date :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.legalStatus?.panRegistrationDate | date}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <span> <strong>PAN/VAT Reg. Expiry Date :</strong></span></div>
+        <div class="col-md-4">{{companyInfo?.legalStatus?.registrationExpiryDate | date}}</div>
+    </div>
+    <hr/>
+</div>
+
+<div>
+    <h5>Capital Information</h5>
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Authorized Capital :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.capital?.authorizedCapital}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Paid Up Capital :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.capital?.paidUpCapital}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Issued Capital :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.capital?.issuedCapital}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Fixed Capital :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.capital?.fixedCapital}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Working Capital :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.capital?.workingCapital}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Number Of Shareholder :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.capital?.numberOfShareholder}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Total Capital :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.capital?.totalCapital}}</div>
+    </div>
+    <hr/>
+</div>
+
+<div>
+    <h5>Contact Person Details</h5>
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Name :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.contactPerson?.name}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Contact Number :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.contactPerson?.contactNumber}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Email :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.contactPerson?.email}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Province :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.contactPerson?.province?.name}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>District :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.contactPerson?.district?.name}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Municipalities/VDC :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.contactPerson?.municipalityVdc?.name}}</div>
+    </div>
+    <hr/>
+</div>
+
+<div>
+    <h5>Company Location Detail</h5>
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>House Number :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.companyLocations?.houseNumber}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Street Name :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.companyLocations?.streetName}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <span> <strong>Address :</strong></span></div>
+        <div class="col-md-5">{{companyInfo?.companyLocations?.address}}</div>
+    </div>
+</div>
+
+

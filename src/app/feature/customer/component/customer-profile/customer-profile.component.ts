@@ -116,7 +116,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
       this.customerBasicFormBuilder();
       this.getProvince();
       this.setRelatives(this.customer.customerRelatives);
-
     });
 
 
@@ -345,8 +344,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }, error => {
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
     });
-
-
   }
 
   getTotalLoanAmount(value: LoanAmountType) {
