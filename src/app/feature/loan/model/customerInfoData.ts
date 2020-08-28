@@ -5,6 +5,7 @@ import {GuarantorDetail} from './guarantor-detail';
 import {Insurance} from '../../admin/modal/insurance';
 import {Document} from '../../admin/modal/document';
 import {CustomerGeneralDocument} from '../../customer/model/customerGeneralDocument';
+import {CustomerGroup} from '../../admin/modal/customer-group';
 
 export class CustomerInfoData {
   id: number;
@@ -26,5 +27,6 @@ export class CustomerInfoData {
   guarantors: GuarantorDetail;
   insurance: Insurance;
   customerGeneralDocuments: Array<CustomerGeneralDocument>;
+  customerGroup: CustomerGroup;
 
 }

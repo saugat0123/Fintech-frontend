@@ -18,6 +18,8 @@ import { CustomerDocComponent } from './component/customer-doc-management/custom
 import {KycFormComponent} from './component/customer-profile/kyc-form/kyc-form.component';
 import { CustomerLoanInformationViewComponent } from './component/customer-loan-information-view/customer-loan-information-view.component';
 import { LoanInformationViewModule } from '../loan-information-view/loan-information-view.module';
+import { GroupTaggingComponent } from './component/customer-profile/group-tagging/group-tagging.component';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -30,7 +32,7 @@ const COMPONENTS = [
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
-  declarations: [...COMPONENTS, CompanyFormComponent, CustomerDocComponent, CustomerLoanInformationViewComponent, ],
+  declarations: [...COMPONENTS, CompanyFormComponent, CustomerDocComponent, CustomerLoanInformationViewComponent, GroupTaggingComponent, ],
   exports: [
     CustomerGroupLoanComponent
   ],
@@ -46,7 +48,8 @@ const COMPONENTS = [
     NepaliCalendarModule,
     NbDialogModule.forRoot(),
     LoanInformationTemplateModule,
-    LoanInformationViewModule
+    LoanInformationViewModule,
+    InfiniteScrollModule
 
 
   ],
