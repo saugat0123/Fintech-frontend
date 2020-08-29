@@ -43,7 +43,7 @@ import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-ri
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {InsuranceComponent} from '../../../loan-information-template/insurance/insurance.component';
-import {CreditRiskGradingAlphaComponent} from '../loan-main-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
+import {CreditRiskGradingAlphaComponent} from '../../../loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {CustomerInfoData} from '../../model/customerInfoData';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
 import {FinancialComponent} from '../../../loan-information-template/financial/financial.component';

@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {QuestionService} from '../../../../service/question.service';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {CreditRiskGradingAlpha} from '../../../../admin/modal/CreditRiskGradingAlpha';
-import {LoanDataHolder} from '../../../model/loanData';
+import {QuestionService} from '../../service/question.service';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
+import {LoanDataHolder} from '../../loan/model/loanData';
 
 @Component({
   selector: 'app-credit-risk-grading-alpha',

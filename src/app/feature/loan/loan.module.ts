@@ -75,7 +75,6 @@ import {ReportingModule} from '../reporting/reporting.module';
 import {InsuranceSummaryComponent} from './component/loan-summary/insurance-summary/insurance-summary.component';
 import { GuarantorSummaryComponent } from './component/loan-summary/guarantor-summary/guarantor-summary.component';
 import { ProposalSummaryComponent } from './component/loan-summary/proposal-summary/proposal-summary.component';
-import { CreditRiskGradingAlphaComponent } from './component/loan-main-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 
 const COMPONENTS = [
@@ -136,8 +135,7 @@ const COMPONENTS = [
     CustomerAssociateComponent,
     InsuranceSummaryComponent,
     GuarantorSummaryComponent,
-    ProposalSummaryComponent,
-    CreditRiskGradingAlphaComponent
+    ProposalSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [
