@@ -172,6 +172,7 @@ export class CustomerFormComponent implements OnInit {
     this.submitted = true;
     this.spinner = true;
     if (this.basicInfo.invalid) {
+      this.spinner = false;
       return;
     }
     this.customer.id = (this.customer.citizenshipIssuedPlace ===
