@@ -59,7 +59,7 @@ export class GroupConfigComponent implements OnInit {
 
   buildForm() {
     this.groupForm = this.formBuilder.group({
-      groupCode: [undefined, [Validators.required, Validators.minLength(6) , CustomValidator.notEmpty]],
+      groupCode: [undefined, [Validators.required,  CustomValidator.notEmpty]],
       groupLimit: [undefined, [Validators.required , CustomValidator.notEmpty]],
       id: [undefined],
       version: [undefined]
