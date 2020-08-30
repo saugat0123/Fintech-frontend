@@ -17,6 +17,21 @@
                               [insurance]="customerInfo?.insurance"></app-insurance-view>
         </nb-accordion-item-body>
       </nb-accordion-item>
+      <nb-accordion-item *ngIf="customerInfo?.financial" #itemFinancial>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>FINANCIAL</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-financial-view *ngIf="itemFinancial.expanded"
+                              [formData]="customerInfo?.financial"
+                              [loanType]="loanDataHolder?.loanCategory"
+          ></app-financial-view>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
     </nb-accordion>
   </nb-card-body>
 </nb-card>
