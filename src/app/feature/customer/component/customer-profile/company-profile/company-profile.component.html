@@ -254,9 +254,10 @@
             <div class="col-md-12">
                 <app-customer-loan-information
                         (triggerCustomerRefresh)="refreshCustomerInfo()"
-                        *ngIf="customerInfo"
+                        *ngIf="customerInfo && maker"
                         [customerInfoId]="customerInfoId"
                         [customerInfo]="customerInfo"></app-customer-loan-information>
+                <app-customer-loan-information-view *ngIf="!maker" [customerInfo]="customerInfo" ></app-customer-loan-information-view>
             </div>
         </div>
     </nb-card-body>
