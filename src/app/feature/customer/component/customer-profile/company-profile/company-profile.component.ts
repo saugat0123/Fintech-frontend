@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {AfterContentInit, Component, OnInit, TemplateRef} from '@angular/core';
 import {CompanyInfo} from '../../../../admin/modal/company-info';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {CompanyInfoService} from '../../../../admin/service/company-info.service';
@@ -10,13 +10,14 @@ import {CustomerType} from '../../../model/customerType';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {LoanCategory} from '../../../../loan/model/loan-category';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-company-profile',
   templateUrl: './company-profile.component.html',
   styleUrls: ['./company-profile.component.scss']
 })
-export class CompanyProfileComponent implements OnInit {
+export class CompanyProfileComponent implements OnInit, AfterContentInit {
   companyInfo: CompanyInfo = new CompanyInfo();
   customerInfo: CustomerInfoData = new CustomerInfoData();
   customerInfoId;
@@ -32,6 +33,7 @@ export class CompanyProfileComponent implements OnInit {
 
   totalProposalAmount = 0;
   totalLoanProposedAmount = 0;
+  maker = false;
 
   constructor(private companyInfoService: CompanyInfoService,
               private customerInfoService: CustomerInfoService,
@@ -106,5 +108,12 @@ export class CompanyProfileComponent implements OnInit {
 
   openSelectLoanTemplate(template: TemplateRef<any>) {
     this.modalService.open(template);
+  }
+
+  ngAfterContentInit(): void {
+    const roleType = LocalStorageUtil.getStorage().roleType;
+    if (roleType === 'MAKER') {
+      this.maker = true;
+    }
   }
 }
