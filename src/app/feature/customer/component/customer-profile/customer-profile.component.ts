@@ -70,6 +70,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
   isIndividual = false;
   customerInfo: CustomerInfoData;
   maker = false;
+  groupCode: any;
 
   constructor(private route: ActivatedRoute,
               private customerService: CustomerService,

@@ -51,6 +51,7 @@ export class CompanyProfileComponent implements OnInit {
     this.loanConfigService.getAllByLoanCategory(this.filterLoanCat).subscribe((response: any) => {
       this.loanList = response.detail;
     });
+    console.log(this.customerInfo.customerGroup);
   }
 
   getCompanyInfo(companyInfoId) {
