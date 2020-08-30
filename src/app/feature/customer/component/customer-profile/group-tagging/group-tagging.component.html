@@ -4,11 +4,8 @@
         <label for="groupName" class="ml-3">Associated group</label>
         <div class="col-md-12">
           <div class="input-group mb-3" [formGroup]="customerGroupForm">
-            <input [readOnly]="!edited"  #groupCode type="text" class="form-control" formControlName="groupCode"
+            <input  #groupCode type="text" class="form-control" formControlName="groupCode"
                    placeholder="search group" id="groupName" (keyup)="searchCustomerGroup(groupCode.value)">
-            <div class="input-group-append">
-                <button class="btn btn-primary btn-sm" (click)="clickEdit()"><i class="fa fa-edit"></i></button>
-            </div>
           </div>
         </div>
       </div>
@@ -30,7 +27,7 @@
               <p class="mb-1">Group Limit: </p> Rs.{{option.groupLimit}}
             </div>
           </a>
-          <p *ngIf="customerGroups.length < 1">No groups found</p>
+          <p *ngIf="customerGroups.length < 1">No groups found!!!</p>
         </div>
       </div>
     </nb-card-body>

@@ -200,7 +200,7 @@ export class CustomerFormComponent implements OnInit {
       this.close();
     }, res => {
       this.spinner = false;
-      this.toastService.show(new Alert(AlertType.ERROR, res.error.message))
+      this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
     });
 
 

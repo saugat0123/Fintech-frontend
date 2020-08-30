@@ -76,9 +76,6 @@ export class GroupTaggingComponent implements OnInit {
   }
 
   setValue(customerGroup) {
-    if (!this.edited){
-      return;
-    }
     this.customerGroupForm.patchValue(customerGroup);
   }
 
