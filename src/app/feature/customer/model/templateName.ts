@@ -5,4 +5,5 @@ export class TemplateName {
   static SHARE_SECURITY = 'Share Security';
   static GUARANTOR = 'Guarantor';
   static  INSURANCE = 'Insurance';
+  static  CUSTOMER_GROUP = 'customerGroup';
 }

@@ -1,19 +1,19 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Customer} from '../../../admin/modal/customer';
+import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CustomerRelative} from '../../../admin/modal/customer-relative';
-import {Province} from '../../../admin/modal/province';
-import {District} from '../../../admin/modal/district';
-import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
-import {AddressService} from '../../../../@core/service/baseservice/address.service';
-import {CustomerService} from '../../../admin/service/customer.service';
-import {ToastService} from '../../../../@core/utils';
+import {CustomerRelative} from '../../../../admin/modal/customer-relative';
+import {Province} from '../../../../admin/modal/province';
+import {District} from '../../../../admin/modal/district';
+import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
+import {AddressService} from '../../../../../@core/service/baseservice/address.service';
+import {CustomerService} from '../../../../admin/service/customer.service';
+import {ToastService} from '../../../../../@core/utils';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {BlacklistService} from '../../../admin/component/blacklist/blacklist.service';
-import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {DateValidator} from '../../../../@core/validator/date-validator';
-import {Alert, AlertType} from '../../../../@theme/model/Alert';
-import {CustomerAssociateComponent} from '../../../loan/component/loan-main-template/customer-associate/customer-associate.component';
+import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.service';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {DateValidator} from '../../../../../@core/validator/date-validator';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {CustomerAssociateComponent} from '../../../../loan/component/loan-main-template/customer-associate/customer-associate.component';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 
 @Component({
@@ -29,6 +29,7 @@ export class CustomerFormComponent implements OnInit {
 
   basicInfo: FormGroup;
   submitted = false;
+  spinner = false;
   displayEngDate = true;
 
   customerDetailField = {
@@ -169,7 +170,9 @@ export class CustomerFormComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.spinner = true;
     if (this.basicInfo.invalid) {
+      this.spinner = false;
       return;
     }
     this.customer.id = (this.customer.citizenshipIssuedPlace ===
@@ -194,9 +197,12 @@ export class CustomerFormComponent implements OnInit {
     this.customer.customerRelatives = rawFromValue.customerRelatives;
 
     this.customerService.save(this.customer).subscribe(res => {
+      this.spinner = false;
       this.close();
-    }, error =>
-        this.toastService.show(new Alert(AlertType.ERROR, error.error.message)));
+    }, res => {
+      this.spinner = false;
+      this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
+    });
 
 
   }

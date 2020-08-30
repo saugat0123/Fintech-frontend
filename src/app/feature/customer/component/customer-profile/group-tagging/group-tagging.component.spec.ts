@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InsuranceViewComponent } from './insurance-view.component';
+import { GroupTaggingComponent } from './group-tagging.component';
 
-describe('InsuranceViewComponent', () => {
-  let component: InsuranceViewComponent;
-  let fixture: ComponentFixture<InsuranceViewComponent>;
+describe('GroupTaggingComponent', () => {
+  let component: GroupTaggingComponent;
+  let fixture: ComponentFixture<GroupTaggingComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InsuranceViewComponent ]
+      declarations: [ GroupTaggingComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InsuranceViewComponent);
+    fixture = TestBed.createComponent(GroupTaggingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

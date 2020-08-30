@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {DateValidator} from '../../../../../@core/validator/date-validator';
-import {District} from '../../../../admin/modal/district';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {Customer} from '../../../../admin/modal/customer';
-import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {CustomerService} from '../../../service/customer.service';
-import {ModalResponse, ToastService} from '../../../../../@core/utils';
-import {AddressService} from '../../../../../@core/service/baseservice/address.service';
+import {DateValidator} from '../../../../../../@core/validator/date-validator';
+import {District} from '../../../../../admin/modal/district';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {Customer} from '../../../../../admin/modal/customer';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {CustomerService} from '../../../../service/customer.service';
+import {ModalResponse, ToastService} from '../../../../../../@core/utils';
+import {AddressService} from '../../../../../../@core/service/baseservice/address.service';
 import {NbDialogRef} from '@nebular/theme';
 
 @Component({

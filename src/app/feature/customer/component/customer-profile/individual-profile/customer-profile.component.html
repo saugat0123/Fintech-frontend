@@ -1,4 +1,22 @@
 <nb-card [nbSpinner]="spinner" accent="primary">
+  <nb-card-header>
+    <div class="row shadow">
+      <div class="col-md-2">
+        <strong>Associate Group:</strong> <span>{{customerInfo.customerGroup != undefined ?  customerInfo?.customerGroup?.groupCode : ' N/A'}}</span>
+      </div>
+      <div class="offset-4 col-md-6 float-right">
+        <button [nbPopover]="groupWindow" class="float-right" nbButton>
+          Groups
+          <nb-icon icon="arrow-down-outline"></nb-icon>
+        </button>
+        <div class="row">
+          <ng-template #groupWindow>
+            <app-group-tagging [customerData]="customerInfo"></app-group-tagging>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </nb-card-header>
   <nb-card-body>
     <div class="bg-light mb-3">
       <div class="row">

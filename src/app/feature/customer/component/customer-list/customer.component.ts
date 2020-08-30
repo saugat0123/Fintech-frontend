@@ -9,11 +9,11 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {LoanType} from '../../../loan/model/loanType';
 import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {CustomerFormComponent} from '../individual-customer-form/customer-form.component';
+import {CustomerFormComponent} from '../customer-form/individual-form/customer-form.component';
 import {NbDialogService} from '@nebular/theme';
 import {CustomerInfoService} from '../../service/customer-info.service';
 import {CustomerType} from '../../model/customerType';
-import {CompanyFormComponent} from '../company-form/company-form.component';
+import {CompanyFormComponent} from '../customer-form/company-form/company-form.component';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {RoleType} from '../../../admin/modal/roleType';
 

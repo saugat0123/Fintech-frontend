@@ -1,33 +1,33 @@
 import {AfterContentInit, Component, OnInit, TemplateRef} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
-import {CustomerService} from '../../service/customer.service';
-import {ToastService} from '../../../../@core/utils';
-import {Customer} from '../../../admin/modal/customer';
-import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
-import {LoanType} from '../../../loan/model/loanType';
+import {CustomerService} from '../../../service/customer.service';
+import {ToastService} from '../../../../../@core/utils';
+import {Customer} from '../../../../admin/modal/customer';
+import {LoanFormService} from '../../../../loan/component/loan-form/service/loan-form.service';
+import {LoanType} from '../../../../loan/model/loanType';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
-import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
-import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
+import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {DateValidator} from '../../../../@core/validator/date-validator';
-import {Province} from '../../../admin/modal/province';
-import {District} from '../../../admin/modal/district';
-import {AddressService} from '../../../../@core/service/baseservice/address.service';
-import {CustomerRelative} from '../../../admin/modal/customer-relative';
-import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
-import {FetchLoan} from '../../model/fetchLoan';
-import {LoanAmountType} from '../../model/loanAmountType';
-import {LoanCategory} from '../../../loan/model/loan-category';
-import {CustomerType} from '../../model/customerType';
-import {CustomerInfoService} from '../../service/customer-info.service';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {DateValidator} from '../../../../../@core/validator/date-validator';
+import {Province} from '../../../../admin/modal/province';
+import {District} from '../../../../admin/modal/district';
+import {AddressService} from '../../../../../@core/service/baseservice/address.service';
+import {CustomerRelative} from '../../../../admin/modal/customer-relative';
+import {MunicipalityVdc} from '../../../../admin/modal/municipality_VDC';
+import {FetchLoan} from '../../../model/fetchLoan';
+import {LoanAmountType} from '../../../model/loanAmountType';
+import {LoanCategory} from '../../../../loan/model/loan-category';
+import {CustomerType} from '../../../model/customerType';
+import {CustomerInfoService} from '../../../service/customer-info.service';
 // @ts-ignore
-import {CustomerInfoData} from '../../../loan/model/customerInfoData';
-import {LoanDataHolder} from '../../../loan/model/loanData';
+import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
+import {LoanDataHolder} from '../../../../loan/model/loanData';
 import {KycFormComponent} from './kyc-form/kyc-form.component';
 import {NbDialogService} from '@nebular/theme';
-import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 
 
 @Component({

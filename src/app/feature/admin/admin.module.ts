@@ -83,6 +83,7 @@ import {NotificationMasterComponent} from './component/notification-master/notif
 import {AccountDocumentFormComponent} from './component/opening-account/config/account-category-config/account-document-form/account-document-form.component';
 import {RemarkModalComponent} from './component/opening-account/remark-modal/remark-modal.component';
 import {AccountNumberModalComponent} from './component/opening-account/account-no-modal/account-no-modal.component';
+import { GroupConfigComponent } from './component/preference/group-config/group-config.component';
 
 @NgModule({
     declarations: [
@@ -152,7 +153,8 @@ import {AccountNumberModalComponent} from './component/opening-account/account-n
         NotificationMasterComponent,
         AccountDocumentFormComponent,
         RemarkModalComponent,
-        AccountNumberModalComponent
+        AccountNumberModalComponent,
+        GroupConfigComponent
         // SecurityComponent
     ],
     imports: [
