@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CompanyInfo} from '../../../../admin/modal/company-info';
+import {CompanyInfo} from '../../../../../admin/modal/company-info';
 
 @Component({
   selector: 'app-company-profile-additional-information',

@@ -1,15 +1,15 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
-import {CompanyInfo} from '../../../admin/modal/company-info';
-import {Alert, AlertType} from '../../../../@theme/model/Alert';
-import {CompanyInfoService} from '../../../admin/service/company-info.service';
-import {ToastService} from '../../../../@core/utils';
+import {CompanyInfo} from '../../../../admin/modal/company-info';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {CompanyInfoService} from '../../../../admin/service/company-info.service';
+import {ToastService} from '../../../../../@core/utils';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {CustomerInfoData} from '../../../loan/model/customerInfoData';
-import {CustomerInfoService} from '../../service/customer-info.service';
-import {CustomerType} from '../../model/customerType';
+import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
+import {CustomerInfoService} from '../../../service/customer-info.service';
+import {CustomerType} from '../../../model/customerType';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
-import {LoanCategory} from '../../../loan/model/loan-category';
+import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
+import {LoanCategory} from '../../../../loan/model/loan-category';
 
 @Component({
   selector: 'app-company-profile',
