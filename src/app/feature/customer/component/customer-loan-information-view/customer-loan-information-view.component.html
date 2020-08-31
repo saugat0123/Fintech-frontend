@@ -30,6 +30,21 @@
                               [guarantorData]="customerInfo?.guarantors"></app-guarantor-view>
         </nb-accordion-item-body>
       </nb-accordion-item>
+      <nb-accordion-item #siteVisit *ngIf="customerInfo?.siteVisit">
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>SITE VISIT</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+      <app-site-visit-view *ngIf="siteVisit.expanded"
+                          [siteVisit]="customerInfo?.siteVisit">
+
+      </app-site-visit-view>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
     </nb-accordion>
   </nb-card-body>
 </nb-card>
