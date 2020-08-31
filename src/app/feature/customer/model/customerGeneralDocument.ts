@@ -6,5 +6,8 @@ export class CustomerGeneralDocument {
   docPath: string;
   customerInfo: CustomerInfoData;
   version: number;
+  name: string;
+  id: number;
+  checked: boolean;
 
 }

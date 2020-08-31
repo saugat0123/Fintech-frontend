@@ -298,7 +298,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-     <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo"></app-customer-doc>
+     <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo" (refreshCustomerInfo)="refreshCustomerInfo()"></app-customer-doc>
       </div>
     </div>
   </nb-card-body>
