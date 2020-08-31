@@ -1,11 +1,11 @@
 <nb-card [nbSpinner]="spinner" accent="primary">
     <nb-card-header>
-        <div class="row">
+        <div class="row shadow-sm">
             <div class="col-md-2">
-                <strong>Associate Group:</strong> <span> {{customerInfo.customerGroup != undefined ?  customerInfo?.customerGroup?.groupCode : ' N/A'}}</span>
+                <strong>Associate Group:</strong> <span> {{customerInfo?.customerGroup != undefined ?  customerInfo?.customerGroup?.groupCode : ' N/A'}}</span>
             </div>
             <div class="offset-4 col-md-6 float-right">
-                <button [nbPopover]="groupWindow" class="float-right" nbButton nbPopoverPlacement="left">
+                <button [nbPopover]="groupWindow" class="float-right mb-3" nbButton size="small" [nbPopoverPlacement]="'left'">
                     Groups
                     <nb-icon icon="arrow-down-outline"></nb-icon>
                 </button>
