@@ -278,6 +278,11 @@
                 <app-customer-loan-information-view *ngIf="!maker" [customerInfo]="customerInfo" ></app-customer-loan-information-view>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo" (refreshCustomerInfo)="refreshCustomerInfo()"></app-customer-doc>
+            </div>
+        </div>
     </nb-card-body>
 </nb-card>
 

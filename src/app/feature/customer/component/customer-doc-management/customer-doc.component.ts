@@ -113,21 +113,30 @@ export class CustomerDocComponent implements OnInit {
   }
 
   getGeneralLoanConfigDocument() {
-    this.documentService.getByLoanCycleAndStatus(9, 'ACTIVE').subscribe((res: any) => {
-      this.generalDocumentReq = res.detail;
-      if (!ObjectUtil.isEmpty(this.customerInfo.customerGeneralDocuments)) {
-        const customerDocumentArray = this.customerInfo.customerGeneralDocuments;
-        customerDocumentArray.forEach((singleDoc, i) => {
-          this.generalDocumentReq.forEach((initDoc, j) => {
-            if (singleDoc.document.id === initDoc.id) {
-              initDoc.checked = true;
-              initDoc.docPath = singleDoc.docPath;
-            }
-          });
-        });
+    if (!ObjectUtil.isEmpty(this.customerInfo.customerType)) {
+      let loanCycleId;
+      if (this.customerInfo.customerType === 'COMPANY') {
+        loanCycleId = 10;
+      } else if (this.customerInfo.customerType === 'INDIVIDUAL') {
+        loanCycleId = 9;
       }
-    });
-  }
+      this.documentService.getByLoanCycleAndStatus(loanCycleId, 'ACTIVE').subscribe((res: any) => {
+        this.generalDocumentReq = res.detail;
+        if (!ObjectUtil.isEmpty(this.customerInfo.customerGeneralDocuments)) {
+          const customerDocumentArray = this.customerInfo.customerGeneralDocuments;
+          customerDocumentArray.forEach((singleDoc, i) => {
+            this.generalDocumentReq.forEach((initDoc, j) => {
+              if (singleDoc.document.id === initDoc.id) {
+                initDoc.checked = true;
+                initDoc.docPath = singleDoc.docPath;
+              }
+            });
+          });
+        }
+      });
+    }
+    }
+
 
 
   getLoanOfLoanHolder() {

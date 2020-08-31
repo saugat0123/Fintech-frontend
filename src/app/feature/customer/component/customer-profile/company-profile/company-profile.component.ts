@@ -19,7 +19,7 @@ import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 })
 export class CompanyProfileComponent implements OnInit, AfterContentInit {
   companyInfo: CompanyInfo = new CompanyInfo();
-  customerInfo: CustomerInfoData = new CustomerInfoData();
+  customerInfo: CustomerInfoData;
   customerInfoId;
   spinner = false;
   isEdited = false;
