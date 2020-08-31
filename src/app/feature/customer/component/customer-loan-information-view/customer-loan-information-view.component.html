@@ -28,7 +28,7 @@
         <nb-accordion-item-body>
           <app-financial-view *ngIf="itemFinancial.expanded"
                               [formData]="customerInfo?.financial"
-                              [loanType]="loanDataHolder?.loanCategory"
+                              [customerType]="customerInfo?.customerType"
           ></app-financial-view>
         </nb-accordion-item-body>
       </nb-accordion-item>

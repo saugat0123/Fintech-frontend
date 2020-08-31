@@ -10,7 +10,7 @@ import {FinancialService} from "../../loan-information-template/financial/financ
 export class FinancialViewComponent implements OnInit {
 
   @Input() formData: Financial;
-  @Input() loanType: any;
+  @Input() customerType: any;
 
   financialData: any;
 
@@ -42,8 +42,7 @@ export class FinancialViewComponent implements OnInit {
   constructor(private financialService: FinancialService) { }
 
   ngOnInit() {
-    console.log(this.loanType);
-    if (this.loanType === 'BUSINESS_TYPE') {
+    if (this.customerType === 'COMPANY') {
       this.isBusinessLoan = true;
     }
     if (this.formData !== undefined) {

@@ -9,7 +9,6 @@ import {LoanDataHolder} from "../../../loan/model/loanData";
 export class CustomerLoanInformationViewComponent implements OnInit {
   @Input() customerInfo;
 
-  loanDataHolder: LoanDataHolder = new LoanDataHolder();
 
   constructor() {
   }
