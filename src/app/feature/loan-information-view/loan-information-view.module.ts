@@ -5,13 +5,15 @@ import {CoreModule} from '../../@core/core.module';
 import {FinancialViewComponent} from "./financial-view/financial-view.component";
 import {NbTabsetModule} from "@nebular/theme";
 
+import { GuarantorViewComponent } from './guarantor-view/guarantor-view.component';
 
 
 @NgModule({
-  declarations: [InsuranceViewComponent, FinancialViewComponent],
+  declarations: [InsuranceViewComponent, FinancialViewComponent, GuarantorViewComponent],
   exports: [
     InsuranceViewComponent,
-    FinancialViewComponent
+    FinancialViewComponent,
+    GuarantorViewComponent
   ],
   imports: [
     CommonModule,

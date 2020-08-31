@@ -32,6 +32,19 @@
           ></app-financial-view>
         </nb-accordion-item-body>
       </nb-accordion-item>
+      <nb-accordion-item #guarantor *ngIf="customerInfo?.guarantors">
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>GUARANTOR</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-guarantor-view *ngIf="guarantor.expanded"
+                              [guarantorData]="customerInfo?.guarantors"></app-guarantor-view>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
     </nb-accordion>
   </nb-card-body>
 </nb-card>
