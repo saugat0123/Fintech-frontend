@@ -77,6 +77,7 @@ import { GuarantorSummaryComponent } from './component/loan-summary/guarantor-su
 import { ProposalSummaryComponent } from './component/loan-summary/proposal-summary/proposal-summary.component';
 import { CreditRiskGradingAlphaComponent } from './component/loan-main-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
+import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -168,7 +169,8 @@ const ENTRY_COMPONENTS = [
         CustomerModule,
         NepaliCalendarModule,
         ReportingModule,
-        LoanInformationTemplateModule
+        LoanInformationTemplateModule,
+        LoanInformationViewModule
     ],
 
     providers: [
