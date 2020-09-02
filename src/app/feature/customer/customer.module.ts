@@ -71,7 +71,9 @@ const COMPONENTS = [
       CustomerFormComponent,
       CompanyFormComponent,
       KycFormComponent,
-    EditManagementTeamComponent
+    EditManagementTeamComponent,
+    EditPartnerInfoComponent,
+    EditSwotComponent
   ]
 })
 export class CustomerModule {

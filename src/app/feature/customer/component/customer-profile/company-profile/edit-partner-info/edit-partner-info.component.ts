@@ -34,7 +34,6 @@ import {CompanyFormComponent} from "../../../customer-form/company-form/company-
 })
 export class EditPartnerInfoComponent implements OnInit {
 
-  @Input() formValue: CompanyInfo;
 
   calendarType = 'AD';
   companyInfoFormGroup: FormGroup;
@@ -87,7 +86,6 @@ export class EditPartnerInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.companyInfo = this.formValue;
     this.buildForm();
 
     this.commonLocation.getProvince().subscribe(
@@ -106,7 +104,7 @@ export class EditPartnerInfoComponent implements OnInit {
         }
     );
 
-    if (ObjectUtil.isEmpty(this.formValue)) {
+    if (ObjectUtil.isEmpty(this.companyInfo.proprietorsList)) {
       this.customerId = Number(this.activatedRoute.snapshot.queryParamMap.get('customerId'));
       if (this.customerId !== 0) {
         this.loanFormService.detail(this.customerId).subscribe(
@@ -126,21 +124,15 @@ export class EditPartnerInfoComponent implements OnInit {
                     });
                   }
               );
-              this.companyInfo = response.detail.companyInfo;
               this.buildForm();
-              this.setCompanyInfo(this.companyInfo);
+              this.proprietorsFormGroup();
             }
         );
       }
     } else {
-      this.companyInfo = this.formValue;
       this.setCompanyInfo(this.companyInfo);
     }
 
-    this.companyFormField = {
-      showFormField: (!ObjectUtil.isEmpty(this.formValue)),
-      isOldCustomer: (ObjectUtil.isEmpty(this.formValue))
-    };
   }
 
   buildForm() {
@@ -150,11 +142,6 @@ export class EditPartnerInfoComponent implements OnInit {
           [(ObjectUtil.isEmpty(this.companyInfo)
               || ObjectUtil.isEmpty(this.companyInfo.version)) ? undefined :
               this.companyInfo.version],
-
-      // managementTeams
-      managementTeams: this.formBuilder.array([
-        this.managementTeamFormGroup()
-      ]),
       // proprietors
       proprietors: this.formBuilder.array([
         this.proprietorsFormGroup()
@@ -167,37 +154,8 @@ export class EditPartnerInfoComponent implements OnInit {
   }
 
   setCompanyInfo(info: CompanyInfo) {
-    // set managementTeams data
-    this.companyInfoFormGroup.setControl('managementTeams', this.setManagementTeams(info.managementTeamList));
     // proprietors data
     this.companyInfoFormGroup.setControl('proprietors', this.setProprietors(info.proprietorsList));
-  }
-
-  managementTeamFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      name: [undefined, Validators.required],
-      designation: [undefined, Validators.required]
-    });
-  }
-
-  // set managementTeams data
-  setManagementTeams(managementTeamList: ManagementTeam[]): FormArray {
-    const managementTeamFormArray = new FormArray([]);
-    managementTeamList.forEach(managementTeam => {
-      managementTeamFormArray.push(this.formBuilder.group({
-        name: [managementTeam.name === undefined ? '' : managementTeam.name, Validators.required],
-        designation: [managementTeam.designation === undefined ? '' : managementTeam.designation, Validators.required],
-      }));
-    });
-    return managementTeamFormArray;
-  }
-
-  removeManagementTeam(index: number) {
-    (<FormArray>this.companyInfoFormGroup.get('managementTeams')).removeAt(index);
-  }
-
-  addManagementTeam() {
-    (<FormArray>this.companyInfoFormGroup.get('managementTeams')).push(this.managementTeamFormGroup());
   }
 
   proprietorsFormGroup(): FormGroup {
@@ -307,10 +265,6 @@ export class EditPartnerInfoComponent implements OnInit {
 
 
   onSubmit() {
-    this.companyInfo = new CompanyInfo();
-
-
-
     // proprietorsList
     this.companyInfo.proprietorsList = new Array<Proprietors>();
     let proprietorsIndex = 0;

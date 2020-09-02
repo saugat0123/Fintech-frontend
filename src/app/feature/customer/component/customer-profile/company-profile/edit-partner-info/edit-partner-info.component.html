@@ -11,9 +11,6 @@
                                  *ngFor="let proprietor of companyInfoFormGroup.get('proprietors')['controls']; let proprietorIndex = index">
                                 <div [formGroupName]="proprietorIndex">
                                     <div class="row">
-                                        <div class="col-md-10 form-group">
-                                            <h5>{{proprietorIndex + 1}}) Proprietor Information</h5>
-                                        </div>
                                         <div class="col-md-2" *ngIf="companyInfoFormGroup.get('proprietors').length>1">
                                             <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
                                                    (click)="removeProprietor(proprietorIndex)" value="Delete"/>

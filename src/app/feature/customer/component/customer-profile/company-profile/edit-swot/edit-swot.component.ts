@@ -18,7 +18,7 @@ import {AddressService} from "../../../../../../@core/service/baseservice/addres
 import {LoanDataService} from "../../../../../loan/service/loan-data.service";
 import {ActivatedRoute} from "@angular/router";
 import {LoanFormService} from "../../../../../loan/component/loan-form/service/loan-form.service";
-import {ToastService} from "../../../../../../@core/utils";
+import {ModalResponse, ToastService} from "../../../../../../@core/utils";
 import {CompanyInfoService} from "../../../../../admin/service/company-info.service";
 import {BlacklistService} from "../../../../../admin/component/blacklist/blacklist.service";
 import {NbDialogRef} from "@nebular/theme";
@@ -41,6 +41,7 @@ export class EditSwotComponent implements OnInit {
   englishDateSelected = true;
   customerId;
   submitted = false;
+  spinner = false;
 
   companyFormField = {
     showFormField: false,
@@ -77,7 +78,8 @@ export class EditSwotComponent implements OnInit {
       private toastService: ToastService,
       private companyInfoService: CompanyInfoService,
       private blackListService: BlacklistService,
-      protected ref: NbDialogRef<CompanyFormComponent>,
+      protected ref: NbDialogRef<EditSwotComponent>,
+      protected dialogRef: NbDialogRef<EditSwotComponent>
   ) {
 
   }
@@ -94,11 +96,8 @@ export class EditSwotComponent implements OnInit {
   buildForm() {
     this.companyInfoFormGroup = this.formBuilder.group({
 
-      companyInfoVersion:
-          [(ObjectUtil.isEmpty(this.companyInfo)
-              || ObjectUtil.isEmpty(this.companyInfo.version)) ? undefined :
-              this.companyInfo.version],
       // swot
+      id: [ObjectUtil.setUndefinedIfNull(this.companyInfo.swot.id)],
       strength: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.strength, Validators.required],
 
@@ -110,7 +109,23 @@ export class EditSwotComponent implements OnInit {
 
       threats: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.threats, Validators.required],
+      version: [ObjectUtil.setUndefinedIfNull(this.companyInfo.swot.version)]
     });
+  }
+  getCompanyInfo(companyInfoId) {
+    this.spinner = true;
+    this.companyInfoService.detail(companyInfoId).subscribe((res: any) => {
+      this.companyInfo = res.detail;
+      this.spinner = false;
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load company information!'));
+      this.spinner = false;
+    });
+  }
+  public refreshCompanyInfo(): void {
+    this.customerInfo = undefined;
+    this.getCompanyInfo(this.companyInfo.id);
   }
 
 
@@ -169,18 +184,20 @@ export class EditSwotComponent implements OnInit {
 
 
   onSubmit() {
-    this.companyInfo = new CompanyInfo();
 
     // swot
+    this.swot.id = this.companyInfoFormGroup.get('id').value;
     this.swot.strength = this.companyInfoFormGroup.get('strength').value;
     this.swot.weakness = this.companyInfoFormGroup.get('weakness').value;
     this.swot.opportunity = this.companyInfoFormGroup.get('opportunity').value;
     this.swot.threats = this.companyInfoFormGroup.get('threats').value;
+    this.swot.version = this.companyInfoFormGroup.get('version').value;
     this.companyInfo.swot = this.swot;
 
     this.companyInfoService.save(this.companyInfo).subscribe((response: any) => {
-      this.close();
+      this.companyInfo = response.detail;
       this.toastService.show(new Alert(AlertType.SUCCESS, `Company Saved Successfully`));
+      this.dialogRef.close(ModalResponse.SUCCESS);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, `Error saving Company: ${error.error.message}`));

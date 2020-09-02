@@ -170,7 +170,7 @@
                                     </div>
                                 </nb-accordion-item-header>
                                 <nb-accordion-item-body>
-                                    <div class="col">
+                                    <div class="text-right">
                                         <a  (click)="openKycModal()" class="p-2 cursor"><em class="fa fa-edit"></em></a>
                                     </div>
                                     <table aria-describedby="management team table" class="table table-bordered">
@@ -199,11 +199,12 @@
                                             <span>Information of Proprietor/Shareholder/Partner</span>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <a  (click)="openProprietorEdit()" class="p-2 cursor"><em class="fa fa-edit"></em></a>
-                                    </div>
+
                                 </nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <div class="text-right">
+                                        <a  (click)="openProprietorEdit()" class="p-2 cursor"><em class="fa fa-edit"></em></a>
+                                    </div>
                                     <table aria-describedby="proprietor info table" class="table table-bordered">
                                         <thead>
                                         <tr>
@@ -238,11 +239,11 @@
                                             <span>SWOT Analysis</span>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <a  (click)="openSwotEdit()" class="p-2 cursor"><em class="fa fa-edit"></em></a>
-                                    </div>
                                 </nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <div class="text-right">
+                                        <button  (click)="openSwotEdit()" class="p-2 cursor" type="button"> Edit</button><br>
+                                    </div>
                                     <table aria-describedby="swot table" class="table table-bordered">
                                         <thead>
                                         <tr>
