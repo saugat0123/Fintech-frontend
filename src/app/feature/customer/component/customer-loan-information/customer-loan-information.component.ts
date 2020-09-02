@@ -16,6 +16,11 @@ import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {GuarantorDetail} from '../../../loan/model/guarantor-detail';
 import {GuarantorComponent} from '../../../loan-information-template/guarantor/guarantor.component';
 import {Insurance} from '../../../admin/modal/insurance';
+import {CreditRiskGradingAlphaComponent} from '../../../loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
+import {CreditRiskGradingAlpha} from '../../../admin/modal/CreditRiskGradingAlpha';
+import {CompanyInfo} from '../../../admin/modal/company-info';
+import {CreditRiskGrading} from '../../../admin/modal/creditRiskGrading';
+import {CreditGradingComponent} from '../../../loan-information-template/credit-grading/credit-grading.component';
 
 @Component({
   selector: 'app-customer-loan-information',
@@ -26,6 +31,7 @@ export class CustomerLoanInformationComponent implements OnInit {
 
   @Input() public customerInfoId: number;
   @Input() public customerInfo: CustomerInfoData;
+  @Input() public companyInfo: CompanyInfo;
 
   @ViewChild('siteVisitComponent', {static: false})
   public siteVisitComponent: SiteVisitComponent;
@@ -35,22 +41,30 @@ export class CustomerLoanInformationComponent implements OnInit {
   public financialComponent: FinancialComponent;
   @ViewChild('itemFinancial', {static: false})
   private itemFinancial: NbAccordionItemComponent;
+  @ViewChild('CrgAlphaComponent', {static: false})
+  public CrgAlphaComponent: CreditRiskGradingAlphaComponent;
+  @ViewChild('itemCrgAlpha', {static: false})
+  private itemCrgAlpha: NbAccordionItemComponent;
+  @ViewChild('CrgComponent', {static: false})
+  public CrgComponent: CreditGradingComponent;
+  @ViewChild('itemCrg', {static: false})
+  private itemCrg: NbAccordionItemComponent;
   @ViewChild('itemSecurity', {static: false})
   private itemSecurity: NbAccordionItemComponent;
-
   @ViewChild('guarantorComponent', {static: false})
   public guarantorComponent: GuarantorComponent;
   @ViewChild('itemGuarantor', {static: false})
   private itemGuarantor: NbAccordionItemComponent;
-
   @ViewChild('itemInsurance', {static: false})
   private  itemInsurance: NbAccordionItemComponent;
   @Output() public triggerCustomerRefresh = new EventEmitter<boolean>();
   calendarType: CalendarType = CalendarType.AD;
   private siteVisit: SiteVisit;
-  financial: Financial;
-  private  security: Security;
-  private  shareSecurity: ShareSecurity;
+  private financial: Financial;
+  private creditRiskGradingAlpha: CreditRiskGradingAlpha;
+  private creditRiskGrading: CreditRiskGrading;
+  private security: Security;
+  private shareSecurity: ShareSecurity;
   private guarantors: GuarantorDetail;
   public insurance: Insurance;
 
@@ -66,6 +80,12 @@ export class CustomerLoanInformationComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.financial)) {
       this.financial = this.customerInfo.financial;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.creditRiskGradingAlpha)) {
+      this.creditRiskGradingAlpha = this.customerInfo.creditRiskGradingAlpha;
+    }
+    if (!ObjectUtil.isEmpty(this.customerInfo.creditRiskGrading)) {
+      this.creditRiskGrading = this.customerInfo.creditRiskGrading;
     }
     if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
       this.security = this.customerInfo.security;
@@ -94,7 +114,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     });
   }
 
-  saveFinancial(data: any) {
+  saveFinancial(data: string) {
     if (ObjectUtil.isEmpty(this.financial)) {
       this.financial = new Financial();
     }
@@ -102,7 +122,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     this.customerInfoService.saveLoanInfo(this.financial, this.customerInfoId, TemplateName.FINANCIAL)
         .subscribe(() => {
           this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Financial!'));
-          this.itemSiteVisit.close();
+          this.itemFinancial.close();
           this.triggerCustomerRefresh.emit(true);
         }, error => {
           console.error(error);
@@ -173,4 +193,36 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Insurance!'));
       });
     }
+
+  saveCrgAlpha(data: string) {
+    if (ObjectUtil.isEmpty(this.creditRiskGradingAlpha)) {
+      this.creditRiskGradingAlpha = new CreditRiskGradingAlpha();
+    }
+    this.creditRiskGradingAlpha.data = data;
+    this.customerInfoService.saveLoanInfo(this.creditRiskGradingAlpha, this.customerInfoId, TemplateName.CRG_ALPHA)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Risk Grading (Alpha)!'));
+          this.itemCrgAlpha.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading (Alpha)!'));
+        });
+  }
+
+  saveCrg(data: string) {
+    if (ObjectUtil.isEmpty(this.creditRiskGrading)) {
+      this.creditRiskGrading = new CreditRiskGrading();
+    }
+    this.creditRiskGrading.data = data;
+    this.customerInfoService.saveLoanInfo(this.creditRiskGrading, this.customerInfoId, TemplateName.CRG)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Credit Risk Grading!'));
+          this.itemCrg.close();
+          this.triggerCustomerRefresh.emit(true);
+        }, error => {
+          console.error(error);
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Credit Risk Grading!'));
+        });
+  }
 }

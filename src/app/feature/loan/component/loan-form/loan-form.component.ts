@@ -23,7 +23,7 @@ import {CiclComponent} from '../loan-main-template/cicl/cicl.component';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {DatePipe} from '@angular/common';
-import {CreditGradingComponent} from '../loan-main-template/credit-grading/credit-grading.component';
+import {CreditGradingComponent} from '../../../loan-information-template/credit-grading/credit-grading.component';
 import {SiteVisitComponent} from '../../../loan-information-template/site-visit/site-visit.component';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {SecurityComponent} from '../../../loan-information-template/security/security.component';
@@ -48,6 +48,7 @@ import {CustomerInfoData} from '../../model/customerInfoData';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
 import {FinancialComponent} from '../../../loan-information-template/financial/financial.component';
 import {GuarantorComponent} from '../../../loan-information-template/guarantor/guarantor.component';
+import {CompanyInfoService} from '../../../admin/service/company-info.service';
 
 @Component({
     selector: 'app-loan-form',
@@ -197,7 +198,8 @@ export class LoanFormComponent implements OnInit {
         private formBuilder: FormBuilder,
         private customerService: CustomerService,
         private scrollNavService: ScrollNavigationService,
-        private customerInfoService: CustomerInfoService
+        private customerInfoService: CustomerInfoService,
+        private companyInfoService: CompanyInfoService
     ) {
 
     }
@@ -583,6 +585,13 @@ export class LoanFormComponent implements OnInit {
         this.loanHolder = infoResponse.detail;
         this.loanDocument.siteVisit = this.loanHolder.siteVisit;
         this.loanDocument.financial = this.loanHolder.financial;
+        this.companyInfoService.detail(this.loanHolder.associateId).subscribe((res: any) => {
+            this.loanDocument.companyInfo = res.detail;
+            }, error => {
+            this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load company information!'));
+        });
+        this.loanDocument.creditRiskGradingAlpha = this.loanHolder.creditRiskGradingAlpha;
+        this.loanDocument.creditRiskGrading = this.loanHolder.creditRiskGrading;
         this.loanDocument.security = this.loanHolder.security;
         this.loanDocument.shareSecurity = this.loanHolder.shareSecurity;
         this.loanDocument.insurance = this.loanHolder.insurance;

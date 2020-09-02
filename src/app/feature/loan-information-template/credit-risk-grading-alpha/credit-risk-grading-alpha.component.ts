@@ -1,9 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {QuestionService} from '../../service/question.service';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
 import {LoanDataHolder} from '../../loan/model/loanData';
+import {CompanyInfo} from '../../admin/modal/company-info';
+import {Financial} from '../../loan/model/financial';
 
 @Component({
   selector: 'app-credit-risk-grading-alpha',
@@ -14,7 +16,11 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   creditRiskGrading: FormGroup;
   creditRiskData: CreditRiskGradingAlpha = new CreditRiskGradingAlpha();
 
-  @Input() loanData: LoanDataHolder;
+  @Input() financial: Financial;
+  @Input() companyInfo: CompanyInfo;
+  @Input() creditRiskGradingAlpha: CreditRiskGradingAlpha;
+  @Input() fromProfile: boolean;
+  @Output() crgAlphaDataEmitter = new EventEmitter();
 
   crgData: CreditRiskGradingAlpha;
 
@@ -71,8 +77,8 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.loanData.financial)) {
-      this.financialParsedData = JSON.parse(this.loanData.financial.data);
+    if (!ObjectUtil.isEmpty(this.financial)) {
+      this.financialParsedData = JSON.parse(this.financial.data);
       this.fiscalYearArray = this.financialParsedData.fiscalYear;
       if (this.fiscalYearArray.length > 0) {
         this.recentFiscalYearIndex = this.fiscalYearArray.length - 1;
@@ -84,8 +90,8 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
     }
 
     // Replace with existing data --
-    if (!ObjectUtil.isEmpty(this.loanData.creditRiskGradingAlpha)) {
-      this.crgData = this.loanData.creditRiskGradingAlpha;
+    if (!ObjectUtil.isEmpty(this.creditRiskGradingAlpha)) {
+      this.crgData = this.creditRiskGradingAlpha;
       this.formDataForEdit = JSON.parse(this.crgData.data);
     }
     this.buildForm();
@@ -112,9 +118,9 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       // enclosed within the same condition twice because size of business requires building of form group--
       this.setSizeOfBusiness(this.recentFiscalYearIndex);
     }
-    if (!ObjectUtil.isEmpty(this.loanData.companyInfo)
-        && !ObjectUtil.isEmpty(this.loanData.companyInfo.establishmentDate)) {
-      this.ageOfBusinessValue = this.calculateAge(new Date(this.loanData.companyInfo.establishmentDate));
+    if (!ObjectUtil.isEmpty(this.companyInfo)
+        && !ObjectUtil.isEmpty(this.companyInfo.establishmentDate)) {
+      this.ageOfBusinessValue = this.calculateAge(new Date(this.companyInfo.establishmentDate));
       this.setAgeOfBusiness();
     }
   }
@@ -347,10 +353,11 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!ObjectUtil.isEmpty(this.loanData.creditRiskGradingAlpha)) {
+    if (!ObjectUtil.isEmpty(this.creditRiskGradingAlpha)) {
       this.creditRiskData = this.crgData;
     }
     this.creditRiskGrading.get('fiscalYearArray').patchValue(this.fiscalYearArray);
     this.creditRiskData.data = JSON.stringify(this.creditRiskGrading.value);
+    this.crgAlphaDataEmitter.emit(this.creditRiskData.data);
   }
 }
