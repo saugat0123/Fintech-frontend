@@ -170,6 +170,9 @@
                                     </div>
                                 </nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <div class="col">
+                                        <a  (click)="openKycModal()" class="p-2 cursor"><em class="fa fa-edit"></em></a>
+                                    </div>
                                     <table aria-describedby="management team table" class="table table-bordered">
                                         <thead>
                                         <tr>
@@ -181,7 +184,7 @@
                                         <tbody>
                                         <tr *ngFor="let singleManagementTeam of companyInfo?.managementTeamList;
                                         let i = index">
-                                            <td scope="row">{{i}}</td>
+                                            <td scope="row">{{i+1}}</td>
                                             <td>{{singleManagementTeam?.name}}</td>
                                             <td>{{singleManagementTeam?.designation}}</td>
                                         </tr>
@@ -195,6 +198,9 @@
                                         <div class="col-md-6">
                                             <span>Information of Proprietor/Shareholder/Partner</span>
                                         </div>
+                                    </div>
+                                    <div class="col">
+                                        <a  (click)="openProprietorEdit()" class="p-2 cursor"><em class="fa fa-edit"></em></a>
                                     </div>
                                 </nb-accordion-item-header>
                                 <nb-accordion-item-body>
@@ -213,7 +219,7 @@
                                         <tbody>
                                         <tr *ngFor="let singleProprietorInfo of companyInfo?.proprietorsList;
                                         let i = index">
-                                            <td scope="row">{{i}}</td>
+                                            <td scope="row">{{i+1}}</td>
                                             <td>{{singleProprietorInfo?.name}}</td>
                                             <td>{{singleProprietorInfo?.contactNo}}</td>
                                             <td>{{singleProprietorInfo?.share}}</td>
@@ -231,6 +237,9 @@
                                         <div class="col-md-6">
                                             <span>SWOT Analysis</span>
                                         </div>
+                                    </div>
+                                    <div class="col">
+                                        <a  (click)="openSwotEdit()" class="p-2 cursor"><em class="fa fa-edit"></em></a>
                                     </div>
                                 </nb-accordion-item-header>
                                 <nb-accordion-item-body>

@@ -11,6 +11,11 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {LoanCategory} from '../../../../loan/model/loan-category';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {ObjectUtil} from "../../../../../@core/utils/ObjectUtil";
+import {NbDialogService} from "@nebular/theme";
+import {EditManagementTeamComponent} from "./edit-management-team/edit-management-team.component";
+import {EditPartnerInfoComponent} from "./edit-partner-info/edit-partner-info.component";
+import {EditSwotComponent} from "./edit-swot/edit-swot.component";
 
 @Component({
   selector: 'app-company-profile',
@@ -41,7 +46,8 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private modalService: NgbModal,
-              private loanConfigService: LoanConfigService) { }
+              private loanConfigService: LoanConfigService,
+              private dialogService: NbDialogService) { }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((paramObject: Params) => {
@@ -115,5 +121,35 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     if (roleType === 'MAKER') {
       this.maker = true;
     }
+  }
+  openKycModal() {
+    const companyInfo = this.companyInfo;
+
+    this.dialogService.open(EditManagementTeamComponent, {context: {companyInfo}}).onClose.subscribe(res => {
+      if (!ObjectUtil.isEmpty(res)) {
+        this.ngOnInit();
+      }
+    });
+  }
+
+  openProprietorEdit() {
+    const companyInfo = this.companyInfo;
+
+    this.dialogService.open(EditPartnerInfoComponent, {context: {companyInfo}}).onClose.subscribe(res => {
+      if (!ObjectUtil.isEmpty(res)) {
+        this.ngOnInit();
+      }
+    });
+
+  }
+
+  openSwotEdit() {
+    const companyInfo = this.companyInfo;
+
+    this.dialogService.open(EditSwotComponent, {context: {companyInfo}}).onClose.subscribe(res => {
+      if (!ObjectUtil.isEmpty(res)) {
+        this.ngOnInit();
+      }
+    });
   }
 }

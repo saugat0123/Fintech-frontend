@@ -22,6 +22,9 @@ import { CustomerLoanInformationViewComponent } from './component/customer-loan-
 import { LoanInformationViewModule } from '../loan-information-view/loan-information-view.module';
 import { GroupTaggingComponent } from './component/customer-profile/group-tagging/group-tagging.component';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import { EditManagementTeamComponent } from './component/customer-profile/company-profile/edit-management-team/edit-management-team.component';
+import {EditSwotComponent} from "./component/customer-profile/company-profile/edit-swot/edit-swot.component";
+import {EditPartnerInfoComponent} from "./component/customer-profile/company-profile/edit-partner-info/edit-partner-info.component";
 
 const COMPONENTS = [
   CustomerComponent,
@@ -42,7 +45,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS],
+  declarations: [...COMPONENTS, EditSwotComponent,  EditPartnerInfoComponent, EditManagementTeamComponent],
   // tslint:disable-next-line:max-line-length
   exports: [
     CustomerGroupLoanComponent
@@ -67,7 +70,8 @@ const COMPONENTS = [
   entryComponents: [
       CustomerFormComponent,
       CompanyFormComponent,
-      KycFormComponent
+      KycFormComponent,
+    EditManagementTeamComponent
   ]
 })
 export class CustomerModule {
