@@ -74,6 +74,7 @@ import {InsuranceSummaryComponent} from './component/loan-summary/insurance-summ
 import { GuarantorSummaryComponent } from './component/loan-summary/guarantor-summary/guarantor-summary.component';
 import { ProposalSummaryComponent } from './component/loan-summary/proposal-summary/proposal-summary.component';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
+import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -163,7 +164,8 @@ const ENTRY_COMPONENTS = [
         CustomerModule,
         NepaliCalendarModule,
         ReportingModule,
-        LoanInformationTemplateModule
+        LoanInformationTemplateModule,
+        LoanInformationViewModule
     ],
 
     providers: [

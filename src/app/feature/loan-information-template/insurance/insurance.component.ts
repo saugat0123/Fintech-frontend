@@ -1,8 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Insurance} from '../../admin/modal/insurance';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
-import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-insurance',
@@ -10,12 +9,12 @@ import {DatePipe} from '@angular/common';
     styleUrls: ['./insurance.component.scss']
 })
 export class InsuranceComponent implements OnInit {
-    @Input() insuranceDataFromModel: Insurance;
+    @Input() insuranceDataFromModel;
     @Input() fromProfile;
     @Output() insuranceDataEmitter = new EventEmitter();
     form: FormGroup;
     isSubmitted = false;
-    insurance: Insurance = new Insurance();
+    insurance: Array<Insurance> = new Array<Insurance>();
 
     constructor(
         private formBuilder: FormBuilder
@@ -27,34 +26,56 @@ export class InsuranceComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (!ObjectUtil.isEmpty(this.insuranceDataFromModel)) {
-            this.insurance = this.insuranceDataFromModel;
-        }
         this.buildForm();
+        if (ObjectUtil.isEmpty(this.insuranceDataFromModel)) {
+            this.addEmptyForm();
+        } else {
+            if (this.insuranceDataFromModel.length === 0) {
+                this.addEmptyForm();
+                return;
+            }
+            this.insuranceDataFromModel.forEach((value) => {
+                const formArray = this.form.get('formArray') as FormArray;
+                formArray.push(this.addFormData(value));
+            });
+        }
     }
 
     buildForm() {
-        this.form = this.formBuilder.group({
-            id: [ObjectUtil.setUndefinedIfNull(this.insurance.id)],
-            version: [ObjectUtil.setUndefinedIfNull(this.insurance.version)],
-            company: [ObjectUtil.setUndefinedIfNull(this.insurance.company)],
-            insuredAmount: [ObjectUtil.setUndefinedIfNull(this.insurance.insuredAmount)],
-            premiumAmount: [ObjectUtil.setUndefinedIfNull(this.insurance.premiumAmount)],
-            issuedDate: [this.insurance.issuedDate === undefined ? undefined : new Date(this.insurance.issuedDate)],
-            expiryDate: [this.insurance.expiryDate === undefined ? undefined : new Date(this.insurance.expiryDate)],
-            policyType: [ObjectUtil.setUndefinedIfNull(this.insurance.policyType)],
-            policyNumber: [ObjectUtil.setUndefinedIfNull(this.insurance.policyNumber)]
-        });
+        this.form = this.formBuilder.group({formArray: this.formBuilder.array([])});
     }
+    addFormData(data: Insurance) {
+        return this.formBuilder.group({id: [ObjectUtil.setUndefinedIfNull(data.id)],
+                version: [ObjectUtil.setUndefinedIfNull(data.version)],
+                company: [ObjectUtil.setUndefinedIfNull(data.company)],
+                insuredAmount: [ObjectUtil.setUndefinedIfNull(data.insuredAmount)],
+                premiumAmount: [ObjectUtil.setUndefinedIfNull(data.premiumAmount)],
+                issuedDate: [data.issuedDate === undefined ? undefined : new Date(data.issuedDate)],
+                expiryDate: [data.expiryDate === undefined ? undefined : new Date(data.expiryDate)],
+                policyType: [ObjectUtil.setUndefinedIfNull(data.policyType)],
+                policyNumber: [ObjectUtil.setUndefinedIfNull(data.policyNumber)]});
+    }
+    addEmptyForm() {
+        const formArray = this.form.get('formArray') as FormArray;
+        formArray.push(this.addFormData(new Insurance()));
+    }
+    removeForm(index) {
+        const formArray = this.form.get('formArray') as FormArray;
+        formArray.removeAt(index);
+    }
+
 
     submit() {
-        this.insurance = this.form.value as Insurance;
-        this.insurance.issuedDate = new Date(this.form.get('issuedDate').value);
-        this.insurance.expiryDate = new Date(this.form.get('expiryDate').value);
+        const formArray = this.form.get('formArray') as FormArray;
+        formArray['controls'].forEach((data => {
+            const insurance: Insurance = data.value;
+            this.insurance.push(insurance);
+        }));
         this.insuranceDataEmitter.emit(this.insurance);
+
     }
 
-    returnIssuedDate() {
-        return (new Date(this.form.get('issuedDate').value));
+    returnIssuedDate(path) {
+        return (new Date(path.value));
     }
 }

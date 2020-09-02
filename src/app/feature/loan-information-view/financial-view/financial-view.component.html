@@ -1,0 +1,1051 @@
+<div class="row">
+    <div class="col-md-12">
+        <p *ngIf="!isBusinessLoan"><strong>Financial Details</strong></p>
+        <table class="table table-condensed table-bordered table-responsive-md text-center" *ngIf="!isBusinessLoan">
+            <thead>
+            <tr>
+                <th colspan="5">Income of Borrower</th>
+            </tr>
+            <tr>
+                <th>S.N</th>
+                <th>Income Source</th>
+                <th>Organization</th>
+                <th>Amount</th>
+                <th>Remarks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let incomeOfBorrower of financialData['initialForm']['incomeOfBorrower']; let i = index;">
+                <td>{{i + 1}}</td>
+                <td>{{incomeOfBorrower.incomeSource}}</td>
+                <td>{{incomeOfBorrower.organization}}</td>
+                <td>Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
+                <td>{{incomeOfBorrower.remarks}}</td>
+            </tr>
+            <tr>
+                <td class="text-center" colspan="3"><strong>Current Total</strong></td>
+                <td class="text-center">
+                    <strong>Rs. {{financialData['initialForm']['currentTotal'] | currencyFormatter}}</strong>
+                </td>
+                <td></td>
+            </tr>
+            </tbody>
+
+            <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Future income source</th>
+                <th>Organization</th>
+                <th>Future income amount</th>
+                <th>Remarks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let futureIncomeOfBorrower of financialData['initialForm']['futureIncomeOfBorrower']; let i= index">
+                <td>{{i + 1}}</td>
+                <td>{{futureIncomeOfBorrower['futureIncomeSource']}}</td>
+                <td>{{futureIncomeOfBorrower['futureOrganization']}}</td>
+                <td>{{futureIncomeOfBorrower['amount']}}</td>
+                <td>{{futureIncomeOfBorrower['futureRemarks']}}</td>
+            </tr>
+            <tr>
+                <td colspan="3"><b>Future Total</b></td>
+                <td><b>Rs.{{ financialData['initialForm']['futureTotal']}}</b></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3"><b>Total Income (Current Total + Future Total)</b></td>
+                <td><b>Rs.{{ financialData['initialForm']['totalIncome']}}</b></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-condensed table-bordered table-responsive-md text-center" *ngIf="!isBusinessLoan">
+            <thead>
+            <tr>
+                <th colspan="4">Expenses of Borrower</th>
+            </tr>
+            <tr>
+                <th>S.N</th>
+                <th>Particulars</th>
+                <th>Amount</th>
+                <th>Remarks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let expensesOfBorrower of financialData['initialForm']['expensesOfBorrower']; let i = index;">
+                <td>{{i + 1}}</td>
+                <td>{{expensesOfBorrower.particulars}}</td>
+                <td>Rs. {{expensesOfBorrower.amount | currencyFormatter}}</td>
+                <td>{{expensesOfBorrower.remarks}}</td>
+            </tr>
+            <tr>
+                <td class="text-center" colspan="2"><strong>Total Expense</strong></td>
+                <td class="text-center">
+                    <strong>Rs. {{financialData['initialForm']['totalExpense'] | currencyFormatter}}</strong>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        <table class="table table-condensed table-bordered table-responsive-md text-center" *ngIf="!isBusinessLoan">
+            <thead>
+            <tr>
+                <th>Net Saving</th>
+                <th><b>Rs.{{ financialData['initialForm']['netSaving']}}</b></th>
+            </tr>
+            </thead>
+        </table>
+        <div *ngIf="isBusinessLoan">
+            <nb-tabset #currentTabSet (changeTab)="changeActiveTab(currentTabSet['tabs'])" class="mb-4"
+                       fullWidth>
+                <nb-tab class="px-0" tabTitle="Income Statement">
+                    <table *ngIf="activeTab === 'Income Statement'"
+                           class="table table-condensed table-bordered table-responsive-md text-center">
+                        <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Particulars/Years:</th>
+                            <th *ngFor="let fiscalYear of financialData['fiscalYear']">{{fiscalYear}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td><b>Total Sales Revenue</b></td>
+                            <td *ngFor="let amount of financialData['incomeStatementData']['totalSalesRevenue']; ">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        <tr *ngFor="let totalSalesSubCategory of financialData['incomeStatementData']['totalSalesSubCategory']; let i = index">
+                            <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
+                            <td>{{totalSalesSubCategory.name}}</td>
+                            <td *ngFor="let amounts of totalSalesSubCategory['amount']">{{amounts['value']}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td><b>Cost of Goods Sold</b></td>
+                            <td *ngFor="let amount of financialData['incomeStatementData']['costOfGoodsSold']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        <tr *ngFor="let category of financialData['incomeStatementData']['costOfGoodsSoldCategory'];let i = index">
+                            <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
+                            <td>{{category.name}}</td>
+                            <td *ngFor="let amount of category['amount']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+                        <tbody>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td><b>Gross Profit</b></td>
+                            <td *ngFor="let amount of financialData['incomeStatementData']['grossProfit']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td><b>Operating Expenses</b></td>
+                            <td *ngFor="let amount of financialData['incomeStatementData']['operatingExpenses']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        <tr *ngFor="let category of financialData['incomeStatementData']['operatingExpensesCategory'];let i = index">
+                            <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
+                            <td>{{category.name}}</td>
+                            <td *ngFor="let amount of category['amount']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td><b> Operating Profit</b></td>
+                            <td *ngFor="let amount of financialData['incomeStatementData']['operatingProfit']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">6</th>
+                            <td><b>Interest Expenses</b></td>
+                            <td *ngFor="let amount of financialData['incomeStatementData']['interestExpenses']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        <tr *ngFor="let category of financialData['incomeStatementData']['interestExpensesCategory'];let i = index">
+                            <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
+                            <td>{{category.name}}</td>
+                            <td *ngFor="let amount of category['amount']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">7</th>
+                            <td><b>Non-Operating Income/Expenses</b></td>
+                            <td *ngFor="let amount of financialData['incomeStatementData']['nonOperatingIncomeOrExpenses']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        <tr *ngFor="let category of financialData['incomeStatementData']['nonOperatingIncomeOrExpensesCategory'];let i = index">
+                            <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
+                            <td>{{category.name}}</td>
+                            <td *ngFor="let amount of category['amount']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">8</th>
+                            <td><b>Profit Before Tax and Staff Bonus</b></td>
+                            <td *ngFor="let amount of financialData['incomeStatementData']['profitBeforeTaxAndStaffBonus']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">9</th>
+                            <td><b>Staff Bonus</b></td>
+                            <td *ngFor="let amount of financialData['incomeStatementData']['staffBonus']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">10</th>
+                            <td><b>Profit Before Taxes</b></td>
+                            <td *ngFor="let amount of financialData['incomeStatementData']['profitBeforeTaxes']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">11</th>
+                            <td><b>Taxes</b></td>
+                            <td *ngFor="let amount of financialData['incomeStatementData']['taxes']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        <tr *ngFor="let category of financialData['incomeStatementData']['taxesCategory'];let i = index">
+                            <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
+                            <td>{{category.name}}</td>
+                            <td *ngFor="let amount of category['amount']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">12</th>
+                            <td><b>Profit After Tax</b></td>
+                            <td *ngFor="let amount of financialData['incomeStatementData']['profitAfterTax']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">13</th>
+                            <td><b>Dividend/Drawing</b></td>
+                            <td *ngFor="let amount of financialData['incomeStatementData']['dividendOrDrawing']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">14</th>
+                            <td><b>Other adjustment</b></td>
+                            <td *ngFor="let amount of financialData['incomeStatementData']['otherAdjustment']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">15</th>
+                            <td><b>Accumulated profit b/d</b></td>
+                            <td *ngFor="let amount of financialData['incomeStatementData']['accumulatedProfitBOrD']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">16</th>
+                            <td><b>Net Profit Transferred to Balance Sheet</b></td>
+                            <td *ngFor="let amount of financialData['incomeStatementData']['netProfitTransferredToBalanceSheet']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <td><b>Justification</b></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </nb-tab>
+
+                <nb-tab class="px-0" tabTitle="Balance Sheet">
+                    <table *ngIf="activeTab === 'Balance Sheet'"
+                           class="table table-condensed table-bordered table-responsive-md text-center">
+                        <thead>
+                        <tr>
+                            <th scope="col">S.No</th>
+                            <th scope="col">Particulars</th>
+                            <th *ngFor="let year of financialData['fiscalYear']">{{year}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th scope="row">A</th>
+                        <td><b>ASSETS</b></td>
+                        <td *ngFor="let year of financialData['fiscalYear']" scope="col"></td>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td><b>Current Assets</b></td>
+                            <td *ngFor="let amount of financialData['balanceSheetData']['currentAssets'];"><b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+                        <tbody
+                                *ngFor="let category of financialData['balanceSheetData']['currentAssetsCategory'];let i = index">
+                        <tr>
+                            <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
+                            <td>{{category['name']}}</td>
+                            <td *ngFor="let amount of category['amount']">{{amount['value']}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(financialData['balanceSheetData']['currentAssetsCategory']['length'])}}</th>
+                            <td><b>Inventories</b></td>
+                            <td *ngFor="let amount of financialData['balanceSheetData']['inventories']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody
+                                *ngFor="let category of financialData['balanceSheetData']['inventoriesCategory'];let i = index">
+                        <tr>
+                            <th></th>
+                            <td>{{category['name']}}</td>
+                            <td *ngFor="let amount of category['amount']">{{amount['value']}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td><b>Fixed Assets</b></td>
+                            <td *ngFor="let amount of financialData['balanceSheetData']['fixedAssets'];"><b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+                        <tbody
+                                *ngFor="let category of financialData['balanceSheetData']['fixedAssetsCategory'];let i = index">
+                        <tr>
+                            <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
+                            <td>{{category['name']}}</td>
+                            <td *ngFor="let amount of category['amount']">{{amount['value']}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td><b>Other Assets</b></td>
+                            <td *ngFor="let amount of financialData['balanceSheetData']['otherAssets'];"><b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+                        <tbody
+                                *ngFor="let category of financialData['balanceSheetData']['otherAssetsCategory'];let i = index">
+                        <tr>
+                            <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
+                            <td>{{category['name']}}</td>
+                            <td *ngFor="let amount of category['amount']">{{amount['value']}}</td>
+                        </tr>
+                        </tbody>
+                        <tbody>
+                        <tr>
+                            <th scope="row">B</th>
+                            <td class="text-center"><b>Total Assets</b></td>
+                            <td *ngFor="let amount of financialData['balanceSheetData']['totalAssets']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+                        <tbody>
+                        <th scope="row">C</th>
+                        <td><b>LIABILITIES</b></td>
+                        <td *ngFor="let year of financialData['fiscalYear']"></td>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td><b>	Current Liabilities</b></td>
+                            <td *ngFor="let amount of financialData['balanceSheetData']['currentLiabilities']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+                        <tbody
+                                *ngFor="let category of financialData['balanceSheetData']['currentLiabilitiesCategory'];let i = index">
+                        <tr>
+                            <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
+                            <td>{{category['name']}}</td>
+                            <td *ngFor="let amount of category['amount']">{{amount['value']}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td><b>Long Term Loan</b></td>
+                            <td *ngFor="let amount of financialData['balanceSheetData']['longTermLoan']"><b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+                        <tbody
+                                *ngFor="let category of financialData['balanceSheetData']['longTermLoanCategory'];let i = index">
+                        <tr>
+                            <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
+                            <td>{{category['name']}}</td>
+                            <td *ngFor="let amount of category['amount']">{{amount['value']}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">6</th>
+                            <td><b>Other Long Term Liabilities</b></td>
+                            <td *ngFor="let amount of financialData['balanceSheetData']['otherLongTermLiabilities']"><b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+                        <tbody
+                                *ngFor="let category of financialData['balanceSheetData']['otherLongTermLiabilitiesCategory'];let i = index">
+                        <tr>
+                            <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
+                            <td>{{category['name']}}</td>
+                            <td *ngFor="let amount of category['amount']">{{amount['value']}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">7</th>
+                            <td><b>Other Provisions</b></td>
+                            <td *ngFor="let amount of financialData['balanceSheetData']['otherProvisions']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">8</th>
+                            <td><b>Net Worth</b></td>
+                            <td *ngFor="let amount of financialData['balanceSheetData']['netWorth']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+                        <tbody
+                                *ngFor="let category of financialData['balanceSheetData']['netWorthCategory'];let i = index">
+                        <tr>
+                            <td scope="row">{{'abcdefghijklmnopqrstuvwxyz'.charAt(i)}}</td>
+                            <td>{{category['name']}}</td>
+                            <td *ngFor="let amount of category['amount']">{{amount['value']}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">D</th>
+                            <td class="text-center"><b>Total Liabilities and Equity</b></td>
+                            <td *ngFor="let amount of financialData['balanceSheetData']['totalLiabilitiesAndEquity']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">E</th>
+                            <td class="text-center"><b>Difference</b></td>
+                            <td *ngFor="let amount of financialData['balanceSheetData']['differenceBS']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </nb-tab>
+
+                <nb-tab class="px-0" tabTitle="Cash Flow Statement">
+                    <table *ngIf="activeTab === 'Cash Flow Statement'"
+                           class="table table-condensed table-bordered table-responsive-md text-center">
+                        <thead>
+                        <tr>
+                            <th scope="col">S.No</th>
+                            <th scope="col">Particulars</th>
+                            <th *ngFor="let year of financialData['fiscalYear']">
+                                {{year}}</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td><b> Cash From Operating Activities</b></td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['cashFromOperatingActivities']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">a</th>
+                            <td>Net Profit for the Period</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['netProfitForThePeriod']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><b>Adjustment for Non cash Expenses</b></td>
+                            <td *ngFor="let year of financialData['fiscalYear']"></td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">b</th>
+                            <td>Depreciation</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['depreciation']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">c</th>
+                            <td>Other Amortization and Non Cash Expenses</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['otherAmortizationAndNonCashExpenses']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td><b>Adjustment for Non cash Expenses</b></td>
+                            <td *ngFor="let year of financialData['fiscalYear']"></td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">d</th>
+                            <td>(Increase)/Decrease in Inventory</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInInventory']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">e</th>
+                            <td>(Increase)/Decrease in Accounts Receivable</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInAccountsReceivable']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">f</th>
+                            <td>(Increase)/Decrease in Short Term Investment</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInShortTermInvestment']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">g</th>
+                            <td>(Increase)/Decrease in Advance and Deposit</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInAdvanceAndDeposit']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">h</th>
+                            <td>(Increase)/Decrease in Other Current Assets</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInOtherCurrentAssets']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">i</th>
+                            <td>(Increase)/Decrease in Creditors</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInCreditors']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+
+                            <th scope="row">j</th>
+                            <td>(Increase)/Decrease in Other Current Liabilities</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['increaseDecreaseInOtherCurrentLiabilities']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">k</th>
+                            <td>Adjustment For Non Operating Income</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['adjustmentForNonOperatingIncome']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">l</th>
+                            <td>Interest Expenses</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['interestExpensesCFSa']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td><b>	Cash From Investing Activities</b></td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['cashFromInvestingActivities']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">a</th>
+                            <td>Changed in Fixed Assets</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['changedInFixedAsset']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+
+                            <th scope="row">b</th>
+                            <td>Non-Operating income/(Expenses)</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['nonOperatingIncomeExpenses']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">c</th>
+                            <td>Change in Other Assets</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['changeInOtherAssets']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">d</th>
+                            <td>Change in Other Long Term Liabilities</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['changeInOtherLongTermLiabilities']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">e</th>
+                            <td>Change in Other Provisions</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['changeInOtherProvisions']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td><b>Cash From Financing Activities</b></td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['cashFromFinancingActivities']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">a</th>
+                            <td>Paid up Capital/Equity</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['paidUpCapitalEquity']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+
+                            <th scope="row">b</th>
+                            <td>Short Term Loan</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['shortTermLoan']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">c</th>
+                            <td>Long Term Loan Received/(Paid)</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['longTermLoanReceived']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">d</th>
+                            <td>Dividend/Drawing</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['dividendDrawing']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">e</th>
+                            <td>Interest Expenses</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['interestExpensesCFSb']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">f</th>
+                            <td>Other Adjustments</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['otherAdjustments']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td><b>Net Cash Flow</b></td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['netCashFlow']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">a</th>
+                            <td>Add::Opening Balance</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['addOpeningBalance']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td><b>Closing Cash</b></td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['closingCash']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">a</th>
+                            <td>Closing Balance</td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['closingBalance']">{{amount.value}}</td>
+                        </tr>
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">6</th>
+                            <td><b>Difference</b></td>
+                            <td *ngFor="let amount of financialData['cashFlowStatementData']['differenceCFS']"><b>{{amount.value}}</b></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </nb-tab>
+                <nb-tab class="px-0" tabTitle="Key Indicators">
+                    <table *ngIf="activeTab === 'Key Indicators'"
+                           class="table table-condensed table-bordered table-responsive-md text-center">
+                        <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Particulars</th>
+                            <th *ngFor="let year of financialData['fiscalYear']">{{year}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>1</th>
+                            <td><strong>Growth</strong></td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['growth']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        <tr>
+                            <th>a</th>
+                            <td>Sales</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['sales']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>b</th>
+                            <td>Gross Profit</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['grossProfitKI']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>c</th>
+                            <td>Operating Profit(EBIT)</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['operatingProfitKI']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>d</th>
+                            <td>PAT</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['pAT']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+                        <tbody>
+                        <tr>
+                            <th>2</th>
+                            <td><strong>Profitability</strong></td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['profitability']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        <tr>
+                            <th>a</th>
+                            <td>Gross Profit Margin</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['grossProfitMargin']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>b</th>
+                            <td>Net Profit Margin</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['netProfitMargin']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>c</th>
+                            <td>EBIT to Sales</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['eBITtoSales']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>d</th>
+                            <td>Return On Equity</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['returnOnEquity']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+
+                        <tbody>
+                        <tr>
+                            <th>3</th>
+                            <td><strong>Solvency</strong></td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['solvency']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        <tr>
+                            <th>a</th>
+                            <td>Quick Ratio (times)</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['quickRatio']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>b</th>
+                            <td>Current Ratio (times)</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['currentRatio']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>c</th>
+                            <td>Debt Service Coverage Ratio (times)</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['debtServiceCoverageRatio']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>d</th>
+                            <td>Interest Coverage Ratio (times)</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['interestCoverageRatio']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>e</th>
+                            <td>Debt-Equity Ratio (Overall)</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['debtEquityRatioOverall']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>f</th>
+                            <td>Debt-Equity Ratio - Long Term (times)</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['debtEquityRatioLongTerm']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>g</th>
+                            <td>Debt-Equity Ratio - Working Capital (times)</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['debtEquityRatioWorkingCapital']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>h</th>
+                            <td>Debt-Equity Ratio - General</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['debtEquityRatioGeneral']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+                        <tbody>
+                        <tr>
+                            <th>4</th>
+                            <td><strong>Operating Cycle</strong></td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['operatingCycle']">
+                                <b>{{amount.value}}</b></td>
+                        </tr>
+                        <tr>
+                            <th>a</th>
+                            <td>Inventory Turnover Ratio (times)</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['inventoryTurnoverRatio']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>b</th>
+                            <td>Stock in Hand - Days</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['stockInHandDays']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>c</th>
+                            <td>Debtor Turnover Ratio (times)</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['debtorTurnOverRatio']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>d</th>
+                            <td>Average Collection Period - Days</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['averageCollectionPeriod']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>e</th>
+                            <td>Average Payment Period - Days</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['averagePaymentPeriod']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>f</th>
+                            <td>Net Operating Cycle - Days</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['netOperatingCycle']">{{amount.value}}</td>
+                        </tr>
+                        <tr>
+                            <th>g</th>
+                            <td>Net WC before Bank(Rs. in 000)</td>
+                            <td *ngFor="let amount of financialData['keyIndicatorsData']['netWCBeforeBank']">{{amount.value}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-condensed table-bordered table-responsive-md ">
+                        <thead>
+                        <tr>
+                            <th class="text-left">Justification</th>
+                            <td class="text-center"></td>
+                        </tr>
+                        </thead>
+                    </table>
+                </nb-tab>
+
+            </nb-tabset>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3><b>Borrower Risk Rating (BRR) Assessment</b></h3>
+                    <table class="table table-condensed table-bordered table-responsive-md text-center">
+                        <thead>
+                        <tr>
+                            <th><b>Risk Factors</b></th>
+                            <th><b>BBR1</b></th>
+                            <th><b>BBR2</b></th>
+                            <th><b>BBR3</b></th>
+                            <th><b>BBR4</b></th>
+                            <th><b>BBR5</b></th>
+                            <th><b>BBR6</b></th>
+                            <th><b>Total</b></th>
+                            <th><b>Risk Rank</b></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>Management</th>
+                            <td *ngFor="let management of riskRating; let i = index;"><i *ngIf="((financialData['brr']['management'] - 1) === i); else elseBlock"
+                                                                                         class="fa fa-check"></i>
+                                <ng-template #elseBlock>
+                                    <i class="fa fa-times"></i>
+                                </ng-template>
+                            </td>
+                            <td>{{financialData['brr']['management']}}</td>
+                            <td>{{riskRating[financialData['brr']['management'] - 1]}}</td>
+                        </tr>
+                        <tr>
+                            <th>Financial Statement Quality</th>
+                            <td *ngFor="let management of riskRating; let i = index;">
+                                <i *ngIf="((financialData['brr']['financialStatementQuality'] - 1) === i); else elseBlock"
+                                   class="fa fa-check"></i>
+                                <ng-template #elseBlock>
+                                    <i class="fa fa-times"></i>
+                                </ng-template>
+                            </td>
+                            <td>{{financialData['brr']['financialStatementQuality']}}</td>
+                            <td>{{riskRating[financialData['brr']['financialStatementQuality'] - 1]}}</td>
+                        </tr>
+                        <tr>
+                            <th>Financial Statement Source</th>
+                            <td *ngFor="let management of riskRating; let i = index;"><i *ngIf="((financialData['brr']['financialStatementSource'] - 1) === i); else elseBlock"
+                                                                                         class="fa fa-check"></i>
+                                <ng-template #elseBlock>
+                                    <i class="fa fa-times"></i>
+                                </ng-template>
+                            </td>
+                            <td>{{financialData['brr']['financialStatementSource']}}</td>
+                            <td>{{riskRating[financialData['brr']['financialStatementSource'] - 1]}}</td>
+                        </tr>
+                        <tr>
+                            <th>Industry Trend</th>
+                            <td *ngFor="let management of riskRating; let i = index;"><i *ngIf="((financialData['brr']['industryTrend'] - 1) === i); else elseBlock"
+                                                                                         class="fa fa-check"></i>
+                                <ng-template #elseBlock>
+                                    <i class="fa fa-times"></i>
+                                </ng-template>
+                            </td>
+                            <td>{{financialData['brr']['industryTrend']}}</td>
+                            <td>{{riskRating[financialData['brr']['industryTrend'] - 1]}}</td>
+                        </tr>
+                        <tr>
+                            <th>Time in Business</th>
+                            <td *ngFor="let management of riskRating; let i = index;"><i *ngIf="((financialData['brr']['timeInBusiness'] - 1) === i); else elseBlock"
+                                                                                         class="fa fa-check"></i>
+                                <ng-template #elseBlock>
+                                    <i class="fa fa-times"></i>
+                                </ng-template>
+                            </td>
+                            <td>{{financialData['brr']['timeInBusiness']}}</td>
+                            <td>{{riskRating[financialData['brr']['timeInBusiness'] - 1]}}</td>
+                        </tr>
+                        <tr>
+                            <th>Collateral</th>
+                            <td *ngFor="let management of riskRating; let i = index;"><i *ngIf="((financialData['brr']['collateral'] - 1) === i); else elseBlock"
+                                                                                         class="fa fa-check"></i>
+                                <ng-template #elseBlock>
+                                    <i class="fa fa-times"></i>
+                                </ng-template>
+                            </td>
+                            <td>{{financialData['brr']['collateral']}}</td>
+                            <td>{{riskRating[financialData['brr']['collateral'] - 1]}}</td>
+                        </tr>
+                        <tr>
+                            <th>Balance Sheet Ratios</th>
+                            <td *ngFor="let management of riskRating; let i = index;"><i *ngIf="((financialData['brr']['balanceSheetRatios'] - 1) === i); else elseBlock"
+                                                                                         class="fa fa-check"></i>
+                                <ng-template #elseBlock>
+                                    <i class="fa fa-times"></i>
+                                </ng-template>
+                            </td>
+                            <td>{{financialData['brr']['balanceSheetRatios']}}</td>
+                            <td>{{riskRating[financialData['brr']['balanceSheetRatios'] - 1]}}</td>
+                        </tr>
+                        <tr>
+                            <th>P and L History</th>
+                            <td *ngFor="let pAndLHistory of riskRating; let i = index;"><i *ngIf="((financialData['brr']['pAndLHistory'] - 1) === i); else elseBlock"
+                                                                                           class="fa fa-check"></i>
+                                <ng-template #elseBlock>
+                                    <i class="fa fa-times"></i>
+                                </ng-template>
+                            </td>
+                            <td>{{financialData['brr']['pAndLHistory']}}</td>
+                            <td>{{riskRating[financialData['brr']['pAndLHistory'] - 1]}}</td>
+                        </tr>
+                        <tr>
+                            <th>Debt Service Capacity</th>
+                            <td *ngFor="let debtServiceCapacity of riskRating; let i = index;"><i
+                                    *ngIf="((financialData['brr']['debtServiceCapacity'] - 1) === i); else elseBlock"
+                                    class="fa fa-check"></i>
+                                <ng-template #elseBlock>
+                                    <i class="fa fa-times"></i>
+                                </ng-template>
+                            </td>
+                            <td>{{financialData['brr']['debtServiceCapacity']}}</td>
+                            <td>{{riskRating[financialData['brr']['debtServiceCapacity'] - 1]}}</td>
+                        </tr>
+                        <tr>
+                            <th>Sales Trade</th>
+                            <td *ngFor="let management of riskRating; let i = index;"><i *ngIf="((financialData['brr']['salesTrade'] - 1) === i); else elseBlock"
+                                                                                         class="fa fa-check"></i>
+                                <ng-template #elseBlock>
+                                    <i class="fa fa-times"></i>
+                                </ng-template>
+                            </td>
+                            <td>{{financialData['brr']['salesTrade']}}</td>
+                            <td>{{riskRating[financialData['brr']['salesTrade'] - 1]}}</td>
+                        </tr>
+                        <tr>
+                            <th>Repayment Source</th>
+                            <td *ngFor="let management of riskRating; let i = index;"><i *ngIf="((financialData['brr']['repaymentSource'] - 1) === i); else elseBlock"
+                                                                                         class="fa fa-check"></i>
+                                <ng-template #elseBlock>
+                                    <i class="fa fa-times"></i>
+                                </ng-template>
+                            </td>
+                            <td>{{financialData['brr']['repaymentSource']}}</td>
+                            <td>{{riskRating[financialData['brr']['repaymentSource'] - 1]}}</td>
+                        </tr>
+                        <tr>
+                            <th colspan="7">Total BRR Risk</th>
+                            <td><b>{{financialData['brr']['totalBrr']}}</b></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>Justification</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

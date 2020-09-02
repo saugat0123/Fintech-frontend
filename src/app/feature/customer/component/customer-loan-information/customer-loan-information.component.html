@@ -110,11 +110,11 @@
               <span>INSURANCE</span>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="insurance" style="color:green" title="Status : Saved">
+              <span *ngIf="insurance.length>0" style="color:green" title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
               <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!insurance" class="fas fa-times-circle px-2"></em>
+                <em *ngIf="insurance.length == 0" class="fas fa-times-circle px-2"></em>
               </span>
             </div>
           </div>

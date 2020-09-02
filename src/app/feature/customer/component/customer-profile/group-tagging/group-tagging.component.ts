@@ -60,9 +60,9 @@ export class GroupTaggingComponent implements OnInit {
 
   buildForm() {
     this.customerGroupForm = this.formBuilder.group({
-      groupCode: [undefined, [Validators.required, Validators.minLength(6)]],
+      groupCode: [undefined],
       id: [undefined],
-      version: [undefined]
+      version: [undefined , Validators.required]
     });
   }
 

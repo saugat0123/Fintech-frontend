@@ -1,9 +1,17 @@
 <div class="row mt-4">
   <div class="col-md-12">
     <p><strong>Insurance Detail</strong></p>
-    <table class="table table-bordered">
+    <table class="table table-bordered text-center" *ngFor="let insurance of insurance; let i= index">
       <thead>
       <tr>
+        <th colspan="7">
+          {{i+1}}.Insurance
+        </th>
+      </tr>
+      </thead>
+      <thead>
+      <tr>
+        <th>S.N</th>
         <th>Policy Number</th>
         <th>Company</th>
         <th>Insured Amount</th>
@@ -14,6 +22,7 @@
       </thead>
       <tbody>
       <tr>
+        <td>{{i+1}}.</td>
         <td>{{insurance?.policyNumber}}</td>
         <td>{{insurance?.company}}</td>
         <td>{{insurance?.insuredAmount | currencyFormatter}}</td>
@@ -22,16 +31,20 @@
         <td>{{insurance?.expiryDate | date}}</td>
       </tr>
       <tr>
+        <th></th>
         <th colspan="6">Policy Type</th>
       </tr>
       <tr>
+        <th></th>
         <td colspan="6">{{insurance?.policyType}}</td>
       </tr>
       <ng-container *ngIf="insurance?.remarks?.length > 0">
         <tr>
+          <th></th>
           <th colspan="5">Remarks</th>
         </tr>
         <tr>
+          <th></th>
           <td colspan="5">{{insurance?.remarks}}</td>
         </tr>
       </ng-container>

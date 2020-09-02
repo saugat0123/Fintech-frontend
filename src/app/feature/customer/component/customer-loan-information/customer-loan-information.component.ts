@@ -66,7 +66,7 @@ export class CustomerLoanInformationComponent implements OnInit {
   private security: Security;
   private shareSecurity: ShareSecurity;
   private guarantors: GuarantorDetail;
-  public insurance: Insurance;
+  public insurance: Array<Insurance>;
 
   constructor(
       private toastService: ToastService,
@@ -178,9 +178,9 @@ export class CustomerLoanInformationComponent implements OnInit {
     });
   }
 
-    public saveInsurance(data: Insurance) {
+    public saveInsurance(data: Array<Insurance>) {
       if (ObjectUtil.isEmpty(this.insurance)) {
-        this.insurance = new Insurance();
+        this.insurance = new Array<Insurance>();
       }
       this.insurance = data;
       this.customerInfoService.saveLoanInfo(this.insurance, this.customerInfoId, TemplateName.INSURANCE)

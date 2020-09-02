@@ -29,7 +29,7 @@ export class CustomerInfoData {
   security: Security;
   shareSecurity;
   guarantors: GuarantorDetail;
-  insurance: Insurance;
+  insurance: Array<Insurance>;
   customerGeneralDocuments: Array<CustomerGeneralDocument>;
   customerGroup: CustomerGroup;
 
