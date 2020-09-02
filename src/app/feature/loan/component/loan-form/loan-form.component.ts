@@ -497,7 +497,7 @@ export class LoanFormComponent implements OnInit {
             this.cicl.onSubmit();
             this.loanDocument.ciclList = this.cicl.ciclList;
             this.loanDocument.ciclRemarks = this.cicl.ciclRemark;
-            this.loanDocument.insurance = this.cicl.insurance;
+            // this.loanDocument.insurance = this.cicl.insurance;
         }
 
         if (name === 'Financial' && action) {

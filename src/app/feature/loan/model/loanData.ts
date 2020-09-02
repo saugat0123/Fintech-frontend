@@ -38,7 +38,7 @@ export class LoanDataHolder {
     loan: LoanConfig;
     ciclList: Array<Cicl>;
     ciclRemarks: string;
-    insurance: Insurance;
+    insurance: Array<Insurance>;
     documentStatus: DocStatus;
     customerDocument: Array<CustomerDocuments>;
     siteVisit: SiteVisit;

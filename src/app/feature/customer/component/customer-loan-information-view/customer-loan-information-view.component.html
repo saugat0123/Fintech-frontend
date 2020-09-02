@@ -4,7 +4,7 @@
   </nb-card-header>
   <nb-card-body>
     <nb-accordion>
-      <nb-accordion-item *ngIf="customerInfo?.insurance" #itemInsurance>
+      <nb-accordion-item *ngIf="customerInfo?.insurance.length>0" #itemInsurance>
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
