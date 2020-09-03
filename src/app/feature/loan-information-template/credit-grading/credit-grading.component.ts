@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {QuestionService} from '../../../../service/question.service';
-import {CreditRiskGrading} from '../../../../admin/modal/creditRiskGrading';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {QuestionService} from '../../service/question.service';
+import {CreditRiskGrading} from '../../admin/modal/creditRiskGrading';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 
 @Component({
@@ -12,6 +12,8 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 })
 export class CreditGradingComponent implements OnInit {
   @Input() formData: CreditRiskGrading;
+  @Input() fromProfile: boolean;
+  @Output() crgDataEmitter = new EventEmitter();
   creditRiskGrading: FormGroup;
   creditRiskData: CreditRiskGrading = new CreditRiskGrading();
   points: any;
@@ -141,5 +143,6 @@ export class CreditGradingComponent implements OnInit {
       this.creditRiskData = this.formData;
     }
     this.creditRiskData.data = JSON.stringify(this.creditRiskGrading.value);
+    this.crgDataEmitter.emit(this.creditRiskData.data);
   }
 }

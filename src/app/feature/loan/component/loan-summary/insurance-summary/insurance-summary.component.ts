@@ -7,7 +7,7 @@ import {Insurance} from '../../../../admin/modal/insurance';
   styleUrls: ['./insurance-summary.component.scss']
 })
 export class InsuranceSummaryComponent implements OnInit {
-  @Input() insurance: Insurance;
+  @Input() insurance: Array<Insurance>;
 
   constructor() { }
 

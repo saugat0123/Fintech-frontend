@@ -1,11 +1,13 @@
-<nb-card [nbSpinner]="spinner" accent="primary">
+<nb-card class="m-0" accent="primary" [nbSpinner]="spinner"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="giant">
     <nb-card-header>
-        <div class="row">
+        <div class="row shadow-sm">
             <div class="col-md-2">
-                <strong>Associate Group:</strong> <span> {{customerInfo.customerGroup != undefined ?  customerInfo?.customerGroup?.groupCode : ' N/A'}}</span>
+                <strong>Associate Group:</strong> <span> {{customerInfo?.customerGroup != undefined ?  customerInfo?.customerGroup?.groupCode : ' N/A'}}</span>
             </div>
             <div class="offset-4 col-md-6 float-right">
-                <button [nbPopover]="groupWindow" class="float-right" nbButton nbPopoverPlacement="left">
+                <button [nbPopover]="groupWindow" class="float-right mb-3" nbButton size="small" [nbPopoverPlacement]="'left'">
                     Groups
                     <nb-icon icon="arrow-down-outline"></nb-icon>
                 </button>
@@ -21,19 +23,27 @@
         <div class="bg-light mb-3">
             <div class="row">
                 <div class="col">
-                    <a *ngIf="!isEdited" class="p-2 cursor"><em class="fa fa-edit"></em></a>
+                    <a *ngIf="!isEdited" class="p-2 cursor" (click)="editCustomer(1)"><em class="fa fa-edit"></em></a>
                 </div>
             </div>
             <div class="p-5 row">
                 <div class="d-flex col-md-3">
                     <div class="profile-img">
                         <label class="container">
-                            <div class="bg-info no-img">
+                            <img *ngIf="companyInfo.profilePic !==null && companyInfo.profilePic !== undefined" class="image"
+                                 src="{{restUrl+'/'+companyInfo.profilePic}}"/>
+                            <div *ngIf="companyInfo.profilePic == null || companyInfo.profilePic == undefined"
+                                 class="bg-info no-img">
                                 <div>
                                     <span class="text">NA</span>
                                 </div>
+
                             </div>
+
                         </label>
+
+                  <!--      <input (change)="profileUploader($event)" hidden id="file-input" type="file"/>-->
+                        <!--<span *ngIf="fileUploadError == true" style="color:red;">File Upload Failed</span>-->
                     </div>
                 </div>
                 <div *ngIf="!isEdited" class="col-md-9 mt-3 py-4">
@@ -55,78 +65,65 @@
                         <span> <b>Business type :</b> {{companyInfo?.businessType }}</span></div>
 
                 </div>
-                <!--<div *ngIf="isEdited" class="col-md-9 mt-3 py-4">
-                    <form [formGroup]="basicForm">
+                <div [hidden]="!isEdited" class="col-md-9 mt-3 py-4">
+                    <form [formGroup]="companyForm">
                         <div class="row form-inline">
-                        <span> <b>Name :</b> <input formControlName="customerName"
+                        <span> <b>Company Name :</b> <input formControlName="companyName"
                                                     placeholder="name"
                                                     type="text"></span></div>
                         <div class="row form-inline">
-                        <span> <b>Date Of Birth :</b>      <input [nbDatepicker]="dob"
-                                                                  class="form-control"
-                                                                  formControlName="dob"
-                                                                  id="dob"
-                                                                  name="dob"
-                                                                  placeholder="Customer Date of birth">
-                         <nb-datepicker #dob></nb-datepicker></span></div>
+                        <span> <b>Registration Number :</b>      <input
+                                                                  formControlName="registrationNumber"
+                                                                  id="registrationNumber"
+                                                                  name="registrationNumber"
+                                                                  placeholder="Company registration number"></span></div>
+                        <div class="row form-inline">
+                        <span> <b>Establishment Date :</b>      <input [nbDatepicker]="establishmentDate"
+                                                                  formControlName="establishmentDate"
+                                                                  id="establishmentDate"
+                                                                  name="establishmentDate"
+                                                                  placeholder="Company establishment Date">
+                         <nb-datepicker #establishmentDate></nb-datepicker></span></div>
 
-                        <div class="row">
-                    <span> <b>Address :</b> <select
-                            (change)="getDistricts(this.basicForm.get('province').value)"
-                            formControlName="province"
-                            id="province"
-                            name="province">
-                                <option [value]="null" hidden>Select Province</option>
-                                <option *ngFor="let provinceVal of provinceList"
-                                        [ngValue]="provinceVal"
-                                        [selected]="provinceVal.id === province?.id">
-                                    {{provinceVal.name}}
-                            </select>
-                        <select (change)="getMunicipalities(this.basicForm.get('district').value)"
-                                formControlName="district"
-                                id="district"
-                                name="district">
-                                <option [ngValue]="null" hidden>Select District</option>
-                                <option *ngFor="let districtVal of districtList"
-                                        [ngValue]="districtVal"
-                                        [selected]="districtVal.id === district?.id">{{districtVal.name}}
+                        <div class="row form-inline">
+                        <div class=""> <b>Address :</b> <input formControlName="address"
+                                                            placeholder="address"
+                                                            type="text"></div>
 
-                                </option>
-                            </select>
-                           <select formControlName="municipalities"
-                                   id="municipality"
-                                   name="municipality">
-                                <option [ngValue]="null" hidden>Select Municipality</option>
-                                <option *ngFor="let municipalityVal of municipalitiesList"
-                                        [ngValue]="municipalityVal"
-                                        [selected]="municipalityVal.id === municipality?.id">
-                                    {{municipalityVal.name}}
-                                </option>
-                            </select>
-                        <input formControlName="street" placeholder="street Address"
-                               type="text">
-                             <input formControlName="wardNumber" placeholder="ward no."
-                                    type="text" width="20px">
+                            <div class="col-md-4">
+                       <b>StreetName :</b>   <input formControlName="streetName" placeholder="street name"
+                                                       type="text"></div>
 
-                      </span></div>
-                        <div class="row">
-                        <span> <b>Email :</b>   <input formControlName="email" placeholder="name"
-                                                       type="text"></span></div>
-                        <div class="row">
-                        <span> <b>Contact :</b>   <input formControlName="contactNumber"
-                                                         placeholder="name"
-                                                         type="text"></span></div>
+                            <div class="col-md-4">
+                        <b>House Number :</b>   <input formControlName="houseNumber"
+                                                         placeholder="house number"
+                                                         type="text"></div>
+                        </div>
+                        <div class="row form-inline">
+                        <span> <b>Pan Number :</b> <input formControlName="panNumber"
+                                                            placeholder="pan number"
+                                                            type="text"></span></div> <div class="row form-inline">
+                        <span> <b>Business Type :</b> </span>
+                        <ng-select [items]="businessTypes"
+                                   [multiple]="false"
+                                   bindLabel="value"
+                                   bindValue="key"
+                                   formControlName="businessType"
+                                   id="businessType"
+                                   placeholder="Select Business Type">
+                        </ng-select>
+                    </div>
                     </form>
 
-                </div>-->
+                </div>
             </div>
             <div class="row justify-content-end">
                 <button *ngIf="isEdited" nbButton size="small"
-                        status="warning" type="button">Cancel
+                        status="warning" type="button" (click)="editCustomer(0)">Cancel
                 </button>
                 <div class="px-2">
                     <button *ngIf="isEdited" nbButton size="small"
-                            status="danger" type="button">Save
+                            status="danger" type="button" (click)="saveCompanyInfoDetail()">Save
                     </button>
                 </div>
                 <div class="px-2">
@@ -271,6 +268,8 @@
             </div>
             <div class="col-md-4">
                 <nb-card accent="primary" style="height: 650px">
+                  <nb-card-header>
+                     Company Detail <button (click)="openCompanyDetailEdit(companyInfo)" size="tiny" nbButton class="float-right"><a class="cursor"><em class="fa fa-edit"></em></a></button></nb-card-header>
                     <nb-card-body>
                         <app-company-profile-additional-information [companyInfo]="companyInfo">
                         </app-company-profile-additional-information>
@@ -284,8 +283,14 @@
                         (triggerCustomerRefresh)="refreshCustomerInfo()"
                         *ngIf="customerInfo && maker"
                         [customerInfoId]="customerInfoId"
-                        [customerInfo]="customerInfo"></app-customer-loan-information>
+                        [customerInfo]="customerInfo"
+                        [companyInfo]="companyInfo"></app-customer-loan-information>
                 <app-customer-loan-information-view *ngIf="!maker" [customerInfo]="customerInfo" ></app-customer-loan-information-view>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <app-customer-doc [customerInfo]="customerInfo" *ngIf="customerInfo" (refreshCustomerInfo)="refreshCustomerInfo()"></app-customer-doc>
             </div>
         </div>
     </nb-card-body>

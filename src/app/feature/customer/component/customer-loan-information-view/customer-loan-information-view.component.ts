@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {LoanDataHolder} from "../../../loan/model/loanData";
 
 @Component({
   selector: 'app-customer-loan-information-view',
@@ -8,7 +7,6 @@ import {LoanDataHolder} from "../../../loan/model/loanData";
 })
 export class CustomerLoanInformationViewComponent implements OnInit {
   @Input() customerInfo;
-
 
   constructor() {
   }

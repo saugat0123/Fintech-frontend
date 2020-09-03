@@ -42,7 +42,8 @@ export class UpdateInsuranceComponent implements OnInit {
 
       this.loanFormService.detail(this.customerLoanId).subscribe((response: any) => {
         const loanDataHolder: LoanDataHolder = response.detail;
-        this.insurance = loanDataHolder.insurance;
+        // this.insurance = loanDataHolder.insurance;
+        // TODO: workable for array of insurance
         this.buildForm();
       });
     });

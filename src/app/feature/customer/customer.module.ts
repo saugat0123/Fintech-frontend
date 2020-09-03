@@ -25,6 +25,7 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { EditManagementTeamComponent } from './component/customer-profile/company-profile/edit-management-team/edit-management-team.component';
 import {EditSwotComponent} from "./component/customer-profile/company-profile/edit-swot/edit-swot.component";
 import {EditPartnerInfoComponent} from "./component/customer-profile/company-profile/edit-partner-info/edit-partner-info.component";
+import { CompanyDetailEditComponent } from './component/customer-profile/company-profile/company-profile-detail-edit/company-detail-edit.component';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -42,6 +43,7 @@ const COMPONENTS = [
   CustomerDocComponent,
   CustomerLoanInformationViewComponent,
   GroupTaggingComponent,
+  CompanyDetailEditComponent
 ];
 
 @NgModule({
@@ -73,7 +75,8 @@ const COMPONENTS = [
       KycFormComponent,
     EditManagementTeamComponent,
     EditPartnerInfoComponent,
-    EditSwotComponent
+    EditSwotComponent,
+      CompanyDetailEditComponent
   ]
 })
 export class CustomerModule {

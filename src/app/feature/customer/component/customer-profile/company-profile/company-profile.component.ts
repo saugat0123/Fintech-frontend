@@ -16,6 +16,11 @@ import {NbDialogService} from "@nebular/theme";
 import {EditManagementTeamComponent} from "./edit-management-team/edit-management-team.component";
 import {EditPartnerInfoComponent} from "./edit-partner-info/edit-partner-info.component";
 import {EditSwotComponent} from "./edit-swot/edit-swot.component";
+import {NbDialogService} from '@nebular/theme';
+import {CompanyDetailEditComponent} from './company-profile-detail-edit/company-detail-edit.component';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {BusinessType} from '../../../../admin/modal/businessType';
+import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 
 @Component({
   selector: 'app-company-profile',
@@ -24,7 +29,7 @@ import {EditSwotComponent} from "./edit-swot/edit-swot.component";
 })
 export class CompanyProfileComponent implements OnInit, AfterContentInit {
   companyInfo: CompanyInfo = new CompanyInfo();
-  customerInfo: CustomerInfoData = new CustomerInfoData();
+  customerInfo: CustomerInfoData;
   customerInfoId;
   spinner = false;
   isEdited = false;
@@ -35,6 +40,10 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
   };
   loanList = [];
   filterLoanCat = LoanCategory.BUSINESS;
+  companyForm: FormGroup;
+  businessTypes = BusinessType.enumObject();
+
+  restUrl = ApiConfig.URL;
 
   totalProposalAmount = 0;
   totalLoanProposedAmount = 0;
@@ -47,9 +56,16 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
               private router: Router,
               private modalService: NgbModal,
               private loanConfigService: LoanConfigService,
-              private dialogService: NbDialogService) { }
+              private dialogService: NbDialogService,
+              private formBuilder: FormBuilder) {
+  }
+
+  get form() {
+    return this.companyForm.controls;
+  }
 
   ngOnInit() {
+    this.buildCompanyForm();
     this.activatedRoute.queryParams.subscribe((paramObject: Params) => {
       this.customerInfoId = paramObject.id;
       this.paramProp = paramObject;
@@ -59,6 +75,18 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     this.loanConfigService.getAllByLoanCategory(this.filterLoanCat).subscribe((response: any) => {
       this.loanList = response.detail;
     });
+  }
+
+  editCustomer(val) {
+    this.isEdited = val === 1;
+  }
+
+  setCompanyData(companyInfoData: CompanyInfo) {
+    this.companyForm.patchValue(companyInfoData);
+    this.form.address.setValue(companyInfoData.companyLocations.address);
+    this.form.streetName.setValue(companyInfoData.companyLocations.streetName);
+    this.form.houseNumber.setValue(companyInfoData.companyLocations.houseNumber);
+    this.form.establishmentDate.setValue(new Date(companyInfoData.establishmentDate));
   }
 
   getCompanyInfo(companyInfoId) {
@@ -150,6 +178,44 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
       if (!ObjectUtil.isEmpty(res)) {
         this.ngOnInit();
       }
+    });
+  }
+
+  openCompanyDetailEdit(companyInfo) {
+    this.dialogService.open(CompanyDetailEditComponent, {context: {companyInfo}}).onClose.subscribe(res => this.ngOnInit());
+  }
+
+  buildCompanyForm() {
+    this.companyForm = this.formBuilder.group({
+      companyName: [undefined, Validators.required],
+      registrationNumber: [undefined, Validators.required],
+      establishmentDate: [undefined, Validators.required],
+      address: [undefined, Validators.required],
+      houseNumber: [undefined, Validators.required],
+      streetName: [undefined, Validators.required],
+      panNumber: [undefined, Validators.required],
+      businessType: [undefined, Validators.required]
+    });
+  }
+
+  saveCompanyInfoDetail() {
+    this.spinner = true;
+    this.isEdited = false;
+    this.companyInfo.companyName = this.companyForm.get('companyName').value;
+    this.companyInfo.registrationNumber = this.companyForm.get('registrationNumber').value;
+    this.companyInfo.establishmentDate = this.companyForm.get('establishmentDate').value;
+    this.companyInfo.companyLocations.address = this.companyForm.get('address').value;
+    this.companyInfo.companyLocations.houseNumber = this.companyForm.get('houseNumber').value;
+    this.companyInfo.companyLocations.streetName = this.companyForm.get('streetName').value;
+    this.companyInfo.panNumber = this.companyForm.get('panNumber').value;
+    this.companyInfo.businessType = this.companyForm.get('businessType').value;
+    this.companyInfoService.save(this.companyInfo).subscribe(response => {
+      this.companyInfo = response.detail;
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED COMPANY DETAIL'));
+      this.spinner = false;
+    }, res => {
+      this.spinner = false;
+      this.toastService.show(new Alert(AlertType.DANGER, res.error.message));
     });
   }
 }

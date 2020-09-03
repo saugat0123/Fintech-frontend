@@ -110,11 +110,11 @@
               <span>INSURANCE</span>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="insurance" style="color:green" title="Status : Saved">
+              <span *ngIf="insurance.length>0" style="color:green" title="Status : Saved">
                 <em class="fas fa-check-circle px-2"></em>
               </span>
               <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!insurance" class="fas fa-times-circle px-2"></em>
+                <em *ngIf="insurance.length == 0" class="fas fa-times-circle px-2"></em>
               </span>
             </div>
           </div>
@@ -125,6 +125,58 @@
                          *ngIf="itemInsurance.expanded"
                          [insuranceDataFromModel]="customerInfo?.insurance"
                          [fromProfile]="true"></app-insurance>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item #itemCrgAlpha>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>CREDIT RISK GRADING (ALPHA)</span>
+            </div>
+            <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="customerInfo?.creditRiskGradingAlpha" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+              <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.creditRiskGradingAlpha" class="fas fa-times-circle px-2"></em>
+              </span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-credit-risk-grading-alpha #CrgAlphaComponent
+                         (crgAlphaDataEmitter)="saveCrgAlpha($event)"
+                         *ngIf="itemCrgAlpha.expanded"
+                         [creditRiskGradingAlpha]="customerInfo?.creditRiskGradingAlpha"
+                         [financial]="customerInfo?.financial"
+                         [companyInfo]="companyInfo"
+                         [fromProfile]="true"></app-credit-risk-grading-alpha>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item #itemCrg>
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>CREDIT RISK GRADING</span>
+            </div>
+            <div class="col-md-4 d-flex justify-content-end">
+              <span *ngIf="customerInfo?.creditRiskGrading" style="color:green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+              <span style="color:red" title="Status :Not Saved">
+                <em *ngIf="!customerInfo?.creditRiskGrading" class="fas fa-times-circle px-2"></em>
+              </span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <app-credit-grading #CrgComponent
+                              (crgDataEmitter)="saveCrg($event)"
+                              *ngIf="itemCrg.expanded"
+                              [formData]="customerInfo?.creditRiskGrading"
+                              [fromProfile]="true"></app-credit-grading>
         </nb-accordion-item-body>
       </nb-accordion-item>
 

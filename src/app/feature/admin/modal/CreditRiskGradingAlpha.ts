@@ -1,5 +1,5 @@
-export class CreditRiskGradingAlpha {
-    id: number;
-    data: string;
-    version: number;
+import {BaseEntity} from '../../../@core/model/base-entity';
+
+export class CreditRiskGradingAlpha extends BaseEntity {
+    data?: string;
 }

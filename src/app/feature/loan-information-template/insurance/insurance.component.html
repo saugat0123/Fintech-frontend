@@ -1,6 +1,19 @@
 <nb-card>
     <nb-card-body>
-        <form [formGroup]="form" (ngSubmit)="submit()">
+        <form [formGroup]="form">
+            <div formArrayName="formArray">
+            <div *ngFor="let formArrays of form.get('formArray')['controls']; let i = index">
+                <div [formGroupName]="i">
+                    <div class="row">
+                        <h4 class="col-md-10">{{i+1}}.Insurance</h4>
+                        <div *ngIf="form.get('formArray')['length']>1" class="col-md-2">
+                            <button (click)="removeForm(i)"
+                                    class="float-right btn tbn-sm btn-flat btn-danger"
+                                    value="Delete">
+                                <em class="fa fa-trash" style="color: white;"></em></button>
+                        </div>
+                    </div><hr>
+
             <div class="row">
                 <div class="col-md-4 form-group">
                     <label for="insuranceCompany"><strong>Policy Number</strong></label>
@@ -47,7 +60,7 @@
                            formControlName="expiryDate"
                            id="expiryDate" placeholder="03/04/2021"
                            required type="text">
-                    <nb-datepicker #expiryDate [min]="returnIssuedDate()"></nb-datepicker>
+                    <nb-datepicker #expiryDate [min]="returnIssuedDate(form.get(['formArray' ,i, 'issuedDate']))"></nb-datepicker>
                 </div>
             </div>
             <div class="form-group">
@@ -57,9 +70,18 @@
                           rows="4">
                 </textarea>
             </div>
-            <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
-                <button (click)="submit()" nbButton type="button">save</button>
+
+            </div>
+            </div>
+            <div class="float-right">
+                <button (click)="addEmptyForm()" class="btn btn-sm btn-flat btn-primary">Add More Insurance</button>
+            </div>
             </div>
         </form>
     </nb-card-body>
+    <nb-card-footer>
+        <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+            <button (click)="submit()" nbButton type="button">save</button>
+        </div>
+    </nb-card-footer>
 </nb-card>
