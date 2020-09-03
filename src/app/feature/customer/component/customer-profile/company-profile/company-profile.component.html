@@ -274,7 +274,8 @@
                         (triggerCustomerRefresh)="refreshCustomerInfo()"
                         *ngIf="customerInfo && maker"
                         [customerInfoId]="customerInfoId"
-                        [customerInfo]="customerInfo"></app-customer-loan-information>
+                        [customerInfo]="customerInfo"
+                        [companyInfo]="companyInfo"></app-customer-loan-information>
                 <app-customer-loan-information-view *ngIf="!maker" [customerInfo]="customerInfo" ></app-customer-loan-information-view>
             </div>
         </div>

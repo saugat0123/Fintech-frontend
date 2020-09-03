@@ -24,7 +24,6 @@ import {SuccessOfferLetterPrintComponent} from './component/offer-letter/success
 import {ProposalComponent} from './component/loan-main-template/proposal/proposal.component';
 import {CiclComponent} from './component/loan-main-template/cicl/cicl.component';
 import {ReadmoreModelComponent} from './component/readmore-model/readmore-model.component';
-import {CreditGradingComponent} from './component/loan-main-template/credit-grading/credit-grading.component';
 import {CoreModule} from '../../@core/core.module';
 import {environment} from '../../../environments/environment';
 
@@ -33,7 +32,6 @@ import {LoanPullComponent} from './component/loan-pull/loan-pull.component';
 import {FinancialSummaryComponent} from './component/loan-summary/financial-summary/financial-summary.component';
 // tslint:disable-next-line:max-line-length
 import {SecuritySummaryComponent} from './component/loan-summary/security-summary/security-summary.component';
-import {CustomerLoanDocumentComponent} from '../loan-information-template/customer-loan-document/customer-loan-document.component';
 
 import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.component';
 import {OfferLetterActionComponent} from './loan-offer-letter/offer-letter-action/offer-letter-action.component';
@@ -75,7 +73,6 @@ import {ReportingModule} from '../reporting/reporting.module';
 import {InsuranceSummaryComponent} from './component/loan-summary/insurance-summary/insurance-summary.component';
 import { GuarantorSummaryComponent } from './component/loan-summary/guarantor-summary/guarantor-summary.component';
 import { ProposalSummaryComponent } from './component/loan-summary/proposal-summary/proposal-summary.component';
-import { CreditRiskGradingAlphaComponent } from './component/loan-main-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 
@@ -94,7 +91,6 @@ const COMPONENTS = [
     SuccessOfferLetterPrintComponent,
     CiclComponent,
     ReadmoreModelComponent,
-    CreditGradingComponent,
 
     LoanPullComponent,
     SecuritySummaryComponent,
@@ -137,8 +133,7 @@ const COMPONENTS = [
     CustomerAssociateComponent,
     InsuranceSummaryComponent,
     GuarantorSummaryComponent,
-    ProposalSummaryComponent,
-    CreditRiskGradingAlphaComponent
+    ProposalSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -180,7 +175,6 @@ const ENTRY_COMPONENTS = [
     ],
 
     entryComponents: [...ENTRY_COMPONENTS],
-
 })
 export class LoanModule {
 }
