@@ -22,6 +22,7 @@ import { CustomerLoanInformationViewComponent } from './component/customer-loan-
 import { LoanInformationViewModule } from '../loan-information-view/loan-information-view.module';
 import { GroupTaggingComponent } from './component/customer-profile/group-tagging/group-tagging.component';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import { CompanyDetailEditComponent } from './component/customer-profile/company-profile/company-profile-detail-edit/company-detail-edit.component';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -39,6 +40,7 @@ const COMPONENTS = [
   CustomerDocComponent,
   CustomerLoanInformationViewComponent,
   GroupTaggingComponent,
+  CompanyDetailEditComponent
 ];
 
 @NgModule({
@@ -67,7 +69,8 @@ const COMPONENTS = [
   entryComponents: [
       CustomerFormComponent,
       CompanyFormComponent,
-      KycFormComponent
+      KycFormComponent,
+      CompanyDetailEditComponent
   ]
 })
 export class CustomerModule {
