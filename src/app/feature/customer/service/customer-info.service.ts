@@ -24,4 +24,11 @@ export class CustomerInfoService extends BaseService<Object> {
 
     return this.http.post(req.url, obj, {headers: req.header});
   }
+
+  public getCustomerByTypeIdNumberIdTypeRegDate(obj): Observable<any> {
+    const api = `${this.getApi()}/customer`;
+    const req = ApiUtils.getRequest(api);
+
+    return this.http.post(req.url, obj, {headers: req.header});
+  }
 }

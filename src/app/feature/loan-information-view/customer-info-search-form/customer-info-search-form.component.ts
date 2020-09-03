@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerType} from '../../customer/model/customerType';
 import {District} from '../../admin/modal/district';
 import {AddressService} from '../../../@core/service/baseservice/address.service';
+import {CustomerInfoService} from '../../customer/service/customer-info.service';
 
 @Component({
   selector: 'app-customer-info-search-form',
@@ -19,6 +20,12 @@ export class CustomerInfoSearchFormComponent implements OnInit {
 
   static INDIVIDUAL_PLACEHOLDER = 'Citizenship Number';
 
+  static INDIVIDUAL_CITIZENSHIP = 'citizenship';
+
+  static COMPANY_PAN = 'pan';
+
+  idType = CustomerInfoSearchFormComponent.INDIVIDUAL_CITIZENSHIP;
+
   @Input() customerType: CustomerType;
 
   private search: FormGroup;
@@ -27,7 +34,9 @@ export class CustomerInfoSearchFormComponent implements OnInit {
   errorMessage = CustomerInfoSearchFormComponent.INDIVIDUAL_MESSAGE;
   allDistrict: Array<District> = Array<District>();
 
-  constructor(private formBuilder: FormBuilder, private commonLocation: AddressService,) {
+  constructor(private formBuilder: FormBuilder,
+              private commonLocation: AddressService,
+              private customerInfoService: CustomerInfoService) {
   }
 
   ngOnInit() {
@@ -36,6 +45,7 @@ export class CustomerInfoSearchFormComponent implements OnInit {
     if (this.customerType === CustomerType.COMPANY) {
       this.placeHolder = CustomerInfoSearchFormComponent.COMPANY_PLACEHOLDER;
       this.errorMessage = CustomerInfoSearchFormComponent.COMPANY_MESSAGE;
+      this.idType = CustomerInfoSearchFormComponent.COMPANY_PAN;
     }
 
   }
@@ -47,6 +57,9 @@ export class CustomerInfoSearchFormComponent implements OnInit {
       idRegPlace: [undefined,
         Validators.required],
       customerType: [this.customerType],
+      idRegDate: [undefined, Validators.required],
+      idType: [this.idType],
+
     });
   }
 
@@ -67,5 +80,9 @@ export class CustomerInfoSearchFormComponent implements OnInit {
     if (this.search.invalid) {
       return;
     }
+    this.customerInfoService.getCustomerByTypeIdNumberIdTypeRegDate(this.search.value)
+    .subscribe((res: any) => {
+      console.log(res);
+    });
   }
 }
