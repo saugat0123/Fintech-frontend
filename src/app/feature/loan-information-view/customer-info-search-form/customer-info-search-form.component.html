@@ -1,49 +1,104 @@
 <div id="customer-search-form">
-<form (ngSubmit)="onSubmit()" [formGroup]="search" class="form-horizontal">
-  <div class="row">
-    <div class="col-md-4">
-      <div class="form-group">
+  <div *ngIf="hasError" class="text-danger">
 
-        <input
-            [ngClass]="{ 'is-invalid': (submitted) && searchControls.idNumber.errors }"
-            class="form-control" formControlName="idNumber" id="idNumber"
-            name="idNumber" [placeholder]="placeHolder"
-            type="text">
-        <div *ngIf="(submitted) && searchControls.idNumber.invalid"
-             class="invalid-feedback">
-          <div *ngIf="searchControls.idNumber.errors.required">
-             {{errorMessage}}
+    <sup>*</sup> no Customer Found
+
+  </div>
+  <form  [formGroup]="search" class="form-horizontal">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+
+          <input
+              [ngClass]="{ 'is-invalid': (submitted) && searchControls.idNumber.errors }"
+              class="form-control" formControlName="idNumber" id="idNumber"
+              name="idNumber" [placeholder]="placeHolder"
+              type="text">
+          <div *ngIf="(submitted) && searchControls.idNumber.invalid"
+               class="invalid-feedback">
+            <div *ngIf="searchControls.idNumber.errors.required">
+              {{errorMessage}}
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-md-4">
-      <div class="form-group">
-        <ng-select [multiple]="false"
-                   formControlName="idRegPlace"
-                   id="idRegPlace"
-                   [ngClass]="{ 'is-invalid': (submitted) && searchControls.idRegPlace.errors }"
-                   placeholder="Select district">
-          <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
-            {{district?.name}}
-          </ng-option>
-        </ng-select>
-        <div *ngIf="(submitted) && searchControls.idRegPlace.invalid"
-             class="invalid-feedback">
-                <span *ngIf="searchControls.idRegPlace.errors.required">
+      <div class="col-md-4">
+        <div class="form-group">
+          <ng-select [multiple]="false"
+                     formControlName="idRegPlace"
+                     id="idRegPlace"
+                     [ngClass]="{ 'is-invalid': (submitted) && searchControls.idRegPlace.errors }"
+                     placeholder="Select district">
+            <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+              {{district?.name}}
+            </ng-option>
+          </ng-select>
+          <div *ngIf="(submitted) && searchControls.idRegPlace.errors"
+               class="invalid-feedback">
+                <span *ngIf="searchControls.idRegPlace.errors">
                    Issued district is required
                 </span>
+          </div>
         </div>
       </div>
+
+      <div class="col-md-4">
+        <div class="form-group">
+          <input *ngIf="calendarType === 'AD'" [nbDatepicker]="customerCitizenshipIssuedDate"
+                 [ngClass]="{ 'is-invalid': (submitted) && searchControls.idRegDate.errors }"
+                 class="form-control" formControlName="idRegDate"
+                 id="idRegDate"
+                 name="idRegDate"
+                 placeholder="Issued Date"
+                 readonly="readonly">
+          <app-calendar [ePreDate]="search.get('idRegDate')?.value"
+                        *ngIf="calendarType === 'BS'"
+                        (messageToEmit)="search.get('idRegDate').patchValue($event?.eDate)"></app-calendar>
+          <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
+          <div *ngIf="submitted && searchControls.idRegDate.errors"
+               class="invalid-feedback">
+            <div
+                *ngIf="searchControls.idRegDate.errors.required">
+              Invalid Registration Date
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </div>
 
-    <div class="col-md-4">
-      <div class="form-group">
-        <button nbButton class="btn-sm">search</button>
-      </div>
+  </form>
+  <div class="col-md-12">
+    <div class="d-flex justify-content-end form-group">
+      <button nbButton class="btn-sm" (click)="onSubmit(cusWindow)">search</button>
     </div>
   </div>
-
-</form>
 </div>
+
+
+<ng-template #cusWindow>
+  <div>
+    <div class="modal-content">
+      <div class="modal-header" style="display:block">
+        <a aria-label="Close" class="close cursor"
+           data-dismiss="modal">
+          <span aria-hidden="true">×</span></a>
+        <h4 class="nav navbar navbar-right pull-left">Customer Information</h4>
+        <p class="text-danger"> <sup>*</sup> Choose Yes if Customer is desired</p>
+      </div>
+<div class="modal-body">
+      <app-individual-view [individual]="individual"
+                           *ngIf="displayIndividual"></app-individual-view></div>
+      <div class="modal-footer">
+
+        <button nbButton status="warning">NO</button>
+        <button nbButton status="danger" (click)="fetchCustomer()">YES</button>
+
+      </div>
+
+    </div>
+  </div>
+</ng-template>
+

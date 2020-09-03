@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Customer} from '../../admin/modal/customer';
 import {CustomerType} from '../../customer/model/customerType';
+import {CalendarType} from '../../../@core/model/calendar-type';
 
 @Component({
   selector: 'app-individual-view',
@@ -9,13 +10,17 @@ import {CustomerType} from '../../customer/model/customerType';
 })
 export class IndividualViewComponent implements OnInit {
   @Input() individual: Customer;
+
   customerType = CustomerType;
+
+  @Input() calendarType: CalendarType;
+
+  @Input() loanId: any;
 
   constructor() {
   }
 
   ngOnInit() {
-
   }
 
 

@@ -75,7 +75,7 @@
             <!--                            #basicInfo>-->
             <!--            </app-basic-info>-->
             <div class="py-4">
-              <app-individual-view [individual]="loanDocument?.customerInfo"></app-individual-view>
+              <app-individual-view [individual]="loanDocument?.customerInfo"  [calendarType]="calendarType" [loanId]="id"></app-individual-view>
             </div>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Kyc Info'">

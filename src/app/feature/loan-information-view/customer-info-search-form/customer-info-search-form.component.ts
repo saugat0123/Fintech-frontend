@@ -1,9 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerType} from '../../customer/model/customerType';
 import {District} from '../../admin/modal/district';
 import {AddressService} from '../../../@core/service/baseservice/address.service';
 import {CustomerInfoService} from '../../customer/service/customer-info.service';
+import {CalendarType} from '../../../@core/model/calendar-type';
+import {Customer} from '../../admin/modal/customer';
+import {CustomerService} from '../../customer/service/customer.service';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
+import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-customer-info-search-form',
@@ -20,13 +26,18 @@ export class CustomerInfoSearchFormComponent implements OnInit {
 
   static INDIVIDUAL_PLACEHOLDER = 'Citizenship Number';
 
-  static INDIVIDUAL_CITIZENSHIP = 'citizenship';
+  static INDIVIDUAL_CITIZENSHIP = 'CITIZENSHIP';
 
-  static COMPANY_PAN = 'pan';
+  static COMPANY_PAN = 'PAN';
 
+  @Input() calendarType: CalendarType;
+
+  @Input() loanId: any;
   idType = CustomerInfoSearchFormComponent.INDIVIDUAL_CITIZENSHIP;
 
   @Input() customerType: CustomerType;
+
+  customerInfo = new CustomerInfoData();
 
   private search: FormGroup;
   private submitted = false;
@@ -36,8 +47,17 @@ export class CustomerInfoSearchFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private commonLocation: AddressService,
-              private customerInfoService: CustomerInfoService) {
+              private customerInfoService: CustomerInfoService,
+              private individualService: CustomerService,
+              private dialogService: NbDialogService,
+              private router: Router,
+
+  ) {
   }
+
+  individual = new Customer();
+  displayIndividual = true;
+  hasError = false;
 
   ngOnInit() {
     this.searchForm();
@@ -46,6 +66,7 @@ export class CustomerInfoSearchFormComponent implements OnInit {
       this.placeHolder = CustomerInfoSearchFormComponent.COMPANY_PLACEHOLDER;
       this.errorMessage = CustomerInfoSearchFormComponent.COMPANY_MESSAGE;
       this.idType = CustomerInfoSearchFormComponent.COMPANY_PAN;
+      this.displayIndividual = false;
     }
 
   }
@@ -56,7 +77,7 @@ export class CustomerInfoSearchFormComponent implements OnInit {
         , Validators.required],
       idRegPlace: [undefined,
         Validators.required],
-      customerType: [this.customerType],
+      customerType: [this.customerType === CustomerType.INDIVIDUAL ? 'INDIVIDUAL' : 'COMPANY'],
       idRegDate: [undefined, Validators.required],
       idType: [this.idType],
 
@@ -73,16 +94,50 @@ export class CustomerInfoSearchFormComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(template: TemplateRef<any>) {
     this.submitted = true;
-
+    this.hasError=false;
     console.log(this.search.value);
     if (this.search.invalid) {
       return;
     }
     this.customerInfoService.getCustomerByTypeIdNumberIdTypeRegDate(this.search.value)
     .subscribe((res: any) => {
-      console.log(res);
+      this.customerInfo = res.detail;
+      if (this.customerType === CustomerType.INDIVIDUAL) {
+        this.individualService.detail(this.customerInfo.associateId).subscribe((response: any) => {
+          this.individual = response.detail;
+          this.displayIndividual = true;
+          const modalRef = this.dialogService.open(template);
+
+        });
+      } else {
+
+      }
+
+    }, error => {
+      this.hasError = true;
+      this.displayIndividual = false;
     });
   }
+
+
+  fetchCustomer() {
+   // this.closeDialog();
+    let loanCategory = 'BUSINESS_TYPE';
+    if (CustomerType.INDIVIDUAL === this.customerType) {
+      loanCategory = 'PERSONAL_TYPE';
+    }
+    this.router.navigate(['/home/loan/loanForm'], {
+      queryParams: {
+        loanId: this.loanId,
+        customerInfoId: this.customerInfo.id,
+        customerType: this.customerInfo.customerType,
+        customerProfileId: this.customerInfo.associateId,
+        loanCategory: loanCategory
+      }
+    });
+  }
+
+
 }
