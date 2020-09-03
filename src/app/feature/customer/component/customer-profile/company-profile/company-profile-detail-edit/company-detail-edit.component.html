@@ -1,0 +1,427 @@
+<nb-card [nbSpinner]="spinner"
+         accent="primary" class="m-0"
+         nbSpinnerSize="giant"
+         nbSpinnerStatus="primary">
+  <nb-card-header class="text-center">
+    <a  class="close cursor" data-dismiss="modal" aria-label="Close" (click)="onClose()">
+      <span aria-hidden="true">×</span></a>
+    <h6>Company Detail</h6>
+    <div class="d-flex justify-content-end">
+      <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
+                      name="companyInfoCalendarType">
+        <nb-radio value="AD">AD</nb-radio>
+        <nb-radio value="BS">BS</nb-radio>
+      </nb-radio-group>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="companyInfoFormGroup">
+      <nb-tabset>
+        <nb-tab tabTitle="Legal Status">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label for="corporateStructure"><strong>Corporate Structure</strong></label>
+                  <input [ngClass]="{ 'is-invalid': (submitted) && form.corporateStructure.errors }" class="form-control"
+                         formControlName="corporateStructure"
+                         id="corporateStructure" name="corporateStructure" placeholder="Corporate Structure"
+                         type="text"/>
+                  <div *ngIf="(submitted) && form.corporateStructure.invalid"
+                       class="invalid-feedback">
+                    <div *ngIf="form.corporateStructure.errors.required">Corporate Structure is
+                      required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- START ROW -->
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="registeredOffice"><strong>Registered Office</strong></label>
+                  <input [ngClass]="{ 'is-invalid': (submitted) && form.registeredOffice.errors }" class="form-control"
+                         formControlName="registeredOffice"
+                         id="registeredOffice" name="registeredOffice" placeholder="Registered Office"
+                         type="text">
+                  <div *ngIf="(submitted) && form.registeredOffice.invalid"
+                       class="invalid-feedback">
+                    <div *ngIf="form.registeredOffice.errors.required">
+                      Registered Office is required
+                    </div>
+                  </div>
+                  <div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="registeredUnderAct"><strong>Registered Under Act</strong></label>
+                  <input [ngClass]="{ 'is-invalid': (submitted) && form.registeredUnderAct.errors }" class="form-control"
+                         formControlName="registeredUnderAct"
+                         id="registeredUnderAct" name="registeredUnderAct" placeholder="Registered Under Act"
+                         type="text">
+                  <div *ngIf="(submitted) && form.registeredUnderAct.invalid"
+                       class="invalid-feedback">
+                    <div *ngIf="form.registeredUnderAct.errors.required">
+                      Registered Under Act is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="registrationDate"><strong>Registration Date</strong></label>
+                  <input *ngIf="calendarType === 'AD'" [nbDatepicker]="registrationDate"
+                         [ngClass]="{ 'is-invalid':submitted && form.registrationDate.errors}"
+                         class="form-control" formControlName="registrationDate"
+                         id="registrationDate" name="registrationDate"
+                         placeholder="Registration Date">
+                  <app-calendar (messageToEmit)="companyInfoFormGroup.get('registrationDate').patchValue($event?.eDate)"
+                                *ngIf="calendarType === 'BS'"
+                                [ePreDate]="companyInfoFormGroup.get('registrationDate').value"></app-calendar>
+                  <nb-datepicker #registrationDate></nb-datepicker>
+                  <div *ngIf="submitted && form.registrationDate.errors" class="invalid-feedback">
+                    <div
+                        *ngIf="form.registrationDate.errors.required || form.registrationDate.errors.beforeToday">
+                      Invalid Registration Date
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="panRegistrationOffice"><strong>PAN/VAT Registration
+                    Office</strong></label>
+                  <input [ngClass]="{ 'is-invalid': (submitted) && form.panRegistrationOffice.errors }" class="form-control"
+                         formControlName="panRegistrationOffice" id="panRegistrationOffice" name="panRegistrationOffice"
+                         placeholder="PAN/VAT Registration Office"
+                         type="text">
+                  <div *ngIf="(submitted) && form.panRegistrationOffice.invalid"
+                       class="invalid-feedback">
+                    <div *ngIf="form.panRegistrationOffice.errors.required">
+                      PAN/VAT Registration Office is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="panRegistrationDate"><strong>PAN/VAT Registration
+                    Date</strong></label>
+                  <input *ngIf="calendarType === 'AD'" [nbDatepicker]="panRegistrationDate"
+                         [ngClass]="{ 'is-invalid':submitted && form.panRegistrationDate.errors}"
+                         class="form-control" formControlName="panRegistrationDate"
+                         id="panRegistrationDate" name="panRegistrationDate"
+                         placeholder="PAN/VAT Registration Date">
+                  <app-calendar (messageToEmit)="companyInfoFormGroup.get('panRegistrationDate').patchValue($event?.eDate)"
+                                *ngIf="calendarType === 'BS'"
+                                [ePreDate]="companyInfoFormGroup.get('panRegistrationDate').value"></app-calendar>
+                  <nb-datepicker #panRegistrationDate></nb-datepicker>
+                  <div *ngIf="submitted && form.panRegistrationDate.errors"
+                       class="invalid-feedback">
+                    <div *ngIf="form.panRegistrationDate.errors.required ||
+                                form.panRegistrationDate.errors.beforeToday">
+                      Invalid PAN/VAT Registration Date
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="registrationExpiryDate"><strong>PAN/VAT Registration Expiry
+                    Date</strong></label>
+                  <input *ngIf="calendarType === 'AD'" [nbDatepicker]="registrationExpiryDate"
+                         [ngClass]="{ 'is-invalid':submitted && form.registrationExpiryDate.errors}"
+                         class="form-control" formControlName="registrationExpiryDate"
+                         id="registrationExpiryDate" name="registrationExpiryDate"
+                         placeholder="PAN/VAT Registration Expiry Date">
+                  <app-calendar
+                      (messageToEmit)="companyInfoFormGroup.get('registrationExpiryDate').patchValue($event?.eDate)"
+                      *ngIf="calendarType === 'BS'"
+                      [ePreDate]="companyInfoFormGroup.get('registrationExpiryDate').value"></app-calendar>
+                  <nb-datepicker #registrationExpiryDate></nb-datepicker>
+                  <div *ngIf="submitted && form.registrationExpiryDate.errors"
+                       class="invalid-feedback">
+                    <div *ngIf="form.registrationExpiryDate.errors.required">
+                      PAN/VAT Registration Expiry Date is Required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-tab>
+        <nb-tab tabTitle="Capital Information">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="authorizedCapital"><strong>Authorized Capital</strong></label>
+                <input [ngClass]="{ 'is-invalid': (submitted) && form.authorizedCapital.errors }" class="form-control"
+                       formControlName="authorizedCapital"
+                       id="authorizedCapital" name="authorizedCapital" placeholder="Authorized Capital"
+                       type="number">
+                <div *ngIf="(submitted) && form.authorizedCapital.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="form.authorizedCapital.errors.required">
+                    Authorized Capital is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="paidUpCapital"><strong>Paid Up Capital</strong></label>
+                <input [ngClass]="{ 'is-invalid': (submitted) && form.paidUpCapital.errors }" class="form-control" formControlName="paidUpCapital"
+                       id="paidUpCapital"
+                       name="paidUpCapital" placeholder="Paid Up Capital"
+                       type="number">
+                <div *ngIf="(submitted) && form.paidUpCapital.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="form.paidUpCapital.errors.required">
+                    Paid Up Capital Number is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="issuedCapital"><strong>Issued Capital</strong></label>
+                <input [ngClass]="{ 'is-invalid': (submitted) && form.issuedCapital.errors }" class="form-control" formControlName="issuedCapital"
+                       id="issuedCapital"
+                       name="issuedCapital" placeholder="Issued Capital"
+                       type="number">
+                <div *ngIf="(submitted) && form.issuedCapital.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="form.issuedCapital.errors.required">
+                    Issued Capital is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="totalCapital"><strong>Total Capital</strong></label>
+                <input [ngClass]="{ 'is-invalid': (submitted) && form.totalCapital.errors }" class="form-control" formControlName="totalCapital"
+                       id="totalCapital"
+                       name="totalCapital" placeholder="Total Capital"
+                       type="number">
+                <div *ngIf="(submitted) && form.totalCapital.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="form.totalCapital.errors.required">
+                    Total Capital is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="fixedCapital"><strong>Fixed Capital</strong></label>
+                <input [ngClass]="{ 'is-invalid': (submitted) && form.fixedCapital.errors }" class="form-control" formControlName="fixedCapital"
+                       id="fixedCapital"
+                       name="fixedCapital" placeholder="Fixed Capital"
+                       type="number">
+                <div *ngIf="(submitted) && form.fixedCapital.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="form.fixedCapital.errors.required">
+                    Fixed Capital is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="workingCapital"><strong>Working Capital</strong></label>
+                <input [ngClass]="{ 'is-invalid': (submitted) && form.workingCapital.errors }" class="form-control" formControlName="workingCapital"
+                       id="workingCapital"
+                       name="workingCapital" placeholder="Working Capital"
+                       type="number">
+                <div *ngIf="(submitted) && form.workingCapital.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="form.workingCapital.errors.required">
+                    Working Capital is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END ROW -->
+          <!-- START ROW -->
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="numberOfShareholder"><strong>Number Of Shareholder</strong></label>
+                <input [ngClass]="{ 'is-invalid': (submitted) && form.numberOfShareholder.errors }" class="form-control"
+                       formControlName="numberOfShareholder"
+                       id="numberOfShareholder" name="numberOfShareholder" placeholder="Number Of Shareholder"
+                       type="number">
+                <div *ngIf="(submitted) && form.numberOfShareholder.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="form.numberOfShareholder.errors.required">
+                    Number Of Shareholder is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-tab>
+        <nb-tab tabTitle="Contact Person Details">
+          <div class="row ">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><strong>Name</strong></label>
+                <input [ngClass]="{ 'is-invalid': (submitted) && form.contactName.errors }" class="form-control"
+                       formControlName="contactName" id="contactName" placeholder="Name"
+                       type="text">
+                <div *ngIf="(submitted) && form.contactName.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="form.contactName.errors.required">
+                    Name is required
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><strong>Contact Number</strong></label>
+                <input [ngClass]="{ 'is-invalid': (submitted) && form.contactNumber.errors }" class="form-control"
+                       formControlName="contactNumber" id="contactNumber"
+                       placeholder="Contact Number"
+                       type="text">
+                <div *ngIf="(submitted) && form.contactNumber.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="form.contactNumber.errors.required">
+                    Contact Number is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><strong>Email</strong></label>
+                <input [ngClass]="{ 'is-invalid': (submitted) && form.contactEmail.errors }" class="form-control"
+                       formControlName="contactEmail" id="contactEmail"
+                       placeholder="Email"
+                       type="email">
+                <div *ngIf="(submitted) && form.contactEmail.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="form.contactEmail.errors.required">
+                    Email is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><strong>Province</strong></label>
+                <select (change)="getDistricts(companyInfoFormGroup.get('contactProvince').value.id,null)"
+                        [ngClass]="{ 'is-invalid': (submitted) && form.contactProvince.errors }"
+                        class="form-control"
+                        formControlName="contactProvince">
+                  <option [ngValue]="null" hidden>Select Province</option>
+                  <option *ngFor="let province of provinceList"
+                          [ngValue]="province">{{province.name}}</option>
+                </select>
+                <div *ngIf="(submitted) && form.contactProvince.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="form.contactProvince.errors.required">
+                    Province is required
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><strong>District</strong></label>
+                <select (change)="getMunicipalities(companyInfoFormGroup.get('contactDistrict').value.id,null)"
+                        [ngClass]="{ 'is-invalid': (submitted) && form.contactDistrict.errors }"
+                        class="form-control"
+                        formControlName="contactDistrict">
+                  <option [ngValue]="null" hidden>Select District</option>
+                  <option *ngFor="let district of districtList"
+                          [ngValue]="district">{{district.name}}</option>
+                </select>
+                <div *ngIf="(submitted) && form.contactDistrict.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="form.contactDistrict.errors.required">
+                    District is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><strong>Municipalities/VDC</strong></label>
+                <select [ngClass]="{ 'is-invalid': (submitted) && form.contactMunicipalities.errors }" class="form-control"
+                        formControlName="contactMunicipalities">
+                  <option [ngValue]="null" hidden>Select Municipalities/VDV</option>
+                  <option *ngFor="let municipalityVdc of municipalityVdcList"
+                          [ngValue]="municipalityVdc">{{municipalityVdc.name}}</option>
+                </select>
+                <div *ngIf="(submitted) && form.contactMunicipalities.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="form.contactMunicipalities.errors.required">
+                    Municipalities/VDC is required
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </nb-tab>
+        <nb-tab tabTitle="Company Location Detail">
+          <div class="row ">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><strong>House Number</strong></label>
+                <input class="form-control" formControlName="houseNumber"
+                       id="houseNumber" placeholder="House Number" type="text">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><strong>Street Name</strong></label>
+                <input [ngClass]="{ 'is-invalid': (submitted) && form.streetName.errors }" class="form-control"
+                       formControlName="streetName" id="streetName" placeholder="Street Name"
+                       type="text">
+                <div *ngIf="(submitted) && form.streetName.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="form.streetName.errors.required">
+                    Street Name is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><strong>Address</strong></label>
+                <input [ngClass]="{ 'is-invalid': (submitted) && form.address.errors }" class="form-control"
+                       formControlName="address" id="address" placeholder="Address"
+                       type="text">
+                <div *ngIf="(submitted) && form.address.invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="form.address.errors.required">
+                    Address is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-tab>
+      </nb-tabset>
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <button (click)="onSubmit()" class="cursor float-right" nbButton size="small" status="primary"
+            type="submit"><i class="fa fa-save"></i>
+    </button>
+  </nb-card-footer>
+</nb-card>
