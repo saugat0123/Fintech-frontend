@@ -167,6 +167,9 @@
                                     </div>
                                 </nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <div class="text-right">
+                                        <button  (click)="openKycModal()" nbButton size="small"  status="danger" type="button">Edit</button>
+                                    </div><br>
                                     <table aria-describedby="management team table" class="table table-bordered">
                                         <thead>
                                         <tr>
@@ -178,7 +181,7 @@
                                         <tbody>
                                         <tr *ngFor="let singleManagementTeam of companyInfo?.managementTeamList;
                                         let i = index">
-                                            <td scope="row">{{i}}</td>
+                                            <td scope="row">{{i+1}}</td>
                                             <td>{{singleManagementTeam?.name}}</td>
                                             <td>{{singleManagementTeam?.designation}}</td>
                                         </tr>
@@ -193,8 +196,12 @@
                                             <span>Information of Proprietor/Shareholder/Partner</span>
                                         </div>
                                     </div>
+
                                 </nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <div class="text-right">
+                                        <button  (click)="openProprietorEdit()" nbButton size="small" status="danger" type="button">Edit</button>
+                                    </div><br>
                                     <table aria-describedby="proprietor info table" class="table table-bordered">
                                         <thead>
                                         <tr>
@@ -210,7 +217,7 @@
                                         <tbody>
                                         <tr *ngFor="let singleProprietorInfo of companyInfo?.proprietorsList;
                                         let i = index">
-                                            <td scope="row">{{i}}</td>
+                                            <td scope="row">{{i+1}}</td>
                                             <td>{{singleProprietorInfo?.name}}</td>
                                             <td>{{singleProprietorInfo?.contactNo}}</td>
                                             <td>{{singleProprietorInfo?.share}}</td>
@@ -231,6 +238,9 @@
                                     </div>
                                 </nb-accordion-item-header>
                                 <nb-accordion-item-body>
+                                    <div class="text-right">
+                                        <button  (click)="openSwotEdit()" nbButton size="small" status="danger" type="button"> Edit</button>
+                                    </div><br>
                                     <table aria-describedby="swot table" class="table table-bordered">
                                         <thead>
                                         <tr>
