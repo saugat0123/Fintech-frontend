@@ -10,7 +10,7 @@ import {AddressService} from "../../../../../../@core/service/baseservice/addres
 import {LoanDataService} from "../../../../../loan/service/loan-data.service";
 import {ActivatedRoute} from "@angular/router";
 import {LoanFormService} from "../../../../../loan/component/loan-form/service/loan-form.service";
-import {ToastService} from "../../../../../../@core/utils";
+import {ModalResponse, ToastService} from "../../../../../../@core/utils";
 import {CompanyInfoService} from "../../../../../admin/service/company-info.service";
 import {BlacklistService} from "../../../../../admin/component/blacklist/blacklist.service";
 import {NbDialogRef} from "@nebular/theme";
@@ -45,6 +45,7 @@ export class EditManagementTeamComponent implements OnInit {
       private companyInfoService: CompanyInfoService,
       private blackListService: BlacklistService,
       protected ref: NbDialogRef<CompanyFormComponent>,
+      protected dialogRef: NbDialogRef<EditManagementTeamComponent>
   ) {
 
   }
@@ -116,8 +117,8 @@ export class EditManagementTeamComponent implements OnInit {
     // management team list
     this.companyInfo.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
     this.companyInfoService.save(this.companyInfo).subscribe((response: any) => {
-      this.close();
       this.toastService.show(new Alert(AlertType.SUCCESS, `Company Saved Successfully`));
+      this.dialogRef.close(ModalResponse.SUCCESS);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, `Error saving Company: ${error.error.message}`));

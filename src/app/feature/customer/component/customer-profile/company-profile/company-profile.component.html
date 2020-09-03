@@ -171,7 +171,7 @@
                                 </nb-accordion-item-header>
                                 <nb-accordion-item-body>
                                     <div class="text-right">
-                                        <a  (click)="openKycModal()" class="p-2 cursor"><em class="fa fa-edit"></em></a>
+                                        <button  (click)="openKycModal()" nbButton size="small"  status="danger" type="button">Edit</button>
                                     </div>
                                     <table aria-describedby="management team table" class="table table-bordered">
                                         <thead>
@@ -203,7 +203,7 @@
                                 </nb-accordion-item-header>
                                 <nb-accordion-item-body>
                                     <div class="text-right">
-                                        <a  (click)="openProprietorEdit()" class="p-2 cursor"><em class="fa fa-edit"></em></a>
+                                        <button  (click)="openProprietorEdit()" nbButton size="small" status="danger" type="button">Edit</button>
                                     </div>
                                     <table aria-describedby="proprietor info table" class="table table-bordered">
                                         <thead>
@@ -242,7 +242,7 @@
                                 </nb-accordion-item-header>
                                 <nb-accordion-item-body>
                                     <div class="text-right">
-                                        <button  (click)="openSwotEdit()" class="p-2 cursor" type="button"> Edit</button><br>
+                                        <button  (click)="openSwotEdit()" nbButton size="small" status="danger" type="button"> Edit</button><br>
                                     </div>
                                     <table aria-describedby="swot table" class="table table-bordered">
                                         <thead>

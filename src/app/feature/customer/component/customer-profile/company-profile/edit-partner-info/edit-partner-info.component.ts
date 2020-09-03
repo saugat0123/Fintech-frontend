@@ -18,7 +18,7 @@ import {AddressService} from "../../../../../../@core/service/baseservice/addres
 import {LoanDataService} from "../../../../../loan/service/loan-data.service";
 import {ActivatedRoute} from "@angular/router";
 import {LoanFormService} from "../../../../../loan/component/loan-form/service/loan-form.service";
-import {ToastService} from "../../../../../../@core/utils";
+import {ModalResponse, ToastService} from "../../../../../../@core/utils";
 import {CompanyInfoService} from "../../../../../admin/service/company-info.service";
 import {BlacklistService} from "../../../../../admin/component/blacklist/blacklist.service";
 import {NbDialogRef} from "@nebular/theme";
@@ -77,6 +77,7 @@ export class EditPartnerInfoComponent implements OnInit {
       private companyInfoService: CompanyInfoService,
       private blackListService: BlacklistService,
       protected ref: NbDialogRef<CompanyFormComponent>,
+      protected dialogRef: NbDialogRef<EditPartnerInfoComponent>
   ) {
 
   }
@@ -266,28 +267,11 @@ export class EditPartnerInfoComponent implements OnInit {
 
   onSubmit() {
     // proprietorsList
-    this.companyInfo.proprietorsList = new Array<Proprietors>();
-    let proprietorsIndex = 0;
-    while (proprietorsIndex < this.getProprietor().length) {
-      const proprietors = new Proprietors();
-      proprietors.name = this.getProprietor()[proprietorsIndex].name;
-      proprietors.contactNo = this.getProprietor()[proprietorsIndex].contactNo;
-      proprietors.share = this.getProprietor()[proprietorsIndex].share;
-      const province = new Province();
-      province.id = this.getProprietor()[proprietorsIndex].province;
-      proprietors.province = province;
-      const district = new District();
-      district.id = this.getProprietor()[proprietorsIndex].district;
-      proprietors.district = district;
-      const municipalityVdc = new MunicipalityVdc();
-      municipalityVdc.id = this.getProprietor()[proprietorsIndex].municipalityVdc;
-      proprietors.municipalityVdc = municipalityVdc;
-      proprietorsIndex++;
-      this.companyInfo.proprietorsList.push(proprietors);
-    }
+    this.companyInfo.proprietorsList = this.companyInfoFormGroup.get('proprietors').value;
+
     this.companyInfoService.save(this.companyInfo).subscribe((response: any) => {
-      this.close();
       this.toastService.show(new Alert(AlertType.SUCCESS, `Company Saved Successfully`));
+      this.dialogRef.close(ModalResponse.SUCCESS);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, `Error saving Company: ${error.error.message}`));
