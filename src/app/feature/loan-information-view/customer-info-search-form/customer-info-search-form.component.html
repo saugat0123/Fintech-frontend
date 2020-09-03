@@ -1,0 +1,49 @@
+<div id="customer-search-form">
+<form (ngSubmit)="onSubmit()" [formGroup]="search" class="form-horizontal">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+
+        <input
+            [ngClass]="{ 'is-invalid': (submitted) && searchControls.idNumber.errors }"
+            class="form-control" formControlName="idNumber" id="idNumber"
+            name="idNumber" [placeholder]="placeHolder"
+            type="text">
+        <div *ngIf="(submitted) && searchControls.idNumber.invalid"
+             class="invalid-feedback">
+          <div *ngIf="searchControls.idNumber.errors.required">
+             {{errorMessage}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <ng-select [multiple]="false"
+                   formControlName="idRegPlace"
+                   id="idRegPlace"
+                   [ngClass]="{ 'is-invalid': (submitted) && searchControls.idRegPlace.errors }"
+                   placeholder="Select district">
+          <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+            {{district?.name}}
+          </ng-option>
+        </ng-select>
+        <div *ngIf="(submitted) && searchControls.idRegace.invalid"
+             class="invalid-feedback">
+                <span *ngIf="searchControls.idRegPlace.errors.required">
+                   Issued district is required
+                </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <button nbButton class="btn-sm">search</button>
+      </div>
+    </div>
+  </div>
+
+</form>
+</div>

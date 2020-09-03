@@ -68,12 +68,15 @@
         <ngb-tab *ngFor="let allList of templateList; let i = index" [title]="allList.name"
                  [id]="i.toString(10)" [disabled]="isBlackListed">
           <ng-template ngbTabContent *ngIf="allList.name === 'Customer Info'">
-            <app-basic-info (blackListStatusEmitter)="getIsBlackListed($event)"
-                            [formValue]="loanDocument?.customerInfo"
-                            [calendarType]="calendarType"
-                            [disableForm]="allId?.customerProfileId"
-                            #basicInfo>
-            </app-basic-info>
+            <!--            <app-basic-info (blackListStatusEmitter)="getIsBlackListed($event)"-->
+            <!--                            [formValue]="loanDocument?.customerInfo"-->
+            <!--                            [calendarType]="calendarType"-->
+            <!--                            [disableForm]="allId?.customerProfileId"-->
+            <!--                            #basicInfo>-->
+            <!--            </app-basic-info>-->
+            <div class="py-4">
+              <app-individual-view [individual]="loanDocument?.customerInfo"></app-individual-view>
+            </div>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Kyc Info'">
             <app-kyc-info [formValue]="loanDocument?.customerInfo" #kycInfo>
@@ -135,17 +138,17 @@
               </app-guarantor-view>
             </div>
           </ng-template>
-            <ng-template ngbTabContent *ngIf="allList.name == 'MAW Credit Risk Grading'">
-                <app-maw-credit-risk-grading #mawCreditRiskGrading
-                                             [mawCreditRiskGradingData]="loanDocument?.mawCreditRiskGrading">
-                </app-maw-credit-risk-grading>
-            </ng-template>
-            <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Alpha'">
-                <app-credit-risk-grading-alpha #creditRiskGradingAlpha
-                                               [creditRiskGradingAlpha]="loanDocument?.creditRiskGradingAlpha"
-                                               [financial]="loanDocument?.financial"
-                                               [companyInfo]="loanDocument?.companyInfo"
-                                               [fromProfile]="false"></app-credit-risk-grading-alpha>
+          <ng-template ngbTabContent *ngIf="allList.name == 'MAW Credit Risk Grading'">
+            <app-maw-credit-risk-grading #mawCreditRiskGrading
+                                         [mawCreditRiskGradingData]="loanDocument?.mawCreditRiskGrading">
+            </app-maw-credit-risk-grading>
+          </ng-template>
+          <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Alpha'">
+            <app-credit-risk-grading-alpha #creditRiskGradingAlpha
+                                           [creditRiskGradingAlpha]="loanDocument?.creditRiskGradingAlpha"
+                                           [financial]="loanDocument?.financial"
+                                           [companyInfo]="loanDocument?.companyInfo"
+                                           [fromProfile]="false"></app-credit-risk-grading-alpha>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name == 'Reporting Info'">
             <app-reporting-info-tagging #reportingInfoTagging
