@@ -1,14 +1,14 @@
 <nb-card>
     <nb-card-body>
         <div class="form-group">
-            <form [formGroup]="companyInfoFormGroup" class="form-horizontal">
+            <form [formGroup]="managementFormGroup" class="form-horizontal">
 
                 <div class="box-header with-border">
                     <h5 class="box-title title"> Management Team</h5>
                 </div>
                 <hr/>
                 <div formArrayName="managementTeams" class="border-bottom border-dark m-4"
-                     *ngFor="let managementTeam of companyInfoFormGroup.get('managementTeams')['controls']; let managementTeamIndex = index">
+                     *ngFor="let managementTeam of managementFormGroup.get('managementTeams')['controls']; let managementTeamIndex = index">
                     <div [formGroupName]="managementTeamIndex">
                         <div class="row form-group">
                             <div class="col-md-6">

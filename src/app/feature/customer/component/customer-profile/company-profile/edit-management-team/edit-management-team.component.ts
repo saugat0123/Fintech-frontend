@@ -17,6 +17,7 @@ import {NbDialogRef} from "@nebular/theme";
 import {CompanyFormComponent} from "../../../customer-form/company-form/company-form.component";
 import {ObjectUtil} from "../../../../../../@core/utils/ObjectUtil";
 import {Alert, AlertType} from "../../../../../../@theme/model/Alert";
+import {DateValidator} from "../../../../../../@core/validator/date-validator";
 
 @Component({
   selector: 'app-edit-management-team',
@@ -25,7 +26,7 @@ import {Alert, AlertType} from "../../../../../../@theme/model/Alert";
 })
 export class EditManagementTeamComponent implements OnInit {
 
-  companyInfoFormGroup: FormGroup;
+  managementFormGroup: FormGroup;
 
   submitted = false;
   companyInfo: CompanyInfo;
@@ -51,63 +52,64 @@ export class EditManagementTeamComponent implements OnInit {
   }
 
   get form() {
-    return this.companyInfoFormGroup.controls;
+    return this.managementFormGroup.controls;
   }
 
   ngOnInit() {
     this.buildForm();
 
     if (ObjectUtil.isEmpty(this.companyInfo.managementTeamList)) {
+      this.createManagementArray();
 
     } else {
-      this.setCompanyInfo(this.companyInfo);
+      this.setManagement(this.companyInfo.managementTeamList);
+
     }
 
   }
 
   buildForm() {
-    this.companyInfoFormGroup = this.formBuilder.group({
+    this.managementFormGroup = this.formBuilder.group({
 
 
       // managementTeams
       managementTeams: this.formBuilder.array([
-        this.managementTeamFormGroup()
       ]),
 
     });
   }
 
-  setCompanyInfo(info: CompanyInfo) {
-    // set managementTeams data
-    this.companyInfoFormGroup.setControl('managementTeams', this.setManagementTeams(info.managementTeamList));
 
+  createManagementArray() {
+      (this.managementFormGroup.get('managementTeams') as FormArray).push(this.formBuilder.group({
+        name: [undefined, Validators.required],
+        designation: [undefined, Validators.required]
+      }));
   }
-
-  managementTeamFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      name: [undefined, Validators.required],
-      designation: [undefined, Validators.required]
-    });
-  }
-
-  // set managementTeams data
-  setManagementTeams(managementTeamList: ManagementTeam[]): FormArray {
-    const managementTeamFormArray = new FormArray([]);
-    managementTeamList.forEach(managementTeam => {
-      managementTeamFormArray.push(this.formBuilder.group({
-        name: [managementTeam.name === undefined ? '' : managementTeam.name, Validators.required],
-        designation: [managementTeam.designation === undefined ? '' : managementTeam.designation, Validators.required],
+  setManagement(currentData) {
+    const managementData = (this.managementFormGroup.get('managementTeams') as FormArray);
+    currentData.forEach((singleData, index) => {
+      managementData.push(this.formBuilder.group({
+        name: [ObjectUtil.setUndefinedIfNull(singleData.name)],
+        designation: [ObjectUtil.setUndefinedIfNull(singleData.designation)],
+        id: [ObjectUtil.setUndefinedIfNull(singleData.id)],
+        version: [ObjectUtil.setUndefinedIfNull(singleData.version)],
       }));
     });
-    return managementTeamFormArray;
   }
+
 
   removeManagementTeam(index: number) {
-    (<FormArray>this.companyInfoFormGroup.get('managementTeams')).removeAt(index);
+    (<FormArray>this.managementFormGroup.get('managementTeams')).removeAt(index);
   }
 
-  addManagementTeam() {
-    (<FormArray>this.companyInfoFormGroup.get('managementTeams')).push(this.managementTeamFormGroup());
+  addManagement() {
+    (this.managementFormGroup.get('managementTeams') as FormArray).push(
+        this.formBuilder.group({
+          name: [undefined, Validators.required],
+          designation: [undefined, Validators.required]
+        })
+    );
   }
 
 
@@ -115,8 +117,10 @@ export class EditManagementTeamComponent implements OnInit {
 
   onSubmit() {
     // management team list
-    this.companyInfo.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
+    this.companyInfo.managementTeamList = this.managementFormGroup.get('managementTeams').value;
+
     this.companyInfoService.save(this.companyInfo).subscribe((response: any) => {
+      this.companyInfo = response.detail;
       this.toastService.show(new Alert(AlertType.SUCCESS, `Company Saved Successfully`));
       this.dialogRef.close(ModalResponse.SUCCESS);
     }, error => {

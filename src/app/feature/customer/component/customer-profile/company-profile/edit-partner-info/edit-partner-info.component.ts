@@ -23,9 +23,9 @@ import {CompanyInfoService} from "../../../../../admin/service/company-info.serv
 import {BlacklistService} from "../../../../../admin/component/blacklist/blacklist.service";
 import {NbDialogRef} from "@nebular/theme";
 import {ObjectUtil} from "../../../../../../@core/utils/ObjectUtil";
-import {DateValidator} from "../../../../../../@core/validator/date-validator";
 import {Alert, AlertType} from "../../../../../../@theme/model/Alert";
 import {CompanyFormComponent} from "../../../customer-form/company-form/company-form.component";
+import {DateValidator} from "../../../../../../@core/validator/date-validator";
 
 @Component({
   selector: 'app-edit-partner-info',
@@ -34,6 +34,7 @@ import {CompanyFormComponent} from "../../../customer-form/company-form/company-
 })
 export class EditPartnerInfoComponent implements OnInit {
 
+  @Input() formValue: CompanyInfo;
 
   calendarType = 'AD';
   companyInfoFormGroup: FormGroup;
@@ -105,6 +106,7 @@ export class EditPartnerInfoComponent implements OnInit {
         }
     );
 
+
     if (ObjectUtil.isEmpty(this.companyInfo.proprietorsList)) {
       this.customerId = Number(this.activatedRoute.snapshot.queryParamMap.get('customerId'));
       if (this.customerId !== 0) {
@@ -125,15 +127,14 @@ export class EditPartnerInfoComponent implements OnInit {
                     });
                   }
               );
+              this.companyInfo = response.detail.companyInfo;
               this.buildForm();
-              this.proprietorsFormGroup();
             }
         );
       }
     } else {
-      this.setCompanyInfo(this.companyInfo);
+      this.setCompanyInfo(this.companyInfo.proprietorsList);
     }
-
   }
 
   buildForm() {
@@ -154,10 +155,13 @@ export class EditPartnerInfoComponent implements OnInit {
     });
   }
 
-  setCompanyInfo(info: CompanyInfo) {
+  setCompanyInfo(data) {
     // proprietors data
-    this.companyInfoFormGroup.setControl('proprietors', this.setProprietors(info.proprietorsList));
+    this.companyInfoFormGroup.setControl('proprietors', this.setProprietors(data));
   }
+
+
+
 
   proprietorsFormGroup(): FormGroup {
     this.addressList.push(new Address());
@@ -192,7 +196,9 @@ export class EditPartnerInfoComponent implements OnInit {
         district: [proprietors.district.id === undefined ? '' : proprietors.district.id,
           Validators.required],
         municipalityVdc: [proprietors.municipalityVdc.id === undefined ? '' : proprietors.municipalityVdc.id,
-          Validators.required]
+          Validators.required],
+        id: [ObjectUtil.setUndefinedIfNull(proprietors.id)],
+        version: [ObjectUtil.setUndefinedIfNull(proprietors.version)],
       }));
     });
     return managementTeamFormArray;
@@ -263,12 +269,30 @@ export class EditPartnerInfoComponent implements OnInit {
     );
   }
 
-
-
   onSubmit() {
-    // proprietorsList
-    this.companyInfo.proprietorsList = this.companyInfoFormGroup.get('proprietors').value;
+    console.log(this.companyInfoFormGroup.get('proprietors').value);
 
+
+    // proprietorsList
+    this.companyInfo.proprietorsList = new Array<Proprietors>();
+    let proprietorsIndex = 0;
+    while (proprietorsIndex < this.getProprietor().length) {
+      const proprietors = new Proprietors();
+      proprietors.name = this.getProprietor()[proprietorsIndex].name;
+      proprietors.contactNo = this.getProprietor()[proprietorsIndex].contactNo;
+      proprietors.share = this.getProprietor()[proprietorsIndex].share;
+      const province = new Province();
+      province.id = this.getProprietor()[proprietorsIndex].province;
+      proprietors.province = province;
+      const district = new District();
+      district.id = this.getProprietor()[proprietorsIndex].district;
+      proprietors.district = district;
+      const municipalityVdc = new MunicipalityVdc();
+      municipalityVdc.id = this.getProprietor()[proprietorsIndex].municipalityVdc;
+      proprietors.municipalityVdc = municipalityVdc;
+      proprietorsIndex++;
+      this.companyInfo.proprietorsList.push(proprietors);
+    }
     this.companyInfoService.save(this.companyInfo).subscribe((response: any) => {
       this.toastService.show(new Alert(AlertType.SUCCESS, `Company Saved Successfully`));
       this.dialogRef.close(ModalResponse.SUCCESS);
@@ -285,6 +309,7 @@ export class EditPartnerInfoComponent implements OnInit {
   close() {
     this.ref.close();
   }
+
 
 
 }
