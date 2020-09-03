@@ -200,7 +200,7 @@ export class LoanFormComponent implements OnInit {
       private scrollNavService: ScrollNavigationService,
       private customerInfoService: CustomerInfoService,
       private companyInfoService: CompanyInfoService
-    ) {
+  ) {
   }
 
   ngOnInit() {
@@ -501,7 +501,7 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.ciclList = this.cicl.ciclList;
       this.loanDocument.ciclRemarks = this.cicl.ciclRemark;
       // this.loanDocument.insurance = this.cicl.insurance;
-        }
+    }
 
     // if (name === 'Financial' && action) {
     //     this.financial.onSubmit();
@@ -549,14 +549,14 @@ export class LoanFormComponent implements OnInit {
       this.reportingInfoTaggingComponent.onSubmit();
       this.loanDocument.reportingInfoLevels = this.reportingInfoTaggingComponent.finalReportingInfoLevels;
     }
-    if (name === 'Insurance' && action) {
-      if (this.insuranceComponent.form.invalid && this.nextButtonAction) {
-        this.insuranceComponent.isSubmitted = true;
-        return true;
-      }
-      this.insuranceComponent.submit();
-      this.loanDocument.insurance = this.insuranceComponent.insurance;
-    }
+    // if (name === 'Insurance' && action) {
+    //   if (this.insuranceComponent.form.invalid && this.nextButtonAction) {
+    //     this.insuranceComponent.isSubmitted = true;
+    //     return true;
+    //   }
+    //   this.insuranceComponent.submit();
+    //   this.loanDocument.insurance = this.insuranceComponent.insurance;
+    // }
 
     return false;
   }
@@ -589,14 +589,15 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.financial = this.loanHolder.financial;
       this.companyInfoService.detail(this.loanHolder.associateId).subscribe((res: any) => {
         this.loanDocument.companyInfo = res.detail;
-        }, error => {
+      }, error => {
         this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load company information!'));
       });
       this.loanDocument.creditRiskGradingAlpha = this.loanHolder.creditRiskGradingAlpha;
       this.loanDocument.creditRiskGrading = this.loanHolder.creditRiskGrading;
       this.loanDocument.security = this.loanHolder.security;
       this.loanDocument.shareSecurity = this.loanHolder.shareSecurity;
-      this.loanDocument.insurance = this.loanHolder.insurance;}, error => {
+      this.loanDocument.insurance = this.loanHolder.insurance;
+    }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load customer info'));
     });
