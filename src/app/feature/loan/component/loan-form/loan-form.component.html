@@ -107,14 +107,14 @@
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Financial'">
             <div class="py-4">
-              <app-financial-view [formData]="loanHolder?.financial" #financial
+              <app-financial-view [formData]="loanHolder?.financial" #financial *ngIf="loanHolder?.financial"
               ></app-financial-view>
             </div>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Site Visit'">
             <div class="py-4">
               <app-site-visit-view #siteVisit
-                                   [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
+                                   [siteVisit]="loanHolder?.siteVisit" *ngIf="loanHolder?.siteVisit"></app-site-visit-view>
             </div>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Security'">
@@ -134,7 +134,7 @@
           <ng-template ngbTabContent *ngIf="allList.name == 'Guarantor'">
             <div class="py-4">
               <app-guarantor-view #guarantor
-                                  [guarantorData]="loanHolder?.guarantors">
+                                  [guarantorData]="loanHolder?.guarantors" *ngIf="loanHolder?.guarantors">
               </app-guarantor-view>
             </div>
           </ng-template>
@@ -159,7 +159,7 @@
             <!--            <app-insurance #insurance [insuranceDataFromModel]="loanDocument?.insurance">-->
             <!--            </app-insurance>-->
             <div class="py-4">
-              <app-insurance-view [insurance]="loanHolder?.insurance"></app-insurance-view>
+              <app-insurance-view [insurance]="loanHolder?.insurance" *ngIf="loanHolder?.insurance"></app-insurance-view>
             </div>
           </ng-template>
 
