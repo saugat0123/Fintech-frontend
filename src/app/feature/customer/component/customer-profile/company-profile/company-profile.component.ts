@@ -16,7 +16,6 @@ import {NbDialogService} from "@nebular/theme";
 import {EditManagementTeamComponent} from "./edit-management-team/edit-management-team.component";
 import {EditPartnerInfoComponent} from "./edit-partner-info/edit-partner-info.component";
 import {EditSwotComponent} from "./edit-swot/edit-swot.component";
-import {NbDialogService} from '@nebular/theme';
 import {CompanyDetailEditComponent} from './company-profile-detail-edit/company-detail-edit.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BusinessType} from '../../../../admin/modal/businessType';
