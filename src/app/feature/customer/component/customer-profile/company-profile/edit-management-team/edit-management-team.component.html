@@ -10,6 +10,10 @@
                 <div formArrayName="managementTeams" class="border-bottom border-dark m-4"
                      *ngFor="let managementTeam of managementFormGroup.get('managementTeams')['controls']; let managementTeamIndex = index">
                     <div [formGroupName]="managementTeamIndex">
+                        <div class="col-md-2 float-right" *ngIf="managementFormGroup.get('managementTeams').length>1">
+                            <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
+                                   (click)="removeManagementTeam(managementTeamIndex)" value="Delete">
+                        </div>
                         <div class="row form-group">
                             <div class="col-md-6">
                                 <label for="managementTeamName"><strong>Name</strong></label>
@@ -39,6 +43,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="text-right">
+                    <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addManagement()"
+                           value="Add More"/>
                 </div>
             </form>
         </div>
