@@ -156,8 +156,11 @@
             </app-reporting-info-tagging>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name == 'Insurance'">
-            <app-insurance #insurance [insuranceDataFromModel]="loanDocument?.insurance">
-            </app-insurance>
+            <!--            <app-insurance #insurance [insuranceDataFromModel]="loanDocument?.insurance">-->
+            <!--            </app-insurance>-->
+            <div class="py-4">
+              <app-insurance-view [insurance]="loanHolder?.insurance"></app-insurance-view>
+            </div>
           </ng-template>
 
         </ngb-tab>
