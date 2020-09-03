@@ -3,11 +3,11 @@ import {Financial} from './financial';
 import {Security} from './security';
 import {GuarantorDetail} from './guarantor-detail';
 import {Insurance} from '../../admin/modal/insurance';
-import {Document} from '../../admin/modal/document';
 import {CustomerGeneralDocument} from '../../customer/model/customerGeneralDocument';
 import {CustomerGroup} from '../../admin/modal/customer-group';
 import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
 import {CreditRiskGrading} from '../../admin/modal/creditRiskGrading';
+import {Branch} from '../../admin/modal/branch';
 
 export class CustomerInfoData {
   id: number;
@@ -21,6 +21,7 @@ export class CustomerInfoData {
   idRegPlace: string;
   associateId: number;
   isBlacklist: boolean;
+  branch: Branch;
   siteVisit: SiteVisit;
   financial: Financial;
   creditRiskGradingAlpha: CreditRiskGradingAlpha;

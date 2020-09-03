@@ -78,7 +78,7 @@
 </div>
 
 
-<ng-template #cusWindow>
+<ng-template #cusWindow let-ref="dialogRef">
   <div>
     <div class="modal-content">
       <div class="modal-header" style="display:block">
@@ -86,15 +86,16 @@
            data-dismiss="modal">
           <span aria-hidden="true">×</span></a>
         <h4 class="nav navbar navbar-right pull-left">Customer Information</h4>
-        <p class="text-danger"> <sup>*</sup> Choose Yes if Customer is desired</p>
+        <p class="text-danger" *ngIf="ifSameBranch"> <sup>*</sup> Choose Yes if Customer is desired</p>
+        <p class="text-danger" *ngIf="!ifSameBranch"> <sup>*</sup> This customer is associated with branch {{customerInfo?.branch?.name}}</p>
       </div>
 <div class="modal-body">
       <app-individual-view [individual]="individual"
                            *ngIf="displayIndividual"></app-individual-view></div>
-      <div class="modal-footer">
+      <div class="modal-footer" *ngIf="ifSameBranch">
 
-        <button nbButton status="warning">NO</button>
-        <button nbButton status="danger" (click)="fetchCustomer()">YES</button>
+        <button nbButton status="warning" (click)="ref.close()">NO</button>
+        <button nbButton status="danger" (click)="fetchCustomer(ref)">YES</button>
 
       </div>
 

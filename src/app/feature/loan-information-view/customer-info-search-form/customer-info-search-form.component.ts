@@ -10,6 +10,7 @@ import {CustomerService} from '../../customer/service/customer.service';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {Router} from '@angular/router';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-customer-info-search-form',
@@ -39,6 +40,8 @@ export class CustomerInfoSearchFormComponent implements OnInit {
 
   customerInfo = new CustomerInfoData();
 
+  ifSameBranch = false;
+  branch = LocalStorageUtil.getStorage().branch;
   private search: FormGroup;
   private submitted = false;
   placeHolder = CustomerInfoSearchFormComponent.INDIVIDUAL_PLACEHOLDER;
@@ -51,7 +54,6 @@ export class CustomerInfoSearchFormComponent implements OnInit {
               private individualService: CustomerService,
               private dialogService: NbDialogService,
               private router: Router,
-
   ) {
   }
 
@@ -60,6 +62,7 @@ export class CustomerInfoSearchFormComponent implements OnInit {
   hasError = false;
 
   ngOnInit() {
+
     this.searchForm();
     this.getAllDistrict();
     if (this.customerType === CustomerType.COMPANY) {
@@ -96,7 +99,7 @@ export class CustomerInfoSearchFormComponent implements OnInit {
 
   onSubmit(template: TemplateRef<any>) {
     this.submitted = true;
-    this.hasError=false;
+    this.hasError = false;
     console.log(this.search.value);
     if (this.search.invalid) {
       return;
@@ -104,6 +107,10 @@ export class CustomerInfoSearchFormComponent implements OnInit {
     this.customerInfoService.getCustomerByTypeIdNumberIdTypeRegDate(this.search.value)
     .subscribe((res: any) => {
       this.customerInfo = res.detail;
+      if (this.branch === this.customerInfo.branch.id.toString()) {
+        this.ifSameBranch = true;
+      }
+
       if (this.customerType === CustomerType.INDIVIDUAL) {
         this.individualService.detail(this.customerInfo.associateId).subscribe((response: any) => {
           this.individual = response.detail;
@@ -112,6 +119,7 @@ export class CustomerInfoSearchFormComponent implements OnInit {
 
         });
       } else {
+        // todo company info
 
       }
 
@@ -122,8 +130,8 @@ export class CustomerInfoSearchFormComponent implements OnInit {
   }
 
 
-  fetchCustomer() {
-   // this.closeDialog();
+  fetchCustomer(ref: NbDialogRef<TemplateRef<any>>) {
+    ref.close();
     let loanCategory = 'BUSINESS_TYPE';
     if (CustomerType.INDIVIDUAL === this.customerType) {
       loanCategory = 'PERSONAL_TYPE';
