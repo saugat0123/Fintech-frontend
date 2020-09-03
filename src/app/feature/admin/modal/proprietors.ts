@@ -10,4 +10,5 @@ export class Proprietors {
     district: District;
     municipalityVdc: MunicipalityVdc;
     share: string;
+    version: string;
 }

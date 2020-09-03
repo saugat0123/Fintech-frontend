@@ -4,4 +4,5 @@ export class Swot {
     weakness: string;
     opportunity: string;
     threats: string;
+    version: string;
 }
