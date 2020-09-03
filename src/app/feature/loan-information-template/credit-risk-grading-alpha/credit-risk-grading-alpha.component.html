@@ -228,11 +228,11 @@
 
                                         <td colspan="3" class="text-center">
                                             <p>
-                                                <strong *ngIf="loanData?.companyInfo?.establishmentDate">
+                                                <strong *ngIf="companyInfo?.establishmentDate">
                                                     {{ageOfBusinessValue}} years
                                                 </strong>
 
-                                                <strong *ngIf="!loanData?.companyInfo?.establishmentDate" class="text-danger">
+                                                <strong *ngIf="!companyInfo?.establishmentDate" class="text-danger">
                                                     <em class="fa fa-info-circle">
                                                         <i>
                                                             Please enter the establishment date (within Company Info) for automated evaluation
@@ -860,6 +860,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+                <button (click)="onSubmit()" nbButton type="button">save</button>
             </div>
         </nb-card-body>
     </nb-card>
