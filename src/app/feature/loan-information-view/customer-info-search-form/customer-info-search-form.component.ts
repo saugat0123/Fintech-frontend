@@ -42,8 +42,8 @@ export class CustomerInfoSearchFormComponent implements OnInit {
 
   ifSameBranch = false;
   branch = LocalStorageUtil.getStorage().branch;
-  private search: FormGroup;
-  private submitted = false;
+  search: FormGroup;
+  submitted = false;
   placeHolder = CustomerInfoSearchFormComponent.INDIVIDUAL_PLACEHOLDER;
   errorMessage = CustomerInfoSearchFormComponent.INDIVIDUAL_MESSAGE;
   allDistrict: Array<District> = Array<District>();
