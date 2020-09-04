@@ -109,8 +109,9 @@ export class CustomerInfoSearchFormComponent implements OnInit {
       this.customerInfo = res.detail;
       if (this.branch === this.customerInfo.branch.id.toString()) {
         this.ifSameBranch = true;
+      } else {
+        this.ifSameBranch = false;
       }
-
       if (this.customerType === CustomerType.INDIVIDUAL) {
         this.individualService.detail(this.customerInfo.associateId).subscribe((response: any) => {
           this.individual = response.detail;
