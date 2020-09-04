@@ -7,15 +7,17 @@ import {NbTabsetModule} from '@nebular/theme';
 
 import { GuarantorViewComponent } from './guarantor-view/guarantor-view.component';
 import {SiteVisitViewComponent} from './sitevisit-view/site-visit-view.component';
+import { SecurityViewComponent } from './security-view/security-view.component';
 
 
 @NgModule({
-  declarations: [InsuranceViewComponent, FinancialViewComponent, GuarantorViewComponent , SiteVisitViewComponent],
+  declarations: [InsuranceViewComponent, FinancialViewComponent, GuarantorViewComponent , SiteVisitViewComponent, SecurityViewComponent],
   exports: [
     InsuranceViewComponent,
     FinancialViewComponent,
     GuarantorViewComponent,
-    SiteVisitViewComponent
+    SiteVisitViewComponent,
+    SecurityViewComponent
   ],
   imports: [
     CommonModule,
