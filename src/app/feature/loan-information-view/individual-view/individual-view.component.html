@@ -1,0 +1,93 @@
+<div *ngIf="individual" class="row">
+  <div class="col-md-12 text-center">
+    <p><strong>individual Details</strong></p>
+    <table
+        class="table table-condensed table-bordered table-responsive-md text-center">
+      <thead>
+
+      <tr>
+        <th>Name</th>
+        <th>citizen Number</th>
+        <th>issuedYear</th>
+        <th>issuedPlace</th>
+        <th>province</th>
+        <th>district</th>
+        <th>municipalities</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{individual?.customerName}}</td>
+        <td>{{individual?.citizenshipNumber}}</td>
+        <td>{{individual?.citizenshipIssuedDate | date}}</td>
+        <td>{{individual?.citizenshipIssuedPlace}}</td>
+        <td>{{individual?.province?.name}}</td>
+        <td>{{individual?.district?.name}}</td>
+        <td>{{individual?.municipalities?.name}}</td>
+      </tr>
+      </tbody>
+      <thead>
+      <tr>
+        <th></th>
+
+        <th>street</th>
+        <th>ward no.</th>
+        <th>contact Number</th>
+        <th>email</th>
+        <th>occupation</th>
+        <th>income</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td></td>
+        <td>{{individual?.street || 'NA'}}</td>
+        <td>{{individual?.wardNumber || 'NA'}}</td>
+        <td>{{individual?.contactNumber || 'NA'}}</td>
+        <td>{{individual?.email || 'NA'}}</td>
+        <td>{{individual?.occupation || 'NA'}}</td>
+        <td>{{individual?.incomeSource || 'NA'}}</td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-12 text-center">
+    <p><strong>Family Details</strong></p>
+    <table
+        class="table table-condensed table-bordered table-responsive-md text-center">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Relation Name</th>
+        <th>Citizenship no.</th>
+        <th>Citizenship Issued Date</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let relative of individual?.customerRelatives">
+        <td>
+          {{relative.customerRelativeName}}
+        </td>
+
+        <td>
+          {{relative.customerRelation}}
+        </td>
+        <td>
+          {{relative.citizenshipNumber}}
+        </td>
+        <td>
+          {{relative.citizenshipIssuedDate | date}}
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="!individual" class="col-md-12">
+<app-customer-info-search-form [customerType]="customerType.INDIVIDUAL" [calendarType]="calendarType" [loanId]="loanId"></app-customer-info-search-form>
+</div>
