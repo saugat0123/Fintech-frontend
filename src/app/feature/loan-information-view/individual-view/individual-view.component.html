@@ -1,18 +1,18 @@
 <div *ngIf="individual" class="row">
   <div class="col-md-12 text-center">
-    <p><strong>individual Details</strong></p>
+    <p><strong>Individual Details</strong></p>
     <table
         class="table table-condensed table-bordered table-responsive-md text-center">
       <thead>
 
       <tr>
         <th>Name</th>
-        <th>citizen Number</th>
-        <th>issuedYear</th>
-        <th>issuedPlace</th>
-        <th>province</th>
-        <th>district</th>
-        <th>municipalities</th>
+        <th>Citizenship no.</th>
+        <th>Citizenship Issued Date</th>
+        <th>Issued Place</th>
+        <th>Province</th>
+        <th>District</th>
+        <th>Municipalities</th>
       </tr>
       </thead>
       <tbody>
@@ -30,12 +30,12 @@
       <tr>
         <th></th>
 
-        <th>street</th>
-        <th>ward no.</th>
-        <th>contact Number</th>
-        <th>email</th>
-        <th>occupation</th>
-        <th>income</th>
+        <th>Street</th>
+        <th>Ward no.</th>
+        <th>Contact Number</th>
+        <th>Email</th>
+        <th>Occupation</th>
+        <th>Income</th>
       </tr>
       </thead>
       <tbody>
@@ -60,7 +60,7 @@
       <thead>
       <tr>
         <th>Name</th>
-        <th>Relation Name</th>
+        <th>Relation</th>
         <th>Citizenship no.</th>
         <th>Citizenship Issued Date</th>
 
@@ -89,5 +89,7 @@
 </div>
 
 <div *ngIf="!individual" class="col-md-12">
-<app-customer-info-search-form [customerType]="customerType.INDIVIDUAL" [calendarType]="calendarType" [loanId]="loanId"></app-customer-info-search-form>
+  <app-customer-info-search-form [customerType]="customerType.INDIVIDUAL"
+                                 [calendarType]="calendarType"
+                                 [loanId]="loanId"></app-customer-info-search-form>
 </div>
