@@ -26,6 +26,8 @@ import { EditManagementTeamComponent } from './component/customer-profile/compan
 import {EditSwotComponent} from "./component/customer-profile/company-profile/edit-swot/edit-swot.component";
 import {EditPartnerInfoComponent} from "./component/customer-profile/company-profile/edit-partner-info/edit-partner-info.component";
 import { CompanyDetailEditComponent } from './component/customer-profile/company-profile/company-profile-detail-edit/company-detail-edit.component';
+import { CustomerLoanEditComponent } from './component/customer-loan-edit/customer-loan-edit.component';
+import {ReportingModule} from '../reporting/reporting.module';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -47,7 +49,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS, EditSwotComponent,  EditPartnerInfoComponent, EditManagementTeamComponent],
+  declarations: [...COMPONENTS, EditSwotComponent,  EditPartnerInfoComponent, EditManagementTeamComponent, CustomerLoanEditComponent],
   // tslint:disable-next-line:max-line-length
   exports: [
     CustomerGroupLoanComponent
@@ -65,7 +67,8 @@ const COMPONENTS = [
     NbDialogModule.forRoot(),
     LoanInformationTemplateModule,
     LoanInformationViewModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    ReportingModule
 
 
   ],

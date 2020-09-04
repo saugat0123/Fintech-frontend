@@ -17,7 +17,7 @@ import {LoanConfigService} from '../../../admin/component/loan-config/loan-confi
 import {DateService} from '../../../../@core/service/baseservice/date.service';
 import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.component';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
-import {ProposalComponent} from '../loan-main-template/proposal/proposal.component';
+import {ProposalComponent} from '../../../loan-information-template/proposal/proposal.component';
 import {Proposal} from '../../../admin/modal/proposal';
 import {CiclComponent} from '../loan-main-template/cicl/cicl.component';
 import {ToastService} from '../../../../@core/utils';

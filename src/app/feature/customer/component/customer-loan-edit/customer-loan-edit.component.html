@@ -1,0 +1,25 @@
+<nb-card [nbSpinner]="spinner" accent="primary" class="m-0"
+         nbSpinnerSize="giant"
+         nbSpinnerStatus="primary">
+  <nb-card-body>
+    <nb-tabset>
+      <nb-tab tabTitle="Proposal">
+        <app-proposal #proposal *ngIf="loanDataHolder?.loan" [formValue]="loanDataHolder?.proposal"
+                      [loanIds]="loanDataHolder?.loan?.id"></app-proposal>
+      </nb-tab>
+      <nb-tab tabTitle="Customer Document">
+        <app-customer-loan-document #customerLoanDoc *ngIf="loanDataHolder?.loan"
+                                    [loanDataHolder]="loanDataHolder"></app-customer-loan-document>
+      </nb-tab>
+      <nb-tab tabTitle="Reporting Info">
+        <app-reporting-info-tagging #reportingInfoTagging *ngIf="loanDataHolder?.loan"
+                                    [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-reporting-info-tagging>
+      </nb-tab>
+    </nb-tabset>
+  </nb-card-body>
+  <nb-card-footer>
+    <button (click)="onSubmit()" class="cursor float-right" nbButton size="small" status="primary" title="Save"
+            type="submit"><i class="fa fa-save"></i>
+    </button>
+  </nb-card-footer>
+</nb-card>

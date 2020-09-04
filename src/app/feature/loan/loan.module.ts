@@ -21,7 +21,6 @@ import {BirthMarkLetterPrintComponent} from './component/offer-letter/birth-mark
 import {SuccessOfferLetterComponent} from './component/offer-letter/success-offer-letter/success-offer-letter.component';
 // tslint:disable-next-line:max-line-length
 import {SuccessOfferLetterPrintComponent} from './component/offer-letter/success-offer-letter/success-offer-letter-print/success-offer-letter-print.component';
-import {ProposalComponent} from './component/loan-main-template/proposal/proposal.component';
 import {CiclComponent} from './component/loan-main-template/cicl/cicl.component';
 import {ReadmoreModelComponent} from './component/readmore-model/readmore-model.component';
 import {CoreModule} from '../../@core/core.module';
@@ -85,7 +84,6 @@ const COMPONENTS = [
     LoanActionComponent,
     LoanSummaryComponent,
     BirthMarkLetterNepaliComponent,
-    ProposalComponent,
     BirthMarkLetterPrintComponent,
     SuccessOfferLetterComponent,
     SuccessOfferLetterPrintComponent,
