@@ -17,7 +17,6 @@ import {NbDialogRef} from "@nebular/theme";
 import {CompanyFormComponent} from "../../../customer-form/company-form/company-form.component";
 import {ObjectUtil} from "../../../../../../@core/utils/ObjectUtil";
 import {Alert, AlertType} from "../../../../../../@theme/model/Alert";
-import {DateValidator} from "../../../../../../@core/validator/date-validator";
 
 @Component({
   selector: 'app-edit-management-team',
@@ -29,6 +28,8 @@ export class EditManagementTeamComponent implements OnInit {
   managementFormGroup: FormGroup;
 
   submitted = false;
+    spinner = false;
+    add = false;
   companyInfo: CompanyInfo;
   legalStatus: LegalStatus = new LegalStatus();
   capital: Capital = new Capital();
@@ -90,8 +91,8 @@ export class EditManagementTeamComponent implements OnInit {
     const managementData = (this.managementFormGroup.get('managementTeams') as FormArray);
     currentData.forEach((singleData, index) => {
       managementData.push(this.formBuilder.group({
-        name: [ObjectUtil.setUndefinedIfNull(singleData.name)],
-        designation: [ObjectUtil.setUndefinedIfNull(singleData.designation)],
+        name: [ObjectUtil.setUndefinedIfNull(singleData.name), Validators.required],
+        designation: [ObjectUtil.setUndefinedIfNull(singleData.designation), Validators.required],
         id: [ObjectUtil.setUndefinedIfNull(singleData.id)],
         version: [ObjectUtil.setUndefinedIfNull(singleData.version)],
       }));
@@ -104,6 +105,10 @@ export class EditManagementTeamComponent implements OnInit {
   }
 
   addManagement() {
+    if (this.managementFormGroup.invalid) {
+      this.add = true;
+      return;
+    }
     (this.managementFormGroup.get('managementTeams') as FormArray).push(
         this.formBuilder.group({
           name: [undefined, Validators.required],
@@ -116,6 +121,11 @@ export class EditManagementTeamComponent implements OnInit {
 
 
   onSubmit() {
+    this.submitted = true;
+    if (this.managementFormGroup.invalid) {
+      return;
+    }
+    this.spinner = true;
     // management team list
     this.companyInfo.managementTeamList = this.managementFormGroup.get('managementTeams').value;
 
