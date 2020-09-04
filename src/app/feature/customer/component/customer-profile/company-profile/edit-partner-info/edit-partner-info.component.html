@@ -1,13 +1,16 @@
-<nb-card>
+<nb-card class="m-0 popup" accent="primary" [nbSpinner]="spinner"
+         nbSpinnerStatus="primary"
+         nbSpinnerSize="giant">
+    <nb-card-header class="text-center">
+        <a (click)="close()" aria-label="Close" class="close cursor"
+           data-dismiss="modal">
+            <span aria-hidden="true">×</span></a>
+        <h6>Information of Proprietor</h6>
+    </nb-card-header>
     <nb-card-body>
         <div class="form-group">
-            <form [formGroup]="companyInfoFormGroup" class="form-horizontal">
-
-                <div class="box-header with-border">
-                    <h5 class="box-title title"> Information of Proprietor/Shareholder/Partner with holder %</h5>
-                </div>
-                            <hr>
-                            <div formArrayName="proprietors" class="border-bottom border-dark m-4"
+            <form [formGroup]="companyInfoFormGroup" >
+                            <div formArrayName="proprietors"
                                  *ngFor="let proprietor of companyInfoFormGroup.get('proprietors')['controls']; let proprietorIndex = index">
                                 <div [formGroupName]="proprietorIndex">
                                     <div class="row">
@@ -29,6 +32,12 @@
                                                         Proprietor Name is required
                                                     </div>
                                                 </div>
+                                                <div *ngIf="(add) && proprietor.get('name').invalid"
+                                                     class="alert-warning">
+                                                    <div *ngIf="proprietor.get('name').errors.required">
+                                                        Please enter Proprietor name
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -43,6 +52,12 @@
                                                         Proprietor Contact No is required
                                                     </div>
                                                 </div>
+                                                <div *ngIf="(add) && proprietor.get('contactNo').invalid"
+                                                     class="alert-warning">
+                                                    <div *ngIf="proprietor.get('contactNo').errors.required">
+                                                        Please enter contact no.
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -52,9 +67,15 @@
                                                        class="form-control" placeholder="Share"
                                                        [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('share').errors }">
                                                 <div *ngIf="(submitted) && proprietor.get('share').invalid"
-                                                     class="invalid-feedback">
+                                                     class="alert-danger">
                                                     <div *ngIf="proprietor.get('share').errors.required">
                                                         Share is required
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="(add) && proprietor.get('share').invalid"
+                                                     class="alert-warning">
+                                                    <div *ngIf="proprietor.get('share').errors.required">
+                                                        please enter Share
                                                     </div>
                                                 </div>
                                             </div>
@@ -80,6 +101,12 @@
                                                         Province is required
                                                     </div>
                                                 </div>
+                                                <div *ngIf="(add) && proprietor.get('province').invalid"
+                                                     class="alert-warning">
+                                                    <div *ngIf="proprietor.get('province').errors.required">
+                                                        Please enter province
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -99,6 +126,12 @@
                                                      class="invalid-feedback">
                                                     <div *ngIf="proprietor.get('district').errors.required">
                                                         District is required
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="(add) && proprietor.get('district').invalid"
+                                                     class="alert-warning">
+                                                    <div *ngIf="proprietor.get('district').errors.required">
+                                                        please enter district
                                                     </div>
                                                 </div>
                                             </div>
@@ -121,6 +154,12 @@
                                                         Municipality Vdc is required
                                                     </div>
                                                 </div>
+                                                <div *ngIf="(add) && proprietor.get('municipalityVdc').invalid"
+                                                     class="alert-warning">
+                                                    <div *ngIf="proprietor.get('municipalityVdc').errors.required">
+                                                        please enter detail
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -133,10 +172,8 @@
             </form>
         </div>
     </nb-card-body>
-    <nb-card-footer class="py-4">
-        <div class="d-flex justify-content-end">
-            <button nbButton status="info" (click)="close()" class=" mr-2">close</button>
-            <button nbButton (click)="onSubmit()">save</button>
-        </div>
+    <nb-card-footer >
+        <button (click)="onSubmit()" nbButton status="primary" class="cursor" type="submit"><i class="fa fa-save"></i>
+        </button>
     </nb-card-footer>
 </nb-card>

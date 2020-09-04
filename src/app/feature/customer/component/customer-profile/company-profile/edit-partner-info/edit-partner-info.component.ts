@@ -41,6 +41,8 @@ export class EditPartnerInfoComponent implements OnInit {
   englishDateSelected = true;
   customerId;
   submitted = false;
+  spinner = false;
+  add = false;
 
   companyFormField = {
     showFormField: false,
@@ -215,6 +217,10 @@ export class EditPartnerInfoComponent implements OnInit {
   }
 
   addProprietor() {
+    if (this.companyInfoFormGroup.invalid) {
+      this.add = true;
+      return;
+    }
     this.addressList.push(new Address());
     (<FormArray>this.companyInfoFormGroup.get('proprietors')).push(this.proprietorsFormGroup());
   }
@@ -270,7 +276,11 @@ export class EditPartnerInfoComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.companyInfoFormGroup.get('proprietors').value);
+    this.submitted = true;
+    if (this.companyInfoFormGroup.invalid) {
+      return;
+    }
+    this.spinner = true;
 
 
     // proprietorsList

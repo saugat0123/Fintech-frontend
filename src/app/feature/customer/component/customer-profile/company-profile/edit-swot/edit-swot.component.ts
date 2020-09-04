@@ -184,6 +184,11 @@ export class EditSwotComponent implements OnInit {
 
 
   onSubmit() {
+    this.submitted = true;
+    if (this.companyInfoFormGroup.invalid) {
+      return;
+    }
+    this.spinner = true;
 
     // swot
     this.swot.id = this.companyInfoFormGroup.get('id').value;
