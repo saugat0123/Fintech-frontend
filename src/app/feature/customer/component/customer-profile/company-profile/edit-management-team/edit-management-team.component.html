@@ -1,0 +1,60 @@
+<nb-card>
+    <nb-card-body>
+        <div class="form-group">
+            <form [formGroup]="managementFormGroup" class="form-horizontal">
+
+                <div class="box-header with-border">
+                    <h5 class="box-title title"> Management Team</h5>
+                </div>
+                <hr/>
+                <div formArrayName="managementTeams" class="border-bottom border-dark m-4"
+                     *ngFor="let managementTeam of managementFormGroup.get('managementTeams')['controls']; let managementTeamIndex = index">
+                    <div [formGroupName]="managementTeamIndex">
+                        <div class="col-md-2 float-right" *ngIf="managementFormGroup.get('managementTeams').length>1">
+                            <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
+                                   (click)="removeManagementTeam(managementTeamIndex)" value="Delete">
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label for="managementTeamName"><strong>Name</strong></label>
+                                <input id="managementTeamName" formControlName="name" name="name" type="text"
+                                       class="form-control" placeholder="Name"
+                                       [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('name').errors }">
+                                <div *ngIf="(submitted) && managementTeam.get('name').invalid"
+                                     class="invalid-feedback">
+                                    <div *ngIf="managementTeam.get('name').errors.required">
+                                        Management Team Name is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="designation"><strong>Designation</strong></label>
+                                    <input id="designation" formControlName="designation" name="designation" type="text"
+                                           class="form-control" placeholder="Designation"
+                                           [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('designation').errors }">
+                                    <div *ngIf="(submitted) && managementTeam.get('designation').invalid"
+                                         class="invalid-feedback">
+                                        <div *ngIf="managementTeam.get('designation').errors.required">
+                                            Designation is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <input class="btn btn-sm btn-flat btn-primary" type="button" (click)="addManagement()"
+                           value="Add More"/>
+                </div>
+            </form>
+        </div>
+    </nb-card-body>
+    <nb-card-footer class="py-4">
+        <div class="d-flex justify-content-end">
+            <button nbButton status="info" (click)="close()" class=" mr-2">close</button>
+            <button nbButton (click)="onSubmit()">save</button>
+        </div>
+    </nb-card-footer>
+</nb-card>

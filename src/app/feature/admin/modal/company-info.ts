@@ -22,4 +22,5 @@ export class CompanyInfo {
     businessType: BusinessType;
     panNumber: string;
     contactPerson: ContactPerson;
+    profilePic: string;
 }
