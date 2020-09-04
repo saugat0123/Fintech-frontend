@@ -440,15 +440,15 @@ export class LoanFormComponent implements OnInit {
   }
 
   selectChild(name, action) {
-    if (name === 'Customer Info' && action) {
-      if (this.basicInfo.basicInfo.invalid && this.nextButtonAction) {
-        this.basicInfo.submitted = true;
-        // TODO: Add Validations in Tabs
-        return true;
-      }
-      this.basicInfo.onSubmit();
-      this.loanDocument.customerInfo = this.basicInfo.customer;
-    }
+    // if (name === 'Customer Info' && action) {
+    //   if (this.basicInfo.basicInfo.invalid && this.nextButtonAction) {
+    //     this.basicInfo.submitted = true;
+    //     // TODO: Add Validations in Tabs
+    //     return true;
+    //   }
+    //   this.basicInfo.onSubmit();
+    //   this.loanDocument.customerInfo = this.basicInfo.customer;
+    // }
 
     if (name === 'General' && action) {
       if (this.dmsLoanFile.loanForm.invalid) {
@@ -587,11 +587,13 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.loanHolder = this.loanHolder;
       this.loanDocument.siteVisit = this.loanHolder.siteVisit;
       this.loanDocument.financial = this.loanHolder.financial;
-      this.companyInfoService.detail(this.loanHolder.associateId).subscribe((res: any) => {
-        this.loanDocument.companyInfo = res.detail;
-      }, error => {
-        this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load company information!'));
-      });
+      if (this.loanHolder.customerType === 'COMPANY') {
+        this.companyInfoService.detail(this.loanHolder.associateId).subscribe((res: any) => {
+          this.loanDocument.companyInfo = res.detail;
+        }, error => {
+          this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load company information!'));
+        });
+      }
       this.loanDocument.creditRiskGradingAlpha = this.loanHolder.creditRiskGradingAlpha;
       this.loanDocument.creditRiskGrading = this.loanHolder.creditRiskGrading;
       this.loanDocument.security = this.loanHolder.security;
