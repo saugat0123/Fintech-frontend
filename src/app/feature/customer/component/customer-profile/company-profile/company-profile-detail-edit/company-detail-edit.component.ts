@@ -262,7 +262,7 @@ export class CompanyDetailEditComponent implements OnInit {
       this.dialogRef.close(ModalResponse.SUCCESS);
     }, res => {
       this.spinner = false;
-      this.toastService.show(new Alert(AlertType.DANGER, res.error.message));
+      this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
       this.dialogRef.close();
     });
   }

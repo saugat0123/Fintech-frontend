@@ -215,7 +215,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
       this.spinner = false;
     }, res => {
       this.spinner = false;
-      this.toastService.show(new Alert(AlertType.DANGER, res.error.message));
+      this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
     });
   }
 }
