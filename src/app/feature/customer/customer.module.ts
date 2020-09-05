@@ -23,9 +23,10 @@ import { LoanInformationViewModule } from '../loan-information-view/loan-informa
 import { GroupTaggingComponent } from './component/customer-profile/group-tagging/group-tagging.component';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { EditManagementTeamComponent } from './component/customer-profile/company-profile/edit-management-team/edit-management-team.component';
-import {EditSwotComponent} from "./component/customer-profile/company-profile/edit-swot/edit-swot.component";
-import {EditPartnerInfoComponent} from "./component/customer-profile/company-profile/edit-partner-info/edit-partner-info.component";
+import {EditSwotComponent} from './component/customer-profile/company-profile/edit-swot/edit-swot.component';
+import {EditPartnerInfoComponent} from './component/customer-profile/company-profile/edit-partner-info/edit-partner-info.component';
 import { CompanyDetailEditComponent } from './component/customer-profile/company-profile/company-profile-detail-edit/company-detail-edit.component';
+import { CustomerLoanApplyComponent } from './component/customer-loan-apply/customer-loan-apply.component';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -43,12 +44,15 @@ const COMPONENTS = [
   CustomerDocComponent,
   CustomerLoanInformationViewComponent,
   GroupTaggingComponent,
-  CompanyDetailEditComponent
+  CompanyDetailEditComponent,
+  CustomerLoanApplyComponent,
+  EditSwotComponent,
+  EditPartnerInfoComponent,
+  EditManagementTeamComponent,
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS, EditSwotComponent,  EditPartnerInfoComponent, EditManagementTeamComponent],
-  // tslint:disable-next-line:max-line-length
+  declarations: [...COMPONENTS],
   exports: [
     CustomerGroupLoanComponent
   ],
@@ -73,10 +77,11 @@ const COMPONENTS = [
       CustomerFormComponent,
       CompanyFormComponent,
       KycFormComponent,
-    EditManagementTeamComponent,
-    EditPartnerInfoComponent,
-    EditSwotComponent,
-      CompanyDetailEditComponent
+      EditManagementTeamComponent,
+      EditPartnerInfoComponent,
+      EditSwotComponent,
+      CompanyDetailEditComponent,
+      CustomerLoanApplyComponent
   ]
 })
 export class CustomerModule {

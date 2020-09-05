@@ -1,4 +1,12 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {LoanType} from '../../../loan/model/loanType';
@@ -11,6 +19,8 @@ import {FetchLoan} from '../../model/fetchLoan';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Guarantor} from '../../../loan/model/guarantor';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
+import {SingleCombinedLoanDto} from '../../dto/single-combined-loan.dto';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 
 @Component({
@@ -33,6 +43,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   @Input()
   total: number;
   spinner = false;
+  loanHistories: SingleCombinedLoanDto[];
+  toggleArray: { toggled: boolean }[] = [];
   customerGroupLoanList: Array<LoanDataHolder> = Array<LoanDataHolder>();
   loanAssociatedByKYC: Array<LoanDataHolder> = Array<LoanDataHolder>();
   loanAssociatedByGuarantor: Array<LoanDataHolder> = Array<LoanDataHolder>();
@@ -62,6 +74,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     this.spinner = true;
     this.customerLoanService.getLoansByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
       this.customerGroupLoanList = res.detail;
+      this.loanHistories = this.groupCombinedLoan(this.customerGroupLoanList);
+      this.loanHistories.forEach(() => this.toggleArray.push({toggled: false}));
       this.spinner = false;
       this.totalLoanProposedAmount = 0;
       this.customerGroupLoanList.forEach(l => {
@@ -77,6 +91,62 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     });
   }
 
+  groupCombinedLoan(customerLoans: LoanDataHolder[]): SingleCombinedLoanDto[] {
+    const loanHistories: SingleCombinedLoanDto[] = [];
+    for (const loan of customerLoans) {
+      // if loan is not combined
+      if (ObjectUtil.isEmpty(loan.combinedLoan)) {
+        loanHistories.push({
+          id: loan.id,
+          customerInfoCustomerName: loan.customerInfo.customerName,
+          branchName: loan.branch.name,
+          loanId: loan.loan.id,
+          loanName: loan.loan.name,
+          proposalProposedLimit: loan.proposal.proposedLimit,
+          loanType: loan.loanType,
+          documentStatus: loan.documentStatus,
+          createdAt: loan.createdAt
+        });
+      } else if (   // check if combined loan is not included already
+          !loanHistories.filter((l) => !ObjectUtil.isEmpty(l.combinedLoans))
+          .map((l) => l.id).includes(loan.combinedLoan.id)
+      ) {
+        // find all combined loans if the loan is combined
+        const combinedLoans = this.customerGroupLoanList
+        .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))
+        .filter((l) => l.combinedLoan.id === loan.combinedLoan.id);
+        // create single combined dto
+        const dto: SingleCombinedLoanDto = {
+          id: combinedLoans[0].combinedLoan.id,
+          customerInfoCustomerName: combinedLoans[0].customerInfo.customerName,
+          branchName: combinedLoans[0].branch.name,
+          loanName: 'Combined Loan',
+          proposalProposedLimit: combinedLoans
+          .map((l) => l.proposal.proposedLimit)
+          .reduce((a, b) => a + b, 0),
+          loanType: 'N/A',
+          documentStatus: 'N/A',
+          createdAt: combinedLoans[0].combinedLoan.createdAt,
+          combinedLoans: combinedLoans.map((l) => {
+            const singleCombinedLoanDto: SingleCombinedLoanDto = {
+              id: l.id,
+              customerInfoCustomerName: l.customerInfo.customerName,
+              branchName: l.branch.name,
+              loanId: l.loan.id,
+              loanName: l.loan.name,
+              proposalProposedLimit: l.proposal.proposedLimit,
+              loanType: l.loanType,
+              documentStatus: l.documentStatus,
+              createdAt: l.createdAt
+            };
+            return singleCombinedLoanDto;
+          })
+        };
+        loanHistories.push(dto);
+      }
+    }
+    return loanHistories;
+  }
 
   getLoanOfCustomerAssociatedToByKYC() {
     this.spinner = true;

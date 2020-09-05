@@ -251,7 +251,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           this.actionsList.rejected = true;
           this.actionsList.closed = true;
           this.currentDocAction = this.loanDataHolder.currentStage.docAction.toString();
-          this.actionsList.offerLetter = this.loanDataHolder.documentStatus.toString() === 'APPROVED';
           if (this.loanDataHolder.createdBy.toString() === LocalStorageUtil.getStorage().userId) {
             this.actionsList.sendBackward = false;
             this.actionsList.edit = true;
