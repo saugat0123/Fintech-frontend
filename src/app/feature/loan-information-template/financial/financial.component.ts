@@ -12,6 +12,7 @@ import {FiscalYearModalComponent} from './fiscal-year-modal/fiscal-year-modal.co
 import {ActivatedRoute} from '@angular/router';
 import {Financial} from '../../loan/model/financial';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {CustomerType} from '../../customer/model/customerType';
 
 @Component({
     selector: 'app-financial',
@@ -159,8 +160,8 @@ export class FinancialComponent implements OnInit {
 
     ngOnInit() {
         this.activatedRoute.queryParams.subscribe( queryParams => {
-            if (queryParams.loanCategory === 'BUSINESS_TYPE') {
-                this.isBusinessLoan = true;
+            if (CustomerType.INDIVIDUAL === CustomerType[queryParams.customerType]) {
+                this.isBusinessLoan = false;
             }
         });
         this.buildForm();
