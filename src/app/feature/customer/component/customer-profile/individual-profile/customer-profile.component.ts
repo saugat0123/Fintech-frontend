@@ -166,6 +166,11 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     modalRef.componentInstance.paramProp = this.paramProp;
     modalRef.componentInstance.associateId = this.associateId;
     modalRef.componentInstance.customerInfo = this.customerInfo;
+    modalRef.result.then(close => {
+      if (close) {
+        this.refreshCustomerInfo();
+      }
+    });
   }
 
 

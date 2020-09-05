@@ -68,7 +68,7 @@ export class CustomerLoanApplyComponent implements OnInit {
         loans: combinedLoans,
       };
       this.combinedLoanService.save(combinedLoan).subscribe(() => {
-        this.activeModal.close();
+        this.activeModal.close(true);
         this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved combined loan'));
       }, error => {
         console.error(error);
