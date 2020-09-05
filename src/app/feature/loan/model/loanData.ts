@@ -25,6 +25,7 @@ import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
 import {CustomerLoanFlag} from '../../../@core/model/customer-loan-flag';
 import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
 import {CustomerInfoData} from './customerInfoData';
+import {CombinedLoan} from './combined-loan';
 
 
 export class LoanDataHolder {
@@ -69,4 +70,5 @@ export class LoanDataHolder {
     reportingInfoLevels: Array<ReportingInfoLevel>;
     loanFlags: Array<CustomerLoanFlag>;
     loanHolder: CustomerInfoData;
+    combinedLoan: CombinedLoan;
 }

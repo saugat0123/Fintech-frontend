@@ -92,6 +92,11 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, object, {headers: req.header});
     }
 
+    public postCombinedLoanAction(object: any[], stageSingle: boolean): Observable<any> {
+        const req = ApiUtils.getRequest(`${LoanFormService.API}/action/combined?stageSingle=${stageSingle}`);
+        return this.http.post(req.url, object, {headers: req.header});
+    }
+
     public deleteLoanCustomer(id): Observable<any> {
         const req = ApiUtils.getRequestWithFileSupport(`${LoanFormService.API}/${id}/delete`);
         return this.http.get(req.url, {headers: req.header});
@@ -127,6 +132,12 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
 
     public getLoansByLoanHolderId(id: number) {
         const api = `${this.getApi()}/loan-holder/${id}`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.get(req.url, {headers: req.header});
+    }
+
+    public getInitialLoansByLoanHolderId(id: number) {
+        const api = `${this.getApi()}/loan-holder/${id}/not-combine`;
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }
