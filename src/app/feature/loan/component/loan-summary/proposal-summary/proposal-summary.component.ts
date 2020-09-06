@@ -20,7 +20,6 @@ export class ProposalSummaryComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(EnumUtils.getEnum(LoanType, LoanType.NEW_LOAN));
   }
 
   public getTotal(key: string): number {

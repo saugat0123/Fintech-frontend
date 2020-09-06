@@ -107,7 +107,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   creditRiskGradeAlphaArray = [];
   creditRiskAlphaScoreArray = [];
   selectedAlphaCrgIndex = 0;
-  customerAllLoanList: LoanDataHolder[] = [];
+  customerAllLoanList: LoanDataHolder[] = []; // current loan plus staged loans
 
   constructor(
       private userService: UserService,
@@ -352,9 +352,17 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   }
 
   getAllLoans(customerInfoId: number): void {
-    this.customerLoanService.getLoansByLoanHolderId(customerInfoId)
+    const search = {
+      loanHolderId: customerInfoId.toString(),
+      isStaged: 'true'
+    };
+    this.customerLoanService.getAllWithSearch(search)
     .subscribe((res: any) => {
       this.customerAllLoanList = res.detail;
+      // push current loan if not fetched from staged spec response
+      if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
+        this.customerAllLoanList.push(this.loanDataHolder);
+      }
     }, error => {
       console.error(error);
     });
