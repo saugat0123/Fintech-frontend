@@ -17,7 +17,7 @@ import {LoanConfigService} from '../../../admin/component/loan-config/loan-confi
 import {DateService} from '../../../../@core/service/baseservice/date.service';
 import {KycInfoComponent} from '../loan-main-template/kyc-info/kyc-info.component';
 import {CustomerRelative} from '../../../admin/modal/customer-relative';
-import {ProposalComponent} from '../loan-main-template/proposal/proposal.component';
+import {ProposalComponent} from '../../../loan-information-template/proposal/proposal.component';
 import {Proposal} from '../../../admin/modal/proposal';
 import {CiclComponent} from '../loan-main-template/cicl/cicl.component';
 import {ToastService} from '../../../../@core/utils';
@@ -49,6 +49,7 @@ import {CustomerInfoService} from '../../../customer/service/customer-info.servi
 import {FinancialComponent} from '../../../loan-information-template/financial/financial.component';
 import {GuarantorComponent} from '../../../loan-information-template/guarantor/guarantor.component';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
+import {CustomerType} from '../../../customer/model/customerType';
 
 @Component({
   selector: 'app-loan-form',
@@ -226,7 +227,9 @@ export class LoanFormComponent implements OnInit {
           this.loanHolder.id = this.allId.customerInfoId;
 
           if (!ObjectUtil.isEmpty(this.allId.customerProfileId)) {
-            this.getCustomerInfo(this.allId.customerProfileId);
+            if (CustomerType[this.allId.customerType] === CustomerType.INDIVIDUAL) {
+              this.getCustomerInfo(this.allId.customerProfileId);
+            }
           }
           if (!ObjectUtil.isEmpty(this.allId.customerInfoId)) {
             this.getTemplateInfoFromCustomerInfo(this.allId.customerInfoId);
@@ -408,6 +411,9 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.priority = this.priorityForm.get('priority').value;
       this.loanDocument.documentStatus = this.docStatusForm.get('documentStatus').value;
       this.loanDocument.loanCategory = this.allId.loanCategory;
+      if (this.allId.loanCategory === 'BUSINESS_TYPE') {
+        this.loanDocument.customerInfo = null;
+      }
       this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
         this.loanDocument = response.detail;
         this.customerLoanId = this.loanDocument.id;
@@ -584,10 +590,11 @@ export class LoanFormComponent implements OnInit {
     this.customerInfoService.detail(id)
     .subscribe((infoResponse) => {
       this.loanHolder = infoResponse.detail;
+      console.log('loan', this.loanHolder);
       this.loanDocument.loanHolder = this.loanHolder;
       this.loanDocument.siteVisit = this.loanHolder.siteVisit;
       this.loanDocument.financial = this.loanHolder.financial;
-      if (this.loanHolder.customerType === 'COMPANY') {
+      if (CustomerType[this.loanHolder.customerType] === CustomerType.COMPANY) {
         this.companyInfoService.detail(this.loanHolder.associateId).subscribe((res: any) => {
           this.loanDocument.companyInfo = res.detail;
         }, error => {

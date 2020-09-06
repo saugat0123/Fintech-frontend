@@ -25,6 +25,7 @@ import {InsuranceComponent} from './insurance/insurance.component';
 import {CustomerLoanDocumentComponent} from './customer-loan-document/customer-loan-document.component';
 import {CreditRiskGradingAlphaComponent} from './credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {CreditGradingComponent} from './credit-grading/credit-grading.component';
+import {ProposalComponent} from './proposal/proposal.component';
 
 const COMPONENTS = [
   SiteVisitComponent,
@@ -43,7 +44,9 @@ const COMPONENTS = [
   InsuranceComponent,
   CustomerLoanDocumentComponent,
   CreditRiskGradingAlphaComponent,
-  CreditGradingComponent
+  CreditGradingComponent,
+  ProposalComponent,
+
 ];
 
 @NgModule({
