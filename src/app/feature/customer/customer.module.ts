@@ -27,6 +27,7 @@ import {EditSwotComponent} from './component/customer-profile/company-profile/ed
 import {EditPartnerInfoComponent} from './component/customer-profile/company-profile/edit-partner-info/edit-partner-info.component';
 import { CompanyDetailEditComponent } from './component/customer-profile/company-profile/company-profile-detail-edit/company-detail-edit.component';
 import { CustomerLoanApplyComponent } from './component/customer-loan-apply/customer-loan-apply.component';
+import { CustomerListGroupComponent } from './component/customer-group-associate-loan-list/customer-list-group.component';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -49,6 +50,7 @@ const COMPONENTS = [
   EditSwotComponent,
   EditPartnerInfoComponent,
   EditManagementTeamComponent,
+  CustomerListGroupComponent,
 ];
 
 @NgModule({

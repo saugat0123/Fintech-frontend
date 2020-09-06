@@ -1,0 +1,33 @@
+<nb-card>
+  <nb-card-body>
+    <table class="table  table-bordered table-hover">
+      <thead>
+      <tr>
+        <th>S.N</th>
+        <th>Name</th>
+        <th>Branch</th>
+        <th>Proposed Amount</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Created At</th>
+      </tr>
+      </thead>
+      <tbody>
+      <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
+      <ng-container *ngFor="let singleLoan of customerLoanList;let i=index">
+        <tr (click)="customerProfile(singleLoan.loanHolder.associateId, singleLoan.loanHolder.id, singleLoan.loanHolder.customerType)" *ngIf="singleLoan.loanHolder.id !== customerInfoData.id"
+            class="cursor">
+          <td>{{i + 1}}</td>
+          <td>{{singleLoan.customerInfo.customerName}}</td>
+          <td>{{singleLoan.branch.name}}</td>
+          <td>{{(singleLoan.proposal.proposedLimit)}}</td>
+
+          <td>{{singleLoan.loanType |titlecase}}</td>
+          <td>{{singleLoan.documentStatus}}</td>
+          <td>{{singleLoan.createdAt | date}}</td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </nb-card-body>
+</nb-card>

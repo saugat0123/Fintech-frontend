@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, OnInit, TemplateRef} from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
 import {CustomerService} from '../../../service/customer.service';
 import {ToastService} from '../../../../../@core/utils';
@@ -54,8 +54,9 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
   municipality: MunicipalityVdc = new MunicipalityVdc();
   municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
 
-  totalProposedAmountByKYC = 0;
   totalProposedAmountByGuarantor = 0;
+  totalProposedAmountByGroup = 0;
+  proposeAmountOfGroup = 0;
   totalGroupAmount = 0;
   totalProposalAmount = 0;
   totalLoanProposedAmount = 0;
@@ -330,21 +331,20 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     if (value.type === this.fetchLoan.CUSTOMER_LOAN) {
       this.totalLoanProposedAmount = value.value;
     }
-    if (value.type === this.fetchLoan.CUSTOMER_AS_KYC) {
-      this.totalProposedAmountByKYC = value.value;
+    if (value.type === this.fetchLoan.CUSTOMER_AS_GROUP) {
+      this.totalProposedAmountByGroup = value.value;
+      this.proposeAmountOfGroup = value.otherParam;
     }
-    if (value.type === this.fetchLoan.CUSTOMER_AS_GUARANTOR) {
-      this.totalProposedAmountByGuarantor = value.value;
-    }
-    this.totalGroupAmount = this.totalProposedAmountByGuarantor + this.totalProposedAmountByKYC;
-    this.totalProposalAmount = this.totalProposedAmountByGuarantor + this.totalProposedAmountByKYC + this.totalLoanProposedAmount;
+    this.totalGroupAmount = this.totalProposedAmountByGuarantor + this.totalProposedAmountByGroup;
+    this.totalProposalAmount = this.totalProposedAmountByGuarantor +
+        this.totalLoanProposedAmount + this.proposeAmountOfGroup;
   }
 
   openKycModal() {
     const customer = this.customer;
     this.dialogService.open(KycFormComponent, {context: {customer}}).onClose.subscribe(res => {
      if (!ObjectUtil.isEmpty(res)) {
-       this.ngOnInit();
+       this.refreshCustomerInfo();
      }
    });
   }

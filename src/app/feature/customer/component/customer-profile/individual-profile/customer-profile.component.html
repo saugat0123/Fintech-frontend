@@ -179,39 +179,16 @@
                 <nb-accordion-item-header>
                   <div class="row col-md-12">
                     <div class="col-md-6">
-                      <span>KYC</span>
+                      <span>Groups</span>
                     </div>
                     <div class="col-md-6 d-flex justify-content-end">
-                      Total Amount :  {{(totalProposedAmountByKYC | number)}}
+                      Total Amount :  {{(proposeAmountOfGroup | number)}}
                     </div>
                   </div>
                 </nb-accordion-item-header>
-                <nb-accordion-item-body>
-<!--                  <app-customer-group-loan-->
-<!--                      (messageToEmit)="getTotalLoanAmount($event)"-->
-<!--                      [fetchType]="fetchLoan.CUSTOMER_AS_KYC"-->
-<!--                      [customerInfo]="customerInfo" *ngIf="customerInfo"-->
-<!--                      [formValue]="customer"></app-customer-group-loan>-->
-
-                </nb-accordion-item-body>
-              </nb-accordion-item>
-              <nb-accordion-item>
-                <nb-accordion-item-header>
-                  <div class="row col-md-12">
-                    <div class="col-md-6">
-                      <span>SECURITY</span>
-                    </div>
-                    <div class="col-md-6 d-flex justify-content-end">
-                      Total Amount :  {{(totalProposedAmountByGuarantor | number)}}
-                    </div>
-                  </div>
-                </nb-accordion-item-header>
-                <nb-accordion-item-body>
-<!--                  <app-customer-group-loan-->
-<!--                      (messageToEmit)="getTotalLoanAmount($event)"-->
-<!--                      [fetchType]="fetchLoan.CUSTOMER_AS_GUARANTOR"-->
-<!--                      [customerInfo]="customerInfo" *ngIf="customerInfo"-->
-<!--                      [formValue]="customer"></app-customer-group-loan>-->
+                <nb-accordion-item-body *ngIf="customerInfo !== undefined">
+                  <app-customer-list-group (messageToEmit)="getTotalLoanAmount($event)"
+                                           [customerInfoData]="customerInfo"></app-customer-list-group>
                 </nb-accordion-item-body>
               </nb-accordion-item>
             </nb-accordion>

@@ -6,6 +6,7 @@ import {ApiUtils} from '../../../../../@core/utils/api/ApiUtils';
 import {Observable} from 'rxjs';
 import {CustomerRelative} from '../../../../admin/modal/customer-relative';
 import {Guarantor} from '../../../model/guarantor';
+import {CustomerGroup} from '../../../../admin/modal/customer-group';
 
 
 
@@ -124,6 +125,10 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, guaranter, {headers: req.header});
     }
 
+    public getLoanOfCustomerByGroup(customerGroup: CustomerGroup): Observable<any> {
+        const req = ApiUtils.getRequest(`${this.getApi()}/customer-group`);
+        return this.http.post(req.url, customerGroup, {headers: req.header});
+    }
     public getCustomerFromCustomerLoan(searchObj: any, page: number = 1, size: number = 10) {
         const api = `${this.getApi()}/customer-list?page=${page}&size=${size}`;
         const req = ApiUtils.getRequest(api);

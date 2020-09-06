@@ -47,6 +47,7 @@ export class GroupTaggingComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.customerData);
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.customerData.customerGroup)) {
       this.setValue(this.customerData.customerGroup);
