@@ -4,7 +4,7 @@
   </nb-card-header>
   <nb-card-body>
     <nb-accordion>
-      <nb-accordion-item *ngIf="customerInfo?.insurance.length>0" #itemInsurance>
+      <nb-accordion-item *ngIf="customerInfo?.insurance?.length>0" #itemInsurance>
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -58,6 +58,21 @@
                           [siteVisit]="customerInfo?.siteVisit">
 
       </app-site-visit-view>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+      <nb-accordion-item #security *ngIf="customerInfo?.security">
+        <nb-accordion-item-header>
+          <div class="row col-md-12">
+            <div class="col-md-8">
+              <span>Security</span>
+            </div>
+          </div>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+      <app-security-view *ngIf="security.expanded"
+                          [security]="customerInfo?.security" [shareSecurityData]="customerInfo?.shareSecurity">
+
+      </app-security-view>
         </nb-accordion-item-body>
       </nb-accordion-item>
     </nb-accordion>

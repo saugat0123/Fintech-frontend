@@ -1,0 +1,62 @@
+<nb-card>
+  <nb-card-header>
+    <strong>{{popUpTitle}}</strong>
+    <button (click)="nbDialogRef.close()" aria-label="Close"
+            class="close cursor d-inline-flex justify-content-end" nbButton
+            size="tiny"
+            status="primary">
+      <span aria-hidden="true">×</span></button>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="formAction" role="form">
+
+      <div *ngIf="popUpTitle === 'Send Forward'" class="row">
+        <div class="col-md-12 form-group">
+          <label class="toRole" for="toRole">TO</label>
+          <select (change)="getUserList(this.formAction.get('toRole').value)" class="custom-select"
+                  formControlName="toRole"
+                  id="toRole"
+                  name="toRole">
+            <option [value]="null" hidden>Select To</option>
+            <option *ngFor="let forwardBackward of sendForwardBackwardList"
+                    [ngValue]="forwardBackward.role">
+              {{forwardBackward.role?.roleName}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div *ngIf="userList?.length > 1" class="row">
+        <div class="col-md-12 form-group">
+            <label class="toUser" for="toUser">To User</label>
+            <select class="custom-select" formControlName="toUser" id="toUser"
+                    name="toUser">
+              <option *ngFor="let user of userList"
+                      [ngValue]="user">
+                {{user.username}}
+            </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label for="comment">Comment:</label>
+          <textarea [ngClass]="{ 'is-invalid': submitted && formAction.controls['comment'].errors }"
+                    class="form-control" formControlName="comment" id="comment"
+                    name="text"
+          ></textarea>
+          <div *ngIf="submitted && formAction.controls['comment'].hasError('required')"
+               class="error-message"
+               style="color: red;">comment is required
+          </div>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <button (click)="onSubmit()" [disabled]="formAction.invalid" nbButton type="button">
+      <i class="fa fa-save"></i>
+    </button>
+  </nb-card-footer>
+</nb-card>
+

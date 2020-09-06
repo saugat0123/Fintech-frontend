@@ -1,0 +1,81 @@
+<nb-card [ngStyle]="{'margin-bottom': 0}">
+  <nb-card-header>
+    <strong>Apply</strong>
+    <a (click)="activeModal.dismiss()" aria-label="Close" class="close cursor">
+      <span aria-hidden="true">&times;</span>
+    </a>
+  </nb-card-header>
+  <nb-card-body>
+    <form #f="ngForm" (ngSubmit)="f.form.valid && openLoanForm(radioApplyLoan.value === 'Combined')">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <nb-radio-group #radioApplyLoan value="Single" class="d-inline-flex">
+            <nb-radio value="Single">Single</nb-radio>
+            <nb-radio value="Combined">Combined</nb-radio>
+          </nb-radio-group>
+        </div>
+      </div>
+      <hr />
+      <div *ngIf="radioApplyLoan.value === 'Single'" class="row">
+        <div class="col-md-12">
+          <select #type="ngModel"
+                  [(ngModel)]="applyForm.loanId"
+                  [ngClass]="{ 'is-invalid': f.submitted && type.invalid }"
+                  class="form-control rounded"
+                  name="loanId" required>
+            <option [ngValue]="undefined" hidden> select Loan Type</option>
+            <option *ngFor="let allList of loanList"
+                    [ngValue]="allList.id">{{allList.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div *ngIf="radioApplyLoan.value === 'Combined'" class="row">
+        <div class="col-md-12 pb-3 text-center">
+          Total Combined Loans: {{combinedLoansIds?.length || 0}}
+        </div>
+        <div class="col-md-12">
+          <table class="table table-bordered table-hover table-responsive" *ngIf="!spinner">
+            <thead>
+            <tr>
+              <th scope="col">Pick</th>
+              <th scope="col">S.N</th>
+              <th scope="col">Name</th>
+              <th scope="col">Branch</th>
+              <th scope="col">Loan Facility</th>
+              <th scope="col">Proposed Amount</th>
+              <th scope="col">Type</th>
+              <th scope="col">Status</th>
+              <th scope="col">Created On</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let model of customerGroupLoanList;let i=index" class="cursor">
+              <td>
+                <nb-checkbox (checkedChange)="updateCombinedList(model?.id, $event)"></nb-checkbox>
+              </td>
+              <td>{{i + 1}}</td>
+              <td>{{model?.customerInfo?.customerName}}</td>
+              <td>{{model?.branch?.name}}</td>
+              <td>{{model?.loan?.name}}</td>
+              <td>
+                <span class="d-flex justify-content-end">{{(model?.proposal?.proposedLimit | number) || 0}}</span>
+              </td>
+              <td>{{loanType[model?.loanType]}}</td>
+              <td>{{model?.documentStatus}}</td>
+              <td>
+                {{model?.createdAt | date}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-12 py-2 text-center">
+          <button class="btn btn-success" type="submit">Next</button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

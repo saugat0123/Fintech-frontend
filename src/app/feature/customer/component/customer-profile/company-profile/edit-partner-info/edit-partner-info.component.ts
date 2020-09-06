@@ -1,31 +1,31 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CompanyInfo} from "../../../../../admin/modal/company-info";
-import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Customer} from "../../../../../admin/modal/customer";
-import {LegalStatus} from "../../../../../admin/modal/legal-status";
-import {Capital} from "../../../../../admin/modal/capital";
-import {Swot} from "../../../../../admin/modal/swot";
-import {CompanyLocations} from "../../../../../admin/modal/companyLocations";
-import {ManagementTeam} from "../../../../../admin/modal/management-team";
-import {Proprietors} from "../../../../../admin/modal/proprietors";
-import {Province} from "../../../../../admin/modal/province";
-import {District} from "../../../../../admin/modal/district";
-import {MunicipalityVdc} from "../../../../../admin/modal/municipality_VDC";
-import {Address} from "../../../../../loan/model/address";
-import {BusinessType} from "../../../../../admin/modal/businessType";
-import {ContactPerson} from "../../../../../admin/modal/contact-person";
-import {AddressService} from "../../../../../../@core/service/baseservice/address.service";
-import {LoanDataService} from "../../../../../loan/service/loan-data.service";
-import {ActivatedRoute} from "@angular/router";
-import {LoanFormService} from "../../../../../loan/component/loan-form/service/loan-form.service";
-import {ModalResponse, ToastService} from "../../../../../../@core/utils";
-import {CompanyInfoService} from "../../../../../admin/service/company-info.service";
-import {BlacklistService} from "../../../../../admin/component/blacklist/blacklist.service";
-import {NbDialogRef} from "@nebular/theme";
-import {ObjectUtil} from "../../../../../../@core/utils/ObjectUtil";
-import {Alert, AlertType} from "../../../../../../@theme/model/Alert";
-import {CompanyFormComponent} from "../../../customer-form/company-form/company-form.component";
-import {DateValidator} from "../../../../../../@core/validator/date-validator";
+import {CompanyInfo} from '../../../../../admin/modal/company-info';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Customer} from '../../../../../admin/modal/customer';
+import {LegalStatus} from '../../../../../admin/modal/legal-status';
+import {Capital} from '../../../../../admin/modal/capital';
+import {Swot} from '../../../../../admin/modal/swot';
+import {CompanyLocations} from '../../../../../admin/modal/companyLocations';
+import {ManagementTeam} from '../../../../../admin/modal/management-team';
+import {Proprietors} from '../../../../../admin/modal/proprietors';
+import {Province} from '../../../../../admin/modal/province';
+import {District} from '../../../../../admin/modal/district';
+import {MunicipalityVdc} from '../../../../../admin/modal/municipality_VDC';
+import {Address} from '../../../../../loan/model/address';
+import {BusinessType} from '../../../../../admin/modal/businessType';
+import {ContactPerson} from '../../../../../admin/modal/contact-person';
+import {AddressService} from '../../../../../../@core/service/baseservice/address.service';
+import {LoanDataService} from '../../../../../loan/service/loan-data.service';
+import {ActivatedRoute} from '@angular/router';
+import {LoanFormService} from '../../../../../loan/component/loan-form/service/loan-form.service';
+import {ModalResponse, ToastService} from '../../../../../../@core/utils';
+import {CompanyInfoService} from '../../../../../admin/service/company-info.service';
+import {BlacklistService} from '../../../../../admin/component/blacklist/blacklist.service';
+import {NbDialogRef} from '@nebular/theme';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {CompanyFormComponent} from '../../../customer-form/company-form/company-form.component';
+import {DateValidator} from '../../../../../../@core/validator/date-validator';
 
 @Component({
   selector: 'app-edit-partner-info',
@@ -41,6 +41,8 @@ export class EditPartnerInfoComponent implements OnInit {
   englishDateSelected = true;
   customerId;
   submitted = false;
+  spinner = false;
+  add = false;
 
   companyFormField = {
     showFormField: false,
@@ -215,6 +217,10 @@ export class EditPartnerInfoComponent implements OnInit {
   }
 
   addProprietor() {
+    if (this.companyInfoFormGroup.invalid) {
+      this.add = true;
+      return;
+    }
     this.addressList.push(new Address());
     (<FormArray>this.companyInfoFormGroup.get('proprietors')).push(this.proprietorsFormGroup());
   }
@@ -270,7 +276,11 @@ export class EditPartnerInfoComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.companyInfoFormGroup.get('proprietors').value);
+    this.submitted = true;
+    if (this.companyInfoFormGroup.invalid) {
+      return;
+    }
+    this.spinner = true;
 
 
     // proprietorsList

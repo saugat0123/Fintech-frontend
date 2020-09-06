@@ -24,10 +24,10 @@ import {CustomerType} from '../../../model/customerType';
 import {CustomerInfoService} from '../../../service/customer-info.service';
 // @ts-ignore
 import {CustomerInfoData} from '../../../../loan/model/customerInfoData';
-import {LoanDataHolder} from '../../../../loan/model/loanData';
 import {KycFormComponent} from './kyc-form/kyc-form.component';
 import {NbDialogService} from '@nebular/theme';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loan-apply.component';
 
 
 @Component({
@@ -40,14 +40,9 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
   customerInfoId: number;
   customer: Customer = new Customer();
   loanType = LoanType;
-  loanList = [];
   spinner = false;
   formData: FormData = new FormData();
   restUrl = ApiConfig.URL;
-  applyForm = {
-    loanId: undefined,
-    customerProfileId: undefined
-  };
   mySubscription: any;
   isEdited = false;
   basicForm: FormGroup;
@@ -119,9 +114,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     });
 
 
-    this.loanConfigService.getAllByLoanCategory(this.filterLoanCat).subscribe((response: any) => {
-      this.loanList = response.detail;
-    });
+
   }
 
   ngAfterContentInit(): void {
@@ -167,33 +160,20 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
   }
 
 
-  openSelectLoanTemplate(template: TemplateRef<any>) {
-    this.modalService.open(template);
-
-  }
-
-  onClose() {
-    this.modalService.dismissAll();
-  }
-
-  openLoanForm() {
-    this.onClose();
-    this.spinner = true;
-    let loanCategory = 'BUSINESS_TYPE';
-    if (CustomerType.INDIVIDUAL === CustomerType[this.paramProp.customerType]) {
-      loanCategory = 'PERSONAL_TYPE';
-    }
-    this.router.navigate(['/home/loan/loanForm'], {
-      queryParams: {
-        loanId: this.applyForm.loanId,
-        customerInfoId: this.paramProp.customerInfoId,
-        customerType: this.paramProp.customerType,
-        customerProfileId: this.associateId,
-        loanCategory: loanCategory
+  openSelectLoanTemplate() {
+    const modalRef = this.modalService.open(CustomerLoanApplyComponent, {size: 'lg'});
+    modalRef.componentInstance.loanCategory = this.filterLoanCat;
+    modalRef.componentInstance.paramProp = this.paramProp;
+    modalRef.componentInstance.associateId = this.associateId;
+    modalRef.componentInstance.customerInfo = this.customerInfo;
+    modalRef.result.then(close => {
+      if (close) {
+        this.refreshCustomerInfo();
       }
     });
-
   }
+
+
 
 
   onClick(loanConfigId: number, customerId: number) {

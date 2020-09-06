@@ -11,15 +11,16 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {LoanCategory} from '../../../../loan/model/loan-category';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
-import {ObjectUtil} from "../../../../../@core/utils/ObjectUtil";
-import {NbDialogService} from "@nebular/theme";
-import {EditManagementTeamComponent} from "./edit-management-team/edit-management-team.component";
-import {EditPartnerInfoComponent} from "./edit-partner-info/edit-partner-info.component";
-import {EditSwotComponent} from "./edit-swot/edit-swot.component";
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {NbDialogService} from '@nebular/theme';
+import {EditManagementTeamComponent} from './edit-management-team/edit-management-team.component';
+import {EditPartnerInfoComponent} from './edit-partner-info/edit-partner-info.component';
+import {EditSwotComponent} from './edit-swot/edit-swot.component';
 import {CompanyDetailEditComponent} from './company-profile-detail-edit/company-detail-edit.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BusinessType} from '../../../../admin/modal/businessType';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
+import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loan-apply.component';
 
 @Component({
   selector: 'app-company-profile',
@@ -104,6 +105,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     this.spinner = true;
     this.customerInfoService.detail(customerInfoId).subscribe((res: any) => {
       this.customerInfo = res.detail;
+      this.setCompanyData(this.companyInfo);
       this.spinner = false;
     }, error => {
       console.error(error);
@@ -139,8 +141,12 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     this.getCustomerInfo(this.customerInfoId);
   }
 
-  openSelectLoanTemplate(template: TemplateRef<any>) {
-    this.modalService.open(template);
+  openSelectLoanTemplate() {
+    const modalRef = this.modalService.open(CustomerLoanApplyComponent, {size: 'lg'});
+    modalRef.componentInstance.loanCategory = this.filterLoanCat;
+    modalRef.componentInstance.paramProp = this.paramProp;
+    modalRef.componentInstance.associateId = this.paramProp.companyInfoId;
+    modalRef.componentInstance.customerInfo = this.customerInfo;
   }
 
   ngAfterContentInit(): void {
@@ -214,7 +220,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
       this.spinner = false;
     }, res => {
       this.spinner = false;
-      this.toastService.show(new Alert(AlertType.DANGER, res.error.message));
+      this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
     });
   }
 }

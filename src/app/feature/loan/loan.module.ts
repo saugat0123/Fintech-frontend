@@ -74,6 +74,9 @@ import { GuarantorSummaryComponent } from './component/loan-summary/guarantor-su
 import { ProposalSummaryComponent } from './component/loan-summary/proposal-summary/proposal-summary.component';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
+import { LoanActionModalComponent } from './loan-action/loan-action-modal/loan-action-modal.component';
+import { LoanActionVerificationComponent } from './loan-action/loan-action-verification/loan-action-verification.component';
+import { LoanActionCombinedModalComponent } from './loan-action/loan-action-combined-modal/loan-action-combined-modal.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -131,18 +134,22 @@ const COMPONENTS = [
     CustomerAssociateComponent,
     InsuranceSummaryComponent,
     GuarantorSummaryComponent,
-    ProposalSummaryComponent
+    ProposalSummaryComponent,
+    LoanActionModalComponent,
+    LoanActionVerificationComponent,
+    LoanActionCombinedModalComponent
 ];
 
 const ENTRY_COMPONENTS = [
     ReadmoreModelComponent,
     LoanMainNepaliTemplateComponent,
     CustomerInfoNepaliComponent,
-    CustomerAssociateComponent
+    CustomerAssociateComponent,
+    LoanActionModalComponent,
+    LoanActionVerificationComponent,
+    LoanActionCombinedModalComponent
 ];
 
-// @ts-ignore
-// @ts-ignore
 @NgModule({
     declarations: [...COMPONENTS],
     imports: [

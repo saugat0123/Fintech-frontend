@@ -1,12 +1,15 @@
 <section class="enable-print">
   <nb-card>
     <nb-card-header class="disable-print">
-      <app-loan-action [actionsList]="actionsList"
-                       [catalogueStatus]="catalogueStatus"
-                       [id]="customerId"
-                       [loanCategory]="loanCategory"
-                       [loanConfigId]="loanConfigId"
-                       [loanFlags]="loanDataHolder?.loanFlags"
+      <app-loan-action
+          *ngIf="loanDataHolder"
+          [actionsList]="actionsList"
+          [catalogueStatus]="catalogueStatus"
+          [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
+          [id]="customerId"
+          [loanCategory]="loanCategory"
+          [loanConfigId]="loanConfigId"
+          [loanFlags]="loanDataHolder?.loanFlags"
       ></app-loan-action>
     </nb-card-header>
     <nb-card-body id="print-block">

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, QueryList} from '@angular/core';
-import {Financial} from "../../loan/model/financial";
-import {FinancialService} from "../../loan-information-template/financial/financial.service";
+import {Financial} from '../../loan/model/financial';
+import {FinancialService} from '../../loan-information-template/financial/financial.service';
 
 @Component({
   selector: 'app-financial-view',
@@ -21,7 +21,7 @@ export class FinancialViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if(this.formData!= undefined){
+    if (this.formData !== undefined) {
       this.financialData = JSON.parse(this.formData.data);
     }
     if (this.customerType === 'COMPANY') {
