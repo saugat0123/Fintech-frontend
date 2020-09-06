@@ -89,7 +89,7 @@ export class CustomerComponent implements OnInit {
       this.router.navigate(['/home/customer/profile/' + associateId], {queryParams: {customerType: customerType, customerInfoId: id}});
     } else if (CustomerType[customerType] === CustomerType.COMPANY) {
       this.router.navigate(['/home/customer/company-profile/' + associateId],
-          {queryParams: {id: id, customerType: customerType, companyInfoId: associateId}});
+          {queryParams: {id: id, customerType: customerType, companyInfoId: associateId, customerInfoId: id}});
     }
   }
 

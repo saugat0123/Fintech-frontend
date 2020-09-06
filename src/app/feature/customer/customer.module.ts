@@ -54,7 +54,8 @@ const COMPONENTS = [
 @NgModule({
   declarations: [...COMPONENTS],
   exports: [
-    CustomerGroupLoanComponent
+    CustomerGroupLoanComponent,
+    CompanyFormComponent
   ],
   imports: [
     CommonModule,
