@@ -146,4 +146,8 @@ export class CustomerDocComponent implements OnInit {
     });
   }
 
+  refresh() {
+    this.refreshCustomerInfo.emit(true);
+  }
+
 }

@@ -51,7 +51,10 @@
             <tbody>
             <tr *ngFor="let model of customerGroupLoanList;let i=index" class="cursor">
               <td>
-                <nb-checkbox (checkedChange)="updateCombinedList(model?.id, $event)"></nb-checkbox>
+                <nb-checkbox
+                    (checkedChange)="updateCombinedList(model?.id, $event)"
+                    [checked]="combinedLoansIds?.includes(model?.id)"
+                ></nb-checkbox>
               </td>
               <td>{{i + 1}}</td>
               <td>{{model?.customerInfo?.customerName}}</td>
