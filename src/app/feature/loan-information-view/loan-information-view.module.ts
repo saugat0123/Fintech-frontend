@@ -24,7 +24,7 @@ import { SecurityViewComponent } from './security-view/security-view.component';
     SiteVisitViewComponent,
     IndividualViewComponent,
     CustomerInfoSearchFormComponent,
-    SecurityViewComponent
+    SecurityViewComponent,
   ],
   exports: [
     InsuranceViewComponent,
@@ -32,7 +32,7 @@ import { SecurityViewComponent } from './security-view/security-view.component';
     GuarantorViewComponent,
     SiteVisitViewComponent,
     IndividualViewComponent,
-    SecurityViewComponent
+    SecurityViewComponent,
   ],
   imports: [
     CommonModule,

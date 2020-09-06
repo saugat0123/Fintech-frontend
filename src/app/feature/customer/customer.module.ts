@@ -27,6 +27,8 @@ import {EditSwotComponent} from './component/customer-profile/company-profile/ed
 import {EditPartnerInfoComponent} from './component/customer-profile/company-profile/edit-partner-info/edit-partner-info.component';
 import { CompanyDetailEditComponent } from './component/customer-profile/company-profile/company-profile-detail-edit/company-detail-edit.component';
 import { CustomerLoanApplyComponent } from './component/customer-loan-apply/customer-loan-apply.component';
+import { CustomerLoanEditComponent } from './component/customer-loan-edit/customer-loan-edit.component';
+import {ReportingModule} from '../reporting/reporting.module';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -49,6 +51,7 @@ const COMPONENTS = [
   EditSwotComponent,
   EditPartnerInfoComponent,
   EditManagementTeamComponent,
+  CustomerLoanEditComponent,
 ];
 
 @NgModule({
@@ -70,7 +73,8 @@ const COMPONENTS = [
     NbDialogModule.forRoot(),
     LoanInformationTemplateModule,
     LoanInformationViewModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    ReportingModule
 
 
   ],

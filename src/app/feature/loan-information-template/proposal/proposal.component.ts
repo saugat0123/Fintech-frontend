@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Proposal} from '../../../../admin/modal/proposal';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
+import {Proposal} from '../../admin/modal/proposal';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {ActivatedRoute, Params} from '@angular/router';
-import {ToastService} from '../../../../../@core/utils';
-import {Alert, AlertType} from '../../../../../@theme/model/Alert';
-import {MinimumAmountValidator} from '../../../../../@core/validator/minimum-amount-validator';
-import {BaseInterestService} from '../../../../admin/service/base-interest.service';
+import {ToastService} from '../../../@core/utils';
+import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {MinimumAmountValidator} from '../../../@core/validator/minimum-amount-validator';
+import {BaseInterestService} from '../../admin/service/base-interest.service';
 
 @Component({
     selector: 'app-proposal',
@@ -19,6 +19,7 @@ export class ProposalComponent implements OnInit {
     submitted = false;
 
     @Input() formValue: Proposal;
+    @Input() loanIds;
     proposalForm: FormGroup;
     proposalData: Proposal = new Proposal();
     formDataForEdit: Object;
@@ -51,7 +52,7 @@ export class ProposalComponent implements OnInit {
                     loanCategory: null
                 };
                 this.allId = paramsValue;
-                this.loanId = this.allId.loanId;
+                this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
                 this.loanConfigService.detail(this.loanId).subscribe((response: any) => {
                     this.minimumAmountLimit = response.detail.minimumProposedAmount;
                     this.proposalForm.get('proposedLimit').setValidators([Validators.required,

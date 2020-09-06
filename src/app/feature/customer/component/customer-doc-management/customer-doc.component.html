@@ -80,12 +80,12 @@
 
       <div class="col-md-12" *ngFor="let loanData of listOfLoanOfCustomer">
         <nb-accordion>
-          <nb-accordion-item>
+          <nb-accordion-item #loanEdit>
             <nb-accordion-item-header>
               {{loanData.loan.name}}
             </nb-accordion-item-header>
             <nb-accordion-item-body>
-              <app-customer-loan-document [loanDataHolder]="loanData"></app-customer-loan-document>
+              <app-customer-loan-edit *ngIf="loanEdit.expanded" [loanDataHolder]="loanData" (refreshData)="refresh()"></app-customer-loan-edit>
             </nb-accordion-item-body>
           </nb-accordion-item>
 
