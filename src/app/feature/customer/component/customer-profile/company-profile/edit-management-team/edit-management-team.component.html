@@ -1,73 +1,82 @@
 <nb-card class="m-0 popup" accent="primary" [nbSpinner]="spinner"
          nbSpinnerStatus="primary"
          nbSpinnerSize="giant">
-    <nb-card-header class="text-center">
-        <a (click)="close()" aria-label="Close" class="close cursor"
-           data-dismiss="modal">
-            <span aria-hidden="true">×</span></a>
-        <h6> Management Team</h6>
-    </nb-card-header>
-    <nb-card-body>
-        <div class="form-group">
-            <form [formGroup]="managementFormGroup" >
-                <div formArrayName="managementTeams"
-                     *ngFor="let managementTeam of managementFormGroup.get('managementTeams')['controls']; let managementTeamIndex = index">
-                    <div [formGroupName]="managementTeamIndex">
-                        <div class="col-md-2 float-right" *ngIf="managementFormGroup.get('managementTeams').length>1">
-                            <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
-                                   (click)="removeManagementTeam(managementTeamIndex)" value="Delete">
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-6">
-                                <label for="managementTeamName"><strong>Name</strong></label>
-                                <input id="managementTeamName" formControlName="name" name="name" type="text"
-                                       class="form-control" placeholder="Name"
-                                       [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('name').errors }">
-                                <div *ngIf="(submitted) && managementTeam.get('name').invalid"
-                                     class="invalid-feedback">
-                                    <div *ngIf="managementTeam.get('name').errors.required">
-                                        Management Team Name is required
-                                    </div>
-                                </div>
-                                <div *ngIf="(add)  && managementTeam.get('name').invalid"
-                                     class="alert-warning">
-                                    <div *ngIf="managementTeam.get('name').errors.required">
-                                        Please enter name
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="designation"><strong>Designation</strong></label>
-                                    <input id="designation" formControlName="designation" name="designation" type="text"
-                                           class="form-control" placeholder="Designation"
-                                           [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('designation').errors }">
-                                    <div *ngIf="(submitted) && managementTeam.get('designation').invalid"
-                                         class="invalid-feedback">
-                                        <div *ngIf="managementTeam.get('designation').errors.required">
-                                            Designation is required
-                                        </div>
-                                    </div>
-                                    <div *ngIf="(add) && managementTeam.get('designation').invalid"
-                                         class="alert-warning">
-                                        <div *ngIf="managementTeam.get('designation').errors.required">
-                                            please enter designation
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+  <nb-card-header class="text-center">
+    <a (click)="close()" aria-label="Close" class="close cursor"
+       data-dismiss="modal">
+      <span aria-hidden="true">×</span></a>
+    <h6> Management Team</h6>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="form-group">
+      <form [formGroup]="managementFormGroup">
+        <div formArrayName="managementTeams"
+             *ngFor="let managementTeam of managementFormGroup.get('managementTeams')['controls']; let managementTeamIndex = index">
+          <div [formGroupName]="managementTeamIndex">
+            <div class="col-md-2 float-right"
+                 *ngIf="managementFormGroup.get('managementTeams').length>1">
+              <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
+                     (click)="removeManagementTeam(managementTeamIndex)" value="Delete">
+            </div>
+            <div class="row form-group">
+              <div class="col-md-6">
+                <label for="managementTeamName"><strong>Name</strong></label>
+                <input id="managementTeamName" formControlName="name" name="name" type="text"
+                       class="form-control" placeholder="Name"
+                       [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('name').errors }">
+                <div *ngIf="(submitted) && managementTeam.get('name').invalid"
+                     class="invalid-feedback">
+                  <div *ngIf="managementTeam.get('name').errors.required">
+                    Management Team Name is required
+                  </div>
+                </div>
+                <div *ngIf="(add)  && managementTeam.get('name').invalid"
+                     class="alert-warning">
+                  <div *ngIf="managementTeam.get('name').errors.required">
+                    Please enter name
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="designation"><strong>Designation</strong></label>
+                  <input id="designation" formControlName="designation" name="designation"
+                         type="text"
+                         class="form-control" placeholder="Designation"
+                         [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('designation').errors }">
+                  <div *ngIf="(submitted) && managementTeam.get('designation').invalid"
+                       class="invalid-feedback">
+                    <div *ngIf="managementTeam.get('designation').errors.required">
+                      Designation is required
                     </div>
+                  </div>
+                  <div *ngIf="(add) && managementTeam.get('designation').invalid"
+                       class="alert-warning">
+                    <div *ngIf="managementTeam.get('designation').errors.required">
+                      please enter designation
+                    </div>
+                  </div>
                 </div>
-                <div class="text-right">
-                    <input  class="btn btn-sm btn-flat btn-primary" type="button" (click)="addManagement()"
-                           value="Add More"/>
-                </div>
-            </form>
+              </div>
+            </div>
+          </div>
         </div>
-    </nb-card-body>
-    <nb-card-footer >
-        <button (click)="onSubmit()" nbButton status="primary" class="cursor" type="submit"><i class="fa fa-save"></i>
+        <div class="text-right">
+          <button (click)="addManagement()"
+                  class="btn btn-primary btn-sm float-right "
+                  size="tiny">Add more</button>
+        </div>
+      </form>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="col-md-12">
+      <div class="d-flex justify-content-end">
+        <button (click)="onSubmit()" nbButton status="primary" class="cursor" type="submit"
+                size="small"><i
+            class="fa fa-save"></i>
         </button>
-    </nb-card-footer>
+      </div>
+    </div>
+  </nb-card-footer>
 </nb-card>

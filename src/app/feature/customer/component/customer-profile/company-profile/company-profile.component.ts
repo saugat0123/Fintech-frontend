@@ -20,6 +20,7 @@ import {CompanyDetailEditComponent} from './company-profile-detail-edit/company-
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BusinessType} from '../../../../admin/modal/businessType';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
+import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loan-apply.component';
 
 @Component({
   selector: 'app-company-profile',
@@ -140,8 +141,12 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     this.getCustomerInfo(this.customerInfoId);
   }
 
-  openSelectLoanTemplate(template: TemplateRef<any>) {
-    this.modalService.open(template);
+  openSelectLoanTemplate() {
+    const modalRef = this.modalService.open(CustomerLoanApplyComponent, {size: 'lg'});
+    modalRef.componentInstance.loanCategory = this.filterLoanCat;
+    modalRef.componentInstance.paramProp = this.paramProp;
+    modalRef.componentInstance.associateId = this.paramProp.companyInfoId;
+    modalRef.componentInstance.customerInfo = this.customerInfo;
   }
 
   ngAfterContentInit(): void {
