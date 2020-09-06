@@ -71,6 +71,7 @@ import { OverlaySpinnerComponent } from './components/overlay-spinner/overlay-sp
 import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 import {ChartModule} from '../chart/chart.module';
 import {ChatModule} from '../chat/chat.module';
+import { JsonParsePipe } from './pipes/json-parse.pipe';
 
 // import {NbSecurityModule} from '@nebular/security';
 
@@ -153,6 +154,7 @@ const PIPES = [
     TimingPipe,
     NumberWithCommasPipe,
     EvaIconsPipe,
+    JsonParsePipe
 ];
 
 const NB_THEME_PROVIDERS = [

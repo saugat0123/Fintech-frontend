@@ -1,4 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {LoanDataHolder} from '../../../model/loanData';
+import {Proposal} from '../../../../admin/modal/proposal';
+import {DocStatus} from '../../../model/docStatus';
+import {LoanType} from '../../../model/loanType';
+import {EnumUtils} from '../../../../../@core/utils/enums.utils';
 
 @Component({
   selector: 'app-proposal-summary',
@@ -6,11 +11,22 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./proposal-summary.component.scss']
 })
 export class ProposalSummaryComponent implements OnInit {
-  @Input() proposal;
+  @Input() proposalData: Proposal;
+  @Input() customerAllLoanList: LoanDataHolder[];
+  public DocStatus = DocStatus;
+  public LoanType = LoanType;
+  public EnumUtils = EnumUtils;
 
   constructor() { }
 
   ngOnInit() {
+    console.log(EnumUtils.getEnum(LoanType, LoanType.NEW_LOAN));
+  }
+
+  public getTotal(key: string): number {
+    return this.customerAllLoanList
+    .map(l => JSON.parse(l.proposal.data)[key])
+    .reduce((a, b) => a + b, 0);
   }
 
 }
