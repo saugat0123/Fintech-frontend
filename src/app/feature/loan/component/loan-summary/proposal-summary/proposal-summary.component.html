@@ -38,7 +38,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let loan of customerAllLoanList" [class.font-weight-bold]="proposalData?.id === loan?.proposal?.id">
-        <td>
+        <td class="text-left">
           <ng-container *ngTemplateOutlet="tickCross; context: { $implicit: loan?.documentStatus}"></ng-container>
           &nbsp;|&nbsp;
           <ng-container *ngTemplateOutlet="loanTypeLetter; context: { $implicit: loan?.loanType }"></ng-container>
