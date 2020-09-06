@@ -11,6 +11,7 @@ import {CombinedLoanService} from '../../../service/combined-loan.service';
 import {CombinedLoan} from '../../../loan/model/combined-loan';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-customer-loan-apply',
@@ -31,6 +32,10 @@ export class CustomerLoanApplyComponent implements OnInit {
   customerGroupLoanList: Array<LoanDataHolder> = Array<LoanDataHolder>();
   loanType = LoanType;
   combinedLoansIds: number[] = [];
+  existingCombinedLoan = {
+    id: undefined,
+    version: undefined
+  };
 
   constructor(
       public activeModal: NgbActiveModal,
@@ -48,6 +53,15 @@ export class CustomerLoanApplyComponent implements OnInit {
     });
     this.customerLoanService.getInitialLoansByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
       this.customerGroupLoanList = res.detail;
+      this.customerGroupLoanList
+      .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))
+      .forEach((l) => this.combinedLoansIds.push(l.id));
+      if (this.combinedLoansIds.length > 0) {
+        const loan = this.customerGroupLoanList
+        .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))[0];
+        this.existingCombinedLoan.id = loan.combinedLoan.id;
+        this.existingCombinedLoan.version = loan.combinedLoan.version;
+      }
     });
   }
 
@@ -65,7 +79,9 @@ export class CustomerLoanApplyComponent implements OnInit {
         return loan;
       });
       const combinedLoan: CombinedLoan = {
+        id: this.existingCombinedLoan.id,
         loans: combinedLoans,
+        version: this.existingCombinedLoan.version
       };
       this.combinedLoanService.save(combinedLoan).subscribe(() => {
         this.activeModal.close(true);
