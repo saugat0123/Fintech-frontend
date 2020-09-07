@@ -107,7 +107,10 @@
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Financial'">
             <div class="py-4">
-              <app-financial-view [formData]="loanHolder?.financial" #financial *ngIf="loanHolder?.financial"
+              <app-financial-view #financial
+                      [customerType]="loanHolder?.customerType"
+                      [formData]="loanHolder?.financial"
+                      *ngIf="loanHolder?.financial"
               ></app-financial-view>
             </div>
           </ng-template>

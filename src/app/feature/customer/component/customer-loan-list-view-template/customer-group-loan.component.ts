@@ -1,12 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges
-} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {LoanType} from '../../../loan/model/loanType';
@@ -98,7 +90,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       if (ObjectUtil.isEmpty(loan.combinedLoan)) {
         loanHistories.push({
           id: loan.id,
-          customerInfoCustomerName: loan.customerInfo.customerName,
+          customerInfoCustomerName: loan.loanHolder.name,
           branchName: loan.branch.name,
           loanId: loan.loan.id,
           loanName: loan.loan.name,
@@ -118,7 +110,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         // create single combined dto
         const dto: SingleCombinedLoanDto = {
           id: combinedLoans[0].combinedLoan.id,
-          customerInfoCustomerName: combinedLoans[0].customerInfo.customerName,
+          customerInfoCustomerName: combinedLoans[0].loanHolder.name,
           branchName: combinedLoans[0].branch.name,
           loanName: 'Combined Loan',
           proposalProposedLimit: combinedLoans
@@ -130,7 +122,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
           combinedLoans: combinedLoans.map((l) => {
             const singleCombinedLoanDto: SingleCombinedLoanDto = {
               id: l.id,
-              customerInfoCustomerName: l.customerInfo.customerName,
+              customerInfoCustomerName: l.loanHolder.name,
               branchName: l.branch.name,
               loanId: l.loan.id,
               loanName: l.loan.name,
@@ -185,7 +177,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   initial() {
     this.customer = this.formValue;
     if (this.fetchType === this.fetchLoan.CUSTOMER_LOAN) {
-      if (this.customer.id !== undefined) {
+      if (this.customerInfo.id !== undefined) {
         this.getCustomerLoans();
       }
     }

@@ -21,6 +21,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BusinessType} from '../../../../admin/modal/businessType';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loan-apply.component';
+import {FetchLoan} from '../../../model/fetchLoan';
+import {LoanAmountType} from '../../../model/loanAmountType';
 
 @Component({
   selector: 'app-company-profile',
@@ -48,7 +50,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
   totalProposalAmount = 0;
   totalLoanProposedAmount = 0;
   maker = false;
-
+  fetchLoan = FetchLoan;
   constructor(private companyInfoService: CompanyInfoService,
               private customerInfoService: CustomerInfoService,
               private toastService: ToastService,
@@ -228,5 +230,13 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
     });
+  }
+
+  getTotalLoanAmount(value: LoanAmountType) {
+    if (value.type === this.fetchLoan.CUSTOMER_LOAN) {
+      this.totalLoanProposedAmount = value.value;
+    }
+
+    this.totalProposalAmount =  this.totalLoanProposedAmount;
   }
 }

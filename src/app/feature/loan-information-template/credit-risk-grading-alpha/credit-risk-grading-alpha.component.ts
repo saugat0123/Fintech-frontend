@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {QuestionService} from '../../service/question.service';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
-import {LoanDataHolder} from '../../loan/model/loanData';
 import {CompanyInfo} from '../../admin/modal/company-info';
 import {Financial} from '../../loan/model/financial';
 
@@ -42,31 +41,97 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
 
   ageOfBusinessValue;
   points: any;
+  fromProfileColspan = 3;
 
-  leverage = [5, 4, 3, 2, 1, 0];
-  liquidity = [10, 9, 8, 7, 6, 5, 4, 3, 0];
-  profit = [10, 9, 8, 7, 6, 5, 4, 0];
-  coverage = [5, 4, 3, 2, 0];
+  businessOutlookMap: Map<any, any> = new Map<any, any>([
+        [2, 'Favorable'],
+        [1, 'Stable'],
+        [0, 'Cause for Concern']
+      ]
+  );
+  industryGrowthMap: Map<any, any> = new Map<any, any>([
+        [2, 'Strong (10% +)'],
+        [1, 'Good ( > 5% - 10%)'],
+        [0, 'No Growth ( < 1%)']
+      ]
+  );
+  marketCompetitionMap: Map<any, any> = new Map<any, any>([
+        [2, 'Dominant Player'],
+        [1, 'Moderately Competitive'],
+        [0, 'Highly Competitive']
+      ]
+  );
+  entryExitBarriersMap: Map<any, any> = new Map<any, any>([
+        [1, 'Difficult'],
+        [0, 'Easy']
+      ]
+  );
 
-  sizeOfBusiness = [3, 2, 1, 0];
-  ageOfBusiness = [2, 1, 0];
-  businessOutlook = [2, 1, 0];
-  industryGrowth = [2, 1, 0];
-  marketCompetition = [2, 1, 0];
-  entryExitBarriers = [1, 0];
+  experienceMap: Map<any, any> = new Map<any, any>([
+        [5, 'More than 10 years in the related line of business'],
+        [3, '5-10 years in the related line of business'],
+        [2, '1-5 years in the related line of business'],
+        [0, 'No experience']
+      ]
+  );
+  secondLineSuccessionMap: Map<any, any> = new Map<any, any>([
+        [4, 'Ready Succession'],
+        [3, 'Succession within 1-2 years'],
+        [2, 'Succession within 2-3 years'],
+        [0, 'Succession in question']
+      ]
+  );
+  teamWorkMap: Map<any, any> = new Map<any, any>([
+        [1, 'Good'],
+        [0, 'Poor']
+      ]
+  );
 
-  experience = [5, 3, 2, 0];
-  secondLineSuccession = [4, 3, 2, 0];
-  teamWork = [1, 0];
+  securityCoverageMap: Map<any, any> = new Map<any, any>([
+        [15, 'Fully pledged facilities/substantially cash covered/Reg. Mortg, for HBL'],
+        [12, 'Registered Hypothecation (1st charge/1st Pari passu charge)'],
+        [7, '2nd Charge/Inferior charge'],
+        [2, 'Simple hypothecation/negative lien on assets'],
+        [0, 'No Security']
+      ]
+  );
+  collateralCoverageMap: Map<any, any> = new Map<any, any>([
+        [15, 'Registered Mortgage on Municipal Corporation/Prime area property'],
+        [12, 'Registered Mortgage on Pourashava/semi-urban area property'],
+        [7, 'Equitable Mortgage or No property but plant & machinery as collateral'],
+        [2, 'Negative lien on collateral'],
+        [0, 'No collateral']
+      ]
+  );
+  supportMap: Map<any, any> = new Map<any, any>([
+        [10, 'Personal guarantee with high net worth or Strong Corporate Guarantee'],
+        [5, 'Personal Guarantees or Corporate Guarantee with average financial strength'],
+        [0, 'No Support/Guarantee']
+      ]
+  );
 
-  securityCoverage = [15, 12, 7, 2, 0];
-  collateralCoverage = [15, 12, 7, 2, 0];
-  support = [10, 5, 0];
-
-  accountConduct = [5, 4, 2, 0];
-  utilizationOfLimit = [1, 0];
-  complianceOfCovenants = [1, 0];
-  personalDeposits = [1, 0];
+  accountConductMap: Map<any, any> = new Map<any, any>([
+        [5, 'More than 3 (three) years accounts with faultless record'],
+        [4, 'Less than 3 (three) years accounts with faultless record'],
+        [2, 'Accounts having satisfactory dealings with some late payments'],
+        [0, 'Frequent Past dues & Irregular dealings in account']
+      ]
+  );
+  utilizationOfLimitMap: Map<any, any> = new Map<any, any>([
+        [1, 'More than 60%'],
+        [0, 'Less than 40%']
+      ]
+  );
+  complianceOfCovenantsMap: Map<any, any> = new Map<any, any>([
+        [1, 'Full Compliance'],
+        [0, 'No Compliance']
+      ]
+  );
+  personalDepositsMap: Map<any, any> = new Map<any, any>([
+        [1, 'Personal accounts of the key business Sponsors/ Principals are maintained in the bank, with significant deposits'],
+        [0, 'No depository relationship']
+      ]
+  );
 
   formDataForEdit;
 
@@ -77,6 +142,9 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!this.fromProfile) {
+      this.fromProfileColspan = 1;
+    }
     if (!ObjectUtil.isEmpty(this.financial)) {
       this.financialParsedData = JSON.parse(this.financial.data);
       this.fiscalYearArray = this.financialParsedData.fiscalYear;
@@ -123,6 +191,15 @@ export class CreditRiskGradingAlphaComponent implements OnInit {
       this.ageOfBusinessValue = this.calculateAge(new Date(this.companyInfo.establishmentDate));
       this.setAgeOfBusiness();
     }
+  }
+
+  /**
+   *  @description
+   *  Orders elements of particular map in insertion order wile using
+   *  keyvalue pipe
+   */
+  asIsOrder(a, b) {
+    return 1;
   }
 
   buildForm() {

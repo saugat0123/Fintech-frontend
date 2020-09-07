@@ -1,947 +1,949 @@
 <section>
-  <nb-card>
-    <nb-card-body>
-      <div class="box box-primary">
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-12">
-              <span class="float-right clickable" data-toggle="collapse" data-target="#tableCollapse"><i class="fas fa-chevron-down"></i></span>
-              <table class="table col-md-11 table-condensed table-bordered table-responsive-md text-center" id="tableCollapse">
-                <tr>
-                  <th>Number</th>
-                  <th>Grading</th>
-                  <th>Short</th>
-                  <th>Score</th>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Superior</td>
-                  <td>SUP</td>
-                  <td>
-                    Fully cash secured, secured by
-                    Government/International Bank
-                    Guarantee
-                  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Good</td>
-                  <td>GD</td>
-                  <td>85+</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Acceptable</td>
-                  <td>ACCPT</td>
-                  <td>75-84</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Marginal/Watchlist</td>
-                  <td>MG/WL</td>
-                  <td>65-74</td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td>Special Mention</td>
-                  <td>SM</td>
-                  <td>55-64</td>
-                </tr>
-                <tr>
-                  <td>6</td>
-                  <td>Substandard</td>
-                  <td>SS</td>
-                  <td>45-54</td>
-                </tr>
-                <tr>
-                  <td>7</td>
-                  <td>Doubtful</td>
-                  <td>DF</td>
-                  <td>35-44</td>
-                </tr>
-                <tr>
-                  <td>8</td>
-                  <td>Bad & Loss</td>
-                  <td>BL</td>
-                  <td><35</td>
-                </tr>
-              </table>
+    <table aria-describedby="Grade details table"
+           class="table table-bordered text-center">
+        <tr>
+            <th scope="col">Number</th>
+            <th scope="col">Grading</th>
+            <th scope="col">Short</th>
+            <th scope="col">Score</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Superior</td>
+            <td>SUP</td>
+            <td>
+                Fully cash secured, secured by
+                Government/International Bank
+                Guarantee
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Good</td>
+            <td>GD</td>
+            <td>85+</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Acceptable</td>
+            <td>ACCEPT</td>
+            <td>75-84</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Marginal/Watchlist</td>
+            <td>MG/WL</td>
+            <td>65-74</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Special Mention</td>
+            <td>SM</td>
+            <td>55-64</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Substandard</td>
+            <td>SS</td>
+            <td>45-54</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Doubtful</td>
+            <td>DF</td>
+            <td>35-44</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Bad & Loss</td>
+            <td>BL</td>
+            <td><35</td>
+        </tr>
+    </table>
 
-              <form [formGroup]="creditRiskGrading">
-                <table class="table table-condensed table-bordered table-responsive-md">
-                  <thead>
-                  <tr>
-                    <th>SN.</th>
-                    <th>Criteria</th>
-                    <th>Weight</th>
-                    <th>Parameter</th>
-                    <th>Score</th>
-                    <th>Actual Parameter</th>
-                    <th>Score Obtained</th>
-                  </tr>
-                  </thead>
-                  <tbody>
+    <form [formGroup]="creditRiskGrading">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>SN.</th>
+                <th>Criteria</th>
+                <th>Weight</th>
+                <th>Parameter</th>
+                <th *ngIf="fromProfile">Score</th>
+                <th *ngIf="fromProfile">Actual Parameter</th>
+                <th>Score Obtained</th>
+            </tr>
+            </thead>
+            <tbody>
 
-                  <td></td>
+            <tr>
+                <td></td>
 
-                  <td width="280px">
+                <td width="280px">
                     <b>A. Financial Risk</b>
                     <br><br>
                     <p>
-                      1. Leverage: (15%)
-                      Debt Equity Ratio (x) - Times
-                      Total Liabilities to Tangible Net worth
+                        1. Leverage: (15%)
+                        Debt Equity Ratio (x) - Times
+                        Total Liabilities to Tangible Net worth
 
-                      All calculations should be based on annual financial
-                      statements of the borrower (audited preferred).
+                        All calculations should be based on annual financial
+                        statements of the borrower (audited preferred).
                     </p>
-                  </td>
-                  <td>
+                </td>
+                <td>
                     50%
-                  </td>
-                  <td>
-                    <ul>
-                      <li>Less than 0.25x</li>
-                      <li>0.26x to 0.35x</li>
-                      <li>0.36x to 0.50x</li>
-                      <li>0.51x to 0.75x</li>
-                      <li>0.76x to 1.25x</li>
-                      <li>1.26x to 2.00x</li>
-                      <li>2.01x to 2.50x</li>
-                      <li>2.51x to 2.75x</li>
-                      <li>More than 2.75x</li>
-                    </ul>
-
-
-                  </td>
-                  <td>
-                    <ul class="list-unstyled">
-                      <li>15</li>
-                      <li>14</li>
-                      <li>13</li>
-                      <li>12</li>
-                      <li>11</li>
-                      <li>10</li>
-                      <li>8</li>
-                      <li>7</li>
-                      <li>0</li>
-                    </ul>
-                  </td>
-                  <td>
-                    <div *ngFor="let lev of leverage; let i = index">
-                      <input id="leverage" type="radio" class="form-control-input"
-                             (change)="onChangeOption('leverage', lev)"
-                             [value]="lev"
-                             [checked]="totalPointMapper.get('leverage') === lev"
-                             formControlName="leverage"><br>
-                    </div>
-                  </td>
-
-                  <td>{{creditRiskGrading.get('leverage').value === undefined ? '' : creditRiskGrading.get('leverage').value}}</td>
-                  <tr>
-                    <td></td>
+                </td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('leverage').value === undefined ? '' :
+                    leverageMap.get(creditRiskGrading.get('leverage').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <p>
+                        <ul>
+                            <li *ngFor="let leverage of leverageMap | keyvalue: asIsOrder">
+                                {{ leverage.value }}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let leverage of leverageMap | keyvalue: asIsOrder">
+                                {{ leverage.key }}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let lev of leverageMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('leverage', lev.key)"
+                                   [checked]="totalPointMapper.get('leverage') == lev.key"
+                                   [value]="lev.key"
+                                   class="form-control-input"
+                                   formControlName="leverage"
+                                   id="leverage"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('leverage').value === undefined ? '' : creditRiskGrading.get('leverage').value}}</td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <p>
                         2. Liquidity: (15%)
 
                         Current Ratio (x) - Times
                         Current Assets to Current Liabilities
+                    </p>
+                </td>
+                <td></td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('liquidity').value === undefined ? '' :
+                    liquidityMap.get(creditRiskGrading.get('liquidity').value)}}</td>
+                <ng-container *ngIf="fromProfile">
+                    <td>
+                        <ul>
+                            <li *ngFor="let liquidity of liquidityMap | keyvalue: asIsOrder">
+                                {{ liquidity.value }}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let liquidity of liquidityMap | keyvalue: asIsOrder">
+                                {{ liquidity.key }}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let liq of liquidityMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('liquidity', liq.key)"
+                                   [checked]="totalPointMapper.get('liquidity') == liq.key" [value]="liq.key"
+                                   class="form-control-input"
+                                   formControlName="liquidity"
+                                   id="liquidity"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('liquidity').value === undefined ? '' : creditRiskGrading.get('liquidity').value}}</td>
+            </tr>
 
-                      </p>
-                    </td>
-                    <td></td>
-                    <td>
-                      <ul>
-                        <li>Greater than 2.74x</li>
-                        <li>2.50x to 2.74x</li>
-                        <li>1.50x to 1.99x</li>
-                        <li>1.10x to 1.49x</li>
-                        <li>0.90x to 1.09x</li>
-                        <li>0.80x to 0.89x</li>
-                        <li>0.70x to 0.79x</li>
-                        <li>Less than 0.70x</li>
-                      </ul>
-                    </td>
-                    <td>
-                      <ul class="list-unstyled">
-                        <li>15</li>
-                        <li>14</li>
-                        <li>13</li>
-                        <li>12</li>
-                        <li>11</li>
-                        <li>10</li>
-                        <li>8</li>
-                        <li>7</li>
-                        <li>0</li>
-                      </ul>
-                    </td>
-                    <td>
-                      <div *ngFor="let liq of liquidity; let i = index">
-                        <input id="liquidity" type="radio" class="form-control-input"
-                               (change)="onChangeOption('liquidity', liq)"
-                               [value]="liq"
-                               [checked]="totalPointMapper.get('liquidity') === liq"
-                               formControlName="liquidity"><br>
-                      </div>
-                    </td>
-                    <td>{{creditRiskGrading.get('liquidity').value === undefined ? '' : creditRiskGrading.get('liquidity').value}}</td>
-
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>
-                      <p>
+            <tr>
+                <td></td>
+                <td>
+                    <p>
                         3. Profitability: (15%)
                         Operating Profit Margin (%)
                         (Operating Profit/Sales) * 100
-                      </p>
-                    </td>
-                    <td></td>
+                    </p>
+                </td>
+                <td></td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('profit').value === undefined ? '' :
+                    profitMap.get(creditRiskGrading.get('profit').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <ul>
-                        <li>Greater than 25%</li>
-                        <li>20% to 24%</li>
-                        <li>15% to 19%</li>
-                        <li>10% to 14%</li>
-                        <li>7% to 9%</li>
-                        <li>4% to 6%</li>
-                        <li>1% to 3%</li>
-                        <li>Less than 1%</li>
-                      </ul>
+                        <ul>
+                            <li *ngFor="let profit of profitMap | keyvalue: asIsOrder">
+                                {{ profit.value }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <ul class="list-unstyled">
-                        <li>15</li>
-                        <li>14</li>
-                        <li>13</li>
-                        <li>12</li>
-                        <li>10</li>
-                        <li>9</li>
-                        <li>7</li>
-                        <li>0</li>
-                      </ul>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let profit of profitMap | keyvalue: asIsOrder">
+                                {{ profit.key }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <div *ngFor="let pro of profit; let i = index">
-                        <input id="profit" type="radio" class="form-control-input"
-                               (change)="onChangeOption('profit', pro)"
-                               [value]="pro"
-                               [checked]="totalPointMapper.get('profit') === pro"
-                               formControlName="profit"><br>
-                      </div>
+                        <div *ngFor="let pro of profitMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('profit', pro.key)"
+                                   [checked]="totalPointMapper.get('profit') == pro.key" [value]="pro.key"
+                                   class="form-control-input"
+                                   formControlName="profit"
+                                   id="profit"
+                                   type="radio"><br>
+                        </div>
                     </td>
-                    <td>{{creditRiskGrading.get('profit').value === undefined ? '' : creditRiskGrading.get('profit').value}}</td>
-                  </tr>
+                </ng-container>
+                <td>{{creditRiskGrading.get('profit').value === undefined ? '' : creditRiskGrading.get('profit').value}}</td>
+            </tr>
 
-                  <tr>
-                    <td></td>
-                    <td>
-                      <p>
+            <tr>
+                <td></td>
+                <td>
+                    <p>
                         4. Coverage: (5%)
                         Interest Coverage Ratio (x) - Times
                         Earning Before Interest & Tax (EBIT) / Interest on debt
-                      </p>
-                    </td>
-                    <td></td>
+                    </p>
+                </td>
+                <td></td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('coverage').value === undefined ? '' :
+                    coverageMap.get(creditRiskGrading.get('coverage').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <ul>
-                        <li>More than 2.00x</li>
-                        <li>More than 1.51x Less than 2.00x</li>
-                        <li>More than 1.25x Less than 1.50x</li>
-                        <li>More than 1.00x Less than 1.24x</li>
-                        <li>Less than 1.00x</li>
-                      </ul>
-                    </td>
-                    <td>
-                      <ul class="list-unstyled">
-                        <li>5</li>
-                        <li>4</li>
-                        <li>3</li>
-                        <li>2</li>
-                        <li>0</li>
-                      </ul>
+                        <ul>
+                            <li *ngFor="let coverage of coverageMap | keyvalue: asIsOrder">
+                                {{ coverage.value }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <div *ngFor="let cov of coverage; let i = index">
-                        <input id="coverage" type="radio" class="form-control-input"
-                               (change)="onChangeOption('coverage', cov)"
-                               [value]="cov"
-                               [checked]="totalPointMapper.get('coverage') === cov"
-                               formControlName="coverage"><br>
-                      </div>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let coverage of coverageMap | keyvalue: asIsOrder">
+                                {{ coverage.key }}
+                            </li>
+                        </ul>
                     </td>
-                    <td>{{creditRiskGrading.get('coverage').value === undefined ? '' : creditRiskGrading.get('coverage').value}}</td>
-                  </tr>
+                    <td>
+                        <div *ngFor="let cov of coverageMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('coverage', cov.key)"
+                                   [checked]="totalPointMapper.get('coverage') == cov.key" [value]="cov.key"
+                                   class="form-control-input"
+                                   formControlName="coverage"
+                                   id="coverage"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('coverage').value === undefined ? '' : creditRiskGrading.get('coverage').value}}</td>
+            </tr>
 
-                  <td></td>
-
-                  <td width="280px">
+            <tr>
+                <td></td>
+                <td width="280px">
                     <b>B. Business/Industry Risk</b>
                     <br><br>
                     <p>
-                      1. Size of Business (Sales in BDT crore)
+                        1. Size of Business (Sales in BDT crore)
 
-                      The size of the borrower's business
-                      measured by the most recent year's total sales.
-                      Preferably based on audited financial statements
+                        The size of the borrower's business
+                        measured by the most recent year's total sales.
+                        Preferably based on audited financial statements
                     </p>
-                  </td>
-                  <td>
+                </td>
+                <td>
                     18%
-                  </td>
-                  <td>
-                    <ul>
-                      <li> > 60.00</li>
-                      <li>30.00 – 59.99</li>
-                      <li>10.00 – 29.99</li>
-                      <li>5.00 - 9.99</li>
-                      <li>2.50 - 4.99</li>
-                      <li>< 2.50</li>
-                    </ul>
-
-
-                  </td>
-                  <td>
-                    <ul class="list-unstyled">
-                      <li>5</li>
-                      <li>4</li>
-                      <li>3</li>
-                      <li>2</li>
-                      <li>1</li>
-                      <li>0</li>
-                    </ul>
-                  </td>
-                  <td>
-                    <div *ngFor="let sob of sizeOfBusiness; let i = index">
-                      <input id="sizeOfBusiness" type="radio" class="form-control-input"
-                             (change)="onChangeOption('sizeOfBusiness', sob)"
-                             [value]="sob"
-                             [checked]="totalPointMapper.get('sizeOfBusiness') === sob"
-                             formControlName="sizeOfBusiness"><br>
-                    </div>
-                  </td>
-                  <td>{{creditRiskGrading.get('sizeOfBusiness').value === undefined ? '' : creditRiskGrading.get('sizeOfBusiness').value}}</td>
-                  <tr>
-                    <td></td>
+                </td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('sizeOfBusiness').value === undefined ? '' :
+                    sizeOfBusinessMap.get(creditRiskGrading.get('sizeOfBusiness').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <p>
+                        <ul>
+                            <li *ngFor="let sizeOfBusiness of sizeOfBusinessMap | keyvalue: asIsOrder">
+                                {{ sizeOfBusiness.value }}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let sizeOfBusiness of sizeOfBusinessMap | keyvalue: asIsOrder">
+                                {{ sizeOfBusiness.key }}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let sob of sizeOfBusinessMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('sizeOfBusiness', sob.key)"
+                                   [checked]="totalPointMapper.get('sizeOfBusiness') == sob.key" [value]="sob.key"
+                                   class="form-control-input"
+                                   formControlName="sizeOfBusiness"
+                                   id="sizeOfBusiness"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('sizeOfBusiness').value === undefined ? '' : creditRiskGrading.get('sizeOfBusiness').value}}</td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <p>
                         2. Age of Business
 
                         The number of years the borrower has been engaged in the
                         primary line of business.
 
-                      </p>
-                    </td>
-                    <td></td>
+                    </p>
+                </td>
+                <td></td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('ageOfBusiness').value === undefined ? '' :
+                    ageOfBusinessMap.get(creditRiskGrading.get('ageOfBusiness').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <ul>
-                        <li> > 10 years</li>
-                        <li> > 5 - 10 years</li>
-                        <li> 2 -5 years</li>
-                        <li> < 2 years</li>
-                      </ul>
-                    </td>
-                    <td>
-                      <ul class="list-unstyled">
-                        <li>3</li>
-                        <li>2</li>
-                        <li>1</li>
-                        <li>0</li>
-                      </ul>
+                        <ul>
+                            <li *ngFor="let ageOfBusiness of ageOfBusinessMap | keyvalue: asIsOrder">
+                                {{ ageOfBusiness.value }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <div *ngFor="let aob of ageOfBusiness; let i = index">
-                        <input id="ageOfBusiness" type="radio" class="form-control-input"
-                               (change)="onChangeOption('ageOfBusiness', aob)"
-                               [value]="aob"
-                               [checked]="totalPointMapper.get('ageOfBusiness') === aob"
-                               formControlName="ageOfBusiness"><br>
-                      </div>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let ageOfBusiness of ageOfBusinessMap | keyvalue: asIsOrder">
+                                {{ ageOfBusiness.key }}
+                            </li>
+                        </ul>
                     </td>
-                    <td>{{creditRiskGrading.get('ageOfBusiness').value === undefined ? '' : creditRiskGrading.get('ageOfBusiness').value}}</td>
+                    <td>
+                        <div *ngFor="let aob of ageOfBusinessMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('ageOfBusiness', aob.key)"
+                                   [checked]="totalPointMapper.get('ageOfBusiness') == aob.key" [value]="aob.key"
+                                   class="form-control-input"
+                                   formControlName="ageOfBusiness"
+                                   id="ageOfBusiness"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('ageOfBusiness').value === undefined ? '' : creditRiskGrading.get('ageOfBusiness').value}}</td>
 
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>
-                      <p>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <p>
                         3. Business Outlook
 
                         A critical assessment of the medium term prospects
                         of the borrower, taking into account the industry, market
                         share and economic factors.
-                      </p>
-                    </td>
-                    <td></td>
+                    </p>
+                </td>
+                <td></td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('businessOutlook').value === undefined ? '' :
+                    businessOutlookMap.get(creditRiskGrading.get('businessOutlook').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <ul>
-                        <li>Favorable</li>
-                        <li>Stable</li>
-                        <li>Slightly Uncertain</li>
-                        <li>Cause for Concern</li>
-                      </ul>
-                    </td>
-                    <td>
-                      <ul class="list-unstyled">
-                        <li>3</li>
-                        <li>2</li>
-                        <li>1</li>
-                        <li>0</li>
-                      </ul>
+                        <ul>
+                            <li *ngFor="let businessOutlook of businessOutlookMap | keyvalue: asIsOrder">
+                                {{ businessOutlook.value }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <div *ngFor="let bok of businessOutlook; let i = index">
-                        <input id="businessOutlook" type="radio" class="form-control-input"
-                               (change)="onChangeOption('businessOutlook', bok)"
-                               [value]="bok"
-                               [checked]="totalPointMapper.get('businessOutlook') === bok"
-                               formControlName="businessOutlook"><br>
-                      </div>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let businessOutlook of businessOutlookMap | keyvalue: asIsOrder">
+                                {{ businessOutlook.key }}
+                            </li>
+                        </ul>
                     </td>
-                    <td>{{creditRiskGrading.get('businessOutlook').value === undefined ? '' : creditRiskGrading.get('businessOutlook').value}}</td>
-                  </tr>
+                    <td>
+                        <div *ngFor="let bok of businessOutlookMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('businessOutlook', bok.key)"
+                                   [checked]="totalPointMapper.get('businessOutlook') == bok.key" [value]="bok.key"
+                                   class="form-control-input"
+                                   formControlName="businessOutlook"
+                                   id="businessOutlook"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('businessOutlook').value === undefined ? '' : creditRiskGrading.get('businessOutlook').value}}</td>
+            </tr>
 
-                  <tr>
-                    <td></td>
-                    <td>
-                      <p>
+            <tr>
+                <td></td>
+                <td>
+                    <p>
                         4. Industry Growth
-                      </p>
-                    </td>
-                    <td></td>
+                    </p>
+                </td>
+                <td></td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('industryGrowth').value === undefined ? '' :
+                    industryGrowthMap.get(creditRiskGrading.get('industryGrowth').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <ul>
-                        <li>Strong (10% +)</li>
-                        <li>Good ( > 5% - 10%)</li>
-                        <li>Moderate (1% - 5%)</li>
-                        <li>No Growth ( < 1%)</li>
-                      </ul>
-                    </td>
-                    <td>
-                      <ul class="list-unstyled">
-                        <li>3</li>
-                        <li>2</li>
-                        <li>1</li>
-                        <li>0</li>
-                      </ul>
+                        <ul>
+                            <li *ngFor="let industryGrowth of industryGrowthMap | keyvalue: asIsOrder">
+                                {{ industryGrowth.value }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <div *ngFor="let ig of industryGrowth; let i = index">
-                        <input id="industryGrowth" type="radio" class="form-control-input"
-                               (change)="onChangeOption('industryGrowth', ig)"
-                               [value]="ig"
-                               [checked]="totalPointMapper.get('industryGrowth') === ig"
-                               formControlName="industryGrowth"><br>
-                      </div>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let industryGrowth of industryGrowthMap | keyvalue: asIsOrder">
+                                {{ industryGrowth.key }}
+                            </li>
+                        </ul>
                     </td>
-                    <td>{{creditRiskGrading.get('industryGrowth').value === undefined ? '' : creditRiskGrading.get('industryGrowth').value}}</td>
-                  </tr>
+                    <td>
+                        <div *ngFor="let ig of industryGrowthMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('industryGrowth', ig.key)"
+                                   [checked]="totalPointMapper.get('industryGrowth') == ig.key" [value]="ig.key"
+                                   class="form-control-input"
+                                   formControlName="industryGrowth"
+                                   id="industryGrowth"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('industryGrowth').value === undefined ? '' : creditRiskGrading.get('industryGrowth').value}}</td>
+            </tr>
 
-                  <tr>
-                    <td></td>
-                    <td>
-                      <p>
+            <tr>
+                <td></td>
+                <td>
+                    <p>
                         5. Market Competition
-                      </p>
-                    </td>
-                    <td></td>
+                    </p>
+                </td>
+                <td></td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('marketCompetition').value === undefined ? '' :
+                    marketCompetitionMap.get(creditRiskGrading.get('marketCompetition').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <ul>
-                        <li>Dominant Player</li>
-                        <li>Moderately Competitive</li>
-                        <li>Highly Competitive</li>
-                      </ul>
-                    </td>
-                    <td>
-                      <ul class="list-unstyled">
-                        <li>2</li>
-                        <li>1</li>
-                        <li>0</li>
-                      </ul>
+                        <ul>
+                            <li *ngFor="let marketCompetition of marketCompetitionMap | keyvalue: asIsOrder">
+                                {{ marketCompetition.value }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <div *ngFor="let market of marketCompetition; let i = index">
-                        <input id="marketCompetition" type="radio" class="form-control-input"
-                               (change)="onChangeOption('marketCompetition', market)"
-                               [value]="market"
-                               [checked]="totalPointMapper.get('marketCompetition') === market"
-                               formControlName="marketCompetition"><br>
-                      </div>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let marketCompetition of marketCompetitionMap | keyvalue: asIsOrder">
+                                {{ marketCompetition.key }}
+                            </li>
+                        </ul>
                     </td>
-                    <td>{{creditRiskGrading.get('marketCompetition').value === undefined ? '' : creditRiskGrading.get('marketCompetition').value}}</td>
-                  </tr>
+                    <td>
+                        <div *ngFor="let market of marketCompetitionMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('marketCompetition', market.key)"
+                                   [checked]="totalPointMapper.get('marketCompetition') == market.key"
+                                   [value]="market.key"
+                                   class="form-control-input"
+                                   formControlName="marketCompetition"
+                                   id="marketCompetition"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('marketCompetition').value === undefined ? '' : creditRiskGrading.get('marketCompetition').value}}</td>
+            </tr>
 
-                  <tr>
-                    <td></td>
-                    <td>
-                      <p>
+            <tr>
+                <td></td>
+                <td>
+                    <p>
                         6. Entry/Exit Barriers
-                      </p>
-                    </td>
-                    <td></td>
+                    </p>
+                </td>
+                <td></td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('entryExitBarriers').value === undefined ? '' :
+                    entryExitBarriersMap.get(creditRiskGrading.get('entryExitBarriers').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <ul>
-                        <li>Difficult</li>
-                        <li>Average</li>
-                        <li>Easy</li>
-                      </ul>
-                    </td>
-                    <td>
-                      <ul class="list-unstyled">
-                        <li>2</li>
-                        <li>1</li>
-                        <li>0</li>
-                      </ul>
+                        <ul>
+                            <li *ngFor="let entryExitBarriers of entryExitBarriersMap | keyvalue: asIsOrder">
+                                {{ entryExitBarriers.value }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <div *ngFor="let barriers of entryExitBarriers; let i = index">
-                        <input id="entryExitBarriers" type="radio" class="form-control-input"
-                               (change)="onChangeOption('entryExitBarriers', barriers)"
-                               [value]="barriers"
-                               [checked]="totalPointMapper.get('entryExitBarriers') === barriers"
-                               formControlName="entryExitBarriers"><br>
-                      </div>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let entryExitBarriers of entryExitBarriersMap | keyvalue: asIsOrder">
+                                {{ entryExitBarriers.key }}
+                            </li>
+                        </ul>
                     </td>
-                    <td>{{creditRiskGrading.get('entryExitBarriers').value === undefined ? '' : creditRiskGrading.get('entryExitBarriers').value}}</td>
-                  </tr>
+                    <td>
+                        <div *ngFor="let barriers of entryExitBarriersMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('entryExitBarriers', barriers.key)"
+                                   [checked]="totalPointMapper.get('entryExitBarriers') == barriers.key"
+                                   [value]="barriers.key"
+                                   class="form-control-input"
+                                   formControlName="entryExitBarriers"
+                                   id="entryExitBarriers"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('entryExitBarriers').value === undefined ? '' : creditRiskGrading.get('entryExitBarriers').value}}</td>
+            </tr>
 
+            <tr>
+                <td></td>
 
-                  <td></td>
-
-                  <td width="280px">
+                <td width="280px">
                     <b>C. Management Risk</b>
                     <br><br>
                     <p>
-                      1. Experience
-                      (Management & Management Team)
+                        1. Experience
+                        (Management & Management Team)
 
-                      The quality of management based on
-                      the aggregate number of years that
-                      the Senior Management Team has been
-                      in the industry.
+                        The quality of management based on
+                        the aggregate number of years that
+                        the Senior Management Team has been
+                        in the industry.
                     </p>
-                  </td>
-                  <td>
+                </td>
+                <td>
                     12%
-                  </td>
-                  <td>
-                    <ul>
-                      <li>More than 10 years in the related line of business</li>
-                      <li>5-10 years in the related line of business</li>
-                      <li>1-5 years in the related line of business</li>
-                      <li>No experience</li>
-                    </ul>
-                  </td>
-                  <td>
-                    <ul class="list-unstyled">
-                      <li>5</li>
-                      <li>3</li>
-                      <li>2</li>
-                      <li>0</li>
-                    </ul>
-                  </td>
-                  <td>
-                    <div *ngFor="let exp of experience; let i = index">
-                      <input id="experience" type="radio" class="form-control-input"
-                             (change)="onChangeOption('experience', exp)"
-                             [value]="exp"
-                             [checked]="totalPointMapper.get('experience') === exp"
-                             formControlName="experience"><br>
-                    </div>
-                  </td>
-                  <td>{{creditRiskGrading.get('experience').value === undefined ? '' : creditRiskGrading.get('experience').value}}</td>
-                  <tr>
-                    <td></td>
+                </td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('experience').value === undefined ? '' :
+                    experienceMap.get(creditRiskGrading.get('experience').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <p>
+                        <ul>
+                            <li *ngFor="let experience of experienceMap | keyvalue: asIsOrder">
+                                {{ experience.value }}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let experience of experienceMap | keyvalue: asIsOrder">
+                                {{ experience.key }}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let exp of experienceMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('experience', exp.key)"
+                                   [checked]="totalPointMapper.get('experience') == exp.key" [value]="exp.key"
+                                   class="form-control-input"
+                                   formControlName="experience"
+                                   id="experience"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('experience').value === undefined ? '' : creditRiskGrading.get('experience').value}}</td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <p>
                         2. Second Line/ Succession
 
-                      </p>
-                    </td>
-                    <td></td>
+                    </p>
+                </td>
+                <td></td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('secondLineSuccession').value === undefined ? '' :
+                    secondLineSuccessionMap.get(creditRiskGrading.get('secondLineSuccession').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <ul>
-                        <li>Ready Succession</li>
-                        <li>Succession within 1-2 years</li>
-                        <li>Succession within 2-3 years</li>
-                        <li>Succession in question</li>
-                      </ul>
-                    </td>
-                    <td>
-                      <ul class="list-unstyled">
-                        <li>4</li>
-                        <li>3</li>
-                        <li>2</li>
-                        <li>0</li>
-                      </ul>
+                        <ul>
+                            <li *ngFor="let secondLineSuccession of secondLineSuccessionMap | keyvalue: asIsOrder">
+                                {{ secondLineSuccession.value }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <div *ngFor="let secondSuccession of secondLineSuccession; let i = index">
-                        <input id="secondLineSuccession" type="radio" class="form-control-input"
-                               (change)="onChangeOption('secondLineSuccession', secondSuccession)"
-                               [value]="secondSuccession"
-                               [checked]="totalPointMapper.get('secondLineSuccession') === secondSuccession"
-                               formControlName="secondLineSuccession"><br>
-                      </div>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let secondLineSuccession of secondLineSuccessionMap | keyvalue: asIsOrder">
+                                {{ secondLineSuccession.key }}
+                            </li>
+                        </ul>
                     </td>
-                    <td>{{creditRiskGrading.get('secondLineSuccession').value === undefined ? '' : creditRiskGrading.get('secondLineSuccession').value}}</td>
+                    <td>
+                        <div *ngFor="let secondSuccession of secondLineSuccessionMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('secondLineSuccession', secondSuccession.key)"
+                                   [checked]="totalPointMapper.get('secondLineSuccession') == secondSuccession.key"
+                                   [value]="secondSuccession.key"
+                                   class="form-control-input"
+                                   formControlName="secondLineSuccession"
+                                   id="secondLineSuccession"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('secondLineSuccession').value === undefined ? '' : creditRiskGrading.get('secondLineSuccession').value}}</td>
 
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>
-                      <p>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <p>
                         3. Team Work
-                      </p>
-                    </td>
-                    <td></td>
+                    </p>
+                </td>
+                <td></td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('teamWork').value === undefined ? '' :
+                    teamWorkMap.get(creditRiskGrading.get('teamWork').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <ul>
-                        <li>Very Good</li>
-                        <li>Moderate</li>
-                        <li>Poor</li>
-                        <li>Regular Conflict</li>
-                      </ul>
-                    </td>
-                    <td>
-                      <ul class="list-unstyled">
-                        <li>3</li>
-                        <li>2</li>
-                        <li>1</li>
-                        <li>0</li>
-                      </ul>
+                        <ul>
+                            <li *ngFor="let teamWork of teamWorkMap | keyvalue: asIsOrder">
+                                {{ teamWork.value }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <div *ngFor="let tw of teamWork; let i = index">
-                        <input id="teamWork" type="radio" class="form-control-input"
-                               (change)="onChangeOption('teamWork', tw)"
-                               [value]="tw"
-                               [checked]="totalPointMapper.get('teamWork') === tw"
-                               formControlName="teamWork"><br>
-                      </div>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let teamWork of teamWorkMap | keyvalue: asIsOrder">
+                                {{ teamWork.key }}
+                            </li>
+                        </ul>
                     </td>
-                    <td>{{creditRiskGrading.get('teamWork').value === undefined ? '' : creditRiskGrading.get('teamWork').value}}</td>
-                  </tr>
+                    <td>
+                        <div *ngFor="let tw of teamWorkMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('teamWork', tw.key)"
+                                   [checked]="totalPointMapper.get('teamWork') == tw.key"
+                                   [value]="tw.key"
+                                   class="form-control-input"
+                                   formControlName="teamWork"
+                                   id="teamWork"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('teamWork').value === undefined ? '' : creditRiskGrading.get('teamWork').value}}</td>
+            </tr>
 
-                  <td></td>
+            <tr>
+                <td></td>
 
-                  <td width="280px">
+                <td width="280px">
                     <b>D. Security Risk</b>
                     <br><br>
                     <p>
-                      1. Security Coverage (Primary)
+                        1. Security Coverage (Primary)
                     </p>
-                  </td>
-                  <td>
+                </td>
+                <td>
                     10%
-                  </td>
-                  <td>
-                    <ul>
-                      <li>
-                        Fully pledged facilities/substantially
-                        cash covered/Reg. Mortg, for HBL
-                      </li>
-                      <li>
-                        Registered Hypothecation
-                        (1st charge/1st Pari passu charge)
-                      </li>
-                      <li>2nd Charge/Inferior charge</li>
-                      <li>
-                        Simple hypothecation/negative lien
-                        on assets.
-                      </li>
-                      <li>No Security</li>
-                    </ul>
-                  </td>
-                  <td>
-                    <ul class="list-unstyled">
-                      <li>4</li>
-                      <li>3</li>
-                      <li>2</li>
-                      <li>1</li>
-                      <li>0</li>
-                    </ul>
-                  </td>
-                  <td>
-                    <div *ngFor="let sc of securityCoverage; let i = index">
-                      <input id="securityCoverage" type="radio" class="form-control-input"
-                             (change)="onChangeOption('securityCoverage', sc)"
-                             [value]="sc"
-                             [checked]="totalPointMapper.get('securityCoverage') === sc"
-                             formControlName="securityCoverage"><br>
-                    </div>
-                  </td>
-                  <td>{{creditRiskGrading.get('securityCoverage').value === undefined ? '' : creditRiskGrading.get('securityCoverage').value}}</td>
-                  <tr>
-                    <td></td>
+                </td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('securityCoverage').value === undefined ? '' :
+                    securityCoverageMap.get(creditRiskGrading.get('securityCoverage').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <p>
+                        <ul>
+                            <li *ngFor="let securityCoverage of securityCoverageMap | keyvalue: asIsOrder">
+                                {{ securityCoverage.value }}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let securityCoverage of securityCoverageMap | keyvalue: asIsOrder">
+                                {{ securityCoverage.key }}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let sc of securityCoverageMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('securityCoverage', sc.key)"
+                                   [checked]="totalPointMapper.get('securityCoverage') == sc.key"
+                                   [value]="sc.key"
+                                   class="form-control-input"
+                                   formControlName="securityCoverage"
+                                   id="securityCoverage"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('securityCoverage').value === undefined ? '' : creditRiskGrading.get('securityCoverage').value}}</td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <p>
                         2. Collateral Coverage
                         (Property Location)
 
-                      </p>
-                    </td>
-                    <td></td>
+                    </p>
+                </td>
+                <td></td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('collateralCoverage').value === undefined ? '' :
+                    collateralCoverageMap.get(creditRiskGrading.get('collateralCoverage').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <ul>
-                        <li>
-                          Registered Mortgage on Municipal
-                          Corporation/Prime area property.
-                        </li>
-                        <li>
-                          Registered Mortgage on
-                          Pourashava/semi-urban area
-                          property
-                        </li>
-                        <li>
-                          Equitable Mortgage or No property
-                          but plant & machinery as collateral
-                        </li>
-                        <li>Negative lien on collateral</li>
-                        <li>No collateral</li>
-                      </ul>
+                        <ul>
+                            <li *ngFor="let collateralCoverage of collateralCoverageMap | keyvalue: asIsOrder">
+                                {{ collateralCoverage.value }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <ul class="list-unstyled">
-                        <li>4</li>
-                        <li>3</li>
-                        <li>2</li>
-                        <li>1</li>
-                        <li>0</li>
-                      </ul>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let collateralCoverage of collateralCoverageMap | keyvalue: asIsOrder">
+                                {{ collateralCoverage.key }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <div *ngFor="let cc of collateralCoverage; let i = index">
-                        <input id="collateralCoverage" type="radio" class="form-control-input"
-                               (change)="onChangeOption('collateralCoverage', cc)"
-                               [value]="cc"
-                               [checked]="totalPointMapper.get('collateralCoverage') === cc"
-                               formControlName="collateralCoverage"><br>
-                      </div>
+                        <div *ngFor="let cc of collateralCoverageMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('collateralCoverage', cc.key)"
+                                   [checked]="totalPointMapper.get('collateralCoverage') == cc.key"
+                                   [value]="cc.key"
+                                   class="form-control-input"
+                                   formControlName="collateralCoverage"
+                                   id="collateralCoverage"
+                                   type="radio"><br>
+                        </div>
                     </td>
-                    <td>{{creditRiskGrading.get('collateralCoverage').value === undefined ? '' : creditRiskGrading.get('collateralCoverage').value}}</td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('collateralCoverage').value === undefined ? '' : creditRiskGrading.get('collateralCoverage').value}}</td>
 
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>
-                      <p>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <p>
                         3. Support (Guarantee)
-                      </p>
-                    </td>
-                    <td></td>
+                    </p>
+                </td>
+                <td></td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('support').value === undefined ? '' :
+                    supportMap.get(creditRiskGrading.get('support').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <ul>
-                        <li>
-                          Personal guarantee with high net worth or Strong Corporate
-                          Guarantee
-                        </li>
-                        <li>
-                          Personal Guarantees or Corporate
-                          Guarantee with average financial
-                          strength
-                        </li>
-                        <li>No Support/Guarantee</li>
-                      </ul>
+                        <ul>
+                            <li *ngFor="let support of supportMap | keyvalue: asIsOrder">
+                                {{ support.value }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <ul class="list-unstyled">
-                        <li>2</li>
-                        <li>1</li>
-                        <li>0</li>
-                      </ul>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let support of supportMap | keyvalue: asIsOrder">
+                                {{ support.key }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <div *ngFor="let spt of support; let i = index">
-                        <input id="support" type="radio" class="form-control-input"
-                               (change)="onChangeOption('support', spt)"
-                               [value]="spt"
-                               [checked]="totalPointMapper.get('support') === spt"
-                               formControlName="support"><br>
-                      </div>
+                        <div *ngFor="let spt of supportMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('support', spt.key)"
+                                   [checked]="totalPointMapper.get('support') == spt.key"
+                                   [value]="spt.key"
+                                   class="form-control-input"
+                                   formControlName="support"
+                                   id="support"
+                                   type="radio"><br>
+                        </div>
                     </td>
-                    <td>{{creditRiskGrading.get('support').value === undefined ? '' : creditRiskGrading.get('support').value}}</td>
-                  </tr>
+                </ng-container>
+                <td>{{creditRiskGrading.get('support').value === undefined ? '' : creditRiskGrading.get('support').value}}</td>
+            </tr>
 
-                  <td></td>
+            <tr>
+                <td></td>
 
-                  <td width="280px">
+                <td width="280px">
                     <b>E. Relationship Risk</b>
                     <br><br>
                     <p>
-                      1. Account Conduct
+                        1. Account Conduct
                     </p>
-                  </td>
-                  <td>
+                </td>
+                <td>
                     10%
-                  </td>
-                  <td>
-                    <ul>
-                      <li>
-                        More than 3 (three) years accounts
-                        with faultless record
-                      </li>
-                      <li>
-                        Less than 3 (three) years accounts
-                        with faultless record
-                      </li>
-                      <li>
-                        Accounts having satisfactory
-                        dealings with some late payments
-                      </li>
-                      <li>
-                        Frequent Past dues & Irregular
-                        dealings in account
-                      </li>
-                    </ul>
-
-
-                  </td>
-                  <td>
-                    <ul class="list-unstyled">
-                      <li>5</li>
-                      <li>4</li>
-                      <li>2</li>
-                      <li>0</li>
-                    </ul>
-                  </td>
-                  <td>
-                    <div *ngFor="let ac of accountConduct; let i = index">
-                      <input id="accountConduct" type="radio" class="form-control-input"
-                             (change)="onChangeOption('accountConduct', ac)"
-                             [value]="ac"
-                             [checked]="totalPointMapper.get('accountConduct') === ac"
-                             formControlName="accountConduct"><br>
-                    </div>
-                  </td>
-                  <td>{{creditRiskGrading.get('accountConduct').value === undefined ? '' : creditRiskGrading.get('accountConduct').value}}</td>
-                  <tr>
-                    <td></td>
+                </td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('accountConduct').value === undefined ? '' :
+                    accountConductMap.get(creditRiskGrading.get('accountConduct').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <p>
+                        <ul>
+                            <li *ngFor="let accountConduct of accountConductMap | keyvalue: asIsOrder">
+                                {{ accountConduct.value }}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let accountConduct of accountConductMap | keyvalue: asIsOrder">
+                                {{ accountConduct.key }}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <div *ngFor="let ac of accountConductMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('accountConduct', ac.key)"
+                                   [checked]="totalPointMapper.get('accountConduct') == ac.key"
+                                   [value]="ac.key"
+                                   class="form-control-input"
+                                   formControlName="accountConduct"
+                                   id="accountConduct"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('accountConduct').value === undefined ? '' : creditRiskGrading.get('accountConduct').value}}</td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <p>
                         2. Utilization of Limit
                         (actual/projection)
 
-                      </p>
-                    </td>
-                    <td></td>
+                    </p>
+                </td>
+                <td></td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('utilizationOfLimit').value === undefined ? '' :
+                    utilizationOfLimitMap.get(creditRiskGrading.get('utilizationOfLimit').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <ul>
-                        <li>More than 60%</li>
-                        <li>40% - 60%</li>
-                        <li>Less than 40%</li>
-                      </ul>
-                    </td>
-                    <td>
-                      <ul class="list-unstyled">
-                        <li>2</li>
-                        <li>1</li>
-                        <li>0</li>
-                      </ul>
+                        <ul>
+                            <li *ngFor="let utilizationOfLimit of utilizationOfLimitMap | keyvalue: asIsOrder">
+                                {{ utilizationOfLimit.value }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <div *ngFor="let ul of utilizationOfLimit; let i = index">
-                        <input id="utilizationOfLimit" type="radio" class="form-control-input"
-                               (change)="onChangeOption('utilizationOfLimit', ul)"
-                               [value]="ul"
-                               [checked]="totalPointMapper.get('utilizationOfLimit') === ul"
-                               formControlName="utilizationOfLimit"><br>
-                      </div>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let utilizationOfLimit of utilizationOfLimitMap | keyvalue: asIsOrder">
+                                {{ utilizationOfLimit.key }}
+                            </li>
+                        </ul>
                     </td>
-                    <td>{{creditRiskGrading.get('utilizationOfLimit').value === undefined ? '' : creditRiskGrading.get('utilizationOfLimit').value}}</td>
+                    <td>
+                        <div *ngFor="let ul of utilizationOfLimitMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('utilizationOfLimit', ul.key)"
+                                   [checked]="totalPointMapper.get('utilizationOfLimit') == ul.key"
+                                   [value]="ul.key"
+                                   class="form-control-input"
+                                   formControlName="utilizationOfLimit"
+                                   id="utilizationOfLimit"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('utilizationOfLimit').value === undefined ? '' : creditRiskGrading.get('utilizationOfLimit').value}}</td>
 
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>
-                      <p>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <p>
                         3. Compliance of
                         Covenants / Conditions
-                      </p>
-                    </td>
-                    <td></td>
+                    </p>
+                </td>
+                <td></td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('complianceOfCovenants').value === undefined ? '' :
+                    complianceOfCovenantsMap.get(creditRiskGrading.get('complianceOfCovenants').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <ul>
-                        <li>Full Compliance</li>
-                        <li>Some Non-Compliance</li>
-                        <li>No Compliance</li>
-                      </ul>
-                    </td>
-                    <td>
-                      <ul class="list-unstyled">
-                        <li>2</li>
-                        <li>1</li>
-                        <li>0</li>
-                      </ul>
+                        <ul>
+                            <li *ngFor="let complianceOfCovenants of complianceOfCovenantsMap | keyvalue: asIsOrder">
+                                {{ complianceOfCovenants.value }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <div *ngFor="let coc of complianceOfCovenants; let i = index">
-                        <input id="complianceOfCovenants" type="radio" class="form-control-input"
-                               (change)="onChangeOption('complianceOfCovenants', coc)"
-                               [value]="coc"
-                               [checked]="totalPointMapper.get('complianceOfCovenants') === coc"
-                               formControlName="complianceOfCovenants"><br>
-                      </div>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let complianceOfCovenants of complianceOfCovenantsMap | keyvalue: asIsOrder">
+                                {{ complianceOfCovenants.key }}
+                            </li>
+                        </ul>
                     </td>
-                    <td>{{creditRiskGrading.get('complianceOfCovenants').value === undefined ? '' : creditRiskGrading.get('complianceOfCovenants').value}}</td>
-                  </tr>
+                    <td>
+                        <div *ngFor="let coc of complianceOfCovenantsMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('complianceOfCovenants', coc.key)"
+                                   [checked]="totalPointMapper.get('complianceOfCovenants') == coc.key"
+                                   [value]="coc.key"
+                                   class="form-control-input"
+                                   formControlName="complianceOfCovenants"
+                                   id="complianceOfCovenants"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('complianceOfCovenants').value === undefined ? '' : creditRiskGrading.get('complianceOfCovenants').value}}</td>
+            </tr>
 
-                  <tr>
-                    <td></td>
-                    <td>
-                      <p>
+            <tr>
+                <td></td>
+                <td>
+                    <p>
                         4. Personal Deposits
 
                         The extent to which the bank maintains
                         a personal banking relationship with the key
                         business sponsors/principals.
-                      </p>
-                    </td>
-                    <td></td>
+                    </p>
+                </td>
+                <td></td>
+                <td *ngIf="!fromProfile">{{creditRiskGrading.get('personalDeposits').value === undefined ? '' :
+                    personalDepositsMap.get(creditRiskGrading.get('personalDeposits').value)}}</td>
+                <ng-container *ngIf="fromProfile">
                     <td>
-                      <ul>
-                        <li>
-                          Personal accounts of the key
-                          business Sponsors/ Principals are
-                          maintained in the bank, with
-                          significant deposits
-                        </li>
-                        <li>No depository relationship</li>
-                      </ul>
-                    </td>
-                    <td>
-                      <ul class="list-unstyled">
-                        <li>1</li>
-                        <li>0</li>
-                      </ul>
+                        <ul>
+                            <li *ngFor="let personalDeposits of personalDepositsMap | keyvalue: asIsOrder">
+                                {{ personalDeposits.value }}
+                            </li>
+                        </ul>
                     </td>
                     <td>
-                      <div *ngFor="let pd of personalDeposits; let i = index">
-                        <input id="personalDeposits" type="radio" class="form-control-input"
-                               (change)="onChangeOption('personalDeposits', pd)"
-                               [value]="pd"
-                               [checked]="totalPointMapper.get('personalDeposits') === pd"
-                               formControlName="personalDeposits"><br>
-                      </div>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let personalDeposits of personalDepositsMap | keyvalue: asIsOrder">
+                                {{ personalDeposits.key }}
+                            </li>
+                        </ul>
                     </td>
-                    <td>{{creditRiskGrading.get('personalDeposits').value === undefined ? '' : creditRiskGrading.get('personalDeposits').value}}</td>
-                  </tr>
-                  <tr>
-                   <td colspan="2"><b>Grading:</b> {{grading === undefined ? '' : grading}}</td>
-                    <th colspan="4" class="text-center">Total Score:</th>
-                    <td>{{totalPoints === undefined ? '' : totalPoints}}</td>
-                  </tr>
-                  </tbody>
-                </table>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+                    <td>
+                        <div *ngFor="let pd of personalDepositsMap | keyvalue: asIsOrder; let i = index">
+                            <input (change)="onChangeOption('personalDeposits', pd.key)"
+                                   [checked]="totalPointMapper.get('personalDeposits') == pd.key"
+                                   [value]="pd.key"
+                                   class="form-control-input"
+                                   formControlName="personalDeposits"
+                                   id="personalDeposits"
+                                   type="radio"><br>
+                        </div>
+                    </td>
+                </ng-container>
+                <td>{{creditRiskGrading.get('personalDeposits').value === undefined ? '' : creditRiskGrading.get('personalDeposits').value}}</td>
+            </tr>
+            <tr>
+                <th class="text-center" colspan="2"><b>Grading:</b> {{grading === undefined ? '' : grading}}</th>
+                <th [attr.colspan]="totalPointsColspan" class="text-center">Total Score:</th>
+                <th class="text-center">{{totalPoints === undefined ? '' : totalPoints}}</th>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
         <button (click)="onSubmit()" nbButton type="button">save</button>
-      </div>
-    </nb-card-body>
-  </nb-card>
+    </div>
 </section>
 
