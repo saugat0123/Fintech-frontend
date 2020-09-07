@@ -5,4 +5,5 @@ export class Proposal {
     proposedLimit: number;
     proposedAmountInWords: string;
     tenureDurationInMonths: number;
+    checkedData: string;
 }
