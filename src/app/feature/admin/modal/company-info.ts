@@ -23,4 +23,7 @@ export class CompanyInfo {
     panNumber: string;
     contactPerson: ContactPerson;
     profilePic: string;
+    issuePlace: string;
+    email: string;
+    contactNum: string;
 }

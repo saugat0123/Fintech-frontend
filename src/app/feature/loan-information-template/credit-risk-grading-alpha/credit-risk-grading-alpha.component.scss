@@ -11,5 +11,16 @@
 }
 
 .bg-light-red {
-  background: #ffcbc8;
+  background: #ffcbc8 !important;
+}
+
+tr td {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+ul li {
+  text-align: left !important;
 }

@@ -21,6 +21,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BusinessType} from '../../../../admin/modal/businessType';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loan-apply.component';
+import {FetchLoan} from '../../../model/fetchLoan';
+import {LoanAmountType} from '../../../model/loanAmountType';
 
 @Component({
   selector: 'app-company-profile',
@@ -48,7 +50,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
   totalProposalAmount = 0;
   totalLoanProposedAmount = 0;
   maker = false;
-
+  fetchLoan = FetchLoan;
   constructor(private companyInfoService: CompanyInfoService,
               private customerInfoService: CustomerInfoService,
               private toastService: ToastService,
@@ -199,6 +201,9 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
       houseNumber: [undefined, Validators.required],
       streetName: [undefined, Validators.required],
       panNumber: [undefined, Validators.required],
+      issuePlace: [undefined, Validators.required],
+      email: [undefined, Validators.required],
+      contactNum: [undefined, Validators.required],
       businessType: [undefined, Validators.required]
     });
   }
@@ -213,6 +218,9 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     this.companyInfo.companyLocations.houseNumber = this.companyForm.get('houseNumber').value;
     this.companyInfo.companyLocations.streetName = this.companyForm.get('streetName').value;
     this.companyInfo.panNumber = this.companyForm.get('panNumber').value;
+    this.companyInfo.issuePlace = this.companyForm.get('issuePlace').value;
+    this.companyInfo.email = this.companyForm.get('email').value;
+    this.companyInfo.contactNum = this.companyForm.get('contactNum').value;
     this.companyInfo.businessType = this.companyForm.get('businessType').value;
     this.companyInfoService.save(this.companyInfo).subscribe(response => {
       this.companyInfo = response.detail;
@@ -222,5 +230,13 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
     });
+  }
+
+  getTotalLoanAmount(value: LoanAmountType) {
+    if (value.type === this.fetchLoan.CUSTOMER_LOAN) {
+      this.totalLoanProposedAmount = value.value;
+    }
+
+    this.totalProposalAmount =  this.totalLoanProposedAmount;
   }
 }
