@@ -2,13 +2,13 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
 import {CustomerGroup} from '../../../admin/modal/customer-group';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {LoanDataHolder} from '../../../loan/model/loanData';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {CustomerType} from '../../model/customerType';
 import {Router} from '@angular/router';
 import {LoanAmountType} from '../../model/loanAmountType';
 import {FetchLoan} from '../../model/fetchLoan';
+import {CustomerLoanGroupDto} from '../../../loan/model/CustomerLoanGroupDto';
 
 @Component({
   selector: 'app-customer-list-group',
@@ -23,7 +23,7 @@ export class CustomerListGroupComponent implements OnInit {
   spinner = false;
   isAssociateGroup = false;
   currentGroup: CustomerGroup;
-  customerLoanList: Array<LoanDataHolder> = [];
+  customerLoanList: Array<CustomerLoanGroupDto> = [];
   totalLoanProposedAmount = 0;
   fetchLoan = FetchLoan;
 
@@ -52,12 +52,10 @@ export class CustomerListGroupComponent implements OnInit {
       this.spinner = false;
       this.totalLoanProposedAmount = 0;
       this.customerLoanList.forEach(l => {
-            if (l.proposal) {
               if (l.loanHolder.id === this.customerInfoData.id) {
-                currentCustomerGroupLoanProposal += l.proposal.proposedLimit;
+                currentCustomerGroupLoanProposal = l.totalObtainedLimit;
               }
-              this.totalLoanProposedAmount = this.totalLoanProposedAmount + l.proposal.proposedLimit;
-            }
+              this.totalLoanProposedAmount = this.totalLoanProposedAmount + l.totalObtainedLimit;
           }
       );
       console.log(currentCustomerGroupLoanProposal);

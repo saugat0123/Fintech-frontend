@@ -6,10 +6,7 @@
         <th>S.N</th>
         <th>Name</th>
         <th>Branch</th>
-        <th>Proposed Amount</th>
-        <th>Type</th>
-        <th>Status</th>
-        <th>Created At</th>
+        <th>Total Loans Limit</th>
       </tr>
       </thead>
       <tbody>
@@ -18,13 +15,9 @@
         <tr (click)="customerProfile(singleLoan.loanHolder.associateId, singleLoan.loanHolder.id, singleLoan.loanHolder.customerType)" *ngIf="singleLoan.loanHolder.id !== customerInfoData.id"
             class="cursor">
           <td>{{i + 1}}</td>
-          <td>{{singleLoan.customerInfo.customerName}}</td>
-          <td>{{singleLoan.branch.name}}</td>
-          <td>{{(singleLoan.proposal.proposedLimit)}}</td>
-
-          <td>{{singleLoan.loanType |titlecase}}</td>
-          <td>{{singleLoan.documentStatus}}</td>
-          <td>{{singleLoan.createdAt | date}}</td>
+          <td>{{singleLoan.loanHolder.name}}</td>
+          <td>{{singleLoan.loanHolder.branch.name}}</td>
+          <td>{{(singleLoan.totalObtainedLimit)}}</td>
         </tr>
       </ng-container>
       </tbody>
