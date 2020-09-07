@@ -478,7 +478,7 @@ export class CompanyFormComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-        if(this.companyInfoFormGroup.invalid){
+        if (this.companyInfoFormGroup.invalid) {
             return;
         }
         this.companyInfo = new CompanyInfo();
