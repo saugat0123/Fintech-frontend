@@ -173,6 +173,18 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.businessType)) ? undefined :
                     this.companyInfo.businessType, [Validators.required]],
+            issuePlace:
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.issuePlace)) ? undefined :
+                    this.companyInfo.issuePlace, [Validators.required]],
+            email:
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.email)) ? undefined :
+                    this.companyInfo.email, [Validators.required, Validators.email]],
+            contactNum:
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.contactNum)) ? undefined :
+                    this.companyInfo.contactNum, [Validators.required]],
 
             // legalStatus
             corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ?
@@ -465,6 +477,10 @@ export class CompanyFormComponent implements OnInit {
     }
 
     onSubmit() {
+        this.submitted = true;
+        if(this.companyInfoFormGroup.invalid){
+            return;
+        }
         this.companyInfo = new CompanyInfo();
         // Company Information--
         this.companyInfo.id = this.companyInfoFormGroup.get('companyId').value;
@@ -474,6 +490,9 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.establishmentDate = this.companyInfoFormGroup.get('companyEstablishmentDate').value;
         this.companyInfo.businessType = this.companyInfoFormGroup.get('businessType').value;
         this.companyInfo.version = this.companyInfoFormGroup.get('companyInfoVersion').value;
+        this.companyInfo.email = this.companyInfoFormGroup.get('email').value;
+        this.companyInfo.issuePlace = this.companyInfoFormGroup.get('issuePlace').value;
+        this.companyInfo.contactNum = this.companyInfoFormGroup.get('contactNum').value;
 
         // legalStatus
         // this.legalStatus.companyName = this.companyInfoFormGroup.get('companyName').value;

@@ -199,6 +199,9 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
       houseNumber: [undefined, Validators.required],
       streetName: [undefined, Validators.required],
       panNumber: [undefined, Validators.required],
+      issuePlace: [undefined, Validators.required],
+      email: [undefined, Validators.required],
+      contactNum: [undefined, Validators.required],
       businessType: [undefined, Validators.required]
     });
   }
@@ -213,6 +216,9 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     this.companyInfo.companyLocations.houseNumber = this.companyForm.get('houseNumber').value;
     this.companyInfo.companyLocations.streetName = this.companyForm.get('streetName').value;
     this.companyInfo.panNumber = this.companyForm.get('panNumber').value;
+    this.companyInfo.issuePlace = this.companyForm.get('issuePlace').value;
+    this.companyInfo.email = this.companyForm.get('email').value;
+    this.companyInfo.contactNum = this.companyForm.get('contactNum').value;
     this.companyInfo.businessType = this.companyForm.get('businessType').value;
     this.companyInfoService.save(this.companyInfo).subscribe(response => {
       this.companyInfo = response.detail;
