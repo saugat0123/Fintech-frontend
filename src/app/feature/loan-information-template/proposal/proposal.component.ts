@@ -27,6 +27,10 @@ export class ProposalComponent implements OnInit {
     interestLimit: number;
     allId: Params;
     loanId: number;
+    solChecked = false;
+    waiverChecked = false;
+    riskChecked = false;
+    checkedDataEdit;
 
     constructor(private formBuilder: FormBuilder,
                 private loanConfigService: LoanConfigService,
@@ -39,7 +43,9 @@ export class ProposalComponent implements OnInit {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.formValue)) {
             this.formDataForEdit = JSON.parse(this.formValue.data);
-            this.proposalForm.setValue(this.formDataForEdit);
+            this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
+            this.proposalForm.patchValue(this.formDataForEdit);
+            this.setCheckedData(this.checkedDataEdit);
             this.proposalForm.get('proposedLimit').patchValue(this.formValue.proposedLimit);
         } else {
             this.setActiveBaseRate();
@@ -100,7 +106,12 @@ export class ProposalComponent implements OnInit {
             // for prepaymentCharge Amount--
             purposeOfSubmissionSummary: [undefined, Validators.required],
             // for commitmentFee Amount--
-            commitmentFee: [undefined, Validators.required]
+            commitmentFee: [undefined, Validators.required],
+            solConclusionRecommendation: [undefined],
+            waiverConclusionRecommendation: [undefined],
+            riskConclusionRecommendation: [undefined],
+
+
         });
     }
 
@@ -110,6 +121,13 @@ export class ProposalComponent implements OnInit {
             this.proposalData = this.formValue;
         }
         this.proposalData.data = JSON.stringify(this.proposalForm.value);
+
+        const mergeChecked = {
+            solChecked: this.solChecked,
+            waiverChecked: this.waiverChecked,
+            riskChecked: this.riskChecked
+        };
+        this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
         // Proposed Limit value--
         this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
@@ -125,5 +143,40 @@ export class ProposalComponent implements OnInit {
    this.baseInterestService.getActiveBaseRate().subscribe(value => {
        this.proposalForm.get('baseRate').setValue(value.detail.rate);
    });
+    }
+
+    checkChecked(event, type) {
+        switch (type) {
+            case 'sol': if (event) {
+                this.solChecked = true;
+            } else {
+                this.solChecked = false;
+                this.proposalForm.get('solConclusionRecommendation').setValue(null);
+            }
+            break;
+            case 'waiver': if (event) {
+                this.waiverChecked = true;
+            } else {
+                this.waiverChecked = false;
+                this.proposalForm.get('waiverConclusionRecommendation').setValue(null);
+            }
+            break;
+            case 'risk': if (event) {
+                this.riskChecked = true;
+            } else {
+                this.riskChecked = false;
+                this.proposalForm.get('riskConclusionRecommendation').setValue(null);
+
+            }
+            break;
+        }
+    }
+
+    setCheckedData(data) {
+        if (!ObjectUtil.isEmpty(data)) {
+            this.checkChecked(data['solChecked'], 'sol');
+            this.checkChecked(data['waiverChecked'], 'waiver');
+            this.checkChecked(data['riskChecked'], 'risk');
+        }
     }
 }

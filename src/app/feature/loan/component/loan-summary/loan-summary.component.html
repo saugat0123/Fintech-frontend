@@ -158,9 +158,8 @@
         <!--CRG - Alpha-->
         <div class="col-md-6">
           <nb-card>
-            <nb-card-header>
+            <nb-card-header class="text-center">
               <nb-select placeholder="Select Fiscal year"
-                         fullWidth
                          [(selected)]="selectedAlphaCrgIndex"
                          (selectedChange)="changeFiscalYearForAlpha($event)">
                 <nb-option *ngFor="let year of alphaFiscalYearArray; let i = index" [value]="i">{{year}}</nb-option>
