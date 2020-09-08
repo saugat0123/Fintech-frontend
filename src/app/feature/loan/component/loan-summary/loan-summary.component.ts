@@ -193,9 +193,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           }
 
           // Setting credit risk data---
-          if (!ObjectUtil.isEmpty(this.loanDataHolder.creditRiskGrading)) {
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.creditRiskGrading)) {
             this.creditRiskSummary = true;
-            const crgParsedData = JSON.parse(this.loanDataHolder.creditRiskGrading.data);
+            const crgParsedData = JSON.parse(this.loanDataHolder.loanHolder.creditRiskGrading.data);
             if (crgParsedData.complianceOfCovenants === 0) {
               this.noComplianceLoan = true;
             }
@@ -211,9 +211,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           }
 
           // Setting credit risk alpha data---
-          if (!ObjectUtil.isEmpty(this.loanDataHolder.creditRiskGradingAlpha)) {
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.creditRiskGradingAlpha)) {
             this.creditRiskAlphaSummary = true;
-            const crgParsedData = JSON.parse(this.loanDataHolder.creditRiskGradingAlpha.data);
+            const crgParsedData = JSON.parse(this.loanDataHolder.loanHolder.creditRiskGradingAlpha.data);
             this.alphaFiscalYearArray = crgParsedData.fiscalYearArray;
             if (this.alphaFiscalYearArray.length > 0) {
               this.selectedAlphaCrgIndex = this.alphaFiscalYearArray.length - 1;

@@ -531,14 +531,14 @@ export class LoanFormComponent implements OnInit {
     //     }
     //   });
     // }
-    if (name === 'Credit Risk Grading' && action) {
+    /*if (name === 'Credit Risk Grading' && action) {
       this.creditGrading.onSubmit();
       this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
     }
     if (name === 'Credit Risk Grading - Alpha' && action) {
       this.creditRiskGradingAlpha.onSubmit();
       this.loanDocument.creditRiskGradingAlpha = this.creditRiskGradingAlpha.creditRiskData;
-    }
+    }*/
     if (name === 'MAW Credit Risk Grading' && action) {
       this.mawCreditRiskGrading.onSubmit();
       this.loanDocument.mawCreditRiskGrading = this.mawCreditRiskGrading.mawCreditRiskGradingData;
