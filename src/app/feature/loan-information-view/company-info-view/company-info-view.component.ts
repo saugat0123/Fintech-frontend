@@ -9,7 +9,6 @@ import {Customer} from '../../admin/modal/customer';
 })
 export class CompanyInfoViewComponent implements OnInit {
   @Input() formValue: CompanyInfo;
-  @Input() basicInfo: Customer;
 
   constructor() {
   }
