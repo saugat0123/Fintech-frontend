@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CompanyInfo} from '../../admin/modal/company-info';
-import {Customer} from '../../admin/modal/customer';
 
 @Component({
   selector: 'app-company-info-view',
