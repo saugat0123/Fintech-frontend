@@ -472,15 +472,15 @@ export class LoanFormComponent implements OnInit {
       this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
     }
 
-    if (name === 'Company Info' && action) {
-      if (this.companyInfoComponent.companyInfoFormGroup.invalid && this.nextButtonAction) {
-        this.companyInfoComponent.submitted = true;
-        return true;
-      }
-      this.companyInfoComponent.onSubmit();
-      this.loanDocument.companyInfo = this.companyInfoComponent.companyInfo;
-      this.loanDocument.customerInfo = this.companyInfoComponent.customer;
-    }
+    // if (name === 'Company Info' && action) {
+    //   if (this.companyInfoComponent.companyInfoFormGroup.invalid && this.nextButtonAction) {
+    //     this.companyInfoComponent.submitted = true;
+    //     return true;
+    //   }
+    //   this.companyInfoComponent.onSubmit();
+    //   this.loanDocument.companyInfo = this.companyInfoComponent.companyInfo;
+    //   this.loanDocument.customerInfo = this.companyInfoComponent.customer;
+    // }
     if (name === 'Kyc Info' && action) {
       this.kycInfo.onSubmit();
       const customerRelatives = this.kycInfo.kycInfo.value.otherRelatives as Array<CustomerRelative>;
