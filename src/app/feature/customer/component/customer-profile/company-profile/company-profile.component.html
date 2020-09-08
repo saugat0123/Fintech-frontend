@@ -74,23 +74,23 @@
           <div class="row">
             <span> <strong>Contact Number :</strong> {{companyInfo?.contactNum}}</span></div>
           <div class="row">
-            <span> <b>Business type :</b> {{companyInfo?.businessType }}</span></div>
+            <span> <strong>Business type :</strong> {{companyInfo?.businessType }}</span></div>
 
         </div>
         <div [hidden]="!isEdited" class="col-md-9 mt-3 py-4">
           <form [formGroup]="companyForm">
             <div class="row form-inline">
-                        <span> <b>Company Name :</b> <input formControlName="companyName"
+                        <span> <strong>Company Name :</strong> <input formControlName="companyName"
                                                             placeholder="name"
                                                             type="text"></span></div>
             <div class="row form-inline">
-                        <span> <b>Registration Number :</b>      <input
+                        <span> <strong>Registration Number :</strong>      <input
                             formControlName="registrationNumber"
                             id="registrationNumber"
                             name="registrationNumber"
                             placeholder="Company registration number"></span></div>
             <div class="row form-inline">
-                        <span> <b>Establishment Date :</b>      <input
+                        <span> <strong>Establishment Date :</strong>      <input
                             [nbDatepicker]="establishmentDate"
                             formControlName="establishmentDate"
                             id="establishmentDate"
@@ -99,37 +99,37 @@
                          <nb-datepicker #establishmentDate></nb-datepicker></span></div>
 
             <div class="row form-inline">
-              <div class=""><b>Address :</b> <input formControlName="address"
+              <div class=""><strong>Address :</strong> <input formControlName="address"
                                                     placeholder="address"
                                                     type="text"></div>
 
               <div class="col-md-4">
-                <b>StreetName :</b> <input formControlName="streetName" placeholder="street name"
+                <strong>StreetName :</strong> <input formControlName="streetName" placeholder="street name"
                                            type="text"></div>
 
               <div class="col-md-4">
-                <b>House Number :</b> <input formControlName="houseNumber"
+                <strong>House Number :</strong> <input formControlName="houseNumber"
                                              placeholder="house number"
                                              type="text"></div>
             </div>
             <div class="row form-inline">
-                        <span> <b>Pan Number :</b> <input formControlName="panNumber"
+                        <span> <strong>Pan Number :</strong> <input formControlName="panNumber"
                                                           placeholder="pan number"
                                                           type="text"></span></div>
             <div class="row form-inline">
-                        <span> <b>Issue Place :</b> <input formControlName="issuePlace"
+                        <span> <strong>Issue Place :</strong> <input formControlName="issuePlace"
                                                           placeholder="issued place"
                                                           type="text"></span></div>
             <div class="row form-inline">
-                        <span> <b>Email :</b> <input formControlName="email"
+                        <span> <strong>Email :</strong> <input formControlName="email"
                                                           placeholder="abc@gmail.com"
                                                           type="text"></span></div>
             <div class="row form-inline">
-                        <span> <b>Contact Number :</b> <input formControlName="contactNum"
+                        <span> <strong>Contact Number :</strong> <input formControlName="contactNum"
                                                           placeholder="contact number"
                                                           type="text"></span></div>
             <div class="row form-inline">
-              <span> <b>Business Type :</b> </span>
+              <span> <strong>Business Type :</strong> </span>
               <ng-select [items]="businessTypes"
                          [multiple]="false"
                          bindLabel="value"
@@ -164,7 +164,7 @@
       <div class="col-md-8">
         <div class="d-block mb-3">
           <span class="d-flex justify-content-end text-success text-uppercase">
-            <b>Aggregated Amount : {{totalProposalAmount |number}}</b>
+            <strong>Aggregated Amount : {{totalProposalAmount |number}}</strong>
           </span>
         </div>
         <nb-card accent="primary">
@@ -196,7 +196,7 @@
                   </div>
                 </nb-accordion-item-header>
                 <nb-accordion-item-body>
-                  <div class="py-4">
+                  <div class="py-4" *ngIf="maker">
                     <button (click)="openKycModal()" size="tiny" nbButton
                             class="float-right"><a class="cursor"><em class="fa fa-edit"></em></a>
                     </button>
@@ -213,7 +213,7 @@
                     <tbody>
                     <tr *ngFor="let singleManagementTeam of companyInfo?.managementTeamList;
                                         let i = index">
-                      <td scope="row">{{i + 1}}</td>
+                      <td>{{i + 1}}</td>
                       <td>{{singleManagementTeam?.name}}</td>
                       <td>{{singleManagementTeam?.designation}}</td>
                     </tr>
@@ -231,7 +231,7 @@
 
                 </nb-accordion-item-header>
                 <nb-accordion-item-body>
-                  <div class="py-4">
+                  <div class="py-4" *ngIf="maker">
                     <button (click)="openProprietorEdit()" size="tiny" nbButton
                             class="float-right"><a class="cursor"><em class="fa fa-edit"></em></a>
                     </button>
@@ -252,7 +252,7 @@
                     <tbody>
                     <tr *ngFor="let singleProprietorInfo of companyInfo?.proprietorsList;
                                         let i = index">
-                      <td scope="row">{{i + 1}}</td>
+                      <td>{{i + 1}}</td>
                       <td>{{singleProprietorInfo?.name}}</td>
                       <td>{{singleProprietorInfo?.contactNo}}</td>
                       <td>{{singleProprietorInfo?.share}}</td>
@@ -273,7 +273,7 @@
                   </div>
                 </nb-accordion-item-header>
                 <nb-accordion-item-body>
-                  <div class="py-4">
+                  <div class="py-4" *ngIf="maker">
                     <button (click)="openSwotEdit()" size="tiny" nbButton
                             class="float-right"><a class="cursor"><em class="fa fa-edit"></em></a>
                     </button>
@@ -308,7 +308,7 @@
         <nb-card accent="primary" style="height: 650px">
           <nb-card-header>
             Company Detail
-            <button (click)="openCompanyDetailEdit(companyInfo)" size="tiny" nbButton
+            <button (click)="openCompanyDetailEdit(companyInfo)" size="tiny" nbButton *ngIf="maker"
                     class="float-right"><a class="cursor"><em class="fa fa-edit"></em></a></button>
           </nb-card-header>
           <nb-card-body>

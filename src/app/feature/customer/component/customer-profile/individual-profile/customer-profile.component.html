@@ -42,35 +42,35 @@
             </label>
 
             <input (change)="profileUploader($event)" hidden id="file-input" type="file"/>
-            <!--<span *ngIf="fileUploadError == true" style="color:red;">File Upload Failed</span>-->
+
           </div>
         </div>
         <div *ngIf="!isEdited" class="col-md-9 mt-3 py-4">
 
           <div class="row">
-            <span> <b>Name :</b> {{customer.customerName}}</span></div>
+            <span> <strong>Name :</strong> {{customer.customerName}}</span></div>
           <div class="row">
-            <span> <b>Date Of Birth :</b> {{customer.dob | date}}</span></div>
+            <span> <strong>Date Of Birth :</strong> {{customer.dob | date}}</span></div>
 
           <div class="row">
-                    <span> <b>Address :</b> {{customer?.province?.name}}
+                    <span> <strong>Address :</strong> {{customer?.province?.name}}
                       , {{customer?.district?.name}}
                       , {{customer?.municipalities?.name}}, {{customer?.street}},
                       {{customer?.wardNumber}}</span></div>
           <div class="row">
-            <span> <b>Email :</b> {{customer.email }}</span></div>
+            <span> <strong>Email :</strong> {{customer.email }}</span></div>
           <div class="row">
-            <span> <b>Contact :</b> {{customer.contactNumber }}</span></div>
+            <span> <strong>Contact :</strong> {{customer.contactNumber }}</span></div>
 
         </div>
         <div *ngIf="isEdited" class="col-md-9 mt-3 py-4">
           <form [formGroup]="basicForm">
             <div class="row form-inline">
-                        <span> <b>Name :</b> <input formControlName="customerName"
+                        <span> <strong>Name :</strong> <input formControlName="customerName"
                                                     placeholder="name"
                                                     type="text"></span></div>
             <div class="row form-inline">
-                        <span> <b>Date Of Birth :</b>      <input [nbDatepicker]="dob"
+                        <span> <strong>Date Of Birth :</strong>      <input [nbDatepicker]="dob"
                                                                   class="form-control"
                                                                   formControlName="dob"
                                                                   id="dob"
@@ -79,7 +79,7 @@
                          <nb-datepicker #dob></nb-datepicker></span></div>
 
             <div class="row">
-                    <span> <b>Address :</b> <select
+                    <span> <strong>Address :</strong> <select
                         (change)="getDistricts(this.basicForm.get('province').value)"
                         formControlName="province"
                         id="province"
@@ -118,10 +118,10 @@
 
                       </span></div>
             <div class="row">
-                        <span> <b>Email :</b>   <input formControlName="email" placeholder="name"
+                        <span> <strong>Email :</strong>   <input formControlName="email" placeholder="name"
                                                        type="text"></span></div>
             <div class="row">
-                        <span> <b>Contact :</b>   <input formControlName="contactNumber"
+                        <span> <strong>Contact :</strong>   <input formControlName="contactNumber"
                                                          placeholder="name"
                                                          type="text"></span></div>
           </form>
@@ -149,7 +149,7 @@
       <div class="col-md-8">
         <div class="d-block mb-3">
           <span class="d-flex justify-content-end text-success text-uppercase">
-            <b>Aggregated Amount : {{totalProposalAmount |number}}</b>
+            <strong>Aggregated Amount : {{totalProposalAmount |number}}</strong>
           </span>
         </div>
         <nb-card accent="primary">
@@ -240,41 +240,41 @@
                  *ngFor="let customerRelative of customer.customerRelatives" class="cursor">
               <div class="row">
                 <div class="col-md-5">
-                  <span> <b>Name</b></span></div>
+                  <span> <strong>Name</strong></span></div>
                 <div class="col-md-1">
-                  <span> <b>:</b></span></div>
+                  <span> <strong>:</strong></span></div>
                 <div class="col-md-5">{{customerRelative.customerRelativeName}}</div>
               </div>
 
               <div class="row">
                 <div class="col-md-5">
-                  <span> <b>Relation</b></span></div>
+                  <span> <strong>Relation</strong></span></div>
                 <div class="col-md-1">
-                  <span> <b>:</b></span></div>
+                  <span> <strong>:</strong></span></div>
                 <div class="col-md-5">{{customerRelative.customerRelation}}</div>
               </div>
 
               <div class="row">
                 <div class="col-md-5">
-                  <span> <b>Citizenship no</b></span></div>
+                  <span> <strong>Citizenship no</strong></span></div>
                 <div class="col-md-1">
-                  <span> <b>:</b></span></div>
+                  <span> <strong>:</strong></span></div>
                 <div class="col-md-5">{{customerRelative.citizenshipNumber}}</div>
               </div>
 
               <div class="row">
                 <div class="col-md-5">
-                  <span> <b>Issued Place</b></span></div>
+                  <span> <strong>Issued Place</strong></span></div>
                 <div class="col-md-1">
-                  <span> <b>:</b></span></div>
+                  <span> <strong>:</strong></span></div>
                 <div class="col-md-5">{{customerRelative.citizenshipIssuedPlace}}</div>
               </div>
 
               <div class="row">
                 <div class="col-md-5">
-                  <span> <b>Issued Date</b></span></div>
+                  <span> <strong>Issued Date</strong></span></div>
                 <div class="col-md-1">
-                  <span> <b>:</b></span></div>
+                  <span> <strong>:</strong></span></div>
                 <div class="col-md-5">{{customerRelative.citizenshipIssuedDate | date}}</div>
               </div>
 
