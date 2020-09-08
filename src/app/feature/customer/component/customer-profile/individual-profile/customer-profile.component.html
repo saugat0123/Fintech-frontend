@@ -21,7 +21,7 @@
     <div class="bg-light mb-3">
       <div class="row">
         <div class="col">
-          <a (click)="editCustomer(1)" *ngIf="!isEdited" class="p-2 cursor"><i
+          <a (click)="editCustomer(1)" *ngIf="!isEdited && maker" class="p-2 cursor"><i
               class="fa fa-edit"></i></a>
         </div>
       </div>
@@ -138,7 +138,7 @@
           </button>
         </div>
         <div class="px-2">
-          <button (click)="openSelectLoanTemplate()" *ngIf="!isEdited"
+          <button (click)="openSelectLoanTemplate()" *ngIf="!isEdited && maker"
                   nbButton size="small" type="button">Apply Loan
           </button>
         </div>
@@ -226,7 +226,7 @@
                     <nb-card-header>
                         <div class="row justify-content-lg-start">
                             <div class="col-md-6">KYC</div>
-                            <div class="col-md-6 ">
+                            <div class="col-md-6 " *ngIf="maker">
                                 <div class="px-2 text-right">
                                     <button nbButton size="tiny"><a  (click)="openKycModal()"  class="cursor"><i
                                         class="fa fa-edit"></i></a></button>
@@ -304,37 +304,4 @@
   </nb-card-body>
 </nb-card>
 
-<ng-template #loanListTemplate>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Apply</h4>
-    <a (click)="onClose()" aria-label="Close" class="close pull-right cursor">
-      <span aria-hidden="true">&times;</span>
-    </a>
-  </div>
-  <div class="modal-body">
-    <form #f="ngForm" (ngSubmit)="f.form.valid && openLoanForm()">
-      <div class="col-md-12 row">
 
-        <div class="col-md-6">
-          <select #type="ngModel"
-                  [(ngModel)]="applyForm.loanId"
-                  [ngClass]="{ 'is-invalid': f.submitted && type.invalid }"
-                  class="form-control rounded"
-                  name="loanId" required>
-            <option [ngValue]="undefined" hidden> select Loan Type</option>
-            <option *ngFor="let allList of loanList"
-                    [ngValue]="allList.id">{{allList.name}}</option>
-          </select>
-        </div>
-
-      </div>
-
-      <div class="col-md-12 py-2">
-        <button class="btn btn-success float-right" type="submit"
-        >Next
-        </button>
-      </div>
-    </form>
-  </div>
-
-</ng-template>
