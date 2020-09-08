@@ -400,8 +400,10 @@ export class LoanFormComponent implements OnInit {
       this.scrollNavService.scrollNavigateTo(this.priorityFormNav);
       return;
     }
+
     this.nextButtonAction = true;
     this.spinner.show();
+
     if (this.selectChild(this.selectedTab, true)) {
       this.spinner.hide();
       this.nextButtonAction = false;
@@ -518,25 +520,25 @@ export class LoanFormComponent implements OnInit {
     //     this.siteVisit.onSubmit();
     //     this.loanDocument.siteVisit = this.siteVisit.siteVisitData;
     // }
-    if (name === 'Security' && action) {
-      this.security.onSubmit();
-      this.loanDocument.security = this.security.securityData;
-      this.security.initialSecurity.selectedArray.forEach((selected) => {
-        if (selected === 'ShareSecurity') {
-          this.loanDocument.shareSecurity = this.security.shareSecurityData;
-        } else {
-          this.loanDocument.shareSecurity = undefined;
-        }
-      });
-    }
-    if (name === 'Credit Risk Grading' && action) {
+    // if (name === 'Security' && action) {
+    //   this.security.onSubmit();
+    //   this.loanDocument.security = this.security.securityData;
+    //   this.security.initialSecurity.selectedArray.forEach((selected) => {
+    //     if (selected === 'ShareSecurity') {
+    //       this.loanDocument.shareSecurity = this.security.shareSecurityData;
+    //     } else {
+    //       this.loanDocument.shareSecurity = undefined;
+    //     }
+    //   });
+    // }
+    /*if (name === 'Credit Risk Grading' && action) {
       this.creditGrading.onSubmit();
       this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
     }
     if (name === 'Credit Risk Grading - Alpha' && action) {
       this.creditRiskGradingAlpha.onSubmit();
       this.loanDocument.creditRiskGradingAlpha = this.creditRiskGradingAlpha.creditRiskData;
-    }
+    }*/
     if (name === 'MAW Credit Risk Grading' && action) {
       this.mawCreditRiskGrading.onSubmit();
       this.loanDocument.mawCreditRiskGrading = this.mawCreditRiskGrading.mawCreditRiskGradingData;

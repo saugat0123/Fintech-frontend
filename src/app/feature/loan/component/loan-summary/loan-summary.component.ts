@@ -27,6 +27,8 @@ import {DocumentService} from '../../../admin/component/document/document.servic
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ShareSecurity} from '../../../admin/modal/shareSecurity';
 import {Proposal} from '../../../admin/modal/proposal';
+import {CombinedLoanService} from '../../../service/combined-loan.service';
+import {CombinedLoan} from '../../model/combined-loan';
 
 @Component({
   selector: 'app-loan-summary',
@@ -107,7 +109,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
   creditRiskGradeAlphaArray = [];
   creditRiskAlphaScoreArray = [];
   selectedAlphaCrgIndex = 0;
-  customerAllLoanList: LoanDataHolder[] = []; // current loan plus staged loans
+  customerAllLoanList: LoanDataHolder[] = []; // current loan plus staged and combined loans
 
   constructor(
       private userService: UserService,
@@ -122,6 +124,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
       private modalService: NgbModal,
       private documentService: DocumentService,
       private customerLoanService: LoanFormService,
+      private combinedLoanService: CombinedLoanService
   ) {
     this.client = environment.client;
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
@@ -190,9 +193,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           }
 
           // Setting credit risk data---
-          if (!ObjectUtil.isEmpty(this.loanDataHolder.creditRiskGrading)) {
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.creditRiskGrading)) {
             this.creditRiskSummary = true;
-            const crgParsedData = JSON.parse(this.loanDataHolder.creditRiskGrading.data);
+            const crgParsedData = JSON.parse(this.loanDataHolder.loanHolder.creditRiskGrading.data);
             if (crgParsedData.complianceOfCovenants === 0) {
               this.noComplianceLoan = true;
             }
@@ -208,9 +211,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           }
 
           // Setting credit risk alpha data---
-          if (!ObjectUtil.isEmpty(this.loanDataHolder.creditRiskGradingAlpha)) {
+          if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.creditRiskGradingAlpha)) {
             this.creditRiskAlphaSummary = true;
-            const crgParsedData = JSON.parse(this.loanDataHolder.creditRiskGradingAlpha.data);
+            const crgParsedData = JSON.parse(this.loanDataHolder.loanHolder.creditRiskGradingAlpha.data);
             this.alphaFiscalYearArray = crgParsedData.fiscalYearArray;
             if (this.alphaFiscalYearArray.length > 0) {
               this.selectedAlphaCrgIndex = this.alphaFiscalYearArray.length - 1;
@@ -362,6 +365,22 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
       // push current loan if not fetched from staged spec response
       if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
         this.customerAllLoanList.push(this.loanDataHolder);
+      }
+      // push loans from combined loan if not in the existing array
+      const combinedLoans = this.customerAllLoanList
+      .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));
+      if (combinedLoans.length > 0) {
+        const combinedLoanId = combinedLoans[0].combinedLoan.id;
+        this.combinedLoanService.detail(combinedLoanId).subscribe((response: any) => {
+          (response.detail as CombinedLoan).loans.forEach((cl) => {
+            const allLoanIds = this.customerAllLoanList.map((loan) => loan.id);
+            if (!allLoanIds.includes(cl.id)) {
+              this.customerAllLoanList.push(cl);
+            }
+          });
+        }, err => {
+          console.error(err);
+        });
       }
     }, error => {
       console.error(error);
