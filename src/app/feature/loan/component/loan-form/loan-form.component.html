@@ -86,10 +86,11 @@
             <app-dms-loan [loanDataHolder]="loanDocument" #dmsLoanFile></app-dms-loan>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Company Info'">
-            <app-company-info (blackListStatusEmitter)="getIsBlackListed($event)"
-                              [formValue]="loanDocument?.companyInfo" [calendarType]="calendarType"
-                              [basicInfo]="loanDocument?.customerInfo" *ngIf="loanDocument?.companyInfo"
-                              #companyInfo></app-company-info>
+<!--            <app-company-info (blackListStatusEmitter)="getIsBlackListed($event)"-->
+<!--                              [formValue]="loanDocument?.companyInfo" [calendarType]="calendarType"-->
+<!--                              [basicInfo]="loanDocument?.customerInfo" *ngIf="loanDocument?.companyInfo"-->
+<!--                              #companyInfo></app-company-info>-->
+            <app-company-info-view [formValue]="loanDocument?.companyInfo" *ngIf="loanDocument?.companyInfo"></app-company-info-view>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Proposal'">
             <app-proposal [formValue]="loadProposal()" #proposalInfo></app-proposal>
