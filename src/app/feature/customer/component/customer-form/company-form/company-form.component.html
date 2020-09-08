@@ -86,6 +86,62 @@
                     <div class="row">
                         <div *ngIf="companyFormField.showFormField" class="col-md-4">
                             <div class="form-group">
+                                <label for="issuePlace"><strong>Issue Place</strong></label>
+                                    <input
+                                            [ngClass]="{ 'is-invalid':submitted && form.issuePlace?.errors }"
+                                            class="form-control rounded"
+                                            formControlName="issuePlace"
+                                            id="issuePlace"
+                                            placeholder="Enter issued place"
+                                            type="text"/>
+                                    <div *ngIf="submitted && form.issuePlace?.errors "
+                                         class="invalid-feedback">
+                                        <div *ngIf="form.issuePlace?.errors.required">
+                                            Issued Place is required.
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                            <div class="form-group">
+                                <label for="email"><strong>Email</strong></label>
+                                <input
+                                        [ngClass]="{ 'is-invalid':submitted && form.email?.errors }"
+                                        class="form-control rounded"
+                                        formControlName="email"
+                                        id="email"
+                                        placeholder="abc@gmail.com"
+                                        type="text"/>
+                                <div *ngIf="submitted && form.email?.errors "
+                                     class="invalid-feedback">
+                                    <div *ngIf="form.email?.errors.required || form.email?.errors.email">
+                                        invalid email!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                            <div class="form-group">
+                                <label for="contactNum"><strong>Contact Number</strong></label>
+                                <input
+                                        [ngClass]="{ 'is-invalid':submitted && form.contactNum?.errors }"
+                                        class="form-control rounded"
+                                        formControlName="contactNum"
+                                        id="contactNum"
+                                        placeholder="Enter contact no!"
+                                        type="text"/>
+                                <div *ngIf="submitted && form.contactNum?.errors "
+                                     class="invalid-feedback">
+                                    <div *ngIf="form.contactNum?.errors.required">
+                                        Enter contact no!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div *ngIf="companyFormField.showFormField" class="col-md-4">
+                            <div class="form-group">
                                 <label for="panNumber"><strong>PAN</strong></label>
                                 <div class="input-group mb-3">
                                     <input
