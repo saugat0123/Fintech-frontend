@@ -75,7 +75,9 @@
             <!--                            #basicInfo>-->
             <!--            </app-basic-info>-->
             <div class="py-4">
-              <app-individual-view [individual]="loanDocument?.customerInfo"  [calendarType]="calendarType" [loanId]="id"></app-individual-view>
+              <app-individual-view [individual]="loanDocument?.customerInfo"
+                                   [calendarType]="calendarType"
+                                   [loanId]="id"></app-individual-view>
             </div>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Kyc Info'">
@@ -86,11 +88,15 @@
             <app-dms-loan [loanDataHolder]="loanDocument" #dmsLoanFile></app-dms-loan>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Company Info'">
-<!--            <app-company-info (blackListStatusEmitter)="getIsBlackListed($event)"-->
-<!--                              [formValue]="loanDocument?.companyInfo" [calendarType]="calendarType"-->
-<!--                              [basicInfo]="loanDocument?.customerInfo" *ngIf="loanDocument?.companyInfo"-->
-<!--                              #companyInfo></app-company-info>-->
-            <app-company-info-view [formValue]="loanDocument?.companyInfo" *ngIf="loanDocument?.companyInfo"></app-company-info-view>
+            <!--            <app-company-info (blackListStatusEmitter)="getIsBlackListed($event)"-->
+            <!--                              [formValue]="loanDocument?.companyInfo" [calendarType]="calendarType"-->
+            <!--                              [basicInfo]="loanDocument?.customerInfo" *ngIf="loanDocument?.companyInfo"-->
+            <!--                              #companyInfo></app-company-info>-->
+            <div class="py-4">
+              <app-company-info-view [formValue]="loanDocument?.companyInfo"
+                                     [calendarType]="calendarType"
+                                     [loanId]="id"></app-company-info-view>
+            </div>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Proposal'">
             <app-proposal [formValue]="loadProposal()" #proposalInfo></app-proposal>
@@ -109,24 +115,26 @@
           <ng-template ngbTabContent *ngIf="allList.name === 'Financial'">
             <div class="py-4">
               <app-financial-view #financial
-                      [customerType]="loanHolder?.customerType"
-                      [formData]="loanHolder?.financial"
-                      *ngIf="loanHolder?.financial"
+                                  [customerType]="loanHolder?.customerType"
+                                  [formData]="loanHolder?.financial"
+                                  *ngIf="loanHolder?.financial"
               ></app-financial-view>
             </div>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Site Visit'">
             <div class="py-4">
               <app-site-visit-view #siteVisit
-                                   [siteVisit]="loanHolder?.siteVisit" *ngIf="loanHolder?.siteVisit"></app-site-visit-view>
+                                   [siteVisit]="loanHolder?.siteVisit"
+                                   *ngIf="loanHolder?.siteVisit"></app-site-visit-view>
             </div>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Security'">
-<!--            <app-security #security [securityValue]="loanDocument?.security"-->
-<!--                          [calendarType]="calendarType"-->
-<!--                          [loanTag]="loanTag"-->
-<!--                          [shareSecurity]="loanDocument?.shareSecurity"></app-security>-->
-            <app-security-view [security]="loanHolder?.security" [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>
+            <!--            <app-security #security [securityValue]="loanDocument?.security"-->
+            <!--                          [calendarType]="calendarType"-->
+            <!--                          [loanTag]="loanTag"-->
+            <!--                          [shareSecurity]="loanDocument?.shareSecurity"></app-security>-->
+            <app-security-view [security]="loanHolder?.security"
+                               [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Customer Document'">
             <app-customer-loan-document #customerDocument
@@ -139,7 +147,8 @@
           <ng-template ngbTabContent *ngIf="allList.name == 'Guarantor'">
             <div class="py-4">
               <app-guarantor-view #guarantor
-                                  [guarantorData]="loanHolder?.guarantors" *ngIf="loanHolder?.guarantors">
+                                  [guarantorData]="loanHolder?.guarantors"
+                                  *ngIf="loanHolder?.guarantors">
               </app-guarantor-view>
             </div>
           </ng-template>
@@ -164,7 +173,8 @@
             <!--            <app-insurance #insurance [insuranceDataFromModel]="loanDocument?.insurance">-->
             <!--            </app-insurance>-->
             <div class="py-4">
-              <app-insurance-view [insurance]="loanHolder?.insurance" *ngIf="loanHolder?.insurance"></app-insurance-view>
+              <app-insurance-view [insurance]="loanHolder?.insurance"
+                                  *ngIf="loanHolder?.insurance"></app-insurance-view>
             </div>
           </ng-template>
 
