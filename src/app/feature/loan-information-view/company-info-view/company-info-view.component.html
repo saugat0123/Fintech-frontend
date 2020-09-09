@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="formValue">
   <div class="col-md-12">
     <table class="table table-responsive-md table-bordered text-center table-condensed">
       <thead>
@@ -191,5 +191,12 @@
     </table>
 
   </div>
+</div>
+
+
+<div *ngIf="!formValue" class="col-md-12">
+  <app-customer-info-search-form [customerType]="customerType.COMPANY"
+                                 [calendarType]="calendarType"
+                                 [loanId]="loanId"></app-customer-info-search-form>
 </div>
 
