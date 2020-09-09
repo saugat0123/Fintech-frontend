@@ -87,13 +87,18 @@
                         <div *ngIf="companyFormField.showFormField" class="col-md-4">
                             <div class="form-group">
                                 <label for="issuePlace"><strong>Issue Place</strong></label>
-                                    <input
+                                <ng-select [multiple]="false"
+                                           [appendTo]="'body'"
                                             [ngClass]="{ 'is-invalid':submitted && form.issuePlace?.errors }"
-                                            class="form-control rounded"
                                             formControlName="issuePlace"
                                             id="issuePlace"
                                             placeholder="Enter issued place"
-                                            type="text"/>
+                                           type="text">
+                                <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+                                    {{district?.name}}
+                                </ng-option>
+                                </ng-select>
+
                                     <div *ngIf="submitted && form.issuePlace?.errors "
                                          class="invalid-feedback">
                                         <div *ngIf="form.issuePlace?.errors.required">
