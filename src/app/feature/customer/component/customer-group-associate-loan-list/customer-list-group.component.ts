@@ -25,7 +25,11 @@ export class CustomerListGroupComponent implements OnInit {
   currentGroup: CustomerGroup;
   customerLoanList: Array<CustomerLoanGroupDto> = [];
   totalLoanProposedAmount = 0;
+  totalGroupApprovedAmount = 0;
+  totalGroupPendingAmount = 0;
   fetchLoan = FetchLoan;
+  index = 0;
+
 
   constructor(private loanFormService: LoanFormService,
               private toastrService: ToastService,
@@ -33,7 +37,6 @@ export class CustomerListGroupComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.customerInfoData);
     if (!ObjectUtil.isEmpty(this.customerInfoData.customerGroup)) {
       this.isAssociateGroup = true;
       this.currentGroup = this.customerInfoData.customerGroup;
@@ -41,24 +44,25 @@ export class CustomerListGroupComponent implements OnInit {
     }
   }
 
-  getLoanListByCustomerGroup() {
+  async getLoanListByCustomerGroup() {
     let currentCustomerGroupLoanProposal = 0;
     this.spinner = true;
     const filterGroup = new CustomerGroup();
     filterGroup.groupCode = this.currentGroup.groupCode;
-    this.loanFormService.getLoanOfCustomerByGroup(filterGroup).subscribe(loans => {
-      console.log(loans);
+    await this.loanFormService.getLoanOfCustomerByGroup(this.customerInfoData.customerGroup).subscribe(loans => {
       this.customerLoanList = loans.detail;
       this.spinner = false;
       this.totalLoanProposedAmount = 0;
-      this.customerLoanList.forEach(l => {
-              if (l.loanHolder.id === this.customerInfoData.id) {
-                currentCustomerGroupLoanProposal = l.totalObtainedLimit;
-              }
-              this.totalLoanProposedAmount = this.totalLoanProposedAmount + l.totalObtainedLimit;
+      this.customerLoanList.forEach((l, i) => {
+            this.totalLoanProposedAmount = this.totalLoanProposedAmount + l.totalApprovedLimit + l.totalPendingLimit;
+            this.totalGroupApprovedAmount += l.totalApprovedLimit;
+            this.totalGroupPendingAmount += l.totalPendingLimit;
+            if (l.loanHolder.id === this.customerInfoData.id) {
+              currentCustomerGroupLoanProposal = l.totalApprovedLimit + l.totalPendingLimit + l.totalApprovedLimit;
+              this.customerLoanList.splice(i, 1);
+            }
           }
       );
-      console.log(currentCustomerGroupLoanProposal);
       const loanAmountType = new LoanAmountType();
       loanAmountType.type = this.fetchLoan.CUSTOMER_AS_GROUP;
       loanAmountType.value = this.totalLoanProposedAmount;
@@ -70,7 +74,6 @@ export class CustomerListGroupComponent implements OnInit {
   }
 
   customerProfile(associateId, id, customerType) {
-    console.log(associateId, id, customerType);
     if (CustomerType[customerType] === CustomerType.INDIVIDUAL) {
       this.router.navigate(['/home/customer/profile/' + associateId], {
         queryParams: {

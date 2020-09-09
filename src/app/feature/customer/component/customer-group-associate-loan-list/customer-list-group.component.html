@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card [nbSpinner]="spinner">
   <nb-card-body>
     <table class="table  table-bordered table-hover">
       <thead>
@@ -6,21 +6,33 @@
         <th>S.N</th>
         <th>Name</th>
         <th>Branch</th>
-        <th>Total Loans Limit</th>
+        <th>Pending Limit</th>
+        <th>Approved Limit</th>
+        <th>Total Limit</th>
       </tr>
       </thead>
       <tbody>
-      <app-spinner *ngIf="spinner" class="d-flex justify-content-center"></app-spinner>
-      <ng-container *ngFor="let singleLoan of customerLoanList;let i=index">
-        <tr (click)="customerProfile(singleLoan.loanHolder.associateId, singleLoan.loanHolder.id, singleLoan.loanHolder.customerType)" *ngIf="singleLoan.loanHolder.id !== customerInfoData.id"
+      <ng-container *ngFor="let singleLoan of customerLoanList ;  let i=index">
+        <tr (click)="customerProfile(singleLoan.loanHolder.associateId, singleLoan.loanHolder.id, singleLoan.loanHolder.customerType)"
+
             class="cursor">
           <td>{{i + 1}}</td>
-          <td>{{singleLoan.loanHolder.name}}</td>
-          <td>{{singleLoan.loanHolder.branch.name}}</td>
-          <td>{{(singleLoan.totalObtainedLimit)}}</td>
+          <td>{{singleLoan.loanHolder?.name}}</td>
+          <td>{{singleLoan.loanHolder?.branch?.name}}</td>
+          <td>{{(singleLoan.totalPendingLimit)}}</td>
+          <td>{{(singleLoan.totalApprovedLimit)}}</td>
+          <td>{{(singleLoan.totalApprovedLimit + singleLoan.totalPendingLimit)}}</td>
         </tr>
       </ng-container>
       </tbody>
     </table>
   </nb-card-body>
+  <nb-card-footer class="text-right">
+    <p>
+      <mark><strong>Total Pending Limit</strong>:</mark>
+      <strong>Rs.{{totalGroupPendingAmount}},</strong>
+      <mark class="ml-2"><strong>Total Approved Limit</strong>:</mark>
+      <strong>Rs.{{totalGroupApprovedAmount}}</strong>
+    </p>
+  </nb-card-footer>
 </nb-card>

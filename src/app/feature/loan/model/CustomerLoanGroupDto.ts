@@ -1,6 +1,9 @@
 import {CustomerInfoData} from './customerInfoData';
+import {LoanDataHolder} from './loanData';
 
 export class CustomerLoanGroupDto {
-  totalObtainedLimit: number;
+  totalApprovedLimit: number;
+  totalPendingLimit: number;
   loanHolder: CustomerInfoData;
+  customerLoans: LoanDataHolder;
 }
