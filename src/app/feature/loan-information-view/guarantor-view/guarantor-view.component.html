@@ -2,33 +2,16 @@
   <div class="col-md-12 text-center">
     <p><strong>Guarantor Details</strong></p>
     <table *ngFor="let guarantor of guarantorData.guarantorList; let i= index"
-           class="table table-condensed table-bordered table-responsive-md text-center">
+           class="table table-hover table-bordered table-responsive-md text-center">
       <thead>
       <tr>
-        <th colspan="6" class="text-left">Gurantor {{i + 1}} Details</th>
-      </tr>
-      <tr>
+        <th>Pick</th>
         <th>Name</th>
         <th>citizenNumber</th>
         <th>issuedYear</th>
         <th>issuedPlace</th>
         <th>province</th>
         <th>district</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>{{guarantor?.name}}</td>
-        <td>{{guarantor?.citizenNumber}}</td>
-        <td>{{guarantor?.issuedYear | date}}</td>
-        <td>{{guarantor?.issuedPlace}}</td>
-        <td>{{guarantor?.province?.name}}</td>
-        <td>{{guarantor?.district?.name}}</td>
-      </tr>
-      </tbody>
-      <thead>
-      <tr>
-        <th></th>
         <th>municipalities</th>
         <th>contactNumber</th>
         <th>fatherName</th>
@@ -38,7 +21,14 @@
       </thead>
       <tbody>
       <tr>
-        <td></td>
+        <td>
+          <nb-checkbox class="pt-2"></nb-checkbox></td>
+        <td>{{guarantor?.name}}</td>
+        <td>{{guarantor?.citizenNumber}}</td>
+        <td>{{guarantor?.issuedYear | date}}</td>
+        <td>{{guarantor?.issuedPlace}}</td>
+        <td>{{guarantor?.province?.name}}</td>
+        <td>{{guarantor?.district?.name}}</td>
         <td>{{guarantor?.municipalities?.name}}</td>
         <td>{{guarantor?.contactNumber}}</td>
         <td>{{guarantor?.fatherName}}</td>
