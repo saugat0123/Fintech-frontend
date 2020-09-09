@@ -11,6 +11,8 @@ import {CustomerInfoData} from '../../loan/model/customerInfoData';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {Router} from '@angular/router';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {CompanyInfo} from '../../admin/modal/company-info';
+import {CompanyInfoService} from '../../admin/service/company-info.service';
 
 @Component({
   selector: 'app-customer-info-search-form',
@@ -54,12 +56,14 @@ export class CustomerInfoSearchFormComponent implements OnInit {
               private individualService: CustomerService,
               private dialogService: NbDialogService,
               private router: Router,
+              private companyService: CompanyInfoService,
   ) {
   }
 
   individual = new Customer();
   displayIndividual = true;
   hasError = false;
+  company = new CompanyInfo();
 
   ngOnInit() {
 
@@ -68,7 +72,6 @@ export class CustomerInfoSearchFormComponent implements OnInit {
     if (this.customerType === CustomerType.COMPANY) {
       this.placeHolder = CustomerInfoSearchFormComponent.COMPANY_PLACEHOLDER;
       this.errorMessage = CustomerInfoSearchFormComponent.COMPANY_MESSAGE;
-      this.idType = CustomerInfoSearchFormComponent.COMPANY_PAN;
       this.displayIndividual = false;
     }
 
@@ -82,7 +85,8 @@ export class CustomerInfoSearchFormComponent implements OnInit {
         Validators.required],
       customerType: [this.customerType === CustomerType.INDIVIDUAL ? 'INDIVIDUAL' : 'COMPANY'],
       idRegDate: [undefined, Validators.required],
-      idType: [this.idType],
+      idType: [this.customerType === CustomerType.INDIVIDUAL ? CustomerInfoSearchFormComponent.INDIVIDUAL_CITIZENSHIP
+          : CustomerInfoSearchFormComponent.COMPANY_PAN],
 
     });
   }
@@ -120,7 +124,12 @@ export class CustomerInfoSearchFormComponent implements OnInit {
 
         });
       } else {
-        // todo company info
+        this.companyService.detail(this.customerInfo.associateId).subscribe((response: any) => {
+          this.company = response.detail;
+          this.displayIndividual = false;
+          const modalRef = this.dialogService.open(template);
+
+        });
 
       }
 
