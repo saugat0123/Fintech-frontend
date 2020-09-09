@@ -307,6 +307,14 @@ export class LoanFormComponent implements OnInit {
         });
       }
 
+      this.templateList.some((value, index) => {
+        if (value.name === 'Proposal') {
+          this.templateList.push(this.templateList.splice(index, 1)[0]);
+          return true;
+        }
+        return false;
+      });
+
       // Remove Customer Info Template for Business Loan Type
       if (this.allId.loanCategory === 'BUSINESS_TYPE') {
         this.templateList.forEach((value, i) => {
@@ -393,43 +401,6 @@ export class LoanFormComponent implements OnInit {
   prevTab() {
     this.previousParameter = this.loanDataService.getPrevious();
     this.selectTab(this.previousParameter.index, this.previousParameter.name);
-  }
-
-  save() {
-    if (this.priorityForm.invalid) {
-      this.scrollNavService.scrollNavigateTo(this.priorityFormNav);
-      return;
-    }
-
-    this.nextButtonAction = true;
-    this.spinner.show();
-
-    if (this.selectChild(this.selectedTab, true)) {
-      this.spinner.hide();
-      this.nextButtonAction = false;
-      return;
-    } else {
-      this.loanDocument.loan = this.loan;
-      this.loanDocument.priority = this.priorityForm.get('priority').value;
-      this.loanDocument.documentStatus = this.docStatusForm.get('documentStatus').value;
-      this.loanDocument.loanCategory = this.allId.loanCategory;
-      if (this.allId.loanCategory === 'BUSINESS_TYPE') {
-        this.loanDocument.customerInfo = null;
-      }
-      this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
-        this.loanDocument = response.detail;
-        this.customerLoanId = this.loanDocument.id;
-        this.loanDocument = new LoanDataHolder();
-        this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}})
-        .then(() => {
-          this.spinner.hide();
-        });
-      }, error => {
-        this.spinner.hide();
-        console.error(error);
-        this.toastService.show(new Alert(AlertType.ERROR, `Error saving customer: ${error.error.message}`));
-      });
-    }
   }
 
   nextButtonActionFxn(tabSet: NgbTabset) {
@@ -642,5 +613,42 @@ export class LoanFormComponent implements OnInit {
 
   getIsBlackListed(isBlackListed: boolean) {
     this.isBlackListed = isBlackListed;
+  }
+
+  save() {
+    if (this.priorityForm.invalid) {
+      this.scrollNavService.scrollNavigateTo(this.priorityFormNav);
+      return;
+    }
+
+    this.nextButtonAction = true;
+    this.spinner.show();
+
+    if (this.selectChild(this.selectedTab, true)) {
+      this.spinner.hide();
+      this.nextButtonAction = false;
+      return;
+    } else {
+      this.loanDocument.loan = this.loan;
+      this.loanDocument.priority = this.priorityForm.get('priority').value;
+      this.loanDocument.documentStatus = this.docStatusForm.get('documentStatus').value;
+      this.loanDocument.loanCategory = this.allId.loanCategory;
+      if (this.allId.loanCategory === 'BUSINESS_TYPE') {
+        this.loanDocument.customerInfo = null;
+      }
+      this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
+        this.loanDocument = response.detail;
+        this.customerLoanId = this.loanDocument.id;
+        this.loanDocument = new LoanDataHolder();
+        this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}})
+            .then(() => {
+              this.spinner.hide();
+            });
+      }, error => {
+        this.spinner.hide();
+        console.error(error);
+        this.toastService.show(new Alert(AlertType.ERROR, `Error saving customer: ${error.error.message}`));
+      });
+    }
   }
 }
