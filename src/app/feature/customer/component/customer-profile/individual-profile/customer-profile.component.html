@@ -13,7 +13,7 @@
         </button>
         <div class="row">
           <ng-template #groupWindow>
-            <app-group-tagging [customerData]="customerInfo"></app-group-tagging>
+            <app-group-tagging #GroupTaggingComponent [customerData]="customerInfo" (refreshGroup)="refreshGroup($event)"></app-group-tagging>
           </ng-template>
         </div>
       </div>
@@ -173,8 +173,8 @@
         <nb-card accent="primary">
           <nb-card-header>
             Customer Groups
-            <div class="float-right" nbTooltip="{{totalGroupAmount | number}}">Total Group Amount
-              : {{totalGroupAmount | number}}
+            <div class="float-right" nbTooltip="{{totalGroupAmount | number}}">Total Group Limit
+              : {{customerInfo?.customerGroup?.groupLimit | number}}
             </div>
           </nb-card-header>
           <nb-card-body>
@@ -183,39 +183,16 @@
                 <nb-accordion-item-header>
                   <div class="row col-md-12">
                     <div class="col-md-6">
-                      <span>KYC</span>
+                      <span>Groups</span>
                     </div>
                     <div class="col-md-6 d-flex justify-content-end">
-                      Total Amount :  {{(totalProposedAmountByKYC | number)}}
+                      Total Amount:  {{proposeAmountOfGroup | number}}
                     </div>
                   </div>
                 </nb-accordion-item-header>
-                <nb-accordion-item-body>
-                  <!--                  <app-customer-group-loan-->
-                  <!--                      (messageToEmit)="getTotalLoanAmount($event)"-->
-                  <!--                      [fetchType]="fetchLoan.CUSTOMER_AS_KYC"-->
-                  <!--                      [customerInfo]="customerInfo" *ngIf="customerInfo"-->
-                  <!--                      [formValue]="customer"></app-customer-group-loan>-->
-
-                </nb-accordion-item-body>
-              </nb-accordion-item>
-              <nb-accordion-item>
-                <nb-accordion-item-header>
-                  <div class="row col-md-12">
-                    <div class="col-md-6">
-                      <span>SECURITY</span>
-                    </div>
-                    <div class="col-md-6 d-flex justify-content-end">
-                      Total Amount :  {{(totalProposedAmountByGuarantor | number)}}
-                    </div>
-                  </div>
-                </nb-accordion-item-header>
-                <nb-accordion-item-body>
-                  <!--                  <app-customer-group-loan-->
-                  <!--                      (messageToEmit)="getTotalLoanAmount($event)"-->
-                  <!--                      [fetchType]="fetchLoan.CUSTOMER_AS_GUARANTOR"-->
-                  <!--                      [customerInfo]="customerInfo" *ngIf="customerInfo"-->
-                  <!--                      [formValue]="customer"></app-customer-group-loan>-->
+                <nb-accordion-item-body *ngIf="customerInfo !== undefined && customerInfo.customerGroup !== undefined">
+                  <app-customer-list-group #customerListGroupComponent (messageToEmit)="getTotalLoanAmount($event)"
+                                           [customerInfoData]="customerInfo"></app-customer-list-group>
                 </nb-accordion-item-body>
               </nb-accordion-item>
             </nb-accordion>

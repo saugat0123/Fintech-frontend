@@ -181,6 +181,38 @@
             ></app-customer-group-loan>
           </nb-card-body>
         </nb-card>
+
+        <nb-card accent="primary">
+          <nb-card-header>
+            Customer Groups
+            <div class="float-right" nbTooltip="{{totalGroupAmount | number}}">Total Group Limit
+              : {{customerInfo?.customerGroup?.groupLimit | number}}
+            </div>
+          </nb-card-header>
+          <nb-card-body>
+            <nb-accordion>
+              <nb-accordion-item>
+                <nb-accordion-item-header>
+                  <div class="row col-md-12">
+                    <div class="col-md-6">
+                      <span>Groups</span>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end">
+                      Total Amount:  {{proposeAmountOfGroup | number}}
+                    </div>
+                  </div>
+                </nb-accordion-item-header>
+                <nb-accordion-item-body *ngIf="customerInfo !== undefined && customerInfo.customerGroup !== undefined">
+                  <app-customer-list-group #customerListGroupComponent (messageToEmit)="getTotalLoanAmount($event)"
+                                           [customerInfoData]="customerInfo"></app-customer-list-group>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+            </nb-accordion>
+
+
+          </nb-card-body>
+
+        </nb-card>
         <nb-card accent="primary">
           <nb-card-header>
             Additional Information

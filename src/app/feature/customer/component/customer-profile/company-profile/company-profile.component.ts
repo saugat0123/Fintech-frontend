@@ -49,6 +49,9 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
   totalProposalAmount = 0;
   totalLoanProposedAmount = 0;
+  proposeAmountOfGroup = 0;
+  totalProposedAmountByGroup = 0;
+  totalGroupAmount = 0;
   maker = false;
   fetchLoan = FetchLoan;
   formData: FormData = new FormData();
@@ -240,8 +243,13 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     if (value.type === this.fetchLoan.CUSTOMER_LOAN) {
       this.totalLoanProposedAmount = value.value;
     }
+    if (value.type === this.fetchLoan.CUSTOMER_AS_GROUP) {
+      this.totalProposedAmountByGroup = value.value;
+      this.proposeAmountOfGroup = value.otherParam;
+    }
 
-    this.totalProposalAmount = this.totalLoanProposedAmount;
+    this.totalGroupAmount = this.totalProposedAmountByGroup;
+    this.totalProposalAmount = this.totalLoanProposedAmount + this.proposeAmountOfGroup;
   }
 
   profileUploader(event, template) {
