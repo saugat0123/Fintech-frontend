@@ -66,7 +66,7 @@ export class SecurityDetailComponent implements OnInit {
           interestRate: [value.interestRate],
           dv: [value.dv],
           validatorName: [value.validatorName],
-          valuationDate: [value.valuatedDate],
+          valuationDate: [value.valuationDate],
           number: [value.number],
           couponRate: [value.couponRate],
           amount: [value.amount],

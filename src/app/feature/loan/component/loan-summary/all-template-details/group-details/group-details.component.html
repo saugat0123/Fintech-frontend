@@ -1,0 +1,111 @@
+<div class="row">
+  <div class="col-md-12">
+    <p><strong>Group Information</strong></p>
+    <ng-container>
+      <table class="table table-condensed table-bordered table-responsive-md text-center"
+             style="table-layout: fixed; width: 100%">
+        <thead>
+        <tr>
+          <th class="text-center" colspan="7">Group Details</th>
+        </tr>
+        <tr>
+          <th>S.N</th>
+          <th>Client Name</th>
+          <th>Credit Facility</th>
+          <th>Credit Limit</th>
+          <th>Interest Rate</th>
+          <th>O/S</th>
+          <th>Expiry Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let group of group['groupDetail']['detailArray']; let i=index;">
+          <td>{{i+1}}</td>
+          <td>{{group['name']}}</td>
+          <td>{{group['facility']}}</td>
+          <td>{{group['limit']}}</td>
+          <td>{{group['rate']}}</td>
+          <td>{{group['os']}}</td>
+          <td>{{group['date'] | date}}</td>
+
+        </tr>
+        </tbody>
+      </table>
+      <table  class="table table-condensed table-bordered table-responsive-md text-center" *ngFor="let security of group['securityDetail']['securityArray']; let i=index;">
+        <tr>
+          <th class="text-center" colspan="7">{{i+1}}.Security Details</th>
+        </tr>
+        <tr>
+          <th>S.N</th>
+          <th>Security Details</th>
+          <th>Security Against</th>
+          <th>FMV</th>
+          <th>Interest Rate</th>
+          <th>DV</th>
+          <th>Validator Name
+          </th>
+        </tr>
+        <tr >
+          <td>{{i+1}}</td>
+          <td>{{security['details']}}</td>
+          <td>{{security['against']}}</td>
+          <td>{{security['fmv']}}</td>
+          <td>{{security['interestRate']}}</td>
+          <td>{{security['dv']}}</td>
+          <td>{{security?.validatorName?.name}}</td>
+        </tr>
+        <tr>
+          <th></th>
+          <th>Valuation Date</th>
+          <th>Receipt Number</th>
+          <th>Coupon Rate</th>
+          <th>Amount</th>
+          <th>Expiry Date</th>
+          <th>Beneficiary</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td>{{security['valuationDate'] | date}}</td>
+          <td>{{security['number']}}</td>
+          <td>{{security['couponRate']}}</td>
+          <td>{{security['amount']}}</td>
+          <td>{{security['expiryDate'] | date}}</td>
+          <td>{{security['beneficiary']}}</td>
+
+        </tr>
+        <tr>
+          <th></th>
+          <th>FD Amount</th>
+          <th>Bond Value</th>
+          <th>Total Share Value</th>
+          <th>Security Type</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td>{{security['fdAmount']}}</td>
+          <td>{{security['value']}}</td>
+          <td>{{security['shareValue']}}</td>
+          <td>{{security['securityType']}}</td>
+        </tr>
+      </table>
+      <label><b>Note:</b></label>
+      <textarea class="form-control">{{group['solDetail']['note']}}</textarea>
+      <table class="table table-condensed table-bordered table-responsive-md text-center">
+        <tr>
+          <th>Total SOL Exposure</th>
+          <th>Total SOL FMV</th>
+          <th>%</th>
+          <th>Total SOL DV</th>
+          <th>%</th>
+        </tr>
+        <tr>
+          <td>{{group['solDetail']['exposure']}}</td>
+          <td>{{group['solDetail']['totalFmv']}}</td>
+          <td>{{group['solDetail']['percentage']}}</td>
+          <td>{{group['solDetail']['solDv']}}</td>
+          <td>{{group['solDetail']['per']}}</td>
+        </tr>
+      </table>
+    </ng-container>
+  </div>
+</div>

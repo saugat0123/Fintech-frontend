@@ -1,0 +1,208 @@
+<nb-card>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-2">
+                <button (click)="onBack()" class="btn-primary float-left">
+                    <nb-icon icon="arrow-back"></nb-icon>
+                </button>
+            </div>
+            <div class="offset-8 col-md-2">
+                <button [useExistingCss]="true" class="btn-sm btn-warning float-right"
+                        ngxPrint printSectionId="print-detail">
+                    PRINT<i class="col-md-1 fa fa-print"></i></button>
+            </div>
+        </div>
+        <div id="print-detail">
+            <div class="row text-center ">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3">
+
+                            <div>
+                                Priority:
+                                <span class="badge badge-danger"
+                                      style="font-size: 11px">{{customerLoanData?.priority?.toString() | titlecase}}</span>
+                            </div>
+                            <div>
+                                Loan Status:
+                                <span class="badge badge-info"
+                                      style="font-size: 11px">{{customerLoanData?.documentStatus?.toString() | titlecase}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="report-header">
+                                <div class="report-header-heading"><strong>{{client}}</strong></div>
+                                <div class="report-header-sub-heading">
+                                    Credit Appraisal of {{loanConfig?.name}}
+                                    <br/>
+                                    for
+                                </div>
+                                <div
+                                    class="report-header-sub-heading">
+                                    {{loanCategory === 'BUSINESS_TYPE' ?
+                                    customerLoanData?.companyInfo?.companyName
+                                    : customerLoanData?.customerInfo?.customerName}}
+                                </div>
+                                <div
+                                    class="report-header-sub-heading">{{customerLoanData?.branch?.name}}
+                                    Branch
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <img class="report-log img-thumbnail border-0"
+                                 src="../../../../../assets/img/logo.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p><strong>Details of {{customerLoanData?.loanCategory === 'BUSINESS_TYPE'
+                    ? 'Authorized Person'
+                    : 'Borrower'}}</strong></p>
+            </div>
+            <app-customer-details-information *ngIf="checkCustomerInfo"
+                                              [customerInfoData]="customerInfo"
+                                              [loanType]="loanCategory"></app-customer-details-information>
+            <app-company-info-details *ngIf="checkCompanyInfo"
+                                      [companyInfoData]="companyInfo"></app-company-info-details>
+            <app-proposal-details *ngIf="proposalData"
+                                  [proposalData]="proposalData"></app-proposal-details>
+            <app-security-details *ngIf="checkSecurityData"
+                                  [securityData]="securityData"></app-security-details>
+            <app-share-security-details *ngIf="checkShareSecurity"
+                                        [formData]="shareSecurity"></app-share-security-details>
+            <app-guarantor-details *ngIf="checkGuarantorData"
+                                   [guarantorData]="guarantorData"></app-guarantor-details>
+
+            <app-financial-details *ngIf="checkFinancialData" [financialData]="financialData"
+                                   [loanCategory]="loanCategory"></app-financial-details>
+            <app-site-visit-details *ngIf="checkSiteVisit"
+                                    [siteVisitData]="siteVisitData"></app-site-visit-details>
+            <app-insurance-details *ngIf="checkInsuranceData"
+                                   [insurance]="insurance"></app-insurance-details>
+            <app-group-details *ngIf="checkGroupData" [group]="group"></app-group-details>
+            <app-report-summary
+                *ngIf="reportingInfoLevels && reportingInfoLevels?.length > 0"
+                [reportingInfoLevels]="reportingInfoLevels"></app-report-summary>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <p><strong>Authority Section</strong></p>
+                    <table
+                        class="disable-print table table-condensed table-bordered table-responsive-md text-center">
+                        <thead>
+                        <tr>
+                            <th>S.N</th>
+                            <th>From User</th>
+                            <th>From Position</th>
+                            <th>To User</th>
+                            <th>To Position</th>
+                            <th>Status</th>
+                            <th class="cmt-width">Remarks</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let previousList of customerLoanData?.previousList ; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{previousList?.fromUser?.name}}</td>
+                            <td>{{previousList?.fromRole?.roleName}}</td>
+                            <td>{{previousList?.toUser?.name}}</td>
+                            <td>{{previousList?.toRole?.roleName}}</td>
+                            <td>{{previousList?.docAction}}</td>
+                            <td class="text-justify">
+                                <div class="cmt-height">
+                                    {{previousList?.comment?.length > 50 ?
+                                    previousList?.comment?.substring(0, 49) :
+                                    previousList?.comment}}
+                                </div>
+                                <a (click)="open(previousList?.comment)"
+                                   *ngIf="previousList?.comment?.length > 50"
+                                   class="justify-content-end read-margin">read more ....</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{currentIndex + 1}}</td>
+                            <td>{{customerLoanData?.currentStage?.fromUser?.name}}</td>
+                            <td>{{customerLoanData?.currentStage?.fromRole?.roleName}}</td>
+                            <td>{{customerLoanData?.currentStage?.toUser?.name}}</td>
+                            <td>{{customerLoanData?.currentStage?.toRole?.roleName}}</td>
+                            <td>{{customerLoanData?.currentStage?.docAction}}</td>
+                            <td class="text-justify">
+                                <div class="cmt-height">
+                                    {{customerLoanData?.currentStage?.comment?.length > 50 ?
+                                    customerLoanData?.currentStage?.comment?.substring(0, 49) :
+                                    customerLoanData?.currentStage?.comment}}
+                                </div>
+                                <a (click)="open(customerLoanData.currentStage.comment)"
+                                   *ngIf="customerLoanData?.currentStage?.comment?.length > 50"
+                                   class="justify-content-end read-margin">read more ....</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table
+                        class="print-only table table-bordered text-center">
+                        <thead>
+                        <tr>
+                            <th width="5%">S.N</th>
+                            <th width="5%">Date</th>
+                            <th width="15%">From User</th>
+                            <th width="5%">Status</th>
+                            <th width="70%">Remarks</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let previousList of customerLoanData?.previousList ; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{previousList?.lastModifiedAt}}</td>
+                            <td>
+                                {{previousList?.fromUser?.name}}
+                                ({{previousList?.fromRole?.roleName}})
+                            </td>
+                            <td>{{previousList?.docAction}}</td>
+                            <td class="text-justify">{{previousList?.comment}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{currentIndex + 1}}</td>
+                            <td>{{customerLoanData?.currentStage?.lastModifiedAt}}</td>
+                            <td>
+                                {{customerLoanData?.currentStage?.fromUser?.name}}
+                                ({{customerLoanData?.currentStage?.fromRole?.roleName}})
+                            </td>
+                            <td>{{customerLoanData?.currentStage?.docAction}}</td>
+                            <td class="text-justify">{{customerLoanData?.currentStage?.comment}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div *ngIf="signatureList.length > 0" class="row justify-content-between px-3"
+                 id="signatureDiv">
+                <div class="col-md-12 print-only">
+                    <p><strong>Approval Chain</strong></p>
+                </div>
+                <div *ngFor="let previous of signatureList; let i=index;"
+                     class="col-md-3 padding-0-125">
+                    <div class="signature-block">
+                        <div class="text-center p-2 bg-light mb-2 ">
+                            <span>{{loanHandler(i, signatureList.length)}}</span>
+                        </div>
+                        <hr class="border-dark m-0">
+                        <div class="row justify-content-center signature mx-auto">
+                            <div class="print-only signature-padding"></div>
+                            <img align="middle" alt="signature"
+                                 class="img-thumbnail border-0 signature-height"
+                                 src="{{previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage}}"/>
+                        </div>
+                        <div class="text-center signature-detail">
+                            <p class="m-0">{{previous?.fromUser?.name}}</p>
+                            <p class="m-0">({{previous?.fromUser?.role?.roleName}})</p>
+                            <p class="m-0">{{previous?.lastModifiedAt}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </nb-card-body>
+</nb-card>

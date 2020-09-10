@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-md-12">
+    <p><strong>Site Visit</strong></p>
+    <table *ngIf="siteVisitData['currentResidentFormChecked'] === true"
+           class="table table-condensed table-bordered table-responsive-md text-center">
+      <tr>
+        <th class="text-center" colspan="6">Current Resident Details</th>
+      </tr>
+      <tr>
+        <th>Owner Name</th>
+        <th>House Number</th>
+        <th>Street Name</th>
+        <th>Address</th>
+        <th>Nearby</th>
+        <th>Location</th>
+      </tr>
+      <tr>
+        <td>{{siteVisitData['currentResidentDetails']['ownerName']}}</td>
+        <td>{{siteVisitData['currentResidentDetails']['houseNumber']}}</td>
+        <td>{{siteVisitData['currentResidentDetails']['streetName']}}</td>
+        <td>{{siteVisitData['currentResidentDetails']['address']}}</td>
+        <td>{{siteVisitData['currentResidentDetails']['nearBy']}}</td>
+        <td>{{siteVisitData['currentResidentDetails']['locationPreview']}}</td>
+
+      </tr>
+    </table>
+
+    <!-- ============================================================= Business Site Visit ==============================================================-->
+    <table *ngIf="siteVisitData['businessSiteVisitFormChecked'] === true"
+           class="table table-condensed table-bordered table-responsive-md text-center"
+           style="table-layout: fixed; width: 100%">
+      <tr>
+        <th class="text-center" colspan="4">Business Site Visit</th>
+      </tr>
+      <tr>
+        <th>Person Contacted</th>
+        <th>Office Address</th>
+        <th>Date of Visit</th>
+        <th>Objective of Visit</th>
+      </tr>
+      <tr>
+        <td>{{siteVisitData['businessSiteVisitDetails']['nameOfThePersonContacted']}}</td>
+        <td>{{siteVisitData['businessSiteVisitDetails']['officeAddress']}}</td>
+        <td>{{siteVisitData['businessSiteVisitDetails']['dateOfVisit'] | date}}</td>
+        <td>{{siteVisitData['businessSiteVisitDetails']['objectiveOfVisit']}}</td>
+
+      </tr>
+      <tr>
+        <th>Observation</th>
+        <th>Visited By</th>
+        <th>Location Preview</th>
+        <th>Map Address</th>
+      </tr>
+      <tr>
+        <td>{{siteVisitData['businessSiteVisitDetails']['observation']}}</td>
+        <td>{{siteVisitData['businessSiteVisitDetails']['visitedBy']}}</td>
+        <td style="word-wrap: break-word">{{siteVisitData['businessSiteVisitDetails']['locationPreview']}}</td>
+        <td>{{siteVisitData['businessSiteVisitDetails']['mapAddress']}}</td>
+      </tr>
+      <tr>
+        <th>Comments and Finding</th>
+        <th>Conclusion</th>
+      </tr>
+      <tr>
+        <td style="word-wrap: break-word">{{siteVisitData['businessSiteVisitDetails']['findingsAndComments']}}</td>
+        <td style="word-wrap: break-word">{{siteVisitData['businessSiteVisitDetails']['conclusion']}}</td>
+      </tr>
+    </table>
+    <!-- ============================================================= Business Site Visit END ==============================================================-->
+  </div>
+</div>
+
+

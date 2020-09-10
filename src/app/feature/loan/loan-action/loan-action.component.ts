@@ -341,4 +341,13 @@ export class LoanActionComponent implements OnInit {
         this.formAction.get('toRole').updateValueAndValidity();
     }
 
+    detailedPrintAction() {
+        this.route.navigate(['/home/loan/detailed-summary'], {
+            queryParams: {
+                loanConfigId: this.loanConfigId,
+                customerId: this.id
+            }
+        });
+    }
+
 }

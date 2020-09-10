@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-md-12">
+    <p><strong>Proposal Details</strong></p>
+    <table class="table table-condensed table-bordered table-responsive-md text-center">
+      <thead>
+      <tr>
+        <th>Proposal Limit</th>
+        <th>Interest Rate</th>
+        <th>Base Rate</th>
+        <th>Premium Rate On Base Rate(%)</th>
+        <th>Service Charge({{proposalData['serviceChargeMethod']}})</th>
+        <th>Tenure Duration in Month.</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{proposalData['proposedLimit']}}</td>
+        <td>{{proposalData['interestRate']}}</td>
+        <td>{{proposalData['baseRate']}}</td>
+        <td>{{proposalData['premiumRateOnBaseRate']}}</td>
+        <td>{{proposalData['serviceCharge']}}</td>
+        <td>{{proposalData['tenureDurationInMonths']}}</td>
+      </tr>
+      </tbody>
+      <thead>
+      <tr>
+        <th>CIB Charge</th>
+        <th>Repayment Mode</th>
+        <th>Installment Amount</th>
+        <th>Moratorium Period</th>
+        <th>Prepayment Charge (%)</th>
+        <th>Purpose of Submission</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{proposalData['cibCharge']}}</td>
+        <td>{{proposalData['repaymentMode']}}</td>
+        <td>{{proposalData['installmentAmount']}}</td>
+        <td>{{proposalData['moratoriumPeriod']}}</td>
+        <td>{{proposalData['prepaymentCharge']}}</td>
+        <td>{{proposalData['purposeOfSubmission']}}</td>
+      </tr>
+      </tbody>
+      <thead>
+      <tr>
+        <th>Purpose of Submission Summary</th>
+        <th>Disbursement Criteria</th>
+        <th>Credit Information Report Status</th>
+        <th>Income from the Account</th>
+        <th>Commitment Fee</th>
+        <th>Introduction/Justification of Borrower</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{proposalData['purposeOfSubmissionSummary']}}</td>
+        <td>{{proposalData['disbursementCriteria']}}</td>
+        <td>{{proposalData['creditInformationReportStatus']}}</td>
+        <td>{{proposalData['incomeFromTheAccount']}}</td>
+        <td>{{proposalData['commitmentFee']}}</td>
+        <td>{{proposalData['borrowerInformation']}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

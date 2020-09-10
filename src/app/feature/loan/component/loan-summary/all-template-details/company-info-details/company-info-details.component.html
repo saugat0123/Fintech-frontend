@@ -1,0 +1,171 @@
+<div class="row">
+  <div class="col-md-12">
+    <p><strong>Company Information</strong></p>
+    <table class="table table-condensed table-bordered table-responsive-md text-center">
+      <thead>
+      <tr>
+        <th>Company Name</th>
+        <th>Establishment Date</th>
+        <th>Registration Number</th>
+        <th>PAN</th>
+        <th>Business Type</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{companyInfoData['companyName']}}</td>
+        <td>{{companyInfoData['establishmentDate'] | date}}</td>
+        <td>{{companyInfoData['registrationNumber']}}</td>
+        <td>{{companyInfoData['panNumber']}}</td>
+        <td>{{companyInfoData['businessType']}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <p><strong>1. Legal Status</strong></p>
+      <table class="table table-condensed table-bordered table-responsive-md text-center">
+        <thead>
+        <tr>
+          <th>Corporate Structure</th>
+          <th>Registered Office</th>
+          <th>Registered Under Act</th>
+          <th>Registration Date</th>
+          <th>PAN/VAT Registration Office</th>
+          <th>PAN/VAT Registration Date</th>
+          <th>PAN/VAT Registration Expiry Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{companyInfoData['legalStatus']['corporateStructure']}}</td>
+          <td>{{companyInfoData['legalStatus']['registeredOffice']}}</td>
+          <td>{{companyInfoData['legalStatus']['registeredUnderAct']}}</td>
+          <td>{{companyInfoData['legalStatus']['registrationDate'] | date}}</td>
+          <td>{{companyInfoData['legalStatus']['panRegistrationOffice']}}</td>
+          <td>{{companyInfoData['legalStatus']['panRegistrationDate'] | date}}</td>
+          <td>{{companyInfoData['legalStatus']['registrationExpiryDate']}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <p><strong>2. Capital Information</strong></p>
+      <table class="table table-condensed table-bordered table-responsive-md text-center">
+        <thead>
+        <tr>
+          <th>Authorized Capital</th>
+          <th>Paid Up Capital</th>
+          <th>Issued Capital</th>
+          <th>Total Capital</th>
+          <th>Fixed Capital</th>
+          <th>Working Capital</th>
+          <th>Number Of Shareholder</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{companyInfoData['capital']['authorizedCapital']}}</td>
+          <td>{{companyInfoData['capital']['paidUpCapital']}}</td>
+          <td>{{companyInfoData['capital']['issuedCapital']}}</td>
+          <td>{{companyInfoData['capital']['totalCapital']}}</td>
+          <td>{{companyInfoData['capital']['fixedCapital']}}</td>
+          <td>{{companyInfoData['capital']['workingCapital']}}</td>
+          <td>{{companyInfoData['capital']['numberOfShareholder'] | date}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <p><strong>3.Management Team</strong></p>
+    <table *ngFor="let managementTeam of companyInfoData['managementTeamList']; let i=index"
+           class="table table-condensed table-bordered table-responsive-md text-center">
+      <thead>
+      <tr>
+        <th class="text-center" colspan="2">{{i + 1}}.Management Team</th>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <th>Designation</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{managementTeam?.name}}</td>
+        <td>{{managementTeam?.designation}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <p><strong>4. Information of Proprietor/Shareholder/Partner with holder %</strong></p>
+    <table *ngFor="let proprietorsList of companyInfoData['proprietorsList']; let i=index" class="table table-condensed table-bordered table-responsive-md text-center">
+      <thead>
+      <tr>
+        <th class="text-center" colspan="6">{{i+1}}.Proprietor Information</th>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <th>Contact No</th>
+        <th>Share</th>
+        <th>Province</th>
+        <th>District</th>
+        <th>Municipalities or VDC</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{proprietorsList['name']}}</td>
+        <td>{{proprietorsList['contactNo']}}</td>
+        <td>{{proprietorsList['share']}}</td>
+        <td>{{proprietorsList['province']['name']}}</td>
+        <td>{{proprietorsList['district']['name']}}</td>
+        <td>{{proprietorsList['municipalityVdc']['name']}}</td>
+
+      </tr>
+      </tbody>
+    </table>
+
+    <p><strong>5. SWOT Analysis</strong></p>
+    <table class="table table-condensed table-bordered table-responsive-md text-center">
+      <thead>
+      <tr>
+        <th>Strength</th>
+        <th>Weakness</th>
+        <th>Opportunity</th>
+        <th>Threats</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{companyInfoData['swot']['strength']}}</td>
+        <td>{{companyInfoData['swot']['weakness']}}</td>
+        <td>{{companyInfoData['swot']['opportunity']}}</td>
+        <td>{{companyInfoData['swot']['threats']}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <p><strong>6.Company Location Details</strong></p>
+    <table class="table table-condensed table-bordered table-responsive-md text-center">
+      <thead>
+      <tr>
+        <th>House Number</th>
+        <th>Street Name</th>
+        <th>Address</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{companyInfoData?.companyLocations?.houseNumber}}</td>
+        <td>{{companyInfoData?.companyLocations?.streetName}}</td>
+        <td>{{companyInfoData?.companyLocations?.address}}</td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+

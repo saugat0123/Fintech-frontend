@@ -64,6 +64,9 @@
                 ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
             PRINT<i class="col-md-1 fa fa-print"></i></button>
 
+    <button class="btn-sm btn-toolbar d-flex justify-content-end" (click)="detailedPrintAction()">
+        DETAILED-VIEW<em class="col-md-1 fa fa-eye"></em></button>
+
         <button (click)="deleteCustomerLoan()" *ngIf="currentUserRoleType && !catalogueStatus"
                 class="btn-sm btn-danger d-flex justify-content-end">delete<i
                 class="col-md-1 fa fa-ban"></i></button>

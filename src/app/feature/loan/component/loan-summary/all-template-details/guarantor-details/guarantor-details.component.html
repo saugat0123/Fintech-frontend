@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-12">
+    <p><strong>Guarantor Details</strong></p>
+    <ng-container *ngFor="let guarantor of guarantorData; let i= index">
+      <table class="table table-condensed table-bordered table-responsive-md text-center"
+             style="table-layout: fixed; width: 100%">
+        <tr>
+          <th class="text-center" colspan="5">{{i + 1}}. Guarantor Details</th>
+        </tr>
+        <tr>
+          <th>S.N</th>
+          <th>Name</th>
+          <th>Citizen Number</th>
+          <th>Issued Year</th>
+          <th>Issued Place</th>
+        </tr>
+        <tr>
+          <td>{{i+1}}</td>
+          <td>{{guarantor?.name}}</td>
+          <td>{{guarantor?.citizenNumber}}</td>
+          <td>{{guarantor?.issuedYear | date}}</td>
+          <td>{{guarantor?.issuedPlace}}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <th>Province</th>
+          <th>District</th>
+          <th>Municipalities</th>
+          <th>Contact Number</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td>{{guarantor?.province?.name}}</td>
+          <td>{{guarantor?.district?.name}}</td>
+          <td>{{guarantor?.municipalities?.name}}</td>
+          <td>{{guarantor?.contactNumber}}</td>
+        </tr>
+        <tr>
+          <th></th>
+          <th>Father Name</th>
+          <th>Grand Father Name</th>
+          <th>Relationship</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td>{{guarantor?.fatherName}}</td>
+          <td>{{guarantor?.grandFatherName}}</td>
+          <td>{{guarantor?.relationship}}</td>
+        </tr>
+      </table>
+    </ng-container>
+  </div>
+</div>

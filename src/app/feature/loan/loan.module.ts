@@ -90,6 +90,17 @@ import {InsuranceSummaryComponent} from './component/loan-summary/insurance-summ
 import { GuarantorSummaryComponent } from './component/loan-summary/guarantor-summary/guarantor-summary.component';
 import { ProposalSummaryComponent } from './component/loan-summary/proposal-summary/proposal-summary.component';
 import { CreditRiskGradingAlphaComponent } from './component/loan-main-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
+import {AllTemplateDetailsComponent} from './component/loan-summary/all-template-details/all-template-details.component';
+import {CompanyInfoDetailsComponent} from './component/loan-summary/all-template-details/company-info-details/company-info-details.component';
+import {CustomerDetailsInformationComponent} from './component/loan-summary/all-template-details/customer-details-information/customer-details-information.component';
+import {FinancialDetailsComponent} from './component/loan-summary/all-template-details/financial-details/financial-details.component';
+import {ProposalDetailsComponent} from './component/loan-summary/all-template-details/proposal-details/proposal-details.component';
+import {SiteVisitDetailsComponent} from './component/loan-summary/all-template-details/site-visit-details/site-visit-details.component';
+import {SecurityDetailsComponent} from './component/loan-summary/all-template-details/security-details/security-details.component';
+import {GuarantorDetailsComponent} from './component/loan-summary/all-template-details/guarantor-details/guarantor-details.component';
+import {InsuranceDetailsComponent} from './component/loan-summary/all-template-details/insurance-details/insurance-details.component';
+import { GroupDetailsComponent } from './component/loan-summary/all-template-details/group-details/group-details.component';
+import { ShareSecurityDetailsComponent } from './component/loan-summary/all-template-details/share-security-details/share-security-details.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -165,7 +176,17 @@ const COMPONENTS = [
     InsuranceSummaryComponent,
     GuarantorSummaryComponent,
     ProposalSummaryComponent,
-    CreditRiskGradingAlphaComponent
+    CreditRiskGradingAlphaComponent,
+    AllTemplateDetailsComponent,
+    CompanyInfoDetailsComponent,
+    CustomerDetailsInformationComponent,
+    FinancialDetailsComponent,
+    ProposalDetailsComponent,
+    SiteVisitDetailsComponent,
+    SecurityDetailsComponent,
+    GuarantorDetailsComponent,
+    InsuranceDetailsComponent
+
 ];
 
 const ENTRY_COMPONENTS = [
@@ -179,7 +200,7 @@ const ENTRY_COMPONENTS = [
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [...COMPONENTS],
+    declarations: [...COMPONENTS, GroupDetailsComponent, ShareSecurityDetailsComponent],
     imports: [
         ThemeModule,
         CommonModule,
