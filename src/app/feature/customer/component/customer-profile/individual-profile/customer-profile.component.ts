@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, OnInit} from '@angular/core';
+import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
 import {CustomerService} from '../../../service/customer.service';
 import {ToastService} from '../../../../../@core/utils';
@@ -28,6 +28,7 @@ import {KycFormComponent} from './kyc-form/kyc-form.component';
 import {NbDialogService} from '@nebular/theme';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loan-apply.component';
+import {CustomerListGroupComponent} from '../../customer-group-associate-loan-list/customer-list-group.component';
 
 
 @Component({
@@ -36,6 +37,9 @@ import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loa
   styleUrls: ['./customer-profile.component.scss']
 })
 export class CustomerProfileComponent implements OnInit, AfterContentInit {
+  @ViewChild('customerListGroupComponent', {static: false})
+  public customerListGroupComponent: CustomerListGroupComponent;
+
   associateId: number;
   customerInfoId: number;
   customer: Customer = new Customer();
@@ -347,5 +351,10 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
        this.refreshCustomerInfo();
      }
    });
+  }
+
+  // todo put method to refresh customerListGroup Component
+  refreshGroup(event) {
+   /*this.customerListGroupComponent.getLoanListByCustomerGroup();*/
   }
 }

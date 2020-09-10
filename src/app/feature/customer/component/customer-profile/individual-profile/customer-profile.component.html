@@ -11,7 +11,7 @@
         </button>
         <div class="row">
           <ng-template #groupWindow>
-            <app-group-tagging [customerData]="customerInfo"></app-group-tagging>
+            <app-group-tagging #GroupTaggingComponent [customerData]="customerInfo" (refreshGroup)="refreshGroup($event)"></app-group-tagging>
           </ng-template>
         </div>
       </div>
@@ -187,7 +187,7 @@
                   </div>
                 </nb-accordion-item-header>
                 <nb-accordion-item-body *ngIf="customerInfo !== undefined && customerInfo.customerGroup !== undefined">
-                  <app-customer-list-group (messageToEmit)="getTotalLoanAmount($event)"
+                  <app-customer-list-group #customerListGroupComponent (messageToEmit)="getTotalLoanAmount($event)"
                                            [customerInfoData]="customerInfo"></app-customer-list-group>
                 </nb-accordion-item-body>
               </nb-accordion-item>

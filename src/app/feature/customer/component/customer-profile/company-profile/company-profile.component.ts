@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, OnInit, TemplateRef} from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {CompanyInfo} from '../../../../admin/modal/company-info';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {CompanyInfoService} from '../../../../admin/service/company-info.service';
@@ -49,6 +49,9 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
   totalProposalAmount = 0;
   totalLoanProposedAmount = 0;
+  proposeAmountOfGroup = 0;
+  totalProposedAmountByGroup = 0;
+  totalGroupAmount = 0;
   maker = false;
   fetchLoan = FetchLoan;
   constructor(private companyInfoService: CompanyInfoService,
@@ -236,7 +239,12 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     if (value.type === this.fetchLoan.CUSTOMER_LOAN) {
       this.totalLoanProposedAmount = value.value;
     }
+    if (value.type === this.fetchLoan.CUSTOMER_AS_GROUP) {
+      this.totalProposedAmountByGroup = value.value;
+      this.proposeAmountOfGroup = value.otherParam;
+    }
 
-    this.totalProposalAmount =  this.totalLoanProposedAmount;
+    this.totalGroupAmount = this.totalProposedAmountByGroup;
+    this.totalProposalAmount = this.totalLoanProposedAmount + this.proposeAmountOfGroup;
   }
 }
