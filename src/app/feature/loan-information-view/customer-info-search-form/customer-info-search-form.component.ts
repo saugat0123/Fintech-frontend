@@ -36,7 +36,7 @@ export class CustomerInfoSearchFormComponent implements OnInit {
   @Input() calendarType: CalendarType;
 
   @Input() loanId: any;
-  idType = CustomerInfoSearchFormComponent.INDIVIDUAL_CITIZENSHIP;
+
 
   @Input() customerType: CustomerType;
 
@@ -104,7 +104,6 @@ export class CustomerInfoSearchFormComponent implements OnInit {
   onSubmit(template: TemplateRef<any>) {
     this.submitted = true;
     this.hasError = false;
-    console.log(this.search.value);
     if (this.search.invalid) {
       return;
     }

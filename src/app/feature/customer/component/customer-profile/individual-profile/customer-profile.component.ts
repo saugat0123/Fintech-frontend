@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, OnInit, TemplateRef} from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
 import {CustomerService} from '../../../service/customer.service';
 import {ToastService} from '../../../../../@core/utils';
@@ -65,6 +65,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
   isIndividual = false;
   customerInfo: CustomerInfoData;
   maker = false;
+  profilePic;
 
   constructor(private route: ActivatedRoute,
               private customerService: CustomerService,
@@ -114,14 +115,13 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     });
 
 
-
   }
 
   ngAfterContentInit(): void {
-   const roleType = LocalStorageUtil.getStorage().roleType;
-   if (roleType === 'MAKER') {
-     this.maker = true;
-   }
+    const roleType = LocalStorageUtil.getStorage().roleType;
+    if (roleType === 'MAKER') {
+      this.maker = true;
+    }
   }
 
   getCustomerInfo() {
@@ -174,8 +174,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
   }
 
 
-
-
   onClick(loanConfigId: number, customerId: number) {
     this.spinner = true;
     this.router.navigate(['/home/loan/summary'], {
@@ -191,26 +189,30 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     this.isEdited = val === 1;
   }
 
-  profileUploader(event) {
-    const file = event.target.files[0];
+  profileUploader(event, template) {
+    this.profilePic = event.target.files[0];
+    this.modalService.open(template);
 
-    this.formData.append('file', file);
-    this.formData.append('citizenNumber', this.customer.citizenshipNumber);
-    this.formData.append('customerName', this.customer.customerName);
-    this.customerService.uploadFile(this.formData).subscribe((res: any) => {
-      this.customer.profilePic = res.detail;
+  }
+
+  confirmUpload() {
+    this.modalService.dismissAll();
+    this.formData.append('file', this.profilePic);
+    this.formData.append('customerInfoId', this.customerInfo.id.toString());
+    this.formData.append('name', this.customerInfo.name);
+    this.formData.append('branch', this.customerInfo.branch.name);
+    this.formData.append('customerType', this.customerInfo.customerType);
+    this.customerInfoService.uploadFile(this.formData).subscribe((res: any) => {
+      this.customerInfo.profilePic = res.detail;
       this.formData = new FormData();
-      this.customerService.save(this.customer).subscribe((response: any) => {
-        this.customer = response.detail;
-        this.customerBasicFormBuilder();
-        this.getProvince();
-        this.setRelatives(this.customer.customerRelatives);
-        this.toastService.show(new Alert(AlertType.SUCCESS, 'Picture HAS BEEN UPLOADED'));
-      }, error => {
-        this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
-      });
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Picture HAS BEEN UPLOADED'));
+    }, error => {
+      this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
     });
+  }
 
+  onClose() {
+    this.modalService.dismissAll();
   }
 
   customerBasicFormBuilder() {
@@ -343,9 +345,9 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
   openKycModal() {
     const customer = this.customer;
     this.dialogService.open(KycFormComponent, {context: {customer}}).onClose.subscribe(res => {
-     if (!ObjectUtil.isEmpty(res)) {
-       this.ngOnInit();
-     }
-   });
+      if (!ObjectUtil.isEmpty(res)) {
+        this.ngOnInit();
+      }
+    });
   }
 }
