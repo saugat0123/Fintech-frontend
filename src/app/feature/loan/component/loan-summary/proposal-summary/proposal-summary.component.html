@@ -13,11 +13,7 @@
             <th>PremiumRate</th>
             <th>ServiceCharge</th>
             <th>TenureDuration</th>
-            <th>CIB Charge</th>
-            <th>RepaymentMode</th>
-            <th>Installment Amount</th>
-            <th>MoratoriumPeriod</th>
-            <th>PrepaymentCharge</th>
+
           </tr>
           </thead>
           <tbody>
@@ -30,6 +26,20 @@
                 : ''}}{{proposal?.serviceCharge | currencyFormatter}}{{proposal?.serviceChargeMethod
             === 'PERCENT' ? ' %' : ''}}</td>
             <td>{{proposal?.tenureDurationInMonths}} month</td>
+
+          </tr>
+          </tbody>
+          <thead>
+          <tr>
+            <th>CIB Charge</th>
+            <th>RepaymentMode</th>
+            <th>Installment Amount</th>
+            <th>MoratoriumPeriod</th>
+            <th>PrepaymentCharge</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
             <td>Rs. {{proposal?.cibCharge}}</td>
             <td>{{proposal?.repaymentMode}}</td>
             <td>Rs. {{proposal?.installmentAmount | currencyFormatter}}</td>
