@@ -46,6 +46,7 @@ export class CustomerListGroupComponent implements OnInit {
 
   async getLoanListByCustomerGroup() {
     let currentCustomerGroupLoanProposal = 0;
+    let currentCustomerIndex;
     this.spinner = true;
     const filterGroup = new CustomerGroup();
     filterGroup.groupCode = this.currentGroup.groupCode;
@@ -54,12 +55,13 @@ export class CustomerListGroupComponent implements OnInit {
       this.spinner = false;
       this.totalLoanProposedAmount = 0;
       this.customerLoanList.forEach((l, i) => {
-            this.totalLoanProposedAmount = this.totalLoanProposedAmount + l.totalApprovedLimit + l.totalPendingLimit;
-            this.totalGroupApprovedAmount += l.totalApprovedLimit;
-            this.totalGroupPendingAmount += l.totalPendingLimit;
+            this.totalLoanProposedAmount += l.totalApprovedLimit + l.totalPendingLimit;
             if (l.loanHolder.id === this.customerInfoData.id) {
-              currentCustomerGroupLoanProposal = l.totalApprovedLimit + l.totalPendingLimit + l.totalApprovedLimit;
-              this.customerLoanList.splice(i, 1);
+              currentCustomerGroupLoanProposal = l.totalApprovedLimit + l.totalPendingLimit;
+              currentCustomerIndex = i;
+            } else {
+              this.totalGroupApprovedAmount += l.totalApprovedLimit;
+              this.totalGroupPendingAmount += l.totalPendingLimit;
             }
           }
       );
@@ -67,6 +69,9 @@ export class CustomerListGroupComponent implements OnInit {
       loanAmountType.type = this.fetchLoan.CUSTOMER_AS_GROUP;
       loanAmountType.value = this.totalLoanProposedAmount;
       loanAmountType.otherParam = this.totalLoanProposedAmount - currentCustomerGroupLoanProposal;
+      if (!ObjectUtil.isEmpty(currentCustomerIndex)) {
+        this.customerLoanList.splice(currentCustomerIndex, 1);
+      }
       this.messageToEmit.emit(loanAmountType);
     }, res => {
       this.toastrService.show(new Alert(AlertType.ERROR, res.message.error));
