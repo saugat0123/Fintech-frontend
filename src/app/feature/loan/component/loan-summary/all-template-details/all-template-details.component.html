@@ -56,6 +56,15 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <span><strong>Ref. No: </strong>{{customerLoanData?.refNo}}</span>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right"><strong>Date: </strong>{{customerLoanData?.createdAt | date}} ({{nepaliDate}})
+                    </p>
+                </div>
+            </div>
             <div>
                 <p><strong>Details of {{customerLoanData?.loanCategory === 'BUSINESS_TYPE'
                     ? 'Authorized Person'
@@ -85,6 +94,36 @@
             <app-report-summary
                 *ngIf="reportingInfoLevels && reportingInfoLevels?.length > 0"
                 [reportingInfoLevels]="reportingInfoLevels"></app-report-summary>
+            <div *ngIf="customerLoanData?.customerDocument?.length > 0" class="row disable-print">
+                <div class="col-md-12">
+                    <p><strong>Documents</strong></p>
+                    <table class="table table-condensed table-bordered table-responsive-md">
+                        <thead>
+                        <tr>
+                            <th>S.N</th>
+                            <th>Document</th>
+                            <th>Download
+                                <b (click)="downloadAllDocument(customerLoanData?.customerDocument[0].documentPath)"
+                                   class="float-right btn-link" style="cursor: pointer"> Download all
+                                </b>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let singleDoc of customerLoanData?.customerDocument; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{singleDoc?.document?.name}}</td>
+                            <td>
+                                <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
+                                   aria-hidden="true" class="fa fa-download"
+                                   style="cursor: pointer"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <div class="row mt-3">
                 <div class="col-md-12">
                     <p><strong>Authority Section</strong></p>

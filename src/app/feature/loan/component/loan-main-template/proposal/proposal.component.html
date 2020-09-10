@@ -67,7 +67,7 @@
                         class="form-control" formControlName="premiumRateOnBaseRate"
                         id="premiumRateOnBaseRate" name="premiumRate"
                         placeholder="Base Rate(%)" placeholder="Premium Rate On Base Rate(%)"
-                        type="number" readonly>
+                        type="number |" readonly>
                     <div *ngIf="(submitted) && formControls.premiumRateOnBaseRate.invalid"
                          class="invalid-feedback">
                       <span *ngIf="formControls.premiumRateOnBaseRate.errors.required">Premium Rate On Base Rate is required</span>

@@ -19,6 +19,9 @@ import {SignatureUtils} from '../../../../../@core/utils/SignatureUtils';
 import {Insurance} from '../../../../admin/modal/insurance';
 import {Group} from '../../../model/group';
 import {ReportingInfoLevel} from '../../../../reporting/model/reporting-info-level';
+import {DateService} from '../../../../../@core/service/baseservice/date.service';
+import {DmsLoanService} from '../../loan-main-template/dms-loan-file/dms-loan-service';
+import {DocumentService} from '../../../../admin/component/document/document.service';
 
 
 @Component({
@@ -64,12 +67,18 @@ export class AllTemplateDetailsComponent implements OnInit {
   checkReportingInfo = false;
   checkShareSecurity = false;
   shareSecurity;
+  nepaliDate;
 
 
   constructor(private activatedRoute: ActivatedRoute,
               private customerLoanService: LoanFormService,
               private loanConfigService: LoanConfigService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private dateService: DateService,
+              private dmsLoanService: DmsLoanService,
+              private documentService: DocumentService
+
+  ) {
     this.client = environment.client;
 
   }
@@ -80,6 +89,9 @@ export class AllTemplateDetailsComponent implements OnInit {
       this.customerLoanService.detail(params.customerId).subscribe(response => {
         this.customerLoanData = response.detail;
         this.loanCategory = this.customerLoanData.loanCategory;
+        this.dateService.getDateInNepali(this.customerLoanData.createdAt.toString()).subscribe((nepDate: any) => {
+          this.nepaliDate = nepDate.detail;
+        });
         // customerInfo
         if (!ObjectUtil.isEmpty(this.customerLoanData.customerInfo)) {
           this.customerInfo = this.customerLoanData.customerInfo;
@@ -173,6 +185,15 @@ export class AllTemplateDetailsComponent implements OnInit {
     window.history.back();
   }
 
+  previewOfferLetterDocument(url: string, name: string): void {
+    const link = document.createElement('a');
+    link.target = '_blank';
+    link.href = `${ApiConfig.URL}/${url}`;
+    link.download = name;
+    link.setAttribute('visibility', 'hidden');
+    link.click();
+  }
+
   open(comments) {
     const modalRef = this.modalService.open(ReadmoreModelComponent, {size: 'lg'});
     modalRef.componentInstance.comments = comments;
@@ -195,6 +216,31 @@ export class AllTemplateDetailsComponent implements OnInit {
     } else {
       return 'SUPPORTED BY:';
     }
+  }
+
+  downloadAllDocument(path: string) {
+
+    this.documentService.downloadAllDoc(path).subscribe((res: any) => {
+      this.previewOfferLetterDocument(res.detail, res.detail);
+    });
+  }
+
+  downloadCustomerDocument(documentPath, documentName) {
+    this.dmsLoanService.downloadDocument(documentPath).subscribe(
+        (response: any) => {
+          const downloadUrl = window.URL.createObjectURL(response);
+          const link = document.createElement('a');
+          link.href = downloadUrl;
+          const toArray = documentPath.split('.');
+          const extension = toArray[toArray.length - 1];
+          link.download = documentName + '.' + extension;
+          link.click();
+        },
+        error => {
+          console.log(error);
+          console.log('Error downloading the file!');
+        }
+    );
   }
 }
 

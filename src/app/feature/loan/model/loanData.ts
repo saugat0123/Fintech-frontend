@@ -66,4 +66,5 @@ export class LoanDataHolder {
     mawCreditRiskGrading: MawCreditRiskGrading;
     reportingInfoLevels: Array<ReportingInfoLevel>;
     loanFlags: Array<CustomerLoanFlag>;
+    refNo;
 }

@@ -64,9 +64,9 @@ export class ProposalComponent implements OnInit {
                 });
             });
             this.proposalForm.get('interestRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-            .patchValue(Number(value) - Number(this.proposalForm.get('baseRate').value)));
+            .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
             this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-            .patchValue(Number(this.proposalForm.get('interestRate').value) - Number(value)));
+            .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
     }
 
     buildForm() {

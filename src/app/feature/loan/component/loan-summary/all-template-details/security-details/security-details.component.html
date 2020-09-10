@@ -189,7 +189,7 @@
         <th></th>
         <th *ngIf="securityData['otherBranchcheck']">Valuator Branch</th>
         <th>Valautor Name</th>
-        <th>Valuated Date></th>
+        <th>Valuated Date</th>
         <th>Valuator Representative Name</th>
         <th>Staff Representative Name</th>
 
@@ -366,7 +366,7 @@
   </div>
 
   <!--        plantmachineryDetails-->
-  <div *ngIf="securityData['initialForm']['plantDetails']" class="row">
+  <div *ngIf="plantSelected" class="row">
     <p><strong> Plant & Machinery Details Security Before Completion</strong></p>
     <table class="table table-condensed table-bordered table-responsive-md text-center" *ngFor="let plantDetails of securityData['initialForm']['plantDetails']; let i= index">
       <thead>
