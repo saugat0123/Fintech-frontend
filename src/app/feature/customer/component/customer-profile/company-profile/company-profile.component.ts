@@ -54,6 +54,9 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
   totalGroupAmount = 0;
   maker = false;
   fetchLoan = FetchLoan;
+  formData: FormData = new FormData();
+  profilePic;
+
   constructor(private companyInfoService: CompanyInfoService,
               private customerInfoService: CustomerInfoService,
               private toastService: ToastService,
@@ -160,6 +163,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
       this.maker = true;
     }
   }
+
   openKycModal() {
     const companyInfo = this.companyInfo;
 
@@ -246,5 +250,28 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
     this.totalGroupAmount = this.totalProposedAmountByGroup;
     this.totalProposalAmount = this.totalLoanProposedAmount + this.proposeAmountOfGroup;
+  }
+
+  profileUploader(event, template) {
+    this.profilePic = event.target.files[0];
+    this.modalService.open(template);
+
+  }
+
+  confirmUpload() {
+    this.modalService.dismissAll();
+    this.formData.append('file', this.profilePic);
+    this.formData.append('customerInfoId', this.customerInfo.id.toString());
+    this.formData.append('name', this.customerInfo.name);
+    this.formData.append('branch', this.customerInfo.branch.name);
+    this.formData.append('customerType', this.customerInfo.customerType);
+    this.customerInfoService.uploadFile(this.formData).subscribe((res: any) => {
+      this.customerInfo.profilePic = res.detail;
+      this.formData = new FormData();
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Picture HAS BEEN UPLOADED'));
+      this.refreshCustomerInfo();
+    }, error => {
+      this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+    });
   }
 }

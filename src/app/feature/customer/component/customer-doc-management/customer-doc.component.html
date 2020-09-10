@@ -78,50 +78,50 @@
         </nb-accordion>
       </div>
 
-      <div class="col-md-12" *ngFor="let loanData of listOfLoanOfCustomer">
-        <nb-accordion>
-          <nb-accordion-item #loanEdit>
-            <nb-accordion-item-header>
-              {{loanData.loan.name}}
-            </nb-accordion-item-header>
-            <nb-accordion-item-body>
-              <app-customer-loan-edit *ngIf="loanEdit.expanded" [loanDataHolder]="loanData" (refreshData)="refresh()"></app-customer-loan-edit>
-            </nb-accordion-item-body>
-          </nb-accordion-item>
+<!--      <div class="col-md-12" *ngFor="let loanData of listOfLoanOfCustomer">-->
+<!--        <nb-accordion>-->
+<!--          <nb-accordion-item #loanEdit>-->
+<!--            <nb-accordion-item-header>-->
+<!--              {{loanData.loan.name}}-->
+<!--            </nb-accordion-item-header>-->
+<!--            <nb-accordion-item-body>-->
+<!--              <app-customer-loan-edit *ngIf="loanEdit.expanded" [loanDataHolder]="loanData" (refreshData)="refresh()"></app-customer-loan-edit>-->
+<!--            </nb-accordion-item-body>-->
+<!--          </nb-accordion-item>-->
 
 
-        </nb-accordion>
+<!--        </nb-accordion>-->
 
-      </div>
+<!--      </div>-->
     </div>
   </nb-card-body>
 </nb-card>
 <ng-template #uploadModel>
     <div class="modal-content">
-      <div class="modal-header" style="display:block">
-        <a (click)="onClose()" aria-label="Close"
-           class="close cursor" data-dismiss="modal">
-          <span aria-hidden="true">×</span></a>
-        <h4 class="nav  navbar-right pull-left">Upload {{documentName}}</h4>
-      </div>
-      <div class="col-md-12">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group files">
-                <label>Upload Your File </label>
-                <input (change)="uploadDoc($event)" class="form-control" multiple=""
-                       type="file">
-              </div>
-            </div>
+  <div class="modal-header" style="display:block">
+    <a (click)="onClose()" aria-label="Close"
+       class="close cursor" data-dismiss="modal">
+      <span aria-hidden="true">×</span></a>
+    <h4 class="nav  navbar-right pull-left">Upload {{documentName}}</h4>
+  </div>
+  <div class="col-md-12">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group files">
+            <label>Upload Your File </label>
+            <input (change)="uploadDoc($event)" class="form-control" multiple=""
+                   type="file">
           </div>
-        </div>
-        <div class="d-flex justify-content-end pb-md-3">
-          <button (click)="onFileChange(documentName,documentId,index)" class="btn btn-success float-right" type="submit">
-            Save
-          </button>
         </div>
       </div>
     </div>
+    <div class="d-flex justify-content-end pb-md-3">
+      <button (click)="onFileChange(documentName,documentId,index)" class="btn btn-success float-right" type="submit">
+        Save
+      </button>
+    </div>
+  </div>
+</div>
 </ng-template>
 

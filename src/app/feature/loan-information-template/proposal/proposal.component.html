@@ -362,7 +362,50 @@
 
                   </div>
                 </div>
-              </div>
+
+                <div class="col-md-12">
+                  <h6>Additional Description</h6>
+                </div>
+                <div class="col-md-12 form-group">
+                  <nb-checkbox (change)="checkChecked($event.target.checked,'waiver')"
+                               [checked]="waiverChecked">
+                    <b>Waiver</b>
+                  </nb-checkbox>
+                  <div *ngIf="waiverChecked">
+                    <label>Conclusion & Recommendation</label>
+                    <textarea class="form-control"
+                              formControlName="waiverConclusionRecommendation" placeholder="Waiver"
+                              rows="2"></textarea>
+                  </div>
+                </div>
+                <div class="col-md-12 form-group">
+                  <nb-checkbox (change)="checkChecked($event.target.checked,'sol')"
+                               [checked]="solChecked"><b>Single
+                    Obligor Limit</b>
+                  </nb-checkbox>
+                  <div *ngIf="solChecked">
+                    <label>Conclusion & Recommendation</label>
+                    <textarea class="form-control"
+                              formControlName="solConclusionRecommendation"
+                              placeholder="Single Obligor Limit "
+                              rows="2"></textarea>
+                  </div>
+                </div>
+                <div class="col-md-12 form-group">
+
+                  <nb-checkbox (change)="checkChecked($event.target.checked,'risk')"
+                               [checked]="riskChecked"><b>Risk &
+                    Mitigation</b>
+                  </nb-checkbox>
+                  <div *ngIf="riskChecked">
+                    <label>Conclusion & Recommendation</label>
+                    <textarea class="form-control"
+                              formControlName="riskConclusionRecommendation"
+                              placeholder="Risk & Mitigation "
+                              rows="2"></textarea>
+                  </div>
+                </div>
+                </div>
             </form>
           </div>
         </nb-card-body>

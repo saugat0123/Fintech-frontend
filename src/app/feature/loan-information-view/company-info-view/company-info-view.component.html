@@ -1,0 +1,202 @@
+<div class="row" *ngIf="formValue">
+  <div class="col-md-12">
+    <table class="table table-responsive-md table-bordered text-center table-condensed">
+      <thead>
+      <tr>
+        <th colspan="5">Company Information</th>
+      </tr>
+      <tr>
+        <th>Company Name</th>
+        <th>Establishment Date</th>
+        <th>Registration Number</th>
+        <th>PAN</th>
+        <th>Business Type</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{formValue?.companyName}}</td>
+        <td>{{formValue?.establishmentDate | date}}</td>
+        <td>{{formValue?.registrationNumber}}</td>
+        <td>{{formValue?.panNumber}}</td>
+        <td>{{formValue?.businessType}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table table-responsive-md table-bordered text-center table-condensed">
+      <thead>
+      <tr>
+        <th colspan="7">Legal Status</th>
+      </tr>
+      <tr>
+        <th>Corporate Structure</th>
+        <th>Registered Office</th>
+        <th>Registered Under Act</th>
+        <th>Registration Date</th>
+        <th>PAN/VAT Registration Office</th>
+        <th>PAN/VAT Registration Date</th>
+        <th>PAN/VAT Registration Expiry Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{formValue?.legalStatus?.corporateStructure}}</td>
+        <td>{{formValue?.legalStatus?.registeredOffice}}</td>
+        <td>{{formValue?.legalStatus?.registeredUnderAct}}</td>
+        <td>{{formValue?.legalStatus?.registrationDate | date}}</td>
+        <td>{{formValue?.legalStatus?.panRegistrationOffice}}</td>
+        <td>{{formValue?.legalStatus?.panRegistrationDate |date}}</td>
+        <td>{{formValue?.legalStatus?.registrationExpiryDate | date}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table table-responsive-md table-bordered text-center table-condensed">
+      <thead>
+      <tr>
+        <th colspan="7">Capital Information</th>
+      </tr>
+      <tr>
+        <th>Authorized Capital</th>
+        <th>Paid Up Capital</th>
+        <th>Issued Capital</th>
+        <th>Total Capital</th>
+        <th>Fixed Capital</th>
+        <th>Working Capital</th>
+        <th>Number Of Shareholder</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{formValue?.capital?.authorizedCapital}}</td>
+        <td>{{formValue?.capital?.paidUpCapital}}</td>
+        <td>{{formValue?.capital?.issuedCapital}}</td>
+        <td>{{formValue?.capital?.totalCapital}}</td>
+        <td>{{formValue?.capital?.fixedCapital}}</td>
+        <td>{{formValue?.capital?.workingCapital}}</td>
+        <td>{{formValue?.capital?.numberOfShareholder}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table table-responsive-md table-bordered text-center table-condensed">
+      <thead>
+      <tr>
+        <th colspan="3">Management Team</th>
+      </tr>
+      <tr>
+        <th>S.N</th>
+        <th>Name</th>
+        <th>Designation</th>
+      </tr>
+      </thead>
+      <tbody *ngFor="let management of formValue.managementTeamList; let i=index;">
+      <tr>
+        <td>{{i + 1}}</td>
+        <td>{{management?.name}}</td>
+        <td>{{management?.designation}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table table-responsive-md table-bordered text-center table-condensed">
+      <thead>
+      <tr>
+        <th colspan="7">Information of Proprietor/Shareholder/Partner with holder %</th>
+      </tr>
+      <tr>
+        <th>S.N</th>
+        <th>Name</th>
+        <th>Contact No</th>
+        <th>Share</th>
+        <th>Province</th>
+        <th>District</th>
+        <th>Municipalities or VDC</th>
+      </tr>
+      </thead>
+      <tbody *ngFor="let proprietors of formValue?.proprietorsList; let i=index;">
+      <tr>
+        <td>{{i + 1}}</td>
+        <td>{{proprietors?.name}}</td>
+        <td>{{proprietors?.contactNo}}</td>
+        <td>{{proprietors?.share}}</td>
+        <td>{{proprietors?.province?.name}}</td>
+        <td>{{proprietors?.district?.name}}</td>
+        <td>{{proprietors?.municipalityVdc?.name}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table table-responsive-md table-bordered text-center table-condensed">
+      <thead>
+      <tr>
+        <th colspan="6">Contact Person Details</th>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <th>Contact Number</th>
+        <th>Email</th>
+        <th>Province</th>
+        <th>District</th>
+        <th>Municipalities or VDC</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{formValue?.contactPerson?.name}}</td>
+        <td>{{formValue?.contactPerson?.contactNumber}}</td>
+        <td>{{formValue?.contactPerson?.email}}</td>
+        <td>{{formValue?.contactPerson?.province?.name}}</td>
+        <td>{{formValue?.contactPerson?.district?.name}}</td>
+        <td>{{formValue?.contactPerson?.municipalityVdc?.name}}</td>
+
+      </tr>
+      </tbody>
+    </table>
+    <table class="table table-responsive-md table-bordered text-center table-condensed">
+      <thead>
+      <tr>
+        <th colspan="3">Company Location Detail</th>
+      </tr>
+      <tr>
+        <th>House Number</th>
+        <th>Street Name</th>
+        <th>Address</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{formValue?.companyLocations?.houseNumber}}</td>
+        <td>{{formValue?.companyLocations?.streetName}}</td>
+        <td>{{formValue?.companyLocations?.address}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table table-responsive-md table-bordered text-center table-condensed">
+      <thead>
+      <tr>
+        <th colspan="4">SWOT Analysis</th>
+      </tr>
+      <tr>
+        <th>Strength</th>
+        <th>Weakness</th>
+        <th>Opportunity</th>
+        <th>Threats</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{formValue?.swot?.strength}}</td>
+        <td>{{formValue?.swot?.weakness}}</td>
+        <td>{{formValue?.swot?.opportunity}}</td>
+        <td>{{formValue?.swot?.threats}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+
+<div *ngIf="!formValue" class="col-md-12">
+  <app-customer-info-search-form [customerType]="customerType.COMPANY"
+                                 [calendarType]="calendarType"
+                                 [loanId]="loanId"></app-customer-info-search-form>
+</div>
+

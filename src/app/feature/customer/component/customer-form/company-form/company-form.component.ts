@@ -64,6 +64,7 @@ export class CompanyFormComponent implements OnInit {
     addressList: Array<Address> = new Array<Address>();
     businessTypes = BusinessType.enumObject();
     contactPerson: ContactPerson = new ContactPerson();
+    allDistrict: Array<District> = Array<District>();
     private isBlackListed: boolean;
 
     constructor(
@@ -87,6 +88,7 @@ export class CompanyFormComponent implements OnInit {
     ngOnInit() {
         this.companyInfo = this.formValue;
         this.buildForm();
+        this.getAllDistrict();
 
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
@@ -478,7 +480,7 @@ export class CompanyFormComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-        if(this.companyInfoFormGroup.invalid){
+        if (this.companyInfoFormGroup.invalid) {
             return;
         }
         this.companyInfo = new CompanyInfo();
@@ -577,6 +579,11 @@ export class CompanyFormComponent implements OnInit {
 
     close() {
         this.ref.close();
+    }
+    private getAllDistrict() {
+        this.commonLocation.getAllDistrict().subscribe((response: any) => {
+            this.allDistrict = response.detail;
+        });
     }
 
 }
