@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {ComposeGradingQuestionsComponent} from './component/compose-grading-questions/compose-grading-questions.component';
+import {RiskGroupComponent} from './component/risk-group/risk-group.component';
 
 
 const routes: Routes = [
@@ -11,6 +12,10 @@ const routes: Routes = [
     {
         path: 'setup',
         component: ComposeGradingQuestionsComponent
+    },
+    {
+        path: 'group',
+        component: RiskGroupComponent
     },
     {
         path: '**',
