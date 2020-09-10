@@ -206,6 +206,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
       this.customerInfo.profilePic = res.detail;
       this.formData = new FormData();
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Picture HAS BEEN UPLOADED'));
+      this.refreshCustomerInfo();
     }, error => {
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
     });
