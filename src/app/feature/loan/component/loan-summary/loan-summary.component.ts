@@ -483,16 +483,18 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
    * @param $event Change event of nb-select.
    */
   public changeFiscalYearForAlpha($event: number) {
-    this.creditRiskAlphaScore = ObjectUtil.isEmpty(this.creditRiskAlphaScoreArray[$event]) ? 0
-        : this.creditRiskAlphaScoreArray[$event];
-    this.creditRiskGradeAlpha = this.creditRiskGradeAlphaArray[$event];
-    if (this.creditRiskGradeAlpha === 'Superior' || this.creditRiskGradeAlpha === 'Good') {
-      this.creditGradeAlphaStatusBadge = 'badge badge-success';
-    } else if (this.creditRiskGradeAlpha === 'Bad & Loss' || this.creditRiskGradeAlpha === 'Doubtful') {
-      this.creditGradeAlphaStatusBadge = 'badge badge-danger';
-    } else {
-      this.creditGradeAlphaStatusBadge = 'badge badge-warning';
-    }
+      if (!ObjectUtil.isEmpty(this.creditRiskAlphaScoreArray)) {
+          this.creditRiskAlphaScore = ObjectUtil.isEmpty(this.creditRiskAlphaScoreArray[$event]) ? 0
+              : this.creditRiskAlphaScoreArray[$event];
+          this.creditRiskGradeAlpha = this.creditRiskGradeAlphaArray[$event];
+          if (this.creditRiskGradeAlpha === 'Superior' || this.creditRiskGradeAlpha === 'Good') {
+              this.creditGradeAlphaStatusBadge = 'badge badge-success';
+          } else if (this.creditRiskGradeAlpha === 'Bad & Loss' || this.creditRiskGradeAlpha === 'Doubtful') {
+              this.creditGradeAlphaStatusBadge = 'badge badge-danger';
+          } else {
+              this.creditGradeAlphaStatusBadge = 'badge badge-warning';
+          }
+      }
   }
 
   /**
