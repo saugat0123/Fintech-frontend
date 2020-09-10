@@ -33,5 +33,6 @@ export class CustomerInfoData {
   insurance: Array<Insurance>;
   customerGeneralDocuments: Array<CustomerGeneralDocument>;
   customerGroup: CustomerGroup;
+  profilePic: string;
 
 }
