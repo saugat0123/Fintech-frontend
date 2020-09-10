@@ -27,7 +27,7 @@
                         <td>{{vehicleDetails?.downPayment}}</td>
                         <td>{{vehicleDetails?.loanExposure}}</td>
                         <td>{{vehicleDetails?.registrationNumber}}</td>
-                        <td>{{vehicleDetails?.registrationDate}}</td>
+                        <td>{{vehicleDetails?.registrationDate | date}}</td>
                         <td>{{vehicleDetails?.engineNumber}}</td>
                         <td>{{vehicleDetails?.chassisNumber}}</td>
                     </tr>
@@ -255,34 +255,6 @@
                     <tr>
                         <td colspan="2">Total</td>
                         <td colspan="5" class="text-left">{{totalAmount}}</td>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-        </div>
-        <!--        guarantors details-->
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center">
-                    <thead>
-                    <tr>
-                        <th class="text-center" colspan="6">Gurantors Details</th>
-                    </tr>
-                    <tr>
-                        <th>S.N</th>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Citizen Number</th>
-                        <th>Citizen Issued Year</th>
-                        <th>Contact</th>
-                    </tr>
-                    <tr *ngFor="let guarantor of formData['guarantorsForm']['guarantorsDetails']; let i= index">
-                        <td>{{i+1}}</td>
-                        <td>{{guarantor?.name}}</td>
-                        <td>{{guarantor?.address}}</td>
-                        <td>{{guarantor?.citizenNumber}}</td>
-                        <td>{{guarantor?.issuedYear | date}}</td>
-                        <td>{{guarantor?.contactNumber}}</td>
                     </tr>
                     </thead>
                 </table>

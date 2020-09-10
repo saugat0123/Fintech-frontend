@@ -105,6 +105,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     creditRiskGradeAlphaArray = [];
     creditRiskAlphaScoreArray = [];
     selectedAlphaCrgIndex = 0;
+    refNo;
 
     constructor(
       private userService: UserService,
@@ -170,6 +171,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         (response: any) => {
 
           this.loanDataHolder = response.detail;
+          this.refNo = this.loanDataHolder.refNo;
 
           // Setting financial data---
           if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
