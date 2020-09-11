@@ -22,7 +22,8 @@
       <tbody>
       <tr>
         <td>
-          <nb-checkbox class="pt-2"></nb-checkbox></td>
+          <nb-checkbox class="pt-2" [checked]="check()">
+          </nb-checkbox></td>
         <td>{{guarantor?.name}}</td>
         <td>{{guarantor?.citizenNumber}}</td>
         <td>{{guarantor?.issuedYear | date}}</td>

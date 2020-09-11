@@ -9,10 +9,19 @@ import {Guarantor} from '../../loan/model/guarantor';
 export class GuarantorViewComponent implements OnInit {
   @Input() guarantorData;
   guarantorList: Array<Guarantor> = [];
+  guarantor: Array<Guarantor> = [];
+  isChecked = false;
   constructor() { }
 
   ngOnInit() {
     this.guarantorList = this.guarantorData.guarantorList;
-  }
+    console.log(this.guarantorList);
+    (this.guarantorList).forEach(value => {
 
+    })
+
+  }
+  check() {
+    this.isChecked = true;
+  }
 }
