@@ -32,11 +32,10 @@
       <div class="p-5 row">
         <div class="d-flex col-md-3">
           <div class="profile-img">
-            <label class="container">
-              <img *ngIf="companyInfo.profilePic !==null && companyInfo.profilePic !== undefined"
-                   class="image"
-                   src="{{restUrl+'/'+companyInfo.profilePic}}"/>
-              <div *ngIf="companyInfo.profilePic == null || companyInfo.profilePic == undefined"
+            <label class="container" for="file-input">
+              <img *ngIf="customerInfo?.profilePic !==null " class="image"
+                   src="{{restUrl+'/'+customerInfo?.profilePic}}"/>
+              <div *ngIf="customerInfo?.profilePic == null || customerInfo?.profilePic == undefined"
                    class="bg-info no-img">
                 <div>
                   <span class="text">NA</span>
@@ -46,8 +45,9 @@
 
             </label>
 
-            <!--      <input (change)="profileUploader($event)" hidden id="file-input" type="file"/>-->
-            <!--<span *ngIf="fileUploadError == true" style="color:red;">File Upload Failed</span>-->
+            <input (change)="profileUploader($event,uploadConfirm)" hidden id="file-input"
+                   type="file"/>
+
           </div>
         </div>
         <div *ngIf="!isEdited" class="col-md-9 mt-3 py-4">
@@ -180,6 +180,38 @@
                                      [customerInfo]="customerInfo" *ngIf="customerInfo"
             ></app-customer-group-loan>
           </nb-card-body>
+        </nb-card>
+
+        <nb-card accent="primary">
+          <nb-card-header>
+            Customer Groups
+            <div class="float-right" nbTooltip="{{totalGroupAmount | number}}">Total Group Limit
+              : {{customerInfo?.customerGroup?.groupLimit | number}}
+            </div>
+          </nb-card-header>
+          <nb-card-body>
+            <nb-accordion>
+              <nb-accordion-item>
+                <nb-accordion-item-header>
+                  <div class="row col-md-12">
+                    <div class="col-md-6">
+                      <span>Groups</span>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end">
+                      Total Amount:  {{proposeAmountOfGroup | number}}
+                    </div>
+                  </div>
+                </nb-accordion-item-header>
+                <nb-accordion-item-body *ngIf="customerInfo !== undefined && customerInfo.customerGroup !== undefined">
+                  <app-customer-list-group #customerListGroupComponent (messageToEmit)="getTotalLoanAmount($event)"
+                                           [customerInfoData]="customerInfo"></app-customer-list-group>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+            </nb-accordion>
+
+
+          </nb-card-body>
+
         </nb-card>
         <nb-card accent="primary">
           <nb-card-header>
@@ -338,5 +370,34 @@
     </div>
   </nb-card-body>
 </nb-card>
+
+
+<ng-template #uploadConfirm>
+  <div class="modal-content">
+    <div class="modal-header" style="display:block">
+      <a (click)="onClose()" aria-label="Close"
+         class="close cursor" data-dismiss="modal">
+        <span aria-hidden="true">×</span></a>
+      <h4 class="nav  navbar-right pull-left">Confirm</h4>
+    </div>
+    <div class="col-md-12">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group py-4">
+              Do you want to upload this file?
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end pb-md-3">
+
+        <button (click)="confirmUpload()" class="btn btn-success float-right" type="submit">
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
 
 
