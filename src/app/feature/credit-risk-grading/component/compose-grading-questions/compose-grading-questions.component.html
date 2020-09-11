@@ -25,7 +25,7 @@
                                     <div class="col-md-3">
                                         <label>Risk Group</label>
                                         <nb-select fullWidth formControlName="riskGroup" placeholder="Risk Group">
-                                            <nb-option *ngFor="let risk of riskGroupArray" [value]="risk"> {{risk}} </nb-option>
+                                            <nb-option *ngFor="let risk of riskGroupArray" [value]="risk.label"> {{risk.label}} </nb-option>
                                         </nb-select>
                                     </div>
                                     <div class="col-md-2">

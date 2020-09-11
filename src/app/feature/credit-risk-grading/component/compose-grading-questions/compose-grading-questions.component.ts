@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CrgGroupService} from '../../service/crg-group.service';
 
 @Component({
   selector: 'app-compose-grading-questions',
@@ -17,14 +18,16 @@ export class ComposeGradingQuestionsComponent implements OnInit {
 
   newQuestionList: boolean;
 
-  riskGroupArray = ['Financial Risk', 'Relationship Risk', 'Security Risk'];
+  riskGroupArray = [];
 
   constructor(private loanConfigService: LoanConfigService,
+              private crgGroupService: CrgGroupService,
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.buildSetupForm();
     this.getSchemeList();
+    this.getGroupList();
     this.newQuestionList = false;
   }
 
@@ -32,6 +35,12 @@ export class ComposeGradingQuestionsComponent implements OnInit {
     this.loanConfigService.getAll().subscribe((response: any) => {
       this.schemeList = response.detail;
     });
+  }
+
+  getGroupList() {
+      this.crgGroupService.getAll().subscribe( (res: any) => {
+          this.riskGroupArray = res.detail;
+      });
   }
 
   buildSetupForm() {
