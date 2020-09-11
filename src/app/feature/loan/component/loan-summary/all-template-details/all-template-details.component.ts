@@ -8,7 +8,6 @@ import {environment} from '../../../../../../environments/environment';
 import {LoanConfigService} from '../../../../admin/component/loan-config/loan-config.service';
 import {LoanConfig} from '../../../../admin/modal/loan-config';
 import {SiteVisit} from '../../../../admin/modal/siteVisit';
-import {MawCreditRiskGrading} from '../../../model/MawCreditRiskGrading';
 import {Financial} from '../../../model/financial';
 import {Guarantor} from '../../../model/guarantor';
 import {ReadmoreModelComponent} from '../../readmore-model/readmore-model.component';
@@ -52,8 +51,6 @@ export class AllTemplateDetailsComponent implements OnInit {
   checkSiteVisit = false;
   guarantorData: Array<Guarantor>;
   checkGuarantorData = false;
-  mawCreditRiskGradingData: MawCreditRiskGrading;
-  checkMawCreditRiskGradingData = false;
   financialData: Financial;
   spinner = false;
   checkFinancialData = false;
@@ -144,11 +141,7 @@ export class AllTemplateDetailsComponent implements OnInit {
           this.shareSecurity = this.customerLoanData.shareSecurity;
           this.checkShareSecurity = true;
         }
-        // MAW Credit Risk
-        if (!ObjectUtil.isEmpty(this.customerLoanData.mawCreditRiskGrading)) {
-          this.mawCreditRiskGradingData = JSON.parse(this.customerLoanData.mawCreditRiskGrading.data);
-          this.checkMawCreditRiskGradingData = true;
-        }
+
         this.currentIndex = this.customerLoanData.previousList.length;
         this.signatureList = SignatureUtils.getSignatureList(new Array<LoanStage>
         (...this.customerLoanData.previousList, this.customerLoanData.currentStage));
