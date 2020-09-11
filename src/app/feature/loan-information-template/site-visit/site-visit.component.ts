@@ -107,115 +107,115 @@ export class SiteVisitComponent implements OnInit {
       currentAssetsInspectionFormChecked: [false],
       currentResidentDetails: this.formBuilder.group({
         houseNumber: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.houseNumber)],
+            : this.formDataForEdit.currentResidentDetails.houseNumber), Validators.required],
         streetName: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.streetName)],
+            : this.formDataForEdit.currentResidentDetails.streetName), Validators.required],
         address: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.address)],
+            : this.formDataForEdit.currentResidentDetails.address), Validators.required],
         nearBy: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.nearBy)],
+            : this.formDataForEdit.currentResidentDetails.nearBy), Validators.required],
         ownerName: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
-            : this.formDataForEdit.currentResidentDetails.ownerName)],
+            : this.formDataForEdit.currentResidentDetails.ownerName), Validators.required],
         locationPreview: [this.formDataForEdit === undefined ? '' : (this.formDataForEdit.currentResidentDetails === undefined ? ''
             : this.formDataForEdit.currentResidentDetails.locationPreview)]
       }),
       businessSiteVisitDetails: this.formBuilder.group({
         officeAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.officeAddress],
+            : this.formDataForEdit.businessSiteVisitDetails.officeAddress, Validators.required],
         nameOfThePersonContacted: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-                : this.formDataForEdit.businessSiteVisitDetails.nameOfThePersonContacted],
+                : this.formDataForEdit.businessSiteVisitDetails.nameOfThePersonContacted, Validators.required],
         dateOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.dateOfVisit],
+            : this.formDataForEdit.businessSiteVisitDetails.dateOfVisit, Validators.required],
         objectiveOfVisit: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.objectiveOfVisit],
+            : this.formDataForEdit.businessSiteVisitDetails.objectiveOfVisit, Validators.required],
         observation: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.observation],
+            : this.formDataForEdit.businessSiteVisitDetails.observation, Validators.required],
         visitedBy: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.visitedBy],
+            : this.formDataForEdit.businessSiteVisitDetails.visitedBy, Validators.required],
         conclusion: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-            : this.formDataForEdit.businessSiteVisitDetails.conclusion],
+            : this.formDataForEdit.businessSiteVisitDetails.conclusion, Validators.required],
         locationPreview: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.locationPreview],
         mapAddress: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails.mapAddress],
         findingsAndComments: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.businessSiteVisitDetails === undefined ? ''
-                : this.formDataForEdit.businessSiteVisitDetails.findingsAndComments]
+                : this.formDataForEdit.businessSiteVisitDetails.findingsAndComments, Validators.required]
       }),
       fixedAssetCollateralDetails: this.formBuilder.group({
         date: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
-            : this.formDataForEdit.fixedAssetCollateralDetails.date],
+            : this.formDataForEdit.fixedAssetCollateralDetails.date, Validators.required],
         address: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
-            : this.formDataForEdit.fixedAssetCollateralDetails.address],
+            : this.formDataForEdit.fixedAssetCollateralDetails.address, Validators.required],
         personContacted: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
-            : this.formDataForEdit.fixedAssetCollateralDetails.personContacted],
+            : this.formDataForEdit.fixedAssetCollateralDetails.personContacted, Validators.required],
         phoneNoOfContact: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
-                : this.formDataForEdit.fixedAssetCollateralDetails.phoneNoOfContact],
+                : this.formDataForEdit.fixedAssetCollateralDetails.phoneNoOfContact, Validators.required],
         facilities: this.formBuilder.group({
           roadApproach: [this.formDataForEdit === undefined ? '' : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.facilities === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.facilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.facilities.roadApproach],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.facilities.roadApproach, Validators.required],
           roadWidth: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.facilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.facilities.roadWidth],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.facilities.roadWidth, Validators.required],
           prominentPlace: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.facilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.facilities.prominentPlace],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.facilities.prominentPlace, Validators.required],
           approachDistance: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.facilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.facilities.approachDistance]
+                      : this.formDataForEdit.fixedAssetCollateralDetails.facilities.approachDistance, Validators.required]
         }),
         otherFacilities: this.formBuilder.group({
           waterSupply: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.waterSupply],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.waterSupply, Validators.required],
           electricity: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.electricity],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.electricity, Validators.required],
           boundaryWallConstruction: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.boundaryWallConstruction],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.boundaryWallConstruction, Validators.required],
           boundaryFencing: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.boundaryFencing],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.boundaryFencing, Validators.required],
           drainage: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.drainage],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.drainage, Validators.required],
           open: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.open],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.open, Validators.required],
           remarksForOtherFacility: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.remarksForOtherFacility],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.remarksForOtherFacility, Validators.required],
           building: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.building],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.building, Validators.required],
           buildingArea: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.buildingArea],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.buildingArea, Validators.required],
           constructionYear: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.constructionYear],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.constructionYear, Validators.required],
           qualityOfConstructionRemarks: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.qualityOfConstructionRemarks],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.qualityOfConstructionRemarks, Validators.required],
           loadBearingWall: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
@@ -248,79 +248,79 @@ export class SiteVisitComponent implements OnInit {
         vicinityToTheBasicAmenities: this.formBuilder.group({
           majorMarketPlaces: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.majorMarketPlaces],
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.majorMarketPlaces, Validators.required],
           schoolOrCollege: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.schoolOrCollege],
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.schoolOrCollege, Validators.required],
           hospitalOrNursingHome: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.hospitalOrNursingHome],
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.hospitalOrNursingHome, Validators.required],
           electricityLine: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.electricityLine],
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.electricityLine, Validators.required],
           telephoneLine: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.telephoneLine],
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.telephoneLine, Validators.required],
           waterPipeline: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.waterPipeline],
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.waterPipeline, Validators.required],
           staffs: this.formBuilder.array([]),
           commentAboutFAC: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.commentAboutFAC],
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.commentAboutFAC, Validators.required],
           branchInchargeComment: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.branchInchargeComment]
+                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.branchInchargeComment, Validators.required]
         })
       }),
       currentAssetsInspectionDetails: this.formBuilder.group({
         dateOfInspection: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.dateOfInspection],
+                : this.formDataForEdit.currentAssetsInspectionDetails.dateOfInspection, Validators.required],
         particularsOfGoodInspected: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.particularsOfGoodInspected],
+                : this.formDataForEdit.currentAssetsInspectionDetails.particularsOfGoodInspected, Validators.required],
         stockValueReported: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.stockValueReported],
+                : this.formDataForEdit.currentAssetsInspectionDetails.stockValueReported, Validators.required],
         rents: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.rents],
+                : this.formDataForEdit.currentAssetsInspectionDetails.rents, Validators.required],
         isRentPmtUpToDate: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.isRentPmtUpToDate],
+                : this.formDataForEdit.currentAssetsInspectionDetails.isRentPmtUpToDate, Validators.required],
         isRentReceiptShown: [this.formDataForEdit === undefined ? ''
             : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
-                : this.formDataForEdit.currentAssetsInspectionDetails.isRentReceiptShown],
+                : this.formDataForEdit.currentAssetsInspectionDetails.isRentReceiptShown, Validators.required],
         insuranceVerification: this.formBuilder.group({
           assetsMortgaged: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.assetsMortgaged],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.assetsMortgaged, Validators.required],
           insuredAmount: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.insuredAmount],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.insuredAmount, Validators.required],
           insuranceCompany: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.insuranceCompany],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.insuranceCompany, Validators.required],
           expiryDate: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.expiryDate],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.expiryDate, Validators.required],
           clientsOverallRating: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.clientsOverallRating],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.clientsOverallRating, Validators.required],
           comments: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.comments],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.comments, Validators.required],
           stockValueConfirmed: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.stockValueConfirmed],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.stockValueConfirmed, Validators.required],
           insuranceVerificationPosition: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
@@ -402,24 +402,24 @@ export class SiteVisitComponent implements OnInit {
           threeMonthTotal: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.threeMonthTotal],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.threeMonthTotal, Validators.required],
           sixMonthTotal: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.sixMonthTotal],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.sixMonthTotal, Validators.required],
           oneYearTotal: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.oneYearTotal],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.oneYearTotal, Validators.required],
           moreThanOneYearTotal: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.moreThanOneYearTotal],
+                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.moreThanOneYearTotal, Validators.required],
           findingsAndCommentsForCurrentAssetsInspection: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
                       : this.formDataForEdit.currentAssetsInspectionDetails
-                          .receivablesAndPayables.findingsAndCommentsForCurrentAssetsInspection]
+                          .receivablesAndPayables.findingsAndCommentsForCurrentAssetsInspection, Validators.required]
         }),
         otherCurrentAssets: this.formBuilder.group({
           receivableAssets: this.formBuilder.array([]),
@@ -437,7 +437,7 @@ export class SiteVisitComponent implements OnInit {
           overAllFindings: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.otherCurrentAssets === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.otherCurrentAssets.overAllFindings]
+                      : this.formDataForEdit.currentAssetsInspectionDetails.otherCurrentAssets.overAllFindings, Validators.required]
         })
       })
     });
@@ -526,11 +526,11 @@ export class SiteVisitComponent implements OnInit {
 
   partyFormGroup() {
     return this.formBuilder.group({
-      party: [undefined],
-      withinThreeMonths: [undefined],
-      sixMonth: [undefined],
-      oneYear: [undefined],
-      oneYearPlus: [undefined]
+      party: [undefined, Validators.required],
+      withinThreeMonths: [undefined, Validators.required],
+      sixMonth: [undefined, Validators.required],
+      oneYear: [undefined, Validators.required],
+      oneYearPlus: [undefined, Validators.required]
     });
   }
 
@@ -554,8 +554,8 @@ export class SiteVisitComponent implements OnInit {
 
   assetsFormGroup() {
     return this.formBuilder.group({
-      particulars: [undefined],
-      amount: [undefined]
+      particulars: [undefined, Validators.required],
+      amount: [undefined, Validators.required]
     });
   }
 
@@ -618,8 +618,8 @@ export class SiteVisitComponent implements OnInit {
 
   bankExposureFormGroup() {
     return this.formBuilder.group({
-      bankName: [undefined],
-      amount: [undefined]
+      bankName: [undefined, Validators.required],
+      amount: [undefined, Validators.required]
     });
   }
 
@@ -724,6 +724,9 @@ export class SiteVisitComponent implements OnInit {
 
 
   onSubmit() {
+    if(this.siteVisitFormGroup.get('currentResidentDetails').invalid){
+      return;
+    }
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.siteVisitData = this.formValue;
     }
