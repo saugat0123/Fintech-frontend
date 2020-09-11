@@ -12,15 +12,36 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-12">
-                    <label for="name">Name</label>
+                    <label for="Label">Label</label>
                     <input class="form-control" formControlName="id" placeholder="id" type="hidden">
-                    <input id="name" class="form-control" formControlName="name" placeholder="Name"
-                           ngbAutofocus
+                    <input id="Label" class="form-control" formControlName="label" placeholder="Label"
                            required
                            type="text"
                            [ngClass]="{
-                                'is-invalid': name.invalid && (name.dirty || name.touched),
-                                'is-valid': !name.invalid && (name.dirty || name.touched)
+                                'is-invalid': label.invalid && (label.dirty || label.touched),
+                                'is-valid': !label.invalid && (label.dirty || label.touched)
+                                }"
+                    >
+                </div>
+                <div class="col-md-12">
+                    <label for="Description">Description</label>
+                    <input id="Description" class="form-control" formControlName="description" placeholder="Description"
+                           required
+                           type="text"
+                           [ngClass]="{
+                                'is-invalid': description.invalid && (description.dirty || description.touched),
+                                'is-valid': !description.invalid && (description.dirty || description.touched)
+                                }"
+                    >
+                </div>
+                <div class="col-md-12">
+                    <label for="Weightage">Weightage</label>
+                    <input id="Weightage" class="form-control" formControlName="weightage" placeholder="Weightage"
+                           required
+                           type="text"
+                           [ngClass]="{
+                                'is-invalid': weightage.invalid && (weightage.dirty || weightage.touched),
+                                'is-valid': !weightage.invalid && (weightage.dirty || weightage.touched)
                                 }"
                     >
                 </div>

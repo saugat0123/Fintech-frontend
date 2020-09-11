@@ -1,6 +1,8 @@
-export class RiskGroupType {
+export class CrgGroup {
     id: number;
-    name: string;
+    label: string;
+    description: string;
+    weightage: string;
     status: any;
     createdAt: string;
     lastModifiedAt: string;

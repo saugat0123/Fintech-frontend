@@ -17,6 +17,8 @@ export class ComposeGradingQuestionsComponent implements OnInit {
 
   newQuestionList: boolean;
 
+  riskGroupArray = ['Financial Risk', 'Relationship Risk', 'Security Risk'];
+
   constructor(private loanConfigService: LoanConfigService,
               private formBuilder: FormBuilder) { }
 
@@ -47,6 +49,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
           answers: this.formBuilder.array([]),
           description: [undefined, Validators.required],
           appearanceOrder: [undefined, Validators.required],
+          riskGroup: [undefined, Validators.required],
           loanConfig: this.formBuilder.group({
             id: [this.loanConfigId]
           })

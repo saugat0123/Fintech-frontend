@@ -3,6 +3,7 @@
         <nb-select (selectedChange)="onChangeLoan($event)" placeholder="Please select a loan scheme">
             <nb-option *ngFor="let scheme of schemeList; "
                        [value]="scheme?.id">{{scheme?.name}}</nb-option>
+            <nb-option>GENERAL LOAN</nb-option>
         </nb-select>
     </nb-card-header>
     <nb-card-body>
@@ -16,22 +17,26 @@
                             <legend class="w-auto"><h4>Question {{i + 1}}:</h4></legend>
                             <div [formGroupName]="i">
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         <label>Question Description:</label>
-                                        <input class="form-control" formControlName="description" placeholder="Question description"
+                                        <input nbInput fullWidth formControlName="description" placeholder="Question description"
                                                type="text">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
+                                        <label>Risk Group</label>
+                                        <nb-select fullWidth formControlName="riskGroup" placeholder="Risk Group">
+                                            <nb-option *ngFor="let risk of riskGroupArray" [value]="risk"> {{risk}} </nb-option>
+                                        </nb-select>
+                                    </div>
+                                    <div class="col-md-2">
                                         <label>Appearance order:</label>
-                                        <div class="input-group">
-                                            <input class="form-control" formControlName="appearanceOrder" placeholder="Appearance order"
+                                            <input nbInput fullWidth formControlName="appearanceOrder" placeholder="Appearance order"
                                                    type="number">
-                                            <div class="input-group-append">
-                                                <button (click)="deleteQuestionField(i)" class="btn btn-danger btn-sm">
-                                                    <i class="fa fa-trash" style="color:white;"></i>
-                                                </button>
-                                            </div>
-                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button (click)="deleteQuestionField(i)" class="btn btn-danger mt-4">
+                                            <em class="fa fa-trash" style="color:white;"></em>
+                                        </button>
                                     </div>
                                 </div>
                                 <div formArrayName="answers">
