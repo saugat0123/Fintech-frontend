@@ -152,11 +152,6 @@
               </app-guarantor-view>
             </div>
           </ng-template>
-          <ng-template ngbTabContent *ngIf="allList.name == 'MAW Credit Risk Grading'">
-            <app-maw-credit-risk-grading #mawCreditRiskGrading
-                                         [mawCreditRiskGradingData]="loanDocument?.mawCreditRiskGrading">
-            </app-maw-credit-risk-grading>
-          </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Alpha'">
             <app-credit-risk-grading-alpha #creditRiskGradingAlpha
                                            [creditRiskGradingAlpha]="loanDocument?.creditRiskGradingAlpha"

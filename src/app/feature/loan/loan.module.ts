@@ -60,7 +60,6 @@ import {JamaniBasekoPrintComponent} from './component/loan-main-nepali-template/
 import {BikeKarjaComponent} from './component/loan-main-nepali-template/bike-karja/bike-karja.component';
 import {HayarParchesKarjaNibedanComponent} from './component/loan-main-nepali-template/hayar-parches-karja-nibedan/hayar-parches-karja-nibedan.component';
 import {PratigyaPatraPrintComponent} from './component/offer-letter/pratigya-patra/pratigya-patra-print/pratigya-patra-print.component';
-import {MawCreditRiskGradingComponent} from './component/loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 
 import {JamaniTamsukLetterPrintComponent} from './component/offer-letter/jamani-tamsuk/jamani-tamsuk-letter-print/jamani-tamsuk-letter-print.component';
 import {ApplicantFamilyInfoPrintComponent} from './component/loan-main-nepali-template/applicant-family-info/applicant-family-info-print/applicant-family-info-print.component';
@@ -127,7 +126,6 @@ const COMPONENTS = [
     DhristiBandhakPrintComponent,
     BikeKarjaComponent,
     HayarParchesKarjaNibedanComponent,
-    MawCreditRiskGradingComponent,
     JamaniTamsukLetterPrintComponent,
     ApplicantFamilyInfoPrintComponent,
     BikeKarjaPrintComponent,

@@ -39,7 +39,6 @@ import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
 import {Customer} from '../../../admin/modal/customer';
-import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {InsuranceComponent} from '../../../loan-information-template/insurance/insurance.component';
@@ -152,9 +151,6 @@ export class LoanFormComponent implements OnInit {
 
   @ViewChild('creditRiskGradingAlpha', {static: false})
   creditRiskGradingAlpha: CreditRiskGradingAlphaComponent;
-
-  @ViewChild('mawCreditRiskGrading', {static: false})
-  mawCreditRiskGrading: MawCreditRiskGradingComponent;
 
   @ViewChild('financial', {static: false})
   financial: FinancialComponent;
@@ -510,10 +506,7 @@ export class LoanFormComponent implements OnInit {
       this.creditRiskGradingAlpha.onSubmit();
       this.loanDocument.creditRiskGradingAlpha = this.creditRiskGradingAlpha.creditRiskData;
     }*/
-    if (name === 'MAW Credit Risk Grading' && action) {
-      this.mawCreditRiskGrading.onSubmit();
-      this.loanDocument.mawCreditRiskGrading = this.mawCreditRiskGrading.mawCreditRiskGradingData;
-    }
+
     if (name === 'Group' && action) {
       this.group.onSubmit();
       this.loanDocument.group = this.group.modelData;
