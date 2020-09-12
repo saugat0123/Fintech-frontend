@@ -106,11 +106,8 @@
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{i
                             + 1}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.branch?.name}}</td>
-                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loanCategory
-                            === 'BUSINESS_TYPE' ?
-                                loanDataHolder?.companyInfo?.companyName
-                                : loanDataHolder?.customerInfo?.customerName}}</td>
-                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loanHolder?.name}}</td>
+                            <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loanHolder?.contactNo || 'NA'}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.loan?.name}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder.loanType}}</td>
                             <td (click)="onClick(loanDataHolder.loan.id,loanDataHolder.id)">{{loanDataHolder?.priority}}</td>
