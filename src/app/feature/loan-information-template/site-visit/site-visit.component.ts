@@ -17,6 +17,7 @@ export class SiteVisitComponent implements OnInit {
   @Output() siteVisitDataEmitter = new EventEmitter();
   siteVisitData: SiteVisit = new SiteVisit();
   siteVisitFormGroup: FormGroup;
+  submitted = false;
   currentResidentForm = false;
   businessSiteVisitForm = false;
   fixedAssetCollateralForm = false;
@@ -75,6 +76,9 @@ export class SiteVisitComponent implements OnInit {
     return (<FormArray>(<FormGroup>(<FormGroup>this.siteVisitFormGroup.get('currentAssetsInspectionDetails'))
     .get('otherCurrentAssets'))
     .get('bankExposures')).controls;
+  }
+  get formControls() {
+    return this.siteVisitFormGroup.controls;
   }
 
   ngOnInit() {
@@ -724,6 +728,7 @@ export class SiteVisitComponent implements OnInit {
 
 
   onSubmit() {
+    this.submitted = true;
     if(this.siteVisitFormGroup.get('currentResidentDetails').invalid){
       return;
     }

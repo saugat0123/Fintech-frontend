@@ -32,28 +32,53 @@
                 <div class="col-md-4 form-group">
                     <label class="title" for="houseNumber">House Number</label>
                     <input class="form-control" formControlName="houseNumber" id="houseNumber"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('currentResidentDetails').get('houseNumber')?.errors }"
                            name="houseNumber"
                            placeholder="house number" type="text">
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('currentResidentDetails').get('houseNumber')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('currentResidentDetails').get('houseNumber')?.errors.required">House number is required</span>
+                    </div>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="title" for="streetName">Street Name</label>
                     <input class="form-control" formControlName="streetName" id="streetName" name="streetName"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('currentResidentDetails').get('streetName')?.errors }"
                            placeholder="street name" type="text">
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('currentResidentDetails').get('streetName')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('currentResidentDetails').get('streetName')?.errors.required">Street Name is required</span>
+                    </div>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="title" for="address">Address</label>
                     <input class="form-control" formControlName="address" id="address" name="address"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('currentResidentDetails').get('address')?.errors }"
                            placeholder="address" type="text">
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('currentResidentDetails').get('address')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('currentResidentDetails').get('address')?.errors.required">address is required</span>
+                    </div>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="title" for="nearBy">Near By</label>
                     <input class="form-control" formControlName="nearBy" id="nearBy" name="nearBy"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('currentResidentDetails').get('nearBy')?.errors }"
                            placeholder="near by" type="text">
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('currentResidentDetails').get('nearBy')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('currentResidentDetails').get('nearBy')?.errors.required">Value is required</span>
+                    </div>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="ownerName" for="address">Owner Name</label>
                     <input class="form-control" formControlName="ownerName" id="ownerName" name="ownerName"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('currentResidentDetails').get('ownerName')?.errors }"
                            placeholder="owner name" type="text">
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('currentResidentDetails').get('ownerName')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('currentResidentDetails').get('ownerName')?.errors.required">owner Name is required</span>
+                    </div>
                 </div>
                 <div class=" input-group mb-3">
                     <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview1"
