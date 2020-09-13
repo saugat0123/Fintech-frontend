@@ -8,6 +8,7 @@ import {CustomerGroup} from '../../admin/modal/customer-group';
 import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
 import {CreditRiskGrading} from '../../admin/modal/creditRiskGrading';
 import {Branch} from '../../admin/modal/branch';
+import {CustomerLoanFlag} from '../../../@core/model/customer-loan-flag';
 
 export class CustomerInfoData {
   id: number;
@@ -34,5 +35,6 @@ export class CustomerInfoData {
   customerGeneralDocuments: Array<CustomerGeneralDocument>;
   customerGroup: CustomerGroup;
   profilePic: string;
+  loanFlags: Array<CustomerLoanFlag>;
 
 }

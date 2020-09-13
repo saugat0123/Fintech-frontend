@@ -21,7 +21,6 @@ import {ShareSecurity} from '../../admin/modal/shareSecurity';
 import {NepaliTemplateDataHolder} from './nepali-template-data-holder';
 import {GuarantorDetail} from './guarantor-detail';
 import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
-import {CustomerLoanFlag} from '../../../@core/model/customer-loan-flag';
 import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
 import {CustomerInfoData} from './customerInfoData';
 import {CombinedLoan} from './combined-loan';
@@ -66,7 +65,6 @@ export class LoanDataHolder {
     shareSecurity: ShareSecurity;
     nepaliTemplates: Array<NepaliTemplateDataHolder>;
     reportingInfoLevels: Array<ReportingInfoLevel>;
-    loanFlags: Array<CustomerLoanFlag>;
     loanHolder: CustomerInfoData;
     combinedLoan: CombinedLoan;
 }

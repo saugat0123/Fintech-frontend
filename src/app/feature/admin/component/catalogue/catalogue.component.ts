@@ -461,7 +461,8 @@ export class CatalogueComponent implements OnInit {
         }
     }
 
-    public getSortedLoanFlags(loanFlags: CustomerLoanFlag[]): CustomerLoanFlag[] {
+    public getSortedLoanFlags(loanFlags: CustomerLoanFlag[], customerLoanId: number): CustomerLoanFlag[] {
+        loanFlags = loanFlags.filter((l) => (l.customerLoanId === customerLoanId || ObjectUtil.isEmpty(l.customerLoanId)));
         loanFlags.sort((a, b) => a.order - b.order);
         return loanFlags;
     }
