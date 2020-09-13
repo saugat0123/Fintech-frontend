@@ -122,14 +122,15 @@
       <hr class="print-line disable-print">
 
       <div class="row disable-print">
+
         <!-- CRG - Normal-->
-        <div class="col-md-6">
+        <div *ngIf="creditRiskSummary" class="col-md-6">
           <nb-card>
             <nb-card-header class="text-center">
               <h4>Credit Risk Gauge</h4>
             </nb-card-header>
             <nb-card-body class="pr-0">
-              <div *ngIf="creditRiskSummary" class="row disable-print">
+              <div class="row disable-print">
                 <div class="col-md-6 mr-0 pr-0 text-right">
                   <app-gauge-chart [chartWidth]="275"
                                    [chartHeight]="180"
@@ -161,7 +162,7 @@
         </div>
 
         <!--CRG - Alpha-->
-        <div class="col-md-6">
+        <div *ngIf="creditRiskAlphaSummary" class="col-md-6">
           <nb-card>
             <nb-card-header class="text-center">
               <nb-select placeholder="Select Fiscal year"
@@ -172,7 +173,7 @@
               </nb-select>
             </nb-card-header>
             <nb-card-body class="pr-0">
-              <div *ngIf="creditRiskAlphaSummary" class="row disable-print">
+              <div class="row disable-print">
                 <div class="col-md-6 mr-0 pr-0 text-right">
                   <app-gauge-chart [chartWidth]="275"
                                    gaugeIdentifier="crg-alpha"

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerGroup} from '../../../../admin/modal/customer-group';
 import {CustomerGroupService} from '../../../../admin/component/preference/services/customer-group.service';
@@ -14,6 +14,8 @@ import {TemplateName} from '../../../model/templateName';
   styleUrls: ['./group-tagging.component.scss']
 })
 export class GroupTaggingComponent implements OnInit {
+
+  @Output() refreshGroup: EventEmitter<Boolean> = new EventEmitter();
 
   // @ts-ignore
   @Input() customerData: any;
@@ -47,6 +49,7 @@ export class GroupTaggingComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.customerData);
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.customerData.customerGroup)) {
       this.setValue(this.customerData.customerGroup);
@@ -87,9 +90,16 @@ export class GroupTaggingComponent implements OnInit {
       this.customerData = response.detail;
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
+      this.refreshGroup.emit(true);
     }, res => {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.SUCCESS, res.error.message));
     });
+  }
+
+  removeGroup() {
+    this.customerGroupForm.reset();
+    this.refreshGroup.emit(true);
+    this.onSubmit();
   }
 }

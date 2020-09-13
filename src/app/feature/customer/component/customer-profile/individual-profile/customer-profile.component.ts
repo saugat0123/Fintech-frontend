@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, OnInit} from '@angular/core';
+import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
 import {CustomerService} from '../../../service/customer.service';
 import {ToastService} from '../../../../../@core/utils';
@@ -28,6 +28,7 @@ import {KycFormComponent} from './kyc-form/kyc-form.component';
 import {NbDialogService} from '@nebular/theme';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loan-apply.component';
+import {CustomerListGroupComponent} from '../../customer-group-associate-loan-list/customer-list-group.component';
 
 
 @Component({
@@ -36,6 +37,9 @@ import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loa
   styleUrls: ['./customer-profile.component.scss']
 })
 export class CustomerProfileComponent implements OnInit, AfterContentInit {
+  @ViewChild('customerListGroupComponent', {static: false})
+  public customerListGroupComponent: CustomerListGroupComponent;
+
   associateId: number;
   customerInfoId: number;
   customer: Customer = new Customer();
@@ -54,8 +58,9 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
   municipality: MunicipalityVdc = new MunicipalityVdc();
   municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
 
-  totalProposedAmountByKYC = 0;
   totalProposedAmountByGuarantor = 0;
+  totalProposedAmountByGroup = 0;
+  proposeAmountOfGroup = 0;
   totalGroupAmount = 0;
   totalProposalAmount = 0;
   totalLoanProposedAmount = 0;
@@ -206,6 +211,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
       this.customerInfo.profilePic = res.detail;
       this.formData = new FormData();
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Picture HAS BEEN UPLOADED'));
+      this.refreshCustomerInfo();
     }, error => {
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
     });
@@ -332,22 +338,26 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     if (value.type === this.fetchLoan.CUSTOMER_LOAN) {
       this.totalLoanProposedAmount = value.value;
     }
-    if (value.type === this.fetchLoan.CUSTOMER_AS_KYC) {
-      this.totalProposedAmountByKYC = value.value;
+    if (value.type === this.fetchLoan.CUSTOMER_AS_GROUP) {
+      this.totalProposedAmountByGroup = value.value;
+      this.proposeAmountOfGroup = value.otherParam;
     }
-    if (value.type === this.fetchLoan.CUSTOMER_AS_GUARANTOR) {
-      this.totalProposedAmountByGuarantor = value.value;
-    }
-    this.totalGroupAmount = this.totalProposedAmountByGuarantor + this.totalProposedAmountByKYC;
-    this.totalProposalAmount = this.totalProposedAmountByGuarantor + this.totalProposedAmountByKYC + this.totalLoanProposedAmount;
+    this.totalGroupAmount = this.totalProposedAmountByGuarantor + this.totalProposedAmountByGroup;
+    this.totalProposalAmount = this.totalProposedAmountByGuarantor +
+        this.totalLoanProposedAmount + this.proposeAmountOfGroup;
   }
 
   openKycModal() {
     const customer = this.customer;
     this.dialogService.open(KycFormComponent, {context: {customer}}).onClose.subscribe(res => {
       if (!ObjectUtil.isEmpty(res)) {
-        this.ngOnInit();
+       this.refreshCustomerInfo();
       }
     });
+  }
+
+  // todo put method to refresh customerListGroup Component
+  refreshGroup(event) {
+   /*this.customerListGroupComponent.getLoanListByCustomerGroup();*/
   }
 }
