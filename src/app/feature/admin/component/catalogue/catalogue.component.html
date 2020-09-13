@@ -141,9 +141,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let model of loanDataHolderList;let i=index"
-                [nbPopoverTrigger]="model?.loanFlags?.length > 0 ? nbTrigger.HINT : nbTrigger.NOOP"
-                [nbPopover]="getSortedLoanFlags(model?.loanFlags)[0]?.description"
-                [ngStyle]="{'color': (model?.loanFlags?.length > 0) ? 'red': 'auto'}"
+                [nbPopoverTrigger]="model?.loanHolder?.loanFlags?.length > 0 ? nbTrigger.HINT : nbTrigger.NOOP"
+                [nbPopover]="getSortedLoanFlags(model?.loanHolder?.loanFlags, model?.id)[0]?.description"
+                [ngStyle]="{'color': (model?.loanHolder?.loanFlags?.length > 0) ? 'red': 'auto'}"
                 class="cursor">
                 <td (click)="onClick(model.loan.id,model.id)"
                     *ngIf="this.showBranch">{{model?.branch?.name}}</td>
@@ -197,11 +197,11 @@
                         {{model?.createdAt | date}}
                     </div>
                 </td>
-                <td *ngIf="isMaker && ((model?.loanFlags?.length > 0 || model.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
+                <td *ngIf="isMaker && ((model?.loanHolder?.loanFlags?.length > 0 || model.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
                     <select [(ngModel)]="tempLoanType" class="custom-select py-0"
                             (ngModelChange)="onChange(model,onActionChange)">
                         <option [value]="null" selected hidden>Select Type</option>
-                        <ng-container *ngIf="model?.loanFlags?.length">
+                        <ng-container *ngIf="model?.loanHolder?.loanFlags?.length">
                             <option value="UPDATE_LOAN_INFORMATION" [ngStyle]="{color: 'red'}">Update Loan Information</option>
                         </ng-container>
                         <ng-container *ngIf="model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew ">
