@@ -26,6 +26,7 @@ import {CustomerLoanFlag} from '../../../@core/model/customer-loan-flag';
 import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
 import {CustomerInfoData} from './customerInfoData';
 import {CombinedLoan} from './combined-loan';
+import {Guarantor} from "./guarantor";
 
 
 export class LoanDataHolder {
@@ -45,7 +46,7 @@ export class LoanDataHolder {
     siteVisit: SiteVisit;
     financial: Financial;
     security: Security;
-    guarantor: GuarantorDetail;
+    taggedGuarantors: Array<Guarantor>;
     priority: Priority;
     createdAt: Date;
     previousList: LoanStage[] = [];

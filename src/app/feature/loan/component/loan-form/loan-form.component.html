@@ -146,10 +146,10 @@
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name == 'Guarantor'">
             <div class="py-4">
-              <app-guarantor-view #guarantor
-                                  [guarantorData]="loanHolder?.guarantors"
-                                  *ngIf="loanHolder?.guarantors">
-              </app-guarantor-view>
+              <app-guarantor-adder #guarantor
+                                   [guarantorData]="loanHolder?.guarantors">
+
+              </app-guarantor-adder>
             </div>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name == 'MAW Credit Risk Grading'">
