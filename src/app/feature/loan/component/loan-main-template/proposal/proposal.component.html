@@ -195,7 +195,6 @@
                   <div class="form-group>">
                     <label class="title"> <strong>Moratorium Period</strong></label>
                     <input
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.moratoriumPeriod.errors }"
                         class="form-control" formControlName="moratoriumPeriod"
                         id="moratoriumPeriod"
                         name="moratoriumPeriod" placeholder="Example: 4 month"
@@ -210,7 +209,6 @@
                   <div class="form-group>">
                     <label class="title"> <strong>Prepayment Charge (%)</strong></label>
                     <input
-                        [ngClass]="{ 'is-invalid': (submitted) && formControls.prepaymentCharge.errors }"
                         class="form-control" formControlName="prepaymentCharge"
                         id="prepaymentCharge"
                         name="prepaymentCharge" placeholder="Prepayment Amount"

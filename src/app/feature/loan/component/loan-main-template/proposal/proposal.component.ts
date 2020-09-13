@@ -93,9 +93,9 @@ export class ProposalComponent implements OnInit {
             // for installment Amount--
             installmentAmount: [undefined, Validators.required],
             // for moratoriumPeriod Amount--
-            moratoriumPeriod: [undefined, Validators.required],
+            moratoriumPeriod: [undefined],
             // for prepaymentCharge Amount--
-            prepaymentCharge: [undefined, Validators.required],
+            prepaymentCharge: [undefined],
             // for prepaymentCharge Amount--
             purposeOfSubmissionSummary: [undefined, Validators.required],
             // for commitmentFee Amount--

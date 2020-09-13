@@ -165,6 +165,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     landValuatorDate: [ObjectUtil.isEmpty(singleData.landValuatorDate) ? undefined : new Date(singleData.landValuatorDate)],
                     landValuatorRepresentative: [singleData.landValuatorRepresentative],
                     landStaffRepresentativeName: [singleData.landStaffRepresentativeName],
+                    landStaffRepresentativeNameOne: [singleData.landStaffRepresentativeNameOne],
                     landBranch: [singleData.landBranch]
                 })
             );
@@ -201,6 +202,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         undefined : new Date(singleData.ApartmentValuatorDate)],
                     ApartmentValuatorRepresentative: [singleData.ApartmentValuatorRepresentative],
                     ApartmentStaffRepresentativeName: [singleData.ApartmentStaffRepresentativeName],
+                    ApartmentStaffRepresentativeNameOne: [singleData.ApartmentStaffRepresentativeNameOne],
                     apartmentBranch: [singleData.apartmentBranch]
                 })
             );
@@ -314,6 +316,8 @@ export class SecurityInitialFormComponent implements OnInit {
                         undefined : new Date(singleData.plantMachineryValuatorDate)],
                     plantMachineryValuatorRepresentative: [singleData.plantMachineryValuatorRepresentative],
                     plantMachineryStaffRepresentativeName: [singleData.plantMachineryStaffRepresentativeName],
+                    plantMachineryStaffRepresentativeNameOne: [singleData.plantMachineryStaffRepresentativeNameOne],
+
                     plantBranch: [singleData.plantBranch]
                 })
             );
@@ -361,6 +365,7 @@ export class SecurityInitialFormComponent implements OnInit {
             landValuatorDate: [undefined],
             landValuatorRepresentative: [undefined],
             landStaffRepresentativeName: [undefined],
+            landStaffRepresentativeNameOne: [undefined],
             landBranch: [undefined]
         });
     }
@@ -387,6 +392,7 @@ export class SecurityInitialFormComponent implements OnInit {
             ApartmentValuatorDate: [undefined],
             ApartmentValuatorRepresentative: [undefined],
             ApartmentStaffRepresentativeName: [undefined],
+            ApartmentStaffRepresentativeNameOne: [undefined],
             apartmentBranch: [undefined]
         });
     }
@@ -402,6 +408,7 @@ export class SecurityInitialFormComponent implements OnInit {
             plantMachineryValuatorDate: [undefined],
             plantMachineryValuatorRepresentative: [undefined],
             plantMachineryStaffRepresentativeName: [undefined],
+            plantMachineryStaffRepresentativeNameOne: [undefined],
             plantBranch: [undefined]
         });
     }
@@ -467,6 +474,7 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicalValuatorDate: [undefined],
             vehicalValuatorRepresentative: [undefined],
             vehicalStaffRepresentativeName: [undefined],
+            vehicalStaffRepresentativeNameOne: [undefined],
             vehicalBranch: [undefined]
         });
     }
@@ -503,6 +511,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         : new Date(singleData.vehicalValuatorDate)],
                     vehicalValuatorRepresentative: [singleData.vehicalValuatorRepresentative],
                     vehicalStaffRepresentativeName: [singleData.vehicalStaffRepresentativeName],
+                    vehicalStaffRepresentativeNameOne: [singleData.vehicalStaffRepresentativeNameOne],
                     vehicalBranch: [singleData.vehicalBranch]
                 })
             );
@@ -513,7 +522,7 @@ export class SecurityInitialFormComponent implements OnInit {
         return this.formBuilder.group({
             receiptNumber: [''],
             amount: [''],
-            expiryDate: [''],
+            expiryDate: [undefined],
             couponRate: [''],
             beneficiary: [''],
             remarks: ['']
@@ -535,7 +544,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.formBuilder.group({
                     receiptNumber: [deposit.receiptNumber],
                     amount: [deposit.amount],
-                    expiryDate: [deposit.expiryDate],
+                    expiryDate: [ObjectUtil.isEmpty(deposit.expiryDate) ? undefined : new Date(deposit.expiryDate)],
                     couponRate: [deposit.couponRate],
                     beneficiary: [deposit.beneficiary],
                     remarks: [deposit.remarks]
@@ -555,5 +564,10 @@ export class SecurityInitialFormComponent implements OnInit {
             return this.securityTypes.filter(type => type.key === 'FixedDeposit');
         }
         return this.securityTypes;
+    }
+
+    calculateBuildUpAreaRate(i) {
+        const totalBuildRate = (Number(this.securityForm.get(['buildingDetails', i , 'buildArea']).value) * Number(this.securityForm.get(['buildingDetails', i , 'buildRate']).value)).toFixed(2);
+        this.securityForm.get(['buildingDetails', i , 'totalCost']).patchValue(totalBuildRate);
     }
 }
