@@ -148,7 +148,13 @@
         </div>
       </div>
     </div>
-
+    <div *ngIf="customerInfo?.loanFlags && customerInfo?.loanFlags?.length > 0" class="row mb-2">
+      <div class="col-md-12">
+        <button [nbPopoverPlacement]="'left'" [nbPopover]="loanFlagsTemplate" class="shake-infinite"
+                nbButton size="small" status="warning">Alert&nbsp;<i
+            class="fas fa-exclamation-triangle"></i></button>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-8">
         <div class="d-block mb-3">
@@ -313,4 +319,14 @@
       </div>
     </div>
   </div>
+</ng-template>
+<ng-template #loanFlagsTemplate>
+  <nb-card style="margin-bottom: 0">
+    <nb-card-header>Loan Flags</nb-card-header>
+    <nb-card-body>
+      <ul>
+        <li *ngFor="let flag of customerInfo?.loanFlags">{{flag?.description}}</li>
+      </ul>
+    </nb-card-body>
+  </nb-card>
 </ng-template>

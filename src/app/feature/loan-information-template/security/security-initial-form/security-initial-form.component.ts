@@ -690,6 +690,7 @@ export class SecurityInitialFormComponent implements OnInit {
             shareDetails.push(
                 this.formBuilder.group({
                     companyName: [share.companyName],
+                    companyCode: [share.companyCode],
                     shareType: [share.shareType],
                     totalShareUnit: [share.totalShareUnit],
                     amountPerUnit: [share.amountPerUnit],
@@ -705,6 +706,7 @@ export class SecurityInitialFormComponent implements OnInit {
             id: undefined,
             version: undefined,
             companyName: [''],
+            companyCode: [undefined],
             shareType: undefined,
             totalShareUnit: [''],
             amountPerUnit: [''],
