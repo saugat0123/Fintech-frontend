@@ -629,14 +629,19 @@ export class LoanFormComponent implements OnInit {
       if (this.allId.loanCategory === 'BUSINESS_TYPE') {
         this.loanDocument.customerInfo = null;
       }
+      if (ObjectUtil.isEmpty(this.loanDocument.loanHolder)) {
+        this.spinner.hide();
+        this.toastService.show(new Alert(AlertType.ERROR, 'Customer cannot be empty! Please search customer'));
+        return;
+      }
       this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
         this.loanDocument = response.detail;
         this.customerLoanId = this.loanDocument.id;
         this.loanDocument = new LoanDataHolder();
         this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}})
-            .then(() => {
-              this.spinner.hide();
-            });
+        .then(() => {
+          this.spinner.hide();
+        });
       }, error => {
         this.spinner.hide();
         console.error(error);
