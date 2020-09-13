@@ -109,55 +109,100 @@
                 <div class="col-md-4 form-group">
                     <label class="title" for="officeAddress">Office Address</label>
                     <input class="form-control" formControlName="officeAddress" id="officeAddress"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('officeAddress')?.errors }"
                            name="officeAddress" placeholder="office address"
                            type="text">
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('officeAddress')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails').get('officeAddress')?.errors.required">office address is required</span>
+                    </div>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="title" for="nameOfThePersonContacted">Name Of The Person Contacted</label>
                     <input class="form-control" formControlName="nameOfThePersonContacted"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('nameOfThePersonContacted')?.errors }"
                            id="nameOfThePersonContacted"
                            name="nameOfThePersonContacted" placeholder="name of the person contacted"
                            type="text">
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('nameOfThePersonContacted')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails').get('nameOfThePersonContacted')?.errors.required">Name is required</span>
+                    </div>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="title" for="dateOfVisit">Date Of Visit</label>
                     <input [nbDatepicker]="datepicker3" class="form-control" formControlName="dateOfVisit"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('dateOfVisit')?.errors }"
                            id="dateOfVisit" placeholder="date of visit">
                     <nb-datepicker #datepicker3></nb-datepicker>
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('dateOfVisit')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails').get('dateOfVisit')?.errors.required">Date is required</span>
+                    </div>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="title" for="objectiveOfVisit">Objective Of Visit</label>
                     <input class="form-control" formControlName="objectiveOfVisit" id="objectiveOfVisit"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('objectiveOfVisit')?.errors }"
                            name="objectiveOfVisit" placeholder="objective of visit" type="text">
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('objectiveOfVisit')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails').get('objectiveOfVisit')?.errors.required">objective is required</span>
+                    </div>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="title" for="observation">Observation</label>
                     <input class="form-control" formControlName="observation" id="observation"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('observation')?.errors }"
                            name="observation" placeholder="observation"
                            type="text">
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('observation')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails').get('observation')?.errors.required">observation is required</span>
+                    </div>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="title" for="visitedBy">Visited By</label>
                     <input class="form-control" formControlName="visitedBy" id="visitedBy" name="visitedBy"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('visitedBy')?.errors }"
                            placeholder="visited by" type="text">
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('visitedBy')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails').get('visitedBy')?.errors.required">value is required</span>
+                    </div>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="title" for="conclusion">Conclusion</label>
                     <input class="form-control" formControlName="conclusion" id="conclusion" name="conclusion"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('conclusion')?.errors }"
                            placeholder="conclusion" type="text">
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('conclusion')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails').get('conclusion')?.errors.required">conclusion is required</span>
+                    </div>
                 </div>
                 <div class="form-group col-md-4">
                     <label class="title" for="mapAddress">Address</label>
                     <input class="form-control col-md-12" formControlName="mapAddress" id="mapAddress"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('mapAddress')?.errors }"
                            name="mapAddress" placeholder="address"
                            type="text">
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('mapAddress')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails').get('mapAddress')?.errors.required">address is required</span>
+                    </div>
                 </div>
                 <div class="col-md-8 form-group">
                     <label class="title" for="findingsAndComments">Finding And Comments</label>
                     <textarea class="form-control" formControlName="findingsAndComments"
+                              [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('findingsAndComments')?.errors }"
                               id="findingsAndComments" name="findingsAndComments"
                               placeholder="findings and comments"
                               row="3"></textarea>
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('businessSiteVisitDetails').get('findingsAndComments')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('businessSiteVisitDetails').get('findingsAndComments')?.errors.required">comments required</span>
+                    </div>
                 </div>
                 <div class="input-group mb-3">
                     <input class="form-control pr-0" formControlName="locationPreview" id="locationPreview"
@@ -187,30 +232,52 @@
                 <h4 class="col-md-12">Fixed Assets Collateral</h4>
                 <div class="col-md-3 form-group">
                     <label class="title" for="date">Date</label>
-                    <input [nbDatepicker]="datepicker4" class="form-control" formControlName="date" id="date">
+                    <input [nbDatepicker]="datepicker4" class="form-control"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('fixedAssetCollateralDetails').get('date')?.errors }"
+                           formControlName="date" id="date">
                     <nb-datepicker #datepicker4></nb-datepicker>
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('fixedAssetCollateralDetails').get('date')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails').get('date')?.errors.required">date is required</span>
+                    </div>
                 </div>
                 <div class="col-md-3 form-group">
                     <label class="title" for="fixedAssetCollateralAddress">Address</label>
                     <input class="form-control" formControlName="address" id="fixedAssetCollateralAddress"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('fixedAssetCollateralDetails').get('address')?.errors }"
                            name="fixedAssetCollateralAddress" placeholder="address" type="text">
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('fixedAssetCollateralDetails').get('address')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails').get('address')?.errors.required">address is required</span>
+                    </div>
                 </div>
                 <div class="col-md-3 form-group">
                     <label class="title" for="personContacted">Person Contacted</label>
                     <input class="form-control" formControlName="personContacted" id="personContacted"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('fixedAssetCollateralDetails').get('personContacted')?.errors }"
                            name="personContacted" placeholder="person contacted"
                            type="text">
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('fixedAssetCollateralDetails').get('personContacted')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails').get('personContacted')?.errors.required">person contacted required</span>
+                    </div>
                 </div>
                 <div class="col-md-3 form-group">
                     <label class="title" for="phoneNoOfContact">Phone No. Of Contact</label>
                     <input class="form-control" formControlName="phoneNoOfContact" id="phoneNoOfContact"
+                           [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('fixedAssetCollateralDetails').get('phoneNoOfContact')?.errors }"
                            name="phoneNoOfContact" placeholder="phone no. of contact" type="text">
+                    <div *ngIf="(submitted) && siteVisitFormGroup.get('fixedAssetCollateralDetails').get('phoneNoOfContact')?.invalid"
+                         class="invalid-feedback">
+                        <span *ngIf="siteVisitFormGroup.get('fixedAssetCollateralDetails').get('phoneNoOfContact')?.errors.required">phone no. required</span>
+                    </div>
                 </div>
                 <h5 class="col-md-12 mt-3">Facilities</h5>
                 <div class="row col-md-12 pr-0" formGroupName="facilities">
                     <div class="col-md-3 form-group">
                         <label class="title" for="roadApproach">Road Approach</label>
                         <select class="custom-select" formControlName="roadApproach" id="roadApproach"
+                                [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('facilities').get('roadApproach')?.errors }"
                                 name="roadApproach">
                             <option [ngValue]="undefined" hidden>Select Road Approach</option>
                             <option value="BLACK_TOPPED_ROAD">Black Topped Road</option>
@@ -218,21 +285,40 @@
                             <option value="EARTHEN_ROAD">Earthen Road</option>
                             <option value="OTHERS">Others</option>
                         </select>
+                        <div *ngIf="(submitted) && siteVisitFormGroup.get('facilities').get('roadApproach')?.invalid"
+                             class="invalid-feedback">
+                            <span *ngIf="siteVisitFormGroup.get('facilities').get('roadApproach')?.errors.required"> please select a value</span>
+                        </div>
                     </div>
                     <div class="col-md-3 form-group">
                         <label class="title" for="roadWidth">Road Width</label>
                         <input class="form-control" formControlName="roadWidth" id="roadWidth" name="roadWidth"
+                               [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('facilities').get('roadWidth')?.errors }"
                                placeholder="road width" type="text">
+                        <div *ngIf="(submitted) && siteVisitFormGroup.get('facilities').get('roadWidth')?.invalid"
+                             class="invalid-feedback">
+                            <span *ngIf="siteVisitFormGroup.get('facilities').get('roadWidth')?.errors.required"> road width is required</span>
+                        </div>
                     </div>
                     <div class="col-md-3 form-group">
                         <label class="title" for="prominentPlace">Prominent Place</label>
                         <input class="form-control" formControlName="prominentPlace" id="prominentPlace"
+                               [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('facilities').get('prominentPlace')?.errors }"
                                name="prominentPlace" placeholder="prominent place" type="text">
+                        <div *ngIf="(submitted) && siteVisitFormGroup.get('facilities').get('prominentPlace')?.invalid"
+                             class="invalid-feedback">
+                            <span *ngIf="siteVisitFormGroup.get('facilities').get('prominentPlace')?.errors.required">prominent place is required</span>
+                        </div>
                     </div>
                     <div class="col-md-3 form-group">
                         <label class="title" for="approachDistance">Approach Distance</label>
                         <input class="form-control" formControlName="approachDistance" id="approachDistance"
+                               [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('facilities').get('approachDistance')?.errors }"
                                name="approachDistance" placeholder="approach distance" type="text">
+                        <div *ngIf="(submitted) && siteVisitFormGroup.get('facilities').get('approachDistance')?.invalid"
+                             class="invalid-feedback">
+                            <span *ngIf="siteVisitFormGroup.get('facilities').get('approachDistance')?.errors.required"> Approach distance is required</span>
+                        </div>
                     </div>
                 </div>
                 <h5 class="col-md-12 mt-3">Other Facilities</h5>
@@ -278,38 +364,63 @@
 
                         <label class="title" for="remarksForOtherFacility">Remarks For 'No' Option</label>
                         <textarea class="form-control" formControlName="remarksForOtherFacility"
+                                  [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('otherFacilities').get('remarksForOtherFacility')?.errors }"
                                   id="remarksForOtherFacility" name="remarksForOtherFacility"
                                   placeholder="remarks"
                                   row="3" type="text"></textarea>
+                        <div *ngIf="(submitted) && siteVisitFormGroup.get('otherFacilities').get('remarksForOtherFacility')?.invalid"
+                             class="invalid-feedback">
+                            <span *ngIf="siteVisitFormGroup.get('otherFacilities').get('remarksForOtherFacility')?.errors.required"> Remarks required</span>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <div class="col-md-12 form-group">
                             <label class="title" for="building">Building</label>
                             <select class="custom-select" formControlName="building" id="building"
+                                    [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('otherFacilities').get('building')?.errors }"
                                     name="building">
                                 <option value="YES">Yes</option>
                                 <option value="NO">No</option>
                             </select>
+                            <div *ngIf="(submitted) && siteVisitFormGroup.get('otherFacilities').get('building')?.invalid"
+                                 class="invalid-feedback">
+                                <span *ngIf="siteVisitFormGroup.get('otherFacilities').get('building')?.errors.required"> value required</span>
+                            </div>
                         </div>
                         <div class="col-md-12 form-group">
                             <label class="title" for="buildingArea">Building Area</label>
                             <input class="form-control" formControlName="buildingArea" id="buildingArea"
+                                   [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('otherFacilities').get('buildingArea')?.errors }"
                                    name="buildingArea" placeholder="building area">
+                            <div *ngIf="(submitted) && siteVisitFormGroup.get('otherFacilities').get('buildingArea')?.invalid"
+                                 class="invalid-feedback">
+                                <span *ngIf="siteVisitFormGroup.get('otherFacilities').get('buildingArea')?.errors.required"> value required</span>
+                            </div>
                         </div>
                         <div class="col-md-12 form-group">
                             <label class="title" for="constructionYear">Construction Year</label>
                             <input [nbDatepicker]="datepicker5" class="form-control"
                                    formControlName="constructionYear" id="constructionYear"
+                                   [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('otherFacilities').get('constructionYear')?.errors }"
                                    name="constructionYear" placeholder="construction year">
                             <nb-datepicker #datepicker5></nb-datepicker>
+                            <div *ngIf="(submitted) && siteVisitFormGroup.get('otherFacilities').get('constructionYear')?.invalid"
+                                 class="invalid-feedback">
+                                <span *ngIf="siteVisitFormGroup.get('otherFacilities').get('constructionYear')?.errors.required"> Construction year required</span>
+                            </div>
                         </div>
                         <div class="col-md-12 form-group">
                             <label class="title" for="qualityOfConstructionRemarks">Remarks For 'No'
                                 Option</label>
                             <textarea class="form-control" formControlName="qualityOfConstructionRemarks"
                                       id="qualityOfConstructionRemarks" name="qualityOfConstructionRemarks"
+                                      [ngClass]="{ 'is-invalid': (submitted) && siteVisitFormGroup.get('otherFacilities').get('qualityOfConstructionRemarks')?.errors }"
                                       placeholder="remarks"
                                       row="3" type="text"></textarea>
+                            <div *ngIf="(submitted) && siteVisitFormGroup.get('otherFacilities').get('qualityOfConstructionRemarks')?.invalid"
+                                 class="invalid-feedback">
+                                <span *ngIf="siteVisitFormGroup.get('otherFacilities').get('qualityOfConstructionRemarks')?.errors.required"> Remarks required</span>
+                            </div>
                         </div>
                     </div>
                     <table class="table col-md-4">
