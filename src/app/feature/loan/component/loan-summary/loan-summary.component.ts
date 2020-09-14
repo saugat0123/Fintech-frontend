@@ -210,13 +210,14 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 this.alphaFiscalYearArray = crgParsedData.fiscalYearArray;
                 if (this.alphaFiscalYearArray.length > 0) {
                     this.selectedAlphaCrgIndex = this.alphaFiscalYearArray.length - 1;
+                  this.changeFiscalYearForAlpha(this.selectedAlphaCrgIndex);
+
                 }
                 if (crgParsedData.complianceOfCovenants === 0) {
                     this.noComplianceLoanAlpha = true;
                 }
                 this.creditRiskGradeAlphaArray = crgParsedData.gradesArray;
                 this.creditRiskAlphaScoreArray = crgParsedData.totalPointsArray;
-                this.changeFiscalYearForAlpha(this.selectedAlphaCrgIndex);
             }
 
             // Setting SiteVisit data--
