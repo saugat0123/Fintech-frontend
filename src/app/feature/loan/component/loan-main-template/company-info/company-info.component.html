@@ -159,9 +159,36 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="registeredOffice"><strong>Registered Office</strong></label>
-                            <input id="registeredOffice" formControlName="registeredOffice" name="registeredOffice"
-                                   type="text" class="form-control" placeholder="Registered Office"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.registeredOffice.errors }">
+                            <select id="registeredOffice" formControlName="registeredOffice" name="registeredOffice"
+                                   class="form-control" [ngClass]="{ 'is-invalid': (submitted) && form.registeredOffice.errors }">
+                                <option [value]="null" hidden>---Select Registered Office---</option>
+                                <option value="Department of Commerce">Department of Commerce</option>
+                                <option value="Chamber of Commerce">Chamber of Commerce</option>
+                                <option value="Co-Operative Division Office">Co-Operative Division Office</option>
+                                <option value="Department of Cooperative">Department of Cooperative </option>
+                                <option value="Department of Drug Administration ">Department of Drug Administration</option>
+                                <option value="Department of Industry">Department of Industry</option>
+                                <option value="Department of Industry & Commerce">Department of Industry & Commerce</option>
+                                <option value="Department of Transport Management">Department of Transport Management</option>
+                                <option value="Department of Commerce & Supply Management">Department of Commerce & Supply Management</option>
+                                <option value="Department of Livestock Service ">Department of Livestock Service</option>
+                                <option value="District Administration Office">District Administration Office</option>
+                                <option value="District Development Committee">District Development Committee</option>
+                                <option value="District Education Office">District Education Office</option>
+                                <option value="District Irrigation Committee">District Irrigation Committee</option>
+                                <option value="FNCCI">FNCCI</option>
+                                <option value="Inland Revenue Department">Inland Revenue Department</option>
+                                <option value="Inland Revenue Office">Inland Revenue Office</option>
+                                <option value="Institute of Chartered Accountant Nepal">Institute of Chartered Accountant Nepal</option>
+                                <option value="Municipality Office">Municipality Office </option>
+                                <option value="National Sports Council">National Sports Council /option>
+                                <option value="Nepal CMA Sangha">Nepal CMA Sangha </option>
+                                <option value="Office of Company Registrar">Office of Company Registrar</option>
+                                <option value="Office of Cottage & Small Industry">Office of Cottage & Small Industry</option>
+                                <option value="Tribhuwan University">Tribhuwan University</option>
+                                <option value="VDC Office">VDC Office </option>
+                                <option value="Other">Other </option>
+                            </select>
                             <div *ngIf="(submitted) && form.registeredOffice.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="form.registeredOffice.errors.required">
