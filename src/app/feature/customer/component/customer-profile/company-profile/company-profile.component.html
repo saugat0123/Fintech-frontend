@@ -117,9 +117,13 @@
                                                           placeholder="pan number"
                                                           type="text"></span></div>
             <div class="row form-inline">
-                        <span> <strong>Issue Place :</strong> <input formControlName="issuePlace"
+                        <span> <strong>Issue Place :</strong> <select formControlName="issuePlace"
                                                           placeholder="issued place"
-                                                          type="text"></span></div>
+                                                          type="text">
+                          <option *ngFor="let district of allDistrict" [value]="district?.name">
+                    {{district?.name}}
+                          </option></select>
+                        </span></div>
             <div class="row form-inline">
                         <span> <strong>Email :</strong> <input formControlName="email"
                                                           placeholder="abc@gmail.com"
