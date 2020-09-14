@@ -1,7 +1,7 @@
 <nb-card>
     <nb-card-header><h2>Loan Configuration</h2></nb-card-header>
     <nb-card-body>
-        <form #loanConfigForm="ngForm" (ngSubmit)="loanConfigForm.valid && onSubmit()" name="form">
+        <form #loanConfigForm="ngForm" (ngSubmit)="onSubmit()" name="form">
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -68,7 +68,7 @@
                                        name="category"
                                        placeholder="Select category">
                             </ng-select>
-                            <div *ngIf="loanConfigForm.submitted && category.invalid">
+                            <div *ngIf="loanConfigForm.submitted && !selectedLoanCategory">
                                 <small class="text-danger">Invalid loan category</small>
                             </div>
                         </div>
