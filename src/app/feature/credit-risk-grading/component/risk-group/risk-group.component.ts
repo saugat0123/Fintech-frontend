@@ -11,6 +11,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {CrgGroupService} from '../../service/crg-group.service';
 import {Pageable} from '../../../../@core/service/baseservice/common-pageable';
 import {RiskGroupDeleteComponent} from '../risk-group-delete/risk-group-delete.component';
+import {Status} from '../../../../@core/Status';
 
 @Component({
   selector: 'app-risk-group',
@@ -26,6 +27,8 @@ export class RiskGroupComponent implements OnInit {
   pageable: Pageable = new Pageable();
   crgGroup: CrgGroup;
 
+  public statusEnum = Status;
+
   constructor(
       private crgGroupService: CrgGroupService,
       private modalService: NgbModal,
@@ -38,7 +41,7 @@ export class RiskGroupComponent implements OnInit {
   static loadData(other: RiskGroupComponent) {
     other.spinner = true;
     other.crgGroupService.getPaginationWithSearch(other.search, other.page, 10).subscribe((response: any) => {
-          other.types = response.detail;
+          other.types = response.content;
           other.pageable = PaginationUtils.getPageable(response);
           other.spinner = false;
         }, error => {
@@ -85,6 +88,19 @@ export class RiskGroupComponent implements OnInit {
     modalRef.componentInstance.model = crgType;
     modalRef.componentInstance.action = Action.UPDATE;
     ModalUtils.resolve(modalRef.result, RiskGroupComponent.loadData, this);
+  }
+
+  public updateStatus(id: number, $event: boolean): void {
+    const group = new CrgGroup();
+    group.id = id;
+    group.status = $event ? Status.ACTIVE : Status.INACTIVE;
+    this.crgGroupService.updateStatus(group).subscribe(() => {
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated!!!'));
+      RiskGroupComponent.loadData(this);
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Failed to update!!!'));
+    });
   }
 
   delete(crgType: CrgGroup) {

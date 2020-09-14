@@ -99,7 +99,6 @@ export class RiskGroupFormComponent implements OnInit {
                 this.model.description = this.modelForm.get('description').value;
                 this.model.weightage = this.modelForm.get('weightage').value;
                 this.model.status = this.modelForm.get('status').value;
-                console.log(this.model);
                 this.service.update(this.model.id, this.modelForm.value)
                     .subscribe(
                         () => {

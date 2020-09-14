@@ -49,20 +49,17 @@
                 <td>{{type.label}}</td>
                 <td>{{type.description}}</td>
                 <td>{{type.weightage}}</td>
-                <td>{{type.status}}</td>
+                <td>
+                    <nb-toggle (checkedChange)="updateStatus(type.id, $event)"
+                               [checked]="type.status === statusEnum.ACTIVE"></nb-toggle>
+                </td>
                 <td>
                     <a (click)="update(type)" class="btn btn-primary btn-sm"
                        data-placement="top"
                        data-toggle="tooltip" title="Edit">
                         <em class="fa fa-edit" style="color:white"></em>
                     </a>
-                    <a (click)="delete(type)" class="btn btn-danger btn-sm"
-                       data-placement="top"
-                       data-toggle="tooltip" style="margin-left:10px" title="Delete">
-                        <em class="fa fa-trash" style="color:white;"></em>
-                    </a>
                 </td>
-                <!--</span>-->
             </tr>
             </tbody>
         </table>

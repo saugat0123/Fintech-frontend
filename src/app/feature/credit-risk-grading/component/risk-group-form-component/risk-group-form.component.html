@@ -38,26 +38,11 @@
                     <label for="Weightage">Weightage</label>
                     <input id="Weightage" class="form-control" formControlName="weightage" placeholder="Weightage"
                            required
-                           type="text"
+                           type="number"
                            [ngClass]="{
                                 'is-invalid': weightage.invalid && (weightage.dirty || weightage.touched),
                                 'is-valid': !weightage.invalid && (weightage.dirty || weightage.touched)
-                                }"
-                    >
-                </div>
-            </div>
-            <div *ngIf="model.id" class="row">
-                <div class="col-md-12">
-                    <label for="status">Status</label>
-                    <select id="status" class="form-control" formControlName="status" required
-                            [ngClass]="
-                            {'is-invalid': status.invalid && (status.dirty || status.touched),
-                            'is-valid': !status.invalid && (status.dirty || status.touched)}"
-                    >
-                        <option value="ACTIVE">ACTIVE</option>
-                        <option value="INACTIVE">INACTIVE</option>
-                        <option value="DELETED">DELETED</option>
-                    </select>
+                                }">
                 </div>
             </div>
         </div>
