@@ -167,14 +167,14 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong>Citizenship Issued District</strong></label>
-                                        <ng-select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('issuedPlace').errors }"
-                                                   [multiple]="false"
+                                        <select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('issuedPlace').errors }"
+                                                   class="custom-select"
                                                    formControlName="issuedPlace"
                                                    placeholder="Select district">
-                                            <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+                                            <option *ngFor="let district of allDistrict" [value]="district?.name">
                                                 {{district?.name}}
-                                            </ng-option>
-                                        </ng-select>
+                                            </option>
+                                        </select>
                                         <div *ngIf="(submitted) && guarantorDetails.get('issuedPlace').invalid"
                                              class="invalid-feedback">
                                             <div *ngIf="guarantorDetails.get('issuedPlace').errors.required">
