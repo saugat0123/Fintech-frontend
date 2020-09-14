@@ -325,7 +325,6 @@ export class UIComponent implements OnInit {
 
     if (ObjectUtil.isEmpty(this.loanConfigForm.control.get('category').value)) {
       this.spinner.hide();
-      this.scrollToFirstInvalidControl();
       this.toastService.show(new Alert(AlertType.ERROR, ' Category Field should not left blank'));
       return;
     }
