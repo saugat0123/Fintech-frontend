@@ -441,7 +441,7 @@ export class SiteVisitComponent implements OnInit {
           overAllFindings: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.otherCurrentAssets === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.otherCurrentAssets.overAllFindings, Validators.required]
+                      : this.formDataForEdit.currentAssetsInspectionDetails.otherCurrentAssets.overAllFindings]
         })
       })
     });
@@ -728,10 +728,32 @@ export class SiteVisitComponent implements OnInit {
 
 
   onSubmit() {
-    this.submitted = true;
-    if(this.siteVisitFormGroup.get('currentResidentDetails').invalid){
-      return;
+    if (this.currentResidentForm){
+      if(this.siteVisitFormGroup.get('currentResidentDetails').invalid){
+        this.submitted = true;
+        return;
+      }
     }
+    if (this.businessSiteVisitForm){
+      if(this.siteVisitFormGroup.get('businessSiteVisitDetails').invalid){
+        this.submitted = true;
+        return;
+      }
+    }
+    if (this.fixedAssetCollateralForm){
+      if(this.siteVisitFormGroup.get('fixedAssetCollateralDetails').invalid){
+        this.submitted = true;
+        return;
+      }
+    }
+    if (this.currentAssetsInspectionForm){
+      if(this.siteVisitFormGroup.get('currentAssetsInspectionDetails').invalid){
+        this.submitted = true;
+        return;
+      }
+    }
+
+
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.siteVisitData = this.formValue;
     }
