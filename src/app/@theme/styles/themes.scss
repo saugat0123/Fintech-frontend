@@ -2,6 +2,7 @@
 @import '~@nebular/theme/styles/theming';
 // @nebular out of the box themes
 @import '~@nebular/theme/styles/themes/default';
+@import 'src/styles';
 
 $nb-enable-css-custom-properties: true;
 
@@ -94,6 +95,10 @@ $nb-themes: nb-register-theme((
 
         0 4px 14px 0 #8f9bb3,
   //define custom color
+
+        scrollbar-width: 10px,
+        scrollbar-color: $color-bank
+
 ), default, default);
 
 @media print {
