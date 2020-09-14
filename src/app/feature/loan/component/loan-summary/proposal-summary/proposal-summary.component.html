@@ -21,7 +21,7 @@
             <td>Rs. {{proposal?.proposedLimit | currencyFormatter}}</td>
             <td>{{proposal?.interestRate }} %</td>
             <td>{{proposal?.baseRate}} %</td>
-            <td>{{proposal?.premiumRateOnBaseRate}} %</td>
+            <td>{{proposal?.premiumRateOnBaseRate | number:'.2-2'}} %</td>
             <td>{{proposal?.serviceChargeMethod === 'FLAT' ? ' NRs. '
                 : ''}}{{proposal?.serviceCharge | currencyFormatter}}{{proposal?.serviceChargeMethod
             === 'PERCENT' ? ' %' : ''}}</td>

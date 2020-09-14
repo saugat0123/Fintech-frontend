@@ -5,7 +5,7 @@
       <thead>
       <tr>
         <th>Proposal Limit</th>
-        <th>Interest Rate</th>
+        <th>Interest Rate (%)</th>
         <th>Base Rate</th>
         <th>Premium Rate On Base Rate(%)</th>
         <th>Service Charge({{proposalData['serviceChargeMethod']}})</th>
@@ -14,10 +14,10 @@
       </thead>
       <tbody>
       <tr>
-        <td>{{proposalData['proposedLimit']}}</td>
+        <td>{{proposalData['proposedLimit'] | currencyFormatter}}</td>
         <td>{{proposalData['interestRate']}}</td>
         <td>{{proposalData['baseRate']}}</td>
-        <td>{{proposalData['premiumRateOnBaseRate']}}</td>
+        <td>{{proposalData['premiumRateOnBaseRate'] | number:'.2-2'}}</td>
         <td>{{proposalData['serviceCharge']}}</td>
         <td>{{proposalData['tenureDurationInMonths']}}</td>
       </tr>

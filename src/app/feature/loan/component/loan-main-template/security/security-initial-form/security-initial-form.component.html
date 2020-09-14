@@ -155,10 +155,19 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="landStaffRepresentativeName">Staff Representative Name</label>
+                                <label class="title" for="landStaffRepresentativeName">Staff Representative Name I</label>
                                 <input class="form-control rounded" formControlName="landStaffRepresentativeName"
                                        id="landStaffRepresentativeName"
-                                       name="landStaffRepresentativeName" placeholder="Staff Representative Name"
+                                       name="landStaffRepresentativeName" placeholder="Staff Representative Name I"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="landStaffRepresentativeNameOne">Staff Representative Name II</label>
+                                <input class="form-control rounded" formControlName="landStaffRepresentativeNameOne"
+                                       id="landStaffRepresentativeNameOne"
+                                       name="landStaffRepresentativeNameOne" placeholder="Staff Representative Name II"
                                        type="text"/>
                             </div>
                         </div>
@@ -232,7 +241,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
-                                        <input class="form-control rounded" formControlName="buildArea"
+                                        <input (input)="calculateBuildUpAreaRate(i)" class="form-control rounded" formControlName="buildArea"
                                                id="buildArea"
                                                name="buildArea" placeholder="build up area"
                                                type="text"/>
@@ -241,7 +250,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="buildRate">Build Up Area Rate</label>
-                                        <input class="form-control rounded" formControlName="buildRate"
+                                        <input (input)="calculateBuildUpAreaRate(i)"
+                                               class="form-control rounded" formControlName="buildRate"
                                                id="buildRate"
                                                name="buildRate" placeholder="build up rate"
                                                type="text"/>
@@ -420,10 +430,19 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="title" for="ApartmentStaffRepresentativeName">Staff Representative Name</label>
+                                        <label class="title" for="ApartmentStaffRepresentativeName">Staff Representative Name I</label>
                                         <input class="form-control rounded" formControlName="ApartmentStaffRepresentativeName"
                                                id="ApartmentStaffRepresentativeName"
-                                               name="ApartmentStaffRepresentativeName" placeholder="Staff Representative Name"
+                                               name="ApartmentStaffRepresentativeName" placeholder="Staff Representative Name I"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="ApartmentStaffRepresentativeNameOne">Staff Representative Name II</label>
+                                        <input class="form-control rounded" formControlName="ApartmentStaffRepresentativeNameOne"
+                                               id="ApartmentStaffRepresentativeNameOne"
+                                               name="ApartmentStaffRepresentativeNameOne" placeholder="Staff Representative Name II"
                                                type="text"/>
                                     </div>
                                 </div>
@@ -910,10 +929,19 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="plantMachineryStaffRepresentativeName">Staff Representative Name</label>
+                                <label class="title" for="plantMachineryStaffRepresentativeName">Staff Representative Name I</label>
                                 <input class="form-control rounded" formControlName="plantMachineryStaffRepresentativeName"
                                        id="plantMachineryStaffRepresentativeName"
-                                       name="plantMachineryStaffRepresentativeName" placeholder="Staff Representative Name"
+                                       name="plantMachineryStaffRepresentativeName" placeholder="Staff Representative Name I"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="plantMachineryStaffRepresentativeNameOne">Staff Representative Name II</label>
+                                <input class="form-control rounded" formControlName="plantMachineryStaffRepresentativeNameOne"
+                                       id="plantMachineryStaffRepresentativeNameOne"
+                                       name="plantMachineryStaffRepresentativeNameOne" placeholder="Staff Representative Name II"
                                        type="text"/>
                             </div>
                         </div>
@@ -1115,10 +1143,19 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title" for="vehicalStaffRepresentativeName">Staff Representative Name</label>
+                                <label class="title" for="vehicalStaffRepresentativeName">Staff Representative Name I</label>
                                 <input class="form-control rounded" formControlName="vehicalStaffRepresentativeName"
                                        id="vehicalStaffRepresentativeName"
-                                       name="vehicalStaffRepresentativeName" placeholder="Staff Representative Name"
+                                       name="vehicalStaffRepresentativeName" placeholder="Staff Representative Name I"
+                                       type="text"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="vehicalStaffRepresentativeNameOne">Staff Representative Name II</label>
+                                <input class="form-control rounded" formControlName="vehicalStaffRepresentativeNameOne"
+                                       id="vehicalStaffRepresentativeNameOne"
+                                       name="vehicalStaffRepresentativeNameOne" placeholder="Staff Representative Name II"
                                        type="text"/>
                             </div>
                         </div>
@@ -1144,7 +1181,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <hr>
-                            <div *ngIf="i > 0" class="float-right">
+                            <div *ngIf="securityForm.get('fixedDepositDetails')['length'] > 1" class="float-right">
                                 <input (click)="removeFixedDeposit(i)" class="btn btn-sm btn-flat btn-danger"
                                        type=button value="Delete"/>
                             </div>
@@ -1169,9 +1206,9 @@
                                 <input *ngIf="calendarType === 'AD'" [nbDatepicker]="expiryDate"
                                        class="form-control rounded" formControlName="expiryDate"
                                        nbInput placeholder="Expiry Date">
-                                <app-calendar (messageToEmit)="securityForm.get('fixedDepositDetails').get('expiryDate').patchValue($event?.eDate)"
-                                              *ngIf="calendarType === 'BS'"
-                                              [ePreDate]="securityForm.get('fixedDepositDetails').get('expiryDate').value"></app-calendar>
+                                <app-calendar *ngIf="calendarType === 'BS'"
+                                              [ePreDate]="securityForm.get(['fixedDepositDetails',i,'expiryDate']).value"
+                                              (messageToEmit)="securityForm.get(['fixedDepositDetails',i,'expiryDate']).patchValue($event?.eDate)"></app-calendar>
                                 <nb-datepicker #expiryDate></nb-datepicker>
                             </div>
                         </div>
