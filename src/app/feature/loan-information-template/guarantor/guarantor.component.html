@@ -36,7 +36,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong> Name</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('name').errors }"
+                                        <input [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('name').errors }"
                                                class="form-control form-control-sm-error rounded"
                                                formControlName="name"
                                                id="name"
@@ -49,13 +49,20 @@
                                                 required
                                             </div>
                                         </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('name').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('name').errors.required">
+                                                Please fill name
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong>Province</strong></label>
                                         <select (change)="getDistrict(guarantorDetails.get('province').value,i)"
-                                                [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('province').errors}"
+                                                [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('province').errors}"
                                                 class="custom-select"
                                                 formControlName="province"
                                                 name="province">
@@ -70,13 +77,18 @@
                                                 is required
                                             </div>
                                         </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('province').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('province').errors.required">Please fill province
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong>District</strong></label>
                                         <select (change)="getMunicipalities(guarantorDetails.get('district').value, i)"
-                                                [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('district').errors}"
+                                                [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('district').errors}"
                                                 class="custom-select"
                                                 formControlName="district"
                                                 name="district">
@@ -89,6 +101,11 @@
                                              class="invalid-feedback">
                                             <div *ngIf="guarantorDetails.get('district').errors.required">District
                                                 is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('district').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('district').errors.required">please add district
                                             </div>
                                         </div>
                                     </div>
@@ -111,6 +128,12 @@
                                                 Municipality or VDC is required
                                             </div>
                                         </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('municipalities').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('municipalities').errors.required">
+                                                Please add Municipality or VDC
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -118,7 +141,7 @@
                                     <div class="form-group">
                                         <label><strong>Citizenship Number</strong></label>
                                         <input (change)="checkBlackListByCitizenshipNo(guarantorDetails.get('citizenNumber').value, i)"
-                                               [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('citizenNumber').errors }"
+                                               [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails.get('citizenNumber').errors }"
                                                class="form-control form-control-sm-error rounded"
                                                formControlName="citizenNumber"
                                                id="citizenNumber"
@@ -129,6 +152,12 @@
                                              class="invalid-feedback">
                                             <div *ngIf="guarantorDetails.get('citizenNumber').errors.required">
                                                 Citizenship Number is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('citizenNumber').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('citizenNumber').errors.required">
+                                                Please add Citizenship Number
                                             </div>
                                         </div>
                                     </div>
@@ -157,6 +186,12 @@
                                                 Citizenship issued Date is required
                                             </div>
                                         </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('issuedYear').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('issuedYear').errors.required">
+                                                Please fill Citizenship issued Date
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -181,6 +216,12 @@
                                                 Citizenship issued Place is required
                                             </div>
                                         </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('issuedPlace').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('issuedPlace').errors.required">
+                                                Please add Citizenship issued Place
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -197,6 +238,12 @@
                                              class="invalid-feedback">
                                             <div *ngIf="guarantorDetails.get('contactNumber').errors.required">
                                                 Contact Number is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('contactNumber').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('contactNumber').errors.required">
+                                                Please fill Contact Number
                                             </div>
                                         </div>
                                     </div>
@@ -217,6 +264,12 @@
                                                 Guarantors Father's name is required
                                             </div>
                                         </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('fatherName').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('fatherName').errors.required">
+                                                Please fill Guarantors Father's name
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -235,6 +288,12 @@
                                                 Guarantors Grandfathers name is required
                                             </div>
                                         </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('grandFatherName').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('grandFatherName').errors.required">
+                                                Please fill Guarantors Grandfathers name
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -251,6 +310,12 @@
                                              class="invalid-feedback">
                                             <div *ngIf="guarantorDetails.get('relationship').errors.required">
                                                 Relationship is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('relationship').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('relationship').errors.required">
+                                                please fill relationship
                                             </div>
                                         </div>
                                     </div>
