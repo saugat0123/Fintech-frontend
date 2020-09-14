@@ -68,7 +68,8 @@ export class CustomerDocComponent implements OnInit {
     formData.append('documentName', documentName);
     formData.append('documentId', documentId);
     formData.append('customerName', this.customerInfo.name);
-    formData.append('customerId', this.customerInfo.id.toString());
+    formData.append('customerInfoId', this.customerInfo.id.toString());
+    formData.append('customerType', this.customerInfo.customerType);
     if (ObjectUtil.isEmpty(this.customerInfo.name)) {
       this.modelService.dismissAll();
       this.toastService.show(new Alert(AlertType.INFO, 'Customer Name Cannot Be Empty'));

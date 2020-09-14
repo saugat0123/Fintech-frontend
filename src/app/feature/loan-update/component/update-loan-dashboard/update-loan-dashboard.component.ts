@@ -84,7 +84,7 @@ export class UpdateLoanDashboardComponent implements OnInit {
         return;
       }
       this.updatesRequired.length = 0;
-      this.customerLoan.loanFlags.forEach(flag => {
+      this.customerLoan.loanHolder.loanFlags.forEach(flag => {
         switch (LoanFlag[flag.flag].toString()) {
           case LoanFlag.INSURANCE_EXPIRY.toString():
             this.updatesRequired.push({

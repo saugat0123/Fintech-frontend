@@ -39,7 +39,6 @@ import {ProductUtils} from '../../../admin/service/product-mode.service';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {NepaliTemplateDataHolder} from '../../model/nepali-template-data-holder';
 import {Customer} from '../../../admin/modal/customer';
-import {MawCreditRiskGradingComponent} from '../loan-main-template/maw-credit-risk-grading/maw-credit-risk-grading.component';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {InsuranceComponent} from '../../../loan-information-template/insurance/insurance.component';
@@ -152,9 +151,6 @@ export class LoanFormComponent implements OnInit {
 
   @ViewChild('creditRiskGradingAlpha', {static: false})
   creditRiskGradingAlpha: CreditRiskGradingAlphaComponent;
-
-  @ViewChild('mawCreditRiskGrading', {static: false})
-  mawCreditRiskGrading: MawCreditRiskGradingComponent;
 
   @ViewChild('financial', {static: false})
   financial: FinancialComponent;
@@ -510,10 +506,7 @@ export class LoanFormComponent implements OnInit {
       this.creditRiskGradingAlpha.onSubmit();
       this.loanDocument.creditRiskGradingAlpha = this.creditRiskGradingAlpha.creditRiskData;
     }*/
-    if (name === 'MAW Credit Risk Grading' && action) {
-      this.mawCreditRiskGrading.onSubmit();
-      this.loanDocument.mawCreditRiskGrading = this.mawCreditRiskGrading.mawCreditRiskGradingData;
-    }
+
     if (name === 'Group' && action) {
       this.group.onSubmit();
       this.loanDocument.group = this.group.modelData;
@@ -636,14 +629,19 @@ export class LoanFormComponent implements OnInit {
       if (this.allId.loanCategory === 'BUSINESS_TYPE') {
         this.loanDocument.customerInfo = null;
       }
+      if (ObjectUtil.isEmpty(this.loanDocument.loanHolder)) {
+        this.spinner.hide();
+        this.toastService.show(new Alert(AlertType.ERROR, 'Customer cannot be empty! Please search customer'));
+        return;
+      }
       this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
         this.loanDocument = response.detail;
         this.customerLoanId = this.loanDocument.id;
         this.loanDocument = new LoanDataHolder();
         this.router.navigate(['/home/loan/summary'], {queryParams: {loanConfigId: this.id, customerId: this.customerLoanId}})
-            .then(() => {
-              this.spinner.hide();
-            });
+        .then(() => {
+          this.spinner.hide();
+        });
       }, error => {
         this.spinner.hide();
         console.error(error);
