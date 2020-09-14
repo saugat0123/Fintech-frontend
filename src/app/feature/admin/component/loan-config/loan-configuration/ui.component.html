@@ -28,6 +28,33 @@
                             </div>
                         </div>
                     </div>
+                <div class="col-md-4">
+                    <div class="form-group>">
+                        <label><h4>Collateral Requirement (In %)</h4></label>
+                        <input type="text" class="form-control" name="collateralrequirement" required placeholder="e.g. 13"
+                               [(ngModel)]="loanConfig.collateralRequirement" #collateralRequirement="ngModel"
+                               [ngClass]="{ 'is-invalid': loanConfigForm.submitted && collateralRequirement.invalid }">
+                        <div class="invalid-feedback" *ngIf="loanConfigForm.submitted && collateralRequirement.invalid">
+                            <div *ngIf="collateralRequirement.errors.required"></div>
+                            <div *ngIf="collateralRequirement.invalid && loanConfig.collateralRequirement !== undefined &&loanConfig.collateralRequirement !== null">
+                                Collateral Requirement is required!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><h4>Loan Short Name</h4></label>
+                            <input type="text" class="form-control" name="shortNames" required placeholder="e.g. WCL for Working capital Loan"
+                                   [(ngModel)]="loanConfig.shortNames" #shortNames="ngModel"
+                                   [ngClass]="{ 'is-invalid': loanConfigForm.submitted && shortNames.invalid }">
+                            <div class="invalid-feedback" *ngIf="loanConfigForm.submitted && shortNames.invalid">
+                                <div *ngIf="shortNames.errors.required"></div>
+                                <div *ngIf="shortNames.invalid && loanConfig.shortNames !== undefined &&loanConfig.shortNames !== null">Short Name is required!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
