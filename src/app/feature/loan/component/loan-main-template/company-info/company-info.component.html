@@ -627,14 +627,7 @@
                             <label><strong>Email</strong></label>
                             <input class="form-control" formControlName="contactEmail"
                                    id="contactEmail" placeholder="Email"
-                                   type="email"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.contactEmail.errors }">
-                            <div *ngIf="(submitted) && form.contactEmail.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="form.contactEmail.errors.required">
-                                    Email is required
-                                </div>
-                            </div>
+                                   type="email">
                         </div>
                     </div>
                     <div class="col-md-4">
