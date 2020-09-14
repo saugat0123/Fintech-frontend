@@ -68,7 +68,7 @@
                                        name="category"
                                        placeholder="Select category">
                             </ng-select>
-                            <div *ngIf="loanConfigForm.submitted && category.invalid">
+                            <div *ngIf="loanConfigForm.submitted && !selectedLoanCategory">
                                 <small class="text-danger">Invalid loan category</small>
                             </div>
                         </div>

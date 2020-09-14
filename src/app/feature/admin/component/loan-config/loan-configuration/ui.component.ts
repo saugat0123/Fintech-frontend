@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {LoanConfig} from '../../../modal/loan-config';
 import {Document} from '../../../modal/document';
@@ -75,6 +75,7 @@ export class UIComponent implements OnInit {
       private route: ActivatedRoute,
       private spinner: NgxSpinnerService,
       private productModeService: ProductModeService,
+      private el: ElementRef
   ) {
   }
 
@@ -288,6 +289,23 @@ export class UIComponent implements OnInit {
     }
   }
 
+  private scrollToFirstInvalidControl() {
+    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+        'form .ng-invalid'
+    );
+    window.scroll({
+      top: this.getTopOffset(firstInvalidControl),
+      left: 0,
+      behavior: 'smooth'
+    });
+    firstInvalidControl.focus();
+  }
+
+  private getTopOffset(controlEl: HTMLElement): number {
+    const labelOffset = 50;
+    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+  }
+
   onSubmit() {
     this.submitted = true;
     this.spinner.show();
@@ -300,6 +318,7 @@ export class UIComponent implements OnInit {
     }
     if (this.loanConfigForm.invalid) {
       this.spinner.hide();
+      this.scrollToFirstInvalidControl();
       this.toastService.show(new Alert(AlertType.ERROR, ' Required Field should not left blank'));
       return;
     }
