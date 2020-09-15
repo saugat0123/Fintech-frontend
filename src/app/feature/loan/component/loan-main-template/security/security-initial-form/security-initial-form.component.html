@@ -244,7 +244,7 @@
                                         <input (input)="calculateBuildUpAreaRate(i)" class="form-control rounded" formControlName="buildArea"
                                                id="buildArea"
                                                name="buildArea" placeholder="build up area"
-                                               type="text"/>
+                                               type="number"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -254,7 +254,7 @@
                                                class="form-control rounded" formControlName="buildRate"
                                                id="buildRate"
                                                name="buildRate" placeholder="build up rate"
-                                               type="text"/>
+                                               type="number"/>
                                     </div>
                                 </div>
 
@@ -264,7 +264,7 @@
                                         <input class="form-control rounded" formControlName="totalCost"
                                                id="totalCost"
                                                name="totalCost" placeholder="total cost"
-                                               type="text"/>
+                                               type="number" readonly/>
                                     </div>
                                 </div>
 
@@ -281,21 +281,21 @@
                                     <div class="form-group">
                                         <label class="title" for="valuationArea">Valuation Taken Area
                                             (Sq.ft)</label>
-                                        <input class="form-control rounded" formControlName="valuationArea"
+                                        <input (input)="calculateEstimatedCost(i)" class="form-control rounded" formControlName="valuationArea"
                                                id="valuationArea"
                                                name="valuationArea" placeholder="Valuation Taken Area"
-                                               type="text"/>
+                                               type="number"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="ratePerSquareFeet">Rate per Square
                                             Feet</label>
-                                        <input class="form-control rounded"
+                                        <input (input)="calculateEstimatedCost(i)" class="form-control rounded"
                                                formControlName="ratePerSquareFeet"
                                                id="ratePerSquareFeet"
                                                name="ratePerSquareFeet" placeholder="Rate per Square Feet"
-                                               type="text"/>
+                                               type="number"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -304,7 +304,7 @@
                                         <input class="form-control rounded" formControlName="estimatedCost"
                                                id="estimatedCost"
                                                name="estimatedCost" placeholder="Estimated Cost"
-                                               type="text"/>
+                                               type="number" readonly/>
                                     </div>
                                 </div>
 

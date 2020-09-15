@@ -214,7 +214,7 @@ export class BasicInfoComponent implements OnInit {
             street: [this.customer.street === null ? undefined : this.customer.street, Validators.required],
             wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, Validators.required],
-            email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.required],
+            email: [this.customer.email === undefined ? undefined : this.customer.email],
             // initial Relation Date not used in ui
             initialRelationDate: [this.customer.initialRelationDate === undefined ? undefined :
                 new Date(this.customer.initialRelationDate)],

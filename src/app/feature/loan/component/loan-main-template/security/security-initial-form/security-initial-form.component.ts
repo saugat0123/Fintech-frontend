@@ -570,4 +570,11 @@ export class SecurityInitialFormComponent implements OnInit {
         const totalBuildRate = (Number(this.securityForm.get(['buildingDetails', i , 'buildArea']).value) * Number(this.securityForm.get(['buildingDetails', i , 'buildRate']).value)).toFixed(2);
         this.securityForm.get(['buildingDetails', i , 'totalCost']).patchValue(totalBuildRate);
     }
+
+    calculateEstimatedCost(i) {
+        const estimatedCost = (Number(this.securityForm.get(['buildingDetails', i , 'valuationArea']).value)
+            * Number(this.securityForm.get(['buildingDetails', i , 'ratePerSquareFeet']).value)).toFixed(2);
+        this.securityForm.get(['buildingDetails', i , 'estimatedCost']).patchValue(estimatedCost);
+
+    }
 }

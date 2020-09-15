@@ -256,7 +256,7 @@ export class CompanyInfoComponent implements OnInit {
             contactName: [(ObjectUtil.isEmpty(this.customerInfo)
                 || ObjectUtil.isEmpty(this.customerInfo.customerName)) ? undefined : this.customerInfo.customerName, Validators.required],
             contactEmail: [(ObjectUtil.isEmpty(this.customerInfo)
-                || ObjectUtil.isEmpty(this.customerInfo.email)) ? undefined : this.customerInfo.email, Validators.required],
+                || ObjectUtil.isEmpty(this.customerInfo.email)) ? undefined : this.customerInfo.email],
             contactNumber: [(ObjectUtil.isEmpty(this.customerInfo)
                 || ObjectUtil.isEmpty(this.customerInfo.contactNumber)) ? undefined : this.customerInfo.contactNumber, Validators.required],
             contactProvince: [(ObjectUtil.isEmpty(this.customerInfo)
@@ -272,8 +272,7 @@ export class CompanyInfoComponent implements OnInit {
             locationId: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.id],
             houseNumber: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.houseNumber,
-              Validators.required],
+                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.houseNumber],
             streetName: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.streetName,
               Validators.required],
