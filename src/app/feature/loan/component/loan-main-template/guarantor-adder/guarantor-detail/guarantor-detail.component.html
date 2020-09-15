@@ -1,0 +1,48 @@
+<nb-card accent="primary">
+  <nb-card-header  class="text-center">
+    <a class="close cursor" data-dismiss="modal" aria-label="Close"
+       (click)="onClose()">
+      <span aria-hidden="true">×</span></a>
+    <strong>{{guarantorData?.name}} Details</strong>
+  </nb-card-header>
+      <ng-container>
+        <table class="table table-bordered table-hover text-center">
+          <tr>
+            <th>Name</th>
+            <th>Citizen Number</th>
+            <th>Issued Year</th>
+            <th>Issued Place</th>
+            <th>Province</th>
+          </tr>
+          <tr>
+            <td>{{guarantorData?.name}}</td>
+            <td>{{guarantorData?.citizenNumber}}</td>
+            <td>{{guarantorData?.issuedYear | date}}</td>
+            <td>{{guarantorData?.issuedPlace}}</td>
+            <td>{{guarantorData?.province?.name}}</td>
+          </tr>
+          <tr>
+            <th>District</th>
+            <th>Municipalities</th>
+            <th>Contact Number</th>
+            <th>Father Name</th>
+            <th>Grand Father Name</th>
+          </tr>
+          <tr>
+            <td>{{guarantorData?.fatherName}}</td>
+            <td>{{guarantorData?.district?.name}}</td>
+            <td>{{guarantorData?.municipalities?.name}}</td>
+            <td>{{guarantorData?.contactNumber}}</td>
+            <td>{{guarantorData?.grandFatherName}}</td>
+          </tr>
+          <tr>
+            <th>Relationship</th>
+            <th> Age</th>
+          </tr>
+          <tr>
+            <td>{{guarantorData?.relationship}}</td>
+            <td>{{findAge(guarantorData?.issuedYear)}} yrs</td>
+          </tr>
+        </table>
+      </ng-container>
+</nb-card>
