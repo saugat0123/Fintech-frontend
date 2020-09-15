@@ -70,6 +70,7 @@ export class CompanyInfoComponent implements OnInit {
     addressList: Array<Address> = new Array<Address>();
     businessTypes = BusinessType.enumObject();
     companyStructureList: Array<Company>;
+    allDistrictList: Array<District>;
     private isBlackListed: boolean;
 
     constructor(
@@ -91,6 +92,7 @@ export class CompanyInfoComponent implements OnInit {
         this.customerInfo = this.basicInfo;
         this.buildForm();
         this.getCompanyStructure();
+        this.getAllDistrict();
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
@@ -212,6 +214,10 @@ export class CompanyInfoComponent implements OnInit {
               || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
               || ObjectUtil.isEmpty(this.companyInfo.legalStatus.registrationExpiryDate)) ? undefined :
               new Date(this.companyInfo.legalStatus.registrationExpiryDate), [Validators.required]],
+
+          registeredDistrict: [(ObjectUtil.isEmpty(this.customerInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
+          || ObjectUtil.isEmpty(this.companyInfo.legalStatus.registeredDistrict)
+              ? undefined : this.companyInfo.legalStatus.registeredDistrict.id)],
             // capital
             authorizedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
@@ -479,8 +485,8 @@ export class CompanyInfoComponent implements OnInit {
 
         // legalStatus
         // this.legalStatus.companyName = this.companyInfoFormGroup.get('companyName').value;
-      const corporateStructure = new Company();
-      corporateStructure.id = this.companyInfoFormGroup.get('corporateStructure').value;
+        const corporateStructure = new Company();
+        corporateStructure.id = this.companyInfoFormGroup.get('corporateStructure').value;
         this.legalStatus.corporateStructure = corporateStructure;
         this.legalStatus.registeredOffice = this.companyInfoFormGroup.get('registeredOffice').value;
         this.legalStatus.registeredUnderAct = this.companyInfoFormGroup.get('registeredUnderAct').value;
@@ -490,6 +496,9 @@ export class CompanyInfoComponent implements OnInit {
         // this.legalStatus.panNumber = this.companyInfoFormGroup.get('panNumber').value;
         this.legalStatus.panRegistrationDate = this.companyInfoFormGroup.get('panRegistrationDate').value;
         this.legalStatus.registrationExpiryDate = this.companyInfoFormGroup.get('registrationExpiryDate').value;
+        const registeredDistrict = new District();
+        registeredDistrict.id = this.companyInfoFormGroup.get('registeredDistrict').value;
+        this.legalStatus.registeredDistrict = registeredDistrict;
 
         this.companyInfo.legalStatus = this.legalStatus;
         // capital
@@ -558,7 +567,14 @@ export class CompanyInfoComponent implements OnInit {
       this.companyStructureList = res.detail;
     }, error => {
       console.error(error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Company Structure can not be Loaded'));
+    });
+  }
+
+  getAllDistrict() {
+    this.commonLocation.getAllDistrict().subscribe((res: any) => {
+      this.allDistrictList = res.detail;
+    }, error => {
+      console.error(error);
     });
   }
 

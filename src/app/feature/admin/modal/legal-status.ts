@@ -1,4 +1,5 @@
 import {Company} from './company';
+import {District} from './district';
 
 export class LegalStatus {
     id: number;
@@ -12,4 +13,5 @@ export class LegalStatus {
     // panNumber: string;
     panRegistrationDate: Date;
     registrationExpiryDate: Date;
+    registeredDistrict: District;
 }

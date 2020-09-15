@@ -38,13 +38,23 @@
         </thead>
         <tbody>
         <tr>
-          <td>{{companyInfoData['legalStatus']['corporateStructure']['name']}}</td>
+          <td>{{companyInfoData['legalStatus']['corporateStructure']?.name}}</td>
           <td>{{companyInfoData['legalStatus']['registeredOffice']}}</td>
           <td>{{companyInfoData['legalStatus']['registeredUnderAct']}}</td>
           <td>{{companyInfoData['legalStatus']['registrationDate'] | date}}</td>
           <td>{{companyInfoData['legalStatus']['panRegistrationOffice']}}</td>
           <td>{{companyInfoData['legalStatus']['panRegistrationDate'] | date}}</td>
           <td>{{companyInfoData['legalStatus']['registrationExpiryDate'] | date}}</td>
+        </tr>
+        </tbody>
+        <thead>
+        <tr>
+          <th>Registered Office</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{companyInfoData['legalStatus']['registeredDistrict']?.name}}</td>
         </tr>
         </tbody>
       </table>
