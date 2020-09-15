@@ -356,8 +356,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     });
   }
 
-  // todo put method to refresh customerListGroup Component
-  refreshGroup(event) {
-   /*this.customerListGroupComponent.getLoanListByCustomerGroup();*/
+  refreshGroup() {
+   this.refreshCustomerInfo();
   }
 }

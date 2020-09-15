@@ -76,6 +76,8 @@ import {LoanInformationViewModule} from '../loan-information-view/loan-informati
 import { LoanActionModalComponent } from './loan-action/loan-action-modal/loan-action-modal.component';
 import { LoanActionVerificationComponent } from './loan-action/loan-action-verification/loan-action-verification.component';
 import { LoanActionCombinedModalComponent } from './loan-action/loan-action-combined-modal/loan-action-combined-modal.component';
+import { GuarantorAdderComponent } from './component/loan-main-template/guarantor-adder/guarantor-adder.component';
+import { GuarantorDetailComponent } from './component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -135,7 +137,9 @@ const COMPONENTS = [
     ProposalSummaryComponent,
     LoanActionModalComponent,
     LoanActionVerificationComponent,
-    LoanActionCombinedModalComponent
+    LoanActionCombinedModalComponent,
+    GuarantorAdderComponent,
+    GuarantorDetailComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -145,7 +149,8 @@ const ENTRY_COMPONENTS = [
     CustomerAssociateComponent,
     LoanActionModalComponent,
     LoanActionVerificationComponent,
-    LoanActionCombinedModalComponent
+    LoanActionCombinedModalComponent,
+    GuarantorDetailComponent
 ];
 
 @NgModule({

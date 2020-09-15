@@ -284,4 +284,8 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
       this.allDistrict = response.detail;
     });
   }
+
+  refreshGroup() {
+    this.refreshCustomerInfo();
+  }
 }
