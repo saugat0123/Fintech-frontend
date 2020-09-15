@@ -456,6 +456,7 @@ export class LoanFormComponent implements OnInit {
 
     if (name === 'Proposal' && action) {
       if (this.proposalDetail.proposalForm.invalid && this.nextButtonAction) {
+        this.proposalDetail.scrollToFirstInvalidControl();
         this.proposalDetail.submitted = true;
         return true;
       }
