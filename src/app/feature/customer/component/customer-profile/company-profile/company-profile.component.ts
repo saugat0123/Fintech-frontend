@@ -274,4 +274,8 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
     });
   }
+
+  refreshGroup() {
+    this.refreshCustomerInfo();
+  }
 }

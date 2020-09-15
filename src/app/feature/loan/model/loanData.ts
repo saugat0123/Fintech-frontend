@@ -44,6 +44,7 @@ export class LoanDataHolder {
     siteVisit: SiteVisit;
     financial: Financial;
     security: Security;
+    guarantor: GuarantorDetail;
     taggedGuarantors: Array<Guarantor>;
     priority: Priority;
     createdAt: Date;

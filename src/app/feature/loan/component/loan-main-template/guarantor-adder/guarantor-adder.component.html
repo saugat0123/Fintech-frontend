@@ -11,9 +11,8 @@
         <button [disabled]="!guarantor.valid" nbButton size="small" (click)="addGuarantorDetail(selectedGuarantor.selected)"> <i
             class="fa fa-plus"></i></button>
       </div>
-      <div class="col-md-1">
-      </div>
     </div>
+    <p><strong class="mt-2 text-danger">{{msg}}</strong></p>
   </nb-card-header>
   <nb-card-body>
     <div  class="row mt-5">
@@ -41,6 +40,10 @@
             <td> <button (click)="removeGuarantor(guarantor)"
                          class="btn btn-sm btn-flat btn-danger">
               <em class="fa fa-trash bg-transparent"></em>
+            </button>
+              <button (click)="openGuarantorDetailModal(guarantor)"
+                         class="ml-1 btn btn-sm btn-flat btn-primary">
+              <em class="fa fa-info bg-transparent"></em>
             </button></td>
           </tr>
           </tbody>

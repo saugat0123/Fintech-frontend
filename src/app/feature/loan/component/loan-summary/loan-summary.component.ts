@@ -232,8 +232,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.siteVisitSummary = true;
           }
 
-          if (!ObjectUtil.isEmpty(this.loanDataHolder.guarantor)) {
-            this.guarantorData = this.loanDataHolder.guarantor.guarantorList;
+          if (this.loanDataHolder.taggedGuarantors.length > 0) {
+            console.log(this.loanDataHolder.taggedGuarantors);
+            this.guarantorData = this.loanDataHolder.taggedGuarantors;
             this.checkGuarantorData = true;
           }
           if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {

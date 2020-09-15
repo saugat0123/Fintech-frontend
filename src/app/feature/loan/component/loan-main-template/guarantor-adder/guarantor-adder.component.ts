@@ -1,7 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Guarantor} from '../../../model/guarantor';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ObjectUtil} from "../../../../../@core/utils/ObjectUtil";
+import {FormControl, Validators} from '@angular/forms';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {GuarantorDetailComponent} from './guarantor-detail/guarantor-detail.component';
+import {NbDialogService} from '@nebular/theme';
 
 @Component({
   selector: 'app-guarantor-adder',
@@ -11,18 +13,21 @@ import {ObjectUtil} from "../../../../../@core/utils/ObjectUtil";
 export class GuarantorAdderComponent implements OnInit {
 
   @Input() guarantorData;
+  @Input() taggedGuarantors;
   guarantorList: Array<Guarantor> = [];
-  guarantorForm: FormGroup;
   selectedGuarantorList: Array<Guarantor> = [];
+  msg = '';
 
   guarantor = new FormControl(undefined , Validators.required);
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private nbDialogService: NbDialogService) {
   }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.guarantorData)){
+    if (!ObjectUtil.isEmpty(this.guarantorData)) {
     this.guarantorList = this.guarantorData.guarantorList;
+    } if (!ObjectUtil.isEmpty(this.taggedGuarantors)) {
+    this.selectedGuarantorList = this.taggedGuarantors;
     }
   }
 
@@ -30,6 +35,9 @@ export class GuarantorAdderComponent implements OnInit {
     const presentGuarantor = this.selectedGuarantorList.filter(d => d.id === data.id);
     if (presentGuarantor.length <= 0) {
       this.selectedGuarantorList.push(data);
+      this.msg = '';
+    } else {
+      this.msg = 'selected guarantor is already added !';
     }
   }
 
@@ -43,7 +51,7 @@ export class GuarantorAdderComponent implements OnInit {
     filter(d => d.id.toString() === data.id.toString())[0]);
   }
 
-  onSubmit(){
-
+  openGuarantorDetailModal(guarantorData) {
+    this.nbDialogService.open(GuarantorDetailComponent ,  {context: {guarantorData}});
   }
 }
