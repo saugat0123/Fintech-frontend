@@ -18,6 +18,9 @@ export class SiteVisitComponent implements OnInit {
   siteVisitData: SiteVisit = new SiteVisit();
   siteVisitFormGroup: FormGroup;
   submitted = false;
+  business = false;
+  fixed = false;
+  current = false;
   currentResidentForm = false;
   businessSiteVisitForm = false;
   fixedAssetCollateralForm = false;
@@ -736,19 +739,19 @@ export class SiteVisitComponent implements OnInit {
     }
     if (this.businessSiteVisitForm){
       if(this.siteVisitFormGroup.get('businessSiteVisitDetails').invalid){
-        this.submitted = true;
+        this.business = true;
         return;
       }
     }
     if (this.fixedAssetCollateralForm){
       if(this.siteVisitFormGroup.get('fixedAssetCollateralDetails').invalid){
-        this.submitted = true;
+        this.fixed = true;
         return;
       }
     }
     if (this.currentAssetsInspectionForm){
       if(this.siteVisitFormGroup.get('currentAssetsInspectionDetails').invalid){
-        this.submitted = true;
+        this.current = true;
         return;
       }
     }

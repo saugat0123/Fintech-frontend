@@ -23,38 +23,7 @@
                 <td>{{incomeOfBorrower.remarks}}</td>
             </tr>
             <tr>
-                <td class="text-center" colspan="3"><strong>Current Total</strong></td>
-                <td class="text-center">
-                    <strong>Rs. {{financialData['initialForm']['currentTotal'] | currencyFormatter}}</strong>
-                </td>
-                <td></td>
-            </tr>
-            </tbody>
-
-            <thead>
-            <tr>
-                <th>S.No</th>
-                <th>Future income source</th>
-                <th>Organization</th>
-                <th>Future income amount</th>
-                <th>Remarks</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let futureIncomeOfBorrower of financialData['initialForm']['futureIncomeOfBorrower']; let i= index">
-                <td>{{i + 1}}</td>
-                <td>{{futureIncomeOfBorrower['futureIncomeSource']}}</td>
-                <td>{{futureIncomeOfBorrower['futureOrganization']}}</td>
-                <td>{{futureIncomeOfBorrower['amount']}}</td>
-                <td>{{futureIncomeOfBorrower['futureRemarks']}}</td>
-            </tr>
-            <tr>
-                <td colspan="3"><b>Future Total</b></td>
-                <td><b>Rs.{{ financialData['initialForm']['futureTotal']}}</b></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="3"><b>Total Income (Current Total + Future Total)</b></td>
+                <td colspan="3"><b>Total Income </b></td>
                 <td><b>Rs.{{ financialData['initialForm']['totalIncome']}}</b></td>
                 <td></td>
             </tr>
