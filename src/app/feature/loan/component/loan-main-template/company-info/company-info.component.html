@@ -140,10 +140,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="corporateStructure"><strong>Corporate Structure</strong></label>
-                            <input id="corporateStructure" formControlName="corporateStructure"
+                            <select id="corporateStructure" formControlName="corporateStructure"
                                    name="corporateStructure"
-                                   type="text" class="form-control" placeholder="Corporate Structure"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.corporateStructure.errors }"/>
+                                   class="form-control custom-select"
+                                    [ngClass]="{ 'is-invalid': (submitted) && form.corporateStructure.errors }">
+                                <option [value]="null" hidden>--Select Corporate Structure--</option>
+                                <option [ngValue]="companyStructure.id" *ngFor="let companyStructure of companyStructureList">{{companyStructure.name}}</option>
+                            </select>
                             <div *ngIf="(submitted) && form.corporateStructure.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="form.corporateStructure.errors.required">Corporate Structure is
@@ -181,7 +184,7 @@
                                 <option value="Inland Revenue Office">Inland Revenue Office</option>
                                 <option value="Institute of Chartered Accountant Nepal">Institute of Chartered Accountant Nepal</option>
                                 <option value="Municipality Office">Municipality Office </option>
-                                <option value="National Sports Council">National Sports Council /option>
+                                <option value="National Sports Council">National Sports Council</option>
                                 <option value="Nepal CMA Sangha">Nepal CMA Sangha </option>
                                 <option value="Office of Company Registrar">Office of Company Registrar</option>
                                 <option value="Office of Cottage & Small Industry">Office of Cottage & Small Industry</option>
@@ -465,7 +468,7 @@
                     <div [formGroupName]="proprietorIndex">
                         <div class="row">
                             <div class="col-md-10 form-group">
-                                <h5>{{proprietorIndex + 1}}) Proprietor Information</h5>
+                                <h5>{{proprietorIndex + 1}}) General Information</h5>
                             </div>
                             <div class="col-md-2" *ngIf="companyInfoFormGroup.get('proprietors').length>1">
                                 <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"

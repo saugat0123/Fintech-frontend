@@ -38,7 +38,7 @@
         </thead>
         <tbody>
         <tr>
-          <td>{{companyInfoData['legalStatus']['corporateStructure']}}</td>
+          <td>{{companyInfoData['legalStatus']['corporateStructure']['name']}}</td>
           <td>{{companyInfoData['legalStatus']['registeredOffice']}}</td>
           <td>{{companyInfoData['legalStatus']['registeredUnderAct']}}</td>
           <td>{{companyInfoData['legalStatus']['registrationDate'] | date}}</td>
@@ -103,7 +103,7 @@
     <table *ngFor="let proprietorsList of companyInfoData['proprietorsList']; let i=index" class="table table-condensed table-bordered table-responsive-md text-center">
       <thead>
       <tr>
-        <th class="text-center" colspan="6">{{i+1}}.Proprietor Information</th>
+        <th class="text-center" colspan="6">{{i+1}}.General Information</th>
       </tr>
       <tr>
         <th>Name</th>
