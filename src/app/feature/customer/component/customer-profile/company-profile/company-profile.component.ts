@@ -23,6 +23,8 @@ import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loan-apply.component';
 import {FetchLoan} from '../../../model/fetchLoan';
 import {LoanAmountType} from '../../../model/loanAmountType';
+import {District} from "../../../../admin/modal/district";
+import {AddressService} from "../../../../../@core/service/baseservice/address.service";
 
 @Component({
   selector: 'app-company-profile',
@@ -55,6 +57,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
   maker = false;
   fetchLoan = FetchLoan;
   formData: FormData = new FormData();
+  allDistrict: Array<District> = Array<District>();
   profilePic;
 
   constructor(private companyInfoService: CompanyInfoService,
@@ -65,6 +68,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
               private modalService: NgbModal,
               private loanConfigService: LoanConfigService,
               private dialogService: NbDialogService,
+              private commonLocation: AddressService,
               private formBuilder: FormBuilder) {
   }
 
@@ -74,6 +78,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
   ngOnInit() {
     this.buildCompanyForm();
+    this.getAllDistrict();
     this.activatedRoute.queryParams.subscribe((paramObject: Params) => {
       this.customerInfoId = paramObject.id;
       this.paramProp = paramObject;
@@ -272,6 +277,11 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
       this.refreshCustomerInfo();
     }, error => {
       this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+    });
+  }
+  private getAllDistrict() {
+    this.commonLocation.getAllDistrict().subscribe((response: any) => {
+      this.allDistrict = response.detail;
     });
   }
 

@@ -199,6 +199,7 @@ export class FinancialComponent implements OnInit {
             expensesOfBorrower: this.formBuilder.array([]),
             totalIncome: [0],
             totalExpense: [0],
+            currentTotal: [0],
             netSaving: [0]
         });
     }
