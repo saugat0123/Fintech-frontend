@@ -215,10 +215,11 @@ export class CompanyInfoComponent implements OnInit {
               || ObjectUtil.isEmpty(this.companyInfo.legalStatus.registrationExpiryDate)) ? undefined :
               new Date(this.companyInfo.legalStatus.registrationExpiryDate), [Validators.required]],
 
-          registeredDistrict: [(ObjectUtil.isEmpty(this.customerInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
-          || ObjectUtil.isEmpty(this.companyInfo.legalStatus.registeredDistrict)
-              ? undefined : this.companyInfo.legalStatus.registeredDistrict.id)],
-            // capital
+          registeredDistrict: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus) ||
+              ObjectUtil.isEmpty(this.companyInfo.legalStatus.registeredDistrict)) ?
+              undefined : this.companyInfo.legalStatus.registeredDistrict.id, Validators.required],
+
+          // capital
             authorizedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
                 this.companyInfo.capital.authorizedCapital, Validators.required],
@@ -487,7 +488,7 @@ export class CompanyInfoComponent implements OnInit {
         // this.legalStatus.companyName = this.companyInfoFormGroup.get('companyName').value;
         const corporateStructure = new Company();
         corporateStructure.id = this.companyInfoFormGroup.get('corporateStructure').value;
-        this.legalStatus.corporateStructure = corporateStructure;
+        this.legalStatus.corporateStructure = ObjectUtil.isEmpty(corporateStructure.id) ? undefined : corporateStructure;
         this.legalStatus.registeredOffice = this.companyInfoFormGroup.get('registeredOffice').value;
         this.legalStatus.registeredUnderAct = this.companyInfoFormGroup.get('registeredUnderAct').value;
         // this.legalStatus.registrationNo = this.companyInfoFormGroup.get('registrationNo').value;
@@ -498,7 +499,7 @@ export class CompanyInfoComponent implements OnInit {
         this.legalStatus.registrationExpiryDate = this.companyInfoFormGroup.get('registrationExpiryDate').value;
         const registeredDistrict = new District();
         registeredDistrict.id = this.companyInfoFormGroup.get('registeredDistrict').value;
-        this.legalStatus.registeredDistrict = registeredDistrict;
+        this.legalStatus.registeredDistrict = ObjectUtil.isEmpty(registeredDistrict.id) ? undefined : registeredDistrict;
 
         this.companyInfo.legalStatus = this.legalStatus;
         // capital

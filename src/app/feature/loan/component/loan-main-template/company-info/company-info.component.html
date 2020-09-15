@@ -241,10 +241,16 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label><b>Registered District</b></label>
-                            <select class="form-control custom-select" formControlName="registeredDistrict">
+                            <select class="form-control custom-select" formControlName="registeredDistrict"  [ngClass]="{ 'is-invalid': (submitted) && form.registeredDistrict.errors }">
                                 <option [value]="null" hidden>--Select Registered District--</option>
                                 <option *ngFor="let registeredDistrict of allDistrictList" [ngValue]="registeredDistrict.id">{{registeredDistrict.name}}</option>
                             </select>
+                            <div *ngIf="(submitted) && form.registeredDistrict.invalid"
+                                 class="invalid-feedback">
+                                <div *ngIf="form.registeredDistrict.errors.required">
+                                    Registered District is required
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
