@@ -454,9 +454,22 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="designation"><strong>Designation</strong></label>
-                                    <input id="designation" formControlName="designation" name="designation" type="text"
-                                           class="form-control" placeholder="Designation"
-                                           [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('designation').errors }">
+                                    <select id="designation" formControlName="designation" name="designation"
+                                           class="form-control"
+                                            [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('designation').errors }">
+                                        <option [ngValue]="null" hidden>--Select Designation-- </option>
+                                        <option value="Proprietor">Proprietor</option>
+                                        <option value="Partner">Partner</option>
+                                        <option value="General Manager">General Manager </option>
+                                        <option value="Managing Director">Managing Director</option>
+                                        <option value="CEO">CEO</option>
+                                        <option value="Authorised Person">Authorised Person</option>
+                                        <option value="Director">Director</option>
+                                        <option value="Shareholder">Shareholder</option>
+                                        <option value="Holding Company">Holding Company</option>
+                                        <option value="Other">Other</option>
+
+                                    </select>
                                     <div *ngIf="(submitted) && managementTeam.get('designation').invalid"
                                          class="invalid-feedback">
                                         <div *ngIf="managementTeam.get('designation').errors.required">
