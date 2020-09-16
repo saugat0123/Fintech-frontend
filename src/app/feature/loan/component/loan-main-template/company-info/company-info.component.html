@@ -207,14 +207,7 @@
                             <label for="registeredUnderAct"><strong>Registered Under Act</strong></label>
                             <input id="registeredUnderAct" formControlName="registeredUnderAct"
                                    name="registeredUnderAct"
-                                   type="text" class="form-control" placeholder="Registered Under Act"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.registeredUnderAct.errors }">
-                            <div *ngIf="(submitted) && form.registeredUnderAct.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="form.registeredUnderAct.errors.required">
-                                    Registered Under Act is required
-                                </div>
-                            </div>
+                                   type="text" class="form-control" placeholder="Registered Under Act">
                         </div>
                     </div>
                     <div class="col-md-4">
