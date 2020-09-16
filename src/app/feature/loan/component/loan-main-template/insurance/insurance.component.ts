@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Insurance} from '../../../../admin/modal/insurance';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {InsuranceList} from '../../../model/insuranceList';
 
 @Component({
     selector: 'app-insurance',
@@ -14,6 +15,8 @@ export class InsuranceComponent implements OnInit {
     form: FormGroup;
     isSubmitted = false;
     insurance: Insurance = new Insurance();
+    insuranceList: InsuranceList = new InsuranceList();
+    insuranceCompanyList;
 
     constructor(
         private formBuilder: FormBuilder
@@ -29,6 +32,7 @@ export class InsuranceComponent implements OnInit {
             this.insurance = this.insuranceDataFromModel;
         }
         this.buildForm();
+        this.insuranceCompanyList = this.insuranceList.insuranceCompanyList;
     }
 
     buildForm() {
