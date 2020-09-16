@@ -26,6 +26,8 @@ import {BlacklistService} from '../../../../admin/component/blacklist/blacklist.
 import {CalendarType} from '../../../../../@core/model/calendar-type';
 import {Customer} from '../../../../admin/modal/customer';
 import {CompanyLocations} from '../../../../admin/modal/companyLocations';
+import {CompanyService} from '../../../../admin/component/company/company.service';
+import {Company} from '../../../../admin/modal/company';
 
 
 @Component({
@@ -67,6 +69,8 @@ export class CompanyInfoComponent implements OnInit {
     municipalityVdcList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
     addressList: Array<Address> = new Array<Address>();
     businessTypes = BusinessType.enumObject();
+    companyStructureList: Array<Company>;
+    allDistrictList: Array<District>;
     private isBlackListed: boolean;
 
     constructor(
@@ -77,7 +81,8 @@ export class CompanyInfoComponent implements OnInit {
         private loanFormService: LoanFormService,
         private toastService: ToastService,
         private companyInfoService: CompanyInfoService,
-        private blackListService: BlacklistService
+        private blackListService: BlacklistService,
+        private company: CompanyService
     ) {
 
     }
@@ -86,7 +91,8 @@ export class CompanyInfoComponent implements OnInit {
         this.companyInfo = this.formValue;
         this.customerInfo = this.basicInfo;
         this.buildForm();
-
+        this.getCompanyStructure();
+        this.getAllDistrict();
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
@@ -178,8 +184,9 @@ export class CompanyInfoComponent implements OnInit {
                     this.companyInfo.businessType, [Validators.required]],
 
             // legalStatus
-            corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ?
-                undefined : this.companyInfo.legalStatus.corporateStructure, Validators.required],
+            corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus) ||
+                ObjectUtil.isEmpty(this.companyInfo.legalStatus.corporateStructure)) ?
+                undefined : this.companyInfo.legalStatus.corporateStructure.id, Validators.required],
 
             registeredOffice: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
@@ -207,7 +214,12 @@ export class CompanyInfoComponent implements OnInit {
               || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
               || ObjectUtil.isEmpty(this.companyInfo.legalStatus.registrationExpiryDate)) ? undefined :
               new Date(this.companyInfo.legalStatus.registrationExpiryDate), [Validators.required]],
-            // capital
+
+          registeredDistrict: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus) ||
+              ObjectUtil.isEmpty(this.companyInfo.legalStatus.registeredDistrict)) ?
+              undefined : this.companyInfo.legalStatus.registeredDistrict.id, Validators.required],
+
+          // capital
             authorizedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
                 this.companyInfo.capital.authorizedCapital, Validators.required],
@@ -474,7 +486,9 @@ export class CompanyInfoComponent implements OnInit {
 
         // legalStatus
         // this.legalStatus.companyName = this.companyInfoFormGroup.get('companyName').value;
-        this.legalStatus.corporateStructure = this.companyInfoFormGroup.get('corporateStructure').value;
+        const corporateStructure = new Company();
+        corporateStructure.id = this.companyInfoFormGroup.get('corporateStructure').value;
+        this.legalStatus.corporateStructure = ObjectUtil.isEmpty(corporateStructure.id) ? undefined : corporateStructure;
         this.legalStatus.registeredOffice = this.companyInfoFormGroup.get('registeredOffice').value;
         this.legalStatus.registeredUnderAct = this.companyInfoFormGroup.get('registeredUnderAct').value;
         // this.legalStatus.registrationNo = this.companyInfoFormGroup.get('registrationNo').value;
@@ -483,6 +497,9 @@ export class CompanyInfoComponent implements OnInit {
         // this.legalStatus.panNumber = this.companyInfoFormGroup.get('panNumber').value;
         this.legalStatus.panRegistrationDate = this.companyInfoFormGroup.get('panRegistrationDate').value;
         this.legalStatus.registrationExpiryDate = this.companyInfoFormGroup.get('registrationExpiryDate').value;
+        const registeredDistrict = new District();
+        registeredDistrict.id = this.companyInfoFormGroup.get('registeredDistrict').value;
+        this.legalStatus.registeredDistrict = ObjectUtil.isEmpty(registeredDistrict.id) ? undefined : registeredDistrict;
 
         this.companyInfo.legalStatus = this.legalStatus;
         // capital
@@ -545,5 +562,21 @@ export class CompanyInfoComponent implements OnInit {
     selectDate(value) {
         this.englishDateSelected = !value;
     }
+
+  getCompanyStructure() {
+    this.company.getAll().subscribe(res => {
+      this.companyStructureList = res.detail;
+    }, error => {
+      console.error(error);
+    });
+  }
+
+  getAllDistrict() {
+    this.commonLocation.getAllDistrict().subscribe((res: any) => {
+      this.allDistrictList = res.detail;
+    }, error => {
+      console.error(error);
+    });
+  }
 
 }

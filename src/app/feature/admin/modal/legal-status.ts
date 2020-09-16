@@ -1,7 +1,10 @@
+import {Company} from './company';
+import {District} from './district';
+
 export class LegalStatus {
     id: number;
     // companyName: string;
-    corporateStructure: string;
+    corporateStructure: Company;
     registeredOffice: string;
     registeredUnderAct: string;
     // registrationNo: string;
@@ -10,4 +13,5 @@ export class LegalStatus {
     // panNumber: string;
     panRegistrationDate: Date;
     registrationExpiryDate: Date;
+    registeredDistrict: District;
 }
