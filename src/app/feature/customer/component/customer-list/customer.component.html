@@ -16,10 +16,11 @@
           </div>
         </div>
         <div class="col-md-6 d-flex justify-content-end">
-          <button nbButton outline status="success" class="mr-2" (click)="openTemplate(chooseCusType)" *ngIf="currentRoleTypeMaker">
+          <button nbButton outline status="success" class="mr-2"
+                  (click)="openTemplate(chooseCusType)" *ngIf="currentRoleTypeMaker">
             <i class="fa fa-plus"></i>
           </button>
-          <button (click)="getCsv()" nbButton outline
+          <button (click)="download()" nbButton outline
                   status="info">
             <i aria-hidden="true" class="fa fa-download"></i></button>
         </div>
@@ -29,13 +30,33 @@
     <div [ngbCollapse]="isFilterCollapsed" class="col-md-12" id="searchModel">
       <form [formGroup]="filterForm">
         <div class="row py-3">
-
-
+          <div class="col-md-3 mb-3" *ngIf="accessSpecific || accessAll">
+            <nb-select multiple placeholder="branches" formControlName="tempBranch" >
+              <nb-option *ngFor="let branch of branchList" [value]="branch.id">{{branch.name}}</nb-option>
+            </nb-select>
+          </div>
           <div class="col-md-3 mb-3">
             <input class="form-control rounded" formControlName="name" id="customerName"
                    placeholder="Enter customer name">
           </div>
-
+          <div class="col-md-3 mb-3">
+            <ng-select formControlName="customerType" placeholder="Customer Type">
+              <ng-option value="COMPANY">COMPANY</ng-option>
+              <ng-option value="INDIVIDUAL">INDIVIDUAL</ng-option>
+            </ng-select>
+          </div>
+          <div class="col-md-3 mb-3">
+            <ng-select [multiple]="false"
+                       [appendTo]="'body'"
+                       formControlName="idRegPlace"
+                       id="idRegPlace"
+                       placeholder="Id Registration place"
+                       type="text">
+              <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+                {{district?.name}}
+              </ng-option>
+            </ng-select>
+          </div>
         </div>
 
         <div class="col-md-12 p-0">
@@ -43,7 +64,7 @@
                   shape="rectangle"
                   status="info">Search
           </button>
-          <button nbButton shape="rectangle" status="danger" type="button">Clear
+          <button nbButton shape="rectangle" (click)=" clear()" status="danger" type="button">Clear
           </button>
         </div>
       </form>
@@ -55,15 +76,14 @@
     <table class="table table-bordered table-hover " id="add-branch-table">
       <thead>
       <tr>
+        <th *ngIf="!isMaker">Branch</th>
         <th>Customer Name</th>
         <th>Customer Type</th>
-
         <th>ID Type</th>
         <th>ID Number</th>
         <th>ID Issue Place</th>
         <th>Email</th>
         <th>Contact No</th>
-
         <th>Associated Since</th>
 
 
@@ -72,6 +92,7 @@
       <tbody>
       <tr (click)="customerProfile(model.associateId,model.id,model.customerType)"
           *ngFor="let model of customerList;let i=index" class="cursor">
+        <td *ngIf="!isMaker">{{model?.branch?.name}}</td>
         <td>{{model?.name}}</td>
         <td>{{model?.customerType}}</td>
         <td>{{model?.idType || 'NA'}}</td>
@@ -105,17 +126,18 @@
   </div>
   <div class="modal-body">
 
-      <div class="row">
-        <div class="col-md-12">
-          <ng-select [(ngModel)]="customerType" placeholder="select Customer Type">
-            <ng-option value="COMPANY">COMPANY</ng-option>
-            <ng-option value="INDIVIDUAL">INDIVIDUAL</ng-option>
-          </ng-select>
-        </div>
+    <div class="row">
+      <div class="col-md-12">
+        <ng-select [(ngModel)]="customerType" placeholder="select Customer Type">
+          <ng-option value="COMPANY">COMPANY</ng-option>
+          <ng-option value="INDIVIDUAL">INDIVIDUAL</ng-option>
+        </ng-select>
       </div>
+    </div>
   </div>
   <div class="modal-footer">
     <button class="btn btn-success float-right" (click)="getForm()">Next
     </button>
   </div>
 </ng-template>
+<app-overlay-spinner></app-overlay-spinner>
