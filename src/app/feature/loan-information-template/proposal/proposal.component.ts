@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Proposal} from '../../admin/modal/proposal';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
@@ -36,7 +36,8 @@ export class ProposalComponent implements OnInit {
                 private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
                 private toastService: ToastService,
-                private baseInterestService: BaseInterestService) {
+                private baseInterestService: BaseInterestService,
+                private el: ElementRef) {
     }
 
     ngOnInit() {
@@ -114,6 +115,23 @@ export class ProposalComponent implements OnInit {
 
         });
     }
+
+   scrollToFirstInvalidControl() {
+    const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
+        'form .ng-invalid'
+    );
+    window.scroll({
+      top: this.getTopOffset(firstInvalidControl),
+      left: 0,
+      behavior: 'smooth'
+    });
+    firstInvalidControl.focus();
+  }
+
+  private getTopOffset(controlEl: HTMLElement): number {
+    const labelOffset = 50;
+    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+  }
 
     onSubmit() {
         // Proposal Form Data--

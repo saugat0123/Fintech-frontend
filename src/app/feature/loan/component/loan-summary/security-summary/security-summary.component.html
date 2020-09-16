@@ -261,12 +261,12 @@
             </div>
         </div>
         <!--        guarantors details-->
-        <div class="row">
+        <div *ngIf="formData['guarantorsForm']['guarantorsDetails'] !== null" class="row">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md text-center">
                     <thead>
                     <tr>
-                        <th class="text-center" colspan="6">Gurantors Details</th>
+                        <th class="text-center" colspan="6">Security Gurantors Details</th>
                     </tr>
                     <tr>
                         <th>S.N</th>
