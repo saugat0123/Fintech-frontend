@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {NepseMaster} from '../../../../admin/modal/NepseMaster';
 
 
 @Component({
@@ -9,12 +10,19 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 })
 export class SecuritySummaryComponent implements OnInit {
   @Input() formData: Object;
+  @Input() shareSecurity;
   landSelected = false;
   apartmentSelected = false;
   plantSelected = false;
   vehicleSelected = false;
   depositSelected = false;
+  shareSelected = false;
+  isPresentGuarantor = false;
   totalAmount = 0;
+  shareTotalValue = 0;
+  totalConsideredValue = 0;
+
+  loanSharePercent: NepseMaster = new NepseMaster();
 
   constructor() {
   }
@@ -40,6 +48,9 @@ export class SecuritySummaryComponent implements OnInit {
             break;
           case 'FixedDeposit':
             this.depositSelected = true;
+            break;
+          case 'ShareSecurity':
+            this.shareSelected = true;
         }
       });
     }
@@ -47,12 +58,27 @@ export class SecuritySummaryComponent implements OnInit {
     if (this.depositSelected) {
       this.calculateTotal();
     }
+    if (this.shareSelected) {
+      this.calculateShareTotals();
+      this.loanSharePercent = this.shareSecurity['loanShareRate'];
+    }
+    if (this.formData['guarantorsForm']['guarantorsDetails'].length !== 0) {
+      this.isPresentGuarantor = true;
+    }
   }
 
   calculateTotal() {
     const depositList = this.formData['initialForm']['fixedDepositDetails'];
     depositList.forEach(deposit => {
       this.totalAmount += deposit.amount;
+    });
+  }
+
+  private calculateShareTotals() {
+    const shareList = this.shareSecurity['shareSecurityDetails'];
+    shareList.forEach(share => {
+      this.shareTotalValue += share.total;
+      this.totalConsideredValue += share.consideredValue;
     });
   }
 }

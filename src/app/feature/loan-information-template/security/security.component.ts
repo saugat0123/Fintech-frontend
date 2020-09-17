@@ -74,37 +74,40 @@ export class SecurityComponent implements OnInit {
 
     setGuarantorsDetails(guarantorList: Array<Guarantor>): FormArray {
         const details = this.guarantorsForm.get('guarantorsDetails') as FormArray;
-        this.addressList = new Array<Address>(guarantorList.length);
-        let guarantorIndex = 0;
-        guarantorList.forEach(guarantor => {
-            this.addressList[guarantorIndex] = new Address();
-            if (!ObjectUtil.isEmpty(guarantor.province) && !ObjectUtil.isEmpty(guarantor.province.id)) {
-                this.getDistrict(guarantor.province.id , guarantorIndex);
-                if (guarantor.district.id !== null) {
-                    this.getMunicipalities(guarantor.district.id , guarantorIndex);
+        if (details.length !== 0) {
+            this.addressList = new Array<Address>(guarantorList === undefined ? 0 : guarantorList.length);
+            let guarantorIndex = 0;
+            guarantorList.forEach(guarantor => {
+                this.addressList[guarantorIndex] = new Address();
+                if (!ObjectUtil.isEmpty(guarantor.province) && !ObjectUtil.isEmpty(guarantor.province.id)) {
+                    this.getDistrict(guarantor.province.id , guarantorIndex);
+                    if (guarantor.district.id !== null) {
+                        this.getMunicipalities(guarantor.district.id , guarantorIndex);
+                    }
                 }
-            }
-            guarantorIndex++;
-            details.push(this.formBuilder.group({
-                id: [guarantor.id === undefined ? undefined : guarantor.id] ,
-                version: [guarantor.version === undefined ? undefined : guarantor.version] ,
-                name: [guarantor.name === undefined ? undefined : guarantor.name , Validators.required] ,
-                citizenNumber: [guarantor.citizenNumber === undefined ? undefined : guarantor.citizenNumber , Validators.required] ,
-                issuedYear: [guarantor.issuedYear === undefined ? undefined : guarantor.issuedYear , Validators.required] ,
-                issuedPlace: [guarantor.issuedPlace === undefined ? undefined : guarantor.issuedPlace , Validators.required] ,
-                contactNumber: [guarantor.contactNumber === undefined ? undefined : guarantor.contactNumber , Validators.required] ,
-                fatherName: [guarantor.fatherName === undefined ? undefined : guarantor.fatherName , Validators.required] ,
-                grandFatherName: [guarantor.grandFatherName === undefined ? undefined : guarantor.grandFatherName , Validators.required] ,
-                relationship: [guarantor.relationship === undefined ? undefined : guarantor.relationship , Validators.required] ,
-                province: [!ObjectUtil.isEmpty(guarantor.province) && !ObjectUtil.isEmpty(guarantor.province.id) ? guarantor.province.id :
-                    undefined , Validators.required] ,
-                district: [!ObjectUtil.isEmpty(guarantor.district) && !ObjectUtil.isEmpty(guarantor.district.id) ? guarantor.district.id :
-                    undefined , Validators.required] ,
-                municipalities: [!ObjectUtil.isEmpty(guarantor.municipalities) && !ObjectUtil.isEmpty(guarantor.municipalities.id) ?
-                    guarantor.municipalities.id : undefined , Validators.required]
-            }));
+                guarantorIndex++;
+                details.push(this.formBuilder.group({
+                    id: [guarantor.id === undefined ? undefined : guarantor.id] ,
+                    version: [guarantor.version === undefined ? undefined : guarantor.version] ,
+                    name: [guarantor.name === undefined ? undefined : guarantor.name , Validators.required] ,
+                    citizenNumber: [guarantor.citizenNumber === undefined ? undefined : guarantor.citizenNumber , Validators.required] ,
+                    issuedYear: [guarantor.issuedYear === undefined ? undefined : guarantor.issuedYear , Validators.required] ,
+                    issuedPlace: [guarantor.issuedPlace === undefined ? undefined : guarantor.issuedPlace , Validators.required] ,
+                    contactNumber: [guarantor.contactNumber === undefined ? undefined : guarantor.contactNumber , Validators.required] ,
+                    fatherName: [guarantor.fatherName === undefined ? undefined : guarantor.fatherName , Validators.required] ,
+                    grandFatherName: [guarantor.grandFatherName === undefined ? undefined
+                    : guarantor.grandFatherName , Validators.required] ,
+                    relationship: [guarantor.relationship === undefined ? undefined : guarantor.relationship , Validators.required] ,
+                    province: [!ObjectUtil.isEmpty(guarantor.province) && !ObjectUtil.isEmpty(guarantor.province.id)
+                    ? guarantor.province.id : undefined , Validators.required] ,
+                    district: [!ObjectUtil.isEmpty(guarantor.district) && !ObjectUtil.isEmpty(guarantor.district.id)
+                    ? guarantor.district.id : undefined , Validators.required] ,
+                    municipalities: [!ObjectUtil.isEmpty(guarantor.municipalities) && !ObjectUtil.isEmpty(guarantor.municipalities.id) ?
+                        guarantor.municipalities.id : undefined , Validators.required]
+                }));
 
-        });
+            });
+        }
         return details;
     }
 
