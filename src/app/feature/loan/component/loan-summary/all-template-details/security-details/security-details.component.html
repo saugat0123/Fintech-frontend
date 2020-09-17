@@ -33,11 +33,11 @@
         <th></th>
         <th>Chassis Number</th>
         <th>Showroom Commission</th>
-        <th *ngIf="securityData['otherBranchcheck']">Valuator Branch</th>
         <th>Valautor Name</th>
         <th>Valuated Date</th>
         <th>Valuator Representative Name</th>
-        <th>Staff Representative Name</th>
+        <th>Staff Representative Name I</th>
+        <th>Staff Representative Name II</th>
       </tr>
       </thead>
       <tbody>
@@ -45,11 +45,25 @@
         <td></td>
         <td>{{vehicleDetails?.chassisNumber}}</td>
         <td>{{vehicleDetails?.showroomCommission}}</td>
-        <td *ngIf="securityData['otherBranchcheck']">{{vehicleDetails?.vehicalBranch?.name}}</td>
         <td>{{vehicleDetails?.vehicalValuator?.name}}</td>
         <td>{{vehicleDetails?.vehicalValuatorDate | date}}</td>
         <td>{{vehicleDetails?.vehicalValuatorRepresentative}}</td>
         <td>{{vehicleDetails?.vehicalStaffRepresentativeName}}</td>
+        <td>{{vehicleDetails?.vehicalStaffRepresentativeNameOne}}</td>
+
+      </tr>
+      </tbody>
+      <thead>
+      <tr>
+        <th></th>
+        <th *ngIf="securityData['otherBranchcheck']">Valuator Branch</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td></td>
+        <td *ngIf="securityData['otherBranchcheck']">{{vehicleDetails?.vehicalBranch?.name}}</td>
+
       </tr>
       </tbody>
     </table>
@@ -90,7 +104,9 @@
         <th>Valautor Name</th>
         <th>Valuated Date</th>
         <th>Valuator Representative Name</th>
-        <th>Staff Representative Name</th>
+        <th>Staff Representative Name I</th>
+        <th>Staff Representative Name II</th>
+
       </tr>
       </thead>
       <tbody>
@@ -101,6 +117,8 @@
         <td>{{landDetails?.landValuatorDate | date}}</td>
         <td>{{landDetails?.landValuatorRepresentative}}</td>
         <td>{{landDetails?.landStaffRepresentativeName}}</td>
+        <td>{{landDetails?.landStaffRepresentativeNameOne}}</td>
+
       </tr>
       </tbody>
     </table>
@@ -151,7 +169,7 @@
         <th>Valuation Area</th>
         <th>Rate Per Square Feet</th>
         <th>Estimated Cost</th>
-        <th>Water Supply</th>
+        <th>Water Supply %</th>
       </tr>
       </thead>
       <tbody>
@@ -161,49 +179,75 @@
         <td>{{buildingDetails?.valuationArea}}</td>
         <td>{{buildingDetails?.ratePerSquareFeet}}</td>
         <td>{{buildingDetails?.estimatedCost}}</td>
-        <td>{{buildingDetails?.waterSupply}}</td>
+        <td>{{buildingDetails?.waterSupplyPercent}}</td>
       </tr>
       </tbody>
       <thead>
       <tr>
         <th></th>
+        <th>Water Supply</th>
+        <th>Sanitation %</th>
         <th>Sanitation</th>
+        <th>Electrification %</th>
         <th>Electrification</th>
-        <th>Apartment Total Cost</th>
-        <th>Apartment  Fair Market Value</th>
-        <th>Apartment  Distress Value</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td></td>
-        <td>{{buildingDetails?.sanitation}}</td>
-        <td>{{buildingDetails?.electrification}}</td>
-        <td>{{buildingDetails?.buildingTotalCost}}</td>
-        <td>{{buildingDetails?.buildingFairMarketValue}}</td>
-        <td>{{buildingDetails?.buildingDistressValue}}</td>
-      </tr>
-      </tbody>
-      <thead>
-      <tr>
-        <th></th>
-        <th *ngIf="securityData['otherBranchcheck']">Valuator Branch</th>
-        <th>Valautor Name</th>
-        <th>Valuated Date</th>
-        <th>Valuator Representative Name</th>
-        <th>Staff Representative Name</th>
 
       </tr>
       </thead>
       <tbody>
       <tr>
         <td></td>
-        <td *ngIf="securityData['otherBranchcheck']">{{buildingDetails?.apartmentBranch?.name}}</td>
+        <td>{{buildingDetails?.waterSupply}}%</td>
+
+        <td>{{buildingDetails?.sanitationPercent}}%</td>
+        <td>{{buildingDetails?.sanitation}}</td>
+        <td>{{buildingDetails?.electrificationPercent}}%</td>
+        <td>{{buildingDetails?.electrification}}</td>
+
+      </tr>
+      </tbody>
+      <thead>
+      <tr>
+        <th></th>
+        <th>Apartment Total Cost</th>
+        <th>Apartment  Fair Market Value</th>
+        <th>Apartment  Distress Value</th>
+        <th>Valautor Name</th>
+        <th>Valuated Date</th>
+
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td></td>
+        <td>{{buildingDetails?.buildingTotalCost}}</td>
+        <td>{{buildingDetails?.buildingFairMarketValue}}</td>
+        <td>{{buildingDetails?.buildingDistressValue}}</td>
         <td>{{buildingDetails?.ApartmentValuator?.name}}</td>
         <td>{{buildingDetails?.ApartmentValuatorDate | date}}</td>
+
+      </tr>
+      </tbody>
+      <thead>
+      <tr>
+        <th></th>
+        <th>Valuator Representative Name</th>
+        <th>Staff Representative Name I</th>
+        <th>Staff Representative Name II</th>
+        <th *ngIf="securityData['otherBranchcheck']">Valuator Branch</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td></td>
         <td>{{buildingDetails?.ApartmentValuatorRepresentative}}</td>
         <td>{{buildingDetails?.ApartmentStaffRepresentativeName}}</td>
+        <td>{{buildingDetails?.ApartmentStaffRepresentativeNameOne}}</td>
+        <td *ngIf="securityData['otherBranchcheck']">{{buildingDetails?.apartmentBranch?.name}}</td>
+
       </tr>
+      </tbody>
     </table>
     <table class="table table-condensed table-bordered table-responsive-md">
       <thead>
@@ -258,7 +302,7 @@
           <th>Valuation Area</th>
           <th>Rate Per Square Feet</th>
           <th>Estimated Cost</th>
-          <th>Water Supply</th>
+          <th>Water Supply %</th>
         </tr>
         </thead>
         <tbody>
@@ -268,14 +312,34 @@
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.valuationArea}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.ratePerSquareFeet}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.estimatedCost}}</td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.waterSupply}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.waterSupplyPercent}}%</td>
         </tr>
         </tbody>
         <thead>
         <tr>
           <th></th>
+          <th>Water Supply</th>
+          <th>Sanitation %</th>
           <th>Sanitation</th>
+          <th>Electrification %</th>
           <th>Electrification</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td></td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.waterSupply}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.sanitationPercent}}%</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.sanitation}}</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.electrificationPercent}}%</td>
+          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.electrification}}</td>
+
+        </tr>
+        </tbody>
+        <thead>
+        <tr>
+          <th></th>
           <th>Apartment  Total Cost</th>
           <th>Apartment  Fair Market Value</th>
           <th>Apartment  Distress Value</th>
@@ -284,8 +348,6 @@
         <tbody>
         <tr>
           <td></td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.sanitation}}</td>
-          <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.electrification}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingTotalCost}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingFairMarketValue}}</td>
           <td>{{beforeCompletion?.buildingDetailsBeforeCompletion?.buildingDistressValue}}</td>
@@ -328,7 +390,7 @@
           <th>Valuation Area</th>
           <th>Rate Per Square Feet</th>
           <th>Estimated Cost</th>
-          <th>Water Supply</th>
+          <th>Water Supply %</th>
         </tr>
         </thead>
         <tbody>
@@ -338,14 +400,34 @@
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.valuationArea}}</td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.ratePerSquareFeet}}</td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.estimatedCost}}</td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.waterSupply}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.waterSupplyPercent}}%</td>
         </tr>
         </tbody>
         <thead>
         <tr>
           <th></th>
+          <th>Water Supply</th>
+          <th>Sanitation %</th>
           <th>Sanitation</th>
+          <th>Electrification %</th>
           <th>Electrification</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td></td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.waterSupply}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.sanitationPercent}}%</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.sanitation}}</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.electrificationPercent}}%</td>
+          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.electrification}}</td>
+
+        </tr>
+        </tbody>
+        <thead>
+        <tr>
+          <th></th>
           <th>Apartment Total Cost</th>
           <th>Apartment Fair Market Value</th>
           <th>Apartment Distress Value</th>
@@ -354,8 +436,6 @@
         <tbody>
         <tr>
           <td></td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.sanitation}}</td>
-          <td>{{afterCompletion?.buildingDetailsAfterCompletion?.electrification}}</td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingTotalCost}}</td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingFairMarketValue}}</td>
           <td>{{afterCompletion?.buildingDetailsAfterCompletion?.buildingDistressValue}}</td>
@@ -392,21 +472,36 @@
       <thead>
       <tr>
         <th></th>
-        <th *ngIf="securityData['otherBranchcheck']">Valuator Branch</th>
         <th>Valautor Name</th>
         <th>Valuated Date</th>
         <th>Valuator Representative Name</th>
-        <th>Staff Representative Name</th>
+        <th>Staff Representative Name I</th>
+        <th>Staff Representative Name II</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td></td>
+        <td>{{plantDetails?.plantMachineryValuator?.name}}</td>
+        <td>{{plantDetails?.plantMachineryValuatorDate | date}}</td>
+        <td>{{plantDetails?.plantMachineryValuatorRepresentative}}</td>
+        <td>{{plantDetails?.plantMachineryStaffRepresentativeName}}</td>
+        <td>{{plantDetails?.plantMachineryStaffRepresentativeNameOne}}</td>
+
+      </tr>
+      </tbody>
+      <thead>
+      <tr>
+        <th></th>
+        <th *ngIf="securityData['otherBranchcheck']">Valuator Branch</th>
       </tr>
       </thead>
       <tbody>
       <tr>
         <td></td>
         <td *ngIf="securityData['otherBranchcheck']">{{plantDetails?.plantBranch?.name}}</td>
-        <td>{{plantDetails?.plantMachineryValuator?.name}}</td>
-        <td>{{plantDetails?.plantMachineryValuatorDate | date}}</td>
-        <td>{{plantDetails?.plantMachineryValuatorRepresentative}}</td>
-        <td>{{plantDetails?.plantMachineryStaffRepresentativeName}}</td>
+
       </tr>
       </tbody>
     </table>
