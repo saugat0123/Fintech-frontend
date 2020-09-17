@@ -192,8 +192,11 @@ export class SecurityInitialFormComponent implements OnInit {
                     ratePerSquareFeet: [singleData.ratePerSquareFeet] ,
                     estimatedCost: [singleData.estimatedCost] ,
                     waterSupply: [singleData.waterSupply] ,
+                    waterSupplyPercent: [singleData.waterSupplyPercent],
+                    sanitationPercent: [singleData.sanitationPercent],
                     sanitation: [singleData.sanitation] ,
                     electrification: [singleData.electrification] ,
+                    electrificationPercent: [singleData.electrificationPercent],
                     buildingTotalCost: [singleData.buildingTotalCost] ,
                     buildingFairMarketValue: [singleData.buildingFairMarketValue] ,
                     buildingDistressValue: [singleData.buildingDistressValue] ,
@@ -225,8 +228,11 @@ export class SecurityInitialFormComponent implements OnInit {
                         ratePerSquareFeet: [singleData.buildingDetailsBeforeCompletion.ratePerSquareFeet] ,
                         estimatedCost: [singleData.buildingDetailsBeforeCompletion.estimatedCost] ,
                         waterSupply: [singleData.buildingDetailsBeforeCompletion.waterSupply] ,
+                        waterSupplyPercent: [singleData.buildingDetailsBeforeCompletion.waterSupplyPercent],
+                        sanitationPercent: [singleData.buildingDetailsBeforeCompletion.sanitationPercent],
                         sanitation: [singleData.buildingDetailsBeforeCompletion.sanitation] ,
                         electrification: [singleData.buildingDetailsBeforeCompletion.electrification] ,
+                        electrificationPercent: [singleData.buildingDetailsBeforeCompletion.electrificationPercent],
                         buildingTotalCost: [singleData.buildingDetailsBeforeCompletion.buildingTotalCost] ,
                         buildingFairMarketValue: [singleData.buildingDetailsBeforeCompletion.buildingFairMarketValue] ,
                         buildingDistressValue: [singleData.buildingDetailsBeforeCompletion.buildingDistressValue]
@@ -242,8 +248,11 @@ export class SecurityInitialFormComponent implements OnInit {
                         ratePerSquareFeet: [singleData.buildingDetailsAfterCompletion.ratePerSquareFeet] ,
                         estimatedCost: [singleData.buildingDetailsAfterCompletion.estimatedCost] ,
                         waterSupply: [singleData.buildingDetailsAfterCompletion.waterSupply] ,
+                        waterSupplyPercent: [singleData.buildingDetailsAfterCompletion.waterSupplyPercent],
                         sanitation: [singleData.buildingDetailsAfterCompletion.sanitation] ,
+                        sanitationPercent: [singleData.buildingDetailsAfterCompletion.sanitationPercent],
                         electrification: [singleData.buildingDetailsAfterCompletion.electrification] ,
+                        electrificationPercent: [singleData.buildingDetailsAfterCompletion.electrificationPercent],
                         buildingTotalCost: [singleData.buildingDetailsAfterCompletion.buildingTotalCost] ,
                         buildingFairMarketValue: [singleData.buildingDetailsAfterCompletion.buildingFairMarketValue] ,
                         buildingDistressValue: [singleData.buildingDetailsAfterCompletion.buildingDistressValue]
@@ -268,8 +277,11 @@ export class SecurityInitialFormComponent implements OnInit {
                     ratePerSquareFeet: [undefined] ,
                     estimatedCost: [undefined] ,
                     waterSupply: [undefined] ,
+                    waterSupplyPercent: [undefined],
                     sanitation: [undefined] ,
+                    sanitationPercent: [undefined],
                     electrification: [undefined] ,
+                    electrificationPercent: [undefined],
                     buildingTotalCost: [undefined] ,
                     buildingFairMarketValue: [undefined] ,
                     buildingDistressValue: [undefined]
@@ -285,8 +297,11 @@ export class SecurityInitialFormComponent implements OnInit {
                     ratePerSquareFeet: [undefined] ,
                     estimatedCost: [undefined] ,
                     waterSupply: [undefined] ,
+                    waterSupplyPercent: [undefined],
+                    sanitationPercent: [undefined],
                     sanitation: [undefined] ,
                     electrification: [undefined] ,
+                    electrificationPercent: [undefined],
                     buildingTotalCost: [undefined] ,
                     buildingFairMarketValue: [undefined] ,
                     buildingDistressValue: [undefined]
@@ -356,7 +371,7 @@ export class SecurityInitialFormComponent implements OnInit {
             owner: [''] ,
             location: [''] ,
             plotNumber: [''] ,
-            areaFormat: [''] ,
+            areaFormat: [undefined],
             area: [''] ,
             marketValue: [''] ,
             distressValue: [''] ,
@@ -382,8 +397,11 @@ export class SecurityInitialFormComponent implements OnInit {
             ratePerSquareFeet: [''] ,
             estimatedCost: [''] ,
             waterSupply: [''] ,
+            waterSupplyPercent: [''],
             sanitation: [''] ,
+            sanitationPercent: [''],
             electrification: [''] ,
+            electrificationPercent: [''],
             buildingTotalCost: [''] ,
             buildingFairMarketValue: [''] ,
             buildingDistressValue: [''] ,
@@ -566,15 +584,132 @@ export class SecurityInitialFormComponent implements OnInit {
         return this.securityTypes;
     }
 
-    calculateBuildUpAreaRate(i) {
-        const totalBuildRate = (Number(this.securityForm.get(['buildingDetails', i , 'buildArea']).value) * Number(this.securityForm.get(['buildingDetails', i , 'buildRate']).value)).toFixed(2);
-        this.securityForm.get(['buildingDetails', i , 'totalCost']).patchValue(totalBuildRate);
+    calculateBuildUpAreaRate(i, type) {
+        switch (type) {
+            case 'building':
+                const totalBuildRate = (Number(this.securityForm.get(['buildingDetails', i , 'buildArea']).value)
+                    * Number(this.securityForm.get(['buildingDetails', i , 'buildRate']).value)).toFixed(2);
+                this.securityForm.get(['buildingDetails', i , 'totalCost']).patchValue(totalBuildRate);
+                break;
+            case 'before':
+                const beforeTotalBuildRate = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'buildArea']).value)
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'buildRate']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsBeforeCompletion', 'totalCost']).patchValue(beforeTotalBuildRate);
+                break;
+            case 'after':
+                const afterTotalBuildRate = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'buildArea']).value)
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'buildRate']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsAfterCompletion', 'totalCost']).patchValue(afterTotalBuildRate);
+                break;
+        }
+    }
+    calculateWaterSupply(i, type) {
+        switch (type) {
+            case 'building':
+                const waterSupply = (Number(this.securityForm.get(['buildingDetails', i , 'waterSupplyPercent']).value) / 100
+                    * Number(this.securityForm.get(['buildingDetails', i , 'totalCost']).value)).toFixed(2);
+                this.securityForm.get(['buildingDetails', i , 'waterSupply']).patchValue(waterSupply);
+                break;
+            case 'before':
+                const beforeWaterSupply = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'waterSupplyPercent']).value) / 100
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'totalCost']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsBeforeCompletion', 'waterSupply']).patchValue(beforeWaterSupply);
+                break;
+            case 'after':
+                const afterWaterSupply = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'waterSupplyPercent']).value) / 100
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'totalCost']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsAfterCompletion', 'waterSupply']).patchValue(afterWaterSupply);
+                break;
+        }
     }
 
-    calculateEstimatedCost(i) {
-        const estimatedCost = (Number(this.securityForm.get(['buildingDetails', i , 'valuationArea']).value)
-            * Number(this.securityForm.get(['buildingDetails', i , 'ratePerSquareFeet']).value)).toFixed(2);
-        this.securityForm.get(['buildingDetails', i , 'estimatedCost']).patchValue(estimatedCost);
+    calculateSanitation(i, type) {
+        switch (type) {
+            case 'building':
+                const sanitation = (Number(this.securityForm.get(['buildingDetails', i , 'sanitationPercent']).value) / 100
+                    * Number(this.securityForm.get(['buildingDetails', i , 'totalCost']).value)).toFixed(2);
+                this.securityForm.get(['buildingDetails', i , 'sanitation']).patchValue(sanitation);
+                break;
+            case 'before':
+                const beforeSanitation = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'sanitationPercent']).value) / 100
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'totalCost']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsBeforeCompletion', 'sanitation']).patchValue(beforeSanitation);
+                break;
+            case 'after':
+                const afterSanitation = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'sanitationPercent']).value) / 100
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'totalCost']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsAfterCompletion', 'sanitation']).patchValue(afterSanitation);
+                break;
+        }
+    }
 
+    calculateElectrification(i, type) {
+        switch (type) {
+            case 'building':
+                const electrification = (Number(this.securityForm.get(['buildingDetails', i , 'electrificationPercent']).value) / 100
+                    * Number(this.securityForm.get(['buildingDetails', i , 'totalCost']).value)).toFixed(2);
+                this.securityForm.get(['buildingDetails', i , 'electrification']).patchValue(electrification);
+                break;
+            case 'before':
+                const beforeElectrification = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'electrificationPercent']).value) / 100
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'totalCost']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsBeforeCompletion', 'electrification']).patchValue(beforeElectrification);
+                break;
+            case 'after':
+                const afterElectrification = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'electrificationPercent']).value) / 100
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'totalCost']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsAfterCompletion', 'electrification']).patchValue(afterElectrification);
+                break;
+        }
+    }
+
+    calculateEstimatedCost(i, type) {
+        switch (type) {
+            case 'building':
+                const estimatedCost = (Number(this.securityForm.get(['buildingDetails', i , 'valuationArea']).value)
+                    * Number(this.securityForm.get(['buildingDetails', i , 'ratePerSquareFeet']).value)).toFixed(2);
+                this.securityForm.get(['buildingDetails', i , 'estimatedCost']).patchValue(estimatedCost);
+                break;
+            case 'before':
+                const beforeEstimatedCost = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'valuationArea']).value)
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'ratePerSquareFeet']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsBeforeCompletion', 'estimatedCost']).patchValue(beforeEstimatedCost);
+                break;
+            case 'after':
+                const afterEstimatedCost = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'valuationArea']).value)
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'ratePerSquareFeet']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsAfterCompletion', 'estimatedCost']).patchValue(afterEstimatedCost);
+                break;
+        }
     }
 }
