@@ -12,6 +12,7 @@ import {BlacklistService} from '../../admin/component/blacklist/blacklist.servic
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Guarantor} from '../../loan/model/guarantor';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
+import {RelationshipList} from '../../loan/model/relationshipList';
 
 @Component({
   selector: 'app-guarantor',
@@ -40,7 +41,8 @@ export class GuarantorComponent implements OnInit {
   addressList: Array<Address> = new Array<Address>();
   private isBlackListed: boolean;
   allDistrict: Array<District> = new Array<District>();
-
+  relationshipList: RelationshipList = new RelationshipList();
+  relationList;
   constructor(
       private formBuilder: FormBuilder,
       private addressServices: AddressService,
@@ -53,6 +55,7 @@ export class GuarantorComponent implements OnInit {
     this.buildForm();
     this.getProvince();
     this.getAllDistrict();
+    this.relationList = this.relationshipList.relation;
   }
 
   buildForm() {
