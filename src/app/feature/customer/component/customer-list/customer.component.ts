@@ -111,6 +111,7 @@ export class CustomerComponent implements OnInit {
   }
 
   changePage(page: number) {
+    delete this.filterForm.value.tempBranch;
     this.page = page;
     CustomerComponent.loadData(this);
   }
