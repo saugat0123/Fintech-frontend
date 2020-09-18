@@ -78,6 +78,7 @@ import { LoanActionVerificationComponent } from './loan-action/loan-action-verif
 import { LoanActionCombinedModalComponent } from './loan-action/loan-action-combined-modal/loan-action-combined-modal.component';
 import { GuarantorAdderComponent } from './component/loan-main-template/guarantor-adder/guarantor-adder.component';
 import { GuarantorDetailComponent } from './component/loan-main-template/guarantor-adder/guarantor-detail/guarantor-detail.component';
+import { CustomerGroupSummaryComponent } from './component/loan-summary/customer-group-summary/customer-group-summary.component';
 
 const COMPONENTS = [
     LoanFormComponent,
@@ -139,7 +140,8 @@ const COMPONENTS = [
     LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
     GuarantorAdderComponent,
-    GuarantorDetailComponent
+    GuarantorDetailComponent,
+    CustomerGroupSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [

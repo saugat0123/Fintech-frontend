@@ -1,0 +1,24 @@
+<div class="row mt-5">
+  <div class="col-md-12">
+    <p><strong>Group Details</strong></p>
+    <table
+        class="table table-condensed table-bordered table-responsive-md text-center table-hover">
+      <thead>
+      <tr>
+        <th>S.N</th>
+        <th>CustomerName</th>
+        <th>Approved Limit</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let customer of groupAssociateCustomers;let i = index;"
+      (click)="loadCustomerProfile(customer.loanHolder.associateId , customer.loanHolder.id ,
+      customer.loanHolder.customerType)" class="cursor">
+        <td>{{i+1}}</td>
+        <td >{{customer.loanHolder.name}}</td>
+        <td>{{customer.totalApprovedLimit}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
