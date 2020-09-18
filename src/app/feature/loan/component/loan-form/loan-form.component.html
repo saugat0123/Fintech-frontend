@@ -34,8 +34,7 @@
                      [multiple]="false"
                      bindLabel="name"
                      bindValue="name"
-                     formControlName="documentStatus"
-                     placeholder="Select the docStatus">
+                     formControlName="documentStatus">
           </ng-select>
         </form>
       </div>
@@ -49,13 +48,14 @@
           </nb-radio-group>
         </div>
       </div>
-      <div *ngIf="productUtils.NEP_TEMPLATE" class="col-md-3">
-        <div class=" d-flex justify-content-end py-4">
-          <button (click)="nepaliFormTemplate()" class="btn btn-flat btn-outline-primary">
-            नेपाली फारम
-          </button>
-        </div>
-      </div>
+<!--      todo uncomment this if nepali form is required-->
+<!--      <div *ngIf="productUtils.NEP_TEMPLATE" class="col-md-3">-->
+<!--        <div class=" d-flex justify-content-end py-4">-->
+<!--          <button (click)="nepaliFormTemplate()" class="btn btn-flat btn-outline-primary">-->
+<!--            नेपाली फारम-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
 
     </div>
 
@@ -146,10 +146,11 @@
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name == 'Guarantor'">
             <div class="py-4">
-              <app-guarantor-view #guarantor
-                                  [guarantorData]="loanHolder?.guarantors"
-                                  *ngIf="loanHolder?.guarantors">
-              </app-guarantor-view>
+              <app-guarantor-adder #guarantor
+                                   [taggedGuarantors]="loanDocument?.taggedGuarantors"
+                                   [guarantorData]="loanHolder?.guarantors">
+
+              </app-guarantor-adder>
             </div>
           </ng-template>
           <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Alpha'">

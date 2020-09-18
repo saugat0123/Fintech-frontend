@@ -83,13 +83,16 @@
                     <tr>
                         <th></th>
                         <th *ngIf="formData['otherBranchcheck']">Valuator Branch</th>
-                        <th>Valautor Name</th>                    </tr>
+                        <th>Valautor Name</th>
+                        <th>Considered Value</th>
+                    </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <td></td>
                         <td *ngIf="formData['otherBranchcheck']">{{landDetails?.landBranch?.name}}</td>
                         <td>{{landDetails?.landValuator?.name}}</td>
+                        <td>{{landDetails?.landConsideredValue}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -260,13 +263,55 @@
                 </table>
             </div>
         </div>
+
+        <!--Share Security Details-->
+        <div *ngIf="shareSelected" class="row mt-4">
+            <div class="col-md-12">
+                <p><strong>Share Security Detail</strong>(Promoter Percent: {{loanSharePercent
+                == undefined ? 0 : loanSharePercent.promoter}} , Ordinary
+                    Percent: {{loanSharePercent == undefined ? 0 : loanSharePercent.ordinary}})</p>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th> Sn</th>
+                        <th> Name of Company</th>
+                        <th> Share Type</th>
+                        <th>Share Unit</th>
+                        <th> Rate</th>
+                        <th>Total Value</th>
+                        <th>Considered Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let singleShareData of shareSecurity['shareSecurityDetails']; let i = index">
+                        <td>{{i + 1}}</td>
+                        <td>{{singleShareData?.companyName}}</td>
+                        <td>{{singleShareData?.shareType}}</td>
+                        <td>{{singleShareData?.totalShareUnit}}</td>
+                        <td>{{singleShareData?.amountPerUnit |currencyFormatter}}</td>
+                        <td>{{singleShareData?.total |currencyFormatter}}</td>
+                        <td>{{singleShareData?.consideredValue |currencyFormatter}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right" colspan="5">Total</th>
+                        <th>{{shareTotalValue |currencyFormatter}}</th>
+                        <th>{{totalConsideredValue |currencyFormatter}}</th>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <th colspan="6">{{shareSecurity['securityOffered']}}</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <!--        guarantors details-->
-        <div class="row">
+        <div *ngIf="isPresentGuarantor" class="row">
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-responsive-md text-center">
                     <thead>
                     <tr>
-                        <th class="text-center" colspan="6">Gurantors Details</th>
+                        <th class="text-center" colspan="6">Security Gurantors Details</th>
                     </tr>
                     <tr>
                         <th>S.N</th>

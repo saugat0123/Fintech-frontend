@@ -27,6 +27,7 @@ export class GuarantorComponent implements OnInit {
 
   form: FormGroup;
   submitted = false;
+  addMore = false;
   guarantorDetail: GuarantorDetail = new GuarantorDetail();
   displayEngDate = true;
 
@@ -82,7 +83,7 @@ export class GuarantorComponent implements OnInit {
 
   addEmptyGroup(): void {
     if (this.form.invalid){
-      this.submitted = true;
+      this.addMore = true;
       return;
     }
     this.addressList.push(new Address());

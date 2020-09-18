@@ -232,8 +232,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.siteVisitSummary = true;
           }
 
-          if (!ObjectUtil.isEmpty(this.loanDataHolder.guarantor)) {
-            this.guarantorData = this.loanDataHolder.guarantor.guarantorList;
+          if (this.loanDataHolder.taggedGuarantors.length > 0) {
+            console.log(this.loanDataHolder.taggedGuarantors);
+            this.guarantorData = this.loanDataHolder.taggedGuarantors;
             this.checkGuarantorData = true;
           }
           if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
@@ -244,7 +245,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
           // setting share-secuirty data--
           if (!ObjectUtil.isEmpty(this.loanDataHolder.shareSecurity)) {
             this.shareSecuritySummary = true;
-            this.shareSecurityData = this.loanDataHolder.shareSecurity;
+            this.shareSecurityData = JSON.parse(this.loanDataHolder.shareSecurity.data);
           }
           this.loanCategory = this.loanDataHolder.loanCategory;
           this.currentIndex = this.loanDataHolder.previousList.length;

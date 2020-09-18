@@ -504,8 +504,11 @@
           [customerAllLoanList]="customerAllLoanList"
           [proposalData]="proposalData"></app-proposal-summary>
 
+      <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
+      [customerGroup]="loanDataHolder.loanHolder.customerGroup" [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
+
       <app-security-summary *ngIf="securitySummary"
-                            [formData]="securityData"></app-security-summary>
+                            [formData]="securityData" [shareSecurity]="shareSecurityData"></app-security-summary>
 
       <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                              [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
