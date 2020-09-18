@@ -63,10 +63,13 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label class="title" for="areaFormat">Area Format</label>
-                                <input class="form-control rounded" formControlName="areaFormat"
+                              <!--  <input class="form-control rounded" formControlName="areaFormat"
                                        id="areaFormat"
                                        name="areaFormat" placeholder="area format"
-                                       type="text"/>
+                                       type="text"/>-->
+                                <nb-select formControlName="areaFormat" placeholder="select area format" id="areaFormat" fullWidth>
+                                    <nb-option *ngFor="let format of areaFormat" [value]="format">{{format}}</nb-option>
+                                </nb-select>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -80,7 +83,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="landConsideredValue">Considered Value</label>
+                                <input class="form-control" formControlName="landConsideredValue"
+                                       id="landConsideredValue" name="total" placeholder="considered value">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title" for="marketValue">Fair Market Value</label>
                                 <input class="form-control rounded" formControlName="marketValue"
@@ -89,7 +99,7 @@
                                        type="text"/>
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title" for="distressValue">Distress Value</label>
                                 <input class="form-control rounded" formControlName="distressValue"

@@ -55,6 +55,8 @@ export class SecurityInitialFormComponent implements OnInit {
         {key: 'ShareSecurity', value: 'Share Security'}
     ];
 
+    areaFormat = ['R-A-P-D' , 'B-K-D' , 'SQF'];
+
     shareType = ShareType;
     activeNepseMaster: NepseMaster = new NepseMaster();
     nepseList: Array<Nepse> = new Array<Nepse>();
@@ -212,7 +214,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     landValuatorDate: [ObjectUtil.isEmpty(singleData.landValuatorDate) ? undefined : new Date(singleData.landValuatorDate)],
                     landValuatorRepresentative: [singleData.landValuatorRepresentative],
                     landStaffRepresentativeName: [singleData.landStaffRepresentativeName],
-                    landBranch: [singleData.landBranch]
+                    landBranch: [singleData.landBranch] ,
+                    landConsideredValue: [ObjectUtil.isEmpty(singleData.landConsideredValue) ?  undefined : singleData.landConsideredValue]
                 })
             );
         });
