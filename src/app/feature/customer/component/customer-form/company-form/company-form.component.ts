@@ -25,6 +25,8 @@ import {DateValidator} from '../../../../../@core/validator/date-validator';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NbDialogRef} from '@nebular/theme';
 import {ContactPerson} from '../../../../admin/modal/contact-person';
+import {CompanyService} from '../../../../admin/component/company/company.service';
+import {Company} from '../../../../admin/modal/company';
 
 @Component({
     selector: 'app-company-form',
@@ -66,6 +68,7 @@ export class CompanyFormComponent implements OnInit {
     contactPerson: ContactPerson = new ContactPerson();
     allDistrict: Array<District> = Array<District>();
     private isBlackListed: boolean;
+    companyStructureList: Array<Company>;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -77,6 +80,8 @@ export class CompanyFormComponent implements OnInit {
         private companyInfoService: CompanyInfoService,
         private blackListService: BlacklistService,
         protected ref: NbDialogRef<CompanyFormComponent>,
+        private company: CompanyService
+
     ) {
 
     }
@@ -89,6 +94,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo = this.formValue;
         this.buildForm();
         this.getAllDistrict();
+        this.getCompanyStructure();
 
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
@@ -189,8 +195,10 @@ export class CompanyFormComponent implements OnInit {
                     this.companyInfo.contactNum, [Validators.required]],
 
             // legalStatus
-            corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ?
-                undefined : this.companyInfo.legalStatus.corporateStructure, Validators.required],
+            corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus) ||
+                ObjectUtil.isEmpty(this.companyInfo.legalStatus.corporateStructure)) ?
+                undefined : this.companyInfo.legalStatus.corporateStructure.id, Validators.required],
+
 
             registeredOffice: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
@@ -498,7 +506,9 @@ export class CompanyFormComponent implements OnInit {
 
         // legalStatus
         // this.legalStatus.companyName = this.companyInfoFormGroup.get('companyName').value;
-        this.legalStatus.corporateStructure = this.companyInfoFormGroup.get('corporateStructure').value;
+        const corporateStructure = new Company();
+        corporateStructure.id = this.companyInfoFormGroup.get('corporateStructure').value;
+        this.legalStatus.corporateStructure = ObjectUtil.isEmpty(corporateStructure.id) ? undefined : corporateStructure;
         this.legalStatus.registeredOffice = this.companyInfoFormGroup.get('registeredOffice').value;
         this.legalStatus.registeredUnderAct = this.companyInfoFormGroup.get('registeredUnderAct').value;
         // this.legalStatus.registrationNo = this.companyInfoFormGroup.get('registrationNo').value;
@@ -585,5 +595,12 @@ export class CompanyFormComponent implements OnInit {
             this.allDistrict = response.detail;
         });
     }
-
+    getCompanyStructure() {
+        this.company.getAll().subscribe(res => {
+            this.companyStructureList = res.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Company Structure can not be Loaded'));
+        });
+    }
 }

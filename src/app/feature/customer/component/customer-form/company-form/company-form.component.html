@@ -198,10 +198,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="corporateStructure"><strong>Corporate Structure</strong></label>
-                            <input id="corporateStructure" formControlName="corporateStructure"
-                                   name="corporateStructure"
-                                   type="text" class="form-control" placeholder="Corporate Structure"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.corporateStructure.errors }"/>
+                            <select id="corporateStructure" formControlName="corporateStructure"
+                                    name="corporateStructure"
+                                    class="form-control custom-select"
+                                    [ngClass]="{ 'is-invalid': (submitted) && form.corporateStructure.errors }">
+                                <option [value]="null" hidden>--Select Corporate Structure--</option>
+                                <option [ngValue]="companyStructure.id" *ngFor="let companyStructure of companyStructureList">{{companyStructure.name}}</option>
+                            </select>
                             <div *ngIf="(submitted) && form.corporateStructure.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="form.corporateStructure.errors.required">Corporate Structure is
