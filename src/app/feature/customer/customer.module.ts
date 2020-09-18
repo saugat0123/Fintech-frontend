@@ -30,6 +30,7 @@ import { CustomerLoanApplyComponent } from './component/customer-loan-apply/cust
 import { CustomerLoanEditComponent } from './component/customer-loan-edit/customer-loan-edit.component';
 import {ReportingModule} from '../reporting/reporting.module';
 import { CustomerListGroupComponent } from './component/customer-group-associate-loan-list/customer-list-group.component';
+import {CoreModule} from '../../@core/core.module';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -76,7 +77,8 @@ const COMPONENTS = [
     LoanInformationTemplateModule,
     LoanInformationViewModule,
     InfiniteScrollModule,
-    ReportingModule
+    ReportingModule,
+    CoreModule
 
 
   ],

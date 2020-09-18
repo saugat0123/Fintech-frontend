@@ -180,7 +180,7 @@
           <nb-card-header>
             Customer Groups
             <div class="float-right" nbTooltip="{{totalGroupAmount | number}}">Total Group Limit
-              : {{customerInfo?.customerGroup?.groupLimit | number}}
+              : Rs. {{customerInfo?.customerGroup?.groupLimit | currencyFormatter}}
             </div>
           </nb-card-header>
           <nb-card-body>
@@ -192,7 +192,7 @@
                       <span>Groups</span>
                     </div>
                     <div class="col-md-6 d-flex justify-content-end">
-                      Total Amount:  {{proposeAmountOfGroup | number}}
+                      Total Amount:  Rs. {{proposeAmountOfGroup | currencyFormatter}}
                     </div>
                   </div>
                 </nb-accordion-item-header>
