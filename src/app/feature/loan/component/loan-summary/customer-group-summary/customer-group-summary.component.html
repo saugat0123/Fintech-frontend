@@ -1,0 +1,28 @@
+<div class="row mt-5" >
+    <div class="col-md-12">
+      <p><strong>Group Details</strong>(<i>Total Group Limit:</i><strong> Rs. {{customerGroup.groupLimit |currencyFormatter}}</strong> )</p>
+      <table
+          class="table table-condensed table-bordered table-responsive-md table-hover">
+        <thead>
+        <tr>
+          <th>S.N</th>
+          <th>CustomerName</th>
+          <th>Approved Limit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let customer of groupAssociateCustomers;let i = index;"
+            (click)="loadCustomerProfile(customer.loanHolder.associateId , customer.loanHolder.id ,
+      customer.loanHolder.customerType)" class="cursor font-weight-bold">
+          <td>{{i+1}}</td>
+          <td>{{customer.loanHolder.name}}</td>
+          <td>Rs. {{customer.totalApprovedLimit |currencyFormatter}}</td>
+        </tr>
+        <tr  class="cursor font-weight-bold ">
+          <td colspan="2" class="text-center">Total</td>
+          <td>Rs.{{totalGroupApprovedAmount |currencyFormatter}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
