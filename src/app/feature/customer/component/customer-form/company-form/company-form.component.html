@@ -117,11 +117,9 @@
                                         id="email"
                                         placeholder="abc@gmail.com"
                                         type="text"/>
-                                <div *ngIf="submitted && form.email?.errors "
+                                <div *ngIf="submitted && form.email?.errors.email"
                                      class="invalid-feedback">
-                                    <div *ngIf="form.email?.errors.required || form.email?.errors.email">
                                         invalid email!
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -470,9 +468,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="designation"><strong>Designation</strong></label>
-                                    <input id="designation" formControlName="designation" name="designation" type="text"
-                                           class="form-control" placeholder="Designation"
-                                           [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('designation').errors }">
+                                    <select id="designation" formControlName="designation" name="designation"
+                                           class="form-control"
+                                            [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('designation').errors }">
+                                        <option [ngValue]="null" hidden>Select Designation</option>
+                                        <option *ngFor="let designations of designation" [ngValue]="designations.id">{{designations.name}}</option>
+                                    </select>
                                     <div *ngIf="(submitted) && managementTeam.get('designation').invalid"
                                          class="invalid-feedback">
                                         <div *ngIf="managementTeam.get('designation').errors.required">
@@ -661,14 +662,7 @@
                             <label><strong>Email</strong></label>
                             <input class="form-control" formControlName="contactEmail"
                                    id="contactEmail" placeholder="Email"
-                                   type="email"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.contactEmail.errors }">
-                            <div *ngIf="(submitted) && form.contactEmail.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="form.contactEmail.errors.required">
-                                    Email is required
-                                </div>
-                            </div>
+                                   type="email">
                         </div>
                     </div>
                     <div class="col-md-4">

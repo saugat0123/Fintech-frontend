@@ -27,6 +27,7 @@ import {NbDialogRef} from '@nebular/theme';
 import {ContactPerson} from '../../../../admin/modal/contact-person';
 import {CompanyService} from '../../../../admin/component/company/company.service';
 import {Company} from '../../../../admin/modal/company';
+import {DesignationList} from '../../../../loan/model/designationList';
 
 @Component({
     selector: 'app-company-form',
@@ -69,6 +70,8 @@ export class CompanyFormComponent implements OnInit {
     allDistrict: Array<District> = Array<District>();
     private isBlackListed: boolean;
     companyStructureList: Array<Company>;
+    designationList: DesignationList = new DesignationList();
+    designation;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -95,7 +98,7 @@ export class CompanyFormComponent implements OnInit {
         this.buildForm();
         this.getAllDistrict();
         this.getCompanyStructure();
-
+        this.designation = this.designationList.designation;
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
@@ -188,7 +191,7 @@ export class CompanyFormComponent implements OnInit {
             email:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.email)) ? undefined :
-                    this.companyInfo.email, [Validators.required, Validators.email]],
+                    this.companyInfo.email, [Validators.email]],
             contactNum:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.contactNum)) ? undefined :
@@ -275,7 +278,7 @@ export class CompanyFormComponent implements OnInit {
                 this.companyInfo.contactPerson.name, Validators.required],
             contactEmail: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
-                this.companyInfo.contactPerson.email, Validators.required],
+                this.companyInfo.contactPerson.email],
             contactNumber: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
                 this.companyInfo.contactPerson.contactNumber, Validators.required],
@@ -294,8 +297,7 @@ export class CompanyFormComponent implements OnInit {
             locationId: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.id],
             houseNumber: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.houseNumber,
-                Validators.required],
+                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.houseNumber],
             streetName: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.streetName,
                 Validators.required],
