@@ -261,7 +261,7 @@ export class SiteVisitComponent implements OnInit {
                   : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.schoolOrCollege, Validators.required],
           hospitalOrNursingHome: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
-                  : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.hospitalOrNursingHome, Validators.required],
+              : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.hospitalOrNursingHome, Validators.required],
           electricityLine: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.vicinityToTheBasicAmenities.electricityLine, Validators.required],
@@ -319,7 +319,7 @@ export class SiteVisitComponent implements OnInit {
           clientsOverallRating: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.clientsOverallRating, Validators.required],
+                  : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification.clientsOverallRating, Validators.required],
           comments: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.insuranceVerification === undefined ? ''
@@ -421,7 +421,7 @@ export class SiteVisitComponent implements OnInit {
           moreThanOneYearTotal: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
-                      : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.moreThanOneYearTotal, Validators.required],
+                  : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables.moreThanOneYearTotal, Validators.required],
           findingsAndCommentsForCurrentAssetsInspection: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.currentAssetsInspectionDetails === undefined ? ''
                   : this.formDataForEdit.currentAssetsInspectionDetails.receivablesAndPayables === undefined ? ''
@@ -731,26 +731,26 @@ export class SiteVisitComponent implements OnInit {
 
 
   onSubmit() {
-    if (this.currentResidentForm){
-      if(this.siteVisitFormGroup.get('currentResidentDetails').invalid){
+    if (this.currentResidentForm) {
+      if (this.siteVisitFormGroup.get('currentResidentDetails').invalid) {
         this.submitted = true;
         return;
       }
     }
-    if (this.businessSiteVisitForm){
-      if(this.siteVisitFormGroup.get('businessSiteVisitDetails').invalid){
+    if (this.businessSiteVisitForm) {
+      if (this.siteVisitFormGroup.get('businessSiteVisitDetails').invalid) {
         this.business = true;
         return;
       }
     }
-    if (this.fixedAssetCollateralForm){
-      if(this.siteVisitFormGroup.get('fixedAssetCollateralDetails').invalid){
+    if (this.fixedAssetCollateralForm) {
+      if (this.siteVisitFormGroup.get('fixedAssetCollateralDetails').invalid) {
         this.fixed = true;
         return;
       }
     }
-    if (this.currentAssetsInspectionForm){
-      if(this.siteVisitFormGroup.get('currentAssetsInspectionDetails').invalid){
+    if (this.currentAssetsInspectionForm) {
+      if (this.siteVisitFormGroup.get('currentAssetsInspectionDetails').invalid) {
         this.current = true;
         return;
       }

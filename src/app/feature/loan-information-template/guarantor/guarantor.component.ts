@@ -82,7 +82,7 @@ export class GuarantorComponent implements OnInit {
   }
 
   addEmptyGroup(): void {
-    if (this.form.invalid){
+    if (this.form.invalid) {
       this.addMore = true;
       return;
     }
@@ -176,7 +176,7 @@ export class GuarantorComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if (this.form.invalid){
+    if (this.form.invalid) {
       return;
     }
     if (!ObjectUtil.isEmpty(this.guarantorDetailValue)) {

@@ -24,7 +24,7 @@ import {ReportingInfoLevel} from '../../reporting/model/reporting-info-level';
 import {CreditRiskGradingAlpha} from '../../admin/modal/CreditRiskGradingAlpha';
 import {CustomerInfoData} from './customerInfoData';
 import {CombinedLoan} from './combined-loan';
-import {Guarantor} from "./guarantor";
+import {Guarantor} from './guarantor';
 
 
 export class LoanDataHolder {
