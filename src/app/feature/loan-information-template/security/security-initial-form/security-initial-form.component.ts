@@ -55,7 +55,7 @@ export class SecurityInitialFormComponent implements OnInit {
         {key: 'ShareSecurity', value: 'Share Security'}
     ];
 
-    areaFormat = ['R-A-P-D' , 'B-K-D' , 'SQF'];
+    areaFormat = ['R-A-P-D' , 'B-K-D' , 'SQF', 'Sq.m'];
 
     shareType = ShareType;
     activeNepseMaster: NepseMaster = new NepseMaster();
