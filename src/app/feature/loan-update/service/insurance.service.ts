@@ -15,7 +15,7 @@ export class InsuranceService extends BaseService<Insurance> {
     super(http);
   }
 
-  public updateInsurance(loanId: number, obj: Insurance): Observable<any> {
+  public updateInsurance(loanId: number, obj: Insurance[]): Observable<any> {
     const api = `${this.getApi()}/history?loanId=${loanId}`;
     const req = ApiUtils.getRequest(api);
 
