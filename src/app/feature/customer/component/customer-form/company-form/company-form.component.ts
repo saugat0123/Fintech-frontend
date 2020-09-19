@@ -361,7 +361,8 @@ export class CompanyFormComponent implements OnInit {
             share: [undefined, Validators.required],
             province: [null, Validators.required],
             district: [null, Validators.required],
-            municipalityVdc: [null, Validators.required]
+            municipalityVdc: [null, Validators.required],
+            type: [null , Validators.required]
         });
     }
 
@@ -386,7 +387,8 @@ export class CompanyFormComponent implements OnInit {
                 district: [proprietors.district.id === undefined ? '' : proprietors.district.id,
                     Validators.required],
                 municipalityVdc: [proprietors.municipalityVdc.id === undefined ? '' : proprietors.municipalityVdc.id,
-                    Validators.required]
+                    Validators.required],
+                type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
             }));
         });
         return managementTeamFormArray;
@@ -564,6 +566,7 @@ export class CompanyFormComponent implements OnInit {
             proprietors.name = this.getProprietor()[proprietorsIndex].name;
             proprietors.contactNo = this.getProprietor()[proprietorsIndex].contactNo;
             proprietors.share = this.getProprietor()[proprietorsIndex].share;
+            proprietors.type = this.getProprietor()[proprietorsIndex].type;
             const province = new Province();
             province.id = this.getProprietor()[proprietorsIndex].province;
             proprietors.province = province;

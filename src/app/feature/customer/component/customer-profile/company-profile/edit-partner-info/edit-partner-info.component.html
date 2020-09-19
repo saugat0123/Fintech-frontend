@@ -22,6 +22,23 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
+                  <label for="name"><strong>Type</strong></label>
+                  <select [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('type').errors }" class="form-control" name="type" formControlName="type">
+                    <option [ngValue]="null" hidden>Select type</option>
+                    <option *ngFor="let designations of designation" [ngValue]="designations.id">{{designations.name}}</option>
+                  </select>
+                  <div *ngIf="(submitted) && proprietor.get('type').invalid"
+                       class="invalid-feedback">
+                    <div *ngIf="proprietor.get('type').errors.required">
+                      Type is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
                   <label for="name"><strong>Name</strong></label>
                   <input id="name" formControlName="name" name="name" type="text"
                          class="form-control"

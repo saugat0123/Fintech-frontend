@@ -117,9 +117,11 @@
                                         id="email"
                                         placeholder="abc@gmail.com"
                                         type="text"/>
-                                <div *ngIf="submitted && form.email?.errors.email"
+                                <div *ngIf="submitted && form.email?.errors "
                                      class="invalid-feedback">
+                                    <div *ngIf="form.email?.errors.email">
                                         invalid email!
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -493,11 +495,28 @@
                     <div [formGroupName]="proprietorIndex">
                         <div class="row">
                             <div class="col-md-10 form-group">
-                                <h5>{{proprietorIndex + 1}}) Proprietor Information</h5>
+                                <h5>{{proprietorIndex + 1}}) General Information</h5>
                             </div>
                             <div class="col-md-2" *ngIf="companyInfoFormGroup.get('proprietors').length>1">
                                 <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
                                        (click)="removeProprietor(proprietorIndex)" value="Delete"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="name"><strong>Type</strong></label>
+                                    <select [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('type').errors }" class="form-control" name="type" formControlName="type">
+                                        <option [ngValue]="null" hidden>Select type</option>
+                                        <option *ngFor="let designations of designation" [ngValue]="designations.id">{{designations.name}}</option>
+                                    </select>
+                                    <div *ngIf="(submitted) && proprietor.get('type').invalid"
+                                         class="invalid-feedback">
+                                        <div *ngIf="proprietor.get('type').errors.required">
+                                            Type is required
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
