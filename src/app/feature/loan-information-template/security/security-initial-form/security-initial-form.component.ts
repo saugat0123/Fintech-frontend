@@ -760,4 +760,30 @@ export class SecurityInitialFormComponent implements OnInit {
                 break;
         }
     }
+    calculateEstimatedCost(i, type) {
+        switch (type) {
+            case 'building':
+                const estimatedCost = (Number(this.securityForm.get(['buildingDetails', i , 'valuationArea']).value)
+                    * Number(this.securityForm.get(['buildingDetails', i , 'ratePerSquareFeet']).value)).toFixed(2);
+                this.securityForm.get(['buildingDetails', i , 'estimatedCost']).patchValue(estimatedCost);
+                break;
+            case 'before':
+                const beforeEstimatedCost = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'valuationArea']).value)
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'ratePerSquareFeet']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsBeforeCompletion', 'estimatedCost']).patchValue(beforeEstimatedCost);
+                break;
+            case 'after':
+                const afterEstimatedCost = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'valuationArea']).value)
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'ratePerSquareFeet']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsAfterCompletion', 'estimatedCost']).patchValue(afterEstimatedCost);
+                break;
+        }
+    }
+
 }

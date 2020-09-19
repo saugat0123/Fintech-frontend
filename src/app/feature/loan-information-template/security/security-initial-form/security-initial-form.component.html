@@ -281,21 +281,21 @@
                                     <div class="form-group">
                                         <label class="title" for="valuationArea">Valuation Taken Area
                                             (Sq.ft)</label>
-                                        <input class="form-control rounded" formControlName="valuationArea"
+                                        <input (input)="calculateEstimatedCost(i,'building')" class="form-control rounded" formControlName="valuationArea"
                                                id="valuationArea"
                                                name="valuationArea" placeholder="Valuation Taken Area"
-                                               type="text"/>
+                                               type="number"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="ratePerSquareFeet">Rate per Square
                                             Feet</label>
-                                        <input class="form-control rounded"
+                                        <input (input)="calculateEstimatedCost(i,'building')" class="form-control rounded"
                                                formControlName="ratePerSquareFeet"
                                                id="ratePerSquareFeet"
                                                name="ratePerSquareFeet" placeholder="Rate per Square Feet"
-                                               type="text"/>
+                                               type="number"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -304,7 +304,7 @@
                                         <input class="form-control rounded" formControlName="estimatedCost"
                                                id="estimatedCost"
                                                name="estimatedCost" placeholder="Estimated Cost"
-                                               type="text"/>
+                                               type="number" readonly/>
                                     </div>
                                 </div>
 
@@ -541,20 +541,20 @@
                                         <div class="form-group">
                                             <label class="title" for="valuationArea">Valuation Taken Area
                                                 (Sq.ft)</label>
-                                            <input class="form-control rounded" formControlName="valuationArea"
+                                            <input (input)="calculateEstimatedCost(i,'before')" class="form-control rounded" formControlName="valuationArea"
                                                    id="vArea"
                                                    name="valuationArea" placeholder="Valuation Taken Area"
-                                                   type="text"/>
+                                                   type="number"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="ratePerSquareFeet">Rate per Square
                                                 Feet</label>
-                                            <input class="form-control rounded" formControlName="ratePerSquareFeet"
+                                            <input (input)="calculateEstimatedCost(i,'before')" class="form-control rounded" formControlName="ratePerSquareFeet"
                                                    id="ratepsf"
                                                    name="ratePerSquareFeet" placeholder="Rate per Square Feet"
-                                                   type="text"/>
+                                                   type="number"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -563,7 +563,7 @@
                                             <input class="form-control rounded" formControlName="estimatedCost"
                                                    id="estCost"
                                                    name="estimatedCost" placeholder="Estimated Cost"
-                                                   type="text"/>
+                                                   type="number" readonly/>
                                         </div>
                                     </div>
 
@@ -700,20 +700,20 @@
                                         <div class="form-group">
                                             <label class="title" for="valuationArea">Valuation Taken Area
                                                 (Sq.ft)</label>
-                                            <input class="form-control rounded" formControlName="valuationArea"
+                                            <input (input)="calculateEstimatedCost(i,'after')" class="form-control rounded" formControlName="valuationArea"
                                                    id="afterVA"
                                                    name="valuationArea" placeholder="Valuation Taken Area"
-                                                   type="text"/>
+                                                   type="number"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="ratePerSquareFeet">Rate per Square
                                                 Feet</label>
-                                            <input class="form-control rounded" formControlName="ratePerSquareFeet"
+                                            <input (input)="calculateEstimatedCost(i,'after')" class="form-control rounded" formControlName="ratePerSquareFeet"
                                                    id="afterRate"
                                                    name="ratePerSquareFeet" placeholder="Rate per Square Feet"
-                                                   type="text"/>
+                                                   type="number"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -722,7 +722,7 @@
                                             <input class="form-control rounded" formControlName="estimatedCost"
                                                    id="afterEstCost"
                                                    name="estimatedCost" placeholder="Estimated Cost"
-                                                   type="text"/>
+                                                   type="number" readonly/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
