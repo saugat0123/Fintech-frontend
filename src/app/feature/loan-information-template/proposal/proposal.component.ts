@@ -72,9 +72,9 @@ export class ProposalComponent implements OnInit {
                 });
             });
             this.proposalForm.get('interestRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-            .patchValue(Number(value) - Number(this.proposalForm.get('baseRate').value)));
+            .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
             this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-            .patchValue(Number(this.proposalForm.get('interestRate').value) - Number(value)));
+            .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
     }
 
     buildForm() {
@@ -101,9 +101,9 @@ export class ProposalComponent implements OnInit {
             // for installment Amount--
             installmentAmount: [undefined, Validators.required],
             // for moratoriumPeriod Amount--
-            moratoriumPeriod: [undefined, Validators.required],
+            moratoriumPeriod: [undefined],
             // for prepaymentCharge Amount--
-            prepaymentCharge: [undefined, Validators.required],
+            prepaymentCharge: [undefined],
             // for prepaymentCharge Amount--
             purposeOfSubmissionSummary: [undefined, Validators.required],
             // for commitmentFee Amount--
