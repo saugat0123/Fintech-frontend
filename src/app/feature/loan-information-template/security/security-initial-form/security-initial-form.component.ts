@@ -734,4 +734,30 @@ export class SecurityInitialFormComponent implements OnInit {
         this.shareField.controls.forEach(c => list.push(c.value));
         return list;
     }
+
+    calculateBuildUpAreaRate(i, type) {
+        switch (type) {
+            case 'building':
+                const totalBuildRate = (Number(this.securityForm.get(['buildingDetails', i , 'buildArea']).value)
+                    * Number(this.securityForm.get(['buildingDetails', i , 'buildRate']).value)).toFixed(2);
+                this.securityForm.get(['buildingDetails', i , 'totalCost']).patchValue(totalBuildRate);
+                break;
+            case 'before':
+                const beforeTotalBuildRate = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'buildArea']).value)
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'buildRate']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsBeforeCompletion', 'totalCost']).patchValue(beforeTotalBuildRate);
+                break;
+            case 'after':
+                const afterTotalBuildRate = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'buildArea']).value)
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'buildRate']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsAfterCompletion', 'totalCost']).patchValue(afterTotalBuildRate);
+                break;
+        }
+    }
 }

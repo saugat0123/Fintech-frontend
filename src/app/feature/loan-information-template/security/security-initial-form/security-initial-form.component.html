@@ -242,19 +242,19 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
-                                        <input class="form-control rounded" formControlName="buildArea"
+                                        <input (input)="calculateBuildUpAreaRate(i, 'building')" class="form-control rounded" formControlName="buildArea"
                                                id="buildArea"
                                                name="buildArea" placeholder="build up area"
-                                               type="text"/>
+                                               type="number"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="buildRate">Build Up Area Rate</label>
-                                        <input class="form-control rounded" formControlName="buildRate"
+                                        <input (input)="calculateBuildUpAreaRate(i,'building')" class="form-control rounded" formControlName="buildRate"
                                                id="buildRate"
                                                name="buildRate" placeholder="build up rate"
-                                               type="text"/>
+                                               type="number"/>
                                     </div>
                                 </div>
 
@@ -264,7 +264,7 @@
                                         <input class="form-control rounded" formControlName="totalCost"
                                                id="totalCost"
                                                name="totalCost" placeholder="total cost"
-                                               type="text"/>
+                                               type="number" readonly/>
                                     </div>
                                 </div>
 
@@ -502,19 +502,19 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
-                                            <input class="form-control rounded" formControlName="buildArea"
+                                            <input (input)="calculateBuildUpAreaRate(i,'before')" class="form-control rounded" formControlName="buildArea"
                                                    id="area"
                                                    name="buildArea" placeholder="build up area"
-                                                   type="text"/>
+                                                   type="number"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="buildRate">Build Up Area Rate</label>
-                                            <input class="form-control rounded" formControlName="buildRate"
+                                            <input (input)="calculateBuildUpAreaRate(i,'before')" class="form-control rounded" formControlName="buildRate"
                                                    id="rate"
                                                    name="buildRate" placeholder="build up rate"
-                                                   type="text"/>
+                                                   type="number"/>
                                         </div>
                                     </div>
 
@@ -524,7 +524,7 @@
                                             <input class="form-control rounded" formControlName="totalCost"
                                                    id="cost"
                                                    name="totalCost" placeholder="total cost"
-                                                   type="text"/>
+                                                   type="number" readonly/>
                                         </div>
                                     </div>
 
@@ -662,19 +662,19 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="buildArea">Build Up Area (Sq.ft)</label>
-                                            <input class="form-control rounded" formControlName="buildArea"
+                                            <input (input)="calculateBuildUpAreaRate(i,'after')" class="form-control rounded" formControlName="buildArea"
                                                    id="afterArea"
                                                    name="buildArea" placeholder="build up area"
-                                                   type="text"/>
+                                                   type="number"/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="title" for="buildRate">Build Up Area Rate</label>
-                                            <input class="form-control rounded" formControlName="buildRate"
+                                            <input (input)="calculateBuildUpAreaRate(i,'after')" class="form-control rounded" formControlName="buildRate"
                                                    id="afterbuildRate"
                                                    name="buildRate" placeholder="build up rate"
-                                                   type="text"/>
+                                                   type="number"/>
                                         </div>
                                     </div>
 
@@ -684,7 +684,7 @@
                                             <input class="form-control rounded" formControlName="totalCost"
                                                    id="afterTc"
                                                    name="totalCost" placeholder="total cost"
-                                                   type="text"/>
+                                                   type="number" readonly/>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
