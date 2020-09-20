@@ -17,7 +17,7 @@ export class InsuranceComponent implements OnInit {
     isSubmitted = false;
     insurance: Array<Insurance> = new Array<Insurance>();
     insuranceList: InsuranceList = new InsuranceList();
-    insuranceCompanyList;
+    insuranceCompanyList = InsuranceList.insuranceCompanyList;
 
     constructor(
         private formBuilder: FormBuilder
@@ -30,7 +30,6 @@ export class InsuranceComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.insuranceCompanyList = this.insuranceList.insuranceCompanyList;
         if (ObjectUtil.isEmpty(this.insuranceDataFromModel)) {
             this.addEmptyForm();
         } else {
