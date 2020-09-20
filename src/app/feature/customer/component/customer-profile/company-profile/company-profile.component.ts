@@ -23,8 +23,8 @@ import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 import {CustomerLoanApplyComponent} from '../../customer-loan-apply/customer-loan-apply.component';
 import {FetchLoan} from '../../../model/fetchLoan';
 import {LoanAmountType} from '../../../model/loanAmountType';
-import {District} from "../../../../admin/modal/district";
-import {AddressService} from "../../../../../@core/service/baseservice/address.service";
+import {District} from '../../../../admin/modal/district';
+import {AddressService} from '../../../../../@core/service/baseservice/address.service';
 
 @Component({
   selector: 'app-company-profile',

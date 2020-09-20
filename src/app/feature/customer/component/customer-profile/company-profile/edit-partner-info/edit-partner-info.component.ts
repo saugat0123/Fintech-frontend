@@ -26,6 +26,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {CompanyFormComponent} from '../../../customer-form/company-form/company-form.component';
 import {DateValidator} from '../../../../../../@core/validator/date-validator';
+import {DesignationList} from '../../../../../loan/model/designationList';
 
 @Component({
   selector: 'app-edit-partner-info',
@@ -69,6 +70,8 @@ export class EditPartnerInfoComponent implements OnInit {
   businessTypes = BusinessType.enumObject();
   contactPerson: ContactPerson = new ContactPerson();
   private isBlackListed: boolean;
+  designationList: DesignationList = new DesignationList();
+  designation;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -91,7 +94,7 @@ export class EditPartnerInfoComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-
+    this.designation = this.designationList.designation;
     this.commonLocation.getProvince().subscribe(
         (response: any) => {
           this.provinceList = response.detail;
@@ -173,7 +176,8 @@ export class EditPartnerInfoComponent implements OnInit {
       share: [undefined, Validators.required],
       province: [null, Validators.required],
       district: [null, Validators.required],
-      municipalityVdc: [null, Validators.required]
+      municipalityVdc: [null, Validators.required],
+      type: [null, Validators.required]
     });
   }
 
@@ -201,6 +205,7 @@ export class EditPartnerInfoComponent implements OnInit {
           Validators.required],
         id: [ObjectUtil.setUndefinedIfNull(proprietors.id)],
         version: [ObjectUtil.setUndefinedIfNull(proprietors.version)],
+        type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
       }));
     });
     return managementTeamFormArray;
@@ -291,6 +296,7 @@ export class EditPartnerInfoComponent implements OnInit {
       proprietors.name = this.getProprietor()[proprietorsIndex].name;
       proprietors.contactNo = this.getProprietor()[proprietorsIndex].contactNo;
       proprietors.share = this.getProprietor()[proprietorsIndex].share;
+      proprietors.type = this.getProprietor()[proprietorsIndex].type;
       const province = new Province();
       province.id = this.getProprietor()[proprietorsIndex].province;
       proprietors.province = province;

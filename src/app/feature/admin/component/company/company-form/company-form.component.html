@@ -10,14 +10,14 @@
             <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
                 <div class="row form-group">
                     <div class="col-md-8">
-                        <label for="name">Company Name</label>
+                        <label for="name">Company Structure</label>
                         <input type="hidden" class="form-control" [(ngModel)]="company.id" name="id"
                                placeholder="id">
                         <input type="text" class="form-control" [(ngModel)]="company.name" name="name" id="name"
                                #compName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && compName.invalid }"
                                required>
                         <div *ngIf="f.submitted && compName.invalid" class="invalid-feedback">
-                            <div *ngIf="compName.errors.required">Company Name is required</div>
+                            <div *ngIf="compName.errors.required">Company Structure is required</div>
                         </div>
                     </div>
                 </div>

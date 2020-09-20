@@ -11,4 +11,5 @@ export class Proprietors {
     municipalityVdc: MunicipalityVdc;
     share: string;
     version: string;
+    type: string;
 }

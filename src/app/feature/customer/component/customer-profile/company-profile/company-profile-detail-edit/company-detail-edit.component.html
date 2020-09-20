@@ -23,10 +23,13 @@
               <div class="col-md-8">
                 <div class="form-group">
                   <label for="corporateStructure"><strong>Corporate Structure</strong></label>
-                  <input [ngClass]="{ 'is-invalid': (submitted) && form.corporateStructure.errors }" class="form-control"
-                         formControlName="corporateStructure"
-                         id="corporateStructure" name="corporateStructure" placeholder="Corporate Structure"
-                         type="text"/>
+                  <select id="corporateStructure" formControlName="corporateStructure"
+                          name="corporateStructure"
+                          class="form-control custom-select"
+                          [ngClass]="{ 'is-invalid': (submitted) && form.corporateStructure.errors }">
+                    <option [value]="null" hidden>--Select Corporate Structure--</option>
+                    <option [ngValue]="companyStructure.id" *ngFor="let companyStructure of companyStructureList">{{companyStructure.name}}</option>
+                  </select>
                   <div *ngIf="(submitted) && form.corporateStructure.invalid"
                        class="invalid-feedback">
                     <div *ngIf="form.corporateStructure.errors.required">Corporate Structure is
@@ -59,16 +62,10 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="registeredUnderAct"><strong>Registered Under Act</strong></label>
-                  <input [ngClass]="{ 'is-invalid': (submitted) && form.registeredUnderAct.errors }" class="form-control"
+                  <input  class="form-control"
                          formControlName="registeredUnderAct"
                          id="registeredUnderAct" name="registeredUnderAct" placeholder="Registered Under Act"
                          type="text">
-                  <div *ngIf="(submitted) && form.registeredUnderAct.invalid"
-                       class="invalid-feedback">
-                    <div *ngIf="form.registeredUnderAct.errors.required">
-                      Registered Under Act is required
-                    </div>
-                  </div>
                 </div>
               </div>
               <div class="col-md-4">

@@ -17,6 +17,7 @@ import {NbDialogRef} from '@nebular/theme';
 import {CompanyFormComponent} from '../../../customer-form/company-form/company-form.component';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {DesignationList} from '../../../../../loan/model/designationList';
 
 @Component({
   selector: 'app-edit-management-team',
@@ -36,6 +37,8 @@ export class EditManagementTeamComponent implements OnInit {
   swot: Swot = new Swot();
   locations: CompanyLocations = new CompanyLocations();
   managementTeamList: Array<ManagementTeam> = new Array<ManagementTeam>();
+  designationList: DesignationList = new DesignationList();
+  designation;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -58,6 +61,7 @@ export class EditManagementTeamComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.designation = this.designationList.designation;
 
     if (ObjectUtil.isEmpty(this.companyInfo.managementTeamList)) {
       this.createManagementArray();

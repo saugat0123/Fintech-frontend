@@ -119,7 +119,7 @@
                                         type="text"/>
                                 <div *ngIf="submitted && form.email?.errors "
                                      class="invalid-feedback">
-                                    <div *ngIf="form.email?.errors.required || form.email?.errors.email">
+                                    <div *ngIf="form.email?.errors.email">
                                         invalid email!
                                     </div>
                                 </div>
@@ -198,10 +198,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="corporateStructure"><strong>Corporate Structure</strong></label>
-                            <input id="corporateStructure" formControlName="corporateStructure"
-                                   name="corporateStructure"
-                                   type="text" class="form-control" placeholder="Corporate Structure"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.corporateStructure.errors }"/>
+                            <select id="corporateStructure" formControlName="corporateStructure"
+                                    name="corporateStructure"
+                                    class="form-control custom-select"
+                                    [ngClass]="{ 'is-invalid': (submitted) && form.corporateStructure.errors }">
+                                <option [value]="null" hidden>--Select Corporate Structure--</option>
+                                <option [ngValue]="companyStructure.id" *ngFor="let companyStructure of companyStructureList">{{companyStructure.name}}</option>
+                            </select>
                             <div *ngIf="(submitted) && form.corporateStructure.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="form.corporateStructure.errors.required">Corporate Structure is
@@ -235,14 +238,7 @@
                             <label for="registeredUnderAct"><strong>Registered Under Act</strong></label>
                             <input id="registeredUnderAct" formControlName="registeredUnderAct"
                                    name="registeredUnderAct"
-                                   type="text" class="form-control" placeholder="Registered Under Act"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.registeredUnderAct.errors }">
-                            <div *ngIf="(submitted) && form.registeredUnderAct.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="form.registeredUnderAct.errors.required">
-                                    Registered Under Act is required
-                                </div>
-                            </div>
+                                   type="text" class="form-control" placeholder="Registered Under Act">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -467,9 +463,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="designation"><strong>Designation</strong></label>
-                                    <input id="designation" formControlName="designation" name="designation" type="text"
-                                           class="form-control" placeholder="Designation"
-                                           [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('designation').errors }">
+                                    <select id="designation" formControlName="designation" name="designation"
+                                           class="form-control"
+                                            [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('designation').errors }">
+                                        <option [ngValue]="null" hidden>Select Designation</option>
+                                        <option *ngFor="let designations of designation" [ngValue]="designations.id">{{designations.name}}</option>
+                                    </select>
                                     <div *ngIf="(submitted) && managementTeam.get('designation').invalid"
                                          class="invalid-feedback">
                                         <div *ngIf="managementTeam.get('designation').errors.required">
@@ -496,11 +495,28 @@
                     <div [formGroupName]="proprietorIndex">
                         <div class="row">
                             <div class="col-md-10 form-group">
-                                <h5>{{proprietorIndex + 1}}) Proprietor Information</h5>
+                                <h5>{{proprietorIndex + 1}}) General Information</h5>
                             </div>
                             <div class="col-md-2" *ngIf="companyInfoFormGroup.get('proprietors').length>1">
                                 <input class="align-self-end btn btn-sm btn-danger btn-primary" type="button"
                                        (click)="removeProprietor(proprietorIndex)" value="Delete"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="name"><strong>Type</strong></label>
+                                    <select [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('type').errors }" class="form-control" name="type" formControlName="type">
+                                        <option [ngValue]="null" hidden>Select type</option>
+                                        <option *ngFor="let designations of designation" [ngValue]="designations.id">{{designations.name}}</option>
+                                    </select>
+                                    <div *ngIf="(submitted) && proprietor.get('type').invalid"
+                                         class="invalid-feedback">
+                                        <div *ngIf="proprietor.get('type').errors.required">
+                                            Type is required
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -658,14 +674,7 @@
                             <label><strong>Email</strong></label>
                             <input class="form-control" formControlName="contactEmail"
                                    id="contactEmail" placeholder="Email"
-                                   type="email"
-                                   [ngClass]="{ 'is-invalid': (submitted) && form.contactEmail.errors }">
-                            <div *ngIf="(submitted) && form.contactEmail.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="form.contactEmail.errors.required">
-                                    Email is required
-                                </div>
-                            </div>
+                                   type="email">
                         </div>
                     </div>
                     <div class="col-md-4">
