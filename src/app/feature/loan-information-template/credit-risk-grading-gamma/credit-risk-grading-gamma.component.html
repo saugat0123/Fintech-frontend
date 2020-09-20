@@ -1,0 +1,136 @@
+<section>
+    <table aria-describedby="Grade details table"
+           class="table table-bordered text-center">
+        <tr>
+            <th scope="col">Number</th>
+            <th scope="col">Grading</th>
+            <th scope="col">Short</th>
+            <th scope="col">Score</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Superior</td>
+            <td>SUP</td>
+            <td>
+                Fully cash secured, secured by
+                Government/International Bank
+                Guarantee
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Good</td>
+            <td>GD</td>
+            <td>85+</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Acceptable</td>
+            <td>ACCEPT</td>
+            <td>75-84</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Marginal/Watchlist</td>
+            <td>MG/WL</td>
+            <td>65-74</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Special Mention</td>
+            <td>SM</td>
+            <td>55-64</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Substandard</td>
+            <td>SS</td>
+            <td>45-54</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Doubtful</td>
+            <td>DF</td>
+            <td>35-44</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Bad & Loss</td>
+            <td>BL</td>
+            <td><35</td>
+        </tr>
+    </table>
+
+    <form [formGroup]="creditRiskGrading">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>SN.</th>
+                <th>Criteria</th>
+                <th>Weight</th>
+                <th>Parameter</th>
+                <th *ngIf="fromProfile">Score</th>
+                <th *ngIf="fromProfile">Actual Parameter</th>
+                <th>Score Obtained</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <ng-container *ngFor="let crgQuestion of crgQuestionsList; let i = index">
+                <tr>
+                    <td></td>
+
+                    <td class="desc-td-width">
+                        <ng-container *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">
+                            <b>{{ groupLabelMap.get(crgQuestion?.crgGroupId) }}</b>
+                            <br><br>
+                        </ng-container>
+                        <p>{{ crgQuestion?.description }}</p>
+                    </td>
+                    <td>{{ groupWeightageMap.get(crgQuestion?.crgGroupId) }}</td>
+                    <td *ngIf="!fromProfile">{{creditRiskGrading.get(crgQuestion?.description).value === null ? '' :
+                        'TODO'}}</td>
+                    <ng-container *ngIf="fromProfile">
+                        <td>
+                            <ul>
+                                <li *ngFor="let answer of crgQuestion?.answers">
+                                    {{ answer.description }}
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="list-unstyled">
+                                <li *ngFor="let answer of crgQuestion?.answers">
+                                    {{ answer.points }}
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <div *ngFor="let answer of crgQuestion?.answers; let i = index">
+                                <input (change)="onChangeOption(crgQuestion?.description, answer?.points)"
+                                       [checked]="totalPointMapper.get(crgQuestion?.description) === answer?.points"
+                                       [value]="answer?.points"
+                                       class="form-control-input"
+                                       [formControlName]="crgQuestion?.description"
+                                       [id]="crgQuestion?.description"
+                                       type="radio"><br>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <td>{{creditRiskGrading.get(crgQuestion?.description).value === null ? '' : creditRiskGrading.get(crgQuestion?.description).value}}</td>
+                </tr>
+            </ng-container>
+
+            <tr>
+                <th class="text-center" colspan="2"><b>Grading:</b> {{grading === undefined ? '' : grading}}</th>
+                <th [attr.colspan]="totalPointsColspan" class="text-center">Total Score:</th>
+                <th class="text-center">{{totalPoints === undefined ? '' : totalPoints}}</th>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
+        <button (click)="onSubmit()" nbButton type="button">save</button>
+    </div>
+</section>
+

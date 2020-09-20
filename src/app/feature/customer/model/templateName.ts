@@ -7,5 +7,6 @@ export class TemplateName {
   static INSURANCE = 'Insurance';
   static CUSTOMER_GROUP = 'customerGroup';
   static CRG_ALPHA = 'CrgAlpha';
+  static CRG_GAMMA = 'CrgGamma';
   static CRG = 'Crg';
 }

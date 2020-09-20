@@ -7,6 +7,7 @@ export class CrgQuestion {
     description: string;
     maximumPoints: number;
     appearanceOrder: number;
+    weightage: number;
     status: Status;
     version: number;
     crgGroupId: number;
