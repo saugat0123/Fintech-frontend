@@ -43,6 +43,11 @@ const routes: Routes = [
                 path: 'crg',
                 loadChildren: () => import('./credit-risk-grading/credit-risk-grading.module').then(m => m.CreditRiskGradingModule)
             },
+
+            {
+                path: 'customer-activity',
+                loadChildren: () => import('./customer-activity/customer-activity.module').then(m => m.CustomerActivityModule)
+            },
             {path: '', redirectTo: 'dashboard'},
             {path: '**', redirectTo: 'dashboard'}
         ],
