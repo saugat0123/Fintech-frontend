@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Insurance} from '../../admin/modal/insurance';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {InsuranceList} from '../../loan/model/insuranceList';
 
 @Component({
     selector: 'app-insurance',
@@ -15,6 +16,8 @@ export class InsuranceComponent implements OnInit {
     form: FormGroup;
     isSubmitted = false;
     insurance: Array<Insurance> = new Array<Insurance>();
+    insuranceList: InsuranceList = new InsuranceList();
+    insuranceCompanyList;
 
     constructor(
         private formBuilder: FormBuilder
@@ -27,6 +30,7 @@ export class InsuranceComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
+        this.insuranceCompanyList = this.insuranceList.insuranceCompanyList;
         if (ObjectUtil.isEmpty(this.insuranceDataFromModel)) {
             this.addEmptyForm();
         } else {

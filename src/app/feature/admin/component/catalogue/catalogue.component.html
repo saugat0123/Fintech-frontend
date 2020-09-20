@@ -141,9 +141,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let model of loanDataHolderList;let i=index"
-                [nbPopoverTrigger]="model?.loanHolder?.loanFlags?.length > 0 ? nbTrigger.HINT : nbTrigger.NOOP"
+                [nbPopoverTrigger]="getSortedLoanFlags(model?.loanHolder?.loanFlags, model?.id)?.length > 0 ? nbTrigger.HINT : nbTrigger.NOOP"
                 [nbPopover]="getSortedLoanFlags(model?.loanHolder?.loanFlags, model?.id)[0]?.description"
-                [ngStyle]="{'color': (model?.loanHolder?.loanFlags?.length > 0) ? 'red': 'auto'}"
+                [ngStyle]="{'color': (getSortedLoanFlags(model?.loanHolder?.loanFlags, model?.id)?.length > 0) ? 'red': 'auto'}"
                 class="cursor">
                 <td (click)="onClick(model.loan.id,model.id)"
                     *ngIf="this.showBranch">{{model?.branch?.name}}</td>

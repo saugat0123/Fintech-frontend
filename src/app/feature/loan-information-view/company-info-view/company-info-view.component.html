@@ -40,7 +40,7 @@
       </thead>
       <tbody>
       <tr>
-        <td>{{formValue?.legalStatus?.corporateStructure}}</td>
+        <td>{{formValue?.legalStatus?.corporateStructure?.name}}</td>
         <td>{{formValue?.legalStatus?.registeredOffice}}</td>
         <td>{{formValue?.legalStatus?.registeredUnderAct}}</td>
         <td>{{formValue?.legalStatus?.registrationDate | date}}</td>
@@ -99,10 +99,11 @@
     <table class="table table-responsive-md table-bordered text-center table-condensed">
       <thead>
       <tr>
-        <th colspan="7">Information of Proprietor/Shareholder/Partner with holder %</th>
+        <th colspan="8">Information of Proprietor/Shareholder/Partner with holder %</th>
       </tr>
       <tr>
         <th>S.N</th>
+        <th>Type</th>
         <th>Name</th>
         <th>Contact No</th>
         <th>Share</th>
@@ -114,6 +115,7 @@
       <tbody *ngFor="let proprietors of formValue?.proprietorsList; let i=index;">
       <tr>
         <td>{{i + 1}}</td>
+        <td>{{proprietors?.type}}</td>
         <td>{{proprietors?.name}}</td>
         <td>{{proprietors?.contactNo}}</td>
         <td>{{proprietors?.share}}</td>

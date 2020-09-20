@@ -13,6 +13,8 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ModalResponse, ToastService} from '../../../../../../@core/utils';
 import {CompanyInfoService} from '../../../../../admin/service/company-info.service';
 import {NbDialogRef} from '@nebular/theme';
+import {Company} from '../../../../../admin/modal/company';
+import {CompanyService} from '../../../../../admin/component/company/company.service';
 
 @Component({
   selector: 'app-company-detail-edit',
@@ -31,12 +33,16 @@ export class CompanyDetailEditComponent implements OnInit {
   districtList: Array<District> = new Array<District>();
   municipalityVdcList: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
   addressList: Array<Address> = new Array<Address>();
+  companyStructureList: Array<Company>;
+
 
   constructor(private formBuilder: FormBuilder,
               private commonLocation: AddressService,
               private companyInfoService: CompanyInfoService,
               protected dialogRef: NbDialogRef<CompanyDetailEditComponent>,
               private toastService: ToastService,
+              private company: CompanyService
+
   ) {
   }
 
@@ -46,6 +52,7 @@ export class CompanyDetailEditComponent implements OnInit {
 
   async ngOnInit() {
     await this.buildForm();
+    this.getCompanyStructure();
     this.commonLocation.getProvince().subscribe(
         (response: any) => {
           this.provinceList = response.detail;
@@ -67,8 +74,9 @@ export class CompanyDetailEditComponent implements OnInit {
   buildForm() {
     this.companyInfoFormGroup = this.formBuilder.group({
       // legalStatus
-      corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ?
-          undefined : this.companyInfo.legalStatus.corporateStructure, Validators.required],
+      corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus) ||
+          ObjectUtil.isEmpty(this.companyInfo.legalStatus.corporateStructure)) ?
+          undefined : this.companyInfo.legalStatus.corporateStructure.id, Validators.required],
 
       registeredOffice: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
@@ -76,7 +84,7 @@ export class CompanyDetailEditComponent implements OnInit {
 
       registeredUnderAct: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
-          this.companyInfo.legalStatus.registeredUnderAct, Validators.required],
+          this.companyInfo.legalStatus.registeredUnderAct],
 
       registrationDate: [(ObjectUtil.isEmpty(this.companyInfo)
           || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
@@ -222,7 +230,9 @@ export class CompanyDetailEditComponent implements OnInit {
     this.spinner = true;
     // legalStatus
     // this.legalStatus.companyName = this.companyInfoFormGroup.get('companyName').value;
-    this.companyInfo.legalStatus.corporateStructure = this.companyInfoFormGroup.get('corporateStructure').value;
+    const corporateStructure = new Company();
+    corporateStructure.id = this.companyInfoFormGroup.get('corporateStructure').value;
+    this.companyInfo.legalStatus.corporateStructure = ObjectUtil.isEmpty(corporateStructure.id) ? undefined : corporateStructure;
     this.companyInfo.legalStatus.registeredOffice = this.companyInfoFormGroup.get('registeredOffice').value;
     this.companyInfo.legalStatus.registeredUnderAct = this.companyInfoFormGroup.get('registeredUnderAct').value;
     // this.legalStatus.registrationNo = this.companyInfoFormGroup.get('registrationNo').value;
@@ -269,5 +279,14 @@ export class CompanyDetailEditComponent implements OnInit {
 
   onClose() {
     this.dialogRef.close();
+  }
+
+  getCompanyStructure() {
+    this.company.getAll().subscribe(res => {
+      this.companyStructureList = res.detail;
+    }, error => {
+      console.error(error);
+      this.toastService.show(new Alert(AlertType.ERROR, 'Company Structure can not be Loaded'));
+    });
   }
 }

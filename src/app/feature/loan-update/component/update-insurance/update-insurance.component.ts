@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Insurance} from '../../../admin/modal/insurance';
 import {InsuranceService} from '../../service/insurance.service';
@@ -15,11 +15,10 @@ import {LoanDataHolder} from '../../../loan/model/loanData';
   styleUrls: ['./update-insurance.component.scss']
 })
 export class UpdateInsuranceComponent implements OnInit {
-  public updateExisting: boolean;
   private customerLoanId: number;
   public form: FormGroup;
   public isSubmitted = false;
-  private insurance: Insurance = new Insurance();
+  private insurances: Insurance[] = [];
 
   constructor(
       private formBuilder: FormBuilder,
@@ -38,20 +37,20 @@ export class UpdateInsuranceComponent implements OnInit {
     this.buildForm();
     this.activatedRoute.queryParamMap.subscribe(v => {
       this.customerLoanId = Number(v.get('loanId'));
-      this.updateExisting = v.get('updateExisting') === 'true';
 
       this.loanFormService.detail(this.customerLoanId).subscribe((response: any) => {
         const loanDataHolder: LoanDataHolder = response.detail;
-        // this.insurance = loanDataHolder.insurance;
-        // TODO: workable for array of insurance
-        this.buildForm();
+        this.insurances = loanDataHolder.insurance;
+        this.insurances.forEach((i) => {
+          (this.form.get('insurances') as FormArray).push(this.addInsuranceGroup(i));
+        });
       });
     });
 
   }
 
   public submit(): void {
-    this.insuranceService.updateInsurance(this.customerLoanId, this.form.value)
+    this.insuranceService.updateInsurance(this.customerLoanId, this.form.get('insurances').value)
     .subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Updated successfully!!!'));
       this.router.navigate(['/home/update-loan/dashboard'], {
@@ -67,18 +66,20 @@ export class UpdateInsuranceComponent implements OnInit {
 
   private buildForm(): void {
     this.form = this.formBuilder.group({
-      id: [this.updateExisting ? this.insurance.id : undefined],
-      version: [ObjectUtil.setUndefinedIfNull(this.insurance.version)],
-      company: [ObjectUtil.setUndefinedIfNull(this.insurance.company)],
-      insuredAmount: [ObjectUtil.setUndefinedIfNull(this.insurance.insuredAmount)],
-      premiumAmount: [ObjectUtil.setUndefinedIfNull(this.insurance.premiumAmount)],
-      issuedDate: [this.insurance.issuedDate === undefined ? undefined : new Date(this.insurance.issuedDate)],
-      expiryDate: [this.insurance.expiryDate === undefined ? undefined : new Date(this.insurance.expiryDate)],
-      policyType: [ObjectUtil.setUndefinedIfNull(this.insurance.policyType)],
-      remarks: [
-        this.updateExisting ? ObjectUtil.setUndefinedIfNull(this.insurance.remarks) : undefined,
-        this.updateExisting ? [Validators.required] : []
-      ]
+      insurances: this.formBuilder.array([])
+    });
+  }
+
+  private addInsuranceGroup(insurance: Insurance): FormGroup {
+    return this.formBuilder.group({
+      id: [insurance.id],
+      version: [ObjectUtil.setUndefinedIfNull(insurance.version)],
+      company: [ObjectUtil.setUndefinedIfNull(insurance.company)],
+      insuredAmount: [ObjectUtil.setUndefinedIfNull(insurance.insuredAmount)],
+      premiumAmount: [ObjectUtil.setUndefinedIfNull(insurance.premiumAmount)],
+      issuedDate: [insurance.issuedDate === undefined ? undefined : new Date(insurance.issuedDate)],
+      expiryDate: [insurance.expiryDate === undefined ? undefined : new Date(insurance.expiryDate)],
+      policyType: [ObjectUtil.setUndefinedIfNull(insurance.policyType)],
     });
   }
 

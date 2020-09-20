@@ -22,7 +22,6 @@ export class UpdateLoanDashboardComponent implements OnInit {
   public updatesRequired: {
     title: string,
     componentPath: string,
-    updateExisting: boolean,
     description: string,
     loan: LoanDataHolder
   }[] = [];
@@ -54,27 +53,6 @@ export class UpdateLoanDashboardComponent implements OnInit {
     });
   }
 
-  public addAction(): void {
-    if (this.updatesRequired.map(v => v.title).includes(this.updateAction)) {
-      this.toastService.show(new Alert(AlertType.INFO, 'Already added'));
-      return;
-    }
-
-    switch (this.updateAction) {
-      case this.UPDATES.INSURANCE.name:
-        this.updatesRequired.push({
-          title: this.UPDATES.INSURANCE.name,
-          componentPath: this.UPDATES.INSURANCE.path,
-          updateExisting: true,
-          description: 'You will override current information instead of creating new one in the record.',
-          loan: this.customerLoan
-        });
-        break;
-      default:
-        this.toastService.show(new Alert(AlertType.INFO, 'Invalid Action'));
-    }
-  }
-
   private fetchData() {
     this.loanFormService.detail(this.customerLoanId).subscribe((response: any) => {
       this.customerLoan = response.detail;
@@ -90,7 +68,6 @@ export class UpdateLoanDashboardComponent implements OnInit {
             this.updatesRequired.push({
               title: this.UPDATES.INSURANCE.name,
               componentPath: this.UPDATES.INSURANCE.path,
-              updateExisting: false,
               description: flag.description,
               loan: this.customerLoan
             });
