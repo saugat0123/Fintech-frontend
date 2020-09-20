@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Router} from '@angular/router';
 import {ToastService} from '../../../@core/utils';
 import {AlertService} from '../../../@theme/components/alert/alert.service';
@@ -20,7 +20,7 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
   templateUrl: './loan-action.component.html',
   styleUrls: ['./loan-action.component.scss']
 })
-export class LoanActionComponent implements OnInit {
+export class LoanActionComponent implements OnInit, OnChanges {
 
   @Input() loanConfigId: number;
   @Input() id: number;
@@ -51,6 +51,12 @@ export class LoanActionComponent implements OnInit {
       this.isMaker = true;
     }
     this.committeeRole = roleType === RoleType.COMMITTEE;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.loanFlags.currentValue) {
+      this.loanFlags = this.loanFlags.filter((l) => (l.customerLoanId === this.id || ObjectUtil.isEmpty(l.customerLoanId)));
+    }
   }
 
   public loanAction(action: 'forward' | 'backward' | 'backwardCommittee' | 'approve' | 'reject' | 'close'): void {
