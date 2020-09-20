@@ -25,6 +25,9 @@ import {DateValidator} from '../../../../../@core/validator/date-validator';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {NbDialogRef} from '@nebular/theme';
 import {ContactPerson} from '../../../../admin/modal/contact-person';
+import {CompanyService} from '../../../../admin/component/company/company.service';
+import {Company} from '../../../../admin/modal/company';
+import {DesignationList} from '../../../../loan/model/designationList';
 
 @Component({
     selector: 'app-company-form',
@@ -66,6 +69,9 @@ export class CompanyFormComponent implements OnInit {
     contactPerson: ContactPerson = new ContactPerson();
     allDistrict: Array<District> = Array<District>();
     private isBlackListed: boolean;
+    companyStructureList: Array<Company>;
+    designationList: DesignationList = new DesignationList();
+    designation;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -77,6 +83,8 @@ export class CompanyFormComponent implements OnInit {
         private companyInfoService: CompanyInfoService,
         private blackListService: BlacklistService,
         protected ref: NbDialogRef<CompanyFormComponent>,
+        private company: CompanyService
+
     ) {
 
     }
@@ -89,7 +97,8 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo = this.formValue;
         this.buildForm();
         this.getAllDistrict();
-
+        this.getCompanyStructure();
+        this.designation = this.designationList.designation;
         this.commonLocation.getProvince().subscribe(
             (response: any) => {
                 this.provinceList = response.detail;
@@ -182,15 +191,17 @@ export class CompanyFormComponent implements OnInit {
             email:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.email)) ? undefined :
-                    this.companyInfo.email, [Validators.required, Validators.email]],
+                    this.companyInfo.email, [Validators.email]],
             contactNum:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.contactNum)) ? undefined :
                     this.companyInfo.contactNum, [Validators.required]],
 
             // legalStatus
-            corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ?
-                undefined : this.companyInfo.legalStatus.corporateStructure, Validators.required],
+            corporateStructure: [(ObjectUtil.isEmpty(this.companyInfo) || ObjectUtil.isEmpty(this.companyInfo.legalStatus) ||
+                ObjectUtil.isEmpty(this.companyInfo.legalStatus.corporateStructure)) ?
+                undefined : this.companyInfo.legalStatus.corporateStructure.id, Validators.required],
+
 
             registeredOffice: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
@@ -198,7 +209,7 @@ export class CompanyFormComponent implements OnInit {
 
             registeredUnderAct: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
-                this.companyInfo.legalStatus.registeredUnderAct, Validators.required],
+                this.companyInfo.legalStatus.registeredUnderAct],
 
             registrationDate: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
@@ -267,7 +278,7 @@ export class CompanyFormComponent implements OnInit {
                 this.companyInfo.contactPerson.name, Validators.required],
             contactEmail: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
-                this.companyInfo.contactPerson.email, Validators.required],
+                this.companyInfo.contactPerson.email],
             contactNumber: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.contactPerson)) ? undefined :
                 this.companyInfo.contactPerson.contactNumber, Validators.required],
@@ -286,8 +297,7 @@ export class CompanyFormComponent implements OnInit {
             locationId: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.id],
             houseNumber: [(ObjectUtil.isEmpty(this.companyInfo)
-                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.houseNumber,
-                Validators.required],
+                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.houseNumber],
             streetName: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.streetName,
                 Validators.required],
@@ -351,7 +361,8 @@ export class CompanyFormComponent implements OnInit {
             share: [undefined, Validators.required],
             province: [null, Validators.required],
             district: [null, Validators.required],
-            municipalityVdc: [null, Validators.required]
+            municipalityVdc: [null, Validators.required],
+            type: [null , Validators.required]
         });
     }
 
@@ -376,7 +387,8 @@ export class CompanyFormComponent implements OnInit {
                 district: [proprietors.district.id === undefined ? '' : proprietors.district.id,
                     Validators.required],
                 municipalityVdc: [proprietors.municipalityVdc.id === undefined ? '' : proprietors.municipalityVdc.id,
-                    Validators.required]
+                    Validators.required],
+                type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
             }));
         });
         return managementTeamFormArray;
@@ -498,7 +510,9 @@ export class CompanyFormComponent implements OnInit {
 
         // legalStatus
         // this.legalStatus.companyName = this.companyInfoFormGroup.get('companyName').value;
-        this.legalStatus.corporateStructure = this.companyInfoFormGroup.get('corporateStructure').value;
+        const corporateStructure = new Company();
+        corporateStructure.id = this.companyInfoFormGroup.get('corporateStructure').value;
+        this.legalStatus.corporateStructure = ObjectUtil.isEmpty(corporateStructure.id) ? undefined : corporateStructure;
         this.legalStatus.registeredOffice = this.companyInfoFormGroup.get('registeredOffice').value;
         this.legalStatus.registeredUnderAct = this.companyInfoFormGroup.get('registeredUnderAct').value;
         // this.legalStatus.registrationNo = this.companyInfoFormGroup.get('registrationNo').value;
@@ -552,6 +566,7 @@ export class CompanyFormComponent implements OnInit {
             proprietors.name = this.getProprietor()[proprietorsIndex].name;
             proprietors.contactNo = this.getProprietor()[proprietorsIndex].contactNo;
             proprietors.share = this.getProprietor()[proprietorsIndex].share;
+            proprietors.type = this.getProprietor()[proprietorsIndex].type;
             const province = new Province();
             province.id = this.getProprietor()[proprietorsIndex].province;
             proprietors.province = province;
@@ -585,5 +600,12 @@ export class CompanyFormComponent implements OnInit {
             this.allDistrict = response.detail;
         });
     }
-
+    getCompanyStructure() {
+        this.company.getAll().subscribe(res => {
+            this.companyStructureList = res.detail;
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Company Structure can not be Loaded'));
+        });
+    }
 }

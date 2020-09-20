@@ -55,7 +55,7 @@ export class SecurityInitialFormComponent implements OnInit {
         {key: 'ShareSecurity', value: 'Share Security'}
     ];
 
-    areaFormat = ['R-A-P-D' , 'B-K-D' , 'SQF'];
+    areaFormat = ['R-A-P-D' , 'B-K-D' , 'SQF', 'Sq.m'];
 
     shareType = ShareType;
     activeNepseMaster: NepseMaster = new NepseMaster();
@@ -734,4 +734,56 @@ export class SecurityInitialFormComponent implements OnInit {
         this.shareField.controls.forEach(c => list.push(c.value));
         return list;
     }
+
+    calculateBuildUpAreaRate(i, type) {
+        switch (type) {
+            case 'building':
+                const totalBuildRate = (Number(this.securityForm.get(['buildingDetails', i , 'buildArea']).value)
+                    * Number(this.securityForm.get(['buildingDetails', i , 'buildRate']).value)).toFixed(2);
+                this.securityForm.get(['buildingDetails', i , 'totalCost']).patchValue(totalBuildRate);
+                break;
+            case 'before':
+                const beforeTotalBuildRate = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'buildArea']).value)
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'buildRate']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsBeforeCompletion', 'totalCost']).patchValue(beforeTotalBuildRate);
+                break;
+            case 'after':
+                const afterTotalBuildRate = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'buildArea']).value)
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'buildRate']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsAfterCompletion', 'totalCost']).patchValue(afterTotalBuildRate);
+                break;
+        }
+    }
+    calculateEstimatedCost(i, type) {
+        switch (type) {
+            case 'building':
+                const estimatedCost = (Number(this.securityForm.get(['buildingDetails', i , 'valuationArea']).value)
+                    * Number(this.securityForm.get(['buildingDetails', i , 'ratePerSquareFeet']).value)).toFixed(2);
+                this.securityForm.get(['buildingDetails', i , 'estimatedCost']).patchValue(estimatedCost);
+                break;
+            case 'before':
+                const beforeEstimatedCost = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'valuationArea']).value)
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsBeforeCompletion', 'ratePerSquareFeet']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsBeforeCompletion', 'estimatedCost']).patchValue(beforeEstimatedCost);
+                break;
+            case 'after':
+                const afterEstimatedCost = (Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'valuationArea']).value)
+                    * Number(this.securityForm.get(['buildingUnderConstructions', i ,
+                        'buildingDetailsAfterCompletion', 'ratePerSquareFeet']).value)).toFixed(2);
+                this.securityForm.get(['buildingUnderConstructions', i ,
+                    'buildingDetailsAfterCompletion', 'estimatedCost']).patchValue(afterEstimatedCost);
+                break;
+        }
+    }
+
 }

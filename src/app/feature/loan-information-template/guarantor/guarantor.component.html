@@ -299,13 +299,14 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong>Relationship</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('relationship').errors }"
+                                        <select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('relationship').errors }"
                                                class="form-control form-control-sm-error rounded"
                                                formControlName="relationship"
                                                id="relationship"
-                                               name="relationship"
-                                               placeholder="relationship"
-                                               type="text"/>
+                                               name="relationship">
+                                            <option [value]="null" hidden>--Select Relationship--</option>
+                                            <option *ngFor="let relationship of relationList" [ngValue]="relationship.id">{{relationship.name}}</option>
+                                        </select>
                                         <div *ngIf="(submitted) && guarantorDetails.get('relationship').invalid"
                                              class="invalid-feedback">
                                             <div *ngIf="guarantorDetails.get('relationship').errors.required">

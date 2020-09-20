@@ -1,7 +1,9 @@
+import {Company} from './company';
+
 export class LegalStatus {
     id: number;
     // companyName: string;
-    corporateStructure: string;
+    corporateStructure: Company;
     registeredOffice: string;
     registeredUnderAct: string;
     // registrationNo: string;
