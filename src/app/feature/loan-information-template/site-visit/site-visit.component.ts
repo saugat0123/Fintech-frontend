@@ -182,27 +182,27 @@ export class SiteVisitComponent implements OnInit {
           waterSupply: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.waterSupply, Validators.required],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.waterSupply],
           electricity: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.electricity, Validators.required],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.electricity],
           boundaryWallConstruction: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.boundaryWallConstruction, Validators.required],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.boundaryWallConstruction],
           boundaryFencing: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.boundaryFencing, Validators.required],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.boundaryFencing],
           drainage: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.drainage, Validators.required],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.drainage],
           open: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
-                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.open, Validators.required],
+                      : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities.open],
           remarksForOtherFacility: [this.formDataForEdit === undefined ? ''
               : this.formDataForEdit.fixedAssetCollateralDetails === undefined ? ''
                   : this.formDataForEdit.fixedAssetCollateralDetails.otherFacilities === undefined ? ''
@@ -731,6 +731,7 @@ export class SiteVisitComponent implements OnInit {
 
 
   onSubmit() {
+    console.log(this.siteVisitFormGroup);
     if (this.currentResidentForm) {
       if (this.siteVisitFormGroup.get('currentResidentDetails').invalid) {
         this.submitted = true;
