@@ -13,24 +13,27 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {NbDatepickerModule, NbDialogModule} from '@nebular/theme';
 import {CustomerLoanInformationComponent} from './component/customer-loan-information/customer-loan-information.component';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
-import { CompanyFormComponent } from './component/customer-form/company-form/company-form.component';
-import { CompanyProfileComponent } from './component/customer-profile/company-profile/company-profile.component';
-import { CompanyProfileAdditionalInformationComponent } from './component/customer-profile/company-profile/company-profile-additional-information/company-profile-additional-information.component';
-import { CustomerDocComponent } from './component/customer-doc-management/customer-doc.component';
-import { KycFormComponent } from './component/customer-profile/individual-profile/kyc-form/kyc-form.component';
-import { CustomerLoanInformationViewComponent } from './component/customer-loan-information-view/customer-loan-information-view.component';
-import { LoanInformationViewModule } from '../loan-information-view/loan-information-view.module';
-import { GroupTaggingComponent } from './component/customer-profile/group-tagging/group-tagging.component';
+import {CompanyFormComponent} from './component/customer-form/company-form/company-form.component';
+import {CompanyProfileComponent} from './component/customer-profile/company-profile/company-profile.component';
+import {CompanyProfileAdditionalInformationComponent} from './component/customer-profile/company-profile/company-profile-additional-information/company-profile-additional-information.component';
+import {CustomerDocComponent} from './component/customer-doc-management/customer-doc.component';
+import {KycFormComponent} from './component/customer-profile/individual-profile/kyc-form/kyc-form.component';
+import {CustomerLoanInformationViewComponent} from './component/customer-loan-information-view/customer-loan-information-view.component';
+import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
+import {GroupTaggingComponent} from './component/customer-profile/group-tagging/group-tagging.component';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
-import { EditManagementTeamComponent } from './component/customer-profile/company-profile/edit-management-team/edit-management-team.component';
+// tslint:disable-next-line:max-line-length
+import {EditManagementTeamComponent} from './component/customer-profile/company-profile/edit-management-team/edit-management-team.component';
 import {EditSwotComponent} from './component/customer-profile/company-profile/edit-swot/edit-swot.component';
 import {EditPartnerInfoComponent} from './component/customer-profile/company-profile/edit-partner-info/edit-partner-info.component';
-import { CompanyDetailEditComponent } from './component/customer-profile/company-profile/company-profile-detail-edit/company-detail-edit.component';
-import { CustomerLoanApplyComponent } from './component/customer-loan-apply/customer-loan-apply.component';
-import { CustomerLoanEditComponent } from './component/customer-loan-edit/customer-loan-edit.component';
+import {CompanyDetailEditComponent} from './component/customer-profile/company-profile/company-profile-detail-edit/company-detail-edit.component';
+import {CustomerLoanApplyComponent} from './component/customer-loan-apply/customer-loan-apply.component';
+import {CustomerLoanEditComponent} from './component/customer-loan-edit/customer-loan-edit.component';
 import {ReportingModule} from '../reporting/reporting.module';
-import { CustomerListGroupComponent } from './component/customer-group-associate-loan-list/customer-list-group.component';
+import {CustomerListGroupComponent} from './component/customer-group-associate-loan-list/customer-list-group.component';
 import {CoreModule} from '../../@core/core.module';
+import {ActivityListComponent} from './component/activity-list/activity-list.component';
+import {CustomerActivityModule} from '../customer-activity/customer-activity.module';
 
 const COMPONENTS = [
   CustomerComponent,
@@ -58,7 +61,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS],
+  declarations: [...COMPONENTS, ActivityListComponent],
   exports: [
     CustomerGroupLoanComponent,
     CompanyFormComponent
@@ -78,19 +81,20 @@ const COMPONENTS = [
     LoanInformationViewModule,
     InfiniteScrollModule,
     ReportingModule,
-    CoreModule
+    CoreModule,
+    CustomerActivityModule
 
 
   ],
   entryComponents: [
-      CustomerFormComponent,
-      CompanyFormComponent,
-      KycFormComponent,
-      EditManagementTeamComponent,
-      EditPartnerInfoComponent,
-      EditSwotComponent,
-      CompanyDetailEditComponent,
-      CustomerLoanApplyComponent
+    CustomerFormComponent,
+    CompanyFormComponent,
+    KycFormComponent,
+    EditManagementTeamComponent,
+    EditPartnerInfoComponent,
+    EditSwotComponent,
+    CompanyDetailEditComponent,
+    CustomerLoanApplyComponent
   ]
 })
 export class CustomerModule {
