@@ -1,4 +1,12 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoanDataHolder} from '../../../loan/model/loanData';
 import {LoanType} from '../../../loan/model/loanType';
@@ -13,6 +21,7 @@ import {Guarantor} from '../../../loan/model/guarantor';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {SingleCombinedLoanDto} from '../../dto/single-combined-loan.dto';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {DocStatus} from '../../../loan/model/docStatus';
 
 
 @Component({
@@ -94,6 +103,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
           branchName: loan.branch.name,
           loanId: loan.loan.id,
           loanName: loan.loan.name,
+          loanIsFundable: loan.loan.isFundable,
           proposalProposedLimit: loan.proposal.proposedLimit,
           loanType: loan.loanType,
           documentStatus: loan.documentStatus,
@@ -138,6 +148,18 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       }
     }
     return loanHistories;
+  }
+
+  loanHistoriesGroup(loans: SingleCombinedLoanDto[]): {
+    pending: SingleCombinedLoanDto[],
+    funded: SingleCombinedLoanDto[],
+    nonFunded: SingleCombinedLoanDto[]
+  } {
+    return {
+      pending: loans.filter((l) => l.documentStatus !== DocStatus[DocStatus.APPROVED]),
+      funded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && l.loanIsFundable),
+      nonFunded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && !l.loanIsFundable)
+    };
   }
 
   getLoanOfCustomerAssociatedToByKYC() {

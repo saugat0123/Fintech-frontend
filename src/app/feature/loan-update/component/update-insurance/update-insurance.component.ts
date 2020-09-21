@@ -8,6 +8,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoanDataHolder} from '../../../loan/model/loanData';
+import {InsuranceList} from '../../../loan/model/insuranceList';
 
 @Component({
   selector: 'app-update-insurance',
@@ -18,6 +19,7 @@ export class UpdateInsuranceComponent implements OnInit {
   private customerLoanId: number;
   public form: FormGroup;
   public isSubmitted = false;
+  public insuranceCompanyList = InsuranceList.insuranceCompanyList;
   private insurances: Insurance[] = [];
 
   constructor(
@@ -74,6 +76,7 @@ export class UpdateInsuranceComponent implements OnInit {
     return this.formBuilder.group({
       id: [insurance.id],
       version: [ObjectUtil.setUndefinedIfNull(insurance.version)],
+      policyNumber: [ObjectUtil.setUndefinedIfNull(insurance.policyNumber)],
       company: [ObjectUtil.setUndefinedIfNull(insurance.company)],
       insuredAmount: [ObjectUtil.setUndefinedIfNull(insurance.insuredAmount)],
       premiumAmount: [ObjectUtil.setUndefinedIfNull(insurance.premiumAmount)],

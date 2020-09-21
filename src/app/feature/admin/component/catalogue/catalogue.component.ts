@@ -29,6 +29,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {NbTrigger} from '@nebular/theme';
 import {CustomerLoanFlag} from '../../../../@core/model/customer-loan-flag';
+import {LoanFlag} from '../../../../@core/model/enum/loan-flag.enum';
 
 @Component({
     selector: 'app-catalogue',
@@ -465,5 +466,9 @@ export class CatalogueComponent implements OnInit {
         loanFlags = loanFlags.filter((l) => (l.customerLoanId === customerLoanId || ObjectUtil.isEmpty(l.customerLoanId)));
         loanFlags.sort((a, b) => a.order - b.order);
         return loanFlags;
+    }
+
+    public showUpdateLoanInfo(loanFlags: CustomerLoanFlag[]): boolean {
+        return loanFlags.map((f) => f.flag).includes(LoanFlag[LoanFlag.INSURANCE_EXPIRY]);
     }
 }
